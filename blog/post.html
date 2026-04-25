@@ -97,8 +97,10 @@
             }
             const mdText = await mdRes.text();
 
-            // 3. 用 marked 渲染 HTML
-            document.getElementById('content').innerHTML = marked.parse(mdText);
+            // 3. 用 marked 渲染 HTML (确保正确处理语言类名)
+            document.getElementById('content').innerHTML = marked.parse(mdText, {
+                // 如果需要防止某些标签转义等可自定义 opts
+            });
 
             // 4. 应用代码语法高亮
             document.querySelectorAll('pre code').forEach((el) => {

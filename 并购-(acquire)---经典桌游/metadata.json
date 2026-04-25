@@ -1,0 +1,5 @@
+{
+  "name": "并购 (Acquire) - 经典桌游",
+  "description": "一个经典的商业并购桌游，支持与三个AI玩家对战。通过放置地块、成立连锁酒店、购买股票和进行并购来积累财富。",
+  "requestFramePermissions": []
+}

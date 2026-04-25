@@ -280,5 +280,785 @@
     "title": "第六章 应用层(流程串讲版)",
     "date": "2026-04-25",
     "category": "计算机网络"
+  },
+  {
+    "id": "claude-stm32-p1",
+    "title": "欢迎来到嵌入式开发的世界！",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p2",
+    "title": "很好！起点清晰了",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p3",
+    "title": "完美，硬件和环境都就绪了",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p4",
+    "title": "好，我们把这三块地基打牢",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p5",
+    "title": "答案解析 + 继续前进",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p6",
+    "title": "🔧 实战环节：点亮第一个 LED",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p7",
+    "title": "第二课：GPIO 输入、按键与中断",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p8",
+    "title": "第三课：UART 串口通信",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p9",
+    "title": "第四课：I2C 总线与多设备通信",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p10",
+    "title": "答案解析 + 继续前进",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p11",
+    "title": "第五课：SPI 总线 + 状态机模式",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p12",
+    "title": "第六课：定时器、PWM 与观察者模式",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p13",
+    "title": "第七课：ADC、DMA 与数据流设计模式",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p14",
+    "title": "第八课：CAN 总线",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p15",
+    "title": "第九课：FreeRTOS 入门——从\"单线程思维\"到\"多任务思维\"",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p16",
+    "title": "项目启动：双板 CAN 智能环境监测系统",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p17",
+    "title": "第十一课：迁移到 STM32H723——\"大芯片\"是另一个世界",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p18",
+    "title": "第十二课：H723 系统架构深入——时钟树、Cache、MPU",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p19",
+    "title": "H723 新外设深入：第一弹 —— FDCAN",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p20",
+    "title": "H723 新外设深入：第二弹 —— SDMMC + FatFS",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p21",
+    "title": "H723 新外设深入：第三弹 —— QSPI 与内存映射模式",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p22",
+    "title": "H723 新外设深入：第四弹 —— DMA2D 与 LCD 图形系统",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p23",
+    "title": "好，你想\"看看嵌入式 GUI 是怎么回事\"",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p24",
+    "title": "第十五课：定时器深入——四个维度的高级玩法",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p25",
+    "title": "H723 新外设深入：第六弹 —— ADC 高级功能",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p26",
+    "title": "H723 新外设深入：第七弹 —— USB 开发",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-stm32-p27",
+    "title": "好，HID 键盘鼠标方向 + 先破除黑盒",
+    "date": "2026-04-25",
+    "category": "STM32"
+  },
+  {
+    "id": "claude-analog-circuit-p1",
+    "title": "Claude responded: 好,信息够了。数学物理扎实、电路元件名词还陌生、目的是学好必修课——那我们就从最底层的物理直觉开始搭,不跳步。",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p2",
+    "title": "第 1 课:电压、电流、功率——比你想象的更深",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p3",
+    "title": "第 2 课:半导体与 PN 结——模拟电路的物理起点",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p4",
+    "title": "第 3 课:二极管——从物理到电路的第一步",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p5",
+    "title": "第 4 课:双极型晶体管(BJT)——放大的起源",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p6",
+    "title": "第 5 课:BJT 放大电路的静态工作点(Q 点)",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p7",
+    "title": "第 6 课:BJT 小信号模型与交流分析",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p8",
+    "title": "第 7 课:共集、共基组态与多级放大器",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p9",
+    "title": "第 8 课:差分放大器——运放的心脏",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p10",
+    "title": "第 9 课:集成运算放大器(Op-Amp)与理想运放模型",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p11",
+    "title": "第 10 课:运放的运算电路——从加减乘除到微积分",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p12",
+    "title": "第 11 课:反馈——模电的核心思想",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p13",
+    "title": "第 12 课:频率响应——从时域到频域",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p14",
+    "title": "第 13 课:功率放大器——把电源功率送到负载",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p15",
+    "title": "第 14 课:振荡器与波形发生器",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p16",
+    "title": "第 15 课:有源滤波器——信号处理的基石",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p17",
+    "title": "第 16 课:MOSFET 与 CMOS——现代电子的主角",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p18",
+    "title": "第 17 课:模拟集成电路设计入门",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-analog-circuit-p19",
+    "title": "第 18 课(终章):学完模电之后——一张地图,一种思维",
+    "date": "2026-04-25",
+    "category": "模拟电路"
+  },
+  {
+    "id": "claude-circuit-p1",
+    "title": "不错！你的回答给了我三个重要信号",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p2",
+    "title": "Claude responded: 好，直接讲。我先把刚才那个小题答案给你，然后顺势推进到基尔霍夫定律。",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p3",
+    "title": "1.2 基尔霍夫定律（KCL 和 KVL）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p4",
+    "title": "1.3 基本电路元件",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p5",
+    "title": "Claude responded: 好，我直接把那道题讲清楚，然后进入第二章。",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p6",
+    "title": "第二章 线性直流电路（系统分析方法）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p7",
+    "title": "第三章 电路定理",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p8",
+    "title": "刚才那道题的答案",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p9",
+    "title": "3.4 特勒根定理（Tellegen's Theorem）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p10",
+    "title": "3.5 互易定理（Reciprocity Theorem）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p11",
+    "title": "📋 第三章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p12",
+    "title": "第四章 动态元件",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p13",
+    "title": "4.1 电容元件（大学升级版）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p14",
+    "title": "4.2 电感元件（全新内容，从零开始）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p15",
+    "title": "4.2 耦合电感（互感）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p16",
+    "title": "4.3 理想变压器",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p17",
+    "title": "📋 第四章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p18",
+    "title": "第五章 正弦稳态分析 —— 相量法",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p19",
+    "title": "5.1 正弦量",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p20",
+    "title": "5.2 相量法基础 ⭐（本章核心中的核心）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p21",
+    "title": "5.3 电路元件的相量形式",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p22",
+    "title": "5.4 阻抗与导纳",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p23",
+    "title": "Claude responded: 先把刚才那道题的答案给你，然后推进。",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p24",
+    "title": "5.5 正弦稳态电路的分析",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p25",
+    "title": "5.6 正弦稳态电路的功率与复功率",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p26",
+    "title": "5.7 最大功率传输定理（⭐ 重点）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p27",
+    "title": "📋 第五章小结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p28",
+    "title": "第六章 频率响应与谐振",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p29",
+    "title": "6.1 网络函数和频率特性",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p30",
+    "title": "6.2 RLC 串联电路的频率特性",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p31",
+    "title": "6.3 串联谐振电路（⭐ 重点）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p32",
+    "title": "6.4 并联谐振电路",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p33",
+    "title": "📋 第六章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p34",
+    "title": "第七章 非正弦周期电流电路",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p35",
+    "title": "7.1 非正弦周期量的傅里叶级数",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p36",
+    "title": "7.2 非正弦周期量的平均值、有效值、平均功率",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p37",
+    "title": "7.3 非正弦周期电流电路的分析 ⭐",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p38",
+    "title": "7.4 傅里叶级数的指数形式与傅里叶变换（简介）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p39",
+    "title": "📋 第七章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p40",
+    "title": "第八章 三相电路",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p41",
+    "title": "8.2 三相电路的连接方式",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p42",
+    "title": "📋 第八章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p43",
+    "title": "第九章 线性动态电路的时域分析",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p44",
+    "title": "第九章 线性动态电路的时域分析",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p45",
+    "title": "9.1 动态电路的方程与初始条件",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p46",
+    "title": "9.2 一阶电路",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p47",
+    "title": "9.3 阶跃响应与冲激响应",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p48",
+    "title": "9.4 二阶电路的暂态分析",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p49",
+    "title": "📋 第九章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p50",
+    "title": "第十章 线性动态电路的复频域分析",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p51",
+    "title": "10.1 & 10.2 拉普拉斯变换（电路视角速览）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p52",
+    "title": "10.3 复频域中的电路定律与电路模型 ⭐",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p53",
+    "title": "10.4 运算法（综合应用）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p54",
+    "title": "📋 第十章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p55",
+    "title": "第十一章 二端口网络",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p56",
+    "title": "11.1 二端口网络",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p57",
+    "title": "11.2 二端口网络的方程和参数",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p58",
+    "title": "11.3 二端口网络的等效与互联",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p59",
+    "title": "📋 第十一章总结",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-circuit-p60",
+    "title": "🌟 全课程总结（重头戏）",
+    "date": "2026-04-25",
+    "category": "电路"
+  },
+  {
+    "id": "claude-discrete-math-p1",
+    "title": "离散数学入门：第 1 节 —— 开课导引与学习地图",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p2",
+    "title": "离散数学 第 2 节：命题与逻辑联结词",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p3",
+    "title": "离散数学 第 3 节：真值表、重言式、矛盾式与可满足式",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p4",
+    "title": "第 3 节练习答案与详解",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p5",
+    "title": "离散数学 第 4 节：逻辑等价与基本等价式",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p6",
+    "title": "离散数学 第 5 节：范式（析取范式 DNF 与合取范式 CNF）",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p7",
+    "title": "离散数学 第 6 节：联结词的完备集与推理理论",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p8",
+    "title": "离散数学 第 7 节：谓词逻辑入门 —— 量词 ∀ 和 ∃",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p9",
+    "title": "离散数学 第 8 节：集合论基础 —— 集合的定义与表示",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p10",
+    "title": "离散数学 第 9 节：集合的基本运算与集合恒等式",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p11",
+    "title": "离散数学 第 10 节：关系（Relations）—— 定义、性质与表示",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p12",
+    "title": "离散数学 第 11 节：等价关系、划分与模运算",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p13",
+    "title": "离散数学 第 12 节：偏序关系、哈斯图与极值元素",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p14",
+    "title": "离散数学 第 13 节：函数 —— 定义、类型、复合与无限基数",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p15",
+    "title": "离散数学 第 14 节：归纳法与递归",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p16",
+    "title": "离散数学 第 15 节：基础组合数学 —— 计数原理与排列组合",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p17",
+    "title": "离散数学 第 16 节：鸽巢原理、递推关系与生成函数",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p18",
+    "title": "离散数学 第 17 节：图论入门 —— 基本概念、欧拉图与哈密顿图",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p19",
+    "title": "离散数学 第 18 节：树 —— 性质、生成树与最小生成树",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p20",
+    "title": "离散数学 第 19 节：图的着色、平面图与四色定理",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p21",
+    "title": "离散数学 第 20 节：代数结构入门 —— 群、环、域",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p22",
+    "title": "离散数学 第 21 节：数论核心 —— 整除、同余与RSA密码学",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p23",
+    "title": "离散数学 第 21.5 节：指数与原根 —— 模 n 乘法群的精细结构",
+    "date": "2026-04-25",
+    "category": "离散数学"
+  },
+  {
+    "id": "claude-discrete-math-p24",
+    "title": "离散数学 第 21.6 节：进阶数论 —— 二次剩余、Carmichael 函数与佩尔方程",
+    "date": "2026-04-25",
+    "category": "离散数学"
   }
 ]

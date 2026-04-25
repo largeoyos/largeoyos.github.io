@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 教学长廊 | LarGeoYos</title>
+    <!-- 全局样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .category-section { background: var(--card-bg); border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid #d63031; }
+        .category-title { color: #d63031; margin-top: 0; border-bottom: 1px solid #f1f2f6; padding-bottom: 15px; font-size: 1.5rem; display: flex; align-items: center; justify-content: space-between; list-style: none; user-select: none;}
+        .category-title::-webkit-details-marker { display: none; }
+        .chapter-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .chapter-table th, .chapter-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #f1f2f6; }
+        .chapter-table tr:hover { background-color: #f8f9fa; }
+        .chapter-table th { color: #636e72; font-size: 0.9rem; background: #fafafa; border-radius: 4px;}
+        .chapter-table a { text-decoration: none; color: #2d3436; font-weight: 500; display: block; transition: all 0.2s;}
+        .chapter-table a:hover { color: #e17055; transform: translateX(5px); }
+    </style>
+</head>
+<body>
+
+<nav class="global-nav">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="../blog/index.html">📝 博客大厅</a>
+    <a href="./index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+</nav>
+
+<header>
+    <h1>AI 教学与深度长文</h1>
+    <p>通过大模型进行计算机科学探索与教学的长篇结构化沉淀</p>
+</header>
+
+<div class="container">
+    <div class="profile-card">
+        <h2>📚 知识库长廊</h2>
+        <p>这里存放的是较长篇幅的技术沉淀与教学对谈，独立于日常博客，方便体系化阅读。</p>
+    </div>
+
+    <h2 style="margin-top: 3rem; text-align: center;">长文目录</h2>
+    <div id="doc-list" style="margin-top: 2rem;">
+        <!-- 教程分类与表格由 JS 动态渲染 -->
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+        <a href="../index.html" class="card" style="display: inline-block; padding: 10px 20px; border-left: none; background: var(--accent); color: white;">
+            返回主站大厅
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Liu Guangyi · Built with ❤️ and Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+    async function loadDocs() {
+        try {
+            const response = await fetch('docs.json');
+            const allDocs = await response.json();
+            renderDocsGrouped(allDocs);
+        } catch (err) {
+            document.getElementById('doc-list').innerHTML = "<p>教学列表加载失败，请检查网络或文件路径。"+err+"</p>";
+        }
+    }
+
+    function renderDocsGrouped(docs) {
+        const listDiv = document.getElementById('doc-list');
+        listDiv.innerHTML = '';
+        if (docs.length === 0) {
+            listDiv.innerHTML = "<p>当前没有教学教程。</p>";
+            return;
+        }
+
+        // 把文档按 category 进行分组
+        const groups = {};
+        docs.forEach(doc => {
+            if (!groups[doc.category]) groups[doc.category] = [];
+            groups[doc.category].push(doc);
+        });
+
+        // 遍历所有分组，并利用 table 结构渲染
+        for (const category in groups) {
+            
+            // 确保章节按名称里最后的 -p(数字) 来排序（保证是按照原来文稿切分顺序排列）
+            groups[category].sort((a, b) => {
+                const getNum = id => parseInt(id.match(/-p(\d+)$/)?.[1] || 0);
+                return getNum(a.id) - getNum(b.id);
+            });
+
+            const section = document.createElement('div');
+            section.className = 'category-section';
+            
+            let tableHtml = `
+                <details>
+                    <summary class="category-title" style="cursor: pointer; outline: none;">
+                        <span style="display: flex; align-items: center; gap: 10px;">🗂️ ${category}</span>
+                        <span style="font-size: 0.9rem; font-weight: normal; color: #b2bec3;">点击展开 / 折叠 ▼</span>
+                    </summary>
+                    <table class="chapter-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">章节</th>
+                                <th>内容知识点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            groups[category].forEach((doc, index) => {
+                tableHtml += `
+                    <tr>
+                        <td style="color: #636e72; font-weight: bold;">§ ${index + 1}</td>
+                        <td><a href="doc.html?id=${doc.id}">${doc.title}</a></td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `</tbody></table></details>`;
+            section.innerHTML = tableHtml;
+            listDiv.appendChild(section);
+        }
+    }
+
+    loadDocs();
+</script>
+
+</body>
+</html>

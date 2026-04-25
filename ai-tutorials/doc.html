@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载教程... | LarGeoYos</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- 引入提取出的 Blue Topaz 主题样式 -->
+    <link rel="stylesheet" href="../css/blue-topaz.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .meta-info {
+            text-align: center;
+            color: #636e72;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        /* 红/橙色系的主题头部，区别于普通博客 */
+        header.tutorial-header {
+            background: linear-gradient(135deg, #d63031 0%, #2d3436 100%);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="global-nav">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="../blog/index.html">📝 博客大厅</a>
+    <a href="./index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+</nav>
+
+<header class="tutorial-header">
+    <h1 id="header-title">📖 深度教学</h1>
+    <div class="meta-info" id="meta-container" style="color: white; margin-top: 10px; margin-bottom: 0;">
+        <!-- 动态生成 -->
+    </div>
+</header>
+
+<div class="container">
+    <div class="markdown-body" id="content">
+        <em>📡 正在从节点同步文档资料，由于篇幅较长请稍候...</em>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center; display: flex; gap: 15px; justify-content: center;">
+        <a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #e17055; color: white;">
+            返回教程归档
+        </a>
+        <a href="../index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">
+            返回主页
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Liu Guangyi · Built with ❤️ and Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+    async function loadDoc() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const docId = urlParams.get('id');
+
+        if (!docId) {
+            document.getElementById('content').innerHTML = "<h1>❌ 错误</h1><p>未指定文章 ID。</p>";
+            document.title = "文档未找到 | LarGeoYos";
+            return;
+        }
+
+        try {
+            const metaRes = await fetch('docs.json');
+            const docs = await metaRes.json();
+            const docMeta = docs.find(p => p.id === docId);
+
+            if (!docMeta) {
+                document.getElementById('content').innerHTML = "<h1>❌ 404</h1><p>该教学文档不存在或已被删除。</p>";
+                document.title = "教学缺失 | LarGeoYos";
+                return;
+            }
+
+            document.getElementById('header-title').innerText = docMeta.title;
+            document.title = `${docMeta.title} | AI教学`;
+            document.getElementById('meta-container').innerHTML = `
+                <span>📅 归档于：${docMeta.date}</span>
+                <span style="margin: 0 10px;">|</span>
+                <span class="tag" style="background: #e17055; color: white; border:1px solid white;">专栏：${docMeta.category}</span>
+            `;
+
+            // 请求对应的长图文教程
+            const mdRes = await fetch(`docs/${docMeta.category}/${docId}.md`);
+            if (!mdRes.ok) throw new Error("对应的 Markdown 源文件丢失。");
+            const mdText = await mdRes.text();
+
+            document.getElementById('content').innerHTML = marked.parse(mdText);
+            
+        } catch (err) {
+            document.getElementById('content').innerHTML = `<h1>🚨 渲染中断</h1><p>加载资料时出现异常：${err.message}</p>`;
+        }
+    }
+
+    loadDoc(); 
+</script>
+
+</body>
+</html>

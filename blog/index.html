@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客 | LarGeoYos</title>
+    <!-- 全局样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .filter-bar {
+            text-align: center;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background-color: #eee;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        .filter-btn.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        /* 覆盖一些专门用于博客列表的卡片样式 */
+        .post-card { display: flex; flex-direction: column; justify-content: space-between; }
+        .post-date { font-size: 0.85rem; color: #636e72; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<nav class="global-nav">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="./index.html">📝 博客大厅</a>
+    <a href="../ai-tutorials/index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+</nav>
+
+<header>
+    <h1>笔记 & 思想</h1>
+    <p>Markdown 原生解析 · 按时间线索记录的技术与生活日常</p>
+</header>
+
+<div class="container">
+    <div class="profile-card">
+        <h2>📚 博客卷宗</h2>
+        <p>欢迎来到我的个人博客板块。你可以点击下方的分类标签，迅速筛选感兴趣的文章。</p>
+    </div>
+
+    <h2 style="margin-top: 3rem; text-align: center;">分类筛选</h2>
+    <div class="filter-bar" id="category-filter">
+        <button class="filter-btn active" data-cat="all">全部</button>
+        <!-- 其他分类由 JS 动态生成 -->
+    </div>
+
+    <div class="stats-grid" id="post-list">
+        <!-- 博客列表由 JS 动态渲染 -->
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+        <a href="../index.html" class="card" style="display: inline-block; padding: 10px 20px; border-left: none; background: var(--accent); color: white;">
+            返回主站大厅
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Liu Guangyi · Built with ❤️ and Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+    let allPosts = []; // 存储所有从 json 加载的博客
+
+    async function loadPosts() {
+        try {
+            const response = await fetch('posts.json');
+            allPosts = await response.json();
+            
+            // 数据加载后：按时间降序排序
+            allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            initCategories(allPosts);
+            renderPosts(allPosts);
+        } catch (err) {
+            document.getElementById('post-list').innerHTML = "<p>博客列表加载失败，请检查网络或文件路径。"+err+"</p>";
+        }
+    }
+
+    function initCategories(posts) {
+        const filterBar = document.getElementById('category-filter');
+        // 提取所有不重复得分类
+        const categories = [...new Set(posts.map(p => p.category))];
+        
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.dataset.cat = cat;
+            btn.innerText = cat;
+            filterBar.appendChild(btn);
+        });
+
+        // 绑定筛选事件
+        filterBar.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                // 更新高亮样式
+                filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                // 执行过滤重绘
+                const selectedCat = e.target.dataset.cat;
+                if (selectedCat === 'all') {
+                    renderPosts(allPosts);
+                } else {
+                    const filtered = allPosts.filter(p => p.category === selectedCat);
+                    renderPosts(filtered);
+                }
+            }
+        });
+    }
+
+    function renderPosts(posts) {
+        const listDiv = document.getElementById('post-list');
+        listDiv.innerHTML = '';
+        if (posts.length === 0) {
+            listDiv.innerHTML = "<p>当前分类下暂无文章。</p>";
+            return;
+        }
+
+        posts.forEach(post => {
+            const a = document.createElement('a');
+            a.href = `post.html?id=${post.id}`;
+            a.className = 'card post-card';
+            
+            a.innerHTML = `
+                <div>
+                    <h3>${post.title}</h3>
+                    <div class="post-date">📅 ${post.date}</div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <span class="tag" style="background: var(--primary); color: white;"># ${post.category}</span>
+                </div>
+            `;
+            listDiv.appendChild(a);
+        });
+    }
+
+    // 页面加载触发
+    loadPosts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+- Command+H ：回到主屏幕
+- Command + Tab ：切换app
+- Command +Space ：搜索
+- Command +O 快速搜索
+- Command +N ：新建笔记
+- Command +W： 关闭当前标签页
+- Command +E ：切换预览编辑模式
+- Command+B ：加粗
+- Command+I ：斜体
+- Command +Z：撤销
+- Command +Backspace 删除一行
+- Command+Shift+Z：恢复
+- Command+Shift+3 ：截图
+
+
+- Ctrl +A 行首
+- Ctrl+E 行尾
+- Ctrl+B 向前移动一个字符
+- Ctrl+F 向后移动一个字符
+- Ctrl+P上移一行
+- Ctrl+N 下移一行
+- Ctrl+O 在插入点后新插入一行 
+- Ctrl+T 交换光标前后字符
+- Ctrl+K 删除到行尾
+- Ctrl+H 删除左侧字符
+- Ctrl+D 删除右侧字符

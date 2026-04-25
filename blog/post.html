@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="../css/blue-topaz.css">
     <!-- 引入 marked.js 解析 Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- 引入 highlight.js 做代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
     <style>
         .meta-info {
             text-align: center;
@@ -94,6 +99,11 @@
 
             // 3. 用 marked 渲染 HTML
             document.getElementById('content').innerHTML = marked.parse(mdText);
+
+            // 4. 应用代码语法高亮
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
             
         } catch (err) {
             document.getElementById('content').innerHTML = `<h1>🚨 渲染中断</h1><p>加载文档详情时出现异常：${err.message}</p>`;

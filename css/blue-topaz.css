@@ -89,6 +89,8 @@
     font-size: 0.9em;
 }
 
+/* ====== 代码块与高亮规则优化 ====== */
+
 .markdown-body pre {
     background: #1e293b;
     padding: 1.2rem;
@@ -96,14 +98,17 @@
     border-radius: 8px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 1.5em;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 .markdown-body pre code {
     background: none;
     color: #f8fafc;
     padding: 0;
-    font-size: 0.95em;
+    font-size: 0.85em; /* 稍微缩小代码字体 */
     text-shadow: none;
+    display: block; /* 覆盖为块状确保高亮背景铺满 */
+    overflow-x: auto;
 }
 
 .markdown-body blockquote {

@@ -7,15 +7,32 @@
     <!-- 全局样式 -->
     <link rel="stylesheet" href="../css/style.css">
     <style>
-        .category-section { background: var(--card-bg); border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid #d63031; }
-        .category-title { color: #d63031; margin-top: 0; border-bottom: 1px solid #f1f2f6; padding-bottom: 15px; font-size: 1.5rem; display: flex; align-items: center; justify-content: space-between; list-style: none; user-select: none;}
+        .category-section { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-top: 3px solid #d63031; }
+        .category-title { color: #d63031; margin-top: 0; border-bottom: 1px solid #f1f2f6; padding-bottom: 8px; font-size: 1.2rem; display: flex; align-items: center; justify-content: space-between; list-style: none; user-select: none;}
         .category-title::-webkit-details-marker { display: none; }
-        .chapter-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        .chapter-table th, .chapter-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #f1f2f6; }
+        
+        /* 为了紧凑显示 */
+        .chapter-container {
+            max-height: 350px;
+            overflow-y: auto;
+            margin-top: 10px;
+            border: 1px solid #f1f2f6;
+            border-radius: 4px;
+        }
+        
+        .chapter-table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 0.95rem; }
+        .chapter-table thead { position: sticky; top: 0; background: #fafafa; z-index: 1; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .chapter-table th, .chapter-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #f1f2f6; }
         .chapter-table tr:hover { background-color: #f8f9fa; }
-        .chapter-table th { color: #636e72; font-size: 0.9rem; background: #fafafa; border-radius: 4px;}
+        .chapter-table th { color: #636e72; font-size: 0.85rem; padding: 6px 8px; font-weight: 500;}
         .chapter-table a { text-decoration: none; color: #2d3436; font-weight: 500; display: block; transition: all 0.2s;}
-        .chapter-table a:hover { color: #e17055; transform: translateX(5px); }
+        .chapter-table a:hover { color: #e17055; transform: translateX(3px); }
+        
+        /* 滚动条美化 */
+        .chapter-container::-webkit-scrollbar { width: 6px; }
+        .chapter-container::-webkit-scrollbar-track { background: transparent; }
+        .chapter-container::-webkit-scrollbar-thumb { background: #dfe6e9; border-radius: 3px; }
+        .chapter-container::-webkit-scrollbar-thumb:hover { background: #b2bec3; }
     </style>
 </head>
 <body>
@@ -83,8 +100,8 @@
         // 遍历所有分组，并利用 table 结构渲染
         for (const category in groups) {
             
-            // 确保章节按名称里最后的 -p(数字) 来排序（保证是按照原来文稿切分顺序排列）
-            groups[category].sort((a, b) => {
+            // 将文件按顺序排序
+            const sortedDocs = groups[category].slice().sort((a, b) => {
                 const getNum = id => parseInt(id.match(/-p(\d+)$/)?.[1] || 0);
                 return getNum(a.id) - getNum(b.id);
             });
@@ -95,29 +112,30 @@
             let tableHtml = `
                 <details>
                     <summary class="category-title" style="cursor: pointer; outline: none;">
-                        <span style="display: flex; align-items: center; gap: 10px;">🗂️ ${category}</span>
-                        <span style="font-size: 0.9rem; font-weight: normal; color: #b2bec3;">点击展开 / 折叠 ▼</span>
+                        <span style="display: flex; align-items: center; gap: 10px;">🗂️ ${category} &nbsp;<span style="font-size:0.8rem;color:#999;font-weight:normal">(${sortedDocs.length} 节)</span></span>
+                        <span style="font-size: 0.85rem; font-weight: normal; color: #b2bec3;">展开 / 折叠 ▼</span>
                     </summary>
-                    <table class="chapter-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 80px;">章节</th>
-                                <th>内容知识点</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="chapter-container">
+                        <table class="chapter-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px; text-align: center;">章节</th>
+                                    <th>内容知识点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
             `;
 
-            groups[category].forEach((doc, index) => {
+            sortedDocs.forEach((doc, index) => {
                 tableHtml += `
                     <tr>
-                        <td style="color: #636e72; font-weight: bold;">§ ${index + 1}</td>
-                        <td><a href="doc.html?id=${doc.id}">${doc.title}</a></td>
+                        <td style="color: #636e72; font-weight: bold; font-size: 0.85rem; text-align: center; font-variant-numeric: tabular-nums;">§ ${index + 1}</td>
+                        <td><a href="doc.html?category=${encodeURIComponent(category)}&id=${doc.id}">${doc.title}</a></td>
                     </tr>
                 `;
             });
 
-            tableHtml += `</tbody></table></details>`;
+            tableHtml += `</tbody></table></div></details>`;
             section.innerHTML = tableHtml;
             listDiv.appendChild(section);
         }

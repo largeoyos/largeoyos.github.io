@@ -14,7 +14,8 @@ import {
   ArrowRightLeft,
   DollarSign,
   Info,
-  X
+  X,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -91,13 +92,22 @@ export default function App() {
     <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans p-4 lg:p-8 flex flex-col gap-6">
       {/* Header */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tighter bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
-            并购 ACQUIRE
-          </h1>
-          <div className="flex items-center gap-2">
-            <p className="text-neutral-500 text-sm">经典商业模拟桌游</p>
-            <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] text-neutral-400 font-mono border border-neutral-700">v1.2.4</span>
+        <div className="flex flex-col gap-2">
+          <a 
+            href="../../games/index.html" 
+            className="inline-flex items-center gap-1.5 text-neutral-400 hover:text-amber-400 transition-colors w-fit text-sm font-medium"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            返回游戏大厅
+          </a>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tighter bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">
+              并购 ACQUIRE
+            </h1>
+            <div className="flex items-center gap-2">
+              <p className="text-neutral-500 text-sm">经典商业模拟桌游</p>
+              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] text-neutral-400 font-mono border border-neutral-700">v1.2.4</span>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-4 bg-neutral-900/50 p-3 rounded-2xl border border-neutral-800 backdrop-blur-sm">

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载中... | LarGeoYos</title>
+    <!-- 全局样式 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/blue-topaz.css">
+    <!-- 引入 marked.js 解析 Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .meta-info {
+            text-align: center;
+            color: #636e72;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="global-nav">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="./index.html">📝 博客大厅</a>
+    <a href="../ai-tutorials/index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+</nav>
+
+<header>
+    <h1 id="header-title">📜 阅读笔记</h1>
+    <div class="meta-info" id="meta-container" style="color: white; margin-top: 10px; margin-bottom: 0;">
+        <!-- 动态生成时间、分类信息 -->
+    </div>
+</header>
+
+<div class="container">
+    <div class="markdown-body" id="content">
+        <em>📡 正在从节点同步文档数据...</em>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center; display: flex; gap: 15px; justify-content: center;">
+        <a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: var(--primary); color: white;">
+            返回博客大厅
+        </a>
+        <a href="../index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">
+            返回网站主页
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Liu Guangyi · Built with ❤️ and Hosted on GitHub Pages</p>
+</footer>
+
+<script>
+    async function loadPost() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        if (!postId) {
+            document.getElementById('content').innerHTML = "<h1>❌ 错误</h1><p>未指定文章 ID，无法加载内容。</p>";
+            document.title = "文档未找到 | LarGeoYos";
+            return;
+        }
+
+        try {
+            // 1. 获取博客元数据
+            const metaRes = await fetch('posts.json');
+            const posts = await metaRes.json();
+            const postMeta = posts.find(p => p.id === postId);
+
+            if (!postMeta) {
+                document.getElementById('content').innerHTML = "<h1>❌ 404</h1><p>该文章不存在或已被删除。</p>";
+                document.title = "文档缺失 | LarGeoYos";
+                return;
+            }
+
+            // 更新头部元信息
+            document.getElementById('header-title').innerText = postMeta.title;
+            document.title = `${postMeta.title} | 个人博客`;
+            document.getElementById('meta-container').innerHTML = `
+                <span>📅 首次发布于：${postMeta.date}</span>
+                <span style="margin: 0 10px;">|</span>
+                <span class="tag" style="background: var(--accent); color: white;">标签：${postMeta.category}</span>
+            `;
+
+            // 2. 加载 Markdown 文件原文
+            const mdRes = await fetch(`posts/${postId}.md`);
+            if (!mdRes.ok) {
+                throw new Error("服务器找不到对应的 Markdown 文件。");
+            }
+            const mdText = await mdRes.text();
+
+            // 3. 用 marked 渲染 HTML
+            document.getElementById('content').innerHTML = marked.parse(mdText);
+            
+        } catch (err) {
+            document.getElementById('content').innerHTML = `<h1>🚨 渲染中断</h1><p>加载文档详情时出现异常：${err.message}</p>`;
+        }
+    }
+
+    loadPost(); // 启动
+</script>
+
+</body>
+</html>

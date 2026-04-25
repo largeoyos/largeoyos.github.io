@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>FLXG!</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div style="background: #1e272e; padding: 12px 0; text-align: center; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+    <a href="../../index.html" style="color: #dfe6e9; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 0.95rem;">🏠 工作主页</a>
+    <a href="../../blog/index.html" style="color: #dfe6e9; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 0.95rem;">📝 博客大厅</a>
+    <a href="../../ai-tutorials/index.html" style="color: #dfe6e9; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 0.95rem;">📚 AI 教学</a>
+    <a href="../index.html" style="color: #dfe6e9; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 0.95rem;">🎮 游戏大厅</a>
+  </div>
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">FLXG</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="above-game">
+      <p class="game-intro">合并方块帮助某坑完成 <strong>废理兴工！</strong></p>
+      <a class="restart-button">New Game</a>
+    </div>
+
+    <div class="board-size-control">
+      <label for="board-size-slider">棋盘大小: <span class="board-size-value">5 x 5</span></label>
+      <input
+        id="board-size-slider"
+        class="board-size-slider"
+        type="range"
+        min="3"
+        max="8"
+        step="1"
+        value="5"
+      >
+    </div>
+
+    <div class="ai-control">
+      <button class="ai-train-button">开始训练</button>
+      <button class="ai-watch-button">欣赏AI开始</button>
+      <button class="ai-restart-button" disabled>AI重新开始</button>
+      <label for="ai-speed-select">AI速度</label>
+      <select id="ai-speed-select" class="ai-speed-select">
+        <option value="5" selected>正常(5步/秒)</option>
+        <option value="10">快(10步/秒)</option>
+        <option value="50">极快(50步/秒)</option>
+        <option value="500">神速(500步/秒)</option>
+        <option value="2000">超神速(2000步/秒)</option>
+      </select>
+      <span class="ai-status">AI待命</span>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">继续废理兴工</a>
+          <a class="retry-button">从头废理兴工</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">怎么废理兴工:</strong> 用你的 <strong>方向键</strong> 移动方块. 当两块相同的方块碰到一起， 你就离 <strong>废理兴工</strong> 更近了一步！
+    </p>
+    <hr>
+    <p>
+    Created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli.</a> Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> and conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer.</a>
+    </p>
+	  <p>Source Code: <a href="https://github.com/volltin/flxg-2048">https://github.com/volltin/flxg-2048</a></p>
+<IMG SRC="../../cgi-bin/Count.cgi?df=hejiyan.dat">
+  </div>
+
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/ai_player.js"></script>
+  <script src="js/application.js"></script>
+</body>
+</html>

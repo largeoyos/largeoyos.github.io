@@ -23,7 +23,7 @@ export const PRICE_TABLE: Record<'low' | 'mid' | 'high', Record<number, number>>
 };
 
 export function getStockPrice(category: 'low' | 'mid' | 'high', size: number): number {
-  if (size === 0) return 0;
+  if (size < 2) return 0;
   const tiers = [2, 3, 4, 5, 6, 11, 21, 31, 41];
   let effectiveSize = 2;
   for (const tier of tiers) {
@@ -37,21 +37,21 @@ export function getStockPrice(category: 'low' | 'mid' | 'high', size: number): n
 }
 
 export const CHAIN_COLORS: Record<HotelChain, string> = {
-  Worldwide: '#A52A2A', // Brown
-  Luxor: '#FFD700',     // Gold
-  Festival: '#008000',  // Green
-  American: '#0000FF',  // Blue
-  Tower: '#FFFF00',     // Yellow
-  Continental: '#00FFFF', // Cyan
-  Imperial: '#FF00FF',  // Magenta
+  '黄山纸业': '#FFFF00', // Yellow
+  '朝阳五金': '#FFA500', // Orange
+  '蓝天纺织': '#0000FF', // Blue
+  '红旗造船': '#FF0000', // Red
+  '橡树日化': '#00FFFF', // Cyan
+  '核能重工': '#008000', // Green
+  '紫金仪表': '#800080', // Purple
 };
 
 export const CHAIN_CATEGORIES: Record<HotelChain, 'low' | 'mid' | 'high'> = {
-  Worldwide: 'low',
-  Luxor: 'low',
-  Festival: 'mid',
-  American: 'mid',
-  Tower: 'mid',
-  Continental: 'high',
-  Imperial: 'high',
+  '黄山纸业': 'low',
+  '朝阳五金': 'low',
+  '蓝天纺织': 'mid',
+  '红旗造船': 'mid',
+  '橡树日化': 'mid',
+  '核能重工': 'high',
+  '紫金仪表': 'high',
 };

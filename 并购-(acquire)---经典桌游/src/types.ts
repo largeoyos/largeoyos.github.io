@@ -1,5 +1,5 @@
 
-export type HotelChain = 'Luxor' | 'Tower' | 'American' | 'Festival' | 'Worldwide' | 'Continental' | 'Imperial';
+export type HotelChain = '黄山纸业' | '朝阳五金' | '蓝天纺织' | '红旗造船' | '橡树日化' | '核能重工' | '紫金仪表';
 
 export interface Tile {
   id: string; // e.g., "A1", "B12"
@@ -30,7 +30,7 @@ export interface GameState {
     isSafe: boolean;
   }>;
   gameLog: string[];
-  phase: 'play-tile' | 'found-chain' | 'buy-stocks' | 'merger-bonus' | 'merger-options' | 'game-over';
+  phase: 'play-tile' | 'found-chain' | 'buy-stocks' | 'merger-bonus' | 'merger-options' | 'game-over' | 'choose-survivor';
   selectedTile: Tile | null;
   pendingChainFormation: {
     tiles: Tile[];
@@ -43,19 +43,21 @@ export interface GameState {
     mergerPlayerIndex: number;
     defunctIndex: number; // which defunct chain we are currently processing
     playerOptionIndex: number; // which player is making options
+    potentialSurvivors?: HotelChain[];
+    allNeighborChains?: HotelChain[];
   } | null;
 }
 
 export const HOTEL_CHAINS: HotelChain[] = [
-  'Worldwide', 'Luxor', 'Festival', 'American', 'Tower', 'Continental', 'Imperial'
+  '黄山纸业', '朝阳五金', '蓝天纺织', '红旗造船', '橡树日化', '核能重工', '紫金仪表'
 ];
 
 export const CHAIN_CATEGORIES: Record<HotelChain, 'low' | 'mid' | 'high'> = {
-  Worldwide: 'low',
-  Luxor: 'low',
-  Festival: 'mid',
-  American: 'mid',
-  Tower: 'mid',
-  Continental: 'high',
-  Imperial: 'high',
+  '黄山纸业': 'low',
+  '朝阳五金': 'low',
+  '蓝天纺织': 'mid',
+  '红旗造船': 'mid',
+  '橡树日化': 'mid',
+  '核能重工': 'high',
+  '紫金仪表': 'high',
 };

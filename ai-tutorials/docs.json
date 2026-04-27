@@ -1060,5 +1060,101 @@
     "title": "离散数学 第 21.6 节：进阶数论 —— 二次剩余、Carmichael 函数与佩尔方程",
     "date": "2026-04-25",
     "category": "离散数学"
+  },
+  {
+    "id": "claude-europe-history-p1",
+    "title": "第一节：古希腊——欧洲文明的\"婴儿期\"",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p2",
+    "title": "第二节：罗马——从小村庄到地中海霸主",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p3",
+    "title": "第三节：中世纪——被误解的\"黑暗时代\"",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p4",
+    "title": "第四节：近代早期（约1500–1789）总览",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p5",
+    "title": "4.1 文艺复兴——从意大利说起",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p6",
+    "title": "4.2 大航海时代——欧洲走向全球",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p7",
+    "title": "4.3 宗教改革——从德国说起",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p8",
+    "title": "4.3 宗教改革（接上）",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p9",
+    "title": "4.4 科学革命——人类认识世界方式的彻底改变",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p10",
+    "title": "4.5 启蒙运动——通往现代世界的桥梁",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p11",
+    "title": "第五节：现代欧洲（一）——法国大革命与拿破仑",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p12",
+    "title": "第六节：工业革命——一场静悄悄改变一切的革命",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p13",
+    "title": "第七节：19世纪的欧洲——从复辟到大战前夜",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p14",
+    "title": "第八节：第一次世界大战——欧洲的自我毁灭（一）",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p15",
+    "title": "第九节：两次大战之间和第二次世界大战",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
+  },
+  {
+    "id": "claude-europe-history-p16",
+    "title": "第十节：冷战与欧洲一体化——废墟之后",
+    "date": "2026-04-27",
+    "category": "欧洲历史"
   }
 ]

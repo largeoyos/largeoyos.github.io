@@ -2,6 +2,11 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/) (语义化版本) 规范 (`x.x.x`)。
 
+## [1.1.1] - 2026-04-28
+
+### 修复/微调 (Patch)
+- 将 C++ `#pragma` 相关的微知识点正式归档至博客 `micro-knowledge.md` 中。
+
 ## [1.1.0] - 2026-04-28
 
 ### 新增 (Added)

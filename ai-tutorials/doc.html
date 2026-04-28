@@ -48,13 +48,8 @@
         <em>📡 正在从节点同步文档资料，由于篇幅较长请稍候...</em>
     </div>
 
-    <div style="margin-top: 3rem; text-align: center; display: flex; gap: 15px; justify-content: center;">
-        <a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #e17055; color: white;">
-            返回教程归档
-        </a>
-        <a href="../index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">
-            返回主页
-        </a>
+    <div id="doc-navigation" style="margin-top: 3rem; text-align: center; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+        <!-- 动态渲染导航 -->
     </div>
 </div>
 
@@ -104,6 +99,31 @@
                 hljs.highlightElement(el);
             });
             
+            // 生成底部导航按钮
+            const categoryDocs = docs.filter(d => d.category === docMeta.category);
+            const currentIndex = categoryDocs.findIndex(p => p.id === docId);
+            const prevDoc = categoryDocs[currentIndex - 1];
+            const nextDoc = categoryDocs[currentIndex + 1];
+
+            const navContainer = document.getElementById('doc-navigation');
+            let navHtml = '';
+
+            if (prevDoc) {
+                navHtml += `<a href="?id=${prevDoc.id}" class="card" style="padding: 10px 20px; border-left: none; background: #e17055; color: white;">⏮ 上一篇</a>`;
+            } else {
+                navHtml += `<a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">🏠 回到长教程主页</a>`;
+            }
+
+            navHtml += `<a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="card" style="padding: 10px 20px; border-left: none; background: var(--accent); color: white;">⬆️ 回到最上</a>`;
+
+            if (nextDoc) {
+                navHtml += `<a href="?id=${nextDoc.id}" class="card" style="padding: 10px 20px; border-left: none; background: #e17055; color: white;">下一篇 ⏭</a>`;
+            } else {
+                navHtml += `<a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">🏠 回到长教程主页</a>`;
+            }
+
+            navContainer.innerHTML = navHtml;
+
         } catch (err) {
             document.getElementById('content').innerHTML = `<h1>🚨 渲染中断</h1><p>加载资料时出现异常：${err.message}</p>`;
         }

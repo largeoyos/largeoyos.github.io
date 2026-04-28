@@ -94,26 +94,54 @@
 
             document.getElementById('content').innerHTML = marked.parse(mdText);
 
-            // 双击标题折叠/展开对应章节功能
-            document.querySelectorAll('#content h1, #content h2, #content h3, #content h4, #content h5, #content h6').forEach(header => {
-                header.style.cursor = 'pointer';
-                header.title = '双击折叠/展开本章节';
-                header.addEventListener('dblclick', function() {
-                    const isCollapsed = this.classList.toggle('collapsed');
-                    const level = parseInt(this.tagName.substring(1));
-                    let sibling = this.nextElementSibling;
+            // 添加标题折叠功能
+            document.querySelectorAll('#content h1, #content h2, #content h3, #content h4, #content h5, #content h6').forEach(heading => {
+                heading.style.cursor = 'pointer';
+                heading.style.userSelect = 'none';
+                heading.title = "点击折叠/展开本章节";
+                
+                const icon = document.createElement('span');
+                icon.innerHTML = '▼';
+                icon.style.display = 'inline-block';
+                icon.style.marginRight = '8px';
+                icon.style.transition = 'transform 0.2s';
+                icon.style.fontSize = '0.8em';
+                icon.style.color = '#aaa';
+                
+                const contentNodes = Array.from(heading.childNodes);
+                heading.innerHTML = '';
+                heading.appendChild(icon);
+                contentNodes.forEach(node => heading.appendChild(node));
+                
+                heading.addEventListener('click', () => {
+                    const isCollapsed = heading.classList.contains('collapsed');
+                    if (isCollapsed) {
+                        heading.classList.remove('collapsed');
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        heading.classList.add('collapsed');
+                        icon.style.transform = 'rotate(-90deg)';
+                    }
+                    
+                    const level = parseInt(heading.tagName.substring(1));
+                    let sibling = heading.nextElementSibling;
                     
                     while (sibling) {
-                        if (/^H[1-6]$/.test(sibling.tagName)) {
+                        if (sibling.tagName.match(/^H[1-6]$/)) {
                             const siblingLevel = parseInt(sibling.tagName.substring(1));
-                            if (siblingLevel <= level) break; // 遇到同级或更高级标题，停止折叠
-                            if (!isCollapsed) sibling.classList.remove('collapsed'); // 展开时重置子标题状态
+                            if (siblingLevel <= level) break;
                         }
-                        sibling.style.display = isCollapsed ? 'none' : '';
+                        
+                        if (isCollapsed) {
+                            sibling.style.display = sibling.dataset.originalDisplay || '';
+                        } else {
+                            if (sibling.style.display !== 'none') {
+                                sibling.dataset.originalDisplay = sibling.style.display;
+                            }
+                            sibling.style.display = 'none';
+                        }
                         sibling = sibling.nextElementSibling;
                     }
-                    // 清除双击带来的文本选中状态
-                    window.getSelection && window.getSelection().removeAllRanges();
                 });
             });
 

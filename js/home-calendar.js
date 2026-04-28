@@ -112,7 +112,10 @@ function getMonthLabel(date) {
     return `${date.getFullYear()}年${date.getMonth() + 1}月 · ${lunar.getYearInGanZhi()}年农历${lunar.getMonthInChinese()}月`;
 }
 
+let currentViewDate = new Date();
+
 function renderCalendar(viewDate) {
+    currentViewDate = new Date(viewDate);
     const grid = document.getElementById('calendar-grid');
     const today = new Date();
     const monthStart = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
@@ -131,6 +134,7 @@ function renderCalendar(viewDate) {
         const jieQi = lunar.getJieQi();
         const isCurrentMonth = cellDate.getMonth() === viewDate.getMonth();
         const isToday = formatYmdKey(cellDate) === todayKey;
+        const isFirstDayOfMonth = cellDate.getDate() === 1;
 
         const dayButton = document.createElement('button');
         dayButton.type = 'button';
@@ -145,7 +149,11 @@ function renderCalendar(viewDate) {
             dayButton.classList.add('is-today', 'is-selected');
         }
 
-        const tagText = jieQi || (isToday ? '今天' : '');
+        let tagText = jieQi || (isToday ? '今天' : '');
+        if (!tagText && isFirstDayOfMonth) {
+            tagText = `${cellDate.getMonth() + 1}月`;
+        }
+
         dayButton.innerHTML = `
             <span class="day-tag" style="${tagText ? '' : 'display:none'}">${tagText}</span>
             <span class="solar-day">${cellDate.getDate()}</span>
@@ -158,6 +166,16 @@ function renderCalendar(viewDate) {
 
         grid.appendChild(dayButton);
     }
+
+    // 更新导航选择器状态
+    const yearSelect = document.getElementById('year-select');
+    const monthSelect = document.getElementById('month-select');
+    if (yearSelect && monthSelect) {
+        yearSelect.value = viewDate.getFullYear();
+        monthSelect.value = viewDate.getMonth();
+    }
+    
+    document.getElementById('calendar-heading').textContent = getMonthLabel(viewDate);
 }
 
 function setFortuneForDate(date) {
@@ -228,6 +246,58 @@ function initLayoutSettings() {
     });
 }
 
+function initCalendarNav() {
+    const yearSelect = document.getElementById('year-select');
+    const monthSelect = document.getElementById('month-select');
+    const prevBtn = document.getElementById('prev-month-btn');
+    const nextBtn = document.getElementById('next-month-btn');
+    const todayBtn = document.getElementById('back-to-today-btn');
+
+    if (!yearSelect || !monthSelect || !prevBtn || !nextBtn || !todayBtn) return;
+
+    // 初始化年份选择器 (1900-2100)
+    const currentYear = new Date().getFullYear();
+    for (let y = 1900; y <= 2100; y++) {
+        const option = document.createElement('option');
+        option.value = y;
+        option.textContent = `${y}年`;
+        yearSelect.appendChild(option);
+    }
+
+    // 初始化月份选择器
+    for (let m = 0; m < 12; m++) {
+        const option = document.createElement('option');
+        option.value = m;
+        option.textContent = `${m + 1}月`;
+        monthSelect.appendChild(option);
+    }
+
+    const updateView = () => {
+        const year = parseInt(yearSelect.value);
+        const month = parseInt(monthSelect.value);
+        renderCalendar(new Date(year, month, 1));
+    };
+
+    yearSelect.addEventListener('change', updateView);
+    monthSelect.addEventListener('change', updateView);
+
+    prevBtn.addEventListener('click', () => {
+        currentViewDate.setMonth(currentViewDate.getMonth() - 1);
+        renderCalendar(currentViewDate);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentViewDate.setMonth(currentViewDate.getMonth() + 1);
+        renderCalendar(currentViewDate);
+    });
+
+    todayBtn.addEventListener('click', () => {
+        const today = new Date();
+        renderCalendar(today);
+        setFortuneForDate(today);
+    });
+}
+
 function initCalendar() {
     if (!ensureLunarLibraryReady()) {
         document.getElementById('calendar-heading').textContent = '日历组件加载失败：缺少 lunar-javascript';
@@ -235,11 +305,11 @@ function initCalendar() {
     }
 
     initLayoutSettings();
+    initCalendarNav();
 
     const today = new Date();
     const lunar = Solar.fromDate(today).getLunar();
 
-    document.getElementById('calendar-heading').textContent = getMonthLabel(today);
     document.getElementById('today-lunar-summary').textContent = `(${lunar.getYearShengXiao()}年) 农历${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`;
     document.getElementById('today-solar-summary').textContent = `${formatSolarDate(today)} ${weekdayNames[today.getDay()]}（第${getWeekNumber(today)}周）`;
     document.getElementById('today-ganzhi-summary').textContent = `${lunar.getYearInGanZhi()}年 ${lunar.getMonthInGanZhi()}月 ${lunar.getDayInGanZhi()}日`;

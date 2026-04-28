@@ -40,5 +40,11 @@
     "title": "🛠️ VSCode 高效开发快捷键速查",
     "date": "2026-04-25",
     "category": "效率"
+  },
+  {
+    "id": "vscode-cmake",
+    "title": "🛠️ VSCode 多文件 CMake 编译方法",
+    "date": "2026-04-28",
+    "category": "技术"
   }
 ]

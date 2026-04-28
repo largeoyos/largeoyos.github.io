@@ -174,6 +174,35 @@
                 preEl.appendChild(copyBtn);
             });
             
+            // 生成复制全文内容按钮
+            const copyAllBtnContainer = document.createElement('div');
+            copyAllBtnContainer.style.textAlign = 'right';
+            copyAllBtnContainer.style.marginTop = '2rem';
+            const copyAllBtn = document.createElement('button');
+            copyAllBtn.className = 'card';
+            copyAllBtn.style.display = 'inline-block';
+            copyAllBtn.style.padding = '8px 16px';
+            copyAllBtn.style.background = '#e17055';
+            copyAllBtn.style.color = 'white';
+            copyAllBtn.style.border = 'none';
+            copyAllBtn.style.cursor = 'pointer';
+            copyAllBtn.innerText = '📋 复制全文 (Markdown)';
+            
+            copyAllBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(mdText);
+                    copyAllBtn.innerText = '✅ 全文已复制!';
+                    setTimeout(() => {
+                        copyAllBtn.innerText = '📋 复制全文 (Markdown)';
+                    }, 2000);
+                } catch (err) {
+                    console.error('复制全失败!', err);
+                    copyAllBtn.innerText = '❌ 复制失败';
+                }
+            });
+            copyAllBtnContainer.appendChild(copyAllBtn);
+            document.getElementById('content').appendChild(copyAllBtnContainer);
+
             // 生成底部导航按钮
             const categoryDocs = docs.filter(d => d.category === docMeta.category);
             const currentIndex = categoryDocs.findIndex(p => p.id === docId);

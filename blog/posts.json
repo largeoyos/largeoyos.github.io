@@ -48,6 +48,12 @@
     "category": "技术"
   },
   {
+    "id": "c-struct-typedef",
+    "title": "🐛 C语言中结构体自引用报错原因分析",
+    "date": "2026-04-28",
+    "category": "技术"
+  },
+  {
     "id": "micro-knowledge",
     "title": "📌 细小知识记录",
     "date": "2026-04-28",

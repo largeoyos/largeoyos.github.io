@@ -34,3 +34,8 @@
 *   **PATCH (修订号)**：修复错别字、微调样式、修复 Bug 时递增。
 *   **更新日志 (`CHANGELOG.md`)**：每次迭代必须在根目录的 `CHANGELOG.md` 中记录版本号、日期和简要的更改说明。
 *   **页面页脚声明**：必须同步更新主要页面（如 `index.html`, `blog/index.html`, `ai-tutorials/index.html`, `games/index.html`）底部的版本标识段落（例如 `v1.x.x`）。
+
+## 6. 细小知识记录流转
+*   **记录与整理**：日常的碎片化知识或临时笔记应先记录在根目录的 `细小知识.md` 中。
+*   **归档到博客**：当需要正式发布或归档时，请将 `细小知识.md` 中的新内容提取并追加到 `blog/posts/micro-knowledge.md` 中。
+*   **格式要求**：在 `micro-knowledge.md` 中追加内容时，必须按日期使用二级标题（例如 `## YYYY-MM-DD`）进行分组，保持结构清晰。

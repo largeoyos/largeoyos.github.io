@@ -44,13 +44,8 @@
         <em>📡 正在从节点同步文档数据...</em>
     </div>
 
-    <div style="margin-top: 3rem; text-align: center; display: flex; gap: 15px; justify-content: center;">
-        <a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: var(--primary); color: white;">
-            返回博客大厅
-        </a>
-        <a href="../index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">
-            返回网站主页
-        </a>
+    <div id="post-navigation" style="margin-top: 3rem; text-align: center; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+        <!-- 动态渲染导航 -->
     </div>
 </div>
 
@@ -107,6 +102,30 @@
                 hljs.highlightElement(el);
             });
             
+            // 5. 生成底部导航按钮
+            const currentIndex = posts.findIndex(p => p.id === postId);
+            const prevPost = posts[currentIndex - 1]; // json中通常前面的较新或较老，不管怎样按照数组顺序
+            const nextPost = posts[currentIndex + 1];
+
+            const navContainer = document.getElementById('post-navigation');
+            let navHtml = '';
+
+            if (prevPost) {
+                navHtml += `<a href="?id=${prevPost.id}" class="card" style="padding: 10px 20px; border-left: none; background: var(--primary); color: white;">⏮ 上一篇</a>`;
+            } else {
+                navHtml += `<a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">🏠 返回博客大厅</a>`;
+            }
+
+            navHtml += `<a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="card" style="padding: 10px 20px; border-left: none; background: var(--accent); color: white;">⬆️ 回到最上</a>`;
+
+            if (nextPost) {
+                navHtml += `<a href="?id=${nextPost.id}" class="card" style="padding: 10px 20px; border-left: none; background: var(--primary); color: white;">下一篇 ⏭</a>`;
+            } else {
+                 navHtml += `<a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">🏠 返回博客大厅</a>`;
+            }
+
+            navContainer.innerHTML = navHtml;
+
         } catch (err) {
             document.getElementById('content').innerHTML = `<h1>🚨 渲染中断</h1><p>加载文档详情时出现异常：${err.message}</p>`;
         }

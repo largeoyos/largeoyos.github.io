@@ -64,15 +64,10 @@ target_include_directories(lib_linklist PUBLIC LinkList)
   
 
 | 问题 | 解决 |
-
 |------|------|
-
 | 找不到头文件 | 底部栏选对 Configuration，或改 `c_cpp_properties.json` |
-
 | 找不到编译器 | 确认 MinGW/GCC/Clang 已加入 `PATH` |
-
 | `No kit selected` | 先执行 Select a Kit |
-
 | build 混乱 | `rm -rf build`，重新 Configure |
 
   

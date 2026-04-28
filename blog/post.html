@@ -97,6 +97,29 @@
                 // 如果需要防止某些标签转义等可自定义 opts
             });
 
+            // 双击标题折叠/展开对应章节功能
+            document.querySelectorAll('#content h1, #content h2, #content h3, #content h4, #content h5, #content h6').forEach(header => {
+                header.style.cursor = 'pointer';
+                header.title = '双击折叠/展开本章节';
+                header.addEventListener('dblclick', function() {
+                    const isCollapsed = this.classList.toggle('collapsed');
+                    const level = parseInt(this.tagName.substring(1));
+                    let sibling = this.nextElementSibling;
+                    
+                    while (sibling) {
+                        if (/^H[1-6]$/.test(sibling.tagName)) {
+                            const siblingLevel = parseInt(sibling.tagName.substring(1));
+                            if (siblingLevel <= level) break; // 遇到同级或更高级标题，停止折叠
+                            if (!isCollapsed) sibling.classList.remove('collapsed'); // 展开时重置子标题状态
+                        }
+                        sibling.style.display = isCollapsed ? 'none' : '';
+                        sibling = sibling.nextElementSibling;
+                    }
+                    // 清除双击带来的文本选中状态
+                    window.getSelection && window.getSelection().removeAllRanges();
+                });
+            });
+
             // 4. 应用代码语法高亮并添加复制按钮
             document.querySelectorAll('pre').forEach((preEl) => {
                 const codeEl = preEl.querySelector('code');

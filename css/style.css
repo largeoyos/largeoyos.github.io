@@ -125,3 +125,18 @@ pre:hover .copy-code-btn {
     color: #fff;
 }
 
+/* 博客和文档章节双击折叠时的样式提示 */
+.markdown-body .collapsed {
+    border-bottom: 1px dashed #ccc !important;
+    opacity: 0.8;
+}
+
+.markdown-body .collapsed::after {
+    content: " (已折叠)";
+    font-size: 0.6em;
+    color: #888;
+    vertical-align: middle;
+    margin-left: 10px;
+    font-weight: normal;
+}
+

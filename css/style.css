@@ -94,3 +94,34 @@ header {
 }
 
 footer { text-align: center; padding: 2rem; color: #636e72; font-size: 0.9rem; }
+
+/* 代码块复制按钮样式 */
+pre {
+    position: relative;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    z-index: 10;
+}
+
+pre:hover .copy-code-btn {
+    opacity: 1;
+}
+
+.copy-code-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+

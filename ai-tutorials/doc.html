@@ -94,9 +94,33 @@
 
             document.getElementById('content').innerHTML = marked.parse(mdText);
 
-            // 应用代码语法高亮
-            document.querySelectorAll('pre code').forEach((el) => {
-                hljs.highlightElement(el);
+            // 应用代码语法高亮并添加复制按钮
+            document.querySelectorAll('pre').forEach((preEl) => {
+                const codeEl = preEl.querySelector('code');
+                if (codeEl) {
+                    hljs.highlightElement(codeEl);
+                }
+
+                // 创建复制按钮
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-code-btn';
+                copyBtn.innerText = '复制';
+                
+                copyBtn.addEventListener('click', async () => {
+                    try {
+                        const codeText = codeEl ? codeEl.innerText : preEl.innerText;
+                        await navigator.clipboard.writeText(codeText);
+                        copyBtn.innerText = '已复制!';
+                        setTimeout(() => {
+                            copyBtn.innerText = '复制';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('复制失败!', err);
+                        copyBtn.innerText = '失败';
+                    }
+                });
+
+                preEl.appendChild(copyBtn);
             });
             
             // 生成底部导航按钮

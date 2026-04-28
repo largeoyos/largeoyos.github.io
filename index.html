@@ -23,35 +23,97 @@
 
 <div class="container">
     <div class="profile-card">
-        <h2>👋 欢迎来到我的数字空间</h2>
-        <p>我是 LarGeoYos</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="text-align: left;">
+                <h2 style="margin: 0;">👋 欢迎来到我的数字空间</h2>
+                <p style="margin: 0.5rem 0 0;">我是 LarGeoYos</p>
+            </div>
+            <button id="layout-toggle-btn" class="settings-btn" title="切换布局顺序">
+                ⚙️ 布局设置
+            </button>
+        </div>
     </div>
 
-    <h2 style="margin-top: 3rem;">🚀 项目子空间</h2>
-    <div class="stats-grid">
-        <a href="./blog/index.html" class="card" style="border-left-color: #6c5ce7;">
-            <h3>📝 个人博客</h3>
-            <p>基于 Markdown 及按时间轴排序的静态纯前端渲染博客引擎，具备内容分类功能。</p>
-            <span class="tag">Markdown</span><span class="tag">SSG</span>
-        </a>
+    <div id="main-content-area" style="display: flex; flex-direction: column;">
+        <section id="calendar-section" class="fortune-card" aria-labelledby="daily-calendar-title" style="order: 1;">
+        <div class="fortune-card__head">
+            <div>
+                <p class="section-kicker">今天 · 日历</p>
+                <h2 id="daily-calendar-title">每日签到日历</h2>
+                <p id="calendar-heading">--</p>
+            </div>
+            <div class="fortune-chip">
+                <span>今天</span>
+                <strong id="today-lunar-summary">--</strong>
+            </div>
+        </div>
 
-        <a href="./ai-tutorials/index.html" class="card" style="border-left-color: #d63031;">
-            <h3>📚 AI 教学专栏</h3>
-            <p>用于沉淀长篇幅的计算机科学 AI 对话总结和系统性教学笔记，与日常流水账博客分离。</p>
-            <span class="tag">AI对话</span><span class="tag">长文学习</span>
-        </a>
+        <div class="fortune-card__meta">
+            <span class="meta-pill" id="today-solar-summary">--</span>
+            <span class="meta-pill" id="today-ganzhi-summary">--</span>
+        </div>
 
-        <a href="./games/index.html" class="card">
-            <h3>🎮 游戏大厅</h3>
-            <p>自制 Web 小游戏与重构项目集锦。包含 Acquire 等桌游模拟器以及其他 Web 逻辑实践。</p>
-            <span class="tag">TypeScript</span><span class="tag">WebLogic</span>
-        </a>
+        <div class="fortune-layout">
+            <div class="calendar-shell">
+                <div class="weekday-row" aria-hidden="true">
+                    <span>一</span>
+                    <span>二</span>
+                    <span>三</span>
+                    <span>四</span>
+                    <span>五</span>
+                    <span>六</span>
+                    <span>日</span>
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
 
-        <a href="https://github.com/largeoyos" class="card" style="border-left-color: var(--accent);">
-            <h3>📝 课程实验室</h3>
-            <p>存放 CS:APP Data Lab, Shell Lab 以及 CS61A 的作业实现与心得。</p>
-            <span class="tag">C</span><span class="tag">Python</span><span class="tag">Git</span>
-        </a>
+            <aside class="fortune-panel">
+                <div class="clock-box">
+                    <p class="section-kicker">古今时钟</p>
+                    <h3 id="ancient-clock">--</h3>
+                    <p id="ancient-clock-detail">--</p>
+                    <p id="modern-clock">--</p>
+                    <p class="clock-note">一个时辰等于现在的 2 小时，前一小时称“初”，后一小时称“正”。</p>
+                </div>
+
+                <div class="fortune-box" aria-live="polite">
+                    <p class="section-kicker">签到运势</p>
+                    <h3 id="fortune-score">请点击日历中的日期</h3>
+                    <p id="fortune-detail">点击任意一天，查看当天的运势值。</p>
+                    <p id="fortune-extra"></p>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+        <div id="projects-section" style="order: 2;">
+            <h2 style="margin-top: 3rem;">🚀 项目子空间</h2>
+            <div class="stats-grid">
+                <a href="./blog/index.html" class="card" style="border-left-color: #6c5ce7;">
+                    <h3>📝 个人博客</h3>
+                    <p>基于 Markdown 及按时间轴排序的静态纯前端渲染博客引擎，具备内容分类功能。</p>
+                    <span class="tag">Markdown</span><span class="tag">SSG</span>
+                </a>
+
+                <a href="./ai-tutorials/index.html" class="card" style="border-left-color: #d63031;">
+                    <h3>📚 AI 教学专栏</h3>
+                    <p>用于沉淀长篇幅的计算机科学 AI 对话总结 and 系统性教学笔记，与日常流水账博客分离。</p>
+                    <span class="tag">AI对话</span><span class="tag">长文学习</span>
+                </a>
+
+                <a href="./games/index.html" class="card">
+                    <h3>🎮 游戏大厅</h3>
+                    <p>自制 Web 小游戏与重构项目集锦。包含 Acquire 等桌游模拟器以及其他 Web 逻辑实践。</p>
+                    <span class="tag">TypeScript</span><span class="tag">WebLogic</span>
+                </a>
+
+                <a href="https://github.com/largeoyos" class="card" style="border-left-color: var(--accent);">
+                    <h3>📝 课程实验室</h3>
+                    <p>存放 CS:APP Data Lab, Shell Lab 以及 CS61A 的作业实现与心得。</p>
+                    <span class="tag">C</span><span class="tag">Python</span><span class="tag">Git</span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <h2 style="margin-top: 3rem;">🛠️ 技能栈</h2>
@@ -62,7 +124,12 @@
 </div>
 
 <footer>
-    <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>    <p><small>Version 1.2.0</small></p></footer>
+    <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
+    <p><small>Version 1.5.0</small></p>
+</footer>
+
+<script src="./js/vendor/lunar.js" defer></script>
+<script src="./js/home-calendar.js" defer></script>
 
 </body>
 </html>

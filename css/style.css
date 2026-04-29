@@ -345,9 +345,7 @@ header {
 }
 
 #ancient-clock-detail,
-#modern-clock,
-#fortune-detail,
-#fortune-extra {
+#modern-clock {
     margin: 0.2rem 0 0;
     color: #636e72;
     font-size: 0.96rem;
@@ -355,6 +353,29 @@ header {
 
 #fortune-score {
     color: var(--accent);
+}
+
+#fortune-tier {
+    margin: 0.2rem 0 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #d63031;
+}
+
+#fortune-tier:has(+ #fortune-detail-group) {
+    /* when followed by detail group */
+}
+
+#fortune-yi,
+#fortune-ji {
+    margin: 0.3rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #2d3436;
+}
+
+#fortune-ji {
+    color: #636e72;
 }
 
 .clock-note {

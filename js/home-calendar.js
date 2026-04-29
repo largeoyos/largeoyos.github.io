@@ -68,48 +68,199 @@ function getAncientTime(date) {
     };
 }
 
-function hashString(text) {
-    let hash = 0;
-
-    for (let index = 0; index < text.length; index += 1) {
-        hash = (hash * 31 + text.charCodeAt(index)) % 1000003;
-    }
-
-    return hash;
-}
-
-function getFortuneValue(date) {
-    const key = formatYmdKey(date);
-    return hashString(key) % 101;
-}
-
-function getFortuneProfile(score) {
-    if (score >= 90) {
-        return ['大吉', '适合主动推进重要事项。'];
-    }
-
-    if (score >= 75) {
-        return ['顺意', '今天适合学习、整理与执行。'];
-    }
-
-    if (score >= 60) {
-        return ['稳健', '稳步推进，会有不错收获。'];
-    }
-
-    if (score >= 40) {
-        return ['平衡', '按计划行事，保持节奏就好。'];
-    }
-
-    if (score >= 20) {
-        return ['谨慎', '先处理细节，再做重要决定。'];
-    }
-
-    return ['蓄势', '适合复盘与休整，避免仓促出手。'];
-}
-
 function getMonthLabel(date) {
     const lunar = Solar.fromDate(date).getLunar();
     return `${date.getFullYear()}年${date.getMonth() + 1}月 · ${lunar.getYearInGanZhi()}年农历${lunar.getMonthInChinese()}月`;
+}
+
+// ====== 运势系统 ======
+
+function hashString(text) {
+    let hash = 0;
+    for (let i = 0; i < text.length; i += 1) {
+        hash = (hash * 31 + text.charCodeAt(i)) % 1000003;
+    }
+    return hash;
+}
+
+const todoList = [
+    ['刷B站', '承包一天笑点'],
+    ['在QQ群聊天', '遇见好朋友'],
+    ['被撅', '哼哼哼啊啊啊啊啊'],
+    ['写作业', '蒙的全对'],
+    ['唱跳RAP篮球', '只因你太美'],
+    ['打游戏', '杀疯了'],
+    ['摸鱼', '摸鱼不被发现'],
+    ['看番剧', '追到神作'],
+    ['写代码', '一次编译通过零Bug'],
+    ['逛GitHub', '发现宝藏开源项目'],
+    ['熬夜', '灵感爆棚效率翻倍'],
+    ['吃夜宵', '越吃越瘦'],
+    ['睡懒觉', '梦到考试原题'],
+    ['划水', '划出太平洋'],
+    ['刷知乎', '涨了奇怪的知识'],
+    ['折腾Linux', '一次配好再也不崩'],
+];
+
+const notTodoList = [
+    ['刷B站', '视频无限缓冲'],
+    ['在QQ群聊天', '被小鬼气到红温'],
+    ['被撅', '休息一天养精蓄锐~'],
+    ['写作业', '写的全错蒙的也全错'],
+    ['唱跳RAP篮球', '被ikun人参公鸡'],
+    ['打游戏', '连跪十把送人头'],
+    ['摸鱼', '老板突然站你背后'],
+    ['看番剧', '追到惊天烂尾作'],
+    ['写代码', 'Bug越修越多最终回滚'],
+    ['逛GitHub', 'Star了一堆再也没打开过'],
+    ['熬夜', '第二天直接睡到中午十二点'],
+    ['吃夜宵', '半夜肚子痛跑厕所'],
+    ['睡懒觉', '辅导员突然查寝'],
+    ['划水', '被当场抓获写入周报'],
+    ['刷知乎', '刷了三小时啥也没记住'],
+    ['折腾Linux', 'Grub炸了进不去系统'],
+];
+
+const tierPool = {
+    tooLucky: ['大吉', '吉你太美'],
+    lucky: ['小吉', '中吉', '上上签'],
+    neutral: ['平', '中平', '万事靠自己'],
+    unlucky: ['凶', '小凶', '下下签'],
+    tooUnlucky: ['大凶', '寄'],
+};
+
+function seededPick(array, seed) {
+    return array[Math.abs(seed) % array.length];
+}
+
+function getFortuneInfo(date) {
+    const dateKey = formatYmdKey(date);
+    const solar = Solar.fromDate(date);
+    const lunar = solar.getLunar();
+
+    // ---- 多维度特征提取 ----
+    const baseHash = hashString(dateKey);
+
+    // 农历信息：年干支、月干支、日干支、生肖、节气
+    const yearGz = lunar.getYearInGanZhi();
+    const monthGz = lunar.getMonthInGanZhi();
+    const dayGz = lunar.getDayInGanZhi();
+    const animal = lunar.getYearShengXiao();
+    const jieQi = lunar.getJieQi() || '';
+
+    // 各维度分别哈希
+    const hGz = hashString(yearGz + monthGz + dayGz);
+    const hAnimal = hashString(animal);
+    const hJieQi = hashString(jieQi);
+    const hDayOfYear = hashString(String(date.getFullYear()) + String(date.getMonth() + 1) + String(date.getDate()));
+    const hWeekday = hashString(String(date.getDay()));
+
+    // ---- 混合 SHA-256 风格的轮函数 ----
+    // MixRound: 对 (a, b, c) 做非线性混合，类似 SHA-256 的小轮
+    function mixRound(a, b, c, round) {
+        a = (a * 997 + round * 7919) % 1000003;
+        b = (b * 4999 + (a & 0xFFF)) % 1000003;
+        c = (c * 3119 + (b & 0xFFF) * 7) % 1000003;
+        // ROTL 风格的位旋转（模拟）
+        a = ((a << (round % 5 + 3)) | Math.floor(a / (1 << (round % 5 + 3)))) % 1000003;
+        b = ((b << (round % 7 + 2)) | Math.floor(b / (1 << (round % 7 + 2)))) % 1000003;
+        c = ((c << (round % 3 + 5)) | Math.floor(c / (1 << (round % 3 + 5)))) % 1000003;
+        return [a, b, c];
+    }
+
+    // 将所有特征输入混合
+    let a = baseHash;
+    let b = (hGz + hAnimal * 7 + hJieQi * 13) % 1000003;
+    let c = (hDayOfYear + hWeekday * 37) % 1000003;
+
+    // 8 轮混合
+    for (let r = 0; r < 8; r += 1) {
+        [a, b, c] = mixRound(a, b, c, r);
+    }
+
+    // ---- 从混合结果中提取运势值 ----
+    // 使用三个混合值生成分数，产生非均匀分布
+    const raw = (a * 48271 + b * 16807 + c * 104729) % 1000003;
+    const gaussian = ((raw % 1000) + (raw % 997) + (raw % 991)) / 3; // 近似正态分布
+    const scoreBase = (gaussian / 1000) * 100; // 0-100 但趋向中心
+
+    // 节气加成/削减：有节气时 ±5 左右的正弦调制
+    const jieQiBoost = jieQi ? Math.sin(hJieQi % 628) * 5 : 0;
+
+    // 周末轻微加分
+    const weekendBoost = (date.getDay() === 0 || date.getDay() === 6) ? 3 : 0;
+
+    // 农历初一/十五的额外波动
+    const lunarDay = Number(lunar.getDay());
+    const fullMoonBoost = (lunarDay === 1 || lunarDay === 15) ? Math.sin(baseHash % 314) * 4 : 0;
+
+    // 最终分数，钳位 0-100
+    let score = Math.round(scoreBase + jieQiBoost + weekendBoost + fullMoonBoost);
+    score = Math.max(0, Math.min(100, score));
+
+    // 分数钳位后再用 baseHash 微调种子保证同一天不变
+    const hFinal = hashString(dateKey + 'fortune');
+
+    // 用 hash 的不同位来选各项，保证同一天结果固定
+    const tierSeed = Math.floor(hFinal / 101);
+    const yiSeed = tierSeed + 7;
+    const jiSeed = tierSeed + 13;
+    const yiExtraSeed = tierSeed + 19;
+    const jiExtraSeed = tierSeed + 23;
+
+    let tierLabel;
+    const yiItems = [];
+    const jiItems = [];
+
+    if (score >= 95) {
+        // 极致好运
+        tierLabel = seededPick([...tierPool.tooLucky], tierSeed);
+        // 双宜
+        yiItems.push(seededPick(todoList, yiSeed));
+        yiItems.push(seededPick(todoList, yiExtraSeed));
+        // 随机一忌但不严重
+        jiItems.push(seededPick(notTodoList, jiSeed));
+    } else if (score >= 75) {
+        // 好运区间：从 lucky + tooLucky 混合池中选
+        const pool = [...tierPool.lucky, ...tierPool.tooLucky];
+        tierLabel = seededPick(pool, tierSeed);
+        if (tierPool.tooLucky.indexOf(tierLabel) !== -1) {
+            // 抽中了超幸运标签，给双宜
+            yiItems.push(seededPick(todoList, yiSeed));
+            yiItems.push(seededPick(todoList, yiExtraSeed));
+        } else {
+            yiItems.push(seededPick(todoList, yiSeed));
+        }
+        jiItems.push(seededPick(notTodoList, jiSeed));
+    } else if (score >= 40) {
+        // 中平
+        tierLabel = seededPick(tierPool.neutral, tierSeed);
+        yiItems.push(seededPick(todoList, yiSeed));
+        jiItems.push(seededPick(notTodoList, jiSeed));
+    } else if (score >= 20) {
+        // 坏运区间：从 unlucky + tooUnlucky 混合池中选
+        const pool = [...tierPool.unlucky, ...tierPool.tooUnlucky];
+        tierLabel = seededPick(pool, tierSeed);
+        if (tierPool.tooUnlucky.indexOf(tierLabel) !== -1) {
+            // 抽中了超凶标签，给双忌
+            yiItems.push(seededPick(todoList, yiSeed));
+            jiItems.push(seededPick(notTodoList, jiSeed));
+            jiItems.push(seededPick(notTodoList, jiExtraSeed));
+        } else {
+            yiItems.push(seededPick(todoList, yiSeed));
+            jiItems.push(seededPick(notTodoList, jiSeed));
+        }
+    } else {
+        // 极致坏运
+        tierLabel = seededPick([...tierPool.tooUnlucky], tierSeed);
+        // 双忌
+        jiItems.push(seededPick(notTodoList, jiSeed));
+        jiItems.push(seededPick(notTodoList, jiExtraSeed));
+        // 随机一宜
+        yiItems.push(seededPick(todoList, yiSeed));
+    }
+
+    return { score, tier: tierLabel, yi: yiItems, ji: jiItems };
 }
 
 let currentViewDate = new Date();
@@ -178,7 +329,26 @@ function renderCalendar(viewDate) {
     document.getElementById('calendar-heading').textContent = getMonthLabel(viewDate);
 }
 
-function setFortuneForDate(date) {
+function renderFortune(date) {
+    const info = getFortuneInfo(date);
+
+    document.getElementById('fortune-score').textContent = `${formatSolarDate(date)} 运势值 ${info.score}/100`;
+    document.getElementById('fortune-tier').textContent = info.tier;
+
+    const yiEl = document.getElementById('fortune-yi');
+    const jiEl = document.getElementById('fortune-ji');
+    const detailGroup = document.getElementById('fortune-detail-group');
+
+    detailGroup.style.display = 'block';
+
+    const yiTexts = info.yi.map(item => `宜 ${item[0]} — ${item[1]}`);
+    const jiTexts = info.ji.map(item => `忌 ${item[0]} — ${item[1]}`);
+
+    yiEl.textContent = yiTexts.join(' ｜ ');
+    jiEl.textContent = jiTexts.join(' ｜ ');
+}
+
+function updateSelectedDay(date) {
     const grid = document.getElementById('calendar-grid');
     const buttons = grid.querySelectorAll('.calendar-day');
     const solar = Solar.fromDate(date);
@@ -186,8 +356,6 @@ function setFortuneForDate(date) {
     const yearGz = lunar.getYearInGanZhi();
     const monthGz = lunar.getMonthInGanZhi();
     const dayGz = lunar.getDayInGanZhi();
-    const score = getFortuneValue(date);
-    const [fortuneTitle, fortuneText] = getFortuneProfile(score);
     const jieQi = lunar.getJieQi();
     const lunarText = (jieQi ? `${jieQi} · ` : '') + `${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`;
     const animal = lunar.getYearShengXiao();
@@ -199,9 +367,8 @@ function setFortuneForDate(date) {
     document.getElementById('today-lunar-summary').textContent = `(${animal}年) 农历${lunarText}`;
     document.getElementById('today-solar-summary').textContent = `${formatSolarDate(date)} ${weekdayNames[date.getDay()]}（第${getWeekNumber(date)}周）`;
     document.getElementById('today-ganzhi-summary').textContent = `${yearGz}年 ${monthGz}月 ${dayGz}日`;
-    document.getElementById('fortune-score').textContent = `${formatSolarDate(date)} 运势值 ${score}/100`;
-    document.getElementById('fortune-detail').textContent = `${fortuneTitle} · ${fortuneText}`;
-    document.getElementById('fortune-extra').textContent = `${yearGz}年 农历${lunarText} · 干支 ${yearGz}年 ${monthGz}月 ${dayGz}日`;
+
+    renderFortune(date);
 }
 
 function updateClock() {
@@ -294,7 +461,7 @@ function initCalendarNav() {
     todayBtn.addEventListener('click', () => {
         const today = new Date();
         renderCalendar(today);
-        setFortuneForDate(today);
+        updateSelectedDay(today);
     });
 }
 
@@ -315,7 +482,7 @@ function initCalendar() {
     document.getElementById('today-ganzhi-summary').textContent = `${lunar.getYearInGanZhi()}年 ${lunar.getMonthInGanZhi()}月 ${lunar.getDayInGanZhi()}日`;
 
     renderCalendar(today);
-    setFortuneForDate(today);
+    updateSelectedDay(today);
     updateClock();
 
     document.getElementById('calendar-grid').addEventListener('click', event => {
@@ -324,7 +491,7 @@ function initCalendar() {
             return;
         }
 
-        setFortuneForDate(parseYmdKey(button.dataset.date));
+        updateSelectedDay(parseYmdKey(button.dataset.date));
     });
 
     window.setInterval(updateClock, 30000);

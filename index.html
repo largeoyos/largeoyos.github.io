@@ -82,14 +82,17 @@
                     <h3 id="ancient-clock">--</h3>
                     <p id="ancient-clock-detail">--</p>
                     <p id="modern-clock">--</p>
-                    <p class="clock-note">一个时辰等于现在的 2 小时，前一小时称“初”，后一小时称“正”。</p>
+                    <p class="clock-note">一个时辰等于现在的 2 小时，前一小时称"初"，后一小时称"正"。</p>
                 </div>
 
                 <div class="fortune-box" aria-live="polite">
                     <p class="section-kicker">签到运势</p>
                     <h3 id="fortune-score">请点击日历中的日期</h3>
-                    <p id="fortune-detail">点击任意一天，查看当天的运势值。</p>
-                    <p id="fortune-extra"></p>
+                    <p id="fortune-tier"></p>
+                    <div id="fortune-detail-group" style="display:none;">
+                        <p id="fortune-yi"></p>
+                        <p id="fortune-ji"></p>
+                    </div>
                 </div>
             </aside>
         </div>
@@ -134,7 +137,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 1.5.0</small></p>
+    <p><small>Version 1.6.1</small></p>
 </footer>
 
 <script src="./js/vendor/lunar.js" defer></script>

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0e1420">
+    <title>合成大西瓜 | LarGeoYos</title>
+    <style>
+        :root {
+            --bg: #08111f;
+            --panel: rgba(13, 22, 38, 0.76);
+            --panel-strong: rgba(19, 31, 53, 0.94);
+            --text: #f5f7fb;
+            --muted: #aeb9c9;
+            --accent: #00b894;
+            --accent-2: #ffd166;
+            --danger: #ff7675;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 184, 148, 0.2), transparent 26%),
+                radial-gradient(circle at 80% 15%, rgba(255, 209, 102, 0.16), transparent 22%),
+                radial-gradient(circle at 85% 85%, rgba(255, 118, 117, 0.15), transparent 28%),
+                linear-gradient(180deg, #050a13 0%, #08111f 44%, #0b1526 100%);
+            color: var(--text);
+            font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.12;
+            background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: linear-gradient(180deg, rgba(0,0,0,0.85), transparent 92%);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: rgba(5, 10, 19, 0.76);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nav a {
+            padding: 8px 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+            color: #dbe3f0;
+            font-weight: 600;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .nav a:hover {
+            transform: translateY(-1px);
+            border-color: rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .page {
+            width: min(1180px, calc(100vw - 24px));
+            margin: 0 auto;
+            padding: 22px 0 28px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .panel {
+            background: linear-gradient(180deg, rgba(15, 25, 43, 0.88), rgba(11, 18, 30, 0.82));
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .panel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 28%, transparent 72%, rgba(255,255,255,0.05));
+            pointer-events: none;
+        }
+
+        .intro {
+            padding: 26px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(0, 184, 148, 0.14);
+            color: #7ff0d1;
+            border: 1px solid rgba(0, 184, 148, 0.22);
+            font-size: 0.88rem;
+            letter-spacing: 0.04em;
+        }
+
+        h1 {
+            margin: 16px 0 10px;
+            font-size: clamp(2rem, 4vw, 3.7rem);
+            line-height: 1;
+        }
+
+        .lede {
+            margin: 0;
+            max-width: 58ch;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .stats {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .stat {
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.84rem;
+            margin-bottom: 6px;
+        }
+
+        .stat strong {
+            font-size: 1.35rem;
+        }
+
+        .side {
+            display: grid;
+            gap: 14px;
+            padding: 18px;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            appearance: none;
+            border: 0;
+            font: inherit;
+        }
+
+        .btn {
+            padding: 12px 16px;
+            border-radius: 14px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, filter 0.15s ease, opacity 0.15s ease;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.22);
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary { background: linear-gradient(135deg, #00b894, #55efc4); color: #06221d; }
+        .btn-secondary { background: linear-gradient(135deg, #355c9a, #74b9ff); }
+        .btn-danger { background: linear-gradient(135deg, #ff7675, #ff9f43); }
+
+        .setting-label {
+            display: block;
+            margin: 12px 0 8px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .setting-select {
+            width: 100%;
+            padding: 11px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(8, 16, 27, 0.68);
+            color: var(--text);
+            font: inherit;
+            outline: none;
+        }
+
+        .tip {
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .game-wrap {
+            margin-top: 18px;
+            padding: 18px;
+        }
+
+        .game-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 290px;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .canvas-frame {
+            background: linear-gradient(180deg, rgba(10,16,28,0.98), rgba(8,12,21,0.98));
+            border-radius: 26px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .canvas-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .canvas-status {
+            color: #ccefd8;
+            font-weight: 700;
+        }
+
+        canvas {
+            width: 100%;
+            display: block;
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(85, 239, 196, 0.08), transparent 20%),
+                linear-gradient(180deg, #101a2c 0%, #0a1120 100%);
+            touch-action: none;
+        }
+
+        .sidebar-card {
+            padding: 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-card h2, .sidebar-card h3 {
+            margin: 0 0 10px;
+        }
+
+        .fruit-next {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fruit-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: rgba(8, 16, 27, 0.92);
+            box-shadow: inset 0 4px 8px rgba(255,255,255,0.22), 0 12px 20px rgba(0,0,0,0.26);
+            border: 2px solid rgba(255,255,255,0.16);
+        }
+
+        .mini-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .footer {
+            padding: 20px 0 6px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .footer small { color: #88a0bf; }
+
+        @media (max-width: 980px) {
+            .hero, .game-shell { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .page { width: min(100vw - 16px, 1180px); padding-top: 14px; }
+            .nav { gap: 8px; padding-inline: 10px; flex-wrap: wrap; }
+            .nav a { padding: 7px 12px; }
+            .intro, .game-wrap { padding: 14px; }
+            .canvas-frame { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../../index.html">🏠 工作主页</a>
+        <a href="../../blog/index.html">📝 博客大厅</a>
+        <a href="../../ai-tutorials/index.html">📚 AI 教学</a>
+        <a href="../index.html">🎮 游戏大厅</a>
+    </nav>
+
+    <main class="page">
+        <section class="hero">
+            <article class="panel intro">
+                <span class="eyebrow">🍉 Suika-style Canvas Game</span>
+                <h1>合成大西瓜</h1>
+                <p class="lede">把水果投进容器里，两个相同等级的水果相碰就会自动合成更大的水果。压住顶部红线太久就会失败，想拿高分需要控制堆叠结构，也要利用合并链条。</p>
+                <div class="stats">
+                    <div class="stat">
+                        <span>当前分数</span>
+                        <strong id="score-text">0</strong>
+                    </div>
+                    <div class="stat">
+                        <span>最高分</span>
+                        <strong id="best-text">0</strong>
+                    </div>
+                    <div class="stat">
+                        <span>下一水果</span>
+                        <strong id="next-name">樱桃</strong>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="panel side">
+                <div class="sidebar-card">
+                    <h2>操作</h2>
+                    <div class="control-row">
+                        <button id="restart-btn" class="btn btn-danger">重新开始</button>
+                        <button id="drop-btn" class="btn btn-primary">投放水果</button>
+                    </div>
+                    <label class="setting-label" for="elasticity-select">弹性选项</label>
+                    <select id="elasticity-select" class="setting-select">
+                        <option value="0.28">偏稳重</option>
+                        <option value="0.42" selected>标准</option>
+                        <option value="0.58">弹性增强</option>
+                        <option value="0.72">高弹</option>
+                    </select>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>下一水果</h3>
+                    <div class="fruit-next">
+                        <div id="next-badge" class="fruit-badge">🍒</div>
+                        <div>
+                            <div id="next-label" style="font-size:1.05rem;font-weight:800;">樱桃</div>
+                            <div style="color:var(--muted);font-size:0.9rem;">点击或按空格投放</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card tip">
+                    <strong style="color:#f8f9fb;">玩法提示</strong>
+                    <ul class="mini-list">
+                        <li>鼠标/触控移动时，水果会跟随横向位置。</li>
+                        <li>按 <strong>空格</strong> 或点击“投放水果”落下当前水果。</li>
+                        <li>相同水果碰撞后会合成更高一级，最大到西瓜。</li>
+                        <li>如果水果堆到顶部红线并持续压线，会进入失败状态。</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <section class="panel game-wrap">
+            <div class="game-shell">
+                <div class="canvas-frame">
+                    <div class="canvas-top">
+                        <span>拖住水果，控制落点和堆叠角度</span>
+                        <span class="canvas-status" id="status-text">准备投放</span>
+                    </div>
+                    <canvas id="game-canvas" aria-label="合成大西瓜游戏画布"></canvas>
+                </div>
+
+                <aside class="sidebar-card">
+                    <h3>水果图鉴</h3>
+                    <div id="fruit-index" style="display:grid;gap:10px;"></div>
+                </aside>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>按住屏幕顶部滑动也可以控制落点。合并后的水果会释放更高的分数，但越晚合成越容易顶线。</p>
+            <p><small>Version 1.0.1</small></p>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('game-canvas');
+        const context = canvas.getContext('2d');
+        const scoreText = document.getElementById('score-text');
+        const bestText = document.getElementById('best-text');
+        const nextName = document.getElementById('next-name');
+        const nextBadge = document.getElementById('next-badge');
+        const nextLabel = document.getElementById('next-label');
+        const statusText = document.getElementById('status-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const dropBtn = document.getElementById('drop-btn');
+        const elasticitySelect = document.getElementById('elasticity-select');
+        const fruitIndex = document.getElementById('fruit-index');
+
+        const fruits = [
+            { name: '樱桃', emoji: '🍒', radius: 16, color: '#ff7675', points: 10 },
+            { name: '草莓', emoji: '🍓', radius: 20, color: '#ff6b81', points: 30 },
+            { name: '葡萄', emoji: '🟣', radius: 24, color: '#a29bfe', points: 60 },
+            { name: '橘子', emoji: '🍊', radius: 30, color: '#fdcb6e', points: 100 },
+            { name: '柠檬', emoji: '🍋', radius: 36, color: '#ffeaa7', points: 160 },
+            { name: '猕猴桃', emoji: '🥝', radius: 42, color: '#55efc4', points: 240 },
+            { name: '番茄', emoji: '🍅', radius: 50, color: '#ff6b6b', points: 340 },
+            { name: '桃子', emoji: '🍑', radius: 58, color: '#fab1a0', points: 460 },
+            { name: '菠萝', emoji: '🍍', radius: 68, color: '#ffeaa7', points: 620 },
+            { name: '椰子', emoji: '🥥', radius: 80, color: '#dfe6e9', points: 820 },
+            { name: '西瓜', emoji: '🍉', radius: 94, color: '#00b894', points: 1100 }
+        ];
+
+        const storageKey = 'largeoyos-suika-best';
+        const world = {
+            width: 420,
+            height: 680,
+            wall: 24,
+            floor: 24,
+            gravity: 1100,
+            friction: 0.998,
+            elasticity: Number(elasticitySelect?.value || '0.42'),
+            topLine: 92,
+            loseLine: 72,
+            pressureTime: 0,
+            pressureLimit: 1.4,
+            current: null,
+            nextType: 0,
+            score: 0,
+            best: Number(localStorage.getItem(storageKey) || '0'),
+            gameOver: false,
+            pointerX: 0,
+            pointerActive: false,
+            particles: []
+        };
+
+        function randomType() {
+            const roll = Math.random();
+            if (roll < 0.36) return 0;
+            if (roll < 0.60) return 1;
+            if (roll < 0.77) return 2;
+            if (roll < 0.88) return 3;
+            if (roll < 0.95) return 4;
+            return 5;
+        }
+
+        function cloneFruit(type, x, y) {
+            const template = fruits[type];
+            return {
+                id: crypto.randomUUID(),
+                type,
+                x,
+                y,
+                vx: 0,
+                vy: 0,
+                radius: template.radius,
+                color: template.color,
+                emoji: template.emoji,
+                name: template.name,
+                points: template.points,
+                static: false,
+                locked: false,
+                mergeLock: 0
+            };
+        }
+
+        function createCurrentFruit() {
+            if (world.gameOver) return;
+            const x = Math.max(world.wall + fruits[world.nextType].radius, Math.min(world.width - world.wall - fruits[world.nextType].radius, world.pointerX || world.width / 2));
+            world.current = cloneFruit(world.nextType, x, 40);
+            world.current.static = true;
+            world.current.vx = 0;
+            world.current.vy = 0;
+            world.nextType = randomType();
+            nextName.textContent = fruits[world.nextType].name;
+            nextBadge.textContent = fruits[world.nextType].emoji;
+            nextBadge.style.background = fruits[world.nextType].color;
+            nextLabel.textContent = fruits[world.nextType].name;
+        }
+
+        function resetGame() {
+            world.fruits = [];
+            world.current = null;
+            world.nextType = randomType();
+            world.score = 0;
+            world.pressureTime = 0;
+            world.gameOver = false;
+            world.pointerActive = false;
+            world.pointerX = world.width / 2;
+            world.particles = [];
+            scoreText.textContent = '0';
+            statusText.textContent = '准备投放';
+            createCurrentFruit();
+            renderFruitIndex();
+            syncBest();
+        }
+
+        function syncBest() {
+            world.best = Math.max(world.best, world.score);
+            localStorage.setItem(storageKey, String(world.best));
+            bestText.textContent = String(world.best);
+            scoreText.textContent = String(world.score);
+        }
+
+        function renderFruitIndex() {
+            fruitIndex.innerHTML = fruits.map((fruit, index) => `
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);">
+                    <div style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:${fruit.color};color:rgba(8,16,27,0.92);font-weight:800;box-shadow:inset 0 4px 8px rgba(255,255,255,0.18);">${fruit.emoji}</div>
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:800;">${index + 1}. ${fruit.name}</div>
+                        <div style="color:var(--muted);font-size:0.85rem;">半径 ${fruit.radius}px · ${fruit.points} 分</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function resizeCanvas() {
+            const frameWidth = canvas.parentElement.clientWidth;
+            const frameHeight = Math.min(window.innerHeight * 0.74, Math.max(520, frameWidth * 1.42));
+            const ratio = Math.min(1, frameWidth / 760);
+            world.width = Math.round(frameWidth);
+            world.height = Math.round(Math.min(760, Math.max(560, frameHeight)));
+            canvas.width = Math.floor(world.width * devicePixelRatio);
+            canvas.height = Math.floor(world.height * devicePixelRatio);
+            canvas.style.height = world.height + 'px';
+            context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+            world.scale = ratio;
+        }
+
+        function fruitScreenX(x) {
+            return Math.max(world.wall, Math.min(world.width - world.wall, x));
+        }
+
+        function currentSpawnX() {
+            return world.pointerActive ? world.pointerX : world.width / 2;
+        }
+
+        function spawnFruit() {
+            if (world.gameOver || world.current || !world.nextType && world.nextType !== 0) return;
+            createCurrentFruit();
+        }
+
+        function dropCurrentFruit() {
+            if (!world.current || world.gameOver) return;
+            const fruit = world.current;
+            fruit.static = false;
+            fruit.vx = 0;
+            fruit.vy = 0;
+            fruit.locked = false;
+            world.fruits.push(fruit);
+            world.current = null;
+            createCurrentFruit();
+            statusText.textContent = '已投放';
+        }
+
+        function updatePointer(clientX) {
+            const rect = canvas.getBoundingClientRect();
+            const x = ((clientX - rect.left) / rect.width) * world.width;
+            world.pointerX = fruitScreenX(x);
+            world.pointerActive = true;
+            if (world.current) {
+                world.current.x = fruitScreenX(world.pointerX);
+            }
+        }
+
+        function dist(a, b) {
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            return Math.hypot(dx, dy);
+        }
+
+        function mergeFruit(a, b) {
+            if (a.type !== b.type || a.type >= fruits.length - 1) return false;
+            const nextType = a.type + 1;
+            const merged = cloneFruit(nextType, (a.x + b.x) / 2, (a.y + b.y) / 2);
+            merged.vx = (a.vx + b.vx) / 2;
+            merged.vy = Math.min(a.vy, b.vy) * 0.55;
+            world.fruits = world.fruits.filter(item => item !== a && item !== b);
+            world.fruits.push(merged);
+            world.score += fruits[nextType].points;
+            syncBest();
+            spawnBurst(merged.x, merged.y, merged.color);
+            statusText.textContent = `合成 ${merged.name}`;
+            return true;
+        }
+
+        function spawnBurst(x, y, color) {
+            for (let index = 0; index < 8; index += 1) {
+                world.particles.push({
+                    x,
+                    y,
+                    vx: (Math.random() - 0.5) * 180,
+                    vy: (Math.random() - 0.9) * 180,
+                    life: 0.65 + Math.random() * 0.35,
+                    color
+                });
+            }
+        }
+
+        function resolveCollisions() {
+            let mergedSomething = true;
+            while (mergedSomething) {
+                mergedSomething = false;
+                for (let i = 0; i < world.fruits.length; i += 1) {
+                    for (let j = i + 1; j < world.fruits.length; j += 1) {
+                        const a = world.fruits[i];
+                        const b = world.fruits[j];
+                        const dx = b.x - a.x;
+                        const dy = b.y - a.y;
+                        const distance = Math.hypot(dx, dy) || 0.001;
+                        const minDistance = a.radius + b.radius;
+                        if (distance >= minDistance) continue;
+
+                        if (a.type === b.type && !a.mergeLock && !b.mergeLock) {
+                            a.mergeLock = b.mergeLock = 1;
+                            mergedSomething = mergeFruit(a, b) || mergedSomething;
+                            break;
+                        }
+
+                        const overlap = minDistance - distance;
+                        const nx = dx / distance;
+                        const ny = dy / distance;
+                        const push = overlap * 0.5;
+                        a.x -= nx * push;
+                        a.y -= ny * push;
+                        b.x += nx * push;
+                        b.y += ny * push;
+
+                        const relVx = b.vx - a.vx;
+                        const relVy = b.vy - a.vy;
+                        const separatingSpeed = relVx * nx + relVy * ny;
+                        if (separatingSpeed < 0) {
+                            const restitution = Math.max(0.1, Math.min(0.98, world.elasticity));
+                            const impulse = -(1 + restitution) * separatingSpeed / 2;
+                            a.vx -= nx * impulse;
+                            a.vy -= ny * impulse;
+                            b.vx += nx * impulse;
+                            b.vy += ny * impulse;
+
+                            const tangentX = -ny;
+                            const tangentY = nx;
+                            const tangentSpeed = relVx * tangentX + relVy * tangentY;
+                            const friction = 0.05;
+                            const tangentImpulse = tangentSpeed * friction;
+                            a.vx += tangentX * tangentImpulse;
+                            a.vy += tangentY * tangentImpulse;
+                            b.vx -= tangentX * tangentImpulse;
+                            b.vy -= tangentY * tangentImpulse;
+                        }
+                    }
+                    if (mergedSomething) break;
+                }
+            }
+        }
+
+        function update(delta) {
+            if (world.gameOver) {
+                world.particles.forEach(particle => {
+                    particle.x += particle.vx * delta;
+                    particle.y += particle.vy * delta;
+                    particle.vy += 600 * delta;
+                    particle.life -= delta;
+                });
+                world.particles = world.particles.filter(particle => particle.life > 0);
+                return;
+            }
+
+            if (world.current) {
+                world.current.x = fruitScreenX(currentSpawnX());
+                world.current.y = 44;
+            }
+
+            const subSteps = 2;
+            const stepDelta = delta / subSteps;
+
+            for (let step = 0; step < subSteps; step += 1) {
+                world.fruits.forEach(fruit => {
+                    fruit.mergeLock = Math.max(0, fruit.mergeLock - stepDelta * 2);
+                    fruit.vy += world.gravity * stepDelta;
+                    fruit.x += fruit.vx * stepDelta;
+                    fruit.y += fruit.vy * stepDelta;
+                    fruit.vx *= Math.pow(world.friction, stepDelta * 60);
+                    fruit.vy *= Math.pow(0.9995, stepDelta * 60);
+
+                    if (fruit.x - fruit.radius < world.wall) {
+                        fruit.x = world.wall + fruit.radius;
+                        fruit.vx = Math.abs(fruit.vx) * world.elasticity;
+                    }
+                    if (fruit.x + fruit.radius > world.width - world.wall) {
+                        fruit.x = world.width - world.wall - fruit.radius;
+                        fruit.vx = -Math.abs(fruit.vx) * world.elasticity;
+                    }
+                    if (fruit.y + fruit.radius > world.height - world.floor) {
+                        fruit.y = world.height - world.floor - fruit.radius;
+                        fruit.vy = -Math.abs(fruit.vy) * (world.elasticity * 0.72);
+                        fruit.vx *= 0.96;
+                        if (Math.abs(fruit.vy) < 24) {
+                            fruit.vy = 0;
+                        }
+                    }
+                });
+
+                for (let pass = 0; pass < 2; pass += 1) {
+                    resolveCollisions();
+                }
+            }
+
+            world.particles.forEach(particle => {
+                particle.x += particle.vx * delta;
+                particle.y += particle.vy * delta;
+                particle.vy += 600 * delta;
+                particle.life -= delta;
+            });
+            world.particles = world.particles.filter(particle => particle.life > 0);
+
+            const nearTop = world.fruits.some(fruit => fruit.y - fruit.radius < world.loseLine);
+            if (nearTop) {
+                world.pressureTime += delta;
+            } else {
+                world.pressureTime = Math.max(0, world.pressureTime - delta * 1.2);
+            }
+            if (world.pressureTime >= world.pressureLimit) {
+                world.gameOver = true;
+                statusText.textContent = '游戏结束';
+            } else if (!world.current) {
+                statusText.textContent = '等待投放';
+            } else {
+                statusText.textContent = '准备投放';
+            }
+        }
+
+        function drawFruit(fruit) {
+            const gradient = context.createRadialGradient(fruit.x - fruit.radius * 0.35, fruit.y - fruit.radius * 0.35, fruit.radius * 0.1, fruit.x, fruit.y, fruit.radius * 1.1);
+            gradient.addColorStop(0, 'rgba(255,255,255,0.96)');
+            gradient.addColorStop(0.18, fruit.color);
+            gradient.addColorStop(1, shadeColor(fruit.color, -28));
+
+            context.beginPath();
+            context.fillStyle = gradient;
+            context.arc(fruit.x, fruit.y, fruit.radius, 0, Math.PI * 2);
+            context.fill();
+
+            context.lineWidth = 2;
+            context.strokeStyle = 'rgba(255,255,255,0.15)';
+            context.stroke();
+
+            context.fillStyle = 'rgba(8,16,27,0.9)';
+            context.font = `bold ${Math.max(14, fruit.radius * 0.68)}px Segoe UI Emoji, Apple Color Emoji, sans-serif`;
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(fruit.emoji, fruit.x, fruit.y + 1);
+        }
+
+        function shadeColor(color, amount) {
+            const hex = color.replace('#', '');
+            const parts = hex.length === 3 ? hex.split('').map(ch => ch + ch) : hex.match(/.{2}/g) || ['00', '00', '00'];
+            const values = parts.map(part => Math.max(0, Math.min(255, parseInt(part, 16) + amount)));
+            return `rgb(${values[0]}, ${values[1]}, ${values[2]})`;
+        }
+
+        function draw() {
+            context.clearRect(0, 0, world.width, world.height);
+
+            const bg = context.createLinearGradient(0, 0, 0, world.height);
+            bg.addColorStop(0, '#111b2d');
+            bg.addColorStop(1, '#08101b');
+            context.fillStyle = bg;
+            context.fillRect(0, 0, world.width, world.height);
+
+            context.save();
+            context.strokeStyle = 'rgba(255,255,255,0.08)';
+            context.lineWidth = 1;
+            for (let line = world.wall + 28; line < world.width - world.wall; line += 40) {
+                context.beginPath();
+                context.moveTo(line, world.topLine + 10);
+                context.lineTo(line, world.height - world.floor - 12);
+                context.stroke();
+            }
+            context.restore();
+
+            context.fillStyle = 'rgba(255, 118, 117, 0.15)';
+            context.fillRect(world.wall, world.loseLine - 8, world.width - world.wall * 2, 4);
+            context.fillStyle = 'rgba(255,255,255,0.08)';
+            context.fillRect(world.wall, world.topLine, world.width - world.wall * 2, 1);
+
+            world.fruits.forEach(drawFruit);
+            world.particles.forEach(particle => {
+                context.globalAlpha = Math.max(0, particle.life);
+                context.fillStyle = particle.color;
+                context.beginPath();
+                context.arc(particle.x, particle.y, 3.2, 0, Math.PI * 2);
+                context.fill();
+                context.globalAlpha = 1;
+            });
+
+            if (world.current) {
+                const preview = cloneFruit(world.current.type, world.current.x, world.current.y);
+                preview.radius = world.current.radius;
+                preview.color = world.current.color;
+                preview.emoji = world.current.emoji;
+                context.globalAlpha = 0.7;
+                drawFruit(preview);
+                context.globalAlpha = 1;
+                context.fillStyle = 'rgba(255,255,255,0.18)';
+                context.beginPath();
+                context.moveTo(preview.x - preview.radius, 44);
+                context.lineTo(preview.x + preview.radius, 44);
+                context.stroke();
+            }
+
+            if (world.gameOver) {
+                context.fillStyle = 'rgba(6, 11, 20, 0.62)';
+                context.fillRect(0, 0, world.width, world.height);
+                context.fillStyle = '#ffffff';
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.font = 'bold 34px Segoe UI, sans-serif';
+                context.fillText('游戏结束', world.width / 2, world.height / 2 - 24);
+                context.font = '600 16px Segoe UI, sans-serif';
+                context.fillStyle = '#dce6f5';
+                context.fillText('点击“重新开始”再次挑战更高分数', world.width / 2, world.height / 2 + 18);
+            }
+        }
+
+        let lastFrame = performance.now();
+        function frame(now) {
+            const delta = Math.min(0.032, (now - lastFrame) / 1000);
+            lastFrame = now;
+            update(delta);
+            draw();
+            requestAnimationFrame(frame);
+        }
+
+        canvas.addEventListener('pointermove', event => updatePointer(event.clientX));
+        canvas.addEventListener('pointerdown', event => {
+            updatePointer(event.clientX);
+            if (world.gameOver) return;
+            if (world.current) dropCurrentFruit();
+        });
+        canvas.addEventListener('pointerleave', () => { world.pointerActive = false; });
+
+        dropBtn.addEventListener('click', () => dropCurrentFruit());
+        elasticitySelect.addEventListener('change', () => {
+            world.elasticity = Number(elasticitySelect.value);
+            statusText.textContent = `弹性已切换为 ${elasticitySelect.options[elasticitySelect.selectedIndex].text}`;
+        });
+        restartBtn.addEventListener('click', () => resetGame());
+
+        document.addEventListener('keydown', event => {
+            if (event.code === 'Space' || event.code === 'Enter') {
+                event.preventDefault();
+                if (world.gameOver) {
+                    resetGame();
+                } else {
+                    dropCurrentFruit();
+                }
+            }
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        bestText.textContent = String(world.best);
+        nextBadge.style.background = fruits[0].color;
+        nextBadge.textContent = fruits[0].emoji;
+        nextLabel.textContent = fruits[0].name;
+        elasticitySelect.value = String(world.elasticity);
+        resizeCanvas();
+        resetGame();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

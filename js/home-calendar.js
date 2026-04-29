@@ -18,6 +18,7 @@ const numberInChinese = ['一', '二', '三', '四', '五', '六', '七', '八']
 const modernTimeFormatter = new Intl.DateTimeFormat('zh-CN', {
     hour: '2-digit',
     minute: '2-digit',
+    second: '2-digit',
     hour12: false
 });
 
@@ -494,7 +495,7 @@ function initCalendar() {
         updateSelectedDay(parseYmdKey(button.dataset.date));
     });
 
-    window.setInterval(updateClock, 30000);
+    window.setInterval(updateClock, 1000);
 }
 
 initCalendar();

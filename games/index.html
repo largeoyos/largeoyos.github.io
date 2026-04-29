@@ -6,6 +6,76 @@
     <title>游戏大厅 | LarGeoYos</title>
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .games-intro {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .back-home-link {
+            display: inline-block;
+            padding: 10px 20px;
+            border-left: none;
+            background: var(--accent);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .global-nav {
+                display: flex;
+                gap: 0.5rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                justify-content: flex-start;
+                padding: 10px 12px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .global-nav a {
+                margin: 0;
+                flex: 0 0 auto;
+                padding: 0.35rem 0.55rem;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.06);
+            }
+
+            header {
+                padding: 2.5rem 1rem 3.2rem;
+            }
+
+            .container {
+                margin-top: -2.1rem;
+                padding: 0 14px;
+            }
+
+            .profile-card {
+                padding: 1.2rem;
+                text-align: left;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .card {
+                padding: 1.15rem;
+            }
+
+            .tag {
+                margin-top: 0.4rem;
+                margin-right: 0.35rem;
+                padding: 4px 10px;
+            }
+
+            .back-home-link {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -49,8 +119,8 @@
         </a>
     </div>
 
-    <div style="margin-top: 2rem; text-align: center;">
-        <a href="../index.html" class="card" style="display: inline-block; padding: 10px 20px; border-left: none; background: var(--accent); color: white;">
+    <div class="games-intro">
+        <a href="../index.html" class="card back-home-link">
             返回主页
         </a>
     </div>
@@ -58,7 +128,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 1.8.0</small></p>
+    <p><small>Version 1.9.3</small></p>
 </footer>
 
 </body>

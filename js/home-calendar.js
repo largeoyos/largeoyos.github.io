@@ -265,6 +265,19 @@ function getFortuneInfo(date) {
 }
 
 let currentViewDate = new Date();
+let shouldSuppressCalendarClick = false;
+
+function shiftCalendarMonth(delta) {
+    currentViewDate.setMonth(currentViewDate.getMonth() + delta);
+    renderCalendar(currentViewDate);
+}
+
+function suppressCalendarClickTemporarily() {
+    shouldSuppressCalendarClick = true;
+    window.setTimeout(() => {
+        shouldSuppressCalendarClick = false;
+    }, 260);
+}
 
 function renderCalendar(viewDate) {
     currentViewDate = new Date(viewDate);
@@ -450,19 +463,83 @@ function initCalendarNav() {
     monthSelect.addEventListener('change', updateView);
 
     prevBtn.addEventListener('click', () => {
-        currentViewDate.setMonth(currentViewDate.getMonth() - 1);
-        renderCalendar(currentViewDate);
+        shiftCalendarMonth(-1);
     });
 
     nextBtn.addEventListener('click', () => {
-        currentViewDate.setMonth(currentViewDate.getMonth() + 1);
-        renderCalendar(currentViewDate);
+        shiftCalendarMonth(1);
     });
 
     todayBtn.addEventListener('click', () => {
         const today = new Date();
         renderCalendar(today);
         updateSelectedDay(today);
+    });
+}
+
+function initCalendarSwipe() {
+    const grid = document.getElementById('calendar-grid');
+    if (!grid) return;
+
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    const startTrack = (x, y) => {
+        startX = x;
+        startY = y;
+        tracking = true;
+    };
+
+    const endTrack = (x, y) => {
+        if (!tracking) return;
+        tracking = false;
+
+        const dx = x - startX;
+        const dy = y - startY;
+        const absX = Math.abs(dx);
+        const absY = Math.abs(dy);
+        const threshold = 36;
+
+        if (absX < threshold && absY < threshold) {
+            return;
+        }
+
+        suppressCalendarClickTemporarily();
+
+        if (absX >= absY) {
+            // 左右滑切月：左滑下个月，右滑上个月
+            shiftCalendarMonth(dx < 0 ? 1 : -1);
+            return;
+        }
+
+        // 上下滑切月：上滑下个月，下滑上个月
+        shiftCalendarMonth(dy < 0 ? 1 : -1);
+    };
+
+    grid.addEventListener('touchstart', event => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+        startTrack(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    grid.addEventListener('touchend', event => {
+        const touch = event.changedTouches[0];
+        if (!touch) return;
+        endTrack(touch.clientX, touch.clientY);
+    }, { passive: true });
+
+    // 桌面端也支持按住拖动切月
+    grid.addEventListener('mousedown', event => {
+        startTrack(event.clientX, event.clientY);
+    });
+
+    grid.addEventListener('mouseup', event => {
+        endTrack(event.clientX, event.clientY);
+    });
+
+    grid.addEventListener('mouseleave', () => {
+        tracking = false;
     });
 }
 
@@ -474,6 +551,7 @@ function initCalendar() {
 
     initLayoutSettings();
     initCalendarNav();
+    initCalendarSwipe();
 
     const today = new Date();
     const lunar = Solar.fromDate(today).getLunar();
@@ -487,6 +565,10 @@ function initCalendar() {
     updateClock();
 
     document.getElementById('calendar-grid').addEventListener('click', event => {
+        if (shouldSuppressCalendarClick) {
+            return;
+        }
+
         const button = event.target.closest('.calendar-day');
         if (!button) {
             return;

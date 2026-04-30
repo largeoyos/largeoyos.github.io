@@ -2,13 +2,13 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/) (语义化版本) 规范 (`x.x.x`)。
 
-## [1.9.4] - 2026-04-30
+## [1.10.0] - 2026-04-30
 
 ### 新增 (Added)
-- 快捷导航页的 USTC 校园分组新增 `https://lfxdj.ustc.edu.cn/` 入口。
+- 全站导航栏新增 <a href="https://z-library.sk/" target="_blank">📚 Z-Library</a> 外部链接入口。
 
 ### 变更 (Changed)
-- 全站主要入口页脚版本号同步升级至 v1.9.4。
+- 全站主要入口页脚版本号同步升级至 v1.10.0。
 
 ## [1.9.3] - 2026-04-29
 

@@ -5,7 +5,7 @@
 ## [1.10.0] - 2026-04-30
 
 ### 新增 (Added)
-- 全站导航栏新增 <a href="https://z-library.sk/" target="_blank">📚 Z-Library</a> 外部链接入口。
+- 快捷导航页新增「📚 资源」分类，收录 Z-Library（z-library.sk）入口。
 
 ### 变更 (Changed)
 - 全站主要入口页脚版本号同步升级至 v1.10.0。

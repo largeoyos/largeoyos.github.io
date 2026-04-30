@@ -479,67 +479,139 @@ function initCalendarNav() {
 
 function initCalendarSwipe() {
     const grid = document.getElementById('calendar-grid');
-    if (!grid) return;
+    const wrapper = document.querySelector('.calendar-shell');
+    if (!grid || !wrapper) return;
 
     let startX = 0;
     let startY = 0;
     let tracking = false;
+    let decided = false; // direction decided
+    let isHorizontal = false;
+    let lastTranslate = 0;
+    const threshold = 36; // minimal movement to consider
+    const completeRatio = 0.28; // fraction of width/height to complete slide
+
+    const resetTransform = (animate = true) => {
+        if (animate) wrapper.style.transition = 'transform 240ms cubic-bezier(.2,.8,.2,1)';
+        else wrapper.style.transition = 'none';
+        wrapper.style.transform = 'translate3d(0,0,0)';
+        lastTranslate = 0;
+    };
+
+    const doShiftAndReset = (deltaMonth, axis, size) => {
+        // animate out in direction
+        wrapper.style.transition = 'transform 200ms cubic-bezier(.2,.8,.2,1)';
+        if (axis === 'x') wrapper.style.transform = `translate3d(${deltaMonth > 0 ? -size : size}px,0,0)`;
+        else wrapper.style.transform = `translate3d(0,${deltaMonth > 0 ? -size : size}px)`;
+
+        const onEnd = () => {
+            wrapper.removeEventListener('transitionend', onEnd);
+            shiftCalendarMonth(deltaMonth);
+            // reset without animation
+            wrapper.style.transition = 'none';
+            wrapper.style.transform = 'translate3d(0,0,0)';
+            // small suppression to avoid accidental clicks
+            suppressCalendarClickTemporarily();
+        };
+
+        wrapper.addEventListener('transitionend', onEnd);
+    };
 
     const startTrack = (x, y) => {
         startX = x;
         startY = y;
         tracking = true;
+        decided = false;
+        isHorizontal = false;
+        lastTranslate = 0;
+        wrapper.style.transition = 'none';
     };
 
-    const endTrack = (x, y) => {
+    const moveTrack = (x, y, ev) => {
         if (!tracking) return;
-        tracking = false;
-
         const dx = x - startX;
         const dy = y - startY;
         const absX = Math.abs(dx);
         const absY = Math.abs(dy);
-        const threshold = 36;
 
-        if (absX < threshold && absY < threshold) {
-            return;
+        if (!decided) {
+            if (absX > absY && absX > 8) {
+                decided = true;
+                isHorizontal = true;
+            } else if (absY > absX && absY > 8) {
+                decided = true;
+                isHorizontal = false;
+            } else {
+                return;
+            }
         }
 
-        suppressCalendarClickTemporarily();
-
-        if (absX >= absY) {
-            // 左右滑切月：左滑下个月，右滑上个月
-            shiftCalendarMonth(dx < 0 ? 1 : -1);
-            return;
+        // 当确定为水平滑动时阻止页面左右/上下滚动
+        if (decided) {
+            // Only prevent default for touch events when capturing gesture to avoid page scroll
+            if (ev && ev.cancelable) ev.preventDefault();
         }
 
-        // 上下滑切月：上滑下个月，下滑上个月
-        shiftCalendarMonth(dy < 0 ? 1 : -1);
+        if (isHorizontal) {
+            lastTranslate = dx;
+            wrapper.style.transform = `translate3d(${dx}px,0,0)`;
+        } else {
+            lastTranslate = dy;
+            wrapper.style.transform = `translate3d(0,${dy}px,0)`;
+        }
     };
 
+    const endTrack = () => {
+        if (!tracking) return;
+        tracking = false;
+
+        const abs = Math.abs(lastTranslate);
+        const size = isHorizontal ? wrapper.clientWidth || window.innerWidth : wrapper.clientHeight || window.innerHeight;
+
+        if (abs > Math.max(threshold, size * completeRatio)) {
+            // determine direction
+            const delta = (lastTranslate < 0) ? 1 : -1; // negative means move to next month
+            doShiftAndReset(delta, isHorizontal ? 'x' : 'y', size);
+        } else {
+            // revert
+            resetTransform(true);
+        }
+    };
+
+    // Touch handlers (mobile)
     grid.addEventListener('touchstart', event => {
-        const touch = event.changedTouches[0];
-        if (!touch) return;
-        startTrack(touch.clientX, touch.clientY);
+        const t = event.changedTouches[0];
+        if (!t) return;
+        startTrack(t.clientX, t.clientY);
     }, { passive: true });
+
+    grid.addEventListener('touchmove', event => {
+        const t = event.changedTouches[0];
+        if (!t) return;
+        // Use non-passive handler to prevent page scrolling when gesture recognized
+        moveTrack(t.clientX, t.clientY, event);
+    }, { passive: false });
 
     grid.addEventListener('touchend', event => {
-        const touch = event.changedTouches[0];
-        if (!touch) return;
-        endTrack(touch.clientX, touch.clientY);
+        endTrack();
     }, { passive: true });
 
-    // 桌面端也支持按住拖动切月
+    // Mouse handlers (desktop)
+    let mouseDown = false;
     grid.addEventListener('mousedown', event => {
+        mouseDown = true;
         startTrack(event.clientX, event.clientY);
     });
 
-    grid.addEventListener('mouseup', event => {
-        endTrack(event.clientX, event.clientY);
+    window.addEventListener('mousemove', event => {
+        if (!mouseDown) return;
+        moveTrack(event.clientX, event.clientY);
     });
 
-    grid.addEventListener('mouseleave', () => {
-        tracking = false;
+    window.addEventListener('mouseup', event => {
+        if (!mouseDown) return;
+        mouseDown = false;
+        endTrack();
     });
 }
 

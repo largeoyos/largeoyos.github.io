@@ -176,6 +176,10 @@ header {
     border-radius: 16px;
     border: 1px solid var(--soft-border);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+    /* Allow vertical page panning by default but enable JS to capture horizontal gestures.
+       Also hide overflow when animating slides. */
+    touch-action: pan-y;
+    overflow: hidden;
 }
 
 .calendar-shell {

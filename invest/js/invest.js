@@ -117,7 +117,28 @@
             }
             return data;
         } catch (e) {
-            console.warn('CCB API 请求失败:', e.message);
+            console.warn('CCB API 请求失败，尝试本地数据:', e.message);
+            return null;
+        }
+    }
+
+    /**
+     * 从本地 JSON 文件加载建行黄金数据（CCB API 不可用时的回退方案）
+     */
+    async function fetchCcbGoldLocal(period) {
+        const localFileMap = {
+            intraday: 'data/ccb_gold_intraday.json',
+            day: 'data/ccb_gold_sample.json',
+            week: 'data/ccb_gold_sample.json',
+            month: 'data/ccb_gold_sample.json'
+        };
+        const filePath = localFileMap[period] || 'data/ccb_gold_sample.json';
+        try {
+            const resp = await fetch(filePath);
+            if (!resp.ok) throw new Error('本地 HTTP ' + resp.status);
+            return await resp.json();
+        } catch (e) {
+            console.warn('本地数据加载失败:', e.message);
             return null;
         }
     }
@@ -207,9 +228,15 @@
         let data = null;
 
         if (asset === 'gold') {
+            // 优先尝试建行实时接口，失败则回退到本地样本数据
             data = await fetchCcbGold(period);
-            if (data) {
-                dataSourceNote.textContent = '数据来源：中国建设银行';
+            if (data && data.length > 0) {
+                dataSourceNote.textContent = '数据来源：中国建设银行 · 实时';
+            } else {
+                data = await fetchCcbGoldLocal(period);
+                if (data && data.length > 0) {
+                    dataSourceNote.textContent = '数据来源：本地样本数据 (建行黄金)';
+                }
             }
         } else {
             data = await fetchYahooData(asset, period);
@@ -731,8 +758,8 @@
         initChart();
         bindEvents();
 
-        // 加载默认视图 (建行黄金 日线)
-        await renderChart('gold', 'day');
+        // 加载默认视图（建行黄金 分时线，与页面初始激活的周期标签一致）
+        await renderChart('gold', 'intraday');
     }
 
     // DOM 加载完成后初始化

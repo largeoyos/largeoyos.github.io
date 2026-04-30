@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      if (top.location === location) {
+        location.href = "/www_index.html";
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

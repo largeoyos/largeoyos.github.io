@@ -1,0 +1,389 @@
+/* ===== 投资观察页专属样式 ===== */
+
+.invest-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+}
+
+.invest-header {
+    text-align: center;
+    padding: 30px 0 20px;
+}
+
+.invest-header h1 {
+    font-size: 2rem;
+    margin: 0 0 6px;
+    color: var(--text-primary, #222);
+}
+
+.invest-header .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #777);
+    margin: 0;
+}
+
+/* ===== 分区卡片 ===== */
+.dashboard-section {
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 28px;
+    padding: 24px 20px;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    margin: 0 0 18px;
+    color: var(--text-primary, #333);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-icon {
+    font-size: 1.3rem;
+}
+
+/* ===== 资产切换标签 ===== */
+.asset-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.asset-tab {
+    padding: 8px 18px;
+    border: 1.5px solid #e0e0e0;
+    background: #fafafa;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.2s;
+}
+
+.asset-tab:hover {
+    background: #f0f4ff;
+    border-color: #90b4ff;
+}
+
+.asset-tab.active {
+    background: #2b5fc3;
+    color: #fff;
+    border-color: #2b5fc3;
+}
+
+/* ===== 周期切换标签 ===== */
+.period-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.period-tab {
+    padding: 6px 16px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.period-tab:hover {
+    background: #f0f4ff;
+}
+
+.period-tab.active {
+    background: #e8f0fe;
+    color: #2b5fc3;
+    border-color: #2b5fc3;
+    font-weight: 600;
+}
+
+/* ===== 行情快照卡片 ===== */
+.quote-snapshot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #e8edf5;
+}
+
+.snapshot-item {
+    flex: 1 1 100px;
+    min-width: 90px;
+    text-align: center;
+}
+
+.snapshot-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.snapshot-value {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #222;
+    font-variant-numeric: tabular-nums;
+}
+
+.snapshot-value.up {
+    color: #e15241;
+}
+
+.snapshot-value.down {
+    color: #22ab5b;
+}
+
+/* ===== 图表容器 ===== */
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+#main-chart {
+    width: 100%;
+    height: 520px;
+    min-height: 400px;
+}
+
+/* ===== 图表注释 ===== */
+.chart-note {
+    font-size: 0.78rem;
+    color: #999;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* ===== 量化实验室占位 ===== */
+.quant-lab-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    background: #fafbfc;
+    border: 2px dashed #d0d7e2;
+    border-radius: 12px;
+}
+
+.placeholder-content {
+    text-align: center;
+    padding: 30px;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.placeholder-content h3 {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0 0 10px;
+}
+
+.placeholder-content p {
+    color: #888;
+    margin: 0 0 10px;
+}
+
+.placeholder-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    display: inline-block;
+}
+
+.placeholder-content ul li {
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* ===== 加载中提示 ===== */
+.chart-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: #999;
+    font-size: 1rem;
+}
+
+.chart-loading::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #ddd;
+    border-top-color: #2b5fc3;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== 错误提示 ===== */
+.chart-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: #e15241;
+    font-size: 0.95rem;
+}
+
+.data-fallback-note {
+    font-size: 0.78rem;
+    color: #e67e22;
+    margin-top: 6px;
+    text-align: center;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+    .invest-container {
+        padding: 12px 10px 30px;
+    }
+
+    .invest-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-section {
+        padding: 16px 12px;
+    }
+
+    .asset-tab {
+        padding: 6px 12px;
+        font-size: 0.82rem;
+    }
+
+    .period-tab {
+        padding: 5px 10px;
+        font-size: 0.78rem;
+    }
+
+    .quote-snapshot {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .snapshot-item {
+        flex: 1 1 70px;
+        min-width: 60px;
+    }
+
+    .snapshot-value {
+        font-size: 0.95rem;
+    }
+
+    #main-chart {
+        height: 380px;
+        min-height: 300px;
+    }
+
+    .placeholder-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .asset-tabs {
+        gap: 4px;
+    }
+
+    .asset-tab {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+    .quote-snapshot {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .snapshot-item {
+        flex: 1 1 45%;
+    }
+
+    #main-chart {
+        height: 300px;
+    }
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .dashboard-section {
+        background: #1e1e2e;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .asset-tab {
+        background: #2a2a3e;
+        border-color: #3a3a4e;
+        color: #ccc;
+    }
+
+    .asset-tab:hover {
+        background: #333355;
+    }
+
+    .asset-tab.active {
+        background: #4475d9;
+        border-color: #4475d9;
+        color: #fff;
+    }
+
+    .period-tab {
+        background: #2a2a3e;
+        border-color: #3a3a4e;
+        color: #bbb;
+    }
+
+    .period-tab.active {
+        background: #333355;
+        color: #80a8ff;
+        border-color: #4475d9;
+    }
+
+    .quote-snapshot {
+        background: linear-gradient(135deg, #252535 0%, #2a2a3e 100%);
+        border-color: #3a3a4e;
+    }
+
+    .snapshot-label {
+        color: #999;
+    }
+
+    .snapshot-value {
+        color: #eee;
+    }
+
+    .quant-lab-placeholder {
+        background: #252535;
+        border-color: #3a3a4e;
+    }
+
+    .invest-header h1,
+    .section-title {
+        color: #eee;
+    }
+}

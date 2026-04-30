@@ -2,6 +2,18 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/) (语义化版本) 规范 (`x.x.x`)。
 
+## [1.11.0] - 2026-05-01
+
+### 新增 (Added)
+- 新增「📈 投资观察」栏目 (`invest/`)，支持实盘行情追踪与量化分析。
+- 第一个分栏「当前走势」支持建行黄金积存、英伟达 NVDA、纳斯达克 NASDAQ 三种资产的分时/日/周/月K线视图。
+- ECharts 可视化图表，含 dataZoom 缩放和平移、十字光标、行情快照卡片。
+- 第二个分栏「量化实验室」预留位，规划了量化回测、宏观数据看板、投资周报等技术特性。
+- Python 数据代理脚本 (`invest/scripts/scrape.py`)，用于爬取建行黄金 API 和 yfinance 美股数据。
+
+### 变更 (Changed)
+- 全站导航栏统一新增「📈 投资观察」入口（index.html, blog/, ai-tutorials/, games/, quick-nav/）。
+
 ## [1.10.0] - 2026-04-30
 
 ### 新增 (Added)

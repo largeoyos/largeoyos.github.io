@@ -97,11 +97,7 @@
     async function fetchCcbGold(period) {
         const url = getCcbUrl(period);
         try {
-            const resp = await fetch(url, {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                }
-            });
+            const resp = await fetch(url);
             if (!resp.ok) throw new Error('HTTP ' + resp.status);
             const text = await resp.text();
             // CCB 返回的是纯JSON数组（有时带 var xxx = 前缀的旧格式）
@@ -117,9 +113,51 @@
             }
             return data;
         } catch (e) {
-            console.warn('CCB API 请求失败:', e.message);
-            return null;
+            console.warn('CCB API 请求失败（跨域限制），尝试加载本地样本数据:', e.message);
+            // 跨域拦截时回退到本地样本数据（仅日线有样本，其余周期聚合展示）
+            try {
+                const fallbackResp = await fetch('data/ccb_gold_sample.json');
+                if (!fallbackResp.ok) throw new Error('样本文件加载失败');
+                const raw = await fallbackResp.json();
+                if (!Array.isArray(raw) || raw.length === 0) throw new Error('样本数据为空');
+                dataSourceNote.textContent = '数据来源：本地样本（网络受限，实时数据不可用）';
+                if (period === 'intraday' || period === 'day') return raw;
+                // 周线/月线：按自然周/月聚合
+                return aggregateCcbData(raw, period);
+            } catch (e2) {
+                console.warn('本地样本数据加载失败:', e2.message);
+                return null;
+            }
         }
+    }
+
+    function aggregateCcbData(daily, period) {
+        const buckets = {};
+        for (const d of daily) {
+            const date = new Date(d.time);
+            let key;
+            if (period === 'week') {
+                const startOfWeek = new Date(date);
+                startOfWeek.setDate(date.getDate() - date.getDay() + 1);
+                key = startOfWeek.toISOString().slice(0, 10);
+            } else {
+                key = d.time.slice(0, 7); // YYYY-MM
+            }
+            if (!buckets[key]) {
+                buckets[key] = { time: key, open: d.open, high: d.high, low: d.low, close: d.close, valueS: 0, count: 1 };
+            } else {
+                const b = buckets[key];
+                b.high = Math.max(b.high, d.high);
+                b.low = Math.min(b.low, d.low);
+                b.close = d.close;
+                b.valueS += d.valueS || 0;
+                b.count++;
+            }
+        }
+        return Object.values(buckets).map(b => ({
+            time: b.time, open: b.open, high: b.high, low: b.low, close: b.close,
+            valueS: parseFloat((b.valueS / b.count).toFixed(2)), CURR_COD: '156'
+        }));
     }
 
     /**
@@ -541,11 +579,10 @@
     }
 
     function showError(asset, period) {
-        // 尝试使用localStorage中的缓存数据
+        // 尝试使用内存缓存数据
         const cacheKey = `${asset}_${period}`;
         const cached = state.cache[cacheKey];
         if (cached && cached.length > 0) {
-            // 有缓存数据，静默使用
             const option = buildChartOption(cached, asset, period);
             if (option && state.chartInstance) {
                 state.chartInstance.setOption(option, true);
@@ -554,6 +591,23 @@
                 return;
             }
         }
+        // 无数据时在图表区域显示提示
+        if (state.chartInstance) {
+            state.chartInstance.setOption({
+                graphic: [{
+                    type: 'text',
+                    left: 'center',
+                    top: 'middle',
+                    style: {
+                        text: '数据加载失败\n网络受限或接口暂不可用',
+                        font: '16px sans-serif',
+                        fill: '#999',
+                        textAlign: 'center'
+                    }
+                }]
+            }, true);
+        }
+        dataSourceNote.textContent = '数据加载失败，请稍后刷新重试';
     }
 
     /**

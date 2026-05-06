@@ -329,8 +329,249 @@
     }
 }
 
-/* 暗色模式适配 */
+/* ================================================================
+   Tab 导航与面板布局 (v1.1.x JS 架构配套)
+   ================================================================ */
+
+/* Tab 导航条 */
+.tab-nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    padding: 4px;
+    background: #f5f5f5;
+    border-radius: 12px;
+}
+
+.tab-btn {
+    flex: 1 1 auto;
+    min-width: 80px;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background: #e8e8f0;
+    color: #333;
+}
+
+.tab-btn.active {
+    background: #2b5fc3;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(43, 95, 195, 0.3);
+}
+
+/* 面板网格 - 响应式卡片布局 */
+.panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+}
+
+/* 指标卡片 */
+.indicator-card {
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+}
+
+.indicator-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+}
+
+.indicator-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+    flex: 1;
+}
+
+.indicator-card .card-unit {
+    font-size: 0.78rem;
+    color: #999;
+}
+
+.indicator-card .card-body {
+    padding: 14px 18px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.indicator-card .card-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.indicator-card .card-value-mini {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+}
+
+/* 涨跌指示 */
+.change {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: 2px;
+}
+
+.change.up {
+    color: #e15241;
+}
+
+.change.down {
+    color: #22ab5b;
+}
+
+/* ===== 图表容器 (Chart.js 渲染核心——必须有显式高度！) ===== */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    flex: 1 0 220px;
+    min-height: 180px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 空数据状态 */
+.chart-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* 错误横幅 */
+.error-banner {
+    background: #fff3f0;
+    color: #e15241;
+    padding: 16px 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+    border: 1px solid #ffd4cc;
+}
+
+/* 版本标签 */
+.version-label {
+    font-size: 0.7rem;
+    color: #999;
+    margin-left: 8px;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+/* 黄金卡片特殊样式 */
+.gold-card .card-header {
+    background: linear-gradient(135deg, #faf8f0 0%, #fdf5e6 100%);
+}
+
+/* ===== 页脚 ===== */
+.invest-footer {
+    text-align: center;
+    padding: 30px 0 10px;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* 返回链接 */
+.back-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #2b5fc3;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ================================================================
+   响应式调整
+   ================================================================ */
+@media (max-width: 768px) {
+    .tab-btn {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+
+    .panel-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .chart-container {
+        height: 200px;
+        flex: 0 0 200px;
+    }
+
+    .indicator-card {
+        min-height: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-btn {
+        font-size: 0.72rem;
+        padding: 7px 8px;
+        min-width: 52px;
+    }
+
+    .chart-container {
+        height: 180px;
+        flex: 0 0 180px;
+    }
+
+    .indicator-card .card-title {
+        font-size: 0.9rem;
+    }
+
+    .indicator-card .card-value {
+        font-size: 1.2rem;
+    }
+}
+
+/* ================================================================
+   暗色模式适配 (新布局)
+   ================================================================ */
 @media (prefers-color-scheme: dark) {
+    /* 旧布局兼容 */
     .dashboard-section {
         background: #1e1e2e;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
@@ -385,5 +626,74 @@
     .invest-header h1,
     .section-title {
         color: #eee;
+    }
+
+    /* ===== 新布局暗色 ===== */
+    .tab-nav {
+        background: #1e1e2e;
+    }
+
+    .tab-btn {
+        color: #aaa;
+    }
+
+    .tab-btn:hover {
+        background: #2a2a4e;
+        color: #ddd;
+    }
+
+    .tab-btn.active {
+        background: #4475d9;
+        color: #fff;
+    }
+
+    .indicator-card {
+        background: #1e1e2e;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .indicator-card .card-header {
+        border-bottom-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .indicator-card .card-title,
+    .indicator-card .card-value {
+        color: #eee;
+    }
+
+    .indicator-card .card-unit,
+    .indicator-card .card-value-mini {
+        color: #888;
+    }
+
+    .gold-card .card-header {
+        background: linear-gradient(135deg, #252520 0%, #2a2820 100%);
+    }
+
+    .chart-container canvas {
+        /* dark mode Chart.js auto-adapts, but ensure container contrast */
+    }
+
+    .chart-empty {
+        color: #777;
+    }
+
+    .error-banner {
+        background: #3a2020;
+        border-color: #5a3030;
+        color: #ff8a7a;
+    }
+
+    .version-label {
+        background: #2a2a3e;
+        color: #888;
+    }
+
+    .invest-footer {
+        color: #777;
+    }
+
+    .back-link {
+        color: #80a8ff;
     }
 }

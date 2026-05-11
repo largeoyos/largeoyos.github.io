@@ -652,4 +652,7 @@ function initCalendar() {
     window.setInterval(updateClock, 1000);
 }
 
-initCalendar();
+// 只在包含日历组件的页面执行（主页），避免在其他页面抛 null 错误
+if (document.getElementById('calendar-grid')) {
+    initCalendar();
+}

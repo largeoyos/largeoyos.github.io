@@ -1,2 +1,8 @@
 # 忽略 npm 安装的依赖包目录
 node_modules/
+/.claude
+# 忽略日志文件
+logs/   
+/.github
+.clinerules
+.env

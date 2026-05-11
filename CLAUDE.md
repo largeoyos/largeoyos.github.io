@@ -18,9 +18,9 @@
 - **先问后猜**：需求或架构不明时，先提问，禁止假设。
 - **KISS原则**：始终先实现最简单的可行方案，不要过度设计或添加未要求的抽象。
 - **技术栈锁定**：
-  - 语言：[填入你的语言 ]
-  - 框架：[填示你的框架 ]
-  - 工具：[填入你的工具 ]
+  - 语言：HTML / CSS / JavaScript (ES6+)
+  - 框架：原生（子项目 React + Vite + TypeScript）
+  - 工具：Node.js (marked, jsdom, highlight.js)
 - **破坏性操作隐性锁定**：删除文件、覆盖数据库或执行部署前，必须在当前对话中获得明确的“是”或“确认”。
 
 ## 记忆与状态 (Memory)
@@ -78,8 +78,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Key Conventions
 
 ### Versioning & Changelog
-- 遵循 SemVer (`x.x.x`)：MAJOR=架构改变，MINOR=新功能/文章，PATCH=修复/样式
-- 每次更新必须更新 `CHANGELOG.md` 并在所有入口页面底部同步版本号
+- 遵循 SemVer (`x.x.x`)：
+  - **MAJOR**：重大架构改变、全新系统上线或重大交互重构
+  - **MINOR**：新文章、新拆解教程、新小游戏功能等特性增加
+  - **PATCH**：修复错别字、微调样式、修复 Bug
+- 每次迭代必须在 `CHANGELOG.md` 末尾增补新版本记录（版本号、日期、更改说明）
+- 同步更新入口页面底部版本标识：`index.html`, `blog/index.html`, `ai-tutorials/index.html`, `games/index.html`, `quick-nav/index.html`
 
 ### AI Tutorial Document Split Workflow
 1. 修改源文件：编辑 `待拆解/` 下的 Markdown（长文，使用 `##` 二级标题分隔章节）
@@ -99,8 +103,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Page Footer Version Sync
 修改版本号时，同步更新以下文件的页脚：`index.html`, `blog/index.html`, `ai-tutorials/index.html`, `games/index.html`, `quick-nav/index.html`
 
+### Responsive Design
+确保新添加的 HTML/CSS 满足移动端与桌面端的自适应要求
+
 ### Path References
 所有资源引用使用相对路径（如 `../css/style.css`），确保 GitHub Pages 子路径兼容
+
+### Markdown & 代码高亮
+- 根项目前端渲染 Markdown 使用 `marked`，代码高亮使用 `highlight.js`
+- 后端/脚本处理（如 `auto_split_docs.js`）也依赖 `marked` 与 `jsdom`
 
 ## Tech Details
 
@@ -118,3 +129,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Dev Dependencies
 - Node.js 脚本使用 `marked`（Markdown 解析）、`jsdom`（DOM 操作）、`highlight.js`（代码高亮）
 - 根项目无构建工具，纯静态 HTML
+
+## 识图能力 (Vision)
+
+底层模型无原生识图能力，遇到图片时使用 `vision.js` 调用外部 vision API：
+
+```bash
+node vision.js "<图片路径>" [问题]       # 默认日常模型（最便宜）
+node vision.js "<图片路径>" -t pro       # 复杂任务用更强模型
+node vision.js --url "<图片链接>" -t fallback  # 备用路由
+```
+
+### Tiers（按价格排序）
+| Tier | 首选模型 | 适用场景 | 自动降级 |
+|------|---------|---------|---------|
+| `daily` | gemini-3-flash-preview | 日常识图，最便宜 | gemini-3.1-pro-preview 兜底 |
+| `pro` | gemini-3.1-pro-preview | 复杂图片分析 | gemini-3-pro-preview 备选 |
+| `fallback` | 全模型轮询 | 上述都连不上时 | Flash → Pro → Qwen → GPT 顺序试 |
+
+### 触发场景
+- 用户分享图片路径（本地或网络 URL）
+- 用户要求分析、描述、识别图片内容
+- 遇到截图、示意图等需要视觉理解的任务

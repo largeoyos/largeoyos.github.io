@@ -2,6 +2,11 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/) (语义化版本) 规范 (`x.x.x`)。
 
+## [1.13.0] - 2026-05-29
+
+### 新增 (Added)
+- 新增博客文章《C++ 中 std::string::npos 详解》。
+
 ## [1.12.0] - 2026-05-06
 
 ### 移除 (Removed)

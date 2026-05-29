@@ -8,3 +8,4 @@ logs/
 .env
 vision.js
 temp_ccb.html
+/.vscode

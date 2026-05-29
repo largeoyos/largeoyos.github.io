@@ -64,5 +64,11 @@
     "title": "C++ 中 std::string::npos 详解",
     "date": "2026-05-29",
     "category": "技术"
+  },
+  {
+    "id": "min-max-element",
+    "title": "C++ 中 std::min_element / std::max_element 用法详解",
+    "date": "2026-05-29",
+    "category": "技术"
   }
 ]

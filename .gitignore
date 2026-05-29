@@ -2,7 +2,9 @@
 node_modules/
 /.claude
 # 忽略日志文件
-logs/   
+logs/
 /.github
 .clinerules
 .env
+vision.js
+temp_ccb.html

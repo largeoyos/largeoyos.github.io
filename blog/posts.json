@@ -56,7 +56,19 @@
   {
     "id": "micro-knowledge",
     "title": "📌 细小知识记录",
-    "date": "2026-04-28",
+    "date": "2026-05-29",
     "category": "笔记"
+  },
+  {
+    "id": "string-npos",
+    "title": "C++ 中 std::string::npos 详解",
+    "date": "2026-05-29",
+    "category": "技术"
+  },
+  {
+    "id": "min-max-element",
+    "title": "C++ 中 std::min_element / std::max_element 用法详解",
+    "date": "2026-05-29",
+    "category": "技术"
   }
 ]

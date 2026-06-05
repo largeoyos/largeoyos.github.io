@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具箱 | LarGeoYos</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .tools-intro { margin-top: 2rem; text-align: center; }
+        @media (max-width: 768px) {
+            .global-nav { display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap; justify-content: flex-start; padding: 10px 12px; -webkit-overflow-scrolling: touch; }
+            .global-nav a { margin: 0; flex: 0 0 auto; padding: 0.35rem 0.55rem; border-radius: 999px; background: rgba(255,255,255,0.06); }
+            header { padding: 2.5rem 1rem 3.2rem; }
+            .container { margin-top: -2.1rem; padding: 0 14px; }
+            .profile-card { padding: 1.2rem; text-align: left; }
+            .stats-grid { grid-template-columns: 1fr; gap: 14px; }
+            .card { padding: 1.15rem; }
+            .tag { margin-top: 0.4rem; margin-right: 0.35rem; padding: 4px 10px; }
+            .back-home-link { display: block; width: 100%; box-sizing: border-box; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="global-nav">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="../blog/index.html">📝 博客大厅</a>
+    <a href="../ai-tutorials/index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+    <a href="./index.html">🔧 工具箱</a>
+    <a href="../quick-nav/index.html">🔗 快捷导航</a>
+</nav>
+
+<header>
+    <h1>工具箱</h1>
+    <p>在线计算、生成与实用工具</p>
+</header>
+
+<div class="container">
+    <div class="profile-card">
+        <h2>🔧 欢迎来到工具箱</h2>
+        <p>这里收集了我开发的各类在线工具，可直接在浏览器中使用。</p>
+    </div>
+
+    <div class="stats-grid">
+        <a href="./matrix-calculator/index.html" class="card" style="border-left-color: #6c5ce7;">
+            <h3>🧮 矩阵计算器</h3>
+            <p>符号/数值双模矩阵工作站。支持矩阵定义、四则运算、LU/QR/特征值/SVD/LDL 分解，结果 LaTeX 渲染。</p>
+            <span class="tag">math.js</span><span class="tag">KaTeX</span>
+        </a>
+
+        <a href="./random-number/index.html" class="card" style="border-left-color: #00b894;">
+            <h3>🎲 随机数助手</h3>
+            <p>随机数生成器（整数/小数/复数）+ 数字炸弹小游戏（整数/复数双模式 Canvas 博弈）。</p>
+            <span class="tag">Canvas</span><span class="tag">游戏</span>
+        </a>
+    </div>
+
+    <div class="tools-intro">
+        <a href="../index.html" class="card back-home-link">
+            返回主页
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Largeoyos &middot; Built with &hearts; and Hosted on GitHub Pages</p>
+    <p><small>Version 1.13.0 &mdash; 新增工具箱子空间</small></p>
+</footer>
+
+</body>
+</html>

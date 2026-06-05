@@ -2,6 +2,15 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/) (语义化版本) 规范 (`x.x.x`)。
 
+## [1.13.0] - 2026-05-29
+
+### 新增 (Added)
+- 新增「🔧 工具箱」子空间 (`tools/`)，包含两款在线工具：
+  - **矩阵计算器**（`tools/matrix-calculator/`）：符号/数值双模，支持矩阵仓库、四则运算（A+B/A×B/A⁻¹/Aᵀ）、五种分解（LU/QR/EIGEN/SVD/LDL），结果 KaTeX 渲染。
+  - **随机数助手**（`tools/random-number/`）：随机数生成器（整数/浮点数/复数）+ 数字炸弹小游戏（整数/复数双模式 Canvas 博弈，含悬停提示与范围收缩动画）。
+- 全站导航栏统一新增「🔧 工具箱」入口（index.html, blog/, ai-tutorials/, games/, quick-nav/ 及子页面）。
+- 首页项目子空间新增工具箱入口卡片。
+
 ## [1.12.0] - 2026-05-06
 
 ### 移除 (Removed)

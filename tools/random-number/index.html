@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机数助手 | LarGeoYos</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        * { box-sizing: border-box; }
+
+        body { background: #11111b; }
+        footer { color: #6c7086; }
+
+        .rn-container {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        /* ---- 选项卡 ---- */
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px 0;
+            background: #313244;
+            color: #6c7086;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tab-btn:first-child { border-radius: 12px 0 0 0; }
+        .tab-btn:last-child { border-radius: 0 12px 0 0; }
+        .tab-btn.active {
+            background: #1e1e2e;
+            color: #cdd6f4;
+        }
+        .tab-btn:hover:not(.active) { background: #45475a; color: #a6adc8; }
+
+        .tab-panel {
+            display: none;
+            background: #1e1e2e;
+            border-radius: 0 0 12px 12px;
+            padding: 24px;
+        }
+        .tab-panel.active { display: block; }
+
+        /* ---- 生成器 ---- */
+        .gen-display {
+            background: #11111b;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gen-display .gen-value {
+            font-size: 36px;
+            color: #89b4fa;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        .gen-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 14px;
+            width: 100%;
+        }
+        .gen-grid span {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #89b4fa;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .gen-display .gen-placeholder {
+            color: #6c7086;
+            font-size: 18px;
+        }
+
+        .gen-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .gen-controls label {
+            color: #a6adc8;
+            font-size: 13px;
+        }
+        .gen-controls input {
+            width: 70px;
+            padding: 8px;
+            background: #313244;
+            color: #cdd6f4;
+            border: 1px solid #45475a;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .gen-controls input:focus { outline: none; border-color: #89b4fa; }
+
+        .gen-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .gen-btns button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-gen-int { background: #89b4fa; color: #1e1e2e; }
+        .btn-gen-int:hover { background: #b4d0fb; }
+        .btn-gen-float { background: #a6e3a1; color: #1e1e2e; }
+        .btn-gen-float:hover { background: #c5f0c2; }
+        .btn-gen-complex { background: #fab387; color: #1e1e2e; }
+        .btn-gen-complex:hover { background: #fbc9a9; }
+
+        /* ---- 炸弹游戏 ---- */
+        .bomb-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .bomb-controls label { color: #a6adc8; font-size: 13px; }
+        .bomb-controls input {
+            width: 70px;
+            padding: 8px;
+            background: #313244;
+            color: #cdd6f4;
+            border: 1px solid #45475a;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .bomb-controls input:focus { outline: none; border-color: #89b4fa; }
+
+        .bomb-status {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 15px;
+            color: #cdd6f4;
+        }
+        .bomb-count {
+            text-align: center;
+            margin-bottom: 12px;
+            color: #a6adc8;
+            font-size: 13px;
+        }
+
+        .bomb-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .bomb-btns button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-mode-int { background: #89b4fa; color: #1e1e2e; }
+        .btn-mode-int:hover { background: #b4d0fb; }
+        .btn-mode-complex { background: #f38ba8; color: #1e1e2e; }
+        .btn-mode-complex:hover { background: #f6a9bf; }
+
+        .btn-restart {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.15s;
+            background: #f38ba8;
+            color: #1e1e2e;
+        }
+        .btn-restart:hover { background: #f6a9bf; }
+
+        .bomb-canvas-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .bomb-canvas-wrap canvas {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #45475a;
+            border-radius: 10px;
+            background: #11111b;
+            cursor: crosshair;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .tab-panel { padding: 16px; }
+            .gen-display { padding: 24px 16px; }
+            .gen-display .gen-value { font-size: 26px; }
+            .gen-controls { gap: 8px; }
+            .gen-controls input { width: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="global-nav">
+    <a href="../../index.html">🏠 工作主页</a>
+    <a href="../../blog/index.html">📝 博客大厅</a>
+    <a href="../../ai-tutorials/index.html">📚 AI 教学</a>
+    <a href="../../games/index.html">🎮 游戏大厅</a>
+    <a href="../index.html">🔧 工具箱</a>
+    <a href="../../quick-nav/index.html">🔗 快捷导航</a>
+</nav>
+
+<header>
+    <h1>🎲 随机数助手</h1>
+    <p>随机数生成器 + 数字炸弹小游戏</p>
+</header>
+
+<div class="container rn-container">
+    <!-- 选项卡 -->
+    <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" data-tab="generator">随机数生成器</button>
+        <button class="tab-btn" data-tab="bomb">数字炸弹小游戏</button>
+    </div>
+
+    <!-- 面板：生成器 -->
+    <div class="tab-panel active" id="panel-generator">
+        <div class="gen-display" id="genDisplay">
+            <div class="gen-value" id="genResult">READY</div>
+            <div class="gen-grid" id="genGrid" style="display:none;"></div>
+        </div>
+        <div class="gen-controls">
+            <label>最小:</label>
+            <input type="text" id="genMin" value="-100">
+            <label>最大:</label>
+            <input type="text" id="genMax" value="100">
+            <label>小数位:</label>
+            <input type="number" id="genPrec" value="2" min="0" max="15">
+            <label>生成数量:</label>
+            <input type="number" id="genCount" value="1" min="1" max="100">
+        </div>
+        <div class="gen-btns">
+            <button class="btn-gen-int" id="genInt">生成整数</button>
+            <button class="btn-gen-float" id="genFloat">生成小数</button>
+            <button class="btn-gen-complex" id="genComplex">生成复数</button>
+        </div>
+    </div>
+
+    <!-- 面板：炸弹游戏 -->
+    <div class="tab-panel" id="panel-bomb">
+        <div class="bomb-controls">
+            <label>范围:</label>
+            <input type="text" id="bombMin" value="-100">
+            <label>~</label>
+            <input type="text" id="bombMax" value="100">
+        </div>
+        <div class="bomb-status" id="bombStatus">设置范围后选择模式开始</div>
+        <div class="bomb-count" id="bombCount">已猜次数: 0</div>
+        <div class="bomb-btns">
+            <button class="btn-mode-int" id="bombModeInt">模式: 整数</button>
+            <button class="btn-mode-complex" id="bombModeComplex">模式: 复数</button>
+        </div>
+        <div class="bomb-restart" id="bombRestartWrap" style="display:none; text-align:center; margin-bottom:12px;">
+            <button class="btn-restart" id="bombRestartBtn">🔄 重新开始</button>
+        </div>
+        <div class="bomb-canvas-wrap">
+            <canvas id="bombCanvas" width="500" height="500"></canvas>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Largeoyos &middot; Built with &hearts; and Hosted on GitHub Pages</p>
+    <p><small>Version 1.13.0 &mdash; 新增工具箱子空间</small></p>
+</footer>
+
+<script>
+(function() {
+    'use strict';
+
+    // ======================== 选项卡 ========================
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ======================== 随机数生成器 ========================
+    const genResult = document.getElementById('genResult');
+    const genGrid = document.getElementById('genGrid');
+    const genDisplay = document.getElementById('genDisplay');
+    const genMin = document.getElementById('genMin');
+    const genMax = document.getElementById('genMax');
+    const genPrec = document.getElementById('genPrec');
+    const genCount = document.getElementById('genCount');
+
+    function getGenRange() {
+        const min = parseFloat(genMin.value) || 0;
+        const max = parseFloat(genMax.value) || 0;
+        return { min: Math.min(min, max), max: Math.max(min, max) };
+    }
+
+    function getGenCount() {
+        return Math.max(1, Math.min(100, parseInt(genCount.value) || 1));
+    }
+
+    function showGenResults(vals) {
+        if (vals.length === 1) {
+            genResult.textContent = vals[0];
+            genResult.style.display = '';
+            genGrid.style.display = 'none';
+        } else {
+            genGrid.innerHTML = vals.map(v => `<span>${v}</span>`).join('');
+            genGrid.style.display = 'flex';
+            genResult.style.display = 'none';
+        }
+    }
+
+    document.getElementById('genInt').addEventListener('click', () => {
+        const { min, max } = getGenRange();
+        const count = getGenCount();
+        const vals = [];
+        for (let i = 0; i < count; i++) {
+            vals.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+        showGenResults(vals);
+    });
+
+    document.getElementById('genFloat').addEventListener('click', () => {
+        const { min, max } = getGenRange();
+        const prec = Math.max(0, parseInt(genPrec.value) || 0);
+        const count = getGenCount();
+        const vals = [];
+        for (let i = 0; i < count; i++) {
+            vals.push((Math.random() * (max - min) + min).toFixed(prec));
+        }
+        showGenResults(vals);
+    });
+
+    document.getElementById('genComplex').addEventListener('click', () => {
+        const { min, max } = getGenRange();
+        const prec = Math.max(0, parseInt(genPrec.value) || 0);
+        const count = getGenCount();
+        const vals = [];
+        for (let i = 0; i < count; i++) {
+            const re = (Math.random() * (max - min) + min).toFixed(prec);
+            const im = (Math.random() * (max - min) + min).toFixed(prec);
+            vals.push(re + (im >= 0 ? '+' : '') + im + 'i');
+        }
+        showGenResults(vals);
+    });
+
+    // ======================== 数字炸弹游戏 ========================
+    const canvas = document.getElementById('bombCanvas');
+    const ctx = canvas.getContext('2d');
+    const bombMin = document.getElementById('bombMin');
+    const bombMax = document.getElementById('bombMax');
+    const bombStatus = document.getElementById('bombStatus');
+    const bombCount = document.getElementById('bombCount');
+    const bombRestartWrap = document.getElementById('bombRestartWrap');
+    const bombRestartBtn = document.getElementById('bombRestartBtn');
+
+    let bombGameEnded = false;
+
+    const bombState = {
+        running: false,
+        mode: 'INT',        // 'INT' | 'COMPLEX'
+        target: 0,
+        targetRe: 0,
+        targetIm: 0,
+        reMin: -100, reMax: 100,
+        imMin: -100, imMax: 100,
+        guessCount: 0,
+        // 动画插值
+        vReMin: -100, vReMax: 100,
+        vImMin: -100, vImMax: 100,
+        animating: false,
+        animStart: 0,
+        animFrom: {},
+        animTo: {},
+        hoverX: null,
+        hoverY: null,
+    };
+
+    let animFrameId = null;
+
+    function getBombRange() {
+        const min = parseFloat(bombMin.value) || -100;
+        const max = parseFloat(bombMax.value) || 100;
+        return { min: Math.min(min, max), max: Math.max(min, max) };
+    }
+
+    function startBombGame(mode) {
+        const { min, max } = getBombRange();
+        if (min >= max) {
+            bombStatus.textContent = '错误：最小必须小于最大';
+            return;
+        }
+
+        bombGameEnded = false;
+        bombRestartWrap.style.display = 'none';
+        bombState.running = true;
+        bombState.mode = mode;
+        bombState.reMin = min;
+        bombState.reMax = max;
+        bombState.imMin = min;
+        bombState.imMax = max;
+        bombState.vReMin = min;
+        bombState.vReMax = max;
+        bombState.vImMin = min;
+        bombState.vImMax = max;
+        bombState.guessCount = 0;
+        bombState.animating = false;
+
+        if (mode === 'INT') {
+            bombState.target = Math.floor(Math.random() * (max - min + 1)) + min;
+        } else {
+            bombState.targetRe = Math.floor(Math.random() * (max - min + 1)) + min;
+            bombState.targetIm = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        bombCount.textContent = '已猜次数: 0';
+        bombStatus.textContent = '游戏开始！点击画布进行猜测';
+        bombState.hoverX = null;
+        bombState.hoverY = null;
+        drawBombCanvas();
+    }
+
+    function easeOutExpo(t) {
+        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    function animateRange(fromReMin, fromReMax, fromImMin, fromImMax, toReMin, toReMax, toImMin, toImMax) {
+        bombState.animating = true;
+        bombState.animStart = performance.now();
+        bombState.animFrom = { reMin: fromReMin, reMax: fromReMax, imMin: fromImMin, imMax: fromImMax };
+        bombState.animTo = { reMin: toReMin, reMax: toReMax, imMin: toImMin, imMax: toImMax };
+
+        function step(time) {
+            const elapsed = time - bombState.animStart;
+            const duration = 600;
+            const t = Math.min(elapsed / duration, 1);
+            const e = easeOutExpo(t);
+
+            bombState.vReMin = bombState.animFrom.reMin + (bombState.animTo.reMin - bombState.animFrom.reMin) * e;
+            bombState.vReMax = bombState.animFrom.reMax + (bombState.animTo.reMax - bombState.animFrom.reMax) * e;
+            bombState.vImMin = bombState.animFrom.imMin + (bombState.animTo.imMin - bombState.animFrom.imMin) * e;
+            bombState.vImMax = bombState.animFrom.imMax + (bombState.animTo.imMax - bombState.animFrom.imMax) * e;
+
+            drawBombCanvas();
+
+            if (t < 1) {
+                animFrameId = requestAnimationFrame(step);
+            } else {
+                bombState.vReMin = bombState.animTo.reMin;
+                bombState.vReMax = bombState.animTo.reMax;
+                bombState.vImMin = bombState.animTo.imMin;
+                bombState.vImMax = bombState.animTo.imMax;
+                bombState.animating = false;
+                drawBombCanvas();
+            }
+        }
+
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        animFrameId = requestAnimationFrame(step);
+    }
+
+    function drawBombCanvas() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        if (!bombState.running && !bombGameEnded) return;
+
+        const pad = 60;
+        const drawW = w - 2 * pad;
+        const drawH = h - 2 * pad;
+
+        function toX(val) {
+            const r = bombState.vReMax - bombState.vReMin;
+            return r !== 0 ? pad + (val - bombState.vReMin) / r * drawW : pad;
+        }
+        function toY(val) {
+            const r = bombState.vImMax - bombState.vImMin;
+            return r !== 0 ? pad + drawH - (val - bombState.vImMin) / r * drawH : pad;
+        }
+
+        // 背景网格
+        ctx.strokeStyle = '#262837';
+        ctx.lineWidth = 1;
+        const viewW = bombState.vReMax - bombState.vReMin;
+        let step = viewW > 100 ? 20 : (viewW > 20 ? 10 : 2);
+        step = Math.max(step, 1);
+        const start = Math.floor(bombState.vReMin / step) * step;
+        const end = Math.ceil(bombState.vReMax / step) * step + step;
+        ctx.beginPath();
+        for (let v = start; v <= end; v += step) {
+            const px = toX(v);
+            if (px >= pad && px <= pad + drawW) {
+                ctx.moveTo(px, pad);
+                ctx.lineTo(px, pad + drawH);
+            }
+        }
+        ctx.stroke();
+
+        if (bombState.mode === 'INT') {
+            // 线段
+            const yMid = h / 2;
+            const x1 = toX(bombState.vReMin);
+            const x2 = toX(bombState.vReMax);
+            const xStart = toX(bombState.reMin);
+            const xEnd = toX(bombState.reMax);
+
+            // 背景线（剩余范围）
+            ctx.strokeStyle = '#313244';
+            ctx.lineWidth = 12;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(x1, yMid);
+            ctx.lineTo(x2, yMid);
+            ctx.stroke();
+
+            // 活跃范围
+            ctx.strokeStyle = '#89b4fa';
+            ctx.lineWidth = 12;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(xStart, yMid);
+            ctx.lineTo(xEnd, yMid);
+            ctx.stroke();
+
+            // 端点数字
+            ctx.fillStyle = '#cdd6f4';
+            ctx.font = 'bold 13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(Math.round(bombState.reMin), xStart, yMid + 35);
+            ctx.fillText(Math.round(bombState.reMax), xEnd, yMid + 35);
+
+        } else {
+            // COMPLEX: 矩形
+            const x1 = toX(bombState.reMin);
+            const x2 = toX(bombState.reMax);
+            const y1 = toY(bombState.imMin);
+            const y2 = toY(bombState.imMax);
+
+            ctx.fillStyle = 'rgba(243, 139, 168, 0.2)';
+            ctx.strokeStyle = '#f38ba8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.rect(x1, Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+            ctx.fill();
+            ctx.stroke();
+
+            // 坐标标签
+            ctx.fillStyle = '#fab387';
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(Math.round(bombState.reMin), x1 - 30, (y1 + y2) / 2 + 4);
+            ctx.fillText(Math.round(bombState.reMax), x2 + 30, (y1 + y2) / 2 + 4);
+            ctx.fillText(Math.round(bombState.imMax) + 'i', (x1 + x2) / 2, Math.min(y1, y2) - 10);
+            ctx.fillText(Math.round(bombState.imMin) + 'i', (x1 + x2) / 2, Math.max(y1, y2) + 20);
+        }
+
+        // 悬停气泡
+        if (bombState.hoverX !== null && bombState.hoverY !== null) {
+            const padR = 60;
+            const dw = w - 2 * padR;
+            const dh = h - 2 * padR;
+            const hVal = bombState.vReMin + ((bombState.hoverX - padR) / dw) * (bombState.vReMax - bombState.vReMin);
+            const hValIm = bombState.vImMin + ((padR + dh - bombState.hoverY) / dh) * (bombState.vImMax - bombState.vImMin);
+
+            let text;
+            if (bombState.mode === 'INT') {
+                text = String(Math.round(hVal));
+            } else {
+                text = `${Math.round(hVal)}, ${Math.round(hValIm)}i`;
+            }
+
+            const tw = ctx.measureText(text).width;
+            const bx = bombState.hoverX + 15;
+            const by = bombState.hoverY - 45;
+
+            ctx.fillStyle = 'rgba(44, 62, 80, 0.85)';
+            ctx.beginPath();
+            const rw = tw + 20;
+            const rh = 28;
+            const rr = 6;
+            ctx.roundRect(bx, by, rw, rh, rr);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, bx + rw / 2, by + 19);
+        }
+    }
+
+    // Canvas 鼠标事件
+    canvas.addEventListener('mousemove', (e) => {
+        if (!bombState.running) return;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        bombState.hoverX = (e.clientX - rect.left) * scaleX;
+        bombState.hoverY = (e.clientY - rect.top) * scaleY;
+        drawBombCanvas();
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+        bombState.hoverX = null;
+        bombState.hoverY = null;
+        drawBombCanvas();
+    });
+
+    canvas.addEventListener('click', (e) => {
+        if (!bombState.running || bombGameEnded) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const x = (e.clientX - rect.left) * scaleX;
+        const y = (e.clientY - rect.top) * scaleY;
+
+        const pad = 60;
+        const dw = canvas.width - 2 * pad;
+        const dh = canvas.height - 2 * pad;
+
+        const clickRe = Math.round(
+            bombState.reMin + ((x - pad) / dw) * (bombState.reMax - bombState.reMin)
+        );
+        const clickIm = Math.round(
+            bombState.imMin + ((pad + dh - y) / dh) * (bombState.imMax - bombState.imMin)
+        );
+
+        bombState.guessCount++;
+        bombCount.textContent = `已猜次数: ${bombState.guessCount}`;
+
+        let nReMin = bombState.reMin, nReMax = bombState.reMax;
+        let nImMin = bombState.imMin, nImMax = bombState.imMax;
+
+        if (bombState.mode === 'INT') {
+            if (clickRe === bombState.target) {
+                bombStatus.textContent = `💥 BOOM! 炸弹是 ${bombState.target}，总猜测次数: ${bombState.guessCount}`;
+                bombGameEnded = true;
+                bombRestartWrap.style.display = 'block';
+                return;
+            }
+            if (clickRe < bombState.target) nReMin = clickRe + 1;
+            else nReMax = clickRe - 1;
+
+            if (nReMin === nReMax) {
+                bombStatus.textContent = `🎯 绝杀! 只剩数字 ${nReMin} 了！`;
+                animateRange(bombState.vReMin, bombState.vReMax, 0, 0, nReMin, nReMax, 0, 0);
+                bombState.reMin = nReMin; bombState.reMax = nReMax;
+                bombGameEnded = true;
+                bombRestartWrap.style.display = 'block';
+                return;
+            }
+        } else {
+            if (clickRe === bombState.targetRe && clickIm === bombState.targetIm) {
+                bombStatus.textContent = `💥 BOOM! 炸弹是 ${bombState.targetRe}+${bombState.targetIm}i，总次数: ${bombState.guessCount}`;
+                bombGameEnded = true;
+                bombRestartWrap.style.display = 'block';
+                return;
+            }
+            if (clickRe < bombState.targetRe) nReMin = clickRe + 1;
+            else if (clickRe > bombState.targetRe) nReMax = clickRe - 1;
+            if (clickIm < bombState.targetIm) nImMin = clickIm + 1;
+            else if (clickIm > bombState.targetIm) nImMax = clickIm - 1;
+
+            if (nReMin === nReMax && nImMin === nImMax) {
+                bombStatus.textContent = `🎯 绝杀! 坐标 ${nReMin}+${nImMin}i 已被锁死！`;
+                animateRange(bombState.vReMin, bombState.vReMax, bombState.vImMin, bombState.vImMax,
+                             nReMin, nReMax, nImMin, nImMax);
+                bombState.reMin = nReMin; bombState.reMax = nReMax;
+                bombState.imMin = nImMin; bombState.imMax = nImMax;
+                bombGameEnded = true;
+                bombRestartWrap.style.display = 'block';
+                return;
+            }
+        }
+
+        animateRange(bombState.vReMin, bombState.vReMax, bombState.vImMin, bombState.vImMax,
+                     nReMin, nReMax, nImMin, nImMax);
+        bombState.reMin = nReMin; bombState.reMax = nReMax;
+        bombState.imMin = nImMin; bombState.imMax = nImMax;
+    });
+
+    // Canvas roundRect polyfill for older browsers
+    if (!CanvasRenderingContext2D.prototype.roundRect) {
+        CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+            this.moveTo(x + r, y);
+            this.arcTo(x + w, y, x + w, y + h, r);
+            this.arcTo(x + w, y + h, x, y + h, r);
+            this.arcTo(x, y + h, x, y, r);
+            this.arcTo(x, y, x + w, y, r);
+            return this;
+        };
+    }
+
+    document.getElementById('bombModeInt').addEventListener('click', () => startBombGame('INT'));
+    document.getElementById('bombModeComplex').addEventListener('click', () => startBombGame('COMPLEX'));
+    bombRestartBtn.addEventListener('click', () => startBombGame(bombState.mode));
+
+})();
+</script>
+</body>
+</html>

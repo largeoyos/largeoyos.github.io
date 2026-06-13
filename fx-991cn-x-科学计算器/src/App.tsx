@@ -12,6 +12,16 @@ import {
   VolumeX, 
   Coffee 
 } from 'lucide-react';
+import {
+  APP_CAPABILITIES,
+  SCIENTIFIC_CONSTANTS,
+  UNIT_CONVERSIONS,
+  convertUnit,
+  evaluateExpression,
+  factorizeInteger,
+  formatCasioValue as formatCoreValue,
+  solveForVariable,
+} from './core/calculator';
 
 // --- MATHS AUXILIARY HELPERS ---
 function fact(n: number): number {
@@ -277,6 +287,61 @@ function formatCasioValue(val: number): string {
   return String(Number(formatted));
 }
 
+type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE' | 'MAIN' | 'OPTN' | 'SOLVE' | 'CALC';
+type CalcMode = 'Calculate' | 'Statistics' | 'Distribution' | 'Spreadsheet' | 'Function Table' | 'Equation' | 'Inequality' | 'Complex' | 'Base-N' | 'Matrix' | 'Vector' | 'Ratio';
+
+const STORAGE_KEY = 'fx991cnx-registers-v1';
+const VARIABLE_NAMES = ['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M'];
+const DEFAULT_VARIABLES: Record<string, number> = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0 };
+const MODE_OPTIONS: CalcMode[] = ['Calculate', 'Statistics', 'Distribution', 'Spreadsheet', 'Function Table', 'Equation', 'Inequality', 'Complex', 'Base-N', 'Matrix', 'Vector', 'Ratio'];
+const OPTN_SAMPLES = [
+  { key: '1', label: 'd/dx', insert: 'd(X,0)' },
+  { key: '2', label: 'Integral', insert: 'integral(X,0,1)' },
+  { key: '3', label: 'Sum', insert: 'sum(X,1,10)' },
+  { key: '4', label: 'Normal CDF', insert: 'normalcdf(-1,1,0,1)' },
+  { key: '5', label: 'Binomial PDF', insert: 'binompdf(2,5,0.5)' },
+  { key: '6', label: 'Poisson PDF', insert: 'poissonpdf(2,3)' },
+];
+
+function loadStoredVariables(): Record<string, number> {
+  if (typeof window === 'undefined') return DEFAULT_VARIABLES;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return DEFAULT_VARIABLES;
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    return VARIABLE_NAMES.reduce((acc, name) => {
+      const value = Number(parsed[name]);
+      acc[name] = Number.isFinite(value) ? value : 0;
+      return acc;
+    }, { ...DEFAULT_VARIABLES });
+  } catch {
+    return DEFAULT_VARIABLES;
+  }
+}
+
+function extractVariables(input: string): string[] {
+  const found = new Set<string>();
+  for (const match of input.matchAll(/\b[A-FXYM]\b/g)) {
+    found.add(match[0].toUpperCase());
+  }
+  return [...found];
+}
+
+function toLatexText(input: string): string {
+  return input
+    .replaceAll('×', ' \\times ')
+    .replaceAll('÷', ' \\div ')
+    .replaceAll('π', '\\pi')
+    .replaceAll('√(', '\\sqrt(')
+    .replaceAll('sin⁻¹', '\\sin^{-1}')
+    .replaceAll('cos⁻¹', '\\cos^{-1}')
+    .replaceAll('tan⁻¹', '\\tan^{-1}')
+    .replaceAll('²', '^{2}')
+    .replaceAll('³', '^{3}')
+    .replaceAll('⁻¹', '^{-1}')
+    .replace(/\^/g, '^');
+}
+
 // --- MAIN APP ---
 export default function App() {
   // Calculator logical states
@@ -285,8 +350,11 @@ export default function App() {
   const [cursorIdx, setCursorIdx] = useState<number>(0);
   const [ans, setAns] = useState<number>(0);
   const [resultVal, setResultVal] = useState<string>("0");
-  const [variables, setVariables] = useState<Record<string, number>>({
-    A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0
+  const [variables, setVariables] = useState<Record<string, number>>(() => loadStoredVariables());
+  const [calcMode, setCalcMode] = useState<CalcMode>('Calculate');
+  const [latexEnabled, setLatexEnabled] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.localStorage.getItem('fx991cnx-latex-display') === '1';
   });
 
   // Mode helpers
@@ -296,7 +364,7 @@ export default function App() {
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
 
   // Advanced contextual screens
-  const [activeMenu, setActiveMenu] = useState<'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE'>('NONE');
+  const [activeMenu, setActiveMenu] = useState<ActiveMenu>('NONE');
   const [menuScrollIdx, setMenuScrollIdx] = useState<number>(0);
   const [historyList, setHistoryList] = useState<Array<{ expr: string; res: string; timestamp: string }>>([
     { expr: "sin(30) × 4", res: "2", timestamp: "15:20" },
@@ -308,6 +376,22 @@ export default function App() {
 
   // Input textbox reference
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(variables));
+    } catch {
+      // localStorage can be unavailable in private or locked-down contexts.
+    }
+  }, [variables]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('fx991cnx-latex-display', latexEnabled ? '1' : '0');
+    } catch {
+      // Ignore persistence failures.
+    }
+  }, [latexEnabled]);
 
   // Physical Sound Synthesizer via Web Audio API
   const triggerClickAudio = () => {
@@ -332,6 +416,90 @@ export default function App() {
     } catch {
       // Ignored if browser block constraints met
     }
+  };
+
+  const evaluateWithVariables = (formula: string, nextVariables: Record<string, number>) => {
+    const evalRes = evaluateExpression(formula, { variables: nextVariables, ans, angleMode });
+    if (evalRes.success) {
+      setAns(evalRes.value);
+      setResultVal(evalRes.displayText);
+      const date = new Date();
+      const timestamp = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      setHistoryList(prev => [
+        { expr: formula, res: evalRes.displayText, timestamp },
+        ...prev.slice(0, 19)
+      ]);
+    } else {
+      setResultVal(evalRes.displayText);
+    }
+  };
+
+  const storeCurrentResultTo = (name: string) => {
+    const value = Number(resultVal);
+    if (!Number.isFinite(value)) {
+      setResultVal("Syntax ERROR");
+      return;
+    }
+    setVariables(prev => ({ ...prev, [name]: value }));
+    setResultVal(`Stored ${name}=${formatCoreValue(value)}`);
+  };
+
+  const runSolveFor = (name: string) => {
+    const solveRes = solveForVariable(expr, name, { variables, ans, angleMode });
+    if (solveRes.success) {
+      setAns(solveRes.value);
+      setVariables(prev => ({ ...prev, [name]: solveRes.value }));
+      setResultVal(solveRes.displayText);
+    } else {
+      setResultVal(solveRes.displayText);
+    }
+    setActiveMenu('NONE');
+  };
+
+  const handleSolveRequest = () => {
+    if (!expr.includes('=')) {
+      setResultVal("Solve needs =");
+      return;
+    }
+    const vars = extractVariables(expr);
+    if (vars.length === 0) {
+      setResultVal("No variable");
+      return;
+    }
+    if (vars.length === 1) {
+      runSolveFor(vars[0]);
+      return;
+    }
+    setActiveMenu('SOLVE');
+    setResultVal(`Solve: ${vars.join('/')}`);
+  };
+
+  const handleCalcRequest = () => {
+    if (expr.includes('=')) {
+      setResultVal("Use SOLVE");
+      return;
+    }
+    const vars = extractVariables(expr);
+    if (vars.length === 0) {
+      handleEvaluation();
+      return;
+    }
+    const nextVariables = { ...variables };
+    for (const name of vars) {
+      const raw = window.prompt(`CALC: ${name}=`, String(nextVariables[name] ?? 0));
+      if (raw === null) {
+        setResultVal("CALC canceled");
+        return;
+      }
+      const value = Number(raw);
+      if (!Number.isFinite(value)) {
+        setResultVal("Argument ERROR");
+        return;
+      }
+      nextVariables[name] = value;
+    }
+    setVariables(nextVariables);
+    evaluateWithVariables(expr, nextVariables);
   };
 
   // Handle keys inputs on the virtual keypads
@@ -359,9 +527,14 @@ export default function App() {
           setShiftActive(false);
           return;
         }
+        if (shiftValue === 'SOLVE') {
+          setShiftActive(false);
+          handleSolveRequest();
+          return;
+        }
         if (shiftValue === 'RESET') {
           // Perform total reset
-          setVariables({ A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0 });
+          setVariables({ ...DEFAULT_VARIABLES });
           setAns(0);
           setExpr("");
           setResultVal("初始化完毕!");
@@ -371,7 +544,7 @@ export default function App() {
         if (shiftValue === 'FACT') {
           const parsed = Number(resultVal);
           if (!isNaN(parsed) && parsed > 1 && Number.isInteger(parsed)) {
-            const factorsStr = factorize(parsed);
+            const factorsStr = factorizeInteger(parsed) || factorize(parsed);
             if (factorsStr) {
               setResultVal(`${parsed}=${factorsStr}`);
             }
@@ -416,12 +589,51 @@ export default function App() {
 
     // Contextual menu selection triggers
     if (activeMenu !== 'NONE') {
+      if (activeMenu === 'MAIN') {
+        const idx = activeVal === '0' ? 9 : Number(activeVal) - 1;
+        if (Number.isInteger(idx) && MODE_OPTIONS[idx]) {
+          setCalcMode(MODE_OPTIONS[idx]);
+          setResultVal(MODE_OPTIONS[idx]);
+        }
+        setActiveMenu('NONE');
+        return;
+      }
+      if (activeMenu === 'OPTN') {
+        const selected = OPTN_SAMPLES.find(item => item.key === activeVal);
+        if (selected) {
+          insertTextAtCursor(selected.insert);
+        }
+        setActiveMenu('NONE');
+        return;
+      }
+      if (activeMenu === 'SOLVE') {
+        if (VARIABLE_NAMES.includes(activeVal)) {
+          runSolveFor(activeVal);
+          return;
+        }
+        const idx = Number(activeVal) - 1;
+        const vars = extractVariables(expr);
+        if (Number.isInteger(idx) && vars[idx]) {
+          runSolveFor(vars[idx]);
+          return;
+        }
+        setActiveMenu('NONE');
+        return;
+      }
+      if (activeMenu === 'CALC') {
+        handleCalcRequest();
+        setActiveMenu('NONE');
+        return;
+      }
       if (activeMenu === 'SETUP') {
         if (activeVal === '1') {
           setAngleMode('DEG');
           setActiveMenu('NONE');
         } else if (activeVal === '2') {
           setAngleMode('RAD');
+          setActiveMenu('NONE');
+        } else if (activeVal === '3') {
+          setLatexEnabled(prev => !prev);
           setActiveMenu('NONE');
         } else {
           setActiveMenu('NONE');
@@ -430,32 +642,19 @@ export default function App() {
       }
       if (activeMenu === 'CONST') {
         // Physical Constants standard
-        const valMap: Record<string, string> = {
-          '1': '299792458', // c (Speed of light)
-          '2': '6.62607e-34', // h (Planck)
-          '3': '6.6743e-11', // G (Gravity const)
-          '4': '9.80665', // g (Gravity accel)
-          '5': '6.02214e23', // NA (Avogadro)
-          '6': '8.31446' // R (Gas const)
-        };
-        if (valMap[activeVal]) {
-          insertTextAtCursor(valMap[activeVal]);
+        const selected = SCIENTIFIC_CONSTANTS.find(item => item.key === activeVal);
+        if (selected) {
+          insertTextAtCursor(String(selected.value));
         }
         setActiveMenu('NONE');
         return;
       }
       if (activeMenu === 'CONV') {
         // Simple unit converters
-        const valMap: Record<string, number> = {
-          '1': 2.54, // in -> cm
-          '2': 0.3937, // cm -> in
-          '3': 2.2046, // kg -> lb
-          '4': 0.4536, // lb -> kg
-        };
         const currentNum = Number(resultVal) || 0;
-        if (valMap[activeVal]) {
-          const converted = currentNum * valMap[activeVal];
-          setResultVal(formatCasioValue(converted));
+        const converted = convertUnit(currentNum, activeVal);
+        if (converted) {
+          setResultVal(converted);
         }
         setActiveMenu('NONE');
         return;
@@ -470,10 +669,8 @@ export default function App() {
       }
       if (activeMenu === 'STORE') {
         // Variable store
-        if (['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M'].includes(activeVal)) {
-          const numericalVal = Number(resultVal) || 0;
-          setVariables(prev => ({ ...prev, [activeVal]: numericalVal }));
-          setResultVal(`已存入 ${activeVal}`);
+        if (VARIABLE_NAMES.includes(activeVal)) {
+          storeCurrentResultTo(activeVal);
         }
         setActiveMenu('NONE');
         return;
@@ -511,6 +708,18 @@ export default function App() {
       case 'arrow_right':
         setCursorIdx(prev => Math.min(expr.length, prev + 1));
         break;
+      case 'menu':
+        setActiveMenu('MAIN');
+        break;
+      case 'optn':
+        setActiveMenu('OPTN');
+        break;
+      case 'calc':
+        handleCalcRequest();
+        break;
+      case 'solve':
+        handleSolveRequest();
+        break;
       case 'store_mode':
         setActiveMenu('STORE');
         break;
@@ -534,7 +743,7 @@ export default function App() {
   };
 
   const handleEvaluation = () => {
-    const evalRes = evaluateCasioExpr(expr, variables, ans, angleMode);
+    const evalRes = evaluateExpression(expr, { variables, ans, angleMode });
     if (evalRes.success) {
       setAns(evalRes.value);
       setResultVal(evalRes.displayText);
@@ -589,6 +798,13 @@ export default function App() {
   // Generate cursor visual index
   const renderExpressionWithCursor = () => {
     if (!powerActive) return "";
+    if (latexEnabled) {
+      return (
+        <span className="font-serif text-[13px] tracking-normal leading-relaxed">
+          {`$${toLatexText(expr || "0")}$`}
+        </span>
+      );
+    }
     if (expr === "") return <span className="text-gray-700 animate-pulse">■</span>;
 
     const before = expr.slice(0, cursorIdx);
@@ -621,6 +837,13 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-4">
+          <button
+            onClick={() => setLatexEnabled(prev => !prev)}
+            className={`px-3 py-1.5 rounded-lg transition-colors border text-xs font-mono font-bold ${latexEnabled ? 'bg-teal-950 border-teal-700 text-teal-300' : 'bg-slate-900 border-slate-800 text-slate-400'}`}
+            title="Toggle LaTeX display"
+          >
+            LaTeX
+          </button>
           <button 
             onClick={() => setSoundEnabled(!soundEnabled)} 
             className={`p-2 rounded-lg transition-colors border ${soundEnabled ? 'bg-teal-950 border-teal-800 text-teal-400' : 'bg-slate-900 border-slate-800 text-slate-400'}`}
@@ -721,6 +944,8 @@ export default function App() {
                     <div className="flex gap-2">
                       <span className={angleMode === 'DEG' ? 'font-black underline scale-110' : 'opacity-25'}>DEG</span>
                       <span className={angleMode === 'RAD' ? 'font-black underline scale-110' : 'opacity-25'}>RAD</span>
+                      <span className="font-black">{calcMode}</span>
+                      <span className={latexEnabled ? 'font-black underline' : 'opacity-25'}>TEX</span>
                       <span className="font-extrabold px-0.5 bg-slate-900 text-[#a9ba96]/95 scale-90 rounded">MATH</span>
                     </div>
                   </div>
@@ -742,6 +967,37 @@ export default function App() {
                       ) : (
                         /* Menu Lists screens */
                         <div className="text-[10px] uppercase font-bold text-slate-900 leading-tight flex flex-col flex-1 py-1">
+                          {activeMenu === 'MAIN' && (
+                            <>
+                              <div className="border-b border-slate-800/20 pb-0.5 text-center">MENU MODE SELECT</div>
+                              <div className="mt-1 grid grid-cols-2 gap-x-1 gap-y-0.5 text-[8.5px] text-left">
+                                {MODE_OPTIONS.slice(0, 10).map((mode, idx) => (
+                                  <div key={mode}>{idx === 9 ? 0 : idx + 1}: {calcMode === mode ? '☑' : '☐'} {mode}</div>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                          {activeMenu === 'OPTN' && (
+                            <>
+                              <div className="border-b border-slate-800/20 pb-0.5 text-center">OPTN FUNCTION BOX</div>
+                              <div className="mt-1 grid grid-cols-2 gap-x-1 gap-y-0.5 text-[8.5px] text-left">
+                                {OPTN_SAMPLES.map(item => (
+                                  <div key={item.key}>{item.key}: ☐ {item.label}</div>
+                                ))}
+                              </div>
+                            </>
+                          )}
+                          {activeMenu === 'SOLVE' && (
+                            <>
+                              <div className="border-b border-slate-800/20 pb-0.5 text-center">SOLVE VARIABLE SELECT</div>
+                              <div className="mt-1 grid grid-cols-3 gap-0.5 text-[8.5px] text-left">
+                                {extractVariables(expr).map((name, idx) => (
+                                  <div key={name}>{idx + 1}: ☐ {name}={formatCoreValue(variables[name] || 0)}</div>
+                                ))}
+                              </div>
+                              <div className="mt-1 text-[8px] normal-case">Other variables use stored register values.</div>
+                            </>
+                          )}
                           {activeMenu === 'SETUP' && (
                             <>
                               <div className="border-b border-slate-800/20 pb-0.5 text-center">设置菜单 SETUP MENU</div>
@@ -895,7 +1151,7 @@ export default function App() {
                     <span className="text-[#c2ae51]">设置</span>
                   </span>
                   <button 
-                    onClick={() => handleKeypress('append', 'SETUP', 'SETUP')}
+                    onClick={() => handleKeypress('menu', 'MENU', 'SETUP')}
                     className="w-full h-6 rounded-md bg-stone-800 text-[#eee4d1] border border-[#171a21] shadow-[0_3px_0_#0a0d13] active:translate-y-0.5 active:shadow-[0_1px_0_#0a0d13] flex items-center justify-center transition-transform cursor-pointer overflow-hidden"
                   >
                     <div className="w-full h-full bg-white/5 flex items-center justify-center font-sans tracking-tighter text-[8px] font-extrabold">
@@ -923,7 +1179,7 @@ export default function App() {
                 {/* OPTN */}
                 <div className="col-span-2 relative flex flex-col pt-3">
                   <button 
-                    onClick={() => handleKeypress('append', 'OPTN')}
+                    onClick={() => handleKeypress('optn')}
                     className="w-full h-7 rounded-md bg-[#2d323f]/95 text-stone-100 border border-[#111317] shadow-[0_3.5px_0_#06080b] active:translate-y-0.5 active:shadow-[0_1px_0_#06080b] flex items-center justify-center transition-transform font-bold text-[9px]"
                   >
                     OPTN
@@ -935,7 +1191,7 @@ export default function App() {
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0 left-1.5 whitespace-nowrap">SOLVE</span>
                   <span className="text-[#d9658d] text-[7.5px] font-black absolute top-0 right-1.5">=</span>
                   <button 
-                    onClick={() => handleKeypress('append', 'CALC', 'SOLVE', '=')}
+                    onClick={() => handleKeypress('calc', 'CALC', 'SOLVE', '=')}
                     className="w-full h-7 rounded-md bg-[#2d323f]/95 text-stone-100 border border-[#111317] shadow-[0_3.5px_0_#06080b] active:translate-y-0.5 active:shadow-[0_1px_0_#06080b] flex items-center justify-center transition-transform font-bold text-[9px]"
                   >
                     CALC
@@ -1618,6 +1874,47 @@ export default function App() {
                           点击 <b>SHIFT</b> 后再点击 <b>9 (复位)</b> 键，即可清除整机内存变量，或将设置恢复出厂模式。
                         </li>
                       </ul>
+                    </div>
+
+                    <div className="bg-slate-900 border border-slate-800/60 rounded-xl p-4">
+                      <h4 className="text-teal-400 font-bold mb-2 flex items-center gap-1.5">
+                        <ChevronRight size={16} />
+                        fx-991CNCW / fx-999CNCW 核心能力
+                      </h4>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[11px] text-slate-300">
+                        {APP_CAPABILITIES.map(item => (
+                          <span key={item} className="rounded border border-slate-800 bg-slate-950/70 px-2 py-1 font-mono">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-slate-400">
+                        {[
+                          'sin(2)',
+                          '9÷R4',
+                          'd(X^2,3)',
+                          'integral(X,0,2)',
+                          'sum(X,1,5)',
+                          'solve(X^2-4,1)',
+                          'normalcdf(-1,1,0,1)',
+                          'binompdf(2,5,0.5)',
+                        ].map(sample => (
+                          <button
+                            key={sample}
+                            onClick={() => {
+                              setExpr(sample);
+                              setCursorIdx(sample.length);
+                              triggerClickAudio();
+                            }}
+                            className="rounded bg-slate-950/80 border border-slate-800 px-2 py-1 text-left font-mono hover:border-teal-500 hover:text-teal-300 transition-colors"
+                          >
+                            {sample}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="mt-3 text-[11px] text-slate-500">
+                        常量菜单 {SCIENTIFIC_CONSTANTS.length} 项，单位换算菜单 {UNIT_CONVERSIONS.length} 项；矩阵、向量、统计、复数和 Base-N 已在核心模块提供函数入口，后续可继续做成完整菜单式工作流。
+                      </div>
                     </div>
                   </motion.div>
                 )}

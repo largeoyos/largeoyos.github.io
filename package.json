@@ -1,4 +1,17 @@
 {
+  "private": true,
+  "workspaces": [
+    "并购-(acquire)---经典桌游",
+    "fx-991cn-x-科学计算器"
+  ],
+  "scripts": {
+    "build:acquire": "npm run build -w acquire-classic-board-game",
+    "build:calculator": "npm run build -w fx-991cn-x-calculator",
+    "build:apps": "npm run build --workspaces",
+    "lint:acquire": "npm run lint -w acquire-classic-board-game",
+    "lint:calculator": "npm run lint -w fx-991cn-x-calculator",
+    "lint:apps": "npm run lint --workspaces"
+  },
   "devDependencies": {
     "highlight.js": "^11.11.1",
     "jsdom": "^29.0.2",

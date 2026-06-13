@@ -7,6 +7,9 @@
 ### 新增 (Added)
 - 新增博客文章《C++ 中 std::min_element / std::max_element 用法详解》。
 
+### 变更 (Changed)
+- 全站页脚版本号同步升级至 v1.14.0。
+
 ## [1.13.0] - 2026-05-29
 
 ### 新增 (Added)

@@ -1,0 +1,72 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import {
+  createEmptyDocument,
+  deleteBackward,
+  insertFraction,
+  insertFunction,
+  insertGlyph,
+  insertPower,
+  insertRoot,
+  moveCursor,
+  serializeExpression,
+} from './ast';
+import { LCD_HEIGHT, LCD_WIDTH } from './FormulaLcd';
+import { layoutNode } from './layout';
+
+test('log uses two navigable argument slots', () => {
+  let document = createEmptyDocument();
+  document = insertFunction(document, 'log', 2);
+  document = insertGlyph(document, '2');
+  document = moveCursor(document, 'right');
+  document = insertGlyph(document, '8');
+  assert.equal(serializeExpression(document), 'log(2,8)');
+});
+
+test('fraction supports numerator to denominator navigation', () => {
+  let document = createEmptyDocument();
+  document = insertFraction(document);
+  document = insertGlyph(document, '1');
+  document = moveCursor(document, 'down');
+  document = insertGlyph(document, '2');
+  assert.equal(serializeExpression(document), '((1)/(2))');
+});
+
+test('power wraps the previous node as its base', () => {
+  let document = createEmptyDocument();
+  document = insertGlyph(document, 'X');
+  document = insertPower(document);
+  document = insertGlyph(document, '2');
+  assert.equal(serializeExpression(document), '((X)^(2))');
+});
+
+test('indexed root navigates from index to radicand', () => {
+  let document = createEmptyDocument();
+  document = insertRoot(document, true);
+  document = insertGlyph(document, '3');
+  document = moveCursor(document, 'right');
+  document = insertGlyph(document, '8');
+  assert.equal(serializeExpression(document), 'root(3,8)');
+});
+
+test('deleting an empty nested value restores its placeholder value', () => {
+  let document = createEmptyDocument();
+  document = insertRoot(document, false);
+  document = insertGlyph(document, '9');
+  document = deleteBackward(document);
+  assert.equal(serializeExpression(document), 'sqrt(0)');
+});
+
+test('layout boxes use positive integer measurements', () => {
+  let document = createEmptyDocument();
+  document = insertFraction(document);
+  const box = layoutNode(document.root);
+  assert.ok(Number.isInteger(box.width) && box.width > 0);
+  assert.ok(Number.isInteger(box.height) && box.height > 0);
+  assert.ok(Number.isInteger(box.baseline) && box.baseline >= 0);
+});
+
+test('LCD logical buffer matches fx-991 canvas target', () => {
+  assert.equal(LCD_WIDTH, 192);
+  assert.equal(LCD_HEIGHT, 63);
+});

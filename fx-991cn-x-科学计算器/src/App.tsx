@@ -22,6 +22,11 @@ import {
   formatCasioValue as formatCoreValue,
   solveForVariable,
 } from './core/calculator';
+import {
+  FormulaLcd,
+  type FormulaLcdHandle,
+} from './math/FormulaLcd';
+import type { FormulaDocument } from './math/ast';
 
 // --- MATHS AUXILIARY HELPERS ---
 function fact(n: number): number {
@@ -293,7 +298,32 @@ type CalcMode = 'Calculate' | 'Statistics' | 'Distribution' | 'Spreadsheet' | 'F
 const STORAGE_KEY = 'fx991cnx-registers-v1';
 const VARIABLE_NAMES = ['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M'];
 const DEFAULT_VARIABLES: Record<string, number> = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0 };
-const MODE_OPTIONS: CalcMode[] = ['Calculate', 'Statistics', 'Distribution', 'Spreadsheet', 'Function Table', 'Equation', 'Inequality', 'Complex', 'Base-N', 'Matrix', 'Vector', 'Ratio'];
+const MODE_LABELS: Record<CalcMode, string> = {
+  Calculate: '计算',
+  Statistics: '统计',
+  Distribution: '分布',
+  Spreadsheet: '表格',
+  'Function Table': '函数表格',
+  Equation: '函数/方程',
+  Inequality: '不等式',
+  Complex: '复数',
+  'Base-N': '基数',
+  Matrix: '矩阵',
+  Vector: '向量',
+  Ratio: '比例',
+};
+const MENU_MODES: CalcMode[] = [
+  'Calculate',
+  'Complex',
+  'Base-N',
+  'Matrix',
+  'Vector',
+  'Statistics',
+  'Spreadsheet',
+  'Equation',
+  'Inequality',
+  'Ratio',
+];
 const OPTN_SAMPLES = [
   { key: '1', label: 'd/dx', insert: 'd(X,0)' },
   { key: '2', label: 'Integral', insert: 'integral(X,0,1)' },
@@ -327,19 +357,146 @@ function extractVariables(input: string): string[] {
   return [...found];
 }
 
-function toLatexText(input: string): string {
-  return input
-    .replaceAll('×', ' \\times ')
-    .replaceAll('÷', ' \\div ')
-    .replaceAll('π', '\\pi')
-    .replaceAll('√(', '\\sqrt(')
-    .replaceAll('sin⁻¹', '\\sin^{-1}')
-    .replaceAll('cos⁻¹', '\\cos^{-1}')
-    .replaceAll('tan⁻¹', '\\tan^{-1}')
-    .replaceAll('²', '^{2}')
-    .replaceAll('³', '^{3}')
-    .replaceAll('⁻¹', '^{-1}')
-    .replace(/\^/g, '^');
+function MenuModeIcon({ mode, selected }: { mode: CalcMode; selected: boolean }) {
+  const ink = selected ? '#f3f5dd' : '#284b99';
+  const green = selected ? '#f3f5dd' : '#087c57';
+  const pixelText = {
+    color: ink,
+  };
+  const block = {
+    borderColor: ink,
+  };
+
+  if (mode === 'Calculate') {
+    return (
+      <div className="grid grid-cols-2 gap-x-2 gap-y-0 text-[17px] font-black leading-[13px]" style={{ ...pixelText, color: green }}>
+        <span>×</span><span>÷</span><span>+</span><span>−</span>
+      </div>
+    );
+  }
+  if (mode === 'Complex') {
+    return (
+      <div className="relative w-11 h-8">
+        <span className="absolute left-0 top-1 border-2 w-5 h-7" style={block} />
+        <span className="absolute left-5 top-0 border-2 w-5 h-7 bg-[linear-gradient(135deg,transparent_45%,currentColor_46%,currentColor_54%,transparent_55%)]" style={block} />
+        <span className="absolute left-[7px] top-[8px] text-[12px] font-black" style={pixelText}>i</span>
+      </div>
+    );
+  }
+  if (mode === 'Base-N') {
+    return (
+      <div className="grid grid-cols-2 gap-x-2 text-[9px] font-black leading-[11px]" style={pixelText}>
+        <span>2</span><span>8</span><span>10</span><span>16</span>
+      </div>
+    );
+  }
+  if (mode === 'Matrix') {
+    return (
+      <div className="flex items-center gap-1 text-[16px] font-black" style={pixelText}>
+        <span>[</span>
+        <span className="grid grid-cols-2 gap-[3px]">
+          {[0, 1, 2, 3].map(n => <i key={n} className="w-2 h-2 border-2" style={block} />)}
+        </span>
+        <span>]</span>
+      </div>
+    );
+  }
+  if (mode === 'Vector') {
+    return (
+      <div className="relative w-11 h-9" style={{ ...pixelText, color: green }}>
+        <span className="absolute left-0 top-2 text-[23px] font-black">↑</span>
+        <span className="absolute left-3 top-0 text-[23px] font-black">↗</span>
+        <span className="absolute left-6 top-3 text-[23px] font-black">→</span>
+      </div>
+    );
+  }
+  if (mode === 'Statistics') {
+    return (
+      <div className="relative flex items-end gap-1 h-9 border-l-2 border-b-2 px-1" style={{ borderColor: ink }}>
+        {[12, 23, 31, 17].map((height, idx) => (
+          <span key={idx} className="w-2 border-2 bg-transparent" style={{ ...block, height }} />
+        ))}
+      </div>
+    );
+  }
+  if (mode === 'Spreadsheet') {
+    return (
+      <div className="grid grid-cols-2 border-2 w-11 h-8 p-1 gap-1" style={block}>
+        {[0, 1].map(n => (
+          <span key={n} className="border-2 flex flex-col justify-around px-[2px]" style={block}>
+            <i className="h-[2px] bg-current" /><i className="h-[2px] bg-current" />
+          </span>
+        ))}
+      </div>
+    );
+  }
+  if (mode === 'Equation') {
+    return (
+      <div className="relative w-12 h-9" style={pixelText}>
+        <span className="absolute left-0 top-1 text-[13px] font-black">■√■</span>
+        <span className="absolute right-0 bottom-0 text-[12px] font-black">x=0</span>
+      </div>
+    );
+  }
+  if (mode === 'Inequality') {
+    return <div className="text-[14px] font-black leading-[13px] text-center" style={pixelText}>x&gt;0<br />x&lt;0</div>;
+  }
+  return (
+    <div className="flex items-center gap-1 text-[18px] font-black" style={pixelText}>
+      <span className="border-2 w-4 h-4" style={block} /><span>:</span><span className="border-2 w-4 h-4" style={block} />
+    </div>
+  );
+}
+
+function MainMenuScreen({
+  selectedIndex,
+  onSelect,
+}: {
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}) {
+  const selectedMode = MENU_MODES[selectedIndex] || MENU_MODES[0];
+
+  return (
+    <div
+      className="absolute inset-0 z-[8] bg-[#e7e9db] text-[#264f9c] flex flex-col overflow-hidden"
+      style={{ imageRendering: 'pixelated' }}
+    >
+      <div className="grid grid-cols-4 grid-rows-3 flex-1 border-l border-t-2 border-[#5572b4]">
+        {MENU_MODES.map((mode, index) => {
+          const selected = index === selectedIndex;
+          return (
+            <button
+              key={mode}
+              type="button"
+              onClick={() => onSelect(index)}
+              className={`relative min-w-0 border-r border-b border-[#5572b4] flex items-center justify-center ${
+                selected
+                  ? 'bg-[linear-gradient(135deg,#077954_0%,#168365_42%,#2c5d9d_100%)]'
+                  : 'bg-[linear-gradient(135deg,#f3f4e8_0%,#e1e5d8_72%,#d4d9cc_100%)]'
+              }`}
+            >
+              <MenuModeIcon mode={mode} selected={selected} />
+              <span className={`absolute right-0 bottom-0 min-w-4 h-4 px-0.5 text-[9px] leading-4 font-black text-center rounded-tl ${
+                selected ? 'bg-[#edf0df] text-[#1f376f]' : 'bg-[#3157aa] text-[#eef0e4]'
+              }`}>
+                {index + 1}
+              </span>
+            </button>
+          );
+        })}
+        {Array.from({ length: 12 - MENU_MODES.length }).map((_, index) => (
+          <div key={`empty-${index}`} className="border-r border-b border-[#5572b4] bg-[#eef0e4]" />
+        ))}
+      </div>
+      <div className="h-[19px] shrink-0 flex items-center border-t-2 border-[#5572b4] bg-[#eef0e4] px-1">
+        <span className="text-[13px] leading-none font-serif font-black text-[#1f3e81]">
+          {selectedIndex + 1}: {MODE_LABELS[selectedMode]}
+        </span>
+        <span className="ml-auto text-[9px] font-black text-[#3457a5]">▲▼</span>
+      </div>
+    </div>
+  );
 }
 
 // --- MAIN APP ---
@@ -352,10 +509,6 @@ export default function App() {
   const [resultVal, setResultVal] = useState<string>("0");
   const [variables, setVariables] = useState<Record<string, number>>(() => loadStoredVariables());
   const [calcMode, setCalcMode] = useState<CalcMode>('Calculate');
-  const [latexEnabled, setLatexEnabled] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem('fx991cnx-latex-display') === '1';
-  });
 
   // Mode helpers
   const [shiftActive, setShiftActive] = useState<boolean>(false);
@@ -366,7 +519,7 @@ export default function App() {
   // Advanced contextual screens
   const [activeMenu, setActiveMenu] = useState<ActiveMenu>('NONE');
   const [menuScrollIdx, setMenuScrollIdx] = useState<number>(0);
-  const [historyList, setHistoryList] = useState<Array<{ expr: string; res: string; timestamp: string }>>([
+  const [historyList, setHistoryList] = useState<Array<{ expr: string; res: string; timestamp: string; ast?: FormulaDocument }>>([
     { expr: "sin(30) × 4", res: "2", timestamp: "15:20" },
     { expr: "5! + 10", res: "130", timestamp: "15:18" }
   ]);
@@ -376,6 +529,7 @@ export default function App() {
 
   // Input textbox reference
   const containerRef = useRef<HTMLDivElement>(null);
+  const formulaLcdRef = useRef<FormulaLcdHandle | null>(null);
 
   useEffect(() => {
     try {
@@ -384,14 +538,6 @@ export default function App() {
       // localStorage can be unavailable in private or locked-down contexts.
     }
   }, [variables]);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem('fx991cnx-latex-display', latexEnabled ? '1' : '0');
-    } catch {
-      // Ignore persistence failures.
-    }
-  }, [latexEnabled]);
 
   // Physical Sound Synthesizer via Web Audio API
   const triggerClickAudio = () => {
@@ -426,7 +572,7 @@ export default function App() {
       const date = new Date();
       const timestamp = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
       setHistoryList(prev => [
-        { expr: formula, res: evalRes.displayText, timestamp },
+        { expr: formula, res: evalRes.displayText, timestamp, ast: formulaLcdRef.current?.getDocument() },
         ...prev.slice(0, 19)
       ]);
     } else {
@@ -461,7 +607,7 @@ export default function App() {
       setResultVal("Solve needs =");
       return;
     }
-    const vars = extractVariables(expr);
+    const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(expr);
     if (vars.length === 0) {
       setResultVal("No variable");
       return;
@@ -479,7 +625,7 @@ export default function App() {
       setResultVal("Use SOLVE");
       return;
     }
-    const vars = extractVariables(expr);
+    const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(expr);
     if (vars.length === 0) {
       handleEvaluation();
       return;
@@ -500,6 +646,26 @@ export default function App() {
     }
     setVariables(nextVariables);
     evaluateWithVariables(expr, nextVariables);
+  };
+
+  const confirmMenuMode = (index = menuScrollIdx) => {
+    const mode = MENU_MODES[index];
+    if (!mode) return;
+    setCalcMode(mode);
+    setResultVal(mode);
+    setActiveMenu('NONE');
+  };
+
+  const moveMenuSelection = (direction: 'left' | 'right' | 'up' | 'down') => {
+    setMenuScrollIdx(prev => {
+      const column = prev % 4;
+      let next = prev;
+      if (direction === 'left' && column > 0) next = prev - 1;
+      if (direction === 'right' && column < 3) next = prev + 1;
+      if (direction === 'up') next = prev - 4;
+      if (direction === 'down') next = prev + 4;
+      return next >= 0 && next < MENU_MODES.length ? next : prev;
+    });
   };
 
   // Handle keys inputs on the virtual keypads
@@ -590,12 +756,19 @@ export default function App() {
     // Contextual menu selection triggers
     if (activeMenu !== 'NONE') {
       if (activeMenu === 'MAIN') {
-        const idx = activeVal === '0' ? 9 : Number(activeVal) - 1;
-        if (Number.isInteger(idx) && MODE_OPTIONS[idx]) {
-          setCalcMode(MODE_OPTIONS[idx]);
-          setResultVal(MODE_OPTIONS[idx]);
+        if (/^\d$/.test(activeVal)) {
+          const numeric = Number(activeVal);
+          const idx = numeric === 0 ? 9 : numeric - 1;
+          if (MENU_MODES[idx]) {
+            confirmMenuMode(idx);
+            return;
+          }
         }
-        setActiveMenu('NONE');
+        if (activeAction === 'arrow_left') moveMenuSelection('left');
+        if (activeAction === 'arrow_right') moveMenuSelection('right');
+        if (activeAction === 'arrow_up') moveMenuSelection('up');
+        if (activeAction === 'arrow_down') moveMenuSelection('down');
+        if (activeAction === 'evaluate') confirmMenuMode();
         return;
       }
       if (activeMenu === 'OPTN') {
@@ -612,7 +785,7 @@ export default function App() {
           return;
         }
         const idx = Number(activeVal) - 1;
-        const vars = extractVariables(expr);
+        const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(expr);
         if (Number.isInteger(idx) && vars[idx]) {
           runSolveFor(vars[idx]);
           return;
@@ -633,7 +806,7 @@ export default function App() {
           setAngleMode('RAD');
           setActiveMenu('NONE');
         } else if (activeVal === '3') {
-          setLatexEnabled(prev => !prev);
+          setResultVal('PIXEL LCD');
           setActiveMenu('NONE');
         } else {
           setActiveMenu('NONE');
@@ -690,11 +863,16 @@ export default function App() {
         setShiftActive(false);
         break;
       case 'clear':
+        formulaLcdRef.current?.clear();
         setExpr("");
         setResultVal("0");
         setCursorIdx(0);
         break;
       case 'backspace':
+        if (formulaLcdRef.current) {
+          formulaLcdRef.current.deleteBackward();
+          break;
+        }
         if (expr.length > 0 && cursorIdx > 0) {
           const before = expr.slice(0, cursorIdx - 1);
           const after = expr.slice(cursorIdx);
@@ -703,12 +881,27 @@ export default function App() {
         }
         break;
       case 'arrow_left':
+        if (formulaLcdRef.current) {
+          formulaLcdRef.current.move('left');
+          break;
+        }
         setCursorIdx(prev => Math.max(0, prev - 1));
         break;
       case 'arrow_right':
+        if (formulaLcdRef.current) {
+          formulaLcdRef.current.move('right');
+          break;
+        }
         setCursorIdx(prev => Math.min(expr.length, prev + 1));
         break;
+      case 'arrow_up':
+        formulaLcdRef.current?.move('up');
+        break;
+      case 'arrow_down':
+        formulaLcdRef.current?.move('down');
+        break;
       case 'menu':
+        setMenuScrollIdx(Math.max(0, MENU_MODES.indexOf(calcMode)));
         setActiveMenu('MAIN');
         break;
       case 'optn':
@@ -736,10 +929,15 @@ export default function App() {
   };
 
   const insertTextAtCursor = (txt: string) => {
+    if (formulaLcdRef.current) {
+      formulaLcdRef.current.insertInput(txt);
+      return;
+    }
+    const plainText = txt === 'log□(' ? 'log(' : txt;
     const before = expr.slice(0, cursorIdx);
     const after = expr.slice(cursorIdx);
-    setExpr(before + txt + after);
-    setCursorIdx(cursorIdx + txt.length);
+    setExpr(before + plainText + after);
+    setCursorIdx(cursorIdx + plainText.length);
   };
 
   const handleEvaluation = () => {
@@ -752,7 +950,7 @@ export default function App() {
       const date = new Date();
       const timestamp = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
       setHistoryList(prev => [
-        { expr, res: evalRes.displayText, timestamp },
+        { expr, res: evalRes.displayText, timestamp, ast: formulaLcdRef.current?.getDocument() },
         ...prev.slice(0, 19)
       ]);
     } else {
@@ -788,6 +986,10 @@ export default function App() {
         handleKeypress('arrow_left');
       } else if (e.key === 'ArrowRight') {
         handleKeypress('arrow_right');
+      } else if (e.key === 'ArrowUp') {
+        handleKeypress('arrow_up');
+      } else if (e.key === 'ArrowDown') {
+        handleKeypress('arrow_down');
       }
     };
 
@@ -798,13 +1000,6 @@ export default function App() {
   // Generate cursor visual index
   const renderExpressionWithCursor = () => {
     if (!powerActive) return "";
-    if (latexEnabled) {
-      return (
-        <span className="font-serif text-[13px] tracking-normal leading-relaxed">
-          {`$${toLatexText(expr || "0")}$`}
-        </span>
-      );
-    }
     if (expr === "") return <span className="text-gray-700 animate-pulse">■</span>;
 
     const before = expr.slice(0, cursorIdx);
@@ -837,13 +1032,6 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => setLatexEnabled(prev => !prev)}
-            className={`px-3 py-1.5 rounded-lg transition-colors border text-xs font-mono font-bold ${latexEnabled ? 'bg-teal-950 border-teal-700 text-teal-300' : 'bg-slate-900 border-slate-800 text-slate-400'}`}
-            title="Toggle LaTeX display"
-          >
-            LaTeX
-          </button>
           <button 
             onClick={() => setSoundEnabled(!soundEnabled)} 
             className={`p-2 rounded-lg transition-colors border ${soundEnabled ? 'bg-teal-950 border-teal-800 text-teal-400' : 'bg-slate-900 border-slate-800 text-slate-400'}`}
@@ -927,12 +1115,38 @@ export default function App() {
                     filter: powerActive ? 'brightness(1)' : 'brightness(0.08)'
                   }}
                 >
+                  <FormulaLcd
+                    ref={formulaLcdRef}
+                    expression={expr}
+                    result={resultVal}
+                    powerActive={powerActive}
+                    shiftActive={shiftActive}
+                    alphaActive={alphaActive}
+                    angleMode={angleMode}
+                    calcMode={calcMode}
+                    activeMenu={activeMenu}
+                    menuIndex={menuScrollIdx}
+                    menuItems={MENU_MODES.map(mode => ({ mode, label: MODE_LABELS[mode] }))}
+                    variables={variables}
+                    onExpressionChange={setExpr}
+                  />
+
                   {/* Subtle pixel line horizontal alignment overlays */}
                   <div className="absolute inset-0 bg-repeat bg-[linear-gradient(rgba(0,0,0,0.045)_1px,_transparent_1.5px)] bg-[size:100%_4px] pointer-events-none z-[4]" />
                   <div className="absolute inset-0 bg-repeat bg-[linear-gradient(90deg,_rgba(0,0,0,0.03)_1px,_transparent_1.5px)] bg-[size:3px_100%] pointer-events-none z-[4]" />
 
                   {/* LCD Screen On Glass shine overlay */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none transform -skew-x-12 scale-125 z-[5]" />
+
+                  {powerActive && activeMenu === 'MAIN' && (
+                    <MainMenuScreen
+                      selectedIndex={menuScrollIdx}
+                      onSelect={(index) => {
+                        setMenuScrollIdx(index);
+                        confirmMenuMode(index);
+                      }}
+                    />
+                  )}
 
                   {/* Top indicators row */}
                   <div className="flex justify-between items-center text-[8px] font-extrabold tracking-wider leading-none shrink-0 text-slate-800/80 uppercase">
@@ -945,7 +1159,6 @@ export default function App() {
                       <span className={angleMode === 'DEG' ? 'font-black underline scale-110' : 'opacity-25'}>DEG</span>
                       <span className={angleMode === 'RAD' ? 'font-black underline scale-110' : 'opacity-25'}>RAD</span>
                       <span className="font-black">{calcMode}</span>
-                      <span className={latexEnabled ? 'font-black underline' : 'opacity-25'}>TEX</span>
                       <span className="font-extrabold px-0.5 bg-slate-900 text-[#a9ba96]/95 scale-90 rounded">MATH</span>
                     </div>
                   </div>
@@ -953,7 +1166,7 @@ export default function App() {
                   {/* Screen Content Core */}
                   {powerActive ? (
                     <div className="flex-1 flex flex-col justify-between mt-1 z-[6]">
-                      {activeMenu === 'NONE' ? (
+                      {activeMenu === 'MAIN' ? null : activeMenu === 'NONE' ? (
                         <>
                           {/* Inner Formula edit line */}
                           <div className="text-sm select-all font-semibold leading-relaxed tracking-wider break-all text-left">
@@ -967,16 +1180,6 @@ export default function App() {
                       ) : (
                         /* Menu Lists screens */
                         <div className="text-[10px] uppercase font-bold text-slate-900 leading-tight flex flex-col flex-1 py-1">
-                          {activeMenu === 'MAIN' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">MENU MODE SELECT</div>
-                              <div className="mt-1 grid grid-cols-2 gap-x-1 gap-y-0.5 text-[8.5px] text-left">
-                                {MODE_OPTIONS.slice(0, 10).map((mode, idx) => (
-                                  <div key={mode}>{idx === 9 ? 0 : idx + 1}: {calcMode === mode ? '☑' : '☐'} {mode}</div>
-                                ))}
-                              </div>
-                            </>
-                          )}
                           {activeMenu === 'OPTN' && (
                             <>
                               <div className="border-b border-slate-800/20 pb-0.5 text-center">OPTN FUNCTION BOX</div>
@@ -1124,14 +1327,14 @@ export default function App() {
                       ▶
                     </button>
                     <button 
-                      onClick={() => handleKeypress('arrow_left')} // Simple scroll fallback
+                      onClick={() => handleKeypress('arrow_up')}
                       className="absolute top-1 w-7 h-6 text-stone-400 hover:text-white transition-colors flex items-center justify-center text-xs font-bold active:scale-90"
                       title="上"
                     >
                       ▲
                     </button>
                     <button 
-                      onClick={() => handleKeypress('arrow_right')}
+                      onClick={() => handleKeypress('arrow_down')}
                       className="absolute bottom-1 w-7 h-6 text-stone-400 hover:text-white transition-colors flex items-center justify-center text-xs font-bold active:scale-90"
                       title="下"
                     >
@@ -1282,7 +1485,7 @@ export default function App() {
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0.5 left-0">10^■</span>
                   <span className="text-[#2ca9cf] text-[6.5px] font-extrabold absolute top-0.5 right-0">BIN</span>
                   <button 
-                    onClick={() => handleKeypress('append', 'log(', '10^')}
+                    onClick={() => handleKeypress('append', 'log□(', '10^')}
                     className="h-7 rounded bg-[#2a2f3a] text-[9.5px] font-bold text-stone-100 border border-[#151a22] shadow-[0_3.5px_0_#05070a] active:translate-y-0.5 active:shadow-[0_1px_0_#05070a] flex items-center justify-center"
                   >
                     log
@@ -1746,6 +1949,11 @@ export default function App() {
                           key={idx} 
                           className="bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 rounded-xl p-3 flex justify-between items-center transition-all cursor-pointer group"
                           onClick={() => {
+                            if (item.ast) {
+                              formulaLcdRef.current?.loadDocument(item.ast);
+                            } else {
+                              formulaLcdRef.current?.loadExpression(item.expr);
+                            }
                             setExpr(item.expr);
                             setCursorIdx(item.expr.length);
                             triggerClickAudio();

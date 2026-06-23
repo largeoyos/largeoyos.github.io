@@ -264,6 +264,7 @@ function formatCasioValue(val: number): string {
 }
 
 type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE' | 'MAIN' | 'OPTN' | 'SOLVE' | 'CALC';
+type MenuDirection = 'left' | 'right' | 'up' | 'down';
 type CalcMode = 'Calculate' | 'Statistics' | 'Distribution' | 'Spreadsheet' | 'Function Table' | 'Equation' | 'Inequality' | 'Complex' | 'Base-N' | 'Matrix' | 'Vector' | 'Ratio';
 
 const STORAGE_KEY = 'fx991cnx-registers-v1';
@@ -660,21 +661,30 @@ export default function App() {
     setActiveMenu('NONE');
   };
 
-  const moveMenuSelection = (direction: 'left' | 'right' | 'up' | 'down') => {
+  const moveMenuSelection = (direction: MenuDirection) => {
     setMenuScrollIdx(prev => {
+      if (direction === 'left') return (prev - 1 + MENU_MODES.length) % MENU_MODES.length;
+      if (direction === 'right') return (prev + 1) % MENU_MODES.length;
       const column = prev % 4;
-      let next = prev;
-      if (direction === 'left' && column > 0) next = prev - 1;
-      if (direction === 'right' && column < 3) next = prev + 1;
-      if (direction === 'up') next = prev - 4;
-      if (direction === 'down') next = prev + 4;
-      return next >= 0 && next < MENU_MODES.length ? next : prev;
+      const sameColumn = MENU_MODES
+        .map((_, index) => index)
+        .filter(index => index % 4 === column);
+      const position = sameColumn.indexOf(prev);
+      const delta = direction === 'up' ? -1 : 1;
+      return sameColumn[(position + delta + sameColumn.length) % sameColumn.length];
     });
   };
 
   // Handle keys inputs on the virtual keypads
   const handleKeypress = (action: string, value?: string, shiftValue?: string, alphaValue?: string) => {
     triggerClickAudio();
+
+    if (activeMenu !== 'NONE' && ['menu', 'clear', 'backspace', 'shift'].includes(action)) {
+      setActiveMenu('NONE');
+      setShiftActive(false);
+      setAlphaActive(false);
+      return;
+    }
 
     // 1. Shifting layers logic
     let activeAction = action;

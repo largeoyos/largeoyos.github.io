@@ -64,8 +64,11 @@ type FormulaLcdProps = {
 };
 
 const AST_STORAGE_KEY = 'fx991cnx-formula-ast-v1';
-export const LCD_WIDTH = 192;
-export const LCD_HEIGHT = 63;
+const LCD_LOGICAL_WIDTH = 192;
+const LCD_LOGICAL_HEIGHT = 63;
+const LCD_SCALE = 2;
+export const LCD_WIDTH = LCD_LOGICAL_WIDTH * LCD_SCALE;
+export const LCD_HEIGHT = LCD_LOGICAL_HEIGHT * LCD_SCALE;
 const BACKGROUND = '#dfe6d4';
 const INK = '#18291d';
 const BLUE = '#284d9d';
@@ -97,7 +100,7 @@ function drawStatus(
   const shortMode = props.calcMode.slice(0, 4).toUpperCase();
   drawBitmapText(context, shortMode, 153, 1, INK);
   context.fillStyle = INK;
-  context.fillRect(0, 9, LCD_WIDTH, 1);
+  context.fillRect(0, 9, LCD_LOGICAL_WIDTH, 1);
 }
 
 function drawMenuIcon(
@@ -203,10 +206,10 @@ function drawMainMenu(
 
   const selected = items[selectedIndex] ?? items[0];
   context.fillStyle = BACKGROUND;
-  context.fillRect(0, 51, LCD_WIDTH, 12);
+  context.fillRect(0, 51, LCD_LOGICAL_WIDTH, 12);
   context.strokeStyle = BLUE;
   context.fillStyle = BLUE;
-  context.fillRect(0, 51, LCD_WIDTH, 1);
+  context.fillRect(0, 51, LCD_LOGICAL_WIDTH, 1);
   drawBitmapText(context, `${selectedIndex + 1}:`, 3, 54, BLUE);
   drawBitmapText(context, selected?.label ?? '', 18, 53, BLUE);
 }
@@ -227,7 +230,7 @@ function drawListMenu(
   };
   drawBitmapText(context, titles[activeMenu] ?? activeMenu, 3, 2, INK);
   context.fillStyle = INK;
-  context.fillRect(0, 10, LCD_WIDTH, 1);
+  context.fillRect(0, 10, LCD_LOGICAL_WIDTH, 1);
 
   let lines: string[] = [];
   if (activeMenu === 'SETUP') lines = ['1 DEG', '2 RAD', '3 DISPLAY'];
@@ -365,9 +368,11 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       const context = canvas.getContext('2d');
       if (!context) return;
       context.imageSmoothingEnabled = false;
+      context.setTransform(1, 0, 0, 1, 0, 0);
       context.clearRect(0, 0, LCD_WIDTH, LCD_HEIGHT);
       context.fillStyle = BACKGROUND;
       context.fillRect(0, 0, LCD_WIDTH, LCD_HEIGHT);
+      context.setTransform(LCD_SCALE, 0, 0, LCD_SCALE, 0, 0);
 
       if (!props.powerActive) return;
 

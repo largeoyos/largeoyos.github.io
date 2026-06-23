@@ -13,6 +13,7 @@ import {
 } from './ast';
 import { LCD_HEIGHT, LCD_WIDTH } from './FormulaLcd';
 import { layoutNode } from './layout';
+import { getBitmapGlyph } from './bitmapFont';
 import { factorizeInteger, solveForVariable } from '../core/calculator';
 
 test('log uses two navigable argument slots', () => {
@@ -67,9 +68,9 @@ test('layout boxes use positive integer measurements', () => {
   assert.ok(Number.isInteger(box.baseline) && box.baseline >= 0);
 });
 
-test('LCD logical buffer matches fx-991 canvas target', () => {
-  assert.equal(LCD_WIDTH, 192);
-  assert.equal(LCD_HEIGHT, 63);
+test('LCD backing buffer uses double resolution', () => {
+  assert.equal(LCD_WIDTH, 384);
+  assert.equal(LCD_HEIGHT, 126);
 });
 
 test('large integers use BigInt prime factorization', () => {
@@ -94,4 +95,9 @@ test('equation solver keeps more than two distinct real roots', () => {
   });
   assert.equal(result.success, true);
   assert.deepEqual(result.roots?.map(value => Math.round(value)), [-2, -1, 1, 2]);
+});
+
+test('multiplication and division have dedicated bitmap glyphs', () => {
+  assert.notDeepEqual(getBitmapGlyph('×'), getBitmapGlyph('?'));
+  assert.notDeepEqual(getBitmapGlyph('÷'), getBitmapGlyph('?'));
 });

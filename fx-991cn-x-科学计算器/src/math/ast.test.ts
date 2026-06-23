@@ -13,6 +13,7 @@ import {
 } from './ast';
 import { LCD_HEIGHT, LCD_WIDTH } from './FormulaLcd';
 import { layoutNode } from './layout';
+import { factorizeInteger, solveForVariable } from '../core/calculator';
 
 test('log uses two navigable argument slots', () => {
   let document = createEmptyDocument();
@@ -69,4 +70,28 @@ test('layout boxes use positive integer measurements', () => {
 test('LCD logical buffer matches fx-991 canvas target', () => {
   assert.equal(LCD_WIDTH, 192);
   assert.equal(LCD_HEIGHT, 63);
+});
+
+test('large integers use BigInt prime factorization', () => {
+  assert.equal(factorizeInteger('1000036000099'), '1000003 x 1000033');
+});
+
+test('equation solver returns multiple real roots', () => {
+  const result = solveForVariable('X^2=4', 'X', {
+    variables: {},
+    ans: 0,
+    angleMode: 'DEG',
+  });
+  assert.equal(result.success, true);
+  assert.deepEqual(result.roots?.map(value => Math.round(value)), [-2, 2]);
+});
+
+test('equation solver keeps more than two distinct real roots', () => {
+  const result = solveForVariable('X^4-5*X^2+4=0', 'X', {
+    variables: {},
+    ans: 0,
+    angleMode: 'DEG',
+  });
+  assert.equal(result.success, true);
+  assert.deepEqual(result.roots?.map(value => Math.round(value)), [-2, -1, 1, 2]);
 });

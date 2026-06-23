@@ -48,35 +48,6 @@ function nCr(n: number, r: number): number {
   return fact(n) / (fact(r) * fact(n - r));
 }
 
-function factorize(num: number): string {
-  if (num <= 1 || !Number.isInteger(num) || num > 1000000) return "";
-  let temp = num;
-  const factors: Record<number, number> = {};
-  let divisor = 2;
-  while (temp >= divisor * divisor) {
-    if (temp % divisor === 0) {
-      factors[divisor] = (factors[divisor] || 0) + 1;
-      temp /= divisor;
-    } else {
-      divisor = divisor === 2 ? 3 : divisor + 2;
-    }
-  }
-  if (temp > 1) {
-    factors[temp] = (factors[temp] || 0) + 1;
-  }
-  
-  const superscriptMap: Record<string, string> = {
-    '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹'
-  };
-  return Object.entries(factors)
-    .map(([prime, power]) => {
-      if (power === 1) return prime;
-      const powerStr = String(power).split('').map(char => superscriptMap[char] || char).join('');
-      return `${prime}${powerStr}`;
-    })
-    .join(' × ');
-}
-
 // --- FULL CHINESE CASIO CORE EVALUATOR ---
 interface EvalResult {
   success: boolean;
@@ -523,6 +494,10 @@ export default function App() {
     { expr: "sin(30) × 4", res: "2", timestamp: "15:20" },
     { expr: "5! + 10", res: "130", timestamp: "15:18" }
   ]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [solutionList, setSolutionList] = useState<number[]>([]);
+  const [solutionIndex, setSolutionIndex] = useState(0);
+  const [solutionVariable, setSolutionVariable] = useState('X');
 
   // Sidebar / Interactive variables panel
   const [activeTab, setActiveTab] = useState<'history' | 'variables' | 'manual'>('history');
@@ -593,6 +568,10 @@ export default function App() {
   const runSolveFor = (name: string) => {
     const solveRes = solveForVariable(expr, name, { variables, ans, angleMode });
     if (solveRes.success) {
+      const roots = solveRes.roots ?? [solveRes.value];
+      setSolutionList(roots);
+      setSolutionIndex(0);
+      setSolutionVariable(name);
       setAns(solveRes.value);
       setVariables(prev => ({ ...prev, [name]: solveRes.value }));
       setResultVal(solveRes.displayText);
@@ -600,6 +579,31 @@ export default function App() {
       setResultVal(solveRes.displayText);
     }
     setActiveMenu('NONE');
+  };
+
+  const showSolution = (index: number) => {
+    if (solutionList.length === 0) return;
+    const nextIndex = Math.max(0, Math.min(solutionList.length - 1, index));
+    const value = solutionList[nextIndex];
+    setSolutionIndex(nextIndex);
+    setAns(value);
+    setVariables(prev => ({ ...prev, [solutionVariable]: value }));
+    setResultVal(`${solutionVariable}${nextIndex + 1}=${formatCoreValue(value)} [${nextIndex + 1}/${solutionList.length}]`);
+  };
+
+  const browseHistory = (direction: 'up' | 'down') => {
+    if (historyList.length === 0) return;
+    const nextIndex = direction === 'up'
+      ? Math.min(historyList.length - 1, historyIndex + 1)
+      : Math.max(-1, historyIndex - 1);
+    setHistoryIndex(nextIndex);
+    if (nextIndex < 0) return;
+    const item = historyList[nextIndex];
+    if (item.ast) formulaLcdRef.current?.loadDocument(item.ast);
+    else formulaLcdRef.current?.loadExpression(item.expr);
+    setExpr(item.expr);
+    setCursorIdx(item.expr.length);
+    setResultVal(item.res);
   };
 
   const handleSolveRequest = () => {
@@ -708,12 +712,12 @@ export default function App() {
           return;
         }
         if (shiftValue === 'FACT') {
-          const parsed = Number(resultVal);
-          if (!isNaN(parsed) && parsed > 1 && Number.isInteger(parsed)) {
-            const factorsStr = factorizeInteger(parsed) || factorize(parsed);
-            if (factorsStr) {
-              setResultVal(`${parsed}=${factorsStr}`);
-            }
+          const factorsStr = factorizeInteger(resultVal);
+          if (factorsStr) {
+            const source = resultVal.trim().split('=')[0];
+            setResultVal(`${source}=${factorsStr}`);
+          } else {
+            setResultVal('Math ERROR');
           }
           setShiftActive(false);
           return;
@@ -867,6 +871,8 @@ export default function App() {
         setExpr("");
         setResultVal("0");
         setCursorIdx(0);
+        setHistoryIndex(-1);
+        setSolutionList([]);
         break;
       case 'backspace':
         if (formulaLcdRef.current) {
@@ -881,6 +887,7 @@ export default function App() {
         }
         break;
       case 'arrow_left':
+        if (formulaLcdRef.current?.moveResult('left')) break;
         if (formulaLcdRef.current) {
           formulaLcdRef.current.move('left');
           break;
@@ -888,6 +895,7 @@ export default function App() {
         setCursorIdx(prev => Math.max(0, prev - 1));
         break;
       case 'arrow_right':
+        if (formulaLcdRef.current?.moveResult('right')) break;
         if (formulaLcdRef.current) {
           formulaLcdRef.current.move('right');
           break;
@@ -895,10 +903,18 @@ export default function App() {
         setCursorIdx(prev => Math.min(expr.length, prev + 1));
         break;
       case 'arrow_up':
-        formulaLcdRef.current?.move('up');
+        if (solutionList.length > 1) {
+          showSolution(solutionIndex - 1);
+          break;
+        }
+        if (!formulaLcdRef.current?.move('up')) browseHistory('up');
         break;
       case 'arrow_down':
-        formulaLcdRef.current?.move('down');
+        if (solutionList.length > 1) {
+          showSolution(solutionIndex + 1);
+          break;
+        }
+        if (!formulaLcdRef.current?.move('down')) browseHistory('down');
         break;
       case 'menu':
         setMenuScrollIdx(Math.max(0, MENU_MODES.indexOf(calcMode)));
@@ -929,6 +945,8 @@ export default function App() {
   };
 
   const insertTextAtCursor = (txt: string) => {
+    setHistoryIndex(-1);
+    setSolutionList([]);
     if (formulaLcdRef.current) {
       formulaLcdRef.current.insertInput(txt);
       return;
@@ -941,6 +959,8 @@ export default function App() {
   };
 
   const handleEvaluation = () => {
+    setHistoryIndex(-1);
+    setSolutionList([]);
     const evalRes = evaluateExpression(expr, { variables, ans, angleMode });
     if (evalRes.success) {
       setAns(evalRes.value);
@@ -995,7 +1015,19 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [expr, cursorIdx, variables, ans, angleMode, powerActive]);
+  }, [
+    expr,
+    cursorIdx,
+    variables,
+    ans,
+    angleMode,
+    powerActive,
+    historyList,
+    historyIndex,
+    solutionList,
+    solutionIndex,
+    solutionVariable,
+  ]);
 
   // Generate cursor visual index
   const renderExpressionWithCursor = () => {

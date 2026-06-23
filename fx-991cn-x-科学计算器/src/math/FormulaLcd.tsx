@@ -37,7 +37,8 @@ export type LcdMenuItem = {
 
 export type FormulaLcdHandle = {
   insertInput: (value: string) => void;
-  move: (direction: CursorDirection) => void;
+  move: (direction: CursorDirection) => boolean;
+  moveResult: (direction: 'left' | 'right') => boolean;
   deleteBackward: () => void;
   clear: () => void;
   loadExpression: (expression: string) => void;
@@ -277,6 +278,8 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
   function FormulaLcd(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [document, setDocument] = useState<FormulaDocument>(() => safeLoadDocument(props.expression));
+    const [resultOffset, setResultOffset] = useState(0);
+    const resultMaxOffset = useRef(0);
     const lastSerialized = useRef(serializeExpression(document));
     const externalInitialized = useRef(false);
 
@@ -298,7 +301,21 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
         commit(insertMapped(document, value));
       },
       move(direction) {
-        setDocument(current => moveCursor(current, direction));
+        const next = moveCursor(document, direction);
+        const changed = next.cursor.sequenceId !== document.cursor.sequenceId
+          || next.cursor.offset !== document.cursor.offset;
+        if (changed) setDocument(next);
+        return changed;
+      },
+      moveResult(direction) {
+        if (resultMaxOffset.current <= 0) return false;
+        if (direction === 'left' && resultOffset === 0) return false;
+        if (direction === 'right' && resultOffset >= resultMaxOffset.current) return false;
+        setResultOffset(current => {
+          const delta = direction === 'right' ? 18 : -18;
+          return Math.max(0, Math.min(resultMaxOffset.current, current + delta));
+        });
+        return true;
       },
       deleteBackward() {
         commit(deleteBackward(document));
@@ -322,7 +339,11 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       getDocument() {
         return document;
       },
-    }), [document]);
+    }), [document, resultOffset]);
+
+    useEffect(() => {
+      setResultOffset(0);
+    }, [props.result]);
 
     useEffect(() => {
       if (!externalInitialized.current) {
@@ -375,7 +396,7 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       if (formulaResult.overflow) drawBitmapText(context, 'RANGE', 152, 12, INK);
 
       const resultDocument = parseLegacyExpression(props.result);
-      drawFormula(
+      const resultLayout = drawFormula(
         context,
         resultDocument.root,
         resultDocument.cursor,
@@ -385,8 +406,15 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
         14,
         INK,
         false,
+        BACKGROUND,
+        resultOffset,
       );
-    }, [document, props]);
+      resultMaxOffset.current = resultLayout.horizontalOverflow;
+      if (resultLayout.horizontalOverflow > 0) {
+        if (resultOffset > 0) drawBitmapText(context, '<', 0, 52, INK);
+        if (resultOffset < resultLayout.horizontalOverflow) drawBitmapText(context, '>', 187, 52, INK);
+      }
+    }, [document, props, resultOffset]);
 
     return (
       <canvas

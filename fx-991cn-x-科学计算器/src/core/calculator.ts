@@ -15,6 +15,7 @@ export interface EvalResult {
 
 export interface SolveResult extends EvalResult {
   variable: string;
+  roots?: number[];
 }
 
 type Token =
@@ -541,19 +542,45 @@ export function solveForVariable(input: string, variable: string, ctx: Evaluatio
     const [left, ...rightParts] = equation.split('=');
     if (!left || rightParts.length !== 1 || !rightParts[0]) throw new Error('Syntax ERROR');
     const residual = `(${left})-(${rightParts[0]})`;
-    let x = Number.isFinite(guess) ? Number(guess) : ctx.variables[target] || ctx.ans || 1;
-    for (let i = 0; i < 80; i++) {
-      const y = evaluateWithVariable(residual, target, x, ctx);
-      if (Math.abs(y) < 1e-10) {
-        return { success: true, value: x, displayText: `${target}=${formatCasioValue(x)}`, variable: target };
+    const seeds = new Set<number>([
+      Number.isFinite(guess) ? Number(guess) : ctx.variables[target] || ctx.ans || 1,
+      0,
+    ]);
+    for (let value = -100; value <= 100; value++) seeds.add(value);
+    for (const value of [-1000, -500, -200, 200, 500, 1000]) seeds.add(value);
+
+    const roots: number[] = [];
+    for (const seed of seeds) {
+      let x = seed;
+      for (let i = 0; i < 80; i++) {
+        const y = evaluateWithVariable(residual, target, x, ctx);
+        if (!Number.isFinite(y)) break;
+        if (Math.abs(y) < 1e-9) {
+          if (!roots.some(root => Math.abs(root - x) <= 1e-7 * Math.max(1, Math.abs(root)))) {
+            roots.push(Math.abs(x) < 1e-12 ? 0 : x);
+          }
+          break;
+        }
+        const h = Math.max(1e-6, Math.abs(x) * 1e-6);
+        const slope = (evaluateWithVariable(residual, target, x + h, ctx) - evaluateWithVariable(residual, target, x - h, ctx)) / (2 * h);
+        if (!Number.isFinite(slope) || Math.abs(slope) < 1e-14) break;
+        x -= y / slope;
+        if (!Number.isFinite(x) || Math.abs(x) > 1e12) break;
       }
-      const h = Math.max(1e-6, Math.abs(x) * 1e-6);
-      const slope = (evaluateWithVariable(residual, target, x + h, ctx) - evaluateWithVariable(residual, target, x - h, ctx)) / (2 * h);
-      if (!Number.isFinite(slope) || Math.abs(slope) < 1e-14) break;
-      x -= y / slope;
-      if (!Number.isFinite(x)) throw new Error('Math ERROR');
     }
-    return { success: true, value: x, displayText: `${target}≈${formatCasioValue(x)}`, variable: target };
+
+    roots.sort((a, b) => a - b);
+    if (roots.length === 0) throw new Error('Math ERROR');
+    const first = roots[0];
+    return {
+      success: true,
+      value: first,
+      roots,
+      displayText: roots.length > 1
+        ? `${target}1=${formatCasioValue(first)} [1/${roots.length}]`
+        : `${target}=${formatCasioValue(first)}`,
+      variable: target,
+    };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Syntax ERROR';
     const errorType = ['Math ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR'].includes(message)
@@ -607,21 +634,101 @@ export function formatCasioValue(value: number): string {
   return Number(value.toPrecision(12)).toString();
 }
 
-export function factorizeInteger(num: number): string {
-  const n = Math.trunc(num);
-  if (n <= 1 || n > 999999999 || n !== num) return '';
-  const factors: Array<[number, number]> = [];
-  let temp = n;
-  for (let d = 2; d * d <= temp; d += d === 2 ? 1 : 2) {
-    let power = 0;
-    while (temp % d === 0) {
-      power++;
-      temp /= d;
-    }
-    if (power) factors.push([d, power]);
+function bigintGcd(a: bigint, b: bigint): bigint {
+  let x = a < 0n ? -a : a;
+  let y = b < 0n ? -b : b;
+  while (y !== 0n) [x, y] = [y, x % y];
+  return x;
+}
+
+function bigintModPow(base: bigint, exponent: bigint, modulus: bigint): bigint {
+  let result = 1n;
+  let value = base % modulus;
+  let power = exponent;
+  while (power > 0n) {
+    if (power & 1n) result = (result * value) % modulus;
+    value = (value * value) % modulus;
+    power >>= 1n;
   }
-  if (temp > 1) factors.push([temp, 1]);
-  return factors.map(([prime, power]) => power === 1 ? String(prime) : `${prime}^${power}`).join(' x ');
+  return result;
+}
+
+function isProbablePrime(value: bigint): boolean {
+  if (value < 2n) return false;
+  for (const prime of [2n, 3n, 5n, 7n, 11n, 13n, 17n, 19n, 23n, 29n, 31n, 37n]) {
+    if (value === prime) return true;
+    if (value % prime === 0n) return false;
+  }
+  let d = value - 1n;
+  let s = 0;
+  while ((d & 1n) === 0n) {
+    d >>= 1n;
+    s++;
+  }
+  const bases = [2n, 325n, 9375n, 28178n, 450775n, 9780504n, 1795265022n];
+  for (const base of bases) {
+    if (base % value === 0n) continue;
+    let x = bigintModPow(base, d, value);
+    if (x === 1n || x === value - 1n) continue;
+    let composite = true;
+    for (let r = 1; r < s; r++) {
+      x = (x * x) % value;
+      if (x === value - 1n) {
+        composite = false;
+        break;
+      }
+    }
+    if (composite) return false;
+  }
+  return true;
+}
+
+function pollardRho(value: bigint): bigint {
+  if (value % 2n === 0n) return 2n;
+  if (value % 3n === 0n) return 3n;
+  for (let c = 1n; c < 32n; c++) {
+    let x = 2n;
+    let y = 2n;
+    let divisor = 1n;
+    for (let iteration = 0; divisor === 1n && iteration < 200000; iteration++) {
+      x = (x * x + c) % value;
+      y = (y * y + c) % value;
+      y = (y * y + c) % value;
+      divisor = bigintGcd(x - y, value);
+    }
+    if (divisor > 1n && divisor < value) return divisor;
+  }
+  return value;
+}
+
+function collectPrimeFactors(value: bigint, factors: bigint[]) {
+  if (value === 1n) return;
+  if (isProbablePrime(value)) {
+    factors.push(value);
+    return;
+  }
+  const divisor = pollardRho(value);
+  if (divisor === value) {
+    factors.push(value);
+    return;
+  }
+  collectPrimeFactors(divisor, factors);
+  collectPrimeFactors(value / divisor, factors);
+}
+
+export function factorizeInteger(input: number | string): string {
+  const normalized = String(input).trim().split('=')[0].replace(/\s+/g, '');
+  if (!/^\d+$/.test(normalized)) return '';
+  const value = BigInt(normalized);
+  if (value <= 1n) return '';
+  const rawFactors: bigint[] = [];
+  collectPrimeFactors(value, rawFactors);
+  rawFactors.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+  const grouped = new Map<bigint, number>();
+  rawFactors.forEach(factor => grouped.set(factor, (grouped.get(factor) ?? 0) + 1));
+  return [...grouped.entries()]
+    .map(([prime, power]) => power === 1 ? String(prime) : `${prime}^${power}`)
+    .join(' x ');
 }
 
 export function convertUnit(current: number, key: string): string | undefined {

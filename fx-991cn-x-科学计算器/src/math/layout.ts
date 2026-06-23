@@ -269,6 +269,7 @@ export function drawFormula(
   color: string,
   showCursor = true,
   backgroundColor = '#dfe6d4',
+  horizontalOffset = 0,
 ) {
   const box = sequenceBox(root);
   const cursorPoints = new Map<string, CursorPoint>();
@@ -280,10 +281,16 @@ export function drawFormula(
     cursorPoints,
   };
 
-  let offsetX = 0;
-  box.draw(context, x, y + Math.max(0, Math.floor((maxHeight - box.height) / 2)), drawOptions);
+  let offsetX = Math.max(0, horizontalOffset);
+  context.save();
+  context.beginPath();
+  context.rect(x, y, maxWidth, maxHeight);
+  context.clip();
+  box.draw(context, x - offsetX, y + Math.max(0, Math.floor((maxHeight - box.height) / 2)), drawOptions);
   const point = cursorPoints.get(cursorPointKey);
-  if (point && point.x > x + maxWidth - 2) offsetX = point.x - (x + maxWidth - 2);
+  if (showCursor && point && point.x > x + maxWidth - 2) {
+    offsetX += point.x - (x + maxWidth - 2);
+  }
 
   if (offsetX > 0) {
     cursorPoints.clear();
@@ -307,6 +314,12 @@ export function drawFormula(
       Math.max(4, Math.round(finalPoint.bottom - finalPoint.top)),
     );
   }
+  context.restore();
 
-  return { box, overflow: box.height > maxHeight };
+  return {
+    box,
+    overflow: box.height > maxHeight,
+    horizontalOverflow: Math.max(0, box.width - maxWidth),
+    horizontalOffset: Math.min(offsetX, Math.max(0, box.width - maxWidth)),
+  };
 }

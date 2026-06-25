@@ -35,6 +35,14 @@ export type LcdMenuItem = {
   label: string;
 };
 
+export type LcdModeScreen = {
+  title: string;
+  lines?: string[];
+  selectedIndex?: number;
+  table?: string[][];
+  graph?: Array<{ x: number; f?: number; g?: number }>;
+};
+
 export type FormulaLcdHandle = {
   insertInput: (value: string) => void;
   move: (direction: CursorDirection) => boolean;
@@ -54,11 +62,13 @@ type FormulaLcdProps = {
   powerActive: boolean;
   shiftActive: boolean;
   alphaActive: boolean;
-  angleMode: 'DEG' | 'RAD';
+  angleMode: 'DEG' | 'RAD' | 'GRAD';
   calcMode: string;
   activeMenu: string;
   menuIndex: number;
   menuItems: LcdMenuItem[];
+  optionItems?: string[];
+  modeScreen?: LcdModeScreen;
   variables: Record<string, number>;
   onExpressionChange: (expression: string) => void;
 };
@@ -66,7 +76,7 @@ type FormulaLcdProps = {
 const AST_STORAGE_KEY = 'fx991cnx-formula-ast-v1';
 const LCD_LOGICAL_WIDTH = 192;
 const LCD_LOGICAL_HEIGHT = 63;
-const LCD_SCALE = 2;
+const LCD_SCALE = 8;
 export const LCD_WIDTH = LCD_LOGICAL_WIDTH * LCD_SCALE;
 export const LCD_HEIGHT = LCD_LOGICAL_HEIGHT * LCD_SCALE;
 const BACKGROUND = '#dfe6d4';
@@ -218,6 +228,7 @@ function drawListMenu(
   context: CanvasRenderingContext2D,
   activeMenu: string,
   variables: Record<string, number>,
+  optionItems: string[] = [],
 ) {
   const titles: Record<string, string> = {
     SETUP: 'SETUP',
@@ -233,8 +244,8 @@ function drawListMenu(
   context.fillRect(0, 10, LCD_LOGICAL_WIDTH, 1);
 
   let lines: string[] = [];
-  if (activeMenu === 'SETUP') lines = ['1 DEG', '2 RAD', '3 DISPLAY'];
-  if (activeMenu === 'OPTN') lines = ['1 D/DX', '2 INTEGRAL', '3 SUM', '4 NORMAL', '5 BINOM', '6 POISSON'];
+  if (activeMenu === 'SETUP') lines = ['1 DEG', '2 RAD', '3 GRAD', '4 DISPLAY'];
+  if (activeMenu === 'OPTN') lines = optionItems.length ? optionItems : ['1 HYPER', '2 ANGLE', '3 ENG'];
   if (activeMenu === 'SOLVE') {
     lines = Object.entries(variables).slice(0, 6).map(([key, value], index) => `${index + 1} ${key}=${value}`);
   }
@@ -244,10 +255,66 @@ function drawListMenu(
     lines = Object.entries(variables).slice(0, 9).map(([key, value]) => `${key}:${value}`);
   }
 
-  lines.slice(0, 6).forEach((line, index) => {
-    const column = index % 2;
-    const row = Math.floor(index / 2);
-    drawBitmapText(context, line, 4 + column * 95, 14 + row * 12, INK);
+  lines.slice(0, 9).forEach((line, index) => {
+    const singleColumn = activeMenu === 'OPTN';
+    const column = singleColumn ? 0 : index % 2;
+    const row = singleColumn ? index : Math.floor(index / 2);
+    drawBitmapText(context, line, 4 + column * 95, 14 + row * (singleColumn ? 10 : 12), INK);
+  });
+}
+
+function drawModeScreen(context: CanvasRenderingContext2D, screen: LcdModeScreen) {
+  drawBitmapText(context, screen.title, 3, 2, INK);
+  context.fillStyle = INK;
+  context.fillRect(0, 10, LCD_LOGICAL_WIDTH, 1);
+  if (screen.graph?.length) {
+    const plot = screen.graph.filter(point => Number.isFinite(point.x) && (Number.isFinite(point.f) || Number.isFinite(point.g)));
+    if (!plot.length) return;
+    const xs = plot.map(point => point.x);
+    const ys = plot.flatMap(point => [point.f, point.g]).filter(Number.isFinite) as number[];
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const minY = Math.min(...ys);
+    const maxY = Math.max(...ys);
+    const mapX = (value: number) => 4 + Math.round((value - minX) / Math.max(1e-12, maxX - minX) * 183);
+    const mapY = (value: number) => 60 - Math.round((value - minY) / Math.max(1e-12, maxY - minY) * 46);
+    context.strokeStyle = INK;
+    context.fillStyle = INK;
+    if (minY <= 0 && maxY >= 0) context.fillRect(3, mapY(0), 185, 1);
+    if (minX <= 0 && maxX >= 0) context.fillRect(mapX(0), 12, 1, 48);
+    const drawSeries = (key: 'f' | 'g', dashed: boolean) => {
+      context.setLineDash(dashed ? [2, 2] : []);
+      context.beginPath();
+      let started = false;
+      plot.forEach(point => {
+        const value = point[key];
+        if (!Number.isFinite(value)) { started = false; return; }
+        const x = mapX(point.x);
+        const y = mapY(value as number);
+        if (!started) context.moveTo(x, y); else context.lineTo(x, y);
+        started = true;
+      });
+      context.stroke();
+    };
+    drawSeries('f', false);
+    drawSeries('g', true);
+    context.setLineDash([]);
+    return;
+  }
+  if (screen.table?.length) {
+    screen.table.slice(0, 5).forEach((row, rowIndex) => {
+      row.slice(0, 4).forEach((cell, columnIndex) => drawBitmapText(context, cell, 3 + columnIndex * 47, 14 + rowIndex * 10, INK));
+    });
+    return;
+  }
+  (screen.lines ?? []).slice(0, 5).forEach((line, index) => {
+    if (screen.selectedIndex === index) {
+      context.fillStyle = INK;
+      context.fillRect(1, 12 + index * 10, 190, 9);
+      drawBitmapText(context, line, 4, 13 + index * 10, BACKGROUND);
+    } else {
+      drawBitmapText(context, line, 4, 13 + index * 10, INK);
+    }
   });
 }
 
@@ -382,7 +449,12 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       }
 
       if (props.activeMenu !== 'NONE') {
-        drawListMenu(context, props.activeMenu, props.variables);
+        drawListMenu(context, props.activeMenu, props.variables, props.optionItems);
+        return;
+      }
+
+      if (props.modeScreen) {
+        drawModeScreen(context, props.modeScreen);
         return;
       }
 

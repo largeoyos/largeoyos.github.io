@@ -10,7 +10,7 @@ export interface EvalResult {
   success: boolean;
   value: number;
   displayText: string;
-  errorType?: 'Math ERROR' | 'Syntax ERROR' | 'Argument ERROR' | 'Dimension ERROR' | 'Range ERROR';
+  errorType?: 'Math ERROR' | 'Syntax ERROR' | 'Argument ERROR' | 'Dimension ERROR' | 'Range ERROR' | 'Variable ERROR' | 'No Solution';
 }
 
 export interface SolveResult extends EvalResult {
@@ -538,39 +538,60 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
 export function solveForVariable(input: string, variable: string, ctx: EvaluationContext, guess?: number): SolveResult {
   const target = variable.toUpperCase();
   try {
+    if (!new RegExp(`\\b${target}\\b`, 'i').test(input)) throw new Error('Variable ERROR');
     const equation = input.includes('=') ? input : `${input}=0`;
     const [left, ...rightParts] = equation.split('=');
     if (!left || rightParts.length !== 1 || !rightParts[0]) throw new Error('Syntax ERROR');
     const residual = `(${left})-(${rightParts[0]})`;
-    const seeds = new Set<number>([
-      Number.isFinite(guess) ? Number(guess) : ctx.variables[target] || ctx.ans || 1,
-      0,
-    ]);
-    for (let value = -100; value <= 100; value++) seeds.add(value);
-    for (const value of [-1000, -500, -200, 200, 500, 1000]) seeds.add(value);
-
+    const center = Number.isFinite(guess)
+      ? Number(guess)
+      : Number.isFinite(ctx.variables[target])
+        ? ctx.variables[target]
+        : Number.isFinite(ctx.ans)
+          ? ctx.ans
+          : 0;
     const roots: number[] = [];
-    for (const seed of seeds) {
-      let x = seed;
-      for (let i = 0; i < 80; i++) {
-        const y = evaluateWithVariable(residual, target, x, ctx);
-        if (!Number.isFinite(y)) break;
-        if (Math.abs(y) < 1e-9) {
-          if (!roots.some(root => Math.abs(root - x) <= 1e-7 * Math.max(1, Math.abs(root)))) {
-            roots.push(Math.abs(x) < 1e-12 ? 0 : x);
-          }
-          break;
-        }
-        const h = Math.max(1e-6, Math.abs(x) * 1e-6);
-        const slope = (evaluateWithVariable(residual, target, x + h, ctx) - evaluateWithVariable(residual, target, x - h, ctx)) / (2 * h);
-        if (!Number.isFinite(slope) || Math.abs(slope) < 1e-14) break;
-        x -= y / slope;
-        if (!Number.isFinite(x) || Math.abs(x) > 1e12) break;
+    const addRoot = (root: number) => {
+      if (!Number.isFinite(root)) return;
+      const normalized = Math.abs(root) < 1e-12 ? 0 : root;
+      if (!roots.some(existing => Math.abs(existing - normalized) <= 1e-7 * Math.max(1, Math.abs(existing)))) {
+        roots.push(normalized);
       }
+    };
+
+    const samples = new Set<number>([center, 0]);
+    for (const span of [1, 10, 100, 1000, 1e4, 1e6]) {
+      const step = span / 32;
+      for (let index = -32; index <= 32; index++) samples.add(center + index * step);
+    }
+    const sortedSamples = [...samples].sort((a, b) => a - b);
+    let previousX: number | undefined;
+    let previousY: number | undefined;
+    for (const x of sortedSamples) {
+      let y: number;
+      try {
+        y = evaluateWithVariable(residual, target, x, ctx);
+      } catch {
+        previousX = undefined;
+        previousY = undefined;
+        continue;
+      }
+      if (!Number.isFinite(y)) continue;
+      if (Math.abs(y) < 1e-9) addRoot(x);
+      if (previousX !== undefined && previousY !== undefined && y * previousY < 0) {
+        addRoot(brentRoot(value => evaluateWithVariable(residual, target, value, ctx), previousX, x));
+      }
+      previousX = x;
+      previousY = y;
+    }
+
+    for (const seed of sortedSamples) {
+      const root = newtonRoot(value => evaluateWithVariable(residual, target, value, ctx), seed);
+      if (root !== undefined) addRoot(root);
     }
 
     roots.sort((a, b) => a - b);
-    if (roots.length === 0) throw new Error('Math ERROR');
+    if (roots.length === 0) throw new Error('No Solution');
     const first = roots[0];
     return {
       success: true,
@@ -583,13 +604,52 @@ export function solveForVariable(input: string, variable: string, ctx: Evaluatio
     };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Syntax ERROR';
-    const errorType = ['Math ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR'].includes(message)
+    const errorType = ['Math ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR', 'Variable ERROR', 'No Solution'].includes(message)
       ? message as EvalResult['errorType']
       : 'Syntax ERROR';
     return { success: false, value: 0, displayText: errorType || 'Syntax ERROR', errorType, variable: target };
   }
 }
 
+function newtonRoot(fn: (value: number) => number, seed: number): number | undefined {
+  let x = seed;
+  for (let iteration = 0; iteration < 80; iteration++) {
+    const y = fn(x);
+    if (!Number.isFinite(y)) return undefined;
+    if (Math.abs(y) < 1e-10) return x;
+    const h = Math.max(1e-6, Math.abs(x) * 1e-6);
+    const slope = (fn(x + h) - fn(x - h)) / (2 * h);
+    if (!Number.isFinite(slope) || Math.abs(slope) < 1e-14) return undefined;
+    const next = x - y / slope;
+    if (!Number.isFinite(next) || Math.abs(next) > 1e14) return undefined;
+    if (Math.abs(next - x) < 1e-12 * Math.max(1, Math.abs(x))) return next;
+    x = next;
+  }
+  return Math.abs(fn(x)) < 1e-8 ? x : undefined;
+}
+
+function brentRoot(fn: (value: number) => number, lower: number, upper: number): number {
+  let a = lower;
+  let b = upper;
+  let fa = fn(a);
+  let fb = fn(b);
+  if (fa === 0) return a;
+  if (fb === 0) return b;
+  if (fa * fb > 0) throw new Error('No Solution');
+  for (let iteration = 0; iteration < 100; iteration++) {
+    const middle = (a + b) / 2;
+    const fm = fn(middle);
+    if (Math.abs(fm) < 1e-11 || Math.abs(b - a) < 1e-12 * Math.max(1, Math.abs(middle))) return middle;
+    if (fa * fm <= 0) {
+      b = middle;
+      fb = fm;
+    } else {
+      a = middle;
+      fa = fm;
+    }
+  }
+  return (a + b) / 2;
+}
 function evaluateWithVariable(input: string, variable: string, value: number, ctx: EvaluationContext): number {
   const result = evaluateExpression(input, {
     ...ctx,

@@ -21,251 +21,51 @@ import {
   factorizeInteger,
   formatCasioValue as formatCoreValue,
   solveForVariable,
+  type AngleMode,
 } from './core/calculator';
 import {
   FormulaLcd,
   type FormulaLcdHandle,
 } from './math/FormulaLcd';
+import {
+  createModeRuntime,
+  dispatchModeRuntime,
+  runtimeScreenView,
+  type RuntimeAction,
+} from './core/runtime';
+import {
+  loadModeMemory,
+  MODE_MEMORY_KEY,
+  type CalcMode,
+} from './core/modes';
 import type { FormulaDocument } from './math/ast';
 
-// --- MATHS AUXILIARY HELPERS ---
-function fact(n: number): number {
-  if (n < 0 || !Number.isInteger(n)) return NaN;
-  if (n > 100) return Infinity;
-  if (n === 0 || n === 1) return 1;
-  let res = 1;
-  for (let i = 2; i <= n; i++) res *= i;
-  return res;
+function formatEngineering(value: number): string {
+  if (!Number.isFinite(value) || value === 0) return formatCoreValue(value);
+  const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3;
+  const mantissa = value / 10 ** exponent;
+  return exponent === 0 ? formatCoreValue(mantissa) : `${formatCoreValue(mantissa)}×10^${exponent}`;
 }
 
-function nPr(n: number, r: number): number {
-  if (n < 0 || r < 0 || n < r || !Number.isInteger(n) || !Number.isInteger(r)) return NaN;
-  return fact(n) / fact(n - r);
-}
-
-function nCr(n: number, r: number): number {
-  if (n < 0 || r < 0 || n < r || !Number.isInteger(n) || !Number.isInteger(r)) return NaN;
-  return fact(n) / (fact(r) * fact(n - r));
-}
-
-// --- FULL CHINESE CASIO CORE EVALUATOR ---
-interface EvalResult {
-  success: boolean;
-  value: number;
-  displayText: string;
-  isRemainder?: boolean;
-  quotient?: number;
-  remainder?: number;
-}
-
-function splitTopLevelArgs(input: string): string[] {
-  const args: string[] = [];
-  let depth = 0;
-  let current = "";
-  for (const char of input) {
-    if (char === '(') depth++;
-    if (char === ')') depth--;
-    if (char === ',' && depth === 0) {
-      args.push(current.trim());
-      current = "";
-    } else {
-      current += char;
-    }
+function approximateFraction(value: number, maxDenominator = 100000): string {
+  if (!Number.isFinite(value)) return 'Math ERROR';
+  const sign = value < 0 ? -1 : 1;
+  let x = Math.abs(value);
+  let h1 = 1, h0 = 0, k1 = 0, k0 = 1;
+  while (true) {
+    const a = Math.floor(x);
+    const h2 = a * h1 + h0;
+    const k2 = a * k1 + k0;
+    if (k2 > maxDenominator) break;
+    h0 = h1; h1 = h2; k0 = k1; k1 = k2;
+    const remainder = x - a;
+    if (remainder < 1e-12) break;
+    x = 1 / remainder;
   }
-  if (current.trim()) args.push(current.trim());
-  return args;
+  return k1 === 1 ? String(sign * h1) : `${sign * h1}/${k1}`;
 }
-
-function completeParentheses(input: string): string {
-  let depth = 0;
-  for (const char of input) {
-    if (char === '(') depth++;
-    if (char === ')') depth--;
-    if (depth < 0) {
-      throw new Error("Syntax ERROR");
-    }
-  }
-  return input + ')'.repeat(depth);
-}
-
-function normalizeExpression(
-  formula: string,
-  variables: Record<string, number>,
-  ans: number
-): string {
-  let f = formula.trim();
-
-  f = f.replaceAll('×', '*');
-  f = f.replaceAll('÷', '/');
-  f = f.replaceAll('−', '-');
-  f = f.replaceAll('√(', 'sqrt(');
-  f = f.replaceAll('³√(', 'cbrt(');
-  f = f.replaceAll('sin⁻¹(', 'asin(');
-  f = f.replaceAll('cos⁻¹(', 'acos(');
-  f = f.replaceAll('tan⁻¹(', 'atan(');
-  f = f.replaceAll('Abs(', 'abs(');
-  f = f.replaceAll('FACT', 'fact');
-  f = f.replaceAll('Ran#', 'rand()');
-  f = f.replaceAll('π', 'PI');
-  f = f.replace(/\bAns\b/g, `(${ans})`);
-  f = f.replace(/\be\b/g, 'E_CONST');
-
-  // Scientific notation key: 3E5 -> 3*10^5, 1E-3 -> 1*10^-3.
-  f = f.replace(/(\d+(?:\.\d+)?|\))E([+-]?\d+(?:\.\d+)?)/g, '$1*10^$2');
-
-  for (const key of ['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M']) {
-    const regex = new RegExp(`\\b${key}\\b`, 'g');
-    f = f.replace(regex, `(${variables[key] || 0})`);
-  }
-
-  f = f.replace(/(\d+(?:\.\d+)?)!/g, (_, n) => `fact(${n})`);
-  f = f.replace(/(\d+(?:\.\d+)?|\([^()]+\))%/g, '($1/100)');
-  f = f.replace(/²/g, '**2');
-  f = f.replace(/³/g, '**3');
-  f = f.replace(/⁻¹/g, '**(-1)');
-  f = f.replace(/\^/g, '**');
-  f = f.replace(/(\d+(?:\.\d+)?)\s*P\s*(\d+(?:\.\d+)?)/g, 'nPr($1,$2)');
-  f = f.replace(/(\d+(?:\.\d+)?)\s*C\s*(\d+(?:\.\d+)?)/g, 'nCr($1,$2)');
-  f = f.replace(/(\d+(?:\.\d+)?|\)|PI|E_CONST)(?=\()/g, '$1*');
-  f = f.replace(/(\d+(?:\.\d+)?|\))(?=(PI|E_CONST)\b)/g, '$1*');
-  f = f.replace(/\)(?=\d|PI|E_CONST)/g, ')*');
-
-  return f;
-}
-
-function evaluateCasioExpr(
-  expr: string, 
-  variables: Record<string, number>, 
-  ans: number, 
-  angleMode: 'DEG' | 'RAD'
-): EvalResult {
-  if (!expr || expr.trim() === '') {
-    return { success: true, value: 0, displayText: "0" };
-  }
-
-  try {
-    const raw = completeParentheses(expr.trim());
-
-    // Remainder division custom handler: e.g. "9÷R4" -> returns Q and R
-    if (raw.includes('÷R')) {
-      const parts = raw.split('÷R');
-      if (parts.length === 2 && parts[0] && parts[1]) {
-        const leftVal = evaluatePrimitive(parts[0], variables, ans, angleMode);
-        const rightVal = evaluatePrimitive(parts[1], variables, ans, angleMode);
-        if (isNaN(leftVal) || isNaN(rightVal) || rightVal === 0) {
-          throw new Error("Math ERROR");
-        }
-        const quotient = Math.floor(leftVal / rightVal);
-        const remainder = leftVal % rightVal;
-        return {
-          success: true,
-          value: quotient,
-          displayText: `Q=${quotient}, R=${remainder}`,
-          isRemainder: true,
-          quotient,
-          remainder
-        };
-      }
-      throw new Error("Syntax ERROR");
-    }
-
-    const vectorMatch = raw.match(/^(Pol|Rec)\((.*)\)$/);
-    if (vectorMatch) {
-      const [, fnName, body] = vectorMatch;
-      const args = splitTopLevelArgs(body);
-      if (args.length !== 2) throw new Error("Syntax ERROR");
-      const first = evaluatePrimitive(args[0], variables, ans, angleMode);
-      const second = evaluatePrimitive(args[1], variables, ans, angleMode);
-      if (!Number.isFinite(first) || !Number.isFinite(second)) throw new Error("Math ERROR");
-      if (fnName === 'Pol') {
-        const r = Math.hypot(first, second);
-        const thetaRad = Math.atan2(second, first);
-        const theta = angleMode === 'DEG' ? thetaRad * 180 / Math.PI : thetaRad;
-        return { success: true, value: r, displayText: `r=${formatCasioValue(r)}, θ=${formatCasioValue(theta)}` };
-      }
-      const thetaRad = angleMode === 'DEG' ? second * Math.PI / 180 : second;
-      const x = first * Math.cos(thetaRad);
-      const y = first * Math.sin(thetaRad);
-      return { success: true, value: x, displayText: `x=${formatCasioValue(x)}, y=${formatCasioValue(y)}` };
-    }
-
-    // Process general functional expressions
-    const finalValue = evaluatePrimitive(raw, variables, ans, angleMode);
-    
-    if (isNaN(finalValue) || !isFinite(finalValue)) {
-      return { success: false, value: 0, displayText: "Math ERROR" };
-    }
-
-    return { success: true, value: finalValue, displayText: formatCasioValue(finalValue) };
-  } catch (err: any) {
-    return { success: false, value: 0, displayText: err.message === "Math ERROR" ? "Math ERROR" : "Syntax ERROR" };
-  }
-}
-
-// Direct evaluator with Casio input mappings and a small math-only scope.
-function evaluatePrimitive(
-  formula: string,
-  variables: Record<string, number>,
-  ans: number,
-  angleMode: 'DEG' | 'RAD'
-): number {
-  const f = normalizeExpression(completeParentheses(formula), variables, ans);
-
-  const radFactor = angleMode === 'DEG' ? Math.PI / 180 : 1;
-  const invRadFactor = angleMode === 'DEG' ? 180 / Math.PI : 1;
-  const scope = {
-    PI: Math.PI,
-    E_CONST: Math.E,
-    sin: (x: number) => Math.sin(x * radFactor),
-    cos: (x: number) => Math.cos(x * radFactor),
-    tan: (x: number) => Math.tan(x * radFactor),
-    asin: (x: number) => Math.asin(x) * invRadFactor,
-    acos: (x: number) => Math.acos(x) * invRadFactor,
-    atan: (x: number) => Math.atan(x) * invRadFactor,
-    sqrt: Math.sqrt,
-    cbrt: Math.cbrt,
-    log: Math.log10,
-    ln: Math.log,
-    abs: Math.abs,
-    fact,
-    nPr,
-    nCr,
-    Rnd: (x: number) => Math.round(x),
-    rand: () => Math.random(),
-    RanInt: (min: number, max: number) => {
-      const lo = Math.ceil(Math.min(min, max));
-      const hi = Math.floor(Math.max(min, max));
-      return Math.floor(Math.random() * (hi - lo + 1)) + lo;
-    }
-  };
-
-  if (!/^[0-9+\-*/%().,\sA-Za-z_!*]+$/.test(f)) return NaN;
-
-  // Evaluate safely
-  try {
-    const result = Function(...Object.keys(scope), `"use strict"; return (${f});`)(...Object.values(scope));
-    return typeof result === 'number' ? result : NaN;
-  } catch {
-    return NaN;
-  }
-}
-
-function formatCasioValue(val: number): string {
-  if (Object.is(val, -0)) return "0";
-  if (!isFinite(val)) return "Math ERROR";
-  const abs = Math.abs(val);
-  if (abs === 0) return "0";
-  if (abs >= 1e10 || abs < 1e-6) {
-    return val.toExponential(8).replace(/\.?0+e/, 'e');
-  }
-  // Trim excessive decimal zeros
-  const formatted = val.toPrecision(12);
-  return String(Number(formatted));
-}
-
 type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE' | 'MAIN' | 'OPTN' | 'SOLVE' | 'CALC';
 type MenuDirection = 'left' | 'right' | 'up' | 'down';
-type CalcMode = 'Calculate' | 'Statistics' | 'Distribution' | 'Spreadsheet' | 'Function Table' | 'Equation' | 'Inequality' | 'Complex' | 'Base-N' | 'Matrix' | 'Vector' | 'Ratio';
 
 const STORAGE_KEY = 'fx991cnx-registers-v1';
 const VARIABLE_NAMES = ['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M'];
@@ -273,8 +73,6 @@ const DEFAULT_VARIABLES: Record<string, number> = { A: 0, B: 0, C: 0, D: 0, E: 0
 const MODE_LABELS: Record<CalcMode, string> = {
   Calculate: '计算',
   Statistics: '统计',
-  Distribution: '分布',
-  Spreadsheet: '表格',
   'Function Table': '函数表格',
   Equation: '函数/方程',
   Inequality: '不等式',
@@ -291,7 +89,7 @@ const MENU_MODES: CalcMode[] = [
   'Matrix',
   'Vector',
   'Statistics',
-  'Spreadsheet',
+  'Function Table',
   'Equation',
   'Inequality',
   'Ratio',
@@ -391,7 +189,7 @@ function MenuModeIcon({ mode, selected }: { mode: CalcMode; selected: boolean })
       </div>
     );
   }
-  if (mode === 'Spreadsheet') {
+  if (mode === 'Function Table') {
     return (
       <div className="grid grid-cols-2 border-2 w-11 h-8 p-1 gap-1" style={block}>
         {[0, 1].map(n => (
@@ -481,11 +279,12 @@ export default function App() {
   const [resultVal, setResultVal] = useState<string>("0");
   const [variables, setVariables] = useState<Record<string, number>>(() => loadStoredVariables());
   const [calcMode, setCalcMode] = useState<CalcMode>('Calculate');
+  const [modeRuntime, setModeRuntime] = useState(() => createModeRuntime(loadModeMemory()));
 
   // Mode helpers
   const [shiftActive, setShiftActive] = useState<boolean>(false);
   const [alphaActive, setAlphaActive] = useState<boolean>(false);
-  const [angleMode, setAngleMode] = useState<'DEG' | 'RAD'>('DEG');
+  const [angleMode, setAngleMode] = useState<AngleMode>('DEG');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
 
   // Advanced contextual screens
@@ -514,6 +313,22 @@ export default function App() {
       // localStorage can be unavailable in private or locked-down contexts.
     }
   }, [variables]);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(MODE_MEMORY_KEY, JSON.stringify(modeRuntime.memory));
+    } catch {
+      // localStorage can be unavailable in private or locked-down contexts.
+    }
+  }, [modeRuntime.memory]);
+
+  const applyModeAction = (action: RuntimeAction) => {
+    const next = dispatchModeRuntime(modeRuntime, action, { variables, angleMode });
+    setModeRuntime(next);
+    setExpr(next.input);
+    setResultVal(next.result);
+    if (next.result === 'DEG' || next.result === 'RAD' || next.result === 'GRAD') setAngleMode(next.result);
+    return next;
+  };
 
   // Physical Sound Synthesizer via Web Audio API
   const triggerClickAudio = () => {
@@ -657,7 +472,10 @@ export default function App() {
     const mode = MENU_MODES[index];
     if (!mode) return;
     setCalcMode(mode);
-    setResultVal(mode);
+    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, { variables, angleMode });
+    setModeRuntime(next);
+    setExpr(next.input);
+    setResultVal(next.result);
     setActiveMenu('NONE');
   };
 
@@ -678,6 +496,13 @@ export default function App() {
   // Handle keys inputs on the virtual keypads
   const handleKeypress = (action: string, value?: string, shiftValue?: string, alphaValue?: string) => {
     triggerClickAudio();
+
+    if (modeRuntime.screen.kind === 'menu' && ['menu', 'clear', 'backspace', 'shift'].includes(action)) {
+      applyModeAction({ type: 'clear' });
+      setShiftActive(false);
+      setAlphaActive(false);
+      return;
+    }
 
     if (activeMenu !== 'NONE' && ['menu', 'clear', 'backspace', 'shift'].includes(action)) {
       setActiveMenu('NONE');
@@ -739,6 +564,12 @@ export default function App() {
         }
         if (shiftValue === 'CONV_MENU') {
           setActiveMenu('CONV');
+          setShiftActive(false);
+          return;
+        }
+        if (shiftValue === 'M-') {
+          const value = Number(resultVal);
+          if (Number.isFinite(value)) setVariables(prev => ({ ...prev, M: prev.M - value }));
           setShiftActive(false);
           return;
         }
@@ -820,6 +651,9 @@ export default function App() {
           setAngleMode('RAD');
           setActiveMenu('NONE');
         } else if (activeVal === '3') {
+          setAngleMode('GRAD');
+          setActiveMenu('NONE');
+        } else if (activeVal === '4') {
           setResultVal('PIXEL LCD');
           setActiveMenu('NONE');
         } else {
@@ -863,6 +697,33 @@ export default function App() {
         return;
       }
       setActiveMenu('NONE');
+      return;
+    }
+
+    // Mode-specific actions are handled before the general calculator router.
+    if (activeAction === 'optn') {
+      applyModeAction({ type: 'optn' });
+      return;
+    }
+    if (modeRuntime.screen.kind !== 'input' || calcMode !== 'Calculate') {
+      if (activeAction === 'menu') {
+        setMenuScrollIdx(Math.max(0, MENU_MODES.indexOf(calcMode)));
+        setActiveMenu('MAIN');
+        return;
+      }
+      if (activeAction === 'clear') applyModeAction({ type: 'clear' });
+      else if (activeAction === 'backspace') applyModeAction({ type: 'delete' });
+      else if (activeAction === 'arrow_left') applyModeAction({ type: 'left' });
+      else if (activeAction === 'arrow_right') applyModeAction({ type: 'right' });
+      else if (activeAction === 'arrow_up') applyModeAction({ type: 'up' });
+      else if (activeAction === 'arrow_down') applyModeAction({ type: 'down' });
+      else if (activeAction === 'evaluate') applyModeAction({ type: 'evaluate' });
+      else if (activeAction === 'eng') applyModeAction({ type: 'eng' });
+      else if (activeAction === 'append') {
+        const baseKeys: Record<string, 2 | 8 | 10 | 16> = { '²': 10, '^(': 16, 'log□(': 2, 'ln(': 8 };
+        if (calcMode === 'Base-N' && baseKeys[activeVal]) applyModeAction({ type: 'base', base: baseKeys[activeVal] });
+        else applyModeAction({ type: 'append', value: activeVal });
+      }
       return;
     }
 
@@ -931,7 +792,7 @@ export default function App() {
         setActiveMenu('MAIN');
         break;
       case 'optn':
-        setActiveMenu('OPTN');
+        applyModeAction({ type: 'optn' });
         break;
       case 'calc':
         handleCalcRequest();
@@ -942,6 +803,21 @@ export default function App() {
       case 'store_mode':
         setActiveMenu('STORE');
         break;
+      case 'eng': {
+        const value = Number(resultVal);
+        if (Number.isFinite(value)) setResultVal(formatEngineering(value));
+        break;
+      }
+      case 'sd': {
+        const value = Number(resultVal);
+        if (Number.isFinite(value)) setResultVal(resultVal.includes('/') ? formatCoreValue(value) : approximateFraction(value));
+        break;
+      }
+      case 'mplus': {
+        const value = Number(resultVal);
+        if (Number.isFinite(value)) setVariables(prev => ({ ...prev, M: prev.M + value }));
+        break;
+      }
       case 'evaluate':
         handleEvaluation();
         break;
@@ -949,7 +825,7 @@ export default function App() {
         insertTextAtCursor(activeVal);
         break;
       case 'change_angle':
-        setAngleMode(prev => prev === 'DEG' ? 'RAD' : 'DEG');
+        setAngleMode(prev => prev === 'DEG' ? 'RAD' : prev === 'RAD' ? 'GRAD' : 'DEG');
         break;
     }
   };
@@ -1170,6 +1046,7 @@ export default function App() {
                     menuIndex={menuScrollIdx}
                     menuItems={MENU_MODES.map(mode => ({ mode, label: MODE_LABELS[mode] }))}
                     variables={variables}
+                    modeScreen={runtimeScreenView(modeRuntime)}
                     onExpressionChange={setExpr}
                   />
 
@@ -1249,7 +1126,8 @@ export default function App() {
                               <div className="mt-1 font-semibold space-y-0.5 text-left">
                                 <div>1: 角度 - DEG (度数单位)</div>
                                 <div>2: 角度 - RAD (弧度单位)</div>
-                                <div>3: 其它设置 (退出设定)</div>
+                                <div>3: 角度 - GRAD (百分度)</div>
+                                <div>4: 其它设置</div>
                               </div>
                             </>
                           )}
@@ -1283,7 +1161,7 @@ export default function App() {
                               <div className="mt-1 text-[8px] font-sans grid grid-cols-3 gap-0.5 tracking-tight text-left font-black">
                                 {Object.entries(variables).map(([name, val]) => (
                                   <div key={name} className="truncate bg-black/5 rounded p-0.5">
-                                    {name}: {formatCasioValue(val as number)}
+                                    {name}: {formatCoreValue(val as number)}
                                   </div>
                                 ))}
                               </div>
@@ -1638,7 +1516,7 @@ export default function App() {
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0.5 left-1/2 -translate-x-1/2">←</span>
                   <span className="text-[#d9658d] text-[7.5px] font-black absolute top-0.5 right-0.5">i</span>
                   <button 
-                    onClick={() => handleKeypress('append', 'E', '←', 'i')}
+                    onClick={() => handleKeypress('eng', 'ENG', '←', 'i')}
                     className="h-7 rounded bg-[#2a2f3a] text-stone-100 border border-[#151a22] shadow-[0_3.5px_0_#05070a] active:translate-y-0.5 active:shadow-[0_1px_0_#05070a] flex items-center justify-center text-[10px] font-bold"
                   >
                     ENG
@@ -1673,7 +1551,7 @@ export default function App() {
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0.5 left-0 scale-90 origin-left whitespace-nowrap">a b/c⇔d/c</span>
                   <span className="text-[#d9658d] text-[7.5px] font-black absolute top-0.5 right-0">Y</span>
                   <button 
-                    onClick={() => handleKeypress('append', '', 'Y', 'Y')} // Dummy conversion step
+                    onClick={() => handleKeypress('sd', 'S⇔D', undefined, 'Y')}
                     className="h-7 rounded bg-[#2a2f3a] text-stone-100 border border-[#151a22] shadow-[0_3.5px_0_#05070a] active:translate-y-0.5 active:shadow-[0_1px_0_#05070a] flex items-center justify-center text-[10px] font-bold"
                   >
                     S⇔D
@@ -1685,7 +1563,7 @@ export default function App() {
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0.5 left-0">M-</span>
                   <span className="text-[#d9658d] text-[7.5px] font-black absolute top-0.5 right-0">M</span>
                   <button 
-                    onClick={() => handleKeypress('append', 'M+', 'M-', 'M')}
+                    onClick={() => handleKeypress('mplus', 'M+', 'M-', 'M')}
                     className="h-7 rounded bg-[#2a2f3a] text-stone-100 border border-[#151a22] shadow-[0_3.5px_0_#05070a] active:translate-y-0.5 active:shadow-[0_1px_0_#05070a] flex items-center justify-center text-[10px] font-bold"
                   >
                     M+

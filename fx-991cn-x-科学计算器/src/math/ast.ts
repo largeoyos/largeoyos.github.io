@@ -323,11 +323,36 @@ function slotSibling(owner: MathNode, slot: string, direction: CursorDirection):
   return undefined;
 }
 
+function orderedChildSequences(node: MathNode): SequenceNode[] {
+  const sequences: SequenceNode[] = [];
+  visitChildSequences(node, sequence => sequences.push(sequence));
+  return sequences;
+}
+
+function firstEditableSequence(node: MathNode): SequenceNode | undefined {
+  const first = orderedChildSequences(node)[0];
+  if (!first) return undefined;
+  const nested = first.children[0] ? firstEditableSequence(first.children[0]) : undefined;
+  return nested ?? first;
+}
+
+function lastEditableSequence(node: MathNode): SequenceNode | undefined {
+  const children = orderedChildSequences(node);
+  const last = children[children.length - 1];
+  if (!last) return undefined;
+  const tail = last.children[last.children.length - 1];
+  const nested = tail ? lastEditableSequence(tail) : undefined;
+  return nested ?? last;
+}
+
+function isEmptyPlaceholder(sequence: SequenceNode): boolean {
+  return sequence.children.length === 1 && sequence.children[0].type === 'placeholder';
+}
+
 export function moveCursor(document: FormulaDocument, direction: CursorDirection): FormulaDocument {
   const next = cloneDocument(document);
   const sequences = collectSequences(next.root);
-  const currentIndex = sequences.findIndex(item => item.sequence.id === next.cursor.sequenceId);
-  const current = sequences[currentIndex];
+  const current = sequences.find(item => item.sequence.id === next.cursor.sequenceId);
   if (!current) return next;
 
   if ((direction === 'up' || direction === 'down') && current.owner && current.slot) {
@@ -335,47 +360,66 @@ export function moveCursor(document: FormulaDocument, direction: CursorDirection
     if (sibling) {
       next.cursor = {
         sequenceId: sibling.id,
-        offset: Math.min(next.cursor.offset, sibling.children.length),
+        offset: isEmptyPlaceholder(sibling) ? 0 : Math.min(next.cursor.offset, sibling.children.length),
       };
+    }
+    return next;
+  }
+
+  if (direction === 'right') {
+    if (isEmptyPlaceholder(current.sequence)) {
+      next.cursor.offset = current.sequence.children.length;
+    }
+    if (next.cursor.offset < current.sequence.children.length) {
+      const node = current.sequence.children[next.cursor.offset];
+      const child = firstEditableSequence(node);
+      if (child) {
+        next.cursor = { sequenceId: child.id, offset: 0 };
+      } else {
+        next.cursor.offset += 1;
+      }
       return next;
     }
+    if (current.owner && current.parentSequence && current.ownerIndex !== undefined) {
+      const slots = orderedChildSequences(current.owner);
+      const slotIndex = slots.findIndex(sequence => sequence.id === current.sequence.id);
+      const sibling = slots[slotIndex + 1];
+      if (sibling) {
+        next.cursor = { sequenceId: sibling.id, offset: 0 };
+      } else {
+        next.cursor = { sequenceId: current.parentSequence.id, offset: current.ownerIndex + 1 };
+      }
+      return next;
+    }
+    next.cursor = { sequenceId: next.root.id, offset: 0 };
+    return next;
   }
 
   if (direction === 'left') {
     if (next.cursor.offset > 0) {
-      next.cursor.offset -= 1;
+      const node = current.sequence.children[next.cursor.offset - 1];
+      const child = lastEditableSequence(node);
+      if (child) {
+        next.cursor = { sequenceId: child.id, offset: child.children.length };
+      } else {
+        next.cursor.offset -= 1;
+      }
       return next;
     }
-    if (current.owner && current.slot) {
-      const sibling = slotSibling(current.owner, current.slot, direction);
+    if (current.owner && current.parentSequence && current.ownerIndex !== undefined) {
+      const slots = orderedChildSequences(current.owner);
+      const slotIndex = slots.findIndex(sequence => sequence.id === current.sequence.id);
+      const sibling = slots[slotIndex - 1];
       if (sibling) {
         next.cursor = { sequenceId: sibling.id, offset: sibling.children.length };
-        return next;
+      } else {
+        next.cursor = { sequenceId: current.parentSequence.id, offset: current.ownerIndex };
       }
     }
-    const previous = sequences[currentIndex - 1]?.sequence;
-    if (previous) next.cursor = { sequenceId: previous.id, offset: previous.children.length };
-  }
-
-  if (direction === 'right') {
-    if (next.cursor.offset < current.sequence.children.length) {
-      next.cursor.offset += 1;
-      return next;
-    }
-    if (current.owner && current.slot) {
-      const sibling = slotSibling(current.owner, current.slot, direction);
-      if (sibling) {
-        next.cursor = { sequenceId: sibling.id, offset: 0 };
-        return next;
-      }
-    }
-    const following = sequences[currentIndex + 1]?.sequence;
-    if (following) next.cursor = { sequenceId: following.id, offset: 0 };
   }
 
   return next;
 }
-
 export function deleteBackward(document: FormulaDocument): FormulaDocument {
   const next = cloneDocument(document);
   const sequences = collectSequences(next.root);
@@ -439,11 +483,7 @@ export function serializeExpression(document: FormulaDocument): string {
 
 export function parseLegacyExpression(input: string): FormulaDocument {
   const root = createSequence();
-  const normalized = input
-    .replaceAll('×', '*')
-    .replaceAll('÷', '/')
-    .replaceAll('π', 'p');
-  root.children = [...normalized].map(value => ({ type: 'glyph', value }));
+  root.children = [...input].map(value => ({ type: 'glyph', value }));
   return { root, cursor: { sequenceId: root.id, offset: root.children.length } };
 }
 

@@ -68,9 +68,9 @@ test('layout boxes use positive integer measurements', () => {
   assert.ok(Number.isInteger(box.baseline) && box.baseline >= 0);
 });
 
-test('LCD backing buffer uses double resolution', () => {
-  assert.equal(LCD_WIDTH, 384);
-  assert.equal(LCD_HEIGHT, 126);
+test('LCD backing buffer uses eight-times logical resolution', () => {
+  assert.equal(LCD_WIDTH, 1536);
+  assert.equal(LCD_HEIGHT, 504);
 });
 
 test('large integers use BigInt prime factorization', () => {
@@ -100,4 +100,28 @@ test('equation solver keeps more than two distinct real roots', () => {
 test('multiplication and division have dedicated bitmap glyphs', () => {
   assert.notDeepEqual(getBitmapGlyph('×'), getBitmapGlyph('?'));
   assert.notDeepEqual(getBitmapGlyph('÷'), getBitmapGlyph('?'));
+});
+
+test('right enters a compound node before moving past it and wraps at root end', () => {
+  let document = createEmptyDocument();
+  document = insertFunction(document, 'log', 2);
+  document.cursor = { sequenceId: document.root.id, offset: 0 };
+  document = moveCursor(document, 'right');
+  assert.notEqual(document.cursor.sequenceId, document.root.id);
+  document = insertGlyph(document, '2');
+  document = moveCursor(document, 'right');
+  document = insertGlyph(document, '8');
+  document = moveCursor(document, 'right');
+  assert.equal(document.cursor.sequenceId, document.root.id);
+  assert.equal(document.cursor.offset, 1);
+  document = moveCursor(document, 'right');
+  assert.equal(document.cursor.offset, 0);
+});
+
+test('left from after a compound node enters its last slot', () => {
+  let document = createEmptyDocument();
+  document = insertFunction(document, 'log', 2);
+  document.cursor = { sequenceId: document.root.id, offset: 1 };
+  document = moveCursor(document, 'left');
+  assert.notEqual(document.cursor.sequenceId, document.root.id);
 });

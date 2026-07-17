@@ -83,17 +83,19 @@ const FUNCTIONS = new Set([
   'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh', 'asinh', 'acosh', 'atanh',
   'sqrt', 'cbrt', 'root', 'log', 'ln', 'abs', 'fact', 'npr', 'ncr', 'rnd', 'ranint', 'pol', 'rec',
   'rand', 'd', 'dx', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
-  'binompdf', 'binomcdf', 'poissonpdf', 'poissoncdf', 'solve', 'ratio',
+  'binompdf', 'binomcdf', 'poissonpdf', 'poissoncdf', 'solve', 'ratio', 'mixed',
 ]);
 
 function normalizeInput(input: string): string {
   return input
+    .replace(/³√\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))/g, 'cbrt($1)')
+    .replace(/√\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))/g, 'sqrt($1)')
     .replaceAll('÷R', ' remainder ')
     .replaceAll('×', '*')
     .replaceAll('÷', '/')
     .replaceAll('−', '-')
-    .replaceAll('√', 'sqrt')
     .replaceAll('³√', 'cbrt')
+    .replaceAll('√', 'sqrt')
     .replaceAll('π', 'pi')
     .replaceAll('Π', 'pi')
     .replaceAll('Σ', 'sum')
@@ -152,7 +154,7 @@ function tokenize(raw: string): Token[] {
       i += match[0].length;
       continue;
     }
-    if ('+-*/^%=<>!'.includes(ch)) {
+    if ('+-*/^%=<>!°'.includes(ch)) {
       const two = input.slice(i, i + 2);
       if (['<=', '>=', '==', '!='].includes(two)) {
         tokens.push({ type: 'operator', value: two });
@@ -195,6 +197,7 @@ function needsMultiply(a: Token, b: Token): boolean {
   const left = a.type === 'number' || a.type === 'identifier' || (a.type === 'paren' && a.value === ')');
   const right = b.type === 'number' || (b.type === 'paren' && b.value === '(') || b.type === 'identifier';
   if (!left || !right) return false;
+  if (a.type === 'number' && b.type === 'number') return false;
   if (a.type === 'identifier' && b.type === 'paren' && b.value === '(' && FUNCTIONS.has(a.value.toLowerCase())) return false;
   if (b.type === 'identifier' && ['remainder', 'npr', 'ncr'].includes(b.value.toLowerCase())) return false;
   if (a.type === 'identifier' && ['remainder', 'npr', 'ncr'].includes(a.value.toLowerCase())) return false;
@@ -230,18 +233,18 @@ class Parser {
   }
 
   private parseMulDiv(): Node {
-    let node = this.parsePower();
-    while (this.matchOperator('*', '/', '%', 'remainder', 'npr', 'ncr')) {
+    let node = this.parseUnary();
+    while (this.matchOperator('*', '/', 'remainder', 'npr', 'ncr')) {
       const op = String(this.previous().value).toLowerCase();
-      node = { type: 'binary', op, left: node, right: this.parsePower() };
+      node = { type: 'binary', op, left: node, right: this.parseUnary() };
     }
     return node;
   }
 
   private parsePower(): Node {
-    let node = this.parseUnary();
+    let node = this.parsePostfix();
     if (this.matchOperator('^')) {
-      node = { type: 'binary', op: '^', left: node, right: this.parsePower() };
+      node = { type: 'binary', op: '^', left: node, right: this.parseUnary() };
     }
     return node;
   }
@@ -251,12 +254,12 @@ class Parser {
       const op = String(this.previous().value).toLowerCase();
       return { type: 'unary', op, expr: this.parseUnary() };
     }
-    return this.parsePostfix();
+    return this.parsePower();
   }
 
   private parsePostfix(): Node {
     let node = this.parsePrimary();
-    while (this.matchOperator('!')) node = { type: 'postfix', op: '!', expr: node };
+    while (this.matchOperator('!', '%', '°')) node = { type: 'postfix', op: String(this.previous().value), expr: node };
     return node;
   }
 
@@ -344,10 +347,21 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
       const value = evalNode(node.expr, ctx);
       return node.op === '-' ? -value : value;
     }
-    case 'postfix':
-      return factorial(evalNode(node.expr, ctx));
-    case 'binary':
-      return evalBinary(node.op, evalNode(node.left, ctx), evalNode(node.right, ctx));
+    case 'postfix': {
+      const value = evalNode(node.expr, ctx);
+      if (node.op === '!') return factorial(value);
+      if (node.op === '%') return value / 100;
+      if (node.op === '°') return degreesToAngleUnit(value, ctx.angleMode);
+      throw new Error('Syntax ERROR');
+    }
+    case 'binary': {
+      const left = evalNode(node.left, ctx);
+      if ((node.op === '+' || node.op === '-') && node.right.type === 'postfix' && node.right.op === '%') {
+        const percentage = evalNode(node.right.expr, ctx) / 100;
+        return node.op === '+' ? left + left * percentage : left - left * percentage;
+      }
+      return evalBinary(node.op, left, evalNode(node.right, ctx));
+    }
     case 'call':
       if (['d', 'dx', 'integral', 'sum', 'solve'].includes(node.name.toLowerCase())) {
         return callSpecialFunction(node.name, node.args, ctx);
@@ -359,7 +373,7 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
 function readVariable(name: string, ctx: EvaluationContext): number {
   const key = name.toUpperCase();
   if (key === 'PI') return Math.PI;
-  if (key === 'E') return Math.E;
+  if (name === 'e') return Math.E;
   if (key === 'ANS') return ctx.ans;
   if (key === 'RAND') return Math.random();
   if (key in ctx.variables) return ctx.variables[key] || 0;
@@ -374,7 +388,6 @@ function evalBinary(op: string, left: number, right: number): number {
     case '/':
       if (right === 0) throw new Error('Math ERROR');
       return left / right;
-    case '%': return left / 100 * right;
     case '^': return Math.pow(left, right);
     case 'remainder':
       if (right === 0) throw new Error('Math ERROR');
@@ -399,21 +412,43 @@ function callFunction(name: string, args: number[], ctx: EvaluationContext): num
   switch (fn) {
     case 'sin': return Math.sin(args[0] * rad);
     case 'cos': return Math.cos(args[0] * rad);
-    case 'tan': return Math.tan(args[0] * rad);
-    case 'asin': return Math.asin(args[0]) * inv;
-    case 'acos': return Math.acos(args[0]) * inv;
+    case 'tan': {
+      const angle = args[0] * rad;
+      if (Math.abs(Math.cos(angle)) < 1e-12) throw new Error('Math ERROR');
+      return Math.tan(angle);
+    }
+    case 'asin':
+      if (args[0] < -1 || args[0] > 1) throw new Error('Math ERROR');
+      return Math.asin(args[0]) * inv;
+    case 'acos':
+      if (args[0] < -1 || args[0] > 1) throw new Error('Math ERROR');
+      return Math.acos(args[0]) * inv;
     case 'atan': return Math.atan(args[0]) * inv;
     case 'sinh': return Math.sinh(args[0]);
     case 'cosh': return Math.cosh(args[0]);
     case 'tanh': return Math.tanh(args[0]);
     case 'asinh': return Math.asinh(args[0]);
-    case 'acosh': return Math.acosh(args[0]);
-    case 'atanh': return Math.atanh(args[0]);
-    case 'sqrt': return Math.sqrt(args[0]);
+    case 'acosh':
+      if (args[0] < 1) throw new Error('Math ERROR');
+      return Math.acosh(args[0]);
+    case 'atanh':
+      if (Math.abs(args[0]) >= 1) throw new Error('Math ERROR');
+      return Math.atanh(args[0]);
+    case 'sqrt':
+      if (args[0] < 0) throw new Error('Math ERROR');
+      return Math.sqrt(args[0]);
     case 'cbrt': return Math.cbrt(args[0]);
-    case 'root': return Math.pow(args[1], 1 / args[0]);
-    case 'log': return args.length === 2 ? Math.log(args[1]) / Math.log(args[0]) : Math.log10(args[0]);
-    case 'ln': return Math.log(args[0]);
+    case 'root': return realRoot(args[0], args[1]);
+    case 'log':
+      if (args.length === 2) {
+        if (args[0] <= 0 || args[0] === 1 || args[1] <= 0) throw new Error('Math ERROR');
+        return Math.log(args[1]) / Math.log(args[0]);
+      }
+      if (args[0] <= 0) throw new Error('Math ERROR');
+      return Math.log10(args[0]);
+    case 'ln':
+      if (args[0] <= 0) throw new Error('Math ERROR');
+      return Math.log(args[0]);
     case 'abs': return Math.abs(args[0]);
     case 'fact': return factorial(args[0]);
     case 'npr': return nPr(args[0], args[1]);
@@ -431,10 +466,24 @@ function callFunction(name: string, args: number[], ctx: EvaluationContext): num
     case 'binompdf': return binomialPdf(args[0], args[1], args[2]);
     case 'binomcdf': return binomialCdf(args[0], args[1], args[2]);
     case 'poissonpdf': return poissonPdf(args[0], args[1]);
+    case 'mixed': return args[0] < 0 ? args[0] - Math.abs(args[1] / args[2]) : args[0] + args[1] / args[2];
     case 'poissoncdf': return poissonCdf(args[0], args[1]);
     case 'ratio': return args[1] === 0 ? NaN : args[0] / args[1] * args[2];
     default: throw new Error('Argument ERROR');
   }
+}
+
+function realRoot(degree: number, value: number): number {
+  if (!Number.isFinite(degree) || degree === 0) throw new Error('Math ERROR');
+  if (value >= 0) return Math.pow(value, 1 / degree);
+  if (!Number.isInteger(degree) || Math.abs(degree % 2) !== 1) throw new Error('Math ERROR');
+  return -Math.pow(-value, 1 / degree);
+}
+
+function degreesToAngleUnit(value: number, mode: AngleMode): number {
+  if (mode === 'RAD') return value * Math.PI / 180;
+  if (mode === 'GRAD') return value * 10 / 9;
+  return value;
 }
 
 function callSpecialFunction(name: string, args: Node[], ctx: EvaluationContext): number {

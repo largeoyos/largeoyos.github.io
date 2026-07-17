@@ -2,19 +2,21 @@ export type SequenceNode = {
   type: 'sequence';
   id: string;
   children: MathNode[];
+  editable?: boolean;
 };
 
-export type GlyphNode = {
-  type: 'glyph';
-  value: string;
-};
-
-export type PlaceholderNode = {
-  type: 'placeholder';
-};
+export type GlyphNode = { type: 'glyph'; value: string };
+export type PlaceholderNode = { type: 'placeholder' };
 
 export type FractionNode = {
   type: 'fraction';
+  numerator: SequenceNode;
+  denominator: SequenceNode;
+};
+
+export type MixedFractionNode = {
+  type: 'mixed-fraction';
+  whole: SequenceNode;
   numerator: SequenceNode;
   denominator: SequenceNode;
 };
@@ -37,10 +39,7 @@ export type FunctionNode = {
   args: SequenceNode[];
 };
 
-export type GroupNode = {
-  type: 'group';
-  body: SequenceNode;
-};
+export type GroupNode = { type: 'group'; body: SequenceNode };
 
 export type IntegralNode = {
   type: 'integral';
@@ -67,6 +66,7 @@ export type MathNode =
   | GlyphNode
   | PlaceholderNode
   | FractionNode
+  | MixedFractionNode
   | RootNode
   | PowerNode
   | FunctionNode
@@ -97,9 +97,9 @@ type SequenceMeta = {
 
 let sequenceCounter = 0;
 
-export function createSequence(children: MathNode[] = []): SequenceNode {
+export function createSequence(children: MathNode[] = [], editable = true): SequenceNode {
   sequenceCounter += 1;
-  return { type: 'sequence', id: `seq-${sequenceCounter}`, children };
+  return { type: 'sequence', id: `seq-${sequenceCounter}`, children, editable };
 }
 
 export function placeholderSequence(): SequenceNode {
@@ -124,6 +124,11 @@ function visitChildSequences(
       callback(node.numerator, 'numerator');
       callback(node.denominator, 'denominator');
       break;
+    case 'mixed-fraction':
+      callback(node.whole, 'whole');
+      callback(node.numerator, 'numerator');
+      callback(node.denominator, 'denominator');
+      break;
     case 'root':
       if (node.index) callback(node.index, 'index');
       callback(node.radicand, 'radicand');
@@ -139,18 +144,18 @@ function visitChildSequences(
       callback(node.body, 'body');
       break;
     case 'integral':
-      callback(node.integrand, 'integrand');
       callback(node.lower, 'lower');
       callback(node.upper, 'upper');
+      callback(node.integrand, 'integrand');
       break;
     case 'derivative':
       callback(node.expression, 'expression');
       callback(node.at, 'at');
       break;
     case 'summation':
-      callback(node.expression, 'expression');
       callback(node.lower, 'lower');
       callback(node.upper, 'upper');
+      callback(node.expression, 'expression');
       break;
   }
 }
@@ -207,13 +212,56 @@ function insertNode(document: FormulaDocument, node: MathNode, target?: Sequence
 export function insertGlyph(document: FormulaDocument, value: string): FormulaDocument {
   const next = cloneDocument(document);
   const sequence = findSequence(next.root, next.cursor.sequenceId);
-  if (!sequence) return next;
+  if (!sequence || sequence.editable === false) return next;
   removePlaceholder(sequence);
   const offset = Math.min(next.cursor.offset, sequence.children.length);
-  const glyphs = [...value].map(char => ({ type: 'glyph', value: char }) as GlyphNode);
+  let input = value;
+  if (input === '.') {
+    const start = operandStart(sequence, offset);
+    const token = sequence.children.slice(start, offset)
+      .filter((node): node is GlyphNode => node.type === 'glyph')
+      .map(node => node.value)
+      .join('');
+    if (token.includes('.')) return next;
+    if (!/[0-9]$/.test(token)) input = '0.';
+  }
+  const glyphs = [...input].map(char => ({ type: 'glyph', value: char }) as GlyphNode);
   sequence.children.splice(offset, 0, ...glyphs);
   next.cursor = { sequenceId: sequence.id, offset: offset + glyphs.length };
   return next;
+}
+
+function operandStart(sequence: SequenceNode, offset: number): number {
+  if (offset <= 0) return 0;
+  const last = sequence.children[offset - 1];
+  if (last.type !== 'glyph') return offset - 1;
+  if (last.value === ')') {
+    let depth = 0;
+    for (let index = offset - 1; index >= 0; index--) {
+      const node = sequence.children[index];
+      if (node.type !== 'glyph') continue;
+      if (node.value === ')') depth++;
+      if (node.value === '(' && --depth === 0) return index;
+    }
+  }
+  if (['!', '%', '°'].includes(last.value)) {
+    return operandStart(sequence, offset - 1);
+  }
+  let start = offset;
+  while (start > 0) {
+    const node = sequence.children[start - 1];
+    if (node.type !== 'glyph' || !/[A-Za-z0-9.π]/.test(node.value)) break;
+    start--;
+  }
+  if (start > 1) {
+    const sign = sequence.children[start - 1];
+    const marker = sequence.children[start - 2];
+    if (sign.type === 'glyph' && /^[+-]$/.test(sign.value)
+      && marker.type === 'glyph' && /^[Ee]$/.test(marker.value)) {
+      start = operandStart(sequence, start - 1);
+    }
+  }
+  return Math.min(start, offset - 1);
 }
 
 export function insertFraction(document: FormulaDocument): FormulaDocument {
@@ -225,31 +273,96 @@ export function insertFraction(document: FormulaDocument): FormulaDocument {
   return next;
 }
 
-export function insertRoot(document: FormulaDocument, withIndex = false): FormulaDocument {
+export function insertRoot(
+  document: FormulaDocument,
+  withIndex = false,
+  fixedIndex?: string,
+): FormulaDocument {
   const next = cloneDocument(document);
-  const index = withIndex ? placeholderSequence() : undefined;
+  const index = fixedIndex
+    ? createSequence([...fixedIndex].map(value => ({ type: 'glyph', value } as GlyphNode)), false)
+    : withIndex
+      ? placeholderSequence()
+      : undefined;
   const radicand = placeholderSequence();
   insertNode(next, { type: 'root', index, radicand });
-  setCursorAtStart(next, index ?? radicand);
+  setCursorAtStart(next, fixedIndex ? radicand : index ?? radicand);
   return next;
 }
 
-export function insertPower(document: FormulaDocument, fixedExponent?: string): FormulaDocument {
+export function insertPower(
+  document: FormulaDocument,
+  fixedExponent?: string,
+  fixedBase?: string,
+): FormulaDocument {
   const next = cloneDocument(document);
   const sequence = findSequence(next.root, next.cursor.sequenceId);
   if (!sequence) return next;
   removePlaceholder(sequence);
   const offset = Math.min(next.cursor.offset, sequence.children.length);
-  const previous = offset > 0 ? sequence.children.splice(offset - 1, 1)[0] : undefined;
-  const base = createSequence(previous ? [previous] : [{ type: 'placeholder' }]);
+  const start = fixedBase ? offset : operandStart(sequence, offset);
+  const captured = fixedBase ? [] : sequence.children.splice(start, offset - start);
+  const base = fixedBase
+    ? createSequence([...fixedBase].map(value => ({ type: 'glyph', value } as GlyphNode)), false)
+    : createSequence(captured.length ? captured : [{ type: 'placeholder' }]);
   const exponent = fixedExponent
-    ? createSequence([...fixedExponent].map(value => ({ type: 'glyph', value } as GlyphNode)))
+    ? createSequence([...fixedExponent].map(value => ({ type: 'glyph', value } as GlyphNode)), false)
     : placeholderSequence();
-  sequence.children.splice(Math.max(0, offset - 1), 0, { type: 'power', base, exponent });
+  sequence.children.splice(start, 0, { type: 'power', base, exponent });
   next.cursor = fixedExponent
-    ? { sequenceId: sequence.id, offset: Math.max(0, offset - 1) + 1 }
+    ? { sequenceId: sequence.id, offset: start + 1 }
     : { sequenceId: exponent.id, offset: 0 };
   return next;
+}
+
+export function insertMixedFraction(document: FormulaDocument): FormulaDocument {
+  const next = cloneDocument(document);
+  const whole = placeholderSequence();
+  const numerator = placeholderSequence();
+  const denominator = placeholderSequence();
+  insertNode(next, { type: 'mixed-fraction', whole, numerator, denominator });
+  setCursorAtStart(next, whole);
+  return next;
+}
+
+export function insertGroup(document: FormulaDocument): FormulaDocument {
+  const next = cloneDocument(document);
+  const body = placeholderSequence();
+  insertNode(next, { type: 'group', body });
+  setCursorAtStart(next, body);
+  return next;
+}
+
+export function insertFixedBasePower(document: FormulaDocument, base: '10' | 'e'): FormulaDocument {
+  return insertPower(document, undefined, base);
+}
+
+export function closeContainer(document: FormulaDocument): FormulaDocument {
+  const next = cloneDocument(document);
+  let meta = collectSequences(next.root).find(item => item.sequence.id === next.cursor.sequenceId);
+  while (meta?.owner && meta.parentSequence && meta.ownerIndex !== undefined) {
+    if (meta.owner.type === 'group' || meta.owner.type === 'function') {
+      next.cursor = { sequenceId: meta.parentSequence.id, offset: meta.ownerIndex + 1 };
+      return next;
+    }
+    meta = collectSequences(next.root).find(item => item.sequence.id === meta?.parentSequence?.id);
+  }
+  return insertGlyph(next, ')');
+}
+
+export function advanceArgument(document: FormulaDocument): FormulaDocument {
+  const next = cloneDocument(document);
+  let meta = collectSequences(next.root).find(item => item.sequence.id === next.cursor.sequenceId);
+  while (meta?.owner && meta.parentSequence) {
+    if (meta.owner.type === 'function' && meta.slot?.startsWith('arg:')) {
+      const index = Number(meta.slot.slice(4));
+      const target = meta.owner.args[index + 1];
+      if (target) setCursorAtStart(next, target);
+      return next;
+    }
+    meta = collectSequences(next.root).find(item => item.sequence.id === meta?.parentSequence?.id);
+  }
+  return insertGlyph(next, ',');
 }
 
 export function insertFunction(
@@ -293,14 +406,55 @@ export function insertSummation(document: FormulaDocument): FormulaDocument {
   return next;
 }
 
+export function insertFormulaInput(document: FormulaDocument, value: string): FormulaDocument {
+  if (value === '/') return insertFraction(document);
+  if (value === '■ ▭/▭') return insertMixedFraction(document);
+  if (value === '√(') return insertRoot(document);
+  if (value === '³√(') return insertRoot(document, true, '3');
+  if (value === '■√■') return insertRoot(document, true);
+  if (value === '²') return insertPower(document, '2');
+  if (value === '³') return insertPower(document, '3');
+  if (value === '⁻¹') return insertPower(document, '-1');
+  if (value === '^(') return insertPower(document);
+  if (value === '10^') return insertFixedBasePower(document, '10');
+  if (value === 'e^') return insertFixedBasePower(document, 'e');
+  if (value === '(') return insertGroup(document);
+  if (value === ')') return closeContainer(document);
+  if (value === ',') return advanceArgument(document);
+  if (value === 'log□(') return insertFunction(document, 'log', 2);
+  if (value === 'log(') return insertFunction(document, 'log');
+  if (value === 'ln(') return insertFunction(document, 'ln');
+  if (value === 'Rnd(') return insertFunction(document, 'rnd');
+  if (value === 'sin(' || value === 'cos(' || value === 'tan(') {
+    return insertFunction(document, value.slice(0, -1));
+  }
+  if (value === 'sin⁻¹(') return insertFunction(document, 'asin');
+  if (value === 'cos⁻¹(') return insertFunction(document, 'acos');
+  if (value === 'tan⁻¹(') return insertFunction(document, 'atan');
+  if (value === 'Abs(') return insertFunction(document, 'abs');
+  if (value === 'Pol(' || value === 'Rec(' || value === 'RanInt(') {
+    return insertFunction(document, value.slice(0, -1), 2);
+  }
+  if (value === '∫dx') return insertIntegral(document);
+  if (value === 'd/dx') return insertDerivative(document);
+  if (value === 'Σ') return insertSummation(document);
+  if (value === 'Ran#') return insertGlyph(document, 'rand()');
+  return insertGlyph(document, value);
+}
+
 function slotSibling(owner: MathNode, slot: string, direction: CursorDirection): SequenceNode | undefined {
   if (owner.type === 'fraction') {
     if (direction === 'down' && slot === 'numerator') return owner.denominator;
     if (direction === 'up' && slot === 'denominator') return owner.numerator;
   }
+  if (owner.type === 'mixed-fraction') {
+    if (direction === 'right' && slot === 'whole') return owner.numerator;
+    if (direction === 'down' && slot === 'numerator') return owner.denominator;
+    if (direction === 'up' && slot === 'denominator') return owner.numerator;
+  }
   if (owner.type === 'power') {
-    if (direction === 'up' && slot === 'base') return owner.exponent;
-    if (direction === 'down' && slot === 'exponent') return owner.base;
+    if (direction === 'up' && slot === 'base' && owner.exponent.editable !== false) return owner.exponent;
+    if (direction === 'down' && slot === 'exponent' && owner.base.editable !== false) return owner.base;
   }
   if (owner.type === 'root' && owner.index) {
     if (direction === 'right' && slot === 'index') return owner.radicand;
@@ -325,7 +479,9 @@ function slotSibling(owner: MathNode, slot: string, direction: CursorDirection):
 
 function orderedChildSequences(node: MathNode): SequenceNode[] {
   const sequences: SequenceNode[] = [];
-  visitChildSequences(node, sequence => sequences.push(sequence));
+  visitChildSequences(node, sequence => {
+    if (sequence.editable !== false) sequences.push(sequence);
+  });
   return sequences;
 }
 
@@ -463,6 +619,8 @@ function serializeNode(node: MathNode): string {
         : `sqrt(${serializeSequence(node.radicand)})`;
     case 'power':
       return `((${serializeSequence(node.base)})^(${serializeSequence(node.exponent)}))`;
+    case 'mixed-fraction':
+      return `mixed(${serializeSequence(node.whole)},${serializeSequence(node.numerator)},${serializeSequence(node.denominator)})`;
     case 'function':
       return `${node.name}(${node.args.map(serializeSequence).join(',')})`;
     case 'group':
@@ -496,6 +654,26 @@ export function collectVariables(document: FormulaDocument): string[] {
   };
   walk(document.root);
   return [...found];
+}
+
+export function repairDocumentCursor(document: FormulaDocument): FormulaDocument {
+  const next = cloneDocument(document);
+  try {
+    const sequences = collectSequences(next.root);
+    const current = sequences.find(item => item.sequence.id === next.cursor.sequenceId);
+    if (current && current.sequence.editable !== false) {
+      next.cursor.offset = Math.max(0, Math.min(next.cursor.offset, current.sequence.children.length));
+      return next;
+    }
+    if (current?.parentSequence && current.ownerIndex !== undefined) {
+      next.cursor = { sequenceId: current.parentSequence.id, offset: current.ownerIndex + 1 };
+      return next;
+    }
+  } catch {
+    // A legacy cursor must never make the editor fail to load.
+  }
+  next.cursor = { sequenceId: next.root.id, offset: next.root.children.length };
+  return next;
 }
 
 export function normalizePlaceholders(document: FormulaDocument): FormulaDocument {

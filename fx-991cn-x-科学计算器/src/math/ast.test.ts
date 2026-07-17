@@ -2,10 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   createEmptyDocument,
+  collectSequences,
   deleteBackward,
   insertFraction,
   insertFunction,
   insertGlyph,
+  insertFormulaInput,
   insertPower,
   insertRoot,
   moveCursor,
@@ -15,6 +17,8 @@ import { LCD_HEIGHT, LCD_WIDTH } from './FormulaLcd';
 import { layoutNode } from './layout';
 import { getBitmapGlyph } from './bitmapFont';
 import { factorizeInteger, solveForVariable } from '../core/calculator';
+import { evaluateExpression } from '../core/calculator';
+import { PHYSICAL_KEYS } from '../core/keymap';
 
 test('log uses two navigable argument slots', () => {
   let document = createEmptyDocument();
@@ -125,4 +129,96 @@ test('left from after a compound node enters its last slot', () => {
   document.cursor = { sequenceId: document.root.id, offset: 1 };
   document = moveCursor(document, 'left');
   assert.notEqual(document.cursor.sequenceId, document.root.id);
+});
+
+test('leading decimal is normalized immediately and duplicate decimal is ignored', () => {
+  let document = createEmptyDocument();
+  document = insertFormulaInput(document, '.');
+  document = insertFormulaInput(document, '2');
+  document = insertFormulaInput(document, '.');
+  assert.equal(serializeExpression(document), '0.2');
+});
+
+test('square captures the full decimal operand and root keeps input until right exit', () => {
+  let document = createEmptyDocument();
+  for (const input of ['√(', '.', '2', '²', '+', '2', '.', '8', '²']) {
+    document = insertFormulaInput(document, input);
+  }
+  const expression = serializeExpression(document);
+  const result = evaluateExpression(expression, { variables: {}, ans: 0, angleMode: 'DEG' });
+  assert.equal(result.success, true, expression);
+  assert.ok(Math.abs(result.value - 2.80713376952) < 1e-11);
+  assert.notEqual(document.cursor.sequenceId, document.root.id);
+  document = moveCursor(document, 'right');
+  assert.equal(document.cursor.sequenceId, document.root.id);
+  assert.equal(document.cursor.offset, 1);
+});
+
+test('fixed power, reciprocal, cube-root index and fixed bases are never editable', () => {
+  for (const inputs of [
+    ['2', '²'],
+    ['2', '³'],
+    ['2', '⁻¹'],
+    ['³√(', '8'],
+    ['10^', '2'],
+    ['e^', '2'],
+  ]) {
+    let document = createEmptyDocument();
+    for (const input of inputs) document = insertFormulaInput(document, input);
+    const fixed = collectSequences(document.root).filter(item => item.sequence.editable === false);
+    assert.ok(fixed.length > 0, inputs.join(' '));
+    assert.ok(fixed.every(item => item.sequence.id !== document.cursor.sequenceId));
+  }
+});
+
+test('group closing and comma advance exit structured containers', () => {
+  let group = createEmptyDocument();
+  group = insertFormulaInput(group, '(');
+  group = insertFormulaInput(group, '1');
+  group = insertFormulaInput(group, ')');
+  group = insertFormulaInput(group, '+');
+  group = insertFormulaInput(group, '2');
+  assert.equal(serializeExpression(group), '(1)+2');
+
+  let call = createEmptyDocument();
+  call = insertFormulaInput(call, 'log□(');
+  call = insertFormulaInput(call, '2');
+  call = insertFormulaInput(call, ',');
+  call = insertFormulaInput(call, '8');
+  call = insertFormulaInput(call, ')');
+  assert.equal(serializeExpression(call), 'log(2,8)');
+  assert.equal(call.cursor.sequenceId, call.root.id);
+});
+
+test('mixed fraction navigation follows whole, numerator, denominator', () => {
+  let document = createEmptyDocument();
+  document = insertFormulaInput(document, '■ ▭/▭');
+  document = insertGlyph(document, '2');
+  document = moveCursor(document, 'right');
+  document = insertGlyph(document, '1');
+  document = moveCursor(document, 'right');
+  document = insertGlyph(document, '3');
+  assert.equal(serializeExpression(document), 'mixed(2,1,3)');
+});
+
+test('every physical insert action has serialization and a legal cursor path', () => {
+  const actions = PHYSICAL_KEYS.flatMap(key => [
+    key.normal,
+    key.shift,
+    key.alpha,
+    ...Object.values(key.mode ?? {}),
+  ]).filter((action): action is { type: 'insert'; value: string } => action?.type === 'insert');
+
+  assert.equal(PHYSICAL_KEYS.length, 50);
+  for (const action of actions) {
+    const document = insertFormulaInput(createEmptyDocument(), action.value);
+    const expression = serializeExpression(document);
+    assert.ok(expression.length > 0, action.value);
+    assert.ok(!/[□■▭√]/.test(expression), `${action.value}: ${expression}`);
+    const cursor = collectSequences(document.root)
+      .find(item => item.sequence.id === document.cursor.sequenceId);
+    assert.ok(cursor, action.value);
+    assert.notEqual(cursor?.sequence.editable, false, action.value);
+    assert.ok(document.cursor.offset >= 0 && document.cursor.offset <= (cursor?.sequence.children.length ?? -1));
+  }
 });

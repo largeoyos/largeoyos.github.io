@@ -172,7 +172,7 @@ export default function App() {
   }, [modeRuntime.memory]);
 
   const applyModeAction = (action: RuntimeAction) => {
-    const next = dispatchModeRuntime(modeRuntime, action, { variables, angleMode });
+    const next = dispatchModeRuntime(modeRuntime, action, { variables, ans, angleMode });
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);
@@ -322,7 +322,7 @@ export default function App() {
     const mode = MENU_MODES[index];
     if (!mode) return;
     setCalcMode(mode);
-    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, { variables, angleMode });
+    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, { variables, ans, angleMode });
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);

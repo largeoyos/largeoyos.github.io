@@ -1,4 +1,4 @@
-import type { AngleMode } from './calculator';
+import { evaluateExpression, type AngleMode } from './calculator';
 import {
   doubleVariableStatistics,
   formatComplex,
@@ -27,6 +27,7 @@ import {
 export type RuntimeContext = {
   variables: Record<string, number>;
   angleMode: AngleMode;
+  ans: number;
 };
 
 type MenuScreen = {
@@ -176,6 +177,38 @@ function commitNumericBuffer(buffer: string): number {
   const value = Number(buffer || '0');
   if (!Number.isFinite(value)) throw new Error('Argument ERROR');
   return value;
+}
+
+function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): number {
+  const expression = buffer.trim() || '0';
+  if (expression.includes(':')
+    || /(?:==|!=|<=|>=|[=<>])/.test(expression)
+    || /(^|[^A-Za-z])i($|[^A-Za-z])/i.test(expression)
+    || /^\s*(?:Pol|Rec)\s*\(/i.test(expression)) {
+    throw new Error('Syntax ERROR');
+  }
+  const result = evaluateExpression(expression, {
+    variables: context.variables,
+    ans: context.ans,
+    angleMode: context.angleMode,
+  });
+  if (!result.success) throw new Error(result.errorType || 'Syntax ERROR');
+  if (!Number.isFinite(result.value)) throw new Error('Math ERROR');
+  return result.value;
+}
+
+function appendCoefficientInput(buffer: string, value: string): string {
+  let next = buffer;
+  for (const char of value) {
+    if (char !== '.') {
+      next += char;
+      continue;
+    }
+    const token = next.match(/[0-9.]+$/)?.[0] ?? '';
+    if (token.includes('.')) continue;
+    next += /\d$/.test(token) ? '.' : '0.';
+  }
+  return next;
 }
 
 function editorMove<T extends MatrixEditorScreen | CoefficientEditorScreen>(
@@ -696,11 +729,17 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
     };
   }
   if (screen.kind === 'coefficient-editor') {
-    const values = structuredClone(screen.values);
-    values[screen.row][screen.column] = commitNumericBuffer(screen.buffer);
-    const isLast = screen.row === values.length - 1 && screen.column === values[0].length - 1;
-    if (!isLast) return { ...state, screen: editorMove({ ...screen, values, buffer: '' }, 'right') };
     try {
+      const values = structuredClone(screen.values);
+      values[screen.row][screen.column] = evaluateCoefficientBuffer(screen.buffer, context);
+      const isLast = screen.row === values.length - 1 && screen.column === values[0].length - 1;
+      if (!isLast) {
+        return {
+          ...state,
+          result: String(values[screen.row][screen.column]),
+          screen: editorMove({ ...screen, values, buffer: '' }, 'right'),
+        };
+      }
       let lines: string[];
       if (screen.problem === 'linear') {
         const result = solveLinearSystem(values.map(row => row.slice(0, screen.size)), values.map(row => row[screen.size]));
@@ -714,7 +753,12 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
       }
       return { ...state, screen: { kind: 'solutions', lines, selected: 0 } };
     } catch (error) {
-      return { ...state, result: error instanceof Error ? error.message : 'Math ERROR', screen: { kind: 'input' } };
+      return {
+        ...state,
+        result: error instanceof Error ? error.message : 'Math ERROR',
+        evaluated: false,
+        screen,
+      };
     }
   }
   return executeModeEvaluation(state, context);
@@ -758,7 +802,10 @@ export function dispatchModeRuntime(
       return option ? executeOption(next, option, context) : next;
     }
     if ('buffer' in next.screen) {
-      return { ...next, screen: { ...next.screen, buffer: next.screen.buffer + action.value } as RuntimeScreen };
+      const buffer = next.screen.kind === 'coefficient-editor'
+        ? appendCoefficientInput(next.screen.buffer, action.value)
+        : next.screen.buffer + action.value;
+      return { ...next, screen: { ...next.screen, buffer } as RuntimeScreen };
     }
     if (next.mode === 'Base-N' && next.screen.kind === 'input' && /^[0-9A-F]$/i.test(action.value)) {
       const numeric = Number.parseInt(action.value, 16);

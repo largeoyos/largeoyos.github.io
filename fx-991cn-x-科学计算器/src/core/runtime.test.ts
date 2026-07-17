@@ -6,7 +6,7 @@ import {
   runtimeScreenView,
 } from './runtime';
 
-const context = { variables: {}, angleMode: 'DEG' as const };
+const context = { variables: {}, ans: 0, angleMode: 'DEG' as const };
 
 test('runtime opens mode-specific option menus', () => {
   let state = createModeRuntime();
@@ -91,4 +91,83 @@ test('runtime grid menus keep column jumps and solution pages visible', () => {
   const solutionView = runtimeScreenView(state);
   assert.deepEqual(solutionView?.lines, ['X6=6', 'X7=7']);
   assert.equal(solutionView?.selectedIndex, 0);
+});
+function openTwoUnknownEditor(runtimeContext = context) {
+  let state = createModeRuntime();
+  state = dispatchModeRuntime(state, { type: 'select-mode', mode: 'Equation' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: '1' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: '2' }, runtimeContext);
+  assert.equal(state.screen.kind, 'coefficient-editor');
+  return state;
+}
+
+test('mode 8 evaluates real expressions in coefficient cells', () => {
+  const runtimeContext = {
+    variables: { A: 4, B: 0, C: 0, D: 0, E: 6, F: 0, X: 0, Y: 0, M: 0 },
+    ans: 7,
+    angleMode: 'DEG' as const,
+  };
+  const cases = [
+    ['1+2', 3],
+    ['1/3', 1 / 3],
+    ['√2', Math.sqrt(2)],
+    ['sin(30)', 0.5],
+    ['.2', 0.2],
+    ['Ans', 7],
+    ['A+1', 5],
+    ['E+1', 7],
+  ] as const;
+
+  for (const [expression, expected] of cases) {
+    let state = openTwoUnknownEditor(runtimeContext);
+    state = dispatchModeRuntime(state, { type: 'append', value: expression }, runtimeContext);
+    if (expression === '.2' && state.screen.kind === 'coefficient-editor') {
+      assert.equal(state.screen.buffer, '0.2');
+    }
+    state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+    assert.equal(state.screen.kind, 'coefficient-editor', expression);
+    if (state.screen.kind === 'coefficient-editor') {
+      assert.ok(Math.abs(state.screen.values[0][0] - expected) < 1e-12, expression);
+      assert.equal(state.screen.row, 0);
+      assert.equal(state.screen.column, 1);
+    }
+  }
+});
+
+test('mode 8 advances after evaluation and solves a known system on the last cell', () => {
+  const runtimeContext = { variables: {}, ans: 7, angleMode: 'DEG' as const };
+  let state = openTwoUnknownEditor(runtimeContext);
+  for (const expression of ['sin(90)', '.5+.5', '1+2', '√1', '-1', 'Ans-6']) {
+    state = dispatchModeRuntime(state, { type: 'append', value: expression }, runtimeContext);
+    state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+  }
+  assert.equal(state.screen.kind, 'solutions');
+  if (state.screen.kind === 'solutions') {
+    assert.ok(state.screen.lines.some(line => line.startsWith('X1=2')));
+    assert.ok(state.screen.lines.some(line => line.startsWith('X2=1')));
+  }
+});
+
+test('mode 8 rejects non-real or multi-value coefficients without losing the editor', () => {
+  const runtimeContext = { variables: {}, ans: 0, angleMode: 'DEG' as const };
+  const cases = [
+    ['1/0', 'Math ERROR'],
+    ['sqrt(-1)', 'Math ERROR'],
+    ['1<2', 'Syntax ERROR'],
+    ['1:2', 'Syntax ERROR'],
+    ['1+i', 'Syntax ERROR'],
+  ] as const;
+
+  for (const [expression, error] of cases) {
+    let state = openTwoUnknownEditor(runtimeContext);
+    state = dispatchModeRuntime(state, { type: 'append', value: expression }, runtimeContext);
+    state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+    assert.equal(state.result, error, expression);
+    assert.equal(state.screen.kind, 'coefficient-editor', expression);
+    if (state.screen.kind === 'coefficient-editor') {
+      assert.equal(state.screen.buffer, expression);
+      assert.equal(state.screen.row, 0);
+      assert.equal(state.screen.column, 0);
+    }
+  }
 });

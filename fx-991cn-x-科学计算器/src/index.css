@@ -10,4 +10,6 @@
   background: #dfe6d4;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  cursor: text;
+  touch-action: manipulation;
 }

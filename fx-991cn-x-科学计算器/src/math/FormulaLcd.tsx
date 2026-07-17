@@ -9,17 +9,11 @@ import {
   collectVariables,
   createEmptyDocument,
   deleteBackward,
-  insertDerivative,
-  insertFraction,
-  insertFunction,
-  insertGlyph,
-  insertIntegral,
-  insertPower,
-  insertRoot,
-  insertSummation,
+  insertFormulaInput,
   moveCursor,
   normalizePlaceholders,
   parseLegacyExpression,
+  repairDocumentCursor,
   serializeExpression,
   type CursorDirection,
   type FormulaDocument,
@@ -28,7 +22,11 @@ import {
   bitmapTextWidth,
   drawBitmapText,
 } from './bitmapFont';
-import { drawFormula } from './layout';
+import {
+  drawFormula,
+  findNearestCursor,
+  type CursorPoint,
+} from './layout';
 
 export type LcdMenuItem = {
   mode: string;
@@ -89,7 +87,9 @@ function safeLoadDocument(expression: string): FormulaDocument {
     const raw = window.localStorage.getItem(AST_STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as FormulaDocument;
-      if (parsed?.root?.type === 'sequence' && parsed.cursor?.sequenceId) return parsed;
+      if (parsed?.root?.type === 'sequence' && parsed.cursor?.sequenceId) {
+        return repairDocumentCursor(parsed);
+      }
     }
   } catch {
     // Ignore malformed or unavailable local storage.
@@ -318,43 +318,19 @@ function drawModeScreen(context: CanvasRenderingContext2D, screen: LcdModeScreen
   });
 }
 
-function insertMapped(document: FormulaDocument, value: string): FormulaDocument {
-  if (value === '/') return insertFraction(document);
-  if (value === '√(') return insertRoot(document, false);
-  if (value === '³√(' || value === '■√■') return insertRoot(document, true);
-  if (value === '²') return insertPower(document, '2');
-  if (value === '³') return insertPower(document, '3');
-  if (value === '^(') return insertPower(document);
-  if (value === 'log□(') return insertFunction(document, 'log', 2);
-  if (value === 'log(') return insertFunction(document, 'log', 1);
-  if (value === 'ln(') return insertFunction(document, 'ln', 1);
-  if (value === 'sin(' || value === 'cos(' || value === 'tan(') {
-    return insertFunction(document, value.slice(0, -1), 1);
-  }
-  if (value === 'sin⁻¹(') return insertFunction(document, 'asin', 1);
-  if (value === 'cos⁻¹(') return insertFunction(document, 'acos', 1);
-  if (value === 'tan⁻¹(') return insertFunction(document, 'atan', 1);
-  if (value === 'Abs(') return insertFunction(document, 'abs', 1);
-  if (value === 'Pol(' || value === 'Rec(' || value === 'RanInt(') {
-    return insertFunction(document, value.slice(0, -1), 2);
-  }
-  if (value === '∫dx') return insertIntegral(document);
-  if (value === 'd/dx') return insertDerivative(document);
-  if (value === 'Σ') return insertSummation(document);
-  return insertGlyph(document, value);
-}
-
 export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
   function FormulaLcd(props, ref) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [document, setDocument] = useState<FormulaDocument>(() => safeLoadDocument(props.expression));
     const [resultOffset, setResultOffset] = useState(0);
     const resultMaxOffset = useRef(0);
+    const formulaCursorPoints = useRef<ReadonlyMap<string, CursorPoint>>(new Map());
+    const pointerStart = useRef<{ pointerId: number; x: number; y: number } | null>(null);
     const lastSerialized = useRef(serializeExpression(document));
     const externalInitialized = useRef(false);
 
     const commit = (next: FormulaDocument) => {
-      const normalized = normalizePlaceholders(next);
+      const normalized = repairDocumentCursor(normalizePlaceholders(next));
       setDocument(normalized);
       const expression = serializeExpression(normalized);
       lastSerialized.current = expression;
@@ -368,7 +344,7 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
 
     useImperativeHandle(ref, () => ({
       insertInput(value) {
-        commit(insertMapped(document, value));
+        commit(insertFormulaInput(document, value));
       },
       move(direction) {
         const next = moveCursor(document, direction);
@@ -470,6 +446,7 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
         INK,
         true,
       );
+      formulaCursorPoints.current = formulaResult.cursorPoints;
       if (formulaResult.overflow) drawBitmapText(context, 'RANGE', 152, 12, INK);
 
       const resultDocument = parseLegacyExpression(props.result);
@@ -493,13 +470,48 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       }
     }, [document, props, resultOffset]);
 
+    const placeCursorAtPointer = (event: React.PointerEvent<HTMLCanvasElement>) => {
+      if (!props.powerActive || props.activeMenu !== 'NONE' || props.modeScreen) return;
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+
+      const x = (event.clientX - rect.left) / rect.width * LCD_LOGICAL_WIDTH;
+      const y = (event.clientY - rect.top) / rect.height * LCD_LOGICAL_HEIGHT;
+      if (x < 2 || x > 190 || y < 11 || y > 42) return;
+
+      const cursor = findNearestCursor(formulaCursorPoints.current, x, y);
+      if (!cursor) return;
+      setDocument(current => ({ ...current, cursor }));
+    };
+
     return (
       <canvas
         ref={canvasRef}
         width={LCD_WIDTH}
         height={LCD_HEIGHT}
         className="casio-lcd-canvas"
-        aria-label="CASIO calculator LCD"
+        role="textbox"
+        aria-label="CASIO calculator formula screen; tap the formula to move the cursor"
+        aria-readonly="false"
+        onPointerDown={event => {
+          pointerStart.current = {
+            pointerId: event.pointerId,
+            x: event.clientX,
+            y: event.clientY,
+          };
+        }}
+        onPointerUp={event => {
+          const start = pointerStart.current;
+          pointerStart.current = null;
+          if (!start || start.pointerId !== event.pointerId) return;
+          if (Math.hypot(event.clientX - start.x, event.clientY - start.y) > 10) return;
+          placeCursorAtPointer(event);
+        }}
+        onPointerCancel={() => {
+          pointerStart.current = null;
+        }}
       />
     );
   },

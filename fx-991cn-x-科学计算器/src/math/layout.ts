@@ -15,6 +15,42 @@ export type CursorPoint = {
   bottom: number;
 };
 
+export function findNearestCursor(
+  cursorPoints: ReadonlyMap<string, CursorPoint>,
+  x: number,
+  y: number,
+): FormulaCursor | undefined {
+  let nearestKey: string | undefined;
+  let nearestDistance = Number.POSITIVE_INFINITY;
+  let nearestHeight = Number.POSITIVE_INFINITY;
+
+  cursorPoints.forEach((point, key) => {
+    const horizontalDistance = point.x - x;
+    const verticalDistance = y < point.top
+      ? point.top - y
+      : y > point.bottom
+        ? y - point.bottom
+        : 0;
+    const distance = horizontalDistance ** 2 + (verticalDistance * 2) ** 2;
+    const height = point.bottom - point.top;
+
+    if (distance < nearestDistance || (distance === nearestDistance && height < nearestHeight)) {
+      nearestKey = key;
+      nearestDistance = distance;
+      nearestHeight = height;
+    }
+  });
+
+  if (!nearestKey) return undefined;
+  const separator = nearestKey.lastIndexOf(':');
+  const offset = Number(nearestKey.slice(separator + 1));
+  if (separator < 1 || !Number.isInteger(offset)) return undefined;
+  return {
+    sequenceId: nearestKey.slice(0, separator),
+    offset,
+  };
+}
+
 export type DrawOptions = {
   color: string;
   placeholderColor: string;
@@ -86,15 +122,19 @@ function sequenceBox(sequence: SequenceNode): LayoutBox {
       let childX = x;
       const top = y;
       const bottom = y + height;
-      options.cursorPoints.set(cursorKey(sequence.id, 0), { x: childX, top, bottom });
+      if (sequence.editable !== false) {
+        options.cursorPoints.set(cursorKey(sequence.id, 0), { x: childX, top, bottom });
+      }
       children.forEach((child, index) => {
         const childY = y + baseline - child.baseline;
         child.draw(context, childX, childY, options);
         childX += child.width + GAP;
-        options.cursorPoints.set(
-          cursorKey(sequence.id, index + 1),
-          { x: Math.min(x + width, childX - GAP), top, bottom },
-        );
+        if (sequence.editable !== false) {
+          options.cursorPoints.set(
+            cursorKey(sequence.id, index + 1),
+            { x: Math.min(x + width, childX - GAP), top, bottom },
+          );
+        }
       });
     },
   };
@@ -119,6 +159,34 @@ function fractionBox(node: Extract<MathNode, { type: 'fraction' }>): LayoutBox {
         context,
         x + Math.floor((width - denominator.width) / 2),
         lineY + 2,
+        options,
+      );
+    },
+  };
+}
+
+function mixedFractionBox(node: Extract<MathNode, { type: 'mixed-fraction' }>): LayoutBox {
+  const whole = sequenceBox(node.whole);
+  const fraction = fractionBox({
+    type: 'fraction',
+    numerator: node.numerator,
+    denominator: node.denominator,
+  });
+  const baseline = Math.max(whole.baseline, fraction.baseline);
+  const height = baseline + Math.max(
+    whole.height - whole.baseline,
+    fraction.height - fraction.baseline,
+  );
+  return {
+    width: whole.width + fraction.width + 1,
+    height,
+    baseline,
+    draw(context, x, y, options) {
+      whole.draw(context, x, y + baseline - whole.baseline, options);
+      fraction.draw(
+        context,
+        x + whole.width + 1,
+        y + baseline - fraction.baseline,
         options,
       );
     },
@@ -255,6 +323,8 @@ export function layoutNode(node: MathNode): LayoutBox {
       return functionBox({ type: 'function', name: 'D', args: [node.expression, node.at] });
     case 'summation':
       return largeOperatorBox('S', node.expression, node.lower, node.upper);
+    case 'mixed-fraction':
+      return mixedFractionBox(node);
   }
 }
 
@@ -318,6 +388,7 @@ export function drawFormula(
 
   return {
     box,
+    cursorPoints,
     overflow: box.height > maxHeight,
     horizontalOverflow: Math.max(0, box.width - maxWidth),
     horizontalOffset: Math.min(offsetX, Math.max(0, box.width - maxWidth)),

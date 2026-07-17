@@ -1,0 +1,6 @@
+diff --git "a/fx-991cn-x-科学计算器/src/core/calculator.ts" "b/fx-991cn-x-科学计算器/src/core/calculator.ts"
+--- "a/fx-991cn-x-科学计算器/src/core/calculator.ts"
++++ "b/fx-991cn-x-科学计算器/src/core/calculator.ts"
+@@ -1 +1,2 @@
++// patch probe
+ export type AngleMode = 'DEG' | 'RAD' | 'GRAD';

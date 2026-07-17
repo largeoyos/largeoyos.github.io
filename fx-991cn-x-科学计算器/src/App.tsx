@@ -527,6 +527,16 @@ export default function App() {
           setShiftActive(false);
           return;
         }
+        if (shiftValue === '←') {
+          const value = Number(resultVal);
+          if (Number.isFinite(value) && value !== 0) {
+            const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3 - 3;
+            const mantissa = value / 10 ** exponent;
+            setResultVal(`${formatCoreValue(mantissa)}×10^${exponent}`);
+          }
+          setShiftActive(false);
+          return;
+        }
       }
       setShiftActive(false);
     } else if (alphaActive) {
@@ -1429,7 +1439,7 @@ export default function App() {
                 <div className="relative flex flex-col pt-2">
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0 left-1 select-none">科学常数</span>
                   <button 
-                    onClick={() => handleKeypress('append', '7', 'CONST_MENU')}
+                    onClick={() => handleKeypress('append', '7', 'CONST')}
                     className="h-10 rounded-lg bg-gradient-to-b from-[#f9f8f4] to-[#dedaca] text-stone-900 border-2 border-stone-950/80 shadow-[0_4px_0_#181a20] active:translate-y-0.5 active:shadow-[0_1.5px_0_#181a20] flex items-center justify-center text-lg font-black transition-transform"
                   >
                     7
@@ -1440,7 +1450,7 @@ export default function App() {
                 <div className="relative flex flex-col pt-2">
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0 left-1 select-none">单位换算</span>
                   <button 
-                    onClick={() => handleKeypress('append', '8', 'CONV_MENU')}
+                    onClick={() => handleKeypress('append', '8', 'CONV')}
                     className="h-10 rounded-lg bg-gradient-to-b from-[#f9f8f4] to-[#dedaca] text-stone-900 border-2 border-stone-950/80 shadow-[0_4px_0_#181a20] active:translate-y-0.5 active:shadow-[0_1.5px_0_#181a20] flex items-center justify-center text-lg font-black transition-transform"
                   >
                     8

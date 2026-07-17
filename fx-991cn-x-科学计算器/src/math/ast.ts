@@ -295,12 +295,27 @@ function operandStart(sequence: SequenceNode, offset: number): number {
   return Math.min(start, offset - 1);
 }
 
+function canAbsorbFractionNumerator(nodes: MathNode[]): boolean {
+  const last = nodes.at(-1);
+  if (!last || last.type === 'placeholder') return false;
+  if (last.type !== 'glyph') return true;
+  return !/^[+\-×÷*/^,(]$/.test(last.value);
+}
+
 export function insertFraction(document: FormulaDocument): FormulaDocument {
   const next = cloneDocument(document);
-  const numerator = placeholderSequence();
+  const sequence = findSequence(next.root, next.cursor.sequenceId);
+  if (!sequence || sequence.editable === false) return next;
+  removePlaceholder(sequence);
+  const offset = Math.min(next.cursor.offset, sequence.children.length);
+  const left = sequence.children.slice(0, offset);
+  const captured = canAbsorbFractionNumerator(left)
+    ? sequence.children.splice(0, offset)
+    : [];
+  const numerator = createSequence(captured.length ? captured : [{ type: 'placeholder' }]);
   const denominator = placeholderSequence();
-  insertNode(next, { type: 'fraction', numerator, denominator });
-  setCursorAtStart(next, numerator);
+  sequence.children.splice(captured.length ? 0 : offset, 0, { type: 'fraction', numerator, denominator });
+  setCursorAtStart(next, captured.length ? denominator : numerator);
   return next;
 }
 
@@ -680,11 +695,20 @@ export function deleteBackward(document: FormulaDocument): FormulaDocument {
   }
 
   if (current.parentSequence && current.ownerIndex !== undefined) {
-    current.parentSequence.children.splice(current.ownerIndex, 1);
-    next.cursor = {
-      sequenceId: current.parentSequence.id,
-      offset: current.ownerIndex,
-    };
+    const hasContent = current.sequence.children.some(child => child.type !== 'placeholder');
+    if (hasContent && current.owner) {
+      // Exit the container instead of deleting it — cursor moves to after the structure
+      next.cursor = {
+        sequenceId: current.parentSequence.id,
+        offset: current.ownerIndex + 1,
+      };
+    } else {
+      current.parentSequence.children.splice(current.ownerIndex, 1);
+      next.cursor = {
+        sequenceId: current.parentSequence.id,
+        offset: current.ownerIndex,
+      };
+    }
   }
   return next;
 }

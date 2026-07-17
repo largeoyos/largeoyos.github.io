@@ -34,6 +34,8 @@ test('power precedence follows calculator rules', () => {
 test('roots evaluate complete expressions and real odd roots', () => {
   assert.ok(Math.abs(value('sqrt(0.2²+2.8²)') - 2.80713376952) < 1e-11);
   assert.ok(Math.abs(value('√0.2^2+2.8^2') - 2.80713376952) < 1e-11);
+  assert.equal(value('√(.2^2)'), 0.2);
+  assert.equal(value('√0.2^2'), 0.2);
   assert.equal(value('³√8'), 2);
   assert.equal(value('root(3,-8)'), -2);
   error('root(2,-8)', 'Math ERROR');

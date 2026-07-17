@@ -38,6 +38,20 @@ test('fraction supports numerator to denominator navigation', () => {
   assert.equal(serializeExpression(document), '((1)/(2))');
 });
 
+test('fraction absorbs the completed expression to its left as the numerator', () => {
+  let document = createEmptyDocument();
+  for (const input of ['1', '+', '2', '/']) document = insertFormulaInput(document, input);
+  assert.equal(serializeExpression(document), '((1+2)/(0))');
+  document = insertFormulaInput(document, '3');
+  assert.equal(serializeExpression(document), '((1+2)/(3))');
+
+  document = createEmptyDocument();
+  for (const input of ['√(', '9', '²']) document = insertFormulaInput(document, input);
+  document = moveCursor(document, 'right');
+  document = insertFormulaInput(document, '/');
+  assert.equal(serializeExpression(document), '((sqrt(((9)^(2))))/(0))');
+});
+
 test('power wraps the previous node as its base', () => {
   let document = createEmptyDocument();
   document = insertGlyph(document, 'X');
@@ -164,6 +178,14 @@ test('bare root input opens a structured radicand until the user exits it', () =
   const result = evaluateExpression(expression, { variables: {}, ans: 0, angleMode: 'DEG' });
   assert.equal(result.success, true);
   assert.ok(result.success && Math.abs(result.value - 2.80713376952) < 1e-11);
+});
+
+test('rooted leading decimals remain evaluable through the structured input path', () => {
+  let document = createEmptyDocument();
+  for (const input of ['√(', '(', '.', '2', '^(', '2', ')']) document = insertFormulaInput(document, input);
+  const result = evaluateExpression(serializeExpression(document), { variables: {}, ans: 0, angleMode: 'DEG' });
+  assert.equal(result.success, true);
+  assert.ok(result.success && Math.abs(result.value - 0.2) < 1e-12);
 });
 
 test('fixed power, reciprocal, cube-root index and fixed bases are never editable', () => {

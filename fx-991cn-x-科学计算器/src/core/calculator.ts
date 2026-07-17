@@ -596,7 +596,7 @@ function evalBinary(op: string, left: number, right: number): number {
     case '^': return Math.pow(left, right);
     case 'remainder':
       if (right === 0) throw new Error('Math ERROR');
-      return left % right;
+      return ((left % right) + Math.abs(right)) % Math.abs(right);
     case 'npr': return nPr(left, right);
     case 'ncr': return nCr(left, right);
     case '=':
@@ -875,8 +875,9 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         const left = evalNode(new Parser(tokenize(leftRaw)).parse(), ctx);
         const right = evalNode(new Parser(tokenize(rightRaw)).parse(), ctx);
         if (right === 0) throw new Error('Math ERROR');
-        const quotient = Math.trunc(left / right);
-        const remainder = left - quotient * right;
+        const absRight = Math.abs(right);
+        const remainder = ((left % right) + absRight) % absRight;
+        const quotient = (left - remainder) / right;
         value = remainder;
         exact = undefined;
         displayText = `Q=${formatCasioValue(quotient, ctx.numberFormat)}, R=${formatCasioValue(remainder, ctx.numberFormat)}`;

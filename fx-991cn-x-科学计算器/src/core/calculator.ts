@@ -100,8 +100,21 @@ const FUNCTIONS = new Set([
   'recur', 'dms', 'todms',
 ]);
 
+function normalizeOpenRadicals(input: string): string {
+  let openRadicals = 0;
+  const withCubeRoots = input.replace(/³√(?!\s*\()/g, () => {
+    openRadicals++;
+    return 'cbrt(';
+  });
+  const withRoots = withCubeRoots.replace(/√(?!\s*\()/g, () => {
+    openRadicals++;
+    return 'sqrt(';
+  });
+  return `${withRoots}${')'.repeat(openRadicals)}`;
+}
+
 function normalizeInput(input: string): string {
-  return input
+  return normalizeOpenRadicals(input)
     .replace(/³√\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))/g, 'cbrt($1)')
     .replace(/√\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))/g, 'sqrt($1)')
     .replaceAll('÷R', ' remainder ')

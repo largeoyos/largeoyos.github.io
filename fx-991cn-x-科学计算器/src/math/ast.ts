@@ -484,8 +484,8 @@ const EXTRA_FUNCTION_INPUTS: Record<string, [string, number]> = {
 export function insertFormulaInput(document: FormulaDocument, value: string): FormulaDocument {
   if (value === '/') return insertFraction(document);
   if (value === '■ ▭/▭') return insertMixedFraction(document);
-  if (value === '√(') return insertRoot(document);
-  if (value === '³√(') return insertRoot(document, true, '3');
+  if (value === '√(' || value === '√') return insertRoot(document);
+  if (value === '³√(' || value === '³√') return insertRoot(document, true, '3');
   if (value === '■√■') return insertRoot(document, true);
   if (value === '²') return insertPower(document, '2');
   if (value === '³') return insertPower(document, '3');

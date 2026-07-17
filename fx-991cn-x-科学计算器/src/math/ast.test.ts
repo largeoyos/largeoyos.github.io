@@ -154,6 +154,18 @@ test('square captures the full decimal operand and root keeps input until right 
   assert.equal(document.cursor.offset, 1);
 });
 
+test('bare root input opens a structured radicand until the user exits it', () => {
+  let document = createEmptyDocument();
+  for (const input of ['√', '0', '.', '2', '^', '2', '+', '2', '.', '8', '^', '2']) {
+    document = insertFormulaInput(document, input);
+  }
+  const expression = serializeExpression(document);
+  assert.equal(expression, 'sqrt(0.2^2+2.8^2)');
+  const result = evaluateExpression(expression, { variables: {}, ans: 0, angleMode: 'DEG' });
+  assert.equal(result.success, true);
+  assert.ok(result.success && Math.abs(result.value - 2.80713376952) < 1e-11);
+});
+
 test('fixed power, reciprocal, cube-root index and fixed bases are never editable', () => {
   for (const inputs of [
     ['2', '²'],

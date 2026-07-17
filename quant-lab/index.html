@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="量化学习实验室：从数据、信号、回测到风险控制的前端互动练习。">
+    <title>量化实验室 | LarGeoYos Workspace</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./quant-lab.css">
+</head>
+<body class="quant-page">
+
+<nav class="global-nav" aria-label="全站导航">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="../blog/index.html">📝 博客大厅</a>
+    <a href="../ai-tutorials/index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+    <a href="../tools/index.html">🔧 工具箱</a>
+    <a href="../markets/index.html">📈 全球行情</a>
+    <a href="./index.html" aria-current="page">🧪 量化实验室</a>
+    <a href="../quick-nav/index.html">🔗 快捷导航</a>
+</nav>
+
+<header class="quant-hero">
+    <div class="quant-hero__paper" aria-hidden="true"></div>
+    <div class="quant-hero__axis" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="quant-hero__content">
+        <p class="quant-kicker"><span></span> QUANT RESEARCH NOTEBOOK / 01</p>
+        <h1>把想法写成<br><em>可证伪的实验。</em></h1>
+        <p class="quant-hero__intro">从数据假设到回测边界，从一次信号到一笔仓位。这里不预测涨跌，只练习如何让研究经得起检验。</p>
+        <div class="quant-hero__actions">
+            <a class="quant-primary-btn" href="#practice">开始第一道练习 <span>↓</span></a>
+            <a class="quant-secondary-btn" href="#cases">查看参考案例</a>
+        </div>
+        <dl class="quant-hero__stats" aria-label="实验室内容概览">
+            <div><dt>03</dt><dd>互动练习</dd></div>
+            <div><dt>04</dt><dd>学习节点</dd></div>
+            <div><dt>04</dt><dd>案例入口</dd></div>
+        </dl>
+    </div>
+</header>
+
+<main class="quant-shell">
+    <section class="quant-disclaimer" aria-label="学习范围说明">
+        <span class="quant-disclaimer__mark">!</span>
+        <p><strong>学习用途：</strong>所有数字均为虚构教学样例。策略表现受数据、交易成本、滑点、流动性和执行规则影响；本页不构成投资、交易或收益承诺。</p>
+    </section>
+
+    <section class="research-map" aria-labelledby="research-map-title">
+        <div class="section-lead">
+            <div>
+                <span>MODULE 01</span>
+                <h2 id="research-map-title">研究不是一段代码，是一条证据链</h2>
+            </div>
+            <p>每一格都对应一个会让回测失真的常见盲区。先建立边界，再讨论收益。</p>
+        </div>
+
+        <ol class="research-path">
+            <li class="research-node">
+                <button type="button" class="node-button" data-focus="signal">
+                    <span class="node-number">01</span>
+                    <span class="node-symbol">∿</span>
+                    <strong>数据与假设</strong>
+                    <small>价格是否复权？信息何时可得？</small>
+                    <i>进入练习 ↘</i>
+                </button>
+            </li>
+            <li class="research-node">
+                <button type="button" class="node-button" data-focus="signal">
+                    <span class="node-number">02</span>
+                    <span class="node-symbol">⌁</span>
+                    <strong>信号与规则</strong>
+                    <small>指标是条件，不是结论。</small>
+                    <i>进入练习 ↘</i>
+                </button>
+            </li>
+            <li class="research-node">
+                <button type="button" class="node-button" data-focus="bias">
+                    <span class="node-number">03</span>
+                    <span class="node-symbol">⊘</span>
+                    <strong>回测与偏差</strong>
+                    <small>避免前视、幸存者与过拟合。</small>
+                    <i>进入练习 ↘</i>
+                </button>
+            </li>
+            <li class="research-node">
+                <button type="button" class="node-button" data-focus="position">
+                    <span class="node-number">04</span>
+                    <span class="node-symbol">⌗</span>
+                    <strong>仓位与复盘</strong>
+                    <small>先定义能亏多少，再定义买多少。</small>
+                    <i>进入练习 ↘</i>
+                </button>
+            </li>
+        </ol>
+    </section>
+
+    <section class="practice-section" id="practice" aria-labelledby="practice-title">
+        <div class="practice-header">
+            <div class="section-lead">
+                <div>
+                    <span>MODULE 02</span>
+                    <h2 id="practice-title">三次小实验，练习一个研究习惯</h2>
+                </div>
+                <p>完成状态只保存在当前浏览器，不上传数据。</p>
+            </div>
+            <div class="practice-progress" aria-live="polite">
+                <div class="progress-copy"><span>今日记录</span><strong id="progress-label">0 / 3 已完成</strong></div>
+                <div class="progress-track"><span id="progress-fill"></span></div>
+                <button id="reset-progress" type="button">重置记录</button>
+            </div>
+        </div>
+
+        <div class="practice-tabs" role="tablist" aria-label="练习选择">
+            <button class="practice-tab is-active" type="button" role="tab" aria-selected="true" data-practice="signal"><span>01</span> 信号时点</button>
+            <button class="practice-tab" type="button" role="tab" aria-selected="false" data-practice="position"><span>02</span> 仓位预算</button>
+            <button class="practice-tab" type="button" role="tab" aria-selected="false" data-practice="bias"><span>03</span> 回测偏差</button>
+        </div>
+
+        <article class="practice-panel is-active" data-practice-panel="signal" role="tabpanel">
+            <div class="practice-panel__intro">
+                <span class="panel-index">PRACTICE 01 / SIGNAL</span>
+                <h3>均线交叉不是成交回报</h3>
+                <p>收盘后，3 日均线从下方上穿 5 日均线。根据信号本身，下一根 K 线开盘时最符合规则的动作是什么？</p>
+                <dl class="formula-card">
+                    <div><dt>3 日均线</dt><dd id="fast-ma">105.00</dd></div>
+                    <div><dt>5 日均线</dt><dd id="slow-ma">103.40</dd></div>
+                    <div><dt>关系</dt><dd class="up-text">上穿 ↑</dd></div>
+                </dl>
+            </div>
+            <div class="signal-board" aria-label="均线交叉数据">
+                <div class="price-series">
+                    <span>100</span><span>102</span><span>103</span><span>105</span><span>107</span>
+                </div>
+                <div class="mini-chart" aria-hidden="true">
+                    <svg viewBox="0 0 520 180" preserveAspectRatio="none">
+                        <path class="chart-grid" d="M0 30H520M0 90H520M0 150H520"></path>
+                        <path class="chart-price" d="M0 148 L130 128 L260 113 L390 76 L520 33"></path>
+                        <path class="chart-fast" d="M0 146 C135 135, 210 119, 280 102 S420 58, 520 45"></path>
+                        <path class="chart-slow" d="M0 132 C150 127, 280 115, 390 96 S470 78, 520 70"></path>
+                        <circle cx="520" cy="45" r="5" class="chart-dot"></circle>
+                    </svg>
+                    <div class="chart-legend"><span><i class="price-dot"></i>收盘价</span><span><i class="fast-dot"></i>3 日均线</span><span><i class="slow-dot"></i>5 日均线</span></div>
+                </div>
+                <div class="answer-grid" id="signal-answers">
+                    <button type="button" data-answer="wait">继续观望</button>
+                    <button type="button" data-answer="long">下一根开盘建立多头</button>
+                    <button type="button" data-answer="exit">立即平仓</button>
+                </div>
+                <p class="answer-feedback" id="signal-feedback" aria-live="polite">选择一个动作，验证你是否区分了“产生信号”和“实际成交”。</p>
+            </div>
+        </article>
+
+        <article class="practice-panel" data-practice-panel="position" role="tabpanel" hidden>
+            <div class="practice-panel__intro">
+                <span class="panel-index">PRACTICE 02 / POSITION</span>
+                <h3>先定义损失预算，再计算仓位</h3>
+                <p>假设只允许单笔亏损账户的一小部分。调整参数，观察止损距离如何影响可持仓数量。</p>
+                <div class="risk-note"><b>核心关系</b><span>最大股数 = 风险预算 ÷ (入场价 − 止损价)</span></div>
+            </div>
+            <form class="position-lab" id="position-form">
+                <label>
+                    <span>账户资金 <output id="capital-output">¥100,000</output></span>
+                    <input id="capital-input" type="range" min="20000" max="500000" step="10000" value="100000">
+                </label>
+                <label>
+                    <span>单笔风险 <output id="risk-output">1.0%</output></span>
+                    <input id="risk-input" type="range" min="0.25" max="3" step="0.25" value="1">
+                </label>
+                <div class="price-inputs">
+                    <label><span>假设入场价</span><input id="entry-input" type="number" min="1" step="0.5" value="100"></label>
+                    <label><span>止损价</span><input id="stop-input" type="number" min="0.5" step="0.5" value="95"></label>
+                </div>
+                <button id="check-position" class="quant-primary-btn" type="button">核对仓位预算 <span>→</span></button>
+                <p class="position-feedback" id="position-feedback" aria-live="polite">设置参数后，计算一笔交易允许承担的最大损失。</p>
+            </form>
+            <div class="position-result" aria-live="polite">
+                <span>风险预算</span><strong id="risk-budget">¥1,000</strong>
+                <span>每股风险</span><strong id="per-share-risk">¥5.00</strong>
+                <span>最大股数</span><strong id="share-count">200 股</strong>
+                <span>名义仓位</span><strong id="position-value">¥20,000</strong>
+            </div>
+        </article>
+
+        <article class="practice-panel" data-practice-panel="bias" role="tabpanel" hidden>
+            <div class="practice-panel__intro">
+                <span class="panel-index">PRACTICE 03 / BIAS</span>
+                <h3>你看见的是信号，还是未来？</h3>
+                <p>某策略在周五收盘后，用当天完整收盘价算出买入信号，并假设以同一根 K 线的收盘价成交。这个回测最直接的问题是什么？</p>
+                <div class="bias-clue"><span>FRI 15:00</span><i></i><span>收盘价确认</span><i></i><span>订单成交？</span></div>
+            </div>
+            <div class="bias-board">
+                <div class="bias-answers" id="bias-answers">
+                    <button type="button" data-answer="commission"><b>A</b><span>遗漏了手续费</span></button>
+                    <button type="button" data-answer="lookahead"><b>B</b><span>使用了尚未可交易的信息</span></button>
+                    <button type="button" data-answer="survivorship"><b>C</b><span>只保留幸存股票</span></button>
+                </div>
+                <div class="bias-explanation" id="bias-feedback" aria-live="polite">
+                    <span>提示</span>
+                    <p>想一想：周五的收盘价究竟在哪个时刻才完整可见？</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="case-section" id="cases" aria-labelledby="case-title">
+        <div class="section-lead">
+            <div>
+                <span>MODULE 03</span>
+                <h2 id="case-title">从成熟案例中，拆出可复现的问题</h2>
+            </div>
+            <p>不要复制收益曲线；先读清楚数据、交易时点、成本假设和失败条件。</p>
+        </div>
+        <div class="case-grid">
+            <article class="case-card case-card--sma">
+                <span class="case-tag">CASE / 01</span>
+                <h3>均线交叉</h3>
+                <p>最小可行的趋势跟踪原型：定义窗口、信号交叉和下一根成交。适合练习回测时间线。</p>
+                <dl><div><dt>练习重点</dt><dd>参数敏感性</dd></div><div><dt>警惕</dt><dd>过拟合</dd></div></dl>
+                <a href="https://kernc.github.io/backtesting.py/doc/examples/Quick%20Start%20User%20Guide.html" target="_blank" rel="noopener noreferrer">阅读 SMA 回测示例 ↗</a>
+            </article>
+            <article class="case-card case-card--momentum">
+                <span class="case-tag">CASE / 02</span>
+                <h3>动量与趋势</h3>
+                <p>把“最近更强”转化为明确的持有、调仓与风险退出规则，再检查不同市场环境。</p>
+                <dl><div><dt>练习重点</dt><dd>样本外检验</dd></div><div><dt>警惕</dt><dd>市场状态</dd></div></dl>
+                <a href="https://www.quantconnect.com/docs/v2/writing-algorithms/strategy-library" target="_blank" rel="noopener noreferrer">浏览 QuantConnect 策略库 ↗</a>
+            </article>
+            <article class="case-card case-card--pairs">
+                <span class="case-tag">CASE / 03</span>
+                <h3>配对与均值回归</h3>
+                <p>先判断两条价格序列是否存在稳定关系，再讨论偏离后的入场与退出，避免只看相关系数。</p>
+                <dl><div><dt>练习重点</dt><dd>协整与残差</dd></div><div><dt>警惕</dt><dd>关系失效</dd></div></dl>
+                <a href="https://www.quantconnect.com/docs/v2/writing-algorithms/strategy-library" target="_blank" rel="noopener noreferrer">查找配对交易案例 ↗</a>
+            </article>
+            <article class="case-card case-card--paper">
+                <span class="case-tag">CASE / 04</span>
+                <h3>模拟交易</h3>
+                <p>回测通过也不等于可实盘。模拟环境用于观察订单、延迟、数据和策略逻辑如何共同影响结果。</p>
+                <dl><div><dt>练习重点</dt><dd>订单生命周期</dd></div><div><dt>警惕</dt><dd>现实摩擦</dd></div></dl>
+                <a href="https://docs.alpaca.markets/us/docs/trading-api" target="_blank" rel="noopener noreferrer">了解 Paper Trading ↗</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="research-checklist" aria-labelledby="checklist-title">
+        <div>
+            <span>BEFORE YOU TRUST A BACKTEST</span>
+            <h2 id="checklist-title">提交研究前，先问四个问题。</h2>
+        </div>
+        <ul>
+            <li><b>01</b><span>这个信号在当时真的可获得吗？</span></li>
+            <li><b>02</b><span>成交价格、手续费和滑点是否合理？</span></li>
+            <li><b>03</b><span>参数是否只在一个样本里表现好？</span></li>
+            <li><b>04</b><span>失效时最大会损失多少、持续多久？</span></li>
+        </ul>
+    </section>
+</main>
+
+<footer class="quant-footer">
+    <p>© 2026 Largeoyos · Learn the process, question the result.</p>
+    <p><small>Version 3.2.0 · 量化学习实验室</small></p>
+</footer>
+
+<script src="./quant-lab.js" defer></script>
+</body>
+</html>

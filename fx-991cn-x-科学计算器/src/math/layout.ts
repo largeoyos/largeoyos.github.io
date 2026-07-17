@@ -297,6 +297,52 @@ function largeOperatorBox(
   };
 }
 
+function recurringDecimalBox(node: Extract<MathNode, { type: 'recurring-decimal' }>): LayoutBox {
+  const whole = sequenceBox(node.whole);
+  const nonRepeating = sequenceBox(node.nonRepeating);
+  const repeating = sequenceBox(node.repeating);
+  const dot = glyphBox('.');
+  const baseline = 2 + Math.max(whole.baseline, nonRepeating.baseline, repeating.baseline);
+  const height = baseline + Math.max(
+    whole.height - whole.baseline,
+    nonRepeating.height - nonRepeating.baseline,
+    repeating.height - repeating.baseline,
+  );
+  return {
+    width: whole.width + dot.width + nonRepeating.width + repeating.width + 3,
+    height,
+    baseline,
+    draw(context, x, y, options) {
+      let cursor = x;
+      whole.draw(context, cursor, y + baseline - whole.baseline, options);
+      cursor += whole.width + 1;
+      dot.draw(context, cursor, y + baseline - dot.baseline, options);
+      cursor += dot.width + 1;
+      nonRepeating.draw(context, cursor, y + baseline - nonRepeating.baseline, options);
+      cursor += nonRepeating.width + 1;
+      context.fillStyle = options.color;
+      context.fillRect(Math.round(cursor), Math.round(y), repeating.width, 1);
+      repeating.draw(context, cursor, y + baseline - repeating.baseline, options);
+    },
+  };
+}
+
+function unitConversionBox(node: Extract<MathNode, { type: 'unit-conversion' }>): LayoutBox {
+  const operand = sequenceBox(node.operand);
+  const label = glyphBox(`>${node.label.split('→')[1] ?? node.label}`);
+  const baseline = Math.max(operand.baseline, label.baseline);
+  const height = baseline + Math.max(operand.height - operand.baseline, label.height - label.baseline);
+  return {
+    width: operand.width + label.width + 2,
+    height,
+    baseline,
+    draw(context, x, y, options) {
+      operand.draw(context, x, y + baseline - operand.baseline, options);
+      label.draw(context, x + operand.width + 2, y + baseline - label.baseline, options);
+    },
+  };
+}
+
 export function layoutNode(node: MathNode): LayoutBox {
   switch (node.type) {
     case 'sequence':
@@ -325,6 +371,12 @@ export function layoutNode(node: MathNode): LayoutBox {
       return largeOperatorBox('S', node.expression, node.lower, node.upper);
     case 'mixed-fraction':
       return mixedFractionBox(node);
+    case 'scientific-constant':
+      return glyphBox(node.symbol);
+    case 'recurring-decimal':
+      return recurringDecimalBox(node);
+    case 'unit-conversion':
+      return unitConversionBox(node);
   }
 }
 

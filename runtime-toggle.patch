@@ -1,0 +1,31 @@
+diff --git a/fx-991cn-x-科学计算器/src/core/runtime.ts b/fx-991cn-x-科学计算器/src/core/runtime.ts
+--- a/fx-991cn-x-科学计算器/src/core/runtime.ts
++++ b/fx-991cn-x-科学计算器/src/core/runtime.ts
+@@ -136,4 +136,5 @@
+   selected: number;
+   showDecimal?: boolean;
++  decimalEntries?: boolean[];
+ };
+@@ -819,5 +820,6 @@
+           entries,
+           selected: 0,
+           showDecimal: context.resultMode === 'decimal',
++          decimalEntries: entries.map(() => context.resultMode === 'decimal'),
+@@ -846,4 +848,7 @@
+     const entry = next.screen.entries?.[next.screen.selected];
+-    if (entry?.exact) next.screen.showDecimal = !next.screen.showDecimal;
++    if (entry?.exact) {
++      next.screen.decimalEntries ??= next.screen.entries?.map(() => next.screen.showDecimal ?? false);
++      next.screen.decimalEntries![next.screen.selected] = !next.screen.decimalEntries![next.screen.selected];
++    }
+@@ -934,3 +939,2 @@
+-      next.screen.showDecimal = context.resultMode === 'decimal';
+       return next;
+@@ -1039,6 +1043,7 @@
+-      formulaLines: visible.map(entry => ({
++      formulaLines: visible.map((entry, index) => ({
+         label: entry.label,
+-        document: !screen.showDecimal && entry.exact ? exactValueToFormulaDocument(entry.exact) : undefined,
+-        text: screen.showDecimal || !entry.exact ? entry.decimal : undefined,
++        document: !(screen.decimalEntries?.[start + index] ?? screen.showDecimal) && entry.exact ? exactValueToFormulaDocument(entry.exact) : undefined,
++        text: (screen.decimalEntries?.[start + index] ?? screen.showDecimal) || !entry.exact ? entry.decimal : undefined,

@@ -1,0 +1,15 @@
+diff --git a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+--- a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
++++ b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+@@ -58,5 +58,6 @@
+ type FormulaLcdProps = {
+   expression: string;
+   result: string;
++  resultDocument?: FormulaDocument;
+   powerActive: boolean;
+@@ -479,5 +480,5 @@
+       if (formulaResult.overflow) drawBitmapText(context, 'RANGE', 152, 12, INK);
+ 
+-      const resultDocument = parseLegacyExpression(props.result);
++      const resultDocument = props.resultDocument ?? parseLegacyExpression(props.result);
+       const resultLayout = drawFormula(

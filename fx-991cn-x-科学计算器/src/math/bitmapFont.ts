@@ -103,8 +103,42 @@ const CHINESE_8X8: Record<string, BitmapGlyph> = {
   '例': ['10010010','10111110','11010010','10110110','10010110','10010110','10010010','10010110'],
 };
 
+const CJK_12X12_CACHE = new Map<string, BitmapGlyph>();
+const MISSING_CJK_12X12: BitmapGlyph = [
+  '111111111111', '100000000001', '101111111101', '101000001101',
+  '101001101101', '101001001101', '101000001101', '101001001101',
+  '101001101101', '101000000101', '100000000001', '111111111111',
+];
+
+function rasterizeCjkGlyph(char: string): BitmapGlyph {
+  const cached = CJK_12X12_CACHE.get(char);
+  if (cached) return cached;
+  if (typeof document === 'undefined') return MISSING_CJK_12X12;
+  const canvas = document.createElement('canvas');
+  canvas.width = 16;
+  canvas.height = 16;
+  const context = canvas.getContext('2d', { willReadFrequently: true });
+  if (!context) return MISSING_CJK_12X12;
+  context.imageSmoothingEnabled = false;
+  context.clearRect(0, 0, 16, 16);
+  context.fillStyle = '#000';
+  context.font = '12px "SimSun", "Microsoft YaHei", sans-serif';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.fillText(char, 8, 8);
+  const pixels = context.getImageData(2, 2, 12, 12).data;
+  const glyph = Array.from({ length: 12 }, (_, row) =>
+    Array.from({ length: 12 }, (_, column) => pixels[(row * 12 + column) * 4 + 3] >= 96 ? '1' : '0').join(''),
+  );
+  const hasInk = glyph.some(row => row.includes('1'));
+  const result = hasInk ? glyph : MISSING_CJK_12X12;
+  CJK_12X12_CACHE.set(char, result);
+  return result;
+}
+
 export function getBitmapGlyph(char: string): BitmapGlyph {
   if (CHINESE_8X8[char]) return CHINESE_8X8[char];
+  if (/\p{Script=Han}/u.test(char)) return rasterizeCjkGlyph(char);
   const key = char.length === 1 ? char.toUpperCase() : '?';
   return FONT_5X7[key] ?? FONT_5X7['?'];
 }

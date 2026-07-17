@@ -1,0 +1,35 @@
+diff --git a/fx-991cn-x-科学计算器/src/core/runtime.ts b/fx-991cn-x-科学计算器/src/core/runtime.ts
+--- a/fx-991cn-x-科学计算器/src/core/runtime.ts
++++ b/fx-991cn-x-科学计算器/src/core/runtime.ts
+@@ -129,6 +129,7 @@
+ type SolutionsScreen = {
+   kind: 'solutions';
+-  entries: RuntimeSolutionEntry[];
++  entries?: RuntimeSolutionEntry[];
++  lines?: string[];
+   selected: number;
+-  showDecimal: boolean;
++  showDecimal?: boolean;
+ };
+@@ -832,4 +833,5 @@
+   let next = cloneRuntime(state);
+   if (action.type === 'toggle-result' && next.screen.kind === 'solutions') {
+-    const entry = next.screen.entries[next.screen.selected];
++    const entry = next.screen.entries?.[next.screen.selected];
+@@ -920,5 +921,6 @@
+     if (next.screen.kind === 'solutions') {
+       const delta = action.type === 'up' || action.type === 'left' ? -1 : 1;
+-      next.screen.selected = Math.max(0, Math.min(next.screen.entries.length - 1, next.screen.selected + delta));
++      const length = next.screen.entries?.length ?? next.screen.lines?.length ?? 1;
++      next.screen.selected = Math.max(0, Math.min(length - 1, next.screen.selected + delta));
+@@ -1015,7 +1017,15 @@
+   if (screen.kind === 'solutions') {
++    if (!screen.entries) {
++      const start = Math.floor(screen.selected / 5) * 5;
++      return {
++        title: 'SOLUTION',
++        lines: screen.lines?.slice(start, start + 5) ?? [],
++        selectedIndex: screen.selected - start,
++      };
++    }
+     const start = Math.floor(screen.selected / 3) * 3;

@@ -13,6 +13,16 @@ import {
   type RegressionType,
   type StatisticsRow,
 } from './domains';
+import type { NumberFormat, ResultMode } from './calculator';
+import {
+  exactRational,
+  quadraticExactRoots,
+  rationalFromExact,
+  solveLinearSystemExact,
+  type ExactValue,
+  type Rational,
+} from './exact';
+import { exactValueDecimal, exactValueToFormulaDocument } from '../math/exactDisplay';
 import {
   applyComplexResultCommand,
   createDefaultModeMemory,
@@ -28,6 +38,10 @@ export type RuntimeContext = {
   variables: Record<string, number>;
   angleMode: AngleMode;
   ans: number;
+  exactVariables?: Partial<Record<string, ExactValue>>;
+  exactAns?: ExactValue;
+  resultMode?: ResultMode;
+  numberFormat?: NumberFormat;
 };
 
 type MenuScreen = {
@@ -89,6 +103,8 @@ type CoefficientEditorScreen = {
   problem: 'linear' | 'polynomial' | 'inequality';
   size: number;
   values: number[][];
+  exactValues: Array<Array<Rational | null>>;
+  expressions: string[][];
   row: number;
   column: number;
   buffer: string;
@@ -106,10 +122,19 @@ type GraphScreen = {
   rows: Array<{ x: number; f?: number; g?: number }>;
 };
 
+type RuntimeSolutionEntry = {
+  label: string;
+  decimal: string;
+  exact?: ExactValue;
+};
+
 type SolutionsScreen = {
   kind: 'solutions';
-  lines: string[];
+  entries?: RuntimeSolutionEntry[];
+  lines?: string[];
   selected: number;
+  showDecimal?: boolean;
+  decimalEntries?: boolean[];
 };
 
 type MessageScreen = {
@@ -152,6 +177,7 @@ export type RuntimeAction =
   | { type: 'evaluate' }
   | { type: 'optn' }
   | { type: 'eng' }
+  | { type: 'toggle-result' }
   | { type: 'base'; base: 2 | 8 | 10 | 16 };
 
 export function createModeRuntime(memory = createDefaultModeMemory()): ModeRuntime {
@@ -179,7 +205,7 @@ function commitNumericBuffer(buffer: string): number {
   return value;
 }
 
-function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): number {
+function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): { value: number; exact: Rational | null } {
   const expression = buffer.trim() || '0';
   if (expression.includes(':')
     || /(?:==|!=|<=|>=|[=<>])/.test(expression)
@@ -191,10 +217,14 @@ function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): num
     variables: context.variables,
     ans: context.ans,
     angleMode: context.angleMode,
+    exactVariables: context.exactVariables,
+    exactAns: context.exactAns,
+    resultMode: context.resultMode,
+    numberFormat: context.numberFormat,
   });
   if (!result.success) throw new Error(result.errorType || 'Syntax ERROR');
   if (!Number.isFinite(result.value)) throw new Error('Math ERROR');
-  return result.value;
+  return { value: result.value, exact: rationalFromExact(result.exact) ?? null };
 }
 
 function appendCoefficientInput(buffer: string, value: string): string {
@@ -558,6 +588,8 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
         problem: 'linear',
         size,
         values: Array.from({ length: size }, () => Array(size + 1).fill(0)),
+        exactValues: Array.from({ length: size }, () => Array<Rational | null>(size + 1).fill(null)),
+        expressions: Array.from({ length: size }, () => Array(size + 1).fill('')),
         row: 0,
         column: 0,
         buffer: '',
@@ -588,6 +620,8 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
         problem: 'polynomial',
         size,
         values: [Array(size + 1).fill(0)],
+        exactValues: [Array<Rational | null>(size + 1).fill(null)],
+        expressions: [Array(size + 1).fill('')],
         row: 0,
         column: 0,
         buffer: '',
@@ -622,6 +656,8 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
         problem: 'inequality',
         size,
         values: [Array(size + 1).fill(0)],
+        exactValues: [Array<Rational | null>(size + 1).fill(null)],
+        expressions: [Array(size + 1).fill('')],
         row: 0,
         column: 0,
         buffer: '',
@@ -731,27 +767,65 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
   if (screen.kind === 'coefficient-editor') {
     try {
       const values = structuredClone(screen.values);
-      values[screen.row][screen.column] = evaluateCoefficientBuffer(screen.buffer, context);
+      const exactValues = structuredClone(screen.exactValues);
+      const expressions = structuredClone(screen.expressions);
+      const evaluated = evaluateCoefficientBuffer(screen.buffer, context);
+      values[screen.row][screen.column] = evaluated.value;
+      exactValues[screen.row][screen.column] = evaluated.exact;
+      expressions[screen.row][screen.column] = screen.buffer.trim() || '0';
       const isLast = screen.row === values.length - 1 && screen.column === values[0].length - 1;
       if (!isLast) {
         return {
           ...state,
           result: String(values[screen.row][screen.column]),
-          screen: editorMove({ ...screen, values, buffer: '' }, 'right'),
+          screen: editorMove({ ...screen, values, exactValues, expressions, buffer: '' }, 'right'),
         };
       }
-      let lines: string[];
+      let entries: RuntimeSolutionEntry[];
       if (screen.problem === 'linear') {
-        const result = solveLinearSystem(values.map(row => row.slice(0, screen.size)), values.map(row => row[screen.size]));
-        lines = result.status === 'unique'
-          ? result.values.map((value, index) => `X${index + 1}=${value}`)
-          : [result.status === 'none' ? 'NO SOLUTION' : 'INFINITE SOL'];
+        const exactRows = exactValues.every(row => row.every(value => value !== null));
+        if (exactRows) {
+          const exactResult = solveLinearSystemExact(
+            exactValues.map(row => row.slice(0, screen.size) as Rational[]),
+            exactValues.map(row => row[screen.size] as Rational),
+          );
+          entries = exactResult.status === 'unique'
+            ? exactResult.values.map((value, index) => ({
+              label: `X${index + 1}=`,
+              exact: exactRational(value),
+              decimal: exactValueDecimal(exactRational(value)),
+            }))
+            : [{ label: '', decimal: exactResult.status === 'none' ? 'NO SOLUTION' : 'INFINITE SOL' }];
+        } else {
+          const result = solveLinearSystem(values.map(row => row.slice(0, screen.size)), values.map(row => row[screen.size]));
+          entries = result.status === 'unique'
+            ? result.values.map((value, index) => ({ label: `X${index + 1}=`, decimal: String(value) }))
+            : [{ label: '', decimal: result.status === 'none' ? 'NO SOLUTION' : 'INFINITE SOL' }];
+        }
       } else if (screen.problem === 'polynomial') {
-        lines = solvePolynomial(values[0]).map((value, index) => `X${index + 1}=${formatComplex(value)}`);
+        const exactCoefficients = exactValues[0].every(value => value !== null);
+        if (screen.size === 2 && exactCoefficients) {
+          entries = quadraticExactRoots(exactValues[0] as [Rational, Rational, Rational]).map((value, index) => ({
+            label: `X${index + 1}=`,
+            exact: value,
+            decimal: exactValueDecimal(value),
+          }));
+        } else {
+          entries = solvePolynomial(values[0]).map((value, index) => ({ label: `X${index + 1}=`, decimal: formatComplex(value) }));
+        }
       } else {
-        lines = [solvePolynomialInequality(values[0], screen.operator ?? '>=')];
+        entries = [{ label: '', decimal: solvePolynomialInequality(values[0], screen.operator ?? '>=') }];
       }
-      return { ...state, screen: { kind: 'solutions', lines, selected: 0 } };
+      return {
+        ...state,
+        screen: {
+          kind: 'solutions',
+          entries,
+          selected: 0,
+          showDecimal: context.resultMode === 'decimal',
+          decimalEntries: entries.map(() => context.resultMode === 'decimal'),
+        },
+      };
     } catch (error) {
       return {
         ...state,
@@ -770,6 +844,15 @@ export function dispatchModeRuntime(
   context: RuntimeContext,
 ): ModeRuntime {
   let next = cloneRuntime(state);
+  if (action.type === 'toggle-result' && next.screen.kind === 'solutions') {
+    const entry = next.screen.entries?.[next.screen.selected];
+    if (entry?.exact) {
+      const defaultDecimal = next.screen.showDecimal ?? false;
+      next.screen.decimalEntries ??= next.screen.entries?.map(() => defaultDecimal);
+      next.screen.decimalEntries![next.screen.selected] = !next.screen.decimalEntries![next.screen.selected];
+    }
+    return next;
+  }
   if (action.type === 'select-mode') {
     const opensMenu = ['Statistics', 'Function Table', 'Equation', 'Inequality'].includes(action.mode);
     return { ...next, mode: action.mode, input: '', result: action.mode, evaluated: false, screen: opensMenu ? optionScreen(action.mode) : { kind: 'input' } };
@@ -853,7 +936,8 @@ export function dispatchModeRuntime(
     }
     if (next.screen.kind === 'solutions') {
       const delta = action.type === 'up' || action.type === 'left' ? -1 : 1;
-      next.screen.selected = Math.max(0, Math.min(next.screen.lines.length - 1, next.screen.selected + delta));
+      const length = next.screen.entries?.length ?? next.screen.lines?.length ?? 1;
+      next.screen.selected = Math.max(0, Math.min(length - 1, next.screen.selected + delta));
       return next;
     }
   }
@@ -928,7 +1012,8 @@ export function runtimeScreenView(state: ModeRuntime) {
         row.slice(Math.max(0, screen.column - 2), screen.column + 3).map((value, columnOffset) => {
           const actualRow = Math.max(0, screen.row - 2) + rowOffset;
           const actualColumn = Math.max(0, screen.column - 2) + columnOffset;
-          return actualRow === screen.row && actualColumn === screen.column ? `[${screen.buffer || value}]` : String(value);
+          const saved = screen.expressions[actualRow]?.[actualColumn];
+          return actualRow === screen.row && actualColumn === screen.column ? `[${screen.buffer || saved || value}]` : (saved || String(value));
         })),
     };
   }
@@ -945,10 +1030,23 @@ export function runtimeScreenView(state: ModeRuntime) {
   }
   if (screen.kind === 'graph') return { title: 'FUNCTION GRAPH', graph: screen.rows };
   if (screen.kind === 'solutions') {
-    const start = Math.floor(screen.selected / 5) * 5;
+    if (!screen.entries) {
+      const start = Math.floor(screen.selected / 5) * 5;
+      return {
+        title: 'SOLUTION',
+        lines: screen.lines?.slice(start, start + 5) ?? [],
+        selectedIndex: screen.selected - start,
+      };
+    }
+    const start = Math.floor(screen.selected / 3) * 3;
+    const visible = screen.entries.slice(start, start + 3);
     return {
       title: 'SOLUTION',
-      lines: screen.lines.slice(start, start + 5),
+      formulaLines: visible.map((entry, index) => ({
+        label: entry.label,
+        document: !(screen.decimalEntries?.[start + index] ?? screen.showDecimal) && entry.exact ? exactValueToFormulaDocument(entry.exact) : undefined,
+        text: (screen.decimalEntries?.[start + index] ?? screen.showDecimal) || !entry.exact ? entry.decimal : undefined,
+      })),
       selectedIndex: screen.selected - start,
     };
   }

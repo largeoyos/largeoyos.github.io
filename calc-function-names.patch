@@ -1,0 +1,18 @@
+diff --git a/fx-991cn-x-科学计算器/src/core/calculator.ts b/fx-991cn-x-科学计算器/src/core/calculator.ts
+--- a/fx-991cn-x-科学计算器/src/core/calculator.ts
++++ b/fx-991cn-x-科学计算器/src/core/calculator.ts
+@@ -98,3 +98,3 @@
+-  'rand', 'd', 'dx', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
++  'rand', 'd', 'dx', 'derivative', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
+@@ -215,3 +215,6 @@
+-  if (a.type === 'identifier' && b.type === 'paren' && b.value === '(' && FUNCTIONS.has(a.value.toLowerCase())) return false;
++  if (a.type === 'identifier' && b.type === 'paren' && b.value === '(') {
++    const name = a.value.toLowerCase();
++    if (FUNCTIONS.has(name) || name.startsWith('conv_')) return false;
++  }
+@@ -550,3 +553,3 @@
+-      if (['d', 'dx', 'integral', 'sum', 'solve', 'recur'].includes(node.name.toLowerCase())) {
++      if (['d', 'dx', 'derivative', 'integral', 'sum', 'solve', 'recur'].includes(node.name.toLowerCase())) {
+@@ -759,3 +762,3 @@
+-  if (fn === 'd' || fn === 'dx') {
++  if (fn === 'd' || fn === 'dx' || fn === 'derivative') {

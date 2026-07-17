@@ -1,0 +1,15 @@
+diff --git a/fx-991cn-x-科学计算器/src/core/runtime.ts b/fx-991cn-x-科学计算器/src/core/runtime.ts
+--- a/fx-991cn-x-科学计算器/src/core/runtime.ts
++++ b/fx-991cn-x-科学计算器/src/core/runtime.ts
+@@ -845,4 +845,4 @@
+   if (action.type === 'toggle-result' && next.screen.kind === 'solutions') {
+-    const entry = next.screen.entries[next.screen.selected];
++    const entry = next.screen.entries?.[next.screen.selected];
+     if (entry?.exact) next.screen.showDecimal = !next.screen.showDecimal;
+@@ -931,5 +931,6 @@
+     if (next.screen.kind === 'solutions') {
+       const delta = action.type === 'up' || action.type === 'left' ? -1 : 1;
+-      next.screen.selected = Math.max(0, Math.min(next.screen.entries.length - 1, next.screen.selected + delta));
++      const length = next.screen.entries?.length ?? next.screen.lines?.length ?? 1;
++      next.screen.selected = Math.max(0, Math.min(length - 1, next.screen.selected + delta));
+       next.screen.showDecimal = context.resultMode === 'decimal';

@@ -1,0 +1,11 @@
+diff --git a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+--- a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
++++ b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+@@ -180,6 +180,6 @@
+   items: LcdMenuItem[],
+   selectedIndex: number,
+ ) {
+   const cellWidth = 48;
+-  const cellHeight = 17;
++  const cellHeight = 15;
+   items.forEach((item, index) => {

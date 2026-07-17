@@ -1,0 +1,51 @@
+diff --git a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+--- a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
++++ b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+@@ -36,6 +36,7 @@
+ export type LcdModeScreen = {
+   title: string;
+   lines?: string[];
++  formulaLines?: Array<{ label: string; document?: FormulaDocument; text?: string }>;
+   selectedIndex?: number;
+@@ -57,6 +58,7 @@
+ type FormulaLcdProps = {
+   expression: string;
+   result: string;
++  resultDocument?: FormulaDocument;
+@@ -266,6 +268,29 @@
+ function drawModeScreen(context: CanvasRenderingContext2D, screen: LcdModeScreen) {
+   drawBitmapText(context, screen.title, 3, 2, INK);
+   context.fillStyle = INK;
+   context.fillRect(0, 10, LCD_LOGICAL_WIDTH, 1);
++  if (screen.formulaLines?.length) {
++    screen.formulaLines.forEach((line, index) => {
++      const selected = screen.selectedIndex === index;
++      const color = selected ? BACKGROUND : INK;
++      const rowY = 12 + index * 17;
++      if (selected) {
++        context.fillStyle = INK;
++        context.fillRect(1, rowY, 190, 16);
++      }
++      drawBitmapText(context, line.label, 4, rowY + 4, color);
++      const labelWidth = bitmapTextWidth(line.label) + 6;
++      if (line.document) {
++        drawFormula(
++          context,
++          line.document.root,
++          line.document.cursor,
++          labelWidth,
++          rowY,
++          190 - labelWidth,
++          16,
++          color,
++          false,
++          selected ? INK : BACKGROUND,
++        );
++      } else drawBitmapText(context, line.text ?? '', labelWidth, rowY + 4, color);
++    });
++    return;
++  }
+   if (screen.graph?.length) {
+@@ -452,5 +477,5 @@
+-      const resultDocument = parseLegacyExpression(props.result);
++      const resultDocument = props.resultDocument ?? parseLegacyExpression(props.result);

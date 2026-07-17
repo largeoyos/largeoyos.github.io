@@ -1,0 +1,16 @@
+diff --git a/fx-991cn-x-科学计算器/src/core/runtime.ts b/fx-991cn-x-科学计算器/src/core/runtime.ts
+--- a/fx-991cn-x-科学计算器/src/core/runtime.ts
++++ b/fx-991cn-x-科学计算器/src/core/runtime.ts
+@@ -16,2 +16,12 @@
++import type { NumberFormat, ResultMode } from './calculator';
++import {
++  exactRational,
++  quadraticExactRoots,
++  rationalFromExact,
++  solveLinearSystemExact,
++  type ExactValue,
++  type Rational,
++} from './exact';
++import { exactValueDecimal, exactValueToFormulaDocument } from '../math/exactDisplay';
+ import {
+   applyComplexResultCommand,

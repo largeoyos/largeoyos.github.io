@@ -36,6 +36,7 @@ export type LcdMenuItem = {
 export type LcdModeScreen = {
   title: string;
   lines?: string[];
+  formulaLines?: Array<{ label: string; document?: FormulaDocument; text?: string }>;
   selectedIndex?: number;
   table?: string[][];
   graph?: Array<{ x: number; f?: number; g?: number }>;
@@ -57,6 +58,7 @@ export type FormulaLcdHandle = {
 type FormulaLcdProps = {
   expression: string;
   result: string;
+  resultDocument?: FormulaDocument;
   powerActive: boolean;
   shiftActive: boolean;
   alphaActive: boolean;
@@ -66,9 +68,14 @@ type FormulaLcdProps = {
   menuIndex: number;
   menuItems: LcdMenuItem[];
   optionItems?: string[];
+  listTitle?: string;
+  listItems?: string[];
+  listSelectedIndex?: number;
   modeScreen?: LcdModeScreen;
   variables: Record<string, number>;
   onExpressionChange: (expression: string) => void;
+  onMenuSelect?: (index: number) => void;
+  onModeScreenSelect?: (index: number) => void;
 };
 
 const AST_STORAGE_KEY = 'fx991cnx-formula-ast-v2';
@@ -178,7 +185,7 @@ function drawMainMenu(
   selectedIndex: number,
 ) {
   const cellWidth = 48;
-  const cellHeight = 17;
+  const cellHeight = 15;
   items.forEach((item, index) => {
     const column = index % 4;
     const row = Math.floor(index / 4);
@@ -216,12 +223,14 @@ function drawMainMenu(
 
   const selected = items[selectedIndex] ?? items[0];
   context.fillStyle = BACKGROUND;
-  context.fillRect(0, 51, LCD_LOGICAL_WIDTH, 12);
+  context.fillRect(0, 45, LCD_LOGICAL_WIDTH, 18);
   context.strokeStyle = BLUE;
   context.fillStyle = BLUE;
-  context.fillRect(0, 51, LCD_LOGICAL_WIDTH, 1);
-  drawBitmapText(context, `${selectedIndex + 1}:`, 3, 54, BLUE);
-  drawBitmapText(context, selected?.label ?? '', 18, 53, BLUE);
+  context.fillRect(0, 45, LCD_LOGICAL_WIDTH, 1);
+  const label = selected?.label ?? '';
+  const labelWidth = bitmapTextWidth(label, 2, 1);
+  drawBitmapText(context, `${selectedIndex + 1}:`, 3, 52, BLUE);
+  drawBitmapText(context, label, Math.max(18, Math.floor((LCD_LOGICAL_WIDTH - labelWidth) / 2)), 46, BLUE, 2, 1);
 }
 
 function drawListMenu(
@@ -229,6 +238,9 @@ function drawListMenu(
   activeMenu: string,
   variables: Record<string, number>,
   optionItems: string[] = [],
+  customTitle?: string,
+  customItems?: string[],
+  customSelected = -1,
 ) {
   const titles: Record<string, string> = {
     SETUP: 'SETUP',
@@ -239,12 +251,12 @@ function drawListMenu(
     RECALL: 'RECALL',
     STORE: 'STORE',
   };
-  drawBitmapText(context, titles[activeMenu] ?? activeMenu, 3, 2, INK);
+  drawBitmapText(context, customTitle ?? titles[activeMenu] ?? activeMenu, 3, 2, INK);
   context.fillStyle = INK;
   context.fillRect(0, 10, LCD_LOGICAL_WIDTH, 1);
 
-  let lines: string[] = [];
-  if (activeMenu === 'SETUP') lines = ['1 DEG', '2 RAD', '3 GRAD', '4 DISPLAY'];
+  let lines: string[] = customItems ?? [];
+  if (activeMenu === 'SETUP') lines = ['1 DEG', '2 RAD', '3 GRAD', '4 EXACT/DEC', '5 FORMAT NEXT'];
   if (activeMenu === 'OPTN') lines = optionItems.length ? optionItems : ['1 HYPER', '2 ANGLE', '3 ENG'];
   if (activeMenu === 'SOLVE') {
     lines = Object.entries(variables).slice(0, 6).map(([key, value], index) => `${index + 1} ${key}=${value}`);
@@ -255,11 +267,18 @@ function drawListMenu(
     lines = Object.entries(variables).slice(0, 9).map(([key, value]) => `${key}:${value}`);
   }
 
-  lines.slice(0, 9).forEach((line, index) => {
-    const singleColumn = activeMenu === 'OPTN';
+  lines.slice(0, customItems ? 4 : 9).forEach((line, index) => {
+    const singleColumn = Boolean(customItems) || activeMenu === 'OPTN';
     const column = singleColumn ? 0 : index % 2;
     const row = singleColumn ? index : Math.floor(index / 2);
-    drawBitmapText(context, line, 4 + column * 95, 14 + row * (singleColumn ? 10 : 12), INK);
+    const y = 13 + row * (customItems ? 13 : singleColumn ? 10 : 12);
+    if (index === customSelected) {
+      context.fillStyle = INK;
+      context.fillRect(1, y - 1, 190, 9);
+      drawBitmapText(context, line, 4 + column * 95, y, BACKGROUND);
+    } else {
+      drawBitmapText(context, line, 4 + column * 95, y, INK);
+    }
   });
 }
 
@@ -267,6 +286,34 @@ function drawModeScreen(context: CanvasRenderingContext2D, screen: LcdModeScreen
   drawBitmapText(context, screen.title, 3, 2, INK);
   context.fillStyle = INK;
   context.fillRect(0, 10, LCD_LOGICAL_WIDTH, 1);
+  if (screen.formulaLines?.length) {
+    screen.formulaLines.forEach((line, index) => {
+      const selected = screen.selectedIndex === index;
+      const color = selected ? BACKGROUND : INK;
+      const rowY = 12 + index * 17;
+      if (selected) {
+        context.fillStyle = INK;
+        context.fillRect(1, rowY, 190, 16);
+      }
+      drawBitmapText(context, line.label, 4, rowY + 4, color);
+      const labelWidth = bitmapTextWidth(line.label) + 6;
+      if (line.document) {
+        drawFormula(
+          context,
+          line.document.root,
+          line.document.cursor,
+          labelWidth,
+          rowY,
+          190 - labelWidth,
+          16,
+          color,
+          false,
+          selected ? INK : BACKGROUND,
+        );
+      } else drawBitmapText(context, line.text ?? '', labelWidth, rowY + 4, color);
+    });
+    return;
+  }
   if (screen.graph?.length) {
     const plot = screen.graph.filter(point => Number.isFinite(point.x) && (Number.isFinite(point.f) || Number.isFinite(point.g)));
     if (!plot.length) return;
@@ -425,7 +472,15 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       }
 
       if (props.activeMenu !== 'NONE') {
-        drawListMenu(context, props.activeMenu, props.variables, props.optionItems);
+        drawListMenu(
+          context,
+          props.activeMenu,
+          props.variables,
+          props.optionItems,
+          props.listTitle,
+          props.listItems,
+          props.listSelectedIndex,
+        );
         return;
       }
 
@@ -449,7 +504,7 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       formulaCursorPoints.current = formulaResult.cursorPoints;
       if (formulaResult.overflow) drawBitmapText(context, 'RANGE', 152, 12, INK);
 
-      const resultDocument = parseLegacyExpression(props.result);
+      const resultDocument = props.resultDocument ?? parseLegacyExpression(props.result);
       const resultLayout = drawFormula(
         context,
         resultDocument.root,
@@ -471,7 +526,7 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
     }, [document, props, resultOffset]);
 
     const placeCursorAtPointer = (event: React.PointerEvent<HTMLCanvasElement>) => {
-      if (!props.powerActive || props.activeMenu !== 'NONE' || props.modeScreen) return;
+      if (!props.powerActive) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -479,6 +534,18 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
 
       const x = (event.clientX - rect.left) / rect.width * LCD_LOGICAL_WIDTH;
       const y = (event.clientY - rect.top) / rect.height * LCD_LOGICAL_HEIGHT;
+      if (props.activeMenu === 'MAIN') {
+        if (y < 45) props.onMenuSelect?.(Math.floor(y / 15) * 4 + Math.floor(x / 48));
+        return;
+      }
+      if (props.activeMenu !== 'NONE') {
+        if (y >= 11) props.onMenuSelect?.(Math.max(0, Math.floor((y - 12) / (props.listItems ? 13 : 10))));
+        return;
+      }
+      if (props.modeScreen) {
+        if (y >= 11) props.onModeScreenSelect?.(Math.max(0, Math.floor((y - 12) / (props.modeScreen.formulaLines ? 17 : 10))));
+        return;
+      }
       if (x < 2 || x > 190 || y < 11 || y > 42) return;
 
       const cursor = findNearestCursor(formulaCursorPoints.current, x, y);

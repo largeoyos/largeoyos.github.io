@@ -1,0 +1,107 @@
+diff --git a/fx-991cn-x-科学计算器/src/App.tsx b/fx-991cn-x-科学计算器/src/App.tsx
+--- a/fx-991cn-x-科学计算器/src/App.tsx
++++ b/fx-991cn-x-科学计算器/src/App.tsx
+@@ -22,4 +22,6 @@
+   solveForVariable,
+   type AngleMode,
++  type NumberFormat,
++  type ResultMode,
+ } from './core/calculator';
++import type { ExactValue } from './core/exact';
++import { exactValueToFormulaDocument } from './math/exactDisplay';
+@@ -70,1 +73,2 @@
+ const STORAGE_KEY = 'fx991cnx-registers-v1';
++const PREFERENCES_KEY = 'fx991cnx-preferences-v3';
+@@ -128,3 +132,14 @@
+   const [ans, setAns] = useState<number>(0);
+   const [resultVal, setResultVal] = useState<string>("0");
++  const [exactAns, setExactAns] = useState<ExactValue>();
++  const [currentExact, setCurrentExact] = useState<ExactValue>();
++  const [resultDocument, setResultDocument] = useState<FormulaDocument>();
++  const [resultMode, setResultMode] = useState<ResultMode>(() => {
++    try { return JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) ?? '{}').resultMode === 'decimal' ? 'decimal' : 'exact'; }
++    catch { return 'exact'; }
++  });
++  const [numberFormat, setNumberFormat] = useState<NumberFormat>(() => {
++    try { return JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) ?? '{}').numberFormat ?? { kind: 'Norm1' }; }
++    catch { return { kind: 'Norm1' }; }
++  });
+@@ -172,7 +187,16 @@
+   }, [modeRuntime.memory]);
++  useEffect(() => {
++    try {
++      window.localStorage.setItem(PREFERENCES_KEY, JSON.stringify({ resultMode, numberFormat }));
++    } catch {
++      // localStorage can be unavailable in private or locked-down contexts.
++    }
++  }, [resultMode, numberFormat]);
+ 
+   const applyModeAction = (action: RuntimeAction) => {
+-    const next = dispatchModeRuntime(modeRuntime, action, { variables, ans, angleMode });
++    const next = dispatchModeRuntime(modeRuntime, action, {
++      variables, ans, angleMode, exactAns, resultMode, numberFormat,
++    });
+@@ -208,5 +232,8 @@
+   const evaluateWithVariables = (formula: string, nextVariables: Record<string, number>) => {
+-    const evalRes = evaluateExpression(formula, { variables: nextVariables, ans, angleMode });
++    const evalRes = evaluateExpression(formula, { variables: nextVariables, ans, angleMode, exactAns, resultMode, numberFormat });
+     if (evalRes.success) {
+       setAns(evalRes.value);
++      setExactAns(evalRes.exact);
++      setCurrentExact(evalRes.exact);
++      setResultDocument(resultMode === 'exact' && evalRes.exact ? exactValueToFormulaDocument(evalRes.exact) : undefined);
+@@ -489,15 +516,20 @@
+       if (activeMenu === 'SETUP') {
+@@
+         } else if (activeVal === '4') {
+-          setResultVal('PIXEL LCD');
++          const nextMode: ResultMode = resultMode === 'exact' ? 'decimal' : 'exact';
++          setResultMode(nextMode);
++          setResultDocument(nextMode === 'exact' && currentExact ? exactValueToFormulaDocument(currentExact) : undefined);
++          setResultVal(nextMode === 'decimal' && currentExact ? formatCoreValue(ans, numberFormat) : resultVal);
++          setActiveMenu('NONE');
++        } else if (activeVal === '5') {
++          setNumberFormat(previous => previous.kind === 'Norm1' ? { kind: 'Norm2' } : { kind: 'Norm1' });
+           setActiveMenu('NONE');
+@@ -507,7 +539,7 @@
+       if (activeMenu === 'CONST') {
+         // Physical Constants standard
+-        const selected = SCIENTIFIC_CONSTANTS.find(item => item.key === activeVal);
++        const selected = SCIENTIFIC_CONSTANTS[Number(activeVal) - 1];
+         if (selected) {
+-          insertTextAtCursor(String(selected.value));
++          insertTextAtCursor(`const:${selected.id}:${selected.symbol}`);
+@@ -563,6 +595,10 @@
+     if (modeRuntime.screen.kind !== 'input' || calcMode !== 'Calculate') {
++      if (activeAction === 'sd') {
++        applyModeAction({ type: 'toggle-result' });
++        return;
++      }
+@@ -659,5 +695,10 @@
+       case 'sd': {
+-        const value = resultVal.includes('/') ? ans : Number(resultVal);
+-        if (Number.isFinite(value)) setResultVal(resultVal.includes('/') ? formatCoreValue(value) : approximateFraction(value));
++        if (currentExact) {
++          setResultDocument(previous => previous ? undefined : exactValueToFormulaDocument(currentExact));
++          setResultVal(formatCoreValue(ans, numberFormat));
++        }
+         break;
+@@ -695,10 +736,17 @@
+   const handleEvaluation = () => {
+     setHistoryIndex(-1);
+     setSolutionList([]);
+-    const evalRes = evaluateExpression(expr, { variables, ans, angleMode });
++    const evalRes = evaluateExpression(expr, { variables, ans, angleMode, exactAns, resultMode, numberFormat });
+     if (evalRes.success) {
+       setAns(evalRes.value);
++      setExactAns(evalRes.exact);
++      setCurrentExact(evalRes.exact);
+       setResultVal(evalRes.displayText);
++      setResultDocument(resultMode === 'exact' && evalRes.exact ? exactValueToFormulaDocument(evalRes.exact) : undefined);
++      if (evalRes.assignments) {
++        setVariables(previous => ({ ...previous, ...evalRes.assignments }));
++      }
+@@ -867,6 +915,7 @@
+                     expression={expr}
+                     result={resultVal}
++                    resultDocument={resultDocument}

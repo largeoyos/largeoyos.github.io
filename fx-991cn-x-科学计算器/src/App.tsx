@@ -22,7 +22,18 @@ import {
   formatCasioValue as formatCoreValue,
   solveForVariable,
   type AngleMode,
+  type NumberFormat,
+  type ResultMode,
 } from './core/calculator';
+import type { ExactValue } from './core/exact';
+import {
+  ADVANCED_CATALOG,
+  SCIENTIFIC_CONSTANT_CATEGORIES,
+  UNIT_CONVERSION_CATEGORIES,
+  type ScientificConstantCategory,
+  type UnitConversionCategory,
+} from './core/catalog';
+import { exactValueToFormulaDocument } from './math/exactDisplay';
 import {
   FormulaLcd,
   type FormulaLcdHandle,
@@ -47,6 +58,14 @@ function formatEngineering(value: number): string {
   return exponent === 0 ? formatCoreValue(mantissa) : `${formatCoreValue(mantissa)}×10^${exponent}`;
 }
 
+function cycleNumberFormat(format: NumberFormat): NumberFormat {
+  if (!('digits' in format)) return format.kind === 'Norm1' ? { kind: 'Norm2' } : { kind: 'Fix', digits: 0 };
+  if (format.kind === 'Fix' && format.digits < 9) return { kind: 'Fix', digits: format.digits + 1 };
+  if (format.kind === 'Fix') return { kind: 'Sci', digits: 1 };
+  if (format.digits < 10) return { kind: 'Sci', digits: format.digits + 1 };
+  return { kind: 'Norm1' };
+}
+
 function approximateFraction(value: number, maxDenominator = 100000): string {
   if (!Number.isFinite(value)) return 'Math ERROR';
   const sign = value < 0 ? -1 : 1;
@@ -64,10 +83,12 @@ function approximateFraction(value: number, maxDenominator = 100000): string {
   }
   return k1 === 1 ? String(sign * h1) : `${sign * h1}/${k1}`;
 }
-type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE' | 'MAIN' | 'SOLVE' | 'CALC';
+type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'CATALOG' | 'RECALL' | 'STORE' | 'MAIN' | 'SOLVE' | 'CALC';
+type CatalogPage = { kind: 'root' } | { kind: 'advanced'; index: number } | { kind: 'constant-categories' } | { kind: 'constant-list'; category: ScientificConstantCategory } | { kind: 'conversion-categories' } | { kind: 'conversion-list'; category: UnitConversionCategory };
 type MenuDirection = 'left' | 'right' | 'up' | 'down';
 
 const STORAGE_KEY = 'fx991cnx-registers-v1';
+const PREFERENCES_KEY = 'fx991cnx-preferences-v3';
 const VARIABLE_NAMES = ['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M'];
 const DEFAULT_VARIABLES: Record<string, number> = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0 };
 const MODE_LABELS: Record<CalcMode, string> = {
@@ -127,6 +148,17 @@ export default function App() {
   const [cursorIdx, setCursorIdx] = useState<number>(0);
   const [ans, setAns] = useState<number>(0);
   const [resultVal, setResultVal] = useState<string>("0");
+  const [exactAns, setExactAns] = useState<ExactValue>();
+  const [currentExact, setCurrentExact] = useState<ExactValue>();
+  const [resultDocument, setResultDocument] = useState<FormulaDocument>();
+  const [resultMode, setResultMode] = useState<ResultMode>(() => {
+    try { return JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) ?? '{}').resultMode === 'decimal' ? 'decimal' : 'exact'; }
+    catch { return 'exact'; }
+  });
+  const [numberFormat, setNumberFormat] = useState<NumberFormat>(() => {
+    try { return JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) ?? '{}').numberFormat ?? { kind: 'Norm1' }; }
+    catch { return { kind: 'Norm1' }; }
+  });
   const [variables, setVariables] = useState<Record<string, number>>(() => loadStoredVariables());
   const [calcMode, setCalcMode] = useState<CalcMode>('Calculate');
   const [modeRuntime, setModeRuntime] = useState(() => createModeRuntime(loadModeMemory()));
@@ -140,6 +172,8 @@ export default function App() {
   // Advanced contextual screens
   const [activeMenu, setActiveMenu] = useState<ActiveMenu>('NONE');
   const [menuScrollIdx, setMenuScrollIdx] = useState<number>(0);
+  const [catalogPage, setCatalogPage] = useState<CatalogPage>({ kind: 'root' });
+  const [catalogIndex, setCatalogIndex] = useState(0);
   const [historyList, setHistoryList] = useState<Array<{ expr: string; res: string; timestamp: string; ast?: FormulaDocument }>>([
     { expr: "sin(30) × 4", res: "2", timestamp: "15:20" },
     { expr: "5! + 10", res: "130", timestamp: "15:18" }
@@ -170,9 +204,18 @@ export default function App() {
       // localStorage can be unavailable in private or locked-down contexts.
     }
   }, [modeRuntime.memory]);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(PREFERENCES_KEY, JSON.stringify({ resultMode, numberFormat }));
+    } catch {
+      // localStorage can be unavailable in private or locked-down contexts.
+    }
+  }, [resultMode, numberFormat]);
 
   const applyModeAction = (action: RuntimeAction) => {
-    const next = dispatchModeRuntime(modeRuntime, action, { variables, ans, angleMode });
+    const next = dispatchModeRuntime(modeRuntime, action, {
+      variables, ans, angleMode, exactAns, resultMode, numberFormat,
+    });
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);
@@ -206,9 +249,12 @@ export default function App() {
   };
 
   const evaluateWithVariables = (formula: string, nextVariables: Record<string, number>) => {
-    const evalRes = evaluateExpression(formula, { variables: nextVariables, ans, angleMode });
+    const evalRes = evaluateExpression(formula, { variables: nextVariables, ans, angleMode, exactAns, resultMode, numberFormat });
     if (evalRes.success) {
       setAns(evalRes.value);
+      setExactAns(evalRes.exact);
+      setCurrentExact(evalRes.exact);
+      setResultDocument(resultMode === 'exact' && evalRes.exact ? exactValueToFormulaDocument(evalRes.exact) : undefined);
       setResultVal(evalRes.displayText);
       const date = new Date();
       const timestamp = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
@@ -318,11 +364,55 @@ export default function App() {
     evaluateWithVariables(expr, nextVariables);
   };
 
+  const catalogView = (() => {
+    if (catalogPage.kind === 'root') return { title: '高级计算', items: [...ADVANCED_CATALOG.map(item => item.label), '科学常数', '单位换算'] };
+    if (catalogPage.kind === 'advanced') return { title: ADVANCED_CATALOG[catalogPage.index].label, items: ADVANCED_CATALOG[catalogPage.index].items.map(item => item.label) };
+    if (catalogPage.kind === 'constant-categories') return { title: '科学常数', items: SCIENTIFIC_CONSTANT_CATEGORIES };
+    if (catalogPage.kind === 'constant-list') return { title: catalogPage.category, items: SCIENTIFIC_CONSTANTS.filter(item => item.category === catalogPage.category).map(item => `${item.symbol}  ${item.name}`) };
+    if (catalogPage.kind === 'conversion-categories') return { title: '单位换算', items: UNIT_CONVERSION_CATEGORIES };
+    return { title: catalogPage.category, items: UNIT_CONVERSIONS.filter(item => item.category === catalogPage.category).map(item => item.label) };
+  })();
+  const catalogPageStart = Math.floor(catalogIndex / 4) * 4;
+  const selectCatalogItem = (index = catalogIndex) => {
+    if (catalogPage.kind === 'root') {
+      if (index < ADVANCED_CATALOG.length) setCatalogPage({ kind: 'advanced', index });
+      else if (index === ADVANCED_CATALOG.length) setCatalogPage({ kind: 'constant-categories' });
+      else setCatalogPage({ kind: 'conversion-categories' });
+      setCatalogIndex(0);
+      return;
+    }
+    if (catalogPage.kind === 'advanced') {
+      const item = ADVANCED_CATALOG[catalogPage.index].items[index];
+      if (item) insertTextAtCursor(item.insert);
+      setActiveMenu('NONE');
+      return;
+    }
+    if (catalogPage.kind === 'constant-categories') {
+      const category = SCIENTIFIC_CONSTANT_CATEGORIES[index];
+      if (category) { setCatalogPage({ kind: 'constant-list', category }); setCatalogIndex(0); }
+      return;
+    }
+    if (catalogPage.kind === 'constant-list') {
+      const item = SCIENTIFIC_CONSTANTS.filter(value => value.category === catalogPage.category)[index];
+      if (item) insertTextAtCursor(`const:${item.id}:${item.symbol}`);
+      setActiveMenu('NONE');
+      return;
+    }
+    if (catalogPage.kind === 'conversion-categories') {
+      const category = UNIT_CONVERSION_CATEGORIES[index];
+      if (category) { setCatalogPage({ kind: 'conversion-list', category }); setCatalogIndex(0); }
+      return;
+    }
+    const item = UNIT_CONVERSIONS.filter(value => value.category === catalogPage.category)[index];
+    if (item) insertTextAtCursor(`conv:${item.id}:${item.label}`);
+    setActiveMenu('NONE');
+  };
+
   const confirmMenuMode = (index = menuScrollIdx) => {
     const mode = MENU_MODES[index];
     if (!mode) return;
     setCalcMode(mode);
-    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, { variables, ans, angleMode });
+    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, { variables, ans, angleMode, exactAns, resultMode, numberFormat });
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);
@@ -355,6 +445,11 @@ export default function App() {
     }
 
     if (activeMenu !== 'NONE' && ['menu', 'clear', 'backspace', 'shift', 'alpha'].includes(action)) {
+      if (activeMenu === 'CATALOG' && action === 'backspace' && catalogPage.kind !== 'root') {
+        setCatalogPage({ kind: 'root' });
+        setCatalogIndex(0);
+        return;
+      }
       setActiveMenu('NONE');
       setShiftActive(false);
       setAlphaActive(false);
@@ -407,13 +502,17 @@ export default function App() {
           setShiftActive(false);
           return;
         }
-        if (shiftValue === 'CONST_MENU') {
-          setActiveMenu('CONST');
+        if (shiftValue === 'CONST') {
+          setCatalogPage({ kind: 'constant-categories' });
+          setCatalogIndex(0);
+          setActiveMenu('CATALOG');
           setShiftActive(false);
           return;
         }
-        if (shiftValue === 'CONV_MENU') {
-          setActiveMenu('CONV');
+        if (shiftValue === 'CONV') {
+          setCatalogPage({ kind: 'conversion-categories' });
+          setCatalogIndex(0);
+          setActiveMenu('CATALOG');
           setShiftActive(false);
           return;
         }
@@ -450,6 +549,14 @@ export default function App() {
 
     // Contextual menu selection triggers
     if (activeMenu !== 'NONE') {
+      if (activeMenu === 'CATALOG') {
+        const length = catalogView.items.length;
+        if (/^[1-4]$/.test(activeVal)) selectCatalogItem(catalogPageStart + Number(activeVal) - 1);
+        else if (activeAction === 'arrow_up' || activeAction === 'arrow_left') setCatalogIndex(previous => (previous - 1 + length) % length);
+        else if (activeAction === 'arrow_down' || activeAction === 'arrow_right') setCatalogIndex(previous => (previous + 1) % length);
+        else if (activeAction === 'evaluate') selectCatalogItem();
+        return;
+      }
       if (activeMenu === 'MAIN') {
         if (/^\d$/.test(activeVal)) {
           const numeric = Number(activeVal);
@@ -497,7 +604,13 @@ export default function App() {
           setAngleMode('GRAD');
           setActiveMenu('NONE');
         } else if (activeVal === '4') {
-          setResultVal('PIXEL LCD');
+          const nextMode: ResultMode = resultMode === 'exact' ? 'decimal' : 'exact';
+          setResultMode(nextMode);
+          setResultDocument(nextMode === 'exact' && currentExact ? exactValueToFormulaDocument(currentExact) : undefined);
+          setResultVal(nextMode === 'decimal' && currentExact ? formatCoreValue(ans, numberFormat) : resultVal);
+          setActiveMenu('NONE');
+        } else if (activeVal === '5') {
+          setNumberFormat(previous => cycleNumberFormat(previous));
           setActiveMenu('NONE');
         } else {
           setActiveMenu('NONE');
@@ -506,9 +619,9 @@ export default function App() {
       }
       if (activeMenu === 'CONST') {
         // Physical Constants standard
-        const selected = SCIENTIFIC_CONSTANTS.find(item => item.key === activeVal);
+        const selected = SCIENTIFIC_CONSTANTS[Number(activeVal) - 1];
         if (selected) {
-          insertTextAtCursor(String(selected.value));
+          insertTextAtCursor(`const:${selected.id}:${selected.symbol}`);
         }
         setActiveMenu('NONE');
         return;
@@ -557,10 +670,18 @@ export default function App() {
 
     // Mode-specific actions are handled before the general calculator router.
     if (activeAction === 'optn') {
-      applyModeAction({ type: 'optn' });
+      if (calcMode === 'Calculate' && modeRuntime.screen.kind === 'input') {
+        setCatalogPage({ kind: 'root' });
+        setCatalogIndex(0);
+        setActiveMenu('CATALOG');
+      } else applyModeAction({ type: 'optn' });
       return;
     }
     if (modeRuntime.screen.kind !== 'input' || calcMode !== 'Calculate') {
+      if (activeAction === 'sd') {
+        applyModeAction({ type: 'toggle-result' });
+        return;
+      }
       if (activeAction === 'menu') {
         setMenuScrollIdx(Math.max(0, MENU_MODES.indexOf(calcMode)));
         setActiveMenu('MAIN');
@@ -640,7 +761,9 @@ export default function App() {
         setActiveMenu('MAIN');
         break;
       case 'optn':
-        applyModeAction({ type: 'optn' });
+        setCatalogPage({ kind: 'root' });
+        setCatalogIndex(0);
+        setActiveMenu('CATALOG');
         break;
       case 'calc':
         handleCalcRequest();
@@ -657,8 +780,10 @@ export default function App() {
         break;
       }
       case 'sd': {
-        const value = resultVal.includes('/') ? ans : Number(resultVal);
-        if (Number.isFinite(value)) setResultVal(resultVal.includes('/') ? formatCoreValue(value) : approximateFraction(value));
+        if (currentExact) {
+          setResultDocument(previous => previous ? undefined : exactValueToFormulaDocument(currentExact));
+          setResultVal(formatCoreValue(ans, numberFormat));
+        }
         break;
       }
       case 'mplus': {
@@ -695,10 +820,14 @@ export default function App() {
   const handleEvaluation = () => {
     setHistoryIndex(-1);
     setSolutionList([]);
-    const evalRes = evaluateExpression(expr, { variables, ans, angleMode });
+    const evalRes = evaluateExpression(expr, { variables, ans, angleMode, exactAns, resultMode, numberFormat });
     if (evalRes.success) {
       setAns(evalRes.value);
+      setExactAns(evalRes.exact);
+      setCurrentExact(evalRes.exact);
       setResultVal(evalRes.displayText);
+      setResultDocument(resultMode === 'exact' && evalRes.exact ? exactValueToFormulaDocument(evalRes.exact) : undefined);
+      if (evalRes.assignments) setVariables(previous => ({ ...previous, ...evalRes.assignments }));
       
       // Save history log
       const date = new Date();
@@ -868,6 +997,7 @@ export default function App() {
                     ref={formulaLcdRef}
                     expression={expr}
                     result={resultVal}
+                    resultDocument={resultDocument}
                     powerActive={powerActive}
                     shiftActive={shiftActive}
                     alphaActive={alphaActive}
@@ -877,8 +1007,23 @@ export default function App() {
                     menuIndex={menuScrollIdx}
                     menuItems={MENU_MODES.map(mode => ({ mode, label: MODE_LABELS[mode] }))}
                     variables={variables}
+                    listTitle={activeMenu === 'CATALOG' ? catalogView.title : undefined}
+                    listItems={activeMenu === 'CATALOG' ? catalogView.items.slice(catalogPageStart, catalogPageStart + 4).map((item, index) => `${index + 1} ${item}`) : undefined}
+                    listSelectedIndex={activeMenu === 'CATALOG' ? catalogIndex - catalogPageStart : undefined}
                     modeScreen={runtimeScreenView(modeRuntime)}
                     onExpressionChange={setExpr}
+                    onMenuSelect={index => {
+                      if (activeMenu === 'MAIN') confirmMenuMode(index);
+                      else if (activeMenu === 'CATALOG') selectCatalogItem(catalogPageStart + index);
+                      else handleKeypress('append', String(index + 1));
+                    }}
+                    onModeScreenSelect={index => {
+                      if (modeRuntime.screen.kind === 'menu') {
+                        const start = Math.floor(modeRuntime.screen.selected / 5) * 5;
+                        const option = modeRuntime.screen.options[start + index];
+                        if (option) applyModeAction({ type: 'append', value: option.key });
+                      }
+                    }}
                   />
 
                   {/* Subtle pixel line horizontal alignment overlays */}

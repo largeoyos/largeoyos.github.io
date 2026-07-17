@@ -1,0 +1,34 @@
+diff --git a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+--- a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
++++ b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+@@ -70,4 +70,6 @@
+   modeScreen?: LcdModeScreen;
+   variables: Record<string, number>;
+   onExpressionChange: (expression: string) => void;
++  onMenuSelect?: (index: number) => void;
++  onModeScreenSelect?: (index: number) => void;
+ };
+@@ -505,14 +507,25 @@
+     const placeCursorAtPointer = (event: React.PointerEvent<HTMLCanvasElement>) => {
+-      if (!props.powerActive || props.activeMenu !== 'NONE' || props.modeScreen) return;
++      if (!props.powerActive) return;
+       const canvas = canvasRef.current;
+       if (!canvas) return;
+       const rect = canvas.getBoundingClientRect();
+       if (rect.width <= 0 || rect.height <= 0) return;
+ 
+       const x = (event.clientX - rect.left) / rect.width * LCD_LOGICAL_WIDTH;
+       const y = (event.clientY - rect.top) / rect.height * LCD_LOGICAL_HEIGHT;
++      if (props.activeMenu === 'MAIN') {
++        if (y < 45) props.onMenuSelect?.(Math.floor(y / 15) * 4 + Math.floor(x / 48));
++        return;
++      }
++      if (props.activeMenu !== 'NONE') {
++        if (y >= 11) props.onMenuSelect?.(Math.max(0, Math.floor((y - 12) / 10)));
++        return;
++      }
++      if (props.modeScreen) {
++        if (y >= 11) props.onModeScreenSelect?.(Math.max(0, Math.floor((y - 12) / (props.modeScreen.formulaLines ? 17 : 10))));
++        return;
++      }
+       if (x < 2 || x > 190 || y < 11 || y > 42) return;

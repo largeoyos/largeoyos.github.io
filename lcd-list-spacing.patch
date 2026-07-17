@@ -1,0 +1,14 @@
+diff --git a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+--- a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
++++ b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+@@ -270,9 +270,9 @@
+-  lines.slice(0, 9).forEach((line, index) => {
++  lines.slice(0, customItems ? 4 : 9).forEach((line, index) => {
+     const singleColumn = Boolean(customItems) || activeMenu === 'OPTN';
+     const column = singleColumn ? 0 : index % 2;
+     const row = singleColumn ? index : Math.floor(index / 2);
+-    const y = 13 + row * (singleColumn ? 10 : 12);
++    const y = 13 + row * (customItems ? 13 : singleColumn ? 10 : 12);
+@@ -549,3 +549,3 @@
+-        if (y >= 11) props.onMenuSelect?.(Math.max(0, Math.floor((y - 12) / 10)));
++        if (y >= 11) props.onMenuSelect?.(Math.max(0, Math.floor((y - 12) / (props.listItems ? 13 : 10))));

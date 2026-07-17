@@ -1,0 +1,50 @@
+diff --git a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+--- a/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
++++ b/fx-991cn-x-科学计算器/src/math/FormulaLcd.tsx
+@@ -67,4 +67,7 @@
+   menuItems: LcdMenuItem[];
+   optionItems?: string[];
++  listTitle?: string;
++  listItems?: string[];
++  listSelectedIndex?: number;
+   modeScreen?: LcdModeScreen;
+@@ -231,5 +234,8 @@
+   activeMenu: string,
+   variables: Record<string, number>,
+   optionItems: string[] = [],
++  customTitle?: string,
++  customItems?: string[],
++  customSelected = -1,
+ ) {
+@@ -242,5 +248,5 @@
+-  drawBitmapText(context, titles[activeMenu] ?? activeMenu, 3, 2, INK);
++  drawBitmapText(context, customTitle ?? titles[activeMenu] ?? activeMenu, 3, 2, INK);
+@@ -246,5 +252,5 @@
+-  let lines: string[] = [];
++  let lines: string[] = customItems ?? [];
+@@ -258,7 +264,15 @@
+   lines.slice(0, 9).forEach((line, index) => {
+-    const singleColumn = activeMenu === 'OPTN';
++    const singleColumn = Boolean(customItems) || activeMenu === 'OPTN';
+     const column = singleColumn ? 0 : index % 2;
+     const row = singleColumn ? index : Math.floor(index / 2);
+-    drawBitmapText(context, line, 4 + column * 95, 14 + row * (singleColumn ? 10 : 12), INK);
++    const y = 13 + row * (singleColumn ? 10 : 12);
++    if (index === customSelected) {
++      context.fillStyle = INK;
++      context.fillRect(1, y - 1, 190, 9);
++      drawBitmapText(context, line, 4 + column * 95, y, BACKGROUND);
++    } else {
++      drawBitmapText(context, line, 4 + column * 95, y, INK);
++    }
+@@ -459,5 +473,13 @@
+-        drawListMenu(context, props.activeMenu, props.variables, props.optionItems);
++        drawListMenu(
++          context,
++          props.activeMenu,
++          props.variables,
++          props.optionItems,
++          props.listTitle,
++          props.listItems,
++          props.listSelectedIndex,
++        );

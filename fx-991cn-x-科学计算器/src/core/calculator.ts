@@ -1,16 +1,53 @@
-// patch probe
+import {
+  SCIENTIFIC_CONSTANTS,
+  UNIT_CONVERSIONS,
+  applyUnitConversion,
+  scientificConstantById,
+} from './catalog';
+import {
+  addExactReal,
+  divideExactReal,
+  exactPower,
+  exactRational,
+  exactRealToNumber,
+  multiplyExactReal,
+  negateExactReal,
+  rational,
+  rationalFromDecimal,
+  rationalFromExact,
+  sqrtRational,
+  subtractExactReal,
+  type ExactReal,
+  type ExactValue,
+  type Rational,
+} from './exact';
+
+export { SCIENTIFIC_CONSTANTS, UNIT_CONVERSIONS } from './catalog';
+
 export type AngleMode = 'DEG' | 'RAD' | 'GRAD';
+export type ResultMode = 'exact' | 'decimal';
+export type NumberFormat =
+  | { kind: 'Norm1' | 'Norm2' }
+  | { kind: 'Fix'; digits: number }
+  | { kind: 'Sci'; digits: number };
+
 
 export interface EvaluationContext {
   variables: Record<string, number>;
   ans: number;
   angleMode: AngleMode;
+  exactVariables?: Partial<Record<string, ExactValue>>;
+  exactAns?: ExactValue;
+  resultMode?: ResultMode;
+  numberFormat?: NumberFormat;
 }
 
 export interface EvalResult {
   success: boolean;
   value: number;
   displayText: string;
+  exact?: ExactValue;
+  assignments?: Partial<Record<'X' | 'Y', number>>;
   errorType?: 'Math ERROR' | 'Syntax ERROR' | 'Argument ERROR' | 'Dimension ERROR' | 'Range ERROR' | 'Variable ERROR' | 'No Solution';
 }
 
@@ -20,14 +57,14 @@ export interface SolveResult extends EvalResult {
 }
 
 type Token =
-  | { type: 'number'; value: number }
+  | { type: 'number'; value: number; raw: string }
   | { type: 'identifier'; value: string }
   | { type: 'operator'; value: string }
   | { type: 'paren'; value: '(' | ')' }
   | { type: 'comma'; value: ',' };
 
 type Node =
-  | { type: 'number'; value: number }
+  | { type: 'number'; value: number; raw: string }
   | { type: 'variable'; name: string }
   | { type: 'unary'; op: string; expr: Node }
   | { type: 'binary'; op: string; left: Node; right: Node }
@@ -39,31 +76,6 @@ export interface ComplexValue {
   im: number;
 }
 
-export const SCIENTIFIC_CONSTANTS = [
-  { key: '1', symbol: 'c', name: '真空中光速', value: 299792458 },
-  { key: '2', symbol: 'h', name: '普朗克常量', value: 6.62607015e-34 },
-  { key: '3', symbol: 'G', name: '万有引力常量', value: 6.6743e-11 },
-  { key: '4', symbol: 'g', name: '标准重力加速度', value: 9.80665 },
-  { key: '5', symbol: 'NA', name: '阿伏伽德罗常量', value: 6.02214076e23 },
-  { key: '6', symbol: 'R', name: '摩尔气体常量', value: 8.314462618 },
-  { key: '7', symbol: 'e', name: '元电荷', value: 1.602176634e-19 },
-  { key: '8', symbol: 'me', name: '电子质量', value: 9.1093837015e-31 },
-  { key: '9', symbol: 'mp', name: '质子质量', value: 1.67262192369e-27 },
-  { key: '0', symbol: 'mn', name: '中子质量', value: 1.67492749804e-27 },
-];
-
-export const UNIT_CONVERSIONS = [
-  { key: '1', name: 'in -> cm', factor: 2.54, offset: 0 },
-  { key: '2', name: 'cm -> in', factor: 1 / 2.54, offset: 0 },
-  { key: '3', name: 'kg -> lb', factor: 2.2046226218, offset: 0 },
-  { key: '4', name: 'lb -> kg', factor: 0.45359237, offset: 0 },
-  { key: '5', name: 'm -> ft', factor: 3.280839895, offset: 0 },
-  { key: '6', name: 'ft -> m', factor: 0.3048, offset: 0 },
-  { key: '7', name: 'km/h -> m/s', factor: 1 / 3.6, offset: 0 },
-  { key: '8', name: 'm/s -> km/h', factor: 3.6, offset: 0 },
-  { key: '9', name: 'C -> F', factor: 9 / 5, offset: 32 },
-  { key: '0', name: 'F -> C', factor: 5 / 9, offset: -32 * 5 / 9 },
-];
 
 export const APP_CAPABILITIES = [
   'Calculate',
@@ -85,6 +97,7 @@ const FUNCTIONS = new Set([
   'sqrt', 'cbrt', 'root', 'log', 'ln', 'abs', 'fact', 'npr', 'ncr', 'rnd', 'ranint', 'pol', 'rec',
   'rand', 'd', 'dx', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
   'binompdf', 'binomcdf', 'poissonpdf', 'poissoncdf', 'solve', 'ratio', 'mixed',
+  'recur', 'dms', 'todms',
 ]);
 
 function normalizeInput(input: string): string {
@@ -144,7 +157,7 @@ function tokenize(raw: string): Token[] {
     if (/\d|\./.test(ch)) {
       const match = input.slice(i).match(/^(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?/i);
       if (!match) throw new Error('Syntax ERROR');
-      tokens.push({ type: 'number', value: Number(match[0]) });
+      tokens.push({ type: 'number', value: Number(match[0]), raw: match[0] });
       i += match[0].length;
       continue;
     }
@@ -155,7 +168,7 @@ function tokenize(raw: string): Token[] {
       i += match[0].length;
       continue;
     }
-    if ('+-*/^%=<>!°'.includes(ch)) {
+    if ('+-*/^%=<>!°ʳᵍ'.includes(ch)) {
       const two = input.slice(i, i + 2);
       if (['<=', '>=', '==', '!='].includes(two)) {
         tokens.push({ type: 'operator', value: two });
@@ -267,7 +280,7 @@ class Parser {
   private parsePrimary(): Node {
     const token = this.advance();
     if (!token) throw new Error('Syntax ERROR');
-    if (token.type === 'number') return { type: 'number', value: token.value };
+    if (token.type === 'number') return { type: 'number', value: token.value, raw: token.raw };
     if (token.type === 'identifier') {
       if (this.matchParen('(')) {
         const args: Node[] = [];
@@ -338,6 +351,174 @@ class Parser {
   }
 }
 
+function exactFactorial(value: Rational): ExactReal | undefined {
+  if (value.denominator !== 1n || value.numerator < 0n || value.numerator > 170n) return undefined;
+  let result = 1n;
+  for (let index = 2n; index <= value.numerator; index++) result *= index;
+  return exactRational(rational(result));
+}
+
+function exactIntegerFunction(name: string, values: Rational[]): ExactReal | undefined {
+  if (values.some(value => value.denominator !== 1n)) return undefined;
+  const numbers = values.map(value => value.numerator);
+  if (name === 'gcd' || name === 'lcm') {
+    let a = numbers[0] < 0n ? -numbers[0] : numbers[0];
+    let b = numbers[1] < 0n ? -numbers[1] : numbers[1];
+    const product = a * b;
+    while (b !== 0n) [a, b] = [b, a % b];
+    return exactRational(rational(name === 'gcd' ? a : a === 0n ? 0n : product / a));
+  }
+  const n = values[0];
+  const r = values[1];
+  if (n.numerator < 0n || r.numerator < 0n || r.numerator > n.numerator) return undefined;
+  const nFact = exactFactorial(n);
+  const nrFact = exactFactorial(rational(n.numerator - r.numerator));
+  if (!nFact || !nrFact) return undefined;
+  if (name === 'npr') return divideExactReal(nFact, nrFact);
+  const rFact = exactFactorial(r);
+  return rFact ? divideExactReal(nFact, multiplyExactReal(rFact, nrFact)!) : undefined;
+}
+
+function specialTrigExact(name: string, argument: ExactReal, mode: AngleMode): ExactReal | undefined {
+  if (argument.radical.numerator !== 0n || mode === 'RAD') return undefined;
+  let degrees = exactRealToNumber(argument) * (mode === 'GRAD' ? 0.9 : 1);
+  degrees = ((degrees % 360) + 360) % 360;
+  const rounded = Math.round(degrees);
+  if (Math.abs(degrees - rounded) > 1e-12) return undefined;
+  const sqrtHalf = sqrtRational(rational(1n, 2n));
+  const sqrtThreeHalf = sqrtRational(rational(3n, 4n));
+  const half = exactRational(rational(1n, 2n));
+  const one = exactRational(rational(1n));
+  const zero = exactRational(rational(0n));
+  const sinTable = new Map<number, ExactReal>([
+    [0, zero], [30, half], [45, sqrtHalf!], [60, sqrtThreeHalf!], [90, one],
+    [120, sqrtThreeHalf!], [135, sqrtHalf!], [150, half], [180, zero],
+    [210, negateExactReal(half)], [225, negateExactReal(sqrtHalf!)], [240, negateExactReal(sqrtThreeHalf!)],
+    [270, negateExactReal(one)], [300, negateExactReal(sqrtThreeHalf!)], [315, negateExactReal(sqrtHalf!)],
+    [330, negateExactReal(half)],
+  ]);
+  if (name === 'sin') return sinTable.get(rounded);
+  if (name === 'cos') return sinTable.get((rounded + 90) % 360);
+  if (name === 'tan') {
+    const sine = sinTable.get(rounded);
+    const cosine = sinTable.get((rounded + 90) % 360);
+    if (!sine || !cosine || exactRealToNumber(cosine) === 0) return undefined;
+    return divideExactReal(sine, cosine);
+  }
+  return undefined;
+}
+
+function nodeDigits(node: Node): string | undefined {
+  if (node.type !== 'number' || !/^\d+$/.test(node.raw)) return undefined;
+  return node.raw;
+}
+
+function recurringExact(args: Node[]): ExactReal | undefined {
+  if (args.length !== 3) return undefined;
+  const whole = nodeDigits(args[0]);
+  const nonRepeating = nodeDigits(args[1]);
+  const repeating = nodeDigits(args[2]);
+  if (whole === undefined || nonRepeating === undefined || repeating === undefined || /^0+$/.test(repeating)) return undefined;
+  const nonLength = BigInt(nonRepeating.length);
+  const repeatLength = BigInt(repeating.length);
+  const nonScale = 10n ** nonLength;
+  const repeatScale = 10n ** repeatLength - 1n;
+  const value = rational(
+    BigInt(whole) * nonScale * repeatScale + BigInt(nonRepeating) * repeatScale + BigInt(repeating),
+    nonScale * repeatScale,
+  );
+  return exactRational(value);
+}
+
+function evalExactNode(node: Node, ctx: EvaluationContext): ExactReal | undefined {
+  if (node.type === 'number') {
+    const value = rationalFromDecimal(node.raw);
+    return value ? exactRational(value) : undefined;
+  }
+  if (node.type === 'variable') {
+    const key = node.name.toUpperCase();
+    if (key === 'ANS') return ctx.exactAns?.kind === 'exact-real' ? ctx.exactAns : undefined;
+    const stored = ctx.exactVariables?.[key];
+    return stored?.kind === 'exact-real' ? stored : undefined;
+  }
+  if (node.type === 'unary') {
+    const value = evalExactNode(node.expr, ctx);
+    return value ? node.op === '-' ? negateExactReal(value) : value : undefined;
+  }
+  if (node.type === 'postfix') {
+    const value = evalExactNode(node.expr, ctx);
+    if (!value) return undefined;
+    if (node.op === '%') return divideExactReal(value, exactRational(rational(100n)));
+    if (node.op === '!') return value.radical.numerator === 0n ? exactFactorial(value.rational) : undefined;
+    if (node.op === '°') {
+      if (ctx.angleMode === 'DEG') return value;
+      if (ctx.angleMode === 'GRAD') return multiplyExactReal(value, exactRational(rational(10n, 9n)));
+      return undefined;
+    }
+    if (node.op === 'ʳ') return ctx.angleMode === 'RAD' ? value : undefined;
+    if (node.op === 'ᵍ') {
+      if (ctx.angleMode === 'GRAD') return value;
+      if (ctx.angleMode === 'DEG') return multiplyExactReal(value, exactRational(rational(9n, 10n)));
+      return undefined;
+    }
+    return undefined;
+  }
+  if (node.type === 'binary') {
+    if (['=', '==', '!=', '<', '<=', '>', '>=', 'remainder'].includes(node.op)) return undefined;
+    const left = evalExactNode(node.left, ctx);
+    const right = evalExactNode(node.right, ctx);
+    if (!left || !right) return undefined;
+    if (node.op === '+') return addExactReal(left, right);
+    if (node.op === '-') return subtractExactReal(left, right);
+    if (node.op === '*') return multiplyExactReal(left, right);
+    if (node.op === '/') return divideExactReal(left, right);
+    if (node.op === '^') {
+      const exponent = rationalFromExact(right);
+      return exponent?.denominator === 1n ? exactPower(left, Number(exponent.numerator)) : undefined;
+    }
+    if (node.op === 'npr' || node.op === 'ncr') {
+      const leftRational = rationalFromExact(left);
+      const rightRational = rationalFromExact(right);
+      return leftRational && rightRational ? exactIntegerFunction(node.op, [leftRational, rightRational]) : undefined;
+    }
+    return undefined;
+  }
+  const name = node.name.toLowerCase();
+  if (name === 'recur') return recurringExact(node.args);
+  const values = node.args.map(arg => evalExactNode(arg, ctx));
+  if (values.some(value => !value)) return undefined;
+  const exactValues = values as ExactReal[];
+  if (name === 'sqrt') {
+    const source = rationalFromExact(exactValues[0]);
+    return source ? sqrtRational(source) : undefined;
+  }
+  if (name === 'abs') {
+    const source = exactValues[0];
+    return exactRealToNumber(source) < 0 ? negateExactReal(source) : source;
+  }
+  if (name === 'fact') {
+    const source = rationalFromExact(exactValues[0]);
+    return source ? exactFactorial(source) : undefined;
+  }
+  if (['npr', 'ncr', 'gcd', 'lcm'].includes(name)) {
+    const rationals = exactValues.map(rationalFromExact);
+    return rationals.every(Boolean) ? exactIntegerFunction(name, rationals as Rational[]) : undefined;
+  }
+  if (['sin', 'cos', 'tan'].includes(name)) return specialTrigExact(name, exactValues[0], ctx.angleMode);
+  if (name === 'dms' && exactValues.length === 3) {
+    const degrees = addExactReal(
+      exactValues[0],
+      addExactReal(
+        divideExactReal(exactValues[1], exactRational(rational(60n)))!,
+        divideExactReal(exactValues[2], exactRational(rational(3600n)))!,
+      )!,
+    );
+    if (!degrees) return undefined;
+    if (ctx.angleMode === 'DEG') return degrees;
+    if (ctx.angleMode === 'GRAD') return multiplyExactReal(degrees, exactRational(rational(10n, 9n)));
+  }
+  return undefined;
+}
 function evalNode(node: Node, ctx: EvaluationContext): number {
   switch (node.type) {
     case 'number':
@@ -353,6 +534,8 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
       if (node.op === '!') return factorial(value);
       if (node.op === '%') return value / 100;
       if (node.op === '°') return degreesToAngleUnit(value, ctx.angleMode);
+      if (node.op === 'ʳ') return radiansToAngleUnit(value, ctx.angleMode);
+      if (node.op === 'ᵍ') return gradiansToAngleUnit(value, ctx.angleMode);
       throw new Error('Syntax ERROR');
     }
     case 'binary': {
@@ -364,7 +547,7 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
       return evalBinary(node.op, left, evalNode(node.right, ctx));
     }
     case 'call':
-      if (['d', 'dx', 'integral', 'sum', 'solve'].includes(node.name.toLowerCase())) {
+      if (['d', 'dx', 'integral', 'sum', 'solve', 'recur'].includes(node.name.toLowerCase())) {
         return callSpecialFunction(node.name, node.args, ctx);
       }
       return callFunction(node.name, node.args.map(arg => evalNode(arg, ctx)), ctx);
@@ -373,6 +556,11 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
 
 function readVariable(name: string, ctx: EvaluationContext): number {
   const key = name.toUpperCase();
+  if (key.startsWith('CONST_')) {
+    const item = scientificConstantById(name.slice(6));
+    if (!item) throw new Error('Argument ERROR');
+    return item.value;
+  }
   if (key === 'PI') return Math.PI;
   if (name === 'e') return Math.E;
   if (key === 'ANS') return ctx.ans;
@@ -410,6 +598,10 @@ function callFunction(name: string, args: number[], ctx: EvaluationContext): num
   const fn = name.toLowerCase();
   const rad = toRadFactor(ctx.angleMode);
   const inv = fromRadFactor(ctx.angleMode);
+  if (fn.startsWith('conv_')) {
+    if (args.length !== 1) throw new Error('Argument ERROR');
+    return applyUnitConversion(args[0], name.slice(5));
+  }
   switch (fn) {
     case 'sin': return Math.sin(args[0] * rad);
     case 'cos': return Math.cos(args[0] * rad);
@@ -454,13 +646,15 @@ function callFunction(name: string, args: number[], ctx: EvaluationContext): num
     case 'fact': return factorial(args[0]);
     case 'npr': return nPr(args[0], args[1]);
     case 'ncr': return nCr(args[0], args[1]);
-    case 'rnd': return roundCasio(args[0]);
-    case 'rand': return Math.random();
+    case 'rnd': return roundCasio(args[0], ctx.numberFormat);
+    case 'rand': return Math.floor(Math.random() * 1000) / 1000;
     case 'ranint': return ranInt(args[0], args[1]);
     case 'pol': return Math.hypot(args[0], args[1]);
     case 'rec': return args[0] * Math.cos(args[1] * rad);
     case 'remainder': return evalBinary('remainder', args[0], args[1]);
     case 'gcd': return gcd(args[0], args[1]);
+    case 'dms': return degreesToAngleUnit(args[0] + args[1] / 60 + args[2] / 3600, ctx.angleMode);
+    case 'todms': return args[0];
     case 'lcm': return Math.abs(args[0] * args[1]) / gcd(args[0], args[1]);
     case 'normalpdf': return normalPdf(args[0], args[1] ?? 0, args[2] ?? 1);
     case 'normalcdf': return normalCdf(args[0], args[1], args[2] ?? 0, args[3] ?? 1);
@@ -487,28 +681,112 @@ function degreesToAngleUnit(value: number, mode: AngleMode): number {
   return value;
 }
 
+function radiansToAngleUnit(value: number, mode: AngleMode): number {
+  if (mode === 'DEG') return value * 180 / Math.PI;
+  if (mode === 'GRAD') return value * 200 / Math.PI;
+  return value;
+}
+
+function gradiansToAngleUnit(value: number, mode: AngleMode): number {
+  if (mode === 'DEG') return value * 0.9;
+  if (mode === 'RAD') return value * Math.PI / 200;
+  return value;
+}
+
+const KRONROD_NODES = [
+  0.9914553711208126, 0.9491079123427585, 0.8648644233597691, 0.7415311855993945,
+  0.5860872354676911, 0.4058451513773972, 0.20778495500789847, 0,
+];
+const KRONROD_WEIGHTS = [
+  0.022935322010529225, 0.06309209262997856, 0.10479001032225018, 0.14065325971552592,
+  0.1690047266392679, 0.19035057806478542, 0.20443294007529889, 0.20948214108472782,
+];
+const GAUSS_WEIGHTS = [
+  0.1294849661688697, 0.27970539148927667, 0.38183005050511894, 0.4179591836734694,
+];
+
+function gaussKronrod15(fn: (value: number) => number, lower: number, upper: number) {
+  const center = (lower + upper) / 2;
+  const half = (upper - lower) / 2;
+  const centerValue = fn(center);
+  if (!Number.isFinite(centerValue)) throw new Error('Math ERROR');
+  let kronrod = KRONROD_WEIGHTS[7] * centerValue;
+  let gauss = GAUSS_WEIGHTS[3] * centerValue;
+  for (let index = 0; index < 7; index++) {
+    const abscissa = half * KRONROD_NODES[index];
+    const pair = fn(center - abscissa) + fn(center + abscissa);
+    if (!Number.isFinite(pair)) throw new Error('Math ERROR');
+    kronrod += KRONROD_WEIGHTS[index] * pair;
+    if (index % 2 === 1) gauss += GAUSS_WEIGHTS[(index - 1) / 2] * pair;
+  }
+  const value = kronrod * half;
+  return { value, error: Math.abs((kronrod - gauss) * half) };
+}
+
+function adaptiveGaussKronrod(
+  fn: (value: number) => number,
+  lower: number,
+  upper: number,
+  tolerance: number,
+  depth = 0,
+): number {
+  const estimate = gaussKronrod15(fn, lower, upper);
+  if (estimate.error <= tolerance * Math.max(1, Math.abs(estimate.value))) return estimate.value;
+  if (depth >= 20) {
+    if (estimate.error > Math.max(1e-10, tolerance * 1000) * Math.max(1, Math.abs(estimate.value))) {
+      throw new Error('Math ERROR');
+    }
+    return estimate.value;
+  }
+  const middle = (lower + upper) / 2;
+  return adaptiveGaussKronrod(fn, lower, middle, tolerance / 2, depth + 1)
+    + adaptiveGaussKronrod(fn, middle, upper, tolerance / 2, depth + 1);
+}
+
+function validateTolerance(value: number, fallback: number): number {
+  const tolerance = Number.isFinite(value) ? value : fallback;
+  if (tolerance < 1e-22) throw new Error('Argument ERROR');
+  return tolerance;
+}
+
 function callSpecialFunction(name: string, args: Node[], ctx: EvaluationContext): number {
   const fn = name.toLowerCase();
+  if (fn === 'recur') {
+    const exact = recurringExact(args);
+    if (!exact) throw new Error('Argument ERROR');
+    return exactRealToNumber(exact);
+  }
   if (fn === 'd' || fn === 'dx') {
     if (args.length < 2) throw new Error('Argument ERROR');
     const x0 = evalNode(args[1], ctx);
-    const h = Math.max(1e-5, Math.abs(x0) * 1e-6);
-    return (evalWithX(args[0], x0 + h, ctx) - evalWithX(args[0], x0 - h, ctx)) / (2 * h);
+    const tolerance = validateTolerance(args[2] ? evalNode(args[2], ctx) : 1e-16, 1e-16);
+    let step = Math.cbrt(Number.EPSILON) * Math.max(1, Math.abs(x0));
+    let previous = (evalWithX(args[0], x0 + step, ctx) - evalWithX(args[0], x0 - step, ctx)) / (2 * step);
+    for (let iteration = 0; iteration < 18; iteration++) {
+      step /= 2;
+      const current = (evalWithX(args[0], x0 + step, ctx) - evalWithX(args[0], x0 - step, ctx)) / (2 * step);
+      const refined = current + (current - previous) / 3;
+      if (Math.abs(refined - current) <= tolerance * Math.max(1, Math.abs(refined))) return refined;
+      previous = current;
+    }
+    return previous;
   }
   if (fn === 'integral') {
     if (args.length < 3) throw new Error('Argument ERROR');
     const a = evalNode(args[1], ctx);
     const b = evalNode(args[2], ctx);
-    const n = 512;
-    const h = (b - a) / n;
-    let sum = evalWithX(args[0], a, ctx) + evalWithX(args[0], b, ctx);
-    for (let i = 1; i < n; i++) sum += evalWithX(args[0], a + i * h, ctx) * (i % 2 === 0 ? 2 : 4);
-    return sum * h / 3;
+    const tolerance = validateTolerance(args[3] ? evalNode(args[3], ctx) : 1e-10, 1e-10);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) throw new Error('Argument ERROR');
+    if (a === b) return 0;
+    if (a > b) return -adaptiveGaussKronrod(value => evalWithX(args[0], value, ctx), b, a, tolerance);
+    return adaptiveGaussKronrod(value => evalWithX(args[0], value, ctx), a, b, tolerance);
   }
   if (fn === 'sum') {
     if (args.length < 3) throw new Error('Argument ERROR');
-    const start = Math.trunc(evalNode(args[1], ctx));
-    const end = Math.trunc(evalNode(args[2], ctx));
+    const start = evalNode(args[1], ctx);
+    const end = evalNode(args[2], ctx);
+    if (!Number.isInteger(start) || !Number.isInteger(end) || start > end) throw new Error('Argument ERROR');
+    if (end - start > 1_000_000) throw new Error('Range ERROR');
     let total = 0;
     for (let x = start; x <= end; x++) total += evalWithX(args[0], x, ctx);
     return total;
@@ -533,12 +811,26 @@ function evalWithX(node: Node, x: number, ctx: EvaluationContext): number {
   return evalNode(node, { ...ctx, variables: { ...ctx.variables, X: x } });
 }
 
+function formatDms(value: number, mode: AngleMode): string {
+  const degrees = mode === 'RAD' ? value * 180 / Math.PI : mode === 'GRAD' ? value * 0.9 : value;
+  const sign = degrees < 0 ? '-' : '';
+  const absolute = Math.abs(degrees);
+  let whole = Math.floor(absolute);
+  let minutes = Math.floor((absolute - whole) * 60);
+  let seconds = Math.round(((absolute - whole) * 60 - minutes) * 60 * 100) / 100;
+  if (seconds >= 60) { seconds = 0; minutes++; }
+  if (minutes >= 60) { minutes = 0; whole++; }
+  return `${sign}${whole}°${minutes}′${seconds}″`;
+}
+
 export function evaluateExpression(input: string, ctx: EvaluationContext): EvalResult {
-  if (!input.trim()) return { success: true, value: 0, displayText: '0' };
+  if (!input.trim()) return { success: true, value: 0, displayText: '0', exact: exactRational(rational(0n)) };
   try {
     const statements = completeParentheses(input).split(':').map(part => part.trim()).filter(Boolean);
     let value = 0;
     let displayText = '';
+    let exact: ExactValue | undefined;
+    let assignments: EvalResult['assignments'];
     for (const statement of statements) {
       const normalized = normalizeInput(statement);
       if (/^pol\(/i.test(normalized)) {
@@ -546,7 +838,9 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         const r = Math.hypot(args[0], args[1]);
         const theta = Math.atan2(args[1], args[0]) * fromRadFactor(ctx.angleMode);
         value = r;
-        displayText = `r=${formatCasioValue(r)}, theta=${formatCasioValue(theta)}`;
+        assignments = { X: r, Y: theta };
+        exact = undefined;
+        displayText = `r=${formatCasioValue(r, ctx.numberFormat)}, theta=${formatCasioValue(theta, ctx.numberFormat)}`;
         continue;
       }
       if (/^rec\(/i.test(normalized)) {
@@ -555,7 +849,9 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         const x = args[0] * Math.cos(theta);
         const y = args[0] * Math.sin(theta);
         value = x;
-        displayText = `x=${formatCasioValue(x)}, y=${formatCasioValue(y)}`;
+        assignments = { X: x, Y: y };
+        exact = undefined;
+        displayText = `x=${formatCasioValue(x, ctx.numberFormat)}, y=${formatCasioValue(y, ctx.numberFormat)}`;
         continue;
       }
       if (/\bremainder\b/i.test(normalized)) {
@@ -566,16 +862,21 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         const quotient = Math.trunc(left / right);
         const remainder = left - quotient * right;
         value = remainder;
-        displayText = `Q=${formatCasioValue(quotient)}, R=${formatCasioValue(remainder)}`;
+        exact = undefined;
+        displayText = `Q=${formatCasioValue(quotient, ctx.numberFormat)}, R=${formatCasioValue(remainder, ctx.numberFormat)}`;
         continue;
       }
-      value = evalNode(new Parser(tokenize(statement)).parse(), ctx);
-      displayText = formatCasioValue(value);
+      const parsed = new Parser(tokenize(statement)).parse();
+      value = evalNode(parsed, ctx);
+      exact = evalExactNode(parsed, ctx);
+      displayText = /^todms\(/i.test(normalized)
+        ? formatDms(value, ctx.angleMode)
+        : formatCasioValue(value, ctx.numberFormat);
     }
     if (!Number.isFinite(value)) throw new Error('Math ERROR');
     if (displayText === '1' && /(?:=|==|!=|<|>|<=|>=)/.test(input)) displayText = 'True';
     if (displayText === '0' && /(?:=|==|!=|<|>|<=|>=)/.test(input)) displayText = 'False';
-    return { success: true, value, displayText };
+    return { success: true, value, displayText, exact, assignments };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Syntax ERROR';
     const errorType = ['Math ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR'].includes(message)
@@ -734,13 +1035,22 @@ function splitArgs(input: string): string[] {
   return out;
 }
 
-export function formatCasioValue(value: number): string {
+export function formatCasioValue(value: number, format: NumberFormat = { kind: 'Norm1' }): string {
   if (Object.is(value, -0)) return '0';
   if (!Number.isFinite(value)) return 'Math ERROR';
+  if (format.kind === 'Fix') {
+    const digits = Math.max(0, Math.min(9, Math.trunc(format.digits)));
+    return value.toFixed(digits);
+  }
+  if (format.kind === 'Sci') {
+    const digits = Math.max(1, Math.min(10, Math.trunc(format.digits)));
+    return value.toExponential(digits - 1).replace('e+', 'e');
+  }
   const abs = Math.abs(value);
   if (abs === 0) return '0';
   if (Math.abs(value - Math.round(value)) < 1e-12 && abs < 1e15) return String(Math.round(value));
-  if (abs >= 1e10 || abs < 1e-9) return value.toExponential(10).replace(/\.?0+e/, 'e');
+  const lower = format.kind === 'Norm1' ? 1e-2 : 1e-9;
+  if (abs >= 1e10 || abs < lower) return value.toExponential(10).replace(/\.?0+e/, 'e').replace('e+', 'e');
   return Number(value.toPrecision(12)).toString();
 }
 
@@ -842,9 +1152,7 @@ export function factorizeInteger(input: number | string): string {
 }
 
 export function convertUnit(current: number, key: string): string | undefined {
-  const item = UNIT_CONVERSIONS.find(entry => entry.key === key);
-  if (!item) return undefined;
-  return formatCasioValue(current * item.factor + item.offset);
+  try { return formatCasioValue(applyUnitConversion(current, key)); } catch { return undefined; }
 }
 
 export function toBaseN(value: number, base: 2 | 8 | 10 | 16): string {
@@ -924,13 +1232,22 @@ function nCr(n: number, r: number): number {
 }
 
 function ranInt(a: number, b: number): number {
+  if (!Number.isInteger(a) || !Number.isInteger(b) || a > b) throw new Error('Argument ERROR');
   const min = Math.ceil(Math.min(a, b));
   const max = Math.floor(Math.max(a, b));
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function roundCasio(value: number): number {
-  return Number(value.toPrecision(10));
+function roundCasio(value: number, format: NumberFormat = { kind: 'Norm1' }): number {
+  if (format.kind === 'Fix') {
+    const digits = Math.max(0, Math.min(9, Math.trunc(format.digits)));
+    return Number(value.toFixed(digits));
+  }
+  if (format.kind === 'Sci') {
+    const digits = Math.max(1, Math.min(10, Math.trunc(format.digits)));
+    return Number(value.toPrecision(digits));
+  }
+  return Number(value.toPrecision(11));
 }
 
 function gcd(a: number, b: number): number {

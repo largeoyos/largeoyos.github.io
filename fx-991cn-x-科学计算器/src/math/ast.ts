@@ -61,6 +61,26 @@ export type SummationNode = {
   upper: SequenceNode;
 };
 
+export type ScientificConstantNode = {
+  type: 'scientific-constant';
+  id: string;
+  symbol: string;
+};
+
+export type RecurringDecimalNode = {
+  type: 'recurring-decimal';
+  whole: SequenceNode;
+  nonRepeating: SequenceNode;
+  repeating: SequenceNode;
+};
+
+export type UnitConversionNode = {
+  type: 'unit-conversion';
+  id: string;
+  label: string;
+  operand: SequenceNode;
+};
+
 export type MathNode =
   | SequenceNode
   | GlyphNode
@@ -73,7 +93,10 @@ export type MathNode =
   | GroupNode
   | IntegralNode
   | DerivativeNode
-  | SummationNode;
+  | SummationNode
+  | ScientificConstantNode
+  | RecurringDecimalNode
+  | UnitConversionNode;
 
 export type CursorDirection = 'left' | 'right' | 'up' | 'down';
 
@@ -156,6 +179,14 @@ function visitChildSequences(
       callback(node.lower, 'lower');
       callback(node.upper, 'upper');
       callback(node.expression, 'expression');
+      break;
+    case 'recurring-decimal':
+      callback(node.whole, 'whole');
+      callback(node.nonRepeating, 'nonRepeating');
+      callback(node.repeating, 'repeating');
+      break;
+    case 'unit-conversion':
+      callback(node.operand, 'operand');
       break;
   }
 }
@@ -406,6 +437,50 @@ export function insertSummation(document: FormulaDocument): FormulaDocument {
   return next;
 }
 
+export function insertScientificConstant(
+  document: FormulaDocument,
+  id: string,
+  symbol: string,
+): FormulaDocument {
+  const next = cloneDocument(document);
+  insertNode(next, { type: 'scientific-constant', id, symbol });
+  return next;
+}
+
+export function insertRecurringDecimal(document: FormulaDocument): FormulaDocument {
+  const next = cloneDocument(document);
+  const whole = placeholderSequence();
+  const nonRepeating = placeholderSequence();
+  const repeating = placeholderSequence();
+  insertNode(next, { type: 'recurring-decimal', whole, nonRepeating, repeating });
+  setCursorAtStart(next, whole);
+  return next;
+}
+
+export function insertUnitConversion(
+  document: FormulaDocument,
+  id: string,
+  label: string,
+): FormulaDocument {
+  const next = cloneDocument(document);
+  const sequence = findSequence(next.root, next.cursor.sequenceId);
+  if (!sequence || sequence.editable === false) return next;
+  removePlaceholder(sequence);
+  const offset = Math.min(next.cursor.offset, sequence.children.length);
+  const captured = sequence.children.splice(0, offset);
+  const operand = createSequence(captured.length ? captured : [{ type: 'placeholder' }]);
+  sequence.children.unshift({ type: 'unit-conversion', id, label, operand });
+  next.cursor = { sequenceId: sequence.id, offset: 1 };
+  return next;
+}
+
+const EXTRA_FUNCTION_INPUTS: Record<string, [string, number]> = {
+  'gcd(': ['gcd', 2], 'lcm(': ['lcm', 2], 'recur(': ['recur', 3],
+  'dms(': ['dms', 3], 'todms(': ['todms', 1],
+  'sinh(': ['sinh', 1], 'cosh(': ['cosh', 1], 'tanh(': ['tanh', 1],
+  'asinh(': ['asinh', 1], 'acosh(': ['acosh', 1], 'atanh(': ['atanh', 1],
+};
+
 export function insertFormulaInput(document: FormulaDocument, value: string): FormulaDocument {
   if (value === '/') return insertFraction(document);
   if (value === '■ ▭/▭') return insertMixedFraction(document);
@@ -420,8 +495,18 @@ export function insertFormulaInput(document: FormulaDocument, value: string): Fo
   if (value === 'e^') return insertFixedBasePower(document, 'e');
   if (value === '(') return insertGroup(document);
   if (value === ')') return closeContainer(document);
+  if (value.startsWith('const:')) {
+    const [, id, symbol] = value.split(':');
+    return insertScientificConstant(document, id, symbol);
+  }
+  if (value.startsWith('conv:')) {
+    const [, id, label] = value.split(':');
+    return insertUnitConversion(document, id, label);
+  }
   if (value === ',') return advanceArgument(document);
   if (value === 'log□(') return insertFunction(document, 'log', 2);
+  const extraFunction = EXTRA_FUNCTION_INPUTS[value];
+  if (extraFunction) return insertFunction(document, extraFunction[0], extraFunction[1]);
   if (value === 'log(') return insertFunction(document, 'log');
   if (value === 'ln(') return insertFunction(document, 'ln');
   if (value === 'Rnd(') return insertFunction(document, 'rnd');
@@ -443,6 +528,12 @@ export function insertFormulaInput(document: FormulaDocument, value: string): Fo
 }
 
 function slotSibling(owner: MathNode, slot: string, direction: CursorDirection): SequenceNode | undefined {
+  if (owner.type === 'recurring-decimal') {
+    if (direction === 'right' && slot === 'whole') return owner.nonRepeating;
+    if (direction === 'left' && slot === 'nonRepeating') return owner.whole;
+    if (direction === 'right' && slot === 'nonRepeating') return owner.repeating;
+    if (direction === 'left' && slot === 'repeating') return owner.nonRepeating;
+  }
   if (owner.type === 'fraction') {
     if (direction === 'down' && slot === 'numerator') return owner.denominator;
     if (direction === 'up' && slot === 'denominator') return owner.numerator;
@@ -611,6 +702,12 @@ function serializeNode(node: MathNode): string {
       return '0';
     case 'sequence':
       return serializeSequence(node);
+    case 'scientific-constant':
+      return `const_${node.id}`;
+    case 'recurring-decimal':
+      return `recur(${serializeSequence(node.whole)},${serializeSequence(node.nonRepeating)},${serializeSequence(node.repeating)})`;
+    case 'unit-conversion':
+      return `conv_${node.id}(${serializeSequence(node.operand)})`;
     case 'fraction':
       return `((${serializeSequence(node.numerator)})/(${serializeSequence(node.denominator)}))`;
     case 'root':

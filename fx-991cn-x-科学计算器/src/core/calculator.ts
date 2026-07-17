@@ -95,7 +95,7 @@ export const APP_CAPABILITIES = [
 const FUNCTIONS = new Set([
   'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sinh', 'cosh', 'tanh', 'asinh', 'acosh', 'atanh',
   'sqrt', 'cbrt', 'root', 'log', 'ln', 'abs', 'fact', 'npr', 'ncr', 'rnd', 'ranint', 'pol', 'rec',
-  'rand', 'd', 'dx', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
+  'rand', 'd', 'dx', 'derivative', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
   'binompdf', 'binomcdf', 'poissonpdf', 'poissoncdf', 'solve', 'ratio', 'mixed',
   'recur', 'dms', 'todms',
 ]);
@@ -212,7 +212,10 @@ function needsMultiply(a: Token, b: Token): boolean {
   const right = b.type === 'number' || (b.type === 'paren' && b.value === '(') || b.type === 'identifier';
   if (!left || !right) return false;
   if (a.type === 'number' && b.type === 'number') return false;
-  if (a.type === 'identifier' && b.type === 'paren' && b.value === '(' && FUNCTIONS.has(a.value.toLowerCase())) return false;
+  if (a.type === 'identifier' && b.type === 'paren' && b.value === '(') {
+    const name = a.value.toLowerCase();
+    if (FUNCTIONS.has(name) || name.startsWith('conv_')) return false;
+  }
   if (b.type === 'identifier' && ['remainder', 'npr', 'ncr'].includes(b.value.toLowerCase())) return false;
   if (a.type === 'identifier' && ['remainder', 'npr', 'ncr'].includes(a.value.toLowerCase())) return false;
   return true;
@@ -547,7 +550,7 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
       return evalBinary(node.op, left, evalNode(node.right, ctx));
     }
     case 'call':
-      if (['d', 'dx', 'integral', 'sum', 'solve', 'recur'].includes(node.name.toLowerCase())) {
+      if (['d', 'dx', 'derivative', 'integral', 'sum', 'solve', 'recur'].includes(node.name.toLowerCase())) {
         return callSpecialFunction(node.name, node.args, ctx);
       }
       return callFunction(node.name, node.args.map(arg => evalNode(arg, ctx)), ctx);
@@ -756,7 +759,7 @@ function callSpecialFunction(name: string, args: Node[], ctx: EvaluationContext)
     if (!exact) throw new Error('Argument ERROR');
     return exactRealToNumber(exact);
   }
-  if (fn === 'd' || fn === 'dx') {
+  if (fn === 'd' || fn === 'dx' || fn === 'derivative') {
     if (args.length < 2) throw new Error('Argument ERROR');
     const x0 = evalNode(args[1], ctx);
     const tolerance = validateTolerance(args[2] ? evalNode(args[2], ctx) : 1e-16, 1e-16);

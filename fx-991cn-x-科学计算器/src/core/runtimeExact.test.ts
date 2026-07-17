@@ -28,7 +28,7 @@ test('mode 8 quadratic results use structured exact radicals and S-D toggles onl
   state = dispatchModeRuntime(state, { type: 'toggle-result' }, context);
   const decimalView = runtimeScreenView(state);
   assert.ok(decimalView?.formulaLines?.[0].text);
-  assert.ok(decimalView?.formulaLines?.[1].text);
+  assert.ok(decimalView?.formulaLines?.[1].document);
 
   state = dispatchModeRuntime(state, { type: 'down' }, context);
   const nextRoot = runtimeScreenView(state);
@@ -40,7 +40,7 @@ test('mode 8 keeps coefficient expressions and exact fractions', () => {
   state = dispatchModeRuntime(state, { type: 'select-mode', mode: 'Equation' }, context);
   state = dispatchModeRuntime(state, { type: 'append', value: '1' }, context);
   state = dispatchModeRuntime(state, { type: 'append', value: '2' }, context);
-  for (const coefficient of ['1/3', '0', '1', '1', '0', '2']) {
+  for (const coefficient of ['1/3', '0', '1', '0', '1', '2']) {
     state = dispatchModeRuntime(state, { type: 'append', value: coefficient }, context);
     state = dispatchModeRuntime(state, { type: 'evaluate' }, context);
   }

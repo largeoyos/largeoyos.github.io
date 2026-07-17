@@ -1,6 +1,7 @@
 import { evaluateExpression, type AngleMode } from './calculator';
 import {
   doubleVariableStatistics,
+  formatBaseInteger,
   formatComplex,
   generateFunctionTable,
   regression,
@@ -15,7 +16,9 @@ import {
 } from './domains';
 import type { NumberFormat, ResultMode } from './calculator';
 import {
+  divideRational,
   exactRational,
+  multiplyRational,
   quadraticExactRoots,
   rationalFromExact,
   solveLinearSystemExact,
@@ -100,7 +103,7 @@ type RangeEditorScreen = {
 
 type CoefficientEditorScreen = {
   kind: 'coefficient-editor';
-  problem: 'linear' | 'polynomial' | 'inequality';
+  problem: 'linear' | 'polynomial' | 'inequality' | 'ratio-left' | 'ratio-right';
   size: number;
   values: number[][];
   exactValues: Array<Array<Rational | null>>;
@@ -645,6 +648,22 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
       },
     };
   }
+  if (command === 'ratio-left' || command === 'ratio-right') {
+    return {
+      ...state,
+      screen: {
+        kind: 'coefficient-editor',
+        problem: command,
+        size: 2,
+        values: [Array(3).fill(0)],
+        exactValues: [Array<Rational | null>(3).fill(null)],
+        expressions: [Array(3).fill('')],
+        row: 0,
+        column: 0,
+        buffer: '',
+      },
+    };
+  }
   if (command.startsWith('ineq-')) {
     const [, degree, operatorCode] = command.split('-');
     const operatorMap: Record<string, InequalityOperator> = { lt: '<', le: '<=', gt: '>', ge: '>=' };
@@ -671,7 +690,9 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
 function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime {
   const screen = state.screen;
   if (screen.kind === 'dimension') {
-    const value = Math.max(1, Math.min(10, Math.trunc(commitNumericBuffer(screen.buffer || String(screen.rows)))));
+    const value = Math.trunc(commitNumericBuffer(screen.buffer || String(screen.rows)));
+    const valid = screen.target.startsWith('Mat') ? value >= 1 && value <= 4 : value === 2 || value === 3;
+    if (!valid) return { ...state, result: 'Range ERROR', screen };
     if (screen.target.startsWith('Mat')) {
       if (screen.stage === 'rows') {
         return { ...state, screen: { ...screen, stage: 'columns', rows: value, buffer: '' } };
@@ -782,7 +803,22 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
         };
       }
       let entries: RuntimeSolutionEntry[];
-      if (screen.problem === 'linear') {
+      if (screen.problem === 'ratio-left' || screen.problem === 'ratio-right') {
+        const [a, b, c] = values[0];
+        const denominator = screen.problem === 'ratio-left' ? b : a;
+        if (denominator === 0) throw new Error('Math ERROR');
+        const numeric = screen.problem === 'ratio-left' ? a * c / b : b * c / a;
+        const [exactA, exactB, exactC] = exactValues[0];
+        let exact: ExactValue | undefined;
+        if (exactA && exactB && exactC) {
+          const exactDenominator = screen.problem === 'ratio-left' ? exactB : exactA;
+          if (exactDenominator.numerator === 0n) throw new Error('Math ERROR');
+          exact = exactRational(screen.problem === 'ratio-left'
+            ? divideRational(multiplyRational(exactA, exactC), exactB)
+            : divideRational(multiplyRational(exactB, exactC), exactA));
+        }
+        entries = [{ label: 'X=', exact, decimal: exact ? exactValueDecimal(exact) : String(numeric) }];
+      } else if (screen.problem === 'linear') {
         const exactRows = exactValues.every(row => row.every(value => value !== null));
         if (exactRows) {
           const exactResult = solveLinearSystemExact(
@@ -821,6 +857,9 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
         screen: {
           kind: 'solutions',
           entries,
+          // Keep the plain-text projection for older LCD callers and saved views.
+          // FormulaLcd prefers `entries` so exact values still receive structural layout.
+          lines: entries.map(entry => `${entry.label}${entry.decimal}`),
           selected: 0,
           showDecimal: context.resultMode === 'decimal',
           decimalEntries: entries.map(() => context.resultMode === 'decimal'),
@@ -854,7 +893,7 @@ export function dispatchModeRuntime(
     return next;
   }
   if (action.type === 'select-mode') {
-    const opensMenu = ['Statistics', 'Function Table', 'Equation', 'Inequality'].includes(action.mode);
+    const opensMenu = ['Statistics', 'Function Table', 'Equation', 'Inequality', 'Ratio'].includes(action.mode);
     return { ...next, mode: action.mode, input: '', result: action.mode, evaluated: false, screen: opensMenu ? optionScreen(action.mode) : { kind: 'input' } };
   }
   if (action.type === 'optn') return { ...next, screen: optionScreen(next.mode) };
@@ -865,9 +904,7 @@ export function dispatchModeRuntime(
   if (action.type === 'base') {
     next.memory.base = action.base;
     if (next.evaluated && next.lastEvaluation?.numeric !== undefined) {
-      next.result = action.base === 10
-        ? String(next.lastEvaluation.numeric)
-        : (next.lastEvaluation.numeric >>> 0).toString(action.base).toUpperCase();
+      next.result = formatBaseInteger(next.lastEvaluation.numeric, action.base);
     }
     return next;
   }
@@ -963,7 +1000,7 @@ export function runtimeScreenView(state: ModeRuntime) {
         screen.stage === 'rows' ? `ROWS=${screen.buffer || screen.rows}` : '',
         screen.stage === 'columns' ? `COLS=${screen.buffer || screen.columns}` : '',
         screen.stage === 'size' ? `SIZE=${screen.buffer || screen.rows}` : '',
-        '1-10 THEN =',
+        screen.target.startsWith('Mat') ? '1-4 THEN =' : '2 OR 3 THEN =',
       ].filter(Boolean),
     };
   }
@@ -1007,7 +1044,7 @@ export function runtimeScreenView(state: ModeRuntime) {
   }
   if (screen.kind === 'coefficient-editor') {
     return {
-      title: screen.problem.toUpperCase(),
+      title: screen.problem === 'ratio-left' ? 'A:B=X:D' : screen.problem === 'ratio-right' ? 'A:B=C:X' : screen.problem.toUpperCase(),
       table: screen.values.slice(Math.max(0, screen.row - 2), screen.row + 3).map((row, rowOffset) =>
         row.slice(Math.max(0, screen.column - 2), screen.column + 3).map((value, columnOffset) => {
           const actualRow = Math.max(0, screen.row - 2) + rowOffset;

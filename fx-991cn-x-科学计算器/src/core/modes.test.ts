@@ -29,7 +29,7 @@ test('base mode evaluates 32-bit logical expressions', () => {
   const memory = createDefaultModeMemory();
   memory.base = 2;
   const result = evaluateModeExpression('Base-N', '1010 xor 1100', memory, {}, 'DEG');
-  assert.equal(result.display, '110');
+  assert.equal(result.display, '0000000000000110');
 });
 
 test('matrix mode evaluates stored matrix expressions', () => {

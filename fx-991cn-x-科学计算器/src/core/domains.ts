@@ -187,9 +187,11 @@ export function parseBaseInteger(input: string, base: BaseRadix): number {
   const text = input.trim().toUpperCase();
   if (!text) throw new Error('Syntax ERROR');
   const unsigned = Number.parseInt(text, base);
-  if (!Number.isFinite(unsigned) || unsigned < 0 || unsigned >= UINT32) {
+  const upperBound = base === 2 ? 0x1_0000 : UINT32;
+  if (!Number.isFinite(unsigned) || unsigned < 0 || unsigned >= upperBound) {
     throw new Error('Math ERROR');
   }
+  if (base === 2) return unsigned > 0x7fff ? unsigned - 0x1_0000 : unsigned;
   const normalized = unsigned >>> 0;
   return normalized > 0x7fff_ffff ? normalized - UINT32 : normalized;
 }
@@ -197,7 +199,9 @@ export function parseBaseInteger(input: string, base: BaseRadix): number {
 export function formatBaseInteger(value: number, base: BaseRadix): string {
   const int32 = assertInt32(value);
   if (base === 10) return String(int32);
-  return (int32 >>> 0).toString(base).toUpperCase();
+  if (base === 2) return (int32 & 0xffff).toString(2).padStart(16, '0');
+  const digits = base === 8 ? 11 : 8;
+  return (int32 >>> 0).toString(base).toUpperCase().padStart(digits, '0');
 }
 
 export function baseUnary(value: number, operator: 'neg' | 'not'): number {
@@ -611,7 +615,8 @@ export function generateFunctionTable(
 ) {
   if (!Number.isFinite(step) || step === 0 || (end - start) / step < 0) throw new Error('Range ERROR');
   const count = Math.floor((end - start) / step + EPSILON) + 1;
-  if (count < 1 || count > 1000) throw new Error('Range ERROR');
+  const maximumRows = gExpression.trim() ? 30 : 45;
+  if (count < 1 || count > maximumRows) throw new Error('Range ERROR');
   return Array.from({ length: count }, (_, index) => {
     const x = start + index * step;
     const evaluate = (expression: string) => {

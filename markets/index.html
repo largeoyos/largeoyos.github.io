@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="覆盖美股、港股、A 股、英国股票、黄金、期货与 ETF 的全球行情观察页。">
+    <title>全球行情 | LarGeoYos Workspace</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./market.css">
+</head>
+<body class="market-page">
+
+<nav class="global-nav" aria-label="全站导航">
+    <a href="../index.html">🏠 工作主页</a>
+    <a href="../blog/index.html">📝 博客大厅</a>
+    <a href="../ai-tutorials/index.html">📚 AI 教学</a>
+    <a href="../games/index.html">🎮 游戏大厅</a>
+    <a href="../tools/index.html">🔧 工具箱</a>
+    <a href="./index.html" aria-current="page">📈 全球行情</a>
+    <a href="../quick-nav/index.html">🔗 快捷导航</a>
+</nav>
+
+<div class="ticker-ribbon" aria-label="全球主要资产报价">
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+            "symbols": [
+                { "proName": "FOREXCOM:SPXUSD", "title": "标普 500" },
+                { "proName": "FOREXCOM:NSXUSD", "title": "纳斯达克 100" },
+                { "proName": "SSE:000001", "title": "上证指数" },
+                { "proName": "FOREXCOM:UKXGBP", "title": "富时 100" },
+                { "proName": "OANDA:XAUUSD", "title": "现货黄金" },
+                { "proName": "COMEX:GC1!", "title": "黄金期货" },
+                { "proName": "NYMEX:CL1!", "title": "WTI 原油" }
+            ],
+            "showSymbolLogo": true,
+            "isTransparent": true,
+            "displayMode": "adaptive",
+            "colorTheme": "dark",
+            "locale": "zh_CN"
+        }
+        </script>
+    </div>
+</div>
+
+<header class="market-hero">
+    <div class="market-hero__grid" aria-hidden="true"></div>
+    <div class="market-hero__content">
+        <div class="market-eyebrow"><span></span> GLOBAL MARKET DESK</div>
+        <h1>一张图，观察全球资本脉搏</h1>
+        <p>美股 · 港股 · A 股 · 英国股票 · 黄金 · 期货 · ETF</p>
+        <div class="market-clocks" aria-label="主要金融中心时间">
+            <div><span>纽约</span><strong data-market-clock="America/New_York">--:--:--</strong></div>
+            <div><span>伦敦</span><strong data-market-clock="Europe/London">--:--:--</strong></div>
+            <div><span>香港</span><strong data-market-clock="Asia/Hong_Kong">--:--:--</strong></div>
+            <div><span>上海</span><strong data-market-clock="Asia/Shanghai">--:--:--</strong></div>
+        </div>
+    </div>
+</header>
+
+<main class="market-shell">
+    <section class="market-notice" aria-label="行情数据说明">
+        <span class="market-notice__signal" aria-hidden="true"></span>
+        <p><strong>数据来自 TradingView。</strong>实时性取决于交易所授权：部分品种为实时行情，美股可能延时，A 股及部分指数可能仅提供收盘数据。页面仅供行情观察，不构成投资建议。</p>
+        <a href="https://www.tradingview.com/widget-docs/markets/" target="_blank" rel="noopener noreferrer">查看数据范围 ↗</a>
+    </section>
+
+    <section class="asset-dock" aria-labelledby="asset-dock-title">
+        <div class="section-heading">
+            <div>
+                <span class="section-index">01 / SELECT</span>
+                <h2 id="asset-dock-title">选择观察标的</h2>
+            </div>
+            <p>点击代码切换主图；图表顶部也可搜索其他证券。</p>
+        </div>
+
+        <div class="asset-tabs" role="tablist" aria-label="市场分类">
+            <button class="asset-tab is-active" type="button" data-category="us" role="tab" aria-selected="true">美股 / ETF</button>
+            <button class="asset-tab" type="button" data-category="hk" role="tab" aria-selected="false">港股</button>
+            <button class="asset-tab" type="button" data-category="cn" role="tab" aria-selected="false">A 股</button>
+            <button class="asset-tab" type="button" data-category="uk" role="tab" aria-selected="false">英国股票</button>
+            <button class="asset-tab" type="button" data-category="metal" role="tab" aria-selected="false">黄金 / 期货</button>
+        </div>
+
+        <div class="asset-list is-active" data-asset-list="us" role="tabpanel">
+            <button class="asset-chip is-selected" type="button" data-symbol="NASDAQ:AAPL" data-name="Apple 苹果"><b>AAPL</b><span>Apple</span></button>
+            <button class="asset-chip" type="button" data-symbol="NASDAQ:MSFT" data-name="Microsoft 微软"><b>MSFT</b><span>Microsoft</span></button>
+            <button class="asset-chip" type="button" data-symbol="NASDAQ:NVDA" data-name="NVIDIA 英伟达"><b>NVDA</b><span>NVIDIA</span></button>
+            <button class="asset-chip" type="button" data-symbol="NASDAQ:AMZN" data-name="Amazon 亚马逊"><b>AMZN</b><span>Amazon</span></button>
+            <button class="asset-chip" type="button" data-symbol="NASDAQ:META" data-name="Meta Platforms"><b>META</b><span>Meta</span></button>
+            <button class="asset-chip" type="button" data-symbol="NASDAQ:TSLA" data-name="Tesla 特斯拉"><b>TSLA</b><span>Tesla</span></button>
+            <button class="asset-chip" type="button" data-symbol="AMEX:SPY" data-name="SPDR S&P 500 ETF"><b>SPY</b><span>S&amp;P 500 ETF</span></button>
+            <button class="asset-chip" type="button" data-symbol="NASDAQ:QQQ" data-name="Invesco QQQ ETF"><b>QQQ</b><span>Nasdaq 100 ETF</span></button>
+        </div>
+
+        <div class="asset-list" data-asset-list="hk" role="tabpanel" hidden>
+            <button class="asset-chip" type="button" data-symbol="HKEX:700" data-name="腾讯控股"><b>0700</b><span>腾讯控股</span></button>
+            <button class="asset-chip" type="button" data-symbol="HKEX:9988" data-name="阿里巴巴-SW"><b>9988</b><span>阿里巴巴</span></button>
+            <button class="asset-chip" type="button" data-symbol="HKEX:3690" data-name="美团-W"><b>3690</b><span>美团</span></button>
+            <button class="asset-chip" type="button" data-symbol="HKEX:1810" data-name="小米集团-W"><b>1810</b><span>小米集团</span></button>
+            <button class="asset-chip" type="button" data-symbol="HKEX:1299" data-name="友邦保险"><b>1299</b><span>友邦保险</span></button>
+            <button class="asset-chip" type="button" data-symbol="HKEX:9618" data-name="京东集团-SW"><b>9618</b><span>京东集团</span></button>
+        </div>
+
+        <div class="asset-list" data-asset-list="cn" role="tabpanel" hidden>
+            <button class="asset-chip" type="button" data-symbol="SSE:000001" data-name="上证综合指数"><b>000001</b><span>上证指数</span></button>
+            <button class="asset-chip" type="button" data-symbol="SSE:600519" data-name="贵州茅台"><b>600519</b><span>贵州茅台</span></button>
+            <button class="asset-chip" type="button" data-symbol="SSE:601318" data-name="中国平安"><b>601318</b><span>中国平安</span></button>
+            <button class="asset-chip" type="button" data-symbol="SSE:601899" data-name="紫金矿业"><b>601899</b><span>紫金矿业</span></button>
+            <button class="asset-chip" type="button" data-symbol="SZSE:300750" data-name="宁德时代"><b>300750</b><span>宁德时代</span></button>
+            <button class="asset-chip" type="button" data-symbol="SZSE:002594" data-name="比亚迪"><b>002594</b><span>比亚迪</span></button>
+            <button class="asset-chip" type="button" data-symbol="SZSE:000858" data-name="五粮液"><b>000858</b><span>五粮液</span></button>
+        </div>
+
+        <div class="asset-list" data-asset-list="uk" role="tabpanel" hidden>
+            <button class="asset-chip" type="button" data-symbol="LSE:SHEL" data-name="Shell 壳牌"><b>SHEL</b><span>Shell</span></button>
+            <button class="asset-chip" type="button" data-symbol="LSE:AZN" data-name="AstraZeneca 阿斯利康"><b>AZN</b><span>AstraZeneca</span></button>
+            <button class="asset-chip" type="button" data-symbol="LSE:HSBA" data-name="HSBC Holdings 汇丰控股"><b>HSBA</b><span>HSBC</span></button>
+            <button class="asset-chip" type="button" data-symbol="LSE:ULVR" data-name="Unilever 联合利华"><b>ULVR</b><span>Unilever</span></button>
+            <button class="asset-chip" type="button" data-symbol="LSE:LLOY" data-name="Lloyds Banking Group"><b>LLOY</b><span>Lloyds</span></button>
+            <button class="asset-chip" type="button" data-symbol="FOREXCOM:UKXGBP" data-name="FTSE 100 富时 100 指数"><b>UKX</b><span>FTSE 100</span></button>
+        </div>
+
+        <div class="asset-list" data-asset-list="metal" role="tabpanel" hidden>
+            <button class="asset-chip" type="button" data-symbol="OANDA:XAUUSD" data-name="现货黄金 / 美元"><b>XAUUSD</b><span>现货黄金</span></button>
+            <button class="asset-chip" type="button" data-symbol="COMEX:GC1!" data-name="COMEX 黄金连续期货"><b>GC1!</b><span>黄金期货</span></button>
+            <button class="asset-chip" type="button" data-symbol="COMEX:SI1!" data-name="COMEX 白银连续期货"><b>SI1!</b><span>白银期货</span></button>
+            <button class="asset-chip" type="button" data-symbol="NYMEX:CL1!" data-name="WTI 原油连续期货"><b>CL1!</b><span>WTI 原油</span></button>
+            <button class="asset-chip" type="button" data-symbol="NYMEX:NG1!" data-name="天然气连续期货"><b>NG1!</b><span>天然气</span></button>
+            <button class="asset-chip" type="button" data-symbol="AMEX:GLD" data-name="SPDR Gold Shares ETF"><b>GLD</b><span>黄金 ETF</span></button>
+            <button class="asset-chip" type="button" data-symbol="AMEX:SLV" data-name="iShares Silver Trust ETF"><b>SLV</b><span>白银 ETF</span></button>
+            <button class="asset-chip" type="button" data-symbol="AMEX:USO" data-name="United States Oil Fund ETF"><b>USO</b><span>原油 ETF</span></button>
+        </div>
+    </section>
+
+    <section class="market-workbench" aria-label="行情图表工作区">
+        <article class="chart-panel">
+            <div class="panel-toolbar">
+                <div>
+                    <span class="panel-label">ACTIVE CHART</span>
+                    <h2 id="selected-asset-name">Apple 苹果</h2>
+                </div>
+                <a id="selected-asset-link" class="detail-link" href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" target="_blank" rel="noopener noreferrer">打开完整行情 ↗</a>
+            </div>
+            <div id="advanced-chart" class="advanced-chart" aria-live="polite">
+                <div class="chart-loading"><span></span>正在连接行情图表…</div>
+            </div>
+        </article>
+
+        <aside class="overview-panel">
+            <div class="panel-toolbar">
+                <div>
+                    <span class="panel-label">MARKET PULSE</span>
+                    <h2>跨市场观察表</h2>
+                </div>
+            </div>
+            <div class="overview-widget">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                    {
+                        "colorTheme": "dark",
+                        "dateRange": "12M",
+                        "locale": "zh_CN",
+                        "isTransparent": true,
+                        "showFloatingTooltip": true,
+                        "showSymbolLogo": true,
+                        "showChart": true,
+                        "width": "100%",
+                        "height": "100%",
+                        "plotLineColorGrowing": "rgba(61, 220, 151, 1)",
+                        "plotLineColorFalling": "rgba(255, 100, 116, 1)",
+                        "gridLineColor": "rgba(128, 151, 171, 0.08)",
+                        "scaleFontColor": "rgba(197, 213, 226, 0.72)",
+                        "belowLineFillColorGrowing": "rgba(61, 220, 151, 0.12)",
+                        "belowLineFillColorFalling": "rgba(255, 100, 116, 0.12)",
+                        "belowLineFillColorGrowingBottom": "rgba(61, 220, 151, 0)",
+                        "belowLineFillColorFallingBottom": "rgba(255, 100, 116, 0)",
+                        "symbolActiveColor": "rgba(45, 188, 255, 0.12)",
+                        "tabs": [
+                            {
+                                "title": "美股",
+                                "symbols": [
+                                    { "s": "NASDAQ:AAPL", "d": "Apple" },
+                                    { "s": "NASDAQ:MSFT", "d": "Microsoft" },
+                                    { "s": "NASDAQ:NVDA", "d": "NVIDIA" },
+                                    { "s": "NASDAQ:AMZN", "d": "Amazon" },
+                                    { "s": "NASDAQ:TSLA", "d": "Tesla" },
+                                    { "s": "AMEX:SPY", "d": "S&P 500 ETF" }
+                                ]
+                            },
+                            {
+                                "title": "港股",
+                                "symbols": [
+                                    { "s": "HKEX:700", "d": "腾讯控股" },
+                                    { "s": "HKEX:9988", "d": "阿里巴巴" },
+                                    { "s": "HKEX:3690", "d": "美团" },
+                                    { "s": "HKEX:1810", "d": "小米集团" },
+                                    { "s": "HKEX:1299", "d": "友邦保险" }
+                                ]
+                            },
+                            {
+                                "title": "A 股",
+                                "symbols": [
+                                    { "s": "SSE:000001", "d": "上证指数" },
+                                    { "s": "SSE:600519", "d": "贵州茅台" },
+                                    { "s": "SSE:601318", "d": "中国平安" },
+                                    { "s": "SZSE:300750", "d": "宁德时代" },
+                                    { "s": "SZSE:002594", "d": "比亚迪" }
+                                ]
+                            },
+                            {
+                                "title": "英国",
+                                "symbols": [
+                                    { "s": "FOREXCOM:UKXGBP", "d": "FTSE 100" },
+                                    { "s": "LSE:SHEL", "d": "Shell" },
+                                    { "s": "LSE:AZN", "d": "AstraZeneca" },
+                                    { "s": "LSE:HSBA", "d": "HSBC" },
+                                    { "s": "LSE:ULVR", "d": "Unilever" }
+                                ]
+                            },
+                            {
+                                "title": "商品 / ETF",
+                                "symbols": [
+                                    { "s": "OANDA:XAUUSD", "d": "现货黄金" },
+                                    { "s": "COMEX:GC1!", "d": "黄金期货" },
+                                    { "s": "COMEX:SI1!", "d": "白银期货" },
+                                    { "s": "NYMEX:CL1!", "d": "WTI 原油" },
+                                    { "s": "AMEX:GLD", "d": "黄金 ETF" },
+                                    { "s": "AMEX:SLV", "d": "白银 ETF" }
+                                ]
+                            }
+                        ]
+                    }
+                    </script>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="market-links" aria-labelledby="market-links-title">
+        <div class="section-heading">
+            <div>
+                <span class="section-index">02 / DEEP DIVE</span>
+                <h2 id="market-links-title">更多行情入口</h2>
+            </div>
+            <p>需要更完整的公告、财务或中文研报时，可直接跳转。</p>
+        </div>
+        <div class="market-link-grid">
+            <a href="https://www.tradingview.com/markets/" target="_blank" rel="noopener noreferrer"><span>TV</span><div><b>TradingView 全球市场</b><small>图表、筛选器与市场地图</small></div><i>↗</i></a>
+            <a href="https://quote.eastmoney.com/center/" target="_blank" rel="noopener noreferrer"><span>东</span><div><b>东方财富行情中心</b><small>A 股、港股与全球指数</small></div><i>↗</i></a>
+            <a href="https://xueqiu.com/S/SZ399001" target="_blank" rel="noopener noreferrer"><span>雪</span><div><b>雪球行情</b><small>个股讨论、组合与资讯</small></div><i>↗</i></a>
+            <a href="https://cn.investing.com/markets/" target="_blank" rel="noopener noreferrer"><span>IN</span><div><b>Investing.com</b><small>期货、外汇与经济日历</small></div><i>↗</i></a>
+        </div>
+    </section>
+</main>
+
+<footer class="market-footer">
+    <p>© 2026 Largeoyos · Market data powered by TradingView</p>
+    <p><small>Version 3.1.0 · 全球行情观察台</small></p>
+</footer>
+
+<script src="./market.js" defer></script>
+</body>
+</html>

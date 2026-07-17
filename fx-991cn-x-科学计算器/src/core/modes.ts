@@ -214,6 +214,12 @@ export function modeOptions(mode: CalcMode): MenuOption[] {
       { key: '3', label: 'DEGREE 4', command: 'inequality-4' },
     ];
   }
+  if (mode === 'Ratio') {
+    return [
+      { key: '1', label: 'A:B=X:D', command: 'ratio-left' },
+      { key: '2', label: 'A:B=C:X', command: 'ratio-right' },
+    ];
+  }
   return [];
 }
 
@@ -331,7 +337,8 @@ export function evaluateModeExpression(
     return { display: formatComplex(complex), complex };
   }
   if (mode === 'Base-N') {
-    const numeric = evaluateBaseExpression(input, memory.base);
+    const raw = evaluateBaseExpression(input, memory.base);
+    const numeric = memory.base === 2 ? ((raw & 0xffff) > 0x7fff ? (raw & 0xffff) - 0x1_0000 : raw & 0xffff) : raw;
     return { display: formatBaseInteger(numeric, memory.base), numeric };
   }
   if (mode === 'Matrix') {

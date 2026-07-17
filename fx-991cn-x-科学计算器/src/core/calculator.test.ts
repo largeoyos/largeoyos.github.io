@@ -65,5 +65,5 @@ test('mixed fractions, variables and utility functions are finite real values', 
   assert.equal(value('A+Ans'), 11);
   assert.equal(value('10^2'), 100);
   assert.ok(Math.abs(value('e^1') - Math.E) < 1e-12);
-  assert.equal(value('Rnd(1.234567890123)'), 1.23456789);
+  assert.equal(value('Rnd(1.234567890123)'), 1.2345678901);
 });

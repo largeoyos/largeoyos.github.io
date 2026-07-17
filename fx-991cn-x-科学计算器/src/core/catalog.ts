@@ -73,7 +73,7 @@ export const SCIENTIFIC_CONSTANTS: ScientificConstant[] = [
   constant('atm', 'atm', '标准大气压', 101325, 'Pa', '采用值', 'adopted'),
   constant('rk90', 'RK-90', '常规冯·克里青常数', 25812.807, 'Ω', '采用值', 'adopted'),
   constant('kj90', 'KJ-90', '常规约瑟夫森常数', 4.835979e14, 'Hz·V⁻¹', '采用值', 'adopted'),
-  constant('celsiusZero', 't', '摄氏温标零点', 273.15, 'K', '其他', 'adopted'),
+  constant('temperature_zero', 't', '摄氏温标零点', 273.15, 'K', '其他', 'adopted'),
 ];
 
 export const SCIENTIFIC_CONSTANT_CATEGORIES: ScientificConstantCategory[] = [

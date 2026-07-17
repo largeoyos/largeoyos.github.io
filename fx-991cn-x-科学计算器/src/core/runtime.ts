@@ -196,6 +196,28 @@ function editorMove<T extends MatrixEditorScreen | CoefficientEditorScreen>(
   };
 }
 
+function menuMove(screen: MenuScreen, direction: 'left' | 'right' | 'up' | 'down'): MenuScreen {
+  if (screen.options.length === 0) return screen;
+  if (direction === 'left' || direction === 'right') {
+    const delta = direction === 'left' ? -1 : 1;
+    return { ...screen, selected: (screen.selected + delta + screen.options.length) % screen.options.length };
+  }
+
+  const columns = screen.options.length >= 5 ? 4 : 1;
+  if (columns === 1) {
+    const delta = direction === 'up' ? -1 : 1;
+    return { ...screen, selected: (screen.selected + delta + screen.options.length) % screen.options.length };
+  }
+
+  const column = screen.selected % columns;
+  const sameColumn = screen.options
+    .map((_, index) => index)
+    .filter(index => index % columns === column);
+  const position = sameColumn.indexOf(screen.selected);
+  const delta = direction === 'up' ? -1 : 1;
+  return { ...screen, selected: sameColumn[(position + delta + sameColumn.length) % sameColumn.length] };
+}
+
 function executeModeEvaluation(state: ModeRuntime, context: RuntimeContext): ModeRuntime {
   try {
     const evaluation = evaluateModeExpression(
@@ -755,8 +777,7 @@ export function dispatchModeRuntime(
   }
   if (action.type === 'up' || action.type === 'down' || action.type === 'left' || action.type === 'right') {
     if (next.screen.kind === 'menu') {
-      const delta = action.type === 'up' || action.type === 'left' ? -1 : 1;
-      next.screen.selected = (next.screen.selected + delta + next.screen.options.length) % next.screen.options.length;
+      next.screen = menuMove(next.screen, action.type);
       return next;
     }
     if (next.screen.kind === 'matrix-editor' || next.screen.kind === 'coefficient-editor') {
@@ -876,6 +897,13 @@ export function runtimeScreenView(state: ModeRuntime) {
     };
   }
   if (screen.kind === 'graph') return { title: 'FUNCTION GRAPH', graph: screen.rows };
-  if (screen.kind === 'solutions') return { title: 'SOLUTION', lines: screen.lines, selectedIndex: screen.selected };
+  if (screen.kind === 'solutions') {
+    const start = Math.floor(screen.selected / 5) * 5;
+    return {
+      title: 'SOLUTION',
+      lines: screen.lines.slice(start, start + 5),
+      selectedIndex: screen.selected - start,
+    };
+  }
   return { title: screen.title, lines: screen.lines };
 }

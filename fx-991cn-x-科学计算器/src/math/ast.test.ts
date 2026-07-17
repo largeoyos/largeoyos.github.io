@@ -97,9 +97,10 @@ test('equation solver keeps more than two distinct real roots', () => {
   assert.deepEqual(result.roots?.map(value => Math.round(value)), [-2, -1, 1, 2]);
 });
 
-test('multiplication and division have dedicated bitmap glyphs', () => {
-  assert.notDeepEqual(getBitmapGlyph('×'), getBitmapGlyph('?'));
-  assert.notDeepEqual(getBitmapGlyph('÷'), getBitmapGlyph('?'));
+test('calculator symbols have dedicated bitmap glyphs', () => {
+  ['×', '÷', 'π', '√', '∫', 'Σ', '°', '²', '³', '⁻', '□', '■', '⇔'].forEach(symbol => {
+    assert.notDeepEqual(getBitmapGlyph(symbol), getBitmapGlyph('?'), symbol);
+  });
 });
 
 test('right enters a compound node before moving past it and wraps at root end', () => {

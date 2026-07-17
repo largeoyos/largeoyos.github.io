@@ -12,3 +12,9 @@ test('mode overrides preserve special key behavior', () => {
   assert.deepEqual(resolveKeyAction('eng', 'Complex'), { type: 'insert', value: 'i' });
   assert.deepEqual(resolveKeyAction('square', 'Base-N'), { type: 'command', value: 'base-dec' });
 });
+test('operator and constant keys emit displayable symbols', () => {
+  assert.deepEqual(resolveKeyAction('multiply', 'Calculate'), { type: 'insert', value: '×' });
+  assert.deepEqual(resolveKeyAction('divide', 'Calculate'), { type: 'insert', value: '÷' });
+  assert.deepEqual(resolveKeyAction('scientific', 'Calculate', 'shift'), { type: 'insert', value: 'π' });
+  assert.deepEqual(resolveKeyAction('root', 'Calculate'), { type: 'insert', value: '√(' });
+});

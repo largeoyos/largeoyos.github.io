@@ -64,7 +64,7 @@ function approximateFraction(value: number, maxDenominator = 100000): string {
   }
   return k1 === 1 ? String(sign * h1) : `${sign * h1}/${k1}`;
 }
-type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE' | 'MAIN' | 'OPTN' | 'SOLVE' | 'CALC';
+type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'RECALL' | 'STORE' | 'MAIN' | 'SOLVE' | 'CALC';
 type MenuDirection = 'left' | 'right' | 'up' | 'down';
 
 const STORAGE_KEY = 'fx991cnx-registers-v1';
@@ -94,14 +94,6 @@ const MENU_MODES: CalcMode[] = [
   'Inequality',
   'Ratio',
 ];
-const OPTN_SAMPLES = [
-  { key: '1', label: 'd/dx', insert: 'd(X,0)' },
-  { key: '2', label: 'Integral', insert: 'integral(X,0,1)' },
-  { key: '3', label: 'Sum', insert: 'sum(X,1,10)' },
-  { key: '4', label: 'Normal CDF', insert: 'normalcdf(-1,1,0,1)' },
-  { key: '5', label: 'Binomial PDF', insert: 'binompdf(2,5,0.5)' },
-  { key: '6', label: 'Poisson PDF', insert: 'poissonpdf(2,3)' },
-];
 
 function loadStoredVariables(): Record<string, number> {
   if (typeof window === 'undefined') return DEFAULT_VARIABLES;
@@ -125,148 +117,6 @@ function extractVariables(input: string): string[] {
     found.add(match[0].toUpperCase());
   }
   return [...found];
-}
-
-function MenuModeIcon({ mode, selected }: { mode: CalcMode; selected: boolean }) {
-  const ink = selected ? '#f3f5dd' : '#284b99';
-  const green = selected ? '#f3f5dd' : '#087c57';
-  const pixelText = {
-    color: ink,
-  };
-  const block = {
-    borderColor: ink,
-  };
-
-  if (mode === 'Calculate') {
-    return (
-      <div className="grid grid-cols-2 gap-x-2 gap-y-0 text-[17px] font-black leading-[13px]" style={{ ...pixelText, color: green }}>
-        <span>×</span><span>÷</span><span>+</span><span>−</span>
-      </div>
-    );
-  }
-  if (mode === 'Complex') {
-    return (
-      <div className="relative w-11 h-8">
-        <span className="absolute left-0 top-1 border-2 w-5 h-7" style={block} />
-        <span className="absolute left-5 top-0 border-2 w-5 h-7 bg-[linear-gradient(135deg,transparent_45%,currentColor_46%,currentColor_54%,transparent_55%)]" style={block} />
-        <span className="absolute left-[7px] top-[8px] text-[12px] font-black" style={pixelText}>i</span>
-      </div>
-    );
-  }
-  if (mode === 'Base-N') {
-    return (
-      <div className="grid grid-cols-2 gap-x-2 text-[9px] font-black leading-[11px]" style={pixelText}>
-        <span>2</span><span>8</span><span>10</span><span>16</span>
-      </div>
-    );
-  }
-  if (mode === 'Matrix') {
-    return (
-      <div className="flex items-center gap-1 text-[16px] font-black" style={pixelText}>
-        <span>[</span>
-        <span className="grid grid-cols-2 gap-[3px]">
-          {[0, 1, 2, 3].map(n => <i key={n} className="w-2 h-2 border-2" style={block} />)}
-        </span>
-        <span>]</span>
-      </div>
-    );
-  }
-  if (mode === 'Vector') {
-    return (
-      <div className="relative w-11 h-9" style={{ ...pixelText, color: green }}>
-        <span className="absolute left-0 top-2 text-[23px] font-black">↑</span>
-        <span className="absolute left-3 top-0 text-[23px] font-black">↗</span>
-        <span className="absolute left-6 top-3 text-[23px] font-black">→</span>
-      </div>
-    );
-  }
-  if (mode === 'Statistics') {
-    return (
-      <div className="relative flex items-end gap-1 h-9 border-l-2 border-b-2 px-1" style={{ borderColor: ink }}>
-        {[12, 23, 31, 17].map((height, idx) => (
-          <span key={idx} className="w-2 border-2 bg-transparent" style={{ ...block, height }} />
-        ))}
-      </div>
-    );
-  }
-  if (mode === 'Function Table') {
-    return (
-      <div className="grid grid-cols-2 border-2 w-11 h-8 p-1 gap-1" style={block}>
-        {[0, 1].map(n => (
-          <span key={n} className="border-2 flex flex-col justify-around px-[2px]" style={block}>
-            <i className="h-[2px] bg-current" /><i className="h-[2px] bg-current" />
-          </span>
-        ))}
-      </div>
-    );
-  }
-  if (mode === 'Equation') {
-    return (
-      <div className="relative w-12 h-9" style={pixelText}>
-        <span className="absolute left-0 top-1 text-[13px] font-black">■√■</span>
-        <span className="absolute right-0 bottom-0 text-[12px] font-black">x=0</span>
-      </div>
-    );
-  }
-  if (mode === 'Inequality') {
-    return <div className="text-[14px] font-black leading-[13px] text-center" style={pixelText}>x&gt;0<br />x&lt;0</div>;
-  }
-  return (
-    <div className="flex items-center gap-1 text-[18px] font-black" style={pixelText}>
-      <span className="border-2 w-4 h-4" style={block} /><span>:</span><span className="border-2 w-4 h-4" style={block} />
-    </div>
-  );
-}
-
-function MainMenuScreen({
-  selectedIndex,
-  onSelect,
-}: {
-  selectedIndex: number;
-  onSelect: (index: number) => void;
-}) {
-  const selectedMode = MENU_MODES[selectedIndex] || MENU_MODES[0];
-
-  return (
-    <div
-      className="absolute inset-0 z-[8] bg-[#e7e9db] text-[#264f9c] flex flex-col overflow-hidden"
-      style={{ imageRendering: 'pixelated' }}
-    >
-      <div className="grid grid-cols-4 grid-rows-3 flex-1 border-l border-t-2 border-[#5572b4]">
-        {MENU_MODES.map((mode, index) => {
-          const selected = index === selectedIndex;
-          return (
-            <button
-              key={mode}
-              type="button"
-              onClick={() => onSelect(index)}
-              className={`relative min-w-0 border-r border-b border-[#5572b4] flex items-center justify-center ${
-                selected
-                  ? 'bg-[linear-gradient(135deg,#077954_0%,#168365_42%,#2c5d9d_100%)]'
-                  : 'bg-[linear-gradient(135deg,#f3f4e8_0%,#e1e5d8_72%,#d4d9cc_100%)]'
-              }`}
-            >
-              <MenuModeIcon mode={mode} selected={selected} />
-              <span className={`absolute right-0 bottom-0 min-w-4 h-4 px-0.5 text-[9px] leading-4 font-black text-center rounded-tl ${
-                selected ? 'bg-[#edf0df] text-[#1f376f]' : 'bg-[#3157aa] text-[#eef0e4]'
-              }`}>
-                {index + 1}
-              </span>
-            </button>
-          );
-        })}
-        {Array.from({ length: 12 - MENU_MODES.length }).map((_, index) => (
-          <div key={`empty-${index}`} className="border-r border-b border-[#5572b4] bg-[#eef0e4]" />
-        ))}
-      </div>
-      <div className="h-[19px] shrink-0 flex items-center border-t-2 border-[#5572b4] bg-[#eef0e4] px-1">
-        <span className="text-[13px] leading-none font-serif font-black text-[#1f3e81]">
-          {selectedIndex + 1}: {MODE_LABELS[selectedMode]}
-        </span>
-        <span className="ml-auto text-[9px] font-black text-[#3457a5]">▲▼</span>
-      </div>
-    </div>
-  );
 }
 
 // --- MAIN APP ---
@@ -497,14 +347,14 @@ export default function App() {
   const handleKeypress = (action: string, value?: string, shiftValue?: string, alphaValue?: string) => {
     triggerClickAudio();
 
-    if (modeRuntime.screen.kind === 'menu' && ['menu', 'clear', 'backspace', 'shift'].includes(action)) {
+    if (modeRuntime.screen.kind === 'menu' && ['menu', 'clear', 'backspace', 'shift', 'alpha'].includes(action)) {
       applyModeAction({ type: 'clear' });
       setShiftActive(false);
       setAlphaActive(false);
       return;
     }
 
-    if (activeMenu !== 'NONE' && ['menu', 'clear', 'backspace', 'shift'].includes(action)) {
+    if (activeMenu !== 'NONE' && ['menu', 'clear', 'backspace', 'shift', 'alpha'].includes(action)) {
       setActiveMenu('NONE');
       setShiftActive(false);
       setAlphaActive(false);
@@ -616,14 +466,7 @@ export default function App() {
         if (activeAction === 'evaluate') confirmMenuMode();
         return;
       }
-      if (activeMenu === 'OPTN') {
-        const selected = OPTN_SAMPLES.find(item => item.key === activeVal);
-        if (selected) {
-          insertTextAtCursor(selected.insert);
-        }
-        setActiveMenu('NONE');
-        return;
-      }
+
       if (activeMenu === 'SOLVE') {
         if (VARIABLE_NAMES.includes(activeVal)) {
           runSolveFor(activeVal);
@@ -700,6 +543,18 @@ export default function App() {
       return;
     }
 
+    // Layer toggles must work in every input mode; menus above already use them as exits.
+    if (activeAction === 'shift') {
+      setShiftActive(prev => !prev);
+      setAlphaActive(false);
+      return;
+    }
+    if (activeAction === 'alpha') {
+      setAlphaActive(prev => !prev);
+      setShiftActive(false);
+      return;
+    }
+
     // Mode-specific actions are handled before the general calculator router.
     if (activeAction === 'optn') {
       applyModeAction({ type: 'optn' });
@@ -729,14 +584,7 @@ export default function App() {
 
     // --- BUTTON EVENT ROUTER ---
     switch (activeAction) {
-      case 'shift': 
-        setShiftActive(prev => !prev);
-        setAlphaActive(false);
-        break;
-      case 'alpha':
-        setAlphaActive(prev => !prev);
-        setShiftActive(false);
-        break;
+
       case 'clear':
         formulaLcdRef.current?.clear();
         setExpr("");
@@ -809,7 +657,7 @@ export default function App() {
         break;
       }
       case 'sd': {
-        const value = Number(resultVal);
+        const value = resultVal.includes('/') ? ans : Number(resultVal);
         if (Number.isFinite(value)) setResultVal(resultVal.includes('/') ? formatCoreValue(value) : approximateFraction(value));
         break;
       }
@@ -914,23 +762,6 @@ export default function App() {
     solutionIndex,
     solutionVariable,
   ]);
-
-  // Generate cursor visual index
-  const renderExpressionWithCursor = () => {
-    if (!powerActive) return "";
-    if (expr === "") return <span className="text-gray-700 animate-pulse">■</span>;
-
-    const before = expr.slice(0, cursorIdx);
-    const after = expr.slice(cursorIdx);
-
-    return (
-      <span className="leading-relaxed tracking-wider">
-        {before}
-        <span className="bg-[#152e18] text-[#9fb08f] px-[1px] font-bold animate-pulse">|</span>
-        {after}
-      </span>
-    );
-  };
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans flex flex-col selection:bg-teal-500 selection:text-slate-900">
@@ -1057,135 +888,8 @@ export default function App() {
                   {/* LCD Screen On Glass shine overlay */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none transform -skew-x-12 scale-125 z-[5]" />
 
-                  {powerActive && activeMenu === 'MAIN' && (
-                    <MainMenuScreen
-                      selectedIndex={menuScrollIdx}
-                      onSelect={(index) => {
-                        setMenuScrollIdx(index);
-                        confirmMenuMode(index);
-                      }}
-                    />
-                  )}
 
-                  {/* Top indicators row */}
-                  <div className="flex justify-between items-center text-[8px] font-extrabold tracking-wider leading-none shrink-0 text-slate-800/80 uppercase">
-                    <div className="flex gap-1.5">
-                      <span className={`px-0.5 rounded ${shiftActive ? 'bg-slate-900 text-[#a9ba96]' : 'opacity-20'}`}>S</span>
-                      <span className={`px-0.5 rounded ${alphaActive ? 'bg-slate-900 text-[#a9ba96]' : 'opacity-20'}`}>A</span>
-                    </div>
-                    
-                    <div className="flex gap-2">
-                      <span className={angleMode === 'DEG' ? 'font-black underline scale-110' : 'opacity-25'}>DEG</span>
-                      <span className={angleMode === 'RAD' ? 'font-black underline scale-110' : 'opacity-25'}>RAD</span>
-                      <span className="font-black">{calcMode}</span>
-                      <span className="font-extrabold px-0.5 bg-slate-900 text-[#a9ba96]/95 scale-90 rounded">MATH</span>
-                    </div>
-                  </div>
-
-                  {/* Screen Content Core */}
-                  {powerActive ? (
-                    <div className="flex-1 flex flex-col justify-between mt-1 z-[6]">
-                      {activeMenu === 'MAIN' ? null : activeMenu === 'NONE' ? (
-                        <>
-                          {/* Inner Formula edit line */}
-                          <div className="text-sm select-all font-semibold leading-relaxed tracking-wider break-all text-left">
-                            {renderExpressionWithCursor()}
-                          </div>
-                          {/* Inner Result Display line */}
-                          <div className="text-right text-xl font-black font-mono leading-none tracking-normal pt-1 select-all break-normal pr-1 select-none">
-                            {resultVal}
-                          </div>
-                        </>
-                      ) : (
-                        /* Menu Lists screens */
-                        <div className="text-[10px] uppercase font-bold text-slate-900 leading-tight flex flex-col flex-1 py-1">
-                          {activeMenu === 'OPTN' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">OPTN FUNCTION BOX</div>
-                              <div className="mt-1 grid grid-cols-2 gap-x-1 gap-y-0.5 text-[8.5px] text-left">
-                                {OPTN_SAMPLES.map(item => (
-                                  <div key={item.key}>{item.key}: ☐ {item.label}</div>
-                                ))}
-                              </div>
-                            </>
-                          )}
-                          {activeMenu === 'SOLVE' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">SOLVE VARIABLE SELECT</div>
-                              <div className="mt-1 grid grid-cols-3 gap-0.5 text-[8.5px] text-left">
-                                {extractVariables(expr).map((name, idx) => (
-                                  <div key={name}>{idx + 1}: ☐ {name}={formatCoreValue(variables[name] || 0)}</div>
-                                ))}
-                              </div>
-                              <div className="mt-1 text-[8px] normal-case">Other variables use stored register values.</div>
-                            </>
-                          )}
-                          {activeMenu === 'SETUP' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">设置菜单 SETUP MENU</div>
-                              <div className="mt-1 font-semibold space-y-0.5 text-left">
-                                <div>1: 角度 - DEG (度数单位)</div>
-                                <div>2: 角度 - RAD (弧度单位)</div>
-                                <div>3: 角度 - GRAD (百分度)</div>
-                                <div>4: 其它设置</div>
-                              </div>
-                            </>
-                          )}
-                          {activeMenu === 'CONST' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">常量库 SCI CONST</div>
-                              <div className="mt-1 font-semibold grid grid-cols-2 gap-x-1 text-[9px] text-left">
-                                <div>1: c (光速)</div>
-                                <div>2: h (普朗克)</div>
-                                <div>3: G (引力)</div>
-                                <div>4: g (重力)</div>
-                                <div>5: NA (阿伏)</div>
-                                <div>6: R (气体常数)</div>
-                              </div>
-                            </>
-                          )}
-                          {activeMenu === 'CONV' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">单位换算 UNIT CONVERSION</div>
-                              <div className="mt-1 font-semibold space-y-0.5 text-[9px] text-left">
-                                <div>1: inches ▶ cm (英寸到厘米)</div>
-                                <div>2: cm ▶ inches (厘米到英寸)</div>
-                                <div>3: kg ▶ lbs (公斤到磅)</div>
-                                <div>4: lbs ▶ kg (磅到公斤)</div>
-                              </div>
-                            </>
-                          )}
-                          {activeMenu === 'RECALL' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center">调用变量 RECALL VARS</div>
-                              <div className="mt-1 text-[8px] font-sans grid grid-cols-3 gap-0.5 tracking-tight text-left font-black">
-                                {Object.entries(variables).map(([name, val]) => (
-                                  <div key={name} className="truncate bg-black/5 rounded p-0.5">
-                                    {name}: {formatCoreValue(val as number)}
-                                  </div>
-                                ))}
-                              </div>
-                            </>
-                          )}
-                          {activeMenu === 'STORE' && (
-                            <>
-                              <div className="border-b border-slate-800/20 pb-0.5 text-center font-bold text-red-800">变量存入 (STO ▶ 选择变量)</div>
-                              <div className="mt-1 font-semibold text-center text-[9px] text-slate-800 leading-normal animate-pulse">
-                                请按 A, B, C, D, E, F, X, Y 或 M 对应的按键，将当前结果存入该变量内存中
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      )}
-
-                    </div>
-                  ) : (
-                    /* Blank Screen when Powered Off */
-                    <div className="flex-1 flex items-center justify-center text-[10px] text-slate-900/30">
-                      SYSTEM SLEEP
-                    </div>
-                  )}
-
+                  {/* FormulaLcd owns all screen pixels; overlays above are glass/scanline only. */}
                 </div>
               </div>
             </div>

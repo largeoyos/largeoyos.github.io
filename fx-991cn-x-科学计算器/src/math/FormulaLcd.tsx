@@ -73,7 +73,7 @@ type FormulaLcdProps = {
   onExpressionChange: (expression: string) => void;
 };
 
-const AST_STORAGE_KEY = 'fx991cnx-formula-ast-v1';
+const AST_STORAGE_KEY = 'fx991cnx-formula-ast-v2';
 const LCD_LOGICAL_WIDTH = 192;
 const LCD_LOGICAL_HEIGHT = 63;
 const LCD_SCALE = 8;

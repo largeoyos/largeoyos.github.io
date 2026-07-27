@@ -6,6 +6,7 @@ import {
   complexBinary,
   complexConjugate,
   complexFromPolar,
+  evaluateComplexExpression,
   formatBaseInteger,
   formatComplex,
   generateFunctionTable,
@@ -13,8 +14,10 @@ import {
   matrixIdentity,
   matrixInverse,
   matrixMultiply,
+  parseBaseInteger,
   regression,
   singleVariableStatistics,
+  statisticsCapacity,
   solveLinearSystem,
   solvePolynomial,
   solvePolynomialInequality,
@@ -30,10 +33,21 @@ test('complex arithmetic and conversion follow calculator behavior', () => {
   assert.equal(formatComplex(complexConjugate({ kind: 'complex', re: 2, im: 3 })), '2-3i');
   const polar = complexFromPolar(2, 45, 'DEG');
   assert.ok(Math.abs(polar.re - Math.SQRT2) < 1e-10);
+  assert.equal(formatComplex(evaluateComplexExpression('Conjg(2+3i)', 'DEG')), '2-3i');
+  assert.equal(formatComplex(evaluateComplexExpression('arg(1+i)', 'DEG')), '45');
+  assert.equal(formatComplex(evaluateComplexExpression('Rep(2+3i)', 'DEG')), '2');
+  assert.equal(formatComplex(evaluateComplexExpression('Imp(2+3i)', 'DEG')), '3');
+  assert.ok(Math.abs(evaluateComplexExpression('(1+1)∠(A+5)', 'DEG', { A: 40 }).re - Math.SQRT2) < 1e-10);
 });
 
 test('base-n operations use signed 32-bit semantics', () => {
   assert.equal(formatBaseInteger(-1, 16), 'FFFFFFFF');
+  assert.equal(formatBaseInteger(-1, 2), '11111111111111111111111111111111');
+  assert.equal(parseBaseInteger('11111111111111111111111111111111', 2), -1);
+  assert.equal(parseBaseInteger('10000000000000000000000000000000', 2), -2147483648);
+  assert.throws(() => parseBaseInteger('102', 2), /Syntax ERROR/);
+  assert.throws(() => parseBaseInteger('8', 8), /Syntax ERROR/);
+  assert.throws(() => parseBaseInteger('A', 10), /Syntax ERROR/);
   assert.equal(baseUnary(0, 'not'), -1);
   assert.equal(baseBinary(0b1010, 0b1100, 'xor'), 0b0110);
 });
@@ -42,12 +56,22 @@ test('matrix operations include determinant inverse and identity', () => {
   const values = [[2, 1], [1, 1]];
   assert.equal(matrixDeterminant(values), 1);
   assert.deepEqual(matrixMultiply(values, matrixInverse(values)).map(row => row.map(Math.round)), matrixIdentity(2));
+  assert.throws(() => matrixIdentity(5), /Argument ERROR/);
 });
 
 test('vector operations include dot angle and unit vector', () => {
   assert.equal(vectorDot([1, 0], [0, 1]), 0);
   assert.equal(vectorAngle([1, 0], [0, 1], 'DEG'), 90);
   assert.deepEqual(vectorUnit([3, 4]).map(value => Number(value.toFixed(2))), [0.6, 0.8]);
+  assert.throws(() => vectorDot([1], [1]), /Dimension ERROR/);
+  assert.throws(() => vectorDot([1, 2, 3, 4], [1, 2, 3, 4]), /Dimension ERROR/);
+});
+
+test('statistics editor capacities match fx-991CN X memory layout', () => {
+  assert.equal(statisticsCapacity('single', false), 160);
+  assert.equal(statisticsCapacity('single', true), 80);
+  assert.equal(statisticsCapacity('double', false), 80);
+  assert.equal(statisticsCapacity('double', true), 53);
 });
 
 test('single variable statistics and linear regression', () => {

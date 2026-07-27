@@ -1,29 +1,267 @@
 {
-  "Claude STM32(粗校).md": {
-    "mtime": 1777268114421.1926
-  },
-  "claude数据结构整理(粗校)链表这里没弄完,欠缺栈的应用及其他应用.md": {
-    "mtime": 1777358421128.8171
-  },
-  "Claude离散数学(粗校)有些公式重复两到三次.md": {
-    "mtime": 1777352477706.7388
-  },
   "Claude编译原理(粗校).md": {
-    "mtime": 1777351119254.3396
+    "mtime": 1785056094684.214,
+    "mode": "manual-major-chapters",
+    "chapters": 5
   },
   "Claude计算机网络(粗校).md": {
-    "mtime": 1777374294326.066
+    "mtime": 1785057858262.3127,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "Claude输出内容(粗校).md": {
+    "mtime": 1785053491934.4578,
+    "mode": "manual-major-chapters",
+    "chapters": 1
+  },
+  "cpp(粗校).md": {
+    "mtime": 1784815849427.8884,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "CUDA(粗校).md": {
+    "mtime": 1785053491950.0356,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "linux内核(粗校).md": {
+    "mtime": 1785054845023.5994,
+    "mode": "manual-major-chapters",
+    "chapters": 7
+  },
+  "rust(粗校).md": {
+    "mtime": 1785053491954.1824,
+    "mode": "manual-major-chapters",
+    "chapters": 6
   },
   "中东历史(粗校).md": {
-    "mtime": 1777267521569.91
+    "mtime": 1785052525532.533,
+    "mode": "manual-major-chapters",
+    "chapters": 3
+  },
+  "代数几何(粗校).md": {
+    "mtime": 1784815845442.7124,
+    "mode": "manual-major-chapters",
+    "chapters": 7
+  },
+  "传统视觉算法(粗校).md": {
+    "mtime": 1785056517267.7815,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "理论力学(粗校).md": {
+    "mtime": 1785056517326.1348,
+    "mode": "manual-major-chapters",
+    "chapters": 9
+  },
+  "结构力学(粗校).md": {
+    "mtime": 1785056517319.6248,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "群论(粗校).md": {
+    "mtime": 1785057664905.272,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "自动机(粗校).md": {
+    "mtime": 1785054837734.4602,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "计算机图形学(粗校).md": {
+    "mtime": 1785053491870.79,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "计算机组成原理(粗校).md": {
+    "mtime": 1785056608907.1035,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "通信原理(粗校).md": {
+    "mtime": 1785056517369.7275,
+    "mode": "manual-major-chapters",
+    "chapters": 8
+  },
+  "量子力学(粗校).md": {
+    "mtime": 1785053271787.715,
+    "mode": "manual-major-chapters",
+    "chapters": 7
   },
   "信息论(粗校).md": {
-    "mtime": 1777268275694.336
+    "mtime": 1785056517379.761,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "偏微分方程(粗校).md": {
+    "mtime": 1785057664904.271,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "凸优化(粗校).md": {
+    "mtime": 1785053271839.3176,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "刚体力学(粗校).md": {
+    "mtime": 1785056517300.87,
+    "mode": "manual-major-chapters",
+    "chapters": 3
+  },
+  "动力系统(粗校).md": {
+    "mtime": 1785053271738.4424,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "回归分析(粗校).md": {
+    "mtime": 1785053271757.9858,
+    "mode": "manual-major-chapters",
+    "chapters": 2
+  },
+  "复分析(粗校).md": {
+    "mtime": 1785056517294.3455,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "多元统计分析(粗校).md": {
+    "mtime": 1785053271746.4,
+    "mode": "manual-major-chapters",
+    "chapters": 7
+  },
+  "实分析(粗校).md": {
+    "mtime": 1785058151521.3418,
+    "mode": "manual-major-chapters",
+    "chapters": 6
   },
   "布尔代数(粗校).md": {
-    "mtime": 1777351288317.81
+    "mtime": 1785058151449.9817,
+    "mode": "manual-major-chapters",
+    "chapters": 2
+  },
+  "常微分方程(粗校).md": {
+    "mtime": 1785056517265.2573,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "张量(粗校).md": {
+    "mtime": 1785056517381.7632,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "弹性力学(粗校).md": {
+    "mtime": 1785058151511.743,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "微分几何(粗校).md": {
+    "mtime": 1785054837332.6392,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "拓扑学(粗校).md": {
+    "mtime": 1785053491897.2634,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "操作系统(粗校).md": {
+    "mtime": 1785054835120.9102,
+    "mode": "manual-major-chapters",
+    "chapters": 2
+  },
+  "数字图像处理(粗校).md": {
+    "mtime": 1785056229173.706,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "数字电路(粗校).md": {
+    "mtime": 1785053271827.9438,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "数论(粗校).md": {
+    "mtime": 1785053491894.1216,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "时间序列分析(粗校).md": {
+    "mtime": 1785053271808.3672,
+    "mode": "manual-major-chapters",
+    "chapters": 7
+  },
+  "机器人视觉入门(粗校).md": {
+    "mtime": 1785056517304.7153,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "机器学习深度学习(粗校).md": {
+    "mtime": 1785056517310.1064,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "概率论与数理统计(粗校).md": {
+    "mtime": 1785056517298.8682,
+    "mode": "manual-major-chapters",
+    "chapters": 5
   },
   "欧洲历史(粗校).md": {
-    "mtime": 1777278264430.0938
+    "mtime": 1785053491887.9353,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "法考(粗校).md": {
+    "mtime": 1785058151517.3325,
+    "mode": "manual-major-chapters",
+    "chapters": 5
+  },
+  "泛函分析(粗校).md": {
+    "mtime": 1785053271749.9827,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "流体力学(粗校).md": {
+    "mtime": 1785058151519.391,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "深度学习视觉(粗校).md": {
+    "mtime": 1785053491890.121,
+    "mode": "manual-major-chapters",
+    "chapters": 4
+  },
+  "理解分析(粗校).md": {
+    "mtime": 1785056517323.629,
+    "mode": "manual-major-chapters",
+    "chapters": 8
+  },
+  "Claude STM32(粗校).md": {
+    "mtime": 1785057664847.1455,
+    "mode": "manual-major-chapters",
+    "chapters": 7
+  },
+  "Claude图形学(粗校).md": {
+    "mtime": 1784738332400.7476,
+    "mode": "manual-major-chapters",
+    "chapters": 2
+  },
+  "claude数据结构整理(粗校)链表这里没弄完,欠缺栈的应用及其他应用.md": {
+    "mtime": 1785058151506.6982,
+    "mode": "manual-major-chapters",
+    "chapters": 7
+  },
+  "Claude模拟电路(粗校).md": {
+    "mtime": 1785056608946.2722,
+    "mode": "manual-major-chapters",
+    "chapters": 6
+  },
+  "Claude电路(粗校).md": {
+    "mtime": 1785058151479.5603,
+    "mode": "manual-major-chapters",
+    "chapters": 11
+  },
+  "Claude离散数学(粗校)有些公式重复两到三次.md": {
+    "mtime": 1785058151494.984,
+    "mode": "manual-major-chapters",
+    "chapters": 8
   }
 }

@@ -31,6 +31,11 @@ export type NumberFormat =
   | { kind: 'Fix'; digits: number }
   | { kind: 'Sci'; digits: number };
 
+export type DisplayFormatOptions = {
+  decimalPoint?: 'dot' | 'comma';
+  digitSeparator?: boolean;
+};
+
 
 export interface EvaluationContext {
   variables: Record<string, number>;
@@ -40,6 +45,9 @@ export interface EvaluationContext {
   exactAns?: ExactValue;
   resultMode?: ResultMode;
   numberFormat?: NumberFormat;
+  decimalPoint?: 'dot' | 'comma';
+  digitSeparator?: boolean;
+  engineeringSymbols?: boolean;
 }
 
 export interface EvalResult {
@@ -48,7 +56,7 @@ export interface EvalResult {
   displayText: string;
   exact?: ExactValue;
   assignments?: Partial<Record<'X' | 'Y', number>>;
-  errorType?: 'Math ERROR' | 'Syntax ERROR' | 'Argument ERROR' | 'Dimension ERROR' | 'Range ERROR' | 'Variable ERROR' | 'No Solution';
+  errorType?: 'Math ERROR' | 'Stack ERROR' | 'Syntax ERROR' | 'Argument ERROR' | 'Dimension ERROR' | 'Range ERROR' | 'Variable ERROR' | 'No Solution' | 'Timeout ERROR';
 }
 
 export interface SolveResult extends EvalResult {
@@ -114,7 +122,11 @@ function normalizeOpenRadicals(input: string): string {
 }
 
 function normalizeInput(input: string): string {
-  return normalizeOpenRadicals(input)
+  const dmsExpanded = input.replace(
+    /([+-]?(?:\d+(?:\.\d*)?|\.\d+))°(\d+(?:\.\d*)?|\.\d+)′(?:(\d+(?:\.\d*)?|\.\d+)″)?/g,
+    (_, degrees, minutes, seconds) => `dms(${degrees},${minutes},${seconds ?? '0'})`,
+  );
+  return normalizeOpenRadicals(dmsExpanded)
     .replace(/³√\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))/g, 'cbrt($1)')
     .replace(/√\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))/g, 'sqrt($1)')
     .replaceAll('÷R', ' remainder ')
@@ -125,6 +137,17 @@ function normalizeInput(input: string): string {
     .replaceAll('√', 'sqrt')
     .replaceAll('π', 'pi')
     .replaceAll('Π', 'pi')
+    .replaceAll('ₘ', 'eng_m')
+    .replaceAll('µ', 'eng_micro')
+    .replaceAll('ₙ', 'eng_n')
+    .replaceAll('ₚ', 'eng_p')
+    .replaceAll('բ', 'eng_f')
+    .replaceAll('ᴋ', 'eng_k')
+    .replaceAll('ℳ', 'eng_mega')
+    .replaceAll('ɢ', 'eng_giga')
+    .replaceAll('ᴛ', 'eng_tera')
+    .replaceAll('ᴘ', 'eng_peta')
+    .replaceAll('ᴇ', 'eng_exa')
     .replaceAll('Σ', 'sum')
     .replaceAll('∫dx', 'integral')
     .replaceAll('∫', 'integral')
@@ -213,7 +236,7 @@ function insertImplicitMultiplication(tokens: Token[]): Token[] {
     const curr = tokens[i];
     const prev = out[out.length - 1];
     if (prev && needsMultiply(prev, curr)) {
-      out.push({ type: 'operator', value: '*' });
+      out.push({ type: 'operator', value: 'implicit*' });
     }
     out.push(curr);
   }
@@ -263,10 +286,18 @@ class Parser {
   }
 
   private parseMulDiv(): Node {
-    let node = this.parseUnary();
+    let node = this.parseImplicitMultiplication();
     while (this.matchOperator('*', '/', 'remainder', 'npr', 'ncr')) {
       const op = String(this.previous().value).toLowerCase();
-      node = { type: 'binary', op, left: node, right: this.parseUnary() };
+      node = { type: 'binary', op, left: node, right: this.parseImplicitMultiplication() };
+    }
+    return node;
+  }
+
+  private parseImplicitMultiplication(): Node {
+    let node = this.parseUnary();
+    while (this.matchOperator('implicit*')) {
+      node = { type: 'binary', op: '*', left: node, right: this.parseUnary() };
     }
     return node;
   }
@@ -289,7 +320,7 @@ class Parser {
 
   private parsePostfix(): Node {
     let node = this.parsePrimary();
-    while (this.matchOperator('!', '%', '°')) node = { type: 'postfix', op: String(this.previous().value), expr: node };
+    while (this.matchOperator('!', '%', '°', 'ʳ', 'ᵍ')) node = { type: 'postfix', op: String(this.previous().value), expr: node };
     return node;
   }
 
@@ -446,6 +477,28 @@ function recurringExact(args: Node[]): ExactReal | undefined {
   return exactRational(value);
 }
 
+const ENGINEERING_FACTORS: Record<string, number> = {
+  ENG_M: 1e-3,
+  ENG_MICRO: 1e-6,
+  ENG_N: 1e-9,
+  ENG_P: 1e-12,
+  ENG_F: 1e-15,
+  ENG_K: 1e3,
+  ENG_MEGA: 1e6,
+  ENG_GIGA: 1e9,
+  ENG_TERA: 1e12,
+  ENG_PETA: 1e15,
+  ENG_EXA: 1e18,
+};
+
+function exactEngineeringFactor(key: string): ExactReal | undefined {
+  const value = ENGINEERING_FACTORS[key];
+  if (value === undefined) return undefined;
+  const decimal = value.toExponential().replace('e+', 'e');
+  const exact = rationalFromDecimal(decimal);
+  return exact ? exactRational(exact) : undefined;
+}
+
 function evalExactNode(node: Node, ctx: EvaluationContext): ExactReal | undefined {
   if (node.type === 'number') {
     const value = rationalFromDecimal(node.raw);
@@ -453,6 +506,8 @@ function evalExactNode(node: Node, ctx: EvaluationContext): ExactReal | undefine
   }
   if (node.type === 'variable') {
     const key = node.name.toUpperCase();
+    const engineering = exactEngineeringFactor(key);
+    if (engineering) return engineering;
     if (key === 'ANS') return ctx.exactAns?.kind === 'exact-real' ? ctx.exactAns : undefined;
     const stored = ctx.exactVariables?.[key];
     return stored?.kind === 'exact-real' ? stored : undefined;
@@ -522,12 +577,14 @@ function evalExactNode(node: Node, ctx: EvaluationContext): ExactReal | undefine
   }
   if (['sin', 'cos', 'tan'].includes(name)) return specialTrigExact(name, exactValues[0], ctx.angleMode);
   if (name === 'dms' && exactValues.length === 3) {
+    const sign = exactRealToNumber(exactValues[0]) < 0 ? -1 : 1;
+    const subdegrees = addExactReal(
+      divideExactReal(exactValues[1], exactRational(rational(60n)))!,
+      divideExactReal(exactValues[2], exactRational(rational(3600n)))!,
+    )!;
     const degrees = addExactReal(
       exactValues[0],
-      addExactReal(
-        divideExactReal(exactValues[1], exactRational(rational(60n)))!,
-        divideExactReal(exactValues[2], exactRational(rational(3600n)))!,
-      )!,
+      sign < 0 ? negateExactReal(subdegrees) : subdegrees,
     );
     if (!degrees) return undefined;
     if (ctx.angleMode === 'DEG') return degrees;
@@ -577,6 +634,7 @@ function readVariable(name: string, ctx: EvaluationContext): number {
     if (!item) throw new Error('Argument ERROR');
     return item.value;
   }
+  if (key in ENGINEERING_FACTORS) return ENGINEERING_FACTORS[key];
   if (key === 'PI') return Math.PI;
   if (name === 'e') return Math.E;
   if (key === 'ANS') return ctx.ans;
@@ -669,7 +727,13 @@ function callFunction(name: string, args: number[], ctx: EvaluationContext): num
     case 'rec': return args[0] * Math.cos(args[1] * rad);
     case 'remainder': return evalBinary('remainder', args[0], args[1]);
     case 'gcd': return gcd(args[0], args[1]);
-    case 'dms': return degreesToAngleUnit(args[0] + args[1] / 60 + args[2] / 3600, ctx.angleMode);
+    case 'dms': {
+      if (args.length !== 3 || args[1] < 0 || args[1] >= 60 || args[2] < 0 || args[2] >= 60) {
+        throw new Error('Argument ERROR');
+      }
+      const sign = args[0] < 0 ? -1 : 1;
+      return degreesToAngleUnit(args[0] + sign * (args[1] / 60 + args[2] / 3600), ctx.angleMode);
+    }
     case 'todms': return args[0];
     case 'lcm': return Math.abs(args[0] * args[1]) / gcd(args[0], args[1]);
     case 'normalpdf': return normalPdf(args[0], args[1] ?? 0, args[2] ?? 1);
@@ -841,6 +905,9 @@ function formatDms(value: number, mode: AngleMode): string {
 
 export function evaluateExpression(input: string, ctx: EvaluationContext): EvalResult {
   if (!input.trim()) return { success: true, value: 0, displayText: '0', exact: exactRational(rational(0n)) };
+  if (input.length > 199) {
+    return { success: false, value: 0, displayText: 'Syntax ERROR', errorType: 'Syntax ERROR' };
+  }
   try {
     const statements = completeParentheses(input).split(':').map(part => part.trim()).filter(Boolean);
     let value = 0;
@@ -856,7 +923,7 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         value = r;
         assignments = { X: r, Y: theta };
         exact = undefined;
-        displayText = `r=${formatCasioValue(r, ctx.numberFormat)}, theta=${formatCasioValue(theta, ctx.numberFormat)}`;
+        displayText = `r=${formatContextValue(r, ctx)}, theta=${formatContextValue(theta, ctx)}`;
         continue;
       }
       if (/^rec\(/i.test(normalized)) {
@@ -867,7 +934,7 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         value = x;
         assignments = { X: x, Y: y };
         exact = undefined;
-        displayText = `x=${formatCasioValue(x, ctx.numberFormat)}, y=${formatCasioValue(y, ctx.numberFormat)}`;
+        displayText = `x=${formatContextValue(x, ctx)}, y=${formatContextValue(y, ctx)}`;
         continue;
       }
       if (/\bremainder\b/i.test(normalized)) {
@@ -878,9 +945,9 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
         const absRight = Math.abs(right);
         const remainder = ((left % right) + absRight) % absRight;
         const quotient = (left - remainder) / right;
-        value = remainder;
+        value = quotient;
         exact = undefined;
-        displayText = `Q=${formatCasioValue(quotient, ctx.numberFormat)}, R=${formatCasioValue(remainder, ctx.numberFormat)}`;
+        displayText = `Q=${formatContextValue(quotient, ctx)}, R=${formatContextValue(remainder, ctx)}`;
         continue;
       }
       const parsed = new Parser(tokenize(statement)).parse();
@@ -888,17 +955,24 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
       exact = evalExactNode(parsed, ctx);
       displayText = /^todms\(/i.test(normalized)
         ? formatDms(value, ctx.angleMode)
-        : formatCasioValue(value, ctx.numberFormat);
+        : formatContextValue(value, ctx);
     }
-    if (!Number.isFinite(value)) throw new Error('Math ERROR');
+    if (!Number.isFinite(value) || Math.abs(value) >= 1e100) throw new Error('Math ERROR');
+    if (value !== 0 && Math.abs(value) < 1e-99) {
+      value = 0;
+      exact = exactRational(rational(0));
+      displayText = formatContextValue(0, ctx);
+    }
     if (displayText === '1' && /(?:=|==|!=|<|>|<=|>=)/.test(input)) displayText = 'True';
     if (displayText === '0' && /(?:=|==|!=|<|>|<=|>=)/.test(input)) displayText = 'False';
     return { success: true, value, displayText, exact, assignments };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Syntax ERROR';
-    const errorType = ['Math ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR'].includes(message)
-      ? message as EvalResult['errorType']
-      : 'Syntax ERROR';
+    const errorType = err instanceof RangeError
+      ? 'Stack ERROR'
+      : ['Math ERROR', 'Stack ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR', 'Timeout ERROR'].includes(message)
+        ? message as EvalResult['errorType']
+        : 'Syntax ERROR';
     return { success: false, value: 0, displayText: errorType || 'Syntax ERROR', errorType };
   }
 }
@@ -960,7 +1034,9 @@ export function solveForVariable(input: string, variable: string, ctx: Evaluatio
 
     roots.sort((a, b) => a - b);
     if (roots.length === 0) throw new Error('No Solution');
-    const first = roots[0];
+    const first = roots.reduce((nearest, candidate) =>
+      Math.abs(candidate - center) < Math.abs(nearest - center) ? candidate : nearest,
+    roots[0]);
     return {
       success: true,
       value: first,
@@ -1052,23 +1128,73 @@ function splitArgs(input: string): string[] {
   return out;
 }
 
-export function formatCasioValue(value: number, format: NumberFormat = { kind: 'Norm1' }): string {
+function applyDisplayFormat(text: string, options: DisplayFormatOptions): string {
+  if (text === 'Math ERROR') return text;
+  const [mantissa, exponent] = text.split('e');
+  const negative = mantissa.startsWith('-');
+  const unsigned = negative ? mantissa.slice(1) : mantissa;
+  const [integer, fraction] = unsigned.split('.');
+  const grouped = options.digitSeparator
+    ? integer.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    : integer;
+  const decimal = options.decimalPoint === 'comma' ? ',' : '.';
+  const body = `${negative ? '-' : ''}${grouped}${fraction === undefined ? '' : decimal + fraction}`;
+  return exponent === undefined ? body : `${body}e${exponent}`;
+}
+
+export function formatCasioValue(
+  value: number,
+  format: NumberFormat = { kind: 'Norm1' },
+  options: DisplayFormatOptions = {},
+): string {
   if (Object.is(value, -0)) return '0';
   if (!Number.isFinite(value)) return 'Math ERROR';
+  let text: string;
   if (format.kind === 'Fix') {
     const digits = Math.max(0, Math.min(9, Math.trunc(format.digits)));
-    return value.toFixed(digits);
-  }
-  if (format.kind === 'Sci') {
+    text = value.toFixed(digits);
+  } else if (format.kind === 'Sci') {
     const digits = Math.max(1, Math.min(10, Math.trunc(format.digits)));
-    return value.toExponential(digits - 1).replace('e+', 'e');
+    text = value.toExponential(digits - 1).replace('e+', 'e');
+  } else {
+    const abs = Math.abs(value);
+    if (abs === 0) text = '0';
+    else if (Math.abs(value - Math.round(value)) < 1e-12 && abs < 1e15) text = String(Math.round(value));
+    else {
+      const lower = format.kind === 'Norm1' ? 1e-2 : 1e-9;
+      text = abs >= 1e10 || abs < lower
+        ? value.toExponential(10).replace(/\.?0+e/, 'e').replace('e+', 'e')
+        : Number(value.toPrecision(12)).toString();
+    }
   }
-  const abs = Math.abs(value);
-  if (abs === 0) return '0';
-  if (Math.abs(value - Math.round(value)) < 1e-12 && abs < 1e15) return String(Math.round(value));
-  const lower = format.kind === 'Norm1' ? 1e-2 : 1e-9;
-  if (abs >= 1e10 || abs < lower) return value.toExponential(10).replace(/\.?0+e/, 'e').replace('e+', 'e');
-  return Number(value.toPrecision(12)).toString();
+  return applyDisplayFormat(text, options);
+}
+
+const ENGINEERING_DISPLAY_SYMBOLS: Record<number, string> = {
+  [-15]: 'f',
+  [-12]: 'p',
+  [-9]: 'n',
+  [-6]: 'μ',
+  [-3]: 'm',
+  [3]: 'k',
+  [6]: 'M',
+  [9]: 'G',
+  [12]: 'T',
+  [15]: 'P',
+  [18]: 'E',
+};
+
+function formatContextValue(value: number, context: EvaluationContext): string {
+  const options = {
+    decimalPoint: context.decimalPoint,
+    digitSeparator: context.digitSeparator,
+  };
+  if (context.engineeringSymbols && value !== 0 && Number.isFinite(value)) {
+    const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3;
+    const symbol = ENGINEERING_DISPLAY_SYMBOLS[exponent];
+    if (symbol) return `${formatCasioValue(value / 10 ** exponent, context.numberFormat, options)}${symbol}`;
+  }
+  return formatCasioValue(value, context.numberFormat, options);
 }
 
 function bigintGcd(a: bigint, b: bigint): bigint {

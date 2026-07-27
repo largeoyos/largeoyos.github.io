@@ -1,0 +1,135 @@
+[
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "- FOLLOW(S) = {$}(S 是开始符号)",
+    "after": "- FOLLOW(S) = {\\$}（S 是开始符号）",
+    "expected": 1,
+    "reason": "转义输入结束符，避免误识别为公式定界符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "- S → ε 的预测集 = FOLLOW(S) = {$, b}",
+    "after": "- S → ε 的预测集 = FOLLOW(S) = {\\$, b}",
+    "expected": 1,
+    "reason": "转义输入结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "- {a} ∩ {$, b} = ∅ ✓",
+    "after": "- {a} ∩ {\\$, b} = ∅ ✓",
+    "expected": 1,
+    "reason": "转义输入结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|1|(空)|id + id * id $|移进 id|",
+    "after": "|1|(空)|id + id * id \\$|移进 id|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|2|id|+ id * id $|归约 F → id|",
+    "after": "|2|id|+ id * id \\$|归约 F → id|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|3|F|+ id * id $|归约 T → F|",
+    "after": "|3|F|+ id * id \\$|归约 T → F|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|4|T|+ id * id $|归约 E → T|",
+    "after": "|4|T|+ id * id \\$|归约 E → T|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|5|E|+ id * id $|移进 +|",
+    "after": "|5|E|+ id * id \\$|移进 +|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|6|E +|id * id $|移进 id|",
+    "after": "|6|E +|id * id \\$|移进 id|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|7|E + id|* id $|归约 F → id|",
+    "after": "|7|E + id|* id \\$|归约 F → id|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|8|E + F|* id $|归约 T → F|",
+    "after": "|8|E + F|* id \\$|归约 T → F|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|9|E + T|* id $|**移进 *** ← 注意这里!|",
+    "after": "|9|E + T|* id \\$|**移进 `*`** ← 注意这里|",
+    "expected": 1,
+    "reason": "转义结束符并修复损坏的加粗标记"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|10|E + T *|id $|移进 id|",
+    "after": "|10|E + T *|id \\$|移进 id|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|11|E + T * id|$|归约 F → id|",
+    "after": "|11|E + T * id|\\$|归约 F → id|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|12|E + T * F|$|归约 T → T * F|",
+    "after": "|12|E + T * F|\\$|归约 T → T * F|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|13|E + T|$|归约 E → E + T|",
+    "after": "|13|E + T|\\$|归约 E → E + T|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude编译原理(粗校).md",
+    "before": "|14|E|$|接受 ✓|",
+    "after": "|14|E|\\$|接受 ✓|",
+    "expected": 1,
+    "reason": "转义分析输入中的结束符"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "你有 $50，赌场每轮 0.49 概率赢 $1，0.51 概率输 $1。目标 $100，否则 $0。",
+    "after": "设初始资金为 50 美元。赌场每轮以 0.49 的概率赢 1 美元，以 0.51 的概率输 1 美元；达到 100 美元视为成功，资金归零视为失败。",
+    "expected": 1,
+    "reason": "修复货币符号误触发公式并改为教程语气"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "(1) 公式法求\"达到 $100\"的概率。 (2) 如果初始为 $1，概率多少？$99 呢？画图理解。 (3) 期望赌局轮数？（提示：解期望吸收时间方程）",
+    "after": "(1) 用公式求达到 100 美元的概率；(2) 分别计算初始资金为 1 美元和 99 美元时的概率，并画图比较；(3) 求赌局的期望轮数（提示：求解期望吸收时间方程）。",
+    "expected": 1,
+    "reason": "修复货币符号误触发公式并整理练习说明"
+  }
+]

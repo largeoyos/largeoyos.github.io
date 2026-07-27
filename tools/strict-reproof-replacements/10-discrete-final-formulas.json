@@ -1,0 +1,415 @@
+[
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "¬  >  ∧  >  ∨  >  →  >  ↔\\neg \\;>\\; \\land \\;>\\; \\lor \\;>\\; \\to \\;>\\; \\leftrightarrow¬>∧>∨>→>↔",
+    "after": "$\\neg \\;>\\; \\land \\;>\\; \\lor \\;>\\; \\to \\;>\\; \\leftrightarrow$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "¬(P→Q)∨(P→Q)⇔T（排中律）\\neg(P \\to Q) \\lor (P \\to Q) \\Leftrightarrow T \\quad \\text{（排中律）}¬(P→Q)∨(P→Q)⇔T（排中律）",
+    "after": "$\\neg(P \\to Q) \\lor (P \\to Q) \\Leftrightarrow T \\quad \\text{（排中律）}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "¬(P∧Q)⇔¬P∨¬Q\\neg(P \\land Q) \\Leftrightarrow \\neg P \\lor \\neg Q¬(P∧Q)⇔¬P∨¬Q ¬(P∨Q)⇔¬P∧¬Q\\neg(P \\lor Q) \\Leftrightarrow \\neg P \\land \\neg Q¬(P∨Q)⇔¬P∧¬Q",
+    "after": "$\\neg(P \\land Q) \\Leftrightarrow \\neg P \\lor \\neg Q$  \n$\\neg(P \\lor Q) \\Leftrightarrow \\neg P \\land \\neg Q$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "¬P⇔P↑P\\neg P \\Leftrightarrow P \\uparrow P¬P⇔P↑P P∧Q⇔¬(P↑Q)⇔(P↑Q)↑(P↑Q)P \\land Q \\Leftrightarrow \\neg(P \\uparrow Q) \\Leftrightarrow (P \\uparrow Q) \\uparrow (P \\uparrow Q)P∧Q⇔¬(P↑Q)⇔(P↑Q)↑(P↑Q) P∨Q⇔(¬P)↑(¬Q)⇔(P↑P)↑(Q↑Q)P \\lor Q \\Leftrightarrow (\\neg P) \\uparrow (\\neg Q) \\Leftrightarrow (P \\uparrow P) \\uparrow (Q \\uparrow Q)P∨Q⇔(¬P)↑(¬Q)⇔(P↑P)↑(Q↑Q)",
+    "after": "$\\neg P \\Leftrightarrow P \\uparrow P$  \n$P \\land Q \\Leftrightarrow \\neg(P \\uparrow Q) \\Leftrightarrow (P \\uparrow Q) \\uparrow (P \\uparrow Q)$  \n$P \\lor Q \\Leftrightarrow (\\neg P) \\uparrow (\\neg Q) \\Leftrightarrow (P \\uparrow P) \\uparrow (Q \\uparrow Q)$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "从**前提** A1,A2,…,AnA_1, A_2, \\ldots, A_n A1,A2,…,An 推出**结论** B B，记作：",
+    "after": "从**前提** $A_1, A_2, \\ldots, A_n$ 推出**结论** $B$，记作：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "3. 他们没请客 (¬R\\neg R ¬R)。",
+    "after": "3. 他们没请客（$\\neg R$）。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**结论**：小明没考上大学 (¬P\\neg P ¬P)。",
+    "after": "**结论**：小明没考上大学（$\\neg P$）。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**前提**：$P \\lor Q$，$P \\to R$，Q→RQ \\to R Q→R **结论**：R R",
+    "after": "**前提**：$P \\lor Q$，$P \\to R$，$Q \\to R$；**结论**：$R$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "Γ,A⊨B⇔Γ⊨A→B\\Gamma, A \\models B \\quad \\Leftrightarrow \\quad \\Gamma \\models A \\to BΓ,A⊨B⇔Γ⊨A→B",
+    "after": "$\\Gamma, A \\models B \\quad \\Leftrightarrow \\quad \\Gamma \\models A \\to B$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**前提**：$P \\to (Q \\to R)$，P→QP \\to Q P→Q **结论**：$P \\to R$",
+    "after": "**前提**：$P \\to (Q \\to R)$，$P \\to Q$；**结论**：$P \\to R$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "Γ⊨B⇔Γ,¬B⊨F\\Gamma \\models B \\quad \\Leftrightarrow \\quad \\Gamma, \\neg B \\models FΓ⊨B⇔Γ,¬B⊨F",
+    "after": "$\\Gamma \\models B \\quad \\Leftrightarrow \\quad \\Gamma, \\neg B \\models F$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**前提**：$P \\to Q$，¬Q\\neg Q ¬Q **结论**：$\\neg P$",
+    "after": "**前提**：$P \\to Q$，$\\neg Q$；**结论**：$\\neg P$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|(5)|Q∧¬Q \\land \\neg Q Q∧¬Q|(2)(4) 合取律|",
+    "after": "|(5)|$Q \\land \\neg Q$|(2)(4) 合取律|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- 如果甲是凶手，则乙不是。(P→¬QP \\to \\neg Q P→¬Q)",
+    "after": "- 如果甲是凶手，则乙不是（$P \\to \\neg Q$）。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- 要么丙是凶手，要么乙是。(R∨QR \\lor Q R∨Q)",
+    "after": "- 要么丙是凶手，要么乙是（$R \\lor Q$）。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- 丙不是凶手。(¬R\\neg R ¬R)",
+    "after": "- 丙不是凶手（$\\neg R$）。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|(7)|Q∧¬Q \\land \\neg Q Q∧¬Q|(4)(6) 合取律 → 矛盾|",
+    "after": "|(7)|$Q \\land \\neg Q$|(4)(6) 合取律 → 矛盾|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (1) 用 NAND (↑) 表示 P↔QP \\leftrightarrow Q P↔Q，并用真值表验证。",
+    "after": "- (1) 用 NAND（$\\uparrow$）表示 $P \\leftrightarrow Q$，并用真值表验证。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**前提**：P→(Q→R)P \\to (Q \\to R) P→(Q→R) **结论**：$(P \\land Q) \\to R$",
+    "after": "**前提**：$P \\to (Q \\to R)$；**结论**：$(P \\land Q) \\to R$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**注意第一句的结构**：它**不是** ∀x M(x)∧∀x D(x)\\forall x \\, M(x) \\land \\forall x \\, D(x) ∀xM(x)∧∀xD(x)（\"所有东西都是人且所有东西都会死\"），也**不是** ∀x M(x)→∀x D(x)\\forall x \\, M(x) \\to \\forall x \\, D(x) ∀xM(x)→∀xD(x)（这意思变了）。",
+    "after": "**注意第一句的结构**：它**不是** $\\forall x\\,M(x) \\land \\forall x\\,D(x)$（“所有对象都是人且所有对象都会死”），也**不是** $\\forall x\\,M(x) \\to \\forall x\\,D(x)$（含义已经改变）。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. ∀x (M(x)→D(x))\\forall x \\, (M(x) \\to D(x)) ∀x(M(x)→D(x))（前提 1）",
+    "after": "1. $\\forall x\\,(M(x) \\to D(x))$（前提 1）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. 从 ∀\\forall ∀ 特化到 s s：$M(s) \\to D(s)$",
+    "after": "2. 从 $\\forall$ 命题特化到个体 $s$：$M(s) \\to D(s)$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> **所有 P 都是 Q** ⟹ ∀x (P(x)→Q(x))\\forall x \\, (P(x) \\to Q(x)) ∀x(P(x)→Q(x))",
+    "after": "> **所有 P 都是 Q** ⟹ $\\forall x\\,(P(x) \\to Q(x))$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> **存在一个 P 是 Q** ⟹ ∃x (P(x)∧Q(x))\\exists x \\, (P(x) \\land Q(x)) ∃x(P(x)∧Q(x))",
+    "after": "> **存在一个 P 是 Q** ⟹ $\\exists x\\,(P(x) \\land Q(x))$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "¬∀x P(x)⇔∃x ¬P(x)\\neg \\forall x \\, P(x) \\Leftrightarrow \\exists x \\, \\neg P(x)¬∀xP(x)⇔∃x¬P(x) ¬∃x P(x)⇔∀x ¬P(x)\\neg \\exists x \\, P(x) \\Leftrightarrow \\forall x \\, \\neg P(x)¬∃xP(x)⇔∀x¬P(x)",
+    "after": "$\\neg \\forall x\\,P(x) \\Leftrightarrow \\exists x\\,\\neg P(x)$  \n$\\neg \\exists x\\,P(x) \\Leftrightarrow \\forall x\\,\\neg P(x)$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. ∀x (E(x)→D(x))\\forall x \\, (E(x) \\to D(x)) ∀x(E(x)→D(x))（所有偶数都能被 2 整除）",
+    "after": "1. $\\forall x\\,(E(x) \\to D(x))$（所有偶数都能被 2 整除）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. ∃x (S(x)∧C(x))\\exists x \\, (S(x) \\land C(x)) ∃x(S(x)∧C(x))（存在聪明的学生）",
+    "after": "2. $\\exists x\\,(S(x) \\land C(x))$（存在聪明的学生）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. ¬∃x (S(x)∧C(x))⇔∀x (¬S(x)∨¬C(x))⇔∀x (S(x)→¬C(x))\\neg \\exists x \\, (S(x) \\land C(x)) \\Leftrightarrow \\forall x \\, (\\neg S(x) \\lor \\neg C(x)) \\Leftrightarrow \\forall x \\, (S(x) \\to \\neg C(x)) ¬∃x(S(x)∧C(x))⇔∀x(¬S(x)∨¬C(x))⇔∀x(S(x)→¬C(x))（所有学生都不聪明）",
+    "after": "2. $\\neg \\exists x\\,(S(x) \\land C(x)) \\Leftrightarrow \\forall x\\,(\\neg S(x) \\lor \\neg C(x)) \\Leftrightarrow \\forall x\\,(S(x) \\to \\neg C(x))$（所有学生都不聪明）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> 在公式 $Q x \\, P(x, y, z, \\ldots)$ 中（Q Q 是 ∀\\forall ∀ 或 ∃\\exists ∃）：",
+    "after": "> 在公式 $Qx\\,P(x,y,z,\\ldots)$ 中（$Q$ 表示 $\\forall$ 或 $\\exists$）：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∀x⏟约束 x (P(x)→Q(x,y)⏟这里的 x 被约束了, y 自由)\\underbrace{\\forall x}_{\\text{约束 x}} \\, (P(x) \\to \\underbrace{Q(x, y)}_{\\text{这里的 x 被约束了, y 自由}})约束 x∀x​​(P(x)→这里的 x 被约束了, y 自由Q(x,y)​​)",
+    "after": "$\\underbrace{\\forall x}_{\\text{约束 }x}\\,(P(x) \\to \\underbrace{Q(x,y)}_{\\text{其中 }x\\text{ 被约束，}y\\text{ 自由}})$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∀x P(x)\\forall x \\, P(x) ∀xP(x) —— 是命题，真值由个体域和 P 决定。",
+    "after": "$\\forall x\\,P(x)$ 是命题，真值由个体域和 $P$ 决定。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∀x Q(x,y)\\forall x \\, Q(x, y) ∀xQ(x,y) —— **不是命题**，因为 y 是自由的，真值依赖 y 的取值。",
+    "after": "$\\forall x\\,Q(x,y)$ **不是命题**，因为 $y$ 是自由变元，真值依赖 $y$ 的取值。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- $\\forall x \\, \\exists y$ 比 ∃y ∀x\\exists y \\, \\forall x ∃y∀x **弱**",
+    "after": "- $\\forall x\\,\\exists y$ 比 $\\exists y\\,\\forall x$ **弱**",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "用符号 ∈\\in ∈（属于）表示：",
+    "after": "用符号 $\\in$（属于）表示：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- x∉Ax \\notin A x∈/A：x 不是 A 的元素",
+    "after": "- $x \\notin A$：$x$ 不是 $A$ 的元素",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**注意**：集合和元素是**两个层次**。1∈{1,2,3}1 \\in \\{1, 2, 3\\} 1∈{1,2,3} 没问题，但 {1}∈{1,2,3}\\{1\\} \\in \\{1, 2, 3\\} {1}∈{1,2,3} 是**假**（因为 {1}\\{1\\} {1} 是一个集合，不是 {1,2,3}\\{1, 2, 3\\} {1,2,3} 的元素）。",
+    "after": "**注意**：集合和元素是**两个层次**。$1 \\in \\{1,2,3\\}$ 成立，但 $\\{1\\} \\in \\{1,2,3\\}$ 为假，因为 $\\{1\\}$ 是一个集合，而不是集合 $\\{1,2,3\\}$ 的元素。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "$A = \\{1, 2, 3, 4, 5\\}$红,橙,黄,绿,青,蓝,紫}B = \\{\\text{红}, \\text{橙}, \\text{黄}, \\text{绿}, \\text{青}, \\text{蓝}, \\text{紫}\\}B={红,橙,黄,绿,青,蓝,紫}",
+    "after": "$A = \\{1,2,3,4,5\\}$  \n$B = \\{\\text{红},\\text{橙},\\text{黄},\\text{绿},\\text{青},\\text{蓝},\\text{紫}\\}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "元素太多时用省略号 …\\ldots …（前提是规律清楚）：",
+    "after": "元素太多时用省略号 $\\ldots$（前提是规律清楚）：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|∅\\emptyset ∅ 或 {}\\{\\} {}|**空集** (empty set)：不含任何元素||",
+    "after": "|$\\emptyset$ 或 $\\{\\}$|**空集**（empty set）：不含任何元素||",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- 空集**不是** {∅}\\{\\emptyset\\} {∅}（后者含有一个元素，这个元素恰好是空集）",
+    "after": "- 空集**不是** $\\{\\emptyset\\}$（后者含有一个元素，这个元素恰好是空集）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "再强调一次：∅≠{∅}\\emptyset \\neq \\{\\emptyset\\} ∅={∅}，就像一个空盒子和一个**装着空盒子的盒子**不一样。",
+    "after": "再次强调：$\\emptyset \\neq \\{\\emptyset\\}$，就像一个空盒子和一个**装着空盒子的盒子**不同。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> **定义**：若 $A \\subseteq B$ 且 A≠BA \\neq B A=B，则称 A 是 B 的**真子集**，记作 $A \\subset B$ 或 $A \\subsetneq B$。",
+    "after": "> **定义**：若 $A \\subseteq B$ 且 $A \\neq B$，则称 $A$ 是 $B$ 的**真子集**，记作 $A \\subset B$ 或 $A \\subsetneq B$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**符号提醒**：不同教材记号不一致，有的用 ⊂\\subset ⊂ 表示\"子集\"（可以相等），有的表示\"真子集\"。**看到符号先问清楚语境**。本课中我们用：",
+    "after": "**符号提醒**：不同教材的记号不一致，有的用 $\\subset$ 表示“子集”（可以相等），有的表示“真子集”。本教程使用：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "3. A⊆A \\subseteq A A⊆A",
+    "after": "3. $A \\subseteq A$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "4. A⊊A \\subsetneq A A⊊A",
+    "after": "4. $A \\subsetneq A$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. **真** ✅ —— 空集是**所有集合的子集**。为什么？用定义：∀x (x∈∅→x∈A)\\forall x \\, (x \\in \\emptyset \\to x \\in A) ∀x(x∈∅→x∈A)，由于 x∈∅x \\in \\emptyset x∈∅ 永远为假，蕴含**空虚为真**。还记得第 2 节的这个概念吗？",
+    "after": "1. **真** ✅ —— 空集是**所有集合的子集**。按定义，$\\forall x\\,(x \\in \\emptyset \\to x \\in A)$；由于 $x \\in \\emptyset$ 永远为假，该蕴含式空虚为真。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- ∅\\emptyset ∅（空集）",
+    "after": "- $\\emptyset$（空集）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**例 2**：A=∅A = \\emptyset A=∅",
+    "after": "**例 2**：$A = \\emptyset$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**这是一个含有一个元素的集合（这个元素是空集）**。再次提醒：∅≠{∅}\\emptyset \\neq \\{\\emptyset\\} ∅={∅}。",
+    "after": "**这是一个含有一个元素的集合（这个元素是空集）**。再次提醒：$\\emptyset \\neq \\{\\emptyset\\}$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**状态空间**：一个 n 位寄存器有 2n2^n 2n 种可能状态，对应 {0,1,…,n−1}\\{0, 1, \\ldots, n-1\\} {0,1,…,n−1} 这 n 个位的幂集。",
+    "after": "**状态空间**：一个 $n$ 位寄存器有 $2^n$ 种可能状态，对应集合 $\\{0,1,\\ldots,n-1\\}$ 的幂集。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|$P(x) \\land Q(x)$|A∩BA \\cap B A∩B（下一节学）|",
+    "after": "|$P(x) \\land Q(x)$|$A \\cap B$（下一节学习）|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|$\\exists x \\, P(x)$|A≠∅A \\neq \\emptyset A=∅|",
+    "after": "|$\\exists x\\,P(x)$|$A \\neq \\emptyset$|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (2) 把 {1,4,9,16,25,…}\\{1, 4, 9, 16, 25, \\ldots\\} {1,4,9,16,25,…} 用描述法写出。",
+    "after": "- (2) 把 $\\{1,4,9,16,25,\\ldots\\}$ 用描述法写出。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (3) 把 {1,1/2,1/3,1/4,…}\\{1, 1/2, 1/3, 1/4, \\ldots\\} {1,1/2,1/3,1/4,…} 用描述法写出。",
+    "after": "- (3) 把 $\\{1,1/2,1/3,1/4,\\ldots\\}$ 用描述法写出。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (2) P({∅})P(\\{\\emptyset\\}) P({∅}) 是什么？写出来。",
+    "after": "- (2) $P(\\{\\emptyset\\})$ 是什么？写出来。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (3) P(P(∅))P(P(\\emptyset)) P(P(∅)) 呢？（这个稍绕，慢慢想）",
+    "after": "- (3) $P(P(\\emptyset))$ 呢？",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**问问自己**：看完第 8 节，能用自己的话说出\"子集\"和\"元素\"的区别吗？能说明为什么 ∅\\emptyset ∅ 是任何集合的子集吗？",
+    "after": "**复习要点**：能够说明“子集”和“元素”的区别，并解释为什么 $\\emptyset$ 是任何集合的子集。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|(\\Sigma^*, \\preceq_{\\text{字典})|字符串和字典序|",
+    "after": "|$(\\Sigma^*, \\preceq_{\\text{字典}})$|字符串和字典序|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> 对图的任意一个**切割**（把顶点分成 S 和 V\\S）：跨越切割的所有边中，**权值最小的边**一定在某棵 MST 中。",
+    "after": "> 对图的任意一个**切割**（把顶点分成 $S$ 和 $V\\setminus S$）：跨越切割的所有边中，**权值最小的边**一定在某棵 MST 中。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并删除重复渲染文本"
+  }
+]

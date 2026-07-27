@@ -49,7 +49,16 @@ import {
   MODE_MEMORY_KEY,
   type CalcMode,
 } from './core/modes';
-import type { FormulaDocument } from './math/ast';
+import { serializeExpression, type FormulaDocument } from './math/ast';
+import {
+  DEFAULT_PREFERENCES,
+  SETUP_ROOT_ITEMS,
+  parseCalculatorPreferences,
+  setupChoiceLabels,
+  setupPageTitle,
+  type CalculatorPreferences,
+  type SetupPage,
+} from './core/settings';
 
 function formatEngineering(value: number): string {
   if (!Number.isFinite(value) || value === 0) return formatCoreValue(value);
@@ -83,9 +92,18 @@ function approximateFraction(value: number, maxDenominator = 100000): string {
   }
   return k1 === 1 ? String(sign * h1) : `${sign * h1}/${k1}`;
 }
-type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'CATALOG' | 'RECALL' | 'STORE' | 'MAIN' | 'SOLVE' | 'CALC';
+type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'CATALOG' | 'RECALL' | 'STORE' | 'MAIN' | 'SOLVE' | 'CALC' | 'RESET' | 'RESET_CONFIRM';
+type ResetChoice = 'settings' | 'memory' | 'all';
 type CatalogPage = { kind: 'root' } | { kind: 'advanced'; index: number } | { kind: 'constant-categories' } | { kind: 'constant-list'; category: ScientificConstantCategory } | { kind: 'conversion-categories' } | { kind: 'conversion-list'; category: UnitConversionCategory };
 type MenuDirection = 'left' | 'right' | 'up' | 'down';
+type CalcSession = {
+  names: string[];
+  index: number;
+  values: Record<string, number>;
+  buffer: string;
+  ready: boolean;
+  fresh: boolean;
+};
 
 const STORAGE_KEY = 'fx991cnx-registers-v1';
 const PREFERENCES_KEY = 'fx991cnx-preferences-v3';
@@ -151,14 +169,27 @@ export default function App() {
   const [exactAns, setExactAns] = useState<ExactValue>();
   const [currentExact, setCurrentExact] = useState<ExactValue>();
   const [resultDocument, setResultDocument] = useState<FormulaDocument>();
-  const [resultMode, setResultMode] = useState<ResultMode>(() => {
-    try { return JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) ?? '{}').resultMode === 'decimal' ? 'decimal' : 'exact'; }
-    catch { return 'exact'; }
-  });
-  const [numberFormat, setNumberFormat] = useState<NumberFormat>(() => {
-    try { return JSON.parse(window.localStorage.getItem(PREFERENCES_KEY) ?? '{}').numberFormat ?? { kind: 'Norm1' }; }
-    catch { return { kind: 'Norm1' }; }
-  });
+  const [preferences, setPreferences] = useState<CalculatorPreferences>(() =>
+    parseCalculatorPreferences(window.localStorage.getItem(PREFERENCES_KEY)));
+  const { angleMode, numberFormat, resultMode } = preferences;
+  const setAngleMode = (next: AngleMode | ((previous: AngleMode) => AngleMode)) => {
+    setPreferences(previous => ({
+      ...previous,
+      angleMode: typeof next === 'function' ? next(previous.angleMode) : next,
+    }));
+  };
+  const setNumberFormat = (next: NumberFormat | ((previous: NumberFormat) => NumberFormat)) => {
+    setPreferences(previous => ({
+      ...previous,
+      numberFormat: typeof next === 'function' ? next(previous.numberFormat) : next,
+    }));
+  };
+  const setResultMode = (next: ResultMode | ((previous: ResultMode) => ResultMode)) => {
+    setPreferences(previous => ({
+      ...previous,
+      resultMode: typeof next === 'function' ? next(previous.resultMode) : next,
+    }));
+  };
   const [variables, setVariables] = useState<Record<string, number>>(() => loadStoredVariables());
   const [calcMode, setCalcMode] = useState<CalcMode>('Calculate');
   const [modeRuntime, setModeRuntime] = useState(() => createModeRuntime(loadModeMemory()));
@@ -166,7 +197,6 @@ export default function App() {
   // Mode helpers
   const [shiftActive, setShiftActive] = useState<boolean>(false);
   const [alphaActive, setAlphaActive] = useState<boolean>(false);
-  const [angleMode, setAngleMode] = useState<AngleMode>('DEG');
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
 
   // Advanced contextual screens
@@ -174,14 +204,15 @@ export default function App() {
   const [menuScrollIdx, setMenuScrollIdx] = useState<number>(0);
   const [catalogPage, setCatalogPage] = useState<CatalogPage>({ kind: 'root' });
   const [catalogIndex, setCatalogIndex] = useState(0);
-  const [historyList, setHistoryList] = useState<Array<{ expr: string; res: string; timestamp: string; ast?: FormulaDocument }>>([
-    { expr: "sin(30) × 4", res: "2", timestamp: "15:20" },
-    { expr: "5! + 10", res: "130", timestamp: "15:18" }
-  ]);
+  const [setupPage, setSetupPage] = useState<SetupPage>('root');
+  const [setupIndex, setSetupIndex] = useState(0);
+  const [historyList, setHistoryList] = useState<Array<{ expr: string; res: string; timestamp: string; ast?: FormulaDocument }>>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [solutionList, setSolutionList] = useState<number[]>([]);
   const [solutionIndex, setSolutionIndex] = useState(0);
   const [solutionVariable, setSolutionVariable] = useState('X');
+  const [calcSession, setCalcSession] = useState<CalcSession>();
+  const [resetChoice, setResetChoice] = useState<ResetChoice>('settings');
 
   // Sidebar / Interactive variables panel
   const [activeTab, setActiveTab] = useState<'history' | 'variables' | 'manual'>('history');
@@ -206,20 +237,39 @@ export default function App() {
   }, [modeRuntime.memory]);
   useEffect(() => {
     try {
-      window.localStorage.setItem(PREFERENCES_KEY, JSON.stringify({ resultMode, numberFormat }));
+      window.localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
     } catch {
       // localStorage can be unavailable in private or locked-down contexts.
     }
-  }, [resultMode, numberFormat]);
+  }, [preferences]);
 
   const applyModeAction = (action: RuntimeAction) => {
     const next = dispatchModeRuntime(modeRuntime, action, {
-      variables, ans, angleMode, exactAns, resultMode, numberFormat,
+      variables,
+      ans,
+      angleMode,
+      exactAns,
+      resultMode,
+      numberFormat,
+      complexResult: preferences.complexResult,
+      fractionResult: preferences.fractionResult,
+      tableMode: preferences.tableMode,
+      equationComplexRoots: preferences.equationComplexRoots,
+      decimalPoint: preferences.decimalPoint,
+      digitSeparator: preferences.digitSeparator,
+      engineeringSymbols: preferences.engineeringSymbols,
     });
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);
     if (next.result === 'DEG' || next.result === 'RAD' || next.result === 'GRAD') setAngleMode(next.result);
+    if (next.lastEvaluation?.numeric !== undefined && Number.isFinite(next.lastEvaluation.numeric)) {
+      setAns(next.lastEvaluation.numeric);
+    }
+    if ((next.screen.kind === 'table' || next.screen.kind === 'graph') && next.screen.rows.length) {
+      const tableX = next.screen.rows[next.screen.rows.length - 1].x;
+      setVariables(previous => ({ ...previous, X: tableX }));
+    }
     return next;
   };
 
@@ -248,14 +298,34 @@ export default function App() {
     }
   };
 
+  const exactPresentation = (exact: ExactValue | undefined, decimalText: string) => {
+    if (resultMode !== 'exact' || !exact) return { text: decimalText, document: undefined };
+    const document = exactValueToFormulaDocument(exact, preferences.fractionResult);
+    if (preferences.inputOutput === 'LineI/LineO') {
+      return { text: serializeExpression(document), document: undefined };
+    }
+    return { text: decimalText, document };
+  };
+
   const evaluateWithVariables = (formula: string, nextVariables: Record<string, number>) => {
-    const evalRes = evaluateExpression(formula, { variables: nextVariables, ans, angleMode, exactAns, resultMode, numberFormat });
+    const evalRes = evaluateExpression(formula, {
+      variables: nextVariables,
+      ans,
+      angleMode,
+      exactAns,
+      resultMode,
+      numberFormat,
+      decimalPoint: preferences.decimalPoint,
+      digitSeparator: preferences.digitSeparator,
+      engineeringSymbols: preferences.engineeringSymbols,
+    });
     if (evalRes.success) {
       setAns(evalRes.value);
       setExactAns(evalRes.exact);
       setCurrentExact(evalRes.exact);
-      setResultDocument(resultMode === 'exact' && evalRes.exact ? exactValueToFormulaDocument(evalRes.exact) : undefined);
-      setResultVal(evalRes.displayText);
+      const presentation = exactPresentation(evalRes.exact, evalRes.displayText);
+      setResultDocument(presentation.document);
+      setResultVal(presentation.text);
       const date = new Date();
       const timestamp = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
       setHistoryList(prev => [
@@ -268,21 +338,22 @@ export default function App() {
   };
 
   const storeCurrentResultTo = (name: string) => {
-    const value = Number(resultVal);
-    if (!Number.isFinite(value)) {
+    if (!Number.isFinite(ans)) {
       setResultVal("Syntax ERROR");
       return;
     }
-    setVariables(prev => ({ ...prev, [name]: value }));
-    setResultVal(`Stored ${name}=${formatCoreValue(value)}`);
+    setVariables(prev => ({ ...prev, [name]: ans }));
+    setResultVal(`Stored ${name}=${formatCoreValue(ans)}`);
   };
 
   const runSolveFor = (name: string) => {
     const solveRes = solveForVariable(expr, name, { variables, ans, angleMode });
     if (solveRes.success) {
       const roots = solveRes.roots ?? [solveRes.value];
+      const initialIndex = Math.max(0, roots.findIndex(root =>
+        Math.abs(root - solveRes.value) <= 1e-7 * Math.max(1, Math.abs(root))));
       setSolutionList(roots);
-      setSolutionIndex(0);
+      setSolutionIndex(initialIndex);
       setSolutionVariable(name);
       setAns(solveRes.value);
       setVariables(prev => ({ ...prev, [name]: solveRes.value }));
@@ -319,49 +390,123 @@ export default function App() {
   };
 
   const handleSolveRequest = () => {
-    if (!expr.includes('=')) {
-      setResultVal("Solve needs =");
-      return;
-    }
     const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(expr);
     if (vars.length === 0) {
       setResultVal("No variable");
       return;
     }
-    if (vars.length === 1) {
-      runSolveFor(vars[0]);
-      return;
-    }
     setActiveMenu('SOLVE');
-    setResultVal(`Solve: ${vars.join('/')}`);
+    setResultVal(`SOLVE ${vars.map(name => `${name}=${formatCoreValue(variables[name] ?? 0)}`).join('  ')}`);
   };
 
   const handleCalcRequest = () => {
-    if (expr.includes('=')) {
-      setResultVal("Use SOLVE");
+    const assignment = expr.match(/^\s*([A-FXYM])\s*=\s*(.+)$/i);
+    if (expr.includes('=') && !assignment) {
+      setResultVal('Use SOLVE');
       return;
     }
-    const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(expr);
-    if (vars.length === 0) {
+    const source = assignment?.[2] ?? expr;
+    const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(source);
+    const names = vars.filter(name => name !== assignment?.[1]?.toUpperCase());
+    if (names.length === 0) {
+      if (assignment) {
+        const evaluation = evaluateExpression(source, {
+          variables,
+          ans,
+          angleMode,
+          exactAns,
+          resultMode,
+          numberFormat,
+          decimalPoint: preferences.decimalPoint,
+          digitSeparator: preferences.digitSeparator,
+        engineeringSymbols: preferences.engineeringSymbols,
+        });
+        if (!evaluation.success) {
+          setResultVal(evaluation.displayText);
+          return;
+        }
+        const target = assignment[1].toUpperCase();
+        const nextVariables = { ...variables, [target]: evaluation.value };
+        setVariables(nextVariables);
+        setAns(evaluation.value);
+        setResultVal(`${target}=${evaluation.displayText}`);
+        return;
+      }
       handleEvaluation();
       return;
     }
-    const nextVariables = { ...variables };
-    for (const name of vars) {
-      const raw = window.prompt(`CALC: ${name}=`, String(nextVariables[name] ?? 0));
-      if (raw === null) {
-        setResultVal("CALC canceled");
+    const values = { ...variables };
+    setCalcSession({
+      names,
+      index: 0,
+      values,
+      buffer: String(values[names[0]] ?? 0),
+      ready: false,
+      fresh: true,
+    });
+    setResultVal(`CALC ${names[0]}=`);
+    setActiveMenu('CALC');
+  };
+
+  const commitCalcSession = () => {
+    if (!calcSession) return;
+    if (calcSession.ready) {
+      const assignment = expr.match(/^\s*([A-FXYM])\s*=\s*(.+)$/i);
+      const source = assignment?.[2] ?? expr;
+      const evaluation = evaluateExpression(source, {
+        variables: calcSession.values,
+        ans,
+        angleMode,
+        exactAns,
+        resultMode,
+        numberFormat,
+        decimalPoint: preferences.decimalPoint,
+        digitSeparator: preferences.digitSeparator,
+      engineeringSymbols: preferences.engineeringSymbols,
+      });
+      if (!evaluation.success) {
+        setResultVal(evaluation.displayText);
         return;
       }
-      const value = Number(raw);
-      if (!Number.isFinite(value)) {
-        setResultVal("Argument ERROR");
-        return;
-      }
-      nextVariables[name] = value;
+      const nextVariables = assignment
+        ? { ...calcSession.values, [assignment[1].toUpperCase()]: evaluation.value }
+        : calcSession.values;
+      setVariables(nextVariables);
+      setAns(evaluation.value);
+      setExactAns(evaluation.exact);
+      setCurrentExact(evaluation.exact);
+      const presentation = exactPresentation(evaluation.exact, evaluation.displayText);
+      setResultVal(assignment
+        ? `${assignment[1].toUpperCase()}=${presentation.text}`
+        : presentation.text);
+      setResultDocument(presentation.document);
+      setCalcSession(undefined);
+      setActiveMenu('NONE');
+      return;
     }
-    setVariables(nextVariables);
-    evaluateWithVariables(expr, nextVariables);
+    const name = calcSession.names[calcSession.index];
+    const evaluation = evaluateExpression(calcSession.buffer || String(calcSession.values[name] ?? 0), {
+      variables: calcSession.values,
+      ans,
+      angleMode,
+      exactAns,
+      resultMode: 'decimal',
+      numberFormat,
+    });
+    if (!evaluation.success || !Number.isFinite(evaluation.value)) {
+      setResultVal(evaluation.success ? 'Argument ERROR' : evaluation.displayText);
+      return;
+    }
+    const values = { ...calcSession.values, [name]: evaluation.value };
+    if (calcSession.index < calcSession.names.length - 1) {
+      const index = calcSession.index + 1;
+      const nextName = calcSession.names[index];
+      setCalcSession({ ...calcSession, values, index, buffer: String(values[nextName] ?? 0), fresh: true });
+      setResultVal(`CALC ${nextName}=`);
+      return;
+    }
+    setCalcSession({ ...calcSession, values, buffer: String(evaluation.value), ready: true, fresh: true });
+    setResultVal('CALC READY  PRESS =');
   };
 
   const catalogView = (() => {
@@ -373,6 +518,117 @@ export default function App() {
     return { title: catalogPage.category, items: UNIT_CONVERSIONS.filter(item => item.category === catalogPage.category).map(item => item.label) };
   })();
   const catalogPageStart = Math.floor(catalogIndex / 4) * 4;
+  const setupItems = setupChoiceLabels(setupPage, preferences);
+  const setupPageStart = Math.floor(setupIndex / 4) * 4;
+
+  const closeSetup = () => {
+    setActiveMenu('NONE');
+    setSetupPage('root');
+    setSetupIndex(0);
+  };
+
+  const selectSetupItem = (index = setupIndex) => {
+    if (index < 0 || index >= setupItems.length) return;
+    if (setupPage === 'root') {
+      setSetupPage(SETUP_ROOT_ITEMS[index].page);
+      setSetupIndex(0);
+      return;
+    }
+    if (setupPage === 'number-format') {
+      if (index === 2 || index === 3) {
+        setSetupPage(index === 2 ? 'fix' : 'sci');
+        setSetupIndex(0);
+        return;
+      }
+      setNumberFormat({ kind: index === 0 ? 'Norm1' : 'Norm2' });
+      closeSetup();
+      return;
+    }
+    if (setupPage === 'fix') {
+      setNumberFormat({ kind: 'Fix', digits: index });
+      closeSetup();
+      return;
+    }
+    if (setupPage === 'sci') {
+      setNumberFormat({ kind: 'Sci', digits: index + 1 });
+      closeSetup();
+      return;
+    }
+    if (setupPage === 'input-output') {
+      const modes: CalculatorPreferences['inputOutput'][] = [
+        'MathI/MathO',
+        'MathI/DecimalO',
+        'LineI/LineO',
+        'LineI/DecimalO',
+      ];
+      const inputOutput = modes[index];
+      const enteringLinearTable = calcMode === 'Function Table'
+        && !preferences.inputOutput.startsWith('LineI/')
+        && inputOutput.startsWith('LineI/');
+      setPreferences(previous => ({
+        ...previous,
+        inputOutput,
+        resultMode: inputOutput.endsWith('DecimalO') ? 'decimal' : 'exact',
+      }));
+      setHistoryList([]);
+      setHistoryIndex(-1);
+      if (enteringLinearTable) {
+        setModeRuntime(previous => ({
+          ...previous,
+          memory: {
+            ...previous.memory,
+            functions: { ...previous.memory.functions, f: '', g: '' },
+          },
+        }));
+      }
+    } else if (setupPage === 'angle') {
+      setAngleMode((['DEG', 'RAD', 'GRAD'] as AngleMode[])[index]);
+    } else if (setupPage === 'engineering-symbol') {
+      setPreferences(previous => ({ ...previous, engineeringSymbols: index === 0 }));
+    } else if (setupPage === 'fraction-result') {
+      setPreferences(previous => ({ ...previous, fractionResult: index === 0 ? 'mixed' : 'improper' }));
+    } else if (setupPage === 'complex-result') {
+      setPreferences(previous => ({ ...previous, complexResult: index === 0 ? 'rectangular' : 'polar' }));
+    } else if (setupPage === 'statistics-frequency') {
+      const enabled = index === 0;
+      setPreferences(previous => ({ ...previous, statisticsFrequency: enabled }));
+      setModeRuntime(previous => ({
+        ...previous,
+        memory: {
+          ...previous.memory,
+          statistics: { ...previous.memory.statistics, frequencyEnabled: enabled, rows: [] },
+        },
+      }));
+    } else if (setupPage === 'equation-roots') {
+      setPreferences(previous => ({ ...previous, equationComplexRoots: index === 0 }));
+    } else if (setupPage === 'table-mode') {
+      setPreferences(previous => ({ ...previous, tableMode: index === 0 ? 'f' : 'fg' }));
+    } else if (setupPage === 'decimal-point') {
+      setPreferences(previous => ({ ...previous, decimalPoint: index === 0 ? 'dot' : 'comma' }));
+    } else if (setupPage === 'digit-separator') {
+      setPreferences(previous => ({ ...previous, digitSeparator: index === 0 }));
+    } else if (setupPage === 'multiline-font') {
+      setPreferences(previous => ({ ...previous, multilineFont: index === 0 ? 'normal' : 'small' }));
+    } else if (setupPage === 'language') {
+      setPreferences(previous => ({ ...previous, language: index === 0 ? 'zh' : 'en' }));
+    } else if (setupPage === 'contrast') {
+      setPreferences(previous => ({ ...previous, contrast: index - 2 }));
+    } else if (setupPage === 'result-mode') {
+      const nextMode: ResultMode = index === 0 ? 'exact' : 'decimal';
+      setResultMode(nextMode);
+      setResultDocument(nextMode === 'exact' && currentExact
+        ? exactValueToFormulaDocument(currentExact, preferences.fractionResult)
+        : undefined);
+      if (nextMode === 'decimal' && currentExact) {
+        setResultVal(formatCoreValue(ans, numberFormat, {
+          decimalPoint: preferences.decimalPoint,
+          digitSeparator: preferences.digitSeparator,
+        }));
+      }
+    }
+    closeSetup();
+  };
+
   const selectCatalogItem = (index = catalogIndex) => {
     if (catalogPage.kind === 'root') {
       if (index < ADVANCED_CATALOG.length) setCatalogPage({ kind: 'advanced', index });
@@ -411,11 +667,58 @@ export default function App() {
   const confirmMenuMode = (index = menuScrollIdx) => {
     const mode = MENU_MODES[index];
     if (!mode) return;
+    if (mode !== calcMode) {
+      setHistoryList([]);
+      setHistoryIndex(-1);
+    }
     setCalcMode(mode);
-    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, { variables, ans, angleMode, exactAns, resultMode, numberFormat });
+    const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, {
+      variables,
+      ans,
+      angleMode,
+      exactAns,
+      resultMode,
+      numberFormat,
+      complexResult: preferences.complexResult,
+      fractionResult: preferences.fractionResult,
+      tableMode: preferences.tableMode,
+      equationComplexRoots: preferences.equationComplexRoots,
+      decimalPoint: preferences.decimalPoint,
+      digitSeparator: preferences.digitSeparator,
+      engineeringSymbols: preferences.engineeringSymbols,
+    });
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);
+    setActiveMenu('NONE');
+  };
+
+  const performReset = (choice: ResetChoice) => {
+    if (choice === 'settings' || choice === 'all') {
+      setPreferences(previous => ({
+        ...DEFAULT_PREFERENCES,
+        language: previous.language,
+        contrast: previous.contrast,
+      }));
+      setAngleMode(DEFAULT_PREFERENCES.angleMode);
+    }
+    if (choice === 'memory' || choice === 'all') {
+      setVariables({ ...DEFAULT_VARIABLES });
+      setAns(0);
+      setExactAns(undefined);
+      setCurrentExact(undefined);
+      setResultDocument(undefined);
+      setModeRuntime(createModeRuntime());
+    }
+    setHistoryList([]);
+    setHistoryIndex(-1);
+    setSolutionList([]);
+    if (choice === 'all') {
+      setCalcMode('Calculate');
+      formulaLcdRef.current?.clear();
+      setExpr('');
+    }
+    setResultVal('初始化完毕!');
     setActiveMenu('NONE');
   };
 
@@ -444,10 +747,27 @@ export default function App() {
       return;
     }
 
+    if (activeMenu === 'CALC' && action === 'backspace' && calcSession) {
+      setCalcSession(previous => previous
+        ? {
+          ...previous,
+          buffer: previous.fresh ? '' : previous.buffer.slice(0, -1),
+          ready: false,
+          fresh: false,
+        }
+        : previous);
+      return;
+    }
+
     if (activeMenu !== 'NONE' && ['menu', 'clear', 'backspace', 'shift', 'alpha'].includes(action)) {
       if (activeMenu === 'CATALOG' && action === 'backspace' && catalogPage.kind !== 'root') {
         setCatalogPage({ kind: 'root' });
         setCatalogIndex(0);
+        return;
+      }
+      if (activeMenu === 'SETUP' && action === 'backspace' && setupPage !== 'root') {
+        setSetupPage('root');
+        setSetupIndex(0);
         return;
       }
       setActiveMenu('NONE');
@@ -473,6 +793,8 @@ export default function App() {
           return;
         }
         if (shiftValue === 'SETUP') {
+          setSetupPage('root');
+          setSetupIndex(0);
           setActiveMenu('SETUP');
           setShiftActive(false);
           return;
@@ -483,19 +805,17 @@ export default function App() {
           return;
         }
         if (shiftValue === 'RESET') {
-          // Perform total reset
-          setVariables({ ...DEFAULT_VARIABLES });
-          setAns(0);
-          setExpr("");
-          setResultVal("初始化完毕!");
+          setResetChoice('settings');
+          setActiveMenu('RESET');
+          setResultVal('RESET');
           setShiftActive(false);
           return;
         }
         if (shiftValue === 'FACT') {
-          const factorsStr = factorizeInteger(resultVal);
+          const source = Number.isInteger(ans) ? String(Math.abs(ans)) : '';
+          const factorsStr = source.length <= 10 ? factorizeInteger(source) : '';
           if (factorsStr) {
-            const source = resultVal.trim().split('=')[0];
-            setResultVal(`${source}=${factorsStr}`);
+            setResultVal(`${formatCoreValue(ans)}=${factorsStr}`);
           } else {
             setResultVal('Math ERROR');
           }
@@ -517,9 +837,13 @@ export default function App() {
           return;
         }
         if (shiftValue === 'M-') {
-          const value = Number(resultVal);
-          if (Number.isFinite(value)) setVariables(prev => ({ ...prev, M: prev.M - value }));
+          if (Number.isFinite(ans)) setVariables(prev => ({ ...prev, M: prev.M - ans }));
           setShiftActive(false);
+          return;
+        }
+        if (shiftValue === '≈') {
+          setShiftActive(false);
+          handleEvaluation('decimal');
           return;
         }
         if (shiftValue === 'RECALL') {
@@ -584,6 +908,24 @@ export default function App() {
         return;
       }
 
+      if (activeMenu === 'RESET') {
+        const index = Number(activeVal);
+        if (Number.isInteger(index) && index >= 1 && index <= 3) {
+          setResetChoice((['settings', 'memory', 'all'] as ResetChoice[])[index - 1]);
+          setActiveMenu('RESET_CONFIRM');
+          return;
+        }
+        if (activeAction === 'evaluate') {
+          setActiveMenu('RESET_CONFIRM');
+          return;
+        }
+        return;
+      }
+      if (activeMenu === 'RESET_CONFIRM') {
+        if (activeAction === 'evaluate' || activeVal === '1') performReset(resetChoice);
+        else if (activeVal === '2') setActiveMenu('NONE');
+        return;
+      }
       if (activeMenu === 'SOLVE') {
         if (VARIABLE_NAMES.includes(activeVal)) {
           runSolveFor(activeVal);
@@ -599,31 +941,52 @@ export default function App() {
         return;
       }
       if (activeMenu === 'CALC') {
-        handleCalcRequest();
-        setActiveMenu('NONE');
+        if (!calcSession) {
+          setActiveMenu('NONE');
+          return;
+        }
+        if (activeAction === 'evaluate') {
+          commitCalcSession();
+        } else if (activeAction === 'arrow_up' || activeAction === 'arrow_down') {
+          const delta = activeAction === 'arrow_up' ? -1 : 1;
+          const index = Math.max(0, Math.min(calcSession.names.length - 1, calcSession.index + delta));
+          const name = calcSession.names[index];
+          setCalcSession({
+            ...calcSession,
+            index,
+            buffer: String(calcSession.values[name] ?? 0),
+            ready: false,
+            fresh: true,
+          });
+          setResultVal(`CALC ${name}=`);
+        } else if (activeAction === 'append') {
+          let buffer = calcSession.ready || calcSession.fresh ? '' : calcSession.buffer;
+          if (activeVal === '.') {
+            const token = buffer.match(/[0-9.]+$/)?.[0] ?? '';
+            if (!token.includes('.')) buffer += /\d$/.test(token) ? '.' : '0.';
+          } else {
+            buffer += activeVal;
+          }
+          setCalcSession({ ...calcSession, buffer, ready: false, fresh: false });
+        }
         return;
       }
       if (activeMenu === 'SETUP') {
-        if (activeVal === '1') {
-          setAngleMode('DEG');
-          setActiveMenu('NONE');
-        } else if (activeVal === '2') {
-          setAngleMode('RAD');
-          setActiveMenu('NONE');
-        } else if (activeVal === '3') {
-          setAngleMode('GRAD');
-          setActiveMenu('NONE');
-        } else if (activeVal === '4') {
-          const nextMode: ResultMode = resultMode === 'exact' ? 'decimal' : 'exact';
-          setResultMode(nextMode);
-          setResultDocument(nextMode === 'exact' && currentExact ? exactValueToFormulaDocument(currentExact) : undefined);
-          setResultVal(nextMode === 'decimal' && currentExact ? formatCoreValue(ans, numberFormat) : resultVal);
-          setActiveMenu('NONE');
-        } else if (activeVal === '5') {
-          setNumberFormat(previous => cycleNumberFormat(previous));
-          setActiveMenu('NONE');
-        } else {
-          setActiveMenu('NONE');
+        const length = setupItems.length;
+        if (/^[1-4]$/.test(activeVal)) {
+          selectSetupItem(setupPageStart + Number(activeVal) - 1);
+        } else if (activeAction === 'arrow_up') {
+          setSetupIndex(previous => (previous - 1 + length) % length);
+        } else if (activeAction === 'arrow_down') {
+          setSetupIndex(previous => (previous + 1) % length);
+        } else if (activeAction === 'arrow_left') {
+          if (setupPage === 'root') setActiveMenu('NONE');
+          else {
+            setSetupPage('root');
+            setSetupIndex(0);
+          }
+        } else if (activeAction === 'arrow_right' || activeAction === 'evaluate') {
+          selectSetupItem();
         }
         return;
       }
@@ -791,14 +1154,18 @@ export default function App() {
       }
       case 'sd': {
         if (currentExact) {
-          setResultDocument(previous => previous ? undefined : exactValueToFormulaDocument(currentExact));
-          setResultVal(formatCoreValue(ans, numberFormat));
+          setResultDocument(previous => previous
+            ? undefined
+            : exactValueToFormulaDocument(currentExact, preferences.fractionResult));
+          setResultVal(formatCoreValue(ans, numberFormat, {
+            decimalPoint: preferences.decimalPoint,
+            digitSeparator: preferences.digitSeparator,
+          }));
         }
         break;
       }
       case 'mplus': {
-        const value = Number(resultVal);
-        if (Number.isFinite(value)) setVariables(prev => ({ ...prev, M: prev.M + value }));
+        if (Number.isFinite(ans)) setVariables(prev => ({ ...prev, M: prev.M + ans }));
         break;
       }
       case 'evaluate':
@@ -817,7 +1184,13 @@ export default function App() {
     setHistoryIndex(-1);
     setSolutionList([]);
     if (formulaLcdRef.current) {
-      formulaLcdRef.current.insertInput(txt);
+      let input = txt;
+      if (txt === '°') {
+        const current = formulaLcdRef.current.getExpression();
+        if (/°[^′″]*′[^″]*$/.test(current)) input = '″';
+        else if (/°[^′″]*$/.test(current)) input = '′';
+      }
+      formulaLcdRef.current.insertInput(input);
       return;
     }
     const plainText = txt === 'log□(' ? 'log(' : txt;
@@ -827,16 +1200,30 @@ export default function App() {
     setCursorIdx(cursorIdx + plainText.length);
   };
 
-  const handleEvaluation = () => {
+  const handleEvaluation = (overrideResultMode?: ResultMode) => {
     setHistoryIndex(-1);
     setSolutionList([]);
-    const evalRes = evaluateExpression(expr, { variables, ans, angleMode, exactAns, resultMode, numberFormat });
+    const effectiveResultMode = overrideResultMode ?? resultMode;
+    const evalRes = evaluateExpression(expr, {
+      variables,
+      ans,
+      angleMode,
+      exactAns,
+      resultMode: effectiveResultMode,
+      numberFormat,
+      decimalPoint: preferences.decimalPoint,
+      digitSeparator: preferences.digitSeparator,
+      engineeringSymbols: preferences.engineeringSymbols,
+    });
     if (evalRes.success) {
       setAns(evalRes.value);
       setExactAns(evalRes.exact);
       setCurrentExact(evalRes.exact);
-      setResultVal(evalRes.displayText);
-      setResultDocument(resultMode === 'exact' && evalRes.exact ? exactValueToFormulaDocument(evalRes.exact) : undefined);
+      const presentation = effectiveResultMode === 'exact'
+        ? exactPresentation(evalRes.exact, evalRes.displayText)
+        : { text: evalRes.displayText, document: undefined };
+      setResultVal(presentation.text);
+      setResultDocument(presentation.document);
       if (evalRes.assignments) setVariables(previous => ({ ...previous, ...evalRes.assignments }));
       
       // Save history log
@@ -914,7 +1301,7 @@ export default function App() {
           <div>
             <span className="font-bold text-slate-100 tracking-tight text-md">fx-991CN X 科学计算器</span>
             <span className="hidden sm:inline-block ml-3 px-2 py-0.5 rounded text-[10px] bg-teal-950 text-teal-400 border border-teal-800 font-mono font-semibold">
-              CLASSWIZ EMULATOR v1.14.0
+              CLASSWIZ EMULATOR v4.0.0
             </span>
           </div>
         </div>
@@ -1000,7 +1387,9 @@ export default function App() {
                   className="w-full min-h-[114px] bg-[#a9ba96] rounded text-[#1a251b] font-mono p-2 flex flex-col justify-between relative shadow-inner select-text transition-all duration-300 overflow-hidden"
                   style={{
                     boxShadow: 'inset 0 3px 8px rgba(0,0,0,0.45)',
-                    filter: powerActive ? 'brightness(1)' : 'brightness(0.08)'
+                    filter: powerActive
+                      ? `brightness(1) contrast(${100 + preferences.contrast * 12}%)`
+                      : 'brightness(0.08)'
                   }}
                 >
                   <FormulaLcd
@@ -1015,16 +1404,58 @@ export default function App() {
                     calcMode={calcMode}
                     activeMenu={activeMenu}
                     menuIndex={menuScrollIdx}
-                    menuItems={MENU_MODES.map(mode => ({ mode, label: MODE_LABELS[mode] }))}
+                    menuItems={MENU_MODES.map(mode => ({
+                      mode,
+                      label: preferences.language === 'zh' ? MODE_LABELS[mode] : mode,
+                    }))}
                     variables={variables}
-                    listTitle={activeMenu === 'CATALOG' ? catalogView.title : undefined}
-                    listItems={activeMenu === 'CATALOG' ? catalogView.items.slice(catalogPageStart, catalogPageStart + 4).map((item, index) => `${index + 1} ${item}`) : undefined}
-                    listSelectedIndex={activeMenu === 'CATALOG' ? catalogIndex - catalogPageStart : undefined}
+                    linearInput={preferences.inputOutput.startsWith('LineI/')}
+                    listTitle={activeMenu === 'CATALOG'
+                      ? catalogView.title
+                      : activeMenu === 'SETUP'
+                        ? setupPageTitle(setupPage)
+                        : activeMenu === 'CALC'
+                          ? 'CALC'
+                          : activeMenu === 'SOLVE'
+                            ? 'SOLVE'
+                            : activeMenu === 'RESET'
+                              ? 'RESET'
+                              : activeMenu === 'RESET_CONFIRM'
+                                ? 'RESET?'
+                                : undefined}
+                    listItems={activeMenu === 'CATALOG'
+                      ? catalogView.items.slice(catalogPageStart, catalogPageStart + 4).map((item, index) => `${index + 1} ${item}`)
+                      : activeMenu === 'SETUP'
+                        ? setupItems.slice(setupPageStart, setupPageStart + 4).map((item, index) => `${index + 1} ${item}`)
+                        : activeMenu === 'CALC' && calcSession
+                          ? [
+                            `${calcSession.names[calcSession.index]}=[${calcSession.buffer}]`,
+                            `${calcSession.index + 1}/${calcSession.names.length}`,
+                            calcSession.ready ? '按 = 计算' : '按 = 确认',
+                          ]
+                          : activeMenu === 'SOLVE'
+                            ? extractVariables(expr).slice(0, 4).map((name, index) =>
+                              `${index + 1} ${name}=${formatCoreValue(variables[name] ?? 0)}`)
+                            : activeMenu === 'RESET'
+                              ? ['1 设置数据', '2 存储器', '3 全部初始化']
+                              : activeMenu === 'RESET_CONFIRM'
+                                ? [
+                                  resetChoice === 'settings' ? '设置数据' : resetChoice === 'memory' ? '存储器' : '全部初始化',
+                                  '1 是   2 否',
+                                  '按 = 确认',
+                                ]
+                                : undefined}
+                    listSelectedIndex={activeMenu === 'CATALOG'
+                      ? catalogIndex - catalogPageStart
+                      : activeMenu === 'SETUP'
+                        ? setupIndex - setupPageStart
+                        : undefined}
                     modeScreen={runtimeScreenView(modeRuntime)}
                     onExpressionChange={setExpr}
                     onMenuSelect={index => {
                       if (activeMenu === 'MAIN') confirmMenuMode(index);
                       else if (activeMenu === 'CATALOG') selectCatalogItem(catalogPageStart + index);
+                      else if (activeMenu === 'SETUP') selectSetupItem(setupPageStart + index);
                       else handleKeypress('append', String(index + 1));
                     }}
                     onModeScreenSelect={index => {
@@ -1651,7 +2082,7 @@ export default function App() {
                 <div className="relative flex flex-col pt-2">
                   <span className="text-[#c2ae51] text-[7.5px] font-black absolute top-0 left-2 select-none">≈</span>
                   <button 
-                    onClick={() => handleKeypress('evaluate')}
+                    onClick={() => handleKeypress('evaluate', '=', '≈')}
                     className="h-10 rounded-lg bg-gradient-to-b from-[#eadecb] to-[#998b71] text-stone-900 border-2 border-[#544d3e] shadow-[0_4px_0_#2b271d] active:translate-y-0.5 active:shadow-[0_1.5px_0_#2b271d] flex items-center justify-center text-lg font-black transition-transform"
                   >
                     =
@@ -1850,11 +2281,11 @@ export default function App() {
                         </li>
                         <li>
                           <span className="text-[#c2ae51] font-extrabold">科学常量库 (SCI CONST)：</span> 
-                          点击 <b>SHIFT</b> 再点击带有金色 <code>科学常数</code> 标识的 <b>7</b> 键，LCD将显示科学常数名录（包括光速 c、普朗克 h 等 6 种标准物理常数），按下对应数字即可载入物理常数值！
+                          点击 <b>SHIFT</b> 再点击带有金色 <code>科学常数</code> 标识的 <b>7</b> 键，LCD将显示科学常数名录（包含分类完整的 47 项科学常数），按下对应数字即可载入物理常数值！
                         </li>
                         <li>
                           <span className="text-[#c2ae51] font-extrabold">单位换算 (UNIT CONV)：</span> 
-                          点击 <b>SHIFT</b> 后再点击 <b>8 (单位换算)</b> 键，可以使用内置换算程序，计算厘米与英寸、公斤与磅之间的换算比例。
+                          点击 <b>SHIFT</b> 后再点击 <b>8 (单位换算)</b> 键，可以使用内置换算程序，从长度、面积、体积、质量、速度、压强、能量、功率和温度分类中选择 40 条双向换算命令。
                         </li>
                         <li>
                           <span className="text-[#c2ae51] font-extrabold">总线复位 (RESET)：</span> 
@@ -1866,7 +2297,7 @@ export default function App() {
                     <div className="bg-slate-900 border border-slate-800/60 rounded-xl p-4">
                       <h4 className="text-teal-400 font-bold mb-2 flex items-center gap-1.5">
                         <ChevronRight size={16} />
-                        fx-991CNCW / fx-999CNCW 核心能力
+                        fx-991CN X 原机能力与保留扩展
                       </h4>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[11px] text-slate-300">
                         {APP_CAPABILITIES.map(item => (
@@ -1900,7 +2331,7 @@ export default function App() {
                         ))}
                       </div>
                       <div className="mt-3 text-[11px] text-slate-500">
-                        常量菜单 {SCIENTIFIC_CONSTANTS.length} 项，单位换算菜单 {UNIT_CONVERSIONS.length} 项；矩阵、向量、统计、复数和 Base-N 已在核心模块提供函数入口，后续可继续做成完整菜单式工作流。
+                        常量菜单 {SCIENTIFIC_CONSTANTS.length} 项，单位换算菜单 {UNIT_CONVERSIONS.length} 项；10 个原机模式均已接入实体键、LCD 菜单、方向键和触摸流程。
                       </div>
                     </div>
                   </motion.div>

@@ -150,17 +150,38 @@ export function formatComplex(value: ComplexValue): string {
 }
 
 
+function normalizeTopLevelPolar(input: string): string {
+  let depth = 0;
+  for (let index = 0; index < input.length; index++) {
+    if (input[index] === '(') depth++;
+    else if (input[index] === ')') depth--;
+    else if (input[index] === '∠' && depth === 0) {
+      const radius = input.slice(0, index).trim();
+      const theta = input.slice(index + 1).trim();
+      if (!radius || !theta) throw new Error('Syntax ERROR');
+      return `polar((${radius}),(${theta}))`;
+    }
+  }
+  return input;
+}
+
 export function evaluateComplexExpression(
   input: string,
   angleMode: AngleMode,
   variables: Record<string, number> = {},
 ): ComplexValue {
-  const polarPattern = /(-?(?:\d+(?:\.\d*)?|\.\d+))∠(-?(?:\d+(?:\.\d*)?|\.\d+))/g;
-  const normalized = input
+  const normalized = normalizeTopLevelPolar(input)
     .replaceAll('×', '*')
     .replaceAll('÷', '/')
     .replaceAll('−', '-')
-    .replace(polarPattern, (_, radius, theta) => `polar(${radius},${theta})`);
+    .replaceAll('²', '^2')
+    .replaceAll('³', '^3')
+    .replaceAll('⁻¹', '^(-1)')
+    .replaceAll('√', 'sqrt')
+    .replaceAll('π', 'pi')
+    .replaceAll('sin⁻¹', 'asin')
+    .replaceAll('cos⁻¹', 'acos')
+    .replaceAll('tan⁻¹', 'atan');
   const scope = {
     ...variables,
     i: complex(0, 1),
@@ -172,6 +193,14 @@ export function evaluateComplexExpression(
       const value = complexFromPolar(radius, theta, angleMode);
       return complex(value.re, value.im);
     },
+    Conjg: (value: number | Complex) => conj(value),
+    arg: (value: number | Complex) => {
+      const complexValue = toComplexValue(value);
+      return complexArgument(complexValue, angleMode);
+    },
+    Rep: (value: number | Complex) => toComplexValue(value).re,
+    Imp: (value: number | Complex) => toComplexValue(value).im,
+    Abs: (value: number | Complex) => Number(abs(value)),
   };
   const value = mathEvaluate(normalized, scope) as number | Complex;
   return toComplexValue(value);
@@ -186,12 +215,17 @@ export function assertInt32(value: number): number {
 export function parseBaseInteger(input: string, base: BaseRadix): number {
   const text = input.trim().toUpperCase();
   if (!text) throw new Error('Syntax ERROR');
+  const patterns: Record<BaseRadix, RegExp> = {
+    2: /^[01]+$/,
+    8: /^[0-7]+$/,
+    10: /^[0-9]+$/,
+    16: /^[0-9A-F]+$/,
+  };
+  if (!patterns[base].test(text)) throw new Error('Syntax ERROR');
   const unsigned = Number.parseInt(text, base);
-  const upperBound = base === 2 ? 0x1_0000 : UINT32;
-  if (!Number.isFinite(unsigned) || unsigned < 0 || unsigned >= upperBound) {
+  if (!Number.isFinite(unsigned) || unsigned < 0 || unsigned >= UINT32) {
     throw new Error('Math ERROR');
   }
-  if (base === 2) return unsigned > 0x7fff ? unsigned - 0x1_0000 : unsigned;
   const normalized = unsigned >>> 0;
   return normalized > 0x7fff_ffff ? normalized - UINT32 : normalized;
 }
@@ -199,7 +233,7 @@ export function parseBaseInteger(input: string, base: BaseRadix): number {
 export function formatBaseInteger(value: number, base: BaseRadix): string {
   const int32 = assertInt32(value);
   if (base === 10) return String(int32);
-  if (base === 2) return (int32 & 0xffff).toString(2).padStart(16, '0');
+  if (base === 2) return (int32 >>> 0).toString(2).padStart(32, '0');
   const digits = base === 8 ? 11 : 8;
   return (int32 >>> 0).toString(base).toUpperCase().padStart(digits, '0');
 }
@@ -297,9 +331,9 @@ export function evaluateBaseExpression(input: string, defaultBase: BaseRadix): n
   return assertInt32(result);
 }
 function assertMatrix(values: number[][]): void {
-  if (!values.length || values.length > 10) throw new Error('Dimension ERROR');
+  if (!values.length || values.length > 4) throw new Error('Dimension ERROR');
   const columns = values[0]?.length ?? 0;
-  if (!columns || columns > 10 || values.some(row => row.length !== columns)) {
+  if (!columns || columns > 4 || values.some(row => row.length !== columns)) {
     throw new Error('Dimension ERROR');
   }
 }
@@ -354,7 +388,7 @@ export function matrixInverse(values: number[][]): number[][] {
 }
 
 export function matrixIdentity(size: number): number[][] {
-  if (!Number.isInteger(size) || size < 1 || size > 10) throw new Error('Argument ERROR');
+  if (!Number.isInteger(size) || size < 1 || size > 4) throw new Error('Argument ERROR');
   return Array.from({ length: size }, (_, row) =>
     Array.from({ length: size }, (_, column) => row === column ? 1 : 0));
 }
@@ -382,9 +416,18 @@ export function matrixElementAbs(values: number[][]): number[][] {
 }
 
 function assertVector(values: number[]): void {
-  if (!values.length || values.length > 10 || values.some(value => !Number.isFinite(value))) {
+  if ((values.length !== 2 && values.length !== 3) || values.some(value => !Number.isFinite(value))) {
     throw new Error('Dimension ERROR');
   }
+}
+
+export function statisticsCapacity(
+  kind: 'single' | 'double',
+  frequencyEnabled: boolean,
+): number {
+  if (kind === 'single' && !frequencyEnabled) return 160;
+  if (kind === 'double' && frequencyEnabled) return 53;
+  return 80;
 }
 
 export function vectorAdd(left: number[], right: number[]): number[] {
@@ -457,6 +500,36 @@ function expandRows(rows: StatisticsRow[]): Array<{ x: number; y?: number }> {
   return expanded;
 }
 
+function normalCdfStandard(value: number): number {
+  const sign = value < 0 ? -1 : 1;
+  const x = Math.abs(value) / Math.SQRT2;
+  const t = 1 / (1 + 0.3275911 * x);
+  const polynomial = (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t
+    - 0.284496736) * t + 0.254829592) * t;
+  const erf = sign * (1 - polynomial * Math.exp(-x * x));
+  return 0.5 * (1 + erf);
+}
+
+export function normalProbability(
+  operation: 'P' | 'Q' | 'R',
+  t: number,
+): number {
+  if (!Number.isFinite(t)) throw new Error('Argument ERROR');
+  const cumulative = normalCdfStandard(t);
+  if (operation === 'P') return cumulative;
+  if (operation === 'Q') return cumulative - 0.5;
+  return 1 - cumulative;
+}
+
+export function standardizedVariable(rows: StatisticsRow[], x: number): number {
+  if (!Number.isFinite(x)) throw new Error('Argument ERROR');
+  const statistics = singleVariableStatistics(rows);
+  if (!Number.isFinite(statistics.populationSd) || statistics.populationSd < EPSILON) {
+    throw new Error('Math ERROR');
+  }
+  return (x - statistics.mean) / statistics.populationSd;
+}
+
 function quantile(sorted: number[], position: number): number {
   if (!sorted.length) throw new Error('Math ERROR');
   const index = (sorted.length - 1) * position;
@@ -510,6 +583,9 @@ export function doubleVariableStatistics(rows: StatisticsRow[]) {
   const covariance = sumXY - n * meanX * meanY;
   const varianceX = sumXX - n * meanX * meanX;
   const varianceY = sumYY - n * meanY * meanY;
+  const sumXXX = x.reduce((total, value) => total + value ** 3, 0);
+  const sumXXY = x.reduce((total, value, index) => total + value * value * y[index], 0);
+  const sumXXXX = x.reduce((total, value) => total + value ** 4, 0);
   return {
     n,
     sumX,
@@ -517,6 +593,9 @@ export function doubleVariableStatistics(rows: StatisticsRow[]) {
     sumXX,
     sumYY,
     sumXY,
+    sumXXX,
+    sumXXY,
+    sumXXXX,
     meanX,
     meanY,
     populationSdX: Math.sqrt(varianceX / n),

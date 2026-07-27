@@ -128,10 +128,10 @@ export function modeOptions(mode: CalcMode): MenuOption[] {
     return [
       { key: '1', label: 'i', insert: 'i' },
       { key: '2', label: '∠', insert: '∠' },
-      { key: '3', label: 'CONJUGATE', command: 'conjugate' },
-      { key: '4', label: 'ARGUMENT', command: 'argument' },
-      { key: '5', label: 'REAL PART', command: 'real' },
-      { key: '6', label: 'IMAG PART', command: 'imaginary' },
+      { key: '3', label: 'CONJUGATE', insert: 'Conjg(' },
+      { key: '4', label: 'ARGUMENT', insert: 'arg(' },
+      { key: '5', label: 'REAL PART', insert: 'Rep(' },
+      { key: '6', label: 'IMAG PART', insert: 'Imp(' },
       { key: '7', label: 'a+bi', command: 'rectangular' },
       { key: '8', label: 'r∠θ', command: 'polar' },
     ];
@@ -153,29 +153,34 @@ export function modeOptions(mode: CalcMode): MenuOption[] {
   if (mode === 'Matrix') {
     return [
       { key: '1', label: 'DEFINE MATRIX', command: 'define-matrix' },
-      { key: '2', label: 'MatA', insert: 'MatA' },
-      { key: '3', label: 'MatB', insert: 'MatB' },
-      { key: '4', label: 'MatC', insert: 'MatC' },
-      { key: '5', label: 'MatD', insert: 'MatD' },
-      { key: '6', label: 'MatAns', insert: 'MatAns' },
-      { key: '7', label: 'Det', insert: 'Det(' },
-      { key: '8', label: 'Trn', insert: 'Trn(' },
-      { key: '9', label: 'Identity', insert: 'Identity(' },
-      { key: '0', label: 'Inv', insert: 'Inv(' },
+      { key: '2', label: 'EDIT MATRIX', command: 'edit-matrix' },
+      { key: '3', label: 'COPY MATRIX', command: 'copy-matrix' },
+      { key: '4', label: 'MatA', insert: 'MatA' },
+      { key: '5', label: 'MatB', insert: 'MatB' },
+      { key: '6', label: 'MatC', insert: 'MatC' },
+      { key: '7', label: 'MatD', insert: 'MatD' },
+      { key: '8', label: 'MatAns', insert: 'MatAns' },
+      { key: '9', label: 'Det', insert: 'Det(' },
+      { key: '0', label: 'Trn', insert: 'Trn(' },
+      { key: '1', label: 'Identity', insert: 'Identity(' },
+      { key: '2', label: 'Abs', insert: 'Abs(' },
     ];
   }
   if (mode === 'Vector') {
     return [
       { key: '1', label: 'DEFINE VECTOR', command: 'define-vector' },
-      { key: '2', label: 'VctA', insert: 'VctA' },
-      { key: '3', label: 'VctB', insert: 'VctB' },
-      { key: '4', label: 'VctC', insert: 'VctC' },
-      { key: '5', label: 'VctD', insert: 'VctD' },
-      { key: '6', label: 'VctAns', insert: 'VctAns' },
-      { key: '7', label: 'Dot', insert: 'Dot(' },
-      { key: '8', label: 'Angle', insert: 'Angle(' },
-      { key: '9', label: 'Unit', insert: 'Unit(' },
+      { key: '2', label: 'EDIT VECTOR', command: 'edit-vector' },
+      { key: '3', label: 'COPY VECTOR', command: 'copy-vector' },
+      { key: '4', label: 'VctA', insert: 'VctA' },
+      { key: '5', label: 'VctB', insert: 'VctB' },
+      { key: '6', label: 'VctC', insert: 'VctC' },
+      { key: '7', label: 'VctD', insert: 'VctD' },
+      { key: '8', label: 'VctAns', insert: 'VctAns' },
+      { key: '9', label: 'Dot', insert: 'Dot(' },
       { key: '0', label: 'Cross', insert: 'Cross(' },
+      { key: '1', label: 'Angle', insert: 'Angle(' },
+      { key: '2', label: 'Unit', insert: 'Unit(' },
+      { key: '3', label: 'Abs', insert: 'Abs(' },
     ];
   }
   if (mode === 'Statistics') {
@@ -189,6 +194,7 @@ export function modeOptions(mode: CalcMode): MenuOption[] {
       { key: '7', label: 'INSERT ROW', command: 'stats-insert' },
       { key: '8', label: 'DELETE ROW', command: 'stats-delete' },
       { key: '9', label: 'SORT X', command: 'stats-sort' },
+      { key: '0', label: 'NORMAL DIST', command: 'stats-normal' },
     ];
   }
   if (mode === 'Function Table') {
@@ -249,16 +255,27 @@ function matrixVariable(input: string, memory: ModeMemory): number[][] {
 
 function parseMatrix(input: string, memory: ModeMemory): number[][] {
   const expression = input.trim();
-  const binary = splitTopLevel(expression, ['+', '-', '×', '*']);
+  const binary = splitTopLevel(expression, ['+', '-', '×', '*', '÷', '/']);
   if (binary) {
-    const left = parseMatrix(binary.left, memory);
+    const leftText = binary.left.trim();
     const rightText = binary.right.trim();
-    if (/^-?\d+(?:\.\d+)?$/.test(rightText) && (binary.operator === '×' || binary.operator === '*')) {
+    const isMultiply = binary.operator === '×' || binary.operator === '*';
+    if (isMultiply && /^-?\d+(?:\.\d+)?$/.test(leftText)) {
+      return matrixScale(parseMatrix(binary.right, memory), Number(leftText));
+    }
+    const left = parseMatrix(binary.left, memory);
+    if (isMultiply && /^-?\d+(?:\.\d+)?$/.test(rightText)) {
       return matrixScale(left, Number(rightText));
+    }
+    if ((binary.operator === '÷' || binary.operator === '/') && /^-?\d+(?:\.\d+)?$/.test(rightText)) {
+      const divisor = Number(rightText);
+      if (divisor === 0) throw new Error('Math ERROR');
+      return matrixScale(left, 1 / divisor);
     }
     const right = parseMatrix(binary.right, memory);
     if (binary.operator === '+') return matrixAdd(left, right);
     if (binary.operator === '-') return matrixSubtract(left, right);
+    if (binary.operator === '÷' || binary.operator === '/') throw new Error('Dimension ERROR');
     return matrixMultiply(left, right);
   }
   const functionMatch = expression.match(/^(Det|Trn|Inv|Abs)\((.+)\)$/i);
@@ -271,7 +288,12 @@ function parseMatrix(input: string, memory: ModeMemory): number[][] {
   }
   const identity = expression.match(/^Identity\((\d+)\)$/i);
   if (identity) return matrixIdentity(Number(identity[1]));
-  const powerMatch = expression.match(/^(.+)\^(-?\d+)$/);
+  const fixedPower = expression.match(/^(.+?)(²|³|⁻¹)$/);
+  if (fixedPower) {
+    const exponent = fixedPower[2] === '²' ? 2 : fixedPower[2] === '³' ? 3 : -1;
+    return matrixPower(parseMatrix(fixedPower[1], memory), exponent);
+  }
+  const powerMatch = expression.match(/^(.+)\^(?:\()?(-?\d+)(?:\))?$/);
   if (powerMatch) return matrixPower(parseMatrix(powerMatch[1], memory), Number(powerMatch[2]));
   return matrixVariable(expression, memory);
 }
@@ -285,12 +307,16 @@ function vectorVariable(input: string, memory: ModeMemory): number[] {
 
 function parseVector(input: string, memory: ModeMemory, angleMode: AngleMode): ModeEvaluation {
   const expression = input.trim();
-  const call = expression.match(/^(Dot|Angle|Unit|Cross)\((.*)\)$/i);
+  const call = expression.match(/^(Dot|Angle|Unit|Cross|Abs)\((.*)\)$/i);
   if (call) {
     const args = call[2].split(',').map(value => value.trim());
     if (/^Unit$/i.test(call[1])) {
       const vector = vectorUnit(vectorVariable(args[0], memory));
       return { display: `[${vector.join(',')}]`, vector };
+    }
+    if (/^Abs$/i.test(call[1])) {
+      const numeric = vectorNorm(vectorVariable(args[0], memory));
+      return { display: String(numeric), numeric };
     }
     const left = vectorVariable(args[0], memory);
     const right = vectorVariable(args[1], memory);
@@ -307,9 +333,15 @@ function parseVector(input: string, memory: ModeMemory, angleMode: AngleMode): M
   }
   const binary = splitTopLevel(expression, ['+', '-', '×', '*']);
   if (binary) {
-    const left = vectorVariable(binary.left, memory);
+    const leftText = binary.left.trim();
     const rightText = binary.right.trim();
-    if (/^-?\d+(?:\.\d+)?$/.test(rightText)) {
+    const isMultiply = binary.operator === '×' || binary.operator === '*';
+    if (isMultiply && /^-?\d+(?:\.\d+)?$/.test(leftText)) {
+      const vector = vectorScale(vectorVariable(binary.right, memory), Number(leftText));
+      return { display: `[${vector.join(',')}]`, vector };
+    }
+    const left = vectorVariable(binary.left, memory);
+    if (isMultiply && /^-?\d+(?:\.\d+)?$/.test(rightText)) {
       const vector = vectorScale(left, Number(rightText));
       return { display: `[${vector.join(',')}]`, vector };
     }
@@ -318,7 +350,7 @@ function parseVector(input: string, memory: ModeMemory, angleMode: AngleMode): M
       ? vectorAdd(left, right)
       : binary.operator === '-'
         ? vectorSubtract(left, right)
-        : vectorScale(left, vectorNorm(right));
+        : vectorCross(left, right);
     return { display: `[${vector.join(',')}]`, vector };
   }
   const vector = vectorVariable(expression, memory);
@@ -338,8 +370,7 @@ export function evaluateModeExpression(
   }
   if (mode === 'Base-N') {
     const raw = evaluateBaseExpression(input, memory.base);
-    const numeric = memory.base === 2 ? ((raw & 0xffff) > 0x7fff ? (raw & 0xffff) - 0x1_0000 : raw & 0xffff) : raw;
-    return { display: formatBaseInteger(numeric, memory.base), numeric };
+    return { display: formatBaseInteger(raw, memory.base), numeric: raw };
   }
   if (mode === 'Matrix') {
     const detMatch = input.trim().match(/^Det\((.+)\)$/i);

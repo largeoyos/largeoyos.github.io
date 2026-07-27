@@ -1,0 +1,695 @@
+[
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|压控电压源|**VCVS**|电压 u2u_2 u2|电压 u1u_1 u1|u2=μu1u_2 = \\mu u_1 u2=μu1|无量纲|",
+    "after": "|压控电压源|**VCVS**|电压 $u_2$|电压 $u_1$|$u_2 = \\mu u_1$|无量纲|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|流控电流源|**CCCS**|电流 i2i_2 i2|电流 i1i_1 i1|i2=βi1i_2 = \\beta i_1 i2=βi1|无量纲|",
+    "after": "|流控电流源|**CCCS**|电流 $i_2$|电流 $i_1$|$i_2 = \\beta i_1$|无量纲|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 经 2Ω 从 12V 流入 a 的电流：12−Ua2\\dfrac{12 - U_a}{2} 212−Ua",
+    "after": "- 经 $2\\,\\Omega$ 电阻从 $12\\,\\text{V}$ 流入节点 a 的电流：$\\dfrac{12 - U_a}{2}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 经 3Ω 从 6V 流入 a 的电流：6−Ua3\\dfrac{6 - U_a}{3} 36−Ua",
+    "after": "- 经 $3\\,\\Omega$ 电阻从 $6\\,\\text{V}$ 流入节点 a 的电流：$\\dfrac{6 - U_a}{3}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 经 6Ω 从 a 流出（流向地）的电流：Ua6\\dfrac{U_a}{6} 6Ua",
+    "after": "- 经 $6\\,\\Omega$ 电阻从节点 a 流向地的电流：$\\dfrac{U_a}{6}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "> 有两个电路 N N 和 N^\\hat{N} N^，**拓扑结构完全相同**（图相同），但元件可以完全不同。用 uku_k uk 表示 N 的支路电压，i^k\\hat{i}_k i^k 表示 N^\\hat{N} N^ 的支路电流（参考方向一致），则：",
+    "after": "> 有两个电路 $N$ 和 $\\hat{N}$，**拓扑结构完全相同**（图相同），但元件可以完全不同。用 $u_k$ 表示 $N$ 的支路电压，$\\hat{i}_k$ 表示 $\\hat{N}$ 的支路电流（参考方向一致），则：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 只要两个电路的图相同，N 的电压和 N^\\hat{N} N^ 的电流就\"恰好配得上\"——像拼图一样能对上",
+    "after": "- 只要两个电路的图相同，$N$ 的电压和 $\\hat{N}$ 的电流就能按对应支路配对。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "结论：U1Is=U2Us\\boxed{\\dfrac{U_1}{I_s} = \\dfrac{U_2}{U_s}} IsU1=UsU2",
+    "after": "结论：$\\boxed{\\dfrac{U_1}{I_s} = \\dfrac{U_2}{U_s}}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "节点方程：10−Ua2=Ua6+Ua3\\dfrac{10 - U_a}{2} = \\dfrac{U_a}{6} + \\dfrac{U_a}{3} 210−Ua=6Ua+3Ua",
+    "after": "节点方程：$\\dfrac{10 - U_a}{2} = \\dfrac{U_a}{6} + \\dfrac{U_a}{3}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "而 dQdt\\dfrac{dQ}{dt} dtdQ 就是电流 i i（单位时间流过的电荷量）：",
+    "after": "而 $\\dfrac{dQ}{dt}$ 就是电流 $i$（单位时间内流过的电荷量）：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "从 −∞-\\infty −∞（电压为 0）积分到当前时刻：",
+    "after": "从 $-\\infty$（电压为 0）积分到当前时刻：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|VCR|i=Cdudti = C \\dfrac{du}{dt} i=Cdtdu|u=Ldidtu = L \\dfrac{di}{dt} u=Ldtdi|",
+    "after": "|VCR|$i = C \\dfrac{du}{dt}$|$u = L \\dfrac{di}{dt}$|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|储能|W=12Cu2W = \\dfrac{1}{2}Cu^2 W=21Cu2（电场）|W=12Li2W = \\dfrac{1}{2}Li^2 W=21Li2（磁场）|",
+    "after": "|储能|$W = \\dfrac{1}{2}Cu^2$（电场）|$W = \\dfrac{1}{2}Li^2$（磁场）|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**串联**：L串=L1+L2+⋯L_{串} = L_1 + L_2 + \\cdots L串=L1+L2+⋯ **并联**：1L并=1L1+1L2+⋯\\dfrac{1}{L_{并}} = \\dfrac{1}{L_1} + \\dfrac{1}{L_2} + \\cdots L并1=L11+L21+⋯",
+    "after": "**串联**：$L_{串} = L_1 + L_2 + \\cdots$  \n**并联**：$\\dfrac{1}{L_{并}} = \\dfrac{1}{L_1} + \\dfrac{1}{L_2} + \\cdots$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**更具体地**：对互感电压 Mdi2dtM \\dfrac{di_2}{dt} Mdtdi2 在 u1u_1 u1 方程中的正负号：",
+    "after": "**具体判断方法**：考察互感电压 $M \\dfrac{di_2}{dt}$ 在 $u_1$ 方程中的正负号：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|耦合电感$u_k = L_k \\, di_k/dt \\pm M \\, di_j/dt$同名端决定正负号；M≤L1L2M \\leq \\sqrt{L_1 L_2} M≤L1L2|",
+    "after": "|耦合电感|$u_k = L_k \\, di_k/dt \\pm M \\, di_j/dt$|同名端决定正负号；$M \\leq \\sqrt{L_1 L_2}$|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|角频率|ω\\omega ω|每秒转过的弧度|rad/s|",
+    "after": "|角频率|$\\omega$|每秒转过的弧度|rad/s|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**例**：中国电网 f = 50 Hz，则 ω=2π×50=314\\omega = 2\\pi \\times 50 = 314 ω=2π×50=314 rad/s。你以后看到 314 这个数字别觉得眼熟是巧合——就是工频 50Hz 的角频率。",
+    "after": "**例**：中国电网 $f = 50\\,\\text{Hz}$，则 $\\omega = 2\\pi \\times 50 = 314\\,\\text{rad/s}$。因此电路中常见的 314 就是工频 50 Hz 对应的角频率。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**极坐标形式（模角式）**：A=∣A∣∠θA = |A| \\angle \\theta A=∣A∣∠θ",
+    "after": "**极坐标形式（模角式）**：$A = |A| \\angle \\theta$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "ejθ=cosθ+jsinθ\\boxed{e^{j\\theta} = \\cos\\theta + j\\sin\\theta}ejθ=cosθ+jsinθ",
+    "after": "$\\boxed{e^{j\\theta} = \\cos\\theta + j\\sin\\theta}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "ejωte^{j\\omega t}ejωt",
+    "after": "$e^{j\\omega t}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "ejωte^{j\\omega t} ejωt 这一部分包含\"时间\"和\"角频率\"——但在同频率的电路里，它对每个量都一样！",
+    "after": "$e^{j\\omega t}$ 这一部分包含时间和角频率，但在同频率电路中，它对每个量都相同。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "既然在同频率电路里，ejωte^{j\\omega t} ejωt 对所有量都一样，我们就**把它\"省略\"**，只保留含信息的那个复数常数——这就叫**相量**（phasor）：",
+    "after": "由于同频率电路中 $e^{j\\omega t}$ 对所有量都相同，可以省略它，只保留包含信息的复数常数，这就是**相量**（phasor）：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "I˙=Imejφ=Im∠φ\\boxed{\\dot{I} = I_m e^{j\\varphi} = I_m \\angle \\varphi}I˙=Imejφ=Im∠φ",
+    "after": "$\\boxed{\\dot{I} = I_m e^{j\\varphi} = I_m \\angle \\varphi}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "> **相量**是一个**复数**，含有正弦波的幅值和初相信息。频率 ω\\omega ω 不在相量里（因为同电路里都一样）。",
+    "after": "> **相量**是一个**复数**，包含正弦波的幅值和初相信息。频率 $\\omega$ 不在相量中，因为同一电路中的频率相同。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "想象复平面上有一个向量，长度 ImI_m Im，初始角度 φ\\varphi φ。让它以角速度 ω\\omega ω **逆时针旋转**：",
+    "after": "在复平面上取一个长度为 $I_m$、初始角度为 $\\varphi$ 的向量，使它以角速度 $\\omega$ **逆时针旋转**：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 向量**当前的辐角** = 当前的相位（ωt+φ\\omega t + \\varphi ωt+φ）",
+    "after": "- 向量**当前的辐角**等于当前相位 $\\omega t + \\varphi$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**相量就是\"抓拍\" t=0 时刻的那个向量**。因为所有量都以同样的 ω\\omega ω 旋转，它们的**相对关系**不变——抓拍一瞬间就够了。",
+    "after": "**相量可看作 $t=0$ 时刻旋转向量的快照**。所有量都以相同的 $\\omega$ 旋转，因此相对关系不变，只需保留一个时刻的信息。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "这个导数对应的相量是：ωIm∠(φ+90°)\\omega I_m \\angle(\\varphi + 90°) ωIm∠(φ+90°)",
+    "after": "这个导数对应的相量是：$\\omega I_m \\angle(\\varphi + 90°)$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "而 ωIm∠(φ+90°)=Im∠φ⋅ω∠90°=I˙⋅jω\\omega I_m \\angle(\\varphi + 90°) = I_m \\angle\\varphi \\cdot \\omega \\angle 90° = \\dot{I} \\cdot j\\omega ωIm∠(φ+90°)=Im∠φ⋅ω∠90°=I˙⋅jω",
+    "after": "而 $\\omega I_m \\angle(\\varphi + 90°) = I_m \\angle\\varphi \\cdot \\omega \\angle 90° = \\dot{I} \\cdot j\\omega$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "提取 I˙\\dot{I} I˙：",
+    "after": "提取 $\\dot{I}$：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|i(t)=Imcos(ωt+φ)i(t) = I_m\\cos(\\omega t + \\varphi) i(t)=Imcos(ωt+φ)||I˙=I∠φ\\dot{I} = I\\angle\\varphi I˙=I∠φ（有效值）|",
+    "after": "|$i(t) = I_m\\cos(\\omega t + \\varphi)$||$\\dot{I} = I\\angle\\varphi$（有效值）|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|didt\\dfrac{di}{dt} dtdi||jωI˙j\\omega \\dot{I} jωI˙|",
+    "after": "|$\\dfrac{di}{dt}$||$j\\omega \\dot{I}$|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "U˙=RI˙\\boxed{\\dot{U} = R\\dot{I}}U˙=RI˙",
+    "after": "$\\boxed{\\dot{U} = R\\dot{I}}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "U˙\\dot{U} U˙ 和 I˙\\dot{I} I˙ 是**同向**的两个复向量。",
+    "after": "$\\dot{U}$ 和 $\\dot{I}$ 是**同向**的两个复向量。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "时域 VCR：u=Ldidtu = L \\dfrac{di}{dt} u=Ldtdi",
+    "after": "时域 VCR：$u = L \\dfrac{di}{dt}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "U˙=jωL⋅I˙\\boxed{\\dot{U} = j\\omega L \\cdot \\dot{I}}U˙=jωL⋅I˙",
+    "after": "$\\boxed{\\dot{U} = j\\omega L \\cdot \\dot{I}}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**请你先思考**：jωLj\\omega L jωL 是一个复数，它的**模**和**辐角**分别是什么？它对 I˙\\dot{I} I˙ 做了什么\"操作\"？",
+    "after": "复数 $j\\omega L$ 的模为 $\\omega L$，辐角为 $90°$，它会对 $\\dot{I}$ 进行幅值缩放和相位旋转。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- **模**：∣jωL∣=ωL|j\\omega L| = \\omega L ∣jωL∣=ωL",
+    "after": "- **模**：$|j\\omega L| = \\omega L$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "所以 U˙=(ωL)∠90°⋅I˙\\dot{U} = (\\omega L)\\angle 90° \\cdot \\dot{I} U˙=(ωL)∠90°⋅I˙，意思是：",
+    "after": "所以 $\\dot{U} = (\\omega L)\\angle 90° \\cdot \\dot{I}$，其含义是：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "时域 VCR：i=Cdudti = C \\dfrac{du}{dt} i=Cdtdu",
+    "after": "时域 VCR：$i = C \\dfrac{du}{dt}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "相量化：I˙=jωC⋅U˙\\dot{I} = j\\omega C \\cdot \\dot{U} I˙=jωC⋅U˙",
+    "after": "相量形式：$\\dot{I} = j\\omega C \\cdot \\dot{U}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|元件|时域 VCR|相量 VCR|U˙\\dot{U} U˙ 与 I˙\\dot{I} I˙ 的相位关系|",
+    "after": "|元件|时域 VCR|相量 VCR|$\\dot{U}$ 与 $\\dot{I}$ 的相位关系|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|电阻 R|u=Riu = Ri u=Ri|U˙=RI˙\\dot{U} = R\\dot{I} U˙=RI˙|同相|",
+    "after": "|电阻 $R$|$u = Ri$|$\\dot{U} = R\\dot{I}$|同相|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|电感 L|u=L di/dtu = L \\, di/dt u=Ldi/dt|U˙=jωL I˙\\dot{U} = j\\omega L \\, \\dot{I} U˙=jωLI˙|U˙\\dot{U} U˙ 超前 I˙\\dot{I} I˙ 90°|",
+    "after": "|电感 $L$|$u = L\\,di/dt$|$\\dot{U} = j\\omega L\\,\\dot{I}$|$\\dot{U}$ 超前 $\\dot{I}$ 90°|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|电容 C|i=C du/dti = C \\, du/dt i=Cdu/dt|U˙=1jωCI˙\\dot{U} = \\dfrac{1}{j\\omega C} \\dot{I} U˙=jωC1I˙|U˙\\dot{U} U˙ 滞后 I˙\\dot{I} I˙ 90°|",
+    "after": "|电容 $C$|$i = C\\,du/dt$|$\\dot{U} = \\dfrac{1}{j\\omega C}\\dot{I}$|$\\dot{U}$ 滞后 $\\dot{I}$ 90°|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "U˙=Z⋅I˙\\dot{U} = Z \\cdot \\dot{I}U˙=Z⋅I˙",
+    "after": "$\\dot{U} = Z \\cdot \\dot{I}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**电容**：ZC=1jωC=−jωCZ_C = \\dfrac{1}{j\\omega C} = -\\dfrac{j}{\\omega C} ZC=jωC1=−ωCj（纯虚数，负虚部）",
+    "after": "**电容**：$Z_C = \\dfrac{1}{j\\omega C} = -\\dfrac{j}{\\omega C}$（纯虚数，负虚部）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 电容的电抗 XC=−1ωCX_C = -\\dfrac{1}{\\omega C} XC=−ωC1，称为**容抗**",
+    "after": "- 电容的电抗 $X_C = -\\dfrac{1}{\\omega C}$，称为**容抗**",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- ω→0\\omega \\to 0 ω→0（直流）：ZL→0Z_L \\to 0 ZL→0（短路），ZC→∞Z_C \\to \\infty ZC→∞（开路）—— 这和第四章结论一致 ✓",
+    "after": "- $\\omega \\to 0$（直流）：$Z_L \\to 0$（短路），$Z_C \\to \\infty$（开路）——这与第四章的结论一致。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- ω→∞\\omega \\to \\infty ω→∞（高频）：ZL→∞Z_L \\to \\infty ZL→∞（开路），ZC→0Z_C \\to 0 ZC→0（短路）",
+    "after": "- $\\omega \\to \\infty$（高频）：$Z_L \\to \\infty$（开路），$Z_C \\to 0$（短路）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**并联**：1Z总=1Z1+1Z2+⋯\\dfrac{1}{Z_{总}} = \\dfrac{1}{Z_1} + \\dfrac{1}{Z_2} + \\cdots Z总1=Z11+Z21+⋯",
+    "after": "**并联**：$\\dfrac{1}{Z_{总}} = \\dfrac{1}{Z_1} + \\dfrac{1}{Z_2} + \\cdots$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "（两个阻抗并联：Z总=Z1Z2Z1+Z2Z_{总} = \\dfrac{Z_1 Z_2}{Z_1 + Z_2} Z总=Z1+Z2Z1Z2）",
+    "after": "（两个阻抗并联：$Z_{总} = \\dfrac{Z_1 Z_2}{Z_1 + Z_2}$）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "所以 G=RR2+X2G = \\dfrac{R}{R^2+X^2} G=R2+X2R，B=−XR2+X2B = \\dfrac{-X}{R^2+X^2} B=R2+X2−X",
+    "after": "所以 $G = \\dfrac{R}{R^2+X^2}$，$B = \\dfrac{-X}{R^2+X^2}$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "1. 电源相量 U˙s\\dot{U}_s U˙s",
+    "after": "1. 电源相量 $\\dot{U}_s$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "3. 电路电流相量 I˙\\dot{I} I˙",
+    "after": "3. 电路电流相量 $\\dot{I}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "2. **算各元件阻抗**（ω=100\\omega = 100 ω=100 rad/s）：",
+    "after": "2. **计算各元件阻抗**（$\\omega = 100\\,\\text{rad/s}$）：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": " - ZC=1jωC=1j⋅100×10−6=1j⋅0.01=−j100Z_C = \\dfrac{1}{j\\omega C} = \\dfrac{1}{j \\cdot 100 \\cdot 100\\times 10^{-6}} = \\dfrac{1}{j \\cdot 0.01} = \\dfrac{-j}{0.01} = -j100 ZC=jωC1=j⋅100×10−61=j⋅0.011=0.01−j=−j100 Ω",
+    "after": "- $Z_C = \\dfrac{1}{j\\omega C} = \\dfrac{1}{j \\cdot 100 \\cdot 100\\times 10^{-6}} = -j100\\,\\Omega$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": " - I˙=U˙s/Z=100∠0°90.55∠−83.66°=10090.55∠(0°−(−83.66°))≈1.10∠83.66°\\dot{I} = \\dot{U}_s / Z = \\dfrac{100\\angle 0°}{90.55\\angle -83.66°} = \\dfrac{100}{90.55}\\angle(0° - (-83.66°)) \\approx 1.10 \\angle 83.66° I˙=U˙s/Z=90.55∠−83.66°100∠0°=90.55100∠(0°−(−83.66°))≈1.10∠83.66° A",
+    "after": "- $\\dot{I} = \\dot{U}_s/Z = \\dfrac{100\\angle 0°}{90.55\\angle -83.66°} \\approx 1.10 \\angle 83.66°\\,\\text{A}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "2. 电流相量 I˙\\dot{I} I˙",
+    "after": "2. 电流相量 $\\dot{I}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "发送时延=数据长度(bit)发送速率(bit/s)发送时延 = \\frac{数据长度(bit)}{发送速率(bit/s)}发送时延=发送速率(bit/s)数据长度(bit)​",
+    "after": "$\\text{发送时延} = \\dfrac{\\text{数据长度（bit）}}{\\text{发送速率（bit/s）}}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "传播时延=信道长度(m)传播速率(m/s)传播时延 = \\frac{信道长度(m)}{传播速率(m/s)}传播时延=传播速率(m/s)信道长度(m)​",
+    "after": "$\\text{传播时延} = \\dfrac{\\text{信道长度（m）}}{\\text{传播速率（m/s）}}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "RTTs=(1−α)⋅RTTs+α⋅RTTnewRTT_s = (1-\\alpha) \\cdot RTT_s + \\alpha \\cdot RTT_{new}RTTs​=(1−α)⋅RTTs​+α⋅RTTnew​ RTO=RTTs+4⋅RTTDRTO = RTT_s + 4 \\cdot RTT_DRTO=RTTs​+4⋅RTTD​",
+    "after": "$RTT_s = (1-\\alpha) \\cdot RTT_s + \\alpha \\cdot RTT_{new}$  \n$RTO = RTT_s + 4 \\cdot RTT_D$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "P→Q,P∴Q\\frac{P \\to Q, \\quad P}{\\therefore \\quad Q}∴QP→Q,P​",
+    "after": "$\\dfrac{P \\to Q, \\quad P}{\\therefore \\quad Q}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "P→Q,¬Q∴¬P\\frac{P \\to Q, \\quad \\neg Q}{\\therefore \\quad \\neg P}∴¬P→Q,¬Q",
+    "after": "$\\dfrac{P \\to Q, \\quad \\neg Q}{\\therefore \\quad \\neg P}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "P→Q,Q→R∴P→R\\frac{P \\to Q, \\quad Q \\to R}{\\therefore \\quad P \\to R}∴P→RP→Q,Q→R​",
+    "after": "$\\dfrac{P \\to Q, \\quad Q \\to R}{\\therefore \\quad P \\to R}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "P∨Q,¬P∴Q\\frac{P \\lor Q, \\quad \\neg P}{\\therefore \\quad Q}∴QP∨Q,¬P​",
+    "after": "$\\dfrac{P \\lor Q, \\quad \\neg P}{\\therefore \\quad Q}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|**化简律**|P∧Q∴P\\dfrac{P \\land Q}{\\therefore P} ∴P∧Q|且的一部分仍成立|",
+    "after": "|**化简律**|$\\dfrac{P \\land Q}{\\therefore P}$|且命题的一部分仍成立|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|**合取律**|P,Q∴P∧Q\\dfrac{P, Q}{\\therefore P \\land Q} ∴P∧QP,Q​|两个真的合起来还真|",
+    "after": "|**合取律**|$\\dfrac{P, Q}{\\therefore P \\land Q}$|两个真命题合取后仍为真|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|**附加律**|P∴P∨Q\\dfrac{P}{\\therefore P \\lor Q} ∴P∨QP​|真的命题加什么都真|",
+    "after": "|**附加律**|$\\dfrac{P}{\\therefore P \\lor Q}$|真命题与任意命题析取后仍为真|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|**构造性二难**|(P→R),(Q→R),P∨Q∴R\\dfrac{(P \\to R), (Q \\to R), P \\lor Q}{\\therefore R} ∴R(P→R),(Q→R),P∨Q​|分情况讨论|",
+    "after": "|**构造性二难**|$\\dfrac{(P \\to R), (Q \\to R), P \\lor Q}{\\therefore R}$|分情况讨论|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- 讨论\"所有自然数有某性质\"时，个体域 = 自然数集合 N\\mathbb{N} N",
+    "after": "- 讨论“所有自然数具有某性质”时，个体域取自然数集合 $\\mathbb{N}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**例子**（个体域 = 自然数 N\\mathbb{N} N）：",
+    "after": "**例子**（个体域为自然数集 $\\mathbb{N}$）：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∀ε>0 ∃δ>0 ∀x (0<∣x−a∣<δ→∣f(x)−L∣<ε)\\forall \\varepsilon > 0 \\, \\exists \\delta > 0 \\, \\forall x \\, (0 < |x - a| < \\delta \\to |f(x) - L| < \\varepsilon)∀ε>0∃δ>0∀x(0<∣x−a∣<δ→∣f(x)−L∣<ε)",
+    "after": "$\\forall \\varepsilon > 0 \\, \\exists \\delta > 0 \\, \\forall x \\, (0 < |x - a| < \\delta \\to |f(x) - L| < \\varepsilon)$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "如果写成 ∃δ>0 ∀ε>0 …\\exists \\delta > 0 \\, \\forall \\varepsilon > 0 \\, \\ldots ∃δ>0∀ε>0…，意思就变成\"存在一个 δ 对所有 ε 都好使\" —— 意思完全变了，而且通常不成立。",
+    "after": "如果写成 $\\exists \\delta > 0 \\, \\forall \\varepsilon > 0 \\, \\ldots$，意思就变成“存在一个 $\\delta$ 对所有 $\\varepsilon$ 都适用”。这与原命题不同，而且通常不成立。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∀x P(x)∴P(a)(a 为任意个体)\\frac{\\forall x \\, P(x)}{\\therefore P(a)} \\quad \\text{(a 为任意个体)}∴P(a)∀xP(x)​(a 为任意个体)",
+    "after": "$\\dfrac{\\forall x \\, P(x)}{\\therefore P(a)} \\quad \\text{（a 为任意个体）}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "P(a)（对任意的 a 成立）∴∀x P(x)\\frac{P(a) \\text{（对任意的 a 成立）}}{\\therefore \\forall x \\, P(x)}∴∀xP(x)P(a)（对任意的 a 成立）​",
+    "after": "$\\dfrac{P(a) \\text{（对任意的 a 成立）}}{\\therefore \\forall x \\, P(x)}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∃x P(x)∴P(c)（c 为某个特定的常量）\\frac{\\exists x \\, P(x)}{\\therefore P(c) \\text{（c 为某个特定的常量）}}∴P(c)（c 为某个特定的常量）∃xP(x)​",
+    "after": "$\\dfrac{\\exists x \\, P(x)}{\\therefore P(c) \\text{（c 为某个特定常量）}}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "P(a)∴∃x P(x)\\frac{P(a)}{\\therefore \\exists x \\, P(x)}∴∃xP(x)P(a)​",
+    "after": "$\\dfrac{P(a)}{\\therefore \\exists x \\, P(x)}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**练习 1**（翻译基础）：把下列句子翻译成谓词逻辑公式（自己定义谓词）。个体域：整数集 Z\\mathbb{Z} Z。",
+    "after": "**练习 1**（翻译基础）：把下列句子翻译成谓词逻辑公式（自行定义谓词）。个体域为整数集 $\\mathbb{Z}$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "N={0,1,2,3,…}\\mathbb{N} = \\{0, 1, 2, 3, \\ldots\\}N={0,1,2,3,…} C={2,4,6,…,100}C = \\{2, 4, 6, \\ldots, 100\\}C={2,4,6,…,100}",
+    "after": "$\\mathbb{N} = \\{0, 1, 2, 3, \\ldots\\}$  \n$C = \\{2, 4, 6, \\ldots, 100\\}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "{x∣x 是小于 10 的正整数}={1,2,3,4,5,6,7,8,9}\\{x \\mid x \\text{ 是小于 } 10 \\text{ 的正整数}\\} = \\{1, 2, 3, 4, 5, 6, 7, 8, 9\\}{x∣x 是小于 10 的正整数}={1,2,3,4,5,6,7,8,9} {x∣x2<10, x∈Z}={−3,−2,−1,0,1,2,3}\\{x \\mid x^2 < 10, \\, x \\in \\mathbb{Z}\\} = \\{-3, -2, -1, 0, 1, 2, 3\\}{x∣x2<10,x∈Z}={−3,−2,−1,0,1,2,3} {x∣x∈N, x 是偶数}={0,2,4,6,…}\\{x \\mid x \\in \\mathbb{N}, \\, x \\text{ 是偶数}\\} = \\{0, 2, 4, 6, \\ldots\\}{x∣x∈N,x 是偶数}={0,2,4,6,…}",
+    "after": "- $\\{x \\mid x \\text{ 是小于 } 10 \\text{ 的正整数}\\} = \\{1, 2, 3, 4, 5, 6, 7, 8, 9\\}$\n- $\\{x \\mid x^2 < 10, \\, x \\in \\mathbb{Z}\\} = \\{-3, -2, -1, 0, 1, 2, 3\\}$\n- $\\{x \\mid x \\in \\mathbb{N}, \\, x \\text{ 是偶数}\\} = \\{0, 2, 4, 6, \\ldots\\}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. 单位圆上的所有点（提示：在 R2\\mathbb{R}^2 R2 中）",
+    "after": "2. 单位圆上的所有点（提示：在 $\\mathbb{R}^2$ 中）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. {x∣x∈Z, x 是 2 的倍数}\\{x \\mid x \\in \\mathbb{Z}, \\, x \\text{ 是 2 的倍数}\\} {x∣x∈Z,x 是 2 的倍数} 或更紧凑 {2k∣k∈Z}\\{2k \\mid k \\in \\mathbb{Z}\\} {2k∣k∈Z}",
+    "after": "1. $\\{x \\mid x \\in \\mathbb{Z}, \\, x \\text{ 是 2 的倍数}\\}$，或更紧凑地写成 $\\{2k \\mid k \\in \\mathbb{Z}\\}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. {(x,y)∣x,y∈R, x2+y2=1}\\{(x, y) \\mid x, y \\in \\mathbb{R}, \\, x^2 + y^2 = 1\\} {(x,y)∣x,y∈R,x2+y2=1}",
+    "after": "2. $\\{(x, y) \\mid x, y \\in \\mathbb{R}, \\, x^2 + y^2 = 1\\}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "3. {x∣x∈Q, 0<x<1}\\{x \\mid x \\in \\mathbb{Q}, \\, 0 < x < 1\\} {x∣x∈Q,0<x<1}",
+    "after": "3. $\\{x \\mid x \\in \\mathbb{Q}, \\, 0 < x < 1\\}$",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|N\\mathbb{N} N|自然数集（注：某些教材含 0，某些不含，问清楚）|0, 1, 2, ...|",
+    "after": "|$\\mathbb{N}$|自然数集（某些教材包含 0，某些不包含）|0, 1, 2, ...|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|Z\\mathbb{Z} Z|整数集 (德语 Zahlen)|..., -2, -1, 0, 1, 2, ...|",
+    "after": "|$\\mathbb{Z}$|整数集（德语 Zahlen）|..., -2, -1, 0, 1, 2, ...|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|Z+\\mathbb{Z}^+ Z+ 或 N∗\\mathbb{N}^* N∗|正整数集|1, 2, 3, ...|",
+    "after": "|$\\mathbb{Z}^+$ 或 $\\mathbb{N}^*$|正整数集|1, 2, 3, ...|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|Q\\mathbb{Q} Q|有理数集 (Quotient)|1/2, -3, 0.25, ...|",
+    "after": "|$\\mathbb{Q}$|有理数集（Quotient）|1/2, -3, 0.25, ...|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|R\\mathbb{R} R|实数集|π, √2, 1, ...|",
+    "after": "|$\\mathbb{R}$|实数集|π, √2, 1, ...|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|C\\mathbb{C} C|复数集|3+4i3+4i 3+4i, ...|",
+    "after": "|$\\mathbb{C}$|复数集|$3+4i$, ...|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "讨论整数的问题时，U=ZU = \\mathbb{Z} U=Z；讨论平面几何时，U=R2U = \\mathbb{R}^2 U=R2。**同一个问题中全集是固定的**，不会中途变。",
+    "after": "讨论整数问题时，$U = \\mathbb{Z}$；讨论平面几何时，$U = \\mathbb{R}^2$。**同一问题中的全集是固定的**，不会中途改变。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "N\\mathbb{N} N、Z\\mathbb{Z} Z、R\\mathbb{R} R 都是**无限集**。有趣的是，**无限集也有\"大小\"之分**：",
+    "after": "$\\mathbb{N}$、$\\mathbb{Z}$、$\\mathbb{R}$ 都是**无限集**。无限集也有大小之分：",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- N\\mathbb{N} N、Z\\mathbb{Z} Z、Q\\mathbb{Q} Q 叫**可数无限集** (countably infinite)",
+    "after": "- $\\mathbb{N}$、$\\mathbb{Z}$、$\\mathbb{Q}$ 称为**可数无限集**（countably infinite）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- R\\mathbb{R} R、C\\mathbb{C} C 叫**不可数无限集** (uncountably infinite)",
+    "after": "- $\\mathbb{R}$、$\\mathbb{C}$ 称为**不可数无限集**（uncountably infinite）",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "|¬P(x)\\neg P(x) ¬P(x)|A‾\\overline{A} A（补集）|",
+    "after": "|$\\neg P(x)$|$\\overline{A}$（补集）|",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (1) 把 {x∣x∈Z, −3≤x≤3, x 是奇数}\\{x \\mid x \\in \\mathbb{Z}, \\, -3 \\leq x \\leq 3, \\, x \\text{ 是奇数}\\} {x∣x∈Z,−3≤x≤3,x 是奇数} 用列举法写出。",
+    "after": "- (1) 把 $\\{x \\mid x \\in \\mathbb{Z}, \\, -3 \\leq x \\leq 3, \\, x \\text{ 是奇数}\\}$ 用列举法写出。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "设 A={x∣x∈Z, x2≤4}A = \\{x \\mid x \\in \\mathbb{Z}, \\, x^2 \\leq 4\\} A={x∣x∈Z,x2≤4}，$B = \\{-2, -1, 0, 1, 2\\}$。证明A = B。",
+    "after": "设 $A = \\{x \\mid x \\in \\mathbb{Z}, \\, x^2 \\leq 4\\}$，$B = \\{-2, -1, 0, 1, 2\\}$。证明 $A = B$。",
+    "expected": 1,
+    "reason": "严格复校：保留中间 LaTeX 公式并移除重复渲染文本"
+  }
+]

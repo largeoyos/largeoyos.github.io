@@ -1,0 +1,9 @@
+[
+  {
+    "file": "Claude STM32(粗校).md",
+    "before": "完成本课的任务后告诉我：",
+    "after": "完成本课任务后应验证：",
+    "expected": 1,
+    "reason": "删除等待回复"
+  }
+]

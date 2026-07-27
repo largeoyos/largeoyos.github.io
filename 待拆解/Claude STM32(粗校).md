@@ -23,7 +23,7 @@
 
 ---
 
-先别急着回答得多完美，就说你真实的想法。这两个问题的答案决定了我们接下来从哪里切入——是先补"单片机是什么"的底层原理，还是可以直接跳到 HAL 库的使用。
+以下两个问题用于判断应先补充单片机底层原理，还是直接进入 HAL 库的使用。
 
 那我们正式开始。我不会直接给你贴代码，而是用"提问引导 + 讲解"的方式，让你真正理解**为什么**，而不只是**怎么做**。
 
@@ -104,7 +104,7 @@ GPIOC->ODR |= (1 << 13);  // 第13位写1 → PC13引脚输出高电平
 
 你先思考并回答这三个问题，哪怕不确定也没关系，说出你的猜测和理由就行。
 
-根据你的回答，我会判断下一步：
+根据掌握情况，可选择以下学习路径：
 
 - 如果三个都能答对 → 我们直接进入 CubeMX 配置第一个工程，**今天就让 LED 闪起来**。
 - 如果 B、C 有困难 → 我们补一下"GPIO 的电气特性"和"位运算在寄存器中的应用"。
@@ -461,7 +461,6 @@ uint32_t *p = (uint32_t *)0x40011014;   // 直接指向 GPIOC->ODR 的地址
 慢慢来，嵌入式不怕慢，怕不扎实。💪
 ### 答案解析 + 继续前进:
 
-
 ---
 
 ### 位运算题解答
@@ -740,7 +739,7 @@ volatile uint32_t *p = (volatile uint32_t *)0x40011014;
 
 右上角点 `GENERATE CODE`。
 
-生成完成后，在你选的目录下会有这些文件：
+生成完成后，所选目录中会有以下文件：
 
 ```
 LED_Blink/
@@ -768,7 +767,7 @@ LED_Blink/
 ### 第二步：用 CLion 打开工程
 
 - `File` → `Open` → 选中 `CMakeLists.txt` 所在目录
-- CLion 会自动识别为 CMake 工程，让你选 `Open as Project`
+- CLion 会自动识别为 CMake 工程，此时选择 `Open as Project`
 - 右下角可能提示配置 Toolchain，选你之前配好的 ARM 交叉编译器
 
 ---
@@ -808,10 +807,10 @@ c
 void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
     uint32_t odr;
-    
+
     /* 读取当前 ODR */
     odr = GPIOx->ODR;
-    
+
     /* 用 BSRR 寄存器做原子翻转 */
     GPIOx->BSRR = ((odr & GPIO_Pin) << 16U) | (~odr & GPIO_Pin);
 }
@@ -928,7 +927,7 @@ c
 3. **观察不同写法**——HAL 版和寄存器版切换着烧录几次，感受它们行为一样。
 4. **做一个小挑战**：让 LED **快闪 3 次，停 1 秒，再快闪 3 次**，循环往复。
 
-做完之后告诉我：
+完成后应得到以下结果：
 
 - 烧录成功了吗？有没有遇到报错？
 - 你对哪一步还有疑问？
@@ -936,10 +935,9 @@ c
 
 等你反馈后，我们下一课就进入 **GPIO 输入 + 按键 + 消抖**，然后是 **中断**（你会真正理解为什么 `volatile` 是嵌入式的灵魂）。
 
-加油，你已经踩在门槛上了，推开它就是另一个世界。🚪✨
 ## 第二课：GPIO 输入、按键与中断
 
-上一课你已经让 LED 闪起来了——这意味着你已经能**让 MCU 对外输出**了。这一课我们反过来：**让 MCU 感知外部世界**。这一步走通，你就真正进入"交互式嵌入式"的世界。
+上一课已经实现 LED 闪烁，说明 MCU 已能**对外输出**。本课转向相反方向：**让 MCU 感知外部世界**，由此进入交互式嵌入式系统。
 
 在开始之前，先让我猜一下你对按键的直觉，看看准不准。
 
@@ -969,7 +967,7 @@ while (1) {
 }
 ```
 
-这个思路**完全正确**，这种方式叫做**轮询（Polling）**——CPU 不停地问："按了吗？按了吗？按了吗？"。我们先用这种方式实现一遍，然后你会亲身体验它的问题，再引出**中断**这个更优雅的方案。
+这种方式称为**轮询（Polling）**：CPU 持续检查按键状态。先实现轮询并观察其局限，再引出更合适的**中断**方案。
 
 ---
 
@@ -1349,7 +1347,7 @@ c
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     static uint32_t last_tick = 0;   // static，函数退出后值保留
-    
+
     if (GPIO_Pin == BUTTON_Pin) {
         uint32_t now = HAL_GetTick();   // 获取当前毫秒数（不会卡住）
         if (now - last_tick > 20) {     // 距离上次中断超过 20ms，认为是新按键
@@ -1390,7 +1388,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 /* main 循环里，处理标志 */
 int main(void) {
     // ... 初始化 ...
-    
+
     while (1) {
         if (button_pressed_flag) {
             // 延时消抖（这里可以 HAL_Delay，因为在主循环里）
@@ -1470,7 +1468,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 ---
 
-完成任务后告诉我：
+完成任务后应验证：
 
 - 轮询版和中断版都跑通了吗？
 - 按键抖动你亲眼观察到了吗？（比如不加消抖时 LED 的"跳动"行为）
@@ -1830,7 +1828,7 @@ while (1)
 {
     HAL_UART_Receive(&huart1, &rx_byte, 1, HAL_MAX_DELAY);
     // 代码会卡在这行，直到收到 1 个字节
-    
+
     // 收到后处理
     if (rx_byte == '1') {
         HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);  // 点亮
@@ -1865,10 +1863,10 @@ uint8_t rx_byte;
 int main(void)
 {
     /* ... 初始化 ... */
-    
+
     /* 启动一次接收，告诉硬件"收到1字节后触发中断" */
     HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
-    
+
     while (1) {
         // CPU 可以做别的事，这里什么都不做
     }
@@ -1886,7 +1884,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
             printf("LED OFF\r\n");
         }
-        
+
         /* ⚠️ 关键：再启动一次接收，否则下次就收不到了！ */
         HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
     }
@@ -1934,7 +1932,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
                 rx_index = 0;  // 溢出保护，丢弃
             }
         }
-        
+
         /* 启动下一次接收 */
         HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
     }
@@ -1945,12 +1943,12 @@ int main(void)
 {
     /* ... 初始化 ... */
     HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
-    
+
     while (1) {
         if (line_ready) {
             line_ready = 0;
             printf("Got command: %s\r\n", rx_buffer);
-            
+
             if (strcmp((char*)rx_buffer, "LED_ON") == 0) {
                 HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
             } else if (strcmp((char*)rx_buffer, "LED_OFF") == 0) {
@@ -2103,10 +2101,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 int main(void) {
     /* ... 初始化 ... */
     HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
-    
+
     static uint8_t line_buf[64];
     static uint16_t line_idx = 0;
-    
+
     while (1) {
         uint8_t byte;
         while (RB_Read(&rx_rb, &byte)) {   // 尽量把 RB 里的字节都取出来
@@ -2530,14 +2528,14 @@ void I2C_Scan(void)
     printf("    ");
     for (uint8_t col = 0; col < 16; col++) printf("%2x ", col);
     printf("\r\n");
-    
+
     uint8_t found_count = 0;
-    
+
     for (uint8_t addr = 0; addr < 128; addr++) {
         if (addr % 16 == 0) {
             printf("%02x: ", addr);
         }
-        
+
         /* 试探这个地址 —— 注意左移 1 位！ */
         if (HAL_I2C_IsDeviceReady(&hi2c1, addr << 1, 1, 10) == HAL_OK) {
             printf("%02x ", addr);
@@ -2545,12 +2543,12 @@ void I2C_Scan(void)
         } else {
             printf("-- ");
         }
-        
+
         if (addr % 16 == 15) {
             printf("\r\n");
         }
     }
-    
+
     printf("\r\nFound %d device(s).\r\n", found_count);
 }
 /* USER CODE END 0 */
@@ -2558,7 +2556,7 @@ void I2C_Scan(void)
 int main(void)
 {
     /* ... CubeMX 生成的初始化 ... */
-    
+
     while (1)
     {
         I2C_Scan();
@@ -2668,7 +2666,7 @@ void EEPROM_Test(void)
 {
     uint8_t write_data[] = "Hello!";
     uint8_t read_data[10] = {0};
-    
+
     /* 写入数据到地址 0x00 */
     printf("Writing 'Hello!' to address 0x00...\r\n");
     if (HAL_I2C_Mem_Write(&hi2c1, EEPROM_ADDR, 0x00, I2C_MEMADD_SIZE_8BIT,
@@ -2678,10 +2676,10 @@ void EEPROM_Test(void)
         printf("Write FAILED\r\n");
         return;
     }
-    
+
     /* EEPROM 写入后需要等待内部写周期完成（5~10ms） */
     HAL_Delay(10);
-    
+
     /* 从地址 0x00 读回数据 */
     printf("Reading from address 0x00...\r\n");
     if (HAL_I2C_Mem_Read(&hi2c1, EEPROM_ADDR, 0x00, I2C_MEMADD_SIZE_8BIT,
@@ -2919,7 +2917,7 @@ OLED_DrawText(&oled2, 0, 0, "Screen 2");
 
 ---
 
-做完任务后告诉我：
+完成任务后应验证：
 
 - I2C 扫描找到了几个设备？地址是多少？
 - 你对 HAL 库的"句柄模式"感觉怎么样？能自己解释为什么要这样设计吗？
@@ -2928,8 +2926,6 @@ OLED_DrawText(&oled2, 0, 0, "Screen 2");
 **开始从"调包侠"向"架构师"过渡了**。这一课看似讲 I2C，其实一半内容是讲**如何写好代码**。这种思维会伴随你整个嵌入式生涯。🚀
 
 ### 答案解析 + 继续前进
-
-
 
 ---
 
@@ -3169,8 +3165,7 @@ printf("Fridge: %.1f°C  %.1f%%RH\n",
         ├─────┤ ├────┤ ├────┤            ├────────┤
         │从设备1                           │  (从每个从设备一个专属 CS)
         └─────────────────────────────────┘
-        
-        
+
              从设备 2, 3...          依次再画
 ```
 
@@ -3327,7 +3322,7 @@ typedef struct {
 } W25Q_Handle;
 
 /* 接口 */
-void    W25Q_Init(W25Q_Handle *flash, SPI_HandleTypeDef *hspi, 
+void    W25Q_Init(W25Q_Handle *flash, SPI_HandleTypeDef *hspi,
                   GPIO_TypeDef *cs_port, uint16_t cs_pin);
 uint32_t W25Q_ReadID(W25Q_Handle *flash);
 void    W25Q_ReadData(W25Q_Handle *flash, uint32_t addr, uint8_t *buf, uint32_t len);
@@ -3444,28 +3439,28 @@ W25Q_Handle flash;
 
 int main(void) {
     /* ... CubeMX 初始化 ... */
-    
+
     W25Q_Init(&flash, &hspi1, FLASH_CS_GPIO_Port, FLASH_CS_Pin);
-    
+
     /* 读 ID 验证连接 */
     uint32_t id = W25Q_ReadID(&flash);
     printf("Flash ID: 0x%06lX\r\n", id);
     /* W25Q64 的 ID 是 0xEF4017，W25Q128 是 0xEF4018 */
-    
+
     /* 擦除第一个扇区 */
     printf("Erasing sector 0...\r\n");
     W25Q_SectorErase(&flash, 0);
-    
+
     /* 写入测试数据 */
     uint8_t write_buf[] = "Hello, SPI Flash!";
     printf("Writing...\r\n");
     W25Q_PageProgram(&flash, 0, write_buf, sizeof(write_buf));
-    
+
     /* 读回验证 */
     uint8_t read_buf[32] = {0};
     W25Q_ReadData(&flash, 0, read_buf, sizeof(write_buf));
     printf("Read back: %s\r\n", read_buf);
-    
+
     while (1) {
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
         HAL_Delay(500);
@@ -3610,7 +3605,7 @@ KeyEvent Key_Update(KeyFSM *k) {
     GPIO_PinState now = HAL_GPIO_ReadPin(k->port, k->pin);
     uint8_t is_pressed = (now == k->pressed_level);
     uint32_t now_tick = HAL_GetTick();
-    
+
     switch (k->state) {
         case KEY_STATE_IDLE:
             if (is_pressed) {
@@ -3618,7 +3613,7 @@ KeyEvent Key_Update(KeyFSM *k) {
                 k->last_action_tick = now_tick;
             }
             break;
-            
+
         case KEY_STATE_WAIT_UP_1:
             if (!is_pressed) {
                 // 松开了，如果持续时间很短就是短按候选，进入等第二击状态
@@ -3630,7 +3625,7 @@ KeyEvent Key_Update(KeyFSM *k) {
                 k->state = KEY_STATE_LONG_PRESS;
             }
             break;
-            
+
         case KEY_STATE_WAIT_2ND:
             if (is_pressed) {
                 // 500ms 内再次按下，双击！
@@ -3642,7 +3637,7 @@ KeyEvent Key_Update(KeyFSM *k) {
                 k->state = KEY_STATE_IDLE;
             }
             break;
-            
+
         case KEY_STATE_LONG_PRESS:
             if (!is_pressed) {
                 // 松开，回到空闲
@@ -3650,7 +3645,7 @@ KeyEvent Key_Update(KeyFSM *k) {
             }
             break;
     }
-    
+
     return event;
 }
 ```
@@ -3666,12 +3661,12 @@ volatile uint8_t led_blinking = 0;
 int main(void) {
     /* ... 初始化 ... */
     Key_Init(&button, BUTTON_GPIO_Port, BUTTON_Pin, GPIO_PIN_RESET);
-    
+
     uint32_t last_blink = 0;
-    
+
     while (1) {
         KeyEvent ev = Key_Update(&button);
-        
+
         switch (ev) {
             case KEY_EVENT_SINGLE_CLICK:
                 printf("Single click\r\n");
@@ -3689,13 +3684,13 @@ int main(void) {
             default:
                 break;
         }
-        
+
         /* LED 闪烁（不阻塞）*/
         if (led_blinking && HAL_GetTick() - last_blink > 200) {
             HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
             last_blink = HAL_GetTick();
         }
-        
+
         HAL_Delay(5);   // 轮询间隔，相当于 200Hz
     }
 }
@@ -4198,7 +4193,7 @@ int main(void)
 
 现在进入这一课的软件部分。
 
-#### 你已经用了很久的模式
+#### 此前已经用了很久的模式
 
 回顾一下你到现在为止用过的"回调"：
 
@@ -4435,12 +4430,12 @@ KeyFSM my_button;
 
 int main(void) {
     /* ... */
-    
+
     TimerEvent_Subscribe(&tim_update_event, counter_on_tick, &system_tick_counter);
     TimerEvent_Subscribe(&tim_update_event, keyscan_on_tick, &my_button);
-    
+
     HAL_TIM_Base_Start_IT(&htim2);
-    
+
     while (1) {
         printf("Uptime: %lu ticks\r\n", system_tick_counter);
         HAL_Delay(1000);
@@ -4705,7 +4700,7 @@ uint32_t ReadADC(void)
 int main(void)
 {
     /* ... 初始化 ... */
-    
+
     while (1) {
         uint32_t raw = ReadADC();
         float voltage = (float)raw * 3.3f / 4095.0f;
@@ -4856,15 +4851,15 @@ volatile uint16_t adc_buffer[ADC_CH_COUNT];   // DMA 的目标缓冲区
 int main(void)
 {
     /* ... 初始化 ... */
-    
+
     /* 启动 ADC + DMA，数据会自动流进 adc_buffer */
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, ADC_CH_COUNT);
-    
+
     while (1) {
         float v0 = adc_buffer[0] * 3.3f / 4095.0f;
         float v1 = adc_buffer[1] * 3.3f / 4095.0f;
         float v4 = adc_buffer[2] * 3.3f / 4095.0f;
-        
+
         printf("CH0=%.3fV  CH1=%.3fV  CH4=%.3fV\r\n", v0, v1, v4);
         HAL_Delay(200);
     }
@@ -4946,7 +4941,7 @@ int _write(int file, char *ptr, int len)
 {
     /* 等上一次 DMA 传输完成 */
     while (HAL_UART_GetState(&huart1) != HAL_UART_STATE_READY);
-    
+
     HAL_UART_Transmit_DMA(&huart1, (uint8_t*)ptr, len);
     return len;
 }
@@ -5013,7 +5008,7 @@ void main_loop() {
 }
 ```
 
-这写法没错，但有几个问题：
+这种写法可以工作，但存在以下问题：
 
 - **模块紧耦合**：`main_loop` 知道所有细节，想插一个"记录到 Flash"的步骤要改主函数
 - **不能灵活组合**：如果另一个系统要用同样的数据，但不需要显示和报警，代码要复制改
@@ -5138,7 +5133,7 @@ void stage_moving_avg(TempSample *s, void *ctx) {
     ma->buf[ma->idx] = s->temperature;
     ma->idx = (ma->idx + 1) % MA_SIZE;
     if (ma->count < MA_SIZE) ma->count++;
-    
+
     float sum = 0;
     for (uint8_t i = 0; i < ma->count; i++) sum += ma->buf[i];
     s->temperature = sum / ma->count;
@@ -5169,12 +5164,12 @@ int main(void)
 {
     /* ... 初始化 ... */
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, 3);
-    
+
     Pipeline pl = {0};
     OutlierCtx outlier_ctx = {0};
     MACtx ma_ctx = {0};
     float alarm_threshold = 50.0f;
-    
+
     Pipeline_AddStage(&pl, stage_read_adc,          NULL,            "read");
     Pipeline_AddStage(&pl, stage_calc_voltage,      NULL,            "voltage");
     Pipeline_AddStage(&pl, stage_voltage_to_temp,   NULL,            "temp");
@@ -5182,7 +5177,7 @@ int main(void)
     Pipeline_AddStage(&pl, stage_moving_avg,        &ma_ctx,         "smooth");
     Pipeline_AddStage(&pl, stage_print,             NULL,            "print");
     Pipeline_AddStage(&pl, stage_alarm,             &alarm_threshold,"alarm");
-    
+
     while (1) {
         TempSample sample = {0};
         Pipeline_Run(&pl, &sample);
@@ -5261,7 +5256,7 @@ int main(void)
 
 ### 思考总结：你现在拥有的"内功"
 
-让我们盘点你已经掌握的核心能力：
+至此已经掌握的核心能力包括：
 
 **硬件外设**
 
@@ -5295,7 +5290,7 @@ int main(void)
 
 **方向 A：CAN 总线**（你一开始提到的通信协议，在汽车、工业控制里极其常用） **方向 B：RTOS 基础**（FreeRTOS，任务调度、信号量、消息队列） **方向 C：一个完整的综合项目**（把已学的全部用上，比如一个"智能环境监测站"） **方向 D：继续讲设计模式**（命令模式、工厂模式、依赖注入，结合嵌入式场景） **方向 E：迁移到 H723**（体验真正"大芯片"的威力，FDCAN、DMA 2D、Cache 等）
 
-完成本课的任务后告诉我：
+完成本课任务后应验证：
 
 - ADC + DMA 搞定了吗？你看到采样数据"自动更新"是什么感觉？
 - 流水线模式你觉得怎么样？能想到自己项目里哪里能用吗？
@@ -5423,7 +5418,7 @@ B 的 ID 是 0x100，比 A 的 0x123 小，所以 B 赢——**ID 越小，优�
 ```
 原始: ──┐    ┌───┐
         └────┘   └────
-        
+
 带干扰: ~┐~~~~┌~~~┐~
          └~~~~┘~~~└~~
          ← 形状还在但模糊了
@@ -5499,7 +5494,7 @@ PA12 (CAN_TX) ─────── TXD         CAN_H ────────�
 PA11 (CAN_RX) ─────── RXD         CAN_L ───────── CAN_L         RXD ──── PA11
 3.3V ──────────────── VCC                                        VCC ──── 3.3V
 GND ───────────────── GND ─────── GND ─────────── GND ─────────── GND ──── GND
-                                  
+
                                   ↑                    ↑
                               120Ω电阻            120Ω电阻
                              （模块自带）         （模块自带）
@@ -5620,7 +5615,7 @@ F103 的 CAN 挂在 APB1 上，时钟是 **36 MHz**。
 
 汽车 CAN 的推荐采样点在 75%~87.5%，77.8% 正合适。
 
-实际配置时，CubeMX 会有一个计算器帮你选参数，不用硬算。但理解这个公式后你能判断"为什么通信不通"——通常就是两边波特率不一致。
+实际配置时，CubeMX 会提供参数计算器，无需手算。理解该公式有助于判断通信失败的原因，其中常见问题是两端波特率不一致。
 
 ---
 
@@ -5663,7 +5658,7 @@ c
 void CAN_Init_User(void)
 {
     CAN_FilterTypeDef filter;
-    
+
     /* 配置过滤器：全部接收（不过滤）*/
     filter.FilterBank = 0;                        // 用第 0 组过滤器
     filter.FilterMode = CAN_FILTERMODE_IDMASK;    // 屏蔽模式
@@ -5675,12 +5670,12 @@ void CAN_Init_User(void)
     filter.FilterFIFOAssignment = CAN_FILTER_FIFO0; // 用 FIFO 0
     filter.FilterActivation = ENABLE;
     filter.SlaveStartFilterBank = 14;
-    
+
     HAL_CAN_ConfigFilter(&hcan, &filter);
-    
+
     /* 启动 CAN */
     HAL_CAN_Start(&hcan);
-    
+
     /* 激活 RX0 中断通知 */
     HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 }
@@ -5695,14 +5690,14 @@ HAL_StatusTypeDef CAN_Send(uint32_t id, uint8_t *data, uint8_t len)
 {
     CAN_TxHeaderTypeDef tx_header;
     uint32_t tx_mailbox;
-    
+
     tx_header.StdId = id;              // 标准 ID
     tx_header.ExtId = 0;
     tx_header.IDE = CAN_ID_STD;        // 标准帧
     tx_header.RTR = CAN_RTR_DATA;      // 数据帧（不是远程帧）
     tx_header.DLC = len;
     tx_header.TransmitGlobalTime = DISABLE;
-    
+
     return HAL_CAN_AddTxMessage(&hcan, &tx_header, data, &tx_mailbox);
 }
 ```
@@ -5717,7 +5712,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     CAN_RxHeaderTypeDef rx_header;
     uint8_t rx_data[8];
-    
+
     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
         printf("RX ID=0x%03lX DLC=%lu Data=", rx_header.StdId, rx_header.DLC);
         for (uint8_t i = 0; i < rx_header.DLC; i++) {
@@ -5737,22 +5732,22 @@ int main(void)
 {
     /* ... CubeMX 初始化 ... */
     CAN_Init_User();
-    
+
     uint32_t counter = 0;
-    
+
     while (1) {
         uint8_t data[4];
         data[0] = (counter >> 24) & 0xFF;
         data[1] = (counter >> 16) & 0xFF;
         data[2] = (counter >> 8) & 0xFF;
         data[3] = counter & 0xFF;
-        
+
         if (CAN_Send(0x123, data, 4) == HAL_OK) {
             printf("TX ID=0x123 Count=%lu\r\n", counter);
         } else {
             printf("TX FAILED\r\n");
         }
-        
+
         counter++;
         HAL_Delay(500);
     }
@@ -5884,7 +5879,7 @@ c
 void HAL_CAN_RxFifo0MsgPendingCallback(...) {
     // 解析 ID
     switch (id) {
-        case 0x100: /* 车速，通知仪表 */ Meter_OnSpeed(data); 
+        case 0x100: /* 车速，通知仪表 */ Meter_OnSpeed(data);
                     /* 通知空调 */ AC_OnSpeed(data); break;
         case 0x101: /* 转速，通知仪表 */ Meter_OnRPM(data); break;
         case 0x200: /* 温度，通知空调 */ AC_OnTemp(data); break;
@@ -5924,9 +5919,9 @@ void CAN_Subscribe(uint32_t id, uint32_t mask, CANMessageHandler fn) {
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
     CAN_RxHeaderTypeDef rx_header;
     uint8_t rx_data[8];
-    
+
     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rx_header, rx_data) != HAL_OK) return;
-    
+
     /* 遍历订阅者，谁关心就通知谁 */
     for (uint8_t i = 0; i < sub_count; i++) {
         if ((rx_header.StdId & subs[i].mask) == (subs[i].id & subs[i].mask)) {
@@ -5955,18 +5950,18 @@ void AC_OnTemp(uint32_t id, uint8_t *data, uint8_t len) { /* ... */ }
 /* 初始化时各模块自己订阅 */
 int main(void) {
     CAN_Init_User();
-    
+
     /* 仪表订阅车速和转速 */
     CAN_Subscribe(0x100, 0x7FF, Meter_OnSpeed);   // 精确匹配
     CAN_Subscribe(0x101, 0x7FF, Meter_OnRPM);
-    
+
     /* 空调订阅车速和温度 */
     CAN_Subscribe(0x100, 0x7FF, AC_OnSpeed);
     CAN_Subscribe(0x200, 0x7FF, AC_OnTemp);
-    
+
     /* 诊断订阅所有 0x7XX 范围 */
     CAN_Subscribe(0x700, 0x700, Diag_OnFaultMsg);
-    
+
     while (1) { /* ... */ }
 }
 ```
@@ -5979,7 +5974,7 @@ int main(void) {
 
 ### 对比总结：你学过的三种总线
 
-到现在你已经完整走过 I2C、SPI、CAN 三种总线，对比一下：
+至此已经学习 I2C、SPI、CAN 三种总线，三者对比如下：
 
 |特性|I2C|SPI|CAN|
 |---|---|---|---|
@@ -6029,11 +6024,11 @@ int main(void) {
 
 ### 停下来：我想听你的反馈
 
-你已经学完了 **GPIO / EXTI / UART / I2C / SPI / Timer / PWM / ADC / DMA / CAN** 这 10 个核心外设，以及 **句柄模式 / 状态机 / 观察者模式 / 流水线** 这 4 种核心设计思想。
+至此已经学习 **GPIO / EXTI / UART / I2C / SPI / Timer / PWM / ADC / DMA / CAN** 这 10 个核心外设，以及 **句柄模式 / 状态机 / 观察者模式 / 流水线** 这 4 种核心设计思想。
 
 这是嵌入式开发的一套**完整武器**。
 
-接下来的几个方向，任你选：
+后续可选择以下方向：
 
 **方向 B：RTOS（FreeRTOS）** — 从"单线程 + 中断"升级到"多任务并发"。这是商业项目的必备技能。
 
@@ -6043,7 +6038,7 @@ int main(void) {
 
 **方向 E：迁移到 H723** — 开始玩你那块"怪兽级"芯片，体验 FDCAN、DMA 2D、Cache、双核（H723 单核但很多思想通用）。
 
-做完任务后告诉我：
+完成任务后应验证：
 
 - 两块板子能 CAN 通信吗？遇到什么问题？
 - 思考 1~7 你的答案是什么？特别是思考 6 和 7，它们考察设计直觉。
@@ -6102,7 +6097,7 @@ while (1) {
 - ADC 数据还没处理，新的又覆盖上来
 - CAN 发送时机被推迟
 
-你已经见过解决方案——**中断**能解决一部分（快速事件通知），**状态机**能解决一部分（非阻塞的长逻辑），但它们都有极限：
+已有方案中，**中断**可处理快速事件通知，**状态机**可处理非阻塞的长逻辑，但二者都有局限：
 
 1. **中断只能做"紧急响应"**，不能做长任务（ISR 里不能 `HAL_Delay`）
 2. **状态机让代码结构支离破碎**——本来一个线性流程（"等用户按键 → 读取数据 → 显示结果 → 等下一次"），写成状态机要拆成 5 个状态，每次进入都要手动维护状态变量
@@ -6192,7 +6187,7 @@ void update() {
 CPU 时间轴（放大看）：
 |Task1|Task2|Task3|Task1|Task2|Task3|Task1|...
  10ms  10ms  10ms  10ms  10ms  10ms  10ms
- 
+
 CPU 时间轴（你的感受）：
 [Task1 一直在跑] [Task2 一直在跑] [Task3 一直在跑]  ← 同时！
 ```
@@ -6269,9 +6264,9 @@ RTOS 收到后会立刻切换到其他就绪任务。500ms 后这个任务被重
     - `Interface`：选 **`CMSIS_V2`**（这是 ARM 官方的 RTOS 抽象层，API 更规范）
 3. 在 `Tasks and Queues` 选项卡下，默认已经有一个 `defaultTask`，我们保留
 4. **重要**：切换到 `System Core` → `SYS`：
-    
+
     - `Timebase Source`：**改成 `TIM4`**（或任意一个定时器）
-    
+
     **为什么？** FreeRTOS 要占用 SysTick 做任务调度。但 HAL 库默认也用 SysTick 做 `HAL_Delay` 和 `HAL_GetTick` 的时基。两者会冲突。所以要给 HAL 换一个定时器做时基。
 5. 生成代码
 
@@ -6292,14 +6287,14 @@ const osThreadAttr_t defaultTask_attributes = {
 
 int main(void) {
     /* ... 硬件初始化 ... */
-    
+
     osKernelInitialize();    /* 初始化 RTOS 内核 */
-    
+
     /* 创建默认任务 */
     defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-    
+
     osKernelStart();         /* 启动 RTOS 调度器 —— 这个函数永远不返回！*/
-    
+
     while (1) { }            /* 永远不会执行到这里 */
 }
 
@@ -6571,10 +6566,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART1) {
         /* 把数据放进环形缓冲区 */
         RB_Write(&rx_rb, rx_byte);
-        
+
         /* 释放信号量，通知任务 */
         osSemaphoreRelease(uartRxSemaphore);
-        
+
         HAL_UART_Receive_IT(huart, &rx_byte, 1);
     }
 }
@@ -6792,7 +6787,7 @@ FreeRTOS 为了保护内部数据结构，**会短暂关中断**（叫 "Critical
 
 ### 一个重要的反思问题
 
-最后，我想让你回顾一下你已经走过的路：
+最后回顾已经完成的学习路径：
 
 **问题 11**：你觉得 RTOS 的"任务 + 队列 + 信号量"架构，和我们之前学过的哪些设计模式有相似之处？
 
@@ -6827,7 +6822,7 @@ FreeRTOS 为了保护内部数据结构，**会短暂关中断**（叫 "Critical
 
 ### 下一课的方向
 
-本课完成后告诉我：
+本课完成后应验证：
 
 - 两任务并发跑通了吗？RTOS 和裸机相比，你的主观感受是什么？
 - 队列堆积实验观察到什么？
@@ -7027,7 +7022,7 @@ FreeRTOS 为了保护内部数据结构，**会短暂关中断**（叫 "Critical
 2. 写你的项目描述（2~4 句）
 3. 修改/质疑/认可我的 CAN 消息表
 
-做完回复我，我会根据你的回答推进——可能是：
+完成后可根据结果选择以下后续内容：
 
 - 你的需求描述揭示了我没考虑到的功能 → 我们调整架构
 - 你的 CAN 表有问题 → 我们讨论为什么
@@ -7069,7 +7064,7 @@ FreeRTOS 为了保护内部数据结构，**会短暂关中断**（叫 "Critical
 
 ---
 
-先自己回答这几个问题（心里答一下就行），然后我根据你的回答判断讲解深度。
+以下问题可用于自测，并据此选择合适的讲解深度。
 
 ---
 
@@ -7254,7 +7249,7 @@ Cache 就是把最近访问的"区域"缓存下来。命中率（Hit Rate）通�
 步骤 2：DMA 把 x 送到外设——读的是 SRAM 里的旧值 ← BUG！
 ```
 
-这是真实项目中的"**灵异 Bug**"——代码看起来完全正确，数据却对不上。新手调试一整天都查不出原因。
+这是实际项目中较隐蔽的一类 Bug：代码表面正确，数据却无法对应，定位通常较为困难。
 
 #### 解决方案（你至少要知道）
 
@@ -7339,7 +7334,7 @@ CubeMX 默认生成的 H723 链接脚本把所有东西放 DTCM（好处：快�
 - LED 通常接在 PE3 或 PA5（看原理图）
 - 按键通常接在 PC13（按下为高）或 PB3
 
-**先确认**：你的 H723 板子上的 LED 和按键接在哪个引脚？去看一下原理图或者板子丝印。告诉我一下。
+**引脚确认**：查阅 H723 开发板原理图或板载丝印，确认 LED 和按键连接的引脚。
 
 #### 在你确认引脚之前，可以先做的准备工作
 
@@ -7353,7 +7348,7 @@ CubeMX 默认生成的 H723 链接脚本把所有东西放 DTCM（好处：快�
 
 这一课的开头我扔给你很多概念。我不想让你"听完了就完了"——那等于没学。我想让你**现在就反馈**。
 
-请回答下面几个问题（你的回答决定下一步的节奏）：
+以下问题用于确定后续学习节奏：
 
 **反馈 1**：我讲的"多种 RAM"、"Cache 一致性"、"多 DMA"这三块，**哪一块你觉得最反直觉/最难理解**？我们下一步重点展开它。
 
@@ -7369,7 +7364,7 @@ CubeMX 默认生成的 H723 链接脚本把所有东西放 DTCM（好处：快�
 
 ---
 
-我给你一个诚实的建议：**(a) 通常最有效**。你已经有很扎实的 F103 基础，直接在 H723 上做，**遇到问题 → 理解原因 → 解决**——这种"被问题拖着前进"的方式会让你记忆最深刻。
+建议优先采用 **(a)**。在具备 F103 基础后直接使用 H723，通过“遇到问题 → 理解原因 → 解决”的过程建立对平台差异的牢固认识。
 
 系统讲一遍理论（选 b）会让你觉得"懂了"，但不动手很快会忘。
 
@@ -7767,10 +7762,10 @@ c
 void MPU_Config_DMA_Buffer(void)
 {
     MPU_Region_InitTypeDef MPU_InitStruct = {0};
-    
+
     /* 先禁用 MPU */
     HAL_MPU_Disable();
-    
+
     /* 配置一个区域 */
     MPU_InitStruct.Enable = MPU_REGION_ENABLE;
     MPU_InitStruct.Number = MPU_REGION_NUMBER0;        // 区域编号 0
@@ -7782,9 +7777,9 @@ void MPU_Config_DMA_Buffer(void)
     MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
     MPU_InitStruct.SubRegionDisable = 0x00;
     MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-    
+
     HAL_MPU_ConfigRegion(&MPU_InitStruct);
-    
+
     /* 启用 MPU */
     HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 }
@@ -7920,7 +7915,7 @@ H723 自带 **10/100 Mbps 以太网 MAC**。要配一个外部 PHY 芯片（如
 学到这里，你对 H723 应该有这样的感觉：
 
 > **H723 不是一块"更快的 F103"，而是一个"嵌入式级的小型电脑"**。它有：
-> 
+>
 > - 多级内存（像 PC 的 L1/L2 Cache + RAM）
 > - 多总线并行（像 PC 的 PCIe/DMI）
 > - 电源管理（像手机的各种功耗状态）
@@ -7955,7 +7950,7 @@ H723 自带 **10/100 Mbps 以太网 MAC**。要配一个外部 PHY 芯片（如
 
 ### 下一步
 
-回答上面的综合题（至少 1、2、3，第 4 题选答），我根据你的回答判断你是否真的消化了。
+建议完成上述综合题中的第 1、2、3 题，第 4 题选答，用于检验掌握程度。
 
 之后我们可以：
 
@@ -7969,9 +7964,9 @@ H723 自带 **10/100 Mbps 以太网 MAC**。要配一个外部 PHY 芯片（如
 
 ## H723 新外设深入：第一弹 —— FDCAN
 
-好，我们一个一个讲。从 **FDCAN** 开始——因为你已经学过普通 CAN，迁移成本最低，能让你快速体验 H723 的外设差异。
+下面逐项讲解，先从 **FDCAN** 开始。它与普通 CAN 的知识衔接紧密，适合用于理解 H723 的外设差异。
 
-但我不直接罗列 FDCAN 的 API。我想先问你几个问题，根据你的回答决定讲多深。
+在罗列 FDCAN API 前，先通过以下问题检查基础，再选择相应的学习深度。
 
 ---
 
@@ -7995,7 +7990,7 @@ H723 自带 **10/100 Mbps 以太网 MAC**。要配一个外部 PHY 芯片（如
 
 ---
 
-### 假设你已经想过了，我来讲关键答案
+### 假设此前已经想过了，我来讲关键答案
 
 #### 普通 CAN 的三大痛点（回顾）
 
@@ -8159,7 +8154,7 @@ H723 的 FDCAN 共享一块 **4KB Message RAM**（地址 0x4000AC00）。这块
 
 #### Step 4：CubeMX 配置流程
 
-完整步骤（假设你已经设置好时钟）：
+完整步骤（假设时钟已经配置）：
 
 1. 左侧 `Connectivity` → `FDCAN1`
 2. `Activated` 勾选
@@ -8189,7 +8184,7 @@ c
 void FDCAN_Init_User(void)
 {
     FDCAN_FilterTypeDef filter;
-    
+
     /* 配置过滤器：接收所有标准ID */
     filter.IdType = FDCAN_STANDARD_ID;
     filter.FilterIndex = 0;
@@ -8197,19 +8192,19 @@ void FDCAN_Init_User(void)
     filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;  // 匹配的进 FIFO0
     filter.FilterID1 = 0x000;     // ID
     filter.FilterID2 = 0x000;     // 掩码 0 = 全接收
-    
+
     HAL_FDCAN_ConfigFilter(&hfdcan1, &filter);
-    
+
     /* 配置全局过滤器：不匹配的也接收（可选）*/
-    HAL_FDCAN_ConfigGlobalFilter(&hfdcan1, 
+    HAL_FDCAN_ConfigGlobalFilter(&hfdcan1,
         FDCAN_REJECT,       // 标准ID 拒绝（只收过滤器匹配的）
         FDCAN_REJECT,       // 扩展ID 拒绝
         FDCAN_REJECT_REMOTE_STD,
         FDCAN_REJECT_REMOTE_EXT);
-    
+
     /* 启动 FDCAN */
     HAL_FDCAN_Start(&hfdcan1);
-    
+
     /* 激活 FIFO0 接收通知 */
     HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
 }
@@ -8223,7 +8218,7 @@ c
 HAL_StatusTypeDef FDCAN_Send(uint32_t id, uint8_t *data, uint8_t len, uint8_t use_fd)
 {
     FDCAN_TxHeaderTypeDef tx_header;
-    
+
     tx_header.Identifier = id;
     tx_header.IdType = FDCAN_STANDARD_ID;
     tx_header.TxFrameType = FDCAN_DATA_FRAME;
@@ -8233,7 +8228,7 @@ HAL_StatusTypeDef FDCAN_Send(uint32_t id, uint8_t *data, uint8_t len, uint8_t us
     tx_header.FDFormat = use_fd ? FDCAN_FD_CAN : FDCAN_CLASSIC_CAN;
     tx_header.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
     tx_header.MessageMarker = 0;
-    
+
     return HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1, &tx_header, data);
 }
 ```
@@ -8267,7 +8262,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
     if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != 0) {
         FDCAN_RxHeaderTypeDef rx_header;
         uint8_t rx_data[64];    // 注意：最多 64 字节！
-        
+
         if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &rx_header, rx_data) == HAL_OK) {
             uint8_t len = dlc_to_len(rx_header.DataLength);
             printf("RX ID=0x%03lX len=%u\r\n", rx_header.Identifier, len);
@@ -8391,7 +8386,7 @@ F103 的 bxCAN 要自己用定时器打时间戳，H723 的 FDCAN 硬件自动�
 
 ---
 
-**下一讲外设选择**（你选）：
+**后续外设学习选项**：
 
 - **A. SDMMC + FatFS**：让 H723 读写 SD 卡上的文件，这是数据记录器、音频播放器的基础
 - **B. QSPI**：外挂 Flash 变成"无限存储"，和 H723 的内存映射结合很酷
@@ -8401,7 +8396,6 @@ F103 的 bxCAN 要自己用定时器打时间戳，H723 的 FDCAN 硬件自动�
 
 我建议按 **A → B** 的顺序（SDMMC 相对独立好学，QSPI 和存储话题相关），但你来定。你也可以回到综合项目——把 H723 当从板跑之前设计的架构。
 
-你选哪个？🚀
 ## H723 新外设深入：第二弹 —— SDMMC + FatFS
 
 好，讲 SDMMC。不过在我开始之前，我想先搞清楚你的起点——SD 卡这个话题跨度很大，从"怎么把一个字节写到 SD 卡"到"怎么在 SD 卡上读写文件"是两个完全不同的层次。
@@ -8767,12 +8761,12 @@ int main(void)
 {
     /* ... CubeMX 初始化 ... */
     MX_FATFS_Init();
-    
+
     FATFS fs;
     FIL fp;
     FRESULT res;
     UINT bw;   // bytes written
-    
+
     /* 挂载文件系统 */
     res = f_mount(&fs, "", 1);   // 1 = 立即挂载
     if (res != FR_OK) {
@@ -8780,22 +8774,22 @@ int main(void)
         Error_Handler();
     }
     printf("SD card mounted\r\n");
-    
+
     /* 打开（或创建）文件 */
     res = f_open(&fp, "hello.txt", FA_WRITE | FA_CREATE_ALWAYS);
     if (res != FR_OK) {
         printf("Open failed: %d\r\n", res);
         goto fail;
     }
-    
+
     /* 写入 */
     const char *msg = "Hello from STM32H723!\r\n";
     res = f_write(&fp, msg, strlen(msg), &bw);
     printf("Wrote %u bytes\r\n", bw);
-    
+
     /* 关闭（这步会把缓冲区数据刷到卡上）*/
     f_close(&fp);
-    
+
     /* 重新打开读出来验证 */
     char read_buf[64] = {0};
     UINT br;
@@ -8803,10 +8797,10 @@ int main(void)
     f_read(&fp, read_buf, sizeof(read_buf) - 1, &br);
     f_close(&fp);
     printf("Read back: %s\r\n", read_buf);
-    
+
 fail:
     f_mount(NULL, "", 0);   /* 卸载 */
-    
+
     while (1) {
         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
         HAL_Delay(500);
@@ -8957,13 +8951,13 @@ SCB_CleanDCache_by_Addr((uint32_t*)buff, count * 512);
 等你的反馈。🚀
 ## H723 新外设深入：第三弹 —— QSPI 与内存映射模式
 
-好，讲 QSPI。这一课我准备换个方式——我想让你**先基于已学知识推导**，而不是我直接告诉你答案。因为 QSPI 本质上是你已经学过的 SPI 的"升级版"，你应该能自己推导出很多东西。
+本课讲解 QSPI，并采用**基于已有知识推导**的方式。QSPI 本质上是 SPI 的扩展，可以从已掌握的 SPI 机制推导出许多特性。
 
 ---
 
 ### 先让你自己推理
 
-你已经深入学过 SPI（第五课的 W25Q Flash），也学过 SDMMC（上一课）。现在看到"QSPI"这个名字，我想先让你思考几个问题：
+在已经学习 SPI（第五课的 W25Q Flash）和 SDMMC 后，可先围绕 QSPI 思考以下问题：
 
 **问题 1**：从名字猜——**Q**SPI 的 **Q** 代表什么？（提示：回忆一下 SPI 有几根数据线？如果你要"升级"SPI，最自然的方向是什么？）
 
@@ -8982,7 +8976,7 @@ SCB_CleanDCache_by_Addr((uint32_t*)buff, count * 512);
 
 ---
 
-### 假设你已经推理完了
+### 假设此前已经推理完了
 
 我来补答案：
 
@@ -9208,7 +9202,7 @@ QSPI_BK1_IO2  PE2  (D2)
 QSPI_BK1_IO3  PD13 (D3)
 ```
 
-不同芯片封装引脚不同，CubeMX 会给你选。
+不同芯片封装的引脚不同，CubeMX 会提供可选引脚。
 
 #### 接线示意
 
@@ -9298,7 +9292,7 @@ HAL_StatusTypeDef W25Q_ReadID(uint32_t *id)
 {
     QSPI_CommandTypeDef cmd = {0};
     uint8_t data[3];
-    
+
     cmd.InstructionMode = QSPI_INSTRUCTION_1_LINE;    // 命令用 1 线
     cmd.Instruction = W25Q_CMD_READ_ID;
     cmd.AddressMode = QSPI_ADDRESS_NONE;              // 无地址
@@ -9309,13 +9303,13 @@ HAL_StatusTypeDef W25Q_ReadID(uint32_t *id)
     cmd.DdrMode = QSPI_DDR_MODE_DISABLE;
     cmd.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
     cmd.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
-    
+
     if (HAL_QSPI_Command(&hqspi, &cmd, HAL_QSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
         return HAL_ERROR;
-    
+
     if (HAL_QSPI_Receive(&hqspi, data, HAL_QSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
         return HAL_ERROR;
-    
+
     *id = (data[0] << 16) | (data[1] << 8) | data[2];
     return HAL_OK;
 }
@@ -9370,7 +9364,7 @@ c
 HAL_StatusTypeDef W25Q_QuadRead(uint32_t addr, uint8_t *buf, uint32_t len)
 {
     QSPI_CommandTypeDef cmd = {0};
-    
+
     cmd.InstructionMode = QSPI_INSTRUCTION_1_LINE;    // 命令仍 1 线（兼容）
     cmd.Instruction = W25Q_CMD_FAST_READ_QUAD;
     cmd.AddressMode = QSPI_ADDRESS_1_LINE;            // 地址 1 线（传统 Fast Read Quad Output）
@@ -9382,10 +9376,10 @@ HAL_StatusTypeDef W25Q_QuadRead(uint32_t addr, uint8_t *buf, uint32_t len)
     cmd.DdrMode = QSPI_DDR_MODE_DISABLE;
     cmd.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
     cmd.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
-    
+
     if (HAL_QSPI_Command(&hqspi, &cmd, HAL_QSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
         return HAL_ERROR;
-    
+
     return HAL_QSPI_Receive(&hqspi, buf, HAL_QSPI_TIMEOUT_DEFAULT_VALUE);
 }
 ```
@@ -9405,7 +9399,7 @@ HAL_StatusTypeDef W25Q_EnableMemoryMapped(void)
 {
     QSPI_CommandTypeDef cmd = {0};
     QSPI_MemoryMappedTypeDef cfg = {0};
-    
+
     /* 描述"读取命令"的结构 */
     cmd.InstructionMode = QSPI_INSTRUCTION_1_LINE;
     cmd.Instruction = W25Q_CMD_FAST_READ_QUAD;
@@ -9416,11 +9410,11 @@ HAL_StatusTypeDef W25Q_EnableMemoryMapped(void)
     cmd.DdrMode = QSPI_DDR_MODE_DISABLE;
     cmd.DdrHoldHalfCycle = QSPI_DDR_HHC_ANALOG_DELAY;
     cmd.SIOOMode = QSPI_SIOO_INST_EVERY_CMD;
-    
+
     /* 映射配置 */
     cfg.TimeOutActivation = QSPI_TIMEOUT_COUNTER_DISABLE;  // 禁用超时（总保持映射）
     cfg.TimeOutPeriod = 0;
-    
+
     return HAL_QSPI_MemoryMapped(&hqspi, &cmd, &cfg);
 }
 ```
@@ -9436,22 +9430,22 @@ int main(void)
 {
     /* ... 初始化 ... */
     W25Q_EnableMemoryMapped();
-    
+
     /* 直接用指针访问外部 Flash！*/
     uint8_t *ext_flash = (uint8_t*)0x90000000;
-    
+
     printf("Byte at offset 0x100: 0x%02X\r\n", ext_flash[0x100]);
     printf("Bytes: ");
     for (int i = 0; i < 16; i++) {
         printf("%02X ", ext_flash[i]);
     }
     printf("\r\n");
-    
+
     /* 甚至可以把外部 Flash 的数据当结构体 */
     typedef struct { uint32_t magic; char name[64]; } Header;
     Header *hdr = (Header*)0x90000000;
     printf("Magic: 0x%08X, Name: %s\r\n", hdr->magic, hdr->name);
-    
+
     while (1) { /* ... */ }
 }
 ```
@@ -9528,7 +9522,7 @@ MEMORY
   FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 1024K
   DTCMRAM (xrw) : ORIGIN = 0x20000000, LENGTH = 128K
   /* ... */
-  
+
   /* 外部 QSPI Flash */
   QSPI (rx) : ORIGIN = 0x90000000, LENGTH = 8M
 }
@@ -9537,7 +9531,7 @@ SECTIONS
 {
   /* 正常的 .text 段放内部 Flash */
   .text : { ... } >FLASH
-  
+
   /* 把"次要代码"放外部 Flash */
   .external_code :
   {
@@ -9645,7 +9639,7 @@ c
 ```c
 /* 改 user_diskio.c */
 DRESULT USER_read(BYTE pdrv, BYTE *buff, DWORD sector, UINT count) {
-    return W25Q_QuadRead(sector * 512, buff, count * 512) == HAL_OK 
+    return W25Q_QuadRead(sector * 512, buff, count * 512) == HAL_OK
            ? RES_OK : RES_ERROR;
 }
 
@@ -9716,7 +9710,6 @@ DRESULT USER_write(BYTE pdrv, const BYTE *buff, DWORD sector, UINT count) {
 - 走应用层路径：直接用 LVGL，底层细节不管
 - 走中间路径：理解 DMA2D 如何加速图形操作
 
-
 ### 好，你想"看看嵌入式 GUI 是怎么回事"
 
 你这个出发点很好——不是为了做产品，是为了**理解原理**。所以我不会一上来就让你装 LVGL、配置一堆 API。我想带你从底层思考：
@@ -9754,12 +9747,12 @@ DRESULT USER_write(BYTE pdrv, const BYTE *buff, DWORD sector, UINT count) {
 ──────────────────────────────         ─────────────
                                         480 × 272 像素
  uint16_t fb[272][480];                 每个像素显示一种颜色
- 
+
  fb[0][0]   fb[0][1]   fb[0][2]  ...    (0,0)  (1,0)  (2,0)  ...
  fb[1][0]   fb[1][1]   fb[1][2]  ...    (0,1)  (1,1)  (2,1)  ...
    ...                                     ...
  fb[271][479]                           (479, 271)
- 
+
          ↑                                     ↑
          └─────────  传输  ──────────────────┘
 ```
@@ -10141,7 +10134,7 @@ uint16_t rgb565(uint8_t r, uint8_t g, uint8_t b) {
 
 ### 停下来做一个心智测试
 
-先不看答案，我们来玩个快速测试——这些问题答得出说明你真的理解了：
+先不看答案，通过以下快速测试检查理解程度：
 
 **快问 1**：`uint16_t fb[480 * 272]` 和 `uint16_t fb[272][480]` 在内存布局上一样吗？
 
@@ -10167,7 +10160,7 @@ uint16_t rgb565(uint8_t r, uint8_t g, uint8_t b) {
 4. **不能**——memset 是按字节填充，`0xFF` 的字节填下来得到 `0xFFFF`（白色）。红色 `0xF800` 是两字节 `0xF8, 0x00` 交替，memset 做不到。这就是为什么需要 **DMA2D 的矩形填充**——它能按"像素"而不是"字节"填充。
 5. **用 DMA2D**。虽然 480 个像素 CPU 也快，但这行涉及到"按 Framebuffer 行宽跨步"等概念，DMA2D 本来就是为这个而生。
 
-**如果你答对 4 题以上，你已经有"图形系统思维"了**。
+**答对 4 题以上，说明已经具备基本的图形系统思维**。
 
 ---
 
@@ -10235,7 +10228,7 @@ H723 这种级别的芯片，**跑 LVGL 的界面 + SD 卡数据记录 + CAN 通
 
 - 回到**综合项目**——H723 做主控 + 小 LCD 显示数据 + CAN 收 F103 的传感器数据，一个完整产品雏形
 
-你最想学哪个？或者告诉我你觉得最有趣的方向？🚀
+后续可根据需要选择其中一个方向继续学习。
 ## 第十五课：定时器深入——四个维度的高级玩法
 
 好，你要全部讲，我就按"**由浅到深、由测量到控制**"的顺序讲。这一课会很长，但信息密度高——**这是 STM32 定时器真正的"完整图景"**。
@@ -10339,7 +10332,7 @@ PA0 信号：  ──┐    ┌──┐    ┌──┐    ┌──
               捕获 T1  捕获 T2  捕获 T3
               CCR=100  CCR=1500 CCR=2900
                        T2-T1=1400 T3-T2=1400  ← 恒定
-              
+
 信号周期 = 1400 × 13.9ns = 19.4μs  →  频率 ≈ 51.5kHz
 ```
 
@@ -10356,7 +10349,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == TIM2 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
         cap_val[cap_idx] = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-        
+
         if (cap_idx == 1) {
             uint32_t diff;
             if (cap_val[1] >= cap_val[0]) {
@@ -10364,7 +10357,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
             } else {
                 diff = (0xFFFF - cap_val[0]) + cap_val[1] + 1;  // 处理溢出
             }
-            
+
             float period_s = diff / 72000000.0f;
             frequency = 1.0f / period_s;
             cap_idx = 0;
@@ -10396,10 +10389,10 @@ PA0: ──┐              ┌──┐              ┌──
        └──────────────┘  └──────────────┘
        ↑              ↑  ↑              ↑
        CH2下降  CH1上升  CH2下降   CH1上升
-       
+
        CH1.CCR: 记录所有上升沿的时间 → 测周期
        CH2.CCR: 记录所有下降沿的时间 → 测高电平宽度
-       
+
        占空比 = (CH2下降 - CH1上升) / (下次CH1上升 - 这次CH1上升)
 ```
 
@@ -10748,7 +10741,7 @@ CubeMX 里配好主从关系后，HAL 会自动生成代码。
 ```
 TIM1 (PWM, 20kHz, 中心对齐)
   ├─ CH1, CH1N  → U 相半桥
-  ├─ CH2, CH2N  → V 相半桥  
+  ├─ CH2, CH2N  → V 相半桥
   ├─ CH3, CH3N  → W 相半桥
   └─ TRGO → ADC Trigger  (每 PWM 周期中点触发一次 ADC)
 
@@ -10869,7 +10862,7 @@ TIM6 (1ms 周期, 外部控制循环)
 
 ### 下一步
 
-你已经走过了 H723 的这些专题：
+H723 部分已经覆盖以下专题：
 
 - 系统架构（时钟、Cache、MPU）
 - FDCAN
@@ -10960,7 +10953,7 @@ H723 的 ADC 还有一个杀手锏——**硬件过采样**。
 
 原理：对同一个信号**连续采样 N 次**（比如 16 次），然后**累加 + 右移**得到一个平均值。噪声是随机的，平均后抵消一大半。
 
-数学上：过采样 NN 倍，ENOB 增加 log⁡2(N)log2​(N​) 位。
+数学上：过采样 N 倍，ENOB 增加 log2(N) 位。
 
 |过采样次数|ENOB 增加|实际位数（16位ADC）|
 |---|---|---|
@@ -11224,10 +11217,10 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 int main(void) {
     /* 配置 TIM2 以 50kHz 周期 */
     HAL_TIM_Base_Start(&htim2);
-    
+
     /* 启动 ADC + DMA，使用循环模式 */
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buffer, BUF_SIZE);
-    
+
     while (1) {
         /* CPU 可以做其他事情——ADC 和 DMA 在后台自动跑 */
     }
@@ -11456,7 +11449,7 @@ F103 vs H723 的 ADC 差异不是"量变"而是"质变"——
 
 **你想继续学外设（那就选 G/H/I/J），还是要转入实战项目（我带你设计+实现一个综合项目）？**
 
-如果选项目，就告诉我你想做什么——哪怕是"不知道"，我可以根据你的兴趣和硬件条件推荐几个方向。
+若选择项目实践，可根据兴趣与硬件条件从以下方向中确定题目。
 
 诚实说——**你现在学的已经够做出一个商业产品了**。再往后不是学不学，而是**做不做**的问题。🚀
 ## H723 新外设深入：第七弹 —— USB 开发
@@ -11499,7 +11492,6 @@ USB 是**严格的主从架构**：电脑是主机，你的 STM32 是设备（De
 **错**。HAL 的 USB API 只是最底层。**你真正要用的是 USB 协议栈**（STM32 用的叫 **MX_USB_DEVICE**，基于 ST 的 **USB-OTG 库**）。协议栈提供了更高层的抽象——CDC、HID 这些类。
 
 ---
-
 
 ### 好，HID 键盘鼠标方向 + 先破除黑盒
 
@@ -11880,16 +11872,16 @@ extern USBD_HandleTypeDef hUsbDeviceFS;
 
 int main(void) {
     /* ... 初始化 ... */
-    
+
     HAL_Delay(2000);   // 等 USB 枚举完成
-    
+
     while (1) {
         /* HID 报告：3 字节 [按钮, X, Y] */
         uint8_t report[3];
         report[0] = 0;      // 没按任何键
         report[1] = 5;      // X 移动 +5
         report[2] = 0;      // Y 不动
-        
+
         USBD_HID_SendReport(&hUsbDeviceFS, report, 3);
         HAL_Delay(50);      // 每 50ms 报告一次
     }
@@ -11913,7 +11905,7 @@ __ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc_FS[HID_KEYBOARD_REPORT_DESC
     0x05, 0x01,  // Usage Page (Generic Desktop)
     0x09, 0x06,  // Usage (Keyboard)
     0xA1, 0x01,  // Collection (Application)
-    
+
     0x05, 0x07,  //   Usage Page (Keyboard/Keypad)
     0x19, 0xE0,  //   Usage Minimum (Left Control)
     0x29, 0xE7,  //   Usage Maximum (Right GUI)
@@ -11922,11 +11914,11 @@ __ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc_FS[HID_KEYBOARD_REPORT_DESC
     0x75, 0x01,  //   Report Size (1)
     0x95, 0x08,  //   Report Count (8)
     0x81, 0x02,  //   Input (Data, Variable, Absolute) — 8 个修饰键 bit
-    
+
     0x95, 0x01,  //   Report Count (1)
     0x75, 0x08,  //   Report Size (8)
     0x81, 0x01,  //   Input (Constant) — 保留字节
-    
+
     0x95, 0x06,  //   Report Count (6)
     0x75, 0x08,  //   Report Size (8)
     0x15, 0x00,  //   Logical Minimum (0)
@@ -11935,7 +11927,7 @@ __ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc_FS[HID_KEYBOARD_REPORT_DESC
     0x19, 0x00,  //   Usage Minimum (0)
     0x29, 0x65,  //   Usage Maximum (101)
     0x81, 0x00,  //   Input (Data, Array) — 6 个键码
-    
+
     0xC0         // End Collection
 };
 ```
@@ -12028,7 +12020,7 @@ kb_report[2] = 0x06;   // 'c'
 
 ### 第九部分：几个有趣的应用
 
-到这里你已经能做出真实可用的键盘了。以下是几个"一行代码改变世界"的应用灵感：
+至此已经可以实现可用的键盘。以下是几个只需少量代码即可完成的应用方向：
 
 #### 1. 自动登录工具
 
@@ -12127,7 +12119,7 @@ Wireshark 能捕获 USB 通信数据包（需要装 USBPcap 插件）。你能�
 
 **进阶 2**：**组合键盘**。用 3 个按键分别触发：
 
-- 按键 1 → 输入 "OK\n"
+- 按键 1 → 输入 `"OK\n"`
 - 按键 2 → Ctrl+C（复制）
 - 按键 3 → Ctrl+V（粘贴）
 
@@ -12169,7 +12161,7 @@ Wireshark 能捕获 USB 通信数据包（需要装 USBPcap 插件）。你能�
 
 ### 下一步
 
-你已经把 USB 的最大黑盒打开了。继续深入有以下方向：
+USB 的核心机制已经展开，后续可从以下方向继续深入：
 
 - **CDC（虚拟串口）**：下一个最常用的类。原理类似 HID，但报告换成数据流。
 - **MSC（U 盘）**：让板子变成一个 U 盘，电脑能直接拖文件进去。需要配合 FatFS。

@@ -72,12 +72,14 @@ test('runtime grid menus keep column jumps and solution pages visible', () => {
   state = dispatchModeRuntime(state, { type: 'right' }, context);
   state = dispatchModeRuntime(state, { type: 'right' }, context);
   state = dispatchModeRuntime(state, { type: 'right' }, context);
-  assert.equal(runtimeScreenView(state)?.lines?.[3], '5 5 <');
+  assert.equal(runtimeScreenView(state)?.lines?.[3], '5 EXTENDED 5-10 <');
 
+  state = dispatchModeRuntime(state, { type: 'evaluate' }, context);
+  assert.equal(runtimeScreenView(state)?.title, 'EXT UNKNOWNS');
   state = dispatchModeRuntime(state, { type: 'up' }, context);
   const menuView = runtimeScreenView(state);
-  assert.equal(menuView?.selectedIndex, 2);
-  assert.equal(menuView?.lines?.[2], '9 9 <');
+  assert.equal(menuView?.selectedIndex, 4);
+  assert.equal(menuView?.lines?.[4], '9 9 <');
 
   state = {
     ...state,

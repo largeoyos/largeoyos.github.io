@@ -1,6 +1,5 @@
 ## 离散数学入门：第 1 节 —— 开课导引与学习地图
 
-
 ### 一、什么是"离散"？
 
 先问你一个小问题来热身：
@@ -110,7 +109,7 @@
 这些加粗的"并且/如果…那么/不"就是**逻辑联结词 (logical connectives)**。它们像是电路里的逻辑门 —— 把简单的信号组合成复杂的信号。
 
 > **定义**：
-> 
+>
 > - **原子命题 (atomic proposition)**：不能再拆分的最简命题，通常用 P, Q, R, … 表示。
 > - **复合命题 (compound proposition)**：由原子命题通过联结词组合而成。
 
@@ -225,9 +224,9 @@
 我给你举一个生活化的例子来建立直觉：
 
 > 假设我向你承诺：**"如果明天下雨，我就请你吃饭。"** （P = 明天下雨，Q = 我请你吃饭）
-> 
+>
 > 什么情况下你会说"你撒谎了！违背承诺！"？让我们四种情况都看一遍：
-> 
+>
 > - **下雨了，请了饭**（T, T）→ 我守约，承诺为真。✅
 > - **下雨了，没请饭**（T, F）→ 我违约了，承诺为假。❌ **只有这种情况承诺是假的！**
 > - **没下雨，请了饭**（F, T）→ 我没违约（我只承诺了下雨才请，没下雨请你是额外的好意），承诺仍为真。✅
@@ -293,7 +292,7 @@
 
 当一个式子里出现多个联结词时（就像算术里的 + - × ÷），要有优先级：
 
-¬  >  ∧  >  ∨  >  →  >  ↔\neg \;>\; \land \;>\; \lor \;>\; \to \;>\; \leftrightarrow¬>∧>∨>→>↔
+$\neg \;>\; \land \;>\; \lor \;>\; \to \;>\; \leftrightarrow$
 
 也就是：**¬ 最紧，↔ 最松。** 不确定时就**多加括号**，这是工程师的好习惯。
 
@@ -350,7 +349,6 @@
 **练习 4**（思考题，联系电子信息工程）： 异或门 P ⊕ Q 能不能用我们学过的五个基本联结词 ¬、∧、∨、→、↔ 表示出来？试着写一个等价表达式，并用真值表验证。
 
 然后我们进入**第 3 节：真值表与重言式、矛盾式、可满足式**，这是判断逻辑公式的核心工具。
-
 
 ## 离散数学 第 3 节：真值表、重言式、矛盾式与可满足式
 
@@ -475,7 +473,7 @@
 
 请你**自己动手**列出下面这个公式的真值表：
 
-(P∨Q)→¬P(P \lor Q) \to \neg P(P∨Q)→¬P
+$(P \lor Q) \to \neg P$
 
 按照我上面的格式，至少要列出 P、Q、P∨Q、¬P、最终公式 这 5 列。做完在心里对一下答案（或者写下来），然后继续往下看。
 
@@ -584,7 +582,7 @@
 ```
 所有命题公式
 ├── 重言式 (全真)     ← 是可满足式
-├── 偶然式 (有真有假) ← 是可满足式  
+├── 偶然式 (有真有假) ← 是可满足式
 └── 矛盾式 (全假)     ← 不是可满足式
 ```
 
@@ -682,9 +680,7 @@
 
 （提示：想想数学逻辑的"真"和日常语言的"合理"是不是同一回事。）
 
-
 然后进入**第 4 节：逻辑等价与基本等价式**，我们将学会**不用真值表，只靠代数变换就能化简公式**，这是后面电路化简和证明的基础。
-
 
 ### 练习答案与详解
 
@@ -783,7 +779,7 @@
 
 "A 为真" 且 "B 和 C 不同时为真"：
 
-F=A∧¬(B∧C)F = A \land \neg(B \land C)F=A∧¬(B∧C)
+$F = A \land \neg(B \land C)$
 
 #### (2) 真值表
 
@@ -832,13 +828,13 @@ F=A∧¬(B∧C)F = A \land \neg(B \land C)F=A∧¬(B∧C)
 
 上一节我们学会了真值表 —— 它**万能但笨重**。考虑这个公式：
 
-¬(P→Q)∨(¬P∧Q)\neg(P \to Q) \lor (\neg P \land Q)¬(P→Q)∨(¬P∧Q)
+$\neg(P \to Q) \lor (\neg P \land Q)$
 
 如果我想知道它和另一个公式 ¬P ∨ Q 是不是"一回事"，用真值表要列两张表再对比。如果公式有 5 个命题，就是 2 × 32 = 64 行。
 
 有没有办法**像化简代数式一样直接变形**？比如在代数里我们有：
 
-a(b+c)=ab+aca(b+c) = ab + aca(b+c)=ab+ac
+a(b+c) = ab + ac
 
 能不能在逻辑里也有 **"¬(P ∧ Q) = ¬P ∨ ¬Q"** 这样的变形规则？
 
@@ -853,8 +849,8 @@ a(b+c)=ab+aca(b+c) = ab + aca(b+c)=ab+ac
 你可能会说："真值表一样"，对！这就是定义：
 
 > **定义（逻辑等价）**：设 A、B 是两个命题公式。如果在**所有真值指派下**它们的真值**完全相同**，则称 A 与 B **逻辑等价**，记作：
-> 
-> A⇔BA \Leftrightarrow BA⇔B
+>
+> $A \Leftrightarrow B$
 
 **注意区分两个符号**：
 
@@ -925,8 +921,8 @@ a(b+c)=ab+aca(b+c) = ab + aca(b+c)=ab+ac
 
 #### 3.4 德摩根律（De Morgan's Laws）⭐
 
-> ¬(P∧Q)⇔¬P∨¬Q\neg(P \land Q) \Leftrightarrow \neg P \lor \neg Q¬(P∧Q)⇔¬P∨¬Q
-> 
+> $\neg(P \land Q) \Leftrightarrow \neg P \lor \neg Q$
+>
 > > $$\neg(P \lor Q) \Leftrightarrow \neg P \land \neg Q$$
 
 **这是你最常用、最重要的一条规则**。记忆口诀：**"否定进去，且变或，或变且"**。
@@ -1012,7 +1008,7 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 
 观察：¬P ∨ Q 就是 P → Q。而 P ∧ ¬Q 就是 ¬(P → Q)。所以整个式子变成：
 
-¬(P→Q)∨(P→Q)⇔T（排中律）\neg(P \to Q) \lor (P \to Q) \Leftrightarrow T \quad \text{（排中律）}¬(P→Q)∨(P→Q)⇔T（排中律）
+$\neg(P \to Q) \lor (P \to Q) \Leftrightarrow T \quad \text{（排中律）}$
 
 **证毕。** 是重言式。
 
@@ -1042,7 +1038,7 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 
 **例子**：P ∨ ¬P 是重言式。把所有 P 都换成 (Q → R)：
 
-(Q→R)∨¬(Q→R)(Q \to R) \lor \neg(Q \to R)(Q→R)∨¬(Q→R)
+$(Q \to R) \lor \neg(Q \to R)$
 
 这仍然是重言式（相当于把 P 理解成任何公式都行）。
 
@@ -1054,7 +1050,7 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 
 **例子**：在 (P → Q) ∨ R 中，把 "P → Q" 替换成等价的 "¬P ∨ Q"：
 
-(P→Q)∨R⇔(¬P∨Q)∨R(P \to Q) \lor R \Leftrightarrow (\neg P \lor Q) \lor R(P→Q)∨R⇔(¬P∨Q)∨R
+$(P \to Q) \lor R \Leftrightarrow (\neg P \lor Q) \lor R$
 
 **关键区别**：
 
@@ -1097,7 +1093,6 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 （提示：P NAND Q 定义为 ¬(P ∧ Q)。先试着让 Q 取某个特殊值看看能得到什么。）
 
  然后进入 **第 5 节：范式（析取范式 DNF 与合取范式 CNF）** —— 这是命题逻辑的"标准形式"，也是 SAT 求解器和电路综合工具的工作基础。
-
 
 ## 离散数学 第 5 节：范式（析取范式 DNF 与合取范式 CNF）
 
@@ -1170,7 +1165,7 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 #### 2.2 简单合取 & 简单析取
 
 > **简单合取 (Conjunctive Clause)**：有限个**文字**用 ∧ 连接，比如 P ∧ ¬Q ∧ R。
-> 
+>
 > **简单析取 (Disjunctive Clause)**：有限个**文字**用 ∨ 连接，比如 P ∨ ¬Q ∨ R。
 
 **注意两点**：
@@ -1205,12 +1200,12 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 #### 3.1 定义
 
 > **析取范式 (Disjunctive Normal Form, DNF)**：若干个**简单合取**用 ∨ 连接。
-> 
-> 形式：(L11∧L12∧⋯ )∨(L21∧L22∧⋯ )∨⋯(L_{11} \land L_{12} \land \cdots) \lor (L_{21} \land L_{22} \land \cdots) \lor \cdots (L11​∧L12​∧⋯)∨(L21​∧L22​∧⋯)∨⋯
+>
+> 形式：$(L_{11} \land L_{12} \land \cdots) \lor (L_{21} \land L_{22} \land \cdots) \lor \cdots$
 
 > **合取范式 (Conjunctive Normal Form, CNF)**：若干个**简单析取**用 ∧ 连接。
-> 
-> 形式：(L11∨L12∨⋯ )∧(L21∨L22∨⋯ )∧⋯(L_{11} \lor L_{12} \lor \cdots) \land (L_{21} \lor L_{22} \lor \cdots) \land \cdots (L11​∨L12​∨⋯)∧(L21​∨L22​∨⋯)∧⋯
+>
+> 形式：$(L_{11} \lor L_{12} \lor \cdots) \land (L_{21} \lor L_{22} \lor \cdots) \land \cdots$
 
 **怎么记不混？** 看**最外层**的联结词：
 
@@ -1219,8 +1214,8 @@ $$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \lan
 
 **像代数里的展开形式和因式分解形式**：
 
-- DNF 像多项式的**展开**形式：xy+xyˉ+xˉyxy + x\bar y + \bar xy xy+xyˉ​+xˉy
-- CNF 像多项式的**因式分解**形式：(x+y)(x+yˉ)(x+y)(x+\bar y) (x+y)(x+yˉ​)
+- DNF 像多项式的**展开**形式：$xy + x\bar y + \bar xy$
+- CNF 像多项式的**因式分解**形式：$(x+y)(x+\bar y)$
 
 #### 小检验
 
@@ -1281,7 +1276,7 @@ $$\begin{aligned} (P \lor Q) \to R &\Leftrightarrow \neg(P \lor Q) \lor R \quad 
 
 接着上面第二步继续，把 R 和 (¬P ∧ ¬Q) 换位：
 
-(¬P∧¬Q)∨R(\neg P \land \neg Q) \lor R(¬P∧¬Q)∨R
+$(\neg P \land \neg Q) \lor R$
 
 现在需要用 **∨ 对 ∧ 分配**：
 
@@ -1327,7 +1322,7 @@ $$\begin{aligned} (\neg P \lor Q) \land (\neg Q \lor P) &\Leftrightarrow (\neg P
 #### 6.1 小项与大项
 
 > **极小项 (minterm)**：一个简单合取，其中**每个原子命题都恰好出现一次**（以 P 或 ¬P 的形式）。
-> 
+>
 > **极大项 (maxterm)**：一个简单析取，其中**每个原子命题都恰好出现一次**。
 
 **例子**（设原子命题为 P、Q、R）：
@@ -1427,7 +1422,7 @@ $$\begin{aligned} (\neg P \lor Q) \land (\neg Q \lor P) &\Leftrightarrow (\neg P
 #### 6.6 关键定理（主范式唯一性）⭐
 
 > **定理**：任何不是矛盾式的命题公式，存在**唯一**的主析取范式（在不计小项顺序的意义下）。
-> 
+>
 > 类似地，任何不是重言式的公式，存在**唯一**的主合取范式。
 
 **两个特殊情况**：
@@ -1571,7 +1566,6 @@ Cout = Σ(3, 5, 6, 7) = (¬A∧B∧Cin) ∨ (A∧¬B∧Cin) ∨ (A∧B∧¬Cin) 
 ---
 然后我们进入 **第 6 节：联结词的完备集与推理理论**。这一节学完，你就掌握了命题逻辑的**全部核心内容** —— 后面就是谓词逻辑（带"∀"和"∃"的进阶版）。
 
-
 ## 离散数学 第 6 节：联结词的完备集与推理理论
 
 在开始之前，我想先**利用一下第 5 节练习 5 的思考题**作为切入点 —— 那道题其实是这一节的"开门钥匙"。我们就从它开始。
@@ -1588,7 +1582,8 @@ Cout = Σ(3, 5, 6, 7) = (¬A∧B∧Cin) ∨ (A∧¬B∧Cin) ∨ (A∧B∧¬Cin) 
 
 提示：用**德摩根律**试试看。你还记得那两条律吗？
 
-¬(P∧Q)⇔¬P∨¬Q\neg(P \land Q) \Leftrightarrow \neg P \lor \neg Q¬(P∧Q)⇔¬P∨¬Q ¬(P∨Q)⇔¬P∧¬Q\neg(P \lor Q) \Leftrightarrow \neg P \land \neg Q¬(P∨Q)⇔¬P∧¬Q
+$\neg(P \land Q) \Leftrightarrow \neg P \lor \neg Q$  
+$\neg(P \lor Q) \Leftrightarrow \neg P \land \neg Q$
 
 能从第二条德摩根律"反推"出 ∨ 吗？
 
@@ -1596,7 +1591,7 @@ Cout = Σ(3, 5, 6, 7) = (¬A∧B∧Cin) ∨ (A∧¬B∧Cin) ∨ (A∧B∧¬Cin) 
 
 **推导**：对 ¬(P ∨ Q) ⇔ ¬P ∧ ¬Q 两边取否定：
 
-P∨Q⇔¬(¬P∧¬Q)P \lor Q \Leftrightarrow \neg(\neg P \land \neg Q)P∨Q⇔¬(¬P∧¬Q)
+$P \lor Q \Leftrightarrow \neg(\neg P \land \neg Q)$
 
 **看出来了吗？** 右边只用了 ¬ 和 ∧。所以：
 
@@ -1604,7 +1599,7 @@ P∨Q⇔¬(¬P∧¬Q)P \lor Q \Leftrightarrow \neg(\neg P \land \neg Q)P∨Q⇔�
 
 同样地，{¬, ∨} 也可以用德摩根律"造"出 ∧：
 
-P∧Q⇔¬(¬P∨¬Q)P \land Q \Leftrightarrow \neg(\neg P \lor \neg Q)P∧Q⇔¬(¬P∨¬Q)
+$P \land Q \Leftrightarrow \neg(\neg P \lor \neg Q)$
 
 ---
 
@@ -1636,7 +1631,7 @@ P∧Q⇔¬(¬P∨¬Q)P \land Q \Leftrightarrow \neg(\neg P \lor \neg Q)P∧Q⇔�
 
 ##### 与非 NAND（↑ 或 |）
 
-> P↑Q⇔¬(P∧Q)P \uparrow Q \Leftrightarrow \neg(P \land Q) P↑Q⇔¬(P∧Q)
+> $P \uparrow Q \Leftrightarrow \neg(P \land Q)$
 
 真值表：
 
@@ -1649,13 +1644,15 @@ P∧Q⇔¬(¬P∨¬Q)P \land Q \Leftrightarrow \neg(\neg P \lor \neg Q)P∧Q⇔�
 
 **{↑} 是完备集**。证明要点：
 
-¬P⇔P↑P\neg P \Leftrightarrow P \uparrow P¬P⇔P↑P P∧Q⇔¬(P↑Q)⇔(P↑Q)↑(P↑Q)P \land Q \Leftrightarrow \neg(P \uparrow Q) \Leftrightarrow (P \uparrow Q) \uparrow (P \uparrow Q)P∧Q⇔¬(P↑Q)⇔(P↑Q)↑(P↑Q) P∨Q⇔(¬P)↑(¬Q)⇔(P↑P)↑(Q↑Q)P \lor Q \Leftrightarrow (\neg P) \uparrow (\neg Q) \Leftrightarrow (P \uparrow P) \uparrow (Q \uparrow Q)P∨Q⇔(¬P)↑(¬Q)⇔(P↑P)↑(Q↑Q)
+$\neg P \Leftrightarrow P \uparrow P$  
+$P \land Q \Leftrightarrow \neg(P \uparrow Q) \Leftrightarrow (P \uparrow Q) \uparrow (P \uparrow Q)$  
+$P \lor Q \Leftrightarrow (\neg P) \uparrow (\neg Q) \Leftrightarrow (P \uparrow P) \uparrow (Q \uparrow Q)$
 
 有了 ¬, ∧, ∨ 就能造一切。
 
 ##### 或非 NOR（↓）
 
-> P↓Q⇔¬(P∨Q)P \downarrow Q \Leftrightarrow \neg(P \lor Q) P↓Q⇔¬(P∨Q)
+> $P \downarrow Q \Leftrightarrow \neg(P \lor Q)$
 
 同样地，**{↓} 也是完备集**（推导方式类似）。
 
@@ -1715,21 +1712,21 @@ P∧Q⇔¬(¬P∨¬Q)P \land Q \Leftrightarrow \neg(\neg P \lor \neg Q)P∧Q⇔�
 
 #### 4.1 什么是"有效推理"？
 
-从**前提** A1,A2,…,AnA_1, A_2, \ldots, A_n A1​,A2​,…,An​ 推出**结论** BB B，记作：
+从**前提** $A_1, A_2, \ldots, A_n$ 推出**结论** $B$，记作：
 
-A1,A2,…,An⊨BA_1, A_2, \ldots, A_n \models BA1​,A2​,…,An​⊨B
+$A_1, A_2, \ldots, A_n \models B$
 
 这里的 ⊨ 是"**逻辑蕴含**"，和第 4 节讲过的"逻辑等价" ⇔ 地位类似。
 
 > **定义**：**当所有前提同时为真时，结论也必为真**，则称这个推理**有效 (valid)**，记作：
-> 
-> A1,A2,…,An⊨BA_1, A_2, \ldots, A_n \models BA1​,A2​,…,An​⊨B
+>
+> $A_1, A_2, \ldots, A_n \models B$
 
 **等价的说法**（三者等价，非常重要）：
 
-1. A1,…,An⊨BA_1, \ldots, A_n \models B A1​,…,An​⊨B
-2. (A1∧A2∧⋯∧An)→B(A_1 \land A_2 \land \cdots \land A_n) \to B (A1​∧A2​∧⋯∧An​)→B 是**重言式**
-3. A1∧A2∧⋯∧An∧¬BA_1 \land A_2 \land \cdots \land A_n \land \neg B A1​∧A2​∧⋯∧An​∧¬B 是**矛盾式**
+1. $A_1, \ldots, A_n \models B$
+2. $(A_1 \land A_2 \land \cdots \land A_n) \to B$ 是**重言式**
+3. $A_1 \land A_2 \land \cdots \land A_n \land \neg B$ 是**矛盾式**
 
 第 3 条就是**反证法的理论依据**：要证结论 B，就假设 ¬B，看能否和前提们一起推出矛盾。
 
@@ -1747,7 +1744,7 @@ A1,A2,…,An⊨BA_1, A_2, \ldots, A_n \models BA1​,A2​,…,An​⊨B
 
 #### 5.1 假言推理 (Modus Ponens, MP) ⭐⭐⭐
 
-P→Q,P∴Q\frac{P \to Q, \quad P}{\therefore \quad Q}∴QP→Q,P​
+$\dfrac{P \to Q, \quad P}{\therefore \quad Q}$
 
 读作：**已知 P→Q 和 P，推出 Q**。
 
@@ -1759,7 +1756,7 @@ P→Q,P∴Q\frac{P \to Q, \quad P}{\therefore \quad Q}∴QP→Q,P​
 
 #### 5.2 拒取式 (Modus Tollens, MT) ⭐⭐⭐
 
-P→Q,¬Q∴¬P\frac{P \to Q, \quad \neg Q}{\therefore \quad \neg P}∴¬PP→Q,¬Q​
+$\dfrac{P \to Q, \quad \neg Q}{\therefore \quad \neg P}$
 
 **已知 P→Q 和 Q 不成立，推出 P 不成立**。
 
@@ -1773,7 +1770,7 @@ P→Q,¬Q∴¬P\frac{P \to Q, \quad \neg Q}{\therefore \quad \neg P}∴¬PP→Q,
 
 #### 5.3 假言三段论 (Hypothetical Syllogism, HS)
 
-P→Q,Q→R∴P→R\frac{P \to Q, \quad Q \to R}{\therefore \quad P \to R}∴P→RP→Q,Q→R​
+$\dfrac{P \to Q, \quad Q \to R}{\therefore \quad P \to R}$
 
 蕴含的**传递性**。例子：
 
@@ -1783,7 +1780,7 @@ P→Q,Q→R∴P→R\frac{P \to Q, \quad Q \to R}{\therefore \quad P \to R}∴P�
 
 #### 5.4 析取三段论 (Disjunctive Syllogism, DS)
 
-P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
+$\dfrac{P \lor Q, \quad \neg P}{\therefore \quad Q}$
 
 **要么 P 要么 Q，但 P 不成立，所以 Q 成立**。例子：
 
@@ -1795,10 +1792,10 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 |规则名|形式|直觉|
 |---|---|---|
-|**化简律**|P∧Q∴P\dfrac{P \land Q}{\therefore P} ∴PP∧Q​|且的一部分仍成立|
-|**合取律**|P,Q∴P∧Q\dfrac{P, Q}{\therefore P \land Q} ∴P∧QP,Q​|两个真的合起来还真|
-|**附加律**|P∴P∨Q\dfrac{P}{\therefore P \lor Q} ∴P∨QP​|真的命题加什么都真|
-|**构造性二难**|(P→R),(Q→R),P∨Q∴R\dfrac{(P \to R), (Q \to R), P \lor Q}{\therefore R} ∴R(P→R),(Q→R),P∨Q​|分情况讨论|
+|**化简律**|$\dfrac{P \land Q}{\therefore P}$|且命题的一部分仍成立|
+|**合取律**|$\dfrac{P, Q}{\therefore P \land Q}$|两个真命题合取后仍为真|
+|**附加律**|$\dfrac{P}{\therefore P \lor Q}$|真命题与任意命题析取后仍为真|
+|**构造性二难**|$\dfrac{(P \to R), (Q \to R), P \lor Q}{\therefore R}$|分情况讨论|
 
 ---
 
@@ -1810,21 +1807,21 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **前提**：
 
-1. P→QP \to Q P→Q
-2. Q→RQ \to R Q→R
-3. PP P
+1. $P \to Q$
+2. $Q \to R$
+3. P
 
-**结论**：RR R
+**结论**：R
 
 **证明**：
 
 |行|公式|理由|
 |---|---|---|
-|(1)|P→QP \to Q P→Q|前提|
-|(2)|Q→RQ \to R Q→R|前提|
-|(3)|PP P|前提|
-|(4)|QQ Q|(1)(3) 假言推理|
-|(5)|RR R|(2)(4) 假言推理|
+|(1)|$P \to Q$|前提|
+|(2)|$Q \to R$|前提|
+|(3)|P|前提|
+|(4)|Q|(1)(3) 假言推理|
+|(5)|R|(2)(4) 假言推理|
 
 **证毕。** ∎
 
@@ -1832,26 +1829,26 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **前提**：
 
-1. 如果小明考上大学 (PP P)，他父母会很高兴 (QQ Q)。
-2. 如果他父母高兴 (QQ Q)，他们会请客 (RR R)。
-3. 他们没请客 (¬R\neg R ¬R)。
+1. 如果小明考上大学 (P)，他父母会很高兴 (Q)。
+2. 如果他父母高兴 (Q)，他们会请客 (R)。
+3. 他们没请客（$\neg R$）。
 
-**结论**：小明没考上大学 (¬P\neg P ¬P)。
+**结论**：小明没考上大学（$\neg P$）。
 
 **形式化**：
 
-- 前提：P→QP \to Q P→Q，Q→RQ \to R Q→R，¬R\neg R ¬R
-- 结论：¬P\neg P ¬P
+- 前提：$P \to Q$，$Q \to R$，$\neg R$
+- 结论：$\neg P$
 
 **证明**：
 
 |行|公式|理由|
 |---|---|---|
-|(1)|P→QP \to Q P→Q|前提|
-|(2)|Q→RQ \to R Q→R|前提|
-|(3)|¬R\neg R ¬R|前提|
-|(4)|P→RP \to R P→R|(1)(2) 假言三段论|
-|(5)|¬P\neg P ¬P|(4)(3) 拒取式|
+|(1)|$P \to Q$|前提|
+|(2)|$Q \to R$|前提|
+|(3)|$\neg R$|前提|
+|(4)|$P \to R$|(1)(2) 假言三段论|
+|(5)|$\neg P$|(4)(3) 拒取式|
 
 **证毕。** ∎
 
@@ -1859,7 +1856,7 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 试着用这种格式证明下面的推理：
 
-**前提**：P∨QP \lor Q P∨Q，P→RP \to R P→R，Q→RQ \to R Q→R **结论**：RR R
+**前提**：$P \lor Q$，$P \to R$，$Q \to R$；**结论**：$R$。
 
 （提示：这就是构造性二难，但你要一步步推，不能直接用。可以考虑分情况讨论，或者用其他规则组合。）
 
@@ -1869,27 +1866,27 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 #### 7.1 CP 规则（附加前提法 / 演绎定理）
 
-> **如果要证结论是 A→BA \to B A→B，可以把 AA A 当作"附加前提"加进去，然后只需证出 BB B。最后用 CP 规则把 AA A 从前提列表"提出来"。**
+> **如果要证结论是 $A \to B$，可以把 A 当作"附加前提"加进去，然后只需证出 B。最后用 CP 规则把 A 从前提列表"提出来"。**
 
 **理论依据**（演绎定理）：
 
-Γ,A⊨B⇔Γ⊨A→B\Gamma, A \models B \quad \Leftrightarrow \quad \Gamma \models A \to BΓ,A⊨B⇔Γ⊨A→B
+$\Gamma, A \models B \quad \Leftrightarrow \quad \Gamma \models A \to B$
 
 **例子**：
 
-**前提**：P→(Q→R)P \to (Q \to R) P→(Q→R)，P→QP \to Q P→Q **结论**：P→RP \to R P→R
+**前提**：$P \to (Q \to R)$，$P \to Q$；**结论**：$P \to R$。
 
 **证明**（用 CP）：
 
 |行|公式|理由|
 |---|---|---|
-|(1)|P→(Q→R)P \to (Q \to R) P→(Q→R)|前提|
-|(2)|P→QP \to Q P→Q|前提|
-|(3)|PP P|**CP 假设**（附加前提）|
-|(4)|Q→RQ \to R Q→R|(1)(3) 假言推理|
-|(5)|QQ Q|(2)(3) 假言推理|
-|(6)|RR R|(4)(5) 假言推理|
-|(7)|P→RP \to R P→R|(3)–(6) CP 规则|
+|(1)|$P \to (Q \to R)$|前提|
+|(2)|$P \to Q$|前提|
+|(3)|P|**CP 假设**（附加前提）|
+|(4)|$Q \to R$|(1)(3) 假言推理|
+|(5)|Q|(2)(3) 假言推理|
+|(6)|R|(4)(5) 假言推理|
+|(7)|$P \to R$|(3)–(6) CP 规则|
 
 **证毕。** ∎
 
@@ -1897,15 +1894,15 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 #### 7.2 反证法（归谬法 / RAA）
 
-> **要证结论 BB B，假设 ¬B\neg B ¬B，如果能推出矛盾 (F)，则 BB B 成立。**
+> **要证结论 B，假设 $\neg B$，如果能推出矛盾 (F)，则 B 成立。**
 
 **理论依据**：
 
-Γ⊨B⇔Γ,¬B⊨F\Gamma \models B \quad \Leftrightarrow \quad \Gamma, \neg B \models FΓ⊨B⇔Γ,¬B⊨F
+$\Gamma \models B \quad \Leftrightarrow \quad \Gamma, \neg B \models F$
 
 **例子**：
 
-**前提**：P→QP \to Q P→Q，¬Q\neg Q ¬Q **结论**：¬P\neg P ¬P
+**前提**：$P \to Q$，$\neg Q$；**结论**：$\neg P$。
 
 （这就是拒取式，我们用反证法证一遍。）
 
@@ -1913,13 +1910,13 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 |行|公式|理由|
 |---|---|---|
-|(1)|P→QP \to Q P→Q|前提|
-|(2)|¬Q\neg Q ¬Q|前提|
-|(3)|PP P|**反证假设**（假设结论的否定）|
-|(4)|QQ Q|(1)(3) 假言推理|
-|(5)|Q∧¬QQ \land \neg Q Q∧¬Q|(2)(4) 合取律|
-|(6)|FF F|(5) 矛盾律|
-|(7)|¬P\neg P ¬P|(3)–(6) 反证法|
+|(1)|$P \to Q$|前提|
+|(2)|$\neg Q$|前提|
+|(3)|P|**反证假设**（假设结论的否定）|
+|(4)|Q|(1)(3) 假言推理|
+|(5)|$Q \land \neg Q$|(2)(4) 合取律|
+|(6)|F|(5) 矛盾律|
+|(7)|$\neg P$|(3)–(6) 反证法|
 
 **证毕。** ∎
 
@@ -1931,23 +1928,23 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **题目**：
 
-- 如果甲是凶手，则乙不是。(P→¬QP \to \neg Q P→¬Q)
-- 要么丙是凶手，要么乙是。(R∨QR \lor Q R∨Q)
-- 丙不是凶手。(¬R\neg R ¬R)
+- 如果甲是凶手，则乙不是（$P \to \neg Q$）。
+- 要么丙是凶手，要么乙是（$R \lor Q$）。
+- 丙不是凶手（$\neg R$）。
 - 问：甲是凶手吗？
 
 **推理**：
 
 |行|公式|理由|
 |---|---|---|
-|(1)|P→¬QP \to \neg Q P→¬Q|前提|
-|(2)|R∨QR \lor Q R∨Q|前提|
-|(3)|¬R\neg R ¬R|前提|
-|(4)|QQ Q|(2)(3) 析取三段论|
-|(5)|假设 PP P|附加假设|
-|(6)|¬Q\neg Q ¬Q|(1)(5) 假言推理|
-|(7)|Q∧¬QQ \land \neg Q Q∧¬Q|(4)(6) 合取律 → 矛盾|
-|(8)|¬P\neg P ¬P|(5)–(7) 反证法|
+|(1)|$P \to \neg Q$|前提|
+|(2)|$R \lor Q$|前提|
+|(3)|$\neg R$|前提|
+|(4)|Q|(2)(3) 析取三段论|
+|(5)|假设 P|附加假设|
+|(6)|$\neg Q$|(1)(5) 假言推理|
+|(7)|$Q \land \neg Q$|(4)(6) 合取律 → 矛盾|
+|(8)|$\neg P$|(5)–(7) 反证法|
 
 **结论**：**甲不是凶手**（而且我们推出了乙是凶手）。
 
@@ -1989,21 +1986,21 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **练习 1**（联结词完备性）：
 
-- (1) 用 NAND (↑) 表示 P↔QP \leftrightarrow Q P↔Q，并用真值表验证。
+- (1) 用 NAND（$\uparrow$）表示 $P \leftrightarrow Q$，并用真值表验证。
 - (2) 证明 {→, ¬} 是完备集（即用它们表达 ∧、∨）。
 - (3) {∧, ∨} 不是完备集，试着解释为什么。（提示：考虑"P=F, Q=F"时，只用 ∧、∨ 能得到什么值？）
 
 **练习 2**（基本推理规则的形式证明）：
 
-**前提**：¬P∨Q\neg P \lor Q ¬P∨Q，¬Q∨R\neg Q \lor R ¬Q∨R，PP P **结论**：RR R
+**前提**：$\neg P \lor Q$，$\neg Q \lor R$，P **结论**：R
 
 **练习 3**（CP 规则）：
 
-**前提**：P→(Q→R)P \to (Q \to R) P→(Q→R) **结论**：(P∧Q)→R(P \land Q) \to R (P∧Q)→R
+**前提**：$P \to (Q \to R)$；**结论**：$(P \land Q) \to R$。
 
 **练习 4**（反证法）：
 
-**前提**：P→QP \to Q P→Q，R→¬QR \to \neg Q R→¬Q，RR R **结论**：¬P\neg P ¬P
+**前提**：$P \to Q$，$R \to \neg Q$，$R$；**结论**：$\neg P$。
 
 **练习 5**（综合应用 / 逻辑谜题）：
 
@@ -2071,17 +2068,17 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 #### 2.1 个体 (Individual) 与个体域 (Domain)
 
 > **个体**：我们讨论的"东西" —— 人、数字、图形、任何对象。
-> 
+>
 > **个体域** (Universe of Discourse, 也叫**论域**)：所有可能个体组成的集合。
 
 **例子**：
 
-- 讨论"所有自然数有某性质"时，个体域 = 自然数集合 N\mathbb{N} N
+- 讨论“所有自然数具有某性质”时，个体域取自然数集合 $\mathbb{N}$
 - 讨论"所有人"时，个体域 = 全体人类
 
-**个体常量**：特指的个体，用小写字母 a,b,c,…a, b, c, \ldots a,b,c,… 表示。比如"苏格拉底"可以用 ss s 表示。
+**个体常量**：特指的个体，用小写字母 $a, b, c, \ldots$ 表示。比如"苏格拉底"可以用 s 表示。
 
-**个体变量**：不确定的个体，用 x,y,z,…x, y, z, \ldots x,y,z,… 表示。
+**个体变量**：不确定的个体，用 $x, y, z, \ldots$ 表示。
 
 #### 2.2 谓词 (Predicate)
 
@@ -2089,25 +2086,25 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **一元谓词**（描述性质）：
 
-- M(x)M(x) M(x)：x 是人 (Man)
-- D(x)D(x) D(x)：x 会死 (Dies)
-- E(x)E(x) E(x)：x 是偶数 (Even)
+- M(x) M(x)：x 是人 (Man)
+- D(x) D(x)：x 会死 (Dies)
+- E(x) E(x)：x 是偶数 (Even)
 
 **二元谓词**（描述关系）：
 
 - L(x,y)L(x, y) L(x,y)：x 喜欢 y (Loves)
-- <(x,y)<(x, y) <(x,y) 或写成 x<yx < y x<y：x 小于 y
+- <(x,y)<(x, y) <(x,y) 或写成x < y：x 小于 y
 - P(x,y)P(x, y) P(x,y)：x 是 y 的父亲
 
 **n 元谓词**：可以有任意多个参数。
 
 **关键点**：谓词 **带上具体的个体常量** 就变成一个**命题**（有真假值了）：
 
-- M(s)M(s) M(s)（苏格拉底是人）—— 这是命题，真值为 T
-- E(3)E(3) E(3)（3 是偶数）—— 这是命题，真值为 F
+- M(s) M(s)（苏格拉底是人）—— 这是命题，真值为 T
+- E(3) E(3)（3 是偶数）—— 这是命题，真值为 F
 - L(L( L(张三, 李四)) )（张三喜欢李四）—— 是命题
 
-但 M(x)M(x) M(x) 本身**不是命题**（x 没确定），它只是一个**命题函数** (propositional function)。
+但M(x)本身**不是命题**（x 没确定），它只是一个**命题函数** (propositional function)。
 
 #### 🤔 小检验
 
@@ -2121,9 +2118,9 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 参考答案：
 
-1. P(3)P(3) P(3)，其中 P(x)P(x) P(x)："x 是质数"
-2. C(b,c)C(b, c) C(b,c)，其中 C(x,y)C(x, y) C(x,y)："x 是 y 的首都"，bb b = 北京，cc c = 中国
-3. >(5,3)>(5, 3) >(5,3) 或写成 5>35 > 3 5>3
+1. P(3) P(3)，其中P(x)："x 是质数"
+2. C(b,c)C(b, c) C(b,c)，其中C(x, y)："x 是 y 的首都"，b = 北京，c = 中国
+3. >(5,3)>(5, 3) >(5,3) 或写成5 > 3
 
 ---
 
@@ -2133,25 +2130,25 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 ##### 全称量词 ∀ (for all)
 
-> ∀x P(x)\forall x \, P(x) ∀xP(x)：**对所有的 x，都有 P(x) 成立**。
+> $\forall x \, P(x)$：**对所有的 $x$，都有 $P(x)$ 成立**。
 
 读作"对任意 x，P(x)"或"对一切 x，P(x)"。
 
-**例子**（个体域 = 自然数 N\mathbb{N} N）：
+**例子**（个体域为自然数集 $\mathbb{N}$）：
 
-- ∀x (x≥0)\forall x \, (x \geq 0) ∀x(x≥0)："所有自然数都非负" —— 真
-- ∀x (x>5)\forall x \, (x > 5) ∀x(x>5)："所有自然数都大于 5" —— 假（反例：x = 0）
+- $\forall x \, (x \geq 0)$："所有自然数都非负" —— 真
+- $\forall x \, (x > 5)$：“所有自然数都大于 5”——假（反例：$x = 0$）
 
 ##### 存在量词 ∃ (there exists)
 
-> ∃x P(x)\exists x \, P(x) ∃xP(x)：**存在某个 x，使得 P(x) 成立**。
+> $\exists x \, P(x)$：**存在某个 $x$，使得 $P(x)$ 成立**。
 
 读作"存在 x，使得 P(x)"或"有一个 x，P(x)"。
 
 **例子**：
 
-- ∃x (x>5)\exists x \, (x > 5) ∃x(x>5)："存在一个自然数大于 5" —— 真（例如 x = 6）
-- ∃x (x<0)\exists x \, (x < 0) ∃x(x<0)："存在一个自然数小于 0" —— 假
+- $\exists x \, (x > 5)$：“存在一个自然数大于 5”——真（例如 $x = 6$）
+- $\exists x \, (x < 0)$：“存在一个自然数小于 0”——假
 
 #### 量词的"气质"你要抓住
 
@@ -2164,28 +2161,28 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 现在我们回到开门问题。定义：
 
-- M(x)M(x) M(x)：x 是人
-- D(x)D(x) D(x)：x 会死
-- ss s：苏格拉底
+- M(x) M(x)：x 是人
+- D(x) D(x)：x 会死
+- s：苏格拉底
 
 三句话的谓词逻辑表达：
 
 |自然语言|谓词逻辑|
 |---|---|
-|所有人都会死|∀x (M(x)→D(x))\forall x \, (M(x) \to D(x)) ∀x(M(x)→D(x))|
-|苏格拉底是人|M(s)M(s) M(s)|
-|苏格拉底会死|D(s)D(s) D(s)|
+|所有人都会死|$\forall x \, (M(x) \to D(x))$|
+|苏格拉底是人|M(s) M(s)|
+|苏格拉底会死|D(s) D(s)|
 
-**注意第一句的结构**：它**不是** ∀x M(x)∧∀x D(x)\forall x \, M(x) \land \forall x \, D(x) ∀xM(x)∧∀xD(x)（"所有东西都是人且所有东西都会死"），也**不是** ∀x M(x)→∀x D(x)\forall x \, M(x) \to \forall x \, D(x) ∀xM(x)→∀xD(x)（这意思变了）。
+**注意第一句的结构**：它**不是** $\forall x\,M(x) \land \forall x\,D(x)$（“所有对象都是人且所有对象都会死”），也**不是** $\forall x\,M(x) \to \forall x\,D(x)$（含义已经改变）。
 
 正确的结构是："**对所有 x，如果 x 是人，那么 x 会死**" —— 用蕴含 → 把"限制条件"和"断言内容"连起来。
 
 **推理过程**（谓词逻辑里完全合法）：
 
-1. ∀x (M(x)→D(x))\forall x \, (M(x) \to D(x)) ∀x(M(x)→D(x))（前提 1）
-2. 从 ∀\forall ∀ 特化到 ss s：M(s)→D(s)M(s) \to D(s) M(s)→D(s)
-3. M(s)M(s) M(s)（前提 2）
-4. 用假言推理（MP）：D(s)D(s) D(s) ✅
+1. $\forall x\,(M(x) \to D(x))$（前提 1）
+2. 从 $\forall$ 命题特化到个体 $s$：$M(s) \to D(s)$
+3. M(s) M(s)（前提 2）
+4. 用假言推理（MP）：D(s)✅
 
 **这个推理在命题逻辑里推不出，在谓词逻辑里两步搞定**。这就是谓词逻辑的威力。
 
@@ -2197,27 +2194,27 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 #### 模板 1：**"所有…都…"用 ∀ 配 →**
 
-> **所有 P 都是 Q** ⟹ ∀x (P(x)→Q(x))\forall x \, (P(x) \to Q(x)) ∀x(P(x)→Q(x))
+> **所有 P 都是 Q** ⟹ $\forall x\,(P(x) \to Q(x))$
 
 **例子**：
 
 - "所有学生都努力。"
-    - P(x)P(x) P(x)：x 是学生；Q(x)Q(x) Q(x)：x 努力
-    - ∀x (P(x)→Q(x))\forall x \, (P(x) \to Q(x)) ∀x(P(x)→Q(x))
+    - P(x) P(x)：x 是学生；Q(x)：x 努力
+    - $\forall x \, (P(x) \to Q(x))$
 
-**常见错误**：写成 ∀x (P(x)∧Q(x))\forall x \, (P(x) \land Q(x)) ∀x(P(x)∧Q(x)) —— 这意思是"**所有东西都既是学生又努力**"，不对！
+**常见错误**：写成 $\forall x \, (P(x) \land Q(x))$——这表示“**所有东西都既是学生又努力**”，并不符合原意。
 
 #### 模板 2：**"存在…使得…"用 ∃ 配 ∧**
 
-> **存在一个 P 是 Q** ⟹ ∃x (P(x)∧Q(x))\exists x \, (P(x) \land Q(x)) ∃x(P(x)∧Q(x))
+> **存在一个 P 是 Q** ⟹ $\exists x\,(P(x) \land Q(x))$
 
 **例子**：
 
 - "有的学生会编程。"
-    - P(x)P(x) P(x)：x 是学生；Q(x)Q(x) Q(x)：x 会编程
-    - ∃x (P(x)∧Q(x))\exists x \, (P(x) \land Q(x)) ∃x(P(x)∧Q(x))
+    - P(x) P(x)：x 是学生；Q(x)：x 会编程
+    $\exists x \, (P(x) \land Q(x))$
 
-**常见错误**：写成 ∃x (P(x)→Q(x))\exists x \, (P(x) \to Q(x)) ∃x(P(x)→Q(x)) —— 这个几乎**永远为真**（只要存在一个不是学生的东西，蕴含就空虚为真），没有表达"存在一个学生"的意思。
+**常见错误**：写成 $\exists x \, (P(x) \to Q(x))$。这个式子几乎**永远为真**（只要存在一个不是学生的对象，蕴含就空虚为真），没有表达“存在一个学生”的意思。
 
 #### 为什么是这样的搭配？
 
@@ -2239,10 +2236,10 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 参考答案：
 
-1. ∀x (E(x)→D(x))\forall x \, (E(x) \to D(x)) ∀x(E(x)→D(x))，其中 E 是"偶数"，D 是"能被 2 整除"
-2. ∃x (S(x)∧C(x)∧H(x))\exists x \, (S(x) \land C(x) \land H(x)) ∃x(S(x)∧C(x)∧H(x))，多个性质就都用 ∧ 连
-3. ¬∃x P(x)\neg \exists x \, P(x) ¬∃xP(x) 或等价地 ∀x ¬P(x)\forall x \, \neg P(x) ∀x¬P(x)，其中 P 是"完美"
-4. ∃x (S(x)∧¬L(x))\exists x \, (S(x) \land \neg L(x)) ∃x(S(x)∧¬L(x))，S 是"学生"，L 是"喜欢数学"
+1. $\forall x \, (E(x) \to D(x))$，其中 $E$ 表示“偶数”，$D$ 表示“能被 2 整除”
+$\exists x \, (S(x) \land C(x) \land H(x))$，多个性质就都用 ∧ 连
+3. $\neg \exists x \, P(x)$ 或等价地 $\forall x \, \neg P(x)$，其中 P 是"完美"
+4. $\exists x \, (S(x) \land \neg L(x))$，其中 $S$ 表示“学生”，$L$ 表示“喜欢数学”
 
 第 3 个题体现了**量词和否定的转换**，这是下面要讲的大内容。
 
@@ -2252,7 +2249,8 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **两条核心规则**：
 
-¬∀x P(x)⇔∃x ¬P(x)\neg \forall x \, P(x) \Leftrightarrow \exists x \, \neg P(x)¬∀xP(x)⇔∃x¬P(x) ¬∃x P(x)⇔∀x ¬P(x)\neg \exists x \, P(x) \Leftrightarrow \forall x \, \neg P(x)¬∃xP(x)⇔∀x¬P(x)
+$\neg \forall x\,P(x) \Leftrightarrow \exists x\,\neg P(x)$  
+$\neg \exists x\,P(x) \Leftrightarrow \forall x\,\neg P(x)$
 
 **直觉解释**：
 
@@ -2265,13 +2263,13 @@ P∨Q,¬P∴Q\frac{P \lor Q, \quad \neg P}{\therefore \quad Q}∴QP∨Q,¬P​
 
 **例子**：否定"所有学生都及格了"。
 
-¬∀x (S(x)→P(x))\neg \forall x \, (S(x) \to P(x))¬∀x(S(x)→P(x))
+$\neg \forall x \, (S(x) \to P(x))$
 
 一步步化简：
 
 $$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , \neg(S(x) \to P(x)) \quad \text{（量词否定）} \ &\Leftrightarrow \exists x , \neg(\neg S(x) \lor P(x)) \quad \text{（蕴含等值）} \ &\Leftrightarrow \exists x , (S(x) \land \neg P(x)) \quad \text{（德摩根 + 双重否定）} \end{aligned}$$
 
-**结果**：∃x (S(x)∧¬P(x))\exists x \, (S(x) \land \neg P(x)) ∃x(S(x)∧¬P(x)) = "**存在一个学生没及格**"。
+**结果**：$\exists x \, (S(x) \land \neg P(x))$，即“**存在一个学生没及格**”。
 
 这和我们中文里否定"所有学生都及格"的方式完全一致。
 
@@ -2279,15 +2277,15 @@ $$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , 
 
 否定下列命题（把 ¬ 一路推到谓词前面）：
 
-1. ∀x (E(x)→D(x))\forall x \, (E(x) \to D(x)) ∀x(E(x)→D(x))（所有偶数都能被 2 整除）
-2. ∃x (S(x)∧C(x))\exists x \, (S(x) \land C(x)) ∃x(S(x)∧C(x))（存在聪明的学生）
+1. $\forall x\,(E(x) \to D(x))$（所有偶数都能被 2 整除）
+2. $\exists x\,(S(x) \land C(x))$（存在聪明的学生）
 
 ---
 
 参考答案：
 
-1. ¬∀x (E(x)→D(x))⇔∃x (E(x)∧¬D(x))\neg \forall x \, (E(x) \to D(x)) \Leftrightarrow \exists x \, (E(x) \land \neg D(x)) ¬∀x(E(x)→D(x))⇔∃x(E(x)∧¬D(x))（存在一个偶数不能被 2 整除）
-2. ¬∃x (S(x)∧C(x))⇔∀x (¬S(x)∨¬C(x))⇔∀x (S(x)→¬C(x))\neg \exists x \, (S(x) \land C(x)) \Leftrightarrow \forall x \, (\neg S(x) \lor \neg C(x)) \Leftrightarrow \forall x \, (S(x) \to \neg C(x)) ¬∃x(S(x)∧C(x))⇔∀x(¬S(x)∨¬C(x))⇔∀x(S(x)→¬C(x))（所有学生都不聪明）
+1. $\neg \forall x \, (E(x) \to D(x)) \Leftrightarrow \exists x \, (E(x) \land \neg D(x))$（存在一个偶数不能被 2 整除）
+2. $\neg \exists x\,(S(x) \land C(x)) \Leftrightarrow \forall x\,(\neg S(x) \lor \neg C(x)) \Leftrightarrow \forall x\,(S(x) \to \neg C(x))$（所有学生都不聪明）
 
 ---
 
@@ -2297,34 +2295,34 @@ $$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , 
 
 #### 例子 1：同种量词可以交换
 
-- ∀x ∀y P(x,y)⇔∀y ∀x P(x,y)\forall x \, \forall y \, P(x, y) \Leftrightarrow \forall y \, \forall x \, P(x, y) ∀x∀yP(x,y)⇔∀y∀xP(x,y)
-- ∃x ∃y P(x,y)⇔∃y ∃x P(x,y)\exists x \, \exists y \, P(x, y) \Leftrightarrow \exists y \, \exists x \, P(x, y) ∃x∃yP(x,y)⇔∃y∃xP(x,y)
+- $\forall x \, \forall y \, P(x, y) \Leftrightarrow \forall y \, \forall x \, P(x, y)$
+- $\exists x \, \exists y \, P(x, y) \Leftrightarrow \exists y \, \exists x \, P(x, y)$
 
 这不难理解："对所有 x 对所有 y" 和 "对所有 y 对所有 x" 显然是一回事。
 
 #### 例子 2：不同种量词**不能**交换 ⚠️
 
-设 L(x,y)L(x, y) L(x,y)："x 喜欢 y"，个体域 = 所有人。
+设L(x, y)："x 喜欢 y"，个体域 = 所有人。
 
-- ∀x ∃y L(x,y)\forall x \, \exists y \, L(x, y) ∀x∃yL(x,y)：**每个人都有某个自己喜欢的人**（每个人的"喜欢对象"可以不同）
-- ∃y ∀x L(x,y)\exists y \, \forall x \, L(x, y) ∃y∀xL(x,y)：**存在一个被所有人喜欢的人**（有个"万人迷"）
+- $\forall x \, \exists y \, L(x, y)$：**每个人都有某个自己喜欢的人**（每个人的"喜欢对象"可以不同）
+- $\exists y \, \forall x \, L(x, y)$：**存在一个被所有人喜欢的人**（有个"万人迷"）
 
 这两句话完全不同！第一个弱，第二个强。**第二个成立 → 第一个成立**，但反过来不行。
 
 **直觉**：看**量词的作用域嵌套**。越外层的量词越"先定"，越里层的量词"依赖"外层。
 
-- ∀x ∃y\forall x \, \exists y ∀x∃y：y 的选择**依赖** x（先选 x，再为这个 x 找对应的 y）
-- ∃y ∀x\exists y \, \forall x ∃y∀x：y **独立于** x（先固定一个 y，然后说对所有 x 都成立）
+- $\forall x \, \exists y$：y 的选择**依赖** x（先选 x，再为这个 x 找对应的 y）
+- $\exists y \, \forall x$：y **独立于** x（先固定一个 y，然后说对所有 x 都成立）
 
 #### 数学中的经典例子：极限的定义
 
-微积分里函数极限 lim⁡x→af(x)=L\lim_{x \to a} f(x) = L limx→a​f(x)=L 的严格定义：
+微积分里函数极限 $\lim_{x \to a} f(x) = L$ 的严格定义：
 
-∀ε>0 ∃δ>0 ∀x (0<∣x−a∣<δ→∣f(x)−L∣<ε)\forall \varepsilon > 0 \, \exists \delta > 0 \, \forall x \, (0 < |x - a| < \delta \to |f(x) - L| < \varepsilon)∀ε>0∃δ>0∀x(0<∣x−a∣<δ→∣f(x)−L∣<ε)
+$\forall \varepsilon > 0 \, \exists \delta > 0 \, \forall x \, (0 < |x - a| < \delta \to |f(x) - L| < \varepsilon)$
 
 **注意 δ 依赖 ε**（先给 ε，再找 δ）。
 
-如果写成 ∃δ>0 ∀ε>0 …\exists \delta > 0 \, \forall \varepsilon > 0 \, \ldots ∃δ>0∀ε>0…，意思就变成"存在一个 δ 对所有 ε 都好使" —— 意思完全变了，而且通常不成立。
+如果写成 $\exists \delta > 0 \, \forall \varepsilon > 0 \, \ldots$，意思就变成“存在一个 $\delta$ 对所有 $\varepsilon$ 都适用”。这与原命题不同，而且通常不成立。
 
 **电子工程里也一样**：信号收敛的定义、系统稳定性判据，都是这种 ∀∃ 嵌套。**顺序搞反，意思全错**。
 
@@ -2332,10 +2330,10 @@ $$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , 
 
 用自然语言解释下面两句话的差别：
 
-设 P(x,y)P(x, y) P(x,y)：y 是 x 的解药，个体域 = 所有毒药/解药
+设P(x, y)：y 是 x 的解药，个体域 = 所有毒药/解药
 
-1. ∀x ∃y P(x,y)\forall x \, \exists y \, P(x, y) ∀x∃yP(x,y)
-2. ∃y ∀x P(x,y)\exists y \, \forall x \, P(x, y) ∃y∀xP(x,y)
+1. $\forall x \, \exists y \, P(x, y)$
+2. $\exists y \, \forall x \, P(x, y)$
 
 ---
 
@@ -2354,26 +2352,26 @@ $$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , 
 
 #### 定义
 
-> 在公式 Qx P(x,y,z,…)Q x \, P(x, y, z, \ldots) QxP(x,y,z,…) 中（QQ Q 是 ∀\forall ∀ 或 ∃\exists ∃）：
-> 
-> - xx x 被量词**约束 (bound)**
-> - 其他未被任何量词约束的变元（如 yy y, zz z）是**自由 (free)** 的
+> 在公式 $Qx\,P(x,y,z,\ldots)$ 中（$Q$ 表示 $\forall$ 或 $\exists$）：
+>
+> - x 被量词**约束 (bound)**
+> - 其他未被任何量词约束的变元（如 y, z）是**自由 (free)** 的
 
 **例子**：
 
-∀x⏟约束 x (P(x)→Q(x,y)⏟这里的 x 被约束了, y 自由)\underbrace{\forall x}_{\text{约束 x}} \, (P(x) \to \underbrace{Q(x, y)}_{\text{这里的 x 被约束了, y 自由}})约束 x∀x​​(P(x)→这里的 x 被约束了, y 自由Q(x,y)​​)
+$\underbrace{\forall x}_{\text{约束 }x}\,(P(x) \to \underbrace{Q(x,y)}_{\text{其中 }x\text{ 被约束，}y\text{ 自由}})$
 
-整个公式里，xx x 是约束变元，yy y 是自由变元。
+整个公式里，x 是约束变元，y 是自由变元。
 
 #### 为什么这很重要？
 
 **只含约束变元，没有自由变元的公式**，才是**真正的命题**（有唯一真假值）。
 
-∀x P(x)\forall x \, P(x) ∀xP(x) —— 是命题，真值由个体域和 P 决定。
+$\forall x\,P(x)$ 是命题，真值由个体域和 $P$ 决定。
 
-P(x)P(x) P(x) —— 不是命题（x 没确定），只是"命题函数"。
+P(x)—— 不是命题（x 没确定），只是"命题函数"。
 
-∀x Q(x,y)\forall x \, Q(x, y) ∀xQ(x,y) —— **不是命题**，因为 y 是自由的，真值依赖 y 的取值。
+$\forall x\,Q(x,y)$ **不是命题**，因为 $y$ 是自由变元，真值依赖 $y$ 的取值。
 
 这个区分在写推理时很关键 —— **只有命题才有明确的真假可以推理**。
 
@@ -2385,7 +2383,7 @@ P(x)P(x) P(x) —— 不是命题（x 没确定），只是"命题函数"。
 
 #### 8.1 全称特化 (Universal Instantiation, UI)
 
-∀x P(x)∴P(a)(a 为任意个体)\frac{\forall x \, P(x)}{\therefore P(a)} \quad \text{(a 为任意个体)}∴P(a)∀xP(x)​(a 为任意个体)
+$\dfrac{\forall x \, P(x)}{\therefore P(a)} \quad \text{（a 为任意个体）}$
 
 从"所有 x 都 P" 推出 "对任意具体的 a，也有 P(a)"。
 
@@ -2393,7 +2391,7 @@ P(x)P(x) P(x) —— 不是命题（x 没确定），只是"命题函数"。
 
 #### 8.2 全称概括 (Universal Generalization, UG)
 
-P(a)（对任意的 a 成立）∴∀x P(x)\frac{P(a) \text{（对任意的 a 成立）}}{\therefore \forall x \, P(x)}∴∀xP(x)P(a)（对任意的 a 成立）​
+$\dfrac{P(a) \text{（对任意的 a 成立）}}{\therefore \forall x \, P(x)}$
 
 如果能证明 P 对任意个体都成立，就能得出"对所有 x 都 P"。
 
@@ -2401,7 +2399,7 @@ P(a)（对任意的 a 成立）∴∀x P(x)\frac{P(a) \text{（对任意的 
 
 #### 8.3 存在特化 (Existential Instantiation, EI)
 
-∃x P(x)∴P(c)（c 为某个特定的常量）\frac{\exists x \, P(x)}{\therefore P(c) \text{（c 为某个特定的常量）}}∴P(c)（c 为某个特定的常量）∃xP(x)​
+$\dfrac{\exists x \, P(x)}{\therefore P(c) \text{（c 为某个特定常量）}}$
 
 从"存在 x 使 P(x)" 推出 "有一个特定的 c 使 P(c) 成立"。
 
@@ -2409,22 +2407,22 @@ P(a)（对任意的 a 成立）∴∀x P(x)\frac{P(a) \text{（对任意的 
 
 #### 8.4 存在概括 (Existential Generalization, EG)
 
-P(a)∴∃x P(x)\frac{P(a)}{\therefore \exists x \, P(x)}∴∃xP(x)P(a)​
+$\dfrac{P(a)}{\therefore \exists x \, P(x)}$
 
 从"具体的 a 满足 P" 推出 "存在 x 满足 P"。这个最直观 —— 有一个具体例子，当然就存在。
 
 #### 苏格拉底三段论的完整形式证明
 
-**前提**：∀x (M(x)→D(x))\forall x \, (M(x) \to D(x)) ∀x(M(x)→D(x))，M(s)M(s) M(s)
+**前提**：$\forall x \, (M(x) \to D(x))$，M(s)
 
-**结论**：D(s)D(s) D(s)
+**结论**：D(s)
 
 |行|公式|理由|
 |---|---|---|
-|(1)|∀x (M(x)→D(x))\forall x \, (M(x) \to D(x)) ∀x(M(x)→D(x))|前提|
-|(2)|M(s)→D(s)M(s) \to D(s) M(s)→D(s)|(1) 全称特化 (UI)|
-|(3)|M(s)M(s) M(s)|前提|
-|(4)|D(s)D(s) D(s)|(2)(3) 假言推理 (MP)|
+|(1)|$\forall x \, (M(x) \to D(x))$|前提|
+|(2)|$M(s) \to D(s)$|(1) 全称特化 (UI)|
+|(3)|M(s) M(s)|前提|
+|(4)|D(s) D(s)|(2)(3) 假言推理 (MP)|
 
 **证毕。** ∎
 
@@ -2439,7 +2437,7 @@ P(a)∴∃x P(x)\frac{P(a)}{\therefore \exists x \, P(x)}∴∃xP(x)P(a)​
     原子命题 P, Q, R     联结词 ¬ ∧ ∨ → ↔
          │
          ▼  看进句子内部
-    
+
 谓词逻辑（白箱）
     ├── 个体：a, b, x, y          （"谁"）
     ├── 谓词：P(x), L(x,y)        （"什么性质/关系"）
@@ -2449,24 +2447,24 @@ P(a)∴∃x P(x)\frac{P(a)}{\therefore \exists x \, P(x)}∴∃xP(x)P(a)​
 
 **翻译黄金模板**（背下来）：
 
-- 所有 P 都 Q：∀x (P(x)→Q(x))\forall x \, (P(x) \to Q(x)) ∀x(P(x)→Q(x))
-- 存在 P 是 Q：∃x (P(x)∧Q(x))\exists x \, (P(x) \land Q(x)) ∃x(P(x)∧Q(x))
+- 所有 P 都 Q：$\forall x \, (P(x) \to Q(x))$
+- 存在 P 是 Q：$\exists x \, (P(x) \land Q(x))$
 
 **量词否定**：
 
-- ¬∀x P(x)⇔∃x ¬P(x)\neg \forall x \, P(x) \Leftrightarrow \exists x \, \neg P(x) ¬∀xP(x)⇔∃x¬P(x)
-- ¬∃x P(x)⇔∀x ¬P(x)\neg \exists x \, P(x) \Leftrightarrow \forall x \, \neg P(x) ¬∃xP(x)⇔∀x¬P(x)
+- $\neg \forall x \, P(x) \Leftrightarrow \exists x \, \neg P(x)$
+- $\neg \exists x \, P(x) \Leftrightarrow \forall x \, \neg P(x)$
 
 **多重量词**：
 
 - 同种可交换，**异种不可交换**
-- ∀x ∃y\forall x \, \exists y ∀x∃y 比 ∃y ∀x\exists y \, \forall x ∃y∀x **弱**
+- $\forall x\,\exists y$ 比 $\exists y\,\forall x$ **弱**
 
 ---
 
 ### 📝 本节练习
 
-**练习 1**（翻译基础）：把下列句子翻译成谓词逻辑公式（自己定义谓词）。个体域：整数集 Z\mathbb{Z} Z。
+**练习 1**（翻译基础）：把下列句子翻译成谓词逻辑公式（自行定义谓词）。个体域为整数集 $\mathbb{Z}$。
 
 1. "每个整数都有相反数。"
 2. "存在一个整数，它比所有整数都大。"（这句话真假？）
@@ -2475,50 +2473,50 @@ P(a)∴∃x P(x)\frac{P(a)}{\therefore \exists x \, P(x)}∴∃xP(x)P(a)​
 
 **练习 2**（翻译进阶 —— 自然语言）：个体域 = 所有学生。
 
-- S(x)S(x) S(x)：x 学过离散数学
-- P(x)P(x) P(x)：x 会编程
+- S(x) S(x)：x 学过离散数学
+- P(x) P(x)：x 会编程
 - L(x,y)L(x, y) L(x,y)：x 喜欢 y
 
 翻译：
 
 1. "有的学生学过离散数学，但不会编程。"
 2. "每个会编程的学生都学过离散数学。"
-3. "张三喜欢所有会编程的学生。"（设 zz z = 张三）
+3. "张三喜欢所有会编程的学生。"（设 z = 张三）
 4. "存在一个学生，所有人都喜欢他。"
 5. "每个学生都有自己喜欢的人。"
 
 **练习 3**（量词否定）：把下列公式的否定化到最内层（即 ¬ 只作用在谓词上）。
 
-1. ∀x ∃y P(x,y)\forall x \, \exists y \, P(x, y) ∀x∃yP(x,y)
-2. ∃x ∀y (P(x)→Q(y))\exists x \, \forall y \, (P(x) \to Q(y)) ∃x∀y(P(x)→Q(y))
-3. ∀x (S(x)→∃y L(x,y))\forall x \, (S(x) \to \exists y \, L(x, y)) ∀x(S(x)→∃yL(x,y)) —— 并用自然语言解释这个否定的意思
+1. $\forall x \, \exists y \, P(x, y)$
+2. $\exists x \, \forall y \, (P(x) \to Q(y))$
+3. $\forall x \, (S(x) \to \exists y \, L(x, y))$ 并用自然语言解释这个否定的意思
 
 **练习 4**（顺序对比 —— 重点）：
 
-设 P(x,y)P(x, y) P(x,y)：y 是 x 的母亲（y is the mother of x），个体域 = 所有人类。
+设P(x, y)：y 是 x 的母亲（y is the mother of x），个体域 = 所有人类。
 
 判断下列公式的真假，并用自然语言解释含义：
 
-1. ∀x ∃y P(x,y)\forall x \, \exists y \, P(x, y) ∀x∃yP(x,y)
-2. ∃y ∀x P(x,y)\exists y \, \forall x \, P(x, y) ∃y∀xP(x,y)
-3. ∃x ∀y P(x,y)\exists x \, \forall y \, P(x, y) ∃x∀yP(x,y)
-4. ∀y ∃x P(x,y)\forall y \, \exists x \, P(x, y) ∀y∃xP(x,y)
+1. $\forall x \, \exists y \, P(x, y)$
+2. $\exists y \, \forall x \, P(x, y)$
+3. $\exists x \, \forall y \, P(x, y)$
+4. $\forall y \, \exists x \, P(x, y)$
 
 **练习 5**（形式推理）：
 
 **前提**：
 
-- ∀x (P(x)→Q(x))\forall x \, (P(x) \to Q(x)) ∀x(P(x)→Q(x))
-- ∀x (Q(x)→R(x))\forall x \, (Q(x) \to R(x)) ∀x(Q(x)→R(x))
-- P(a)P(a) P(a)
+- $\forall x \, (P(x) \to Q(x))$
+- $\forall x \, (Q(x) \to R(x))$
+- P(a) P(a)
 
-**结论**：R(a)R(a) R(a)
+**结论**：R(a)
 
 用 UI、MP 等规则写出形式证明。
 
 **练习 6**（电子信息工程联系思考）：
 
-在数字信号处理中，一个序列 {xn}\{x_n\} {xn​} 收敛到 LL L 的定义是：
+在数字信号处理中，一个序列 {xn}\{x_n\} {xn} 收敛到 L 的定义是：
 
 $$∀ε>0 ∃N∈N ∀n>N (∣xn−L∣<ε)\forall \varepsilon > 0 \, \exists N \in \mathbb{N} \, \forall n > N \, (|x_n - L| < \varepsilon)∀ε>0∃N∈N∀n>N(∣xn​−L∣<ε)$$
 
@@ -2582,23 +2580,23 @@ $$∀ε>0 ∃N∈N ∀n>N (∣xn−L∣<ε)\forall \varepsilon > 0 \, \exi
 
 #### 2.2 元素与集合的关系
 
-用符号 ∈\in ∈（属于）表示：
+用符号 $\in$（属于）表示：
 
-- x∈Ax \in A x∈A：x 是 A 的元素（读作"x 属于 A"）
-- x∉Ax \notin A x∈/A：x 不是 A 的元素
+- $x \in A$：x 是 A 的元素（读作"x 属于 A"）
+- $x \notin A$：$x$ 不是 $A$ 的元素
 
-**注意**：集合和元素是**两个层次**。1∈{1,2,3}1 \in \{1, 2, 3\} 1∈{1,2,3} 没问题，但 {1}∈{1,2,3}\{1\} \in \{1, 2, 3\} {1}∈{1,2,3} 是**假**（因为 {1}\{1\} {1} 是一个集合，不是 {1,2,3}\{1, 2, 3\} {1,2,3} 的元素）。
+**注意**：集合和元素是**两个层次**。$1 \in \{1,2,3\}$ 成立，但 $\{1\} \in \{1,2,3\}$ 为假，因为 $\{1\}$ 是一个集合，而不是集合 $\{1,2,3\}$ 的元素。
 
 这个区分后面会反复考你。
 
 #### 🤔 检验一下
 
-设 A={1,2,{3,4},5}A = \{1, 2, \{3, 4\}, 5\} A={1,2,{3,4},5}，判断下列真假：
+设 $A = \{1, 2, \{3, 4\}, 5\}$，判断下列真假：
 
-1. 1∈A1 \in A 1∈A
-2. 3∈A3 \in A 3∈A
-3. {3,4}∈A\{3, 4\} \in A {3,4}∈A
-4. {1,2}∈A\{1, 2\} \in A {1,2}∈A
+1. $1 \in A$
+2. $3 \in A$
+3. $\{3, 4\} \in A$
+4. $\{1, 2\} \in A$
 
 ---
 
@@ -2619,25 +2617,29 @@ $$∀ε>0 ∃N∈N ∀n>N (∣xn−L∣<ε)\forall \varepsilon > 0 \, \exi
 
 把所有元素一一列出，用花括号包起来：
 
-A={1,2,3,4,5}A = \{1, 2, 3, 4, 5\}A={1,2,3,4,5} B={红,橙,黄,绿,青,蓝,紫}B = \{\text{红}, \text{橙}, \text{黄}, \text{绿}, \text{青}, \text{蓝}, \text{紫}\}B={红,橙,黄,绿,青,蓝,紫}
+$A = \{1,2,3,4,5\}$  
+$B = \{\text{红},\text{橙},\text{黄},\text{绿},\text{青},\text{蓝},\text{紫}\}$
 
-元素太多时用省略号 …\ldots …（前提是规律清楚）：
+元素太多时用省略号 $\ldots$（前提是规律清楚）：
 
-N={0,1,2,3,…}\mathbb{N} = \{0, 1, 2, 3, \ldots\}N={0,1,2,3,…} C={2,4,6,…,100}C = \{2, 4, 6, \ldots, 100\}C={2,4,6,…,100}
+$\mathbb{N} = \{0, 1, 2, 3, \ldots\}$  
+$C = \{2, 4, 6, \ldots, 100\}$
 
 #### 3.2 描述法 (Set-Builder Notation) ⭐
 
 用**性质**描述一个集合：
 
-A={x∣P(x)}A = \{x \mid P(x)\}A={x∣P(x)}
+$A = \{x \mid P(x)\}$
 
 读作"**所有满足性质 P(x) 的 x 组成的集合**"，竖线 | 读作"使得"。
 
-**想起什么了？** 对，这里的 P(x)P(x) P(x) 就是我们上一节学的**谓词**！集合和谓词逻辑深度绑定。
+**想起什么了？** 对，这里的P(x)就是我们上一节学的**谓词**！集合和谓词逻辑深度绑定。
 
 **例子**：
 
-{x∣x 是小于 10 的正整数}={1,2,3,4,5,6,7,8,9}\{x \mid x \text{ 是小于 } 10 \text{ 的正整数}\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9\}{x∣x 是小于 10 的正整数}={1,2,3,4,5,6,7,8,9} {x∣x2<10, x∈Z}={−3,−2,−1,0,1,2,3}\{x \mid x^2 < 10, \, x \in \mathbb{Z}\} = \{-3, -2, -1, 0, 1, 2, 3\}{x∣x2<10,x∈Z}={−3,−2,−1,0,1,2,3} {x∣x∈N, x 是偶数}={0,2,4,6,…}\{x \mid x \in \mathbb{N}, \, x \text{ 是偶数}\} = \{0, 2, 4, 6, \ldots\}{x∣x∈N,x 是偶数}={0,2,4,6,…}
+- $\{x \mid x \text{ 是小于 } 10 \text{ 的正整数}\} = \{1, 2, 3, 4, 5, 6, 7, 8, 9\}$
+- $\{x \mid x^2 < 10, \, x \in \mathbb{Z}\} = \{-3, -2, -1, 0, 1, 2, 3\}$
+- $\{x \mid x \in \mathbb{N}, \, x \text{ 是偶数}\} = \{0, 2, 4, 6, \ldots\}$
 
 #### 3.3 文氏图 (Venn Diagram)
 
@@ -2648,16 +2650,16 @@ A={x∣P(x)}A = \{x \mid P(x)\}A={x∣P(x)}
 用描述法表示下面的集合（给出符号表达）：
 
 1. 所有偶数
-2. 单位圆上的所有点（提示：在 R2\mathbb{R}^2 R2 中）
+2. 单位圆上的所有点（提示：在 $\mathbb{R}^2$ 中）
 3. 所有大于 0 且小于 1 的有理数
 
 ---
 
 参考答案：
 
-1. {x∣x∈Z, x 是 2 的倍数}\{x \mid x \in \mathbb{Z}, \, x \text{ 是 2 的倍数}\} {x∣x∈Z,x 是 2 的倍数} 或更紧凑 {2k∣k∈Z}\{2k \mid k \in \mathbb{Z}\} {2k∣k∈Z}
-2. {(x,y)∣x,y∈R, x2+y2=1}\{(x, y) \mid x, y \in \mathbb{R}, \, x^2 + y^2 = 1\} {(x,y)∣x,y∈R,x2+y2=1}
-3. {x∣x∈Q, 0<x<1}\{x \mid x \in \mathbb{Q}, \, 0 < x < 1\} {x∣x∈Q,0<x<1}
+1. $\{x \mid x \in \mathbb{Z}, \, x \text{ 是 2 的倍数}\}$，或更紧凑地写成 $\{2k \mid k \in \mathbb{Z}\}$
+2. $\{(x, y) \mid x, y \in \mathbb{R}, \, x^2 + y^2 = 1\}$
+3. $\{x \mid x \in \mathbb{Q}, \, 0 < x < 1\}$
 
 ---
 
@@ -2667,14 +2669,14 @@ A={x∣P(x)}A = \{x \mid P(x)\}A={x∣P(x)}
 
 |符号|含义|举例|
 |---|---|---|
-|∅\emptyset ∅ 或 {}\{\} {}|**空集** (empty set)：不含任何元素||
-|N\mathbb{N} N|自然数集（注：某些教材含 0，某些不含，问清楚）|0, 1, 2, ...|
-|Z\mathbb{Z} Z|整数集 (德语 Zahlen)|..., -2, -1, 0, 1, 2, ...|
-|Z+\mathbb{Z}^+ Z+ 或 N∗\mathbb{N}^* N∗|正整数集|1, 2, 3, ...|
-|Q\mathbb{Q} Q|有理数集 (Quotient)|1/2, -3, 0.25, ...|
-|R\mathbb{R} R|实数集|π, √2, 1, ...|
-|C\mathbb{C} C|复数集|3+4i3+4i 3+4i, ...|
-|UU U|**全集** (universal set)：当前讨论中所有对象||
+|$\emptyset$ 或 $\{\}$|**空集**（empty set）：不含任何元素||
+|$\mathbb{N}$|自然数集（某些教材包含 0，某些不包含）|0, 1, 2, ...|
+|$\mathbb{Z}$|整数集（德语 Zahlen）|..., -2, -1, 0, 1, 2, ...|
+|$\mathbb{Z}^+$ 或 $\mathbb{N}^*$|正整数集|1, 2, 3, ...|
+|$\mathbb{Q}$|有理数集（Quotient）|1/2, -3, 0.25, ...|
+|$\mathbb{R}$|实数集|π, √2, 1, ...|
+|$\mathbb{C}$|复数集|$3+4i$, ...|
+|U|**全集** (universal set)：当前讨论中所有对象||
 
 #### 关于空集 ∅
 
@@ -2683,15 +2685,15 @@ A={x∣P(x)}A = \{x \mid P(x)\}A={x∣P(x)}
 **关键性质**：
 
 - 空集是**唯一的**（只有一个空集）
-- 空集**不是** {∅}\{\emptyset\} {∅}（后者含有一个元素，这个元素恰好是空集）
+- 空集**不是** $\{\emptyset\}$（后者含有一个元素，这个元素恰好是空集）
 
-再强调一次：∅≠{∅}\emptyset \neq \{\emptyset\} ∅={∅}，就像一个空盒子和一个**装着空盒子的盒子**不一样。
+再次强调：$\emptyset \neq \{\emptyset\}$，就像一个空盒子和一个**装着空盒子的盒子**不同。
 
 #### 关于全集 U
 
 "**全集**"是我们当前讨论范围内的所有对象的集合 —— 这和谓词逻辑里的**个体域**是同一个概念。
 
-讨论整数的问题时，U=ZU = \mathbb{Z} U=Z；讨论平面几何时，U=R2U = \mathbb{R}^2 U=R2。**同一个问题中全集是固定的**，不会中途变。
+讨论整数问题时，$U = \mathbb{Z}$；讨论平面几何时，$U = \mathbb{R}^2$。**同一问题中的全集是固定的**，不会中途改变。
 
 ---
 
@@ -2701,59 +2703,59 @@ A={x∣P(x)}A = \{x \mid P(x)\}A={x∣P(x)}
 
 **核心概念**：集合之间的"包含"关系。
 
-> **定义**：若 A 的每一个元素都是 B 的元素，则称 **A 是 B 的子集**，记作 A⊆BA \subseteq B A⊆B。
+> **定义**：若 A 的每一个元素都是 B 的元素，则称 **A 是 B 的子集**，记作 $A \subseteq B$。
 
 用谓词逻辑精确表达：
 
-A⊆B⟺∀x (x∈A→x∈B)A \subseteq B \quad \Longleftrightarrow \quad \forall x \, (x \in A \to x \in B)A⊆B⟺∀x(x∈A→x∈B)
+$A \subseteq B \quad \Longleftrightarrow \quad \forall x \, (x \in A \to x \in B)$
 
 **看到这个形式了吗？** 这就是上一节 "∀ 配 →" 模板。所以：
 
-> **要证明 A⊆BA \subseteq B A⊆B，就要证明：任取 x∈Ax \in A x∈A，推出 x∈Bx \in B x∈B**。
+> **要证明 $A \subseteq B$，就要证明：任取 $x \in A$，推出 $x \in B$**。
 
 这是**集合证明最基本的套路**，一定要掌握。
 
 #### 5.2 真子集 (Proper Subset)
 
-> **定义**：若 A⊆BA \subseteq B A⊆B 且 A≠BA \neq B A=B，则称 A 是 B 的**真子集**，记作 A⊂BA \subset B A⊂B 或 A⊊BA \subsetneq B A⊊B。
+> **定义**：若 $A \subseteq B$ 且 $A \neq B$，则称 $A$ 是 $B$ 的**真子集**，记作 $A \subset B$ 或 $A \subsetneq B$。
 
 通俗说：A 里的东西都在 B 里，但 B 比 A 多一些。
 
-**符号提醒**：不同教材记号不一致，有的用 ⊂\subset ⊂ 表示"子集"（可以相等），有的表示"真子集"。**看到符号先问清楚语境**。本课中我们用：
+**符号提醒**：不同教材的记号不一致，有的用 $\subset$ 表示“子集”（可以相等），有的表示“真子集”。本教程使用：
 
-- A⊆BA \subseteq B A⊆B：子集（允许相等）
-- A⊊BA \subsetneq B A⊊B：真子集
+- $A \subseteq B$：子集（允许相等）
+- $A \subsetneq B$：真子集
 
 #### 5.3 集合相等
 
-> **定义**：若 A⊆BA \subseteq B A⊆B 且 B⊆AB \subseteq A B⊆A，则 A=BA = B A=B。
+> **定义**：若 $A \subseteq B$ 且 $B \subseteq A$，则A = B。
 
 这叫**外延公理** (Axiom of Extensionality)：**两个集合相等 ⟺ 它们的元素完全相同**。
 
 用谓词逻辑：
 
-A=B⟺∀x (x∈A↔x∈B)A = B \quad \Longleftrightarrow \quad \forall x \, (x \in A \leftrightarrow x \in B)A=B⟺∀x(x∈A↔x∈B)
+$A = B \quad \Longleftrightarrow \quad \forall x \, (x \in A \leftrightarrow x \in B)$
 
 #### 5.4 证明集合相等的黄金套路 ⭐⭐⭐
 
-**要证 A=BA = B A=B，分两步**：
+**要证A = B，分两步**：
 
-1. 证 A⊆BA \subseteq B A⊆B：任取 x∈Ax \in A x∈A，证明 x∈Bx \in B x∈B
-2. 证 B⊆AB \subseteq A B⊆A：任取 x∈Bx \in B x∈B，证明 x∈Ax \in A x∈A
+1. 证 $A \subseteq B$：任取 $x \in A$，证明 $x \in B$
+2. 证 $B \subseteq A$：任取 $x \in B$，证明 $x \in A$
 
 这叫**双向包含法**，是集合论里最重要的证明技术，后面每一节证明相等都会用到。
 
 #### 🤔 检验
 
-判断下列命题真假（设 A={1,2}A = \{1, 2\} A={1,2}）：
+判断下列命题真假（设 $A = \{1, 2\}$：
 
-1. ∅⊆A\emptyset \subseteq A ∅⊆A
-2. ∅∈A\emptyset \in A ∅∈A
-3. A⊆AA \subseteq A A⊆A
-4. A⊊AA \subsetneq A A⊊A
-5. {1}⊆A\{1\} \subseteq A {1}⊆A
-6. {1}∈A\{1\} \in A {1}∈A
-7. 1⊆A1 \subseteq A 1⊆A
+1. $\emptyset \subseteq A$
+2. $\emptyset \in A$
+3. $A \subseteq A$
+4. $A \subsetneq A$
+5. $\{1\} \subseteq A$
+6. $\{1\} \in A$
+7. $1 \subseteq A$
 
 在看答案前先想想，**每一题说出理由**。
 
@@ -2761,7 +2763,7 @@ A=B⟺∀x (x∈A↔x∈B)A = B \quad \Longleftrightarrow \quad \forall x \, (
 
 答案：
 
-1. **真** ✅ —— 空集是**所有集合的子集**。为什么？用定义：∀x (x∈∅→x∈A)\forall x \, (x \in \emptyset \to x \in A) ∀x(x∈∅→x∈A)，由于 x∈∅x \in \emptyset x∈∅ 永远为假，蕴含**空虚为真**。还记得第 2 节的这个概念吗？
+1. **真** ✅ —— 空集是**所有集合的子集**。按定义，$\forall x\,(x \in \emptyset \to x \in A)$；由于 $x \in \emptyset$ 永远为假，该蕴含式空虚为真。
 2. **假** ❌ —— 空集不是 A 的元素（A 的元素是 1 和 2）
 3. **真** ✅ —— 任何集合是自身的子集
 4. **假** ❌ —— 真子集要求不相等
@@ -2777,32 +2779,32 @@ A=B⟺∀x (x∈A↔x∈B)A = B \quad \Longleftrightarrow \quad \forall x \, (
 
 #### 6.1 定义
 
-> **定义**：集合 A 的所有子集构成的集合，称为 A 的**幂集**，记作 P(A)P(A) P(A) 或 2A2^A 2A。
+> **定义**：集合 A 的所有子集构成的集合，称为 A 的**幂集**，记作P(A)或 2A2^A 2A。
 
-P(A)={B∣B⊆A}P(A) = \{B \mid B \subseteq A\}P(A)={B∣B⊆A}
+$P(A) = \{B \mid B \subseteq A\}$
 
 #### 6.2 具体例子
 
-**例 1**：A={1,2}A = \{1, 2\} A={1,2}
+**例 1**：$A = \{1, 2\}$
 
 A 的所有子集：
 
-- ∅\emptyset ∅（空集）
+- $\emptyset$（空集）
 - {1}\{1\} {1}
 - {2}\{2\} {2}
 - {1,2}\{1, 2\} {1,2}（A 自己）
 
-所以 P(A)={∅,{1},{2},{1,2}}P(A) = \{\emptyset, \{1\}, \{2\}, \{1, 2\}\} P(A)={∅,{1},{2},{1,2}}。
+所以 $P(A) = \{\emptyset, \{1\}, \{2\}, \{1, 2\}\}$。
 
-**注意**：P(A)P(A) P(A) 的**每个元素都是一个集合**。P(A)P(A) P(A) 是"集合的集合"。
+**注意**：P(A)的**每个元素都是一个集合**。P(A)是"集合的集合"。
 
-**例 2**：A=∅A = \emptyset A=∅
+**例 2**：$A = \emptyset$
 
 空集的唯一子集就是它自己，所以：
 
-P(∅)={∅}P(\emptyset) = \{\emptyset\}P(∅)={∅}
+$P(\emptyset) = \{\emptyset\}$
 
-**这是一个含有一个元素的集合（这个元素是空集）**。再次提醒：∅≠{∅}\emptyset \neq \{\emptyset\} ∅={∅}。
+**这是一个含有一个元素的集合（这个元素是空集）**。再次提醒：$\emptyset \neq \{\emptyset\}$。
 
 #### 6.3 幂集的大小 ⭐
 
@@ -2810,27 +2812,27 @@ P(∅)={∅}P(\emptyset) = \{\emptyset\}P(∅)={∅}
 
 **为什么？** 凭直觉想：构造 A 的一个子集，等价于**对 A 的每个元素"要或不要"做决定**，n 个元素就有 2n2^n 2n 种选法。
 
-这就是 **P(A)P(A) P(A) 又写作 2A2^A 2A 的原因**。
+这就是 **P(A) P(A) 又写作 2A2^A 2A 的原因**。
 
 #### 🤔 你来试
 
-设 A={a,b,c}A = \{a, b, c\} A={a,b,c}，写出 P(A)P(A) P(A)。共几个元素？
+设 $A = \{a, b, c\}$，写出P(A)。共几个元素？
 
 ---
 
-P(A)={∅,{a},{b},{c},{a,b},{a,c},{b,c},{a,b,c}}P(A) = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\} P(A)={∅,{a},{b},{c},{a,b},{a,c},{b,c},{a,b,c}}
+$P(A) = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\}$
 
 共 23=82^3 = 8 23=8 个元素。
 
 **小技巧**：列举子集时按**元素个数分组**（0 个、1 个、2 个、3 个），不容易漏。个数对应的是**二项式系数**：
 
-∣P(A)∣=(n0)+(n1)+⋯+(nn)=2n|P(A)| = \binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{n} = 2^n∣P(A)∣=(0n​)+(1n​)+⋯+(nn​)=2n
+$|P(A)| = \binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{n} = 2^n$
 
 这条公式后面学组合数学还会再遇到。
 
 #### 6.4 幂集在电子信息工程里的用处
 
-**状态空间**：一个 n 位寄存器有 2n2^n 2n 种可能状态，对应 {0,1,…,n−1}\{0, 1, \ldots, n-1\} {0,1,…,n−1} 这 n 个位的幂集。
+**状态空间**：一个 $n$ 位寄存器有 $2^n$ 种可能状态，对应集合 $\{0,1,\ldots,n-1\}$ 的幂集。
 
 **布尔函数**：n 变量的布尔函数有 22n2^{2^n} 22n 个 —— 每种输入组合对应一个 F/T 输出，输入组合有 2n2^n 2n 种，所以函数数量是 22n2^{2^n} 22n。这是**电路设计的理论上限**。
 
@@ -2842,16 +2844,16 @@ P(A)={∅,{a},{b},{c},{a,b},{a,c},{b,c},{a,b,c}}P(A) = \{\emptyset, \{a\}, \{b\}
 
 > **定义**：集合 A 的元素个数称为 A 的**基数**，记作 ∣A∣|A| ∣A∣ 或 #A\#A #A。
 
-- ∣{1,2,3}∣=3|\{1, 2, 3\}| = 3 ∣{1,2,3}∣=3
-- ∣∅∣=0|\emptyset| = 0 ∣∅∣=0
-- ∣P({a,b})∣=4|P(\{a, b\})| = 4 ∣P({a,b})∣=4
+$|\{1, 2, 3\}| = 3$
+- $|\emptyset| = 0$
+$|P(\{a, b\})| = 4$
 
 #### 7.2 无限集（先浅谈）
 
-N\mathbb{N} N、Z\mathbb{Z} Z、R\mathbb{R} R 都是**无限集**。有趣的是，**无限集也有"大小"之分**：
+$\mathbb{N}$、$\mathbb{Z}$、$\mathbb{R}$ 都是**无限集**。无限集也有大小之分：
 
-- N\mathbb{N} N、Z\mathbb{Z} Z、Q\mathbb{Q} Q 叫**可数无限集** (countably infinite)
-- R\mathbb{R} R、C\mathbb{C} C 叫**不可数无限集** (uncountably infinite)
+- $\mathbb{N}$、$\mathbb{Z}$、$\mathbb{Q}$ 称为**可数无限集**（countably infinite）
+- $\mathbb{R}$、$\mathbb{C}$ 称为**不可数无限集**（uncountably infinite）
 
 后者"比"前者大。这是康托尔的惊人发现。我们这节不深入，后面讲函数时会回来谈。
 
@@ -2863,12 +2865,12 @@ N\mathbb{N} N、Z\mathbb{Z} Z、R\mathbb{R} R 都是**无限集**。有趣的是
 
 |逻辑（谓词）|集合（描述法）|
 |---|---|
-|P(x)P(x) P(x)：x 是偶数|A={x∣P(x)}A = \{x \mid P(x)\} A={x∣P(x)} = 所有偶数|
-|P(x)∧Q(x)P(x) \land Q(x) P(x)∧Q(x)|A∩BA \cap B A∩B（下一节学）|
-|P(x)∨Q(x)P(x) \lor Q(x) P(x)∨Q(x)|A∪BA \cup B A∪B|
-|¬P(x)\neg P(x) ¬P(x)|A‾\overline{A} A（补集）|
-|∀x (P(x)→Q(x))\forall x \, (P(x) \to Q(x)) ∀x(P(x)→Q(x))|A⊆BA \subseteq B A⊆B|
-|∃x P(x)\exists x \, P(x) ∃xP(x)|A≠∅A \neq \emptyset A=∅|
+|P(x)：x 是偶数|$A = \{x \mid P(x)\}$ 所有偶数|
+|$P(x) \land Q(x)$|$A \cap B$（下一节学习）|
+|$P(x) \lor Q(x)$|$A \cup B$|
+|$\neg P(x)$|$\overline{A}$（补集）|
+|$\forall x \, (P(x) \to Q(x))$|$A \subseteq B$|
+|$\exists x\,P(x)$|$A \neq \emptyset$|
 
 **每一条逻辑陈述都能翻译成集合陈述**。这两章其实是**同一件事的两种说法**。
 
@@ -2878,46 +2880,46 @@ N\mathbb{N} N、Z\mathbb{Z} Z、R\mathbb{R} R 都是**无限集**。有趣的是
 
 ### 📝 本节练习
 
-**练习 1**（基础识别）：设 A={1,2,{3},{4,5},∅}A = \{1, 2, \{3\}, \{4, 5\}, \emptyset\} A={1,2,{3},{4,5},∅}，判断真假：
+**练习 1**（基础识别）：设 $A = \{1, 2, \{3\}, \{4, 5\}, \emptyset\}$，判断真假：
 
-1. 1∈A1 \in A 1∈A
-2. 3∈A3 \in A 3∈A
-3. {3}∈A\{3\} \in A {3}∈A
-4. {3}⊆A\{3\} \subseteq A {3}⊆A
-5. {{3}}⊆A\{\{3\}\} \subseteq A {{3}}⊆A
-6. ∅∈A\emptyset \in A ∅∈A
-7. ∅⊆A\emptyset \subseteq A ∅⊆A
-8. {4,5}⊆A\{4, 5\} \subseteq A {4,5}⊆A
-9. {{4,5}}⊆A\{\{4, 5\}\} \subseteq A {{4,5}}⊆A
+1. $1 \in A$
+2. $3 \in A$
+3. $\{3\} \in A$
+4. $\{3\} \subseteq A$
+5. $\{\{3\}\} \subseteq A$
+6. $\emptyset \in A$
+7. $\emptyset \subseteq A$
+8. $\{4, 5\} \subseteq A$
+9. $\{\{4, 5\}\} \subseteq A$
 
 **这道题是考试重灾区，务必每一题说出理由**。
 
 **练习 2**（表示法转换）：
 
-- (1) 把 {x∣x∈Z, −3≤x≤3, x 是奇数}\{x \mid x \in \mathbb{Z}, \, -3 \leq x \leq 3, \, x \text{ 是奇数}\} {x∣x∈Z,−3≤x≤3,x 是奇数} 用列举法写出。
-- (2) 把 {1,4,9,16,25,…}\{1, 4, 9, 16, 25, \ldots\} {1,4,9,16,25,…} 用描述法写出。
-- (3) 把 {1,1/2,1/3,1/4,…}\{1, 1/2, 1/3, 1/4, \ldots\} {1,1/2,1/3,1/4,…} 用描述法写出。
+- (1) 把 $\{x \mid x \in \mathbb{Z}, \, -3 \leq x \leq 3, \, x \text{ 是奇数}\}$ 用列举法写出。
+- (2) 把 $\{1,4,9,16,25,\ldots\}$ 用描述法写出。
+- (3) 把 $\{1,1/2,1/3,1/4,\ldots\}$ 用描述法写出。
 
 **练习 3**（子集证明 —— 训练"双向包含"思维）：
 
-设 A={x∣x∈Z, x2≤4}A = \{x \mid x \in \mathbb{Z}, \, x^2 \leq 4\} A={x∣x∈Z,x2≤4}，B={−2,−1,0,1,2}B = \{-2, -1, 0, 1, 2\} B={−2,−1,0,1,2}。证明 A=BA = B A=B。
+设 $A = \{x \mid x \in \mathbb{Z}, \, x^2 \leq 4\}$，$B = \{-2, -1, 0, 1, 2\}$。证明 $A = B$。
 
-**提示**：用双向包含法。第一步证 A⊆BA \subseteq B A⊆B（任取 x∈Ax \in A x∈A，证 x∈Bx \in B x∈B），第二步证 B⊆AB \subseteq A B⊆A（反过来）。
+**提示**：用双向包含法。第一步证 $A \subseteq B$（任取 $x \in A$，证 $x \in B$），第二步证 $B \subseteq A$（反过来）。
 
 **练习 4**（幂集）：
 
-- (1) A={1,2,3,4}A = \{1, 2, 3, 4\} A={1,2,3,4}，求 ∣P(A)∣|P(A)| ∣P(A)∣。列出前 5 个元素（你自己选）。
-- (2) P({∅})P(\{\emptyset\}) P({∅}) 是什么？写出来。
-- (3) P(P(∅))P(P(\emptyset)) P(P(∅)) 呢？（这个稍绕，慢慢想）
+$A = \{1, 2, 3, 4\}$，求 ∣P(A)∣|P(A)| ∣P(A)∣。列出前 5 个元素（你自己选）。
+- (2) $P(\{\emptyset\})$ 是什么？写出来。
+- (3) $P(P(\emptyset))$ 呢？
 
 **练习 5**（概念辨析 —— 挑战题）：
 
 下列说法哪些正确？说出理由。
 
-- (1) 若 A∈BA \in B A∈B，B∈CB \in C B∈C，则 A∈CA \in C A∈C。
-- (2) 若 A⊆BA \subseteq B A⊆B，B⊆CB \subseteq C B⊆C，则 A⊆CA \subseteq C A⊆C。
-- (3) 若 A∈BA \in B A∈B，B⊆CB \subseteq C B⊆C，则 A∈CA \in C A∈C。
-- (4) 若 A⊆BA \subseteq B A⊆B，B∈CB \in C B∈C，则 A∈CA \in C A∈C。
+- (1) 若 $A \in B$，$B \in C$，则 $A \in C$。
+- (2) 若 $A \subseteq B$，$B \subseteq C$，则 $A \subseteq C$。
+- (3) 若 $A \in B$，$B \subseteq C$，则 $A \in C$。
+- (4) 若 $A \subseteq B$，$B \in C$，则 $A \in C$。
 
 **练习 6**（电子信息工程联系）：
 
@@ -2930,7 +2932,7 @@ N\mathbb{N} N、Z\mathbb{Z} Z、R\mathbb{R} R 都是**无限集**。有趣的是
 
 这一节是**集合论的核心算法章**，会大量用到我们之前学的逻辑。你将看到德摩根律以**集合版本**重新出现 —— 这种"同构"感会让你感到数学的美妙。
 
-**问问自己**：看完第 8 节，能用自己的话说出"子集"和"元素"的区别吗？能说明为什么 ∅\emptyset ∅ 是任何集合的子集吗？
+**复习要点**：能够说明“子集”和“元素”的区别，并解释为什么 $\emptyset$ 是任何集合的子集。
 ## 离散数学 第 9 节：集合的基本运算与集合恒等式
 
 ### 一、基本运算（快速过）
@@ -2942,7 +2944,7 @@ N\mathbb{N} N、Z\mathbb{Z} Z、R\mathbb{R} R 都是**无限集**。有趣的是
 |并|A∪BA∪B|{x∣x∈A∨x∈B}{x∣x∈A∨x∈B}|
 |交|A∩BA∩B|{x∣x∈A∧x∈B}{x∣x∈A∧x∈B}|
 |差|A−BA−B 或 A∖BA∖B|{x∣x∈A∧x∉B}{x∣x∈A∧x∈/B}|
-|补|A‾A 或 AcAc|{x∣x∈U∧x∉A}{x∣x∈U∧x∈/A}|
+|补|A‾A 或 Ac|{x∣x∈U∧x∉A}{x∣x∈U∧x∈/A}|
 |对称差|A⊕BA⊕B 或 A△BA△B|(A−B)∪(B−A)(A−B)∪(B−A)|
 
 **对称差**是高中没学过的：在 A 或 B 中，但**不同时**在两者中 —— 这就是**集合版的异或 (XOR)**。
@@ -2963,18 +2965,18 @@ A⊕B=(A−B)∪(B−A)=(A∪B)−(A∩B)=(A∩B‾)∪(A‾∩B)A⊕B=(A−B)�
 
 |名称|集合恒等式|逻辑对应|
 |---|---|---|
-|**幂等律**|A∪A=AA∪A=A，A∩A=AA∩A=A|P∨P⇔PP∨P⇔P|
-|**交换律**|A∪B=B∪AA∪B=B∪A|P∨Q⇔Q∨PP∨Q⇔Q∨P|
+|**幂等律**|A∪A=A∪A=A，A∩A=A∩A=A|P∨P⇔P∨P⇔P|
+|**交换律**|A∪B=B∪A∪B=B∪A|P∨Q⇔Q∨P∨Q⇔Q∨P|
 |**结合律**|(A∪B)∪C=A∪(B∪C)(A∪B)∪C=A∪(B∪C)|同|
 |**分配律**|A∩(B∪C)=(A∩B)∪(A∩C)A∩(B∪C)=(A∩B)∪(A∩C)  <br>A∪(B∩C)=(A∪B)∩(A∪C)A∪(B∩C)=(A∪B)∩(A∪C)|同|
-|**同一律**|A∪∅=AA∪∅=A，A∩U=AA∩U=A|P∨F⇔PP∨F⇔P|
+|**同一律**|A∪∅=A∪∅=A，A∩U=A∩U=A|P∨F⇔P∨F⇔P|
 |**零律**|A∪U=UA∪U=U，A∩∅=∅A∩∅=∅|P∨T⇔TP∨T⇔T|
 |**补律**|A∪A‾=UA∪A=U，A∩A‾=∅A∩A=∅|P∨¬P⇔TP∨¬P⇔T|
-|**双重补**|A‾‾=AA=A|¬¬P⇔P¬¬P⇔P|
+|**双重补**|A‾‾=A=A|¬¬P⇔P¬¬P⇔P|
 |**德摩根律** ⭐|A∪B‾=A‾∩B‾A∪B=A∩B  <br>A∩B‾=A‾∪B‾A∩B=A∪B|同|
-|**吸收律**|A∪(A∩B)=AA∪(A∩B)=A  <br>A∩(A∪B)=AA∩(A∪B)=A|同|
+|**吸收律**|A∪(A∩B)=A∪(A∩B)=A  <br>A∩(A∪B)=A∩(A∪B)=A|同|
 
-**本质**：集合和命题逻辑是**同构的布尔代数**。∪∪ 对应 ∨∨，∩∩ 对应 ∧∧，⋅‾⋅ 对应 ¬¬，∅∅ 对应 F，UU 对应 T。
+**本质**：集合和命题逻辑是**同构的布尔代数**。∪∪ 对应 ∨∨，∩∩ 对应 ∧∧，⋅‾⋅ 对应 ¬¬，∅∅ 对应 F，U 对应 T。
 
 **你学逻辑时记住的所有恒等式，在集合这里自动成立**，这是离散数学"少而美"的地方。
 
@@ -3021,11 +3023,11 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 ∎
 
-注意第 3 步用到了 X=X∩XX=X∩X（幂等），把 A 拆成两份。这种小技巧做多了就熟了。
+注意第 3 步用到了 X=X∩X=X∩X（幂等），把 A 拆成两份。这种小技巧做多了就熟了。
 
 #### 方法 3：成员表法（像真值表）
 
-对每个元素，它要么属于 A (1) 要么不属于 (0)，一共 2n2n 种情况（n 为集合个数）。列表对比左右两边。
+对每个元素，它要么属于 A (1) 要么不属于 (0)，一共 2n 种情况（n 为集合个数）。列表对比左右两边。
 
 **证**：A∩(B∪C)=(A∩B)∪(A∩C)A∩(B∪C)=(A∩B)∪(A∩C)
 
@@ -3089,9 +3091,9 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 设：
 
-- AA = 被 2 整除的数，∣A∣=⌊100/2⌋=50∣A∣=⌊100/2⌋=50
-- BB = 被 3 整除的数，∣B∣=⌊100/3⌋=33∣B∣=⌊100/3⌋=33
-- CC = 被 5 整除的数，∣C∣=⌊100/5⌋=20∣C∣=⌊100/5⌋=20
+- A = 被 2 整除的数，∣A∣=⌊100/2⌋=50∣A∣=⌊100/2⌋=50
+- B = 被 3 整除的数，∣B∣=⌊100/3⌋=33∣B∣=⌊100/3⌋=33
+- C = 被 5 整除的数，∣C∣=⌊100/5⌋=20∣C∣=⌊100/5⌋=20
 - A∩BA∩B = 被 6 整除，∣A∩B∣=16∣A∩B∣=16
 - A∩CA∩C = 被 10 整除，∣A∩C∣=10∣A∩C∣=10
 - B∩CB∩C = 被 15 整除，∣B∩C∣=6∣B∩C∣=6
@@ -3099,9 +3101,9 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 ∣A∪B∪C∣=50+33+20−16−10−6+3=74∣A∪B∪C∣=50+33+20−16−10−6+3=74
 
-**两个或以上整除的数之和为 7474，一个都不被整除的有 100−74=26100−74=26 个**（这些数与 2、3、5 都互质）。
+**两个或以上整除的数之和为 7474，一个都不被整除的有100−74=26个**（这些数与 2、3、5 都互质）。
 
-**注意**：∣A∩B∣∣A∩B∣ 是被 2 和 3 都整除的数 = 被 6 整除的数（因为 lcm(2,3)=6lcm(2,3)=6）。这里用到**最小公倍数 lcm**，是下一章数论的内容。
+**注意**：∣A∩B∣∣A∩B∣ 是被 2 和 3 都整除的数 = 被 6 整除的数（因为lcm(2,3)=6）。这里用到**最小公倍数 lcm**，是下一章数论的内容。
 
 ---
 
@@ -3115,10 +3117,10 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 #### 具体例子
 
-**例 1**：设 An={x∈R∣0≤x≤1/n}An​={x∈R∣0≤x≤1/n}，n=1,2,3,…n=1,2,3,…
+**例 1**：设 An={x∈R∣0≤x≤1/n}An={x∈R∣0≤x≤1/n}，n=1,2,3,…
 
-- ⋃n=1∞An=A1=[0,1]⋃n=1∞​An​=A1​=[0,1]（A1A1​ 最大，包含其他所有）
-- ⋂n=1∞An={0}⋂n=1∞​An​={0}（**有意思！** 对任意 x>0x>0，总能找到 nn 使 1/n<x1/n<x，所以只有 0 在所有 AnAn​ 里）
+- ⋃n=1∞An=A1=[0,1]⋃n=1∞An=A1=[0,1]（A1 最大，包含其他所有）
+- ⋂n=1∞An={0}⋂n=1∞An={0}（**有意思！** 对任意 x>0x>0，总能找到 n 使1/n<x，所以只有 0 在所有 An 里）
 
 这个例子触及**分析学**的核心 —— 可数交可能比每个分量都"小得多"。
 
@@ -3136,8 +3138,8 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 **划分**是这节最后一个重要概念，直接连接下一节的"等价关系"。
 
 > **定义**：集合 A 的一个**划分**，是 A 的若干**非空子集** {A1,A2,…,Ak}{A1​,A2​,…,Ak​}，满足：
-> 
-> 1. Ai≠∅Ai​=∅，对所有 ii
+>
+> 1. Ai≠∅Ai=∅，对所有 i
 > 2. Ai∩Aj=∅Ai​∩Aj​=∅，当 i≠ji=j（两两不相交）
 > 3. ⋃i=1kAi=A⋃i=1k​Ai​=A（并起来覆盖整个 A）
 
@@ -3145,7 +3147,7 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 #### 6.2 例子
 
-**例 1**：A={1,2,3,4,5,6}A={1,2,3,4,5,6} 的一个划分：
+**例 1**：A={1,2,3,4,5,6}的一个划分：
 
 {{1,3,5},{2,4,6}}{{1,3,5},{2,4,6}}
 
@@ -3175,9 +3177,9 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 #### 7.1 有序对
 
-> **有序对** (ordered pair)：记作 (a,b)(a,b)，其中 a 是**第一分量**，b 是**第二分量**。
+> **有序对** (ordered pair)：记作(a,b)，其中 a 是**第一分量**，b 是**第二分量**。
 
-**关键**：有序对**有顺序**，(a,b)≠(b,a)(a,b)=(b,a)（除非 a=ba=b）。这和集合 {a,b}={b,a}{a,b}={b,a} 不同。
+**关键**：有序对**有顺序**，(a,b)≠(b,a)(a,b)=(b,a)（除非 a=ba=b）。这和集合{a,b}={b,a}不同。
 
 **性质**：(a,b)=(c,d)⇔a=c∧b=d(a,b)=(c,d)⇔a=c∧b=d。
 
@@ -3189,17 +3191,17 @@ $$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（�
 
 #### 7.3 例子
 
-**例 1**：A={1,2}A={1,2}，B={a,b,c}B={a,b,c}
+**例 1**：A={1,2}，B={a,b,c}
 
-A×B={(1,a),(1,b),(1,c),(2,a),(2,b),(2,c)}A×B={(1,a),(1,b),(1,c),(2,a),(2,b),(2,c)}
+A×B={(1,a),(1,b),(1,c),(2,a),(2,b),(2,c)}
 
-∣A×B∣=2×3=6∣A×B∣=2×3=6。**一般地 ∣A×B∣=∣A∣⋅∣B∣∣A×B∣=∣A∣⋅∣B∣**。
+∣A×B∣=2×3=6。**一般地 ∣A×B∣=∣A∣⋅∣B∣∣A×B∣=∣A∣⋅∣B∣**。
 
 **例 2**：R×R=R2R×R=R2 = 平面上所有点。高中坐标系就是笛卡尔积！笛卡尔（Descartes）就是笛卡尔坐标系的那个笛卡尔。
 
 #### 7.4 性质
 
-- A×B≠B×AA×B=B×A（除非 A=BA=B 或其中一个为空）—— **不交换**
+- A×B≠B×A×B=B×A（除非 A=BA=B 或其中一个为空）—— **不交换**
 - A×(B×C)≠(A×B)×CA×(B×C)=(A×B)×C（严格讲是不等，但通常视为同构）
 - A×∅=∅A×∅=∅
 - A×(B∪C)=(A×B)∪(A×C)A×(B∪C)=(A×B)∪(A×C) —— 对并**有分配律**
@@ -3213,9 +3215,9 @@ A1×A2×⋯×An={(a1,a2,…,an)∣ai∈Ai}A1​×A2​×⋯×An​={(a1​,a2​
 
 **应用**：
 
-- RnRn：n 维实空间
+- Rn：n 维实空间
 - 数据库中的**关系表** (relation)：一张表的每一行就是一个 n 元组，整张表就是某些笛卡尔积的子集
-- **电子工程**：n 位二进制就是 {0,1}n{0,1}n，有 2n2n 个元素
+- **电子工程**：n 位二进制就是 {0,1}n{0,1}n，有 2n 个元素
 
 **笛卡尔积是下一节"关系"的基础**：一个关系本质上就是笛卡尔积的一个子集。
 
@@ -3229,7 +3231,7 @@ A1×A2×⋯×An={(a1,a2,…,an)∣ai∈Ai}A1​×A2​×⋯×An​={(a1​,a2​
 
 **例子**：
 
-- A∪∅=AA∪∅=A ⟷ A∩U=AA∩U=A（同一律的两半）
+- A∪∅=A∪∅=A ⟷ A∩U=A∩U=A（同一律的两半）
 - A∪B‾=A‾∩B‾A∪B=A∩B ⟷ A∩B‾=A‾∪B‾A∩B=A∪B（德摩根的两半）
 
 这让你**记一条就等于记两条**，是布尔代数的内在对称性。
@@ -3245,7 +3247,7 @@ A1×A2×⋯×An={(a1,a2,…,an)∣ai∈Ai}A1​×A2​×⋯×An​={(a1​,a2​
 - (1) A∪(B−A)=A∪BA∪(B−A)=A∪B
 - (2) (A−B)−C=A−(B∪C)(A−B)−C=A−(B∪C)
 - (3) A⊕B=(A∪B)∩A∩B‾A⊕B=(A∪B)∩A∩B
-- (4) A⊕A=∅A⊕A=∅，A⊕∅=AA⊕∅=A（对称差的两个基本性质）
+- (4) A⊕A=∅A⊕A=∅，A⊕∅=A⊕∅=A（对称差的两个基本性质）
 
 **练习 2**（对称差的结合律）：
 
@@ -3275,11 +3277,11 @@ A1×A2×⋯×An={(a1,a2,…,an)∣ai∈Ai}A1​×A2​×⋯×An​={(a1​,a2​
 
 求 1 到 1000 中**不能**被 2、3、5、7 任何一个整除的整数个数。
 
-**提示**：先算能被至少一个整除的，再用总数减。这些就是 1 到 1000 中与 2×3×5×7=2102×3×5×7=210 互质的数（几乎）。
+**提示**：先算能被至少一个整除的，再用总数减。这些就是 1 到 1000 中与2×3×5×7=210互质的数（几乎）。
 
 **练习 5**（广义运算）：
 
-设 An={x∈R∣−1/n<x<1/n}An​={x∈R∣−1/n<x<1/n}，n=1,2,…n=1,2,…
+设 An={x∈R∣−1/n<x<1/n}An={x∈R∣−1/n<x<1/n}，n=1,2,…
 
 求 ⋃n=1∞An⋃n=1∞​An​ 和 ⋂n=1∞An⋂n=1∞​An​。
 
@@ -3292,16 +3294,16 @@ A1×A2×⋯×An={(a1,a2,…,an)∣ai∈Ai}A1​×A2​×⋯×An​={(a1​,a2​
 
 **练习 7**（综合应用 —— 构造划分）：
 
-给出集合 A={1,2,3,4,5}A={1,2,3,4,5} 的**所有**可能的划分，并数一下有多少个。
+给出集合A={1,2,3,4,5}的**所有**可能的划分，并数一下有多少个。
 
-（提示：划分数叫**贝尔数** BnBn​。B1=1,B2=2,B3=5,B4=15,B5=52B1​=1,B2​=2,B3​=5,B4​=15,B5​=52。这题不用全列，但试着至少列出 10 种。）
+（提示：划分数叫**贝尔数** Bn。B1=1,B2=2,B3=5,B4=15,B5=52。这题不用全列，但试着至少列出 10 种。）
 
 **练习 8**（电子信息联系思考题）：
 
 在布尔代数里，n 位二进制向量的集合是 {0,1}n{0,1}n。
 
 - (1) ∣{0,1}n∣∣{0,1}n∣ 是多少？
-- (2) "位向量"与"子集"的关系：对于全集 U={1,2,…,n}U={1,2,…,n}，UU 的每个子集 SS 都可以编码为一个 n 位二进制数 b1b2⋯bnb1​b2​⋯bn​，其中 bi=1⇔i∈Sbi​=1⇔i∈S。证明这是 P(U)P(U) 和 {0,1}n{0,1}n 之间的**一一对应**。
+- (2) "位向量"与"子集"的关系：对于全集U={1,2,…,n}，U 的每个子集 S 都可以编码为一个 n 位二进制数 b1b2⋯bnb1b2⋯bn，其中 bi=1⇔i∈Sbi=1⇔i∈S。证明这是 P(U) 和 {0,1}n{0,1}n 之间的**一一对应**。
 - (3) 在这个编码下，集合的 ∪∪、∩∩、⋅‾⋅、⊕⊕ 对应于位向量的什么操作？
 
 这道题揭示了**为什么编程里用位运算能高效处理集合**（位图 / bitmap 技术）。
@@ -3326,13 +3328,13 @@ A1×A2×⋯×An={(a1,a2,…,an)∣ai∈Ai}A1​×A2​×⋯×An​={(a1​,a2​
 
 回忆上一节：A×B={(a,b)∣a∈A,b∈B}A×B={(a,b)∣a∈A,b∈B}。
 
-> **定义**：设 A,BA,B 是两个集合。A×BA×B 的**任意一个子集** RR 称为从 A 到 B 的一个**二元关系**。
+> **定义**：设 A,BA,B 是两个集合。A×BA×B 的**任意一个子集** R 称为从 A 到 B 的一个**二元关系**。
 
 也就是说：
 
 R⊆A×BR⊆A×B
 
-记号：(a,b)∈R(a,b)∈R 也常记作 aRbaRb，读作"a 与 b 有关系 R"。
+记号：(a,b)∈R(a,b)∈R 也常记作 aRb，读作"a 与 b 有关系 R"。
 
 **特殊情况**：当 A=BA=B 时，R⊆A×AR⊆A×A，称为 **A 上的关系**。这是我们重点讨论的对象。
 
@@ -3340,25 +3342,25 @@ R⊆A×BR⊆A×B
 
 关系本质就是**罗列出所有"配对"**。比如：
 
-A={1,2,3}A={1,2,3}，定义"小于等于" ≤≤：
+A={1,2,3}，定义"小于等于" ≤≤：
 
 - 1≤1,1≤2,1≤3,2≤2,2≤3,3≤31≤1,1≤2,1≤3,2≤2,2≤3,3≤3
 
 把这些"配对"作为有序对放进集合：
 
-R≤={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}R≤​={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}
+R≤={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}
 
 **这就是 ≤ 关系**。看起来像废话，但这种"把抽象概念物质化"的做法非常重要 —— 计算机里没有"关系"这种东西，**关系就是存储在表里的元组**，这正是数据库的工作方式。
 
 #### 1.3 一些极端情况
 
 - **空关系** ∅∅：什么配对都没有
-- **全关系** A×AA×A：所有配对都在
+- **全关系** A×A×A：所有配对都在
 - **恒等关系** IA={(a,a)∣a∈A}IA​={(a,a)∣a∈A}：只有"自己和自己配"
 
 #### 🤔 检验
 
-设 A={1,2,3}A={1,2,3}，写出下列关系：
+设A={1,2,3}，写出下列关系：
 
 1. R1={(x,y)∣x,y∈A,x+y=4}R1​={(x,y)∣x,y∈A,x+y=4}
 2. R2={(x,y)∣x,y∈A,x 整除 y}R2​={(x,y)∣x,y∈A,x 整除 y}
@@ -3370,7 +3372,7 @@ R≤={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}R≤​={(1,1),(1,2),(1,3),(2,2),(2,3)
 
 1. R1={(1,3),(2,2),(3,1)}R1​={(1,3),(2,2),(3,1)}
 2. R2={(1,1),(1,2),(1,3),(2,2),(3,3)}R2​={(1,1),(1,2),(1,3),(2,2),(3,3)}（注意 1 整除任何数）
-3. R3={(1,1),(2,2),(3,3)}R3​={(1,1),(2,2),(3,3)} —— 这就是**恒等关系** IAIA​
+3. R3={(1,1),(2,2),(3,3)}R3={(1,1),(2,2),(3,3)} —— 这就是**恒等关系** IA
 
 ---
 
@@ -3382,13 +3384,13 @@ R≤={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}R≤​={(1,1),(1,2),(1,3),(2,2),(2,3)
 
 #### 2.2 关系矩阵 (Relation Matrix) ⭐
 
-设 A={a1,a2,…,an}A={a1​,a2​,…,an​}，R⊆A×AR⊆A×A。定义 n×nn×n 矩阵 MRMR​：
+设A={a1,a2,…,an}，R⊆A×AR⊆A×A。定义 n×n×n 矩阵 MR：
 
 MR[i][j]={1若 (ai,aj)∈R0若 (ai,aj)∉RMR​[i][j]={10​若 (ai​,aj​)∈R若 (ai​,aj​)∈/R​
 
 **这就是 0/1 矩阵**。
 
-**例**：A={1,2,3}A={1,2,3}，R={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}R={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}（即 ≤）
+**例**：A={1,2,3}，R={(1,1),(1,2),(1,3),(2,2),(2,3),(3,3)}（即 ≤）
 
 MR=(111011001)MR​=​100​110​111​​
 
@@ -3445,7 +3447,7 @@ MR=(111011001)MR​=​100​110​111​​
 这是关系最重要的运算。
 
 > **定义**：设 R⊆A×BR⊆A×B，S⊆B×CS⊆B×C。**复合关系** S∘R⊆A×CS∘R⊆A×C 定义为：
-> 
+>
 > S∘R={(a,c)∣∃b∈B, (a,b)∈R∧(b,c)∈S}S∘R={(a,c)∣∃b∈B,(a,b)∈R∧(b,c)∈S}
 
 **记号警告**：复合关系的写法各教材不一致：
@@ -3459,14 +3461,14 @@ MR=(111011001)MR​=​100​110​111​​
 
 **例 1**：
 
-- RR = "父子"关系：(a,b)∈R(a,b)∈R 表示 a 是 b 的父亲
-- 那么 R∘RR∘R 是什么？
+- R = "父子"关系：(a,b)∈R(a,b)∈R 表示 a 是 b 的父亲
+- 那么 R∘R∘R 是什么？
 
 (a,c)∈R∘R(a,c)∈R∘R ⟺ 存在 b，使得 a 是 b 的父亲且 b 是 c 的父亲 ⟺ a 是 c 的**祖父**。
 
 所以 **"父子" 复合 "父子" = "祖父"**。
 
-**例 2**：A={1,2,3,4}A={1,2,3,4}
+**例 2**：A={1,2,3,4}
 
 - R={(1,2),(2,3),(3,4)}R={(1,2),(2,3),(3,4)}
 - S={(2,4),(3,1),(4,2)}S={(2,4),(3,1),(4,2)}
@@ -3475,9 +3477,9 @@ MR=(111011001)MR​=​100​110​111​​
 
 按定义，(a,c)∈R∘S(a,c)∈R∘S 需要找 b 使 (a,b)∈R(a,b)∈R 且 (b,c)∈S(b,c)∈S。
 
-- 从 (1,2)∈R(1,2)∈R：看 b = 2 在 S 中匹配什么？(2,4)∈S(2,4)∈S → 得 (1,4)(1,4)
-- 从 (2,3)∈R(2,3)∈R：看 b = 3 在 S 中匹配什么？(3,1)∈S(3,1)∈S → 得 (2,1)(2,1)
-- 从 (3,4)∈R(3,4)∈R：看 b = 4 在 S 中匹配什么？(4,2)∈S(4,2)∈S → 得 (3,2)(3,2)
+- 从 (1,2)∈R(1,2)∈R：看 b = 2 在 S 中匹配什么？(2,4)∈S(2,4)∈S → 得(1,4)
+- 从 (2,3)∈R(2,3)∈R：看 b = 3 在 S 中匹配什么？(3,1)∈S(3,1)∈S → 得(2,1)
+- 从 (3,4)∈R(3,4)∈R：看 b = 4 在 S 中匹配什么？(4,2)∈S(4,2)∈S → 得(3,2)
 
 R∘S={(1,4),(2,1),(3,2)}R∘S={(1,4),(2,1),(3,2)}
 
@@ -3496,7 +3498,7 @@ MR∘S=MR⊙MSMR∘S​=MR​⊙MS​
 
 MR∘S[i][j]=⋁k=1n(MR[i][k]∧MS[k][j])MR∘S​[i][j]=k=1⋁n​(MR​[i][k]∧MS​[k][j])
 
-**对比普通矩阵乘法**：C[i][j]=∑kA[i][k]⋅B[k][j]C[i][j]=∑k​A[i][k]⋅B[k][j] —— 真的是同一个结构，只是把 + 换成 ∨，× 换成 ∧。
+**对比普通矩阵乘法**：C[i][j]=∑kA[i][k]⋅B[k][j]—— 真的是同一个结构，只是把 + 换成 ∨，× 换成 ∧。
 
 **例**：用矩阵验证刚才的例 2。
 
@@ -3506,12 +3508,12 @@ MR=(0100001000010000),MS=(0000000110000100)MR​=​0000​1000​0100​0010​
 
 MR∘S=(0001100001000000)MR∘S​=​0100​0010​0000​1000​​
 
-对应 {(1,4),(2,1),(3,2)}{(1,4),(2,1),(3,2)}。✅
+对应{(1,4),(2,1),(3,2)}。✅
 
 #### 3.4 复合的性质
 
 - **结合律**：(R∘S)∘T=R∘(S∘T)(R∘S)∘T=R∘(S∘T) ✅
-- **不交换**：一般 R∘S≠S∘RR∘S=S∘R（这和矩阵乘法不交换一致）
+- **不交换**：一般 R∘S≠S∘R∘S=S∘R（这和矩阵乘法不交换一致）
 - (R∘S)−1=S−1∘R−1(R∘S)−1=S−1∘R−1（注意顺序反过来！）
 
 #### 3.5 关系的幂
@@ -3520,18 +3522,18 @@ MR∘S=(0001100001000000)MR∘S​=​0100​0010​0000​1000​​
 
 R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
-**理解**：RnRn 表示"在关系 R 中走 n 步"。
+**理解**：Rn 表示"在关系 R 中走 n 步"。
 
 **例**：
 
-- 父子关系：RR = 父亲，R2R2 = 祖父，R3R3 = 曾祖父，……
-- 在图中：RnRn 表示"从 a 到 b 是否存在长度为 n 的路径"
+- 父子关系：R = 父亲，R2 = 祖父，R3 = 曾祖父，……
+- 在图中：Rn 表示"从 a 到 b 是否存在长度为 n 的路径"
 
 ---
 
 ### 四、A 上关系的五大性质 ⭐⭐⭐
 
-设 RR 是 A 上的关系。它可能具有以下性质（也可能不具有）：
+设 R 是 A 上的关系。它可能具有以下性质（也可能不具有）：
 
 #### 4.1 自反性 (Reflexivity)
 
@@ -3558,10 +3560,10 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 **注意**：自反的反面**不是**反自反！一个关系可以**既不自反也不反自反**。
 
-**例**：A={1,2,3}A={1,2,3}，R={(1,1)}R={(1,1)}。
+**例**：A={1,2,3}，R={(1,1)}。
 
-- 不是自反（(2,2),(3,3)(2,2),(3,3) 不在）
-- 也不是反自反（(1,1)(1,1) 在）
+- 不是自反（(2,2),(3,3)不在）
+- 也不是反自反（(1,1)在）
 
 **判别**：
 
@@ -3595,7 +3597,7 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 **判别**：
 
-- 矩阵：**MRMR​ 与 MRTMRT​ 的非对角线位置不同时为 1**（对角线随意）
+- 矩阵：**MR 与 MRT 的非对角线位置不同时为 1**（对角线随意）
 - 图：两节点之间最多一个箭头（除了自环）
 
 #### 4.5 传递性 (Transitivity) ⭐
@@ -3609,7 +3611,7 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 **判别**：
 
-- 矩阵：MR2≤MRMR2​≤MR​（即 R2⊆RR2⊆R）
+- 矩阵：MR2≤MR（即 R2⊆R2⊆R）
 - 图：**任何两步可达的，必有一步直达**
 
 #### 性质总结表
@@ -3620,11 +3622,11 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 |反自反|∀a (a,a)∉R∀a(a,a)∈/R|对角线全 0|无自环|
 |对称|aRb→bRaaRb→bRa|矩阵关于对角线对称|箭头双向|
 |反对称|aRb∧bRa→a=baRb∧bRa→a=b|非对角无对称 1|节点对最多 1 箭头|
-|传递|aRb∧bRc→aRcaRb∧bRc→aRc|R2⊆RR2⊆R|两步可达 → 一步可达|
+|传递|aRb∧bRc→aRcaRb∧bRc→aRc|R2⊆R2⊆R|两步可达 → 一步可达|
 
 #### 🤔 关键检验
 
-设 A={1,2,3,4}A={1,2,3,4}，R={(1,1),(2,2),(3,3),(4,4),(1,2),(2,1),(3,4)}R={(1,1),(2,2),(3,3),(4,4),(1,2),(2,1),(3,4)}。
+设A={1,2,3,4}，R={(1,1),(2,2),(3,3),(4,4),(1,2),(2,1),(3,4)}。
 
 判断 R 的五大性质：
 
@@ -3632,11 +3634,11 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 分析：
 
-- **自反**？需要 (1,1),(2,2),(3,3),(4,4)(1,1),(2,2),(3,3),(4,4) 都在 → 都在 ✅ **自反**
-- **反自反**？需要 (1,1)(1,1) 等不在 → 在 → ❌ **不反自反**
-- **对称**？(1,2)(1,2) 在，(2,1)(2,1) 在 ✅；(3,4)(3,4) 在，(4,3)(4,3) 在吗？**不在** → ❌ **不对称**
-- **反对称**？(1,2)(1,2) 和 (2,1)(2,1) 都在，但 1≠21=2 → ❌ **不反对称**
-- **传递**？(1,2)∈R,(2,1)∈R(1,2)∈R,(2,1)∈R，(1,1)∈R(1,1)∈R ✅。(2,1),(1,2)(2,1),(1,2)，(2,2)∈R(2,2)∈R ✅。(3,4)(3,4) 后面没有 (4,?)(4,?) 形式的（除 (4,4)(4,4)），(3,4)(4,4)→(3,4)(3,4)(4,4)→(3,4) ✅。看起来都满足 → ✅ **传递**
+- **自反**？需要(1,1),(2,2),(3,3),(4,4)都在 → 都在 ✅ **自反**
+- **反自反**？需要(1,1)等不在 → 在 → ❌ **不反自反**
+- **对称**？(1,2)在，(2,1)在 ✅；(3,4)在，(4,3)在吗？**不在** → ❌ **不对称**
+- **反对称**？(1,2)和(2,1)都在，但 1≠21=2 → ❌ **不反对称**
+- **传递**？(1,2)∈R,(2,1)∈R(1,2)∈R,(2,1)∈R，(1,1)∈R(1,1)∈R ✅。(2,1),(1,2)，(2,2)∈R(2,2)∈R ✅。(3,4)后面没有 (4,?)(4,?) 形式的（除(4,4)），(3,4)(4,4)→(3,4)(3,4)(4,4)→(3,4) ✅。看起来都满足 → ✅ **传递**
 
 所以这个关系：**自反、传递，不对称，不反对称，不反自反**。
 
@@ -3654,7 +3656,7 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 - "=="（相等）
 - "在同一班级"
-- "模 n 同余"：a≡b(modn)a≡b(modn) 当且仅当 n∣(a−b)n∣(a−b)
+- "模 n 同余"：a≡b(modn)a≡b(modn) 当且仅当n∣(a−b)
 - "字符串长度相同"
 
 **等价关系的核心威力**：能把集合分成**等价类** —— 这就是上节学的"划分"。**等价关系和划分是一一对应的**。
@@ -3672,7 +3674,7 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 "偏"的意思是：**不是任何两个元素都能比较**。比如 ⊆⊆，集合 {1,2}{1,2} 和 {2,3}{2,3} 既不互相包含。
 
-**全序 (total order)**：偏序 + 任意两元素可比较（∀a,b, aRb∨bRa∀a,b,aRb∨bRa）。≤≤ 在 RR 上是全序，但 ⊆⊆ 不是全序。
+**全序 (total order)**：偏序 + 任意两元素可比较（∀a,b, aRb∨bRa∀a,b,aRb∨bRa）。≤≤ 在 R 上是全序，但 ⊆⊆ 不是全序。
 
 ---
 
@@ -3684,9 +3686,9 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 如果一个关系**不满足某个性质**，能不能"补一些有序对"让它满足？
 
-**例**：R={(1,2),(2,3)}R={(1,2),(2,3)}，不传递。
+**例**：R={(1,2),(2,3)}，不传递。
 
-要让它传递，必须加 (1,3)(1,3)。所以 {(1,2),(2,3),(1,3)}{(1,2),(2,3),(1,3)} 是传递的。
+要让它传递，必须加(1,3)。所以{(1,2),(2,3),(1,3)}是传递的。
 
 但要"加得最少"。
 
@@ -3696,13 +3698,13 @@ R0=IA(恒等关系)R0=IA​(恒等关系)Rn=R∘Rn−1Rn=R∘Rn−1
 
 记号：
 
-- 自反闭包：r(R)r(R)
-- 对称闭包：s(R)s(R)
-- 传递闭包：t(R)t(R)
+- 自反闭包：r(R)
+- 对称闭包：s(R)
+- 传递闭包：t(R)
 
 #### 6.3 计算公式
 
-设 ∣A∣=n∣A∣=n。则：
+设∣A∣=n。则：
 
 $$r(R) = R \cup I_A$$（添加所有 $(a, a)$）
 
@@ -3710,11 +3712,11 @@ $$s(R) = R \cup R^{-1}$$（添加所有反向对）
 
 $$t(R) = R \cup R^2 \cup R^3 \cup \cdots \cup R^n$$（添加所有"多步可达"对）
 
-**为什么传递闭包到 RnRn 就够了？** 因为 ∣A∣=n∣A∣=n，任何"路径"如果长于 n，必定有节点重复，可以缩短。所以最长有效路径不超过 n 步。
+**为什么传递闭包到 Rn 就够了？** 因为∣A∣=n，任何"路径"如果长于 n，必定有节点重复，可以缩短。所以最长有效路径不超过 n 步。
 
 #### 6.4 传递闭包的应用
 
-**Warshall 算法**：高效计算传递闭包，是图论中"可达性"问题的经典解法。复杂度 O(n3)O(n3)。
+**Warshall 算法**：高效计算传递闭包，是图论中"可达性"问题的经典解法。复杂度 O(n3)。
 
 应用场景：
 
@@ -3724,7 +3726,7 @@ $$t(R) = R \cup R^2 \cup R^3 \cup \cdots \cup R^n$$（添加所有"多步可达"
 
 #### 例子
 
-A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
+A={1,2,3}，R={(1,2),(2,3)}。
 
 - r(R)={(1,2),(2,3),(1,1),(2,2),(3,3)}r(R)={(1,2),(2,3),(1,1),(2,2),(3,3)}
 - s(R)={(1,2),(2,3),(2,1),(3,2)}s(R)={(1,2),(2,3),(2,1),(3,2)}
@@ -3737,26 +3739,26 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 **练习 1**（基础表示）：
 
-设 A={1,2,3,4}A={1,2,3,4}，R={(x,y)∣x∈A,y∈A,x∣y}R={(x,y)∣x∈A,y∈A,x∣y}（"x 整除 y"）。
+设A={1,2,3,4}，R={(x,y)∣x∈A,y∈A,x∣y}R={(x,y)∣x∈A,y∈A,x∣y}（"x 整除 y"）。
 
 - (1) 列举 R
-- (2) 写出 MRMR​
+- (2) 写出 MR
 - (3) 画出关系图
 - (4) 判断 R 的五大性质
 
 **练习 2**（复合 + 矩阵）：
 
-设 A={1,2,3}A={1,2,3}：
+设A={1,2,3}：
 
 - R={(1,2),(2,3),(1,3)}R={(1,2),(2,3),(1,3)}
 - S={(1,1),(2,2),(2,3)}S={(1,1),(2,2),(2,3)}
 - (1) 用集合方法求 R∘SR∘S 和 S∘RS∘R
 - (2) 用矩阵方法验证 (1) 的结果
-- (3) 一般来说 R∘S=S∘RR∘S=S∘R 吗？给出反例（或上面的例子已是反例？）
+- (3) 一般来说 R∘S=S∘R∘S=S∘R 吗？给出反例（或上面的例子已是反例？）
 
 **练习 3**（性质判断 —— 经典）：
 
-判断下列 ZZ 上的关系的性质（自反/反自反/对称/反对称/传递）：
+判断下列 Z 上的关系的性质（自反/反自反/对称/反对称/传递）：
 
 - (1) aRb⇔a+baRb⇔a+b 是偶数
 - (2) aRb⇔a−baRb⇔a−b 是 5 的倍数
@@ -3765,7 +3767,7 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 **练习 4**（性质组合 —— 反例构造）：
 
-构造（如果可能）满足下列要求的具体关系（在 A={1,2,3}A={1,2,3} 上）：
+构造（如果可能）满足下列要求的具体关系（在A={1,2,3}上）：
 
 - (1) 自反、对称、不传递
 - (2) 反自反、对称、传递
@@ -3776,9 +3778,9 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 **练习 5**（闭包）：
 
-设 A={1,2,3,4}A={1,2,3,4}，R={(1,2),(2,3),(3,4),(4,1)}R={(1,2),(2,3),(3,4),(4,1)}。
+设A={1,2,3,4}，R={(1,2),(2,3),(3,4),(4,1)}。
 
-- (1) 求 r(R),s(R),t(R)r(R),s(R),t(R)
+- (1) 求r(R),s(R),t(R)
 - (2) 求 R2,R3,R4R2,R3,R4
 - (3) 验证 t(R)=R∪R2∪R3∪R4t(R)=R∪R2∪R3∪R4
 
@@ -3786,9 +3788,9 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 证明或反驳：
 
-- (1) 若 R 自反，则 R2R2 也自反。
-- (2) 若 R 对称，则 R2R2 也对称。
-- (3) 若 R 传递，则 R2⊆RR2⊆R。
+- (1) 若 R 自反，则 R2 也自反。
+- (2) 若 R 对称，则 R2 也对称。
+- (3) 若 R 传递，则 R2⊆R2⊆R。
 - (4) 若 R 反自反且对称，那 R∩R2=∅R∩R2=∅？（提示：可能不是，想反例）
 
 **练习 7**（电子工程联系）：
@@ -3796,7 +3798,7 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 在数字电路设计中，**信号依赖图**的节点是各个信号，有向边 u→vu→v 表示 v 的值依赖于 u。
 
 - (1) "信号 u 直接或间接影响 v" 这是 R 的什么概念？
-- (2) 在这种图中，**自环**（u→uu→u）意味着什么？这通常合法吗？
+- (2) 在这种图中，**自环**（u→u→u）意味着什么？这通常合法吗？
 - (3) 同步数字电路要求"组合逻辑无环"，用关系语言表达就是：依赖关系是**反自反的，且其传递闭包仍反自反**。证明这两个条件等价于"图中无任何环路"。
 
 ---
@@ -3819,8 +3821,8 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 也就是说，对所有 a,b,c∈Aa,b,c∈A：
 
-1. a∼aa∼a（自反）
-2. a∼b⇒b∼aa∼b⇒b∼a（对称）
+1. a∼a∼a（自反）
+2. a∼b⇒b∼a∼b⇒b∼a（对称）
 3. a∼b∧b∼c⇒a∼ca∼b∧b∼c⇒a∼c（传递）
 
 #### 1.2 直觉理解
@@ -3837,17 +3839,17 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 #### 1.3 验证一个关系是等价关系
 
-**例**：在 ZZ 上定义 a∼b⇔a−ba∼b⇔a−b 是 5 的倍数。证明 ∼∼ 是等价关系。
+**例**：在 Z 上定义 a∼b⇔a−ba∼b⇔a−b 是 5 的倍数。证明 ∼∼ 是等价关系。
 
 **证明**：
 
-**(自反)** a−a=0=5×0a−a=0=5×0，是 5 的倍数。所以 a∼aa∼a。✅
+**(自反)** a−a=0=5×0a−a=0=5×0，是 5 的倍数。所以 a∼a∼a。✅
 
-**(对称)** 若 a∼ba∼b，则 a−b=5ka−b=5k（某个 k∈Zk∈Z）。则 b−a=−5k=5(−k)b−a=−5k=5(−k)，仍是 5 的倍数。所以 b∼ab∼a。✅
+**(对称)** 若 a∼ba∼b，则a−b=5k（某个 k∈Zk∈Z）。则b−a=−5k=5(−k)，仍是 5 的倍数。所以 b∼ab∼a。✅
 
-**(传递)** 若 a∼ba∼b 且 b∼cb∼c，则 a−b=5k1a−b=5k1​，b−c=5k2b−c=5k2​。两式相加：a−c=5(k1+k2)a−c=5(k1​+k2​)，是 5 的倍数。所以 a∼ca∼c。✅
+**(传递)** 若 a∼ba∼b 且 b∼cb∼c，则a−b=5k1，b−c=5k2。两式相加：a−c=5(k1+k2)，是 5 的倍数。所以 a∼ca∼c。✅
 
-三性质都满足，∼∼ 是 ZZ 上的等价关系。∎
+三性质都满足，∼∼ 是 Z 上的等价关系。∎
 
 **这就是著名的"模 5 同余"**，下面会展开讲。
 
@@ -3860,14 +3862,14 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 #### 2.1 定义
 
 > 设 ∼∼ 是 A 上的等价关系，a∈Aa∈A。**a 的等价类**定义为：
-> 
+>
 > [a]={x∈A∣x∼a}[a]={x∈A∣x∼a}
 
 **通俗理解**：[a][a] 是"所有和 a 等价的元素的集合"，即"a 所在的等价大家庭"。
 
 #### 2.2 例子
 
-**例 1**：ZZ 上模 5 同余关系。
+**例 1**：Z 上模 5 同余关系。
 
 - [0]={…,−10,−5,0,5,10,…}[0]={…,−10,−5,0,5,10,…}（所有 5 的倍数）
 - [1]={…,−9,−4,1,6,11,…}[1]={…,−9,−4,1,6,11,…}（除以 5 余 1 的）
@@ -3885,7 +3887,7 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 设 ∼∼ 是 A 上的等价关系，a,b∈Aa,b∈A。
 
 > **定理**：以下三条等价：
-> 
+>
 > (1) a∼ba∼b > (2) [a]=[b][a]=[b] > (3) [a]∩[b]≠∅[a]∩[b]=∅
 
 **证明**（这是等价关系最重要的定理，必须看懂）：
@@ -3894,13 +3896,13 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 **(1) ⇒ (2)**：设 a∼ba∼b。
 
-要证 [a]=[b][a]=[b]，用双向包含。
+要证[a]=[b]，用双向包含。
 
 任取 x∈[a]x∈[a]。则 x∼ax∼a。由 a∼ba∼b 和传递性，x∼bx∼b，即 x∈[b]x∈[b]。所以 [a]⊆[b][a]⊆[b]。
 
-反过来同理（用对称性 b∼ab∼a）。所以 [a]=[b][a]=[b]。
+反过来同理（用对称性 b∼ab∼a）。所以[a]=[b]。
 
-**(2) ⇒ (3)**：若 [a]=[b][a]=[b]，由自反性 a∼aa∼a，所以 a∈[a]=[b]a∈[a]=[b]。则 a∈[a]∩[b]a∈[a]∩[b]，所以 [a]∩[b]≠∅[a]∩[b]=∅。
+**(2) ⇒ (3)**：若[a]=[b]，由自反性 a∼a∼a，所以 a∈[a]=[b]a∈[a]=[b]。则 a∈[a]∩[b]a∈[a]∩[b]，所以 [a]∩[b]≠∅[a]∩[b]=∅。
 
 **(3) ⇒ (1)**：设 [a]∩[b]≠∅[a]∩[b]=∅，取 c∈[a]∩[b]c∈[a]∩[b]。则 c∼ac∼a 且 c∼bc∼b。
 
@@ -3919,7 +3921,7 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 #### 3.1 定理
 
 > **基本定理**：A 上的等价关系和 A 的划分**一一对应**：
-> 
+>
 > - 给定 A 上的等价关系 ∼∼，所有等价类构成 A 的一个划分。
 > - 给定 A 的一个划分 {Ai}{Ai​}，定义 a∼b⇔a∼b⇔ a 和 b 在同一块，则 ∼∼ 是等价关系，且其等价类恰好是 {Ai}{Ai​}。
 
@@ -3929,7 +3931,7 @@ A={1,2,3}A={1,2,3}，R={(1,2),(2,3)}R={(1,2),(2,3)}。
 
 P={[a]∣a∈A}P={[a]∣a∈A}
 
-要证 PP 是 A 的划分，需验证三条：
+要证 P 是 A 的划分，需验证三条：
 
 **(1) 每个等价类非空**：自反性给出 a∈[a]a∈[a]，所以 [a]≠∅[a]=∅。✅
 
@@ -3937,30 +3939,30 @@ P={[a]∣a∈A}P={[a]∣a∈A}
 
 **(3) 等价类的并 = A**：任取 a∈Aa∈A，由自反性 a∈[a]a∈[a]，所以 a∈⋃x[x]a∈⋃x​[x]。反向 ⋃[x]⊆A⋃[x]⊆A 显然。✅
 
-**结论**：PP 是 A 的划分。∎
+**结论**：P 是 A 的划分。∎
 
 方向 2 的证明留作思考。
 
 #### 3.3 商集（Quotient Set）
 
 > **定义**：A 关于等价关系 ∼∼ 的**商集**记作 A/∼A/∼，定义为所有等价类的集合：
-> 
+>
 > A/∼={[a]∣a∈A}A/∼={[a]∣a∈A}
 
-**这就是上面的 PP**。"商集"这个词来自代数 —— 把"等价的元素压缩成一个"，集合"变小"了，像做了个除法。
+**这就是上面的 P**。"商集"这个词来自代数 —— 把"等价的元素压缩成一个"，集合"变小"了，像做了个除法。
 
 #### 3.4 例子：模 5 的商集
 
-ZZ 关于模 5 同余的商集：
+Z 关于模 5 同余的商集：
 
 Z/∼={[0],[1],[2],[3],[4]}Z/∼={[0],[1],[2],[3],[4]}
 
-记作 Z5Z5​ 或 Z/5ZZ/5Z。
+记作 Z5 或Z/5Z。
 
 **这里发生了一件神奇的事**：
 
-- 原来的 ZZ 是无限集
-- 商集 Z5Z5​ 只有 **5 个元素**！
+- 原来的 Z 是无限集
+- 商集 Z5 只有 **5 个元素**！
 
 无限集被"压缩"成有限集了。
 
@@ -3972,15 +3974,15 @@ Z/∼={[0],[1],[2],[3],[4]}Z/∼={[0],[1],[2],[3],[4]}
 
 #### 4.1 同余
 
-> **定义**：设 n∈Z+n∈Z+。a≡b(modn)a≡b(modn)（读作"a 同余于 b 模 n"）当且仅当 n∣(a−b)n∣(a−b)。
+> **定义**：设 n∈Z+n∈Z+。a≡b(modn)a≡b(modn)（读作"a 同余于 b 模 n"）当且仅当n∣(a−b)。
 
 等价于：a 和 b 除以 n 有**相同的余数**。
 
-例：17≡2(mod5)17≡2(mod5)（因为 17−2=15=5×317−2=15=5×3；或者 17=3×5+217=3×5+2，余数为 2）。
+例：17≡2(mod5)17≡2(mod5)（因为17−2=15=5×3；或者17=3×5+2，余数为 2）。
 
-由前面证明：**模 n 同余是 ZZ 上的等价关系**，对应 n 个等价类 [0],[1],…,[n−1][0],[1],…,[n−1]。
+由前面证明：**模 n 同余是 Z 上的等价关系**，对应 n 个等价类[0],[1],…,[n−1]。
 
-商集记作 ZnZn​。
+商集记作 Zn。
 
 #### 4.2 模运算的基本性质 ⭐
 
@@ -3993,11 +3995,11 @@ Z/∼={[0],[1],[2],[3],[4]}Z/∼={[0],[1],[2],[3],[4]}
 3. a⋅c≡b⋅d(modn)a⋅c≡b⋅d(modn)
 4. ak≡bk(modn)ak≡bk(modn)（k 为正整数）
 
-**证明 (3)**：a−b=nk1a−b=nk1​，c−d=nk2c−d=nk2​。
+**证明 (3)**：a−b=nk1，c−d=nk2。
 
-ac−bd=ac−bc+bc−bd=c(a−b)+b(c−d)=cnk1+bnk2=n(ck1+bk2)ac−bd=ac−bc+bc−bd=c(a−b)+b(c−d)=cnk1​+bnk2​=n(ck1​+bk2​)
+ac−bd=ac−bc+bc−bd=c(a−b)+b(c−d)=cnk1+bnk2=n(ck1+bk2)
 
-所以 n∣(ac−bd)n∣(ac−bd)，即 ac≡bd(modn)ac≡bd(modn)。∎
+所以n∣(ac−bd)，即 ac≡bd(modn)ac≡bd(modn)。∎
 
 **这条性质让我们可以"边算边模"**，避免巨大的中间数。
 
@@ -4013,19 +4015,19 @@ ac−bd=ac−bc+bc−bd=c(a−b)+b(c−d)=cnk1+bnk2=n(ck1+bk2)ac−bd=ac−bc+bc
 
 - 21≡221≡2
 - 22≡422≡4
-- 23≡323≡3（因为 8=5+38=5+3）
-- 24≡124≡1（因为 16=3×5+116=3×5+1）
+- 23≡323≡3（因为8=5+3）
+- 24≡124≡1（因为16=3×5+1）
 - 25≡225≡2（循环了！）
 
-所以 22 模 5 的幂以**周期 4** 循环。100=4×25100=4×25，所以 2100≡24≡1(mod5)2100≡24≡1(mod5)。
+所以 22 模 5 的幂以**周期 4** 循环。100=4×25，所以 2100≡24≡1(mod5)2100≡24≡1(mod5)。
 
-**结论**：7100mod  5=17100mod5=1。
+**结论**：7100mod  5=1。
 
 **这就是 RSA 加密能高效运行的根本原因** —— 否则 memod  nmemodn（e 上百位）根本算不出来。
 
 #### 4.4 模运算下的"加法表"和"乘法表"
 
-Z5Z5​ 的加法表（[a]+[b]=[a+b][a]+[b]=[a+b]）：
+Z5 的加法表（[a]+[b]=[a+b]）：
 
 |+|[0]|[1]|[2]|[3]|[4]|
 |---|---|---|---|---|---|
@@ -4035,7 +4037,7 @@ Z5Z5​ 的加法表（[a]+[b]=[a+b][a]+[b]=[a+b]）：
 |**[3]**|[3]|[4]|[0]|[1]|[2]|
 |**[4]**|[4]|[0]|[1]|[2]|[3]|
 
-每行每列都是 [0],[1],[2],[3],[4][0],[1],[2],[3],[4] 的某个排列。这是一个**有限循环群**（后面代数结构会讲）。
+每行每列都是[0],[1],[2],[3],[4]的某个排列。这是一个**有限循环群**（后面代数结构会讲）。
 
 乘法表（除 [0] 外）：
 
@@ -4046,30 +4048,30 @@ Z5Z5​ 的加法表（[a]+[b]=[a+b][a]+[b]=[a+b]）：
 |**[3]**|[3]|[1]|[4]|[2]|
 |**[4]**|[4]|[3]|[2]|[1]|
 
-**注意每行每列也都是 [1], [2], [3], [4] 的排列**。这告诉我们：在 Z5Z5​ 中，**每个非零元素都有乘法逆元**！
+**注意每行每列也都是 [1], [2], [3], [4] 的排列**。这告诉我们：在 Z5 中，**每个非零元素都有乘法逆元**！
 
-例：[2]⋅[3]=[6]=[1][2]⋅[3]=[6]=[1]，所以 [2]−1=[3][2]−1=[3]。
+例：[2]⋅[3]=[6]=[1]，所以[2]−1=[3]。
 
 #### 4.5 为什么 5 这么"好"？因为它是质数
 
-> **定理**：ZnZn​ 中 [a][a] 有乘法逆元 ⇔gcd⁡(a,n)=1⇔gcd(a,n)=1（a 与 n 互质）。
+> **定理**：Zn 中 [a][a] 有乘法逆元 ⇔gcd(a,n)=1⇔gcd(a,n)=1（a 与 n 互质）。
 
 特别地：
 
-- 当 nn 为质数时，[1],[2],…,[n−1][1],[2],…,[n−1] 都与 nn 互质，**全部有逆元**。
-- 当 nn 不为质数时，只有部分元素有逆元。
+- 当 n 为质数时，[1],[2],…,[n−1]都与 n 互质，**全部有逆元**。
+- 当 n 不为质数时，只有部分元素有逆元。
 
-**例**：Z6Z6​ 的乘法表（部分）：
+**例**：Z6 的乘法表（部分）：
 
-[2]⋅[3]=[6]=[0][2]⋅[3]=[6]=[0] —— **两个非零数相乘等于零！**这叫**零因子**，意味着 [2] 和 [3] 都没有乘法逆元。
+[2]⋅[3]=[6]=[0]—— **两个非零数相乘等于零！**这叫**零因子**，意味着 [2] 和 [3] 都没有乘法逆元。
 
-**结论**：ZpZp​（p 为质数）是一个**域** (field)，性质极好。ZnZn​（n 为合数）只是个**环** (ring)，性质较弱。
+**结论**：Zp（p 为质数）是一个**域** (field)，性质极好。Zn（n 为合数）只是个**环** (ring)，性质较弱。
 
 这两个概念是抽象代数的核心，后面会专门讲。
 
 #### 4.6 应用：费马小定理
 
-> **费马小定理**：若 pp 为质数，aa 与 pp 互质，则 ap−1≡1(modp)ap−1≡1(modp)。
+> **费马小定理**：若 p 为质数，a 与 p 互质，则 ap−1≡1(modp)ap−1≡1(modp)。
 
 **例**：24≡1(mod5)24≡1(mod5)（p=5p=5，a=2a=2）✅
 
@@ -4079,9 +4081,9 @@ Z5Z5​ 的加法表（[a]+[b]=[a+b][a]+[b]=[a+b]）：
 
 #### 4.7 应用：CRC 校验、哈希
 
-**CRC（循环冗余校验）**：把数据看成系数在 Z2Z2​ 中的多项式，对某个生成多项式取模。这是数据传输（以太网、Wi-Fi、硬盘）中检错的标准方法。
+**CRC（循环冗余校验）**：把数据看成系数在 Z2 中的多项式，对某个生成多项式取模。这是数据传输（以太网、Wi-Fi、硬盘）中检错的标准方法。
 
-**哈希函数**：常用 h(x)=(ax+b)mod  ph(x)=(ax+b)modp，其中 p 是大素数。
+**哈希函数**：常用h(x)=(ax+b)mod  p，其中 p 是大素数。
 
 **这些应用的数学根基就是模 n 等价类**。
 
@@ -4097,13 +4099,13 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **证明**：∼∼ 是等价关系。
 
-- 自反：f(a)=f(a)f(a)=f(a) ✅
-- 对称：f(a1)=f(a2)⇒f(a2)=f(a1)f(a1​)=f(a2​)⇒f(a2​)=f(a1​) ✅
-- 传递：从 f(a1)=f(a2)f(a1​)=f(a2​) 和 f(a2)=f(a3)f(a2​)=f(a3​) 推 f(a1)=f(a3)f(a1​)=f(a3​) ✅
+- 自反：f(a)=f(a)=f(a) ✅
+- 对称：f(a1)=f(a2)⇒f(a2)=f(a1)=f(a2)⇒f(a2)=f(a1) ✅
+- 传递：从f(a1)=f(a2)和f(a2)=f(a3)推f(a1)=f(a3)✅
 
-**等价类**：[a]=f−1(f(a))[a]=f−1(f(a))，即所有"映射到同一个像"的元素。
+**等价类**：[a]=f−1(f(a))，即所有"映射到同一个像"的元素。
 
-**通俗理解**：把 A 中"被 f 映射到同一个 B 元素"的所有 a 归为一类。商集 A/∼A/∼ 与 f(A)f(A) 一一对应。
+**通俗理解**：把 A 中"被 f 映射到同一个 B 元素"的所有 a 归为一类。商集 A/∼A/∼ 与 f(A) 一一对应。
 
 **这是函数论的一个非常深刻的视角**，下一节讲函数时还会回来。
 
@@ -4121,7 +4123,7 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 等价类：所有长度为 0 的、所有长度为 1 的、……
 
-商集与 NN 一一对应。
+商集与 N 一一对应。
 
 ---
 
@@ -4146,42 +4148,42 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **练习 1**（验证等价关系）：
 
-设 A=Z×Z∗A=Z×Z∗（Z∗=Z−{0}Z∗=Z−{0}）。在 AA 上定义：
+设 A=Z×Z∗A=Z×Z∗（Z∗=Z−{0}Z∗=Z−{0}）。在 A 上定义：
 
 (a,b)∼(c,d)⇔ad=bc(a,b)∼(c,d)⇔ad=bc
 
-证明 ∼∼ 是等价关系，并说明：等价类 [(a,b)][(a,b)] 在数学中**就是有理数 a/ba/b**。也就是说，QQ 可以严格定义为 A/∼A/∼。
+证明 ∼∼ 是等价关系，并说明：等价类[(a,b)]在数学中**就是有理数 a/ba/b**。也就是说，Q 可以严格定义为 A/∼A/∼。
 
 **练习 2**（等价类计数）：
 
-设 A={1,2,3,…,100}A={1,2,3,…,100}，关系 RR：aRb⇔aaRb⇔a 和 bb 的个位数相同。
+设A={1,2,3,…,100}，关系 R：aRb⇔aaRb⇔a 和 b 的个位数相同。
 
-- (1) 证明 RR 是等价关系
+- (1) 证明 R 是等价关系
 - (2) 商集 A/RA/R 有多少个等价类？
 - (3) 写出 [7][7]（包含元素 7 的等价类）
 
 **练习 3**（划分构造等价关系）：
 
-设 A={1,2,3,4,5,6}A={1,2,3,4,5,6}，划分 P={{1,3,5},{2,4},{6}}P={{1,3,5},{2,4},{6}}。
+设A={1,2,3,4,5,6}，划分P={{1,3,5},{2,4},{6}}。
 
-写出由 PP 诱导的等价关系 RR 的所有有序对（提示：先数有多少对——每个块内部有多少有序对？）
+写出由 P 诱导的等价关系 R 的所有有序对（提示：先数有多少对——每个块内部有多少有序对？）
 
 **练习 4**（模运算计算）：
 
 - (1) 515mod  7=?515mod7=?
 - (2) 3100mod  11=?3100mod11=?（提示：用费马小定理，310≡1(mod11)310≡1(mod11)）
 - (3) 22026mod  9=?22026mod9=?
-- (4) 求 [3][3] 在 Z7Z7​ 中的乘法逆元（即找 xx 使 3x≡1(mod7)3x≡1(mod7)）
+- (4) 求 [3][3] 在 Z7 中的乘法逆元（即找 x 使 3x≡1(mod7)3x≡1(mod7)）
 
 **练习 5**（模运算的应用）：
 
 证明：∀n∈Z∀n∈Z，n2mod  4∈{0,1}n2mod4∈{0,1}。
 
-用此结论说明：方程 x2+y2=4k+3x2+y2=4k+3（k 为整数）**没有整数解**。
+用此结论说明：方程x2+y2=4k+3（k 为整数）**没有整数解**。
 
 **练习 6**（等价关系性质 —— 思考题）：
 
-设 R,SR,S 是 AA 上两个等价关系。证明或反驳：
+设 R,SR,S 是 A 上两个等价关系。证明或反驳：
 
 - (1) R∩SR∩S 也是等价关系
 - (2) R∪SR∪S 也是等价关系
@@ -4191,15 +4193,15 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **练习 7**（深度应用）：
 
-定义 R2R2 上关系 ∼∼：(x1,y1)∼(x2,y2)⇔x1+y1=x2+y2(x1​,y1​)∼(x2​,y2​)⇔x1​+y1​=x2​+y2​。
+定义 R2 上关系 ∼∼：(x1,y1)∼(x2,y2)⇔x1+y1=x2+y2(x1,y1)∼(x2,y2)⇔x1+y1=x2+y2。
 
 - (1) 证明 ∼∼ 是等价关系
-- (2) 描述等价类 [(0,0)][(0,0)] 在平面上的几何形状
+- (2) 描述等价类[(0,0)]在平面上的几何形状
 - (3) 商集 R2/∼R2/∼ 与什么集合一一对应？
 
 **练习 8**（编程相关思考）：
 
-哈希表的核心思想：对一组键值，用哈希函数 h(k)=kmod  mh(k)=kmodm 把它们分配到 mm 个"桶"里。
+哈希表的核心思想：对一组键值，用哈希函数 h(k)=kmod  mh(k)=kmodm 把它们分配到 m 个"桶"里。
 
 - (1) 这相当于在键集合上定义了什么等价关系？
 - (2) "哈希冲突"在等价关系语言下怎么描述？
@@ -4212,7 +4214,6 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 **第 12 节：偏序关系、哈斯图与上下界**
 
 我们继续深入"序"的研究：偏序、全序、链、反链、极大/极小元，以及非常优雅的可视化工具——**哈斯图**。这是组合数学和算法（拓扑排序）的重要基础。
-
 
 ## 离散数学 第 12 节：偏序关系、哈斯图与极值元素
 
@@ -4239,11 +4240,11 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 |(R,≤)(R,≤)|实数和小于等于|
 |(Z+,∣)(Z+,∣)|正整数和"整除"关系|
 |(P(A),⊆)(P(A),⊆)|集合 A 的幂集和"包含"关系|
-|(\Sigma^*, \preceq_{\text{字典})|字符串和字典序|
+|$(\Sigma^*, \preceq_{\text{字典}})$|字符串和字典序|
 
-我用 (Z+,∣)(Z+,∣) 验证一下："a∣ba∣b"指 a 整除 b（如 3∣123∣12）：
+我用(Z+,∣)验证一下："a∣ba∣b"指 a 整除 b（如 3∣123∣12）：
 
-- 自反：a∣aa∣a ✅
+- 自反：a∣a∣a ✅
 - 反对称：a∣b∧b∣a⇒a=ba∣b∧b∣a⇒a=b（在正整数中）✅
 - 传递：a∣b∧b∣c⇒a∣ca∣b∧b∣c⇒a∣c ✅
 
@@ -4253,7 +4254,7 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 > **严格偏序**：满足**反自反**、**反对称**、**传递**的关系，常用 ≺≺ 表示。
 
-例：<< 是 RR 上的严格偏序。
+例：<< 是 R 上的严格偏序。
 
 **⪯⪯ 和 ≺≺ 的关系**：
 
@@ -4278,19 +4279,19 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 2.2 全序（线性序）
 
 > **全序 (Total Order)** 或**线性序**：偏序 + **任意两元素可比**。即：
-> 
+>
 > ∀a,b∈A, a⪯b∨b⪯a∀a,b∈A,a⪯b∨b⪯a
 
-**全序的例子**：(R,≤)(R,≤)、(Z,≤)(Z,≤)。
+**全序的例子**：(R,≤)、(Z,≤)。
 
-**非全序的偏序**：(Z+,∣)(Z+,∣)、(P(A),⊆)(P(A),⊆)（如上所说）。
+**非全序的偏序**：(Z+,∣)、(P(A),⊆)(P(A),⊆)（如上所说）。
 
 #### 2.3 链与反链
 
 在偏序集中：
 
 > **链 (chain)**：A 的一个子集，其中**任意两个元素可比**。
-> 
+>
 > **反链 (antichain)**：A 的一个子集，其中**任意两个不同元素都不可比**。
 
 **例**：(P({1,2,3}),⊆)(P({1,2,3}),⊆) 中。
@@ -4309,15 +4310,15 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 #### 3.1 动机
 
-偏序关系可以画成关系图，但会很乱（每个关系还包含 a⪯aa⪯a 自反、和大量传递得来的对）。哈斯图的思路：**只画"必要"的关系**，让图清晰。
+偏序关系可以画成关系图，但会很乱（每个关系还包含 a⪯a⪯a 自反、和大量传递得来的对）。哈斯图的思路：**只画"必要"的关系**，让图清晰。
 
 #### 3.2 覆盖关系
 
 > **b 覆盖 a (b covers a)**：a≺ba≺b 且**不存在 c 使 a≺c≺ba≺c≺b**。
-> 
+>
 > 也就是说，**b 是 a 的"直接上级"**——中间没有夹其他元素。
 
-**例**（(Z+,∣)(Z+,∣) 中）：
+**例**（(Z+,∣)中）：
 
 - 6 覆盖 2 吗？2∣62∣6 ✅，且 2 和 6 之间没有别的"中间整除数"（除了 3，但 2∤32∤3），所以**是覆盖**。等等，2∣42∣4 但 4∤64∤6，所以 4 不在 2、6 之间。再想，3 也不在（因为 2∤32∤3）。所以 6 确实覆盖 2 ✅
 - 12 覆盖 2 吗？2∣4∣122∣4∣12，4 在中间，所以 **12 不覆盖 2**
@@ -4333,7 +4334,7 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **约定**：**"大"的元素画在上面**。
 
-#### 3.4 例子 1：({1,2,3,4,6,12},∣)({1,2,3,4,6,12},∣)
+#### 3.4 例子 1：({1,2,3,4,6,12},∣)
 
 先列覆盖关系：
 
@@ -4383,7 +4384,7 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 #### 🤔 检验
 
-画出 ({1,2,3,4,5,6,7,8,9,10},∣)({1,2,3,4,5,6,7,8,9,10},∣) 的哈斯图。提示：先找覆盖关系——aa 覆盖 bb 即 b∣ab∣a 且 a/ba/b 是质数。
+画出({1,2,3,4,5,6,7,8,9,10},∣)的哈斯图。提示：先找覆盖关系——a 覆盖 b 即 b∣ab∣a 且 a/ba/b 是质数。
 
 试着自己列出所有覆盖关系：
 
@@ -4405,9 +4406,9 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 #### 4.1 极大元与最大元
 
-> **极大元 (maximal element)**：A 中没有"比它更大"的元素。形式化：mm 极大 ⇔⇔ 不存在 x∈Ax∈A 使 m≺xm≺x。
-> 
-> **最大元 (maximum / greatest element)**：A 中"比所有元素都大"的元素。形式化：gg 最大 ⇔∀x∈A,x⪯g⇔∀x∈A,x⪯g。
+> **极大元 (maximal element)**：A 中没有"比它更大"的元素。形式化：m 极大 ⇔⇔ 不存在 x∈Ax∈A 使 m≺xm≺x。
+>
+> **最大元 (maximum / greatest element)**：A 中"比所有元素都大"的元素。形式化：g 最大 ⇔∀x∈A,x⪯g⇔∀x∈A,x⪯g。
 
 **关键区别**：
 
@@ -4422,24 +4423,24 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 4.2 极小元与最小元（对偶定义）
 
 > **极小元**：没有"比它更小"的元素。
-> 
+>
 > **最小元 (minimum / least element)**：比所有元素都小的元素。
 
 #### 4.3 关键定理
 
 > **定理**：
-> 
-> (1) 最大元如果存在，则是**唯一**极大元；最小元同理。 (2) 极大元可能**不是**最大元（例：有多个互不可比的极大）。 (3) 在**全序**中，极大 = 最大，极小 = 最小。 (4) 在**有限**偏序集中，**极大元和极小元都至少有一个**（不证）。 > (5) 无限偏序集中，可能没有极大或极小（如 ZZ）。
+>
+> (1) 最大元如果存在，则是**唯一**极大元；最小元同理。 (2) 极大元可能**不是**最大元（例：有多个互不可比的极大）。 (3) 在**全序**中，极大 = 最大，极小 = 最小。 (4) 在**有限**偏序集中，**极大元和极小元都至少有一个**（不证）。 > (5) 无限偏序集中，可能没有极大或极小（如 Z）。
 
-**证明 (1)**：设 gg 是最大元，要证 gg 是唯一极大元。
+**证明 (1)**：设 g 是最大元，要证 g 是唯一极大元。
 
-首先，gg 是极大元：若存在 xx 使 g≺xg≺x，则 gg 不能 ⪰ x，与 gg 是最大矛盾。
+首先，g 是极大元：若存在 x 使 g≺xg≺x，则 g 不能 ⪰ x，与 g 是最大矛盾。
 
-其次，唯一性：若 g′g′ 也是极大，则 g′⪯gg′⪯g（因 g 最大）。若 g′≠gg′=g，则 g′≺gg′≺g，与 g′g′ 极大矛盾。所以 g′=gg′=g。∎
+其次，唯一性：若 g′g′ 也是极大，则 g′⪯g′⪯g（因 g 最大）。若 g′≠g′=g，则 g′≺g′≺g，与 g′g′ 极大矛盾。所以 g′=g′=g。∎
 
 #### 4.4 例子
 
-**例 1**：({2,3,4,6,8},∣)({2,3,4,6,8},∣)，画出哈斯图：
+**例 1**：({2,3,4,6,8},∣)，画出哈斯图：
 
 ```
    8
@@ -4454,7 +4455,7 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 - **最大元**：**不存在**（因为 6 和 8 不可比，没有"统一的最大"）
 - **最小元**：**不存在**
 
-**例 2**：({1,2,3,4,6,12},∣)({1,2,3,4,6,12},∣)：
+**例 2**：({1,2,3,4,6,12},∣)：
 
 - 极大元：{12}{12}
 - 极小元：{1}{1}
@@ -4463,14 +4464,14 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **例 3**：(P(A),⊆)(P(A),⊆) 对任意非空集合 A：
 
-- 最大元：AA 自身
+- 最大元：A 自身
 - 最小元：∅∅
 - 极大元：{A}{A}
 - 极小元：{∅}{∅}
 
 #### 🤔 检验
 
-设 A={2,3,6,9,12,18,36}A={2,3,6,9,12,18,36}，关系是整除。
+设A={2,3,6,9,12,18,36}，关系是整除。
 
 写出哈斯图，并指出极大、极小、最大、最小元。
 
@@ -4512,12 +4513,12 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 5.2 上界与下界
 
 > **B 的上界 (upper bound)**：u∈Au∈A 满足 ∀b∈B, b⪯u∀b∈B,b⪯u。
-> 
+>
 > **B 的下界 (lower bound)**：l∈Al∈A 满足 ∀b∈B, l⪯b∀b∈B,l⪯b。
 
-注意 uu 和 ll **属于 A，不必属于 B**！
+注意 u 和 l **属于 A，不必属于 B**！
 
-**例**：(Z+,∣)(Z+,∣) 中，B={4,6}B={4,6}。
+**例**：(Z+,∣)中，B={4,6}。
 
 - B 的上界：所有 4 和 6 的**公倍数**——12, 24, 36, ...
 - B 的下界：所有 4 和 6 的**公因子**——1, 2
@@ -4527,16 +4528,16 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 5.3 上确界与下确界 ⭐
 
 > **B 的上确界 (supremum, least upper bound, 简称 lub 或 sup)**：B 所有上界中的**最小者**。
-> 
+>
 > **B 的下确界 (infimum, greatest lower bound, 简称 glb 或 inf)**：B 所有下界中的**最大者**。
 
-记号：sup⁡BsupB 和 inf⁡BinfB。
+记号：supB 和 infB。
 
 **理解**：上确界是"**最紧的上界**"——比 B 大但又尽可能小。
 
 #### 5.4 例子（同上）
 
-(Z+,∣)(Z+,∣) 中，B={4,6}B={4,6}。
+(Z+,∣)中，B={4,6}。
 
 - 上界集合：{12,24,36,...}{12,24,36,...}
 - 上确界：**12**（最小公倍数 lcm(4, 6) = 12）✅
@@ -4552,19 +4553,19 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 #### 5.5 另一个例子
 
-(P(A),⊆)(P(A),⊆) 中，B={X1,X2,...,Xn}B={X1​,X2​,...,Xn​}（A 的一些子集）。
+(P(A),⊆)(P(A),⊆) 中，B={X1,X2,...,Xn}（A 的一些子集）。
 
 - sup⁡B=X1∪X2∪⋯∪XnsupB=X1​∪X2​∪⋯∪Xn​（最小的"包含所有"集合）
 - inf⁡B=X1∩X2∩⋯∩XninfB=X1​∩X2​∩⋯∩Xn​（最大的"被所有包含"集合）
 
 #### 5.6 上确界和下确界可能不存在
 
-**例**：(Q,≤)(Q,≤)，B={x∈Q∣x2<2}B={x∈Q∣x2<2}。
+**例**：(Q,≤)，B={x∈Q∣x2<2}B={x∈Q∣x2<2}。
 
 - B 的上界：所有 ≥2≥2​ 的有理数——如 1.5,1.42,...1.5,1.42,...
-- 但 sup⁡B=2supB=2​，**不是有理数**！所以在 (Q,≤)(Q,≤) 中**没有上确界**。
+- 但supB=2，**不是有理数**！所以在(Q,≤)中**没有上确界**。
 
-这就是为什么数学家造出 RR ——**在 (R,≤)(R,≤) 中，任何有上界的非空集合都有上确界**（这叫**实数的完备性**）。
+这就是为什么数学家造出 R ——**在(R,≤)中，任何有上界的非空集合都有上确界**（这叫**实数的完备性**）。
 
 实数的完备性是微积分（极限、连续、积分）的根基。**没有它，你高中学的微积分就摇摇欲坠**。
 
@@ -4685,7 +4686,7 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **练习 2**（哈斯图）：
 
-画出 ({1,2,3,4,5,6,8,12,24},∣)({1,2,3,4,5,6,8,12,24},∣) 的哈斯图。指出：
+画出({1,2,3,4,5,6,8,12,24},∣)的哈斯图。指出：
 
 - (1) 极大元、极小元
 - (2) 最大元、最小元
@@ -4695,16 +4696,16 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **练习 3**（幂集偏序）：
 
-设 A={a,b,c,d}A={a,b,c,d}，考虑 (P(A),⊆)(P(A),⊆)。
+设A={a,b,c,d}，考虑 (P(A),⊆)(P(A),⊆)。
 
 - (1) ∣P(A)∣=?∣P(A)∣=?
 - (2) 集合 {{a},{a,b},{a,b,c},A}{{a},{a,b},{a,b,c},A} 是不是链？长度多少？
 - (3) 给出一条**最长的**反链。它有多少个元素？
-- (4) （挑战）证明：P(A)P(A) 中最长反链的元素个数是 (42)=6(24​)=6。
+- (4) （挑战）证明：P(A) 中最长反链的元素个数是 (42)=6(24)=6。
 
 **练习 4**（极值元辨析）：
 
-在偏序集 ({a,b,c,d,e},R)({a,b,c,d,e},R) 中，关系 R 由下面哈斯图给出：
+在偏序集({a,b,c,d,e},R)中，关系 R 由下面哈斯图给出：
 
 ```
    d   e
@@ -4740,10 +4741,10 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **练习 7**（深度思考）：
 
-为什么数学要"造出实数 RR"？
+为什么数学要"造出实数 R"？
 
-- (1) 在 (Q,≤)(Q,≤) 中，{x∈Q∣x2<3}{x∈Q∣x2<3} 有上确界吗？
-- (2) 描述 (R,≤)(R,≤) 的"完备性"是怎样补救这个问题的。
+- (1) 在(Q,≤)中，{x∈Q∣x2<3}{x∈Q∣x2<3} 有上确界吗？
+- (2) 描述(R,≤)的"完备性"是怎样补救这个问题的。
 - (3) 这个性质对你专业（电子工程）的"信号收敛"、"傅里叶级数"等概念有什么影响？（开放讨论题）
 
 **练习 8**（电子信息联系）：
@@ -4762,7 +4763,6 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 我们会从"特殊的关系"出发严格定义函数，区分单射/满射/双射，引入复合函数和逆函数，并讨论无限集合的"基数比较"——你会看到康托尔的对角线证明，理解为什么"实数比自然数多"。
 
-
 ## 离散数学 第 13 节：函数 —— 定义、类型、复合与无限基数
 
 我们已经学了"关系"作为笛卡尔积的子集。现在加上一个**特殊条件**，关系就变成了**函数**。函数是数学的"工作母机"，几乎所有数学构造都靠它。
@@ -4779,8 +4779,8 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **严格定义**：
 
-> **函数 ff 从 A 到 B**（记作 f:A→Bf:A→B）：是 A×BA×B 的一个子集，满足：
-> 
+> **函数 f 从 A 到 B**（记作 f:A→Bf:A→B）：是 A×BA×B 的一个子集，满足：
+>
 > **每个 a∈Aa∈A 恰好对应一个 b∈Bb∈B**，使得 (a,b)∈f(a,b)∈f。
 
 形式化：
@@ -4798,17 +4798,17 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 #### 1.2 术语
 
-- AA：**定义域 (domain)**
-- BB：**陪域 / 余域 (codomain)**，注意**不是值域**！
-- f(a)f(a)：a 的**像 (image)**
+- A：**定义域 (domain)**
+- B：**陪域 / 余域 (codomain)**，注意**不是值域**！
+- f(a)：a 的**像 (image)**
 - f(A)={f(a)∣a∈A}f(A)={f(a)∣a∈A}：A 的**像集 / 值域 (range, image)**
 - f−1(b)={a∈A∣f(a)=b}f−1(b)={a∈A∣f(a)=b}：b 的**原像 (preimage)**
 
-**值域是陪域的子集**，但**通常不等于陪域**。比如 f:R→Rf:R→R，f(x)=x2f(x)=x2。陪域是 RR，但值域是 [0,+∞)[0,+∞)。
+**值域是陪域的子集**，但**通常不等于陪域**。比如 f:R→Rf:R→R，f(x)=x2。陪域是 R，但值域是 [0,+∞)[0,+∞)。
 
 #### 🤔 检验
 
-下面哪些关系是函数？A={1,2,3}A={1,2,3}，B={a,b}B={a,b}。
+下面哪些关系是函数？A={1,2,3}，B={a,b}。
 
 1. R1={(1,a),(2,a),(3,b)}R1​={(1,a),(2,a),(3,b)}
 2. R2={(1,a),(1,b),(2,a),(3,b)}R2​={(1,a),(1,b),(2,a),(3,b)}
@@ -4833,16 +4833,16 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 2.1 单射（Injection / One-to-One）
 
 > **f 是单射** ⇔⇔ ∀a1,a2∈A, a1≠a2⇒f(a1)≠f(a2)∀a1​,a2​∈A,a1​=a2​⇒f(a1​)=f(a2​)
-> 
+>
 > **等价表述**（**逆否，更常用**）：∀a1,a2∈A, f(a1)=f(a2)⇒a1=a2∀a1​,a2​∈A,f(a1​)=f(a2​)⇒a1​=a2​
 
 **通俗**：**不同的输入产生不同的输出**，即"没有两个 x 共享同一个 y"。
 
 **例子**：
 
-- f:R→Rf:R→R，f(x)=2x+3f(x)=2x+3 ✅ 单射
-- f:R→Rf:R→R，f(x)=x2f(x)=x2 ❌ 不单射（f(1)=f(−1)f(1)=f(−1)）
-- f:R+→Rf:R+→R，f(x)=x2f(x)=x2 ✅ 单射（限制定义域后）
+- f:R→Rf:R→R，f(x)=2x+3✅ 单射
+- f:R→Rf:R→R，f(x)=x2❌ 不单射（f(1)=f(−1)）
+- f:R+→Rf:R+→R，f(x)=x2✅ 单射（限制定义域后）
 
 **判别小窍门**：
 
@@ -4851,16 +4851,16 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 2.2 满射（Surjection / Onto）
 
 > **f 是满射** ⇔∀b∈B, ∃a∈A, f(a)=b⇔∀b∈B,∃a∈A,f(a)=b
-> 
-> **等价**：值域 f(A)f(A) = 陪域 BB
+>
+> **等价**：值域 f(A) = 陪域 B
 
 **通俗**：**B 中每个元素都被"打中"了**，即"每个 y 都有 x 对应"。
 
 **例子**：
 
-- f:R→Rf:R→R，f(x)=x3f(x)=x3 ✅ 满射
-- f:R→Rf:R→R，f(x)=x2f(x)=x2 ❌ 不满（负数没原像）
-- f:R→R+∪{0}f:R→R+∪{0}，f(x)=x2f(x)=x2 ✅ 满（限制陪域后）
+- f:R→Rf:R→R，f(x)=x3✅ 满射
+- f:R→Rf:R→R，f(x)=x2❌ 不满（负数没原像）
+- f:R→R+∪{0}f:R→R+∪{0}，f(x)=x2✅ 满（限制陪域后）
 
 **关键观察**：**单射和满射都依赖陪域的选取**。同一个"公式"在不同陪域下结果不同。
 
@@ -4872,9 +4872,9 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **例子**：
 
-- f:R→Rf:R→R，f(x)=2x+3f(x)=2x+3 ✅ 双射
-- f:Z→Zf:Z→Z，f(n)=n+1f(n)=n+1 ✅ 双射
-- f:{1,2,3}→{a,b,c}f:{1,2,3}→{a,b,c}，f(1)=b,f(2)=a,f(3)=cf(1)=b,f(2)=a,f(3)=c ✅ 双射（这就是排列）
+- f:R→Rf:R→R，f(x)=2x+3✅ 双射
+- f:Z→Zf:Z→Z，f(n)=n+1✅ 双射
+- f:{1,2,3}→{a,b,c}f:{1,2,3}→{a,b,c}，f(1)=b,f(2)=a,f(3)=c✅ 双射（这就是排列）
 
 #### 2.4 直观理解（"打靶"比喻）
 
@@ -4886,8 +4886,8 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 #### 2.5 有限集情况下的简化
 
-> **定理**：设 ∣A∣=∣B∣=n∣A∣=∣B∣=n（A、B 是有限集且基数相同）。则 f:A→Bf:A→B：
-> 
+> **定理**：设∣A∣=∣B∣=n（A、B 是有限集且基数相同）。则 f:A→Bf:A→B：
+>
 > 单射⇔满射⇔双射单射⇔满射⇔双射
 
 直觉：n 个箭射到 n 个靶上，"不挤"和"不漏"是同一件事——抽屉原理（鸽笼原理）的表现。
@@ -4898,10 +4898,10 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 判断下列函数是单射、满射还是双射：
 
-1. f:Z→Zf:Z→Z，f(n)=2nf(n)=2n
-2. f:Z→Zf:Z→Z，f(n)=n3f(n)=n3
-3. f:N→Nf:N→N，f(n)=n+1f(n)=n+1（注意 NN 含 0）
-4. f:R2→Rf:R2→R，f(x,y)=x+yf(x,y)=x+y
+1. f:Z→Zf:Z→Z，f(n)=2n
+2. f:Z→Zf:Z→Z，f(n)=n3
+3. f:N→Nf:N→N，f(n)=n+1（注意 N 含 0）
+4. f:R2→Rf:R2→R，f(x,y)=x+y
 
 ---
 
@@ -4909,8 +4909,8 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 1. **单射**（2n1=2n2⇒n1=n22n1​=2n2​⇒n1​=n2​），**不满**（奇数没原像），**非双**
 2. **单射**（实数立方函数），**满射**（任何整数都是某整数的立方？等等：**不满**！22 不是任何整数的立方。所以**单射不满**）
-3. **单射**（n1+1=n2+1⇒n1=n2n1​+1=n2​+1⇒n1​=n2​），**不满**（0 没原像，因为 NN 中没有 -1）
-4. **不单射**（f(1,2)=f(2,1)f(1,2)=f(2,1)），**满射**（任意 rr，可写成 r=r+0r=r+0，f(r,0)=rf(r,0)=r）
+3. **单射**（n1+1=n2+1⇒n1=n2n1+1=n2+1⇒n1=n2），**不满**（0 没原像，因为 N 中没有 -1）
+4. **不单射**（f(1,2)=f(2,1)），**满射**（任意 r，可写成r=r+0，f(r,0)=r）
 
 第 3 题就是上面提到的"无限集中单射不一定满射"的经典例子。
 
@@ -4921,17 +4921,17 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 #### 3.1 函数复合
 
 > **复合函数**：设 f:A→Bf:A→B，g:B→Cg:B→C。定义 g∘f:A→Cg∘f:A→C 为：
-> 
+>
 > (g∘f)(a)=g(f(a))(g∘f)(a)=g(f(a))
 
 **注意写法**：g∘fg∘f 读作"先 f 后 g"（**右到左执行**），有点反直觉但是国际通用。
 
-**例**：f(x)=x+1f(x)=x+1，g(x)=x2g(x)=x2。
+**例**：f(x)=x+1，g(x)=x2。
 
 - (g∘f)(x)=g(f(x))=g(x+1)=(x+1)2(g∘f)(x)=g(f(x))=g(x+1)=(x+1)2
 - (f∘g)(x)=f(g(x))=f(x2)=x2+1(f∘g)(x)=f(g(x))=f(x2)=x2+1
 
-**复合不交换**：一般 g∘f≠f∘gg∘f=f∘g。
+**复合不交换**：一般 g∘f≠f∘g∘f=f∘g。
 
 #### 3.2 复合的性质
 
@@ -4945,11 +4945,11 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 **证明（单射部分）**：
 
-设 (g∘f)(a1)=(g∘f)(a2)(g∘f)(a1​)=(g∘f)(a2​)，即 g(f(a1))=g(f(a2))g(f(a1​))=g(f(a2​))。
+设 (g∘f)(a1)=(g∘f)(a2)(g∘f)(a1)=(g∘f)(a2)，即g(f(a1))=g(f(a2))。
 
-由 g 单射：f(a1)=f(a2)f(a1​)=f(a2​)。
+由 g 单射：f(a1)=f(a2)。
 
-由 f 单射：a1=a2a1​=a2​。
+由 f 单射：a1=a2。
 
 所以 g∘fg∘f 单射。∎
 
@@ -4957,31 +4957,31 @@ a1∼a2⇔f(a1)=f(a2)a1​∼a2​⇔f(a1​)=f(a2​)
 
 > **f 可逆** ⇔⇔ 存在 g:B→Ag:B→A 使 g∘f=IAg∘f=IA​ 且 f∘g=IBf∘g=IB​。
 
-其中 IA:A→AIA​:A→A，IA(a)=aIA​(a)=a 是**恒等函数**。
+其中 IA:A→AIA:A→A，IA(a)=a是**恒等函数**。
 
 g 称为 f 的**逆函数**，记作 f−1f−1。
 
-> **关键定理**：ff 可逆 ⇔f⇔f 是双射。
+> **关键定理**：f 可逆 ⇔f⇔f 是双射。
 
 **直觉**：要"反过来对应"，必须没漏（满）也没挤（单）——也就是双射。
 
 **证明 ⇒**：若 f 可逆，设逆为 g。
 
-- f 是单射：若 f(a1)=f(a2)f(a1​)=f(a2​)，则 g(f(a1))=g(f(a2))g(f(a1​))=g(f(a2​))，即 a1=a2a1​=a2​
-- f 是满射：任取 b∈Bb∈B，令 a=g(b)a=g(b)。则 f(a)=f(g(b))=bf(a)=f(g(b))=b
+- f 是单射：若f(a1)=f(a2)，则g(f(a1))=g(f(a2))，即a1=a2
+- f 是满射：任取 b∈Bb∈B，令a=g(b)。则f(a)=f(g(b))=b
 
-**证明 ⇐**：若 f 双射，定义 g(b) = $ 那个唯一的 $a 使 f(a)=bf(a)=b。容易验证 g∘f=IAg∘f=IA​，f∘g=IBf∘g=IB​。∎
+**证明 ⇐**：若 f 双射，定义 g(b) = $ 那个唯一的 $a 使f(a)=b。容易验证 g∘f=IAg∘f=IA，f∘g=IBf∘g=IB。∎
 
 #### 3.4 例子
 
-- f:R→Rf:R→R，f(x)=2x+3f(x)=2x+3。可逆吗？
+- f:R→Rf:R→R，f(x)=2x+3。可逆吗？
 
 是双射（验证：单射 + 满射），所以可逆。
 
-求逆：设 y=2x+3y=2x+3，解出 xx：x=(y−3)/2x=(y−3)/2。所以 f−1(y)=(y−3)/2f−1(y)=(y−3)/2。
+求逆：设y=2x+3，解出 x：x=(y−3)/2。所以f−1(y)=(y−3)/2。
 
-- f:R→Rf:R→R，f(x)=x2f(x)=x2。**不可逆**（不单也不满）。
-- f:R+∪{0}→R+∪{0}f:R+∪{0}→R+∪{0}，f(x)=x2f(x)=x2。**可逆**（双射）。f−1(y)=yf−1(y)=y​。
+- f:R→Rf:R→R，f(x)=x2。**不可逆**（不单也不满）。
+- f:R+∪{0}→R+∪{0}f:R+∪{0}→R+∪{0}，f(x)=x2。**可逆**（双射）。f−1(y)=y。
 
 ---
 
@@ -4989,13 +4989,13 @@ g 称为 f 的**逆函数**，记作 f−1f−1。
 
 #### 4.1 恒等函数
 
-IA:A→AIA​:A→A，IA(a)=aIA​(a)=a。是"什么也不做"的函数，是函数复合的"单位元"：
+IA:A→AIA:A→A，IA(a)=a。是"什么也不做"的函数，是函数复合的"单位元"：
 
-f∘IA=f,IB∘f=ff∘IA​=f,IB​∘f=f
+f∘IA=f,IB∘f=f∘IA=f,IB∘f=f
 
 #### 4.2 常函数
 
-f(a)=cf(a)=c（c 是固定常数）。**只有 |A| = 1 时是单射；当 |B| = 1 时是满射**。
+f(a)=c（c 是固定常数）。**只有 |A| = 1 时是单射；当 |B| = 1 时是满射**。
 
 #### 4.3 取整函数（电子工程极常用）
 
@@ -5043,9 +5043,9 @@ f(x)=xmod  nf(x)=xmodn。这是 Z→{0,1,...,n−1}Z→{0,1,...,n−1} 的
 
 #### 反例：像不保持交
 
-f:{1,2}→{a}f:{1,2}→{a}，f(1)=f(2)=af(1)=f(2)=a（常函数）。
+f:{1,2}→{a}f:{1,2}→{a}，f(1)=f(2)=a（常函数）。
 
-- f({1})={a}f({1})={a}，f({2})={a}f({2})={a}
+- f({1})={a}f({1})={a}，f({2})={a}
 - f({1})∩f({2})={a}f({1})∩f({2})={a}
 - {1}∩{2}=∅{1}∩{2}=∅，f(∅)=∅f(∅)=∅
 
@@ -5059,7 +5059,7 @@ f:{1,2}→{a}f:{1,2}→{a}，f(1)=f(2)=af(1)=f(2)=a（常函数）。
 
 #### 6.1 等势：基数的定义
 
-> **定义**：两个集合 A 和 B **等势 (equipotent)**，如果存在双射 f:A→Bf:A→B。记作 ∣A∣=∣B∣∣A∣=∣B∣ 或 A∼BA∼B。
+> **定义**：两个集合 A 和 B **等势 (equipotent)**，如果存在双射 f:A→Bf:A→B。记作∣A∣=∣B∣或 A∼BA∼B。
 
 对**有限集**：等势 ⟺ 元素个数相同。✅
 
@@ -5067,15 +5067,15 @@ f:{1,2}→{a}f:{1,2}→{a}，f(1)=f(2)=af(1)=f(2)=a（常函数）。
 
 #### 6.2 第一个反直觉：自然数和偶数一样多
 
-**断言**：∣N∣=∣2N∣∣N∣=∣2N∣，其中 2N={0,2,4,6,...}2N={0,2,4,6,...} 是偶数集。
+**断言**：∣N∣=∣2N∣，其中2N={0,2,4,6,...}是偶数集。
 
-**证明**：定义 f:N→2Nf:N→2N，f(n)=2nf(n)=2n。
+**证明**：定义 f:N→2Nf:N→2N，f(n)=2n。
 
 - 单射：2n1=2n2⇒n1=n22n1​=2n2​⇒n1​=n2​ ✅
-- 满射：任意偶数 2k2k，f(k)=2kf(k)=2k ✅
+- 满射：任意偶数 2k，f(k)=2k✅
 - 双射 ✅
 
-所以 ∣N∣=∣2N∣∣N∣=∣2N∣。∎
+所以∣N∣=∣2N∣。∎
 
 **但是 2N⊊N2N⊊N**（真子集）！
 
@@ -5085,8 +5085,8 @@ f:{1,2}→{a}f:{1,2}→{a}，f(1)=f(2)=af(1)=f(2)=a（常函数）。
 
 #### 6.3 可数集
 
-> **定义**：集合 A 称为**可数无穷 (countably infinite)**，如果 ∣A∣=∣N∣∣A∣=∣N∣。
-> 
+> **定义**：集合 A 称为**可数无穷 (countably infinite)**，如果∣A∣=∣N∣。
+>
 > **可数集**：有限集 + 可数无穷集统称为可数集。
 
 **直觉**：可数集 = 元素能被"列成一个序列" a0,a1,a2,...a0​,a1​,a2​,...。
@@ -5095,15 +5095,15 @@ f:{1,2}→{a}f:{1,2}→{a}，f(1)=f(2)=af(1)=f(2)=a（常函数）。
 
 #### 6.4 几个反直觉的可数集
 
-**例 1：ZZ 是可数的**
+**例 1：Z 是可数的**
 
-排列：0,1,−1,2,−2,3,−3,…0,1,−1,2,−2,3,−3,…
+排列：0,1,−1,2,−2,3,−3,…
 
 明确的双射 f:N→Zf:N→Z：
 
 f(n)={n/2n 偶−(n+1)/2n 奇f(n)={n/2−(n+1)/2​n 偶n 奇​
 
-**例 2：QQ 是可数的（康托尔的对角线方法）**
+**例 2：Q 是可数的（康托尔的对角线方法）**
 
 把所有正有理数 a/ba/b 排成无穷表：
 
@@ -5114,39 +5114,39 @@ f(n)={n/2n 偶−(n+1)/2n 奇f(n)={n/2−(n+1)/2​n 偶n 奇​
 ...
 ```
 
-按"对角线"顺序枚举：1/1,1/2,2/1,1/3,2/2,3/1,...1/1,1/2,2/1,1/3,2/2,3/1,...（跳过重复的）。
+按"对角线"顺序枚举：1/1,1/2,2/1,1/3,2/2,3/1,...（跳过重复的）。
 
-每个有理数都会出现，所以 Q+Q+ 可数。再加上零和负数，QQ 可数。
+每个有理数都会出现，所以 Q+Q+ 可数。再加上零和负数，Q 可数。
 
-**结论**：尽管 QQ 在数轴上"密密麻麻"（任意两个之间还有无数个），它的元素个数仍然只有 ℵ0ℵ0​。
+**结论**：尽管 Q 在数轴上"密密麻麻"（任意两个之间还有无数个），它的元素个数仍然只有 ℵ0ℵ0​。
 
-#### 6.5 不可数集：实数 RR ⭐⭐⭐
+#### 6.5 不可数集：实数 R ⭐⭐⭐
 
-**定理**（康托尔）：RR **不可数**。
+**定理**（康托尔）：R **不可数**。
 
-更具体地：∣(0,1)∣>∣N∣∣(0,1)∣>∣N∣。
+更具体地：∣(0,1)∣>∣N∣。
 
 #### 6.6 康托尔的对角线证明（千古经典）
 
 我们来看这个被称为"数学史上最美丽证明之一"的论证。
 
-**目标**：证明 (0,1)(0,1) 内的实数不可数。
+**目标**：证明(0,1)内的实数不可数。
 
-**方法**：反证法。假设可数，则可列成序列 r1,r2,r3,…r1​,r2​,r3​,…，包含 (0,1)(0,1) 中的每个实数。
+**方法**：反证法。假设可数，则可列成序列 r1,r2,r3,…r1,r2,r3,…，包含(0,1)中的每个实数。
 
-把每个 riri​ 写成无限小数：
+把每个 ri 写成无限小数：
 
 $$\begin{aligned} r_1 &= 0.\mathbf{a_{11}} a_{12} a_{13} a_{14} \ldots \ r_2 &= 0.a_{21} \mathbf{a_{22}} a_{23} a_{24} \ldots \ r_3 &= 0.a_{31} a_{32} \mathbf{a_{33}} a_{34} \ldots \ r_4 &= 0.a_{41} a_{42} a_{43} \mathbf{a_{44}} \ldots \ &\vdots \end{aligned}$$
 
-**构造**一个新数 r=0.b1b2b3b4…r=0.b1​b2​b3​b4​…，其中：
+**构造**一个新数r=0.b1b2b3b4…，其中：
 
 bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
 
 也就是说，**每位都和对角线那位不同**。
 
-**关键**：rr 不可能等于序列中任何一个 rnrn​，因为 rr 和 rnrn​ 在第 n 位**不同**（bn≠annbn​=ann​）。
+**关键**：r 不可能等于序列中任何一个 rn，因为 r 和 rn 在第 n 位**不同**（bn≠annbn=ann）。
 
-但 r∈(0,1)r∈(0,1)，与序列**包含 (0,1)(0,1) 所有数**矛盾。
+但 r∈(0,1)r∈(0,1)，与序列**包含(0,1)所有数**矛盾。
 
 所以假设错了。(0,1)(0,1) **不可数**。∎
 
@@ -5156,23 +5156,23 @@ bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
 
 康托尔证明了：
 
-∣N∣<∣R∣∣N∣<∣R∣
+∣N∣<∣R∣
 
 **有不同大小的无穷！** 这是 19 世纪数学的革命。
 
-记号：∣R∣=c∣R∣=c（连续统的基数）。
+记号：∣R∣=c（连续统的基数）。
 
-**连续统假设 (CH)**：cc 是 ℵ0ℵ0​ 之后的下一个基数。这是数学史上最深的问题之一，**哥德尔和科恩证明它在 ZFC 公理系统中既不能证明也不能证伪**——独立于公理。
+**连续统假设 (CH)**：c 是 ℵ0ℵ0 之后的下一个基数。这是数学史上最深的问题之一，**哥德尔和科恩证明它在 ZFC 公理系统中既不能证明也不能证伪**——独立于公理。
 
 #### 6.8 康托尔定理（推广版）
 
-> **康托尔定理**：对任何集合 A，∣P(A)∣>∣A∣∣P(A)∣>∣A∣。
+> **康托尔定理**：对任何集合 A，∣P(A)∣>∣A∣。
 
 这意味着：**没有最大的集合**。给我任何无穷，总有更大的无穷：
 
 ∣N∣<∣P(N)∣<∣P(P(N))∣<⋯∣N∣<∣P(N)∣<∣P(P(N))∣<⋯
 
-**证明思路**：假设存在双射 f:A→P(A)f:A→P(A)。构造"对角线集合" D={a∈A∣a∉f(a)}D={a∈A∣a∈/f(a)}。则 D∈P(A)D∈P(A)，所以存在 d∈Ad∈A 使 f(d)=Df(d)=D。问 d∈Dd∈D 吗？
+**证明思路**：假设存在双射 f:A→P(A)f:A→P(A)。构造"对角线集合" D={a∈A∣a∉f(a)}D={a∈A∣a∈/f(a)}。则 D∈P(A)D∈P(A)，所以存在 d∈Ad∈A 使f(d)=D。问 d∈Dd∈D 吗？
 
 - 若 d∈Dd∈D，则按 D 的定义 d∉f(d)=Dd∈/f(d)=D，矛盾
 - 若 d∉D=f(d)d∈/D=f(d)，则按 D 定义 d∈Dd∈D，矛盾
@@ -5183,9 +5183,9 @@ bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
 
 #### 6.9 这一切对你专业意味着什么
 
-- **实数不可数 ⇒ 计算机不可能精确表示所有实数**。任何浮点数系统只有有限个数（最多 264264），是 RR 中可数子集。**舍入误差不可避免**。
+- **实数不可数 ⇒ 计算机不可能精确表示所有实数**。任何浮点数系统只有有限个数（最多 264264），是 R 中可数子集。**舍入误差不可避免**。
 - **可数 vs 不可数 ⇒ 可计算性理论**。所有"可计算"的实数构成一个**可数**集合，所以**几乎所有实数都不可计算**！绝大多数实数无法被任何算法描述。
-- **数字信号处理**中的"采样定理"——把连续信号离散化，本质是从 cc 投射到 ℵ0ℵ0​，必然有信息损失。
+- **数字信号处理**中的"采样定理"——把连续信号离散化，本质是从 c 投射到 ℵ0ℵ0，必然有信息损失。
 
 ---
 
@@ -5197,18 +5197,18 @@ bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
    ├── 单射：a₁≠a₂ ⇒ f(a₁)≠f(a₂)
    ├── 满射：f(A) = B
    └── 双射：单 + 满 ⇔ 可逆
-   
+
 复合：g∘f(a) = g(f(a))
    ├── 结合律
    ├── 不交换
    └── 保持类型（单/满/双）
-   
+
 逆函数：f⁻¹ ⟺ f 双射
-   
+
 集合层面：
    ├── 像 f(X)：保 ∪ 不保 ∩
    └── 原像 f⁻¹(Y)：保所有运算
-   
+
 无穷世界：
    ├── 可数：双射到 ℕ
    │     ├── ℤ, ℚ 可数
@@ -5227,29 +5227,29 @@ bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
 
 判断下列函数的类型（单射 / 满射 / 双射 / 都不是），并给出理由。
 
-- (1) f:Z→Zf:Z→Z，f(n)=n2−4n+5f(n)=n2−4n+5
-- (2) f:R→Rf:R→R，f(x)=exf(x)=ex
-- (3) f:R→(0,+∞)f:R→(0,+∞)，f(x)=exf(x)=ex
-- (4) f:N×N→Nf:N×N→N，f(m,n)=2m⋅3nf(m,n)=2m⋅3n
+- (1) f:Z→Zf:Z→Z，f(n)=n2−4n+5
+- (2) f:R→Rf:R→R，f(x)=ex
+- (3) f:R→(0,+∞)f:R→(0,+∞)，f(x)=ex
+- (4) f:N×N→Nf:N×N→N，f(m,n)=2m⋅3n
 - (5) f:{0,1}n→{0,1,...,2n−1}f:{0,1}n→{0,1,...,2n−1}（n 位二进制到对应整数）
 
 **练习 2**（函数复合）：
 
-设 f(x)=2x+1f(x)=2x+1，g(x)=x2g(x)=x2。求：
+设f(x)=2x+1，g(x)=x2。求：
 
 - (1) f∘gf∘g
 - (2) g∘fg∘f
-- (3) f∘ff∘f
+- (3) f∘f∘f
 - (4) f−1f−1
 
 **练习 3**（逆函数）：
 
 判断下列函数是否可逆，可逆则求逆。
 
-- (1) f:R→Rf:R→R，f(x)=3x−7f(x)=3x−7
-- (2) f:R→Rf:R→R，f(x)=x3+1f(x)=x3+1
-- (3) f:R−{1}→R−{2}f:R−{1}→R−{2}，f(x)=2xx−1f(x)=x−12x​
-- (4) f:Z5→Z5f:Z5​→Z5​，f([x])=[3x+1]f([x])=[3x+1]（Z5Z5​ 是模 5 等价类）
+- (1) f:R→Rf:R→R，f(x)=3x−7
+- (2) f:R→Rf:R→R，f(x)=x3+1
+- (3) $f:\mathbb{R}\setminus\{1\}\to\mathbb{R}\setminus\{2\}$，$f(x)=\dfrac{2x}{x-1}$
+- (4) f:Z5→Z5f:Z5→Z5，f([x])=[3x+1]（Z5 是模 5 等价类）
 
 **练习 4**（复合保持类型证明）：
 
@@ -5263,20 +5263,20 @@ bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
 
 **练习 5**（像与原像）：
 
-设 f:R→Rf:R→R，f(x)=x2f(x)=x2。求：
+设 f:R→Rf:R→R，f(x)=x2。求：
 
-- (1) f([−2,3])f([−2,3])
+- (1) f([−2,3])
 - (2) f−1([0,4])f−1([0,4])
 - (3) f−1({−1})f−1({−1})
-- (4) 验证 f([−2,0])∩f([1,2])f([−2,0])∩f([1,2]) 与 f([−2,0]∩[1,2])f([−2,0]∩[1,2]) 不相等（说明像不保 ∩）
+- (4) 验证 f([−2,0])∩f([1,2])f([−2,0])∩f([1,2]) 与 f([−2,0]∩[1,2]) 不相等（说明像不保 ∩）
 
 **练习 6**（可数性证明）：
 
 证明下列集合可数：
 
-- (1) 整数对集合 Z×ZZ×Z
+- (1) 整数对集合 Z×Z×Z
 - (2) 多项式集合 {anxn+⋯+a0∣ai∈Z,n≥0}{an​xn+⋯+a0​∣ai​∈Z,n≥0}
-- (3) 有限字符串集合 Σ∗Σ∗（其中 ΣΣ 是有限字母表）
+- (3) 有限字符串集合 Σ∗Σ∗（其中 Σ 是有限字母表）
 
 **练习 7**（康托尔对角线训练）：
 
@@ -5286,15 +5286,15 @@ bi={5aii≠56aii=5bi​={56​aii​=5aii​=5​
 
 **练习 8**（深度思考）：
 
-(1) 证明：∣P(N)∣=∣R∣∣P(N)∣=∣R∣。
+(1) 证明：∣P(N)∣=∣R∣。
 
-提示：建立 P(N)P(N) 和 {0,1}N{0,1}N 的双射（每个子集对应一个特征序列），再证 {0,1}N{0,1}N 与 RR 等势。
+提示：建立 P(N) 和 {0,1}N{0,1}N 的双射（每个子集对应一个特征序列），再证 {0,1}N{0,1}N 与 R 等势。
 
 (2) 这告诉我们：**自然数的所有子集**和**实数**一样多。背后的直觉？
 
 **练习 9**（电子工程联系）：
 
-ADC（模数转换器）把连续信号 RR 量化到 n 位整数集合 {0,1,...,2n−1}{0,1,...,2n−1}。
+ADC（模数转换器）把连续信号 R 量化到 n 位整数集合{0,1,...,2n−1}。
 
 - (1) 这个过程是函数吗？是哪类函数？
 - (2) 它是单射吗？满射吗？
@@ -5317,12 +5317,11 @@ ADC（模数转换器）把连续信号 RR 量化到 n 位整数集合 {0,1,.
 
 到时我们会证：1+2+...+n = n(n+1)/2，几何级数公式，斐波那契数列性质等等，并展示**归纳法的常见陷阱**——它看起来简单，错起来也很容易。
 
-
 ## 离散数学 第 14 节：归纳法与递归
 
 这一节是数学证明技巧中**最重要的工具之一**。
 
-之前我们证明 ∀x P(x)∀xP(x) 时，要么用具体推理，要么用反证。但当 xx 是**自然数**时，有一个**专属的强大武器**——数学归纳法。
+之前我们证明 ∀x P(x)∀xP(x) 时，要么用具体推理，要么用反证。但当 x 是**自然数**时，有一个**专属的强大武器**——数学归纳法。
 
 它看起来简单，**用错率却极高**。这一节会展示几种典型错误，希望你引以为戒。
 
@@ -5330,14 +5329,14 @@ ADC（模数转换器）把连续信号 RR 量化到 n 位整数集合 {0,1,.
 
 ### 一、归纳法的直觉：多米诺骨牌
 
-要证明"**对所有 n≥1n≥1，命题 P(n)P(n) 成立**"，归纳法的思路：
+要证明"**对所有 n≥1n≥1，命题 P(n) 成立**"，归纳法的思路：
 
-1. **基础步骤**：证明 P(1)P(1) 成立（推倒第一块骨牌）
+1. **基础步骤**：证明 P(1) 成立（推倒第一块骨牌）
 2. **归纳步骤**：证明 ∀k≥1, P(k)⇒P(k+1)∀k≥1,P(k)⇒P(k+1)（任何一块倒下时，下一块也会倒下）
 
-由此**所有骨牌都会倒下**，即 P(n)P(n) 对所有 n≥1n≥1 成立。
+由此**所有骨牌都会倒下**，即 P(n) 对所有 n≥1n≥1 成立。
 
-**这个直觉一定要建立起来**。归纳法不是"魔法"，是基于自然数的**良序性**：每一个 nn 都可以从 1 经过有限步加 1 达到。
+**这个直觉一定要建立起来**。归纳法不是"魔法"，是基于自然数的**良序性**：每一个 n 都可以从 1 经过有限步加 1 达到。
 
 ---
 
@@ -5345,13 +5344,13 @@ ADC（模数转换器）把连续信号 RR 量化到 n 位整数集合 {0,1,.
 
 #### 2.1 形式化表述
 
-> **数学归纳原理**：设 P(n)P(n) 是关于自然数 nn 的命题。若：
-> 
-> (i) P(n0)P(n0​) 成立（**基础**） > (ii) ∀k≥n0, P(k)⇒P(k+1)∀k≥n0​,P(k)⇒P(k+1)（**归纳步骤**）
-> 
-> 则对所有 n≥n0n≥n0​，P(n)P(n) 成立。
+> **数学归纳原理**：设 P(n) 是关于自然数 n 的命题。若：
+>
+> (i) P(n0) 成立（**基础**） > (i) ∀k≥n0, P(k)⇒P(k+1)∀k≥n0,P(k)⇒P(k+1)（**归纳步骤**）
+>
+> 则对所有n≥n0，P(n) 成立。
 
-其中 P(k)⇒P(k+1)P(k)⇒P(k+1) 中的 P(k)P(k) 称为**归纳假设 (induction hypothesis, IH)**。
+其中 P(k)⇒P(k+1)P(k)⇒P(k+1) 中的 P(k) 称为**归纳假设 (induction hypothesis, IH)**。
 
 #### 2.2 经典例子 1：等差数列求和
 
@@ -5361,11 +5360,11 @@ ADC（模数转换器）把连续信号 RR 量化到 n 位整数集合 {0,1,.
 
 **(基础)** n=1n=1：左 = 1，右 = 1⋅22=121⋅2​=1。成立。✅
 
-**(归纳)** 假设 P(k)P(k) 成立，即 1+2+⋯+k=k(k+1)21+2+⋯+k=2k(k+1)​（**归纳假设**）。证 P(k+1)P(k+1)：
+**(归纳)** 假设 P(k) 成立，即 1+2+⋯+k=k(k+1)21+2+⋯+k=2k(k+1)（**归纳假设**）。证 P(k+1)：
 
 $$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]}_{\text{用 IH}} + (k+1) \ &= \frac{k(k+1)}{2} + (k+1) \ &= (k+1) \cdot \left[\frac{k}{2} + 1\right] \ &= (k+1) \cdot \frac{k+2}{2} \ &= \frac{(k+1)(k+2)}{2} \end{aligned}$$
 
-恰好是 P(k+1)P(k+1) 的结论。✅
+恰好是 P(k+1) 的结论。✅
 
 由数学归纳原理，命题对所有 n≥1n≥1 成立。∎
 
@@ -5379,7 +5378,7 @@ $$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]
 
 **(基础)** n=0n=0：左 = 1，右 = r−1r−1=1r−1r−1​=1。✅
 
-**(归纳)** 设 1+r+⋯+rk=rk+1−1r−11+r+⋯+rk=r−1rk+1−1​。证 n=k+1n=k+1：
+**(归纳)** 设 1+r+⋯+rk=rk+1−1r−11+r+⋯+rk=r−1rk+1−1。证n=k+1：
 
 $$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + r^{k+1} \ &= \frac{r^{k+1} - 1 + r^{k+1}(r - 1)}{r - 1} \ &= \frac{r^{k+1} - 1 + r^{k+2} - r^{k+1}}{r - 1} \ &= \frac{r^{k+2} - 1}{r - 1} \end{aligned}$$
 
@@ -5389,13 +5388,13 @@ $$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + 
 
 #### 2.4 经典例子 3：整除性证明
 
-**命题**：∀n≥1∀n≥1，3∣(n3−n)3∣(n3−n)。
+**命题**：∀n≥1∀n≥1，3∣(n3−n)。
 
 **证明**：
 
-**(基础)** n=1n=1：13−1=0=3×013−1=0=3×0。✅
+**(基础)** n=1n=1：13−1=0=3×0。✅
 
-**(归纳)** 设 3∣(k3−k)3∣(k3−k)，即 k3−k=3mk3−k=3m（某 m∈Zm∈Z）。证 3∣((k+1)3−(k+1))3∣((k+1)3−(k+1))：
+**(归纳)** 设3∣(k3−k)，即k3−k=3m（某 m∈Zm∈Z）。证3∣((k+1)3−(k+1))：
 
 $$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) + 3k^2 + 3k \ &= 3m + 3(k^2 + k) \ &= 3(m + k^2 + k) \end{aligned}$$
 
@@ -5403,23 +5402,23 @@ $$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) 
 
 #### 2.5 经典例子 4：不等式
 
-**命题**：∀n≥4∀n≥4，2n≥n22n≥n2。
+**命题**：∀n≥4∀n≥4，2n≥n2。
 
 **证明**：
 
-**(基础)** n=4n=4：24=1624=16，42=1642=16。16≥1616≥16。✅
+**(基础)** n=4n=4：24=16，42=16。16≥16。✅
 
-**(归纳)** 设 2k≥k22k≥k2（k≥4k≥4）。证 2k+1≥(k+1)22k+1≥(k+1)2。
+**(归纳)** 设2k≥k2（k≥4k≥4）。证2k+1≥(k+1)2。
 
-2k+1=2⋅2k≥2k22k+1=2⋅2k≥2k2
+2k+1=2⋅2k≥2k2
 
-够了吗？要证 2k2≥(k+1)2=k2+2k+12k2≥(k+1)2=k2+2k+1。即证 k2≥2k+1k2≥2k+1。
+够了吗？要证2k2≥(k+1)2=k2+2k+1。即证k2≥2k+1。
 
-当 k≥3k≥3 时，k2−2k−1=(k−1)2−2≥4−2=2>0k2−2k−1=(k−1)2−2≥4−2=2>0。✅
+当 k≥3k≥3 时，k2−2k−1=(k−1)2−2≥4−2=2>0。✅
 
-所以 2k+1≥2k2≥(k+1)22k+1≥2k2≥(k+1)2。∎
+所以2k+1≥2k2≥(k+1)2。∎
 
-**注意**：基础是 n=4n=4，因为 n=1,2,3n=1,2,3 时不等式不成立（2<12<1？22=4=2222=4=22 平局，23=8<923=8<9）。**基础步骤的起点要选对**！
+**注意**：基础是 n=4n=4，因为n=1,2,3时不等式不成立（2<12<1？22=4=22平局，23=8<9）。**基础步骤的起点要选对**！
 
 ---
 
@@ -5443,25 +5442,25 @@ $$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) 
 
 "假设 ∀n≥1, n≥1∀n≥1,n≥1，证 ..."
 
-**错在哪**：归纳假设应是 P(k)P(k)（**对某个特定的 k**），不是 ∀n∀n（要证的命题本身）。
+**错在哪**：归纳假设应是 P(k)（**对某个特定的 k**），不是 ∀n∀n（要证的命题本身）。
 
-正确：假设 **P(k)P(k) 成立**，即 **k≥1k≥1**，证 **P(k+1)P(k+1)**。
+正确：假设 **P(k) 成立**，即 **k≥1k≥1**，证 **P(k+1)**。
 
 #### 错误 3：归纳步骤逻辑漏洞
 
 经典反例（来自波利亚）："**所有马都同色**"
 
-**"证明"**：对 nn 匹马的群组归纳，证明组内所有马同色。
+**"证明"**：对 n 匹马的群组归纳，证明组内所有马同色。
 
 **(基础)** n=1n=1：单匹马显然同色。✅
 
-**(归纳)** 设 n=kn=k 时成立。考虑 n=k+1n=k+1 匹马：{m1,m2,…,mk+1}{m1​,m2​,…,mk+1​}。
+**(归纳)** 设 n=kn=k 时成立。考虑n=k+1匹马：{m1,m2,…,mk+1}。
 
-去掉 mk+1mk+1​，剩 kk 匹同色（IH）；去掉 m1m1​，剩 kk 匹同色。两组重合的有 m2,…,mkm2​,…,mk​，所以所有 k+1k+1 匹都同色。
+去掉mk+1，剩 k 匹同色（IH）；去掉 m1，剩 k 匹同色。两组重合的有 m2,…,mkm2,…,mk，所以所有 k+1k+1 匹都同色。
 
 "证毕"。但显然马不可能都同色。
 
-**错在哪**：归纳步骤在 k=1k=1 到 k+1=2k+1=2 时**失效**——两组（{m1}{m1​} 和 {m2}{m2​}）**没有公共元素**，无法通过它们传递同色。
+**错在哪**：归纳步骤在 k=1k=1 到k+1=2时**失效**——两组（{m1}{m1} 和 {m2}{m2}）**没有公共元素**，无法通过它们传递同色。
 
 **教训**：**逐一验证基础到归纳步骤的衔接**。归纳步骤的论证必须对**所有** k≥n0k≥n0​ 成立，包括最小的 k。
 
@@ -5471,17 +5470,17 @@ $$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) 
 
 #### 4.1 动机
 
-有时候证明 P(k+1)P(k+1) 不仅需要 P(k)P(k)，还需要 P(k−1),P(k−2),…P(k−1),P(k−2),… 等更早的命题。这时用**强归纳**。
+有时候证明 P(k+1) 不仅需要 P(k)，还需要P(k−1),P(k−2),…等更早的命题。这时用**强归纳**。
 
 #### 4.2 形式化
 
 > **强归纳原理**：若：
-> 
-> (i) P(n0)P(n0​) 成立 > (ii) ∀k≥n0∀k≥n0​，[P(n0)∧P(n0+1)∧⋯∧P(k)]⇒P(k+1)[P(n0​)∧P(n0​+1)∧⋯∧P(k)]⇒P(k+1)
-> 
-> 则对所有 n≥n0n≥n0​，P(n)P(n) 成立。
+>
+> (i) P(n0) 成立 > (i) ∀k≥n0∀k≥n0，[P(n0)∧P(n0+1)∧⋯∧P(k)]⇒P(k+1)[P(n0)∧P(n0+1)∧⋯∧P(k)]⇒P(k+1)
+>
+> 则对所有n≥n0，P(n) 成立。
 
-**关键区别**：归纳假设是 **"PP 对所有不超过 kk 的值都成立"**，而不仅仅 P(k)P(k)。
+**关键区别**：归纳假设是 **"P 对所有不超过 k 的值都成立"**，而不仅仅 P(k)。
 
 #### 4.3 等价性
 
@@ -5497,29 +5496,29 @@ $$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) 
 
 **(基础)** n=2n=2：2 本身是质数，是 1 个质数的乘积。✅
 
-**(归纳)** 设对所有 2≤m≤k2≤m≤k，mm 都能写成质数乘积。证 k+1k+1 也行。
+**(归纳)** 设对所有2≤m≤k，m 都能写成质数乘积。证 k+1k+1 也行。
 
 **情况 1**：k+1k+1 是质数。则 k+1k+1 本身是质数乘积。✅
 
-**情况 2**：k+1k+1 是合数。则 k+1=a⋅bk+1=a⋅b，其中 2≤a,b≤k2≤a,b≤k。
+**情况 2**：k+1k+1 是合数。则k+1=a⋅b，其中2≤a,b≤k。
 
-由**强归纳假设**：aa 和 bb 都能写成质数乘积。所以 k+1=a⋅bk+1=a⋅b 也能写成质数乘积。✅ ∎
+由**强归纳假设**：a 和 b 都能写成质数乘积。所以k+1=a⋅b也能写成质数乘积。✅ ∎
 
-**注意为什么用强归纳**：我们需要的是 P(a)P(a) 和 P(b)P(b) 成立，但 a,ba,b 不是 kk 而是某个**比 k 小的数**。第一归纳法只能用 P(k)P(k)，不够。
+**注意为什么用强归纳**：我们需要的是 P(a) 和 P(b) 成立，但 a,ba,b 不是 k 而是某个**比 k 小的数**。第一归纳法只能用 P(k)，不够。
 
 #### 4.5 经典例子 2：斐波那契数列
 
-斐波那契：F0=0,F1=1,Fn=Fn−1+Fn−2F0​=0,F1​=1,Fn​=Fn−1​+Fn−2​（n≥2n≥2）。前几项：0, 1, 1, 2, 3, 5, 8, 13, 21, ...
+斐波那契：F0=0,F1=1,Fn=Fn−1+Fn−2（n≥2n≥2）。前几项：0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 
-**命题**：Fn<2nFn​<2n 对所有 n≥0n≥0 成立。
+**命题**：Fn<2n对所有 n≥0n≥0 成立。
 
 **证明**（强归纳）：
 
-**(基础)** F0=0<1=20F0​=0<1=20 ✅，F1=1<2=21F1​=1<2=21 ✅。
+**(基础)** F0=0<1=20F0=0<1=20 ✅，F1=1<2=21✅。
 
 （注意：因为递推依赖前两项，**基础需要两项**）
 
-**(归纳)** 设对所有 0≤m≤k0≤m≤k（k≥1k≥1），Fm<2mFm​<2m。证 Fk+1<2k+1Fk+1​<2k+1。
+**(归纳)** 设对所有0≤m≤k（k≥1k≥1），Fm<2m。证Fk+1<2k+1。
 
 Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2k+1
 
@@ -5531,7 +5530,7 @@ Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2
 
 **证明**（强归纳）：
 
-**(基础)** 验证 n=18,19,20,21n=18,19,20,21：
+**(基础)** 验证n=18,19,20,21：
 
 - 18 = 7 + 7 + 4 ✅
 - 19 = 7 + 4 + 4 + 4 ✅
@@ -5540,11 +5539,11 @@ Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2
 
 （为什么验证 4 个？因为归纳步骤会"回退 4"——见下）
 
-**(归纳)** 设对所有 18≤m≤k18≤m≤k（k≥21k≥21），mm 都能凑出。证 k+1k+1 也能。
+**(归纳)** 设对所有18≤m≤k（k≥21），m 都能凑出。证 k+1k+1 也能。
 
-由于 k+1≥22k+1≥22，有 k+1−4=k−3≥18k+1−4=k−3≥18。
+由于k+1≥22，有k+1−4=k−3≥18。
 
-由 IH，k−3k−3 能凑出。再加一张 4 分邮票，k+1=(k−3)+4k+1=(k−3)+4 能凑出。✅ ∎
+由 IH，k−3k−3 能凑出。再加一张 4 分邮票，k+1=(k−3)+4能凑出。✅ ∎
 
 **这是数论里的"鸡块问题 (Chicken McNugget)"**，更一般的结论："gcd⁡(a,b)=1gcd(a,b)=1 时，≥(a−1)(b−1)≥(a−1)(b−1) 的整数都能用 a,ba,b 表示"。
 
@@ -5554,19 +5553,19 @@ Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2
 
 #### 5.1 多边形对角线
 
-**命题**：凸 nn 边形（n≥3n≥3）的对角线总数是 n(n−3)22n(n−3)​。
+**命题**：凸 n 边形（n≥3n≥3）的对角线总数是 n(n−3)22n(n−3)。
 
 **证明**（普通归纳）：
 
 **(基础)** n=3n=3：三角形对角线 = 0 = 3⋅0223⋅0​。✅
 
-**(归纳)** 设凸 kk 边形对角线数为 k(k−3)22k(k−3)​。考虑凸 (k+1)(k+1) 边形，相比 kk 边形多了一个顶点 vv。
+**(归纳)** 设凸 k 边形对角线数为 k(k−3)22k(k−3)。考虑凸(k+1)边形，相比 k 边形多了一个顶点 v。
 
 新增的对角线数：
 
-- vv 与 k+1k+1 边形上其他顶点的连线共 kk 条
+- v 与 k+1k+1 边形上其他顶点的连线共 k 条
 - 其中两条是原 k 边形的边（对应 v 的两邻边） 不是对角线
-- vv 与原相邻两顶点的连线（在 k 边形中曾是边）现在变成对角线 1 条
+- v 与原相邻两顶点的连线（在 k 边形中曾是边）现在变成对角线 1 条
 
 所以新增对角线 = (k−2)+1=k−1(k−2)+1=k−1。
 
@@ -5574,13 +5573,13 @@ Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2
 
 #### 5.2 棋盘覆盖问题
 
-**命题**：2n×2n2n×2n 棋盘去掉任意一格后，可以用"L 形三连块"完美覆盖。
+**命题**：2n×2n×2n 棋盘去掉任意一格后，可以用"L 形三连块"完美覆盖。
 
 **证明思路**（归纳）：
 
 **(基础)** n=1n=1：2×22×2 棋盘去掉一格，剩 3 格，恰好一个 L 形。✅
 
-**(归纳)** 把 2k+1×2k+12k+1×2k+1 棋盘分成 4 个 2k×2k2k×2k 子棋盘。被去掉的格子在某个子棋盘里。在另外 3 个子棋盘的"中心交汇处"放一个 L 形（每个子棋盘也"丢"一格）。然后每个子棋盘都满足归纳假设。✅ ∎
+**(归纳)** 把2k+1×2k+1棋盘分成 4 个 2k×2k×2k 子棋盘。被去掉的格子在某个子棋盘里。在另外 3 个子棋盘的"中心交汇处"放一个 L 形（每个子棋盘也"丢"一格）。然后每个子棋盘都满足归纳假设。✅ ∎
 
 这是组合学中一个**漂亮的存在性证明**，归纳法的威力体现在结构性地构造解。
 
@@ -5597,9 +5596,9 @@ Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2
 #### 6.2 递归定义自然数函数
 
 > **递归定义**：函数 f:N→Sf:N→S 由两部分定义：
-> 
-> 1. **基础**：f(0)=cf(0)=c（直接给出值）
-> 2. **递归式**：f(n+1)=h(f(n),n)f(n+1)=h(f(n),n)（用之前的值和 nn 表达）
+>
+> 1. **基础**：f(0)=c（直接给出值）
+> 2. **递归式**：f(n+1)=h(f(n),n)（用之前的值和 n 表达）
 
 **例 1：阶乘**
 
@@ -5611,7 +5610,7 @@ Fk+1=Fk+Fk−12k+2k−1<2k+2k=2k+1Fk+1​=Fk​+Fk−1​<IH​2k+2k−1<2k+2k=2
 
 **例 3：斐波那契**
 
-F0=0,F1=1,Fn=Fn−1+Fn−2F0​=0,F1​=1,Fn​=Fn−1​+Fn−2​
+F0=0,F1=1,Fn=Fn−1+Fn−2
 
 （这是**两步递归**——用前两个值。）
 
@@ -5645,9 +5644,9 @@ def factorial(n):
 
 #### 6.4 递归 + 归纳：完美搭档
 
-**例**：定义 f(n)f(n) 递归地，然后用归纳证明 f(n)f(n) 的性质。
+**例**：定义 f(n) 递归地，然后用归纳证明 f(n) 的性质。
 
-**例 4**：定义 T(n)=T(n−1)+2n−1T(n)=T(n−1)+2n−1，T(0)=0T(0)=0。求 T(n)T(n) 闭式。
+**例 4**：定义T(n)=T(n−1)+2n−1，T(0)=0。求 T(n) 闭式。
 
 试值：
 
@@ -5657,13 +5656,13 @@ def factorial(n):
 - T(3)=4+5=9T(3)=4+5=9
 - T(4)=9+7=16T(4)=9+7=16
 
-**猜测**：T(n)=n2T(n)=n2。
+**猜测**：T(n)=n2。
 
 **用归纳证明**：
 
 **(基础)** T(0)=0=02T(0)=0=02 ✅
 
-**(归纳)** 设 T(k)=k2T(k)=k2。则 T(k+1)=T(k)+2(k+1)−1=k2+2k+1=(k+1)2T(k+1)=T(k)+2(k+1)−1=k2+2k+1=(k+1)2。✅ ∎
+**(归纳)** 设T(k)=k2。则T(k+1)=T(k)+2(k+1)−1=k2+2k+1=(k+1)2。✅ ∎
 
 **这就是算法分析的核心方法**：写出递推 → 猜公式 → 归纳证明。
 
@@ -5682,10 +5681,10 @@ def factorial(n):
 1. **基础**：P1,P2,…P1​,P2​,… 是命题公式（原子命题）
 2. **递归**：若 A,BA,B 是公式，则 ¬A¬A、(A∧B)(A∧B)、(A∨B)(A∨B)、(A→B)(A→B)、(A↔B)(A↔B) 是公式
 
-**结构归纳法**：要证某性质 ΦΦ 对**所有公式**成立，证：
+**结构归纳法**：要证某性质 Φ 对**所有公式**成立，证：
 
-1. ΦΦ 对原子命题成立
-2. 若 ΦΦ 对 A,BA,B 成立，则对 ¬A,A∧B,…¬A,A∧B,… 成立
+1. Φ 对原子命题成立
+2. 若 Φ 对 A,BA,B 成立，则对 ¬A,A∧B,…¬A,A∧B,… 成立
 
 **例**：证"每个公式中左括号数等于右括号数"。
 
@@ -5693,8 +5692,8 @@ def factorial(n):
 
 **(递归)** 若 A,BA,B 中左右括号数相等，则：
 
-- ¬A¬A：和 AA 一样
-- (A∧B)(A∧B)：左括号 = AA 的左 + BB 的左 + 1，右同理。✅
+- ¬A¬A：和 A 一样
+- (A∧B)(A∧B)：左括号 = A 的左 + B 的左 + 1，右同理。✅
 
 ∎
 
@@ -5714,14 +5713,14 @@ def factorial(n):
 
 #### 8.1 良序原理（Well-Ordering Principle, WOP）
 
-> **良序原理**：NN 的任何**非空子集都有最小元**。
+> **良序原理**：N 的任何**非空子集都有最小元**。
 
 直觉上很显然，但实际上是**自然数的关键公理**。
 
 #### 8.2 三者等价
 
 > **定理**：以下三者等价：
-> 
+>
 > (1) 第一数学归纳法 (2) 第二数学归纳法（强归纳） (3) 良序原理
 
 证明它们等价是数学逻辑的基础练习（不展开）。
@@ -5730,16 +5729,16 @@ def factorial(n):
 
 WOP 给我们一个**强大的证明工具**：
 
-> **要证 ∀n∈N,P(n)∀n∈N,P(n)**：假设存在 nn 使 P(n)P(n) 假。设 n0n0​ 是**最小**的反例。然后导出矛盾。
+> **要证 ∀n∈N,P(n)∀n∈N,P(n)**：假设存在 n 使 P(n) 假。设 n0 是**最小**的反例。然后导出矛盾。
 
 **例**：再次证明算术基本定理（"每个 n≥2n≥2 是质数乘积"）。
 
-**反证**：假设存在 n≥2n≥2 不能写成质数乘积。设 n0n0​ 是**最小**的反例。
+**反证**：假设存在 n≥2n≥2 不能写成质数乘积。设 n0 是**最小**的反例。
 
-- n0n0​ 不是质数（否则它本身是 1 个质数乘积）
-- 所以 n0=a⋅bn0​=a⋅b，2≤a,b<n02≤a,b<n0​
-- 由 n0n0​ 的最小性，a,ba,b 都能写成质数乘积
-- 所以 n0=a⋅bn0​=a⋅b 也能 — 矛盾。∎
+- n0 不是质数（否则它本身是 1 个质数乘积）
+- 所以n0=a⋅b，2≤a,b<n0
+- 由 n0 的最小性，a,ba,b 都能写成质数乘积
+- 所以n0=a⋅b也能 — 矛盾。∎
 
 **这种证明方式**和强归纳本质上是**同一思想**。
 
@@ -5782,7 +5781,7 @@ WOP 给我们一个**强大的证明工具**：
 
 - (1) ∀n≥1, 12+22+⋯+n2=n(n+1)(2n+1)6∀n≥1,12+22+⋯+n2=6n(n+1)(2n+1)​
 - (2) ∀n≥1, 13+23+⋯+n3=(n(n+1)2)2∀n≥1,13+23+⋯+n3=(2n(n+1)​)2
-- (3) ∀n≥1, 11⋅2+12⋅3+⋯+1n(n+1)=nn+1∀n≥1,1⋅21​+2⋅31​+⋯+n(n+1)1​=n+1n​
+- (3) ∀n≥1, 11⋅2+12⋅3+⋯+1n(n+1)=n+1∀n≥1,1⋅21+2⋅31+⋯+n(n+1)1=n+1n
 - (4) ∀n≥1, 1⋅2+2⋅3+⋯+n(n+1)=n(n+1)(n+2)3∀n≥1,1⋅2+2⋅3+⋯+n(n+1)=3n(n+1)(n+2)​
 
 **练习 2**（整除性）：用归纳法证明：
@@ -5793,18 +5792,18 @@ WOP 给我们一个**强大的证明工具**：
 
 **练习 3**（不等式）：用归纳法证明：
 
-- (1) ∀n≥1, n!≤nn∀n≥1,n!≤nn
+- (1) ∀n≥1, n!≤n∀n≥1,n!≤n
 - (2) ∀n≥5, 2n>n2∀n≥5,2n>n2（注意起点）
 - (3) ∀n≥1, 1+12+13+⋯+1n≥n∀n≥1,1+2​1​+3​1​+⋯+n​1​≥n​
-- (4) （**Bernoulli 不等式**）∀n≥1, x>−1∀n≥1,x>−1：(1+x)n≥1+nx(1+x)n≥1+nx
+- (4) （**Bernoulli 不等式**）∀n≥1, x>−1∀n≥1,x>−1：(1+x)n≥1+nx
 
 **练习 4**（强归纳）：
 
 (1) 证明：每个大于 11 的整数都能写成两个**合数**之和。（提示：n+4n+4 这种思路）
 
-(2) 证明：每个 n≥2n≥2 的整数能写成 ±1±1 系数的不同 2 的幂之和。例如 5=4+1,7=8−1,11=8+2+15=4+1,7=8−1,11=8+2+1。
+(2) 证明：每个 n≥2n≥2 的整数能写成 ±1±1 系数的不同 2 的幂之和。例如5=4+1,7=8−1,11=8+2+1。
 
-(3) **多米诺骨牌覆盖**：证明 2×n2×n 矩形用 1×21×2 多米诺骨牌的覆盖方式数 DnDn​ 满足 Dn=Dn−1+Dn−2Dn​=Dn−1​+Dn−2​。这就是斐波那契递推！求 D10D10​。
+(3) **多米诺骨牌覆盖**：证明 2×n2×n 矩形用 1×21×2 多米诺骨牌的覆盖方式数 Dn 满足Dn=Dn−1+Dn−2。这就是斐波那契递推！求 D10。
 
 **练习 5**（斐波那契性质）：
 
@@ -5812,13 +5811,13 @@ WOP 给我们一个**强大的证明工具**：
 
 (2) 证明 ∀n≥0, Fn2+Fn+12=F2n+1∀n≥0,Fn2​+Fn+12​=F2n+1​。
 
-(3) （挑战）证明 **Cassini 恒等式**：Fn+1Fn−1−Fn2=(−1)nFn+1​Fn−1​−Fn2​=(−1)n（n≥1n≥1）。
+(3) （挑战）证明 **Cassini 恒等式**：Fn+1Fn−1−Fn2=(−1)n（n≥1n≥1）。
 
 **练习 6**（递归定义和闭式求解）：
 
-设 T(0)=1T(0)=1，T(n)=2T(n−1)+1T(n)=2T(n−1)+1（n≥1n≥1）。
+设T(0)=1，T(n)=2T(n−1)+1（n≥1n≥1）。
 
-- (1) 计算 T(0)T(0) 到 T(5)T(5)。
+- (1) 计算 T(0) 到 T(5)。
 - (2) 猜测闭式公式。
 - (3) 用归纳法证明你的猜测。
 
@@ -5826,10 +5825,10 @@ WOP 给我们一个**强大的证明工具**：
 
 汉诺塔问题：3 根柱子，n 个大小不同的圆盘。规则：每次只能移动顶部圆盘，不能把大盘放在小盘上。把 n 个圆盘从 A 柱移到 C 柱，最少需要多少步？
 
-设 H(n)H(n) 为最少步数。
+设 H(n) 为最少步数。
 
-- (1) 证明：H(n)=2H(n−1)+1H(n)=2H(n−1)+1，H(1)=1H(1)=1。
-- (2) 求 H(n)H(n) 的闭式。
+- (1) 证明：H(n)=2H(n−1)+1，H(1)=1。
+- (2) 求 H(n) 的闭式。
 - (3) H(64)=?H(64)=?（这是著名的"梵天预言"——僧侣搬完 64 个圆盘就是世界末日）
 
 **练习 8**（结构归纳）：
@@ -5837,9 +5836,9 @@ WOP 给我们一个**强大的证明工具**：
 定义二叉树：
 
 - 基础：单个叶子节点是二叉树（高度 0，节点数 1）
-- 递归：若 T1,T2T1​,T2​ 是二叉树，则 Node(T1,T2)Node(T1​,T2​) 是二叉树（高度 = max⁡(h1,h2)+1max(h1​,h2​)+1，节点数 = n1+n2+1n1​+n2​+1）
+- 递归：若 T1,T2T1,T2 是二叉树，则 Node(T1,T2) 是二叉树（高度 = max(h1,h2)+1max(h1,h2)+1，节点数 = n1+n2+1n1+n2+1）
 
-证明：高度为 hh 的二叉树最多有 2h+1−12h+1−1 个节点。
+证明：高度为 h 的二叉树最多有2h+1−1个节点。
 
 **练习 9**（错误诊断）：
 
@@ -5849,9 +5848,9 @@ WOP 给我们一个**强大的证明工具**：
 
 **"归纳证明"**：
 
-(基础) n=1n=1：1≤1001≤100。✅
+(基础) n=1n=1：1≤100。✅
 
-(归纳) 设 k≤100k≤100。证 k+1≤100k+1≤100？
+(归纳) 设k≤100。证k+1≤100？
 
 "由于 k≤100k≤100 是有限范围，加 1 后仍 ≤101≤≤101≤ 某个限度..."
 
@@ -5859,17 +5858,17 @@ WOP 给我们一个**强大的证明工具**：
 
 **练习 10**（电子工程联系）：
 
-**RC 电路充电的离散模型**：每秒充电效率 α∈(0,1)α∈(0,1)，初值 V0=0V0​=0，递推 Vn+1=Vn+α(Vmax⁡−Vn)Vn+1​=Vn​+α(Vmax​−Vn​)。
+**RC 电路充电的离散模型**：每秒充电效率 α∈(0,1)α∈(0,1)，初值V0=0，递推Vn+1=Vn+α(Vmax−Vn)。
 
-- (1) 证明 Vn=Vmax⁡(1−(1−α)n)Vn​=Vmax​(1−(1−α)n)（用归纳）。
+- (1) 证明Vn=Vmax(1−(1−α)n)（用归纳）。
 - (2) 这就是为什么 RC 充电是**指数渐近**——你看，离散模型直接给出连续模型。
-- (3) 当 α=0.1α=0.1、Vmax⁡=5VVmax​=5V，多少步后达到 4.99V4.99V？
+- (3) 当α=0.1、Vmax=5VVmax=5V，多少步后达到 4.99V4.99V？
 
 **练习 11**（深度思考）：
 
 证明：**良序原理 ⇒ 第一归纳法**。
 
-提示：设 S={n∈N∣P(n) 不成立}S={n∈N∣P(n) 不成立}。如果 S≠∅S=∅，由 WOP 取最小元 n0n0​。然后...
+提示：设 S={n∈N∣P(n) 不成立}S={n∈N∣P(n) 不成立}。如果 S≠∅S=∅，由 WOP 取最小元 n0。然后...
 
 ---
 
@@ -5896,27 +5895,27 @@ WOP 给我们一个**强大的证明工具**：
 
 #### 1.1 加法原理（"或"对应加法）
 
-> **加法原理**：设事件 A 有 mm 种方式，事件 B 有 nn 种方式，**A 和 B 互斥**（不能同时发生）。则"做 A **或** B"共有 m+nm+n 种方式。
+> **加法原理**：设事件 A 有 m 种方式，事件 B 有 n 种方式，**A 和 B 互斥**（不能同时发生）。则"做 A **或** B"共有 m+nm+n 种方式。
 
 **互斥**是关键——两个事件不能同时发生。
 
-**例**：从书架上选一本书。中文书 5 本，英文书 3 本。共 5+3=85+3=8 种选法。
+**例**：从书架上选一本书。中文书 5 本，英文书 3 本。共5+3=8种选法。
 
 **推广**：n 类互斥事件，方式数分别为 m1,m2,…,mnm1​,m2​,…,mn​。总方式数 m1+m2+⋯+mnm1​+m2​+⋯+mn​。
 
 #### 1.2 乘法原理（"且"对应乘法）
 
-> **乘法原理**：设过程分两步完成。第一步有 mm 种方式，**对每种第一步方式**，第二步有 nn 种方式。则总方式数 m⋅nm⋅n。
+> **乘法原理**：设过程分两步完成。第一步有 m 种方式，**对每种第一步方式**，第二步有 n 种方式。则总方式数 m⋅nm⋅n。
 
-**例**：早餐选 1 个主食（3 种）+ 1 个饮料（4 种）。共 3×4=123×4=12 种组合。
+**例**：早餐选 1 个主食（3 种）+ 1 个饮料（4 种）。共3×4=12种组合。
 
 **推广**：n 步过程，每步方式数分别为 m1,m2,…,mnm1​,m2​,…,mn​。总方式数 m1⋅m2⋯mnm1​⋅m2​⋯mn​。
 
 #### 1.3 简单例子辨析
 
-**例**：从 A={1,2,...,10}A={1,2,...,10} 中选一个数，要求"是奇数**或**是偶数"。
+**例**：从A={1,2,...,10}中选一个数，要求"是奇数**或**是偶数"。
 
-错误：5+5=105+5=10 但其实就是任选一个数 = 10。**因为奇偶互斥，加法原理对了**。
+错误：5+5=10但其实就是任选一个数 = 10。**因为奇偶互斥，加法原理对了**。
 
 **例**：从 1-10 中选一个数，要求"是奇数**或** 大于 5"。
 
@@ -5933,13 +5932,13 @@ WOP 给我们一个**强大的证明工具**：
 **例**：3 位密码，每位是数字（0-9）或字母（a-z, 26 个）。
 
 - 每位 36 种选择。
-- **乘法原理**：36×36×36=363=4665636×36×36=363=46656 种密码。
+- **乘法原理**：36×36×36=363=46656种密码。
 
 **例**：3 位密码，**全数字**或**全字母**。
 
-- 全数字：103=1000103=1000
-- 全字母：263=17576263=17576
-- **加法原理**（互斥）：1000+17576=185761000+17576=18576 种。
+- 全数字：103=1000
+- 全字母：263=17576
+- **加法原理**（互斥）：1000+17576=18576种。
 
 ---
 
@@ -5964,13 +5963,13 @@ WOP 给我们一个**强大的证明工具**：
 
 #### 2.2 部分排列（A(n, k) 或 P(n, k)）
 
-> **A(n, k)**（也写作 PnkPnk​、P(n,k)P(n,k)、nPknPk）：从 n 个不同对象中选 k 个**排成一列**。
-> 
+> **A(n, k)**（也写作 Pnk、P(n,k)、nPk）：从 n 个不同对象中选 k 个**排成一列**。
+>
 > A(n,k)=n!(n−k)!=n(n−1)(n−2)⋯(n−k+1)A(n,k)=(n−k)!n!​=n(n−1)(n−2)⋯(n−k+1)
 
 **记忆**：从 n 开始连乘 k 个递减整数。
 
-**例**：从 10 个候选人选出主席、副主席、秘书。A(10,3)=10⋅9⋅8=720A(10,3)=10⋅9⋅8=720。
+**例**：从 10 个候选人选出主席、副主席、秘书。A(10,3)=10⋅9⋅8=720。
 
 #### 2.3 圆排列
 
@@ -5982,7 +5981,7 @@ n 个人围圆桌而坐：(n−1)!(n−1)! 种（不是 n!n!）。
 
 #### 2.4 重复元素的排列
 
-n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ 个 R 类（k1+k2+⋯+kr=nk1​+k2​+⋯+kr​=n）。
+n 个对象中，有 k1 个 A 类、k2 个 B 类、...、kr 个 R 类（k1+k2+⋯+kr=nk1+k2+⋯+kr=n）。
 
 > 排列数：n!k1!k2!⋯kr!k1​!k2​!⋯kr​!n!​（**多重排列数**）
 
@@ -5997,7 +5996,7 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 #### 3.1 定义
 
 > **C(n, k)**（也写作 (nk)(kn​)）：从 n 个不同对象中选 k 个，**不考虑顺序**。
-> 
+>
 > (nk)=n!k!(n−k)!=A(n,k)k!(kn​)=k!(n−k)!n!​=k!A(n,k)​
 
 **关键直觉**：排列 = 选 + 排，所以 A(n,k)=(nk)⋅k!A(n,k)=(kn​)⋅k!。
@@ -6012,13 +6011,13 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 
 #### 3.3 关键性质
 
-##### 性质 1（对称性）：(nk)=(nn−k)(kn​)=(n−kn​)
+##### 性质 1（对称性）：(nk)=(n−k)(kn)=(n−kn)
 
 **直觉**：选 k 个 = 不选 n-k 个，相同的过程。
 
 代数验证：n!k!(n−k)!=n!(n−k)!⋅k!k!(n−k)!n!​=(n−k)!⋅k!n!​ ✅
 
-##### 性质 2（边界）：(n0)=(nn)=1(0n​)=(nn​)=1
+**性质 2（边界）**：$\binom{n}{0}=\binom{n}{n}=1$
 
 ##### 性质 3（Pascal 恒等式）⭐：(nk)=(n−1k−1)+(n−1k)(kn​)=(k−1n−1​)+(kn−1​)
 
@@ -6033,7 +6032,7 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 
 ##### 性质 4：∑k=0n(nk)=2n∑k=0n​(kn​)=2n
 
-**组合证明**：左边 = "从 n 个对象选任意多个"的总方式数 = "n 个对象的所有子集数" = 2n2n。
+**组合证明**：左边 = "从 n 个对象选任意多个"的总方式数 = "n 个对象的所有子集数" = 2n。
 
 ##### 性质 5：∑k=0n(−1)k(nk)=0∑k=0n​(−1)k(kn​)=0（n ≥ 1）
 
@@ -6053,7 +6052,7 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 - **分类**：
     - 2 男：(n2)(2n​)
     - 2 女：(n2)(2n​)
-    - 1 男 1 女：n⋅n=n2n⋅n=n2
+    - 1 男 1 女：n⋅n=n2
     - 加法原理：2(n2)+n22(2n​)+n2
 
 两种数法等同 → 等式成立 ∎
@@ -6070,15 +6069,15 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 
 **展开**：
 
-(x+y)n=(n0)xn+(n1)xn−1y+(n2)xn−2y2+⋯+(nn)yn(x+y)n=(0n​)xn+(1n​)xn−1y+(2n​)xn−2y2+⋯+(nn​)yn
+(x+y)n=(n0)xn+(n1)xn−1y+(n2)xn−2y2+⋯+(n)yn(x+y)n=(0n)xn+(1n)xn−1y+(2n)xn−2y2+⋯+(n)yn
 
 二项式系数 (nk)(kn​) 也叫**二项系数**。
 
 #### 4.2 组合证明
 
-考虑 (x+y)n=(x+y)(x+y)⋯(x+y)⏟n个(x+y)n=n个(x+y)(x+y)⋯(x+y)​​。
+考虑 (x+y)n=(x+y)(x+y)⋯(x+y)⏟n个(x+y)n=n个(x+y)⋯(x+y)。
 
-展开时每项是从每个 (x+y)(x+y) 中选 x 或 y 相乘。
+展开时每项是从每个(x+y)中选 x 或 y 相乘。
 
 要得到 xn−kykxn−kyk 这一项：从 n 个括号中选 k 个出 y（其余出 x）。**方式数恰好是 (nk)(kn​)**。
 
@@ -6088,13 +6087,13 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 
 **应用 1**：证 ∑k=0n(nk)=2n∑k=0n​(kn​)=2n。
 
-代入 x=y=1x=y=1：(1+1)n=∑(nk)⋅1n−k⋅1k=∑(nk)=2n(1+1)n=∑(kn​)⋅1n−k⋅1k=∑(kn​)=2n。✅
+代入x=y=1：(1+1)n=∑(nk)⋅1n−k⋅1k=∑(nk)=2n(1+1)n=∑(kn)⋅1n−k⋅1k=∑(kn)=2n。✅
 
 **应用 2**：证 ∑k=0n(−1)k(nk)=0∑k=0n​(−1)k(kn​)=0（n ≥ 1）。
 
-代入 x=1,y=−1x=1,y=−1：0n=(1−1)n=∑(nk)(−1)k=00n=(1−1)n=∑(kn​)(−1)k=0（n ≥ 1）。✅
+代入x=1,y=−1：0n=(1−1)n=∑(nk)(−1)k=00n=(1−1)n=∑(kn)(−1)k=0（n ≥ 1）。✅
 
-**应用 3**：求 (2x−3)4(2x−3)4 的展开。
+**应用 3**：求(2x−3)4的展开。
 
 (2x−3)4=∑k=04(4k)(2x)4−k(−3)k(2x−3)4=k=0∑4​(k4​)(2x)4−k(−3)k
 
@@ -6104,7 +6103,7 @@ n 个对象中，有 k1k1​ 个 A 类、k2k2​ 个 B 类、...、krkr​ �
 - k=3k=3: 4⋅2x⋅(−27)=−216x4⋅2x⋅(−27)=−216x
 - k=4k=4: 1⋅1⋅81=811⋅1⋅81=81
 
-(2x−3)4=16x4−96x3+216x2−216x+81(2x−3)4=16x4−96x3+216x2−216x+81
+(2x−3)4=16x4−96x3+216x2−216x+81
 
 #### 4.4 杨辉三角（Pascal 三角）
 
@@ -6128,16 +6127,16 @@ n=6:      1   6  15  20  15   6   1
 
 #### 5.1 可重复排列
 
-> n 个不同对象，有放回地选 k 次（每次都从全部 n 个中选）：nknk 种。
+> n 个不同对象，有放回地选 k 次（每次都从全部 n 个中选）：nk 种。
 
-**例**：4 位密码，每位 0-9：104=10000104=10000 种。
+**例**：4 位密码，每位 0-9：104=10000种。
 
-**例**：n 位二进制串：2n2n 种（这就是 ∣P(A)∣∣P(A)∣ 的对应）。
+**例**：n 位二进制串：2n 种（这就是∣P(A)∣的对应）。
 
 #### 5.2 可重复组合（最难，但很重要）
 
 > n 种对象（每种无限多），选 k 个（**不考虑顺序**，**允许重复**）：
-> 
+>
 > (n+k−1k)(kn+k−1​)
 
 **例**：3 种水果（苹果、香蕉、橙），买 5 个（可以多买同一种）：
@@ -6148,7 +6147,7 @@ n=6:      1   6  15  20  15   6   1
 
 我们想求方程 x1+x2+⋯+xn=kx1​+x2​+⋯+xn​=k 的**非负整数解数**。
 
-**对应**：xixi​ = 选到第 i 种对象的数量。
+**对应**：xi = 选到第 i 种对象的数量。
 
 **插板法**：把 k 个 ⋆ 排成一行，插入 n−1n−1 个 | 把它们分成 n 组：
 
@@ -6156,7 +6155,7 @@ n=6:      1   6  15  20  15   6   1
 ⋆⋆⋆ | ⋆ | ⋆⋆ | | ⋆      （n=5, k=7 例子）
 ```
 
-每个 ⋆ 序列（含 n−1n−1 个 | 和 k 个 ⋆，共 n+k−1n+k−1 个符号）对应一个解。从 n+k−1n+k−1 个位置中选 k 个放 ⋆（或选 n−1n−1 个放 |）：
+每个 ⋆ 序列（含 n−1n−1 个 | 和 k 个 ⋆，共n+k−1个符号）对应一个解。从n+k−1个位置中选 k 个放 ⋆（或选 n−1n−1 个放 |）：
 
 (n+k−1k)=(n+k−1n−1)(kn+k−1​)=(n−1n+k−1​)
 
@@ -6168,7 +6167,7 @@ n=6:      1   6  15  20  15   6   1
 |---|---|---|---|
 |**排列**（A(n,k)）|有序|不可|n!(n−k)!(n−k)!n!​|
 |**组合**（C(n,k)）|无序|不可|(nk)(kn​)|
-|**可重排列**|有序|可以|nknk|
+|**可重排列**|有序|可以|nk|
 |**可重组合**|无序|可以|(n+k−1k)(kn+k−1​)|
 
 **做题第一步：确认是这四种里的哪一种**。这往往就是最难的部分。
@@ -6189,9 +6188,9 @@ n=6:      1   6  15  20  15   6   1
 
 1. **全排列**：5!=1205!=120
 2. **组合**：(305)=142506(530​)=142506
-3. **可重排列**：105=100000105=100000
-4. **可重组合**（球相同 → 只关心每盒多少 → x1+x2+x3+x4=10x1​+x2​+x3​+x4​=10 的非负解数）：(10+4−110)=(1310)=286(1010+4−1​)=(1013​)=286
-5. **可重排列**（每个球独立选盒子）：410=1048576410=1048576
+3. **可重排列**：105=100000
+4. **可重组合**（球相同 → 只关心每盒多少 →x1+x2+x3+x4=10的非负解数）：(10+4−110)=(1310)=286(1010+4−1)=(1013)=286
+5. **可重排列**（每个球独立选盒子）：410=1048576
 
 ---
 
@@ -6206,9 +6205,9 @@ n=6:      1   6  15  20  15   6   1
 **4 张同点（four of a kind）**：
 
 - 选哪个点数：13 种
-- 这 4 张全要：(44)=1(44​)=1
+- 这 4 张全要：(44)=1
 - 剩 1 张从其他 48 张选：48
-- 总：13×1×48=62413×1×48=624
+- 总：13×1×48=624
 
 **葫芦（full house，3 + 2 同点）**：
 
@@ -6216,7 +6215,7 @@ n=6:      1   6  15  20  15   6   1
 - 这 3 张：(43)=4(34​)=4
 - 选 2 张同点的点数：12
 - 这 2 张：(42)=6(24​)=6
-- 总：13×4×12×6=374413×4×12×6=3744
+- 总：13×4×12×6=3744
 
 **这就是德州扑克的概率计算基础**。
 
@@ -6227,7 +6226,7 @@ n=6:      1   6  15  20  15   6   1
 - 给学生 1 选 3 个：(123)(312​)
 - 剩 9 个给学生 2 选 3 个：(93)(39​)
 - 剩 6 个给学生 3 选 3 个：(63)(36​)
-- 剩 3 个给学生 4：(33)(33​)
+- 剩 3 个给学生 4：(33)
 
 总：(123)(93)(63)(33)=220×84×20×1=369600(312​)(39​)(36​)(33​)=220×84×20×1=369600
 
@@ -6240,7 +6239,7 @@ n=6:      1   6  15  20  15   6   1
 **思路**：每条路径都是 m 个"右" + n 个"上" 的某种排列。
 
 - 总步数：m+nm+n
-- 选 m 个步骤为"右"（其余为"上"）：(m+nm)(mm+n​)
+- 选 m 个步骤为"右"（其余为"上"）：(m+nm)(m+n)
 
 **这就是"格点路径"问题**，是动态规划的经典入门题。
 
@@ -6252,17 +6251,17 @@ n=6:      1   6  15  20  15   6   1
 
 #### 例：错排问题（Derangement）
 
-n 封信和 n 个信封，每封信都装错（没装入对应信封）的方式数 DnDn​？
+n 封信和 n 个信封，每封信都装错（没装入对应信封）的方式数 Dn？
 
 **容斥原理**：
 
-设 AiAi​ = 第 i 封信装对的方式集合。要求 ∣A1‾∩A2‾∩⋯∩An‾∣∣A1​​∩A2​​∩⋯∩An​​∣。
+设 Ai = 第 i 封信装对的方式集合。要求 ∣A1‾∩A2‾∩⋯∩An‾∣∣A1∩A2∩⋯∩An∣。
 
 由容斥：
 
-Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
+Dn=n!∑k=0n(−1)k!Dn=n!k=0∑nk!(−1)k
 
-**前几项**：D1=0,D2=1,D3=2,D4=9,D5=44,D6=265D1​=0,D2​=1,D3​=2,D4​=9,D5​=44,D6​=265。
+**前几项**：D1=0,D2=1,D3=2,D4=9,D5=44,D6=265。
 
 **有趣事实**：当 n 很大，Dn/n!→1/e≈0.368Dn​/n!→1/e≈0.368。即"全错"概率接近 1/e1/e（约 37%）！
 
@@ -6276,14 +6275,14 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
    ├── 加法原理：互斥事件 → 相加
    ├── 乘法原理：分步事件 → 相乘
    └── 容斥原理：非互斥事件
-   
+
 排列与组合（n 个不同对象选 k 个）
    │
    ├── 排列（顺序敏感，无重复）：A(n,k) = n!/(n-k)!
    ├── 组合（顺序无关，无重复）：C(n,k) = n!/(k!(n-k)!)
    ├── 可重排列：n^k
    └── 可重组合：C(n+k-1, k)
-   
+
 关键恒等式
    │
    ├── 对称：C(n,k) = C(n,n-k)
@@ -6321,10 +6320,10 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 **练习 4**（二项式定理）：
 
-- (1) 求 (x+2y)6(x+2y)6 中 x4y2x4y2 的系数。
-- (2) 求 (1+x)10(1+x)10 中 x5x5 的系数。
-- (3) 求 (2x2−1/x)9(2x2−1/x)9 中常数项。
-- (4) 利用 (1+x)n(1+x)n 求 ∑k=0nk(nk)∑k=0n​k(kn​)。 提示：对 (1+x)n(1+x)n 求导。
+- (1) 求(x+2y)6中 x4y2 的系数。
+- (2) 求(1+x)10中 x5 的系数。
+- (3) 求(2x2−1/x)9中常数项。
+- (4) 利用(1+x)n求 ∑k=0nk(nk)∑k=0nk(kn)。 提示：对(1+x)n求导。
 
 **练习 5**（组合证明）：
 
@@ -6332,13 +6331,13 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 - (1) k(nk)=n(n−1k−1)k(kn​)=n(k−1n−1​)
 - (2) (m+nk)=∑i=0k(mi)(nk−i)(km+n​)=∑i=0k​(im​)(k−in​)（Vandermonde 恒等式）
-- (3) ∑k=0n(nk)2=(2nn)∑k=0n​(kn​)2=(n2n​) 提示：考虑从 n 男 n 女选 n 人。
+- (3) ∑k=0n(nk)2=(2n)∑k=0n​(kn​)2=(n2n​) 提示：考虑从 n 男 n 女选 n 人。
 
 **练习 6**（可重组合 / 插板法）：
 
 - (1) x1+x2+x3+x4=15x1​+x2​+x3​+x4​=15 的非负整数解数。
-- (2) 同上，但每个 xi≥1xi​≥1。（提示：换元 yi=xi−1yi​=xi​−1）
-- (3) x1+x2+x3=20x1​+x2​+x3​=20，0≤xi≤80≤xi​≤8。多少解？（提示：容斥）
+- (2) 同上，但每个xi≥1。（提示：换元yi=xi−1）
+- (3) x1+x2+x3=20x1+x2+x3=20，0≤xi≤8。多少解？（提示：容斥）
 
 **练习 7**（路径问题）：
 
@@ -6354,7 +6353,7 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 **练习 9**（错排）：
 
-- (1) 计算 D5D5​（5 元素错排数）。
+- (1) 计算 D5（5 元素错排数）。
 - (2) 5 对夫妻参加舞会，每位女士都跳舞但不与自己丈夫跳，多少种配对？
 
 **练习 10**（电子工程联系）：
@@ -6367,9 +6366,9 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 (1) 求 ∑k=0nk2(nk)∑k=0n​k2(kn​)。
 
-提示：k2=k(k−1)+kk2=k(k−1)+k，分别处理。
+提示：k2=k(k−1)+k，分别处理。
 
-(2) 证明：∑k=0n(nk)(mk)=(n+mn)∑k=0n​(kn​)(km​)=(nn+m​)（即 Vandermonde 恒等式的特例）。
+(2) 证明：∑k=0n(nk)(mk)=(n+mn)∑k=0n(kn)(km)=(n+m)（即 Vandermonde 恒等式的特例）。
 
 ---
 
@@ -6379,9 +6378,7 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 我们将学习**鸽巢原理**（看起来弱得不可思议，证明却惊人），**生成函数**（用幂级数解决组合问题的革命性技术），以及**线性递推关系的求解**（包括著名的斐波那契闭式公式 Binet 公式）。
 
-
 ## 离散数学 第 16.1 节：鸽巢原理、递推关系与生成函数
-
 
 这节会讲：
 
@@ -6398,13 +6395,13 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 #### 1.1 简单形式
 
-> **鸽巢原理（弱）**：把 n+1n+1 只鸽子放进 nn 个鸽巢，**至少有一个巢中至少 2 只鸽子**。
+> **鸽巢原理（弱）**：把 n+1n+1 只鸽子放进 n 个鸽巢，**至少有一个巢中至少 2 只鸽子**。
 
 废话对吧？但这个废话能证明数学上深刻的结论。
 
 #### 1.2 强化形式
 
-> **鸽巢原理（强）**：把 NN 只鸽子放进 nn 个鸽巢，**至少有一个巢中至少 ⌈N/n⌉⌈N/n⌉ 只鸽子**。
+> **鸽巢原理（强）**：把 N 只鸽子放进 n 个鸽巢，**至少有一个巢中至少 ⌈N/n⌉⌈N/n⌉ 只鸽子**。
 
 **例**：100 只鸽子放进 9 个巢，至少有一巢有 ⌈100/9⌉=12⌈100/9⌉=12 只。
 
@@ -6432,9 +6429,9 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 ##### 应用 3：任意 11 个 0/1/2 数字组成的串中，存在子串和被 3 整除 ⭐
 
-**证明**：设序列 a1,a2,...,a11a1​,a2​,...,a11​。考虑前缀和 S0=0,S1=a1,S2=a1+a2,...,S11S0​=0,S1​=a1​,S2​=a1​+a2​,...,S11​。
+**证明**：设序列 a1,a2,...,a11a1,a2,...,a11。考虑前缀和S0=0,S1=a1,S2=a1+a2,...,S11。
 
-共 12 个前缀和，模 3 只有 3 个可能值（0, 1, 2）。**12 只鸽子，3 个巢**——必有两个 Si=SjSi​=Sj​（i<ji<j）模 3 同余。
+共 12 个前缀和，模 3 只有 3 个可能值（0, 1, 2）。**12 只鸽子，3 个巢**——必有两个Si=Sj（i<ji<j）模 3 同余。
 
 则 ai+1+ai+2+⋯+aj=Sj−Si≡0(mod3)ai+1​+ai+2​+⋯+aj​=Sj​−Si​≡0(mod3)。∎
 
@@ -6442,17 +6439,17 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 ##### 应用 4：Erdős–Szekeres 定理 ⭐⭐
 
-> **任何 n2+1n2+1 个不同实数的序列，必含长度 ≥n+1≥n+1 的递增子序列或长度 ≥n+1≥n+1 的递减子序列。**
+> **任何n2+1个不同实数的序列，必含长度≥n+1的递增子序列或长度≥n+1的递减子序列。**
 
-**证明**：对每个 aiai​，设 (Li,Di)(Li​,Di​) 其中 LiLi​ 是以 aiai​ 结尾的最长**递增**子序列长度，DiDi​ 是最长**递减**子序列长度。
+**证明**：对每个 ai，设(Li,Di)其中 Li 是以 ai 结尾的最长**递增**子序列长度，Di 是最长**递减**子序列长度。
 
 **关键引理**：若 i<ji<j，则 (Li,Di)≠(Lj,Dj)(Li​,Di​)=(Lj​,Dj​)。
 
-证：若 ai<ajai​<aj​，把 ajaj​ 接到 aiai​ 结尾的递增序列后 → Lj≥Li+1>LiLj​≥Li​+1>Li​。 若 ai>ajai​>aj​，类似 Dj>DiDj​>Di​。 所以 (Li,Di)≠(Lj,Dj)(Li​,Di​)=(Lj​,Dj​)。
+证：若ai<aj，把 aj 接到 ai 结尾的递增序列后 →Lj≥Li+1>Li。 若ai>aj，类似Dj>Di。 所以 (Li,Di)≠(Lj,Dj)(Li,Di)=(Lj,Dj)。
 
-现在 n2+1n2+1 个 pair (Li,Di)(Li​,Di​)，假设所有 Li,Di≤nLi​,Di​≤n。则只有 n2n2 种可能 pair——鸽巢原理强迫两个 pair 相同——矛盾！
+现在n2+1个 pair (Li,Di)(Li,Di)，假设所有Li,Di≤n。则只有 n2 种可能 pair——鸽巢原理强迫两个 pair 相同——矛盾！
 
-所以某个 Li≥n+1Li​≥n+1 或某个 Di≥n+1Di​≥n+1。∎
+所以某个Li≥n+1或某个Di≥n+1。∎
 
 **这是组合数学的瑰宝**：用最简单的工具证最深刻的定理。
 
@@ -6468,7 +6465,7 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 #### 2.1 什么是递推
 
-> **递推关系**：定义数列 anan​ 时，**用前几项表示当前项**的方程。
+> **递推关系**：定义数列 an 时，**用前几项表示当前项**的方程。
 
 **例**：
 
@@ -6483,17 +6480,17 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 an=c⋅an−1+f(n),a0 给定an​=c⋅an−1​+f(n),a0​ 给定
 
-**情形 1（齐次）**：an=c⋅an−1an​=c⋅an−1​ → an=cna0an​=cna0​（等比数列）
+**情形 1（齐次）**：an=c⋅an−1→an=cna0（等比数列）
 
-**情形 2（带常数项）**：an=c⋅an−1+dan​=c⋅an−1​+d
+**情形 2（带常数项）**：an=c⋅an−1+d
 
 求闭式（"展开法"）：
 
 $$\begin{aligned} a_n &= c a_{n-1} + d \ &= c(c a_{n-2} + d) + d = c^2 a_{n-2} + cd + d \ &= c^3 a_{n-3} + c^2 d + cd + d \ &\vdots \ &= c^n a_0 + d(c^{n-1} + c^{n-2} + \cdots + 1) \ &= c^n a_0 + d \cdot \frac{c^n - 1}{c - 1} \quad (c \neq 1) \end{aligned}$$
 
-**例：汉诺塔** T(n)=2T(n−1)+1T(n)=2T(n−1)+1，T(0)=0T(0)=0。
+**例：汉诺塔** T(n)=2T(n−1)+1T(n)=2T(n−1)+1，T(0)=0。
 
-代公式：c=2,d=1,a0=0c=2,d=1,a0​=0：
+代公式：c=2,d=1,a0=0：
 
 T(n)=2n⋅0+1⋅2n−12−1=2n−1T(n)=2n⋅0+1⋅2−12n−1​=2n−1
 
@@ -6505,17 +6502,17 @@ T(n)=2n⋅0+1⋅2n−12−1=2n−1T(n)=2n⋅0+1⋅2−12n−1​=2n−1
 
 #### 3.1 一般形式
 
-an=c1an−1+c2an−2an​=c1​an−1​+c2​an−2​
+an=c1an−1+c2an−2
 
 （c1,c2c1​,c2​ 是常数，c2≠0c2​=0；初值 a0,a1a0​,a1​ 给定）
 
 #### 3.2 特征方程法
 
-**核心思想**：尝试解 an=rnan​=rn。代入递推：
+**核心思想**：尝试解an=rn。代入递推：
 
-rn=c1rn−1+c2rn−2rn=c1​rn−1+c2​rn−2
+rn=c1rn−1+c2rn−2
 
-两边除以 rn−2rn−2：
+两边除以rn−2：
 
 r2=c1r+c2⇔r2−c1r−c2=0r2=c1​r+c2​⇔r2−c1​r−c2​=0
 
@@ -6525,13 +6522,13 @@ r2=c1r+c2⇔r2−c1r−c2=0r2=c1​r+c2​⇔r2−c1​r−c2​=0
 
 **情形 1：两个不同实根 r1≠r2r1​=r2​**
 
-通解：an=Ar1n+Br2nan​=Ar1n​+Br2n​
+通解：an=Ar1n+Br2n
 
 由初值 a0,a1a0​,a1​ 解出 A,BA,B。
 
-**情形 2：一个二重根 rr**（即判别式 =0=0）
+**情形 2：一个二重根 r**（即判别式 =0=0）
 
-通解：an=(A+Bn)rnan​=(A+Bn)rn
+通解：an=(A+Bn)rn
 
 **情形 3：复共轭根**
 
@@ -6539,15 +6536,15 @@ r2=c1r+c2⇔r2−c1r−c2=0r2=c1​r+c2​⇔r2−c1​r−c2​=0
 
 #### 3.4 例 1：斐波那契闭式（Binet 公式）⭐
 
-Fn=Fn−1+Fn−2Fn​=Fn−1​+Fn−2​，F0=0,F1=1F0​=0,F1​=1。
+Fn=Fn−1+Fn−2，F0=0,F1=1。
 
-**特征方程**：r2=r+1r2=r+1，即 r2−r−1=0r2−r−1=0。
+**特征方程**：r2=r+1，即r2−r−1=0。
 
 **根**：r=1±52r=21±5​​。
 
 设 φ=1+52φ=21+5​​（**黄金比例**！），ψ=1−52ψ=21−5​​。
 
-**通解**：Fn=Aφn+BψnFn​=Aφn+Bψn
+**通解**：Fn=Aφn+Bψn
 
 **用初值定 A, B**：
 
@@ -6558,21 +6555,21 @@ Fn=Fn−1+Fn−2Fn​=Fn−1​+Fn−2​，F0=0,F1=1F0​=0,F1​=1。
 
 Fn=15[(1+52)n−(1−52)n]Fn​=5​1​[(21+5​​)n−(21−5​​)n]​
 
-**惊人！** 整数列 FnFn​（0, 1, 1, 2, 3, 5, 8, ...）有这样一个**包含 √5 的闭式**。
+**惊人！** 整数列 Fn（0, 1, 1, 2, 3, 5, 8, ...）有这样一个**包含 √5 的闭式**。
 
-**注意**：∣ψ∣<1∣ψ∣<1，所以 ψn→0ψn→0 很快。实际上：
+**注意**：∣ψ∣<1，所以 ψn→0ψn→0 很快。实际上：
 
 Fn=round(φn5)Fn​=round(5​φn​)
 
-**应用**：黄金比例 φφ 出现在自然界（向日葵种子排列、贝壳螺线、鹦鹉螺）、艺术（黄金分割）、金融（斐波那契回撤）。
+**应用**：黄金比例 φ 出现在自然界（向日葵种子排列、贝壳螺线、鹦鹉螺）、艺术（黄金分割）、金融（斐波那契回撤）。
 
 #### 3.5 例 2：二重根情形
 
-**问题**：an=4an−1−4an−2an​=4an−1​−4an−2​，a0=1,a1=3a0​=1,a1​=3。求闭式。
+**问题**：an=4an−1−4an−2，a0=1,a1=3。求闭式。
 
-**特征方程**：r2−4r+4=0r2−4r+4=0，即 (r−2)2=0(r−2)2=0，二重根 r=2r=2。
+**特征方程**：r2−4r+4=0，即(r−2)2=0，二重根 r=2r=2。
 
-**通解**：an=(A+Bn)⋅2nan​=(A+Bn)⋅2n
+**通解**：an=(A+Bn)⋅2n
 
 **初值**：
 
@@ -6585,11 +6582,11 @@ Fn=round(φn5)Fn​=round(5​φn​)
 
 不是凭空多出来的——是数学结构强迫的。
 
-考虑两个**接近**的根 r1=rr1​=r 和 r2=r+ϵr2​=r+ϵ。通解 Ar1n+Br2nAr1n​+Br2n​ 在 ϵ→0ϵ→0 时退化。
+考虑两个**接近**的根r1=r和 r2=r+ϵr2=r+ϵ。通解Ar1n+Br2n在 ϵ→0ϵ→0 时退化。
 
-可以证明：极限是 (A+Bn)rn(A+Bn)rn。这就是为什么二重根要"乘 n"——它是对**导数方向**的解。
+可以证明：极限是(A+Bn)rn。这就是为什么二重根要"乘 n"——它是对**导数方向**的解。
 
-类比：微分方程 y′′−2y′+y=0y′′−2y′+y=0（特征根 1 重 2），通解是 (A+Bx)ex(A+Bx)ex。**完全相同的现象**。
+类比：微分方程 y′′−2y′+y=0y′′−2y′+y=0（特征根 1 重 2），通解是(A+Bx)ex。**完全相同的现象**。
 
 ---
 
@@ -6597,48 +6594,48 @@ Fn=round(φn5)Fn​=round(5​φn​)
 
 #### 4.1 形式
 
-an=c1an−1+c2an−2+g(n)an​=c1​an−1​+c2​an−2​+g(n)
+an=c1an−1+c2an−2+g(n)
 
-非齐次项 g(n)g(n) 不是 0。
+非齐次项 g(n) 不是 0。
 
 #### 4.2 求解策略
 
 **通解 = 齐次通解 + 非齐次特解**
 
-an=an(h)+an(p)an​=an(h)​+an(p)​
+an=an(h)+an(p)
 
 其中：
 
-- an(h)an(h)​：去掉 g(n) 后的齐次方程的通解
-- an(p)an(p)​：原方程的**任意一个**特解
+- an(h)：去掉 g(n) 后的齐次方程的通解
+- an(p)：原方程的**任意一个**特解
 
 #### 4.3 特解的猜测
 
-**根据 g(n)g(n) 的形式猜特解**：
+**根据 g(n) 的形式猜特解**：
 
-|g(n)g(n) 形式|特解试探形式|
+|g(n) 形式|特解试探形式|
 |---|---|
-|多项式 p(n)p(n)，次数 d|同次多项式 Adnd+⋯+A0Ad​nd+⋯+A0​|
-|bnbn（b 不是特征根）|AbnAbn|
-|bnbn（b 是特征根，重数 m）|AnmbnAnmbn|
+|多项式 p(n)，次数 d|同次多项式 Adnd+⋯+A0Adnd+⋯+A0|
+|bn（b 不是特征根）|Abn|
+|bn（b 是特征根，重数 m）|Anmbn|
 |sin⁡(αn),cos⁡(αn)sin(αn),cos(αn)|Asin⁡(αn)+Bcos⁡(αn)Asin(αn)+Bcos(αn)|
 
-#### 4.4 例：an=3an−1+2nan​=3an−1​+2n，a0=1a0​=1
+#### 4.4 例：an=3an−1+2n，a0=1
 
-**齐次部分**：r=3r=3，an(h)=A⋅3nan(h)​=A⋅3n
+**齐次部分**：r=3r=3，an(h)=A⋅3n
 
-**特解**：g(n)=2ng(n)=2n 是 1 次多项式。试 an(p)=Bn+Can(p)​=Bn+C。代入：
+**特解**：g(n)=2n是 1 次多项式。试an(p)=Bn+C。代入：
 
 Bn+C=3(B(n−1)+C)+2nBn+C=3(B(n−1)+C)+2nBn+C=3Bn−3B+3C+2nBn+C=3Bn−3B+3C+2n
 
 比较系数：
 
-- n1n1 项：B=3B+2⇒B=−1B=3B+2⇒B=−1
-- n0n0 项：C=−3B+3C⇒−2C=−3B=3⇒C=−3/2C=−3B+3C⇒−2C=−3B=3⇒C=−3/2
+- n1 项：B=3B+2⇒B=−1B=3B+2⇒B=−1
+- n0 项：C=−3B+3C⇒−2C=−3B=3⇒C=−3/2C=−3B+3C⇒−2C=−3B=3⇒C=−3/2
 
-特解：an(p)=−n−3/2an(p)​=−n−3/2
+特解：an(p)=−n−3/2
 
-**通解**：an=A⋅3n−n−3/2an​=A⋅3n−n−3/2
+**通解**：an=A⋅3n−n−3/2
 
 **用 a0=1a0​=1**：A−3/2=1⇒A=5/2A−3/2=1⇒A=5/2
 
@@ -6646,17 +6643,17 @@ Bn+C=3(B(n−1)+C)+2nBn+C=3(B(n−1)+C)+2nBn+C=3Bn−3B+3C+2nBn+C=3Bn−3B+3C+2n
 
 #### 4.5 算法分析中的递推
 
-**例**（归并排序）：T(n)=2T(n/2)+nT(n)=2T(n/2)+n，T(1)=1T(1)=1。求 T(n)T(n)。
+**例**（归并排序）：T(n)=2T(n/2)+n，T(1)=1。求 T(n)。
 
 这种"分治"递推不是常系数，但常用 **Master 定理**：
 
-> 若 T(n)=aT(n/b)+f(n)T(n)=aT(n/b)+f(n)，则：
-> 
+> 若T(n)=aT(n/b)+f(n)，则：
+>
 > - 若 f(n)=O(nlog⁡ba−ϵ)f(n)=O(nlogb​a−ϵ)：T(n)=Θ(nlog⁡ba)T(n)=Θ(nlogb​a)
 > - 若 f(n)=Θ(nlog⁡ba)f(n)=Θ(nlogb​a)：T(n)=Θ(nlog⁡balog⁡n)T(n)=Θ(nlogb​alogn)
-> - 若 f(n)=Ω(nlog⁡ba+ϵ)f(n)=Ω(nlogb​a+ϵ) 满足正则性：T(n)=Θ(f(n))T(n)=Θ(f(n))
+> - 若 f(n)=Ω(nlogba+ϵ)f(n)=Ω(nlogba+ϵ) 满足正则性：T(n)=Θ(f(n))
 
-对归并排序：a=2,b=2,f(n)=na=2,b=2,f(n)=n，log⁡ba=1logb​a=1，f(n)=n=Θ(n1)f(n)=n=Θ(n1) → T(n)=Θ(nlog⁡n)T(n)=Θ(nlogn)。
+对归并排序：a=2,b=2,f(n)=n，logba=1logba=1，f(n)=n=Θ(n1)→ T(n)=Θ(nlogn)T(n)=Θ(nlogn)。
 
 **这是计算机算法分析的核心定理**。
 
@@ -6728,21 +6725,21 @@ ex=∑n=0∞xnn!ex=n=0∑∞​n!xn​
 
 #### 5.4 用生成函数解递推 ⭐
 
-**例**：解斐波那契 Fn=Fn−1+Fn−2Fn​=Fn−1​+Fn−2​，F0=0,F1=1F0​=0,F1​=1。
+**例**：解斐波那契Fn=Fn−1+Fn−2，F0=0,F1=1。
 
 设 G(x)=∑n=0∞Fnxn=F0+F1x+F2x2+⋯G(x)=∑n=0∞​Fn​xn=F0​+F1​x+F2​x2+⋯
 
-把递推乘 xnxn 并求和（n≥2n≥2）：
+把递推乘 xn 并求和（n≥2n≥2）：
 
 ∑n=2∞Fnxn=∑n=2∞Fn−1xn+∑n=2∞Fn−2xnn=2∑∞​Fn​xn=n=2∑∞​Fn−1​xn+n=2∑∞​Fn−2​xnG(x)−F0−F1x=x(G(x)−F0)+x2G(x)G(x)−F0​−F1​x=x(G(x)−F0​)+x2G(x)
 
-代入 F0=0,F1=1F0​=0,F1​=1：
+代入F0=0,F1=1：
 
 G(x)−x=xG(x)+x2G(x)G(x)−x=xG(x)+x2G(x)G(x)(1−x−x2)=xG(x)(1−x−x2)=xG(x)=x1−x−x2G(x)=1−x−x2x​​
 
 **这就是斐波那契的生成函数**——一个简单的有理函数！
 
-**部分分式分解**：1−x−x2=(1−φx)(1−ψx)1−x−x2=(1−φx)(1−ψx)，其中 φ,ψφ,ψ 是 r2=r+1r2=r+1 的根的**倒数**：φ=1+52,ψ=1−52φ=21+5​​,ψ=21−5​​。
+**部分分式分解**：1−x−x2=(1−φx)(1−ψx)，其中 φ,ψφ,ψ 是r2=r+1的根的**倒数**：φ=1+52,ψ=1−52φ=21+5,ψ=21−5。
 
 G(x)=x(1−φx)(1−ψx)=15(11−φx−11−ψx)G(x)=(1−φx)(1−ψx)x​=5​1​(1−φx1​−1−ψx1​)
 
@@ -6761,7 +6758,7 @@ Fn=φn−ψn5Fn​=5​φn−ψn​
 #### 5.5 卷积公式（生成函数的乘法）⭐
 
 > **定理**：若 A(x)=∑anxnA(x)=∑an​xn，B(x)=∑bnxnB(x)=∑bn​xn，则
-> 
+>
 > A(x)B(x)=∑n=0∞(∑k=0nakbn−k)xnA(x)B(x)=n=0∑∞​(k=0∑n​ak​bn−k​)xn
 
 即乘积的系数 = **卷积** ∑k=0nakbn−k∑k=0n​ak​bn−k​。
@@ -6784,11 +6781,11 @@ Fn=φn−ψn5Fn​=5​φn−ψn​
 
 G(x)=1(1−x)(1−x2)(1−x5)G(x)=(1−x)(1−x2)(1−x5)1​
 
-凑出 n 元的方式数 = G(x)G(x) 中 xnxn 的系数。
+凑出 n 元的方式数 = G(x) 中 xn 的系数。
 
 **这种用生成函数解决"分拆问题"的方法叫 Pólya 计数法**，是组合学的强大工具。
 
-例：求凑出 10 元的方式数。展开 G(x)G(x) 看 x10x10 系数 = 10。
+例：求凑出 10 元的方式数。展开 G(x) 看 x10 系数 = 10。
 
 （验证：(10个1)、(8个1+1个2)、...、(2个5)、(1个5+1个2+3个1)等，共 10 种。）
 
@@ -6810,7 +6807,7 @@ A^(x)B^(x)=∑n=0∞(∑k=0n(nk)akbn−k)xnn!A^(x)B^(x)=n=0∑∞​(k=0∑n​(
 
 #### 6.3 例：错排数的 EGF
 
-错排数 DnDn​ 满足：
+错排数 Dn 满足：
 
 ∑k=0n(nk)Dn−k=n!k=0∑n​(kn​)Dn−k​=n!
 
@@ -6826,11 +6823,11 @@ D^(x)=e−x1−xD^(x)=1−xe−x​
 
 展开：
 
-D^(x)=(∑k=0∞(−x)kk!)⋅(∑m=0∞xm)D^(x)=(k=0∑∞​k!(−x)k​)⋅(m=0∑∞​xm)
+D^(x)=(∑k=0∞(−x)k!)⋅(∑m=0∞xm)D^(x)=(k=0∑∞k!(−x)k)⋅(m=0∑∞xm)
 
 提取 xn/n!xn/n! 的系数：
 
-Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
+Dn=n!∑k=0n(−1)k!Dn=n!k=0∑nk!(−1)k
 
 **这就是上节给的错排公式**——但用 EGF **2 行就证出来了**。
 
@@ -6844,7 +6841,7 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
    ├── 弱：n+1 鸽 n 巢 → 至少 1 巢 ≥ 2
    ├── 强：N 鸽 n 巢 → 至少 1 巢 ≥ ⌈N/n⌉
    └── 难点：构造合适的鸽和巢
-   
+
 递推关系求解
    │
    ├── 一阶：展开法 / 公式
@@ -6858,14 +6855,14 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
    │     └── 特解形式由 g(n) 决定
    │
    └── Master 定理：分治算法
-   
+
 生成函数
    │
    ├── 普通生成函数 OGF：a_n ↔ Σ a_n xⁿ
    ├── 指数生成函数 EGF：a_n ↔ Σ a_n xⁿ/n!
    ├── 卷积公式：A(x)B(x) → 系数 Σ a_k b_(n-k)
    └── 解递推、组合恒等式、计数问题
-   
+
 基础生成函数表：
    1/(1-x) = Σ xⁿ
    1/(1-x)^k = Σ C(n+k-1, k-1) xⁿ
@@ -6897,31 +6894,31 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 求闭式：
 
-(1) an=3an−1−2an​=3an−1​−2，a0=5a0​=5 (2) an=2an−1+3nan​=2an−1​+3n，a0=1a0​=1 (3) an=an−1+nan​=an−1​+n，a0=0a0​=0
+(1) an=3an−1−2an=3an−1−2，a0=5a0=5 (2) an=2an−1+3nan=2an−1+3n，a0=1a0=1 (3) an=an−1+nan=an−1+n，a0=0
 
 **练习 3**（二阶齐次）：
 
 求闭式（解特征方程，用初值定常数）：
 
-(1) an=5an−1−6an−2an​=5an−1​−6an−2​，a0=1,a1=0a0​=1,a1​=0 (2) an=6an−1−9an−2an​=6an−1​−9an−2​，a0=1,a1=6a0​=1,a1​=6 (3) an=an−2an​=an−2​，a0=1,a1=2a0​=1,a1​=2（提示：r2=1r2=1） (4) an=−an−1−an−2an​=−an−1​−an−2​，a0=1,a1=0a0​=1,a1​=0（提示：复根）
+(1) an=5an−1−6an−2an=5an−1−6an−2，a0=1,a1=0a0=1,a1=0 (2) an=6an−1−9an−2an=6an−1−9an−2，a0=1,a1=6a0=1,a1=6 (3) an=an−2an=an−2，a0=1,a1=2（提示：r2=1） (4) an=−an−1−an−2an=−an−1−an−2，a0=1,a1=0（提示：复根）
 
 **练习 4**（二阶非齐次）：
 
-(1) an=3an−1−2an−2+2nan​=3an−1​−2an−2​+2n，a0=1,a1=4a0​=1,a1​=4 （特解试 An2nAn2n，因为 2 是齐次方程的根）
+(1) an=3an−1−2an−2+2nan=3an−1−2an−2+2n，a0=1,a1=4（特解试 An2n，因为 2 是齐次方程的根）
 
-(2) an=an−1+an−2+1an​=an−1​+an−2​+1，a0=0,a1=1a0​=0,a1​=1 （这是个有意思的递推；试 an(p)=−1an(p)​=−1）
+(2) an=an−1+an−2+1an=an−1+an−2+1，a0=0,a1=1（这是个有意思的递推；试an(p)=−1）
 
 **练习 5**（生成函数 —— 入门）：
 
-(1) 求数列 an=n+1an​=n+1 的生成函数。
+(1) 求数列an=n+1的生成函数。
 
-(2) 求数列 an=n2an​=n2 的生成函数。 （提示：xddx[x1(1−x)2]xdxd​[x(1−x)21​]）
+(2) 求数列an=n2的生成函数。 （提示：xddx[x1(1−x)2]xd[x(1−x)21]）
 
-(3) anan​ 的生成函数 G(x)=11−2x−3x2G(x)=1−2x−3x21​。求 anan​ 的闭式。
+(3) an 的生成函数 G(x)=11−2x−3x2G(x)=1−2x−3x21。求 an 的闭式。
 
 **练习 6**（生成函数解递推）：
 
-用生成函数法求 an=3an−1+2an​=3an−1​+2，a0=1a0​=1。
+用生成函数法求an=3an−1+2，a0=1。
 
 （与第 2 题 (1) 比较，体会生成函数的"代数化"风格）
 
@@ -6929,33 +6926,33 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 用面值 2, 5, 7 的硬币凑出 14 元，多少种方式？
 
-(1) 写出生成函数 (2) 手动展开求 x14x14 系数
+(1) 写出生成函数 (2) 手动展开求 x14 系数
 
 **练习 8**（综合 —— 卡特兰数）：
 
-**卡特兰数** CnCn​ 满足 C0=1C0​=1，Cn=∑k=0n−1CkCn−1−kCn​=∑k=0n−1​Ck​Cn−1−k​。
+**卡特兰数** Cn 满足C0=1，Cn=∑k=0n−1CkCn−1−k。
 
 前几项：1, 1, 2, 5, 14, 42, 132, ...
 
-**意义**：nn 对括号的合法匹配数，n+1n+1 个叶节点的二叉树形态数，从 (0,0) 到 (n,n) 不越对角线的路径数...
+**意义**：n 对括号的合法匹配数，n+1n+1 个叶节点的二叉树形态数，从 (0,0) 到 (n,n) 不越对角线的路径数...
 
-(1) 设 G(x)=∑CnxnG(x)=∑Cn​xn。从递推证明 G(x)=1+xG(x)2G(x)=1+xG(x)2。
+(1) 设 G(x)=∑CnxnG(x)=∑Cnxn。从递推证明G(x)=1+xG(x)2。
 
 (2) 解二次方程，得到 G(x)=1−1−4x2xG(x)=2x1−1−4x​​。
 
 (3) 用广义二项式展开，证明：
 
-Cn=1n+1(2nn)Cn​=n+11​(n2n​)
+Cn=1n+1(2n)Cn​=n+11​(n2n​)
 
 **练习 9**（电子工程联系）：
 
-**FIR 数字滤波器**的输出 y[n]=∑k=0Mh[k]x[n−k]y[n]=∑k=0M​h[k]x[n−k] 是**输入与系数的卷积**。
+**FIR 数字滤波器**的输出y[n]=∑k=0Mh[k]x[n−k]是**输入与系数的卷积**。
 
-(1) 用 z 变换 X(z)=∑x[n]z−nX(z)=∑x[n]z−n，证明 Y(z)=H(z)X(z)Y(z)=H(z)X(z)。
+(1) 用 z 变换X(z)=∑x[n]z−n，证明Y(z)=H(z)X(z)。
 
 (这就是为什么生成函数（z 变换是其变体）在信号处理中是核心工具）
 
-(2) 用差分方程 y[n]=ay[n−1]+x[n]y[n]=ay[n−1]+x[n]（IIR 滤波器），求传递函数 H(z)=Y(z)/X(z)H(z)=Y(z)/X(z)。
+(2) 用差分方程y[n]=ay[n−1]+x[n]（IIR 滤波器），求传递函数H(z)=Y(z)/X(z)。
 
 (3) 这和我们求 G(x)=x1−x−x2G(x)=1−x−x2x​ 是一回事吗？解释关联。
 
@@ -6963,9 +6960,9 @@ Cn=1n+1(2nn)Cn​=n+11​(n2n​)
 
 (1) 为什么说生成函数"把离散变成连续"？这种思想在哪些其他领域出现？
 
-(2) Binet 公式 Fn=φn−ψn5Fn​=5​φn−ψn​ 中 φ,ψφ,ψ 是无理数，但 FnFn​ 一定是整数。**为什么？**
+(2) Binet 公式 Fn=φn−ψn5Fn=5φn−ψn 中 φ,ψφ,ψ 是无理数，但 Fn 一定是整数。**为什么？**
 
-提示：考虑 Fn=(φn−ψn)/5Fn​=(φn−ψn)/5​ 的代数结构，或者直接计算并简化。
+提示：考虑Fn=(φn−ψn)/5的代数结构，或者直接计算并简化。
 
 ---
 
@@ -6989,13 +6986,11 @@ Cn=1n+1(2nn)Cn​=n+11​(n2n​)
 
 第 16 节后你做过那些练习吗？我记得给过一道挑战题：
 
-> 用生成函数法证明 Catalan 数 Cn=1n+1(2nn)Cn​=n+11​(n2n​)。
+> 用生成函数法证明 Catalan 数 Cn=1n+1(2n)Cn​=n+11​(n2n​)。
 
 🤔 **你能在心里大致梳理一下证明思路吗？**（不用真做，只要有个大致框架就行）
 
 如果你试过：很好，我们直接深入。 如果没试过：也没关系，我会从这道题开始展开——它是**生成函数威力的最佳展示**。
-
-
 
 ---
 
@@ -7009,15 +7004,15 @@ Cn=1n+1(2nn)Cn​=n+11​(n2n​)
 
 |数列操作|生成函数操作|直觉|
 |---|---|---|
-|an→bn=an−1an​→bn​=an−1​（右移，b0=0b0​=0）|A(x)→xA(x)A(x)→xA(x)|乘 x = 右移|
+|an→bn=an−1an→bn=an−1（右移，b0=0）|A(x)→xA(x)A(x)→xA(x)|乘 x = 右移|
 |an→bn=an+1an​→bn​=an+1​（左移）|A(x)→(A(x)−a0)/xA(x)→(A(x)−a0​)/x||
-|an→bn=c⋅anan​→bn​=c⋅an​|A(x)→cA(x)A(x)→cA(x)|标量倍|
+|an→bn=c⋅an→bn=c⋅an|A(x)→cA(x)A(x)→cA(x)|标量倍|
 |an→bn=nanan​→bn​=nan​|A(x)→xA′(x)A(x)→xA′(x)|**求导技巧** ⭐|
 |an→bn=an/(n+1)an​→bn​=an​/(n+1)|A(x)→∫0xA(t)dt/xA(x)→∫0x​A(t)dt/x|积分|
 |an+bnan​+bn​|A(x)+B(x)A(x)+B(x)|加|
 |**卷积** ∑k=0nakbn−k∑k=0n​ak​bn−k​|A(x)B(x)A(x)B(x)|**乘 = 卷积** ⭐⭐⭐|
 |an→bn=∑k=0nakan​→bn​=∑k=0n​ak​（前缀和）|A(x)/(1−x)A(x)/(1−x)|"除以 1-x" = 前缀和|
-|an→bn=∑k≥nakan​→bn​=∑k≥n​ak​（尾和）|A(1)/(1−x)−xA(x)/(1−x)A(1)/(1−x)−xA(x)/(1−x)（需 A(1)A(1) 收敛）||
+|an→bn=∑k≥nakan→bn=∑k≥nak（尾和）|A(1)/(1−x)−xA(x)/(1−x)A(1)/(1−x)−xA(x)/(1−x)（需 A(1) 收敛）||
 
 **这张表你不用背——但要建立"生成函数 ↔ 数列操作"的对应直觉**。
 
@@ -7025,7 +7020,7 @@ Cn=1n+1(2nn)Cn​=n+11​(n2n​)
 
 > an→nanan​→nan​ 对应 A(x)→xA′(x)A(x)→xA′(x)
 
-**为什么有用**？很多组合恒等式涉及"加权求和" ∑nan∑nan​，求导技巧是核心工具。
+**为什么有用**？很多组合恒等式涉及"加权求和"∑nan，求导技巧是核心工具。
 
 **例**：求 ∑k=0nk(nk)∑k=0n​k(kn​)。
 
@@ -7053,7 +7048,7 @@ ddx[xA′(x)]=∑k2(nk)xk−1dxd​[xA′(x)]=∑k2(kn​)xk−1
 
 而 ddx[xA′(x)]=A′(x)+xA′′(x)dxd​[xA′(x)]=A′(x)+xA′′(x)。
 
-代入 A(x)=(1+x)nA(x)=(1+x)n：A′(x)=n(1+x)n−1A′(x)=n(1+x)n−1，A′′(x)=n(n−1)(1+x)n−2A′′(x)=n(n−1)(1+x)n−2。
+代入A(x)=(1+x)n：A′(x)=n(1+x)n−1A′(x)=n(1+x)n−1，A′′(x)=n(n−1)(1+x)n−2A′′(x)=n(n−1)(1+x)n−2。
 
 代入 x=1x=1（同时把 ∑k2(nk)xk−1∑k2(kn​)xk−1 也代 1）：
 
@@ -7069,11 +7064,11 @@ ddx[xA′(x)]=∑k2(nk)xk−1dxd​[xA′(x)]=∑k2(kn​)xk−1
 
 **证明**：
 
-考虑 (1+x)m(1+x)n=(1+x)m+n(1+x)m(1+x)n=(1+x)m+n。
+考虑(1+x)m(1+x)n=(1+x)m+n。
 
-左边 xrxr 的系数 = ∑k=0r(mk)(nr−k)∑k=0r​(km​)(r−kn​)（卷积）。
+左边 xr 的系数 = ∑k=0r(mk)(nr−k)∑k=0r(km)(r−kn)（卷积）。
 
-右边 xrxr 的系数 = (m+nr)(rm+n​)。
+右边 xr 的系数 = (m+nr)(rm+n)。
 
 相等。∎
 
@@ -7087,7 +7082,7 @@ ddx[xA′(x)]=∑k2(nk)xk−1dxd​[xA′(x)]=∑k2(kn​)xk−1
 
 #### 2.1 Catalan 数的多种定义
 
-**Catalan 数** CnCn​ 出现在 **几十种不同的组合问题**中，都是同一个数列：1, 1, 2, 5, 14, 42, 132, 429, ...
+**Catalan 数** Cn 出现在 **几十种不同的组合问题**中，都是同一个数列：1, 1, 2, 5, 14, 42, 132, 429, ...
 
 经典等价定义：
 
@@ -7107,10 +7102,10 @@ C0=1,Cn=∑k=0n−1CkCn−1−kC0​=1,Cn​=k=0∑n−1​Ck​Cn−1−k​
 
 考虑 n 对括号的合法排列。**第一个 ( 必有匹配的 )**。设它在位置 2k+2（即里面有 k 对括号，外面有 n-k-1 对）。
 
-- 内部 k 对：CkCk​ 种排列
-- 外部 n-k-1 对：Cn−k−1Cn−k−1​ 种排列
+- 内部 k 对：Ck 种排列
+- 外部 n-k-1 对：Cn−k−1种排列
 
-求和：Cn=∑k=0n−1CkCn−1−kCn​=∑k=0n−1​Ck​Cn−1−k​。✅
+求和：Cn=∑k=0n−1CkCn−1−k。✅
 
 🤔 **这个递推让你想起什么**？
 
@@ -7128,7 +7123,7 @@ Cn=∑k=0n−1CkCn−1−kCn​=k=0∑n−1​Ck​Cn−1−k​
 
 左边 = C(x)−C0=C(x)−1C(x)−C0​=C(x)−1。
 
-右边：令 m=n−1m=n−1：
+右边：令m=n−1：
 
 ∑m≥0(∑k=0mCkCm−k)xm+1=x⋅C(x)2m≥0∑​(k=0∑m​Ck​Cm−k​)xm+1=x⋅C(x)2
 
@@ -7136,27 +7131,27 @@ Cn=∑k=0n−1CkCn−1−kCn​=k=0∑n−1​Ck​Cn−1−k​
 
 所以：
 
-C(x)−1=xC(x)2C(x)−1=xC(x)2​
+C(x)−1=xC(x)2
 
-或 xC(x)2−C(x)+1=0xC(x)2−C(x)+1=0。
+或xC(x)2−C(x)+1=0。
 
 #### 2.4 解二次方程
 
 C(x)=1±1−4x2xC(x)=2x1±1−4x​​
 
-**取哪个根**？由 C(0)=C0=1C(0)=C0​=1，需要"-"号（"+"号会给 ∞∞）：
+**取哪个根**？由C(0)=C0=1，需要"-"号（"+"号会给 ∞∞）：
 
 C(x)=1−1−4x2xC(x)=2x1−1−4x​​​
 
 #### 2.5 提取系数（**精彩**）
 
-要从 C(x)C(x) 求 CnCn​，用**广义二项式定理**：
+要从 C(x) 求 Cn，用**广义二项式定理**：
 
 (1+u)1/2=∑k≥0(1/2k)uk(1+u)1/2=k≥0∑​(k1/2​)uk
 
 其中 (1/2k)(k1/2​) 是广义二项系数。
 
-代入 u=−4xu=−4x：
+代入u=−4x：
 
 (1−4x)1/2=∑k≥0(1/2k)(−4)kxk(1−4x)1/2=k≥0∑​(k1/2​)(−4)kxk
 
@@ -7166,13 +7161,13 @@ C(x)=1−1−4x2xC(x)=2x1−1−4x​​​
 
 所以 1−1−4x=∑k≥12k(2k−2k−1)xk1−1−4x​=∑k≥1​k2​(k−12k−2​)xk。
 
-除以 2x2x：
+除以 2x：
 
-C(x)=∑k≥11k(2k−2k−1)xk−1=∑n≥01n+1(2nn)xnC(x)=k≥1∑​k1​(k−12k−2​)xk−1=n≥0∑​n+11​(n2n​)xn
+C(x)=∑k≥11k(2k−2k−1)xk−1=∑n≥01n+1(2n)xnC(x)=k≥1∑​k1​(k−12k−2​)xk−1=n≥0∑​n+11​(n2n​)xn
 
 **所以**：
 
-Cn=1n+1(2nn)Cn​=n+11​(n2n​)​
+Cn=1n+1(2n)Cn​=n+11​(n2n​)​
 
 🎉 **从纯组合递推到漂亮闭式公式——全靠生成函数**。
 
@@ -7200,27 +7195,27 @@ Cn=1n+1(2nn)Cn​=n+11​(n2n​)​
 #### 3.2 EGF 的关键性质：乘法对应"标号合并"
 
 > **EGF 乘法规则**：若 A^,B^A^,B^ 分别计数大小 n 的两类标号结构，则 A^B^A^B^ 计数"把 n 个标号物分成两堆，分别用 A 结构和 B 结构"的方式。
-> 
+>
 > [xn/n!]A^(x)B^(x)=∑k=0n(nk)akbn−k[xn/n!]A^(x)B^(x)=k=0∑n​(kn​)ak​bn−k​
 
 注意系数前的 (nk)(kn​)——这就是"在 n 个标号物中**选 k 个**给 A，剩下 n-k 个给 B"的对应。
 
-**对比 OGF**：OGF 乘法是直接卷积 ∑akbn−k∑ak​bn−k​，**没有 (nk)(kn​)**。EGF 乘法把这个二项系数"内置"了。
+**对比 OGF**：OGF 乘法是直接卷积∑akbn−k，**没有 (nk)(kn)**。EGF 乘法把这个二项系数"内置"了。
 
 #### 3.3 经典 EGF
 
 | 数列                                         | EGF                 |
 | ------------------------------------------ | ------------------- |
-| an=1an​=1（每个 n 一种）                         | exex                |
+| an=1an=1（每个 n 一种）                         | ex                |
 | an=n!an​=n!                                | 11−x1−x1​           |
 | 排列数 A(n,k)=n!/(n−k)!A(n,k)=n!/(n−k)!（固定 k） | xkk!ex⋅k!xk​ex⋅（暂存） |
-| 集合划分数 BnBn​（贝尔数）                           | eex−1eex−1          |
-| 错排数 DnDn​                                  | e−x1−x1−xe−x​       |
+| 集合划分数 Bn（贝尔数）                           | eex−1eex−1          |
+| 错排数 Dn                                  | e−x1−x1−xe−x       |
 | 偶数置换的循环结构                                  | 1+x1−x1−x1+x​​（高级）  |
 
 #### 3.4 经典应用：贝尔数（集合划分）
 
-**贝尔数** BnBn​ = n 元集合的划分数。前几项：1, 1, 2, 5, 15, 52, 203, ...
+**贝尔数** Bn = n 元集合的划分数。前几项：1, 1, 2, 5, 15, 52, 203, ...
 
 **推导 EGF**：
 
@@ -7232,35 +7227,35 @@ Cn=1n+1(2nn)Cn​=n+11​(n2n​)​
 
 设：
 
-- S^(x)=ex−1S^(x)=ex−1 = "非空集合的 EGF"（an=1an​=1 对所有 n≥1n≥1，a0=0a0​=0）
+- S^(x)=ex−1S^(x)=ex−1 = "非空集合的 EGF"（an=1对所有 n≥1n≥1，a0=0）
 
 **关键 EGF 公式**：
 
-Bell(x)=∑k≥0(ex−1)kk!=eex−1Bell(x)=k≥0∑​k!(ex−1)k​=eex−1
+Bell(x)=∑k≥0(ex−1)k!=eex−1Bell(x)=k≥0∑k!(ex−1)k=eex−1
 
 **直觉**：
 
 - (ex−1)k/k!(ex−1)k/k! = "把元素分成 k 个无序非空块的 EGF"
 - 求和（k 任意）= 任意分块的 EGF
-- 简化为 eex−1eex−1（"复合公式"）
+- 简化为eex−1（"复合公式"）
 
-**这个 eex−1eex−1 是组合学的瑰宝**，由"指数公式"（exponential formula）给出。
+**这个eex−1是组合学的瑰宝**，由"指数公式"（exponential formula）给出。
 
 #### 3.5 错排数 EGF（细节）
 
-错排数 DnDn​ = n 个物全错位排列数。
+错排数 Dn = n 个物全错位排列数。
 
 **关键关系**：
 
 n!=∑k=0n(nk)Dn−kn!=k=0∑n​(kn​)Dn−k​
 
-（n 元排列 = 选 k 个固定位置 + 其余 Dn−kDn−k​ 错排）
+（n 元排列 = 选 k 个固定位置 + 其余Dn−k错排）
 
 **EGF 形式**：
 
 11−x=ex⋅D^(x)1−x1​=ex⋅D^(x)
 
-（左边是 n!n! 的 EGF；右边 exex 是"全 1"的 EGF）
+（左边是 n!n! 的 EGF；右边 ex 是"全 1"的 EGF）
 
 所以：
 
@@ -7268,7 +7263,7 @@ D^(x)=e−x1−xD^(x)=1−xe−x​
 
 提取系数：
 
-Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
+Dn=n!∑k=0n(−1)k!Dn=n!k=0∑nk!(−1)k
 
 ---
 
@@ -7278,17 +7273,17 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 #### 4.1 定义
 
-> **概率生成函数 (PGF)**：非负整数值随机变量 XX 的 PGF：
-> 
+> **概率生成函数 (PGF)**：非负整数值随机变量 X 的 PGF：
+>
 > GX(s)=E[sX]=∑k≥0P(X=k)skGX​(s)=E[sX]=k≥0∑​P(X=k)sk
 
 **PGF 是一种 OGF**，**系数就是概率**。
 
 #### 4.2 与矩生成函数的关系
 
-回忆矩生成函数 MGF：MX(t)=E[etX]MX​(t)=E[etX]。
+回忆矩生成函数 MGF：MX(t)=E[etX]。
 
-**关系**：MX(t)=GX(et)MX​(t)=GX​(et)。
+**关系**：MX(t)=GX(et)。
 
 **两者各有所长**：
 
@@ -7311,7 +7306,7 @@ Dn=n!∑k=0n(−1)kk!Dn​=n!k=0∑n​k!(−1)k​
 
 #### 4.4 PGF 的核心性质
 
-**性质 1（独立和）**：X,YX,Y 独立 ⇒ GX+Y(s)=GX(s)GY(s)GX+Y​(s)=GX​(s)GY​(s)。
+**性质 1（独立和）**：X,YX,Y 独立 ⇒GX+Y(s)=GX(s)GY(s)。
 
 **性质 2（求矩）**：
 
@@ -7323,9 +7318,9 @@ E[X]=GX′(1)E[X]=GX′​(1)E[X(X−1)]=GX′′(1)E[X(X−1)]=GX′′​(1)Va
 
 X∼Poisson(λ1)X∼Poisson(λ1​)，Y∼Poisson(λ2)Y∼Poisson(λ2​)，独立。
 
-GX+Y(s)=GX(s)GY(s)=eλ1(s−1)eλ2(s−1)=e(λ1+λ2)(s−1)GX+Y​(s)=GX​(s)GY​(s)=eλ1​(s−1)eλ2​(s−1)=e(λ1​+λ2​)(s−1)
+GX+Y(s)=GX(s)GY(s)=eλ1(s−1)eλ2(s−1)=e(λ1+λ2)(s−1)
 
-这是 Poisson(λ1+λ2)Poisson(λ1​+λ2​) 的 PGF。✅
+这是 Poisson(λ1+λ2) 的 PGF。✅
 
 **与上节用 MGF 证明完全对应**——PGF 和 MGF 是同一思想的两种语言。
 
@@ -7333,7 +7328,7 @@ GX+Y(s)=GX(s)GY(s)=eλ1(s−1)eλ2(s−1)=e(λ1+λ2)(s−1)GX+Y​(s)=GX​(s)GY
 
 🌟 **这是 PGF 最美的应用**。
 
-**问题**：NN 是随机变量（取非负整数），X1,X2,…X1​,X2​,… 独立同分布、与 N 独立。考虑随机和：
+**问题**：N 是随机变量（取非负整数），X1,X2,…X1,X2,… 独立同分布、与 N 独立。考虑随机和：
 
 S=∑i=1NXiS=i=1∑N​Xi​
 
@@ -7343,13 +7338,13 @@ S=∑i=1NXiS=i=1∑N​Xi​
 
 **关键公式**：
 
-GS(s)=GN(GX(s))GS​(s)=GN​(GX​(s))​
+GS(s)=GN(GX(s))
 
 **PGF 的复合！**
 
 **证明**（直接计算）：
 
-GS(s)=E[sS]=E[s∑Xi]GS​(s)=E[sS]=E[s∑Xi​]
+GS(s)=E[sS]=E[s∑Xi]
 
 用全期望：
 
@@ -7359,34 +7354,34 @@ GS(s)=E[sS]=E[s∑Xi]GS​(s)=E[sS]=E[s∑Xi​]
 
 #### 4.7 应用：分支过程（生灭过程）
 
-**问题**：一个生物每代独立繁殖。每个个体的后代数 XX 服从某分布（如 X∼Poisson(λ)X∼Poisson(λ)）。从 1 个个体开始，**问族群是否会灭绝**？
+**问题**：一个生物每代独立繁殖。每个个体的后代数 X 服从某分布（如 X∼Poisson(λ)X∼Poisson(λ)）。从 1 个个体开始，**问族群是否会灭绝**？
 
-**建模**：设 ZnZn​ = 第 n 代个体数。Z0=1Z0​=1。Zn+1=∑i=1ZnXiZn+1​=∑i=1Zn​​Xi​（随机和！）。
+**建模**：设 Zn = 第 n 代个体数。Z0=1。Zn+1=∑i=1ZnXiZn+1=∑i=1ZnXi（随机和！）。
 
 **用 PGF 复合**：
 
-GZn+1(s)=GZn(GX(s))GZn+1​​(s)=GZn​​(GX​(s))
+GZn+1(s)=GZn(GX(s))
 
-迭代：GZn(s)=GX(n)(s)GZn​​(s)=GX(n)​(s)（**n 次复合**）。
+迭代：GZn(s)=GX(n)(s)（**n 次复合**）。
 
 **灭绝概率** q=lim⁡n→∞P(Zn=0)=lim⁡GZn(0)q=limn→∞​P(Zn​=0)=limGZn​​(0)。
 
 **关键定理**（分支过程基本定理）：
 
-> qq 是方程 s=GX(s)s=GX​(s) 在 [0,1][0,1] 中的**最小非负解**。
-> 
-> - 若 E[X]≤1E[X]≤1：q=1q=1（**必灭绝**）
-> - 若 E[X]>1E[X]>1：q<1q<1（**有正概率永久存活**）
+> q 是方程s=GX(s)在[0,1]中的**最小非负解**。
+>
+> - 若E[X]≤1：q=1q=1（**必灭绝**）
+> - 若E[X]>1：q<1q<1（**有正概率永久存活**）
 
 **这就是著名的"临界现象"**——人均后代数 = 1 是分水岭。
 
 **应用**：
 
-- **核反应堆**：中子裂变是分支过程，E[X]>1E[X]>1 时链式反应自持
-- **流行病模型**：再生数 R0>1R0​>1 时疫情扩散
+- **核反应堆**：中子裂变是分支过程，E[X]>1时链式反应自持
+- **流行病模型**：再生数R0>1时疫情扩散
 - **互联网传播**：病毒视频、社交网络
 
-🤔 **思考**：你专业相关的——**雪崩光电二极管 (APD)**：每个光子激发若干电子，电子又激发更多电子。这是分支过程！增益由 E[X]E[X] 控制。
+🤔 **思考**：你专业相关的——**雪崩光电二极管 (APD)**：每个光子激发若干电子，电子又激发更多电子。这是分支过程！增益由E[X]控制。
 
 ---
 
@@ -7396,27 +7391,27 @@ GZn+1(s)=GZn(GX(s))GZn+1​​(s)=GZn​​(GX​(s))
 
 #### 5.1 问题
 
-很多组合数列**没有闭式**，但能写出生成函数。如何估计 anan​ 的渐近增长？
+很多组合数列**没有闭式**，但能写出生成函数。如何估计 an 的渐近增长？
 
-**关键发现**：anan​ 的渐近行为**完全由 A(z)A(z) 的最近奇点决定**。
+**关键发现**：an 的渐近行为**完全由 A(z) 的最近奇点决定**。
 
 #### 5.2 例：Catalan 数渐近
 
 C(z)=1−1−4z2zC(z)=2z1−1−4z​​。
 
-最近奇点（从原点开始最近的奇点）：z=1/4z=1/4（开方下为 0 的地方）。
+最近奇点（从原点开始最近的奇点）：z=1/4（开方下为 0 的地方）。
 
 **奇点分析定理**（Flajolet-Sedgewick）：若 A(z)∼K(1−z/ρ)−αA(z)∼K(1−z/ρ)−α 在 z=ρz=ρ 附近，则：
 
 an∼KΓ(α)nα−1ρ−nan​∼Γ(α)K​nα−1ρ−n
 
-对 Catalan：C(z)∼12z⋅(−1)(1−4z)1/2C(z)∼2z1​⋅(−1)(1−4z)1/2 在 z=1/4z=1/4 附近。整理后：
+对 Catalan：C(z)∼12z⋅(−1)(1−4z)1/2C(z)∼2z1⋅(−1)(1−4z)1/2 在z=1/4附近。整理后：
 
 Cn∼4nπn3/2Cn​∼π​n3/24n​
 
-**指数增长 4n4n + 多项式衰减 n−3/2n−3/2**。
+**指数增长 4n + 多项式衰减 n−3/2n−3/2**。
 
-**直接验证**：Cn=1n+1(2nn)Cn​=n+11​(n2n​)。用 Stirling：(2nn)∼4nπn(n2n​)∼πn​4n​，所以 Cn∼4nπn3/2Cn​∼π​n3/24n​ ✅
+**直接验证**：Cn=1n+1(2n)Cn​=n+11​(n2n​)。用 Stirling：(2n)∼4nπn(n2n​)∼πn​4n​，所以 Cn∼4nπn3/2Cn​∼π​n3/24n​ ✅
 
 #### 5.3 通用方法：从生成函数推渐近
 
@@ -7442,7 +7437,7 @@ Cn∼4nπn3/2Cn​∼π​n3/24n​
 
 #### 6.2 Möbius 反演公式
 
-> 若 g(n)=∑d∣nf(d)g(n)=∑d∣n​f(d)，则 f(n)=∑d∣nμ(n/d)g(d)f(n)=∑d∣n​μ(n/d)g(d)。
+> 若g(n)=∑d∣nf(d)，则f(n)=∑d∣nμ(n/d)g(d)。
 
 **这是数论的瑞士军刀**。
 
@@ -7452,7 +7447,7 @@ Cn∼4nπn3/2Cn​∼π​n3/24n​
 
 F(s)=∑n≥1f(n)nsF(s)=n≥1∑​nsf(n)​
 
-性质：∑f(d)g(n/d)∑f(d)g(n/d) 对应 F(s)G(s)F(s)G(s)（Dirichlet 卷积 = 乘积）。
+性质：∑f(d)g(n/d)对应F(s)G(s)（Dirichlet 卷积 = 乘积）。
 
 **应用**：
 
@@ -7506,9 +7501,9 @@ F(s)=∑n≥1f(n)nsF(s)=n≥1∑​nsf(n)​
 
 (2) 求 ∑k=1nk3(nk)∑k=1n​k3(kn​)。
 
-提示：先求 k(k−1)(k−2)k(k−1)(k−2) 的和（用三阶求导），再调整。
+提示：先求k(k−1)(k−2)的和（用三阶求导），再调整。
 
-(3) 求 ∑n=0∞n2⋅(1/2)n∑n=0∞​n2⋅(1/2)n 的值。
+(3) 求∑n=0∞n2⋅(1/2)n的值。
 
 提示：利用 ∑n2xn=xA′′(x)+?∑n2xn=xA′′(x)+?（自己推）。
 
@@ -7516,13 +7511,13 @@ F(s)=∑n≥1f(n)nsF(s)=n≥1∑​nsf(n)​
 
 (1) 用生成函数证明：
 
-∑k=0n(nk)2=(2nn)k=0∑n​(kn​)2=(n2n​)
+∑k=0n(nk)2=(2n)k=0∑n​(kn​)2=(n2n​)
 
-提示：考虑 (1+x)2n=(1+x)n(1+x)n(1+x)2n=(1+x)n(1+x)n，比较 xnxn 系数。
+提示：考虑 (1+x)2n=(1+x)n(1+x)2n=(1+x)n(1+x)n，比较 xn 系数。
 
 (2) 证明：
 
-∑k=0n(nk)(nn−k)=(2nn)k=0∑n​(kn​)(n−kn​)=(n2n​)
+∑k=0n(nk)(n−k)=(2n)k=0∑n(kn)(n−kn)=(n2n)
 
 （注意这与 (1) 等价——为什么？）
 
@@ -7532,69 +7527,69 @@ F(s)=∑n≥1f(n)nsF(s)=n≥1∑​nsf(n)​
 
 **练习 3**（Catalan 数应用）：
 
-(1) **括号问题验证**：列出所有 3 对括号的合法排列，验证 C3=5C3​=5。
+(1) **括号问题验证**：列出所有 3 对括号的合法排列，验证C3=5。
 
-(2) **二叉树形态**：列出所有有 4 个叶子的二叉树形态，验证 C3=5C3​=5。
+(2) **二叉树形态**：列出所有有 4 个叶子的二叉树形态，验证C3=5。
 
-(3) **格点路径**：列出从 (0,0) 到 (3,3)、不越对角线的所有路径，验证 C3=5C3​=5。
+(3) **格点路径**：列出从 (0,0) 到 (3,3)、不越对角线的所有路径，验证C3=5。
 
-(4) **三角剖分**：六边形（即 (n+2) = 6，n = 4）的所有三角剖分，验证 C4=14C4​=14。
+(4) **三角剖分**：六边形（即 (n+2) = 6，n = 4）的所有三角剖分，验证C4=14。
 
 (5) **挑战**：证明这四种解释都给出同一数列——不必严格证，给出一种**双射**就够（如"括号 ↔ 二叉树"）。
 
 **练习 4**（EGF 应用）：
 
-(1) **错排数验证**：用 EGF 公式 D^(x)=e−x/(1−x)D^(x)=e−x/(1−x) 计算 D3,D4,D5D3​,D4​,D5​。
+(1) **错排数验证**：用 EGF 公式D^(x)=e−x/(1−x)计算 D3,D4,D5D3,D4,D5。
 
-(2) **贝尔数 EGF 应用**：用 Bell(x)=eex−1Bell(x)=eex−1，求 B0,B1,B2,B3B0​,B1​,B2​,B3​。
+(2) **贝尔数 EGF 应用**：用Bell(x)=eex−1，求 B0,B1,B2,B3B0,B1,B2,B3。
 
 (3) **Dobinski 公式**：
 
 Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 
-证明这个公式。提示：把 eex−1eex−1 拆成 e−1∑(ex)k/k!e−1∑(ex)k/k!，再展开 ekxekx 提取系数。
+证明这个公式。提示：把eex−1拆成 e−1∑(ex)k/k!e−1∑(ex)k/k!，再展开 ekx 提取系数。
 
-(4) **指数公式初体验**：n 个标号元素分成若干**圆排列**（每个圆排列有方向）的方式数。每个圆排列的 EGF 是 −ln⁡(1−x)−ln(1−x)（请验证）。所以"分成无序圆排列"的 EGF 是 exp⁡(−ln⁡(1−x))=1/(1−x)exp(−ln(1−x))=1/(1−x)，对应 an=n!an​=n!——**这就是 n! 个置换分解为不相交圆排列**的总方式数。
+(4) **指数公式初体验**：n 个标号元素分成若干**圆排列**（每个圆排列有方向）的方式数。每个圆排列的 EGF 是−ln(1−x)（请验证）。所以"分成无序圆排列"的 EGF 是exp(−ln(1−x))=1/(1−x)，对应 an=n!an=n!——**这就是 n! 个置换分解为不相交圆排列**的总方式数。
 
 **练习 5**（PGF 计算）：
 
-(1) 用 PGF 求几何分布的 E[X]E[X] 和 Var(X)Var(X)。
+(1) 用 PGF 求几何分布的E[X]和 Var(X)。
 
 (2) 用 PGF 证明：X∼Bin(n1,p)X∼Bin(n1​,p)，Y∼Bin(n2,p)Y∼Bin(n2​,p)，独立 ⇒ X+Y∼Bin(n1+n2,p)X+Y∼Bin(n1​+n2​,p)。
 
-(3) **泊松和的 PGF**：X∼Poisson(λ)X∼Poisson(λ)，Y∼Poisson(μ)Y∼Poisson(μ)，独立。给定 X+Y=nX+Y=n，求 X 的条件分布。
+(3) **泊松和的 PGF**：X∼Poisson(λ)X∼Poisson(λ)，Y∼Poisson(μ)Y∼Poisson(μ)，独立。给定X+Y=n，求 X 的条件分布。
 
-提示：算 P(X=k∣X+Y=n)P(X=k∣X+Y=n)，会发现它是二项分布。这是经典结论。
+提示：算 P(X=k∣X+Y=n)，会发现它是二项分布。这是经典结论。
 
 **练习 6**（随机和 / 分支过程）：
 
-(1) **保险索赔**：一年内索赔次数 N∼Poisson(10)N∼Poisson(10)，每次索赔金额 Xi∼Geom(0.1)Xi​∼Geom(0.1)（首次成功试验数，期望 10）独立。求总索赔 SS 的：
+(1) **保险索赔**：一年内索赔次数 N∼Poisson(10)N∼Poisson(10)，每次索赔金额 Xi∼Geom(0.1)Xi​∼Geom(0.1)（首次成功试验数，期望 10）独立。求总索赔 S 的：
 
 - E[S]E[S]
-- Var(S)Var(S)
-- 提示：用 Wald 等式 E[S]=E[N]E[X]E[S]=E[N]E[X] 和 Var(S)=E[N]Var(X)+Var(N)(E[X])2Var(S)=E[N]Var(X)+Var(N)(E[X])2。
+- Var(S)
+- 提示：用 Wald 等式E[S]=E[N]E[X]和Var(S)=E[N]Var(X)+Var(N)(E[X])2。
 
-(2) **简单分支过程**：每个个体下一代后代数 X 服从分布 P(X=0)=1/4,P(X=1)=1/2,P(X=2)=1/4P(X=0)=1/4,P(X=1)=1/2,P(X=2)=1/4。
+(2) **简单分支过程**：每个个体下一代后代数 X 服从分布P(X=0)=1/4,P(X=1)=1/2,P(X=2)=1/4。
 
-- 求 E[X]E[X]。
-- 灭绝概率 qq？解 s=GX(s)s=GX​(s)。
+- 求E[X]。
+- 灭绝概率 q？解s=GX(s)。
 - 这个分布是临界 / 超临界 / 亚临界？
 
 (3) **泊松分支过程**：X∼Poisson(λ)X∼Poisson(λ)。
 
 - 临界值 λ=1λ=1。
-- 当 λ=2λ=2 时，求灭绝概率。提示：s=e2(s−1)s=e2(s−1) 在 [0, 1] 的解。
+- 当 λ=2λ=2 时，求灭绝概率。提示：s=e2(s−1)在 [0, 1] 的解。
 - 数值解（用迭代）。
 
 **练习 7**（生成函数解递推）：
 
 用生成函数法求解：
 
-(1) an=an−1+an−2+1an​=an−1​+an−2​+1，a0=0,a1=1a0​=0,a1​=1。
+(1) an=an−1+an−2+1an=an−1+an−2+1，a0=0,a1=1。
 
-(2) an=nan−1an​=nan−1​（n ≥ 1），a0=1a0​=1。**注意**：用 EGF！
+(2) an=nan−1an=nan−1（n ≥ 1），a0=1。**注意**：用 EGF！
 
-(3) an=2an−1+nan​=2an−1​+n，a0=1a0​=1。
+(3) an=2an−1+nan=2an−1+n，a0=1。
 
 **练习 8**（高级 - 渐近）：
 
@@ -7604,15 +7599,15 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 
 (背景：实际证明很复杂——Devroye 1986。这是算法分析的经典结果。)
 
-(2) **Catalan 数渐近**：用 C(z)=(1−1−4z)/(2z)C(z)=(1−1−4z​)/(2z) 推 Cn∼4n/(πn3/2)Cn​∼4n/(π​n3/2)。
+(2) **Catalan 数渐近**：用C(z)=(1−1−4z)/(2z)推 Cn∼4n/(πn3/2)Cn∼4n/(πn3/2)。
 
-(3) **生成函数 vs 直接推导**：对于 Catalan 数，生成函数法给闭式 Cn=(2nn)/(n+1)Cn​=(n2n​)/(n+1)，渐近法给 Cn∼4n/(πn3/2)Cn​∼4n/(π​n3/2)。两者**一致吗**？
+(3) **生成函数 vs 直接推导**：对于 Catalan 数，生成函数法给闭式 Cn=(2n)/(n+1)Cn​=(n2n​)/(n+1)，渐近法给 Cn∼4n/(πn3/2)Cn​∼4n/(π​n3/2)。两者**一致吗**？
 
 提示：对闭式用 Stirling 公式。
 
 **练习 9**（电子工程应用）：
 
-(1) **z 变换 vs 生成函数**：信号处理的 z 变换 X(z)=∑x[n]z−nX(z)=∑x[n]z−n。
+(1) **z 变换 vs 生成函数**：信号处理的 z 变换X(z)=∑x[n]z−n。
 
 讨论：z 变换和生成函数是否本质相同？区别在哪？
 
@@ -7622,12 +7617,12 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 
 讨论：这两者背后是同一数学吗？
 
-(3) **数字滤波器**：FIR 滤波器 y[n]=∑k=0Mh[k]x[n−k]y[n]=∑k=0M​h[k]x[n−k]。
+(3) **数字滤波器**：FIR 滤波器y[n]=∑k=0Mh[k]x[n−k]。
 
-- 用 z 变换（生成函数）表示，得 Y(z)=H(z)X(z)Y(z)=H(z)X(z)。
+- 用 z 变换（生成函数）表示，得Y(z)=H(z)X(z)。
 - 这就是"传递函数"概念。
 
-(4) **错误概率与生成函数**：在通信中，某段长 n 的码字中错位数 XX 服从某分布。错误图样的生成函数能帮助分析。
+(4) **错误概率与生成函数**：在通信中，某段长 n 的码字中错位数 X 服从某分布。错误图样的生成函数能帮助分析。
 
 讨论：BCH 码、Reed-Solomon 码的设计中，生成函数（生成多项式）扮演什么角色？
 
@@ -7635,13 +7630,13 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 
 (1) **生成函数的"魔力"来源**：为什么把数列变成幂级数能让问题变简单？
 
-讨论：从代数角度看，数列空间是 RNRN，幂级数空间也是 RNRN，但后者有**乘法结构**（卷积）。这种结构让代数操作（加、乘、求逆）成为可能。
+讨论：从代数角度看，数列空间是 RN，幂级数空间也是 RN，但后者有**乘法结构**（卷积）。这种结构让代数操作（加、乘、求逆）成为可能。
 
 (2) **OGF vs EGF 的"对偶"**：
 
 |对象|OGF|EGF|
 |---|---|---|
-|选取 k 个|xkxk|xk/k!xk/k!|
+|选取 k 个|xk|xk/k!xk/k!|
 |乘积|卷积|"标号合并"（带二项系数）|
 
 讨论：什么时候用哪个？给出一个判断标准。
@@ -7650,13 +7645,13 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 
 例如：
 
-- A=1+Z×A2A=1+Z×A2（递归二叉树）→ A(z)=1+zA(z)2A(z)=1+zA(z)2 → Catalan
-- A=SEQ(Z)=1/(1−z)A=SEQ(Z)=1/(1−z)（序列）→ A(z)=1/(1−z)A(z)=1/(1−z)
-- A=SET(B)A=SET(B)（无序集合）→ A(z)=eB(z)A(z)=eB(z)（指数公式）
+- A=1+Z×A2A=1+Z×A2（递归二叉树）→A(z)=1+zA(z)2→ Catalan
+- A=SEQ(Z)=1/(1−z)A=SEQ(Z)=1/(1−z)（序列）→A(z)=1/(1−z)
+- A=SET(B)A=SET(B)（无序集合）→A(z)=eB(z)（指数公式）
 
 讨论：这种"符号 → 公式"的范式如何影响现代算法分析？
 
-(4) **生成函数与物理**：统计物理的"配分函数" Z=∑se−βEsZ=∑s​e−βEs​ 本质上是生成函数。Boltzmann 分布的"动量"对应组合的"系数"。
+(4) **生成函数与物理**：统计物理的"配分函数"Z=∑se−βEs本质上是生成函数。Boltzmann 分布的"动量"对应组合的"系数"。
 
 讨论：为什么物理学家发现的工具（配分函数）和数学家发现的工具（生成函数）如此相似？
 
@@ -7675,14 +7670,13 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 - 渐近分析入门（奇点分析）
 - 与 z 变换、Dirichlet 级数的联系
 
-
 下一节进入：
 
 **第 17 节：图论入门 —— 基本概念、欧拉图与哈密顿图**
 
 我们正式进入**图论**——离散数学最直接、最现代、最重要的应用方向。从图的定义、度数、握手定理，到欧拉七桥问题、哈密顿回路、TSP 问题——你将看到 18 世纪的数学问题如何成为今天的导航 GPS 算法。
 
-加油！💪 这一节稍重，但**生成函数是离散数学最优雅的章节，理解了它就理解了组合学的精髓**。如果有困难告诉我，我们可以再花一节单独深入。
+本节内容较重，但生成函数是离散数学中非常重要且优美的工具，理解它有助于把握组合学的核心方法。
 ## 离散数学 第 17 节：图论入门 —— 基本概念、欧拉图与哈密顿图
 
 我们终于到了**图论**——离散数学最直观、最强大、最具现代感的分支。
@@ -7703,18 +7697,18 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 #### 1.1 严格定义
 
 > **图 (Graph)** G=(V,E)G=(V,E) 由两部分组成：
-> 
-> - VV：**顶点集 (vertices)**，非空有限集
-> - EE：**边集 (edges)**，是 V 的某些**无序对**集合（对无向图）
+>
+> - V：**顶点集 (vertices)**，非空有限集
+> - E：**边集 (edges)**，是 V 的某些**无序对**集合（对无向图）
 
-**例**：V={a,b,c,d}V={a,b,c,d}，E={{a,b},{b,c},{c,d},{a,d}}E={{a,b},{b,c},{c,d},{a,d}}。
+**例**：V={a,b,c,d}，E={{a,b},{b,c},{c,d},{a,d}}。
 
 这是一个 4 节点 4 边的图（菱形）。
 
 #### 1.2 有向图 vs 无向图
 
 - **无向图**：边 {u,v}{u,v} 没有方向（朋友关系：a 和 b 互为朋友）
-- **有向图 (Digraph)**：边 (u,v)(u,v) 有方向（关注关系：a 关注 b 不一定 b 关注 a）
+- **有向图 (Digraph)**：边(u,v)有方向（关注关系：a 关注 b 不一定 b 关注 a）
 
 有向图中边集 E⊆V×VE⊆V×V（**有序对**）。
 
@@ -7732,43 +7726,43 @@ Bn=e−1∑k=0∞knk!Bn​=e−1k=0∑∞​k!kn​
 
 #### 1.4 几类特殊图
 
-**完全图 KnKn​**：n 个顶点两两相连。
+**完全图 Kn**：n 个顶点两两相连。
 
 - 边数 = (n2)=n(n−1)2(2n​)=2n(n−1)​
-- K3K3​ 是三角形，K4K4​ 是四面体投影
+- K3 是三角形，K4 是四面体投影
 
-**路径图 PnPn​**：n 个顶点连成一条路径
+**路径图 Pn**：n 个顶点连成一条路径
 
 - 边数 = n−1n−1
 
-**环图 CnCn​**：n 个顶点连成一个环
+**环图 Cn**：n 个顶点连成一个环
 
-- 边数 = nn
+- 边数 = n
 
 **完全二部图 Km,nKm,n​**：顶点分两组（m 个 + n 个），每组内无边，组间全连
 
-- 边数 = mnmn
+- 边数 = mn
 
-**轮图 WnWn​**：在 CnCn​ 的中心加一个顶点，与所有外部顶点相连
+**轮图 Wn**：在 Cn 的中心加一个顶点，与所有外部顶点相连
 
-- 边数 = 2n2n
+- 边数 = 2n
 
-**超立方体 QnQn​**：n 维布尔立方体，2n2n 个顶点（n 位 0/1 串），相邻 ⟺ 恰一位不同
+**超立方体 Qn**：n 维布尔立方体，2n 个顶点（n 位 0/1 串），相邻 ⟺ 恰一位不同
 
-- Q1Q1​ = 边，Q2Q2​ = 正方形，Q3Q3​ = 立方体
+- Q1 = 边，Q2 = 正方形，Q3 = 立方体
 - **这就是并行计算机的网络拓扑模型**
 
 #### 🤔 检验
 
-K5K5​（5 节点完全图）有几个顶点和边？K3,4K3,4​ 呢？Q4Q4​ 呢？
+K5（5 节点完全图）有几个顶点和边？K3,4K3,4 呢？Q4 呢？
 
 ---
 
 答案：
 
-- K5K5​：5 顶点，(52)=10(25​)=10 边
-- K3,4K3,4​：3+4=7 顶点，3×4=123×4=12 边
-- Q4Q4​：24=1624=16 顶点，每顶点 4 条边出去，总 16×42=32216×4​=32 边
+- K5：5 顶点，(52)=10(25)=10 边
+- K3,4K3,4：3+4=7 顶点，3×4=12边
+- Q4：24=16顶点，每顶点 4 条边出去，总 16×42=32216×4=32 边
 
 ---
 
@@ -7776,14 +7770,14 @@ K5K5​（5 节点完全图）有几个顶点和边？K3,4K3,4​ 呢？Q4Q4​
 
 #### 2.1 定义
 
-> **顶点 v 的度 deg⁡(v)deg(v)**：与 v 关联的边的数目。**环算 2 次**（环的两端都是 v）。
+> **顶点 v 的度 deg(v)**：与 v 关联的边的数目。**环算 2 次**（环的两端都是 v）。
 
 **有向图**：分**入度 deg⁡−(v)deg−(v)**（指向 v 的边数）和**出度 deg⁡+(v)deg+(v)**。
 
 #### 2.2 握手定理（Handshaking Theorem）⭐⭐⭐
 
-> **定理**：设 G=(V,E)G=(V,E) 是无向图。则
-> 
+> **定理**：设G=(V,E)是无向图。则
+>
 > ∑v∈Vdeg⁡(v)=2∣E∣v∈V∑​deg(v)=2∣E∣
 
 **证明**：每条边贡献 2 个度数（端点各 1）。求和即得。∎
@@ -7808,7 +7802,7 @@ K5K5​（5 节点完全图）有几个顶点和边？K3,4K3,4​ 呢？Q4Q4​
 
 > **度序列**：图中所有顶点的度数按降序排列。
 
-**例**：K4K4​ 的度序列 (3, 3, 3, 3)。P5P5​（5 顶点路径）的度序列 (2, 2, 2, 1, 1)。
+**例**：K4 的度序列 (3, 3, 3, 3)。P5（5 顶点路径）的度序列 (2, 2, 2, 1, 1)。
 
 **问题**（Erdős-Gallai 定理）：什么样的非负整数序列能成为某图的度序列？这有一个完整刻画，但我们不深入。
 
@@ -7818,7 +7812,7 @@ K5K5​（5 节点完全图）有几个顶点和边？K3,4K3,4​ 呢？Q4Q4​
 
 #### 3.1 邻接矩阵 (Adjacency Matrix)
 
-设 V={v1,...,vn}V={v1​,...,vn​}。**邻接矩阵** AA 是 n×nn×n 矩阵：
+设V={v1,...,vn}。**邻接矩阵** A 是 n×n×n 矩阵：
 
 A[i][j]={1若 vivj∈E0否则A[i][j]={10​若 vi​vj​∈E否则​
 
@@ -7826,7 +7820,7 @@ A[i][j]={1若 vivj∈E0否则A[i][j]={10​若 vi​vj​∈E否则​
 
 - 无向图的 A **对称**
 - 简单无向图的 A 对角线全 0
-- AkAk 的 (i,j)(i,j) 元素 = **从 vivi​ 到 vjvj​ 的长度为 k 的路径数**！（这是重要定理，对应关系矩阵的复合）
+- Ak 的(i,j)元素 = **从 vi 到 vj 的长度为 k 的路径数**！（这是重要定理，对应关系矩阵的复合）
 
 #### 3.2 邻接表 (Adjacency List)
 
@@ -7834,16 +7828,16 @@ A[i][j]={1若 vivj∈E0否则A[i][j]={10​若 vi​vj​∈E否则​
 
 **例**：
 
-- v1v1​: [v2,v3][v2​,v3​]
-- v2v2​: [v1,v4][v1​,v4​]
+- v1: [v2,v3][v2,v3]
+- v2: [v1,v4][v1,v4]
 - ...
 
 **对比**：
 
 |表示|空间|边查询|适用|
 |---|---|---|---|
-|邻接矩阵|O(n2)O(n2)|O(1)O(1)|稠密图|
-|邻接表|O(n+m)O(n+m)|O(deg⁡)O(deg)|稀疏图|
+|邻接矩阵|O(n2)|O(1)|稠密图|
+|邻接表|O(n+m)|O(deg)|稀疏图|
 
 实际算法（Dijkstra、BFS、DFS）几乎都用邻接表。
 
@@ -7861,19 +7855,19 @@ M[i][j]={1若 vi 是 ej 端点0否则M[i][j]={10​若 vi​ 是 ej​ �
 
 #### 4.1 子图
 
-> **子图 (subgraph)**：H=(V′,E′)H=(V′,E′) 是 G=(V,E)G=(V,E) 的子图，若 V′⊆VV′⊆V，E′⊆EE′⊆E，且 E′E′ 中边的端点都在 V′V′ 中。
+> **子图 (subgraph)**：H=(V′,E′)H=(V′,E′) 是G=(V,E)的子图，若 V′⊆V′⊆V，E′⊆E′⊆E，且 E′E′ 中边的端点都在 V′V′ 中。
 
-> **生成子图 (spanning subgraph)**：V′=VV′=V（保留所有顶点）。
+> **生成子图 (spanning subgraph)**：V′=V′=V（保留所有顶点）。
 
-> **导出子图 (induced subgraph) G[V′]G[V′]**：取 V′⊆VV′⊆V，E′E′ = EE 中两端都在 V′V′ 的边的全部。
+> **导出子图 (induced subgraph) G[V′]G[V′]**：取 V′⊆V′⊆V，E′E′ = E 中两端都在 V′V′ 的边的全部。
 
 #### 4.2 通路、回路
 
-> **通路 (walk)**：顶点边交替序列 v0,e1,v1,e2,...,ek,vkv0​,e1​,v1​,e2​,...,ek​,vk​，每个 eiei​ 连接 vi−1vi−1​ 和 vivi​。
-> 
+> **通路 (walk)**：顶点边交替序列 v0,e1,v1,e2,...,ek,vkv0,e1,v1,e2,...,ek,vk，每个 ei 连接vi−1和 vi。
+>
 > **路径 (path)**：顶点不重复的通路。
-> 
-> **回路 / 圈 (cycle)**：起止顶点相同（v0=vkv0​=vk​），其他顶点不重复，长度 ≥3≥3（在简单图中）。
+>
+> **回路 / 圈 (cycle)**：起止顶点相同（v0=vk），其他顶点不重复，长度 ≥3≥3（在简单图中）。
 
 **长度 (length)**：通路中边的数目。
 
@@ -7922,7 +7916,7 @@ M[i][j]={1若 vi 是 ej 端点0否则M[i][j]={10​若 vi​ 是 ej​ �
 #### 5.3 欧拉图与欧拉通路
 
 > **欧拉回路 (Eulerian circuit)**：经过图的**每条边恰好一次**的回路。
-> 
+>
 > **欧拉通路 (Eulerian trail)**：经过每条边恰好一次的通路（起止点可不同）。
 
 **有欧拉回路的图称为欧拉图**。
@@ -7930,7 +7924,7 @@ M[i][j]={1若 vi 是 ej 端点0否则M[i][j]={10​若 vi​ 是 ej​ �
 #### 5.4 欧拉定理（充要条件）⭐
 
 > **定理**（欧拉，1736）：连通无向图 G 有**欧拉回路** ⟺ **每个顶点度数为偶数**。
-> 
+>
 > G 有**欧拉通路（非回路）** ⟺ **恰有 2 个奇度顶点**（起止点是这两个）。
 
 **证明（必要性）**：欧拉回路经过每条边一次，每过一个顶点 +2 度。所以每个顶点度数为偶。
@@ -7948,11 +7942,11 @@ M[i][j]={1若 vi 是 ej 端点0否则M[i][j]={10​若 vi​ 是 ej​ �
 
 **例 1**：判断下图是否有欧拉回路：
 
-K5K5​：每顶点度 4（偶）。✅ 有欧拉回路。
+K5：每顶点度 4（偶）。✅ 有欧拉回路。
 
 K3,3K3,3​：每顶点度 3（奇）。❌ 无欧拉回路，也无欧拉通路（6 个奇度顶点）。
 
-K4K4​：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路也无欧拉通路。
+K4：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路也无欧拉通路。
 
 **例 2（应用）**：邮递员问题。邮递员要走遍所有街道再回到邮局。如果城市道路图有欧拉回路，他可以最优。否则要重复某些路。
 
@@ -7975,7 +7969,7 @@ K4K4​：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路�
 #### 6.1 定义
 
 > **哈密顿回路 (Hamiltonian circuit)**：经过图的**每个顶点恰好一次**的回路。
-> 
+>
 > **哈密顿通路 (Hamiltonian path)**：经过每个顶点恰好一次的通路。
 
 **有哈密顿回路的图称为哈密顿图**。
@@ -7999,23 +7993,23 @@ K4K4​：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路�
 
 ##### Ore 定理（1960）⭐
 
-> 若 G 是 n≥3n≥3 顶点的简单图，且对**任意不相邻**顶点 u, v，deg⁡(u)+deg⁡(v)≥ndeg(u)+deg(v)≥n，则 G 是哈密顿图。
+> 若 G 是 n≥3n≥3 顶点的简单图，且对**任意不相邻**顶点 u, v，deg(u)+deg(v)≥n，则 G 是哈密顿图。
 
 **Dirac 定理是 Ore 定理的特例**。
 
 #### 6.4 例子
 
-**例**：K5K5​ 是哈密顿图吗？
+**例**：K5 是哈密顿图吗？
 
-每顶点度 4，n/2=2.5n/2=2.5，4 ≥ 2.5。**由 Dirac 定理是哈密顿图** ✅。
+每顶点度 4，n/2=2.5，4 ≥ 2.5。**由 Dirac 定理是哈密顿图** ✅。
 
 **例**：K3,3K3,3​ 是哈密顿图吗？
 
-每顶点度 3，n/2=3n/2=3，刚好满足。**是哈密顿图**。
+每顶点度 3，n/2=3，刚好满足。**是哈密顿图**。
 
 **例**：K2,3K2,3​ 是哈密顿图吗？
 
-5 顶点，但顶点度数 (3, 3, 2, 2, 2)。n/2=2.5n/2=2.5，不全 ≥ 2.5。Dirac 不适用。
+5 顶点，但顶点度数 (3, 3, 2, 2, 2)。n/2=2.5，不全 ≥ 2.5。Dirac 不适用。
 
 实际上 K2,3K2,3​ **不是**哈密顿图。因为哈密顿回路在二部图中要求两边人数相等，2≠32=3 → 不可能。
 
@@ -8037,7 +8031,7 @@ K4K4​：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路�
 
 **实际中的近似算法**：
 
-- 暴力法：O(n!)O(n!) 或 O(n22n)O(n22n)（动态规划）
+- 暴力法：O(n!) 或 O(n22n)（动态规划）
 - 启发式：最近邻、2-opt、模拟退火、遗传算法
 - 近似算法：Christofides 算法（保证不超过最优 1.5 倍）
 - 实战：用 LKH、Concorde 等专业求解器
@@ -8065,7 +8059,7 @@ K4K4​：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路�
 #### 7.1 定义
 
 > **图同构**：G1≅G2G1​≅G2​ 若存在双射 f:V1→V2f:V1​→V2​ 保持邻接：
-> 
+>
 > {u,v}∈E1⇔{f(u),f(v)}∈E2{u,v}∈E1​⇔{f(u),f(v)}∈E2​
 
 通俗：**两个图"长得一样"，只是顶点起的名字不同**。
@@ -8087,7 +8081,7 @@ K4K4​：每顶点度 3（奇），有 4 个奇度顶点。❌ 无欧拉回路�
 考虑两个图，都是 6 顶点、每顶点度 3：
 
 - K3,3K3,3​（完全二部）
-- K4K4​ 加一个三角形挂着（具体构造）
+- K4 加一个三角形挂着（具体构造）
 
 度序列都是 (3,3,3,3,3,3)，但**结构完全不同**。
 
@@ -8126,7 +8120,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
    ├── 充要：所有度偶（回路）/ 恰 2 个奇度（通路）
    └── Hierholzer 算法 O(|E|)
 
-哈密顿  
+哈密顿
    ├── 每个顶点一次
    ├── 充分条件：Dirac (deg ≥ n/2), Ore (deg(u)+deg(v) ≥ n)
    └── NP 完全问题，无简单充要
@@ -8152,13 +8146,13 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **练习 2**（特殊图）：
 
-(1) KnKn​ 的边数和总度数。 (2) Km,nKm,n​ 是欧拉图当且仅当什么条件？ (3) QnQn​（n 维超立方体）的边数。 (4) 证明 QnQn​ 是哈密顿图（提示：用归纳；这是著名的 **Gray 码** 问题）。
+(1) Kn 的边数和总度数。 (2) Km,nKm,n 是欧拉图当且仅当什么条件？ (3) Qn（n 维超立方体）的边数。 (4) 证明 Qn 是哈密顿图（提示：用归纳；这是著名的 **Gray 码** 问题）。
 
 **练习 3**（欧拉图判定）：
 
 下列图哪些有欧拉回路？哪些有欧拉通路？
 
-(1) K5K5​ (2) K6K6​ (3) K2,4K2,4​ (4) K3,5K3,5​  
+(1) K5 (2) K6 (3) K2,4K2,4 (4) K3,5K3,5
 (5) K4,4K4,4​ (6) 8 个顶点都互相相连的二部图
 
 **练习 4**（七桥问题与变种）：
@@ -8171,11 +8165,11 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **练习 5**（哈密顿图判定）：
 
-(1) 用 Dirac 定理证明：KnKn​（n ≥ 3）是哈密顿图。
+(1) 用 Dirac 定理证明：Kn（n ≥ 3）是哈密顿图。
 
 (2) 用 Ore 定理证明：彼得森图（Petersen graph）的反例——它有 10 顶点，每顶点度 3，**不**满足 Ore 条件，但...实际上彼得森图**不是**哈密顿图（它是著名反例）。
 
-(3) 证明：Km,nKm,n​ 是哈密顿图 ⟺ m=n≥2m=n≥2。
+(3) 证明：Km,nKm,n 是哈密顿图 ⟺m=n≥2。
 
 **练习 6**（必要条件应用）：
 
@@ -8189,11 +8183,11 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **练习 7**（邻接矩阵与路径计数）：
 
-设 AA 是图 G 的邻接矩阵。
+设 A 是图 G 的邻接矩阵。
 
-(1) 证明：(Ak)ij(Ak)ij​ = 从 vivi​ 到 vjvj​ 的长度为 k 的**通路**数（允许顶点重复）。
+(1) 证明：(Ak)ij(Ak)ij = 从 vi 到 vj 的长度为 k 的**通路**数（允许顶点重复）。
 
-(2) 应用：考虑 K4K4​ 的邻接矩阵。计算 A2A2 和 A3A3。从顶点 1 到顶点 2 的长度为 3 的通路有几条？
+(2) 应用：考虑 K4 的邻接矩阵。计算 A2 和 A3。从顶点 1 到顶点 2 的长度为 3 的通路有几条？
 
 **练习 8**（图同构）：
 
@@ -8204,7 +8198,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
   1 — 2        a — b
   |   |        |   |
   4 — 3        d — c
-  
+
 图 C:        图 D:
   1—2          a   b
   |\|           \ /
@@ -8248,7 +8242,6 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 我们将学习**树**——图论中最重要的特殊结构。从树的等价定义、生成树概念，到 **Kruskal 和 Prim 算法**求最小生成树（MST）。这是计算机网络规划、电网设计、聚类算法的核心基础。
 
-
 ## 离散数学 第 18 节：树 —— 性质、生成树与最小生成树
 
 **树**是图论中最重要、最优雅、最实用的特殊结构。
@@ -8270,7 +8263,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 #### 1.1 朴素定义
 
 > **树 (tree)**：**连通**且**无回路**的无向图。
-> 
+>
 > **森林 (forest)**：每个连通分量都是树的图（即"无回路的图"）。
 
 #### 1.2 直观
@@ -8305,11 +8298,11 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 #### 2.1 等价命题
 
-> **定理**：设 G = (V, E) 是无向图，∣V∣=n∣V∣=n。下列命题**两两等价**：
-> 
+> **定理**：设 G = (V, E) 是无向图，∣V∣=n。下列命题**两两等价**：
+>
 > 1. G 是**树**（连通且无回路）
-> 2. G **连通**且 ∣E∣=n−1∣E∣=n−1
-> 3. G **无回路**且 ∣E∣=n−1∣E∣=n−1
+> 2. G **连通**且∣E∣=n−1
+> 3. G **无回路**且∣E∣=n−1
 > 4. G 中**任意两顶点**之间有**唯一**路径
 > 5. G **连通**，但**删除任意一条边**后不再连通
 > 6. G **无回路**，但**添加任意一条新边**后会形成回路
@@ -8336,7 +8329,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **关键事实**：树必有**叶子**（度为 1 的顶点），且至少 2 片。
 
-**为什么？** 取 G 中**最长路径** v0,v1,...,vkv0​,v1​,...,vk​。v0v0​ 必须是叶子——否则 v0v0​ 还有别的邻居 u。若 u 不在路径上，可以延长路径，矛盾。若 u 在路径上，则形成回路，矛盾。所以 v0v0​ 是叶子。同理 vkvk​。✅
+**为什么？** 取 G 中**最长路径** v0,v1,...,vkv0,v1,...,vk。v0 必须是叶子——否则 v0 还有别的邻居 u。若 u 不在路径上，可以延长路径，矛盾。若 u 在路径上，则形成回路，矛盾。所以 v0 是叶子。同理 vk。✅
 
 设 v 是 G 的叶子。删去 v 和它的唯一边，得到 G'。G' 仍连通（v 是叶子，它和外界只有一条边），仍无回路（删边只可能减回路）。所以 G' 是 (n-1) 顶点的树。
 
@@ -8350,7 +8343,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **存在性**：树连通，必有路径。
 
-**唯一性**：反证。若 u, v 之间有两条不同路径 P1,P2P1​,P2​。沿 P1P1​ 走到第一个分歧点 a，再到 P2P2​ 上的下一个交点 b。从 a 沿 P1P1​ 到 b，再沿 P2P2​ 反向回 a，构成回路——与树无回路矛盾。∎
+**唯一性**：反证。若 u, v 之间有两条不同路径 P1,P2P1,P2。沿 P1 走到第一个分歧点 a，再到 P2 上的下一个交点 b。从 a 沿 P1 到 b，再沿 P2 反向回 a，构成回路——与树无回路矛盾。∎
 
 其他蕴含的证明类似，都是类似套路。每个等价方向的证明都是好习题。
 
@@ -8374,7 +8367,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 #### 3.2 度数和
 
-由握手定理：∑deg⁡(v)=2∣E∣=2(n−1)∑deg(v)=2∣E∣=2(n−1)。
+由握手定理：∑deg(v)=2∣E∣=2(n−1)。
 
 **例**：5 顶点的树，度数和 = 8。如果度序列 (3, 2, 2, 1, 1)，是合法树吗？
 
@@ -8410,29 +8403,29 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 #### 4.3 m 叉树
 
 > **m 叉树 (m-ary tree)**：每个内部节点最多 m 个儿子。
-> 
+>
 > **完全 m 叉树**：每个内部节点恰好 m 个儿子。
-> 
+>
 > **二叉树 (binary tree)**：m = 2 的情况。
 
 #### 4.4 重要计数定理
 
-> **定理**：完全 m 叉树有 ii 个内部节点。则：
-> 
-> - 顶点总数：n=mi+1n=mi+1
+> **定理**：完全 m 叉树有 i 个内部节点。则：
+>
+> - 顶点总数：n=mi+1
 > - 叶子数：ℓ=(m−1)i+1ℓ=(m−1)i+1
 
-**证明**：每个内部节点贡献 m 个儿子。所有非根顶点都是某节点的儿子。所以非根顶点数 =mi=mi，加上根 → n=mi+1n=mi+1。叶子数 = n−i=mi+1−i=(m−1)i+1n−i=mi+1−i=(m−1)i+1。∎
+**证明**：每个内部节点贡献 m 个儿子。所有非根顶点都是某节点的儿子。所以非根顶点数 =mi=mi，加上根 →n=mi+1。叶子数 = n−i=mi+1−i=(m−1)i+1n−i=mi+1−i=(m−1)i+1。∎
 
 **例**（哈夫曼编码用到）：完全二叉树有 i 个内部节点，则有 i+1i+1 个叶子。
 
 #### 4.5 二叉树高度的下界
 
-**事实**：高度 h 的二叉树最多有 2h+1−12h+1−1 个顶点（满二叉树情况）。
+**事实**：高度 h 的二叉树最多有2h+1−1个顶点（满二叉树情况）。
 
 **反过来**：n 个顶点的二叉树，**高度至少** ⌈log⁡2(n+1)⌉−1⌈log2​(n+1)⌉−1。
 
-**这告诉我们**：理想情况下，n 个数据存在二叉树中，**查询时间是 O(log⁡n)O(logn)**——这是高效数据结构（AVL 树、红黑树）的基础。
+**这告诉我们**：理想情况下，n 个数据存在二叉树中，**查询时间是 O(logn)**——这是高效数据结构（AVL 树、红黑树）的基础。
 
 ---
 
@@ -8457,9 +8450,9 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 #### 5.3 生成树有多少棵？
 
-**Cayley 公式（漂亮但不证）**：完全图 KnKn​ 有 nn−2nn−2 棵生成树。
+**Cayley 公式（漂亮但不证）**：完全图 Kn 有 n−2n−2 棵生成树。
 
-**例**：K4K4​ 有 42=1642=16 棵生成树。
+**例**：K4 有42=16棵生成树。
 
 一般图的生成树个数由**矩阵-树定理 (Kirchhoff theorem)** 计算：等于图的拉普拉斯矩阵的某个余子式。这是图论中很深的结果，不展开。
 
@@ -8502,7 +8495,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
     - 否则跳过
 4. 当 T 有 n - 1 条边时停止
 
-**复杂度**：O(mlog⁡m)O(mlogm)（排序），加上**并查集**的高效实现 → O(mlog⁡n)O(mlogn)。
+**复杂度**：O(mlogm)（排序），加上**并查集**的高效实现 → O(mlogn)。
 
 **正确性**：贪心的标准证明——"剪刀-粘贴"论证。如果 Kruskal 选了某边 e 而最优解没选，可以替换出一棵更优或等价的生成树。
 
@@ -8544,9 +8537,9 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **复杂度**：
 
-- 朴素 O(n2)O(n2)
-- 用**优先队列**（堆）：O(mlog⁡n)O(mlogn)
-- 用**斐波那契堆**：O(m+nlog⁡n)O(m+nlogn)（理论最优）
+- 朴素 O(n2)
+- 用**优先队列**（堆）：O(mlogn)
+- 用**斐波那契堆**：O(m+nlogn)（理论最优）
 
 #### 6.5 Kruskal vs Prim
 
@@ -8554,7 +8547,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 |---|---|---|
 |思路|全局贪心：按边排序|局部生长：从根延伸|
 |数据结构|并查集|优先队列|
-|复杂度|O(mlog⁡m)O(mlogm)|O(mlog⁡n)O(mlogn)|
+|复杂度|O(mlogm)|O(mlogn)|
 |适合|稀疏图|稠密图|
 
 实践中**两个都常用**，竞赛和工程中根据图特性选择。
@@ -8563,7 +8556,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 ##### 切割性质（Cut Property）
 
-> 对图的任意一个**切割**（把顶点分成 S 和 V\S）：跨越切割的所有边中，**权值最小的边**一定在某棵 MST 中。
+> 对图的任意一个**切割**（把顶点分成 $S$ 和 $V\setminus S$）：跨越切割的所有边中，**权值最小的边**一定在某棵 MST 中。
 
 **直觉**：要连通两边，必须有一条跨越边。选最小的那条最划算。
 
@@ -8593,9 +8586,9 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 > **二叉搜索树 (BST)**：左子树所有键 < 节点键 < 右子树所有键。
 
-**操作复杂度**：**平均 O(log⁡n)O(logn)**（如果平衡），**最坏 O(n)O(n)**（退化成链表）。
+**操作复杂度**：**平均 O(logn)**（如果平衡），**最坏 O(n)**（退化成链表）。
 
-**自平衡 BST**：AVL 树、红黑树（标准库 std::map 的实现）保证 O(log⁡n)O(logn)。
+**自平衡 BST**：AVL 树、红黑树（标准库 std::map 的实现）保证 O(logn)。
 
 #### 7.3 二叉树的遍历
 
@@ -8696,7 +8689,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 (2) 证明：树中任意两点之间的路径**唯一**（不用等价定义，直接由"无回路+连通"证）。
 
-(3) 一棵 n 顶点的树，度数序列为 (d1,d2,...,dn)(d1​,d2​,...,dn​)。证明：所有 di≥1di​≥1 且 ∑di=2(n−1)∑di​=2(n−1)。
+(3) 一棵 n 顶点的树，度数序列为(d1,d2,...,dn)。证明：所有di≥1且∑di=2(n−1)。
 
 (4) 一棵完全三叉树有 100 个叶子。问：内部节点数？总顶点数？
 
@@ -8706,7 +8699,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 (1) (3) ⇒ (1)：若 G 无回路且 |E| = n-1，则 G 连通。
 
-(提示：若不连通，每个连通分量都是树。设有 k 个分量，每个分量 GiGi​ 有 nini​ 顶点和 ni−1ni​−1 边。总边数 = ∑(ni−1)=n−k∑(ni​−1)=n−k。要 = n - 1，必 k = 1，矛盾。)
+(提示：若不连通，每个连通分量都是树。设有 k 个分量，每个分量 Gi 有 ni 顶点和ni−1边。总边数 = ∑(ni−1)=n−k∑(ni−1)=n−k。要 = n - 1，必 k = 1，矛盾。)
 
 (2) (4) ⇒ (5)：唯一路径 ⇒ 删边即断。
 
@@ -8714,7 +8707,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 **练习 3**（生成树）：
 
-(1) 求 K4K4​ 的所有生成树（个数 = 42=1642=16）。画几棵不同的。
+(1) 求 K4 的所有生成树（个数 = 42=1642=16）。画几棵不同的。
 
 (2) 求 K2,3K2,3​ 的生成树个数。
 
@@ -8787,7 +8780,7 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 
 提示：可以用归纳证明——任何最优编码必有最低频两字符在最深处。
 
-(4) **当代 MST 算法**：理论上的最快 MST 算法接近 O(mα(m,n))O(mα(m,n))（αα 是反阿克曼函数，几乎是常数）。但实际工程中，Kruskal 加并查集的 O(mlog⁡m)O(mlogm) 已经够用——为什么？
+(4) **当代 MST 算法**：理论上的最快 MST 算法接近O(mα(m,n))（α 是反阿克曼函数，几乎是常数）。但实际工程中，Kruskal 加并查集的 O(mlogm) 已经够用——为什么？
 
 ---
 
@@ -8796,7 +8789,6 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 **第 19 节：图的着色、平面图与图的应用**
 
 我们将学习**图的色数**、著名的**四色定理**、**平面图**与 **Euler 公式**——你将看到为什么"任何地图最多 4 色就能着色"是 20 世纪数学最重大的成就之一，以及它如何应用于**寄存器分配、频率分配、电路布线**等现代问题。
-
 
 ## 离散数学 第 19 节：图的着色、平面图与四色定理
 
@@ -8822,35 +8814,35 @@ GI 不知道是否在 P 中，也不知道是否 NP 完全。是著名的"NP 中
 - **空图**（无边）：χ=1χ=1（一种颜色就够，没人和谁相邻）
 - **二部图**：χ=2χ=2（两侧分别染两种色）
 - **奇圈 C2k+1C2k+1​**：χ=3χ=3（试着染就知道，2 色不够，3 色够）
-- **完全图 KnKn​**：χ=nχ=n（每两顶点相邻，必须 n 种色）
+- **完全图 Kn**：χ=nχ=n（每两顶点相邻，必须 n 种色）
 
 #### 1.3 关键性质
 
-**性质 1**：χ(G)≥ω(G)χ(G)≥ω(G)，其中 ω(G)ω(G) 是 G 中最大团的顶点数。
+**性质 1**：χ(G)≥ω(G)，其中ω(G)是 G 中最大团的顶点数。
 
 **直觉**：若有 k 个顶点两两相邻（团），它们需要 k 种不同色。
 
-**性质 2**（Brooks 定理）：若 G 既不是完全图也不是奇圈，则 χ(G)≤Δ(G)χ(G)≤Δ(G)，其中 Δ(G)Δ(G) 是最大度。
+**性质 2**（Brooks 定理）：若 G 既不是完全图也不是奇圈，则χ(G)≤Δ(G)，其中Δ(G)是最大度。
 
-**性质 3**（贪心上界）：χ(G)≤Δ(G)+1χ(G)≤Δ(G)+1。
+**性质 3**（贪心上界）：χ(G)≤Δ(G)+1。
 
 **贪心算法**：按某种顺序遍历顶点，对每个顶点染**未在邻居中出现的最小编号颜色**。
 
 #### 1.4 二部图的判定 ⭐
 
-> **定理**：图 G 是二部图（即 χ(G)≤2χ(G)≤2）⟺ G 中**没有奇圈**。
+> **定理**：图 G 是二部图（即χ(G)≤2）⟺ G 中**没有奇圈**。
 
 **证明思路**（⇒）：二部图分两侧 A, B。任意回路必交替访问两侧——长度必偶。
 
 **证明思路**（⇐）：若无奇圈，BFS 染色：根染红，距离根为奇的染蓝，偶染红。可验证相邻必异色。
 
-**判定算法**：BFS/DFS 染色 + 检查是否有冲突。O(n+m)O(n+m)。
+**判定算法**：BFS/DFS 染色 + 检查是否有冲突。O(n+m)。
 
 **应用**：很多匹配问题（如稳定婚姻、任务分配）都基于二部图。
 
 #### 1.5 着色问题是 NP 完全的 ⚠️
 
-> **定理**：判定 χ(G)≤kχ(G)≤k（k ≥ 3）是 **NP 完全问题**。
+> **定理**：判定χ(G)≤k（k ≥ 3）是 **NP 完全问题**。
 
 也就是说，**找色数没有已知多项式算法**。这是计算机科学最深刻的事实之一。
 
@@ -8893,7 +8885,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 #### 2.1 定义
 
 > **k-边着色**：给边上色，**相邻边（共享端点的边）异色**。
-> 
+>
 > **色指数 (chromatic index) χ′(G)χ′(G)**：最少边色数。
 
 #### 2.2 Vizing 定理 ⭐
@@ -8917,14 +8909,14 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 #### 3.1 定义
 
 > **平面图 (planar graph)**：可以画在平面上**使得边除端点外不相交**的图。
-> 
+>
 > **平面嵌入 (planar embedding)**：图的一种这样的画法。
 
 **注意区别**：图本身是抽象的（顶点+边集合），是否是平面图是**性质**——能否画出无交叉版本。
 
 #### 3.2 例子
 
-**K4K4​ 是平面图**：
+**K4 是平面图**：
 
 ```
     *
@@ -8934,9 +8926,9 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
  *—————*
 ```
 
-把 K4K4​ 通常画成正四面体的"顶视图"——一个三角形里画一个点连三个顶点，没交叉。
+把 K4 通常画成正四面体的"顶视图"——一个三角形里画一个点连三个顶点，没交叉。
 
-**K5K5​ 不是平面图**！
+**K5 不是平面图**！
 
 **K3,3K3,3​ 不是平面图**！（著名的"三户三井"问题——三户人家，三口井，要求每家通到每口井且管道不交叉。证明它不可能。）
 
@@ -8947,19 +8939,19 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 - **有界面 (bounded face)**
 - 一个**无界面 (unbounded / outer face)**
 
-**例**：K4K4​ 平面嵌入有 4 个面（3 个三角形 + 1 个外面）。
+**例**：K4 平面嵌入有 4 个面（3 个三角形 + 1 个外面）。
 
 #### 3.4 Euler 公式 ⭐⭐⭐
 
 > **Euler 公式**：连通平面图，顶点数 V、边数 E、面数 F 满足：
-> 
+>
 > V−E+F=2V−E+F=2
 
 **例验证**：
 
-- K4K4​：V=4, E=6, F=4。4−6+4=24−6+4=2 ✅
-- 正方体（顶点 8，边 12，面 6）：8−12+6=28−12+6=2 ✅
-- 正二十面体：V=12, E=30, F=20。12−30+20=212−30+20=2 ✅
+- K4：V=4, E=6, F=4。4−6+4=2✅
+- 正方体（顶点 8，边 12，面 6）：8−12+6=2✅
+- 正二十面体：V=12, E=30, F=20。12−30+20=2✅
 
 **这条公式是几何与拓扑的瑰宝**，欧拉 1750 年发现。
 
@@ -8967,39 +8959,39 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 **用数学归纳法（对边数）**：
 
-**基础**：E = 0 时（连通）只能是单顶点：V = 1, F = 1，1−0+1=21−0+1=2 ✅。
+**基础**：E = 0 时（连通）只能是单顶点：V = 1, F = 1，1−0+1=2✅。
 
 **归纳**：设公式对 ≤k≤k 边图成立。考虑 k+1 边图 G。
 
-**情况 1**：G 有回路。任取回路上一条边 e 删去——E 减 1，回路打开，原来分隔的两个面合并，F 减 1，V 不变。新图仍连通：V−(E−1)+(F−1)=V−E+FV−(E−1)+(F−1)=V−E+F。由 IH = 2 ✅。
+**情况 1**：G 有回路。任取回路上一条边 e 删去——E 减 1，回路打开，原来分隔的两个面合并，F 减 1，V 不变。新图仍连通：V−(E−1)+(F−1)=V−E+F。由 IH = 2 ✅。
 
-**情况 2**：G 是树。则 F = 1（无回路 → 无内部面 → 只有外面），E = V - 1。V−(V−1)+1=2V−(V−1)+1=2 ✅。
+**情况 2**：G 是树。则 F = 1（无回路 → 无内部面 → 只有外面），E = V - 1。V−(V−1)+1=2✅。
 
 ∎
 
-#### 3.6 推论：K5K5​ 不是平面图 ⭐
+#### 3.6 推论：K5 不是平面图 ⭐
 
-**推论**：连通平面简单图 G（n ≥ 3）满足 E≤3V−6E≤3V−6。
+**推论**：连通平面简单图 G（n ≥ 3）满足E≤3V−6。
 
-**证明**：每个面至少由 3 条边围成（简单图）。每条边至多分隔两个面。所以 3F≤2E3F≤2E，即 F≤2E/3F≤2E/3。
+**证明**：每个面至少由 3 条边围成（简单图）。每条边至多分隔两个面。所以3F≤2E，即F≤2E/3。
 
-代入 Euler：V−E+F=2V−E+F=2，F=E−V+2≤2E/3F=E−V+2≤2E/3。
+代入 Euler：V−E+F=2，F=E−V+2≤2E/3。
 
-整理：E≤3V−6E≤3V−6。∎
+整理：E≤3V−6。∎
 
-**应用 K5K5​**：V=5, E=10。要平面图：E≤3⋅5−6=9E≤3⋅5−6=9。但 E=10>9E=10>9。**矛盾，K5K5​ 不是平面图**。✅
+**应用 K5**：V=5, E=10。要平面图：E≤3⋅5−6=9。但E=10>9。**矛盾，K5 不是平面图**。✅
 
-**应用 K3,3K3,3​**：V=6, E=9。3V−6=123V−6=12，9 ≤ 12 ✅。但 K3,3K3,3​ 是二部图无三角形，所以**每个面至少 4 边**：4F≤2E4F≤2E，F≤E/2F≤E/2。代 Euler：6−9+F=26−9+F=2，F=5F=5。但 F≤9/2=4.5F≤9/2=4.5，矛盾。**K3,3K3,3​ 不是平面图**。✅
+**应用 K3,3K3,3**：V=6, E=9。3V−6=12，9 ≤ 12 ✅。但 K3,3K3,3 是二部图无三角形，所以**每个面至少 4 边**：4F≤2E，F≤E/2。代 Euler：6−9+F=2，F=5F=5。但F≤9/2=4.5，矛盾。**K3,3K3,3 不是平面图**。✅
 
 #### 3.7 Kuratowski 定理 ⭐⭐⭐
 
-> **Kuratowski 定理 (1930)**：图 G 是平面图 ⟺ G **不包含 K5K5​ 或 K3,3K3,3​ 的细分**。
+> **Kuratowski 定理 (1930)**：图 G 是平面图 ⟺ G **不包含 K5 或 K3,3K3,3 的细分**。
 
 **细分 (subdivision)**：在边上"插入新顶点"得到的图。
 
-**直觉**：K5K5​ 和 K3,3K3,3​ 是"非平面性的最小见证"。任何非平面图必"含有"它们之一作为子结构。
+**直觉**：K5 和 K3,3K3,3 是"非平面性的最小见证"。任何非平面图必"含有"它们之一作为子结构。
 
-**这是 20 世纪图论最深刻的定理之一**。判定平面图是 P 问题（O(n)O(n) 算法存在，由 Hopcroft 和 Tarjan 给出）。
+**这是 20 世纪图论最深刻的定理之一**。判定平面图是 P 问题（O(n) 算法存在，由 Hopcroft 和 Tarjan 给出）。
 
 ---
 
@@ -9021,7 +9013,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 > **五色定理**：任何平面图都 5 色可染。
 
-**证明思路**：归纳。关键事实——平面图必有度数 ≤ 5 的顶点（用 E≤3V−6E≤3V−6 推）。删去这个顶点，归纳给剩余图 5 染色。再处理这个顶点。
+**证明思路**：归纳。关键事实——平面图必有度数 ≤ 5 的顶点（用E≤3V−6推）。删去这个顶点，归纳给剩余图 5 染色。再处理这个顶点。
 
 5 色的情况比较容易，留作练习思考。
 
@@ -9045,7 +9037,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 #### 4.5 为什么"4"？
 
-直觉解释：平面图本质上是"二维"的。在三维上的图（如 K5K5​）需要更多颜色。但**严格回答需要拓扑学**。
+直觉解释：平面图本质上是"二维"的。在三维上的图（如 K5）需要更多颜色。但**严格回答需要拓扑学**。
 
 事实上：
 
@@ -9065,7 +9057,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 #### 5.1 团数与独立集
 
 > **团 (clique)**：完全子图。**团数 ω(G)ω(G)** = 最大团的顶点数。
-> 
+>
 > **独立集 (independent set)**：两两不相邻的顶点集。**独立数 α(G)α(G)** = 最大独立集大小。
 
 **对偶**：G 的独立集 = G 的**补图** GˉGˉ 的团。
@@ -9075,7 +9067,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 - χ(G)⋅α(G)≥nχ(G)⋅α(G)≥n（因为每种颜色类是独立集）
 - ω(G)≤χ(G)ω(G)≤χ(G)
 
-**完美图 (perfect graph)**：所有导出子图 HH 都满足 χ(H)=ω(H)χ(H)=ω(H)。这是图论的重要研究方向。
+**完美图 (perfect graph)**：所有导出子图 H 都满足χ(H)=ω(H)。这是图论的重要研究方向。
 
 #### 5.2 强 Perfect 图定理（2006）
 
@@ -9085,7 +9077,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 #### 5.3 图的染色多项式
 
-**色数多项式 P(G,k)P(G,k)**：用 k 种颜色给 G 染色的方式数。
+**色数多项式 P(G,k)**：用 k 种颜色给 G 染色的方式数。
 
 **例**：P(Kn,k)=k(k−1)(k−2)⋯(k−n+1)P(Kn​,k)=k(k−1)(k−2)⋯(k−n+1)。
 
@@ -9137,13 +9129,13 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 **练习 1**（着色基础）：
 
-(1) 求 χ(C5)χ(C5​)（5 顶点圈图）。证明你的答案。
+(1) 求χ(C5)（5 顶点圈图）。证明你的答案。
 
-(2) 求 χ(C2k)χ(C2k​) 和 χ(C2k+1)χ(C2k+1​)（一般偶圈和奇圈）。
+(2) 求χ(C2k)和χ(C2k+1)（一般偶圈和奇圈）。
 
-(3) 求 χ(Km,n)χ(Km,n​)（完全二部图）。
+(3) 求χ(Km,n)（完全二部图）。
 
-(4) 求 χ(Wn)χ(Wn​)（n+1 顶点轮图：中心+n 圆周顶点）。注意 n 奇偶分情况。
+(4) 求χ(Wn)（n+1 顶点轮图：中心+n 圆周顶点）。注意 n 奇偶分情况。
 
 **练习 2**（贪心着色）：
 
@@ -9155,13 +9147,13 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 - 4-5, 4-6
 - 5-6
 
-(1) 用贪心算法（按编号 1, 2, 3, 4, 5, 6 顺序）着色。 (2) 求实际的 χ(G)χ(G)。 (3) 比较两者，说明贪心**不一定最优**。 (4) 试找一个**顶点顺序**让贪心达到 χ(G)χ(G)。
+(1) 用贪心算法（按编号 1, 2, 3, 4, 5, 6 顺序）着色。 (2) 求实际的χ(G)。 (3) 比较两者，说明贪心**不一定最优**。 (4) 试找一个**顶点顺序**让贪心达到χ(G)。
 
 **练习 3**（二部图判定）：
 
 判定下列图是否二部图。若是，给出二分；若否，找一个奇圈作为反例。
 
-(1) K4K4​ (2) K3,3K3,3​ (3) C6C6​ (4) Petersen 图（10 顶点 3-正则图） (5) 正方体 Q3Q3​ 的图
+(1) K4 (2) K3,3K3,3 (3) C6 (4) Petersen 图（10 顶点 3-正则图） (5) 正方体 Q3 的图
 
 **练习 4**（Euler 公式应用）：
 
@@ -9169,17 +9161,17 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 (2) **正多面体的分类**：用 Euler 公式证明只有 5 种正多面体（正四、立方、正八、正十二、正二十）。
 
-提示：正多面体的每面都是 m 边形（同种），每顶点度 d（同）。dV=2EdV=2E，mF=2EmF=2E，加 Euler 公式。
+提示：正多面体的每面都是 m 边形（同种），每顶点度 d（同）。dV=2E，mF=2E，加 Euler 公式。
 
 (3) 一个连通平面简单图有 20 个顶点，每顶点度 ≥ 6。证明这不可能。
 
 **练习 5**（非平面图证明）：
 
-(1) 用 E≤3V−6E≤3V−6 直接证明 K5K5​ 不是平面图。
+(1) 用E≤3V−6直接证明 K5 不是平面图。
 
 (2) 用 Kuratowski 定理判定 Petersen 图是否平面（提示：Petersen 图含 K3,3K3,3​ 的细分）。
 
-(3) 证明：若一个简单连通平面图无三角形，则 E≤2V−4E≤2V−4。用此推出 K3,3K3,3​ 非平面。
+(3) 证明：若一个简单连通平面图无三角形，则E≤2V−4。用此推出 K3,3K3,3 非平面。
 
 **练习 6**（应用题）：
 
@@ -9231,19 +9223,19 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 (2) 给一个例子说明：尽管每个平面图 4 色可染，**有些平面图必须用 4 种**（不能 3 染色）。
 
-提示：考虑含 K4K4​ 作为子图的平面图。
+提示：考虑含 K4 作为子图的平面图。
 
 (3) **思考**：四色定理用于"地图"——但什么是"地图"？所有"地图"对应的对偶图都是平面的吗？什么样的"地图"对应非平面图（不存在）？
 
 **练习 9**（着色多项式 —— 选做）：
 
-色多项式 P(G,k)P(G,k) = G 用 k 种颜色染色的方式数。
+色多项式 P(G,k) = G 用 k 种颜色染色的方式数。
 
-(1) 证明：P(G,k)=P(G−e,k)−P(G/e,k)P(G,k)=P(G−e,k)−P(G/e,k)，其中 G−eG−e 是删边，G/eG/e 是收缩边（合并端点）。这是著名的**删除-收缩定理**。
+(1) 证明：P(G,k)=P(G−e,k)−P(G/e,k)，其中 G−eG−e 是删边，G/eG/e 是收缩边（合并端点）。这是著名的**删除-收缩定理**。
 
-(2) 用此公式计算 P(C4,k)P(C4​,k)（4 顶点圈）。
+(2) 用此公式计算 P(C4,k)（4 顶点圈）。
 
-(3) 计算 P(Kn,k)P(Kn​,k)。
+(3) 计算 P(Kn,k)。
 
 **练习 10**（电子工程联系 —— 实战）：
 
@@ -9272,7 +9264,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 (2) **四色定理与抽象代数**：四色定理可以转化为代数命题——"平面三正则图存在某种代数染色"。具体涉及 Tait 定理。这个故事说明数学不同分支的深刻联系。
 
-(3) **量子计算与图着色**：图着色是 NP 完全问题。量子计算（如 Grover 算法）能加速暴力搜索 O(2n)O(2n​)，但不能让 NP 变 P。如果你专业方向是芯片设计或通信，**量子优势在哪里？哪些问题量子真正擅长？**
+(3) **量子计算与图着色**：图着色是 NP 完全问题。量子计算（如 Grover 算法）能加速暴力搜索 O(2n)，但不能让 NP 变 P。如果你专业方向是芯片设计或通信，**量子优势在哪里？哪些问题量子真正擅长？**
 
 (4) **机器学习中的"图染色"思想**：图神经网络 (GNN) 中，节点的"嵌入向量"在迭代中相互影响，本质上类似贪心着色——相邻节点保持区分。讨论：图着色对 GNN 有什么启发？
 
@@ -9284,7 +9276,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 我们进入离散数学的最后一大块：**抽象代数**。从**半群、幺半群、群**的层级定义开始，讲到**循环群、对称群、子群、陪集和拉格朗日定理**。然后简介**环和域**——这是密码学（RSA、椭圆曲线密码）、编码理论（Reed-Solomon 码）、量子计算的数学基础。
 
-加油！💪 图论这一大块到此为止——你已经掌握了图论的核心 80%（除了流网络、匹配等高级话题）。
+加油！💪 图论这一大块到此为止——此前已经掌握了图论的核心 80%（除了流网络、匹配等高级话题）。
 ## 离散数学 第 20 节：代数结构入门 —— 群、环、域
 
 我们终于到了离散数学的**最后一大块**——抽象代数。
@@ -9306,7 +9298,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 - 字符串拼接
 - 逻辑 ∧ 或 ∨
 - 集合 ∪ 或 ∩
-- 模 n 同余的加法（上节学的 ZnZn​）
+- 模 n 同余的加法（上节学的 Zn）
 
 **问题来了**：这些系统**有什么共同结构**？
 
@@ -9328,10 +9320,10 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 🤔 **思考**：以下哪些"运算"是真正的二元运算？
 
-1. NN 上的减法（N={0,1,2,...}N={0,1,2,...}）
-2. ZZ 上的减法
+1. N 上的减法（N={0,1,2,...}）
+2. Z 上的减法
 3. Z+Z+ 上的除法
-4. QQ 上的除法
+4. Q 上的除法
 
 ---
 
@@ -9348,7 +9340,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 > **代数系统**：集合 A 配上若干二元运算（也可以有零元、一元运算）。
 
-记号：(A,∗)(A,∗)、(A,∗,⋄)(A,∗,⋄)、(A,+,⋅,0,1)(A,+,⋅,0,1) 等。
+记号：(A,∗)(A,∗)、(A,∗,⋄)(A,∗,⋄)、(A,+,⋅,0,1)等。
 
 接下来我们逐步加约束，得到不同的代数结构。
 
@@ -9361,7 +9353,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 #### 3.1 半群（Semigroup）
 
 > **半群**：(S,∗)(S,∗) 满足：
-> 
+>
 > 1. **封闭性**：∗∗ 是 S 上的二元运算
 > 2. **结合律**：(a∗b)∗c=a∗(b∗c)(a∗b)∗c=a∗(b∗c)
 
@@ -9379,39 +9371,39 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 答案：
 
 1. ✅ 整数加法封闭、结合
-2. **❌** 减法不结合：(5−3)−1=1(5−3)−1=1，5−(3−1)=35−(3−1)=3
+2. **❌** 减法不结合：(5−3)−1=1，5−(3−1)=3
 3. ✅
 4. ✅ 字符串拼接是经典半群（"abc" + "def" = "abcdef"）
 
 #### 3.2 幺半群（Monoid）
 
-> **幺半群**：半群 + **单位元 (identity)** ee，满足 a∗e=e∗a=aa∗e=e∗a=a 对所有 aa。
+> **幺半群**：半群 + **单位元 (identity)** e，满足 a∗e=e∗a=a∗e=e∗a=a 对所有 a。
 
 **单位元的直觉**：和它运算"什么都不变"。加法的 0、乘法的 1、字符串拼接的""空串。
 
 🤔 **想想**：单位元如果存在，是否唯一？
 
-试着证明：假设 e1e1​ 和 e2e2​ 都是单位元。计算 e1∗e2e1​∗e2​：
+试着证明：假设 e1 和 e2 都是单位元。计算 e1∗e2e1∗e2：
 
-- 视 e2e2​ 为单位元：e1∗e2=e1e1​∗e2​=e1​
-- 视 e1e1​ 为单位元：e1∗e2=e2e1​∗e2​=e2​
+- 视 e2 为单位元：e1∗e2=e1∗e2=e1
+- 视 e1 为单位元：e1∗e2=e2e1∗e2=e2
 
-所以 e1=e2e1​=e2​。**单位元唯一**。✅
+所以e1=e2。**单位元唯一**。✅
 
 #### 3.3 群（Group）⭐⭐⭐
 
 这是抽象代数的**核心概念**。
 
 > **群**：(G,∗)(G,∗) 满足：
-> 
+>
 > 1. **封闭性**
 > 2. **结合律**
-> 3. **单位元 e 存在**：a∗e=e∗a=aa∗e=e∗a=a
-> 4. **每个元素有逆元**：对每个 aa，存在 a−1a−1 使 a∗a−1=a−1∗a=ea∗a−1=a−1∗a=e
+> 3. **单位元 e 存在**：a∗e=e∗a=a∗e=e∗a=a
+> 4. **每个元素有逆元**：对每个 a，存在 a−1a−1 使 a∗a−1=a−1∗a=ea∗a−1=a−1∗a=e
 
 **直觉**：群是"一个能做、能撤销的运算系统"。
 
-如果还满足**交换律** a∗b=b∗aa∗b=b∗a，就叫**阿贝尔群 (abelian group)** 或**交换群**。
+如果还满足**交换律** a∗b=b∗a∗b=b∗a，就叫**阿贝尔群 (abelian group)** 或**交换群**。
 
 #### 3.4 经典群的例子
 
@@ -9433,7 +9425,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 2. ❌ **不是群**。单位元 1，但 2 没有整数逆元。
 3. ✅ **群**。单位元 1，q 的逆元 1/q。是阿贝尔群。
 4. ✅ **群**。单位元 [0]，[k] 的逆元是 [n-k]。
-5. **取决于 n**！n 是质数时是群（每非零元有乘法逆）；n 是合数时**不是群**（如 Z6Z6​ 中 [2] 无逆元）。
+5. **取决于 n**！n 是质数时是群（每非零元有乘法逆）；n 是合数时**不是群**（如 Z6 中 [2] 无逆元）。
 
 第 5 条非常重要，是密码学（RSA）的关键——**只有质数模才形成完整的乘法群**。
 
@@ -9441,15 +9433,15 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 到现在举的例子都是阿贝尔群。但**很多重要的群是非交换的**！
 
-**例 1**：n×nn×n **可逆矩阵**配以矩阵乘法，记作 GLn(R)GLn​(R) —— **一般线性群**。
+**例 1**：n×n×n **可逆矩阵**配以矩阵乘法，记作 GLn(R) —— **一般线性群**。
 
 矩阵乘法不交换：AB≠BAAB=BA（一般情况）。
 
-**例 2**：**对称群** SnSn​ —— n 个元素的所有**排列**（双射）配以**复合**。
+**例 2**：**对称群** Sn —— n 个元素的所有**排列**（双射）配以**复合**。
 
-例：S3S3​ 有 3!=63!=6 个元素，对应 {1,2,3}{1,2,3} 的所有排列。两个排列 σσ 和 ττ 复合 σ∘τσ∘τ 一般不等于 τ∘στ∘σ。
+例：S3 有 3!=63!=6 个元素，对应 {1,2,3}{1,2,3} 的所有排列。两个排列 σ 和 τ 复合 σ∘τσ∘τ 一般不等于 τ∘στ∘σ。
 
-**例 3**：**二面体群** DnDn​ —— 正 n 边形的所有对称变换（旋转和反射）。
+**例 3**：**二面体群** Dn —— 正 n 边形的所有对称变换（旋转和反射）。
 
 这些非交换群是**几何、物理、量子力学**的核心工具。
 
@@ -9480,9 +9472,9 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 参考：
 
-- 半群非幺半群：(Z+,+)(Z+,+)（无单位元——0 不在）
-- 幺半群非群：(N,+)(N,+)（有单位元 0，但 2 没有"+"逆元）
-- 非交换群：S3S3​、GL2(R)GL2​(R)、D4D4​
+- 半群非幺半群：(Z+,+)（无单位元——0 不在）
+- 幺半群非群：(N,+)（有单位元 0，但 2 没有"+"逆元）
+- 非交换群：S3、GL2(R)、D4
 
 ---
 
@@ -9504,7 +9496,7 @@ CPU 寄存器有限（如 x86 有 16 个通用寄存器）。编译器要把程�
 
 **证 (2) 逆元唯一**：
 
-假设 bb 和 b′b′ 都是 aa 的逆。
+假设 b 和 b′b′ 都是 a 的逆。
 
 b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′
 
@@ -9518,7 +9510,7 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 ✅
 
-**注意 (4) 中顺序**：(ab)−1=b−1a−1(ab)−1=b−1a−1（反序），不是 a−1b−1a−1b−1。
+**注意 (4) 中顺序**：(ab)−1=b−1a−1（反序），不是a−1b−1。
 
 **生活类比**：穿衣服→袜子→鞋子；脱衣服反过来→鞋子→袜子。**穿和脱顺序相反**。
 
@@ -9526,7 +9518,7 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 有限群的运算可以列**乘法表**（**Cayley 表**）。
 
-**例**：Z4={0,1,2,3}Z4​={0,1,2,3} 的加法表：
+**例**：Z4={0,1,2,3}的加法表：
 
 |+|0|1|2|3|
 |---|---|---|---|---|
@@ -9537,12 +9529,12 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 🤔 **观察**：每行每列都是 {0,1,2,3}{0,1,2,3} 的**排列**（即每个元素出现恰好一次）。这叫**拉丁方性质**。
 
-**为什么？** 试着证明：固定 aa，则映射 x↦a∗xx↦a∗x 是 G 到 G 的**双射**。
+**为什么？** 试着证明：固定 a，则映射 x↦a∗x↦a∗x 是 G 到 G 的**双射**。
 
 **提示**：
 
 - 单射：若 a∗x=a∗ya∗x=a∗y，由消去律 x=yx=y
-- 满射：任取 bb，x=a−1∗bx=a−1∗b 满足 a∗x=ba∗x=b
+- 满射：任取 b，x=a−1∗bx=a−1∗b 满足 a∗x=ba∗x=b
 
 所以这一行（所有 a∗xa∗x）正好是 G 的所有元素，每个出现一次。
 
@@ -9554,9 +9546,9 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 #### 5.1 子群
 
-> **子群 (subgroup)**：群 GG 的非空子集 HH，若 HH 在 GG 的运算下**自身构成群**，则称 HH 为 GG 的子群，记 H≤GH≤G。
+> **子群 (subgroup)**：群 G 的非空子集 H，若 H 在 G 的运算下**自身构成群**，则称 H 为 G 的子群，记 H≤GH≤G。
 
-🤔 **思考**：要验证 HH 是子群，要验证哪些条件？
+🤔 **思考**：要验证 H 是子群，要验证哪些条件？
 
 完整列表：封闭、结合、单位元、逆元。但其实**有简化判据**：
 
@@ -9568,28 +9560,28 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 - (2Z,+)≤(Z,+)(2Z,+)≤(Z,+)：偶数加法是整数加法的子群
 - {e}≤G{e}≤G：**平凡子群**
-- G≤GG≤G：自身
+- G≤G≤G：自身
 
 #### 5.2 元素的阶
 
-> **元素 aa 的阶 (order)**：使 an=ean=e 的最小正整数 n。若不存在，称 aa 的阶为无穷。
+> **元素 a 的阶 (order)**：使an=e的最小正整数 n。若不存在，称 a 的阶为无穷。
 
-记号：∣a∣∣a∣ 或 ord(a)ord(a)。
+记号：∣a∣∣a∣ 或 ord(a)。
 
-**例**：在 Z6Z6​ 中：
+**例**：在 Z6 中：
 
-- ∣0∣=1∣0∣=1（0⋅1=00⋅1=0，最小 n = 1）
+- ∣0∣=1∣0∣=1（0⋅1=0，最小 n = 1）
 - ∣1∣=6∣1∣=6（1+1+...+1=6≡01+1+...+1=6≡0，最小 n = 6）
 - ∣2∣=3∣2∣=3（2+2+2=6≡02+2+2=6≡0）
 - ∣3∣=2∣3∣=2（3+3=6≡03+3=6≡0）
 
 #### 5.3 循环群
 
-> **循环群 (cyclic group)**：群 G 由单个元素 gg 生成，即 G={e,g,g2,g3,...}G={e,g,g2,g3,...} 或 {...,g−2,g−1,e,g,g2,...}{...,g−2,g−1,e,g,g2,...}。gg 称为**生成元**。
+> **循环群 (cyclic group)**：群 G 由单个元素 g 生成，即G={e,g,g2,g3,...}或{...,g−2,g−1,e,g,g2,...}。g 称为**生成元**。
 
 记号：G=⟨g⟩G=⟨g⟩。
 
-**例 1**：(Z,+)=⟨1⟩(Z,+)=⟨1⟩（用加法记号 1,2=1+1,3=1+1+1,...1,2=1+1,3=1+1+1,... 包括负数）。
+**例 1**：(Z,+)=⟨1⟩(Z,+)=⟨1⟩（用加法记号1,2=1+1,3=1+1+1,...包括负数）。
 
 **例 2**：Zn=⟨1⟩Zn​=⟨1⟩（有限循环群）。
 
@@ -9598,7 +9590,7 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 **重要事实**：
 
 - 任何无限循环群与 (Z,+)(Z,+) **同构**
-- 任何有限 n 阶循环群与 (Zn,+)(Zn​,+) 同构
+- 任何有限 n 阶循环群与(Zn,+)同构
 
 所以从结构上讲，**循环群只有这两类**。
 
@@ -9620,7 +9612,7 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 **关键事实**（不证）：
 
-1. 所有左陪集 aHaH 大小相同（都是 ∣H∣∣H∣）
+1. 所有左陪集 aH 大小相同（都是 ∣H∣∣H∣）
 2. 不同的左陪集**不相交**
 3. 所有左陪集**并起来 = G**
 
@@ -9638,33 +9630,33 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 **为什么**：⟨a⟩⟨a⟩ 是 G 的子群，∣⟨a⟩∣=∣a∣∣⟨a⟩∣=∣a∣（元素的阶）。由拉格朗日：∣a∣∣a∣ 整除 ∣G∣∣G∣。
 
-**推论 2（费马小定理）**：若 pp 是质数，aa 与 pp 互质，则 ap−1≡1(modp)ap−1≡1(modp)。
+**推论 2（费马小定理）**：若 p 是质数，a 与 p 互质，则 ap−1≡1(modp)ap−1≡1(modp)。
 
-**为什么**：Zp∗={1,2,...,p−1}Zp∗​={1,2,...,p−1} 在乘法下是 p-1 阶群。任意 a 的阶整除 p-1，所以 ap−1=e=1ap−1=e=1。
+**为什么**：Zp∗={1,2,...,p−1}Zp∗={1,2,...,p−1} 在乘法下是 p-1 阶群。任意 a 的阶整除 p-1，所以ap−1=e=1。
 
 这就是上节学的费马小定理——**它是拉格朗日定理的直接推论**。
 
 **推论 3**：质数阶群必是循环群。
 
-**为什么**：取非单位元 a。∣a∣∣a∣ 整除 ∣G∣=p∣G∣=p，且 ∣a∣≠1∣a∣=1。所以 ∣a∣=p∣a∣=p，即 ⟨a⟩=G⟨a⟩=G。
+**为什么**：取非单位元 a。∣a∣∣a∣ 整除∣G∣=p，且 ∣a∣≠1∣a∣=1。所以∣a∣=p，即 ⟨a⟩=G⟨a⟩=G。
 
 🤔 **检验**：
 
-- Z5Z5​ 的所有子群？
-- Z12Z12​ 的所有子群？
+- Z5 的所有子群？
+- Z12 的所有子群？
 
 ---
 
 答案：
 
-- Z5Z5​（5 是质数）只有平凡子群 {0}{0} 和它自己（推论 3）
-- Z12Z12​ 的子群对应 12 的因子 1, 2, 3, 4, 6, 12：
+- Z5（5 是质数）只有平凡子群 {0}{0} 和它自己（推论 3）
+- Z12 的子群对应 12 的因子 1, 2, 3, 4, 6, 12：
     - 阶 1：{0}{0}
     - 阶 2：{0,6}{0,6}
     - 阶 3：{0,4,8}{0,4,8}
     - 阶 4：{0,3,6,9}{0,3,6,9}
     - 阶 6：{0,2,4,6,8,10}{0,2,4,6,8,10}
-    - 阶 12：Z12Z12​
+    - 阶 12：Z12
 
 ---
 
@@ -9675,10 +9667,10 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 #### 6.1 定义
 
 > **环 (ring)** (R,+,⋅)(R,+,⋅)：
-> 
+>
 > 1. (R,+)(R,+) 是**阿贝尔群**（加法部分）
 > 2. (R,⋅)(R,⋅) 是**半群**（乘法部分）—— 即乘法封闭、结合
-> 3. **分配律**：a⋅(b+c)=a⋅b+a⋅ca⋅(b+c)=a⋅b+a⋅c 和 (a+b)⋅c=a⋅c+b⋅c(a+b)⋅c=a⋅c+b⋅c
+> 3. **分配律**：a⋅(b+c)=a⋅b+a⋅c和(a+b)⋅c=a⋅c+b⋅c
 
 如果乘法**有单位元 1**，称**含幺环 (ring with unity)**。
 
@@ -9688,24 +9680,24 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 
 |环|加单位|乘单位|交换？|
 |---|---|---|---|
-|ZZ|0|1|✅|
-|ZnZn​|[0]|[1]|✅|
-|n×nn×n 实矩阵|0 矩阵|单位矩阵|❌|
+|Z|0|1|✅|
+|Zn|[0]|[1]|✅|
+|n×n×n 实矩阵|0 矩阵|单位矩阵|❌|
 |实系数多项式 R[x]R[x]|0|1|✅|
 
-**在环里 0⋅a=00⋅a=0 总是成立**——但**00 不是乘法单位**。
+**在环里0⋅a=0总是成立**——但**00 不是乘法单位**。
 
 #### 6.3 零因子
 
-🤔 在 Z6Z6​ 中：2⋅3=6≡02⋅3=6≡0。**两个非零数相乘等于零**！
+🤔 在 Z6 中：2⋅3=6≡02⋅3=6≡0。**两个非零数相乘等于零**！
 
-**这种现象在 ZZ、QQ、RR 中绝不发生**。
+**这种现象在 Z、Q、R 中绝不发生**。
 
-> **零因子 (zero divisor)**：环中非零元素 aa，存在非零 bb 使 ab=0ab=0。
+> **零因子 (zero divisor)**：环中非零元素 a，存在非零 b 使ab=0。
 
 **整环 (integral domain)**：交换含幺环 + **无零因子**。
 
-例：ZZ 是整环，Z6Z6​ 不是整环（有 2 和 3 这种零因子）。
+例：Z 是整环，Z6 不是整环（有 2 和 3 这种零因子）。
 
 ---
 
@@ -9728,32 +9720,32 @@ b=b∗e=b∗(a∗b′)=(b∗a)∗b′=e∗b′=b′b=b∗e=b∗(a∗b′)=(b∗a
 - (C,+,⋅)(C,+,⋅)：复数域
 - (Zp,+,⋅)(Zp​,+,⋅) 当 **p 为质数**：**有限域** ⭐
 
-**ZZ 不是域**——只有 ±1±1 有乘法逆。ZnZn​（n 为合数）也不是域。
+**Z 不是域**——只有 ±1±1 有乘法逆。Zn（n 为合数）也不是域。
 
 #### 7.3 有限域（Galois Field）⭐⭐⭐
 
 > **有限域**：元素个数有限的域。
 
-**核心定理（Galois）**：**有限域的元素个数必为 pnpn**（p 质数），且对每个 pnpn **存在唯一**的有限域，记为 FpnFpn​ 或 GF(pn)GF(pn)。
+**核心定理（Galois）**：**有限域的元素个数必为 pn**（p 质数），且对每个 pn **存在唯一**的有限域，记为 Fpn 或 GF(pn)。
 
 特别地：
 
 - Fp=ZpFp​=Zp​（p 质数）
-- F2nF2n​：2n2n 元素的有限域，**计算机科学中最重要的有限域**。
+- F2n：2n 元素的有限域，**计算机科学中最重要的有限域**。
 
-**F2nF2n​ 的元素**：可看作 n 位二进制串。运算复杂（不是简单的位运算），但完全在 {0,1}n{0,1}n 中封闭。
+**F2n 的元素**：可看作 n 位二进制串。运算复杂（不是简单的位运算），但完全在 {0,1}n{0,1}n 中封闭。
 
 #### 7.4 应用：你专业相关的 ⭐
 
 **1. AES 加密**
 
-AES（Advanced Encryption Standard，世界标准对称加密）的核心运算在 F28F28​ 上进行——把每字节看作 F28F28​ 元素，做加法（异或 XOR）和乘法。
+AES（Advanced Encryption Standard，世界标准对称加密）的核心运算在 F28 上进行——把每字节看作 F28 元素，做加法（异或 XOR）和乘法。
 
 **这就是为什么 AES 既复杂又快**——直接利用了有限域的优秀代数性质。
 
 **2. Reed-Solomon 编码**
 
-RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）基于 F28F28​ 上的**多项式插值**。每个数据块看作 F28F28​ 上的一个值，编码就是计算多项式在更多点的值。
+RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）基于 F28 上的**多项式插值**。每个数据块看作 F28 上的一个值，编码就是计算多项式在更多点的值。
 
 **为什么"每张 QR 码即使污损部分也能扫出"**——RS 码在背后保护。
 
@@ -9763,7 +9755,7 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 **4. CRC 校验**
 
-以太网、Wi-Fi、硬盘 ECC、ZIP 文件——都用 CRC，本质是 F2[x]F2​[x]（F2F2​ 上多项式环）中的取模运算。
+以太网、Wi-Fi、硬盘 ECC、ZIP 文件——都用 CRC，本质是F2[x]（F2 上多项式环）中的取模运算。
 
 #### 7.5 域的"清单"
 
@@ -9792,7 +9784,7 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 #### 8.1 定义
 
 > **同态 (homomorphism)**：群 (G,∗)(G,∗) 到 (G′,⋄)(G′,⋄) 的映射 φ:G→G′φ:G→G′，满足：
-> 
+>
 > φ(a∗b)=φ(a)⋄φ(b)φ(a∗b)=φ(a)⋄φ(b)
 
 **通俗**：**保持运算结构**的映射。
@@ -9803,11 +9795,11 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 #### 8.2 例子
 
-**经典例子**：(R,+)(R,+) 与 (R+,⋅)(R+,⋅) 同构。
+**经典例子**：(R,+)与(R+,⋅)同构。
 
-**双射**：φ(x)=exφ(x)=ex。
+**双射**：φ(x)=ex。
 
-**保运算**：φ(x+y)=ex+y=ex⋅ey=φ(x)⋅φ(y)φ(x+y)=ex+y=ex⋅ey=φ(x)⋅φ(y) ✅
+**保运算**：φ(x+y)=ex+y=ex⋅ey=φ(x)⋅φ(y)✅
 
 **这就是为什么"指数把加法变乘法"**——它是群同构！对数则是反向同构。
 
@@ -9817,16 +9809,16 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 **例**：3 个 6 阶群
 
-- Z6Z6​（模 6 加法）
+- Z6（模 6 加法）
 - Z2×Z3Z2​×Z3​（直积）
-- S3S3​（3 元置换群）
+- S3（3 元置换群）
 
 哪些同构？
 
 - Z6≅Z2×Z3Z6​≅Z2​×Z3​（中国剩余定理保证）
-- S3S3​ 与上面**不同构**（S3S3​ 非交换，Z6Z6​ 交换）
+- S3 与上面**不同构**（S3 非交换，Z6 交换）
 
-**所以阶 6 的群本质上只有 2 种结构**：循环群和 S3S3​。这是有限群分类问题的开端。
+**所以阶 6 的群本质上只有 2 种结构**：循环群和 S3。这是有限群分类问题的开端。
 
 #### 8.4 有限单群的分类（一段佳话）
 
@@ -9834,8 +9826,8 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 **结论**：所有有限单群（不可分解的"基本积木"）属于以下几大类：
 
-- 循环群 ZpZp​（p 质数）
-- 交错群 AnAn​（n≥5n≥5）
+- 循环群 Zp（p 质数）
+- 交错群 An（n≥5n≥5）
 - Lie 型群（16 族）
 - **26 个散在群 (sporadic groups)** ——奇异的孤立群
 
@@ -9882,32 +9874,32 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 判断下列代数系统是半群、幺半群、群、阿贝尔群中的哪种（最强的那个）。
 
-(1) (R,+)(R,+) (2) (Z+,⋅)(Z+,⋅) (3) (Q,⋅)(Q,⋅) (4) (Q−{0},⋅)(Q−{0},⋅) (5) （所有 n×nn×n 实矩阵，矩阵加法） (6) （所有 n×nn×n 实可逆矩阵，矩阵乘法） (7) （某集合的所有双射，函数复合）
+(1) (R,+)(R,+) (2) (Z+,⋅)(Z+,⋅) (3) (Q,⋅)(Q,⋅) (4) (Q−{0},⋅)(Q−{0},⋅) (5) （所有 n×n×n 实矩阵，矩阵加法） (6) （所有 n×n×n 实可逆矩阵，矩阵乘法） (7) （某集合的所有双射，函数复合）
 
 **练习 2**（群的性质 —— 简单证明）：
 
 设 (G,∗)(G,∗) 是群。证明：
 
-(1) 单位元唯一 (2) 每元素逆元唯一  
-(3) (a−1)−1=a(a−1)−1=a (4) 消去律：ab=ac⇒b=cab=ac⇒b=c (5) **方程 ax=bax=b 在群中有唯一解** x=a−1bx=a−1b
+(1) 单位元唯一 (2) 每元素逆元唯一
+(3) (a−1)−1=a(a−1)−1=a (4) 消去律：ab=ac⇒b=cab=ac⇒b=c (5) **方程ax=b在群中有唯一解** x=a−1bx=a−1b
 
 **练习 3**（元素的阶）：
 
-(1) 在 Z12Z12​ 中求每个元素的阶。
+(1) 在 Z12 中求每个元素的阶。
 
-(2) 在 Z12Z12​ 中，元素的阶集合是什么？验证它们都整除 12。
+(2) 在 Z12 中，元素的阶集合是什么？验证它们都整除 12。
 
-(3) **挑战**：在 ZnZn​ 中，元素 kk 的阶 = ngcd⁡(k,n)gcd(k,n)n​。证明这个公式。
+(3) **挑战**：在 Zn 中，元素 k 的阶 = ngcd(k,n)gcd(k,n)n。证明这个公式。
 
 **练习 4**（子群）：
 
-(1) 找出 Z18Z18​ 的所有子群。
+(1) 找出 Z18 的所有子群。
 
-(2) 找出 Z8Z8​ 的所有子群。
+(2) 找出 Z8 的所有子群。
 
-(3) 找出 Z2×Z2Z2​×Z2​（**克莱因四元群**）的所有子群。
+(3) 找出 Z2×Z2×Z2（**克莱因四元群**）的所有子群。
 
-(4) **思考**：为什么 Z4Z4​ 和 Z2×Z2Z2​×Z2​ 都是 4 阶群但不同构？
+(4) **思考**：为什么 Z4 和 Z2×Z2×Z2 都是 4 阶群但不同构？
 
 **练习 5**（拉格朗日定理应用）：
 
@@ -9915,47 +9907,47 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 (2) 一个 7 阶群必须是什么类型？为什么（用拉格朗日推论）？
 
-(3) 用拉格朗日定理证明**欧拉定理**：若 gcd⁡(a,n)=1gcd(a,n)=1，则 aφ(n)≡1(modn)aφ(n)≡1(modn)，其中 φφ 是欧拉函数。
+(3) 用拉格朗日定理证明**欧拉定理**：若gcd(a,n)=1，则 aφ(n)≡1(modn)aφ(n)≡1(modn)，其中 φ 是欧拉函数。
 
 提示：考虑 Zn∗Zn∗​（与 n 互质的元素）在乘法下构成的群。
 
 **练习 6**（环与域）：
 
-(1) 验证 Z5Z5​ 是域。具体写出乘法表，验证每非零元有逆。
+(1) 验证 Z5 是域。具体写出乘法表，验证每非零元有逆。
 
-(2) 在 Z8Z8​ 中找所有零因子。它是不是整环？
+(2) 在 Z8 中找所有零因子。它是不是整环？
 
-(3) 列出 ZnZn​ 是域的所有 n（n≤20n≤20）。
+(3) 列出 Zn 是域的所有 n（n≤20）。
 
 **练习 7**（同构）：
 
-(1) 证明：**任何 6 阶交换群都同构于 Z6Z6​**。
+(1) 证明：**任何 6 阶交换群都同构于 Z6**。
 
 提示：6 阶群必含 6 阶元素或 ...
 
-(2) 证明：(Z4,+)(Z4​,+) 和 (Z2×Z2,+)(Z2​×Z2​,+) **不同构**。
+(2) 证明：(Z4,+)和 (Z2×Z2,+)(Z2×Z2,+) **不同构**。
 
 提示：考虑元素的阶。
 
-(3) 证明：(R,+)≅(R+,⋅)(R,+)≅(R+,⋅)（用 φ(x)=exφ(x)=ex）。
+(3) 证明：(R,+)≅(R+,⋅)(R,+)≅(R+,⋅)（用φ(x)=ex）。
 
-(4) **思考**：(Q,+)(Q,+) 与 (Q+,⋅)(Q+,⋅) 是否同构？为什么？
+(4) **思考**：(Q,+)与(Q+,⋅)是否同构？为什么？
 
 **练习 8**（电子工程联系 —— 重要）：
 
-(1) **AES 中的 F28F28​**：在 F28F28​ 中（用不可约多项式 x8+x4+x3+x+1x8+x4+x3+x+1），元素是 8 位二进制数，加法是逐位异或。问：
+(1) **AES 中的 F28**：在 F28 中（用不可约多项式x8+x4+x3+x+1），元素是 8 位二进制数，加法是逐位异或。问：
 
 - 加法的群结构是什么？
 - 0⊕0=?0⊕0=?，0xFF⊕0x00=?0xFF⊕0x00=?
 - 这告诉你什么？
 
-(2) **CRC-32 的 F2[x]/(g(x))F2​[x]/(g(x))**：CRC-32 用一个 32 阶的不可约多项式 g(x)g(x)。
+(2) **CRC-32 的 F2[x]/(g(x))F2[x]/(g(x))**：CRC-32 用一个 32 阶的不可约多项式 g(x)。
 
 - 解释为什么"CRC 校验是除法取余"
-- 为什么用 F2F2​（mod 2）的多项式？
-- 为什么对应的环 F2[x]/g(x)F2​[x]/g(x) 是域？
+- 为什么用 F2（mod 2）的多项式？
+- 为什么对应的环F2[x]/g(x)是域？
 
-(3) **椭圆曲线**：椭圆曲线 y2=x3+ax+by2=x3+ax+b 上点的集合 + "切线-割线规则" 构成一个**阿贝尔群**。这是 ECC 加密的基础。
+(3) **椭圆曲线**：椭圆曲线y2=x3+ax+b上点的集合 + "切线-割线规则" 构成一个**阿贝尔群**。这是 ECC 加密的基础。
 
 - 为什么需要"群结构"？（对应 RSA 中的什么？）
 - 为什么需要在**有限域**上做？（性能？安全？）
@@ -9973,22 +9965,20 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 (2) **抽象的力量**：拉格朗日定理告诉我们 6 阶群的子群只能是 1, 2, 3, 6 阶。这条结论同时对：
 
-- Z6Z6​（数论）
-- S3S3​（置换群）
-- 二面体群 D3D3​（几何对称）
+- Z6（数论）
+- S3（置换群）
+- 二面体群 D3（几何对称）
 - 任何 6 阶群
 
 成立。讨论：抽象代数的"统一性"为什么这么强？这种"一招通吃"的特点对工程师有什么启发？
 
-(3) **有限单群的分类与"怪兽群"**：怪兽群 MM 的存在是数学中的奇迹。它与**模形式 (modular form)** 和**弦理论**有"月光假说 (Monstrous Moonshine)"般的神秘联系——后者已被 Borcherds 证明（1998 Fields Medal）。这告诉我们：抽象代数的"小问题"可能藏着深刻的物理意义。
+(3) **有限单群的分类与"怪兽群"**：怪兽群 M 的存在是数学中的奇迹。它与**模形式 (modular form)** 和**弦理论**有"月光假说 (Monstrous Moonshine)"般的神秘联系——后者已被 Borcherds 证明（1998 Fields Medal）。这告诉我们：抽象代数的"小问题"可能藏着深刻的物理意义。
 
 讨论：你能想象 26 个"散在群"为什么会孤立存在吗？
 
 ---
 
-
-你已经学完了离散数学的几乎所有核心内容！👏 , 下一节我们进入数论的内容
-
+此前已经学完了离散数学的几乎所有核心内容！👏 , 下一节我们进入数论的内容
 
 ## 离散数学 第 21.1 节：数论核心 —— 整除、同余与RSA密码学
 
@@ -10005,7 +9995,6 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 3. **a≡b(modn)a≡b(modn)** 这个记号你熟悉吗？（之前第 11 节学过）
 4. **欧几里得除法**："a 除以 b 商 q 余 r" 的精确陈述？
 
-
 我**默认你前 3 题没问题**（之前章节都讲过），第 4 题可能不熟，我会从那里展开。
 
 ---
@@ -10014,13 +10003,13 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 
 #### 1.1 整除
 
-> a∣ba∣b（**a 整除 b**）：存在整数 k 使 b=akb=ak。
+> a∣ba∣b（**a 整除 b**）：存在整数 k 使b=ak。
 
 **基本性质**（你能自己验证一下吗？）：
 
-1. a∣aa∣a（自反）
+1. a∣a∣a（自反）
 2. a∣ba∣b 且 b∣cb∣c ⇒ a∣ca∣c（传递）
-3. a∣ba∣b 且 a∣ca∣c ⇒ a∣(mb+nc)a∣(mb+nc)（**整数线性组合**，重要！）
+3. a∣ba∣b 且 a∣ca∣c ⇒a∣(mb+nc)（**整数线性组合**，重要！）
 4. a∣ba∣b 且 b∣ab∣a ⇒ a=±ba=±b
 
 **第 3 条**是数论的"瑞士军刀"——用它能证明绝大多数整除问题。
@@ -10028,25 +10017,25 @@ RS 码（CD/DVD 纠错、QR 码、卫星通信、深空探测器、SSD 闪存）
 #### 1.2 欧几里得除法（带余除法）
 
 > **定理**：对任意 a∈Za∈Z，b∈Z+b∈Z+，存在**唯一**的 q,r∈Zq,r∈Z 满足：
-> 
+>
 > a=bq+r,0≤r<ba=bq+r,0≤r<b
 
 q 是**商**，r 是**余数**。
 
 **关键**：**0 ≤ r < b**——这个范围保证了 q, r 唯一。
 
-🤔 **测试**：−17÷5−17÷5 的商和余数？
+🤔 **测试**：−17÷5的商和余数？
 
-很多人会说 −17=5×(−3)+(−2)−17=5×(−3)+(−2)，但 −2<0−2<0 不符合 r≥0r≥0。
+很多人会说−17=5×(−3)+(−2)，但−2<0不符合 r≥0r≥0。
 
-正确：−17=5×(−4)+3−17=5×(−4)+3，所以 q=−4,r=3q=−4,r=3。
+正确：−17=5×(−4)+3，所以q=−4,r=3。
 
 #### 1.3 质数与算术基本定理
 
 > **质数 (prime)**：p>1p>1，只有 1 和 p 整除它。
 
 > **算术基本定理 (Fundamental Theorem of Arithmetic)** ⭐：每个 n≥2n≥2 都可以唯一地（不计因子顺序）分解为质数的乘积：
-> 
+>
 > n=p1a1p2a2⋯pkakn=p1a1​​p2a2​​⋯pkak​​
 
 **这个定理的"存在性"和"唯一性"都不平凡**：
@@ -10054,13 +10043,13 @@ q 是**商**，r 是**余数**。
 - 存在性：上节用强归纳证过
 - **唯一性**：依赖一个关键引理——**欧几里得引理** p∣ab⇒p∣ap∣ab⇒p∣a 或 p∣bp∣b（p 是质数）
 
-🤔 **思考**：唯一性看似显然，但其实非平凡。考虑这个反例（不在 ZZ 中）：
+🤔 **思考**：唯一性看似显然，但其实非平凡。考虑这个反例（不在 Z 中）：
 
 在集合 {a+b−5:a,b∈Z}{a+b−5​:a,b∈Z} 中：
 
-6=2×3=(1+−5)(1−−5)6=2×3=(1+−5​)(1−−5​)
+6=2×3=(1+−5)(1−−5)
 
-可以证明这 4 个数都"不可约"，但 6 有**两种本质不同的分解**！这告诉我们：唯一分解不是免费的，是 ZZ 的特殊性质。
+可以证明这 4 个数都"不可约"，但 6 有**两种本质不同的分解**！这告诉我们：唯一分解不是免费的，是 Z 的特殊性质。
 
 #### 1.4 质数无穷（欧几里得证明）
 
@@ -10068,7 +10057,7 @@ q 是**商**，r 是**余数**。
 
 **证明**（你应该已经熟悉了）：反证。假设质数有限：p1,p2,…,pnp1​,p2​,…,pn​。考虑 N=p1p2⋯pn+1N=p1​p2​⋯pn​+1。
 
-NN 不被任何 pipi​ 整除（除以 pipi​ 余 1）。所以 NN 的质因子不在列表中，矛盾。∎
+N 不被任何 pi 整除（除以 pi 余 1）。所以 N 的质因子不在列表中，矛盾。∎
 
 **这个证明 2300 年了，至今是数论中最优雅的证明之一**。
 
@@ -10080,9 +10069,9 @@ NN 不被任何 pipi​ 整除（除以 pipi​ 余 1）。所以 NN 的�
 
 > **gcd(a, b)**：a 和 b 的最大公因数。
 
-**约定**：gcd⁡(0,0)=0gcd(0,0)=0，gcd⁡(a,0)=∣a∣gcd(a,0)=∣a∣。
+**约定**：gcd(0,0)=0，gcd(a,0)=∣a∣。
 
-> **互质 (coprime)**：gcd⁡(a,b)=1gcd(a,b)=1。
+> **互质 (coprime)**：gcd(a,b)=1。
 
 #### 2.2 欧几里得算法 ⭐
 
@@ -10090,15 +10079,15 @@ NN 不被任何 pipi​ 整除（除以 pipi​ 余 1）。所以 NN 的�
 
 > gcd⁡(a,b)=gcd⁡(b,a  b)gcd(a,b)=gcd(b,amodb)
 
-**为什么？** 设 a=bq+ra=bq+r。任意整除 a 和 b 的数也整除 r=a−bqr=a−bq，反之同理。所以 {a,b}{a,b} 的公因子 = {b,r}{b,r} 的公因子。✅
+**为什么？** 设a=bq+r。任意整除 a 和 b 的数也整除r=a−bq，反之同理。所以 {a,b}{a,b} 的公因子 = {b,r}{b,r} 的公因子。✅
 
 **算法**：反复用这个性质缩小问题，直到余数为 0。
 
-**例**：gcd⁡(252,105)gcd(252,105)
+**例**：gcd(252,105)
 
 $$\begin{aligned} 252 &= 2 \cdot 105 + 42 \ 105 &= 2 \cdot 42 + 21 \ 42 &= 2 \cdot 21 + 0 \end{aligned}$$
 
-最后非零余数 = **21**。所以 gcd⁡(252,105)=21gcd(252,105)=21。
+最后非零余数 = **21**。所以gcd(252,105)=21。
 
 🤔 **试试**：gcd⁡(1071,462)=?gcd(1071,462)=?
 
@@ -10106,7 +10095,7 @@ $$\begin{aligned} 252 &= 2 \cdot 105 + 42 \ 105 &= 2 \cdot 42 + 21 \ 42 &= 2 \cd
 
 $$\begin{aligned} 1071 &= 2 \cdot 462 + 147 \ 462 &= 3 \cdot 147 + 21 \ 147 &= 7 \cdot 21 + 0 \end{aligned}$$
 
-gcd⁡=21gcd=21。
+gcd=21。
 
 #### 2.3 复杂度
 
@@ -10119,16 +10108,16 @@ gcd⁡=21gcd=21。
 #### 2.4 Bézout 定理 ⭐⭐⭐
 
 > **Bézout 定理**：存在整数 x, y 使得：
-> 
+>
 > ax+by=gcd⁡(a,b)ax+by=gcd(a,b)
 
 **这是数论的核心结果**！它告诉我们：**gcd 总能写成 a, b 的整数线性组合**。
 
-**例**：gcd⁡(252,105)=21gcd(252,105)=21。能否找 x, y 使 252x+105y=21252x+105y=21？
+**例**：gcd(252,105)=21。能否找 x, y 使252x+105y=21？
 
-**答案**：能。x=2,y=−5x=2,y=−5：252⋅2+105⋅(−5)=504−525=−21252⋅2+105⋅(−5)=504−525=−21。
+**答案**：能。x=2,y=−5：252⋅2+105⋅(−5)=504−525=−21。
 
-嗯，得到 −21−21。换号：x=−2,y=5x=−2,y=5 得 2121。✅
+嗯，得到 −21−21。换号：x=−2,y=5得 2121。✅
 
 **怎么找 (x, y)？** 用**扩展欧几里得算法**。
 
@@ -10136,15 +10125,15 @@ gcd⁡=21gcd=21。
 
 逆向跑欧几里得算法的等式。
 
-**例**：gcd⁡(252,105)=21gcd(252,105)=21。
+**例**：gcd(252,105)=21。
 
-第 2 步等式：21=105−2⋅4221=105−2⋅42
+第 2 步等式：21=105−2⋅42
 
-把 42 替换：42=252−2⋅10542=252−2⋅105（第 1 步）
+把 42 替换：42=252−2⋅105（第 1 步）
 
-代入：21=105−2(252−2⋅105)=105−2⋅252+4⋅105=5⋅105−2⋅25221=105−2(252−2⋅105)=105−2⋅252+4⋅105=5⋅105−2⋅252
+代入：21=105−2(252−2⋅105)=105−2⋅252+4⋅105=5⋅105−2⋅252
 
-所以 x=−2,y=5x=−2,y=5，252⋅(−2)+105⋅5=21252⋅(−2)+105⋅5=21。✅
+所以x=−2,y=5，252⋅(−2)+105⋅5=21。✅
 
 **通用流程**：
 
@@ -10155,35 +10144,35 @@ gcd⁡=21gcd=21。
 
 #### 2.6 Bézout 定理的关键应用
 
-**应用 1**：判断方程 ax+by=cax+by=c 何时有整数解。
+**应用 1**：判断方程ax+by=c何时有整数解。
 
 **结论**：**有解 ⟺ gcd⁡(a,b)∣cgcd(a,b)∣c**。
 
-**例**：6x+15y=86x+15y=8 有解吗？gcd⁡(6,15)=3gcd(6,15)=3，3∤83∤8，**无解**。
+**例**：6x+15y=8有解吗？gcd(6,15)=3，3∤83∤8，**无解**。
 
-**例**：6x+15y=96x+15y=9 有解吗？3∣93∣9，**有解**。先解 6x+15y=36x+15y=3 得 (x,y)=(−2,1)(x,y)=(−2,1)（或其他），乘以 3：(x,y)=(−6,3)(x,y)=(−6,3)。验证：−36+45=9−36+45=9 ✅。
+**例**：6x+15y=9有解吗？3∣93∣9，**有解**。先解6x+15y=3得(x,y)=(−2,1)（或其他），乘以 3：(x,y)=(−6,3)。验证：−36+45=9✅。
 
 **应用 2**：求模逆元。
 
-**aa 在 ZnZn​ 中的乘法逆元**存在 ⟺ gcd⁡(a,n)=1gcd(a,n)=1。
+**a 在 Zn 中的乘法逆元**存在 ⟺gcd(a,n)=1。
 
-求法：用扩展欧几里得算法找 x, y 使 ax+ny=1ax+ny=1。则 ax≡1(modn)ax≡1(modn)，所以 x=a−1x=a−1。
+求法：用扩展欧几里得算法找 x, y 使ax+ny=1。则 ax≡1(modn)ax≡1(modn)，所以x=a−1。
 
-🤔 **试试**：求 77 在 Z15Z15​ 中的乘法逆元。
+🤔 **试试**：求 77 在 Z15 中的乘法逆元。
 
 ---
 
-gcd⁡(15,7)gcd(15,7)：
+gcd(15,7)：
 
 $$\begin{aligned} 15 &= 2 \cdot 7 + 1 \ 7 &= 7 \cdot 1 + 0 \end{aligned}$$
 
-gcd⁡=1gcd=1 ✅，逆元存在。
+gcd=1✅，逆元存在。
 
-逆向：1=15−2⋅71=15−2⋅7。
+逆向：1=15−2⋅7。
 
 所以 7⋅(−2)≡1(mod15)7⋅(−2)≡1(mod15)，即 7−1≡−2≡13(mod15)7−1≡−2≡13(mod15)。
 
-验证：7×13=91=6×15+17×13=91=6×15+1 ✅。
+验证：7×13=91=6×15+1✅。
 
 ---
 
@@ -10198,7 +10187,7 @@ gcd⁡=1gcd=1 ✅，逆元存在。
 - φ(1)=1φ(1)=1（约定）
 - φ(p)=p−1φ(p)=p−1（p 质数，1, 2, ..., p-1 都与 p 互质）
 - φ(pk)=pk−pk−1=pk(1−1/p)φ(pk)=pk−pk−1=pk(1−1/p)
-- 若 gcd⁡(m,n)=1gcd(m,n)=1，**φ(mn)=φ(m)φ(n)φ(mn)=φ(m)φ(n)**（积性函数性质）
+- 若gcd(m,n)=1，**φ(mn)=φ(m)φ(n)φ(mn)=φ(m)φ(n)**（积性函数性质）
 
 **通用公式**：若 n=p1a1⋯pkakn=p1a1​​⋯pkak​​，则：
 
@@ -10210,8 +10199,8 @@ gcd⁡=1gcd=1 ✅，逆元存在。
 
 #### 3.2 欧拉定理 ⭐⭐⭐
 
-> **欧拉定理**：若 gcd⁡(a,n)=1gcd(a,n)=1，则
-> 
+> **欧拉定理**：若gcd(a,n)=1，则
+>
 > aφ(n)≡1(modn)aφ(n)≡1(modn)
 
 **这是 RSA 加密的数学根基**。
@@ -10222,15 +10211,15 @@ gcd⁡=1gcd=1 ✅，逆元存在。
 
 群的阶 = ∣Zn∗∣=φ(n)∣Zn∗​∣=φ(n)。
 
-由拉格朗日定理推论：任何元素 a 满足 a∣G∣=ea∣G∣=e，即 aφ(n)≡1(modn)aφ(n)≡1(modn)。∎
+由拉格朗日定理推论：任何元素 a 满足a∣G∣=e，即 aφ(n)≡1(modn)aφ(n)≡1(modn)。∎
 
 **这又是一个用群论解决数论问题的例子**。
 
 #### 3.3 费马小定理（特例）
 
-n 是质数 p 时，φ(p)=p−1φ(p)=p−1，所以：
+n 是质数 p 时，φ(p)=p−1，所以：
 
-> **费马小定理**：gcd⁡(a,p)=1gcd(a,p)=1 ⇒ ap−1≡1(modp)ap−1≡1(modp)。
+> **费马小定理**：gcd(a,p)=1⇒ ap−1≡1(modp)ap−1≡1(modp)。
 
 **或等价地**：ap≡a(modp)ap≡a(modp)（对所有 a，包括 p | a 的情况）。
 
@@ -10248,35 +10237,35 @@ n 是质数 p 时，φ(p)=p−1φ(p)=p−1，所以：
 
 > "今有物，不知其数。三三数之，剩二；五五数之，剩三；七七数之，剩二。问物几何？"
 
-翻译为现代记号：求 xx 使
+翻译为现代记号：求 x 使
 
 x≡2(mod3),x≡3(mod5),x≡2(mod7)x≡2(mod3),x≡3(mod5),x≡2(mod7)
 
 #### 4.2 中国剩余定理
 
 > **CRT**：设 n1,n2,…,nkn1​,n2​,…,nk​ 两两互质。则同余方程组
-> 
+>
 > x≡ai(modni),i=1,2,…,kx≡ai​(modni​),i=1,2,…,k
-> 
+>
 > 在模 N=n1n2⋯nkN=n1​n2​⋯nk​ 下有**唯一解**。
 
 **构造性公式**：
 
-x≡∑i=1kaiMiMi−1(modN)x≡i=1∑k​ai​Mi​Mi−1​(modN)
+x≡∑i=1kaiMiMi−1(modN)x≡i=1∑k​ai​Mi−1​(modN)
 
-其中 Mi=N/niMi​=N/ni​，Mi−1Mi−1​ 是 MiMi​ 在 ZniZni​​ 中的逆元。
+其中Mi=N/ni，Mi−1是 Mi 在 Zni 中的逆元。
 
 #### 4.3 解孙子问题
 
-N=3×5×7=105N=3×5×7=105。
+N=3×5×7=105。
 
-- M1=35M1​=35，M1−1(mod3)M1−1​(mod3)：35≡2(mod3)35≡2(mod3)，求 2−1(mod3)2−1(mod3) = 2（因 2×2=4≡12×2=4≡1）
-- M2=21M2​=21，M2−1(mod5)M2−1​(mod5)：21≡1(mod5)21≡1(mod5)，逆元 = 1
-- M3=15M3​=15，M3−1(mod7)M3−1​(mod7)：15≡1(mod7)15≡1(mod7)，逆元 = 1
+- M1=35M1=35，M1−1(mod3)：35≡2(mod3)35≡2(mod3)，求 2−1(mod3)2−1(mod3) = 2（因 2×2=4≡12×2=4≡1）
+- M2=21M2=21，M2−1(mod5)：21≡1(mod5)21≡1(mod5)，逆元 = 1
+- M3=15M3=15，M3−1(mod7)：15≡1(mod7)15≡1(mod7)，逆元 = 1
 
-x=2⋅35⋅2+3⋅21⋅1+2⋅15⋅1=140+63+30=233x=2⋅35⋅2+3⋅21⋅1+2⋅15⋅1=140+63+30=233
+x=2⋅35⋅2+3⋅21⋅1+2⋅15⋅1=140+63+30=233
 
-233mod  105=23233mod105=23。
+233mod  105=23。
 
 **答案**：x≡23(mod105)x≡23(mod105)。
 
@@ -10311,26 +10300,26 @@ RSA 解密涉及大整数模幂 cdmod  ncdmodn（n 是上千位数）。直
 **密钥生成**：
 
 1. 选两个大质数 p,qp,q（实际中 1024 位以上）
-2. 计算 n=pqn=pq，φ(n)=(p−1)(q−1)φ(n)=(p−1)(q−1)
-3. 选 ee 与 φ(n)φ(n) 互质（通常取 e=65537e=65537）
-4. 用扩展欧几里得求 dd 使 ed≡1(modφ(n))ed≡1(modφ(n))
-5. **公钥**：(n,e)(n,e)；**私钥**：dd；**销毁**：p,q,φ(n)p,q,φ(n)
+2. 计算n=pq，φ(n)=(p−1)(q−1)
+3. 选 e 与φ(n)互质（通常取e=65537）
+4. 用扩展欧几里得求 d 使 ed≡1(modφ(n))ed≡1(modφ(n))
+5. **公钥**：(n,e)；**私钥**：d；**销毁**：p,q,φ(n)
 
-**加密**：明文 mm（数字，0≤m<n0≤m<n）
+**加密**：明文 m（数字，0≤m<n）
 
-c=me(modn)c=me(modn)
+c=me(modn)
 
 **解密**：
 
-m=cd(modn)m=cd(modn)
+m=cd(modn)
 
 #### 5.2 为什么解密能恢复？
 
 要证：cd≡m(modn)cd≡m(modn)，即 med≡m(modn)med≡m(modn)。
 
-由 ed≡1(modφ(n))ed≡1(modφ(n))，存在 k 使 ed=1+kφ(n)ed=1+kφ(n)。
+由 ed≡1(modφ(n))ed≡1(modφ(n))，存在 k 使ed=1+kφ(n)。
 
-**情形 1**：gcd⁡(m,n)=1gcd(m,n)=1。
+**情形 1**：gcd(m,n)=1。
 
 med=m1+kφ(n)=m⋅(mφ(n))k≡m⋅1k=m(modn)med=m1+kφ(n)=m⋅(mφ(n))k≡m⋅1k=m(modn)
 
@@ -10344,7 +10333,7 @@ med=m1+kφ(n)=m⋅(mφ(n))k≡m⋅1k=m(modn)med=m1+kφ(n)=m⋅(mφ(n))k≡m⋅1k
 
 **RSA 安全 ⟺ 因数分解 n 困难**。
 
-**为什么**？已知 (n,e)(n,e)，要算 dd 必须知道 φ(n)=(p−1)(q−1)φ(n)=(p−1)(q−1)，这要求知道 p 和 q——即**因数分解 n**。
+**为什么**？已知(n,e)，要算 d 必须知道φ(n)=(p−1)(q−1)，这要求知道 p 和 q——即**因数分解 n**。
 
 **目前最快的因数分解算法**：**普通数域筛 (GNFS)**，复杂度 exp⁡(O((log⁡n)1/3(log⁡log⁡n)2/3))exp(O((logn)1/3(loglogn)2/3))——**超多项式但亚指数**。
 
@@ -10361,27 +10350,27 @@ med=m1+kφ(n)=m⋅(mφ(n))k≡m⋅1k=m(modn)med=m1+kφ(n)=m⋅(mφ(n))k≡m⋅1k
 **密钥生成**：
 
 - p=11,q=13p=11,q=13
-- n=143n=143，φ(143)=10×12=120φ(143)=10×12=120
+- n=143n=143，φ(143)=10×12=120
 - 选 e=7e=7（与 120 互质）
-- 求 dd：7d≡1(mod120)7d≡1(mod120)。扩展欧几里得：7×103=721=6×120+17×103=721=6×120+1。所以 d=103d=103。
+- 求 d：7d≡1(mod120)7d≡1(mod120)。扩展欧几里得：7×103=721=6×120+1。所以d=103。
 
-**公钥**：(143,7)(143,7)。**私钥**：103103。
+**公钥**：(143,7)。**私钥**：103103。
 
 **加密 m = 9**：
 
-c=97(mod143)c=97(mod143)
+c=97(mod143)
 
-92=8192=81，94=812=6561=45×143+126≡126(mod143)94=812=6561=45×143+126≡126(mod143)。
+92=81，94=812=6561=45×143+126≡126(mod143)94=812=6561=45×143+126≡126(mod143)。
 
 97=94⋅92⋅9≡126⋅81⋅9(mod143)97=94⋅92⋅9≡126⋅81⋅9(mod143)。
 
-126⋅81=10206126⋅81=10206。10206mod  143=10206−71×143=10206−10153=5310206mod143=10206−71×143=10206−10153=53。
+126⋅81=10206。10206mod  143=10206−71×143=10206−10153=53。
 
-53⋅9=47753⋅9=477。477mod  143=477−3×143=477−429=48477mod143=477−3×143=477−429=48。
+53⋅9=477。477mod  143=477−3×143=477−429=48。
 
 **密文 c = 48**。
 
-**解密**：48103(mod143)48103(mod143)。（用快速幂算，结果应回到 9）
+**解密**：48103(mod143)。（用快速幂算，结果应回到 9）
 
 实际中这个计算用 CRT 加速。
 
@@ -10391,9 +10380,9 @@ c=97(mod143)c=97(mod143)
 
 #### 6.1 概念
 
-> **二次剩余 (quadratic residue)**：aa 是模 p 的二次剩余，若存在 xx 使 x2≡a(modp)x2≡a(modp)。
+> **二次剩余 (quadratic residue)**：a 是模 p 的二次剩余，若存在 x 使 x2≡a(modp)x2≡a(modp)。
 
-**例**：在 Z7Z7​ 中，{1,2,4}{1,2,4} 是二次剩余（12,32,2212,32,22），{3,5,6}{3,5,6} 是二次非剩余。
+**例**：在 Z7 中，{1,2,4}{1,2,4} 是二次剩余（12,32,2212,32,22），{3,5,6}{3,5,6} 是二次非剩余。
 
 #### 6.2 勒让德符号
 
@@ -10472,13 +10461,13 @@ RSA 加密 ⭐
 
 **练习 1**（GCD 与扩展欧几里得 —— 必练）：
 
-(1) 用欧几里得算法求 gcd⁡(841,320)gcd(841,320)。
+(1) 用欧几里得算法求 gcd(841,320)。
 
-(2) 用扩展欧几里得算法找 x,yx,y 使 841x+320y=gcd⁡(841,320)841x+320y=gcd(841,320)。
+(2) 用扩展欧几里得算法找 x,yx,y 使841x+320y=gcd(841,320)。
 
-(3) 求 1717 在 Z60Z60​ 中的乘法逆元。
+(3) 求 1717 在 Z60 中的乘法逆元。
 
-(4) 求 33 在 Z1000003Z1000003​ 中的乘法逆元（注意 10000031000003 是质数）。
+(4) 求 33 在 Z1000003 中的乘法逆元（注意 10000031000003 是质数）。
 
 提示：用费马小定理 a−1≡ap−2(modp)a−1≡ap−2(modp)。
 
@@ -10486,7 +10475,7 @@ RSA 加密 ⭐
 
 (1) 解 5x≡7(mod12)5x≡7(mod12)。
 
-(2) 解 6x≡15(mod21)6x≡15(mod21)。提示：先化简 gcd⁡(6,21)=3gcd(6,21)=3，看 3∣153∣15 是否成立。
+(2) 解 6x≡15(mod21)6x≡15(mod21)。提示：先化简gcd(6,21)=3，看 3∣153∣15 是否成立。
 
 (3) 14x≡26(mod50)14x≡26(mod50) 有解吗？解的个数？
 
@@ -10498,29 +10487,29 @@ x≡2(mod5),x≡3(mod7),x≡4(mod9)x≡2(mod5),x≡3(mod7),x≡4(mod9)
 
 (2) 一队士兵：3 人一组多 1 人，5 人一组多 2 人，7 人一组多 3 人。问最少多少人？
 
-(3) **思考**：CRT 要求 nini​ 两两互质。如果不互质（如 x≡1(mod4),x≡3(mod6)x≡1(mod4),x≡3(mod6)），何时有解？
+(3) **思考**：CRT 要求 ni 两两互质。如果不互质（如 x≡1(mod4),x≡3(mod6)x≡1(mod4),x≡3(mod6)），何时有解？
 
 **练习 4**（欧拉函数与欧拉定理）：
 
-(1) 计算 φ(360)φ(360)。
+(1) 计算φ(360)。
 
-(2) 求 φ(n)=12φ(n)=12 的所有 n。
+(2) 求φ(n)=12的所有 n。
 
 (3) 计算 7803mod  1007803mod100。
 
-提示：φ(100)=40φ(100)=40，gcd⁡(7,100)=1gcd(7,100)=1，所以 740≡1(mod100)740≡1(mod100)。
+提示：φ(100)=40，gcd(7,100)=1，所以 740≡1(mod100)740≡1(mod100)。
 
 (4) 计算 32024mod  1032024mod10。
 
-(5) **挑战**：证明 φφ 的积性：若 gcd⁡(m,n)=1gcd(m,n)=1，则 φ(mn)=φ(m)φ(n)φ(mn)=φ(m)φ(n)。
+(5) **挑战**：证明 φ 的积性：若gcd(m,n)=1，则φ(mn)=φ(m)φ(n)。
 
 提示：用 CRT 建立 Zmn∗≅Zm∗×Zn∗Zmn∗​≅Zm∗​×Zn∗​。
 
 **练习 5**（费马小定理 —— 直接应用）：
 
-(1) 证明：对任何整数 aa，a13≡a(mod13)a13≡a(mod13)。
+(1) 证明：对任何整数 a，a13≡a(mod13)a13≡a(mod13)。
 
-(2) 证明：5200−15200−1 能被 7 整除。
+(2) 证明：5200−1能被 7 整除。
 
 (3) **Wilson 定理（费马小的姊妹）**：若 p 是质数，则 (p−1)!≡−1(modp)(p−1)!≡−1(modp)。
 
@@ -10528,47 +10517,47 @@ x≡2(mod5),x≡3(mod7),x≡4(mod9)x≡2(mod5),x≡3(mod7),x≡4(mod9)
 
 **练习 6**（RSA 实战）：
 
-设 p=17,q=23p=17,q=23。
+设p=17,q=23。
 
-(1) 计算 nn 和 φ(n)φ(n)。
+(1) 计算 n 和φ(n)。
 
-(2) 选 e=3e=3。验证 gcd⁡(e,φ(n))=1gcd(e,φ(n))=1。
+(2) 选 e=3e=3。验证gcd(e,φ(n))=1。
 
-(3) 求私钥 dd。
+(3) 求私钥 d。
 
-(4) 加密 m=100m=100，得密文 cc。
+(4) 加密m=100，得密文 c。
 
-(5) 用 dd 解密 cc，验证回到 mm。
+(5) 用 d 解密 c，验证回到 m。
 
-(6) 用 CRT 加速：分别在 Z17Z17​ 和 Z23Z23​ 中计算 cdcd，再合并。
+(6) 用 CRT 加速：分别在 Z17 和 Z23 中计算 cd，再合并。
 
 **练习 7**（RSA 攻击）：
 
 下面这些都是 RSA 的实际攻击场景：
 
-(1) **小 e 攻击**：若 e = 3 且 m 很小（m3<nm3<n），密文 c=m3c=m3 直接开立方根可以恢复 m。讨论：如何防御？
+(1) **小 e 攻击**：若 e = 3 且 m 很小（m3<n），密文c=m3直接开立方根可以恢复 m。讨论：如何防御？
 
-(2) **共模攻击**：若 Alice 和 Bob 用同一个 nn 但不同 e1,e2e1​,e2​（gcd⁡(e1,e2)=1gcd(e1​,e2​)=1），攻击者用 Bézout 求得 u,vu,v 使 ue1+ve2=1ue1​+ve2​=1。则 c1uc2v≡mue1+ve2=m(modn)c1u​c2v​≡mue1​+ve2​=m(modn)。
+(2) **共模攻击**：若 Alice 和 Bob 用同一个 n 但不同 e1,e2e1,e2（gcd(e1,e2)=1），攻击者用 Bézout 求得 u,vu,v 使ue1+ve2=1。则 c1uc2v≡mue1+ve2=m(modn)c1uc2v≡mue1+ve2=m(modn)。
 
 讨论：这告诉我们什么？
 
-(3) **公因子攻击**：如果两个 RSA 密钥 n1=p1qn1​=p1​q 和 n2=p2qn2​=p2​q **共享一个质因子**，可以用欧几里得算法 gcd⁡(n1,n2)=qgcd(n1​,n2​)=q 几毫秒内攻破！
+(3) **公因子攻击**：如果两个 RSA 密钥n1=p1q和 n2=p2qn2=p2q **共享一个质因子**，可以用欧几里得算法gcd(n1,n2)=q几毫秒内攻破！
 
 讨论：为什么实际中这种事真的发生过？（提示：硬件随机数生成器低熵）
 
 **练习 8**（电子工程联系）：
 
-(1) **AES 中的有限域**：AES-128 的"MixColumns"步骤在 F28F28​ 上做矩阵乘法，模 x8+x4+x3+x+1x8+x4+x3+x+1。
+(1) **AES 中的有限域**：AES-128 的"MixColumns"步骤在 F28 上做矩阵乘法，模x8+x4+x3+x+1。
 
-- 解释为什么 AES 用 F28F28​ 而不是 Z256Z256​（注意 256 不是质数）。
-- F28F28​ 的乘法不能用普通整数乘法，硬件如何高效实现？（提示：查表 / Galois 域乘法器）
+- 解释为什么 AES 用 F28 而不是 Z256（注意 256 不是质数）。
+- F28 的乘法不能用普通整数乘法，硬件如何高效实现？（提示：查表 / Galois 域乘法器）
 
 (2) **CRC 计算**：CRC-32 用一个 32 度的不可约多项式 g(x)∈F2[x]g(x)∈F2​[x]。
 
-- 为什么 CRC 能检测错误？（提示：错误模式 e(x)e(x)，余数 ≠0=0）
+- 为什么 CRC 能检测错误？（提示：错误模式 e(x)，余数 ≠0=0）
 - 为什么 CRC-32 能检测所有突发长度 ≤ 32 位的错误？
 
-(3) **椭圆曲线密码 ECDSA**：比特币用 secp256k1 曲线 y2=x3+7y2=x3+7 在 FpFp​ 上（p 是 256 位质数）。
+(3) **椭圆曲线密码 ECDSA**：比特币用 secp256k1 曲线y2=x3+7在 Fp 上（p 是 256 位质数）。
 
 - 为什么椭圆曲线比 RSA 更高效？（256 位 ECC ≈ 3072 位 RSA 安全级别）
 - 问题：如果有量子计算机，ECC 还安全吗？
@@ -10599,20 +10588,20 @@ x≡2(mod5),x≡3(mod7),x≡4(mod9)x≡2(mod5),x≡3(mod7),x≡4(mod9)
 
 回忆欧拉定理：**gcd⁡(a,n)=1gcd(a,n)=1 时，aφ(n)≡1(modn)aφ(n)≡1(modn)**。
 
-这告诉我们：**aa 的某个幂等于 1**。但 φ(n)φ(n) 是不是**最小**的那个幂呢？
+这告诉我们：**a 的某个幂等于 1**。但φ(n)是不是**最小**的那个幂呢？
 
-🤔 **测试**：在 Z12Z12​ 中，φ(12)=4φ(12)=4。让我们看看每个与 12 互质的元素的幂：
+🤔 **测试**：在 Z12 中，φ(12)=4。让我们看看每个与 12 互质的元素的幂：
 
-|aa|a1a1|a2a2|a3a3|a4a4|
+|a|a1|a2|a3|a4|
 |---|---|---|---|---|
 |1|1|1|1|1|
 |5|5|25≡1|5|1|
 |7|7|49≡1|7|1|
 |11|11|121≡1|11|1|
 
-**惊讶**：除了 1，其他元素都在 **a2=1a2=1** 时就回到了 1，根本没用到 φ(12)=4φ(12)=4！
+**惊讶**：除了 1，其他元素都在 **a2=1a2=1** 时就回到了 1，根本没用到φ(12)=4！
 
-这说明**欧拉定理的指数 φ(n)φ(n) 不一定是最小的**。
+这说明**欧拉定理的指数φ(n)不一定是最小的**。
 
 那么，**对每个 a，使 ak≡1(modn)ak≡1(modn) 的最小 k 是多少**？这就是**指数 (order)** 的概念。
 
@@ -10620,29 +10609,29 @@ x≡2(mod5),x≡3(mod7),x≡4(mod9)x≡2(mod5),x≡3(mod7),x≡4(mod9)
 
 ### 二、指数（Order）的定义
 
-> **定义**：设 gcd⁡(a,n)=1gcd(a,n)=1。**a 模 n 的指数（也叫阶）**，记作 ordn(a)ordn​(a) 或 ∣a∣n∣a∣n​，是使 ak≡1(modn)ak≡1(modn) 的**最小正整数 k**。
+> **定义**：设gcd(a,n)=1。**a 模 n 的指数（也叫阶）**，记作 ordn(a) 或 ∣a∣n∣a∣n，是使 ak≡1(modn)ak≡1(modn) 的**最小正整数 k**。
 
 **说明**：
 
-- 指数总是存在的（由欧拉定理保证 aφ(n)≡1aφ(n)≡1，所以最少 1，最多 φ(n)φ(n)）
+- 指数总是存在的（由欧拉定理保证 aφ(n)≡1aφ(n)≡1，所以最少 1，最多φ(n)）
 - 当 gcd⁡(a,n)≠1gcd(a,n)=1 时不定义指数
 
-**回到 Z12Z12​ 的例子**：
+**回到 Z12 的例子**：
 
 - ord12(1)=1ord12​(1)=1
 - ord12(5)=2ord12​(5)=2
 - ord12(7)=2ord12​(7)=2
 - ord12(11)=2ord12​(11)=2
 
-所有指数都 ≤ 2，远小于 φ(12)=4φ(12)=4。
+所有指数都 ≤ 2，远小于φ(12)=4。
 
 #### 🤔 检验
 
-求 Z7Z7​ 中每个非零元素的指数。φ(7)=6φ(7)=6。
+求 Z7 中每个非零元素的指数。φ(7)=6。
 
 ---
 
-|aa|a1a1|a2a2|a3a3|a4a4|a5a5|a6a6|指数|
+|a|a1|a2|a3|a4|a5|a6|指数|
 |---|---|---|---|---|---|---|---|
 |1|1||||||**1**|
 |2|2|4|1||||**3**|
@@ -10661,11 +10650,11 @@ x≡2(mod5),x≡3(mod7),x≡4(mod9)x≡2(mod5),x≡3(mod7),x≡4(mod9)
 
 #### 3.1 指数整除欧拉函数
 
-> **定理 1**：ordn(a)∣φ(n)ordn​(a)∣φ(n)。
+> **定理 1**：ordn(a)∣φ(n)。
 
 **证明**：
 
-设 d=ordn(a)d=ordn​(a)。用带余除法：φ(n)=qd+rφ(n)=qd+r，0≤r<d0≤r<d。
+设d=ordn(a)。用带余除法：φ(n)=qd+r，0≤r<d。
 
 由欧拉定理：aφ(n)≡1(modn)aφ(n)≡1(modn)。
 
@@ -10673,11 +10662,11 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 所以 ar≡1(modn)ar≡1(modn)。
 
-但 d 是最小的让 ak≡1ak≡1 的正整数，且 0≤r<d0≤r<d。**所以 r 必为 0**，即 d∣φ(n)d∣φ(n)。∎
+但 d 是最小的让 ak≡1ak≡1 的正整数，且0≤r<d。**所以 r 必为 0**，即d∣φ(n)。∎
 
-**这条定理**就是上节学过的拉格朗日定理推论的特例——Zn∗Zn∗​ 在乘法下是群，元素的阶整除群的阶 φ(n)φ(n)。
+**这条定理**就是上节学过的拉格朗日定理推论的特例——Zn∗Zn∗ 在乘法下是群，元素的阶整除群的阶φ(n)。
 
-**实战意义**：找指数时，**只需要测试 φ(n)φ(n) 的因子**，不用一个个试。
+**实战意义**：找指数时，**只需要测试φ(n)的因子**，不用一个个试。
 
 #### 3.2 a^k ≡ 1 的判据
 
@@ -10685,15 +10674,15 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 **证明思路**：用同样的带余除法论证。
 
-**应用**：要判断 ak≡1(modn)ak≡1(modn) 是否成立，**只需检查 ordn(a)ordn​(a) 是否整除 k**。
+**应用**：要判断 ak≡1(modn)ak≡1(modn) 是否成立，**只需检查 ordn(a) 是否整除 k**。
 
-**例**：ord7(2)=3ord7​(2)=3，那么 2300≡1(mod7)2300≡1(mod7)？300/3=100300/3=100，整除，**是的**。
+**例**：ord7(2)=3，那么 2300≡1(mod7)2300≡1(mod7)？300/3=100，整除，**是的**。
 
 #### 3.3 指数的精确公式
 
 > **定理 3**：ordn(ak)=ordn(a)gcd⁡(k,ordn(a))ordn​(ak)=gcd(k,ordn​(a))ordn​(a)​。
 
-**例**：在 Z7Z7​ 中，ord7(3)=6ord7​(3)=6。
+**例**：在 Z7 中，ord7(3)=6。
 
 - ord7(32)=ord7(2)=6/gcd⁡(2,6)=6/2=3ord7​(32)=ord7​(2)=6/gcd(2,6)=6/2=3 ✅
 - ord7(33)=ord7(6)=6/gcd⁡(3,6)=6/3=2ord7​(33)=ord7​(6)=6/gcd(3,6)=6/3=2 ✅
@@ -10705,15 +10694,15 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 #### 4.1 定义
 
-> **定义**：若 ordn(g)=φ(n)ordn​(g)=φ(n)（**最大可能的指数**），则称 g 是**模 n 的原根**。
+> **定义**：若ordn(g)=φ(n)（**最大可能的指数**），则称 g 是**模 n 的原根**。
 
-**等价说法**：g 的幂 g1,g2,…,gφ(n)g1,g2,…,gφ(n) 跑遍 Zn∗Zn∗​ 中所有元素。
+**等价说法**：g 的幂g1,g2,…,gφ(n)跑遍 Zn∗Zn∗ 中所有元素。
 
-**这意味着**：Zn∗Zn∗​ **是循环群**，gg 是它的生成元！
+**这意味着**：Zn∗Zn∗ **是循环群**，g 是它的生成元！
 
 #### 4.2 例子
 
-回到 Z7Z7​：
+回到 Z7：
 
 - 3 的指数是 6 = φ(7)φ(7)，**3 是原根**
 - 5 的指数是 6，**5 是原根**
@@ -10724,9 +10713,9 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 #### 4.3 关键问题：原根是否总存在？
 
-回到 Z12Z12​ 的例子：所有非零元素的指数都 ≤ 2，**没有指数是 4 = φ(12)φ(12) 的元素**。
+回到 Z12 的例子：所有非零元素的指数都 ≤ 2，**没有指数是 4 = φ(12)φ(12) 的元素**。
 
-**所以 Z12Z12​ 没有原根**！Z12∗Z12∗​ **不是循环群**！
+**所以 Z12 没有原根**！Z12∗Z12∗ **不是循环群**！
 
 那么**什么样的 n 有原根**呢？
 
@@ -10734,7 +10723,7 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 > **定理（高斯）**：模 n 有原根 ⟺ n∈{1,2,4,pk,2pk}n∈{1,2,4,pk,2pk}，其中 p 是**奇质数**。
 
-**也就是说**：Zn∗Zn∗​ 是循环群当且仅当 nn 是这种特殊形式。
+**也就是说**：Zn∗Zn∗ 是循环群当且仅当 n 是这种特殊形式。
 
 **特别地**：
 
@@ -10746,17 +10735,17 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 #### 4.5 原根的个数
 
-> **定理**：若 n 有原根，则 n 共有 φ(φ(n))φ(φ(n)) 个原根。
+> **定理**：若 n 有原根，则 n 共有φ(φ(n))个原根。
 
-**例**：Z7Z7​ 的原根个数 = φ(φ(7))=φ(6)=2φ(φ(7))=φ(6)=2。**确实是 3 和 5**。
+**例**：Z7 的原根个数 = φ(φ(7))=φ(6)=2φ(φ(7))=φ(6)=2。**确实是 3 和 5**。
 
-**例**：Z11Z11​ 的原根个数 = φ(10)=4φ(10)=4。
+**例**：Z11 的原根个数 = φ(10)=4φ(10)=4。
 
 **怎么找全部原根**？
 
-如果 g 是原根，则 gkgk 也是原根 ⟺ gcd⁡(k,φ(n))=1gcd(k,φ(n))=1。
+如果 g 是原根，则 gk 也是原根 ⟺gcd(k,φ(n))=1。
 
-**例**：Z11Z11​ 中 g = 2 是原根（验证留作练习）。所有原根：
+**例**：Z11 中 g = 2 是原根（验证留作练习）。所有原根：
 
 - g1=2g1=2
 - g3=8g3=8
@@ -10767,26 +10756,26 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 #### 4.6 寻找原根的实用算法
 
-**朴素方法**：对每个 g∈Zn∗g∈Zn∗​，验证 ordn(g)=φ(n)ordn​(g)=φ(n)。
+**朴素方法**：对每个 g∈Zn∗g∈Zn∗，验证ordn(g)=φ(n)。
 
-**优化**：g 是原根 ⟺ 对 φ(n)φ(n) 的**每个质因子** q，gφ(n)/q≢1(modn)gφ(n)/q≡1(modn)。
+**优化**：g 是原根 ⟺ 对φ(n)的**每个质因子** q，gφ(n)/q≢1(modn)gφ(n)/q≡1(modn)。
 
-**为什么**？若 g 不是原根，ordn(g)ordn​(g) 是 φ(n)φ(n) 的真因子。设 ordn(g)=φ(n)/mordn​(g)=φ(n)/m，m>1m>1。则 m 必有质因子 q，且 gφ(n)/q=(gφ(n)/m)m/q=1m/q=1gφ(n)/q=(gφ(n)/m)m/q=1m/q=1。
+**为什么**？若 g 不是原根，ordn(g) 是φ(n)的真因子。设 ordn(g)=φ(n)/mordn(g)=φ(n)/m，m>1m>1。则 m 必有质因子 q，且gφ(n)/q=(gφ(n)/m)m/q=1m/q=1。
 
-**例**：找 Z17Z17​ 的一个原根。φ(17)=16=24φ(17)=16=24。
+**例**：找 Z17 的一个原根。φ(17)=16=24。
 
 只需检查：g16/2=g8≢1(mod17)g16/2=g8≡1(mod17)。
 
 - g=2g=2：28=256=15×17+1≡1(mod17)28=256=15×17+1≡1(mod17)。**不是原根**。
-- g=3g=3：38=656138=6561。6561/17=385.9...6561/17=385.9...，385×17=6545385×17=6545，6561−6545=16≡−1(mod17)6561−6545=16≡−1(mod17)。**不等于 1，所以 3 是原根**！✅
+- g=3g=3：38=6561。6561/17=385.9...，385×17=6545，6561−6545=16≡−1(mod17)6561−6545=16≡−1(mod17)。**不等于 1，所以 3 是原根**！✅
 
 **实战**：g 通常很小，连续测试 g = 2, 3, 5, 6, 7, ... 即可。
 
 #### 🤔 检验
 
-找 Z13Z13​ 的一个原根。φ(13)=12=22⋅3φ(13)=12=22⋅3。
+找 Z13 的一个原根。φ(13)=12=22⋅3。
 
-只需检查 g12/2=g6g12/2=g6 和 g12/3=g4g12/3=g4 都 ≢1(mod13)≡1(mod13)。
+只需检查g12/2=g6和g12/3=g4都 ≢1(mod13)≡1(mod13)。
 
 ---
 
@@ -10795,7 +10784,7 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 - 26=64=4×13+12≡12≡−1(mod13)26=64=4×13+12≡12≡−1(mod13) ✅（不是 1）
 - 24=16≡3(mod13)24=16≡3(mod13) ✅（不是 1）
 
-**所以 2 是 Z13Z13​ 的原根**。
+**所以 2 是 Z13 的原根**。
 
 ---
 
@@ -10807,18 +10796,18 @@ aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(modn)aφ(n)=aqd+r=(ad)q⋅ar≡1q⋅ar=ar(m
 
 gk≡a(modn)gk≡a(modn)
 
-> **离散对数**：这个 kk 称为 a 关于基 g 的**离散对数（指数）**，记作 k=indg(a)k=indg​(a) 或 log⁡galogg​a。
+> **离散对数**：这个 k 称为 a 关于基 g 的**离散对数（指数）**，记作k=indg(a)或 logga。
 
 #### 5.2 例子
 
-在 Z7Z7​ 中，原根 g = 3。从前面的表：
+在 Z7 中，原根 g = 3。从前面的表：
 
-- 31=331=3，log⁡33=1log3​3=1
-- 32=232=2，log⁡32=2log3​2=2
-- 33=633=6，log⁡36=3log3​6=3
-- 34=434=4，log⁡34=4log3​4=4
-- 35=535=5，log⁡35=5log3​5=5
-- 36=136=1，log⁡31=6log3​1=6（或 0）
+- 31=331=3，log33=1
+- 32=232=2，log32=2
+- 33=633=6，log36=3
+- 34=434=4，log34=4
+- 35=535=5，log35=5
+- 36=136=1，log31=6（或 0）
 
 #### 5.3 离散对数的性质
 
@@ -10830,14 +10819,14 @@ gk≡a(modn)gk≡a(modn)
 
 #### 5.4 离散对数问题（DLP）⭐
 
-正向：给 g,k,ng,k,n，算 gk  ngkmodn —— **快速幂算法 O(log⁡k)O(logk)**，**容易**。
+正向：给 g,k,ng,k,n，算 gk  ngkmodn —— **快速幂算法 O(logk)**，**容易**。
 
 逆向：给 g,a,ng,a,n，求 k 使 gk≡a(modn)gk≡a(modn) —— **离散对数问题**，**困难**！
 
 **目前最好算法**：
 
-- 一般有限域 FpFp​：exp⁡(O((log⁡p)1/3(log⁡log⁡p)2/3))exp(O((logp)1/3(loglogp)2/3)) —— 亚指数
-- 椭圆曲线群：O(n)O(n​) —— **指数**！这就是为什么 ECC 比 RSA 高效
+- 一般有限域 Fp：exp(O((logp)1/3(loglogp)2/3))exp(O((logp)1/3(loglogp)2/3)) —— 亚指数
+- 椭圆曲线群：O(n) —— **指数**！这就是为什么 ECC 比 RSA 高效
 
 **离散对数问题的困难性是 Diffie-Hellman、ElGamal、ECDSA 的安全基础**。
 
@@ -10870,22 +10859,22 @@ Alice 和 Bob 想在公开网络上**协商一个共享密钥**，但他们之�
 
 #### 6.3 安全性
 
-**Eve 看到**：p,g,A=ga,B=gbp,g,A=ga,B=gb。
+**Eve 看到**：p,g,A=ga,B=gb。
 
-**Eve 想算**：K=gabK=gab。
+**Eve 想算**：K=gab。
 
-**问题**：从 gaga 和 gbgb 算 gabgab（不知道 a 或 b），需要解**离散对数问题**——**困难**！
+**问题**：从 ga 和 gb 算 gab（不知道 a 或 b），需要解**离散对数问题**——**困难**！
 
-这就是 **Diffie-Hellman 假设**：从 ga,gbga,gb 推 gabgab 是难题。
+这就是 **Diffie-Hellman 假设**：从 ga,gbga,gb 推 gab 是难题。
 
 #### 6.4 完整例子（玩具大小）
 
-设 p=23p=23，g=5g=5（5 是 23 的原根）。
+设p=23，g=5g=5（5 是 23 的原根）。
 
-- Alice 选 a=6a=6，计算 A=56mod  23A=56mod23。52=25≡252=25≡2，54=454=4，56=54⋅52=856=54⋅52=8。**A = 8**。
-- Bob 选 b=15b=15，计算 B=515mod  23B=515mod23。算出 B=19B=19。
-- Alice 计算 K=196mod  23=2K=196mod23=2。
-- Bob 计算 K=815mod  23=2K=815mod23=2。
+- Alice 选 a=6a=6，计算A=56mod  23。52=25≡252=25≡2，54=4，56=54⋅52=8。**A = 8**。
+- Bob 选b=15，计算B=515mod  23。算出B=19。
+- Alice 计算K=196mod  23=2。
+- Bob 计算K=815mod  23=2。
 
 **共享密钥 K = 2** ✅
 
@@ -10918,7 +10907,7 @@ Eve 可以分别和 Alice、Bob 各跑一次 DH，得到两组密钥，然后中
 
 #### 7.1 算法
 
-**密钥生成**：选大质数 p、原根 g，私钥 xx，公钥 h=gxmod  ph=gxmodp。
+**密钥生成**：选大质数 p、原根 g，私钥 x，公钥 h=gxmod  ph=gxmodp。
 
 **加密**（明文 m）：
 
@@ -10928,15 +10917,15 @@ Eve 可以分别和 Alice、Bob 各跑一次 DH，得到两组密钥，然后中
 
 **解密**（用私钥 x）：
 
-m=c2⋅(c1x)−1mod  pm=c2​⋅(c1x​)−1modp
+m=c2⋅(c1x)−1mod  p
 
-**为什么对**？c1x=gkx=hkc1x​=gkx=hk，所以 c2/hk=mc2​/hk=m。✅
+**为什么对**？c1x=gkx=hk，所以c2/hk=m。✅
 
 #### 7.2 ElGamal 的特点
 
 **1. 概率性加密**：每次加密都用随机 k，**同一明文每次密文不同**。这是 RSA 没有的。
 
-**2. 同态性**：E(m1)⋅E(m2)=E(m1m2)E(m1​)⋅E(m2​)=E(m1​m2​)。即"密文相乘 = 明文相乘的密文"。
+**2. 同态性**：E(m1)⋅E(m2)=E(m1m2)。即"密文相乘 = 明文相乘的密文"。
 
 **这是同态加密的早期形式**，是隐私计算的基础。
 
@@ -11006,29 +10995,29 @@ DSA（Digital Signature Algorithm）和 ECDSA（椭圆曲线版）是 ElGamal �
 
 **练习 1**（指数计算 —— 必练）：
 
-(1) 求 ord11(2)ord11​(2)、ord11(3)ord11​(3)、ord11(10)ord11​(10)。
+(1) 求 ord11(2)、ord11(3)、ord11(10)。
 
-提示：φ(11)=10φ(11)=10，可能的指数是 1, 2, 5, 10。先按因子顺序试。
+提示：φ(11)=10，可能的指数是 1, 2, 5, 10。先按因子顺序试。
 
-(2) 求 ord20(3)ord20​(3)。φ(20)=8φ(20)=8。
+(2) 求 ord20(3)。φ(20)=8。
 
-(3) 利用 ordn(ak)=ord(a)/gcd⁡(k,ord(a))ordn​(ak)=ord(a)/gcd(k,ord(a))：在 Z31Z31​ 中已知 ord31(3)=30ord31​(3)=30。求 ord31(34)ord31​(34) 和 ord31(312)ord31​(312)。
+(3) 利用ordn(ak)=ord(a)/gcd(k,ord(a))：在 Z31 中已知ord31(3)=30。求 ord31(34) 和 ord31(312)。
 
 **练习 2**（原根判定）：
 
-(1) 验证 2 是 Z11Z11​ 的原根。φ(11)=10=2×5φ(11)=10=2×5，只需检查 25≠125=1 和 22≠1(mod11)22=1(mod11)。
+(1) 验证 2 是 Z11 的原根。φ(11)=10=2×5，只需检查 25≠125=1 和 22≠1(mod11)22=1(mod11)。
 
-(2) 找 Z19Z19​ 的最小正原根。φ(19)=18=2×32φ(19)=18=2×32，需检查 g9≠1g9=1 和 g6≠1g6=1。
+(2) 找 Z19 的最小正原根。φ(19)=18=2×32，需检查 g9≠1g9=1 和 g6≠1g6=1。
 
-(3) 找 Z23Z23​ 的最小正原根。
+(3) 找 Z23 的最小正原根。
 
 **练习 3**（原根的个数与列表）：
 
-(1) Z13Z13​ 共有几个原根？前面已经找到 2 是原根，列出所有原根。
+(1) Z13 共有几个原根？前面已经找到 2 是原根，列出所有原根。
 
-(2) Z17Z17​ 共有几个原根？
+(2) Z17 共有几个原根？
 
-(3) **思考**：为什么 Z15Z15​ 没有原根？15=3×515=3×5，不在高斯定理列表中。具体计算：找出 Z15∗Z15∗​ 中每元素的指数，验证最大指数 < φ(15)=8φ(15)=8。
+(3) **思考**：为什么 Z15 没有原根？15=3×5，不在高斯定理列表中。具体计算：找出 Z15∗Z15∗ 中每元素的指数，验证最大指数 < φ(15)=8φ(15)=8。
 
 **练习 4**（无原根的 n —— 深入）：
 
@@ -11040,41 +11029,41 @@ DSA（Digital Signature Algorithm）和 ECDSA（椭圆曲线版）是 ElGamal �
 
 **练习 5**（离散对数计算）：
 
-(1) 在 Z11Z11​ 中，2 是原根。求 log⁡25log2​5、log⁡27log2​7、log⁡210log2​10。
+(1) 在 Z11 中，2 是原根。求 log25、log27、log210。
 
 (2) **思考**：你用了什么方法？暴力枚举？有没有更快的方法？
 
-(3) 对小素数（如 23、29），暴力法 O(p)O(p) 可行。但如果 p 是 1024 位（即 ∼10300∼10300），**没有任何已知算法能在合理时间内求 DLP**。这就是密码学的安全根基。
+(3) 对小素数（如 23、29），暴力法 O(p) 可行。但如果 p 是 1024 位（即 ∼10300∼10300），**没有任何已知算法能在合理时间内求 DLP**。这就是密码学的安全根基。
 
 **练习 6**（Diffie-Hellman 实战）：
 
-设 p=47p=47，g=5g=5（5 是 47 的原根，**请验证**）。
+设p=47，g=5g=5（5 是 47 的原根，**请验证**）。
 
-(1) Alice 选 a=18a=18，计算 A=518mod  47A=518mod47。
+(1) Alice 选a=18，计算A=518mod  47。
 
-(2) Bob 选 b=22b=22，计算 B=522mod  47B=522mod47。
+(2) Bob 选b=22，计算B=522mod  47。
 
-(3) Alice 算 K=B18mod  47K=B18mod47。
+(3) Alice 算K=B18mod  47。
 
-(4) Bob 算 K=A22mod  47K=A22mod47。
+(4) Bob 算K=A22mod  47。
 
 (5) 验证两人得到相同的 K。
 
-(6) **攻击者视角**：Eve 看到 p=47p=47, g=5g=5, AA, BB。她想算 K。请用暴力法（枚举 a 直到 5a=A5a=A）找出 a 和 b，然后算 K。讨论：当 p 是 1024 位时，这种暴力为什么不可行？
+(6) **攻击者视角**：Eve 看到 p=47p=47, g=5g=5, A, B。她想算 K。请用暴力法（枚举 a 直到5a=A）找出 a 和 b，然后算 K。讨论：当 p 是 1024 位时，这种暴力为什么不可行？
 
 **练习 7**（ElGamal 实战）：
 
-继续上题的 p=47,g=5p=47,g=5。
+继续上题的p=47,g=5。
 
-设 Alice 的私钥 x=30x=30，公钥 h=530mod  47h=530mod47。
+设 Alice 的私钥x=30，公钥h=530mod  47。
 
-Bob 给 Alice 加密明文 m=25m=25：
+Bob 给 Alice 加密明文m=25：
 
-(1) Bob 选随机 k=7k=7，计算密文 (c1,c2)(c1​,c2​)。
+(1) Bob 选随机 k=7k=7，计算密文(c1,c2)。
 
 (2) Alice 用私钥解密，验证回到 m = 25。
 
-(3) **思考**：如果 Bob 不小心两次用同一个 k 加密两个不同明文 m1,m2m1​,m2​，Eve 能恢复 m2m2​ 吗？（提示：考虑 c2(1)/c2(2)=m1/m2c2(1)​/c2(2)​=m1​/m2​）
+(3) **思考**：如果 Bob 不小心两次用同一个 k 加密两个不同明文 m1,m2m1,m2，Eve 能恢复 m2 吗？（提示：考虑c2(1)/c2(2)=m1/m2）
 
 **练习 8**（电子工程联系 —— 实际密码协议）：
 
@@ -11096,9 +11085,9 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 **练习 9**（综合证明 —— 选做）：
 
-(1) 证明：若 g 是 Zp∗Zp∗​（p 质数）的原根，则 gkgk 也是原根 ⟺ gcd⁡(k,p−1)=1gcd(k,p−1)=1。
+(1) 证明：若 g 是 Zp∗Zp∗（p 质数）的原根，则 gk 也是原根 ⟺gcd(k,p−1)=1。
 
-(2) 证明：原根的总数是 φ(p−1)φ(p−1)。
+(2) 证明：原根的总数是φ(p−1)。
 
 (3) **挑战**：证明：奇质数 p 必有原根。
 
@@ -11110,7 +11099,7 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 讨论：你能想出"生活中"哪些情况是"循环结构"，哪些不是？
 
-(2) **DLP 的不对称性**：正向 gkgk 容易（快速幂 O(log⁡k)O(logk)），反向 DLP 难（无多项式算法）。这种"单向函数"是公钥密码学的核心。
+(2) **DLP 的不对称性**：正向 gk 容易（快速幂 O(logk)），反向 DLP 难（无多项式算法）。这种"单向函数"是公钥密码学的核心。
 
 讨论：还有哪些"易做难撤销"的过程？（鸡蛋打散容易合上难、信息泄露易撤销难……这些日常类比对你理解密码学有帮助吗？）
 
@@ -11136,7 +11125,7 @@ Bob 给 Alice 加密明文 m=25m=25：
 - **Tonelli-Shanks 算法**：实际怎么求模平方根
 - **Carmichael 函数**：欧拉定理的"紧化"版本
 - **Carmichael 数与 Miller-Rabin 素性测试**：现代密码学怎么生成大质数
-- **佩尔方程**：连分数与 x2−Dy2=1x2−Dy2=1
+- **佩尔方程**：连分数与x2−Dy2=1
 - **数论的"两个奇迹"**：素数定理与黎曼假设
 
 ---
@@ -11149,11 +11138,11 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 现在升级问题：**x2≡a(modn)x2≡a(modn) 何时有解**？这是**二次方程**。
 
-🤔 **试试**：在 Z7Z7​ 中，x2≡2x2≡2 有解吗？x2≡3x2≡3 呢？
+🤔 **试试**：在 Z7 中，x2≡2x2≡2 有解吗？x2≡3x2≡3 呢？
 
 枚举：
 
-|xx|1|2|3|4|5|6|
+|x|1|2|3|4|5|6|
 |---|---|---|---|---|---|---|
 |x2  7x2mod7|1|4|2|2|4|1|
 
@@ -11168,27 +11157,27 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 #### 1.2 定义
 
-> **二次剩余 (Quadratic Residue, QR)**：a∈Zp∗a∈Zp∗​ 是**二次剩余**，若存在 xx 使 x2≡a(modp)x2≡a(modp)。否则是**二次非剩余 (Quadratic Non-Residue, QNR)**。
+> **二次剩余 (Quadratic Residue, QR)**：a∈Zp∗a∈Zp∗ 是**二次剩余**，若存在 x 使 x2≡a(modp)x2≡a(modp)。否则是**二次非剩余 (Quadratic Non-Residue, QNR)**。
 
 #### 1.3 关键观察
 
 > **定理**：设 p 是奇质数。Zp∗Zp∗​ 中**恰好一半元素是 QR，另一半是 QNR**。
 
-**证明**：考虑映射 φ:Zp∗→Zp∗φ:Zp∗​→Zp∗​，φ(x)=x2φ(x)=x2。
+**证明**：考虑映射 φ:Zp∗→Zp∗φ:Zp∗→Zp∗，φ(x)=x2。
 
-- xx 和 −x−x 平方相同，且 x≠−x(modp)x=−x(modp)（因 p 奇）
-- 所以 φφ 是 **2 对 1** 的映射
+- x 和 −x−x 平方相同，且 x≠−x(modp)x=−x(modp)（因 p 奇）
+- 所以 φ 是 **2 对 1** 的映射
 - 像集大小 = (p−1)/2(p−1)/2 ✅
 
-**所以恰好 (p−1)/2(p−1)/2 个 QR，(p−1)/2(p−1)/2 个 QNR**。
+**所以恰好(p−1)/2个 QR，(p−1)/2个 QNR**。
 
 #### 1.4 用原根判断
 
-> **判据**：g 是 Zp∗Zp∗​ 的原根。则 gkgk 是 QR ⟺ **k 为偶数**。
+> **判据**：g 是 Zp∗Zp∗ 的原根。则 gk 是 QR ⟺ **k 为偶数**。
 
-**为什么**：若 k=2mk=2m，则 gk=(gm)2gk=(gm)2 是 QR。反过来，若 gk=y2gk=y2，写 y=gjy=gj，则 gk=g2jgk=g2j，所以 k≡2j(modp−1)k≡2j(modp−1)。由 p-1 偶，k 必偶。✅
+**为什么**：若k=2m，则gk=(gm)2是 QR。反过来，若gk=y2，写y=gj，则gk=g2j，所以 k≡2j(modp−1)k≡2j(modp−1)。由 p-1 偶，k 必偶。✅
 
-**例**：Z11Z11​，原根 g = 2：
+**例**：Z11，原根 g = 2：
 
 - g0=1,g2=4,g4=5,g6=9,g8=3g0=1,g2=4,g4=5,g6=9,g8=3 → QR = {1,3,4,5,9}{1,3,4,5,9}
 - g1=2,g3=8,g5=10,g7=7,g9=6g1=2,g3=8,g5=10,g7=7,g9=6 → QNR = {2,6,7,8,10}{2,6,7,8,10}
@@ -11203,14 +11192,14 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 记号让讨论更简洁：
 
-(ap)={+1a 是 QR mod p−1a 是 QNR mod p0p∣a(pa​)=⎩⎨⎧​+1−10​a 是 QR mod pa 是 QNR mod pp∣a​
+(ap)={+1a 是 QR mod p−1a 是 QNR mod p0p∣a(pa)=⎩⎨⎧+1−10a 是 QR mod pa 是 QNR mod p∣a
 
 读作"a 对 p 的勒让德符号"。
 
 #### 2.2 欧拉判据 ⭐⭐
 
-> **欧拉判据 (Euler's Criterion)**：对奇质数 p 和 gcd⁡(a,p)=1gcd(a,p)=1：
-> 
+> **欧拉判据 (Euler's Criterion)**：对奇质数 p 和gcd(a,p)=1：
+>
 > (ap)≡a(p−1)/2(modp)(pa​)≡a(p−1)/2(modp)
 
 **这是计算勒让德符号的核心公式**。
@@ -11223,17 +11212,17 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 由 p 质数（无零因子），a(p−1)/2≡±1(modp)a(p−1)/2≡±1(modp)。
 
-**若 a 是 QR**：a=y2a=y2，a(p−1)/2=yp−1≡1a(p−1)/2=yp−1≡1 ✅
+**若 a 是 QR**：a=y2，a(p−1)/2=yp−1≡1a(p−1)/2=yp−1≡1 ✅
 
-**若 a 是 QNR**：用原根 gg，a=gka=gk（k 奇）。a(p−1)/2=gk(p−1)/2a(p−1)/2=gk(p−1)/2。由 ord(g)=p−1ord(g)=p−1 且 k(p−1)/2k(p−1)/2 不被 p−1p−1 整除（k 奇），所以 gk(p−1)/2≠1gk(p−1)/2=1。但它的平方是 1，所以 = -1。✅
+**若 a 是 QNR**：用原根 g，a=gk（k 奇）。a(p−1)/2=gk(p−1)/2。由ord(g)=p−1且k(p−1)/2不被 p−1p−1 整除（k 奇），所以 gk(p−1)/2≠1gk(p−1)/2=1。但它的平方是 1，所以 = -1。✅
 
 #### 2.3 例子
 
 判断 (617)(176​)：
 
-6(17−1)/2=68(mod17)6(17−1)/2=68(mod17)。
+6(17−1)/2=68(mod17)。
 
-62=36≡262=36≡2，64=464=4，68=16≡−1(mod17)68=16≡−1(mod17)。
+62=36≡262=36≡2，64=4，68=16≡−1(mod17)68=16≡−1(mod17)。
 
 **所以 (617)=−1(176​)=−1，6 是 17 的 QNR**。
 
@@ -11241,7 +11230,7 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 > **乘性**：(abp)=(ap)(bp)(pab​)=(pa​)(pb​)
 
-**证明**：由欧拉判据 (ab)(p−1)/2=a(p−1)/2⋅b(p−1)/2(ab)(p−1)/2=a(p−1)/2⋅b(p−1)/2。✅
+**证明**：由欧拉判据(ab)(p−1)/2=a(p−1)/2⋅b(p−1)/2。✅
 
 **应用**：QR × QR = QR，QR × QNR = QNR，QNR × QNR = QR。
 
@@ -11268,7 +11257,7 @@ Bob 给 Alice 加密明文 m=25m=25：
 #### 3.1 定理
 
 > **二次互反律（高斯，1796）**：设 p,qp,q 是不同奇质数。则
-> 
+>
 > (pq)(qp)=(−1)p−12⋅q−12(qp​)(pq​)=(−1)2p−1​⋅2q−1​
 
 #### 3.2 解读
@@ -11288,7 +11277,7 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 **例**：求 (1729)(2917​)。
 
-直接用欧拉判据要算 1714(mod29)1714(mod29)，麻烦。
+直接用欧拉判据要算1714(mod29)，麻烦。
 
 **用互反律**：17≡1(mod4)17≡1(mod4)，所以：
 
@@ -11306,19 +11295,19 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 ### 四、Tonelli-Shanks 算法（求模平方根）
 
-知道 aa 是 QR 后，**实际怎么求 x**？
+知道 a 是 QR 后，**实际怎么求 x**？
 
 #### 4.1 简单情形：p≡3(mod4)p≡3(mod4)
 
-> **简化公式**：若 p≡3(mod4)p≡3(mod4) 且 aa 是 QR mod p，则
-> 
+> **简化公式**：若 p≡3(mod4)p≡3(mod4) 且 a 是 QR mod p，则
+>
 > x=a(p+1)/4(modp)x=a(p+1)/4(modp)
 
-**为什么**：x2=a(p+1)/2=a⋅a(p−1)/2=a⋅1=ax2=a(p+1)/2=a⋅a(p−1)/2=a⋅1=a ✅（用欧拉判据）
+**为什么**：x2=a(p+1)/2=a⋅a(p−1)/2=a⋅1=a✅（用欧拉判据）
 
 **例**：求 x2≡11(mod19)x2≡11(mod19)。
 
-19≡3(mod4)19≡3(mod4) ✅。x=11(19+1)/4=115(mod19)x=11(19+1)/4=115(mod19)。
+19≡3(mod4)19≡3(mod4) ✅。x=11(19+1)/4=115(mod19)。
 
 112=121≡7(mod19)112=121≡7(mod19)，114=49≡11114=49≡11，115=114⋅11=121≡7(mod19)115=114⋅11=121≡7(mod19)。
 
@@ -11328,18 +11317,18 @@ Bob 给 Alice 加密明文 m=25m=25：
 
 需要 **Tonelli-Shanks 算法**——比较复杂，思路是：
 
-1. 写 p−1=Q⋅2sp−1=Q⋅2s（Q 奇）
+1. 写p−1=Q⋅2s（Q 奇）
 2. 找一个 QNR z
 3. 设 M=sM=s, c=zQc=zQ, t=aQt=aQ, R=a(Q+1)/2R=a(Q+1)/2
-4. 循环：找最小 i<Mi<M 使 t2i=1t2i=1，更新参数
+4. 循环：找最小 i<Mi<M 使t2i=1，更新参数
 
 不展开细节。**实际密码学库都有现成实现**（OpenSSL、Crypto++）。
 
-**Tonelli-Shanks 复杂度** O(log⁡2p)O(log2p) 期望。
+**Tonelli-Shanks 复杂度** O(log2p) 期望。
 
 #### 4.3 应用：椭圆曲线
 
-ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平方根问题。所以 Tonelli-Shanks 是 ECC 实现的必备工具。
+ECC 中要计算y2=x3+ax+b的点：给定 x，求 y 就是模平方根问题。所以 Tonelli-Shanks 是 ECC 实现的必备工具。
 
 ---
 
@@ -11347,56 +11336,56 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 #### 5.1 动机
 
-回到第 21.5 节的发现：在 Z12Z12​ 中，**所有元素的指数都 ≤ 2**，远小于 φ(12)=4φ(12)=4。
+回到第 21.5 节的发现：在 Z12 中，**所有元素的指数都 ≤ 2**，远小于φ(12)=4。
 
 这说明欧拉定理 aφ(n)≡1(modn)aφ(n)≡1(modn) **对每个 a 都成立**，但不一定是**最小指数**。
 
-是否存在一个**更小的"通用指数"** λλ，使得 aλ≡1(modn)aλ≡1(modn) 对所有 gcd⁡(a,n)=1gcd(a,n)=1 都成立？
+是否存在一个**更小的"通用指数"** λ，使得 aλ≡1(modn)aλ≡1(modn) 对所有gcd(a,n)=1都成立？
 
 **答案**：是的，这就是 Carmichael 函数。
 
 #### 5.2 定义
 
-> **Carmichael 函数 λ(n)λ(n)**（也叫"约化欧拉函数"）：使 ak≡1(modn)ak≡1(modn) 对所有 gcd⁡(a,n)=1gcd(a,n)=1 成立的**最小正整数 k**。
+> **Carmichael 函数 λ(n)λ(n)**（也叫"约化欧拉函数"）：使 ak≡1(modn)ak≡1(modn) 对所有gcd(a,n)=1成立的**最小正整数 k**。
 
-等价地：λ(n)=lcmλ(n)=lcm 所有 Zn∗Zn∗​ 元素的指数。
+等价地：λ(n)=lcm所有 Zn∗Zn∗ 元素的指数。
 
 #### 5.3 公式
 
-λλ 函数的公式：
+λ 函数的公式：
 
 - λ(1)=1λ(1)=1
 - λ(2)=1λ(2)=1, λ(4)=2λ(4)=2, λ(2k)=2k−2λ(2k)=2k−2（k≥3k≥3）⚠️ **特殊**
 - λ(pk)=φ(pk)=pk−1(p−1)λ(pk)=φ(pk)=pk−1(p−1)（p 奇质数）
 - λ(p1a1⋯pkak)=lcm(λ(p1a1),…,λ(pkak))λ(p1a1​​⋯pkak​​)=lcm(λ(p1a1​​),…,λ(pkak​​))
 
-注意 λ(2k)λ(2k) 的特殊性（k≥3k≥3）：λ(8)=2λ(8)=2，λ(16)=4λ(16)=4，λ(32)=8λ(32)=8，**比 φ(2k)=2k−1φ(2k)=2k−1 小一半**。
+注意λ(2k)的特殊性（k≥3k≥3）：λ(8)=2，λ(16)=4，λ(32)=8，**比φ(2k)=2k−1小一半**。
 
 #### 5.4 例子
 
-λ(12)=lcm(λ(4),λ(3))=lcm(2,2)=2λ(12)=lcm(λ(4),λ(3))=lcm(2,2)=2。
+λ(12)=lcm(λ(4),λ(3))=lcm(2,2)=2。
 
 **验证**（前面表格）：所有 Z12∗Z12∗​ 元素的指数都 ≤ 2 ✅。
 
-λ(15)=lcm(λ(3),λ(5))=lcm(2,4)=4λ(15)=lcm(λ(3),λ(5))=lcm(2,4)=4。
+λ(15)=lcm(λ(3),λ(5))=lcm(2,4)=4。
 
-λ(100)=lcm(λ(4),λ(25))=lcm(2,20)=20λ(100)=lcm(λ(4),λ(25))=lcm(2,20)=20，而 φ(100)=40φ(100)=40。
+λ(100)=lcm(λ(4),λ(25))=lcm(2,20)=20，而φ(100)=40。
 
 #### 5.5 Carmichael 定理
 
-> **Carmichael 定理**：gcd⁡(a,n)=1gcd(a,n)=1 ⇒ aλ(n)≡1(modn)aλ(n)≡1(modn)。
+> **Carmichael 定理**：gcd(a,n)=1⇒ aλ(n)≡1(modn)aλ(n)≡1(modn)。
 
 **这是欧拉定理的"最优紧版本"**。
 
 #### 5.6 RSA 中的应用
 
-**实际 RSA 实现常用 λ(n)λ(n) 而不是 φ(n)φ(n)**：
+**实际 RSA 实现常用λ(n)而不是 φ(n)φ(n)**：
 
-设 n=pqn=pq。λ(n)=lcm(p−1,q−1)λ(n)=lcm(p−1,q−1)，**通常 <φ(n)=(p−1)(q−1)<φ(n)=(p−1)(q−1)**。
+设n=pq。λ(n)=lcm(p−1,q−1)，**通常 <φ(n)=(p−1)(q−1)<φ(n)=(p−1)(q−1)**。
 
-用 λ(n)λ(n) 选 d：ed≡1(modλ(n))ed≡1(modλ(n))。
+用λ(n)选 d：ed≡1(modλ(n))ed≡1(modλ(n))。
 
-**好处**：得到的 d **更小**，私钥操作更快。RSA 标准 PKCS#1 v2.2 推荐用 λλ。
+**好处**：得到的 d **更小**，私钥操作更快。RSA 标准 PKCS#1 v2.2 推荐用 λ。
 
 ---
 
@@ -11410,7 +11399,7 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 但**不是充分**：**有些合数 n 也满足 an−1≡1(modn)an−1≡1(modn) 对所有 gcd⁡(a,n)=1gcd(a,n)=1**！
 
-> **Carmichael 数**：合数 n，但 an−1≡1(modn)an−1≡1(modn) 对所有 gcd⁡(a,n)=1gcd(a,n)=1。
+> **Carmichael 数**：合数 n，但 an−1≡1(modn)an−1≡1(modn) 对所有gcd(a,n)=1。
 
 也叫"绝对伪素数"——**完美骗过费马测试**。
 
@@ -11418,9 +11407,9 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 **561 = 3 × 11 × 17 是最小的 Carmichael 数**。
 
-验证：对所有 gcd⁡(a,561)=1gcd(a,561)=1，a560≡1(mod561)a560≡1(mod561)。
+验证：对所有gcd(a,561)=1，a560≡1(mod561)a560≡1(mod561)。
 
-**为什么**？λ(561)=lcm(2,10,16)=80λ(561)=lcm(2,10,16)=80。80∣56080∣560（560=7×80560=7×80）。所以 a560=(a80)7≡1a560=(a80)7≡1 ✅。
+**为什么**？λ(561)=lcm(2,10,16)=80。80∣56080∣560（560=7×80）。所以 a560=(a80)7≡1a560=(a80)7≡1 ✅。
 
 **Carmichael 数前几个**：561, 1105, 1729, 2465, 2821, ...
 
@@ -11428,7 +11417,7 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 #### 6.3 Korselt 判据
 
-> **判据**：n 是 Carmichael 数 ⟺ n 无平方因子，且**对每个质因子 p of n**，(p−1)∣(n−1)(p−1)∣(n−1)。
+> **判据**：n 是 Carmichael 数 ⟺ n 无平方因子，且**对每个质因子 p of n**，(p−1)∣(n−1)。
 
 **例**：561 = 3 × 11 × 17，无平方因子。
 
@@ -11444,9 +11433,9 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 **思想**：除了 an−1≡1an−1≡1，还要求中间步骤满足特定条件。
 
-**结论**：Miller-Rabin **能检测出所有 Carmichael 数**。每轮测试错误概率 ≤1/4≤1/4，跑 k 轮后错误概率 ≤4−k≤4−k。
+**结论**：Miller-Rabin **能检测出所有 Carmichael 数**。每轮测试错误概率≤1/4，跑 k 轮后错误概率≤4−k。
 
-实际中跑 20-40 轮，错误概率 <10−12<10−12，**比硬件出错概率还低**。
+实际中跑 20-40 轮，错误概率<10−12，**比硬件出错概率还低**。
 
 **这就是 OpenSSL 等库生成大质数的方法**：
 
@@ -11460,11 +11449,11 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 #### 7.1 问题
 
-> **佩尔方程**：x2−Dy2=1x2−Dy2=1，其中 D 是非平方正整数，求**正整数解** (x, y)。
+> **佩尔方程**：x2−Dy2=1，其中 D 是非平方正整数，求**正整数解** (x, y)。
 
-**例**：x2−2y2=1x2−2y2=1。
+**例**：x2−2y2=1。
 
-试小解：(3,2)(3,2)：9−8=19−8=1 ✅。(17,12)(17,12)：289−288=1289−288=1 ✅。
+试小解：(3,2)：9−8=1✅。(17,12)：289−288=1✅。
 
 实际上**有无穷多解**！
 
@@ -11477,23 +11466,23 @@ ECC 中要计算 y2=x3+ax+by2=x3+ax+b 的点：给定 x，求 y 就是模平�
 
 #### 7.3 连分数解法
 
-> **定理**：DD​ 的连分数展开是周期的。x2−Dy2=1x2−Dy2=1 的最小正解 (x1,y1)(x1​,y1​) 由连分数收敛子给出。
+> **定理**：D 的连分数展开是周期的。x2−Dy2=1的最小正解(x1,y1)由连分数收敛子给出。
 
 **例**：2=[1;2,2,2,…]2​=[1;2,2,2,…]（周期 1）。
 
 收敛子：1, 3/2, 7/5, 17/12, 41/29, ...
 
-**最小解**：(3,2)(3,2)，对应收敛子 3/2。
+**最小解**：(3,2)，对应收敛子 3/2。
 
 **所有解**由递推生成：
 
-xn+1=x1xn+Dy1yn,yn+1=x1yn+y1xnxn+1​=x1​xn​+Dy1​yn​,yn+1​=x1​yn​+y1​xn​
+xn+1=x1xn+Dy1yn,yn+1=x1yn+y1xn
 
-或等价地 (xn+ynD)=(x1+y1D)n(xn​+yn​D​)=(x1​+y1​D​)n。
+或等价地(xn+ynD)=(x1+y1D)n。
 
 #### 7.4 例子
 
-6161​ 的连分数最小解 (x1,y1)=(1766319049,226153980)(x1​,y1​)=(1766319049,226153980) —— **真大！**
+6161 的连分数最小解(x1,y1)=(1766319049,226153980)—— **真大！**
 
 这就是为什么 17 世纪欧洲数学家算了几年才发现这个解。
 
@@ -11513,19 +11502,19 @@ xn+1=x1xn+Dy1yn,yn+1=x1yn+y1xnxn+1​=x1​xn​+Dy1​yn​,yn+1​=x1​yn​+
 
 > π(x)π(x)：不超过 x 的质数个数。
 
-**例**：π(10)=4π(10)=4（质数 2, 3, 5, 7）。π(100)=25π(100)=25。π(106)=78498π(106)=78498。
+**例**：π(10)=4（质数 2, 3, 5, 7）。π(100)=25。π(106)=78498。
 
 #### 8.2 素数定理（Prime Number Theorem, PNT）⭐⭐⭐
 
 > **素数定理**：当 x→∞x→∞：
-> 
+>
 > π(x)∼xln⁡xπ(x)∼lnxx​
 
-**意义**：质数密度大约是 1/ln⁡x1/lnx。
+**意义**：质数密度大约是1/lnx。
 
-**例**：x=109x=109 附近，**约每 ln⁡(109)≈21ln(109)≈21 个数有一个质数**。
+**例**：x=109附近，**约每ln(109)≈21个数有一个质数**。
 
-**这就是为什么"随机选大数测试是否质数"是可行的**——平均试 ln⁡nlnn 次就能找到质数。RSA 的 1024 位质数大约 700 次随机+Miller-Rabin 就能找到。
+**这就是为什么"随机选大数测试是否质数"是可行的**——平均试 lnn 次就能找到质数。RSA 的 1024 位质数大约 700 次随机+Miller-Rabin 就能找到。
 
 **历史**：
 
@@ -11543,7 +11532,7 @@ xn+1=x1xn+Dy1yn,yn+1=x1yn+y1xnxn+1​=x1​xn​+Dy1​yn​,yn+1​=x1​yn​+
 
 #### 8.4 黎曼假设（Riemann Hypothesis, RH）⭐⭐⭐
 
-> **黎曼假设**（1859）：ζ(s)ζ(s) 在临界带 0<Re(s)<10<Re(s)<1 中的所有零点都在直线 Re(s)=1/2Re(s)=1/2 上。
+> **黎曼假设**（1859）：ζ(s)在临界带0<Re(s)<1中的所有零点都在直线Re(s)=1/2上。
 
 **这是数学最著名的未解问题**。Clay 数学研究所悬赏 **100 万美元**。
 
@@ -11561,7 +11550,7 @@ xn+1=x1xn+Dy1yn,yn+1=x1yn+y1xnxn+1​=x1​xn​+Dy1​yn​,yn+1​=x1​yn​+
 
 ```
 古希腊      欧几里得证质数无穷
-17世纪      费马、欧拉  
+17世纪      费马、欧拉
 19世纪      高斯、黎曼 → 数论 = "数学的女王"
 1940年代    Hardy: "数论永不实用"
 1970年代    RSA 诞生 → 数论成为加密基础
@@ -11617,11 +11606,11 @@ Carmichael 数与素性测试
 
 **练习 1**（二次剩余 —— 必练）：
 
-(1) 列出 Z13Z13​ 中的所有二次剩余和非剩余。
+(1) 列出 Z13 中的所有二次剩余和非剩余。
 
 (2) 用欧拉判据计算 (513)(135​) 和 (613)(136​)。
 
-(3) **思考**：你算时是否发现快速幂技巧很重要？为什么 a(p−1)/2a(p−1)/2 比逐个枚举 x2x2 快得多？
+(3) **思考**：你算时是否发现快速幂技巧很重要？为什么a(p−1)/2比逐个枚举 x2 快得多？
 
 **练习 2**（勒让德符号 —— 用互反律）：
 
@@ -11641,29 +11630,29 @@ Carmichael 数与素性测试
 
 **练习 4**（Carmichael 函数）：
 
-(1) 计算 λ(15)λ(15)、λ(20)λ(20)、λ(72)λ(72)、λ(210)λ(210)。
+(1) 计算λ(15)、λ(20)、λ(72)、λ(210)。
 
-(2) 比较 λ(n)λ(n) 和 φ(n)φ(n)。何时 λ(n)=φ(n)λ(n)=φ(n)？
+(2) 比较λ(n)和φ(n)。何时λ(n)=φ(n)？
 
-提示：λ(n)=φ(n)λ(n)=φ(n) ⟺ Zn∗Zn∗​ 是循环群 ⟺ n 有原根。
+提示：λ(n)=φ(n)⟺ Zn∗Zn∗ 是循环群 ⟺ n 有原根。
 
-(3) 在 RSA 中，若 p=11,q=17p=11,q=17，比较用 φ(n)φ(n) 和 λ(n)λ(n) 计算的私钥 d 大小（取 e=7e=7）。
+(3) 在 RSA 中，若p=11,q=17，比较用φ(n)和λ(n)计算的私钥 d 大小（取 e=7e=7）。
 
 **练习 5**（Carmichael 数）：
 
 (1) 用 Korselt 判据验证 1105 = 5 × 13 × 17 是 Carmichael 数。
 
-(2) 验证 1729（Hardy-Ramanujan 数）是 Carmichael 数。1729=7×13×191729=7×13×19。
+(2) 验证 1729（Hardy-Ramanujan 数）是 Carmichael 数。1729=7×13×19。
 
 (3) **思考**：Carmichael 数无穷多。为什么这是费马素性测试的"致命缺陷"？
 
-(4) **挑战**：构造一个新的 Carmichael 数。提示：找三个奇质数 p1<p2<p3p1​<p2​<p3​ 使 (pi−1)∣(p1p2p3−1)(pi​−1)∣(p1​p2​p3​−1)。
+(4) **挑战**：构造一个新的 Carmichael 数。提示：找三个奇质数p1<p2<p3使(pi−1)∣(p1p2p3−1)。
 
 **练习 6**（Miller-Rabin 概念）：
 
-(1) Miller-Rabin 测试对每轮失败概率 ≤1/4≤1/4（"强伪素数"概率）。跑 40 轮后错误概率？
+(1) Miller-Rabin 测试对每轮失败概率≤1/4（"强伪素数"概率）。跑 40 轮后错误概率？
 
-(2) 实际中若要生成 1024 位质数（错误概率 <2−80<2−80），需要跑多少轮 Miller-Rabin？
+(2) 实际中若要生成 1024 位质数（错误概率<2−80），需要跑多少轮 Miller-Rabin？
 
 (3) **思考**：为什么不能用确定性多项式素性测试（如 AKS 算法）？
 
@@ -11671,11 +11660,11 @@ Carmichael 数与素性测试
 
 **练习 7**（佩尔方程）：
 
-(1) 求 x2−3y2=1x2−3y2=1 的最小正整数解。
+(1) 求x2−3y2=1的最小正整数解。
 
 (2) 由最小解递推得到第 2、第 3 个解。
 
-(3) **挑战**：求 x2−5y2=1x2−5y2=1 的最小解。提示：55​ 的连分数展开。
+(3) **挑战**：求x2−5y2=1的最小解。提示：55 的连分数展开。
 
 (4) **历史趣题**：阿基米德"群牛问题"等价于一个佩尔方程，最小解是 200000 多位的整数。1880 年才被一位德国数学教师手算出来。
 
@@ -11687,7 +11676,7 @@ Carmichael 数与素性测试
 
 (2) 估算 1024 位整数附近的质数密度。生成 1024 位 RSA 质数大约需测试多少个候选？
 
-(3) 在 [1, 100], [1, 10000], [1, 10^6] 范围内的实际质数个数 vs x/ln⁡xx/lnx 估算的差距。
+(3) 在 [1, 100], [1, 10000], [1, 10^6] 范围内的实际质数个数 vs x/ln⁡x/lnx 估算的差距。
 
 **练习 9**（电子工程联系 —— 实际密码学）：
 
@@ -11707,16 +11696,16 @@ do {
 - 为什么要奇数？
 - 40 轮够吗？
 
-(2) **椭圆曲线点的求解**：在 FpFp​ 上的曲线 y2=x3+ax+by2=x3+ax+b，给定 x，求 y 用什么算法？
+(2) **椭圆曲线点的求解**：在 Fp 上的曲线y2=x3+ax+b，给定 x，求 y 用什么算法？
 
 如果 p≡3(mod4)p≡3(mod4)（如 secp256k1 的 p），可以用简化公式而不需要 Tonelli-Shanks。这就是为什么很多曲线选 p≡3(mod4)p≡3(mod4)。
 
-(3) **Diffie-Hellman 选参数**：DH 用 prime pp 和原根 gg。
+(3) **Diffie-Hellman 选参数**：DH 用 prime p 和原根 g。
 
 讨论：
 
 - 如何确认 g 是原根？（提示：检查 g(p−1)/q≠1g(p−1)/q=1 对所有 (p-1) 的质因子 q）
-- 实际中常用"safe prime"：p=2q+1p=2q+1 其中 q 也是质数。这样 (p-1) = 2q 只有两个质因子，容易验证。
+- 实际中常用"safe prime"：p=2q+1其中 q 也是质数。这样 (p-1) = 2q 只有两个质因子，容易验证。
 
 (4) **后量子密码的思路**：
 
@@ -11751,7 +11740,6 @@ do {
 
 讨论：你认为下一次"数论复活"会在哪里？（量子计算？区块链？AI？）
 
-
 ## 离散数学 第 22.1 节：离散概率论
 
 概率论是个有意思的学科：它的"基础"很简单（连小学生都能算抛硬币的概率），但它的"边界"非常深（现代概率论需要测度论、随机过程、随机微分方程）。
@@ -11766,7 +11754,7 @@ do {
 
 ### 在开始前，我想问你三个问题
 
-🤔 **问题 1**：你高中学过古典概型（如"抛硬币"、"摸球"）吗？能告诉我你现在对概率的"直觉"是什么——你觉得"P(A)=0.7P(A)=0.7"具体是什么意思？
+**问题 1**：回顾古典概型，如抛硬币与摸球，并思考概率 $P(A)=0.7$ 在直觉上表示什么。
 
 🤔 **问题 2**：下面这两个说法你觉得哪个对、哪个错？为什么？
 
@@ -11776,15 +11764,14 @@ do {
 🤔 **问题 3**：下面这道经典题你试着做做（**这是检验直觉的金标准**）：
 
 > **三门问题 (Monty Hall)**：游戏节目上有 3 扇门，1 扇后面是车，2 扇后面是羊。你选了 1 号门。主持人（**知道答案**）打开 3 号门，是羊。他问你："要不要换到 2 号门？"
-> 
+>
 > **换还是不换？换车的概率是多少？**
 
 ---
 
 我让你先想想这三个问题，**先别看下面**——：
 
-
-特别是第 3 题，**95% 的人第一次都会答错**，包括很多数学家（这道题在 1990 年发表后，有学者给杂志写信骂出题人，但**出题人是对的**）。这道题答对了，说明你的概率直觉非常好；答错也很正常，**它本身就是一个绝佳的教学案例**。
+第 3 题是一个容易受到直觉误导的经典案例。该题在 1990 年引发过广泛争议，许多读者最初给出了错误答案，因此很适合用于检验并修正概率直觉。
 
 ### 我们直接进入**离散概率的核心进阶内容**。我会按这个顺序展开：
 
@@ -11805,27 +11792,27 @@ do {
 
 高中讲概率从"古典概型"开始，但**现代概率论建立在公理上**——1933 年俄国数学家**柯尔莫哥洛夫**给出。这是数学严格性的需要。
 
-#### 1.1 概率空间 (Ω,F,P)(Ω,F,P)
+#### 1.1 概率空间(Ω,F,P)
 
 > **三元组**：
-> 
-> - **样本空间** ΩΩ：所有可能结果的集合
-> - **事件域** FF：ΩΩ 的某些子集构成的集合（在离散情形下通常 F=2ΩF=2Ω）
+>
+> - **样本空间** Ω：所有可能结果的集合
+> - **事件域** F：Ω 的某些子集构成的集合（在离散情形下通常F=2Ω）
 > - **概率测度** P:F→[0,1]P:F→[0,1]
 
 满足三条公理：
 
-1. **非负性**：P(A)≥0P(A)≥0
-2. **规范性**：P(Ω)=1P(Ω)=1
+1. **非负性**：P(A)≥0
+2. **规范性**：P(Ω)=1
 3. **可数可加性**：若 A1,A2,…A1​,A2​,… 两两不相交，则P(⋃i=1∞Ai)=∑i=1∞P(Ai)P(i=1⋃∞​Ai​)=i=1∑∞​P(Ai​)
 
 **注意第 3 条**：是**可数**可加，不是有限可加。这是为什么需要测度论——**不可数情形下不是所有子集都能定义概率**（这就是著名的 Vitali 集合）。
 
-🤔 **思考**：为什么需要 FF？为什么不让所有子集都是事件？
+🤔 **思考**：为什么需要 F？为什么不让所有子集都是事件？
 
-**对离散 ΩΩ 没问题**——所有子集都可以是事件。
+**对离散 Ω 没问题**——所有子集都可以是事件。
 
-**对连续 ΩΩ**（如 [0,1][0,1]）：存在"病态子集"无法一致地分配概率。这是测度论解决的核心问题。我们这节限于离散，所以不深入。
+**对连续 Ω**（如[0,1]）：存在"病态子集"无法一致地分配概率。这是测度论解决的核心问题。我们这节限于离散，所以不深入。
 
 #### 1.2 公理推出的性质（你应该熟悉）
 
@@ -11837,9 +11824,9 @@ do {
 - P(A∪B)=P(A)+P(B)−P(A∩B)P(A∪B)=P(A)+P(B)−P(A∩B)（**容斥**）
 - 一般容斥：P(⋃Ai)=∑P(Ai)−∑i<jP(Ai∩Aj)+…P(⋃Ai​)=∑P(Ai​)−∑i<j​P(Ai​∩Aj​)+…
 
-🤔 **测试**：能直接从公理证明 P(Ac)=1−P(A)P(Ac)=1−P(A) 吗？
+🤔 **测试**：能直接从公理证明P(Ac)=1−P(A)吗？
 
-**证**：Ω=A∪AcΩ=A∪Ac，且 A∩Ac=∅A∩Ac=∅。由可加性 P(Ω)=P(A)+P(Ac)P(Ω)=P(A)+P(Ac)。由规范性 P(Ω)=1P(Ω)=1。所以 P(Ac)=1−P(A)P(Ac)=1−P(A)。∎
+**证**：Ω=A∪AcΩ=A∪Ac，且 A∩Ac=∅A∩Ac=∅。由可加性P(Ω)=P(A)+P(Ac)。由规范性P(Ω)=1。所以P(Ac)=1−P(A)。∎
 
 **这种"由公理推性质"的训练**，是从高中"算概率"过渡到"研究概率"的关键。
 
@@ -11851,7 +11838,7 @@ do {
 
 > **定义**：A 和 B **独立** ⟺ P(A∩B)=P(A)P(B)P(A∩B)=P(A)P(B)。
 
-等价地：P(A∣B)=P(A)P(A∣B)=P(A)（B 发生不影响 A 的概率）。
+等价地：P(A∣B)=P(A)（B 发生不影响 A 的概率）。
 
 #### 2.2 多事件独立 —— 需要小心 ⚠️
 
@@ -11872,7 +11859,7 @@ do {
 - B = "第二次正面"
 - C = "两次结果相同"
 
-P(A)=P(B)=P(C)=1/2P(A)=P(B)=P(C)=1/2。
+P(A)=P(B)=P(C)=1/2。
 
 - P(A∩B)=1/4=P(A)P(B)P(A∩B)=1/4=P(A)P(B) ✅
 - P(A∩C)=P(第一次正且两次同)=P(两次都正)=1/4=P(A)P(C)P(A∩C)=P(第一次正且两次同)=P(两次都正)=1/4=P(A)P(C) ✅
@@ -11983,7 +11970,7 @@ P(spam∣w1,w2,w3)∝P(spam)∏iP(wi∣spam)P(spam∣w1​,w2​,w3​)∝P(spam
 **错误**：
 
 1. **错误独立性**：兄弟姐妹间猝死有遗传相关性，不独立
-2. **检察官谬误**：把 P(证据∣无罪)P(证据∣无罪) 当成 P(无罪∣证据)P(无罪∣证据)
+2. **检察官谬误**：把 P(证据∣无罪) 当成 P(无罪∣证据)
 
 正确推理需要贝叶斯：和"双重谋杀的先验概率"对比。**双重谋杀也是极罕见事件**。
 
@@ -11995,9 +11982,9 @@ P(spam∣w1,w2,w3)∝P(spam)∏iP(wi∣spam)P(spam∣w1​,w2​,w3​)∝P(spam
 
 #### 4.1 随机变量
 
-> **离散随机变量** XX：取值可数的随机变量。**概率质量函数 (PMF)**：pX(x)=P(X=x)pX​(x)=P(X=x)。
+> **离散随机变量** X：取值可数的随机变量。**概率质量函数 (PMF)**：pX(x)=P(X=x)。
 
-🤔 **重要观点**：随机变量本质上是**函数** X:Ω→RX:Ω→R。"XX 等于 5" 是事件 {ω:X(ω)=5}{ω:X(ω)=5} 的简写。
+🤔 **重要观点**：随机变量本质上是**函数** X:Ω→RX:Ω→R。"X 等于 5" 是事件{ω:X(ω)=5}的简写。
 
 #### 4.2 五大离散分布
 
@@ -12005,7 +11992,7 @@ P(spam∣w1,w2,w3)∝P(spam)∏iP(wi∣spam)P(spam∣w1​,w2​,w3​)∝P(spam
 
 ##### **伯努利 Bernoulli(p)**
 
-X∈{0,1}X∈{0,1}，P(X=1)=pP(X=1)=p。E[X]=pE[X]=p，Var(X)=p(1−p)Var(X)=p(1−p)。
+X∈{0,1}X∈{0,1}，P(X=1)=p。E[X]=p，Var(X)=p(1−p)。
 
 **用途**：单次试验（成功 = 1，失败 = 0）。
 
@@ -12015,7 +12002,7 @@ n 次独立伯努利试验中成功的次数。
 
 P(X=k)=(nk)pk(1−p)n−kP(X=k)=(kn​)pk(1−p)n−k
 
-E[X]=npE[X]=np，Var(X)=np(1−p)Var(X)=np(1−p)。
+E[X]=np，Var(X)=np(1−p)。
 
 ##### **几何 Geometric(p)** ⭐
 
@@ -12023,13 +12010,13 @@ E[X]=npE[X]=np，Var(X)=np(1−p)Var(X)=np(1−p)。
 
 **约定 1**（首次成功的试验次数 X = 1, 2, ...）：
 
-P(X=k)=(1−p)k−1p,k=1,2,3,…P(X=k)=(1−p)k−1p,k=1,2,3,…
+P(X=k)=(1−p)k−1p,k=1,2,3,…
 
-E[X]=1/pE[X]=1/p，Var(X)=(1−p)/p2Var(X)=(1−p)/p2。
+E[X]=1/p，Var(X)=(1−p)/p2。
 
 **性质：无记忆性**：
 
-P(X>m+n∣X>m)=P(X>n)P(X>m+n∣X>m)=P(X>n)
+P(X>m+n∣X>m)=P(X>n)
 
 **意思**：已经失败了 m 次，再失败 n 次的条件概率，等于"从头开始再失败 n 次"的概率。**过去的失败不影响未来**。
 
@@ -12049,7 +12036,7 @@ P(X>m+n∣X>m)=P(X>m+n)P(X>m)=(1−p)m+n(1−p)m=(1−p)n=P(X>n)P(X>m+n∣X>m)=P
 
 P(X=k)=λke−λk!,k=0,1,2,…P(X=k)=k!λke−λ​,k=0,1,2,…
 
-E[X]=λE[X]=λ，Var(X)=λVar(X)=λ（**期望 = 方差！**这是泊松的特征性质）。
+E[X]=λ，Var(X)=λ（**期望 = 方差！**这是泊松的特征性质）。
 
 **应用**：
 
@@ -12065,7 +12052,7 @@ E[X]=λE[X]=λ，Var(X)=λVar(X)=λ（**期望 = 方差！**这是泊松的特�
 
 也就是说：**大量小概率事件的总数近似服从泊松分布**。
 
-**例**：印刷书 100,000 字，每字错印率 10−510−5。错字数 ~ Poisson(1)。P(无错字)=e−1≈0.368P(无错字)=e−1≈0.368。
+**例**：印刷书 100,000 字，每字错印率10−5。错字数 ~ Poisson(1)。P(无错字)=e−1≈0.368P(无错字)=e−1≈0.368。
 
 ##### **负二项 Negative Binomial(r, p)** ⭐
 
@@ -12075,7 +12062,7 @@ P(X=k)=(k−1r−1)pr(1−p)k−rP(X=k)=(r−1k−1​)pr(1−p)k−r
 
 （约定：X = 第 r 次成功的总试验数）
 
-E[X]=r/pE[X]=r/p，Var(X)=r(1−p)/p2Var(X)=r(1−p)/p2。
+E[X]=r/p，Var(X)=r(1−p)/p2。
 
 **特例**：r = 1 时退化为几何分布。
 
@@ -12085,10 +12072,10 @@ E[X]=r/pE[X]=r/p，Var(X)=r(1−p)/p2Var(X)=r(1−p)/p2。
 
 |分布|PMF|E[X]|Var(X)|典型场景|
 |---|---|---|---|---|
-|Bern(p)|px(1−p)1−xpx(1−p)1−x|pp|p(1−p)p(1−p)|单次成败|
-|Bin(n,p)|(nk)pk(1−p)n−k(kn​)pk(1−p)n−k|npnp|np(1−p)np(1−p)|n 次成功数|
+|Bern(p)|px(1−p)1−xpx(1−p)1−x|p|p(1−p)|单次成败|
+|Bin(n,p)|(nk)pk(1−p)n−k(kn)pk(1−p)n−k|np|np(1−p)|n 次成功数|
 |Geom(p)|(1−p)k−1p(1−p)k−1p|1/p1/p|(1−p)/p2(1−p)/p2|首成功试验数|
-|Poisson(λ)|λke−λ/k!λke−λ/k!|λλ|λλ|单位时间事件数|
+|Poisson(λ)|λke−λ/k!λke−λ/k!|λ|λ|单位时间事件数|
 |NegBin(r,p)|(k−1r−1)pr(1−p)k−r(r−1k−1​)pr(1−p)k−r|r/pr/p|r(1−p)/p2r(1−p)/p2|第 r 次成功|
 
 🤔 **检验**：你能记住"E[X]=λ,Var(X)=λE[X]=λ,Var(X)=λ"是哪个分布的特征吗？为什么期望和方差相等？
@@ -12101,15 +12088,15 @@ E[X]=r/pE[X]=r/p，Var(X)=r(1−p)/p2Var(X)=r(1−p)/p2。
 
 #### 5.1 线性性（最重要的性质！）
 
-> **期望的线性性**：E[aX+bY]=aE[X]+bE[Y]E[aX+bY]=aE[X]+bE[Y]
-> 
+> **期望的线性性**：E[aX+bY]=aE[X]+bE[Y]
+>
 > **关键**：**X 和 Y 不必独立**！
 
 **这是概率论中最有用的工具，没有之一**。
 
 **应用 1：复杂期望分解为简单期望和**
 
-**例**：X∼Bin(n,p)X∼Bin(n,p)，求 E[X]E[X]。
+**例**：X∼Bin(n,p)X∼Bin(n,p)，求E[X]。
 
 直接定义算：E[X]=∑k=0nk(nk)pk(1−p)n−kE[X]=∑k=0n​k(kn​)pk(1−p)n−k——可以做但麻烦。
 
@@ -12123,7 +12110,7 @@ E[X]=E[X1]+E[X2]+⋯+E[Xn]=n⋅pE[X]=E[X1​]+E[X2​]+⋯+E[Xn​]=n⋅p
 
 **问题**：n 个人随机戴帽子（每人帽子原本有名字）。**期望多少人戴对自己的帽子**？
 
-**方法**：定义指示变量 Xi=1Xi​=1 若第 i 人戴对帽子，否则 0。
+**方法**：定义指示变量Xi=1若第 i 人戴对帽子，否则 0。
 
 X=X1+X2+⋯+XnX=X1​+X2​+⋯+Xn​
 
@@ -12133,7 +12120,7 @@ E[X]=n⋅1n=1E[X]=n⋅n1​=1
 
 **惊人结果**：无论 n 多大，**平均恰好 1 人戴对**。
 
-🤔 **思考**：这与"错排数 DnDn​" 有什么关系？
+🤔 **思考**：这与"错排数 Dn​" 有什么关系？
 
 Dn/n!Dn​/n! 是**全错**的概率，趋于 1/e1/e。但"期望戴对人数恒为 1"——这是不同的问题。
 
@@ -12147,7 +12134,7 @@ E[X]=∑k=1∞k⋅P(X=k)=∑k=1∞∑j=1kP(X=k)=∑j=1∞∑k=j∞P(X=k)=∑j=1�
 
 （交换求和顺序——双重计数）
 
-**应用**：求几何分布期望。X∼Geom(p)X∼Geom(p)，P(X≥k)=(1−p)k−1P(X≥k)=(1−p)k−1（前 k-1 次都失败）。
+**应用**：求几何分布期望。X∼Geom(p)X∼Geom(p)，P(X≥k)=(1−p)k−1（前 k-1 次都失败）。
 
 E[X]=∑k=1∞(1−p)k−1=11−(1−p)=1pE[X]=k=1∑∞​(1−p)k−1=1−(1−p)1​=p1​
 
@@ -12155,11 +12142,11 @@ E[X]=∑k=1∞(1−p)k−1=11−(1−p)=1pE[X]=k=1∑∞​(1−p)k−1=1−(1�
 
 #### 5.4 期望的乘法
 
-> **定理**：若 X,YX,Y **独立**，则 E[XY]=E[X]E[Y]E[XY]=E[X]E[Y]。
+> **定理**：若 X,YX,Y **独立**，则E[XY]=E[X]E[Y]。
 
-**警告**：**独立**是必需的！**反过来不真**：E[XY]=E[X]E[Y]E[XY]=E[X]E[Y] 不蕴含独立。
+**警告**：**独立**是必需的！**反过来不真**：E[XY]=E[X]E[Y]不蕴含独立。
 
-🤔 **反例**：XX 在 {−1,0,1}{−1,0,1} 上均匀，Y=X2Y=X2。X,YX,Y 显然不独立。但 E[X]=0E[X]=0，E[XY]=E[X3]=0=E[X]E[Y]E[XY]=E[X3]=0=E[X]E[Y]。
+🤔 **反例**：X 在{−1,0,1}上均匀，Y=X2。X,YX,Y 显然不独立。但E[X]=0，E[XY]=E[X3]=0=E[X]E[Y]。
 
 **这种反例提醒我们：相关性 vs 独立性是不同概念**。
 
@@ -12171,23 +12158,23 @@ E[X]=∑k=1∞(1−p)k−1=11−(1−p)=1pE[X]=k=1∑∞​(1−p)k−1=1−(1�
 
 > Var(X)=E[X2]−(E[X])2Var(X)=E[X2]−(E[X])2
 
-Var(aX+b)=a2Var(X)Var(aX+b)=a2Var(X)（**注意 b 不影响方差**）。
+Var(aX+b)=a2Var(X)（**注意 b 不影响方差**）。
 
 > **方差的非线性性**：Var(X+Y)≠Var(X)+Var(Y)Var(X+Y)=Var(X)+Var(Y)（**一般情况**）。
 
 正确公式：
 
-Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)
+Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)
 
 #### 6.2 协方差
 
-> **协方差**：Cov(X,Y)=E[XY]−E[X]E[Y]=E[(X−E[X])(Y−E[Y])]Cov(X,Y)=E[XY]−E[X]E[Y]=E[(X−E[X])(Y−E[Y])]
+> **协方差**：Cov(X,Y)=E[XY]−E[X]E[Y]=E[(X−E[X])(Y−E[Y])]
 
 性质：
 
 - Cov(X,X)=Var(X)Cov(X,X)=Var(X)
 - X,YX,Y 独立 ⇒Cov(X,Y)=0⇒Cov(X,Y)=0（反过来不真！）
-- CovCov 双线性
+- Cov 双线性
 
 > **相关系数**：ρ(X,Y)=Cov(X,Y)σXσY∈[−1,1]ρ(X,Y)=σX​σY​Cov(X,Y)​∈[−1,1]
 
@@ -12197,15 +12184,15 @@ Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)Var(X+Y)=Var(X)+Var(Y)+2Cov(X,Y)
 
 若 X1,…,XnX1​,…,Xn​ 独立：
 
-Var(∑Xi)=∑Var(Xi)Var(∑Xi​)=∑Var(Xi​)
+Var(∑Xi)=∑Var(Xi)
 
-**应用**：X∼Bin(n,p)X∼Bin(n,p)，Var(X)=∑Var(Xi)=n⋅p(1−p)Var(X)=∑Var(Xi​)=n⋅p(1−p)。
+**应用**：X∼Bin(n,p)X∼Bin(n,p)，Var(X)=∑Var(Xi)=n⋅p(1−p)。
 
-🤔 **检验**：求几何分布 Geom(p)Geom(p) 的方差。
+🤔 **检验**：求几何分布 Geom(p) 的方差。
 
-提示：Var(X)=E[X2]−(E[X])2Var(X)=E[X2]−(E[X])2。E[X2]E[X2] 可以用类似 tail-sum 的技巧或者直接 PMF 求。
+提示：Var(X)=E[X2]−(E[X])2。E[X2]可以用类似 tail-sum 的技巧或者直接 PMF 求。
 
-答：(1−p)/p2(1−p)/p2。
+答：(1−p)/p2。
 
 ---
 
@@ -12213,13 +12200,13 @@ Var(∑Xi)=∑Var(Xi)Var(∑Xi​)=∑Var(Xi​)
 
 #### 7.1 定义
 
-> **矩生成函数**：MX(t)=E[etX]MX​(t)=E[etX]（在 t 的某个区间内有定义）。
+> **矩生成函数**：MX(t)=E[etX]（在 t 的某个区间内有定义）。
 
 **为什么叫"矩生成"**？
 
-MX(t)=E[∑n=0∞(tX)nn!]=∑n=0∞E[Xn]n!tnMX​(t)=E[n=0∑∞​n!(tX)n​]=n=0∑∞​n!E[Xn]​tn
+MX(t)=E[∑n=0∞(tX)n!]=∑n=0∞E[Xn]n!tnMX(t)=E[n=0∑∞n!(tX)n]=n=0∑∞n!E[Xn]tn
 
-**MX(t)MX​(t) 的 n 阶导在 t = 0 处的值 = E[Xn]E[Xn]**（n 阶矩）。
+**MX(t) 的 n 阶导在 t = 0 处的值 = E[Xn]E[Xn]**（n 阶矩）。
 
 dnMXdtn(0)=E[Xn]dtndnMX​​(0)=E[Xn]
 
@@ -12234,7 +12221,7 @@ dnMXdtn(0)=E[Xn]dtndnMX​​(0)=E[Xn]
 
 #### 7.3 MGF 的关键性质
 
-**性质 1**（独立和）：若 X,YX,Y 独立，MX+Y(t)=MX(t)MY(t)MX+Y​(t)=MX​(t)MY​(t)。
+**性质 1**（独立和）：若 X,YX,Y 独立，MX+Y(t)=MX(t)MY(t)。
 
 **性质 2**（唯一性）：MGF 唯一确定分布。两个分布 MGF 相同 ⟺ 它们相等。
 
@@ -12244,9 +12231,9 @@ dnMXdtn(0)=E[Xn]dtndnMX​​(0)=E[Xn]
 
 **证明**：
 
-MX+Y(t)=MX(t)MY(t)=eλ1(et−1)eλ2(et−1)=e(λ1+λ2)(et−1)MX+Y​(t)=MX​(t)MY​(t)=eλ1​(et−1)eλ2​(et−1)=e(λ1​+λ2​)(et−1)
+MX+Y(t)=MX(t)MY(t)=eλ1(et−1)eλ2(et−1)=e(λ1+λ2)(et−1)
 
-这正是 Poisson(λ1+λ2)Poisson(λ1​+λ2​) 的 MGF。**由唯一性，X+Y∼Poisson(λ1+λ2)X+Y∼Poisson(λ1​+λ2​)**。∎
+这正是 Poisson(λ1+λ2) 的 MGF。**由唯一性，X+Y∼Poisson(λ1+λ2)X+Y∼Poisson(λ1+λ2)**。∎
 
 **这种"卷积变乘积"的技巧让 MGF 极强**。同样可证：二项的可加（同 p）、负二项的可加。
 
@@ -12264,9 +12251,9 @@ MX+Y(t)=MX(t)MY(t)=eλ1(et−1)eλ2(et−1)=e(λ1+λ2)(et−1)MX+Y​(t)=MX​(t
 
 **证明**：
 
-E[X]=∑kk⋅P(X=k)≥∑k≥ak⋅P(X=k)≥∑k≥aa⋅P(X=k)=a⋅P(X≥a)E[X]=k∑​k⋅P(X=k)≥k≥a∑​k⋅P(X=k)≥k≥a∑​a⋅P(X=k)=a⋅P(X≥a)
+E[X]=∑k⋅P(X=k)≥∑k≥ak⋅P(X=k)≥∑k≥a⋅P(X=k)=a⋅P(X≥a)E[X]=k∑k⋅P(X=k)≥k≥a∑k⋅P(X=k)≥k≥a∑a⋅P(X=k)=a⋅P(X≥a)
 
-整理得 P(X≥a)≤E[X]/aP(X≥a)≤E[X]/a。∎
+整理得P(X≥a)≤E[X]/a。∎
 
 **优点**：只需知道均值，**不需要分布信息**。 **缺点**：界很松。
 
@@ -12274,9 +12261,9 @@ E[X]=∑kk⋅P(X=k)≥∑k≥ak⋅P(X=k)≥∑k≥aa⋅P(X=k)=a⋅P(X≥a)E[X]=k
 
 > **Chebyshev 不等式**：对任何 k>0k>0： > $$P(|X - E[X]| \geq k\sigma) \leq \frac{1}{k^2}$$
 
-**直觉**：偏离均值 k 个标准差的概率至多 1/k21/k2。
+**直觉**：偏离均值 k 个标准差的概率至多1/k2。
 
-**证明**：用 Markov 不等式于 (X−E[X])2(X−E[X])2：
+**证明**：用 Markov 不等式于(X−E[X])2：
 
 P(∣X−E[X]∣≥kσ)=P((X−E[X])2≥k2σ2)≤E[(X−E[X])2]k2σ2=1k2P(∣X−E[X]∣≥kσ)=P((X−E[X])2≥k2σ2)≤k2σ2E[(X−E[X])2]​=k21​
 
@@ -12286,17 +12273,17 @@ P(∣X−E[X]∣≥kσ)=P((X−E[X])2≥k2σ2)≤E[(X−E[X])2]k2σ2=1k2P(∣X�
 
 #### 8.3 Chernoff 界（指数级强）⭐⭐⭐
 
-Chebyshev 给出 1/k21/k2 速率衰减。**Chernoff 给出指数级衰减**——这在算法分析、机器学习中至关重要。
+Chebyshev 给出1/k2速率衰减。**Chernoff 给出指数级衰减**——这在算法分析、机器学习中至关重要。
 
 **思路**：用 MGF + Markov。
 
 > **Chernoff 上界**：对任何 t>0t>0： > $$P(X \geq a) = P(e^{tX} \geq e^{ta}) \leq \frac{E[e^{tX}]}{e^{ta}} = \frac{M_X(t)}{e^{ta}}$$
-> 
+>
 > 取最优 t 最小化右侧。
 
 **对独立伯努利和**（最常用形式）：
 
-X=∑i=1nXiX=∑i=1n​Xi​，Xi∼Bern(pi)Xi​∼Bern(pi​) 独立。μ=E[X]=∑piμ=E[X]=∑pi​。则：
+X=∑i=1nXi，Xi∼Bern(pi)Xi∼Bern(pi) 独立。μ=E[X]=∑pi。则：
 
 P(X≥(1+δ)μ)≤exp⁡(−δ2μ3)(δ>0)P(X≥(1+δ)μ)≤exp(−3δ2μ​)(δ>0)P(X≤(1−δ)μ)≤exp⁡(−δ2μ2)(0<δ<1)P(X≤(1−δ)μ)≤exp(−2δ2μ​)(0<δ<1)
 
@@ -12361,13 +12348,13 @@ M(Xˉn−μ)/(σ/n)(t)→MN(0,1)(t)=et2/2M(Xˉn​−μ)/(σ/n​)​(t)→MN(0,
 
 X∼Bin(n,p)X∼Bin(n,p)，则当 n 大时：
 
-X≈N(np,np(1−p))X≈N(np,np(1−p))
+X≈N(np,np(1−p))
 
-**经验法则**：np≥5np≥5 且 n(1−p)≥5n(1−p)≥5 时近似良好。
+**经验法则**：np≥5且n(1−p)≥5时近似良好。
 
-**例**：抛 100 次硬币，正面次数 X∼Bin(100,0.5)X∼Bin(100,0.5)。X≈N(50,25)X≈N(50,25)。
+**例**：抛 100 次硬币，正面次数 X∼Bin(100,0.5)X∼Bin(100,0.5)。X≈N(50,25)。
 
-P(X≥60)=P(Z≥2)≈0.025P(X≥60)=P(Z≥2)≈0.025（用标准正态表）。
+P(X≥60)=P(Z≥2)≈0.025（用标准正态表）。
 
 ---
 
@@ -12383,19 +12370,19 @@ P(X≥60)=P(Z≥2)≈0.025P(X≥60)=P(Z≥2)≈0.025（用标准正态表）。
 
 #### 10.2 转移矩阵
 
-设状态空间 S={1,2,…,k}S={1,2,…,k}。**转移矩阵** PP，Pij=P(Xn+1=j∣Xn=i)Pij​=P(Xn+1​=j∣Xn​=i)。
+设状态空间S={1,2,…,k}。**转移矩阵** P，Pij=P(Xn+1=j∣Xn=i)。
 
 性质：每行和 = 1（**随机矩阵**）。
 
-> n 步转移矩阵：P(n)=PnP(n)=Pn（矩阵幂）。
+> n 步转移矩阵：P(n)=Pn（矩阵幂）。
 
 #### 10.3 平稳分布
 
-> **平稳分布** ππ：行向量 π=(π1,…,πk)π=(π1​,…,πk​) 满足 πP=ππP=π 且 ∑πi=1∑πi​=1。
+> **平稳分布** π：行向量π=(π1,…,πk)满足πP=π且∑πi=1。
 
 **意义**：长期看，**链停留在每个状态的概率**。
 
-> **基本定理**（不可约+非周期 ergodic 链）：从任何起点出发，Pn→Pn→ 每行都是 ππ 的矩阵。
+> **基本定理**（不可约+非周期 ergodic 链）：从任何起点出发，Pn→Pn→ 每行都是 π 的矩阵。
 
 #### 10.4 应用：PageRank
 
@@ -12410,7 +12397,7 @@ P(X≥60)=P(Z≥2)≈0.025P(X≥60)=P(Z≥2)≈0.025（用标准正态表）。
 
 Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 
-αα 称"阻尼因子"（约 0.15）。
+α 称"阻尼因子"（约 0.15）。
 
 **这就是搜索引擎排名的数学基础**。
 
@@ -12435,7 +12422,7 @@ Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 
 (2) **三门问题的贝叶斯证明**：用贝叶斯定理严格证明"换"的获胜概率是 2/3。
 
-设 CiCi​ = 车在第 i 门后，M3M3​ = 主持人开 3 号门。计算 P(C2∣M3,选 1)P(C2​∣M3​,选 1)。
+设 Ci = 车在第 i 门后，M3 = 主持人开 3 号门。计算 P(C2∣M3,选 1)。
 
 **练习 3**（期望的线性性）：
 
@@ -12445,7 +12432,7 @@ Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 
 (2) **优惠券收集**：盒子有 n 种不同优惠券，每盒等概率。**期望买多少盒能集齐**？
 
-提示：分阶段——已有 i 种时，等待新种类的次数 ∼Geom((n−i)/n)∼Geom((n−i)/n)。E=∑i=0n−1nn−i=nHnE=∑i=0n−1​n−in​=nHn​，其中 HnHn​ 是调和数。
+提示：分阶段——已有 i 种时，等待新种类的次数 ∼Geom((n−i)/n)∼Geom((n−i)/n)。E=∑i=0n−1n−i=nHnE=∑i=0n−1n−in=nHn，其中 Hn 是调和数。
 
 (3) 长度 n 的 0/1 随机串中，**期望多少对相邻位相同**？
 
@@ -12456,12 +12443,12 @@ Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 - 一分钟内 0 个电话的概率？
 - 一分钟内 ≥ 3 个电话的概率？
 
-(2) 验证泊松的"期望 = 方差 = λλ"，用 PMF 直接计算。
+(2) 验证泊松的"期望 = 方差 = λ"，用 PMF 直接计算。
 
 (3) **几何分布与无记忆性**：投币首次正面之前的次数 X∼Geom(0.3)X∼Geom(0.3)。
 
-- 求 E[X]E[X], Var(X)Var(X)。
-- 已知 X>5X>5，求 E[X∣X>5]E[X∣X>5]。
+- 求 E[X]E[X], Var(X)。
+- 已知 X>5X>5，求E[X∣X>5]。
 
 **练习 5**（MGF 应用）：
 
@@ -12469,11 +12456,11 @@ Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 
 **注意**：必须**同 p**！
 
-(2) 求几何分布的 MGF，并由此求 E[X]E[X] 和 E[X2]E[X2]。
+(2) 求几何分布的 MGF，并由此求E[X]和E[X2]。
 
 **练习 6**（不等式）：
 
-(1) **Markov vs Chebyshev vs Chernoff**：抛 100 次硬币，正面次数 XX。求 P(X≥70)P(X≥70) 的三种界：
+(1) **Markov vs Chebyshev vs Chernoff**：抛 100 次硬币，正面次数 X。求 P(X≥70) 的三种界：
 
 - Markov 给的上界
 - Chebyshev 给的上界
@@ -12482,20 +12469,20 @@ Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 
 比较结果。
 
-(2) **随机化算法分析**：用 100 次独立伯努利估计 p = 0.5。误差 >0.1>0.1 的概率？用 Chernoff 给上界。
+(2) **随机化算法分析**：用 100 次独立伯努利估计 p = 0.5。误差>0.1的概率？用 Chernoff 给上界。
 
 **练习 7**（CLT 应用）：
 
 (1) **质量控制**：某产品次品率 1%。一批 10000 件，次品数 X。
 
-- 用 CLT 估计 P(80≤X≤120)P(80≤X≤120)
+- 用 CLT 估计 P(80≤X≤120)
 - 用泊松近似估计同一概率
 - 比较两个结果
 
-(2) **随机游走**：从 0 出发，每步 ±1±1 等概率。100 步后位置 XX。
+(2) **随机游走**：从 0 出发，每步 ±1±1 等概率。100 步后位置 X。
 
 - E[X],Var(X)E[X],Var(X)
-- 用 CLT，P(∣X∣>20)P(∣X∣>20) 大约多少？
+- 用 CLT，P(∣X∣>20) 大约多少？
 
 **练习 8**（马尔可夫链）：
 
@@ -12524,9 +12511,9 @@ Pij=(1−α)⋅Lij+α⋅1NPij​=(1−α)⋅Lij​+α⋅N1​
 - 一秒内 < 950 包的概率？（CLT）
 - 这种"突发性"对网络缓冲器设计意味着什么？
 
-(3) **Reed-Solomon 解码**：n 位码字中错误数 XX 服从某分布。RS 能纠正最多 tt 错误。
+(3) **Reed-Solomon 解码**：n 位码字中错误数 X 服从某分布。RS 能纠正最多 t 错误。
 
-- 解码失败概率 = P(X>t)P(X>t)
+- 解码失败概率 = P(X>t)
 - 用 Chernoff 给指数小的失败概率上界
 - 这就是"现代纠错码理论"的核心
 
@@ -12561,8 +12548,6 @@ P(∣p^−p∣>ϵ)≤2e−2nϵ2P(∣p^​−p∣>ϵ)≤2e−2nϵ2
 
 讨论：作为电子工程专业，"概率推理"在嵌入式系统、传感器融合（如自动驾驶）中扮演什么角色？
 
-
-
 ## 离散数学 第 22.2 节：随机过程深入 —— 马尔可夫链与隐马尔可夫模型
 
 我们深入随机过程。在开始之前，我想先**校准一下我们的起点**——
@@ -12582,20 +12567,19 @@ P(∣p^−p∣>ϵ)≤2e−2nϵ2P(∣p^​−p∣>ϵ)≤2e−2nϵ2
 - 天气（"今天是雨"对预测明天有用，但"上周是雨"加进来用处不大）—— **近似马尔可夫**
 - 股价（"今天涨"和"过去一个月一直涨"对预测明天的信息量不一样）—— **不是马尔可夫**
 
-**问题 2**：转移矩阵 PP 的**幂** PnPn 代表什么？为什么？
+**问题 2**：转移矩阵 P 的**幂** Pn 代表什么？为什么？
 
 **问题 3**：上节末尾我提到"平稳分布 π 满足 πP=ππP=π"——你能说出这个方程的几何/直觉意义吗？
 
 我会按计划展开下面的内容：
 
 1. **马尔可夫链的状态分类**（瞬时态、常返态、周期、不可约）
-2. **极限定理**（什么情况下 PnPn 收敛？）
+2. **极限定理**（什么情况下 Pn 收敛？）
 3. **平稳分布的存在唯一性**（基本极限定理）
 4. **首达时间与吸收**（赌徒破产问题）
 5. **可逆链与细致平衡**（MCMC 的基础）
 6. **隐马尔可夫模型 HMM**（语音识别、生物信息学的核心）
 7. **三大算法**：前向、Viterbi、Baum-Welch
-
 
 ---
 
@@ -12603,17 +12587,17 @@ P(∣p^−p∣>ϵ)≤2e−2nϵ2P(∣p^​−p∣>ϵ)≤2e−2nϵ2
 
 #### 1.1 严格定义
 
-> **离散时间马尔可夫链 (DTMC)**：状态空间 SS 上的随机变量序列 {Xn}n≥0{Xn​}n≥0​，满足：
-> 
+> **离散时间马尔可夫链 (DTMC)**：状态空间 S 上的随机变量序列{Xn}n≥0，满足：
+>
 > P(Xn+1=j∣Xn=i,Xn−1=in−1,…,X0=i0)=P(Xn+1=j∣Xn=i)P(Xn+1​=j∣Xn​=i,Xn−1​=in−1​,…,X0​=i0​)=P(Xn+1​=j∣Xn​=i)
 
-**时齐 (time-homogeneous)**：转移概率不依赖时间 n，记作 pijpij​。
+**时齐 (time-homogeneous)**：转移概率不依赖时间 n，记作 pij。
 
 **转移矩阵** P=(pij)P=(pij​)，**初始分布** π(0)π(0)（行向量），则：
 
-π(n)=π(0)Pnπ(n)=π(0)Pn
+π(n)=π(0)Pn
 
-这就是上节"PnPn 是 n 步转移矩阵"的来源——**矩阵幂对应概率演化**。
+这就是上节"Pn 是 n 步转移矩阵"的来源——**矩阵幂对应概率演化**。
 
 #### 1.2 Chapman-Kolmogorov 方程
 
@@ -12629,8 +12613,8 @@ P(∣p^−p∣>ϵ)≤2e−2nϵ2P(∣p^​−p∣>ϵ)≤2e−2nϵ2
 
 #### 2.1 可达与互通
 
-> **j 从 i 可达**（记 i→ji→j）：存在 n ≥ 0 使 pij(n)>0pij(n)​>0。
-> 
+> **j 从 i 可达**（记 i→ji→j）：存在 n ≥ 0 使pij(n)>0。
+>
 > **i 与 j 互通**（i↔ji↔j）：i→ji→j 且 j→ij→i。
 
 **互通是等价关系**——把状态空间分成**互通类 (communicating classes)**。
@@ -12653,10 +12637,10 @@ P(∣p^−p∣>ϵ)≤2e−2nϵ2P(∣p^​−p∣>ϵ)≤2e−2nϵ2
 #### 2.3 常返与瞬时 ⭐
 
 > **首次返回时间** Ti=min⁡{n≥1:Xn=i∣X0=i}Ti​=min{n≥1:Xn​=i∣X0​=i}（可能为 ∞）。
-> 
-> **常返 (recurrent)**：P(Ti<∞)=1P(Ti​<∞)=1（**必定回到 i**）。
-> 
-> **瞬时 (transient)**：P(Ti<∞)<1P(Ti​<∞)<1（**可能永不回来**）。
+>
+> **常返 (recurrent)**：P(Ti<∞)=1（**必定回到 i**）。
+>
+> **瞬时 (transient)**：P(Ti<∞)<1（**可能永不回来**）。
 
 **判别**：
 
@@ -12668,70 +12652,70 @@ i 常返⇔∑n=0∞pii(n)=∞i 常返⇔n=0∑∞​pii(n)​=∞
 
 常返还能再细分：
 
-> **正常返 (positive recurrent)**：E[Ti]<∞E[Ti​]<∞（平均回归时间有限）
-> 
-> **零常返 (null recurrent)**：常返但 E[Ti]=∞E[Ti​]=∞（平均回归时间无穷）
+> **正常返 (positive recurrent)**：E[Ti]<∞（平均回归时间有限）
+>
+> **零常返 (null recurrent)**：常返但E[Ti]=∞（平均回归时间无穷）
 
-**对有限状态空间**：常返 = 正常返（零常返不会出现）。零常返只在无限状态出现，如**对称随机游走在 Z2Z2 上**。
+**对有限状态空间**：常返 = 正常返（零常返不会出现）。零常返只在无限状态出现，如**对称随机游走在 Z2 上**。
 
 #### 2.5 经典例子：随机游走的常返性
 
-> **Polya 定理**：ZdZd 上的简单对称随机游走：
-> 
+> **Polya 定理**：Zd 上的简单对称随机游走：
+>
 > - d=1,2d=1,2：**常返**
 > - d≥3d≥3：**瞬时**
 
 > "醉汉总能找到回家的路，但喝醉的鸟可能永远迷失在三维空间里。" —— Kakutani
 
-**d=1d=1 证明思路**：用 Stirling 估计 p00(2n)≈1/πnp00(2n)​≈1/πn​，∑1/n=∞∑1/n​=∞，所以常返。
+**d=1d=1 证明思路**：用 Stirling 估计p00(2n)≈1/πn，∑1/n=∞，所以常返。
 
-**d=3d=3**：p00(2n)≈C/n3/2p00(2n)​≈C/n3/2，∑1/n3/2<∞∑1/n3/2<∞，所以瞬时。
+**d=3d=3**：p00(2n)≈C/n3/2，∑1/n3/2<∞，所以瞬时。
 
 🤔 **思考**：这告诉我们什么？**维度对随机游走的本质影响**——这是统计物理和概率论的深刻交汇。
 
 #### 2.6 周期性
 
 > **状态 i 的周期** d(i)=gcd⁡{n≥1:pii(n)>0}d(i)=gcd{n≥1:pii(n)​>0}。
-> 
-> **非周期 (aperiodic)**：d(i)=1d(i)=1。
+>
+> **非周期 (aperiodic)**：d(i)=1。
 
-**例**：状态 i 只能在偶数步回到自己 → d(i)=2d(i)=2。
+**例**：状态 i 只能在偶数步回到自己 →d(i)=2。
 
 **事实**：互通类内所有状态周期相同。所以可谈"链的周期"。
 
-🤔 **简化判据**：若存在某状态 i 使 pii>0pii​>0（自环），则非周期。
+🤔 **简化判据**：若存在某状态 i 使pii>0（自环），则非周期。
 
 ---
 
 ### 三、马尔可夫链的极限定理 ⭐⭐⭐
 
-终于到核心。我们想知道：PnPn 当 n→∞n→∞ 时怎么变？
+终于到核心。我们想知道：Pn 当 n→∞n→∞ 时怎么变？
 
 #### 3.1 基本极限定理
 
 > **基本定理**：设链**不可约 + 非周期 + 正常返**（合称 **ergodic 链**）。则：
-> 
-> 1. **平稳分布唯一存在**：存在唯一概率行向量 ππ 使 πP=ππP=π
+>
+> 1. **平稳分布唯一存在**：存在唯一概率行向量 π 使πP=π
 > 2. πi=1/E[Ti]πi​=1/E[Ti​]（**回归时间倒数定理**）
 > 3. **PnPn 的每行都收敛到 ππ**： $$\lim_{n \to \infty} p_{ij}^{(n)} = \pi_j \quad \text{对所有 } i, j$$
 
 **意义**：
 
 - 长期行为**忘掉初始状态**
-- πjπj​ 是**长期访问 j 的频率**
-- πjπj​ 是**回归 j 的平均时间的倒数**——这条**惊人**
+- πj 是**长期访问 j 的频率**
+- πj 是**回归 j 的平均时间的倒数**——这条**惊人**
 
 #### 3.2 反例：周期链不收敛
 
 考虑两状态链：状态 1 和 2 必互换。
 
-P=(0110)P=(01​10​)
+P=(0110)
 
-PnPn 在 II 和 PP 之间震荡——**不收敛**。
+Pn 在 I 和 P 之间震荡——**不收敛**。
 
-但**平稳分布 π=(1/2,1/2)π=(1/2,1/2) 仍存在**（验证 πP=ππP=π ✅）。
+但**平稳分布π=(1/2,1/2)仍存在**（验证πP=π✅）。
 
-**这说明**：周期链有平稳分布但 PnPn 不收敛。"非周期"是收敛的必需条件。
+**这说明**：周期链有平稳分布但 Pn 不收敛。"非周期"是收敛的必需条件。
 
 #### 3.3 Cesàro 平均
 
@@ -12739,17 +12723,17 @@ PnPn 在 II 和 PP 之间震荡——**不收敛**。
 
 lim⁡n→∞1n∑k=0n−1pij(k)=πjn→∞lim​n1​k=0∑n−1​pij(k)​=πj​
 
-**意义**：长期访问频率仍是 πjπj​，只是单时间不收敛。
+**意义**：长期访问频率仍是 πj，只是单时间不收敛。
 
 #### 3.4 计算平稳分布
 
-**方法 1：解线性方程组** πP=ππP=π，∑πi=1∑πi​=1。
+**方法 1：解线性方程组** πP=ππP=π，∑πi=1。
 
 **例**：3 状态链
 
 P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
-解 (π1,π2,π3)P=(π1,π2,π3)(π1​,π2​,π3​)P=(π1​,π2​,π3​)：
+解(π1,π2,π3)P=(π1,π2,π3)：
 
 - 0.5π1+0.4π2+0.2π3=π10.5π1​+0.4π2​+0.2π3​=π1​
 - 0.3π1+0.4π2+0.3π3=π20.3π1​+0.4π2​+0.3π3​=π2​
@@ -12758,11 +12742,11 @@ P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
 （4 个方程 3 个未知数，前 3 个有一个冗余）
 
-解得 π≈(0.36,0.33,0.31)π≈(0.36,0.33,0.31)。
+解得π≈(0.36,0.33,0.31)。
 
-**方法 2：求 PP 的左特征向量对应特征值 1**。
+**方法 2：求 P 的左特征向量对应特征值 1**。
 
-由 Perron-Frobenius 定理：随机矩阵的最大特征值是 1，对应的左特征向量（归一化后）就是 ππ。
+由 Perron-Frobenius 定理：随机矩阵的最大特征值是 1，对应的左特征向量（归一化后）就是 π。
 
 ---
 
@@ -12770,13 +12754,13 @@ P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
 #### 4.1 细致平衡方程
 
-> **细致平衡 (detailed balance)**：分布 ππ 满足
-> 
+> **细致平衡 (detailed balance)**：分布 π 满足
+>
 > πipij=πjpji∀i,jπi​pij​=πj​pji​∀i,j
 
 **直觉**：从 i 到 j 的"概率流" = 从 j 到 i 的"概率流"。**双向平衡**。
 
-> **关键定理**：ππ 满足细致平衡 ⇒ ππ 是平稳分布。
+> **关键定理**：π 满足细致平衡 ⇒ π 是平稳分布。
 
 **证明**：
 
@@ -12794,7 +12778,7 @@ P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
 #### 4.3 为什么"可逆"重要：MCMC
 
-**问题**：想从复杂分布 ππ 抽样（如贝叶斯后验、统计物理 Boltzmann 分布）。直接抽样难——但可以**构造一个以 ππ 为平稳分布的马尔可夫链**，跑足够长后样本就近似服从 ππ。
+**问题**：想从复杂分布 π 抽样（如贝叶斯后验、统计物理 Boltzmann 分布）。直接抽样难——但可以**构造一个以 π 为平稳分布的马尔可夫链**，跑足够长后样本就近似服从 π。
 
 这就是**马尔可夫链蒙特卡洛 (MCMC)**——**当代统计、机器学习、物理模拟的核心**。
 
@@ -12802,21 +12786,21 @@ P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
 最重要的 MCMC 算法。
 
-**目标**：从分布 ππ 抽样。
+**目标**：从分布 π 抽样。
 
 **算法**：
 
-1. 在状态 i，**提议**新状态 j（按某提议分布 q(j∣i)q(j∣i)）
+1. 在状态 i，**提议**新状态 j（按某提议分布 q(j∣i)）
 2. 计算**接受概率**：α(i,j)=min⁡(1,πjq(i∣j)πiq(j∣i))α(i,j)=min(1,πi​q(j∣i)πj​q(i∣j)​)
-3. 以 αα 接受（移到 j），否则保持在 i
+3. 以 α 接受（移到 j），否则保持在 i
 
-**关键**：**只需要 ππ 的相对大小**（比值），不需要归一化常数。这就是 Metropolis 的天才——**绕开了配分函数的计算**。
+**关键**：**只需要 π 的相对大小**（比值），不需要归一化常数。这就是 Metropolis 的天才——**绕开了配分函数的计算**。
 
 **为什么对**？验证细致平衡：
 
-πi⋅q(j∣i)α(i,j)=πj⋅q(i∣j)α(j,i)πi​⋅q(j∣i)α(i,j)=πj​⋅q(i∣j)α(j,i)
+πi⋅q(j∣i)α(i,j)=πj⋅q(i∣j)α(j,i)
 
-代入 αα 的定义可验证（练习题）。✅
+代入 α 的定义可验证（练习题）。✅
 
 #### 4.5 应用
 
@@ -12833,8 +12817,8 @@ P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
 #### 5.1 吸收链
 
-> **吸收态**：pii=1pii​=1（一旦进入永不离开）。
-> 
+> **吸收态**：pii=1（一旦进入永不离开）。
+>
 > **吸收链**：所有非吸收态都能到达某吸收态。
 
 #### 5.2 经典例题：赌徒破产
@@ -12847,24 +12831,24 @@ P=(0.50.30.20.40.40.20.20.30.5)P=​0.50.40.2​0.30.40.3​0.20.20.5​​
 
 **一步分析**：
 
-ui=p⋅ui+1+q⋅ui−1ui​=p⋅ui+1​+q⋅ui−1​
+ui=p⋅ui+1+q⋅ui−1
 
-加上边界 u0=0,uN=1u0​=0,uN​=1。
+加上边界u0=0,uN=1。
 
 **这是一个二阶线性递推**（之前学过！）。
 
 **解**：
 
-- 若 p=q=1/2p=q=1/2（公平赌博）：ui=i/Nui​=i/N（线性）
+- 若p=q=1/2（公平赌博）：ui=i/N（线性）
 - 若 p≠qp=q：ui=1−(q/p)i1−(q/p)Nui​=1−(q/p)N1−(q/p)i​
 
-🤔 **直觉验证**：如果 p < 1/2（庄家有利），q/p>1q/p>1，uiui​ 会指数级小。**永远不要在不利赌博中长玩**——这就是数学上的"赌场永远赢"。
+🤔 **直觉验证**：如果 p < 1/2（庄家有利），q/p>1，ui 会指数级小。**永远不要在不利赌博中长玩**——这就是数学上的"赌场永远赢"。
 
 #### 5.3 期望吸收时间
 
-设 τiτi​ = 从 i 出发到吸收的期望时间。
+设 τi = 从 i 出发到吸收的期望时间。
 
-τi=1+pτi+1+qτi−1,τ0=τN=0τi​=1+pτi+1​+qτi−1​,τ0​=τN​=0
+τi=1+pτi+1+qτi−1,τ0=τN=0
 
 **非齐次递推**——可解（用上节学的特解技巧）。
 
@@ -12904,24 +12888,24 @@ ui=p⋅ui+1+q⋅ui−1ui​=p⋅ui+1​+q⋅ui−1​
 
 #### 6.2 HMM 的形式化
 
-**HMM 由三组参数定义**：λ=(π,A,B)λ=(π,A,B)。
+**HMM 由三组参数定义**：λ=(π,A,B)。
 
 - **状态空间** S={s1,…,sN}S={s1​,…,sN​}
 - **观察空间** V={v1,…,vM}V={v1​,…,vM​}
-- **初始分布** π=(πi)π=(πi​)，πi=P(X1=si)πi​=P(X1​=si​)
-- **状态转移** A=(aij)A=(aij​)，aij=P(Xt+1=sj∣Xt=si)aij​=P(Xt+1​=sj​∣Xt​=si​)
-- **观察分布** B=(bj(k))B=(bj​(k))，bj(k)=P(Ot=vk∣Xt=sj)bj​(k)=P(Ot​=vk​∣Xt​=sj​)
+- **初始分布** π=(πi)π=(πi)，πi=P(X1=si)
+- **状态转移** A=(aij)A=(aij)，aij=P(Xt+1=sj∣Xt=si)
+- **观察分布** B=(bj(k))B=(bj(k))，bj(k)=P(Ot=vk∣Xt=sj)
 
 **两个基本假设**：
 
-1. **马尔可夫性**：P(Xt∣Xt−1,…,X1)=P(Xt∣Xt−1)P(Xt​∣Xt−1​,…,X1​)=P(Xt​∣Xt−1​)
-2. **观察独立性**：P(Ot∣X1,…,XT,O1,…,Ot−1,Ot+1,…,OT)=P(Ot∣Xt)P(Ot​∣X1​,…,XT​,O1​,…,Ot−1​,Ot+1​,…,OT​)=P(Ot​∣Xt​)
+1. **马尔可夫性**：P(Xt∣Xt−1,…,X1)=P(Xt∣Xt−1)
+2. **观察独立性**：P(Ot∣X1,…,XT,O1,…,Ot−1,Ot+1,…,OT)=P(Ot∣Xt)
 
 #### 6.3 三大基本问题
 
-给定 HMM λλ 和观察序列 O=O1O2⋯OTO=O1​O2​⋯OT​：
+给定 HMM λ 和观察序列 O=O1O2⋯OTO=O1O2⋯OT：
 
-**问题 1（评估问题）**：计算 P(O∣λ)P(O∣λ)。
+**问题 1（评估问题）**：计算 P(O∣λ)。
 
 - "给定模型，这个观察的概率？"
 - **算法：前向算法 (Forward)**
@@ -12931,7 +12915,7 @@ ui=p⋅ui+1+q⋅ui−1ui​=p⋅ui+1​+q⋅ui−1​
 - "给定观察，最可能的隐藏状态序列？"
 - **算法：Viterbi 算法**
 
-**问题 3（学习问题）**：给定观察序列，估计参数 λλ。
+**问题 3（学习问题）**：给定观察序列，估计参数 λ。
 
 - "从数据中学习模型"
 - **算法：Baum-Welch（EM 算法的特例）**
@@ -12940,21 +12924,21 @@ ui=p⋅ui+1+q⋅ui−1ui​=p⋅ui+1​+q⋅ui−1​
 
 ### 七、前向算法（评估问题）
 
-**朴素方法**：枚举所有可能的状态序列，对每个求 P(O,X∣λ)=P(X)P(O∣X)P(O,X∣λ)=P(X)P(O∣X)，相加。
+**朴素方法**：枚举所有可能的状态序列，对每个求P(O,X∣λ)=P(X)P(O∣X)，相加。
 
-**问题**：状态序列数 = NTNT，**指数爆炸**。
+**问题**：状态序列数 = NT，**指数爆炸**。
 
-**前向算法**：动态规划，O(N2T)O(N2T)。
+**前向算法**：动态规划，O(N2T)。
 
 #### 7.1 前向变量
 
-αt(i)=P(O1,…,Ot,Xt=si∣λ)αt​(i)=P(O1​,…,Ot​,Xt​=si​∣λ)
+αt(i)=P(O1,…,Ot,Xt=si∣λ)
 
-"前 t 个观察 + 状态在 t 时是 sisi​ 的联合概率"。
+"前 t 个观察 + 状态在 t 时是 si​ 的联合概率"。
 
 #### 7.2 递推
 
-**初始化**：α1(i)=πibi(O1)α1​(i)=πi​bi​(O1​)
+**初始化**：α1(i)=πibi(O1)
 
 **递推**：
 
@@ -12962,14 +12946,14 @@ ui=p⋅ui+1+q⋅ui−1ui​=p⋅ui+1​+q⋅ui−1​
 
 **直觉**：
 
-- 在 t+1 时刻状态是 j：来自任何前一状态 i（贡献 αt(i)aijαt​(i)aij​）
-- 然后产生观察 Ot+1Ot+1​（乘 bj(Ot+1)bj​(Ot+1​)）
+- 在 t+1 时刻状态是 j：来自任何前一状态 i（贡献αt(i)aij）
+- 然后产生观察Ot+1（乘 bj(Ot+1)）
 
 **最终**：
 
 P(O∣λ)=∑i=1NαT(i)P(O∣λ)=i=1∑N​αT​(i)
 
-**复杂度** O(N2T)O(N2T)——**线性于序列长度**。从指数到线性，DP 的威力。
+**复杂度** O(N2T)——**线性于序列长度**。从指数到线性，DP 的威力。
 
 🤔 **思考**：和**经典 DP**（如最长公共子序列）的关系？
 
@@ -12985,7 +12969,7 @@ P(O∣λ)=∑i=1NαT(i)P(O∣λ)=i=1∑N​αT​(i)
 
 X∗=arg⁡max⁡XP(X∣O,λ)=arg⁡max⁡XP(X,O∣λ)X∗=argXmax​P(X∣O,λ)=argXmax​P(X,O∣λ)
 
-（因为 P(O)P(O) 与 X 无关）
+（因为 P(O) 与 X 无关）
 
 #### 8.2 Viterbi 变量
 
@@ -12995,17 +12979,17 @@ X∗=arg⁡max⁡XP(X∣O,λ)=arg⁡max⁡XP(X,O∣λ)X∗=argXmax​P(X∣O,λ)
 
 #### 8.3 递推
 
-**初始化**：δ1(i)=πibi(O1)δ1​(i)=πi​bi​(O1​)
+**初始化**：δ1(i)=πibi(O1)
 
 **递推**：
 
 δt+1(j)=[max⁡iδt(i)aij]bj(Ot+1)δt+1​(j)=[imax​δt​(i)aij​]bj​(Ot+1​)
 
-**注意**：和前向算法**几乎一样**，但 ∑∑ 换成了 max⁡max！
+**注意**：和前向算法**几乎一样**，但 ∑∑ 换成了 max！
 
 **回溯**：记录 ψt+1(j)=arg⁡max⁡iδt(i)aijψt+1​(j)=argmaxi​δt​(i)aij​，最后从 arg⁡max⁡iδT(i)argmaxi​δT​(i) 回溯。
 
-**复杂度** O(N2T)O(N2T)——同前向。
+**复杂度** O(N2T)——同前向。
 
 #### 8.4 例：词性标注
 
@@ -13035,7 +13019,7 @@ Viterbi 找出最可能的标注序列。在大语料训练下，正确率可达
 
 #### 9.1 问题
 
-**给定观察序列 O，没有标注，怎么学参数 λ=(π,A,B)λ=(π,A,B)？**
+**给定观察序列 O，没有标注，怎么学参数λ=(π,A,B)？**
 
 这叫**无监督学习** / **隐变量学习**。
 
@@ -13051,7 +13035,7 @@ Viterbi 找出最可能的标注序列。在大语料训练下，正确率可达
 
 类似前向，定义**后向变量**：
 
-βt(i)=P(Ot+1,…,OT∣Xt=si,λ)βt​(i)=P(Ot+1​,…,OT​∣Xt​=si​,λ)
+βt(i)=P(Ot+1,…,OT∣Xt=si,λ)
 
 递推：
 
@@ -13068,7 +13052,7 @@ Viterbi 找出最可能的标注序列。在大语料训练下，正确率可达
 **直觉**：
 
 - a^ija^ij​ = "从 i 到 j 转移的期望次数" / "在 i 的期望次数"
-- b^j(k)b^j​(k) = "在 j 时观察到 vkvk​ 的期望次数" / "在 j 的期望次数"
+- b^j(k)b^j​(k) = "在 j 时观察到 vk​ 的期望次数" / "在 j 的期望次数"
 
 #### 9.6 性质
 
@@ -13081,15 +13065,15 @@ Viterbi 找出最可能的标注序列。在大语料训练下，正确率可达
 
 #### 10.1 连续时间马尔可夫链 (CTMC)
 
-时间连续化。用**生成元矩阵 (generator)** QQ 描述。P(t)=etQP(t)=etQ。
+时间连续化。用**生成元矩阵 (generator)** Q 描述。P(t)=etQ。
 
 **应用**：M/M/1 排队、化学反应、人口动力学。
 
 #### 10.2 高阶马尔可夫链
 
-依赖更多步：P(Xn∣Xn−1,Xn−2,…,Xn−k)P(Xn​∣Xn−1​,Xn−2​,…,Xn−k​)。
+依赖更多步：P(Xn∣Xn−1,Xn−2,…,Xn−k)。
 
-**重要观察**：可以扩大状态空间转化为标准马尔可夫链。比如二阶链，把 (Xn−1,Xn)(Xn−1​,Xn​) 当作新状态。
+**重要观察**：可以扩大状态空间转化为标准马尔可夫链。比如二阶链，把(Xn−1,Xn)当作新状态。
 
 #### 10.3 马尔可夫决策过程 (MDP)
 
@@ -13137,9 +13121,9 @@ P=(0.50.50000.30.700000010001000.100.20.30.4)P=​0.50.3000.1​0.50.7000​0001
 
 **练习 4**（赌徒破产）：
 
-你有 $50，赌场每轮 0.49 概率赢 $1，0.51 概率输 $1。目标 $100，否则 $0。
+设初始资金为 50 美元。赌场每轮以 0.49 的概率赢 1 美元，以 0.51 的概率输 1 美元；达到 100 美元视为成功，资金归零视为失败。
 
-(1) 公式法求"达到 $100"的概率。 (2) 如果初始为 $1，概率多少？$99 呢？画图理解。 (3) 期望赌局轮数？（提示：解期望吸收时间方程）
+(1) 用公式求达到 100 美元的概率；(2) 分别计算初始资金为 1 美元和 99 美元时的概率，并画图比较；(3) 求赌局的期望轮数（提示：求解期望吸收时间方程）。
 
 **练习 5**（前向算法）：
 
@@ -13149,17 +13133,17 @@ P=(0.50.50000.30.700000010001000.100.20.30.4)P=​0.50.3000.1​0.50.7000​0001
 - 观察：{Walk, Shop, Clean}
 - π=(0.6,0.4)π=(0.6,0.4)
 - A=(0.70.30.40.6)A=(0.70.4​0.30.6​)
-- BB：Sunny 时 (0.6,0.3,0.1)(0.6,0.3,0.1)，Rainy 时 (0.1,0.4,0.5)(0.1,0.4,0.5)
+- B：Sunny 时(0.6,0.3,0.1)，Rainy 时(0.1,0.4,0.5)
 
 观察序列 $O = $ Walk, Shop, Clean。
 
-(1) 用前向算法计算 P(O∣λ)P(O∣λ)。 (2) 朴素枚举所有状态序列对比验证（共 23=823=8 条）。
+(1) 用前向算法计算 P(O∣λ)。 (2) 朴素枚举所有状态序列对比验证（共23=8条）。
 
 **练习 6**（Viterbi 算法）：
 
 继续上题，用 Viterbi 算法找最可能的状态序列。
 
-(1) 列出所有 δt(i)δt​(i)。 (2) 回溯得到最优路径。 (3) 比较：最优路径的概率 vs 前向算法的总概率，说明区别。
+(1) 列出所有δt(i)。 (2) 回溯得到最优路径。 (3) 比较：最优路径的概率 vs 前向算法的总概率，说明区别。
 
 **练习 7**（HMM 应用）：
 
@@ -13175,9 +13159,9 @@ P=(0.50.50000.30.700000010001000.100.20.30.4)P=​0.50.3000.1​0.50.7000​0001
 
 **练习 8**（MCMC 直觉）：
 
-**目标分布** ππ：抛 100 次硬币，正面数 = 60 的条件下硬币偏置 p 的后验。
+**目标分布** π：抛 100 次硬币，正面数 = 60 的条件下硬币偏置 p 的后验。
 
-(1) 用 Metropolis-Hastings 设计采样器。提议分布 q(p′∣p)q(p′∣p) 用 N(p,0.1)N(p,0.1)（截断到 [0, 1]）。
+(1) 用 Metropolis-Hastings 设计采样器。提议分布 q(p′∣p) 用 N(p,0.1)（截断到 [0, 1]）。
 
 (2) 写伪代码。
 

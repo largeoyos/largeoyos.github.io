@@ -4,8 +4,11 @@ import {
   formatBaseInteger,
   formatComplex,
   generateFunctionTable,
+  normalProbability,
   regression,
   singleVariableStatistics,
+  standardizedVariable,
+  statisticsCapacity,
   solveLinearSystem,
   solvePolynomial,
   solvePolynomialInequality,
@@ -19,13 +22,21 @@ import {
   divideRational,
   exactRational,
   multiplyRational,
+  negateRational,
   quadraticExactRoots,
+  rational,
+  subtractRational,
   rationalFromExact,
   solveLinearSystemExact,
   type ExactValue,
   type Rational,
 } from './exact';
 import { exactValueDecimal, exactValueToFormulaDocument } from '../math/exactDisplay';
+import type {
+  ComplexResultMode,
+  FractionResultMode,
+  TableDisplayMode,
+} from './settings';
 import {
   applyComplexResultCommand,
   createDefaultModeMemory,
@@ -45,6 +56,13 @@ export type RuntimeContext = {
   exactAns?: ExactValue;
   resultMode?: ResultMode;
   numberFormat?: NumberFormat;
+  complexResult?: ComplexResultMode;
+  fractionResult?: FractionResultMode;
+  tableMode?: TableDisplayMode;
+  equationComplexRoots?: boolean;
+  decimalPoint?: 'dot' | 'comma';
+  digitSeparator?: boolean;
+  engineeringSymbols?: boolean;
 };
 
 type MenuScreen = {
@@ -85,6 +103,12 @@ type StatisticsEditorScreen = {
   rows: StatisticsRow[];
   row: number;
   column: number;
+  buffer: string;
+};
+
+type NormalDistributionScreen = {
+  kind: 'normal-distribution';
+  operation: 'P' | 'Q' | 'R' | 't';
   buffer: string;
 };
 
@@ -138,6 +162,7 @@ type SolutionsScreen = {
   selected: number;
   showDecimal?: boolean;
   decimalEntries?: boolean[];
+  fractionResult?: FractionResultMode;
 };
 
 type MessageScreen = {
@@ -153,6 +178,7 @@ export type RuntimeScreen =
   | MatrixEditorScreen
   | VectorEditorScreen
   | StatisticsEditorScreen
+  | NormalDistributionScreen
   | FunctionEditorScreen
   | RangeEditorScreen
   | CoefficientEditorScreen
@@ -198,8 +224,10 @@ function cloneRuntime(state: ModeRuntime): ModeRuntime {
   return structuredClone(state);
 }
 
-function optionScreen(mode: CalcMode): MenuScreen {
-  return { kind: 'menu', title: 'OPTION', options: modeOptions(mode), selected: 0 };
+function optionScreen(mode: CalcMode, context?: RuntimeContext): MenuScreen {
+  const options = modeOptions(mode).filter(option =>
+    !(mode === 'Function Table' && context?.tableMode === 'f' && option.command === 'table-g'));
+  return { kind: 'menu', title: 'OPTION', options, selected: 0 };
 }
 
 function commitNumericBuffer(buffer: string): number {
@@ -224,6 +252,9 @@ function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): { v
     exactAns: context.exactAns,
     resultMode: context.resultMode,
     numberFormat: context.numberFormat,
+    decimalPoint: context.decimalPoint,
+    digitSeparator: context.digitSeparator,
+    engineeringSymbols: context.engineeringSymbols,
   });
   if (!result.success) throw new Error(result.errorType || 'Syntax ERROR');
   if (!Number.isFinite(result.value)) throw new Error('Math ERROR');
@@ -286,13 +317,16 @@ function menuMove(screen: MenuScreen, direction: 'left' | 'right' | 'up' | 'down
 
 function executeModeEvaluation(state: ModeRuntime, context: RuntimeContext): ModeRuntime {
   try {
-    const evaluation = evaluateModeExpression(
+    let evaluation = evaluateModeExpression(
       state.mode,
       state.input,
       state.memory,
       context.variables,
       context.angleMode,
     );
+    if (state.mode === 'Complex' && evaluation.complex && context.complexResult === 'polar') {
+      evaluation = applyComplexResultCommand('polar', evaluation.complex, context.angleMode);
+    }
     const next = { ...state, result: evaluation.display, evaluated: true, lastEvaluation: evaluation };
     if (evaluation.matrix) next.memory = { ...next.memory, matAns: evaluation.matrix };
     if (evaluation.vector) next.memory = { ...next.memory, vctAns: evaluation.vector };
@@ -306,16 +340,44 @@ function executeModeEvaluation(state: ModeRuntime, context: RuntimeContext): Mod
   }
 }
 
-function selectTargetMenu(kind: 'matrix' | 'vector'): MenuScreen {
+function selectTargetMenu(kind: 'matrix' | 'vector', action: 'define' | 'edit'): MenuScreen {
   const prefix = kind === 'matrix' ? 'Mat' : 'Vct';
   return {
     kind: 'menu',
-    title: kind === 'matrix' ? 'DEFINE MATRIX' : 'DEFINE VECTOR',
+    title: `${action.toUpperCase()} ${kind.toUpperCase()}`,
     selected: 0,
     options: ['A', 'B', 'C', 'D'].map((letter, index) => ({
       key: String(index + 1),
       label: `${prefix}${letter}`,
-      command: `target-${prefix}${letter}`,
+      command: `target-${action}-${prefix}${letter}`,
+    })),
+  };
+}
+
+function copySourceMenu(kind: 'matrix' | 'vector'): MenuScreen {
+  const prefix = kind === 'matrix' ? 'Mat' : 'Vct';
+  return {
+    kind: 'menu',
+    title: 'COPY SOURCE',
+    selected: 0,
+    options: ['A', 'B', 'C', 'D', 'Ans'].map((letter, index) => ({
+      key: String(index + 1),
+      label: `${prefix}${letter}`,
+      command: `copy-source-${kind}-${prefix}${letter}`,
+    })),
+  };
+}
+
+function copyDestinationMenu(kind: 'matrix' | 'vector', source: string): MenuScreen {
+  const prefix = kind === 'matrix' ? 'Mat' : 'Vct';
+  return {
+    kind: 'menu',
+    title: 'COPY TO',
+    selected: 0,
+    options: ['A', 'B', 'C', 'D'].map((letter, index) => ({
+      key: String(index + 1),
+      label: `${prefix}${letter}`,
+      command: `copy-target-${kind}-${source}-${prefix}${letter}`,
     })),
   };
 }
@@ -334,8 +396,8 @@ function statsLines(state: ModeRuntime): string[] {
   if (state.memory.statistics.kind === 'single') {
     const stats = singleVariableStatistics(state.memory.statistics.rows);
     return [
-      `n=${stats.n} mean=${stats.mean}`,
-      `sx=${stats.sampleSd}`,
+      `n=${stats.n} Σx=${stats.sum} Σx2=${stats.sumSquares}`,
+      `mean=${stats.mean} σx=${stats.populationSd} sx=${stats.sampleSd}`,
       `min=${stats.min} Q1=${stats.q1}`,
       `Med=${stats.median} Q3=${stats.q3}`,
       `max=${stats.max}`,
@@ -343,11 +405,11 @@ function statsLines(state: ModeRuntime): string[] {
   }
   const stats = doubleVariableStatistics(state.memory.statistics.rows);
   return [
-    `n=${stats.n}`,
-    `meanX=${stats.meanX}`,
-    `meanY=${stats.meanY}`,
-    `sx=${stats.sampleSdX}`,
-    `sy=${stats.sampleSdY} r=${stats.r}`,
+    `n=${stats.n} Σx=${stats.sumX} Σy=${stats.sumY}`,
+    `Σx2=${stats.sumXX} Σy2=${stats.sumYY}`,
+    `Σxy=${stats.sumXY} Σx3=${stats.sumXXX}`,
+    `Σx2y=${stats.sumXXY} Σx4=${stats.sumXXXX}`,
+    `meanX=${stats.meanX} meanY=${stats.meanY} r=${stats.r}`,
   ];
 }
 
@@ -391,9 +453,21 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
         kind: 'menu',
         title: 'ENGINEERING',
         selected: 0,
-        options: ['k', 'M', 'G', 'm', 'u', 'n'].map((insert, index) => ({
-          key: String(index + 1),
-          label: insert,
+        options: [
+          ['m', 'ₘ'],
+          ['μ', 'µ'],
+          ['n', 'ₙ'],
+          ['p', 'ₚ'],
+          ['f', 'բ'],
+          ['k', 'ᴋ'],
+          ['M', 'ℳ'],
+          ['G', 'ɢ'],
+          ['T', 'ᴛ'],
+          ['P', 'ᴘ'],
+          ['E', 'ᴇ'],
+        ].map(([label, insert], index) => ({
+          key: String((index + 1) % 10),
+          label,
           insert,
         })),
       },
@@ -406,12 +480,40 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
     const evaluation = applyComplexResultCommand(command, state.lastEvaluation.complex, context.angleMode);
     return { ...state, result: evaluation.display, lastEvaluation: evaluation, screen: { kind: 'input' } };
   }
-  if (command === 'define-matrix') return { ...state, screen: selectTargetMenu('matrix') };
-  if (command === 'define-vector') return { ...state, screen: selectTargetMenu('vector') };
-  if (command.startsWith('target-Mat')) {
-    const target = command.slice(7) as MatrixEditorScreen['target'];
+  if (command === 'define-matrix') return { ...state, screen: selectTargetMenu('matrix', 'define') };
+  if (command === 'edit-matrix') return { ...state, screen: selectTargetMenu('matrix', 'edit') };
+  if (command === 'copy-matrix') return { ...state, screen: copySourceMenu('matrix') };
+  if (command === 'define-vector') return { ...state, screen: selectTargetMenu('vector', 'define') };
+  if (command === 'edit-vector') return { ...state, screen: selectTargetMenu('vector', 'edit') };
+  if (command === 'copy-vector') return { ...state, screen: copySourceMenu('vector') };
+  if (command.startsWith('copy-source-')) {
+    const [, , kind, source] = command.split('-') as [string, string, 'matrix' | 'vector', string];
+    return { ...state, screen: copyDestinationMenu(kind, source) };
+  }
+  if (command.startsWith('copy-target-')) {
+    const [, , kind, source, destination] = command.split('-') as [string, string, 'matrix' | 'vector', string, string];
+    if (kind === 'matrix') {
+      const sourceValue = source === 'MatAns'
+        ? state.memory.matAns
+        : state.memory.matrices[source as keyof ModeMemory['matrices']];
+      if (!sourceValue) return { ...state, result: 'Dimension ERROR', screen: { kind: 'input' } };
+      const target = destination as MatrixEditorScreen['target'];
+      const values = structuredClone(sourceValue);
+      return { ...state, screen: { kind: 'matrix-editor', target, values, row: 0, column: 0, buffer: '' } };
+    }
+    const sourceValue = source === 'VctAns'
+      ? state.memory.vctAns
+      : state.memory.vectors[source as keyof ModeMemory['vectors']];
+    if (!sourceValue) return { ...state, result: 'Dimension ERROR', screen: { kind: 'input' } };
+    const target = destination as VectorEditorScreen['target'];
+    return { ...state, screen: { kind: 'vector-editor', target, values: [...sourceValue], index: 0, buffer: '' } };
+  }
+  if (command.startsWith('target-define-Mat') || command.startsWith('target-edit-Mat')) {
+    const editing = command.startsWith('target-edit-');
+    const target = command.slice(command.lastIndexOf('-') + 1) as MatrixEditorScreen['target'];
     const current = state.memory.matrices[target];
-    if (current) {
+    if (editing) {
+      if (!current) return { ...state, result: 'Dimension ERROR', screen: { kind: 'input' } };
       return { ...state, screen: { kind: 'matrix-editor', target, values: structuredClone(current), row: 0, column: 0, buffer: '' } };
     }
     return {
@@ -426,10 +528,12 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
       },
     };
   }
-  if (command.startsWith('target-Vct')) {
-    const target = command.slice(7) as VectorEditorScreen['target'];
+  if (command.startsWith('target-define-Vct') || command.startsWith('target-edit-Vct')) {
+    const editing = command.startsWith('target-edit-');
+    const target = command.slice(command.lastIndexOf('-') + 1) as VectorEditorScreen['target'];
     const current = state.memory.vectors[target];
-    if (current) {
+    if (editing) {
+      if (!current) return { ...state, result: 'Dimension ERROR', screen: { kind: 'input' } };
       return { ...state, screen: { kind: 'vector-editor', target, values: [...current], index: 0, buffer: '' } };
     }
     return {
@@ -466,6 +570,7 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
         statistics: {
           ...state.memory.statistics,
           frequencyEnabled: !state.memory.statistics.frequencyEnabled,
+          rows: [],
         },
       },
       screen: { kind: 'input' },
@@ -481,6 +586,35 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
           : [{ x: 0, y: state.memory.statistics.kind === 'double' ? 0 : undefined, freq: 1 }],
         row: 0,
         column: 0,
+        buffer: '',
+      },
+    };
+  }
+  if (command === 'stats-normal') {
+    if (state.memory.statistics.kind !== 'single') {
+      return { ...state, result: 'Argument ERROR', screen: { kind: 'input' } };
+    }
+    return {
+      ...state,
+      screen: {
+        kind: 'menu',
+        title: 'NORMAL DIST',
+        selected: 0,
+        options: [
+          { key: '1', label: 'P(t)', command: 'normal-P' },
+          { key: '2', label: 'Q(t)', command: 'normal-Q' },
+          { key: '3', label: 'R(t)', command: 'normal-R' },
+          { key: '4', label: 't', command: 'normal-t' },
+        ],
+      },
+    };
+  }
+  if (command.startsWith('normal-')) {
+    return {
+      ...state,
+      screen: {
+        kind: 'normal-distribution',
+        operation: command.slice(7) as NormalDistributionScreen['operation'],
         buffer: '',
       },
     };
@@ -522,7 +656,11 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
   }
   if (command === 'stats-insert') {
     const rows = [...state.memory.statistics.rows, { x: 0, y: state.memory.statistics.kind === 'double' ? 0 : undefined, freq: 1 }];
-    if (rows.length > 1000) return { ...state, result: 'Range ERROR', screen: { kind: 'input' } };
+    const capacity = statisticsCapacity(
+      state.memory.statistics.kind,
+      state.memory.statistics.frequencyEnabled,
+    );
+    if (rows.length > capacity) return { ...state, result: 'Range ERROR', screen: { kind: 'input' } };
     return { ...state, memory: { ...state.memory, statistics: { ...state.memory.statistics, rows } }, screen: { kind: 'input' } };
   }
   if (command === 'stats-delete') {
@@ -555,7 +693,7 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
     try {
       const rows = generateFunctionTable(
         state.memory.functions.f,
-        state.memory.functions.g,
+        context.tableMode === 'f' ? '' : state.memory.functions.g,
         state.memory.functions.start,
         state.memory.functions.end,
         state.memory.functions.step,
@@ -574,10 +712,26 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
         kind: 'menu',
         title: 'UNKNOWNS',
         selected: 0,
-        options: Array.from({ length: 9 }, (_, index) => ({
-          key: String((index + 2) % 10),
-          label: String(index + 2),
-          command: `linear-size-${index + 2}`,
+        options: [
+          { key: '2', label: '2', command: 'linear-size-2' },
+          { key: '3', label: '3', command: 'linear-size-3' },
+          { key: '4', label: '4', command: 'linear-size-4' },
+          { key: '5', label: 'EXTENDED 5-10', command: 'linear-extended' },
+        ],
+      },
+    };
+  }
+  if (command === 'linear-extended') {
+    return {
+      ...state,
+      screen: {
+        kind: 'menu',
+        title: 'EXT UNKNOWNS',
+        selected: 0,
+        options: Array.from({ length: 6 }, (_, index) => ({
+          key: String((index + 5) % 10),
+          label: String(index + 5),
+          command: `linear-size-${index + 5}`,
         })),
       },
     };
@@ -760,13 +914,42 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
     if (nextColumn >= columns) {
       nextColumn = 0;
       nextRow++;
-      if (nextRow >= rows.length && rows.length < 1000) rows.push({ x: 0, y: state.memory.statistics.kind === 'double' ? 0 : undefined, freq: 1 });
+      const capacity = statisticsCapacity(
+        state.memory.statistics.kind,
+        state.memory.statistics.frequencyEnabled,
+      );
+      if (nextRow >= rows.length && rows.length < capacity) {
+        rows.push({ x: 0, y: state.memory.statistics.kind === 'double' ? 0 : undefined, freq: 1 });
+      }
     }
     return {
       ...state,
       memory: { ...state.memory, statistics: { ...state.memory.statistics, rows } },
       screen: { ...screen, rows, row: Math.min(nextRow, rows.length - 1), column: nextColumn, buffer: '' },
     };
+  }
+  if (screen.kind === 'normal-distribution') {
+    try {
+      const input = commitNumericBuffer(screen.buffer);
+      const numeric = screen.operation === 't'
+        ? standardizedVariable(state.memory.statistics.rows, input)
+        : normalProbability(screen.operation, input);
+      return {
+        ...state,
+        result: String(numeric),
+        screen: {
+          kind: 'message',
+          title: 'NORMAL DIST',
+          lines: [`${screen.operation}(${input})=${numeric}`],
+        },
+      };
+    } catch (error) {
+      return {
+        ...state,
+        result: error instanceof Error ? error.message : 'Math ERROR',
+        screen,
+      };
+    }
   }
   if (screen.kind === 'function-editor') {
     return {
@@ -841,13 +1024,40 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
       } else if (screen.problem === 'polynomial') {
         const exactCoefficients = exactValues[0].every(value => value !== null);
         if (screen.size === 2 && exactCoefficients) {
-          entries = quadraticExactRoots(exactValues[0] as [Rational, Rational, Rational]).map((value, index) => ({
+          const coefficients = exactValues[0] as [Rational, Rational, Rational];
+          const roots = quadraticExactRoots(coefficients)
+            .filter(value => context.equationComplexRoots !== false || value.kind === 'exact-real');
+          entries = roots.map((value, index) => ({
             label: `X${index + 1}=`,
             exact: value,
             decimal: exactValueDecimal(value),
           }));
+          if (!entries.length) entries.push({ label: '', decimal: 'NO REAL ROOT' });
+          const [a, b, c] = coefficients;
+          const vertexX = divideRational(negateRational(b), multiplyRational(rational(2n), a));
+          const vertexY = subtractRational(
+            c,
+            divideRational(multiplyRational(b, b), multiplyRational(rational(4n), a)),
+          );
+          entries.push(
+            { label: 'X=', exact: exactRational(vertexX), decimal: String(Number(vertexX.numerator) / Number(vertexX.denominator)) },
+            { label: 'Y=', exact: exactRational(vertexY), decimal: String(Number(vertexY.numerator) / Number(vertexY.denominator)) },
+          );
         } else {
-          entries = solvePolynomial(values[0]).map((value, index) => ({ label: `X${index + 1}=`, decimal: formatComplex(value) }));
+          const roots = solvePolynomial(values[0])
+            .filter(value => context.equationComplexRoots !== false || Math.abs(value.im) < 1e-9);
+          entries = roots.length
+            ? roots.map((value, index) => ({ label: `X${index + 1}=`, decimal: formatComplex(value) }))
+            : [{ label: '', decimal: 'NO REAL ROOT' }];
+          if (screen.size === 2 && Math.abs(values[0][0]) > 1e-12) {
+            const [a, b, c] = values[0];
+            const vertexX = -b / (2 * a);
+            const vertexY = c - b * b / (4 * a);
+            entries.push(
+              { label: 'X=', decimal: String(vertexX) },
+              { label: 'Y=', decimal: String(vertexY) },
+            );
+          }
         }
       } else {
         entries = [{ label: '', decimal: solvePolynomialInequality(values[0], screen.operator ?? '>=') }];
@@ -863,6 +1073,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
           selected: 0,
           showDecimal: context.resultMode === 'decimal',
           decimalEntries: entries.map(() => context.resultMode === 'decimal'),
+          fractionResult: context.fractionResult,
         },
       };
     } catch (error) {
@@ -894,9 +1105,12 @@ export function dispatchModeRuntime(
   }
   if (action.type === 'select-mode') {
     const opensMenu = ['Statistics', 'Function Table', 'Equation', 'Inequality', 'Ratio'].includes(action.mode);
-    return { ...next, mode: action.mode, input: '', result: action.mode, evaluated: false, screen: opensMenu ? optionScreen(action.mode) : { kind: 'input' } };
+    if (next.mode === 'Statistics' && action.mode !== 'Statistics') {
+      next.memory.statistics.rows = [];
+    }
+    return { ...next, mode: action.mode, input: '', result: action.mode, evaluated: false, screen: opensMenu ? optionScreen(action.mode, context) : { kind: 'input' } };
   }
-  if (action.type === 'optn') return { ...next, screen: optionScreen(next.mode) };
+  if (action.type === 'optn') return { ...next, screen: optionScreen(next.mode, context) };
   if (action.type === 'eng') {
     if (next.mode === 'Complex') return { ...next, input: next.input + 'i', screen: { kind: 'input' } };
     return next;
@@ -931,7 +1145,9 @@ export function dispatchModeRuntime(
       const numeric = Number.parseInt(action.value, 16);
       if (numeric >= next.memory.base) return { ...next, result: 'Syntax ERROR' };
     }
-    return { ...next, input: next.input + action.value, evaluated: false, screen: { kind: 'input' } };
+    const input = next.input + action.value;
+    if (input.length > 199) return next;
+    return { ...next, input, evaluated: false, screen: { kind: 'input' } };
   }
   if (action.type === 'evaluate') {
     if (next.screen.kind === 'menu') {
@@ -1025,6 +1241,9 @@ export function runtimeScreenView(state: ModeRuntime) {
       }),
     };
   }
+  if (screen.kind === 'normal-distribution') {
+    return { title: 'NORMAL DIST', lines: [`${screen.operation}(${screen.buffer || '0'})`, 'PRESS ='] };
+  }
   if (screen.kind === 'statistics-editor') {
     const columns = state.memory.statistics.kind === 'double'
       ? state.memory.statistics.frequencyEnabled ? ['X', 'Y', 'F'] : ['X', 'Y']
@@ -1058,11 +1277,16 @@ export function runtimeScreenView(state: ModeRuntime) {
     const start = screen.page * 4;
     return {
       title: `TABLE ${screen.page + 1}`,
-      table: [['X', 'F', 'G'], ...screen.rows.slice(start, start + 4).map(row => [
-        String(row.x),
-        String(row.f ?? ''),
-        String(row.g ?? ''),
-      ])],
+      table: screen.rows.some(row => row.g !== undefined)
+        ? [['X', 'F', 'G'], ...screen.rows.slice(start, start + 4).map(row => [
+          String(row.x),
+          String(row.f ?? ''),
+          String(row.g ?? ''),
+        ])]
+        : [['X', 'F'], ...screen.rows.slice(start, start + 4).map(row => [
+          String(row.x),
+          String(row.f ?? ''),
+        ])],
     };
   }
   if (screen.kind === 'graph') return { title: 'FUNCTION GRAPH', graph: screen.rows };
@@ -1081,7 +1305,9 @@ export function runtimeScreenView(state: ModeRuntime) {
       title: 'SOLUTION',
       formulaLines: visible.map((entry, index) => ({
         label: entry.label,
-        document: !(screen.decimalEntries?.[start + index] ?? screen.showDecimal) && entry.exact ? exactValueToFormulaDocument(entry.exact) : undefined,
+        document: !(screen.decimalEntries?.[start + index] ?? screen.showDecimal) && entry.exact
+          ? exactValueToFormulaDocument(entry.exact, screen.fractionResult)
+          : undefined,
         text: (screen.decimalEntries?.[start + index] ?? screen.showDecimal) || !entry.exact ? entry.decimal : undefined,
       })),
       selectedIndex: screen.selected - start,

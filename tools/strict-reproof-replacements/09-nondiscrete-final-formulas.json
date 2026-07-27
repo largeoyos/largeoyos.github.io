@@ -1,0 +1,226 @@
+[
+  {
+    "file": "弹性力学(粗校).md",
+    "before": "KI=σπa=500×π×0.002=500×0.0793=39.6 MPa\\cdotpm1/2KI=σπa=500×π×0.002=500×0.0793=39.6 MPa\\cdotpm1/2",
+    "after": "$K_I = 500 \\times \\sqrt{\\pi \\times 0.002} = 39.6\\,\\text{MPa}\\cdot\\text{m}^{1/2}$",
+    "expected": 1,
+    "reason": "恢复断裂韧度计算式的标准 LaTeX 显示"
+  },
+  {
+    "file": "偏微分方程(粗校).md",
+    "before": "回忆一下，波动方程有两族实数特征线 x \\pm ct = $ 常数，正是沿着这些线，信息以有限速度传播。而特征线的存在，恰恰对应于判别式 $\\Delta > 0 。",
+    "after": "回忆一下，波动方程有两族实数特征线 $x \\pm ct = \\text{常数}$。正是沿着这些线，信息以有限速度传播；特征线的存在对应于判别式 $\\Delta > 0$。",
+    "expected": 1,
+    "reason": "修复错位的公式定界符"
+  },
+  {
+    "file": "群论(粗校).md",
+    "before": "||$e$\\lvert $(12)$ \\rvert$(123)$|",
+    "after": "||$e$|$(12)$|$(123)$|",
+    "expected": 1,
+    "reason": "修复表格竖线被写成 LaTeX 命令"
+  },
+  {
+    "file": "Claude STM32(粗校).md",
+    "before": "- 按键 1 → 输入 \"OK\\n\"",
+    "after": "- 按键 1 → 输入 `\"OK\\n\"`",
+    "expected": 1,
+    "reason": "将转义序列标为代码"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "(n−1)⏟KCL+(b−n+1)⏟KVL=b\\underbrace{(n-1)}_{\\text{KCL}} + \\underbrace{(b-n+1)}_{\\text{KVL}} = bKCL(n−1)+KVL(b−n+1)=b",
+    "after": "$\\underbrace{(n-1)}_{\\text{KCL}} + \\underbrace{(b-n+1)}_{\\text{KVL}} = b$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "3(12−Ua)+2(6−Ua)=Ua3(12-U_a) + 2(6-U_a) = U_a3(12−Ua)+2(6−Ua)=Ua 36−3Ua+12−2Ua=Ua36 - 3U_a + 12 - 2U_a = U_a36−3Ua+12−2Ua=Ua 48=6Ua  ⟹  Ua=8 V48 = 6U_a \\implies U_a = 8 \\text{ V}48=6Ua⟹Ua=8 V",
+    "after": "$3(12-U_a) + 2(6-U_a) = U_a$  \n$36 - 3U_a + 12 - 2U_a = U_a$  \n$48 = 6U_a \\implies U_a = 8\\,\\text{V}$",
+    "expected": 1,
+    "reason": "将三步推导分别保留为 LaTeX"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "> - 一个电阻 R=Uk/IkR = U_k / I_k R=Uk/Ik（只要 Ik≠0I_k \\neq 0 Ik=0）",
+    "after": "> - 一个电阻满足 $R = U_k/I_k$（只要 $I_k \\neq 0$）",
+    "expected": 1,
+    "reason": "合并两组三重公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "P=UI 是乘积，不是线性关系P = UI \\text{ 是乘积，不是线性关系}P=UI 是乘积，不是线性关系",
+    "after": "$P = UI$ 是乘积关系，不是线性关系。",
+    "expected": 1,
+    "reason": "保留中间公式并保留解释"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "P总=(U1+U2)(I1+I2)≠U1I1+U2I2P_{总} = (U_1+U_2)(I_1+I_2) \\neq U_1 I_1 + U_2 I_2P总=(U1+U2)(I1+I2)=U1I1+U2I2",
+    "after": "$P_{总} = (U_1+U_2)(I_1+I_2) \\neq U_1 I_1 + U_2 I_2$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "电容电压不能突变：uC(0+)=uC(0−)\\boxed{\\text{电容电压不能突变：} u_C(0^+) = u_C(0^-)}电容电压不能突变：uC(0+)=uC(0−)",
+    "after": "$\\boxed{\\text{电容电压不能突变：} u_C(0^+) = u_C(0^-)}$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "C并=C1+C2+⋯C_{并} = C_1 + C_2 + \\cdotsC并=C1+C2+⋯",
+    "after": "$C_{并} = C_1 + C_2 + \\cdots$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "假设你在线圈里通电流 i i，它产生磁场 Φ\\Phi Φ。现在让 i i 变化 → 磁场 Φ\\Phi Φ 变化 → 线圈**自己**就会感应出一个电压来\"反抗\"这个变化。",
+    "after": "在线圈中通入电流 $i$ 会产生磁通 $\\Phi$。当 $i$ 变化时，$\\Phi$ 随之变化，线圈自身会感应出阻碍这一变化的电压。",
+    "expected": 1,
+    "reason": "合并重复变量并改为教程语气"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "而磁通 Φ\\Phi Φ 与电流成正比：Φ=Li\\Phi = Li Φ=Li（L 是电感系数，单位亨利 H）",
+    "after": "磁通 $\\Phi$ 与电流成正比：$\\Phi = Li$（$L$ 是电感系数，单位为亨利 H）。",
+    "expected": 1,
+    "reason": "合并两组三重公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "|初相|φ\\varphi φ|t=0 时刻的相位|rad 或 °|",
+    "after": "|初相|$\\varphi$|$t=0$ 时刻的相位|rad 或 °|",
+    "expected": 1,
+    "reason": "修复表格中的三重公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- φ=±π\\varphi = \\pm\\pi φ=±π：**反相**",
+    "after": "- $\\varphi = \\pm\\pi$：**反相**",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "中间的 $I_m e^{j\\varphi}$ 是一个**与时间无关**的常数（复数）——它只含幅值信息 ImI_m Im 和相位信息 φ\\varphi φ。",
+    "after": "中间的 $I_m e^{j\\varphi}$ 是一个**与时间无关**的复常数，只包含幅值 $I_m$ 和相位 $\\varphi$ 的信息。",
+    "expected": 1,
+    "reason": "清理同一行剩余重复变量"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "Z=∣Z∣∠φZ = |Z| \\angle \\varphi_Z=∣Z∣∠φZ",
+    "after": "$Z = |Z| \\angle \\varphi_Z$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**串联**：Z总=Z1+Z2+⋯Z_{总} = Z_1 + Z_2 + \\cdots Z总=Z1+Z2+⋯",
+    "after": "**串联**：$Z_{总} = Z_1 + Z_2 + \\cdots$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**重要陷阱**⚠️：G≠1/RG \\neq 1/R G=1/R，B≠1/XB \\neq 1/X B=1/X！正确的转换是：",
+    "after": "**重要提醒**：$G \\neq 1/R$，$B \\neq 1/X$。正确的转换是：",
+    "expected": 1,
+    "reason": "合并两组三重公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 分析**并联**电路时，导纳相加更方便（因为 Y总=Y1+Y2+⋯Y_{总} = Y_1 + Y_2 + \\cdots Y总=Y1+Y2+⋯）",
+    "after": "- 分析**并联**电路时，导纳相加更方便，因为 $Y_{总} = Y_1 + Y_2 + \\cdots$。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 所以 Z≈90.55∠−83.66°Z \\approx 90.55 \\angle -83.66° Z≈90.55∠−83.66° Ω（**容性**，因为虚部为负）",
+    "after": "- 所以 $Z \\approx 90.55 \\angle -83.66°\\,\\Omega$（**容性**，因为虚部为负）",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式和单位"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "比特率=波特率×log⁡2N\\text{比特率} = \\text{波特率} \\times \\log_2 N比特率=波特率×log2​N",
+    "after": "$\\text{比特率} = \\text{波特率} \\times \\log_2 N$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "信噪比(dB)=10log⁡10(S/N)\\text{信噪比(dB)} = 10 \\log_{10}(S/N)信噪比(dB)=10log10​(S/N)",
+    "after": "$\\text{信噪比（dB）} = 10 \\log_{10}(S/N)$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "解:S/N=1030/10=1000S/N = 10^{30/10} = 1000 S/N=1030/10=1000 C=3000×log⁡2(1+1000)≈3000×9.97≈30 kbpsC = 3000 \\times \\log_2(1+1000) \\approx 3000 \\times 9.97 \\approx 30 \\text{ kbps} C=3000×log2​(1+1000)≈3000×9.97≈30 kbps",
+    "after": "解：$S/N = 10^{30/10} = 1000$，$C = 3000 \\times \\log_2(1+1000) \\approx 3000 \\times 9.97 \\approx 30\\,\\text{kbps}$。",
+    "expected": 1,
+    "reason": "合并同一行两组三重公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "5. 比特率与波特率关系:比特率=波特率×log⁡2N比特率 = 波特率 \\times \\log_2 N 比特率=波特率×log2​N",
+    "after": "5. 比特率与波特率的关系：$\\text{比特率} = \\text{波特率} \\times \\log_2 N$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "- 例:数据位 k=4k=4 k=4,需要校验位 r=3r=3 r=3(23=8≥4+3+12^3 = 8 \\geq 4+3+1 23=8≥4+3+1)",
+    "after": "- 例：数据位 $k=4$，需要校验位 $r=3$，因为 $2^3 = 8 \\geq 4+3+1$。",
+    "expected": 1,
+    "reason": "合并三组重复公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "- 发送窗口大小 WT≤2n−1W_T \\leq 2^n - 1 WT​≤2n−1(n 是序号位数)",
+    "after": "- 发送窗口大小 $W_T \\leq 2^n - 1$（$n$ 是序号位数）",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "- 第 n n 次冲突后,从 {0,1,2,...,2k−1}\\{0, 1, 2, ..., 2^k-1\\} {0,1,2,...,2k−1} 中随机取一个数 r r,等待 r×2τr \\times 2\\tau r×2τ(τ\\tau τ 为单程传播时延)",
+    "after": "- 第 $n$ 次冲突后，从 $\\{0,1,2,\\ldots,2^k-1\\}$ 中随机取一个数 $r$，等待 $r \\times 2\\tau$（$\\tau$ 为单程传播时延）。",
+    "expected": 1,
+    "reason": "合并多组三重公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "其中 τ\\tau τ 是单程传播时延,C C 是数据率。",
+    "after": "其中 $\\tau$ 是单程传播时延，$C$ 是数据率。",
+    "expected": 1,
+    "reason": "清理重复变量"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "5. **CSMA/CD**:边发边听、二进制指数退避、最小帧长 = 2τ×C2\\tau \\times C 2τ×C",
+    "after": "5. **CSMA/CD**：边发边听、采用二进制指数退避，最小帧长为 $2\\tau \\times C$。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "232≈43 亿,已经不够用,所以推 IPv62^{32} \\approx 43 \\text{ 亿},\\text{已经不够用,所以推 IPv6}232≈43 亿,已经不够用,所以推 IPv6",
+    "after": "$2^{32} \\approx 43\\text{ 亿}$，地址数量已经不够用，因此需要推广 IPv6。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式和解释"
+  },
+  {
+    "file": "claude数据结构整理(粗校)链表这里没弄完,欠缺栈的应用及其他应用.md",
+    "before": "**性质二(割性质 / Cut Property)**:如果把图的顶点分成两个非空集合 U 和 V\\U,那么**连接 U 和 V\\U 的所有边中,权值最小的那条**一定属于某棵 MST。",
+    "after": "**性质二（割性质 / Cut Property）**：如果把图的顶点分成两个非空集合 $U$ 和 $V\\setminus U$，那么**连接 $U$ 和 $V\\setminus U$ 的所有边中，权值最小的边**一定属于某棵 MST。",
+    "expected": 1,
+    "reason": "将集合差写为标准 LaTeX"
+  }
+]

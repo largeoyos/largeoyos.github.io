@@ -1,11 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { spawnSync } = require('child_process');
 
 const sourceDir = path.join(__dirname, '待拆解');
 const targetDocsDir = path.join(__dirname, 'ai-tutorials', 'docs');
 const targetJsonPath = path.join(__dirname, 'ai-tutorials', 'docs.json');
 const stateFilePath = path.join(__dirname, 'ai-tutorials', '.sync_state.json');
+const manualReviewDir = path.join(__dirname, '待拆解', '粗校报告', '人工章节审核');
+
+// 教程边界已经改为逐篇人工审核。只要人工清单存在，统一按清单重建；
+// 下方旧逻辑仅保留给尚未建立人工清单的仓库状态，避免再次按所有 ## 过细拆分。
+if (fs.existsSync(manualReviewDir)) {
+    const manualBuilder = path.join(__dirname, 'tools', 'build-manual-chapters.cjs');
+    const result = spawnSync(process.execPath, [manualBuilder, '--write'], {
+        cwd: __dirname,
+        stdio: 'inherit'
+    });
+    if (result.error) throw result.error;
+    process.exit(result.status ?? 1);
+}
 
 // 如果目标文件夹不存在则创建
 if (!fs.existsSync(targetDocsDir)) {
@@ -84,7 +98,10 @@ for (const file of files) {
     // 从全局的 docs.json 中移除属于此分类的旧记录
     allDocs = allDocs.filter(doc => doc.category !== categoryName);
 
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = fs.readFileSync(filePath, 'utf-8').replace(
+        /^## You said:[ \t]*继续[ \t]*\r?\n(?:[ \t]*\r?\n)*[ \t]*继续[。！!?？]?[ \t]*(?:\r?\n|$)(?:[ \t]*\r?\n)*/gm,
+        '\n'
+    );
     // 按二级标题拆分
     const parts = content.split(/^(?=## )/m);
 

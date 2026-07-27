@@ -73,6 +73,7 @@ type FormulaLcdProps = {
   listSelectedIndex?: number;
   modeScreen?: LcdModeScreen;
   variables: Record<string, number>;
+  linearInput?: boolean;
   onExpressionChange: (expression: string) => void;
   onMenuSelect?: (index: number) => void;
   onModeScreenSelect?: (index: number) => void;
@@ -391,7 +392,8 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
 
     useImperativeHandle(ref, () => ({
       insertInput(value) {
-        commit(insertFormulaInput(document, value));
+        const next = insertFormulaInput(document, value);
+        if (serializeExpression(next).length <= 199) commit(next);
       },
       move(direction) {
         const next = moveCursor(document, direction);
@@ -490,19 +492,35 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
       }
 
       drawStatus(context, props);
-      const formulaResult = drawFormula(
-        context,
-        document.root,
-        document.cursor,
-        2,
-        11,
-        188,
-        31,
-        INK,
-        true,
-      );
-      formulaCursorPoints.current = formulaResult.cursorPoints;
-      if (formulaResult.overflow) drawBitmapText(context, 'RANGE', 152, 12, INK);
+      if (props.linearInput) {
+        const expression = serializeExpression(document);
+        drawBitmapText(context, expression || '0', 2, 17, INK);
+        const rootOffset = document.cursor.sequenceId === document.root.id
+          ? document.cursor.offset
+          : document.root.children.length;
+        const prefix = serializeExpression({
+          root: { ...document.root, children: document.root.children.slice(0, rootOffset) },
+          cursor: document.cursor,
+        });
+        const cursorX = Math.min(188, 2 + bitmapTextWidth(prefix));
+        context.fillStyle = INK;
+        context.fillRect(cursorX, 14, 1, 10);
+        formulaCursorPoints.current = new Map();
+      } else {
+        const formulaResult = drawFormula(
+          context,
+          document.root,
+          document.cursor,
+          2,
+          11,
+          188,
+          31,
+          INK,
+          true,
+        );
+        formulaCursorPoints.current = formulaResult.cursorPoints;
+        if (formulaResult.overflow) drawBitmapText(context, 'RANGE', 152, 12, INK);
+      }
 
       const resultDocument = props.resultDocument ?? parseLegacyExpression(props.result);
       const resultLayout = drawFormula(
@@ -547,6 +565,16 @@ export const FormulaLcd = forwardRef<FormulaLcdHandle, FormulaLcdProps>(
         return;
       }
       if (x < 2 || x > 190 || y < 11 || y > 42) return;
+      if (props.linearInput) {
+        const width = Math.max(1, bitmapTextWidth(serializeExpression(document)));
+        const ratio = Math.max(0, Math.min(1, (x - 2) / width));
+        const offset = Math.round(ratio * document.root.children.length);
+        setDocument(current => ({
+          ...current,
+          cursor: { sequenceId: current.root.id, offset },
+        }));
+        return;
+      }
 
       const cursor = findNearestCursor(formulaCursorPoints.current, x, y);
       if (!cursor) return;

@@ -1,0 +1,373 @@
+[
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "三极管的工作原理：基极小电流 iBi_B iB 控制集电极大电流 iC=βiBi_C = \\beta i_B iC=βiB。",
+    "after": "三极管的工作原理：基极小电流 $i_B$ 控制集电极大电流 $i_C = \\beta i_B$。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "重解：由 ②：$12 - 2I_1 - 6I_3 = 0 \\implies I_1 = 6 - 3I_3$ 由 ③：$6 - 3I_2 - 6I_3 = 0 \\implies I_2 = 2 - 2I_3$ 代入 ①：(6−3I3)+(2−2I3)=I3  ⟹  8=6I3  ⟹  I3=43(6-3I_3) + (2-2I_3) = I_3 \\implies 8 = 6I_3 \\implies I_3 = \\frac{4}{3} (6−3I3)+(2−2I3)=I3⟹8=6I3⟹I3=34 A",
+    "after": "重解：由 ② 得 $I_1 = 6 - 3I_3$，由 ③ 得 $I_2 = 2 - 2I_3$。代入 ①：$(6-3I_3) + (2-2I_3) = I_3 \\implies 8 = 6I_3 \\implies I_3 = \\frac{4}{3}\\text{ A}$。",
+    "expected": 1,
+    "reason": "合并三重公式并保留单位"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "⇒UCCVS=2×0=0\\Rightarrow U_{CCVS} = 2 \\times 0 = 0 ⇒UCCVS=2×0=0",
+    "after": "$\\Rightarrow U_{CCVS} = 2 \\times 0 = 0$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "Uoc=36 V\\boxed{U_{oc} = 36 \\text{ V}}Uoc=36 V",
+    "after": "$\\boxed{U_{oc} = 36 \\text{ V}}$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "Rth=4 Ω\\boxed{R_{th} = 4 \\text{ Ω}}Rth=4 Ω",
+    "after": "$\\boxed{R_{th} = 4 \\text{ Ω}}$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- **自己**的电流 i1i_1 i1 产生的磁通：Φ11=L1i1\\Phi_{11} = L_1 i_1 Φ11=L1i1（自感磁通）",
+    "after": "- **本线圈**的电流 $i_1$ 产生的磁通：$\\Phi_{11} = L_1 i_1$（自感磁通）",
+    "expected": 1,
+    "reason": "合并重复公式并保留括号"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- **L₂** 的电流 i2i_2 i2 穿过来的磁通：Φ12=Mi2\\Phi_{12} = M i_2 Φ12=Mi2（互感磁通，M 是互感系数）",
+    "after": "- **L₂** 的电流 $i_2$ 产生的交链磁通：$\\Phi_{12} = M i_2$（互感磁通，$M$ 是互感系数）",
+    "expected": 1,
+    "reason": "合并重复公式并保留括号"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "3. **电感趋于无穷大**：L1,L2,M→∞L_1, L_2, M \\to \\infty L1,L2,M→∞，但匝数比 N1:N2N_1 : N_2 N1:N2 保持有限",
+    "after": "3. **电感趋于无穷大**：$L_1, L_2, M \\to \\infty$，但匝数比 $N_1:N_2$ 保持有限",
+    "expected": 1,
+    "reason": "合并同一行两组三重公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "i(t)=Imcos(ωt+φ)i(t) = I_m \\cos(\\omega t + \\varphi)i(t)=Imcos(ωt+φ)",
+    "after": "$i(t) = I_m \\cos(\\omega t + \\varphi)$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "u1=Umcos(ωt+φ1),u2=Umcos(ωt+φ2)u_1 = U_m \\cos(\\omega t + \\varphi_1), \\quad u_2 = U_m \\cos(\\omega t + \\varphi_2)u1=Umcos(ωt+φ1),u2=Umcos(ωt+φ2)",
+    "after": "$u_1 = U_m \\cos(\\omega t + \\varphi_1), \\quad u_2 = U_m \\cos(\\omega t + \\varphi_2)$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "A=∣A∣ejθA = |A| e^{j\\theta}A=∣A∣ejθ",
+    "after": "$A = |A| e^{j\\theta}$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "由欧拉公式：ejωt=cos(ωt)+jsin(ωt)e^{j\\omega t} = \\cos(\\omega t) + j\\sin(\\omega t) ejωt=cos(ωt)+jsin(ωt)",
+    "after": "由欧拉公式：$e^{j\\omega t} = \\cos(\\omega t) + j\\sin(\\omega t)$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**发现了吗**：一个正弦波 cos(ωt)\\cos(\\omega t) cos(ωt)，可以写成一个旋转的复指数 ejωte^{j\\omega t} ejωt 的**实部**！",
+    "after": "正弦波 $\\cos(\\omega t)$ 可以写成旋转复指数 $e^{j\\omega t}$ 的**实部**。",
+    "expected": 1,
+    "reason": "合并两组三重公式并删除对话式提示"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "对 i(t)=Imcos(ωt+φ)i(t) = I_m \\cos(\\omega t + \\varphi) i(t)=Imcos(ωt+φ)：",
+    "after": "对 $i(t) = I_m \\cos(\\omega t + \\varphi)$：",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "假设 i(t)=Imcos(ωt+φ)i(t) = I_m \\cos(\\omega t + \\varphi) i(t)=Imcos(ωt+φ)，其相量 I˙=Im∠φ\\dot{I} = I_m \\angle \\varphi I˙=Im∠φ。",
+    "after": "假设 $i(t) = I_m \\cos(\\omega t + \\varphi)$，其相量为 $\\dot{I} = I_m \\angle \\varphi$。",
+    "expected": 1,
+    "reason": "合并同一行两组三重公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "假设 i(t)=Imcos(ωt+φ)i(t) = I_m \\cos(\\omega t + \\varphi) i(t)=Imcos(ωt+φ)，则 $u(t) = RI_m \\cos(\\omega t + \\varphi)$",
+    "after": "假设 $i(t) = I_m \\cos(\\omega t + \\varphi)$，则 $u(t) = RI_m \\cos(\\omega t + \\varphi)$。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- **辐角**：∠(jωL)=90°\\angle(j\\omega L) = 90° ∠(jωL)=90°（因为 j=1∠90°j = 1\\angle 90° j=1∠90°）",
+    "after": "- **辐角**：$\\angle(j\\omega L) = 90°$（因为 $j = 1\\angle 90°$）",
+    "expected": 1,
+    "reason": "合并两组三重公式并保留括号"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- **辐角**：∠(1/jωC)=−90°\\angle(1/j\\omega C) = -90° ∠(1/jωC)=−90°",
+    "after": "- **辐角**：$\\angle(1/j\\omega C) = -90°$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 电感：Z=jωLZ = j\\omega L Z=jωL",
+    "after": "- 电感：$Z = j\\omega L$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**电感**：ZL=jωLZ_L = j\\omega L ZL=jωL（纯虚数，正虚部）",
+    "after": "**电感**：$Z_L = j\\omega L$（纯虚数，正虚部）",
+    "expected": 1,
+    "reason": "合并重复公式并保留括号"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "- 电感的电抗 XL=ωLX_L = \\omega L XL=ωL，称为**感抗**",
+    "after": "- 电感的电抗 $X_L = \\omega L$，称为**感抗**",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude电路(粗校).md",
+    "before": "**感抗 XL=ωLX_L = \\omega L XL=ωL 随频率变化**：",
+    "after": "**感抗 $X_L = \\omega L$ 随频率变化**：",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude计算机网络(粗校).md",
+    "before": "U=TD+RTT+TAU = \\frac{T_D}{T_D + RTT + T_A}U=TD+RTT+TATD",
+    "after": "$U = \\frac{T_D}{T_D + RTT + T_A}$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- DNF 像多项式的**展开**形式：xy+xyˉ+xˉyxy + x\\bar y + \\bar xy xy+xyˉ​+xˉy",
+    "after": "- DNF 像多项式的**展开**形式：$xy + x\\bar y + \\bar xy$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "A1,A2,…,An⊨BA_1, A_2, \\ldots, A_n \\models BA1​,A2​,…,An​⊨B",
+    "after": "$A_1, A_2, \\ldots, A_n \\models B$",
+    "expected": 2,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. (A1∧A2∧⋯∧An)→B(A_1 \\land A_2 \\land \\cdots \\land A_n) \\to B (A1​∧A2​∧⋯∧An​)→B 是**重言式**",
+    "after": "2. $(A_1 \\land A_2 \\land \\cdots \\land A_n) \\to B$ 是**重言式**",
+    "expected": 1,
+    "reason": "保留编号和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "3. A1∧A2∧⋯∧An∧¬BA_1 \\land A_2 \\land \\cdots \\land A_n \\land \\neg B A1​∧A2​∧⋯∧An​∧¬B 是**矛盾式**",
+    "after": "3. $A_1 \\land A_2 \\land \\cdots \\land A_n \\land \\neg B$ 是**矛盾式**",
+    "expected": 1,
+    "reason": "保留编号和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**前提**：$P \\to Q$，R→¬QR \\to \\neg Q R→¬Q，R R **结论**：$\\neg P$",
+    "after": "**前提**：$P \\to Q$，$R \\to \\neg Q$，$R$；**结论**：$\\neg P$。",
+    "expected": 1,
+    "reason": "合并重复公式并整理前提"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> ∀x P(x)\\forall x \\, P(x) ∀xP(x)：**对所有的 x，都有 P(x) 成立**。",
+    "after": "> $\\forall x \\, P(x)$：**对所有的 $x$，都有 $P(x)$ 成立**。",
+    "expected": 1,
+    "reason": "保留引用结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- ∀x (x>5)\\forall x \\, (x > 5) ∀x(x>5)：\"所有自然数都大于 5\" —— 假（反例：x = 0）",
+    "after": "- $\\forall x \\, (x > 5)$：“所有自然数都大于 5”——假（反例：$x = 0$）",
+    "expected": 1,
+    "reason": "保留列表结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> ∃x P(x)\\exists x \\, P(x) ∃xP(x)：**存在某个 x，使得 P(x) 成立**。",
+    "after": "> $\\exists x \\, P(x)$：**存在某个 $x$，使得 $P(x)$ 成立**。",
+    "expected": 1,
+    "reason": "保留引用结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- ∃x (x>5)\\exists x \\, (x > 5) ∃x(x>5)：\"存在一个自然数大于 5\" —— 真（例如 x = 6）",
+    "after": "- $\\exists x \\, (x > 5)$：“存在一个自然数大于 5”——真（例如 $x = 6$）",
+    "expected": 1,
+    "reason": "保留列表结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- ∃x (x<0)\\exists x \\, (x < 0) ∃x(x<0)：\"存在一个自然数小于 0\" —— 假",
+    "after": "- $\\exists x \\, (x < 0)$：“存在一个自然数小于 0”——假",
+    "expected": 1,
+    "reason": "保留列表结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "    - ∀x (P(x)→Q(x))\\forall x \\, (P(x) \\to Q(x)) ∀x(P(x)→Q(x))",
+    "after": "    - $\\forall x \\, (P(x) \\to Q(x))$",
+    "expected": 1,
+    "reason": "保留嵌套列表结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**常见错误**：写成 ∀x (P(x)∧Q(x))\\forall x \\, (P(x) \\land Q(x)) ∀x(P(x)∧Q(x)) —— 这意思是\"**所有东西都既是学生又努力**\"，不对！",
+    "after": "**常见错误**：写成 $\\forall x \\, (P(x) \\land Q(x))$——这表示“**所有东西都既是学生又努力**”，并不符合原意。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式和解释"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**常见错误**：写成 ∃x (P(x)→Q(x))\\exists x \\, (P(x) \\to Q(x)) ∃x(P(x)→Q(x)) —— 这个几乎**永远为真**（只要存在一个不是学生的东西，蕴含就空虚为真），没有表达\"存在一个学生\"的意思。",
+    "after": "**常见错误**：写成 $\\exists x \\, (P(x) \\to Q(x))$。这个式子几乎**永远为真**（只要存在一个不是学生的对象，蕴含就空虚为真），没有表达“存在一个学生”的意思。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式和解释"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. ∀x (E(x)→D(x))\\forall x \\, (E(x) \\to D(x)) ∀x(E(x)→D(x))，其中 E 是\"偶数\"，D 是\"能被 2 整除\"",
+    "after": "1. $\\forall x \\, (E(x) \\to D(x))$，其中 $E$ 表示“偶数”，$D$ 表示“能被 2 整除”",
+    "expected": 1,
+    "reason": "保留编号和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "4. ∃x (S(x)∧¬L(x))\\exists x \\, (S(x) \\land \\neg L(x)) ∃x(S(x)∧¬L(x))，S 是\"学生\"，L 是\"喜欢数学\"",
+    "after": "4. $\\exists x \\, (S(x) \\land \\neg L(x))$，其中 $S$ 表示“学生”，$L$ 表示“喜欢数学”",
+    "expected": 1,
+    "reason": "保留编号和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**结果**：∃x (S(x)∧¬P(x))\\exists x \\, (S(x) \\land \\neg P(x)) ∃x(S(x)∧¬P(x)) = \"**存在一个学生没及格**\"。",
+    "after": "**结果**：$\\exists x \\, (S(x) \\land \\neg P(x))$，即“**存在一个学生没及格**”。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式和语义连接"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. ¬∀x (E(x)→D(x))⇔∃x (E(x)∧¬D(x))\\neg \\forall x \\, (E(x) \\to D(x)) \\Leftrightarrow \\exists x \\, (E(x) \\land \\neg D(x)) ¬∀x(E(x)→D(x))⇔∃x(E(x)∧¬D(x))（存在一个偶数不能被 2 整除）",
+    "after": "1. $\\neg \\forall x \\, (E(x) \\to D(x)) \\Leftrightarrow \\exists x \\, (E(x) \\land \\neg D(x))$（存在一个偶数不能被 2 整除）",
+    "expected": 1,
+    "reason": "保留编号、中间 LaTeX 公式和括号"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. ∃x ∀y (P(x)→Q(y))\\exists x \\, \\forall y \\, (P(x) \\to Q(y)) ∃x∀y(P(x)→Q(y))",
+    "after": "2. $\\exists x \\, \\forall y \\, (P(x) \\to Q(y))$",
+    "expected": 1,
+    "reason": "保留编号和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- ∀x (P(x)→Q(x))\\forall x \\, (P(x) \\to Q(x)) ∀x(P(x)→Q(x))",
+    "after": "- $\\forall x \\, (P(x) \\to Q(x))$",
+    "expected": 1,
+    "reason": "保留列表结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- ∀x (Q(x)→R(x))\\forall x \\, (Q(x) \\to R(x)) ∀x(Q(x)→R(x))",
+    "after": "- $\\forall x \\, (Q(x) \\to R(x))$",
+    "expected": 1,
+    "reason": "保留列表结构和中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "> **要证明 A⊆BA \\subseteq B A⊆B，就要证明：任取 x∈Ax \\in A x∈A，推出 x∈Bx \\in B x∈B**。",
+    "after": "> **要证明 $A \\subseteq B$，就要证明：任取 $x \\in A$，推出 $x \\in B$**。",
+    "expected": 1,
+    "reason": "合并同一行三组重复公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "1. 证 A⊆BA \\subseteq B A⊆B：任取 x∈Ax \\in A x∈A，证明 x∈Bx \\in B x∈B",
+    "after": "1. 证 $A \\subseteq B$：任取 $x \\in A$，证明 $x \\in B$",
+    "expected": 1,
+    "reason": "合并同一行三组重复公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "2. 证 B⊆AB \\subseteq A B⊆A：任取 x∈Bx \\in B x∈B，证明 x∈Ax \\in A x∈A",
+    "after": "2. 证 $B \\subseteq A$：任取 $x \\in B$，证明 $x \\in A$",
+    "expected": 1,
+    "reason": "合并同一行三组重复公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "所以 P(A)={∅,{1},{2},{1,2}}P(A) = \\{\\emptyset, \\{1\\}, \\{2\\}, \\{1, 2\\}\\} P(A)={∅,{1},{2},{1,2}}。",
+    "after": "所以 $P(A) = \\{\\emptyset, \\{1\\}, \\{2\\}, \\{1, 2\\}\\}$。",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "∣P(A)∣=(n0)+(n1)+⋯+(n)=2n|P(A)| = \\binom{n}{0} + \\binom{n}{1} + \\cdots + \\binom{n}{n} = 2^n∣P(A)∣=(0n)+(1n)+⋯+(n)=2n",
+    "after": "$|P(A)| = \\binom{n}{0} + \\binom{n}{1} + \\cdots + \\binom{n}{n} = 2^n$",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**练习 1**（基础识别）：设 A={1,2,{3},{4,5},∅}A = \\{1, 2, \\{3\\}, \\{4, 5\\}, \\emptyset\\} A={1,2,{3},{4,5},∅}，判断真假：",
+    "after": "**练习 1**（基础识别）：设 $A = \\{1, 2, \\{3\\}, \\{4, 5\\}, \\emptyset\\}$，判断真假：",
+    "expected": 1,
+    "reason": "保留中间 LaTeX 公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "**提示**：用双向包含法。第一步证 A⊆BA \\subseteq B A⊆B（任取 x∈Ax \\in A x∈A，证 x∈Bx \\in B x∈B），第二步证 B⊆AB \\subseteq A B⊆A（反过来）。",
+    "after": "**提示**：用双向包含法。第一步证 $A \\subseteq B$（任取 $x \\in A$，证 $x \\in B$），第二步证 $B \\subseteq A$（反过来）。",
+    "expected": 1,
+    "reason": "合并同一行多组三重公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (1) 若 A∈BA \\in B A∈B，B∈CB \\in C B∈C，则 A∈CA \\in C A∈C。",
+    "after": "- (1) 若 $A \\in B$，$B \\in C$，则 $A \\in C$。",
+    "expected": 1,
+    "reason": "合并同一行三组重复公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (3) 若 A∈BA \\in B A∈B，B⊆CB \\subseteq C B⊆C，则 A∈CA \\in C A∈C。",
+    "after": "- (3) 若 $A \\in B$，$B \\subseteq C$，则 $A \\in C$。",
+    "expected": 1,
+    "reason": "合并同一行三组重复公式"
+  },
+  {
+    "file": "Claude离散数学(粗校)有些公式重复两到三次.md",
+    "before": "- (4) 若 A⊆BA \\subseteq B A⊆B，B∈CB \\in C B∈C，则 A∈CA \\in C A∈C。",
+    "after": "- (4) 若 $A \\subseteq B$，$B \\in C$，则 $A \\in C$。",
+    "expected": 1,
+    "reason": "合并同一行三组重复公式"
+  }
+]

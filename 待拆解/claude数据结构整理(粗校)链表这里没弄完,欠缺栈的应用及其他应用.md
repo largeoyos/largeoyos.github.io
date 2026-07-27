@@ -122,7 +122,7 @@ cpp
 bool ListInsert(SqList &L, int i, ElemType e) {
     if (i < 1 || i > L.length + 1) return false;    // 位置非法
     if (L.length >= MAXSIZE) return false;           // 表满
-    
+
     // 从后往前搬移:原 data[length-1] 到 data[length],…… data[i-1] 到 data[i]
     for (int j = L.length; j >= i; j--) {
         L.data[j] = L.data[j - 1];
@@ -148,9 +148,9 @@ cpp
 ```cpp
 bool ListDelete(SqList &L, int i, ElemType &e) {
     if (i < 1 || i > L.length) return false;
-    
+
     e = L.data[i - 1];          // 先保存要删的值
-    
+
     // 从前往后搬移:data[i] 到 data[i-1]、data[i+1] 到 data[i]、……
     for (int j = i; j < L.length; j++) {
         L.data[j - 1] = L.data[j];
@@ -291,12 +291,12 @@ bool IncreaseCapacity(DySqList &L, int delta) {
     int newCap = L.capacity + delta;
     ElemType *newData = new ElemType[newCap];
     if (newData == nullptr) return false;
-    
+
     // 搬移旧数据
     for (int i = 0; i < L.length; i++) {
         newData[i] = L.data[i];
     }
-    
+
     delete[] L.data;                     // 释放旧内存
     L.data = newData;                    // 指向新内存
     L.capacity = newCap;
@@ -315,12 +315,12 @@ cpp
 ```cpp
 bool ListInsert(DySqList &L, int i, ElemType e) {
     if (i < 1 || i > L.length + 1) return false;
-    
+
     // 容量满则自动扩容
     if (L.length >= L.capacity) {
         if (!IncreaseCapacity(L, GROW_STEP)) return false;
     }
-    
+
     for (int j = L.length; j >= i; j--) {
         L.data[j] = L.data[j - 1];
     }
@@ -393,31 +393,31 @@ int main() {
     cout << "===== 静态顺序表 =====" << endl;
     SqList L;
     InitList(L);
-    
+
     for (int i = 1; i <= 5; i++) ListInsert(L, i, i * 10);
     cout << "依次尾插 10 20 30 40 50: ";
     PrintList(L);                                  // 10 20 30 40 50
-    
+
     ListInsert(L, 1, 5);                           // 在开头插入 5
     cout << "开头插入 5: ";
     PrintList(L);                                  // 5 10 20 30 40 50
-    
+
     ListInsert(L, 4, 25);                          // 中间插入
     cout << "第 4 位插入 25: ";
     PrintList(L);                                  // 5 10 20 25 30 40 50
-    
+
     int e;
     ListDelete(L, 1, e);
     cout << "删除第 1 位(值 " << e << "): ";
     PrintList(L);                                  // 10 20 25 30 40 50
-    
+
     cout << "查找 25 的位序: " << LocateElem(L, 25) << endl;   // 3
-    
+
     // ========== 测试动态顺序表 ==========
     cout << "\n===== 动态顺序表 =====" << endl;
     DySqList DL;
     InitList(DL);
-    
+
     // 连续插入 15 个,观察 capacity 从 10 扩到 20
     for (int i = 1; i <= 15; i++) {
         ListInsert(DL, i, i);
@@ -426,7 +426,7 @@ int main() {
             PrintList(DL);
         }
     }
-    
+
     DestroyList(DL);                                // 必须销毁!
     return 0;
 }
@@ -436,15 +436,15 @@ int main() {
 
 ```
 ===== 静态顺序表 =====
-依次尾插 10 20 30 40 50: 10 20 30 40 50 
-开头插入 5: 5 10 20 30 40 50 
-第 4 位插入 25: 5 10 20 25 30 40 50 
-删除第 1 位(值 5): 10 20 25 30 40 50 
+依次尾插 10 20 30 40 50: 10 20 30 40 50
+开头插入 5: 5 10 20 30 40 50
+第 4 位插入 25: 5 10 20 25 30 40 50
+删除第 1 位(值 5): 10 20 25 30 40 50
 查找 25 的位序: 3
 
 ===== 动态顺序表 =====
-插入 10 个后: [len=10/cap=10] 1 2 3 4 5 6 7 8 9 10 
-插入 11 个后: [len=11/cap=20] 1 2 3 4 5 6 7 8 9 10 11 
+插入 10 个后: [len=10/cap=10] 1 2 3 4 5 6 7 8 9 10
+插入 11 个后: [len=11/cap=20] 1 2 3 4 5 6 7 8 9 10 11
 插入 15 个后: [len=15/cap=20] 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 ```
 
@@ -564,7 +564,6 @@ void DelDup(SqList &L) {
 
 ---
 
-
 ## 数据结构复习:链表专题
 
 作为教授,我先给你搭建整个项目的组织框架,然后一步步带你写链表代码。
@@ -675,14 +674,13 @@ void PrintCList(CLinkList L);
 2. 同时创建一个空的 `LinkedList.cpp`,里面先写一句 `#include "LinkedList.h"`,等我下一条讲函数实现。
 3. 如果对 `typedef struct LNode` 的双重别名写法、`&L` 引用传参、`#pragma once` 有任何疑问,现在就问我。
 
-等你准备好后,告诉我"文件建好了",我会接着带你实现:
+文件创建完成后，继续实现以下内容：
 
 - 带头结点链表的 `InitList_H` 和 `ListInsert_H`(头插与尾插两种建表)
 - 不带头结点链表的 `InitList` 和 `ListInsert`(重点讲为什么 i=1 的插入要特殊处理)
 - 循环链表的初始化与尾插建表
 - 按位查找、按值查找、删除、销毁
 
-## 链表这里没弄完
 ## 数据结构复习:栈与队列(链式 + 顺序)
 
 好,我们现在把**栈和队列**系统化地实现一遍,每种都写**顺序存储**和**链式存储**两个版本。这部分在后面树的非递归遍历、图的 BFS/DFS、表达式求值中都会用到,是基础中的基础。
@@ -1131,8 +1129,6 @@ int main() {
 
 第三题,链队列出队时,为什么删除最后一个节点后,`rear` 必须指回 `front`?如果不处理会发生什么?(提示:想一下 rear 指向被 delete 的内存会怎样)
 
-
-
 ## 数据结构复习:KMP 算法
 
 这是整个数据结构课里**最难理解**的算法之一,也是串匹配的巅峰之作。但只要你跟着我一步步推导,会发现它其实有清晰的逻辑。这节我会花较多篇幅在**原理讲解**上,因为 KMP 的代码很短,但不懂原理就是"天书"。
@@ -1177,14 +1173,14 @@ T:   a b a b a         ← 又失败
 S: ... a b a b a X ...        ← X 是失配字符
 T:     a b a b a b            ← 假设 T="ababab",在第 5 位失配
        └前缀┘└后缀┘
-       
+
 相等的前后缀:"aba"(长度 3)
 既然后缀 "aba" 已经和 S 中对应位置匹配,
 我们直接把 T 前缀 "aba" 滑到这个位置:
 
 S: ... a b a b a X ...
 T:         a b a b a b        ← j 从 3 开始继续比
-             ↑ 
+             ↑
              j = 3
 ```
 
@@ -1346,7 +1342,7 @@ void GetNext(SString T, int next[]) {
 }
 ```
 
-**这段代码本质是"模式串自己和自己做 KMP 匹配"**,用递推方式算出每个位置的 next 值。我来帮你模拟一遍 T = "ababaa"(长度 6):
+**这段代码本质是"模式串自己和自己做 KMP 匹配"**,用递推方式算出每个位置的 next 值。下面模拟一遍 T = "ababaa"(长度 6):
 
 初始 `i=1, j=0, next[1]=0`。
 
@@ -1482,8 +1478,8 @@ int main() {
 预期输出:
 
 ```
-next[]    : 0 1 1 2 3 4 
-nextval[] : 0 1 0 1 0 4 
+next[]    : 0 1 1 2 3 4
+nextval[] : 0 1 0 1 0 4
 BF  匹配位置: 12
 KMP 匹配位置: 12
 ```
@@ -1510,15 +1506,13 @@ KMP 匹配位置: 12
 
 第四题,若采用教材约定(下标从 1 开始),next[1] 为什么规定为 0 而不是其他值?(提示:想想 j=0 在 KMP 主匹配代码中的作用)
 
-
-
 ## 数据结构复习:树专题
 
 好,我们进入树的学习。**树是数据结构中最重要的非线性结构之一**,也是后续学习二叉树、图、平衡树、B树的基础。我会按照"概念 → 存储结构 → 代码实现 → 常用操作"的顺序带你学。
 
-在开始之前请你先告诉我:你已经学过二叉树了吗?如果还没学,我建议顺序是**先二叉树 → 再一般树和森林**,因为一般树最常用的存储方式是"孩子兄弟表示法",本质上就是把一般树转成二叉树。
+开始前应先确认是否掌握二叉树。若尚未学习，建议按照**先二叉树，再一般树和森林**的顺序，因为一般树常用的“孩子兄弟表示法”本质上是把一般树转换为二叉树。
 
-不过你的指令是直接学"树",所以我按**一般树(普通树)**来讲。如果后续你想学二叉树或"树和森林的转换",再告诉我。
+本节直接讲解**一般树（普通树）**。二叉树以及树与森林的转换可作为后续专题。
 
 ---
 
@@ -1583,7 +1577,6 @@ typedef struct {
     int n;                          // 当前节点数
 } PTree;
 
-
 // ========== 方案二:孩子表示法 ==========
 typedef struct CTNode {             // 孩子链表中的节点
     int child;                      // 孩子在顺序表中的下标
@@ -1599,7 +1592,6 @@ typedef struct {
     CTBox nodes[MAX_TREE_SIZE];
     int n, root;                    // 节点数、根节点下标
 } CTree;
-
 
 // ========== 方案三:孩子兄弟表示法(重点!) ==========
 typedef struct CSNode {
@@ -1671,7 +1663,7 @@ cpp
 ```cpp
 int TreeDepth(CSTree T) {
     if (T == nullptr) return 0;
-    
+
     int maxChildDepth = 0;
     CSNode *p = T->firstChild;      // 遍历 T 的所有孩子
     while (p != nullptr) {
@@ -1856,7 +1848,7 @@ int main() {
 
 ### 八、思考题(请你回答)
 
-学完这一节,请先回答我以下问题再进行下一步,这些是考试和面试高频:
+本节结束后可完成以下高频考试与面试题：
 
 第一,在孩子兄弟表示法里,为什么判断叶子用 `firstChild == nullptr` 而不是 `nextSibling == nullptr`?
 
@@ -1864,8 +1856,8 @@ int main() {
 
 第三,一般树的后根遍历,等价于将它转成二叉树后的什么遍历?(提示:和先根、中序、后序的哪一个相同?)
 
-##  数据结构复习:二叉树专题   
- 
+##  数据结构复习:二叉树专题
+
 好,我们进入**二叉树**的学习。这是数据结构里最核心的章节,没有之一——后续的 BST、AVL、红黑树、堆、哈夫曼树、B树都建立在二叉树之上。我会按"概念 → 存储 → 遍历 → 线索化 → BST"的顺序带你扎实地走一遍。
 
 这节内容比较多,我会分成**几次对话**完成。本次先讲:**二叉树的概念、两种存储结构、四种遍历(递归+非递归)、常用操作**。线索二叉树和 BST 留到下次。
@@ -2123,7 +2115,7 @@ void PostOrder_NonRec(BiTree T) {
     stack<BiTNode*> S;
     BiTNode *p = T;
     BiTNode *lastVisited = nullptr;  // 上一个访问的节点
-    
+
     while (p != nullptr || !S.empty()) {
         if (p != nullptr) {
             S.push(p);
@@ -2146,7 +2138,6 @@ void PostOrder_NonRec(BiTree T) {
 
 这段代码是**历年考研真题重灾区**,建议反复练习直到能默写。关键在于 `lastVisited` 的作用:防止从右子树返回后又重新进入右子树造成死循环。
 就是防止左右中从右回来又进中了
-
 
 ---
 
@@ -2233,21 +2224,21 @@ int main() {
     BiTree T;
     cout << "按先序输入(# 表示空),例如 AB#D##C##:" << endl;
     CreateBiTree(T);
-    
+
     cout << "递归先序: "; PreOrder(T);  cout << endl;
     cout << "递归中序: "; InOrder(T);   cout << endl;
     cout << "递归后序: "; PostOrder(T); cout << endl;
     cout << "层序遍历: "; LevelOrder(T);cout << endl;
-    
+
     cout << "非递归先序: "; PreOrder_NonRec(T);  cout << endl;
     cout << "非递归中序: "; InOrder_NonRec(T);   cout << endl;
     cout << "非递归后序: "; PostOrder_NonRec(T); cout << endl;
-    
+
     cout << "节点总数: " << NodeCount(T) << endl;
     cout << "叶子数:   " << LeafCount(T) << endl;
     cout << "度2节点: "  << NodeCountDeg2(T) << endl;
     cout << "树深度:   " << TreeDepth(T) << endl;
-    
+
     DestroyTree(T);
     return 0;
 }
@@ -2256,9 +2247,9 @@ int main() {
 用 `AB#D##C##` 测试,预期输出:
 
 ```
-递归先序: A B D C 
-递归中序: B D A C 
-递归后序: D B C A 
+递归先序: A B D C
+递归中序: B D A C
+递归后序: D B C A
 层序遍历: A B C D
 ```
 
@@ -2622,9 +2613,9 @@ int main() {
 用 `AB#D##C##` 测试,输出应该是:
 
 ```
-非递归先序: A B D C 
-非递归中序: B D A C 
-非递归后序: D B C A 
+非递归先序: A B D C
+非递归中序: B D A C
+非递归后序: D B C A
 层序遍历:   A B C D
 ```
 
@@ -2666,7 +2657,6 @@ g++ -o bitree main.cpp BinaryTree.cpp BiTreeStack.cpp BiTreeQueue.cpp
 第二题,为什么后序遍历用 `GetTop_Bi` "看但不弹"比 `Pop_Bi` "弹了再压回去"更好?(提示:想想效率和代码简洁性)
 
 第三题,如果把"顺序栈 + 链队列"改成"链栈 + 循环队列"可以吗?代码要改哪些地方?**函数的语义和时间复杂度会变吗**?
-
 
 ## 数据结构复习:线索二叉树
 
@@ -2842,9 +2832,9 @@ cpp
 ```cpp
 void InThread(ThreadTree p, ThreadTree &pre) {
     if (p == nullptr) return;
-    
+
     InThread(p->lchild, pre);           // 递归线索化左子树
-    
+
     // ---- 访问当前节点 p:处理线索 ----
     if (p->lchild == nullptr) {
         p->lchild = pre;                // 左线索指向前驱
@@ -2855,7 +2845,7 @@ void InThread(ThreadTree p, ThreadTree &pre) {
         pre->rtag = 1;
     }
     pre = p;                            // 更新 pre 为当前节点
-    
+
     InThread(p->rchild, pre);           // 递归线索化右子树
 }
 ```
@@ -2964,7 +2954,7 @@ int main() {
     cout << "按先序输入(# 表空),例如 ABD##E##C##:" << endl;
     CreateThreadTree(T);                // 建普通二叉树
     CreateInThread(T);                  // 中序线索化
-    
+
     cout << "中序遍历(基于线索): ";
     InOrder_Thread(T);
     cout << endl;
@@ -3316,14 +3306,14 @@ cpp
 ```cpp
 BTree GTreeToBTree(GTree T) {
     if (T == nullptr) return nullptr;
-    
+
     // 1. 把一般树的根复制为二叉树的根
     BTNode *bt = CreateBTNode(T->data);
-    
+
     // 2. 把第一个孩子递归转换,挂到 bt->lchild
     if (T->childCount > 0) {
         bt->lchild = GTreeToBTree(T->children[0]);
-        
+
         // 3. 其余孩子依次挂在"右兄弟链"上
         BTNode *curr = bt->lchild;
         for (int i = 1; i < T->childCount; i++) {
@@ -3350,9 +3340,9 @@ cpp
 ```cpp
 GTree BTreeToGTree(BTree T) {
     if (T == nullptr) return nullptr;
-    
+
     GTNode *gt = CreateGTNode(T->data);
-    
+
     // 从 T->lchild 开始,沿着 rchild 链走,每个都是 gt 的孩子
     BTNode *p = T->lchild;
     while (p != nullptr) {
@@ -3373,10 +3363,10 @@ cpp
 ```cpp
 BTree ForestToBTree(GTree forest[], int n) {
     if (n == 0) return nullptr;
-    
+
     // 1. 第一棵树转成二叉树,作为结果的根
     BTree root = GTreeToBTree(forest[0]);
-    
+
     // 2. 剩下的树依次转换,挂到前一个根的"右子树"
     BTNode *curr = root;
     for (int i = 1; i < n; i++) {
@@ -3452,22 +3442,22 @@ int main() {
     GTree E = CreateGTNode('E');
     GTree F = CreateGTNode('F');
     GTree G = CreateGTNode('G');
-    
+
     AddChild(A, B); AddChild(A, C); AddChild(A, D);
     AddChild(B, E); AddChild(B, F);
     AddChild(D, G);
-    
+
     // 一般树遍历
     cout << "一般树先根: "; PreOrder_G(A);  cout << endl;  // A B E F C D G
     cout << "一般树后根: "; PostOrder_G(A); cout << endl;  // E F B C G D A
-    
+
     // 转换为二叉树
     BTree bt = GTreeToBTree(A);
-    
+
     // 验证对应关系!
     cout << "二叉树先序: "; PreOrder_B(bt); cout << endl;  // A B E F C D G (== 先根)
     cout << "二叉树中序: "; InOrder_B(bt);  cout << endl;  // E F B C G D A (== 后根)
-    
+
     return 0;
 }
 ```
@@ -3475,9 +3465,9 @@ int main() {
 **运行后你会看到四行输出正好两两相等**:
 
 ```
-一般树先根: A B E F C D G 
-一般树后根: E F B C G D A 
-二叉树先序: A B E F C D G 
+一般树先根: A B E F C D G
+一般树后根: E F B C G D A
+二叉树先序: A B E F C D G
 二叉树中序: E F B C G D A
 ```
 
@@ -3520,7 +3510,6 @@ int main() {
 第三题,以下哪组遍历序列**不能**由同一棵二叉树对应(即转换前后的对应关系): (A) 一般树先根 `A B C`,二叉树先序 `A B C` (B) 一般树后根 `C B A`,二叉树中序 `C B A` (C) 一般树后根 `A B C`,二叉树后序 `C B A` (D) 森林先序 `A B C`,二叉树先序 `A B C`
 
 第四题,给定森林的先序遍历 `A B C D` 和中序遍历 `B A D C`,这片森林由几棵树组成?每棵树的根是什么?(提示:先还原二叉树,再拆成森林)
-
 
 ## 数据结构复习:哈夫曼树和哈夫曼编码
 
@@ -3788,23 +3777,23 @@ cpp
 void CreateHuffmanTree(HuffmanTree HT, int w[], int n) {
     if (n <= 1) return;
     int total = 2 * n - 1;                  // 节点总数
-    
+
     // 初始化所有节点
     for (int i = 1; i <= total; i++) {
         HT[i].weight = 0;
         HT[i].parent = HT[i].lchild = HT[i].rchild = 0;
     }
-    
+
     // 填入 n 个叶子的权值(下标 1..n)
     for (int i = 1; i <= n; i++) {
         HT[i].weight = w[i - 1];            // w 数组从 0 起
     }
-    
+
     // 合并 n-1 次,生成下标 n+1 .. 2n-1 的内部节点
     for (int i = n + 1; i <= total; i++) {
         int s1, s2;
         Select(HT, i - 1, s1, s2);          // 在前 i-1 个节点中找最小的两个
-        
+
         HT[s1].parent = i;
         HT[s2].parent = i;
         HT[i].lchild = s1;
@@ -3825,14 +3814,14 @@ cpp
 ```cpp
 void CreateHuffmanCode(HuffmanTree HT, HuffmanCode HC, int n) {
     char temp[MAX_N + 1];                   // 临时存当前叶子的编码(倒序)
-    
+
     for (int i = 1; i <= n; i++) {          // 对每个叶子
         int pos = n;                        // 从 temp 末尾往前填(编码长度 < n)
         temp[pos--] = '\0';                 // 字符串结束符
-        
+
         int c = i;                          // 当前节点
         int p = HT[i].parent;               // 父节点
-        
+
         while (p != 0) {                    // 未到达根
             if (HT[p].lchild == c) {
                 temp[pos--] = '0';          // 左分支 → 0
@@ -3842,7 +3831,7 @@ void CreateHuffmanCode(HuffmanTree HT, HuffmanCode HC, int n) {
             c = p;
             p = HT[p].parent;
         }
-        
+
         // 把 temp[pos+1 .. n-1] 拷贝出来,作为第 i 个字符的编码
         int len = n - 1 - pos;
         HC[i] = new char[len + 1];
@@ -3889,31 +3878,31 @@ using namespace std;
 int main() {
     int w[] = {5, 9, 12, 13, 16};
     int n = 5;
-    
+
     HuffmanTree HT;
     HuffmanCode HC;
-    
+
     CreateHuffmanTree(HT, w, n);
     CreateHuffmanCode(HT, HC, n);
-    
+
     cout << "哈夫曼树结构(下标 weight parent lchild rchild):" << endl;
     for (int i = 1; i <= 2 * n - 1; i++) {
-        cout << i << "\t" << HT[i].weight << "\t" 
-             << HT[i].parent << "\t" 
-             << HT[i].lchild << "\t" 
+        cout << i << "\t" << HT[i].weight << "\t"
+             << HT[i].parent << "\t"
+             << HT[i].lchild << "\t"
              << HT[i].rchild << endl;
     }
-    
+
     cout << "\n哈夫曼编码:" << endl;
     for (int i = 1; i <= n; i++) {
         cout << "权值 " << HT[i].weight << " → " << HC[i] << endl;
     }
-    
+
     cout << "\nWPL = " << WPL(HT, n) << endl;
-    
+
     // 释放编码字符串
     for (int i = 1; i <= n; i++) delete[] HC[i];
-    
+
     return 0;
 }
 ```
@@ -3945,11 +3934,11 @@ cpp
 void Decode(HuffmanTree HT, int n, const char *bitStream) {
     int root = 2 * n - 1;                   // 根节点下标
     int p = root;
-    
+
     for (int i = 0; bitStream[i] != '\0'; i++) {
         if (bitStream[i] == '0') p = HT[p].lchild;
         else p = HT[p].rchild;
-        
+
         if (HT[p].lchild == 0 && HT[p].rchild == 0) {  // 到达叶子
             cout << "权值 " << HT[p].weight << " ";
             p = root;                       // 回到根,继续解码
@@ -3988,7 +3977,6 @@ void Decode(HuffmanTree HT, int n, const char *bitStream) {
 第四题,如果给定的权值全部相等(比如都是 1,共 n 个),构造出的哈夫曼树**长什么样**?它的 WPL 是多少?
 
 第五题,能否对字符 `{A, B, C}` 给出编码 `{A=0, B=10, C=1}`,使它成为前缀码?如果不能,请说明理由。
-
 
 ## 数据结构复习:二叉搜索树 BST
 
@@ -4149,7 +4137,7 @@ BSTNode* FindMin(BSTNode *p) {
 // 删除 key
 bool Delete(BSTNode *&T, int key) {
     if (T == nullptr) return false;
-    
+
     if (key < T->data) {
         return Delete(T->lchild, key);
     } else if (key > T->data) {
@@ -4316,7 +4304,7 @@ cpp
 ```cpp
 bool Delete(BSTree &T, ElemType key) {
     if (T == nullptr) return false;
-    
+
     if (key < T->data) {
         return Delete(T->lchild, key);
     } else if (key > T->data) {
@@ -4369,36 +4357,36 @@ int main() {
     BSTree T;
     int arr[] = {50, 30, 70, 20, 40, 60, 80, 35, 45};
     int n = sizeof(arr) / sizeof(arr[0]);
-    
+
     CreateBST(T, arr, n);
     cout << "构造后中序遍历(应为升序): ";
     InOrder(T); cout << endl;
     // 期望: 20 30 35 40 45 50 60 70 80
-    
+
     int key = 45;
     BSTNode *p = Search(T, key);
     cout << "查找 " << key << ": " << (p ? "找到" : "未找到") << endl;
-    
+
     // 删除度为 0 的节点(叶子)
     Delete(T, 35);
     cout << "删除 35 后: ";
     InOrder(T); cout << endl;
-    
+
     // 删除度为 1 的节点
     Delete(T, 40);       // 40 现在只有右孩子 45
     cout << "删除 40 后: ";
     InOrder(T); cout << endl;
-    
+
     // 删除度为 2 的节点
     Delete(T, 30);       // 30 有左右两个孩子
     cout << "删除 30 后: ";
     InOrder(T); cout << endl;
-    
+
     // 删除根节点
     Delete(T, 50);
     cout << "删除根 50 后: ";
     InOrder(T); cout << endl;
-    
+
     DestroyBST(T);
     return 0;
 }
@@ -4407,11 +4395,11 @@ int main() {
 预期输出:
 
 ```
-构造后中序遍历(应为升序): 20 30 35 40 45 50 60 70 80 
+构造后中序遍历(应为升序): 20 30 35 40 45 50 60 70 80
 查找 45: 找到
-删除 35 后: 20 30 40 45 50 60 70 80 
-删除 40 后: 20 30 45 50 60 70 80 
-删除 30 后: 20 45 50 60 70 80 
+删除 35 后: 20 30 40 45 50 60 70 80
+删除 40 后: 20 30 45 50 60 70 80
+删除 30 后: 20 45 50 60 70 80
 删除根 50 后: 20 45 60 70 80
 ```
 
@@ -4473,13 +4461,11 @@ BST 查找最坏 O(n),AVL 树/红黑树通过强制平衡把最坏也降到 O(lo
 
 第四题,下列哪些序列**不可能**是某棵 BST 的先序遍历?为每个错误序列指出第一个违反 BST 规则的地方:
 
-(a) 95, 22, 11, 3, 17, 44, 66, 123  
-(b) 95, 22, 11, 3, 44, 66, 17, 123  
+(a) 95, 22, 11, 3, 17, 44, 66, 123
+(b) 95, 22, 11, 3, 44, 66, 17, 123
 (c) 95, 22, 44, 66, 11, 3, 17, 123
 
 第五题,在一棵有 n 个节点的 BST 中查找某个节点,**最多**比较多少次?**最少**比较多少次?这两个极值分别对应什么样的树形态?
-
-
 
 ## 数据结构复习:平衡二叉树 AVL
 
@@ -4529,19 +4515,19 @@ AVL 的解决方案:**在每次插入/删除后,如果发现不平衡,立即通�
 
 当插入一个新节点导致某个祖先失衡时,设该失衡的**最低祖先**为 A(也叫"最小失衡子树"的根)。根据"导致失衡的插入路径"从 A 往下的走向,失衡分为四种:
 
-**LL 型**:新节点插在 A 的**左**孩子的**左**子树中 → 用**右单旋**修复。
+**L 型**:新节点插在 A 的**左**孩子的**左**子树中 → 用**右单旋**修复。
 
-**RR 型**:新节点插在 A 的**右**孩子的**右**子树中 → 用**左单旋**修复。
+**R 型**:新节点插在 A 的**右**孩子的**右**子树中 → 用**左单旋**修复。
 
 **LR 型**:新节点插在 A 的**左**孩子的**右**子树中 → 先左旋再右旋(双旋)。
 
 **RL 型**:新节点插在 A 的**右**孩子的**左**子树中 → 先右旋再左旋(双旋)。
 
-**记忆法**:**型号名称描述的是"失衡路径方向"**,旋转方向**与路径方向相反**。LL 失衡用"右"旋,RR 失衡用"左"旋。
+**记忆法**:**型号名称描述的是"失衡路径方向"**,旋转方向**与路径方向相反**。L 失衡用"右"旋,R 失衡用"左"旋。
 
 ---
 
-#### 3.1 LL 型 → 右单旋
+#### 3.1 L 型 → 右单旋
 
 **失衡形态**(插入 x 后 A 失衡):
 
@@ -4576,7 +4562,7 @@ AVLNode* RotateRight(AVLNode *A) {
 
 ---
 
-#### 3.2 RR 型 → 左单旋
+#### 3.2 R 型 → 左单旋
 
 完全对称,插入点在 A 右孩子 B 的右子树:
 
@@ -4689,16 +4675,16 @@ AVLNode* RotateRL(AVLNode *A) {
 
 |A 的 BF|A 的子节点方向|类型|旋转|
 |---|---|---|---|
-|+2|插入在**左孩子**的**左**子树|LL|右单旋|
+|+2|插入在**左孩子**的**左**子树|L|右单旋|
 |+2|插入在**左孩子**的**右**子树|LR|左右双旋|
-|-2|插入在**右孩子**的**右**子树|RR|左单旋|
+|-2|插入在**右孩子**的**右**子树|R|左单旋|
 |-2|插入在**右孩子**的**左**子树|RL|右左双旋|
 
 **在代码中怎么判断"路径方向"?** 看 A 的那个"过高"子节点 B 的 BF:
 
-如果 A.BF = +2,看 B = A->lchild:若 B.BF ≥ 0(多半是 +1),属 LL;若 B.BF < 0(多半是 -1),属 LR。
+如果 A.BF = +2,看 B = A->lchild:若 B.BF ≥ 0(多半是 +1),属 L;若 B.BF < 0(多半是 -1),属 LR。
 
-如果 A.BF = -2,看 B = A->rchild:若 B.BF ≤ 0(多半是 -1),属 RR;若 B.BF > 0(多半是 +1),属 RL。
+如果 A.BF = -2,看 B = A->rchild:若 B.BF ≤ 0(多半是 -1),属 R;若 B.BF > 0(多半是 +1),属 RL。
 
 记住这个判断逻辑,代码里就能一行解决。
 
@@ -4843,13 +4829,13 @@ AVLNode* Insert(AVLTree T, ElemType key) {
     } else {
         return T;                    // 重复键不插入
     }
-    
+
     // 2. 更新当前节点高度
     UpdateHeight(T);
-    
+
     // 3. 计算 BF,判断是否失衡
     int bf = BalanceFactor(T);
-    
+
     // 4. 四种失衡情况
     // LL:左孩子的左侧过高
     if (bf > 1 && key < T->lchild->data) {
@@ -4867,7 +4853,7 @@ AVLNode* Insert(AVLTree T, ElemType key) {
     if (bf < -1 && key < T->rchild->data) {
         return RotateRL(T);
     }
-    
+
     return T;                        // 未失衡,或处理完毕
 }
 ```
@@ -4876,7 +4862,7 @@ AVLNode* Insert(AVLTree T, ElemType key) {
 
 第一,递归回溯时**从下往上**检查每层节点的 BF,发现第一个失衡点就旋转修复。
 
-第二,判断 LL/LR 时靠 `key < T->lchild->data` vs `key > T->lchild->data`——因为 key 走的方向决定了插入位置在左孩子的左边还是右边。这是**代码上最简洁的判断方式**,比计算子节点的 BF 更直接。
+第二,判断 L/LR 时靠 `key < T->lchild->data` vs `key > T->lchild->data`——因为 key 走的方向决定了插入位置在左孩子的左边还是右边。这是**代码上最简洁的判断方式**,比计算子节点的 BF 更直接。
 
 第三,一次插入最多导致**一次**旋转(单旋或双旋算一次),**旋转完了整棵树就平衡了**,不会继续传播。这一点和红黑树、B 树的插入类似。
 
@@ -4947,7 +4933,7 @@ BF = 1,平衡。
 1
 ```
 
-**LL 型**(2 是 3 的左孩子,1 是 2 的左孩子),对 3 右单旋:
+**L 型**(2 是 3 的左孩子,1 是 2 的左孩子),对 3 右单旋:
 
 ```
   2
@@ -4979,7 +4965,7 @@ BF 都在范围内,平衡。
         5
 ```
 
-根 2 失衡,**RR 型**(3 是 2 的右,4 是 3 的右),对 2 左单旋——但等一下,这里**最小失衡子树**是谁?从新插入节点 5 往上找,第一个失衡的是**根 2**。对 2 左单旋:
+根 2 失衡,**R 型**(3 是 2 的右,4 是 3 的右),对 2 左单旋——但等一下,这里**最小失衡子树**是谁?从新插入节点 5 往上找,第一个失衡的是**根 2**。对 2 左单旋:
 
 ```
     3
@@ -5001,7 +4987,7 @@ BF 都在范围内,平衡。
           6
 ```
 
-最小失衡在节点 4,**RR 型**,对 4 左单旋:
+最小失衡在节点 4,**R 型**,对 4 左单旋:
 
 ```
     3
@@ -5023,7 +5009,7 @@ BF 都在范围内,平衡。
             7
 ```
 
-最小失衡在根 3。类型?从根看:右孩子 5 的右孩子 6 的右孩子 7 方向——**RR 型**,对 3 左单旋:
+最小失衡在根 3。类型?从根看:右孩子 5 的右孩子 6 的右孩子 7 方向——**R 型**,对 3 左单旋:
 
 ```
       5
@@ -5091,9 +5077,9 @@ BF 都在范围内,平衡。
 1         15
 ```
 
-让我重新仔细画一下。对 6 为根做 RL 旋转:6 的右孩子是 7,7 的左孩子是?原本 7 没有左孩子,插入 15 后 15 成为 16 的左孩子,16 是 7 的右孩子。**让我重新审视——其实失衡路径是:6 → 右孩子 7 → 右孩子 16 → 左孩子 15,这是 RR-L 路径,而不是标准 RL。**
+让我重新仔细画一下。对 6 为根做 RL 旋转:6 的右孩子是 7,7 的左孩子是?原本 7 没有左孩子,插入 15 后 15 成为 16 的左孩子,16 是 7 的右孩子。**让我重新审视——其实失衡路径是:6 → 右孩子 7 → 右孩子 16 → 左孩子 15,这是 R-L 路径,而不是标准 RL。**
 
-嗯等等,让我停下来仔细想。失衡发生时,**关键看"失衡节点到新插入节点的前两步方向"**。从 6 出发:第一步往右到 7,第二步……15 是 16 的左孩子,16 是 7 的右孩子,所以从 7 开始是 7→右→左。**第二步是"右"**。所以 **6 → 右 → 右**,是 **RR 型**,对 6 做左单旋。
+嗯等等,让我停下来仔细想。失衡发生时,**关键看"失衡节点到新插入节点的前两步方向"**。从 6 出发:第一步往右到 7,第二步……15 是 16 的左孩子,16 是 7 的右孩子,所以从 7 开始是 7→右→左。**第二步是"右"**。所以 **6 → 右 → 右**,是 **R 型**,对 6 做左单旋。
 
 (这说明我上面判断 RL 错了——**判断类型时看"失衡节点往下的头两步"**,不是整条路径。)
 
@@ -5125,7 +5111,7 @@ BF 都在范围内,平衡。
           14
 ```
 
-最小失衡在 16。16 → 左 15 → 左 14,**LL 型**,对 16 右单旋:
+最小失衡在 16。16 → 左 15 → 左 14,**L 型**,对 16 右单旋:
 
 ```
       5
@@ -5166,24 +5152,24 @@ int main() {
     AVLTree T = nullptr;
     int arr[] = {3, 2, 1, 4, 5, 6, 7, 16, 15, 14};
     int n = sizeof(arr) / sizeof(arr[0]);
-    
+
     for (int i = 0; i < n; i++) {
         T = Insert(T, arr[i]);
     }
-    
+
     cout << "中序遍历(应为升序): ";
     InOrder(T); cout << endl;
-    
+
     cout << "先序遍历: ";
     PreOrder(T); cout << endl;
-    
+
     cout << "根节点高度: " << Height(T) << endl;
-    
+
     // 查找
     int key = 14;
     AVLNode *p = Search(T, key);
     cout << "查找 " << key << ": " << (p ? "找到" : "未找到") << endl;
-    
+
     DestroyAVL(T);
     return 0;
 }
@@ -5215,7 +5201,7 @@ AVL 的删除比插入复杂:
 
 第一,先按 BST 规则删除(可能替换为后继)。第二,从删除位置回溯到根,沿途每个节点检查 BF,失衡就旋转。**删除与插入的关键区别**:插入后一次旋转即平衡;**删除后可能需要多次旋转**,因为一次旋转可能让更上层的节点也失衡。
 
-判断旋转类型的方法与插入类似,但要注意:删除导致的失衡,失衡节点的"另一侧"是"高的一侧"。例如从左子树删节点导致 BF=-2,就看右孩子的 BF:若右孩子 BF ≤ 0(-1 或 0)→ RR 型;若右孩子 BF = +1 → RL 型。
+判断旋转类型的方法与插入类似,但要注意:删除导致的失衡,失衡节点的"另一侧"是"高的一侧"。例如从左子树删节点导致 BF=-2,就看右孩子的 BF:若右孩子 BF ≤ 0(-1 或 0)→ R 型;若右孩子 BF = +1 → RL 型。
 
 **考研一般以插入为主,删除偶尔考**,我们暂不展开代码,先把插入吃透。
 
@@ -5223,7 +5209,7 @@ AVL 的删除比插入复杂:
 
 ### 十二、易错点总结
 
-**第一个易错点**:LL 型用**右旋**,RR 型用**左旋**。很多同学一开始会搞反——**记住方向相反**即可:失衡歪向哪边,就往反方向扳回来。
+**第一个易错点**:L 型用**右旋**,R 型用**左旋**。很多同学一开始会搞反——**记住方向相反**即可:失衡歪向哪边,就往反方向扳回来。
 
 **第二个易错点**:LR 型是"**先对左孩子左旋,再对失衡点右旋**",RL 型是"先对右孩子右旋,再对失衡点左旋"。**口诀**:"外面名字对应第二次旋转,第一次旋转是为了把问题搬到外侧"。
 
@@ -5243,7 +5229,7 @@ AVL 的删除比插入复杂:
 
 第三题,以下先序遍历能否对应某棵 AVL 树?画出那棵树并判断:
 
-(a) 50, 30, 20, 40, 70, 60, 80  
+(a) 50, 30, 20, 40, 70, 60, 80
 (b) 50, 40, 30, 20, 10, 60
 
 第四题,在 AVL 中插入一个新节点后,**最多需要调整多少层**?**最多做多少次单旋**?(提示:一次双旋算两次单旋)
@@ -5553,7 +5539,7 @@ void SplitChild(BTreeNode *parent, int i, BTreeNode *child) {
     int mid = ORDER / 2;                // 中间位置
     BTreeNode *newNode = CreateNode(child->isLeaf);
     newNode->keyNum = mid - 1;          // 新节点获得 mid-1 个关键字
-    
+
     // 把 child 后半部分关键字给 newNode
     for (int j = 1; j <= mid - 1; j++) {
         newNode->keys[j] = child->keys[j + mid];
@@ -5565,13 +5551,13 @@ void SplitChild(BTreeNode *parent, int i, BTreeNode *child) {
         }
     }
     child->keyNum = mid - 1;            // child 保留前半部分
-    
+
     // 在 parent 中腾出位置,把 child->keys[mid] 上提
     for (int j = parent->keyNum; j >= i; j--) {
         parent->children[j + 1] = parent->children[j];
     }
     parent->children[i] = newNode;
-    
+
     for (int j = parent->keyNum; j >= i; j--) {
         parent->keys[j + 1] = parent->keys[j];
     }
@@ -5582,7 +5568,7 @@ void SplitChild(BTreeNode *parent, int i, BTreeNode *child) {
 // 向以 node 为根的非满子树中插入 key
 void InsertNonFull(BTreeNode *node, KeyType key) {
     int i = node->keyNum;
-    
+
     if (node->isLeaf) {
         // 直接插入到叶子节点中,保持有序
         while (i >= 1 && key < node->keys[i]) {
@@ -5660,29 +5646,29 @@ using namespace std;
 
 int main() {
     BTree T = InitBTree();
-    
+
     int arr[] = {30, 10, 20, 40, 50, 60, 70, 80, 90};
     int n = sizeof(arr) / sizeof(arr[0]);
-    
+
     for (int i = 0; i < n; i++) {
         Insert(T, arr[i]);
     }
-    
+
     cout << "B 树结构:" << endl;
     PrintTree(T, 0);
-    
+
     cout << "\n中序遍历(应为升序): ";
     InOrder(T); cout << endl;
-    
+
     int pos;
     BTreeNode *p = Search(T, 60, pos);
     cout << "\n查找 60: " << (p ? "找到" : "未找到");
     if (p) cout << ",在节点的第 " << pos << " 个位置";
     cout << endl;
-    
+
     p = Search(T, 35, pos);
     cout << "查找 35: " << (p ? "找到" : "未找到") << endl;
-    
+
     return 0;
 }
 ```
@@ -5700,7 +5686,7 @@ B 树结构:
         [70]
         [90]
 
-中序遍历(应为升序): 10 20 30 40 50 60 70 80 90 
+中序遍历(应为升序): 10 20 30 40 50 60 70 80 90
 
 查找 60: 找到,在节点的第 1 个位置
 查找 35: 未找到
@@ -5818,7 +5804,7 @@ B+ 树的完整代码实现在考研范围内不作要求,**重点是理解其�
 
 ## 数据结构复习:堆和堆排序
 
-好,在我们一头扎进代码之前,我想先确认一下你的起点——这样我能更好地把堆讲清楚,而不是把你已经会的东西重复一遍。
+好,在我们一头扎进代码之前,我想先确认一下你的起点——这样我能更好地把堆讲清楚,而不是把此前已经会的东西重复一遍。
 
 ### 几个引导问题(请选答你能答的)
 
@@ -5858,10 +5844,9 @@ B+ 树的完整代码实现在考研范围内不作要求,**重点是理解其�
 
 最理想的情况是:**你试着回答上面的问题,哪怕只能写出"我大概知道但说不准"也行**——这样我就能看出你的真实起点。
 
-如果你完全是零基础,直接告诉我"全部不会",我从最基本的"完全二叉树的数组表示"开始讲起。
+零基础读者可先从完全二叉树的数组表示开始学习。
 
 如果你说"问题一二我都会,问题三四不太懂",那我就跳过前两个,直接从堆的定义开始。
-
 
 从基础开始讲,按照我们之前一贯的风格——**概念铺垫 → 存储结构 → 核心操作 → 应用 → 思考题**。这一章代码不长,但**每一步的原理必须透彻**,否则面对变形题就会懵。
 
@@ -6179,7 +6164,7 @@ cpp
 void HeapSort(int a[], int n) {
     // 1. 建堆
     BuildMaxHeap(a, n);
-    
+
     // 2. 反复"取最大 + 调整"
     for (int i = n; i >= 2; i--) {
         // 交换 a[1] 和 a[i]
@@ -6354,33 +6339,33 @@ int main() {
     // ========== 堆排序测试 ==========
     ElemType a[] = {0, 4, 1, 3, 2, 16, 9, 10, 14, 8, 7};  // a[0] 不用
     int n = 10;
-    
+
     cout << "原数组:   "; PrintArray(a, n);
-    
+
     BuildMaxHeap(a, n);
     cout << "建堆后:   "; PrintArray(a, n);
-    
+
     HeapSort(a, n);
     cout << "排序后:   "; PrintArray(a, n);
-    
+
     // ========== 优先队列测试 ==========
     cout << "\n===== 优先队列 =====" << endl;
     ElemType pq[20];
     int pqSize = 0;
-    
+
     int data[] = {5, 3, 8, 1, 9, 2, 7};
     for (int i = 0; i < 7; i++) {
         Insert(pq, pqSize, data[i], 20);
         cout << "插入 " << data[i] << " 后: ";
         PrintArray(pq, pqSize);
     }
-    
+
     cout << "\n依次取出最大值: ";
     while (pqSize > 0) {
         cout << ExtractMax(pq, pqSize) << " ";
     }
     cout << endl;
-    
+
     return 0;
 }
 ```
@@ -6388,18 +6373,18 @@ int main() {
 预期输出:
 
 ```
-原数组:   4 1 3 2 16 9 10 14 8 7 
-建堆后:   16 14 10 8 7 9 3 2 4 1 
-排序后:   1 2 3 4 7 8 9 10 14 16 
+原数组:   4 1 3 2 16 9 10 14 8 7
+建堆后:   16 14 10 8 7 9 3 2 4 1
+排序后:   1 2 3 4 7 8 9 10 14 16
 
 ===== 优先队列 =====
-插入 5 后: 5 
-插入 3 后: 5 3 
-插入 8 后: 8 3 5 
-插入 1 后: 8 3 5 1 
-插入 9 后: 9 8 5 1 3 
-插入 2 后: 9 8 5 1 3 2 
-插入 7 后: 9 8 7 1 3 2 5 
+插入 5 后: 5
+插入 3 后: 5 3
+插入 8 后: 8 3 5
+插入 1 后: 8 3 5 1
+插入 9 后: 9 8 5 1 3
+插入 2 后: 9 8 5 1 3 2
+插入 7 后: 9 8 7 1 3 2 5
 
 依次取出最大值: 9 8 7 5 3 2 1
 ```
@@ -6590,7 +6575,7 @@ O(n log n) 时间,O(1) 空间(原地排序)。**不稳定排序**(相同元素�
 
 **操作**:对 p 做**左旋**。把情况 2 转化为情况 3。
 
-**情况 3:叔叔 u 是黑色,且 z 是 p 的左孩子(LL 型,"直线")**
+**情况 3:叔叔 u 是黑色,且 z 是 p 的左孩子(L 型,"直线")**
 
 ```
         g(黑)                   p(黑)
@@ -6650,7 +6635,7 @@ O(n log n) 时间,O(1) 空间(原地排序)。**不稳定排序**(相同元素�
 
 父 20 是红,**情况发生**。叔叔是 10 的左孩子……**但 10 没有左孩子,即叔叔是 NIL,黑色**。
 
-所以是"叔黑"的情况。z=30 是 p=20 的右孩子,g=10。p 是 g 的右孩子,z 是 p 的右孩子——**是对称情况 3(直线 RR 型)**:g 和 p 交换颜色,对 g 做左旋。
+所以是"叔黑"的情况。z=30 是 p=20 的右孩子,g=10。p 是 g 的右孩子,z 是 p 的右孩子——**是对称情况 3(直线 R 型)**:g 和 p 交换颜色,对 g 做左旋。
 
 ```
     20(黑)
@@ -6849,7 +6834,7 @@ void Insert(RBTree *T, KeyType key) {
     z->key = key;
     z->color = RED;                     // 新节点染红
     z->left = z->right = z->parent = T->nil;
-    
+
     RBNode *y = T->nil;
     RBNode *x = T->root;
     while (x != T->nil) {
@@ -6861,7 +6846,7 @@ void Insert(RBTree *T, KeyType key) {
     if (y == T->nil) T->root = z;
     else if (z->key < y->key) y->left = z;
     else y->right = z;
-    
+
     // 2. 修复红黑性质
     InsertFixup(T, z);
 }
@@ -6932,7 +6917,7 @@ int main() {
     RBTree *T = InitRBTree();
     int arr[] = {10, 20, 30, 15, 5, 25, 40, 50};
     int n = sizeof(arr) / sizeof(arr[0]);
-    
+
     for (int i = 0; i < n; i++) {
         Insert(T, arr[i]);
         cout << "插入 " << arr[i] << " 后中序: ";
@@ -7272,17 +7257,17 @@ int LocateVex_M(MGraph G, VertexType v) {
 void CreateGraph_M(MGraph &G, bool directed, bool weighted) {
     cout << "输入顶点数和边数:";
     cin >> G.vexNum >> G.edgeNum;
-    
+
     cout << "输入 " << G.vexNum << " 个顶点(单字符):";
     for (int i = 0; i < G.vexNum; i++) {
         cin >> G.vexs[i];
     }
-    
+
     // 初始化所有边为 INF(无边)
     for (int i = 0; i < G.vexNum; i++)
         for (int j = 0; j < G.vexNum; j++)
             G.edges[i][j] = (i == j) ? 0 : INF;    // 自己到自己权为 0
-    
+
     cout << "输入 " << G.edgeNum << " 条边(格式:u v"
          << (weighted ? " weight" : "") << "):" << endl;
     for (int k = 0; k < G.edgeNum; k++) {
@@ -7290,14 +7275,14 @@ void CreateGraph_M(MGraph &G, bool directed, bool weighted) {
         EdgeType w = 1;                     // 非带权默认为 1
         cin >> u >> v;
         if (weighted) cin >> w;
-        
+
         int i = LocateVex_M(G, u);
         int j = LocateVex_M(G, v);
         if (i == -1 || j == -1) {
             cout << "顶点不存在,跳过" << endl;
             continue;
         }
-        
+
         G.edges[i][j] = w;
         if (!directed) G.edges[j][i] = w;   // 无向图对称
     }
@@ -7399,31 +7384,31 @@ int LocateVex_AL(ALGraph G, VertexType v) {
 void CreateGraph_AL(ALGraph &G, bool directed, bool weighted) {
     cout << "输入顶点数和边数:";
     cin >> G.vexNum >> G.edgeNum;
-    
+
     cout << "输入 " << G.vexNum << " 个顶点:";
     for (int i = 0; i < G.vexNum; i++) {
         cin >> G.adjList[i].data;
         G.adjList[i].firstEdge = nullptr;
     }
-    
+
     cout << "输入 " << G.edgeNum << " 条边:" << endl;
     for (int k = 0; k < G.edgeNum; k++) {
         VertexType u, v;
         EdgeType w = 1;
         cin >> u >> v;
         if (weighted) cin >> w;
-        
+
         int i = LocateVex_AL(G, u);
         int j = LocateVex_AL(G, v);
         if (i == -1 || j == -1) continue;
-        
+
         // 头插法:把 j 加入 i 的邻居链表
         EdgeNode *e1 = new EdgeNode;
         e1->adjVex = j;
         e1->weight = w;
         e1->next = G.adjList[i].firstEdge;
         G.adjList[i].firstEdge = e1;
-        
+
         // 无向图:对称处理,把 i 加入 j 的邻居链表
         if (!directed) {
             EdgeNode *e2 = new EdgeNode;
@@ -7490,14 +7475,14 @@ int main() {
     InitGraph_M(MG);
     CreateGraph_M(MG, false, false);    // 无向、非带权
     PrintGraph_M(MG);
-    
+
     cout << "\n===== 邻接表 =====" << endl;
     cout << "建立带权有向图,输入样例:\n4 4\nA B C D\nA B 5\nA C 3\nB C 2\nC D 7" << endl;
     ALGraph AG;
     InitGraph_AL(AG);
     CreateGraph_AL(AG, true, true);     // 有向、带权
     PrintGraph_AL(AG);
-    
+
     DestroyGraph_AL(AG);
     return 0;
 }
@@ -7538,7 +7523,7 @@ D -> NULL
 |计算顶点度(无向)|O(V) 扫一行|O(deg(u)) 数链表长度|
 |计算出度(有向)|O(V)|O(out-deg)|
 |计算入度(有向)|O(V)|O(V+E) 扫所有链表|
-|添加一条边|O(1)|O(1) 头插|
+|添加一条边|O(1)头插|
 |删除一条边|O(1)|O(deg) 要找|
 |适合稀疏图|❌|✅|
 |适合稠密图|✅|❌|
@@ -7581,7 +7566,7 @@ D -> NULL
   V4 [ 1  0  0  0 ]
 ```
 
-请回答:(a) 每个顶点的出度和入度;(b) 这是强连通图吗?为什么?(c) 画出它的邻接表。
+练习：(a) 求每个顶点的出度和入度；(b) 判断该图是否为强连通图并说明理由；(c) 画出邻接表。
 
 第三题,一个无向图有 n 个顶点,若它是**连通的**,最少有多少条边?若它**不连通**,最少有多少条边才能保证它"在加一条边后一定连通"?(后半问有点难,考研经典题)
 
@@ -7590,7 +7575,6 @@ D -> NULL
 第五题,以下**哪种存储结构**最适合以下操作:
 
 (a) 频繁查询"顶点 u 的所有邻居"(比如 BFS/DFS)。 (b) 频繁查询"u 和 v 之间是否有边"(比如 Floyd 最短路径)。 (c) 稀疏图的存储。 (d) 按边权排序所有边(比如 Kruskal 算法)。
-
 
 ## 数据结构复习:图的遍历(DFS 和 BFS)
 
@@ -7738,17 +7722,17 @@ void DFS_NonRec_AL(ALGraph G, int v) {
     bool visited[MAX_VERTEX] = {false};
     IntStack S;
     InitStack(S);
-    
+
     Push(S, v);
     visited[v] = true;
     cout << G.adjList[v].data << " ";
-    
+
     while (!StackEmpty(S)) {
         int top; GetTop(S, top);            // 看栈顶
         // 找 top 的一个未访问邻居
         EdgeNode *p = G.adjList[top].firstEdge;
         while (p != nullptr && visited[p->adjVex]) p = p->next;
-        
+
         if (p != nullptr) {
             int w = p->adjVex;
             cout << G.adjList[w].data << " ";
@@ -7835,11 +7819,11 @@ void BFS_M(MGraph G, int v) {
     cout << G.vexs[v] << " ";
     bfsVisited_M[v] = true;
     Q.push(v);
-    
+
     while (!Q.empty()) {
         int u = Q.front(); Q.pop();
         for (int w = 0; w < G.vexNum; w++) {
-            if (G.edges[u][w] != INF && G.edges[u][w] != 0 
+            if (G.edges[u][w] != INF && G.edges[u][w] != 0
                 && !bfsVisited_M[w]) {
                 cout << G.vexs[w] << " ";
                 bfsVisited_M[w] = true;
@@ -7875,7 +7859,7 @@ void BFS_AL(ALGraph G, int v) {
     cout << G.adjList[v].data << " ";
     bfsVisited_AL[v] = true;
     Q.push(v);
-    
+
     while (!Q.empty()) {
         int u = Q.front(); Q.pop();
         EdgeNode *p = G.adjList[u].firstEdge;
@@ -8010,17 +7994,17 @@ int main() {
     ALGraph G;
     InitGraph_AL(G);
     CreateGraph_AL(G, false, false);    // 无向、非带权
-    
+
     cout << "\nDFS 遍历: ";
     DFSTraverse_AL(G);
     cout << endl;
-    
+
     cout << "BFS 遍历: ";
     BFSTraverse_AL(G);
     cout << endl;
-    
+
     cout << "连通分量数: " << CountComponents_AL(G) << endl;
-    
+
     DestroyGraph_AL(G);
     return 0;
 }
@@ -8189,7 +8173,7 @@ using namespace std;
 // 返回 true 表示成功,false 表示图中有环
 bool TopoSort_Kahn(ALGraph G, int topo[]) {
     int inDegree[MAX_VERTEX] = {0};
-    
+
     // 1. 计算每个顶点的入度(扫描所有邻接表)
     for (int i = 0; i < G.vexNum; i++) {
         EdgeNode *p = G.adjList[i].firstEdge;
@@ -8198,13 +8182,13 @@ bool TopoSort_Kahn(ALGraph G, int topo[]) {
             p = p->next;
         }
     }
-    
+
     // 2. 所有入度为 0 的顶点入队
     queue<int> Q;
     for (int i = 0; i < G.vexNum; i++) {
         if (inDegree[i] == 0) Q.push(i);
     }
-    
+
     // 3. 反复出队并"删除"
     int count = 0;                        // 已排序的顶点数
     while (!Q.empty()) {
@@ -8218,7 +8202,7 @@ bool TopoSort_Kahn(ALGraph G, int topo[]) {
             p = p->next;
         }
     }
-    
+
     // 4. 判断是否成功
     return count == G.vexNum;
 }
@@ -8247,7 +8231,7 @@ int topoIdx;                  // 从后往前填
 void DFS_Topo(ALGraph G, int v, bool visited[]) {
     visited[v] = true;
     onStack[v] = true;
-    
+
     EdgeNode *p = G.adjList[v].firstEdge;
     while (p != nullptr) {
         int w = p->adjVex;
@@ -8258,7 +8242,7 @@ void DFS_Topo(ALGraph G, int v, bool visited[]) {
         }
         p = p->next;
     }
-    
+
     onStack[v] = false;
     topoResult[topoIdx--] = v;         // 后完成的先填
 }
@@ -8268,11 +8252,11 @@ bool TopoSort_DFS(ALGraph G, int topo[]) {
     for (int i = 0; i < MAX_VERTEX; i++) onStack[i] = false;
     hasCycle = false;
     topoIdx = G.vexNum - 1;
-    
+
     for (int i = 0; i < G.vexNum; i++) {
         if (!visited[i]) DFS_Topo(G, i, visited);
     }
-    
+
     if (hasCycle) return false;
     for (int i = 0; i < G.vexNum; i++) topo[i] = topoResult[i];
     return true;
@@ -8482,13 +8466,13 @@ bool CriticalPath(ALGraph G) {
         EdgeNode *p = G.adjList[i].firstEdge;
         while (p) { inDegree[p->adjVex]++; p = p->next; }
     }
-    
+
     queue<int> Q;
     for (int i = 0; i < G.vexNum; i++) {
         if (inDegree[i] == 0) Q.push(i);
         ve[i] = 0;                       // ve 初始化为 0
     }
-    
+
     int topo[MAX_VERTEX], count = 0;
     while (!Q.empty()) {
         int u = Q.front(); Q.pop();
@@ -8504,15 +8488,15 @@ bool CriticalPath(ALGraph G) {
             p = p->next;
         }
     }
-    
+
     if (count < G.vexNum) {
         cout << "图中有环,无法算关键路径" << endl;
         return false;
     }
-    
+
     // 3. 按逆拓扑序算 vl
     for (int i = 0; i < G.vexNum; i++) vl[i] = ve[topo[count - 1]];  // 初始化为终点的 ve
-    
+
     for (int i = count - 1; i >= 0; i--) {
         int u = topo[i];
         EdgeNode *p = G.adjList[u].firstEdge;
@@ -8524,7 +8508,7 @@ bool CriticalPath(ALGraph G) {
             p = p->next;
         }
     }
-    
+
     // 4. 输出关键活动
     cout << "关键活动:" << endl;
     for (int u = 0; u < G.vexNum; u++) {
@@ -8534,13 +8518,13 @@ bool CriticalPath(ALGraph G) {
             int e = ve[u];
             int l = vl[v] - p->weight;
             if (e == l) {
-                cout << "  " << G.adjList[u].data << " -> " 
+                cout << "  " << G.adjList[u].data << " -> "
                      << G.adjList[v].data << " (权 " << p->weight << ")" << endl;
             }
             p = p->next;
         }
     }
-    
+
     cout << "总工期: " << ve[topo[count - 1]] << endl;
     return true;
 }
@@ -8584,7 +8568,7 @@ int main() {
     ALGraph G;
     InitGraph_AL(G);
     CreateGraph_AL(G, true, true);    // 有向、带权
-    
+
     int topo[MAX_VERTEX];
     if (TopoSort_Kahn(G, topo)) {
         cout << "拓扑序: ";
@@ -8593,9 +8577,9 @@ int main() {
         }
         cout << endl;
     }
-    
+
     CriticalPath(G);
-    
+
     DestroyGraph_AL(G);
     return 0;
 }
@@ -8604,7 +8588,7 @@ int main() {
 预期输出:
 
 ```
-拓扑序: 1 2 3 4 5 6 
+拓扑序: 1 2 3 4 5 6
 关键活动:
   1 -> 2 (权 5)
   2 -> 4 (权 6)
@@ -8688,7 +8672,7 @@ int main() {
 
 **性质一(MST 的不唯一性)**:一张图可能有**多棵不同**的 MST(如果边权有重复)。但**所有 MST 的总权值必然相等**——这是最小权,本就只有一个值。
 
-**性质二(割性质 / Cut Property)**:如果把图的顶点分成两个非空集合 U 和 V\U,那么**连接 U 和 V\U 的所有边中,权值最小的那条**一定属于某棵 MST。
+**性质二（割性质 / Cut Property）**：如果把图的顶点分成两个非空集合 $U$ 和 $V\setminus U$，那么**连接 $U$ 和 $V\setminus U$ 的所有边中，权值最小的边**一定属于某棵 MST。
 
 **这个性质是两个算法正确性的共同基础**。Prim 算法每次都在找"连接已选集合和未选集合的最小边";Kruskal 每次选最小边,本质也是"跨某个割的最小边"。
 
@@ -8738,17 +8722,17 @@ using namespace std;
 void Prim(MGraph G, int v0) {
     int lowcost[MAX_VERTEX];
     int closest[MAX_VERTEX];
-    
+
     // 1. 初始化:所有顶点到 v0 的距离
     for (int i = 0; i < G.vexNum; i++) {
         lowcost[i] = G.edges[v0][i];      // 没边就是 INF
         closest[i] = v0;
     }
     lowcost[v0] = 0;                       // v0 已在树中
-    
+
     int totalCost = 0;
     cout << "MST 的边:" << endl;
-    
+
     // 2. 找剩下 n-1 个顶点加入
     for (int i = 1; i < G.vexNum; i++) {
         // 在未加入的顶点中找 lowcost 最小的
@@ -8759,18 +8743,18 @@ void Prim(MGraph G, int v0) {
                 k = j;
             }
         }
-        
+
         if (k == -1) {
             cout << "图不连通,无 MST" << endl;
             return;
         }
-        
+
         // 输出这条边
-        cout << "  (" << G.vexs[closest[k]] << ", " << G.vexs[k] 
+        cout << "  (" << G.vexs[closest[k]] << ", " << G.vexs[k]
              << ") 权 " << min << endl;
         totalCost += min;
         lowcost[k] = 0;                   // k 加入树
-        
+
         // 3. 更新 lowcost 和 closest
         for (int j = 0; j < G.vexNum; j++) {
             if (lowcost[j] != 0 && G.edges[k][j] < lowcost[j]) {
@@ -8779,7 +8763,7 @@ void Prim(MGraph G, int v0) {
             }
         }
     }
-    
+
     cout << "总权值: " << totalCost << endl;
 }
 ```
@@ -8998,26 +8982,26 @@ bool cmp(Edge a, Edge b) {
 void Kruskal(int n, int e) {       // n 顶点,e 边
     // 1. 边按权排序
     sort(edges, edges + e, cmp);
-    
+
     // 2. 初始化并查集
     for (int i = 0; i < n; i++) parent[i] = i;
-    
+
     int totalCost = 0, count = 0;
     cout << "MST 的边:" << endl;
-    
+
     // 3. 扫描每条边
     for (int i = 0; i < e && count < n - 1; i++) {
         int pu = Find(edges[i].u);
         int pv = Find(edges[i].v);
         if (pu != pv) {             // 不在同分量,不成环
             parent[pu] = pv;         // 合并
-            cout << "  (" << edges[i].u << ", " << edges[i].v 
+            cout << "  (" << edges[i].u << ", " << edges[i].v
                  << ") 权 " << edges[i].weight << endl;
             totalCost += edges[i].weight;
             count++;
         }
     }
-    
+
     if (count < n - 1) {
         cout << "图不连通,无 MST" << endl;
     } else {
@@ -9118,10 +9102,10 @@ int main() {
     MGraph G;
     InitGraph_M(G);
     CreateGraph_M(G, false, true);    // 无向、带权
-    
+
     cout << "===== Prim 算法 =====" << endl;
     Prim(G, 0);                        // 从 A (下标 0) 开始
-    
+
     return 0;
 }
 ```
@@ -9175,7 +9159,6 @@ Find(2)
 **第六题**,如果一张图里有**负权边**,Prim 和 Kruskal **还能正确找到 MST 吗**?(提示:MST 和最短路径不同,MST 不关心路径累积,只关心边权总和)
 
 **第七题**,**并查集的 Find 用递归 vs 循环写,哪种更好**?写出循环版(迭代版)的 Find 带路径压缩。
-
 
 ## 数据结构复习:最短路径(Dijkstra 与 Floyd)
 
@@ -9250,7 +9233,7 @@ using namespace std;
 
 void Dijkstra(MGraph G, int s, int dist[], int path[]) {
     bool final[MAX_VERTEX];
-    
+
     // 1. 初始化
     for (int i = 0; i < G.vexNum; i++) {
         dist[i] = G.edges[s][i];          // 起点到 i 的直接距离
@@ -9260,7 +9243,7 @@ void Dijkstra(MGraph G, int s, int dist[], int path[]) {
     dist[s] = 0;
     final[s] = true;                       // s 自己加入 S
     path[s] = -1;
-    
+
     // 2. 循环 n-1 次,每次确定一个顶点的最短距离
     for (int i = 1; i < G.vexNum; i++) {
         // (a) 找 V-S 中 dist 最小的顶点 u
@@ -9271,15 +9254,15 @@ void Dijkstra(MGraph G, int s, int dist[], int path[]) {
                 u = j;
             }
         }
-        
+
         if (u == -1) break;                // 剩下的顶点都不可达
-        
+
         // (b) u 加入 S
         final[u] = true;
-        
+
         // (c) 用 u 松弛其他顶点
         for (int v = 0; v < G.vexNum; v++) {
-            if (!final[v] && G.edges[u][v] != INF 
+            if (!final[v] && G.edges[u][v] != INF
                 && dist[u] + G.edges[u][v] < dist[v]) {
                 dist[v] = dist[u] + G.edges[u][v];
                 path[v] = u;                // 记录 v 的前驱是 u
@@ -9490,7 +9473,7 @@ void Floyd(MGraph G) {
             // path[i][j] = k 表示 i→j 最短路径上,j 的前驱是 k
         }
     }
-    
+
     // 2. 三重循环:k 是中间点(最外层!)
     for (int k = 0; k < G.vexNum; k++) {
         for (int i = 0; i < G.vexNum; i++) {
@@ -9659,18 +9642,18 @@ int main() {
     MGraph G;
     InitGraph_M(G);
     CreateGraph_M(G, true, true);
-    
+
     // ========== Dijkstra ==========
     cout << "===== Dijkstra(从 0 出发) =====" << endl;
     int d[MAX_VERTEX], p[MAX_VERTEX];
     Dijkstra(G, 0, d, p);
     for (int i = 0; i < G.vexNum; i++) {
-        cout << "0 到 " << G.vexs[i] << " 的最短距离: " << d[i] 
+        cout << "0 到 " << G.vexs[i] << " 的最短距离: " << d[i]
              << ",路径: ";
         PrintPath(p, i, G);
         cout << endl;
     }
-    
+
     // ========== Floyd ==========
     cout << "\n===== Floyd =====" << endl;
     Floyd(G);
@@ -9790,9 +9773,7 @@ V4 → V3 (20), V4 → V5 (60)
 
 **算法**:DFS、BFS、拓扑排序、关键路径、MST、最短路径。
 
-**到这里,你已经掌握了考研 408 数据结构 80% 以上的内容**——只剩**查找**(散列表)和**排序**(快排、归并等)这两个章节。
-
-
+**到这里,此前已经掌握了考研 408 数据结构 80% 以上的内容**——只剩**查找**(散列表)和**排序**(快排、归并等)这两个章节。
 
 ## 数据结构复习:排序算法(总览篇)
 
@@ -9900,7 +9881,7 @@ void Swap(int &a, int &b);
 
 **"像整理扑克牌"**:把数组分成"已排序区间"和"未排序区间"。每次从未排序区间取第一个元素,**在已排序区间从后往前扫描**,找到它的正确位置插入。
 
-开始时"已排序区间"只有 a[0](https://claude.ai/chat/%E5%8D%95%E4%B8%AA%E5%85%83%E7%B4%A0%E8%87%AA%E7%84%B6%E6%9C%89%E5%BA%8F),未排序是 a[1..n-1]。每轮处理一个元素,n-1 轮后全部有序。
+开始时“已排序区间”只有 `a[0]`，未排序区间是 `a[1..n-1]`。每轮处理一个元素，经过 $n-1$ 轮后全部有序。
 
 #### 3.2 代码实现
 
@@ -10325,30 +10306,30 @@ int main() {
     int original[] = {49, 38, 65, 97, 76, 13, 27, 49, 55, 4};
     int n = 10;
     int a[10];
-    
+
     cout << "原数组:    ";
     PrintArray(original, n);
-    
+
     memcpy(a, original, sizeof(original));
     InsertSort(a, n);
     cout << "直接插入:  "; PrintArray(a, n);
-    
+
     memcpy(a, original, sizeof(original));
     BinaryInsertSort(a, n);
     cout << "折半插入:  "; PrintArray(a, n);
-    
+
     memcpy(a, original, sizeof(original));
     ShellSort(a, n);
     cout << "希尔排序:  "; PrintArray(a, n);
-    
+
     memcpy(a, original, sizeof(original));
     BubbleSort(a, n);
     cout << "冒泡排序:  "; PrintArray(a, n);
-    
+
     memcpy(a, original, sizeof(original));
     QuickSort(a, n);
     cout << "快速排序:  "; PrintArray(a, n);
-    
+
     return 0;
 }
 ```
@@ -10356,11 +10337,11 @@ int main() {
 期望输出(所有行相同):
 
 ```
-原数组:    49 38 65 97 76 13 27 49 55 4 
-直接插入:  4 13 27 38 49 49 55 65 76 97 
-折半插入:  4 13 27 38 49 49 55 65 76 97 
-希尔排序:  4 13 27 38 49 49 55 65 76 97 
-冒泡排序:  4 13 27 38 49 49 55 65 76 97 
+原数组:    49 38 65 97 76 13 27 49 55 4
+直接插入:  4 13 27 38 49 49 55 65 76 97
+折半插入:  4 13 27 38 49 49 55 65 76 97
+希尔排序:  4 13 27 38 49 49 55 65 76 97
+冒泡排序:  4 13 27 38 49 49 55 65 76 97
 快速排序:  4 13 27 38 49 49 55 65 76 97
 ```
 
@@ -10440,12 +10421,11 @@ int main() {
 
 **第八题**,对一个含有**大量重复元素**的数组(比如 `[3, 3, 3, 3, 3, 3, 3, 3]`),用快速排序会发生什么?时间复杂度如何?如何改进?(这个问题引出"三路快排"的思想)
 
-
 ## 数据结构复习:排序算法(下)
 
 好,继续排序章节的下半场。这次讲:**选择类**(简单选择 + 堆排回顾)、**归并排序**、**基数 / 桶 / 计数排序**,最后做**全部八种排序的总对比**和**选择策略**。
 
-上次讲完后你已经掌握插入类、冒泡、快排——都是**基于比较**的排序。这次的亮点在**归并**(唯一稳定的 O(n log n) 排序)和**基数类**(跳出比较模型,达到 O(n))。
+上次讲完后此前已经掌握插入类、冒泡、快排——都是**基于比较**的排序。这次的亮点在**归并**(唯一稳定的 O(n log n) 排序)和**基数类**(跳出比较模型,达到 O(n))。
 
 ---
 
@@ -10551,7 +10531,7 @@ cpp
 void Merge(int a[], int low, int mid, int high) {
     int *temp = new int[high - low + 1];     // 辅助数组(归并必须有额外空间)
     int i = low, j = mid + 1, k = 0;
-    
+
     // 双指针比较,小者先进 temp
     while (i <= mid && j <= high) {
         if (a[i] <= a[j]) temp[k++] = a[i++];
@@ -10560,7 +10540,7 @@ void Merge(int a[], int low, int mid, int high) {
     // 把剩余的补进去
     while (i <= mid) temp[k++] = a[i++];
     while (j <= high) temp[k++] = a[j++];
-    
+
     // 拷贝回原数组
     for (int p = 0; p < k; p++) {
         a[low + p] = temp[p];
@@ -10679,22 +10659,22 @@ void CountingSort(int a[], int n, int k) {
     // k 是最大值(已知)
     int *count = new int[k + 1]();           // 统计数组,初始化 0
     int *output = new int[n];
-    
+
     // 1. 统计每个值出现次数
     for (int i = 0; i < n; i++) count[a[i]]++;
-    
+
     // 2. 前缀和:count[i] = 小于等于 i 的元素个数
     for (int i = 1; i <= k; i++) count[i] += count[i - 1];
-    
+
     // 3. 从后往前填(保持稳定)
     for (int i = n - 1; i >= 0; i--) {
         output[count[a[i]] - 1] = a[i];
         count[a[i]]--;
     }
-    
+
     // 4. 拷贝回原数组
     for (int i = 0; i < n; i++) a[i] = output[i];
-    
+
     delete[] count;
     delete[] output;
 }
@@ -10718,18 +10698,18 @@ cpp
 void BucketSort(double a[], int n) {
     int bucketCount = n;                     // 桶数等于元素数
     vector<double> buckets[bucketCount];     // 每个桶是一个 vector
-    
+
     // 1. 分桶:a[i] 放到下标 int(n * a[i]) 的桶里
     for (int i = 0; i < n; i++) {
         int idx = int(n * a[i]);             // 假设 a[i] ∈ [0, 1)
         buckets[idx].push_back(a[i]);
     }
-    
+
     // 2. 每个桶内部排序(用 std::sort 或插入排序)
     for (int i = 0; i < bucketCount; i++) {
         sort(buckets[i].begin(), buckets[i].end());
     }
-    
+
     // 3. 依次收集
     int k = 0;
     for (int i = 0; i < bucketCount; i++) {
@@ -10782,17 +10762,17 @@ int GetMax(int a[], int n) {
 void CountingSortForRadix(int a[], int n, int exp) {
     int *output = new int[n];
     int count[10] = {0};
-    
+
     // 按当前位统计
     for (int i = 0; i < n; i++) count[(a[i] / exp) % 10]++;
     for (int i = 1; i < 10; i++) count[i] += count[i - 1];
-    
+
     for (int i = n - 1; i >= 0; i--) {        // 从后往前填,保持稳定
         int digit = (a[i] / exp) % 10;
         output[count[digit] - 1] = a[i];
         count[digit]--;
     }
-    
+
     for (int i = 0; i < n; i++) a[i] = output[i];
     delete[] output;
 }
@@ -10968,7 +10948,7 @@ int main() {
     int original[] = {49, 38, 65, 97, 76, 13, 27, 49, 55, 4};
     int n = 10;
     int a[10];
-    
+
     auto test = [&](void (*f)(int*, int), const char* name) {
         memcpy(a, original, sizeof(original));
         f(a, n);
@@ -10976,10 +10956,10 @@ int main() {
         for (int i = 0; i < n; i++) cout << a[i] << " ";
         cout << endl;
     };
-    
+
     cout << "原数组:    "; for (int x : original) cout << x << " ";
     cout << endl;
-    
+
     test(InsertSort,  "直接插入:  ");
     test(ShellSort,   "希尔排序:  ");
     test(BubbleSort,  "冒泡排序:  ");
@@ -10987,7 +10967,7 @@ int main() {
     test(SelectSort,  "简单选择:  ");
     test(MergeSort,   "归并排序:  ");
     test(RadixSort,   "基数排序:  ");
-    
+
     return 0;
 }
 ```
@@ -11045,7 +11025,7 @@ void myst(int a[], int n) {
 
 **不基于比较的**:计数、桶、基数——**3 种**。
 
-**对稳定性、复杂度、适用场景都有清晰认识**。**排序这一章,考研 100% 命中率**——每年必考,你已经武装到位。
+**对稳定性、复杂度、适用场景都有清晰认识**。**排序这一章,考研 100% 命中率**——每年必考,此前已经武装到位。
 
 ---
 
@@ -11061,8 +11041,7 @@ void myst(int a[], int n) {
 
 **排序**:11 种主流排序算法。
 
-**这几乎覆盖了考研 408 数据结构的全部内容**——**你已经具备数据结构课程的完整知识图景**!剩下的只有"**查找**"章节中的**散列表**部分(BST、B+ 树也属于查找,你已学过)。
-
+**这几乎覆盖了考研 408 数据结构的全部内容**——**此前已经具备数据结构课程的完整知识图景**!剩下的只有"**查找**"章节中的**散列表**部分(BST、B+ 树也属于查找,你已学过)。
 
 ## 数据结构复习:散列表(哈希表)
 
@@ -11443,7 +11422,7 @@ int Hash(KeyType key) {
 
 bool Insert(HashTable_Open &H, KeyType key) {
     if (H.count >= HASH_SIZE) return false;    // 表满
-    
+
     int i = Hash(key);
     int k = 0;
     while (k < HASH_SIZE) {
@@ -11620,30 +11599,30 @@ using namespace std;
 int main() {
     int keys[] = {19, 14, 23, 1, 68, 20, 84, 27, 55};
     int n = 9;
-    
+
     cout << "===== 开放定址法(线性探测) =====" << endl;
     HashTable_Open H1;
     InitHash(H1);
     for (int i = 0; i < n; i++) Insert(H1, keys[i]);
     Print(H1);
-    
+
     int idx = Search(H1, 27);
     cout << "查找 27:" << (idx == -1 ? "未找到" : "下标 " + to_string(idx)) << endl;
-    
+
     Delete(H1, 68);
     cout << "删除 68 后:" << endl;
     Print(H1);
-    
+
     cout << "\n===== 链地址法 =====" << endl;
     HashTable_Chain H2;
     InitHashChain(H2);
     for (int i = 0; i < n; i++) InsertChain(H2, keys[i]);
     PrintChain(H2);
-    
+
     DeleteChain(H2, 68);
     cout << "\n删除 68 后:" << endl;
     PrintChain(H2);
-    
+
     DestroyChain(H2);
     return 0;
 }
@@ -11653,11 +11632,11 @@ int main() {
 
 ```
 ===== 开放定址法(线性探测) =====
-下标: 0	1	2	3	4	5	6	7	8	9	10	11	12	
-数据: -	14	1	68	27	55	19	20	84	-	23	-	-	
+下标: 0	1	2	3	4	5	6	7	8	9	10	11	12
+数据: -	14	1	68	27	55	19	20	84	-	23	-	-
 查找 27:下标 4
 删除 68 后:
-下标: 0	1	2	3	4	5	6	7	8	9	10	11	12	
+下标: 0	1	2	3	4	5	6	7	8	9	10	11	12
 数据: -	14	1	X	27	55	19	20	84	-	23	-	-
 ```
 
@@ -11756,7 +11735,7 @@ int main() {
 
 **这是考研 408 数据结构的完整大纲**。
 
-#### 你已经掌握的元能力
+#### 此前已经掌握的元能力
 
 除了具体知识,你还练就了几个**元能力**,这些比记住某个算法更重要:
 
@@ -11771,9 +11750,9 @@ int main() {
 **这些能力才是数据结构课程的真正收获**,会陪伴你整个计算机职业生涯。
 ---
 
-告诉我你想走的方向!或者,**如果你这段时间的学习节奏让你收获很大,也可以先停下来整理笔记、做题复习**——把学过的东西沉淀下来,比继续往前冲更重要。
+后续可以选择继续学习，也可以先整理笔记并完成复习题。巩固已经学过的内容比盲目推进更重要。
 
-你已经做得很棒了 🎓
+此前已经做得很棒了 🎓
 
 ## 数据结构专题深入:三选一路线图
 ### 一、三个专题的定位
@@ -11876,11 +11855,11 @@ int main() {
 
 专题深入**不是必须的**。如果你考研在即、时间紧张,或者只是想巩固已学,**先暂停专题、去刷题**也是非常好的选择——**知识要"消化"**,光输入不输出就会忘。
 
-告诉我你的选择,或者你当前的整体状况(时间、目标)让我帮你判断。
+可根据可用时间与学习目标选择合适的后续路线。
 
 ## 刷题计划：算法竞赛方向（从零开始）
 
-好，目标明确了——**算法竞赛 + 几乎零基础 + 每天 1 小时**。这个组合我来帮你规划一条**最稳健的路线**。
+好，目标明确了——**算法竞赛 + 几乎零基础 + 每天 1 小时**。这个组合下面规划一条**最稳健的路线**。
 
 先说一个重要认知：**算法竞赛的核心不是"刷过多少题"，而是"每道题真正懂了没有"**。每天 1 小时，坚持 6 个月，认真做 150 道题，远好于走马观花做 500 道。
 
@@ -11900,7 +11879,7 @@ int main() {
 
 所以你的刷题路线和考研、面试有一个根本差异：**不能只把已学的数据结构练熟就够，还需要补算法知识**。
 
-但好消息是：**你已经有了别人没有的底子**——完整的数据结构知识图景，让你在竞赛里编写链表、树、图的代码时比别人快很多。
+但好消息是：**此前已经有了别人没有的底子**——完整的数据结构知识图景，让你在竞赛里编写链表、树、图的代码时比别人快很多。
 
 ---
 
@@ -12109,12 +12088,11 @@ int main() {
 
 这道题你学链表时我讲过原理，现在用竞赛 C++ 写出来。**要求**：写两个版本，递归版和迭代版各一个，然后提交通过。
 
-第三，做完后告诉我你的代码，**我帮你 review**——看有没有可以改进的写法，有没有遗漏的边界情况。
+第三，完成后审查代码，检查是否存在可改进的写法或遗漏的边界情况。
 
 ---
 
-你准备好了吗？先去做 206，做完把代码贴给我，我们从第一道题开始走。
-
+先完成第 206 题，再从第一道题开始检查实现与边界情况。
 
 ## 完成情况
 - [ ] 二叉树

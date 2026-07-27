@@ -63,7 +63,29 @@ function appendTerm(nodes: MathNode[], coefficient: bigint, term: DisplayTerm, f
   if (term.imaginary) nodes.push(...glyphs('i'));
 }
 
-export function exactValueToFormulaDocument(value: ExactValue): FormulaDocument {
+export function exactValueToFormulaDocument(
+  value: ExactValue,
+  fractionMode: 'mixed' | 'improper' = 'improper',
+): FormulaDocument {
+  if (
+    fractionMode === 'mixed'
+    && value.kind === 'exact-real'
+    && value.radical.numerator === 0n
+    && value.rational.denominator > 1n
+    && abs(value.rational.numerator) > value.rational.denominator
+  ) {
+    const whole = value.rational.numerator / value.rational.denominator;
+    const remainder = abs(value.rational.numerator % value.rational.denominator);
+    if (whole !== 0n && remainder !== 0n) {
+      const root = createSequence([{
+        type: 'mixed-fraction',
+        whole: numberSequence(whole),
+        numerator: numberSequence(remainder),
+        denominator: numberSequence(value.rational.denominator),
+      }], false);
+      return { root, cursor: { sequenceId: root.id, offset: root.children.length } };
+    }
+  }
   const terms = valueTerms(value);
   if (!terms.length) {
     const root = createSequence(glyphs('0'), false);

@@ -21,7 +21,7 @@ test('mode 8 quadratic results use structured exact radicals and S-D toggles onl
   }
   assert.equal(state.screen.kind, 'solutions');
   const exactView = runtimeScreenView(state);
-  assert.equal(exactView?.formulaLines?.length, 2);
+  assert.equal(exactView?.formulaLines?.length, 3);
   assert.ok(exactView?.formulaLines?.[0].document);
   assert.ok(exactView?.formulaLines?.[1].document);
 

@@ -136,7 +136,22 @@ function rasterizeCjkGlyph(char: string): BitmapGlyph {
   return result;
 }
 
+const GLYPH_ALIASES: Record<string, string> = {
+  'ₘ': 'M',
+  'µ': 'U',
+  'ₙ': 'N',
+  'ₚ': 'P',
+  'բ': 'F',
+  'ᴋ': 'K',
+  'ℳ': 'M',
+  'ɢ': 'G',
+  'ᴛ': 'T',
+  'ᴘ': 'P',
+  'ᴇ': 'E',
+};
+
 export function getBitmapGlyph(char: string): BitmapGlyph {
+  if (GLYPH_ALIASES[char]) return FONT_5X7[GLYPH_ALIASES[char]];
   if (CHINESE_8X8[char]) return CHINESE_8X8[char];
   if (/\p{Script=Han}/u.test(char)) return rasterizeCjkGlyph(char);
   const key = char.length === 1 ? char.toUpperCase() : '?';

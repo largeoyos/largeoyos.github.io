@@ -494,7 +494,7 @@ $\dfrac{P(a)}{\therefore \exists x \, P(x)}$
 
 **练习 6**（电子信息工程联系思考）：
 
-在数字信号处理中，一个序列 {xn}\{x_n\} {xn} 收敛到 L 的定义是：
+在数字信号处理中，序列 $\{x_n\}$ 收敛到 $L$ 的定义是：
 
 $$∀ε>0 ∃N∈N ∀n>N (∣xn−L∣<ε)\forall \varepsilon > 0 \, \exists N \in \mathbb{N} \, \forall n > N \, (|x_n - L| < \varepsilon)∀ε>0∃N∈N∀n>N(∣xn​−L∣<ε)$$
 

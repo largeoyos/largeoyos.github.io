@@ -49,7 +49,7 @@ function cleanMathKey(value) {
     .replace(/\\(?:lor|vee)/g, '∨')
     .replace(/\\(?:land|wedge)/g, '∧')
     .replace(/\\neg/g, '¬')
-    .replace(/[{}\s]/g, '')
+    .replace(/[{}_^\s]/g, '')
     .replace(/[−–—]/g, '-')
     .replace(/⋅|·|×/g, '*')
     .toLowerCase();

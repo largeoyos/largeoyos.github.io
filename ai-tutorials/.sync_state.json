@@ -1,11 +1,11 @@
 {
   "Claude编译原理(粗校).md": {
-    "mtime": 1785056094684.214,
+    "mtime": 1785132057797.3103,
     "mode": "manual-major-chapters",
     "chapters": 5
   },
   "Claude计算机网络(粗校).md": {
-    "mtime": 1785057858262.3127,
+    "mtime": 1785132057798.3103,
     "mode": "manual-major-chapters",
     "chapters": 5
   },
@@ -175,12 +175,12 @@
     "chapters": 6
   },
   "数字电路(粗校).md": {
-    "mtime": 1785053271827.9438,
+    "mtime": 1785132057796.3103,
     "mode": "manual-major-chapters",
     "chapters": 4
   },
   "数论(粗校).md": {
-    "mtime": 1785053491894.1216,
+    "mtime": 1785132300778.6035,
     "mode": "manual-major-chapters",
     "chapters": 6
   },
@@ -225,7 +225,7 @@
     "chapters": 4
   },
   "深度学习视觉(粗校).md": {
-    "mtime": 1785053491890.121,
+    "mtime": 1785132057796.3103,
     "mode": "manual-major-chapters",
     "chapters": 4
   },
@@ -245,22 +245,22 @@
     "chapters": 2
   },
   "claude数据结构整理(粗校)链表这里没弄完,欠缺栈的应用及其他应用.md": {
-    "mtime": 1785058151506.6982,
+    "mtime": 1785132057801.6665,
     "mode": "manual-major-chapters",
     "chapters": 7
   },
   "Claude模拟电路(粗校).md": {
-    "mtime": 1785056608946.2722,
+    "mtime": 1785132057800.6562,
     "mode": "manual-major-chapters",
     "chapters": 6
   },
   "Claude电路(粗校).md": {
-    "mtime": 1785058151479.5603,
+    "mtime": 1785132213579.0032,
     "mode": "manual-major-chapters",
     "chapters": 11
   },
   "Claude离散数学(粗校)有些公式重复两到三次.md": {
-    "mtime": 1785058151494.984,
+    "mtime": 1785132057799.817,
     "mode": "manual-major-chapters",
     "chapters": 8
   }

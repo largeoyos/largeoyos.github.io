@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
+    <!-- Render LaTeX formulas with KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+
     <style>
         .meta-info {
             text-align: center;
@@ -31,6 +36,11 @@
             max-width: 100%;
             height: auto;
             margin: 1.5rem auto;
+        }
+        .markdown-body .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.25rem 0;
         }
     </style>
 </head>
@@ -99,7 +109,19 @@
             if (!mdRes.ok) throw new Error("对应的 Markdown 源文件丢失。");
             const mdText = await mdRes.text();
 
-            document.getElementById('content').innerHTML = marked.parse(mdText);
+            const contentElement = document.getElementById('content');
+            contentElement.innerHTML = marked.parse(mdText);
+
+            renderMathInElement(contentElement, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false }
+                ],
+                throwOnError: false,
+                strict: 'warn'
+            });
 
             // 添加标题折叠功能
             document.querySelectorAll('#content h1, #content h2, #content h3, #content h4, #content h5, #content h6').forEach(heading => {

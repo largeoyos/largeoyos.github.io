@@ -387,7 +387,7 @@ UDP/TCP 检验和计算时,需要构造一个**临时的伪首部**:
 $RTT_s = (1-\alpha) \cdot RTT_s + \alpha \cdot RTT_{new}$  
 $RTO = RTT_s + 4 \cdot RTT_D$
 
-其中 RTTsRTT_s RTTs​ 是加权平均 RTT,RTTDRTT_D RTTD​ 是 RTT 偏差。
+其中 $RTT_s$ 是平滑后的 RTT，$RTT_D$ 是 RTT 偏差的平滑估计。
 
 **Karn 算法**:**重传的报文段不计入 RTT 采样**(否则会导致 RTO 估计混乱)。
 

@@ -2890,7 +2890,7 @@ OLED_DrawText(&oled2, 0, 0, "Screen 2");
 
 1. **I2C 扫描器**：跑起来，找到你连的设备
 2. **EEPROM 读写**（如果有 AT24C02）：写入并读出数据，断电测试
-3. **OLED 显示 "Hello"**（如果有 OLED）：这需要一个 SSD1306 驱动库——你可以直接从 GitHub 找一个现成的，核心是理解**如何调用 HAL_I2C_Mem_Write 把数据送到屏幕控制器**
+3. **OLED 显示“Hello”**：可使用 SSD1306 驱动库，重点理解如何调用 `HAL_I2C_Mem_Write` 发送数据。
 
 #### 设计练习（这是重点）
 
@@ -3700,7 +3700,7 @@ int main(void) {
 
 **① 代码是可读的**：每个 `case` 分支对应一个明确的状态，你一眼能看出"在 XXX 状态下，遇到 YYY 事件会怎样"。
 
-**② 易于扩展**：想加"三连击"？加一个状态 `KEY_STATE_WAIT_3RD`，在 `WAIT_2ND` 里监测到第二击后不立刻触发 DOUBLE_CLICK，而是进入 `WAIT_3RD` 等第三击。完全不用改已有的逻辑。
+**② 易于扩展**：若要增加“三连击”，可新增 `KEY_STATE_WAIT_3RD`；在 `WAIT_2ND` 中检测到第二击后进入 `WAIT_3RD`，而不是立即触发 `DOUBLE_CLICK`。
 
 **③ 不阻塞**：`Key_Update` 是**非阻塞的**——每次调用立刻返回，主循环还能做别的。对比"`while` 死等按键松开"的写法，这是质的飞跃。
 
@@ -3792,7 +3792,7 @@ static const KeyState transition_table[4][3] = {
 - `LED_MODE_FAST_BLINK`：5Hz 闪烁
 - `LED_MODE_BREATHE`：呼吸灯（用 PWM，但 PWM 我们下一课讲，可以先用亮度 10 级近似）
 
-按键控制切换模式。**完全不用 HAL_Delay**，全程非阻塞。
+按键控制切换模式；全程不调用 `HAL_Delay`，采用非阻塞逻辑。
 
 #### 挑战
 
@@ -3896,13 +3896,13 @@ F103 的定时器挂在 APB1 或 APB2 总线上：
 
 一种拆法：PSC = 71（分频 72 倍），ARR = 999（数 1000 下）
 
-- 72MHz ÷ 72 = 1MHz（每微秒 1 次）
+- $72\,\mathrm{MHz}/72=1\,\mathrm{MHz}$，即每微秒计数一次。
 - 数 1000 下 = 1ms
 - 每 1ms 触发一次中断 ✓
 
 另一种拆法：PSC = 7199，ARR = 9
 
-- 72MHz ÷ 7200 = 10kHz
+- $72\,\mathrm{MHz}/7200=10\,\mathrm{kHz}$。
 - 数 10 下 = 1ms ✓
 
 两种都能实现 1ms，但第一种更常用，因为 CNT 分辨率更高（1μs），可以灵活调整 ARR 实现 1μs~65ms 范围的各种周期。
@@ -4106,8 +4106,8 @@ CCR ├──────────   ╱  ╲  ──────
 
 **CCR 就是占空比的控制**：
 
-- CCR = 0 → 输出永远低（0%占空比）
-- CCR = ARR+1 → 输出永远高（100%占空比）
+- $CCR=0$：输出始终为低电平，占空比为 0%。
+- $CCR=ARR+1$：输出始终为高电平，占空比为 100%。
 - CCR 在中间 → 成比例占空比
 
 **周期由 PSC 和 ARR 决定**（和前面讲的定时器基本功能一样），**占空比由 CCR 决定**。
@@ -4490,7 +4490,7 @@ TimerEvent_Subscribe(&tim_update_event, comm_heartbeat, NULL);
 
 #### 必做
 
-1. **定时器中断 LED 闪烁**：用 TIM2 中断实现精确的 1Hz 闪烁，不用 HAL_Delay
+1. **定时器中断 LED 闪烁**：用 TIM2 中断实现精确的 1 Hz 闪烁，不调用 `HAL_Delay`。
 2. **PWM 呼吸灯**：用 TIM3 CH1 实现呼吸效果，尝试改变呼吸速度
 3. **多路 PWM**：同时用 TIM3 的 CH1、CH2（PA7）各接一个 LED，做不同相位的呼吸效果（一个变亮时另一个变暗）
 
@@ -4503,7 +4503,7 @@ TimerEvent_Subscribe(&tim_update_event, comm_heartbeat, NULL);
 - 模式 C：慢呼吸（5 秒一个周期）
 - 模式 D：快闪烁（4Hz）
 
-所有模式都通过调整 CCR 实现，不用 HAL_Delay。
+所有模式都通过调整 CCR 实现，不调用 `HAL_Delay`。
 
 **进阶 2**：用 SysTick 或 TIM2 中断 + 观察者模式，实现一个简易的**任务调度器**：
 
@@ -4880,7 +4880,7 @@ int main(void)
 
 （答：100kHz 意味着每 10μs 采一次。不用 DMA 每次采样 CPU 都要去读一下，每秒 10 万次中断 + 读取，CPU 基本忙不过来。用 DMA 后 CPU 几乎 0 负载，想做什么都行。）
 
-**思考 18**：`HAL_ADC_Start_DMA` 启动之后永远不停止，CPU 怎么确保读到的是"完整的一轮"数据？（比如采样途中，DMA 可能正在写 adc_buffer[1]，CPU 同时读，会不会读到新旧混合的数据？）
+**思考 18**：`HAL_ADC_Start_DMA` 持续运行时，CPU 如何确保读到完整的一轮数据？例如 DMA 正在写 `adc_buffer[1]` 时，CPU 同时读取会不会得到新旧混合的数据？
 
 （答：对于这种"原子 16 位读取"，单个通道的值不会撕裂，但**不同通道之间**可能不是同一轮采集的。如果对"快照一致性"要求严格，可以用"半传输中断 + 传输完成中断"做双缓冲，或者禁用 DMA 再读。）
 
@@ -5424,7 +5424,7 @@ B 的 ID 是 0x100，比 A 的 0x123 小，所以 B 赢——**ID 越小，优�
          ← 形状还在但模糊了
 ```
 
-**差分信号**：两根线（CAN_H 和 CAN_L），信号是两根线的**电压差**。发"0"时 CAN_H 高、CAN_L 低（差 ~2V）；发"1"时 CAN_H = CAN_L（差 0V）。
+**差分信号**：CAN 使用 `CAN_H` 和 `CAN_L` 两根线，以两线电压差表示逻辑状态。显性位时产生约 2 V 差分电压；隐性位时两线电位接近，差分电压约为 0 V。
 
 ```
 CAN_H: ──┐      ┌───
@@ -5446,7 +5446,7 @@ CAN_L: ──┐      ┌───
 
 **思考 1**：如果 CAN 总线上有 3 个节点同时想发 ID 分别是 0x123、0x100、0x200 的消息，谁会先成功发送？后面两个怎么办？
 
-**思考 2**：你觉得 CAN 的两根线（CAN_H/CAN_L）能用开漏 + 上拉实现吗？为什么差分信号的电气结构更好？（提示：开漏是一根线对 GND，差分是两根线互相参考。）
+**思考 2**：`CAN_H`/`CAN_L` 能否使用开漏输出加上拉电阻实现？为什么差分结构更合适？
 
 **思考 3**：假设某个节点坏了，一直把总线拉到显性（0）。会发生什么？CAN 协议里有什么机制避免这种"故障节点"瘫痪整个网络？
 
@@ -5469,7 +5469,7 @@ CAN_L: ──┐      ┌───
 
 **收发器芯片**的作用：
 
-- 把 MCU 的 3.3V TTL 信号（CAN_TX/CAN_RX）转换成 CAN 总线的差分信号（CAN_H/CAN_L）
+- 把 MCU 的 3.3 V TTL 信号（`CAN_TX`/`CAN_RX`）转换为 CAN 差分信号（`CAN_H`/`CAN_L`）。
 - 反向转换（收到差分信号，转成 TTL 给 MCU）
 - 提供电气保护
 
@@ -5477,7 +5477,7 @@ CAN_L: ──┐      ┌───
 
 #### 终端电阻
 
-CAN 总线两端**必须各接一个 120Ω 电阻**（Termination Resistor）在 CAN_H 和 CAN_L 之间。
+CAN 总线两端必须分别在 `CAN_H` 与 `CAN_L` 之间连接一个 $120\,\Omega$ 终端电阻。
 
 为什么？电磁波在传输线里跑到末端会反射，反射波和原始波叠加会导致信号畸变。120Ω 电阻吸收反射能量。这叫"阻抗匹配"。
 
@@ -5607,7 +5607,7 @@ F103 的 CAN 挂在 APB1 上，时钟是 **36 MHz**。
 
 我们想要 500 kbps：
 
-500000=36000000(PSC+1)×(1+TS1+TS2)500000=(PSC+1)×(1+TS1+TS2)36000000​(PSC+1)×(1+TS1+TS2)=72(PSC+1)×(1+TS1+TS2)=72
+$$500000=\frac{36000000}{(PSC+1)(1+TS1+TS2)}\Longrightarrow(PSC+1)(1+TS1+TS2)=72.$$
 
 一种拆法：PSC + 1 = 4，TS1 + TS2 + 1 = 18，比如 TS1 = 13，TS2 = 4。
 
@@ -6006,7 +6006,7 @@ int main(void) {
 
 #### 进阶
 
-**进阶 1**：仲裁实验。让板 A 每 100ms 发 ID=0x100 的消息，板 B 每 100ms 发 ID=0x200 的消息。**故意让时钟接近同步**（两块板子几乎同时上电），用示波器或逻辑分析仪看 CAN_H/CAN_L，观察仲裁过程。（没示波器也可以只通过"发送失败/成功的计数"间接观察。）
+**进阶 1**：让板 A 每 100 ms 发送 ID 为 `0x100` 的消息，板 B 每 100 ms 发送 ID 为 `0x200` 的消息，并用示波器或逻辑分析仪观察 `CAN_H`/`CAN_L` 上的仲裁过程。
 
 **进阶 2**：实现 CAN 的**发布/订阅架构**。写一个"传感器节点"（定时发温度、湿度、光强消息）和一个"显示节点"（订阅所有传感器消息并打印）。
 
@@ -6112,7 +6112,7 @@ while (1) {
 
 #### 对比两种写法
 
-**用 HAL_Delay（线性写法）**：
+**使用 `HAL_Delay` 的线性写法**：
 
 c
 
@@ -6169,7 +6169,7 @@ void update() {
 
 这就是 RTOS 要解决的问题——
 
-> **让你用"线性的、直观的"方式写代码（用 HAL_Delay 的风格），同时系统却能并行处理多件事（像状态机的效果）。**
+> 可以用接近 `HAL_Delay` 风格的线性代码描述任务，同时由系统调度实现多任务并发。
 
 ---
 
@@ -7008,7 +7008,7 @@ FreeRTOS 为了保护内部数据结构，**会短暂关中断**（叫 "Critical
 **你的工作**：
 
 1. 把它集成到一个 F103 工程，让它能显示"Hello"
-2. **然后用句柄模式包装它**——把原驱动里"写死 hi2c1"改成"接受一个 OLED_Handle*"，支持多个 OLED 实例
+2. **用句柄模式封装驱动**：把写死的 `hi2c1` 改为接收 `OLED_Handle *`，从而支持多个 OLED 实例。
 
 这一步的练习价值：**你会遇到真实的"重构第三方代码"场景**。原驱动可能用了全局变量、硬编码的 I2C 句柄。你要读懂它，然后在不破坏功能的前提下把接口改漂亮。
 
@@ -8109,13 +8109,13 @@ CAN FD 有**两段波特率**：
 
 **仲裁段**：
 
-500000=80000000Prescaler×(1+TSEG1+TSEG2)500000=Prescaler×(1+TSEG1+TSEG2)80000000​Prescaler×(1+TSEG1+TSEG2)=160Prescaler×(1+TSEG1+TSEG2)=160
+$$500000=\frac{80000000}{\mathrm{Prescaler}(1+TSEG1+TSEG2)}\Longrightarrow\mathrm{Prescaler}(1+TSEG1+TSEG2)=160.$$
 
 一种拆法：Prescaler = 8，TSEG1 = 15，TSEG2 = 4 → 8 × 20 = 160 ✓
 
 **数据段**：
 
-2000000=80000000Prescaler×(1+TSEG1+TSEG2)2000000=Prescaler×(1+TSEG1+TSEG2)80000000​Prescaler×(1+TSEG1+TSEG2)=40Prescaler×(1+TSEG1+TSEG2)=40
+$$2000000=\frac{80000000}{\mathrm{Prescaler}(1+TSEG1+TSEG2)}\Longrightarrow\mathrm{Prescaler}(1+TSEG1+TSEG2)=40.$$
 
 一种拆法：Prescaler = 2，TSEG1 = 15，TSEG2 = 4 → 2 × 20 = 40 ✓
 
@@ -8310,7 +8310,7 @@ ImageDescriptor desc;
 
 - 每帧 8 字节数据，需要 8 帧
 - 每帧约 110 bit 开销 + 64 bit 数据 = 174 bit
-- 8 帧 × 174 bit = 1392 bit
+- 8 帧共约 $8\times174=1392\,\mathrm{bit}$。
 - @ 500kbps = 2.78 ms
 
 **CAN FD**：
@@ -8829,7 +8829,7 @@ Read back: Hello from STM32H723!
 
 ### 第六部分：Cache 一致性陷阱（重要！）
 
-回忆上一课讲的 Cache 问题。**SD 卡操作是 DMA 驱动的**——HAL_SD_WriteBlocks 底层通过 DMA 把缓冲区数据搬到 SDMMC 外设。
+SD 卡操作由 DMA 驱动；`HAL_SD_WriteBlocks` 底层通过 DMA 把缓冲区数据传送到 SDMMC 外设。
 
 这意味着：
 
@@ -10155,7 +10155,7 @@ uint16_t rgb565(uint8_t r, uint8_t g, uint8_t b) {
 答案：
 
 1. **一样**——二维数组在内存里就是线性铺开的，只是 `[y][x]` 是语法糖
-2. **50 × 480 + 100 = 24100**
+2. 线性下标为 $50\times480+100=24100$。
 3. (c) 最快，(b) 次之，(a) 最慢
 4. **不能**——memset 是按字节填充，`0xFF` 的字节填下来得到 `0xFFFF`（白色）。红色 `0xF800` 是两字节 `0xF8, 0x00` 交替，memset 做不到。这就是为什么需要 **DMA2D 的矩形填充**——它能按"像素"而不是"字节"填充。
 5. **用 DMA2D**。虽然 480 个像素 CPU 也快，但这行涉及到"按 Framebuffer 行宽跨步"等概念，DMA2D 本来就是为这个而生。
@@ -10286,7 +10286,7 @@ H723 这种级别的芯片，**跑 LVGL 的界面 + SD 卡数据记录 + CAN 通
 
 用你已学的知识，你可能想：
 
-**方案 A**：GPIO + EXTI 中断 + HAL_GetTick
+**方案 A**：GPIO + EXTI 中断 + `HAL_GetTick`
 
 c
 
@@ -10299,7 +10299,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {
 }
 ```
 
-**这能工作**，但问题是——HAL_GetTick 精度是 **1ms**。你要测 1kHz（周期 1ms）的信号，误差和周期一样大，根本测不准。
+这种方案可以工作，但 `HAL_GetTick` 的分辨率只有 1 ms。测量 1 kHz（周期 1 ms）信号时，量化误差与周期处于同一量级。
 
 更糟的是——中断响应有延迟（进中断、保存寄存器、执行回调），每次延迟几微秒不等，所以测到的"周期"是抖动的。
 
@@ -10412,13 +10412,13 @@ CubeMX 里这叫 "**PWM Input Mode**"——勾选后会自动配好两个通道�
 - 或者使用 32 位定时器（TIM2、TIM5 是 32 位）
 - 或者在溢出中断里计数溢出次数，手动累加
 
-**思考题 2**：输入捕获 vs EXTI + HAL_GetTick，精度差多少倍？
+**思考题 2**：输入捕获与 EXTI + `HAL_GetTick` 相比，精度相差多少倍？
 
 ...
 
 答：
 
-- EXTI + HAL_GetTick：精度 1ms，响应延迟 ~几微秒（抖动）
+- EXTI + `HAL_GetTick`：分辨率为 1 ms，响应延迟约为几微秒且存在抖动。
 - 输入捕获：精度 1/定时器时钟 ≈ 13.9ns（定时器时钟 72MHz 时），**零抖动**
 
 **精度差距约 10⁵ 倍**。这就是硬件外设的威力。
@@ -11229,7 +11229,7 @@ int main(void) {
 
 这里用了 **"双半缓冲"**（Double Buffering / Ping-Pong）技巧：
 
-- DMA 配成循环模式，不停地写 adc_buffer
+- DMA 配置为循环模式，持续写入 `adc_buffer`。
 - 前半写完触发 **Half Complete** 中断
 - 后半写完触发 **Complete** 中断
 - CPU 处理"刚写完"的半区，DMA 在另一半继续写
@@ -11291,7 +11291,7 @@ uint16_t first = adc_buffer[0];   // 正确
 
 #### 方案 B：放 Non-Cacheable 内存
 
-用 MPU 把 adc_buffer 所在区域标记为 Non-Cacheable，根本没有 Cache 问题。
+通过 MPU 把 `adc_buffer` 所在区域标记为 Non-Cacheable，可以避免 Cache 一致性问题。
 
 #### 方案 C：放 D3 域 SRAM，用 BDMA
 
@@ -11489,7 +11489,7 @@ USB 是**严格的主从架构**：电脑是主机，你的 STM32 是设备（De
 
 #### 误解 3："USB 开发就是调 HAL API"
 
-**错**。HAL 的 USB API 只是最底层。**你真正要用的是 USB 协议栈**（STM32 用的叫 **MX_USB_DEVICE**，基于 ST 的 **USB-OTG 库**）。协议栈提供了更高层的抽象——CDC、HID 这些类。
+**错。** HAL 的 USB API 只是底层接口；实际应用通常使用 USB 协议栈。STM32 设备协议栈入口为 `MX_USB_DEVICE`，其上提供 CDC、HID 等设备类。
 
 ---
 
@@ -11767,7 +11767,7 @@ USBD_HID_SendReport(&hUsbDeviceFS, report, 3);
 - 'b' 键 = 0x05
 - 'Enter' 键 = 0x28
 - 'Space' 键 = 0x2C
-- F1 键 = 0x3A
+- F1 键的 HID 键码为 `0x3A`。
 - ...
 
 描述符我不全贴了，大致结构是：
@@ -11810,8 +11810,8 @@ USBD_HID_SendReport(&hUsbDeviceFS, report, 8);
 
 H723 有两个 USB 外设：
 
-- **USB_OTG_FS**：Full Speed，12Mbps
-- **USB_OTG_HS**：High Speed，480Mbps
+- `USB_OTG_FS`：Full Speed，12 Mbps。
+- `USB_OTG_HS`：High Speed，480 Mbps。
 
 HID 设备完全不需要高速——键盘鼠标数据量极小。**用 FS 就够**，而且 FS 配置更简单。
 
@@ -11819,8 +11819,8 @@ HID 设备完全不需要高速——键盘鼠标数据量极小。**用 FS 就�
 
 **假设你用 FS**，引脚固定是：
 
-- PA11 → USB_OTG_FS_DM (D-)
-- PA12 → USB_OTG_FS_DP (D+)
+- PA11 → `USB_OTG_FS_DM`（D−）
+- PA12 → `USB_OTG_FS_DP`（D+）
 - 5V 从电脑 USB 来（VBUS）
 - GND 共地
 

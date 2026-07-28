@@ -83,9 +83,9 @@ for for for = int;
 
 字母表是一个**有限的符号集合**。比如:
 
-- Σ₁ = {0, 1} —— 二进制字母表
-- Σ₂ = {a, b, c, ..., z} —— 英文小写字母表
-- Σ₃ = {if, else, while, +, -, =, id, num, ...} —— 某种编程语言的"词法单元"字母表
+- $\Sigma_1=\{0,1\}$ —— 二进制字母表
+- $\Sigma_2=\{a,b,c,\ldots,z\}$ —— 英文小写字母表
+- $\Sigma_3=\{\texttt{if},\texttt{else},\texttt{while},+,-,=,\mathit{id},\mathit{num},\ldots\}$ —— 某种编程语言的词法单元字母表
 
 注意:字母表里的"符号"不一定是单个字符!对编译器来说,`while` 就是一个符号(token)。
 
@@ -115,7 +115,7 @@ for for for = int;
 
 **"一种编程语言"在数学上,就是"所有合法源程序的集合"。**
 
-C 语言 = 所有合法 C 程序构成的集合(这个集合是无穷大的!)
+C 语言可以视为所有合法 C 程序构成的语言（这个集合是无穷的）。
 
 那么编译器的**第一个任务**就变成了:给定一个字符串 s,判断 s 是不是属于 L(C 语言)。这个问题叫做**识别问题(Recognition Problem)**。
 
@@ -130,10 +130,10 @@ C 语言 = 所有合法 C 程序构成的集合(这个集合是无穷大的!)
 
 **幂运算**:
 
-- s⁰ = ε
-- s¹ = s
-- s² = s
-- sⁿ = s·sⁿ⁻¹
+- $s^0=\varepsilon$
+- $s^1=s$
+- $s^2=s\cdot s$
+- $s^n=s\cdot s^{n-1}$
 
 #### 语言上的运算
 
@@ -149,10 +149,10 @@ C 语言 = 所有合法 C 程序构成的集合(这个集合是无穷大的!)
 
 **举个具体例子**,设 L = {a, b},M = {0, 1}:
 
-- L ∪ M = {a, b, 0, 1}
-- LM = {a0, a1, b0, b1}
-- L² = L = {a, ab, ba, b}
-- L* = {ε, a, b, a, ab, ba, b, a, ...} —— 所有由 a、b 组成的串(含空串)
+- $L\cup M=\{a,b,0,1\}$
+- $LM=\{a0,a1,b0,b1\}$
+- $L^2=LL=\{aa,ab,ba,bb\}$
+- $L^*=\{\varepsilon,a,b,aa,ab,ba,bb,aaa,\ldots\}$ —— 所有由 $a$、$b$ 组成的有限长度字符串（含空串）
 
 ---
 
@@ -175,8 +175,8 @@ C 语言 = 所有合法 C 程序构成的集合(这个集合是无穷大的!)
 
 **题 1**:设 Σ = {0, 1},写出下面语言的几个例子(各 3-5 个串即可):
 
-- L_a = {所有以 0 开头的串}
-- L_b = {所有恰好含有两个 1 的串}
+- $L_a=\{\text{所有以 0 开头的串}\}$
+- $L_b=\{\text{所有恰好含有两个 1 的串}\}$
 
 **题 2**(思考题):C 语言的所有合法程序构成一个语言。这个语言是**有限**的还是**无限**的?为什么?
 
@@ -430,7 +430,7 @@ if (a) if (b) x = 1; else x = 2;
 
 - **3 型(正则)= 正则表达式能描述的语言**——最弱
 - **2 型(CFG)** 能描述大部分编程语言的**语法结构**——主流
-- 0 型 = 图灵机能识别的语言 = "可计算"的所有问题——最强
+- **0 型文法**生成递归可枚举语言，与图灵机可识别的语言等价——表达能力最强
 
 编译器设计中:
 
@@ -549,8 +549,8 @@ if (a) if (b) x = 1; else x = 2;
 
 - Q = {q0, q1, q2}
 - Σ = {a, b}
-- δ(q0, a) = q1, δ(q0, b) = q2, δ(q1, a) = q1, δ(q1, b) = q1, δ(q2, a) = q2, δ(q2, b) = q2
-- q₀ = q0
+- $\delta(q_0,a)=q_1,\ \delta(q_0,b)=q_2,\ \delta(q_1,a)=q_1,\ \delta(q_1,b)=q_1,\ \delta(q_2,a)=q_2,\ \delta(q_2,b)=q_2$
+- 初始状态为 $q_0$
 - F = {q1}
 
 #### DFA 的执行算法(超简单)
@@ -703,7 +703,7 @@ N(r) ──ε──→ N(s)
 
 **算法大致步骤**(细节不用死记,理解思路即可):
 
-1. DFA 的初始状态 = NFA 初始状态的 ε-闭包(沿 ε 能到的所有状态)
+1. DFA 的初始状态是 NFA 初始状态的 $\varepsilon$-闭包（沿 $\varepsilon$ 边可以到达的所有状态）。
 2. 对每个 DFA 状态 S 和每个输入字符 c,计算:从 S 中任一状态读 c 能到的所有状态,再求 ε-闭包,得到一个新的子集 S'
 3. S' 若未出现过,加入 DFA 状态集
 4. 重复直到没有新状态产生
@@ -955,11 +955,11 @@ B → b
 
 **举例**(还是用上面那个文法):
 
-- FIRST(a) = {a} (终结符的 FIRST 就是自己)
-- FIRST(ε) = {ε}
-- FIRST(A) = {a, ε} (A 能推出 a,也能推出 ε)
-- FIRST(B) = {b}
-- FIRST(AB) = ? —— 这个稍微复杂,下面讲
+- $\operatorname{FIRST}(a)=\{a\}$（终结符的 FIRST 集就是其自身）
+- $\operatorname{FIRST}(\varepsilon)=\{\varepsilon\}$
+- $\operatorname{FIRST}(A)=\{a,\varepsilon\}$（$A$ 能推出 $a$，也能推出 $\varepsilon$）
+- $\operatorname{FIRST}(B)=\{b\}$
+- $\operatorname{FIRST}(AB)=?$ —— 这个稍微复杂，下面讲
 
 **计算规则(非终结符)**:对非终结符 X,看它的每条产生式 X → Y₁ Y₂ ... Yₙ:
 
@@ -969,9 +969,9 @@ B → b
 
 **所以 FIRST(AB)**:
 
-- FIRST(A) = {a, ε},把 {a} 加入 → FIRST(AB) 至少含 {a}
+- $\operatorname{FIRST}(A)=\{a,\varepsilon\}$，先把 $\{a\}$ 加入 $\operatorname{FIRST}(AB)$
 - 因为 A 能推出 ε,继续看 B
-- FIRST(B) = {b},加入 → FIRST(AB) = {a, b}
+- $\operatorname{FIRST}(B)=\{b\}$，加入后得到 $\operatorname{FIRST}(AB)=\{a,b\}$
 - B 不能推出 ε,停止
 - 所以 FIRST(AB) = {a, b}
 
@@ -1001,13 +1001,13 @@ B → b
 
 计算 FIRST:
 
-- FIRST(A) = {a, ε}
-- FIRST(B) = {b}
-- FIRST(S): S → AB,FIRST(AB) = {a, b} → FIRST(S) = {a, b}
+- $\operatorname{FIRST}(A)=\{a,\varepsilon\}$
+- $\operatorname{FIRST}(B)=\{b\}$
+- 由 $S\to AB$ 可得 $\operatorname{FIRST}(S)=\operatorname{FIRST}(AB)=\{a,b\}$
 
 计算 FOLLOW:
 
-- FOLLOW(S) = {\$}（S 是开始符号）
+- $\operatorname{FOLLOW}(S)=\{\texttt{\$}\}$（$S$ 是开始符号）
 - 从 S → AB:A 后面是 B,把 FIRST(B)={b} 加入 FOLLOW(A) → FOLLOW(A) = {b}
 - 从 S → AB:B 在产生式末尾,把 FOLLOW(S)={} 加入 FOLLOW(B) → FOLLOW(B) = { }
 
@@ -1040,7 +1040,7 @@ B → b
 
 一个文法是 L(1) 的,当且仅当对每个非终结符 A,它的所有产生式 A → α₁ | α₂ | ... | αₙ 满足:
 
-**对任意 i ≠ j:预测集(α_i) ∩ 预测集(α_j) = ∅**
+**对任意 $i\ne j$，都有 $\operatorname{Predict}(\alpha_i)\cap\operatorname{Predict}(\alpha_j)=\varnothing$。**
 
 ——也就是说,**不会出现两条产生式都想匹配同一个输入字符**的情况。这样一来,"看一个字符就能决策"才成立。
 
@@ -1106,12 +1106,12 @@ C → c
 
 **思考 B**:
 
-- FIRST(S) = {a, ε}(因为 S → aSb 贡献 a,S → ε 贡献 ε)
-- FOLLOW(S) = {$, b}(S 是开始符号,贡献 $;S → aSb 中 S 后面是 b,贡献 b)
+- $\operatorname{FIRST}(S)=\{a,\varepsilon\}$（$S\to aSb$ 贡献 $a$，$S\to\varepsilon$ 贡献 $\varepsilon$）
+- $\operatorname{FOLLOW}(S)=\{\texttt{\$},b\}$（开始符号贡献输入结束标记；$S\to aSb$ 中的 $b$ 也属于 FOLLOW 集）
 - 检查 L(1):两条 S 产生式的预测集
-    - S → aSb 的预测集 = FIRST(aSb) = {a}
-    - S → ε 的预测集 = FOLLOW(S) = {\$, b}
-    - {a} ∩ {\$, b} = ∅ ✓
+    - $S\to aSb$ 的预测集为 $\operatorname{FIRST}(aSb)=\{a\}$
+    - $S\to\varepsilon$ 的预测集为 $\operatorname{FOLLOW}(S)=\{\texttt{\$},b\}$
+    - $\{a\}\cap\{\texttt{\$},b\}=\varnothing$ ✓
 - **是 L(1) 的!**
 
 ---
@@ -1264,7 +1264,7 @@ S' → e S | ε
 E → b
 ```
 
-(这是"if-then-else"的简化版,i=if, t=then, e=else, a=其他语句, b=布尔表达式)
+（这是 if-then-else 的简化文法：`i` 表示 if，`t` 表示 then，`e` 表示 else，`a` 表示其他语句，`b` 表示布尔表达式。）
 
 判断它是否是 L(1) 的,如果不是,指出冲突在哪里。
 
@@ -1752,8 +1752,8 @@ F → num                  F.val = num.lexval
 **从叶子往根算属性**:
 
 - 叶子 num(2).lexval = 2 → 对应 F.val = 2 → T.val = 2 → E.val = 2
-- num(3).lexval = 3 → F.val = 3 → T.val = 3
-- num(4).lexval = 4 → F.val = 4
+- `num(3).lexval=3` → `F.val=3` → `T.val=3`
+- `num(4).lexval=4` → `F.val=4`
 - 右子树的 T:T.val = T.val × F.val = 3 × 4 = **12**
 - 根 E:E.val = E.val + T.val = 2 + 12 = **14** ✓
 
@@ -2281,29 +2281,29 @@ E → id           E.place = id.name
 
 **节点 `a`**(E → id):
 
-- E.place = "a"
-- E.code = ""
+- `E.place = "a"`
+- `E.code = ""`
 
 **节点 `b`**(E → id):
 
-- E.place = "b"
-- E.code = ""
+- `E.place = "b"`
+- `E.code = ""`
 
 **节点 `c`**(E → id):
 
-- E.place = "c"
-- E.code = ""
+- `E.place = "c"`
+- `E.code = ""`
 
 **节点 `b * c`**(E → E₁ * E₂):
 
-- E.place = t1 ← newtemp()
-- E.code = "" || "" || `t1 = b * c`
+- `E.place = t1 ← newtemp()`
+- `E.code = "" || "" || "t1 = b * c"`
 - = `t1 = b * c`
 
 **根节点 `a + (b * c)`**(E → E₁ + E₂):
 
-- E.place = t2 ← newtemp()
-- E.code = "" || `t1 = b * c` || `t2 = a + t1`
+- `E.place = t2 ← newtemp()`
+- `E.code = "" || "t1 = b * c" || "t2 = a + t1"`
 
 最终输出:
 
@@ -3670,16 +3670,16 @@ L2:     MOV  R0, R_sum          ← 返回值约定放 R0
 
 假设我们有足够寄存器(ARM 16 个):
 
-- R_sum = R4
-- R_i = R5
-- R_n = R6
-- R_a = R7
-- R_t1, R_t2 可以都用 R8(循环内先用 t1,再算完 t2 后 t1 死,R8 可以立刻复用)
+- `R_sum = R4`
+- `R_i = R5`
+- `R_n = R6`
+- `R_a = R7`
+- `R_t1` 和 `R_t2` 可以复用 `R8`：`t1` 失活后立即用 `R8` 保存 `t2`。
 
-等等,**R_t2 的值要活到 ADD 用完**——得小心!实际上 t1 在 LDR 之后就死了,所以可以:
+注意：`R_t2` 的值必须保留到 ADD 使用完毕。由于 `t1` 在 LDR 后已经失活，可以这样分配：
 
-- R_t1 = R8
-- R_t2 = R8(LDR 后覆盖 R8 即可)
+- `R_t1 = R8`
+- `R_t2 = R8`（LDR 后覆盖 `R8`）
 
 #### 指令调度
 

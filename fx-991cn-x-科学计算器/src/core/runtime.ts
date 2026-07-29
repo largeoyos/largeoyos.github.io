@@ -1,6 +1,7 @@
-import { evaluateExpression, type AngleMode } from './calculator';
+import { evaluateExpression, formatCasioValue, type AngleMode } from './calculator';
 import {
   doubleVariableStatistics,
+  evaluateComplexExpression,
   formatBaseInteger,
   formatComplex,
   generateFunctionTable,
@@ -63,6 +64,9 @@ export type RuntimeContext = {
   decimalPoint?: 'dot' | 'comma';
   digitSeparator?: boolean;
   engineeringSymbols?: boolean;
+  complexAns?: import('./domains').ComplexValue;
+  definedFunctions?: Partial<Record<'f' | 'g', string>>;
+  verifyActive?: boolean;
 };
 
 type MenuScreen = {
@@ -187,6 +191,10 @@ export type RuntimeScreen =
   | SolutionsScreen
   | MessageScreen;
 
+export type ComplexEditorCommand =
+  | { type: 'insert'; value: string }
+  | { type: 'convert'; format: 'rectangular' | 'polar' };
+
 export type ModeRuntime = {
   mode: CalcMode;
   input: string;
@@ -195,6 +203,8 @@ export type ModeRuntime = {
   screen: RuntimeScreen;
   memory: ModeMemory;
   lastEvaluation?: ModeEvaluation;
+  resultSelection?: { row: number; column: number };
+  editorCommand?: ComplexEditorCommand;
 };
 
 export type RuntimeAction =
@@ -207,6 +217,7 @@ export type RuntimeAction =
   | { type: 'optn' }
   | { type: 'eng' }
   | { type: 'toggle-result' }
+  | { type: 'select'; row: number; column?: number }
   | { type: 'base'; base: 2 | 8 | 10 | 16 };
 
 export function createModeRuntime(memory = createDefaultModeMemory()): ModeRuntime {
@@ -230,10 +241,8 @@ function optionScreen(mode: CalcMode, context?: RuntimeContext): MenuScreen {
   return { kind: 'menu', title: 'OPTION', options, selected: 0 };
 }
 
-function commitNumericBuffer(buffer: string): number {
-  const value = Number(buffer || '0');
-  if (!Number.isFinite(value)) throw new Error('Argument ERROR');
-  return value;
+function commitNumericBuffer(buffer: string, context: RuntimeContext): number {
+  return evaluateCoefficientBuffer(buffer || '0', context).value;
 }
 
 function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): { value: number; exact: Rational | null } {
@@ -255,6 +264,7 @@ function evaluateCoefficientBuffer(buffer: string, context: RuntimeContext): { v
     decimalPoint: context.decimalPoint,
     digitSeparator: context.digitSeparator,
     engineeringSymbols: context.engineeringSymbols,
+    definedFunctions: context.definedFunctions,
   });
   if (!result.success) throw new Error(result.errorType || 'Syntax ERROR');
   if (!Number.isFinite(result.value)) throw new Error('Math ERROR');
@@ -315,19 +325,61 @@ function menuMove(screen: MenuScreen, direction: 'left' | 'right' | 'up' | 'down
   return { ...screen, selected: sameColumn[(position + delta + sameColumn.length) % sameColumn.length] };
 }
 
+const RUNTIME_ENGINEERING_SYMBOLS: Record<number, string> = {
+  [-15]: 'f', [-12]: 'p', [-9]: 'n', [-6]: 'μ', [-3]: 'm',
+  [3]: 'k', [6]: 'M', [9]: 'G', [12]: 'T', [15]: 'P', [18]: 'E',
+};
+
+function displayNumber(value: number, context: RuntimeContext): string {
+  const options = {
+    decimalPoint: context.decimalPoint,
+    digitSeparator: context.digitSeparator,
+  };
+  if (context.engineeringSymbols && value !== 0 && Number.isFinite(value)) {
+    const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3;
+    const symbol = RUNTIME_ENGINEERING_SYMBOLS[exponent];
+    if (symbol) return `${formatCasioValue(value / 10 ** exponent, context.numberFormat, options)}${symbol}`;
+  }
+  return formatCasioValue(value, context.numberFormat, options);
+}
+
 function executeModeEvaluation(state: ModeRuntime, context: RuntimeContext): ModeRuntime {
   try {
-    let evaluation = evaluateModeExpression(
+    let evaluation: ModeEvaluation;
+    if (state.mode === 'Complex' && context.verifyActive) {
+      const match = state.input.match(/^(.+?)(==|!=|=)(.+)$/);
+      if (!match) throw new Error('Argument ERROR');
+      const complexOptions = { definedFunctions: context.definedFunctions };
+      const left = evaluateComplexExpression(match[1], context.angleMode, context.variables, context.complexAns ?? context.ans, complexOptions);
+      const right = evaluateComplexExpression(match[3], context.angleMode, context.variables, context.complexAns ?? context.ans, complexOptions);
+      const equal = Math.hypot(left.re - right.re, left.im - right.im) < 1e-10;
+      const verified = match[2] === '!=' ? !equal : equal;
+      evaluation = { display: verified ? 'True' : 'False', numeric: verified ? 1 : 0 };
+    } else evaluation = evaluateModeExpression(
       state.mode,
       state.input,
       state.memory,
       context.variables,
       context.angleMode,
+      {
+        numberFormat: context.numberFormat,
+        decimalPoint: context.decimalPoint,
+        digitSeparator: context.digitSeparator,
+        engineeringSymbols: context.engineeringSymbols,
+        complexAns: context.complexAns,
+        definedFunctions: context.definedFunctions,
+      },
     );
     if (state.mode === 'Complex' && evaluation.complex && context.complexResult === 'polar') {
-      evaluation = applyComplexResultCommand('polar', evaluation.complex, context.angleMode);
+      evaluation = applyComplexResultCommand('polar', evaluation.complex, context.angleMode, context);
     }
-    const next = { ...state, result: evaluation.display, evaluated: true, lastEvaluation: evaluation };
+    const next = {
+      ...state,
+      result: evaluation.display,
+      evaluated: true,
+      lastEvaluation: evaluation,
+      resultSelection: evaluation.matrix || evaluation.vector ? { row: 0, column: 0 } : undefined,
+    };
     if (evaluation.matrix) next.memory = { ...next.memory, matAns: evaluation.matrix };
     if (evaluation.vector) next.memory = { ...next.memory, vctAns: evaluation.vector };
     return next;
@@ -382,30 +434,31 @@ function copyDestinationMenu(kind: 'matrix' | 'vector', source: string): MenuScr
   };
 }
 
-function regressionLines(rows: StatisticsRow[], type: RegressionType): string[] {
+function regressionLines(rows: StatisticsRow[], type: RegressionType, context: RuntimeContext): string[] {
   const result = regression(rows, type);
   return [
     `TYPE=${type.toUpperCase()}`,
-    `a=${result.a}`,
-    `b=${result.b}`,
-    result.c === undefined ? `r=${result.r ?? 0}` : `c=${result.c}`,
+    `a=${displayNumber(result.a, context)}`,
+    `b=${displayNumber(result.b, context)}`,
+    result.c === undefined ? `r=${displayNumber(result.r ?? 0, context)}` : `c=${displayNumber(result.c, context)}`,
   ];
 }
 
-function statsLines(state: ModeRuntime): string[] {
+function statsLines(state: ModeRuntime, context: RuntimeContext): string[] {
+  const f = (value: number) => displayNumber(value, context);
   if (state.memory.statistics.kind === 'single') {
     const stats = singleVariableStatistics(state.memory.statistics.rows);
     return [
-      `n=${stats.n} Σx=${stats.sum} Σx2=${stats.sumSquares}`,
-      `mean=${stats.mean} σx=${stats.populationSd} sx=${stats.sampleSd}`,
-      `min=${stats.min} Q1=${stats.q1}`,
-      `Med=${stats.median} Q3=${stats.q3}`,
-      `max=${stats.max}`,
+      `n=${f(stats.n)} Σx=${f(stats.sum)} Σx2=${f(stats.sumSquares)}`,
+      `mean=${f(stats.mean)} σx=${f(stats.populationSd)} sx=${f(stats.sampleSd)}`,
+      `min=${f(stats.min)} Q1=${f(stats.q1)}`,
+      `Med=${f(stats.median)} Q3=${f(stats.q3)}`,
+      `max=${f(stats.max)}`,
     ];
   }
   const stats = doubleVariableStatistics(state.memory.statistics.rows);
   return [
-    `n=${stats.n} Σx=${stats.sumX} Σy=${stats.sumY}`,
+    `n=${f(stats.n)} Σx=${f(stats.sumX)} Σy=${f(stats.sumY)}`,
     `Σx2=${stats.sumXX} Σy2=${stats.sumYY}`,
     `Σxy=${stats.sumXY} Σx3=${stats.sumXXX}`,
     `Σx2y=${stats.sumXXY} Σx4=${stats.sumXXXX}`,
@@ -414,8 +467,23 @@ function statsLines(state: ModeRuntime): string[] {
 }
 
 function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeContext): ModeRuntime {
-  if (option.insert) return { ...state, input: state.input + option.insert, screen: { kind: 'input' } };
+  if (option.insert) {
+    if (state.mode === 'Complex') {
+      return { ...state, screen: { kind: 'input' }, editorCommand: { type: 'insert', value: option.insert } };
+    }
+    return { ...state, input: state.input + option.insert, screen: { kind: 'input' } };
+  }
   const command = option.command ?? '';
+  if (state.mode === 'Complex' && (command === 'prefix-rectangular' || command === 'prefix-polar')) {
+    return {
+      ...state,
+      screen: { kind: 'input' },
+      editorCommand: {
+        type: 'convert',
+        format: command === 'prefix-polar' ? 'polar' : 'rectangular',
+      },
+    };
+  }
   if (command === 'hyperbolic') {
     return {
       ...state,
@@ -477,7 +545,7 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
     return { ...state, result: command.slice(6), screen: { kind: 'input' } };
   }
   if (state.mode === 'Complex' && state.lastEvaluation?.complex) {
-    const evaluation = applyComplexResultCommand(command, state.lastEvaluation.complex, context.angleMode);
+    const evaluation = applyComplexResultCommand(command, state.lastEvaluation.complex, context.angleMode, context);
     return { ...state, result: evaluation.display, lastEvaluation: evaluation, screen: { kind: 'input' } };
   }
   if (command === 'define-matrix') return { ...state, screen: selectTargetMenu('matrix', 'define') };
@@ -621,7 +689,7 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
   }
   if (command === 'stats-result') {
     try {
-      return { ...state, screen: { kind: 'message', title: 'STAT RESULT', lines: statsLines(state) } };
+      return { ...state, screen: { kind: 'message', title: 'STAT RESULT', lines: statsLines(state, context) } };
     } catch (error) {
       return { ...state, result: error instanceof Error ? error.message : 'Math ERROR', screen: { kind: 'input' } };
     }
@@ -649,7 +717,7 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
     const regressionType = command.slice(11) as RegressionType;
     try {
       const memory = { ...state.memory, statistics: { ...state.memory.statistics, regressionType } };
-      return { ...state, memory, screen: { kind: 'message', title: 'REGRESSION', lines: regressionLines(memory.statistics.rows, regressionType) } };
+      return { ...state, memory, screen: { kind: 'message', title: 'REGRESSION', lines: regressionLines(memory.statistics.rows, regressionType, context) } };
     } catch (error) {
       return { ...state, result: error instanceof Error ? error.message : 'Math ERROR', screen: { kind: 'input' } };
     }
@@ -844,7 +912,7 @@ function executeOption(state: ModeRuntime, option: MenuOption, context: RuntimeC
 function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime {
   const screen = state.screen;
   if (screen.kind === 'dimension') {
-    const value = Math.trunc(commitNumericBuffer(screen.buffer || String(screen.rows)));
+    const value = Math.trunc(commitNumericBuffer(screen.buffer || String(screen.rows), context));
     const valid = screen.target.startsWith('Mat') ? value >= 1 && value <= 4 : value === 2 || value === 3;
     if (!valid) return { ...state, result: 'Range ERROR', screen };
     if (screen.target.startsWith('Mat')) {
@@ -878,7 +946,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
   }
   if (screen.kind === 'matrix-editor') {
     const values = structuredClone(screen.values);
-    values[screen.row][screen.column] = commitNumericBuffer(screen.buffer);
+    values[screen.row][screen.column] = commitNumericBuffer(screen.buffer, context);
     const isLast = screen.row === values.length - 1 && screen.column === values[0].length - 1;
     if (isLast) {
       return {
@@ -891,7 +959,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
   }
   if (screen.kind === 'vector-editor') {
     const values = [...screen.values];
-    values[screen.index] = commitNumericBuffer(screen.buffer);
+    values[screen.index] = commitNumericBuffer(screen.buffer, context);
     if (screen.index === values.length - 1) {
       return {
         ...state,
@@ -904,7 +972,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
   if (screen.kind === 'statistics-editor') {
     const rows = structuredClone(screen.rows);
     const row = rows[screen.row];
-    const value = commitNumericBuffer(screen.buffer);
+    const value = commitNumericBuffer(screen.buffer, context);
     if (screen.column === 0) row.x = value;
     if (screen.column === 1 && state.memory.statistics.kind === 'double') row.y = value;
     if (screen.column === (state.memory.statistics.kind === 'double' ? 2 : 1)) row.freq = Math.max(1, Math.trunc(value));
@@ -930,17 +998,17 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
   }
   if (screen.kind === 'normal-distribution') {
     try {
-      const input = commitNumericBuffer(screen.buffer);
+      const input = commitNumericBuffer(screen.buffer, context);
       const numeric = screen.operation === 't'
         ? standardizedVariable(state.memory.statistics.rows, input)
         : normalProbability(screen.operation, input);
       return {
         ...state,
-        result: String(numeric),
+        result: displayNumber(numeric, context),
         screen: {
           kind: 'message',
           title: 'NORMAL DIST',
-          lines: [`${screen.operation}(${input})=${numeric}`],
+          lines: [`${screen.operation}(${displayNumber(input, context)})=${displayNumber(numeric, context)}`],
         },
       };
     } catch (error) {
@@ -960,7 +1028,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
   }
   if (screen.kind === 'range-editor') {
     const values = [...screen.values] as [number, number, number];
-    values[screen.index] = commitNumericBuffer(screen.buffer || String(values[screen.index]));
+    values[screen.index] = commitNumericBuffer(screen.buffer || String(values[screen.index]), context);
     if (screen.index < 2) return { ...state, screen: { ...screen, values, index: screen.index + 1, buffer: '' } };
     return {
       ...state,
@@ -981,7 +1049,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
       if (!isLast) {
         return {
           ...state,
-          result: String(values[screen.row][screen.column]),
+          result: displayNumber(values[screen.row][screen.column], context),
           screen: editorMove({ ...screen, values, exactValues, expressions, buffer: '' }, 'right'),
         };
       }
@@ -1000,7 +1068,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
             ? divideRational(multiplyRational(exactA, exactC), exactB)
             : divideRational(multiplyRational(exactB, exactC), exactA));
         }
-        entries = [{ label: 'X=', exact, decimal: exact ? exactValueDecimal(exact) : String(numeric) }];
+        entries = [{ label: 'X=', exact, decimal: exact ? exactValueDecimal(exact) : displayNumber(numeric, context) }];
       } else if (screen.problem === 'linear') {
         const exactRows = exactValues.every(row => row.every(value => value !== null));
         if (exactRows) {
@@ -1018,7 +1086,7 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
         } else {
           const result = solveLinearSystem(values.map(row => row.slice(0, screen.size)), values.map(row => row[screen.size]));
           entries = result.status === 'unique'
-            ? result.values.map((value, index) => ({ label: `X${index + 1}=`, decimal: String(value) }))
+            ? result.values.map((value, index) => ({ label: `X${index + 1}=`, decimal: displayNumber(value, context) }))
             : [{ label: '', decimal: result.status === 'none' ? 'NO SOLUTION' : 'INFINITE SOL' }];
         }
       } else if (screen.problem === 'polynomial') {
@@ -1047,15 +1115,15 @@ function commitEditor(state: ModeRuntime, context: RuntimeContext): ModeRuntime 
           const roots = solvePolynomial(values[0])
             .filter(value => context.equationComplexRoots !== false || Math.abs(value.im) < 1e-9);
           entries = roots.length
-            ? roots.map((value, index) => ({ label: `X${index + 1}=`, decimal: formatComplex(value) }))
+            ? roots.map((value, index) => ({ label: `X${index + 1}=`, decimal: formatComplex(value, context.numberFormat, { decimalPoint: context.decimalPoint, digitSeparator: context.digitSeparator }) }))
             : [{ label: '', decimal: 'NO REAL ROOT' }];
           if (screen.size === 2 && Math.abs(values[0][0]) > 1e-12) {
             const [a, b, c] = values[0];
             const vertexX = -b / (2 * a);
             const vertexY = c - b * b / (4 * a);
             entries.push(
-              { label: 'X=', decimal: String(vertexX) },
-              { label: 'Y=', decimal: String(vertexY) },
+              { label: 'X=', decimal: displayNumber(vertexX, context) },
+              { label: 'Y=', decimal: displayNumber(vertexY, context) },
             );
           }
         }
@@ -1094,6 +1162,11 @@ export function dispatchModeRuntime(
   context: RuntimeContext,
 ): ModeRuntime {
   let next = cloneRuntime(state);
+  if (action.type === 'toggle-result' && next.mode === 'Complex' && next.lastEvaluation?.complex) {
+    const command = next.result.includes('∠') ? 'rectangular' : 'polar';
+    const evaluation = applyComplexResultCommand(command, next.lastEvaluation.complex, context.angleMode, context);
+    return { ...next, result: evaluation.display, lastEvaluation: evaluation };
+  }
   if (action.type === 'toggle-result' && next.screen.kind === 'solutions') {
     const entry = next.screen.entries?.[next.screen.selected];
     if (entry?.exact) {
@@ -1130,7 +1203,75 @@ export function dispatchModeRuntime(
     if ('buffer' in next.screen) return { ...next, screen: { ...next.screen, buffer: next.screen.buffer.slice(0, -1) } as RuntimeScreen };
     return { ...next, input: next.input.slice(0, -1), evaluated: false };
   }
+  if (action.type === 'select') {
+    const row = Math.max(0, Math.trunc(action.row));
+    const column = Math.max(0, Math.trunc(action.column ?? 0));
+    if (next.screen.kind === 'input' && next.evaluated && next.lastEvaluation?.matrix) {
+      next.resultSelection = {
+        row: Math.min(next.lastEvaluation.matrix.length - 1, row),
+        column: Math.min(next.lastEvaluation.matrix[0].length - 1, column),
+      };
+      return next;
+    }
+    if (next.screen.kind === 'input' && next.evaluated && next.lastEvaluation?.vector) {
+      next.resultSelection = {
+        row: Math.min(next.lastEvaluation.vector.length - 1, row),
+        column: 0,
+      };
+      return next;
+    }
+    if (next.screen.kind === 'menu') {
+      const start = Math.floor(next.screen.selected / 5) * 5;
+      next.screen.selected = Math.min(next.screen.options.length - 1, start + row);
+      return next;
+    }
+    if (next.screen.kind === 'matrix-editor' || next.screen.kind === 'coefficient-editor') {
+      const startRow = Math.max(0, Math.min(next.screen.values.length - 3, next.screen.row - 1));
+      next.screen.row = Math.min(next.screen.values.length - 1, startRow + row);
+      next.screen.column = Math.min(next.screen.values[0].length - 1, column);
+      next.screen.buffer = '';
+      return next;
+    }
+    if (next.screen.kind === 'vector-editor') {
+      const start = Math.max(0, next.screen.index - 2);
+      next.screen.index = Math.min(next.screen.values.length - 1, start + row);
+      next.screen.buffer = '';
+      return next;
+    }
+    if (next.screen.kind === 'statistics-editor') {
+      const start = Math.max(0, next.screen.row - 2);
+      const columns = (next.memory.statistics.kind === 'double' ? 2 : 1) + (next.memory.statistics.frequencyEnabled ? 1 : 0);
+      next.screen.row = Math.min(next.screen.rows.length - 1, start + Math.max(0, row - 1));
+      next.screen.column = Math.min(columns - 1, column);
+      next.screen.buffer = '';
+      return next;
+    }
+    if (next.screen.kind === 'solutions') {
+      const length = next.screen.entries?.length ?? next.screen.lines?.length ?? 1;
+      next.screen.selected = Math.min(length - 1, row);
+      return next;
+    }
+    if (next.screen.kind === 'table') {
+      next.screen.page = Math.min(Math.max(0, Math.ceil(next.screen.rows.length / 4) - 1), next.screen.page);
+      return next;
+    }
+    return next;
+  }
   if (action.type === 'append') {
+    if (next.evaluated && next.screen.kind === 'input') {
+      const continues = /^(?:[+\-×*÷/^]|²|³|⁻¹)$/.test(action.value);
+      if (continues && next.lastEvaluation?.matrix) {
+        return { ...next, input: `MatAns${action.value}`, evaluated: false };
+      }
+      if (continues && next.lastEvaluation?.vector) {
+        return { ...next, input: `VctAns${action.value}`, evaluated: false };
+      }
+      if (continues && next.lastEvaluation?.complex) {
+        return { ...next, input: `Ans${action.value}`, evaluated: false };
+      }
+      if (!continues) next.input = '';
+      next.evaluated = false;
+    }
     if (next.screen.kind === 'menu' && /^\d$/.test(action.value)) {
       const option = next.screen.options.find(item => item.key === action.value);
       return option ? executeOption(next, option, context) : next;
@@ -1197,9 +1338,25 @@ export function dispatchModeRuntime(
   return next;
 }
 
-export function runtimeScreenView(state: ModeRuntime) {
+export function runtimeScreenView(state: ModeRuntime, context?: RuntimeContext) {
   const screen = state.screen;
-  if (screen.kind === 'input') return undefined;
+  if (screen.kind === 'input') {
+    if (state.evaluated && state.lastEvaluation?.matrix) {
+      return {
+        title: 'MatAns',
+        matrix: state.lastEvaluation.matrixDisplay ?? state.lastEvaluation.matrix.map(row => row.map(value => context ? displayNumber(value, context) : String(value))),
+        selectedCell: state.resultSelection,
+      };
+    }
+    if (state.evaluated && state.lastEvaluation?.vector) {
+      return {
+        title: 'VctAns',
+        vector: state.lastEvaluation.vectorDisplay ?? state.lastEvaluation.vector.map(value => context ? displayNumber(value, context) : String(value)),
+        selectedCell: state.resultSelection,
+      };
+    }
+    return undefined;
+  }
   if (screen.kind === 'menu') {
     const start = Math.floor(screen.selected / 5) * 5;
     const visible = screen.options.slice(start, start + 5);

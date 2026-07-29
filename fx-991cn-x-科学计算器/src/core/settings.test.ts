@@ -32,6 +32,7 @@ test('setup contains every original setting plus the preserved default-result ex
     'decimal-point',
     'digit-separator',
     'multiline-font',
+    'input-edit-mode',
     'language',
     'contrast',
     'result-mode',

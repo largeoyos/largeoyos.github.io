@@ -7,6 +7,7 @@ export type TableDisplayMode = 'f' | 'fg';
 export type DecimalPointMode = 'dot' | 'comma';
 export type MultilineFontMode = 'normal' | 'small';
 export type CalculatorLanguage = 'zh' | 'en';
+export type InputEditMode = 'insert' | 'overwrite';
 
 export type CalculatorPreferences = {
   version: 4;
@@ -22,6 +23,7 @@ export type CalculatorPreferences = {
   decimalPoint: DecimalPointMode;
   digitSeparator: boolean;
   multilineFont: MultilineFontMode;
+  inputEditMode: InputEditMode;
   language: CalculatorLanguage;
   contrast: number;
   resultMode: ResultMode;
@@ -41,6 +43,7 @@ export const DEFAULT_PREFERENCES: CalculatorPreferences = {
   decimalPoint: 'dot',
   digitSeparator: false,
   multilineFont: 'normal',
+  inputEditMode: 'insert',
   language: 'zh',
   contrast: 0,
   resultMode: 'exact',
@@ -83,6 +86,7 @@ export function parseCalculatorPreferences(raw: string | null | undefined): Calc
     if (!['f', 'fg'].includes(preferences.tableMode)) preferences.tableMode = 'fg';
     if (!['dot', 'comma'].includes(preferences.decimalPoint)) preferences.decimalPoint = 'dot';
     if (!['normal', 'small'].includes(preferences.multilineFont)) preferences.multilineFont = 'normal';
+    if (!['insert', 'overwrite'].includes(preferences.inputEditMode)) preferences.inputEditMode = 'insert';
     if (!['zh', 'en'].includes(preferences.language)) preferences.language = 'zh';
     if (!['exact', 'decimal'].includes(preferences.resultMode)) preferences.resultMode = 'exact';
     preferences.contrast = Math.max(-2, Math.min(2, Math.trunc(Number(preferences.contrast) || 0)));
@@ -112,6 +116,7 @@ export type SetupPage =
   | 'decimal-point'
   | 'digit-separator'
   | 'multiline-font'
+  | 'input-edit-mode'
   | 'language'
   | 'contrast'
   | 'result-mode';
@@ -129,26 +134,50 @@ export const SETUP_ROOT_ITEMS: ReadonlyArray<{ page: Exclude<SetupPage, 'root' |
   { page: 'decimal-point', label: '小数点' },
   { page: 'digit-separator', label: '数字分隔符' },
   { page: 'multiline-font', label: '多行字体' },
+  { page: 'input-edit-mode', label: '编辑模式' },
   { page: 'language', label: '语言' },
   { page: 'contrast', label: '对比度' },
   { page: 'result-mode', label: '默认结果' },
 ];
 
-export function setupPageTitle(page: SetupPage): string {
-  if (page === 'root') return '设置';
-  if (page === 'fix') return 'Fix 小数位';
-  if (page === 'sci') return 'Sci 有效位';
+const EN_SETUP_LABELS: Record<string, string> = {
+  'input-output': 'Input/Output',
+  angle: 'Angle Unit',
+  'number-format': 'Number Format',
+  'engineering-symbol': 'Engineering Symbol',
+  'fraction-result': 'Fraction Result',
+  'complex-result': 'Complex Result',
+  'statistics-frequency': 'Statistics Frequency',
+  'equation-roots': 'Equation Roots',
+  'table-mode': 'Table Mode',
+  'decimal-point': 'Decimal Point',
+  'digit-separator': 'Digit Separator',
+  'multiline-font': 'MultiLine Font',
+  'input-edit-mode': 'Input Mode',
+  language: 'Language',
+  contrast: 'Contrast',
+  'result-mode': 'Result Display',
+};
+
+export function setupPageTitle(page: SetupPage, language: CalculatorLanguage = 'zh'): string {
+  if (page === 'root') return language === 'zh' ? '设置' : 'Setup';
+  if (page === 'fix') return language === 'zh' ? 'Fix 小数位' : 'Fix Digits';
+  if (page === 'sci') return language === 'zh' ? 'Sci 有效位' : 'Sci Digits';
+  if (language === 'en') return EN_SETUP_LABELS[page] ?? 'Setup';
   return SETUP_ROOT_ITEMS.find(item => item.page === page)?.label ?? '设置';
 }
 
 export function setupChoiceLabels(page: SetupPage, preferences: CalculatorPreferences): string[] {
   const mark = (active: boolean, label: string) => `${active ? '●' : '○'} ${label}`;
-  if (page === 'root') return SETUP_ROOT_ITEMS.map(item => item.label);
+  const en = preferences.language === 'en';
+  const on = en ? 'On' : '开';
+  const off = en ? 'Off' : '关';
+  if (page === 'root') return SETUP_ROOT_ITEMS.map(item => en ? EN_SETUP_LABELS[item.page] : item.label);
   if (page === 'input-output') return [
-    mark(preferences.inputOutput === 'MathI/MathO', '数学输入/数学输出'),
-    mark(preferences.inputOutput === 'MathI/DecimalO', '数学输入/小数输出'),
-    mark(preferences.inputOutput === 'LineI/LineO', '线性输入/线性输出'),
-    mark(preferences.inputOutput === 'LineI/DecimalO', '线性输入/小数输出'),
+    mark(preferences.inputOutput === 'MathI/MathO', en ? 'Math Input/Math Output' : '数学输入/数学输出'),
+    mark(preferences.inputOutput === 'MathI/DecimalO', en ? 'Math Input/Decimal Output' : '数学输入/小数输出'),
+    mark(preferences.inputOutput === 'LineI/LineO', en ? 'Line Input/Line Output' : '线性输入/线性输出'),
+    mark(preferences.inputOutput === 'LineI/DecimalO', en ? 'Line Input/Decimal Output' : '线性输入/小数输出'),
   ];
   if (page === 'angle') return ['DEG', 'RAD', 'GRAD'].map(value => mark(preferences.angleMode === value, value));
   if (page === 'number-format') return [
@@ -159,16 +188,17 @@ export function setupChoiceLabels(page: SetupPage, preferences: CalculatorPrefer
   ];
   if (page === 'fix') return Array.from({ length: 10 }, (_, index) => mark(preferences.numberFormat.kind === 'Fix' && preferences.numberFormat.digits === index, String(index)));
   if (page === 'sci') return Array.from({ length: 10 }, (_, index) => mark(preferences.numberFormat.kind === 'Sci' && preferences.numberFormat.digits === index + 1, String(index + 1)));
-  if (page === 'engineering-symbol') return [mark(preferences.engineeringSymbols, '开'), mark(!preferences.engineeringSymbols, '关')];
-  if (page === 'fraction-result') return [mark(preferences.fractionResult === 'mixed', '带分数'), mark(preferences.fractionResult === 'improper', '假分数')];
+  if (page === 'engineering-symbol') return [mark(preferences.engineeringSymbols, on), mark(!preferences.engineeringSymbols, off)];
+  if (page === 'fraction-result') return [mark(preferences.fractionResult === 'mixed', en ? 'Mixed Fraction' : '带分数'), mark(preferences.fractionResult === 'improper', en ? 'Improper Fraction' : '假分数')];
   if (page === 'complex-result') return [mark(preferences.complexResult === 'rectangular', 'a+bi'), mark(preferences.complexResult === 'polar', 'r∠θ')];
-  if (page === 'statistics-frequency') return [mark(preferences.statisticsFrequency, '开'), mark(!preferences.statisticsFrequency, '关')];
-  if (page === 'equation-roots') return [mark(preferences.equationComplexRoots, '复根：开'), mark(!preferences.equationComplexRoots, '复根：关')];
-  if (page === 'table-mode') return [mark(preferences.tableMode === 'f', '仅 f(x)'), mark(preferences.tableMode === 'fg', 'f(x),g(x)')];
-  if (page === 'decimal-point') return [mark(preferences.decimalPoint === 'dot', '点 .'), mark(preferences.decimalPoint === 'comma', '逗号 ,')];
-  if (page === 'digit-separator') return [mark(preferences.digitSeparator, '开'), mark(!preferences.digitSeparator, '关')];
-  if (page === 'multiline-font') return [mark(preferences.multilineFont === 'normal', '普通字体'), mark(preferences.multilineFont === 'small', '小字体')];
+  if (page === 'statistics-frequency') return [mark(preferences.statisticsFrequency, on), mark(!preferences.statisticsFrequency, off)];
+  if (page === 'equation-roots') return [mark(preferences.equationComplexRoots, en ? 'Complex Roots: On' : '复根：开'), mark(!preferences.equationComplexRoots, en ? 'Complex Roots: Off' : '复根：关')];
+  if (page === 'table-mode') return [mark(preferences.tableMode === 'f', en ? 'f(x) only' : '仅 f(x)'), mark(preferences.tableMode === 'fg', 'f(x),g(x)')];
+  if (page === 'decimal-point') return [mark(preferences.decimalPoint === 'dot', en ? 'Dot .' : '点 .'), mark(preferences.decimalPoint === 'comma', en ? 'Comma ,' : '逗号 ,')];
+  if (page === 'digit-separator') return [mark(preferences.digitSeparator, on), mark(!preferences.digitSeparator, off)];
+  if (page === 'multiline-font') return [mark(preferences.multilineFont === 'normal', en ? 'Normal Font' : '普通字体'), mark(preferences.multilineFont === 'small', en ? 'Small Font' : '小字体')];
+  if (page === 'input-edit-mode') return [mark(preferences.inputEditMode === 'insert', en ? 'Insert' : '插入'), mark(preferences.inputEditMode === 'overwrite', en ? 'Overwrite' : '覆盖')];
   if (page === 'language') return [mark(preferences.language === 'zh', '中文'), mark(preferences.language === 'en', 'English')];
-  if (page === 'contrast') return [-2, -1, 0, 1, 2].map(value => mark(preferences.contrast === value, `等级 ${value + 3}`));
-  return [mark(preferences.resultMode === 'exact', '标准/精确'), mark(preferences.resultMode === 'decimal', '小数')];
+  if (page === 'contrast') return [-2, -1, 0, 1, 2].map(value => mark(preferences.contrast === value, `${en ? 'Level' : '等级'} ${value + 3}`));
+  return [mark(preferences.resultMode === 'exact', en ? 'Standard/Exact' : '标准/精确'), mark(preferences.resultMode === 'decimal', en ? 'Decimal' : '小数')];
 }

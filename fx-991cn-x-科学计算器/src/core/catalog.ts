@@ -170,5 +170,7 @@ export const ADVANCED_CATALOG: Array<{ label: string; items: CatalogInsert[] }> 
     { label: '平方根', insert: '√(' }, { label: '任意次根', insert: '■√■' }, { label: '倒数', insert: '⁻¹' },
     { label: '平方', insert: '²' }, { label: '幂', insert: '^(' }, { label: '负号', insert: '-' },
     { label: '逗号', insert: ',' }, { label: '左括号', insert: '(' }, { label: '右括号', insert: ')' },
+    { label: '撤销', insert: '__UNDO__' }, { label: '重做', insert: '__REDO__' },
+    { label: '运算验证 开/关', insert: '__VERIFY__' },
   ] },
 ];

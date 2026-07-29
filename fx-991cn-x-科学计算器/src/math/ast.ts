@@ -110,6 +110,10 @@ export type FormulaDocument = {
   cursor: FormulaCursor;
 };
 
+export type ComplexPrefixReplacement =
+  | { kind: 'rectangular'; text: string }
+  | { kind: 'polar'; radius: string; theta: string };
+
 type SequenceMeta = {
   sequence: SequenceNode;
   owner?: MathNode;
@@ -494,6 +498,7 @@ const EXTRA_FUNCTION_INPUTS: Record<string, [string, number]> = {
   'dms(': ['dms', 3], 'todms(': ['todms', 1],
   'sinh(': ['sinh', 1], 'cosh(': ['cosh', 1], 'tanh(': ['tanh', 1],
   'asinh(': ['asinh', 1], 'acosh(': ['acosh', 1], 'atanh(': ['atanh', 1],
+  'Conjg(': ['Conjg', 1], 'arg(': ['arg', 1], 'Rep(': ['Rep', 1], 'Imp(': ['Imp', 1],
 };
 
 export function insertFormulaInput(document: FormulaDocument, value: string): FormulaDocument {
@@ -743,7 +748,9 @@ function serializeNode(node: MathNode): string {
     case 'mixed-fraction':
       return `mixed(${serializeSequence(node.whole)},${serializeSequence(node.numerator)},${serializeSequence(node.denominator)})`;
     case 'function':
-      return `${node.name}(${node.args.map(serializeSequence).join(',')})`;
+      return node.name === '__polar__'
+        ? `polar(${node.args.map(serializeSequence).join(',')})`
+        : `${node.name}(${node.args.map(serializeSequence).join(',')})`;
     case 'group':
       return `(${serializeSequence(node.body)})`;
     case 'integral':
@@ -758,6 +765,68 @@ function serializeNode(node: MathNode): string {
 export function serializeExpression(document: FormulaDocument): string {
   if (document.root.children.length === 0) return '';
   return serializeSequence(document.root);
+}
+
+export function expressionBeforeCursor(document: FormulaDocument): string {
+  const sequence = findSequence(document.root, document.cursor.sequenceId);
+  if (!sequence) return '';
+  const offset = Math.max(0, Math.min(document.cursor.offset, sequence.children.length));
+  return serializeSequence({ ...sequence, children: sequence.children.slice(0, offset) });
+}
+
+export function replaceExpressionBeforeCursor(
+  document: FormulaDocument,
+  replacement: ComplexPrefixReplacement,
+): FormulaDocument {
+  const next = cloneDocument(document);
+  const sequence = findSequence(next.root, next.cursor.sequenceId);
+  if (!sequence || sequence.editable === false) return next;
+  const offset = Math.max(0, Math.min(next.cursor.offset, sequence.children.length));
+  if (offset === 0) return next;
+  const glyphSequence = (value: string) => createSequence(
+    [...value].map(char => ({ type: 'glyph', value: char } as GlyphNode)),
+  );
+  const node: MathNode = replacement.kind === 'polar'
+    ? {
+      type: 'function',
+      name: '__polar__',
+      args: [glyphSequence(replacement.radius), glyphSequence(replacement.theta)],
+    }
+    : { type: 'group', body: glyphSequence(replacement.text) };
+  sequence.children.splice(0, offset, node);
+  next.cursor = { sequenceId: sequence.id, offset: 1 };
+  return next;
+}
+
+export function overwriteFormulaInput(document: FormulaDocument, value: string): FormulaDocument {
+  if ([...value].length !== 1) return insertFormulaInput(document, value);
+  const next = cloneDocument(document);
+  const current = collectSequences(next.root).find(item => item.sequence.id === next.cursor.sequenceId)?.sequence;
+  if (!current || current.editable === false) return next;
+  if (next.cursor.offset < current.children.length) {
+    const target = current.children[next.cursor.offset];
+    if (target.type === 'glyph' || target.type === 'placeholder') current.children.splice(next.cursor.offset, 1);
+  }
+  return insertFormulaInput(next, value);
+}
+
+export function moveToSerializedOffset(document: FormulaDocument, target: number): FormulaDocument {
+  const next = cloneDocument(document);
+  const root = next.root;
+  let consumed = 0;
+  let offset = 0;
+  for (let index = 0; index < root.children.length; index++) {
+    const width = serializeNode(root.children[index]).length;
+    if (target <= consumed + Math.max(1, width / 2)) {
+      offset = index;
+      next.cursor = { sequenceId: root.id, offset };
+      return next;
+    }
+    consumed += width;
+    offset = index + 1;
+  }
+  next.cursor = { sequenceId: root.id, offset };
+  return next;
 }
 
 export function parseLegacyExpression(input: string): FormulaDocument {

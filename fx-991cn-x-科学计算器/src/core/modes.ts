@@ -32,7 +32,7 @@ import {
   type RegressionType,
   type StatisticsRow,
 } from './domains';
-import type { AngleMode } from './calculator';
+import { formatCasioValue, type AngleMode, type DisplayFormatOptions, type NumberFormat } from './calculator';
 
 export type CalcMode =
   | 'Calculate'
@@ -81,6 +81,15 @@ export type ModeEvaluation = {
   complex?: ComplexValue;
   matrix?: number[][];
   vector?: number[];
+  matrixDisplay?: string[][];
+  vectorDisplay?: string[];
+};
+
+export type ModeDisplayOptions = DisplayFormatOptions & {
+  numberFormat?: NumberFormat;
+  engineeringSymbols?: boolean;
+  complexAns?: ComplexValue;
+  definedFunctions?: Partial<Record<'f' | 'g', string>>;
 };
 
 export const MODE_MEMORY_KEY = 'fx991cnx-mode-memory-v2';
@@ -132,8 +141,10 @@ export function modeOptions(mode: CalcMode): MenuOption[] {
       { key: '4', label: 'ARGUMENT', insert: 'arg(' },
       { key: '5', label: 'REAL PART', insert: 'Rep(' },
       { key: '6', label: 'IMAG PART', insert: 'Imp(' },
-      { key: '7', label: 'a+bi', command: 'rectangular' },
-      { key: '8', label: 'r∠θ', command: 'polar' },
+      { key: '7', label: '结果→a+bi', command: 'rectangular' },
+      { key: '8', label: '结果→r∠θ', command: 'polar' },
+      { key: '9', label: '前式→a+bi', command: 'prefix-rectangular' },
+      { key: '0', label: '前式→r∠θ', command: 'prefix-polar' },
     ];
   }
   if (mode === 'Base-N') {
@@ -357,16 +368,43 @@ function parseVector(input: string, memory: ModeMemory, angleMode: AngleMode): M
   return { display: `[${vector.join(',')}]`, vector };
 }
 
+const ENGINEERING_SYMBOLS: Record<number, string> = {
+  [-15]: 'f', [-12]: 'p', [-9]: 'n', [-6]: 'μ', [-3]: 'm',
+  [3]: 'k', [6]: 'M', [9]: 'G', [12]: 'T', [15]: 'P', [18]: 'E',
+};
+
+function formatModeValue(
+  value: number,
+  options: ModeDisplayOptions,
+  displayOptions: DisplayFormatOptions,
+): string {
+  if (options.engineeringSymbols && value !== 0 && Number.isFinite(value)) {
+    const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3;
+    const symbol = ENGINEERING_SYMBOLS[exponent];
+    if (symbol) return `${formatCasioValue(value / 10 ** exponent, options.numberFormat, displayOptions)}${symbol}`;
+  }
+  return formatCasioValue(value, options.numberFormat, displayOptions);
+}
+
 export function evaluateModeExpression(
   mode: CalcMode,
   input: string,
   memory: ModeMemory,
   variables: Record<string, number>,
   angleMode: AngleMode,
+  options: ModeDisplayOptions = {},
 ): ModeEvaluation {
+  const displayOptions = { decimalPoint: options.decimalPoint, digitSeparator: options.digitSeparator };
+  const format = (value: number) => formatModeValue(value, options, displayOptions);
   if (mode === 'Complex') {
-    const complex = evaluateComplexExpression(input, angleMode, variables);
-    return { display: formatComplex(complex), complex };
+    const complex = evaluateComplexExpression(
+      input,
+      angleMode,
+      variables,
+      options.complexAns ?? 0,
+      { definedFunctions: options.definedFunctions },
+    );
+    return { display: formatComplex(complex, options.numberFormat, displayOptions), complex };
   }
   if (mode === 'Base-N') {
     const raw = evaluateBaseExpression(input, memory.base);
@@ -376,15 +414,25 @@ export function evaluateModeExpression(
     const detMatch = input.trim().match(/^Det\((.+)\)$/i);
     if (detMatch) {
       const numeric = matrixDeterminant(parseMatrix(detMatch[1], memory));
-      return { display: String(numeric), numeric };
+      return { display: format(numeric), numeric };
     }
     const matrixValue = parseMatrix(input, memory);
+    const matrixDisplay = matrixValue.map(row => row.map(format));
     return {
-      display: `[${matrixValue.map(row => row.join(',')).join(';')}]`,
+      display: `[${matrixDisplay.map(row => row.join(',')).join(';')}]`,
       matrix: matrixValue,
+      matrixDisplay,
     };
   }
-  if (mode === 'Vector') return parseVector(input, memory, angleMode);
+  if (mode === 'Vector') {
+    const evaluation = parseVector(input, memory, angleMode);
+    if (evaluation.numeric !== undefined) evaluation.display = format(evaluation.numeric);
+    if (evaluation.vector) {
+      evaluation.vectorDisplay = evaluation.vector.map(format);
+      evaluation.display = `[${evaluation.vectorDisplay.join(',')}]`;
+    }
+    return evaluation;
+  }
   throw new Error('Mode ERROR');
 }
 
@@ -392,28 +440,31 @@ export function applyComplexResultCommand(
   command: string,
   value: ComplexValue,
   angleMode: AngleMode,
+  options: ModeDisplayOptions = {},
 ): ModeEvaluation {
+  const displayOptions = { decimalPoint: options.decimalPoint, digitSeparator: options.digitSeparator };
+  const format = (numeric: number) => formatModeValue(numeric, options, displayOptions);
   if (command === 'conjugate') {
     const complex = complexConjugate(value);
-    return { display: formatComplex(complex), complex };
+    return { display: formatComplex(complex, options.numberFormat, displayOptions), complex };
   }
   if (command === 'argument') {
     const numeric = complexArgument(value, angleMode);
-    return { display: String(numeric), numeric };
+    return { display: format(numeric), numeric };
   }
   if (command === 'real') {
     const numeric = complexReal(value);
-    return { display: String(numeric), numeric };
+    return { display: format(numeric), numeric };
   }
   if (command === 'imaginary') {
     const numeric = complexImag(value);
-    return { display: String(numeric), numeric };
+    return { display: format(numeric), numeric };
   }
   if (command === 'polar') {
     const polar = complexToPolar(value, angleMode);
-    return { display: `${polar.radius}∠${polar.theta}`, complex: value };
+    return { display: `${format(polar.radius)}∠${format(polar.theta)}`, complex: value };
   }
-  if (command === 'rectangular') return { display: formatComplex(value), complex: value };
+  if (command === 'rectangular') return { display: formatComplex(value, options.numberFormat, displayOptions), complex: value };
   const numeric = complexAbs(value);
-  return { display: String(numeric), numeric };
+  return { display: format(numeric), numeric };
 }

@@ -112,3 +112,25 @@ test('radian gradian and DMS suffixes follow the active angle unit', () => {
   assert.equal(evaluateExpression('todms(1.5)', context).displayText, '1°30′0″');
   error('dms(1,60,0)', 'Argument ERROR');
 });
+
+
+test('registered f and g functions share the calculator variable environment', () => {
+  const functionContext = {
+    ...context,
+    definedFunctions: { f: 'X^2+A', g: 'f(X)+1' },
+  };
+  assert.equal(value('f(3)', functionContext), 13);
+  assert.equal(value('g(2)', functionContext), 9);
+});
+
+test('errors expose a usable cursor recovery position', () => {
+  const duplicate = evaluateExpression('1..2', context);
+  assert.equal(duplicate.success, false);
+  assert.equal(duplicate.errorPosition, 2);
+  const division = evaluateExpression('12+3/0', context);
+  assert.equal(division.success, false);
+  assert.equal(division.errorPosition, 5);
+  const parenthesis = evaluateExpression('sin(30))', context);
+  assert.equal(parenthesis.success, false);
+  assert.equal(parenthesis.errorPosition, 7);
+});

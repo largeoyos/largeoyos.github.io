@@ -4,6 +4,7 @@ import {
   createEmptyDocument,
   collectSequences,
   deleteBackward,
+  expressionBeforeCursor,
   insertFraction,
   insertFunction,
   insertGlyph,
@@ -11,6 +12,8 @@ import {
   insertPower,
   insertRoot,
   moveCursor,
+  parseLegacyExpression,
+  replaceExpressionBeforeCursor,
   serializeExpression,
 } from './ast';
 import { LCD_HEIGHT, LCD_WIDTH } from './FormulaLcd';
@@ -255,4 +258,27 @@ test('every physical insert action has serialization and a legal cursor path', (
     assert.notEqual(cursor?.sequence.editable, false, action.value);
     assert.ok(document.cursor.offset >= 0 && document.cursor.offset <= (cursor?.sequence.children.length ?? -1));
   }
+});
+
+test('complex prefix conversion replaces only the current slot prefix', () => {
+  let document = createEmptyDocument();
+  for (const value of ['2', '+', '3', 'i']) document = insertFormulaInput(document, value);
+  assert.equal(expressionBeforeCursor(document), '2+3i');
+  document = replaceExpressionBeforeCursor(document, {
+    kind: 'polar',
+    radius: '3.60555127546',
+    theta: '56.309932474',
+  });
+  assert.equal(serializeExpression(document), 'polar(3.60555127546,56.309932474)');
+  document = insertFormulaInput(document, '×');
+  document = insertFormulaInput(document, '2');
+  assert.equal(serializeExpression(document), 'polar(3.60555127546,56.309932474)×2');
+});
+
+test('rectangular prefix conversion remains grouped for following operations', () => {
+  let document = parseLegacyExpression('2∠45');
+  document = replaceExpressionBeforeCursor(document, { kind: 'rectangular', text: '1.414+1.414i' });
+  document = insertFormulaInput(document, '×');
+  document = insertFormulaInput(document, '2');
+  assert.equal(serializeExpression(document), '(1.414+1.414i)×2');
 });

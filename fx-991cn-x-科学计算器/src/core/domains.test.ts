@@ -110,3 +110,28 @@ test('polynomial solver returns real and complex roots', () => {
 test('polynomial inequalities produce interval notation', () => {
   assert.equal(solvePolynomialInequality([1, 0, -1], '>='), '(-INF,-1] U [1,INF)');
 });
+
+test('complex mode reuses normal-mode real expression semantics', () => {
+  assert.ok(Math.abs(evaluateComplexExpression('√0.2^2+2.8^2', 'DEG').re - 2.80713376952) < 1e-11);
+  assert.equal(evaluateComplexExpression('.2', 'DEG').re, 0.2);
+  assert.equal(evaluateComplexExpression('200+10%', 'DEG').re, 220);
+  assert.ok(Math.abs(evaluateComplexExpression('sin(30)', 'DEG').re - 0.5) < 1e-12);
+  assert.ok(Math.abs(evaluateComplexExpression('sin(π/2)', 'RAD').re - 1) < 1e-12);
+  assert.equal(evaluateComplexExpression('root(3,-8)', 'DEG').re, -2);
+  assert.equal(evaluateComplexExpression('f(3)', 'DEG', {}, 0, { definedFunctions: { f: 'X^2+1' } }).re, 10);
+  assert.ok(Math.abs(evaluateComplexExpression('f(i)', 'DEG', {}, 0, { definedFunctions: { f: 'X^2+1' } }).re) < 1e-12);
+});
+
+test('complex-only domains and nested polar forms stay available', () => {
+  const squareRoot = evaluateComplexExpression('sqrt(-1)', 'DEG');
+  assert.ok(Math.abs(squareRoot.re) < 1e-12);
+  assert.ok(Math.abs(squareRoot.im - 1) < 1e-12);
+  const nested = evaluateComplexExpression('(2∠45°)+1', 'DEG');
+  assert.ok(Math.abs(nested.re - (1 + Math.SQRT2)) < 1e-10);
+  assert.ok(Math.abs(nested.im - Math.SQRT2) < 1e-10);
+  const inverseComplexTrig = evaluateComplexExpression('sin⁻¹(i)', 'DEG');
+  assert.ok(Math.abs(inverseComplexTrig.im - (Math.asinh(1) * 180 / Math.PI)) < 1e-10);
+  const complexTrig = evaluateComplexExpression('sin(30+i)', 'DEG');
+  assert.ok(Number.isFinite(complexTrig.re));
+  assert.ok(Number.isFinite(complexTrig.im));
+});

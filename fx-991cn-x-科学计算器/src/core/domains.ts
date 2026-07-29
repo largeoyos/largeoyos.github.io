@@ -14,7 +14,7 @@ import {
   evaluate as mathEvaluate,
   type Complex,
 } from 'mathjs';
-import { evaluateExpression, formatCasioValue, type AngleMode } from './calculator';
+import { evaluateExpression, formatCasioValue, type AngleMode, type DisplayFormatOptions, type NumberFormat } from './calculator';
 
 export type RealValue = { kind: 'real'; value: number };
 export type ComplexValue = { kind: 'complex'; re: number; im: number };
@@ -140,70 +140,190 @@ export function complexAbs(value: ComplexValue): number {
   return Number(abs(asMathComplex(value)));
 }
 
-export function formatComplex(value: ComplexValue): string {
+export function formatComplex(
+  value: ComplexValue,
+  numberFormat: NumberFormat = { kind: 'Norm1' },
+  options: DisplayFormatOptions = {},
+): string {
   const real = Math.abs(value.re) < EPSILON ? 0 : value.re;
   const imaginary = Math.abs(value.im) < EPSILON ? 0 : value.im;
-  if (imaginary === 0) return formatCasioValue(real);
-  if (real === 0) return `${formatCasioValue(imaginary)}i`;
+  const format = (part: number) => formatCasioValue(part, numberFormat, options);
+  if (imaginary === 0) return format(real);
+  if (real === 0) return `${format(imaginary)}i`;
   const sign = imaginary < 0 ? '-' : '+';
-  return `${formatCasioValue(real)}${sign}${formatCasioValue(Math.abs(imaginary))}i`;
+  return `${format(real)}${sign}${format(Math.abs(imaginary))}i`;
 }
 
 
-function normalizeTopLevelPolar(input: string): string {
+export type ComplexExpressionOptions = {
+  definedFunctions?: Partial<Record<'f' | 'g', string>>;
+};
+
+type MathScalar = number | Complex;
+
+function normalizePolarExpressions(input: string): string {
+  let nested = '';
+  for (let index = 0; index < input.length;) {
+    if (input[index] !== '(') {
+      nested += input[index++];
+      continue;
+    }
+    let depth = 1;
+    let end = index + 1;
+    while (end < input.length && depth > 0) {
+      if (input[end] === '(') depth++;
+      else if (input[end] === ')') depth--;
+      end++;
+    }
+    if (depth !== 0) throw new Error('Syntax ERROR');
+    nested += `(${normalizePolarExpressions(input.slice(index + 1, end - 1))})`;
+    index = end;
+  }
+
   let depth = 0;
-  for (let index = 0; index < input.length; index++) {
-    if (input[index] === '(') depth++;
-    else if (input[index] === ')') depth--;
-    else if (input[index] === '∠' && depth === 0) {
-      const radius = input.slice(0, index).trim();
-      const theta = input.slice(index + 1).trim();
+  const commas: number[] = [];
+  for (let index = 0; index < nested.length; index++) {
+    if (nested[index] === '(') depth++;
+    else if (nested[index] === ')') depth--;
+    else if (nested[index] === ',' && depth === 0) commas.push(index);
+  }
+  if (commas.length) {
+    const parts: string[] = [];
+    let start = 0;
+    for (const comma of commas) {
+      parts.push(normalizePolarExpressions(nested.slice(start, comma)));
+      start = comma + 1;
+    }
+    parts.push(normalizePolarExpressions(nested.slice(start)));
+    return parts.join(',');
+  }
+
+  depth = 0;
+  for (let index = 0; index < nested.length; index++) {
+    if (nested[index] === '(') depth++;
+    else if (nested[index] === ')') depth--;
+    else if (nested[index] === '∠' && depth === 0) {
+      const radius = nested.slice(0, index).trim();
+      const theta = nested.slice(index + 1).trim();
       if (!radius || !theta) throw new Error('Syntax ERROR');
       return `polar((${radius}),(${theta}))`;
     }
   }
-  return input;
+  return nested;
+}
+
+function normalizeComplexAngleSuffixes(input: string, angleMode: AngleMode): string {
+  const factor = (suffix: '°' | 'ʳ' | 'ᵍ') => {
+    if (suffix === '°') return angleMode === 'DEG' ? 1 : angleMode === 'RAD' ? Math.PI / 180 : 10 / 9;
+    if (suffix === 'ʳ') return angleMode === 'RAD' ? 1 : angleMode === 'DEG' ? 180 / Math.PI : 200 / Math.PI;
+    return angleMode === 'GRAD' ? 1 : angleMode === 'DEG' ? 0.9 : Math.PI / 200;
+  };
+  let output = input;
+  const atom = /(\d+(?:\.\d+)?|\([^()]+\))([°ʳᵍ])/g;
+  for (let pass = 0; pass < 8; pass++) {
+    const next = output.replace(atom, (_, value: string, suffix: '°' | 'ʳ' | 'ᵍ') =>
+      `((${value})*${factor(suffix)})`);
+    if (next === output) break;
+    output = next;
+  }
+  return output;
+}
+
+function containsExplicitComplexSyntax(input: string): boolean {
+  return /(^|[^A-Za-z])i($|[^A-Za-z])|∠|\b(?:polar|Conjg|Rep|Imp|arg)\s*\(/i.test(input);
 }
 
 export function evaluateComplexExpression(
   input: string,
   angleMode: AngleMode,
   variables: Record<string, number> = {},
+  ans: number | ComplexValue = 0,
+  options: ComplexExpressionOptions = {},
 ): ComplexValue {
-  const normalized = normalizeTopLevelPolar(input)
-    .replaceAll('×', '*')
-    .replaceAll('÷', '/')
-    .replaceAll('−', '-')
-    .replaceAll('²', '^2')
-    .replaceAll('³', '^3')
-    .replaceAll('⁻¹', '^(-1)')
-    .replaceAll('√', 'sqrt')
-    .replaceAll('π', 'pi')
-    .replaceAll('sin⁻¹', 'asin')
-    .replaceAll('cos⁻¹', 'acos')
-    .replaceAll('tan⁻¹', 'atan');
-  const scope = {
-    ...variables,
-    i: complex(0, 1),
-    polar: (radius: number, theta: number) => {
-      const value = complexFromPolar(radius, theta, angleMode);
-      return complex(value.re, value.im);
-    },
-    Rec: (radius: number, theta: number) => {
-      const value = complexFromPolar(radius, theta, angleMode);
-      return complex(value.re, value.im);
-    },
-    Conjg: (value: number | Complex) => conj(value),
-    arg: (value: number | Complex) => {
-      const complexValue = toComplexValue(value);
-      return complexArgument(complexValue, angleMode);
-    },
-    Rep: (value: number | Complex) => toComplexValue(value).re,
-    Imp: (value: number | Complex) => toComplexValue(value).im,
-    Abs: (value: number | Complex) => Number(abs(value)),
+  const realAns = typeof ans === 'number' ? ans : Math.abs(ans.im) < EPSILON ? ans.re : undefined;
+  if (!containsExplicitComplexSyntax(input) && realAns !== undefined) {
+    const real = evaluateExpression(input, {
+      variables,
+      ans: realAns,
+      angleMode,
+      resultMode: 'decimal',
+      definedFunctions: options.definedFunctions,
+    });
+    if (real.success) return { kind: 'complex', re: real.value, im: 0 };
+    const mayEnterComplexDomain = /\b(?:sqrt|ln|log|root|asin|acos|atanh|acosh)\s*\(/i.test(input)
+      || input.includes('√');
+    if (!mayEnterComplexDomain) throw new Error(real.errorType || 'Syntax ERROR');
+  }
+
+  const normalizeForMath = (expression: string) =>
+    normalizeComplexAngleSuffixes(normalizePolarExpressions(expression), angleMode)
+      .replaceAll('×', '*')
+      .replaceAll('÷', '/')
+      .replaceAll('−', '-')
+      .replaceAll('³√', 'cbrt')
+      .replaceAll('sin⁻¹', 'asin')
+      .replaceAll('cos⁻¹', 'acos')
+      .replaceAll('tan⁻¹', 'atan')
+      .replaceAll('²', '^2')
+      .replaceAll('³', '^3')
+      .replaceAll('⁻¹', '^(-1)')
+      .replaceAll('√', 'sqrt')
+      .replaceAll('π', 'pi');
+  const normalized = normalizeForMath(input);
+
+  const builtin = (name: string, value: MathScalar): MathScalar =>
+    mathEvaluate(`${name}(z)`, { z: value }) as MathScalar;
+  const scale = (value: MathScalar, amount: number): MathScalar =>
+    multiply(value, amount) as MathScalar;
+  const radiansPerUnit = angleMode === 'RAD' ? 1 : angleMode === 'GRAD' ? Math.PI / 200 : Math.PI / 180;
+  const unitsPerRadian = 1 / radiansPerUnit;
+  const realPart = (value: MathScalar): number => {
+    const converted = toComplexValue(value);
+    if (Math.abs(converted.im) >= EPSILON) throw new Error('Argument ERROR');
+    return converted.re;
   };
-  const value = mathEvaluate(normalized, scope) as number | Complex;
-  return toComplexValue(value);
+  const scope: Record<string, unknown> = {
+    ...variables,
+    Ans: typeof ans === 'number' ? ans : complex(ans.re, ans.im),
+    i: complex(0, 1),
+    sin: (value: MathScalar) => builtin('sin', scale(value, radiansPerUnit)),
+    cos: (value: MathScalar) => builtin('cos', scale(value, radiansPerUnit)),
+    tan: (value: MathScalar) => builtin('tan', scale(value, radiansPerUnit)),
+    asin: (value: MathScalar) => scale(builtin('asin', value), unitsPerRadian),
+    acos: (value: MathScalar) => scale(builtin('acos', value), unitsPerRadian),
+    atan: (value: MathScalar) => scale(builtin('atan', value), unitsPerRadian),
+    ln: (value: MathScalar) => builtin('log', value),
+    log: (...args: MathScalar[]) => args.length === 1
+      ? divide(builtin('log', args[0]), Math.log(10))
+      : divide(builtin('log', args[1]), builtin('log', args[0])),
+    root: (index: MathScalar, radicand: MathScalar) =>
+      pow(radicand, divide(1, index) as MathScalar),
+    polar: (radius: MathScalar, theta: MathScalar) => {
+      const value = complexFromPolar(realPart(radius), realPart(theta), angleMode);
+      return complex(value.re, value.im);
+    },
+    Rec: (radius: MathScalar, theta: MathScalar) => {
+      const value = complexFromPolar(realPart(radius), realPart(theta), angleMode);
+      return complex(value.re, value.im);
+    },
+    Conjg: (value: MathScalar) => conj(value),
+    arg: (value: MathScalar) => complexArgument(toComplexValue(value), angleMode),
+    Rep: (value: MathScalar) => toComplexValue(value).re,
+    Imp: (value: MathScalar) => toComplexValue(value).im,
+    Abs: (value: MathScalar) => Number(abs(value)),
+  };
+  for (const name of ['f', 'g'] as const) {
+    const expression = options.definedFunctions?.[name]?.trim();
+    if (!expression) continue;
+    scope[name] = (value: MathScalar) => mathEvaluate(
+      normalizeForMath(expression),
+      { ...scope, X: value },
+    ) as MathScalar;
+  }
+  const value = mathEvaluate(normalized, scope) as MathScalar;
+  const result = toComplexValue(value);
+  if (![result.re, result.im].every(Number.isFinite)) throw new Error('Math ERROR');
+  return result;
 }
 export function assertInt32(value: number): number {
   if (!Number.isInteger(value) || value < -0x8000_0000 || value > 0x7fff_ffff) {
@@ -691,6 +811,7 @@ export function generateFunctionTable(
   step: number,
   variables: Record<string, number>,
   angleMode: AngleMode,
+  definedFunctions?: Partial<Record<'f' | 'g', string>>,
 ) {
   if (!Number.isFinite(step) || step === 0 || (end - start) / step < 0) throw new Error('Range ERROR');
   const count = Math.floor((end - start) / step + EPSILON) + 1;
@@ -704,6 +825,7 @@ export function generateFunctionTable(
         variables: { ...variables, X: x },
         ans: 0,
         angleMode,
+        definedFunctions: definedFunctions ?? { f: fExpression, g: gExpression },
       });
       return result.success ? result.value : NaN;
     };

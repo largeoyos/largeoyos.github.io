@@ -173,3 +173,57 @@ test('mode 8 rejects non-real or multi-value coefficients without losing the edi
     }
   }
 });
+
+
+test('matrix results expose structured cells, touch selection and MatAns chaining', () => {
+  const runtimeContext = { variables: {}, ans: 0, angleMode: 'DEG' as const };
+  let state = createModeRuntime();
+  state.memory.matrices.MatA = [[1, 2], [3, 4]];
+  state = dispatchModeRuntime(state, { type: 'select-mode', mode: 'Matrix' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: 'MatA' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+  assert.deepEqual(runtimeScreenView(state, runtimeContext)?.matrix, [['1', '2'], ['3', '4']]);
+  state = dispatchModeRuntime(state, { type: 'select', row: 1, column: 1 }, runtimeContext);
+  assert.deepEqual(state.resultSelection, { row: 1, column: 1 });
+  state = dispatchModeRuntime(state, { type: 'append', value: '×' }, runtimeContext);
+  assert.equal(state.input, 'MatAns×');
+});
+
+test('matrix editors evaluate a real expression instead of coercing Number(buffer)', () => {
+  const runtimeContext = { variables: { A: 2 }, ans: 4, angleMode: 'DEG' as const };
+  let state = createModeRuntime();
+  state = dispatchModeRuntime(state, { type: 'select-mode', mode: 'Matrix' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'optn' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: '1' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: '1' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: '2' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: '2' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'append', value: 'A+Ans' }, runtimeContext);
+  state = dispatchModeRuntime(state, { type: 'evaluate' }, runtimeContext);
+  assert.equal(state.screen.kind, 'matrix-editor');
+  if (state.screen.kind === 'matrix-editor') assert.equal(state.screen.values[0][0], 6);
+});
+
+test('complex OPTION exposes structured insert and prefix conversion commands', () => {
+  let state = createModeRuntime();
+  state = dispatchModeRuntime(state, { type: 'select-mode', mode: 'Complex' }, context);
+  state = dispatchModeRuntime(state, { type: 'optn' }, context);
+  assert.equal(state.screen.kind, 'menu');
+  if (state.screen.kind === 'menu') {
+    assert.equal(state.screen.options.length, 10);
+    assert.equal(state.screen.options[8].label, '前式→a+bi');
+    assert.equal(state.screen.options[9].label, '前式→r∠θ');
+  }
+  state = dispatchModeRuntime(state, { type: 'append', value: '9' }, context);
+  assert.deepEqual(state.editorCommand, { type: 'convert', format: 'rectangular' });
+
+  state = dispatchModeRuntime(
+    { ...state, editorCommand: undefined },
+    { type: 'optn' },
+    context,
+  );
+  state = dispatchModeRuntime(state, { type: 'append', value: '3' }, context);
+  assert.deepEqual(state.editorCommand, { type: 'insert', value: 'Conjg(' });
+});

@@ -48,6 +48,7 @@ export interface EvaluationContext {
   decimalPoint?: 'dot' | 'comma';
   digitSeparator?: boolean;
   engineeringSymbols?: boolean;
+  definedFunctions?: Partial<Record<'f' | 'g', string>>;
 }
 
 export interface EvalResult {
@@ -57,6 +58,7 @@ export interface EvalResult {
   exact?: ExactValue;
   assignments?: Partial<Record<'X' | 'Y', number>>;
   errorType?: 'Math ERROR' | 'Stack ERROR' | 'Syntax ERROR' | 'Argument ERROR' | 'Dimension ERROR' | 'Range ERROR' | 'Variable ERROR' | 'No Solution' | 'Timeout ERROR';
+  errorPosition?: number;
 }
 
 export interface SolveResult extends EvalResult {
@@ -105,7 +107,7 @@ const FUNCTIONS = new Set([
   'sqrt', 'cbrt', 'root', 'log', 'ln', 'abs', 'fact', 'npr', 'ncr', 'rnd', 'ranint', 'pol', 'rec',
   'rand', 'd', 'dx', 'derivative', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
   'binompdf', 'binomcdf', 'poissonpdf', 'poissoncdf', 'solve', 'ratio', 'mixed',
-  'recur', 'dms', 'todms',
+  'recur', 'dms', 'todms', 'f', 'g',
 ]);
 
 function normalizeOpenRadicals(input: string): string {
@@ -619,11 +621,26 @@ function evalNode(node: Node, ctx: EvaluationContext): number {
       }
       return evalBinary(node.op, left, evalNode(node.right, ctx));
     }
-    case 'call':
-      if (['d', 'dx', 'derivative', 'integral', 'sum', 'solve', 'recur'].includes(node.name.toLowerCase())) {
+    case 'call': {
+      const functionName = node.name.toLowerCase();
+      if ((functionName === 'f' || functionName === 'g') && ctx.definedFunctions?.[functionName]) {
+        if (node.args.length !== 1) throw new Error('Argument ERROR');
+        const argument = evalNode(node.args[0], ctx);
+        const definitions = { ...ctx.definedFunctions };
+        delete definitions[functionName];
+        const result = evaluateExpression(ctx.definedFunctions[functionName]!, {
+          ...ctx,
+          variables: { ...ctx.variables, X: argument },
+          definedFunctions: definitions,
+        });
+        if (!result.success) throw new Error(result.errorType || 'Math ERROR');
+        return result.value;
+      }
+      if (['d', 'dx', 'derivative', 'integral', 'sum', 'solve', 'recur'].includes(functionName)) {
         return callSpecialFunction(node.name, node.args, ctx);
       }
       return callFunction(node.name, node.args.map(arg => evalNode(arg, ctx)), ctx);
+    }
   }
 }
 
@@ -903,6 +920,33 @@ function formatDms(value: number, mode: AngleMode): string {
   return `${sign}${whole}°${minutes}′${seconds}″`;
 }
 
+function locateErrorPosition(input: string, message: string): number {
+  let depth = 0;
+  const opens: number[] = [];
+  for (let index = 0; index < input.length; index++) {
+    const char = input[index];
+    if (char === '(') { depth++; opens.push(index); }
+    if (char === ')') {
+      depth--;
+      if (depth < 0) return index;
+      opens.pop();
+    }
+    if (char === '.' && input[index + 1] === '.') return index + 1;
+  }
+  if (depth > 0) return opens.at(-1) ?? input.length;
+  if (message === 'Math ERROR') {
+    const zeroDivisor = input.search(/[÷/]\s*(?:\(?\s*)?0(?:\D|$)/);
+    if (zeroDivisor >= 0) {
+      const offset = input.slice(zeroDivisor).search(/0/);
+      return zeroDivisor + Math.max(0, offset);
+    }
+    const domainFunction = input.search(/(?:sqrt|√|ln|log|asin|acos|atanh|root)\s*\(/i);
+    if (domainFunction >= 0) return domainFunction;
+  }
+  const invalid = input.search(/[^0-9A-Za-z_+\-*/÷×^().,!%°′″πʳᵍ\s:√∫Σ]/);
+  return invalid >= 0 ? invalid : Math.max(0, input.length - 1);
+}
+
 export function evaluateExpression(input: string, ctx: EvaluationContext): EvalResult {
   if (!input.trim()) return { success: true, value: 0, displayText: '0', exact: exactRational(rational(0n)) };
   if (input.length > 199) {
@@ -973,7 +1017,7 @@ export function evaluateExpression(input: string, ctx: EvaluationContext): EvalR
       : ['Math ERROR', 'Stack ERROR', 'Argument ERROR', 'Dimension ERROR', 'Range ERROR', 'Timeout ERROR'].includes(message)
         ? message as EvalResult['errorType']
         : 'Syntax ERROR';
-    return { success: false, value: 0, displayText: errorType || 'Syntax ERROR', errorType };
+    return { success: false, value: 0, displayText: errorType || 'Syntax ERROR', errorType, errorPosition: locateErrorPosition(input, message) };
   }
 }
 

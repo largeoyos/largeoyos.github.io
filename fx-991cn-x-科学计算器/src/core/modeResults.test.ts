@@ -48,3 +48,23 @@ test('matrix and complex modes accept the original physical fixed-power keys', (
   const complex = evaluateModeExpression('Complex', '(1+i)²', memory, {}, 'DEG').complex;
   assert.ok(complex && Math.abs(complex.re) < 1e-10 && Math.abs(complex.im - 2) < 1e-10);
 });
+
+
+test('mode result formatting applies number, separator and engineering settings', () => {
+  const memory = createDefaultModeMemory();
+  memory.matrices.MatA = [[2000, 1.25]];
+  const matrix = evaluateModeExpression('Matrix', 'MatA', memory, {}, 'DEG', {
+    numberFormat: { kind: 'Fix', digits: 2 },
+    engineeringSymbols: true,
+    decimalPoint: 'comma',
+  });
+  assert.deepEqual(matrix.matrixDisplay, [['2,00k', '1,25']]);
+});
+
+test('complex mode reuses a complex Ans value', () => {
+  const memory = createDefaultModeMemory();
+  const result = evaluateModeExpression('Complex', 'Ans+1', memory, {}, 'DEG', {
+    complexAns: { kind: 'complex', re: 2, im: 3 },
+  });
+  assert.deepEqual(result.complex, { kind: 'complex', re: 3, im: 3 });
+});

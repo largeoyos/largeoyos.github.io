@@ -49,6 +49,12 @@ import {
   MODE_MEMORY_KEY,
   type CalcMode,
 } from './core/modes';
+import {
+  complexToPolar,
+  evaluateComplexExpression,
+  formatComplex,
+  type ComplexValue,
+} from './core/domains';
 import { serializeExpression, type FormulaDocument } from './math/ast';
 import {
   DEFAULT_PREFERENCES,
@@ -96,6 +102,13 @@ type ActiveMenu = 'NONE' | 'SETUP' | 'CONST' | 'CONV' | 'CATALOG' | 'RECALL' | '
 type ResetChoice = 'settings' | 'memory' | 'all';
 type CatalogPage = { kind: 'root' } | { kind: 'advanced'; index: number } | { kind: 'constant-categories' } | { kind: 'constant-list'; category: ScientificConstantCategory } | { kind: 'conversion-categories' } | { kind: 'conversion-list'; category: UnitConversionCategory };
 type MenuDirection = 'left' | 'right' | 'up' | 'down';
+type SolveSession = {
+  names: string[];
+  index: number;
+  buffer: string;
+  fresh: boolean;
+};
+
 type CalcSession = {
   names: string[];
   index: number;
@@ -106,7 +119,8 @@ type CalcSession = {
 };
 
 const STORAGE_KEY = 'fx991cnx-registers-v1';
-const PREFERENCES_KEY = 'fx991cnx-preferences-v3';
+const PREFERENCES_KEY = 'fx991cnx-preferences-v4';
+const AUTO_OFF_DELAY_MS = 10 * 60 * 1000;
 const VARIABLE_NAMES = ['A', 'B', 'C', 'D', 'E', 'F', 'X', 'Y', 'M'];
 const DEFAULT_VARIABLES: Record<string, number> = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, X: 0, Y: 0, M: 0 };
 const MODE_LABELS: Record<CalcMode, string> = {
@@ -165,12 +179,15 @@ export default function App() {
   const [expr, setExpr] = useState<string>("");
   const [cursorIdx, setCursorIdx] = useState<number>(0);
   const [ans, setAns] = useState<number>(0);
+  const [complexAns, setComplexAns] = useState<ComplexValue>();
+  const [errorPosition, setErrorPosition] = useState<number>();
+  const [verifyActive, setVerifyActive] = useState(false);
   const [resultVal, setResultVal] = useState<string>("0");
   const [exactAns, setExactAns] = useState<ExactValue>();
   const [currentExact, setCurrentExact] = useState<ExactValue>();
   const [resultDocument, setResultDocument] = useState<FormulaDocument>();
   const [preferences, setPreferences] = useState<CalculatorPreferences>(() =>
-    parseCalculatorPreferences(window.localStorage.getItem(PREFERENCES_KEY)));
+    parseCalculatorPreferences(window.localStorage.getItem(PREFERENCES_KEY) ?? window.localStorage.getItem('fx991cnx-preferences-v3')));
   const { angleMode, numberFormat, resultMode } = preferences;
   const setAngleMode = (next: AngleMode | ((previous: AngleMode) => AngleMode)) => {
     setPreferences(previous => ({
@@ -212,6 +229,7 @@ export default function App() {
   const [solutionIndex, setSolutionIndex] = useState(0);
   const [solutionVariable, setSolutionVariable] = useState('X');
   const [calcSession, setCalcSession] = useState<CalcSession>();
+  const [solveSession, setSolveSession] = useState<SolveSession>();
   const [resetChoice, setResetChoice] = useState<ResetChoice>('settings');
 
   // Sidebar / Interactive variables panel
@@ -243,28 +261,85 @@ export default function App() {
     }
   }, [preferences]);
 
-  const applyModeAction = (action: RuntimeAction) => {
-    const next = dispatchModeRuntime(modeRuntime, action, {
-      variables,
-      ans,
-      angleMode,
-      exactAns,
-      resultMode,
-      numberFormat,
-      complexResult: preferences.complexResult,
-      fractionResult: preferences.fractionResult,
-      tableMode: preferences.tableMode,
-      equationComplexRoots: preferences.equationComplexRoots,
-      decimalPoint: preferences.decimalPoint,
-      digitSeparator: preferences.digitSeparator,
-      engineeringSymbols: preferences.engineeringSymbols,
-    });
+  const runtimeContext = {
+    variables,
+    ans,
+    angleMode,
+    exactAns,
+    resultMode,
+    numberFormat,
+    complexResult: preferences.complexResult,
+    fractionResult: preferences.fractionResult,
+    tableMode: preferences.tableMode,
+    equationComplexRoots: preferences.equationComplexRoots,
+    decimalPoint: preferences.decimalPoint,
+    digitSeparator: preferences.digitSeparator,
+    engineeringSymbols: preferences.engineeringSymbols,
+    complexAns,
+    definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
+    verifyActive,
+  };
+
+  const applyModeAction = (action: RuntimeAction, baseState = modeRuntime) => {
+    const next = dispatchModeRuntime(baseState, action, runtimeContext);
+    if (next.editorCommand) {
+      const command = next.editorCommand;
+      const cleaned = { ...next, editorCommand: undefined, input: baseState.input };
+      setModeRuntime(cleaned);
+      setExpr(baseState.input);
+      if (command.type === 'insert') {
+        formulaLcdRef.current?.insertInput(command.value);
+        return cleaned;
+      }
+      const source = formulaLcdRef.current?.getExpressionBeforeCursor() ?? '';
+      if (!source) {
+        setResultVal('Argument ERROR');
+        return cleaned;
+      }
+      try {
+        const value = evaluateComplexExpression(
+          source,
+          angleMode,
+          variables,
+          complexAns ?? ans,
+          { definedFunctions: { f: baseState.memory.functions.f, g: baseState.memory.functions.g } },
+        );
+        const displayOptions = {
+          decimalPoint: preferences.decimalPoint,
+          digitSeparator: preferences.digitSeparator,
+        };
+        if (command.format === 'rectangular') {
+          const rectangular = formatComplex(value, numberFormat, displayOptions);
+          formulaLcdRef.current?.replaceExpressionBeforeCursor({
+            kind: 'rectangular',
+            text: rectangular,
+          });
+          setResultVal(rectangular);
+        } else {
+          const polar = complexToPolar(value, angleMode);
+          const radius = formatCoreValue(polar.radius, numberFormat, displayOptions);
+          const theta = formatCoreValue(polar.theta, numberFormat, displayOptions);
+          formulaLcdRef.current?.replaceExpressionBeforeCursor({
+            kind: 'polar',
+            radius,
+            theta,
+          });
+          setResultVal(`${radius}∠${theta}`);
+        }
+      } catch (error) {
+        setResultVal(error instanceof Error ? error.message : 'Math ERROR');
+      }
+      return cleaned;
+    }
     setModeRuntime(next);
     setExpr(next.input);
     setResultVal(next.result);
     if (next.result === 'DEG' || next.result === 'RAD' || next.result === 'GRAD') setAngleMode(next.result);
-    if (next.lastEvaluation?.numeric !== undefined && Number.isFinite(next.lastEvaluation.numeric)) {
+    if (next.lastEvaluation?.complex) {
+      setComplexAns(next.lastEvaluation.complex);
+    } else if (next.lastEvaluation?.numeric !== undefined && Number.isFinite(next.lastEvaluation.numeric)) {
       setAns(next.lastEvaluation.numeric);
+      setComplexAns(undefined);
     }
     if ((next.screen.kind === 'table' || next.screen.kind === 'graph') && next.screen.rows.length) {
       const tableX = next.screen.rows[next.screen.rows.length - 1].x;
@@ -272,6 +347,30 @@ export default function App() {
     }
     return next;
   };
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const arm = () => {
+      if (timer) clearTimeout(timer);
+      if (!powerActive) return;
+      timer = setTimeout(() => {
+        setPowerActive(false);
+        setExpr('');
+        setResultVal('');
+        setShiftActive(false);
+        setAlphaActive(false);
+      }, AUTO_OFF_DELAY_MS);
+    };
+    const activity = () => arm();
+    arm();
+    window.addEventListener('pointerdown', activity, { passive: true });
+    window.addEventListener('keydown', activity);
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener('pointerdown', activity);
+      window.removeEventListener('keydown', activity);
+    };
+  }, [powerActive]);
 
   // Physical Sound Synthesizer via Web Audio API
   const triggerClickAudio = () => {
@@ -318,9 +417,12 @@ export default function App() {
       decimalPoint: preferences.decimalPoint,
       digitSeparator: preferences.digitSeparator,
       engineeringSymbols: preferences.engineeringSymbols,
+      definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
     });
     if (evalRes.success) {
       setAns(evalRes.value);
+      setComplexAns(undefined);
+      setErrorPosition(undefined);
       setExactAns(evalRes.exact);
       setCurrentExact(evalRes.exact);
       const presentation = exactPresentation(evalRes.exact, evalRes.displayText);
@@ -334,6 +436,7 @@ export default function App() {
       ]);
     } else {
       setResultVal(evalRes.displayText);
+      setErrorPosition(evalRes.errorPosition);
     }
   };
 
@@ -346,8 +449,13 @@ export default function App() {
     setResultVal(`Stored ${name}=${formatCoreValue(ans)}`);
   };
 
-  const runSolveFor = (name: string) => {
-    const solveRes = solveForVariable(expr, name, { variables, ans, angleMode });
+  const runSolveFor = (name: string, guess?: number) => {
+    const solveRes = solveForVariable(expr, name, {
+      variables,
+      ans,
+      angleMode,
+      definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
+    }, guess);
     if (solveRes.success) {
       const roots = solveRes.roots ?? [solveRes.value];
       const initialIndex = Math.max(0, roots.findIndex(root =>
@@ -361,6 +469,7 @@ export default function App() {
     } else {
       setResultVal(solveRes.displayText);
     }
+    setSolveSession(undefined);
     setActiveMenu('NONE');
   };
 
@@ -395,8 +504,14 @@ export default function App() {
       setResultVal("No variable");
       return;
     }
+    setSolveSession({
+      names: vars,
+      index: 0,
+      buffer: String(variables[vars[0]] ?? ans ?? 0),
+      fresh: true,
+    });
     setActiveMenu('SOLVE');
-    setResultVal(`SOLVE ${vars.map(name => `${name}=${formatCoreValue(variables[name] ?? 0)}`).join('  ')}`);
+    setResultVal(`SOLVE ${vars[0]}=`);
   };
 
   const handleCalcRequest = () => {
@@ -419,7 +534,8 @@ export default function App() {
           numberFormat,
           decimalPoint: preferences.decimalPoint,
           digitSeparator: preferences.digitSeparator,
-        engineeringSymbols: preferences.engineeringSymbols,
+          engineeringSymbols: preferences.engineeringSymbols,
+          definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
         });
         if (!evaluation.success) {
           setResultVal(evaluation.displayText);
@@ -462,7 +578,8 @@ export default function App() {
         numberFormat,
         decimalPoint: preferences.decimalPoint,
         digitSeparator: preferences.digitSeparator,
-      engineeringSymbols: preferences.engineeringSymbols,
+        engineeringSymbols: preferences.engineeringSymbols,
+        definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
       });
       if (!evaluation.success) {
         setResultVal(evaluation.displayText);
@@ -492,6 +609,10 @@ export default function App() {
       exactAns,
       resultMode: 'decimal',
       numberFormat,
+      decimalPoint: preferences.decimalPoint,
+      digitSeparator: preferences.digitSeparator,
+      engineeringSymbols: preferences.engineeringSymbols,
+      definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
     });
     if (!evaluation.success || !Number.isFinite(evaluation.value)) {
       setResultVal(evaluation.success ? 'Argument ERROR' : evaluation.displayText);
@@ -609,6 +730,8 @@ export default function App() {
       setPreferences(previous => ({ ...previous, digitSeparator: index === 0 }));
     } else if (setupPage === 'multiline-font') {
       setPreferences(previous => ({ ...previous, multilineFont: index === 0 ? 'normal' : 'small' }));
+    } else if (setupPage === 'input-edit-mode') {
+      setPreferences(previous => ({ ...previous, inputEditMode: index === 0 ? 'insert' : 'overwrite' }));
     } else if (setupPage === 'language') {
       setPreferences(previous => ({ ...previous, language: index === 0 ? 'zh' : 'en' }));
     } else if (setupPage === 'contrast') {
@@ -639,7 +762,14 @@ export default function App() {
     }
     if (catalogPage.kind === 'advanced') {
       const item = ADVANCED_CATALOG[catalogPage.index].items[index];
-      if (item) insertTextAtCursor(item.insert);
+      if (item?.insert === '__UNDO__') formulaLcdRef.current?.undo();
+      else if (item?.insert === '__REDO__') formulaLcdRef.current?.redo();
+      else if (item?.insert === '__VERIFY__') {
+        setVerifyActive(previous => !previous);
+        setHistoryList([]);
+        setHistoryIndex(-1);
+        setResultVal(verifyActive ? 'VERIFY OFF' : 'VERIFY ON');
+      } else if (item) insertTextAtCursor(item.insert);
       setActiveMenu('NONE');
       return;
     }
@@ -672,6 +802,7 @@ export default function App() {
       setHistoryIndex(-1);
     }
     setCalcMode(mode);
+    setVerifyActive(false);
     const next = dispatchModeRuntime(modeRuntime, { type: 'select-mode', mode }, {
       variables,
       ans,
@@ -686,6 +817,9 @@ export default function App() {
       decimalPoint: preferences.decimalPoint,
       digitSeparator: preferences.digitSeparator,
       engineeringSymbols: preferences.engineeringSymbols,
+      complexAns,
+      definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
+      verifyActive: false,
     });
     setModeRuntime(next);
     setExpr(next.input);
@@ -744,6 +878,13 @@ export default function App() {
       applyModeAction({ type: 'clear' });
       setShiftActive(false);
       setAlphaActive(false);
+      return;
+    }
+
+    if (errorPosition !== undefined && ['arrow_left', 'arrow_right', 'arrow_up', 'arrow_down'].includes(action)) {
+      formulaLcdRef.current?.moveToExpressionOffset(errorPosition);
+      setErrorPosition(undefined);
+      setResultVal('');
       return;
     }
 
@@ -852,7 +993,7 @@ export default function App() {
           return;
         }
         if (shiftValue === '←') {
-          const value = Number(resultVal);
+          const value = ans;
           if (Number.isFinite(value) && value !== 0) {
             const exponent = Math.floor(Math.log10(Math.abs(value)) / 3) * 3 - 3;
             const mantissa = value / 10 ** exponent;
@@ -927,17 +1068,33 @@ export default function App() {
         return;
       }
       if (activeMenu === 'SOLVE') {
-        if (VARIABLE_NAMES.includes(activeVal)) {
-          runSolveFor(activeVal);
+        if (!solveSession) {
+          setActiveMenu('NONE');
           return;
         }
-        const idx = Number(activeVal) - 1;
-        const vars = formulaLcdRef.current?.getVariables() ?? extractVariables(expr);
-        if (Number.isInteger(idx) && vars[idx]) {
-          runSolveFor(vars[idx]);
-          return;
+        if (activeAction === 'arrow_up' || activeAction === 'arrow_down') {
+          const delta = activeAction === 'arrow_up' ? -1 : 1;
+          const index = Math.max(0, Math.min(solveSession.names.length - 1, solveSession.index + delta));
+          const name = solveSession.names[index];
+          setSolveSession({ ...solveSession, index, buffer: String(variables[name] ?? ans ?? 0), fresh: true });
+          setResultVal(`SOLVE ${name}=`);
+        } else if (activeAction === 'evaluate') {
+          const evaluated = evaluateExpression(solveSession.buffer || '0', {
+            variables, ans, angleMode, resultMode: 'decimal', numberFormat,
+            definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
+          });
+          if (!evaluated.success) {
+            setResultVal(evaluated.displayText);
+            setErrorPosition(evaluated.errorPosition);
+          } else runSolveFor(solveSession.names[solveSession.index], evaluated.value);
+        } else if (activeAction === 'append') {
+          let buffer = solveSession.fresh ? '' : solveSession.buffer;
+          if (activeVal === '.') {
+            const token = buffer.match(/[0-9.]+$/)?.[0] ?? '';
+            if (!token.includes('.')) buffer += /\d$/.test(token) ? '.' : '0.';
+          } else buffer += activeVal;
+          setSolveSession({ ...solveSession, buffer, fresh: false });
         }
-        setActiveMenu('NONE');
         return;
       }
       if (activeMenu === 'CALC') {
@@ -1047,10 +1204,35 @@ export default function App() {
         setCatalogPage({ kind: 'root' });
         setCatalogIndex(0);
         setActiveMenu('CATALOG');
+      } else if (calcMode === 'Complex' && modeRuntime.screen.kind === 'input') {
+        const input = formulaLcdRef.current?.getExpression() ?? expr;
+        applyModeAction({ type: 'optn' }, { ...modeRuntime, input });
       } else applyModeAction({ type: 'optn' });
       return;
     }
-    if (modeRuntime.screen.kind !== 'input' || calcMode !== 'Calculate') {
+    if (modeRuntime.screen.kind !== 'input' || (calcMode !== 'Calculate' && calcMode !== 'Complex')) {
+      if (activeAction === 'store_mode') {
+        let scalar: number | undefined;
+        const screen = modeRuntime.screen;
+        if (screen.kind === 'matrix-editor') scalar = screen.values[screen.row][screen.column];
+        else if (screen.kind === 'vector-editor') scalar = screen.values[screen.index];
+        else if (screen.kind === 'statistics-editor') {
+          const row = screen.rows[screen.row];
+          scalar = screen.column === 0 ? row?.x : screen.column === 1 && modeRuntime.memory.statistics.kind === 'double' ? row?.y : row?.freq;
+        } else if (modeRuntime.lastEvaluation?.matrix) {
+          const selection = modeRuntime.resultSelection ?? { row: 0, column: 0 };
+          scalar = modeRuntime.lastEvaluation.matrix[selection.row]?.[selection.column];
+        } else if (modeRuntime.lastEvaluation?.vector) {
+          scalar = modeRuntime.lastEvaluation.vector[modeRuntime.resultSelection?.row ?? 0];
+        } else scalar = modeRuntime.lastEvaluation?.numeric;
+        if (scalar !== undefined && Number.isFinite(scalar)) setAns(scalar);
+        setActiveMenu('STORE');
+        return;
+      }
+      if (activeAction === 'mplus' && modeRuntime.lastEvaluation?.numeric !== undefined) {
+        setVariables(previous => ({ ...previous, M: previous.M + modeRuntime.lastEvaluation!.numeric! }));
+        return;
+      }
       if (activeAction === 'sd') {
         applyModeAction({ type: 'toggle-result' });
         return;
@@ -1083,6 +1265,15 @@ export default function App() {
         formulaLcdRef.current?.clear();
         setExpr("");
         setResultVal("0");
+        if (calcMode === 'Complex') {
+          setModeRuntime(previous => ({
+            ...previous,
+            input: '',
+            result: '0',
+            evaluated: false,
+            lastEvaluation: undefined,
+          }));
+        }
         setCursorIdx(0);
         setHistoryIndex(-1);
         setSolutionList([]);
@@ -1148,11 +1339,20 @@ export default function App() {
         setActiveMenu('STORE');
         break;
       case 'eng': {
-        const value = Number(resultVal);
+        if (calcMode === 'Complex') {
+          insertTextAtCursor('i');
+          break;
+        }
+        const value = ans;
         if (Number.isFinite(value)) setResultVal(formatEngineering(value));
         break;
       }
       case 'sd': {
+        if (calcMode === 'Complex') {
+          const input = formulaLcdRef.current?.getExpression() ?? expr;
+          applyModeAction({ type: 'toggle-result' }, { ...modeRuntime, input });
+          break;
+        }
         if (currentExact) {
           setResultDocument(previous => previous
             ? undefined
@@ -1169,7 +1369,13 @@ export default function App() {
         break;
       }
       case 'evaluate':
-        handleEvaluation();
+        if (calcMode === 'Complex') {
+          const input = formulaLcdRef.current?.getExpression() ?? expr;
+          applyModeAction(
+            { type: 'evaluate' },
+            { ...modeRuntime, input, screen: { kind: 'input' } },
+          );
+        } else handleEvaluation();
         break;
       case 'append':
         insertTextAtCursor(activeVal);
@@ -1182,6 +1388,7 @@ export default function App() {
 
   const insertTextAtCursor = (txt: string) => {
     setHistoryIndex(-1);
+    setErrorPosition(undefined);
     setSolutionList([]);
     if (formulaLcdRef.current) {
       let input = txt;
@@ -1204,6 +1411,11 @@ export default function App() {
     setHistoryIndex(-1);
     setSolutionList([]);
     const effectiveResultMode = overrideResultMode ?? resultMode;
+    if (verifyActive && !/(?:==|!=|<=|>=|[=<>])/.test(expr)) {
+      setResultVal('Argument ERROR');
+      setErrorPosition(Math.max(0, expr.length - 1));
+      return;
+    }
     const evalRes = evaluateExpression(expr, {
       variables,
       ans,
@@ -1214,9 +1426,12 @@ export default function App() {
       decimalPoint: preferences.decimalPoint,
       digitSeparator: preferences.digitSeparator,
       engineeringSymbols: preferences.engineeringSymbols,
+      definedFunctions: { f: modeRuntime.memory.functions.f, g: modeRuntime.memory.functions.g },
     });
     if (evalRes.success) {
       setAns(evalRes.value);
+      setComplexAns(undefined);
+      setErrorPosition(undefined);
       setExactAns(evalRes.exact);
       setCurrentExact(evalRes.exact);
       const presentation = effectiveResultMode === 'exact'
@@ -1234,7 +1449,8 @@ export default function App() {
         ...prev.slice(0, 19)
       ]);
     } else {
-      setResultVal(evalRes.displayText); // Shows ERROR string
+      setResultVal(evalRes.displayText);
+      setErrorPosition(evalRes.errorPosition);
     }
   };
 
@@ -1268,6 +1484,13 @@ export default function App() {
         handleKeypress('arrow_right');
       } else if (e.key === 'ArrowUp') {
         handleKeypress('arrow_up');
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) formulaLcdRef.current?.redo();
+        else formulaLcdRef.current?.undo();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+        e.preventDefault();
+        formulaLcdRef.current?.redo();
       } else if (e.key === 'ArrowDown') {
         handleKeypress('arrow_down');
       }
@@ -1301,7 +1524,7 @@ export default function App() {
           <div>
             <span className="font-bold text-slate-100 tracking-tight text-md">fx-991CN X 科学计算器</span>
             <span className="hidden sm:inline-block ml-3 px-2 py-0.5 rounded text-[10px] bg-teal-950 text-teal-400 border border-teal-800 font-mono font-semibold">
-              CLASSWIZ EMULATOR v4.0.0
+              CLASSWIZ EMULATOR v4.2.0
             </span>
           </div>
         </div>
@@ -1400,6 +1623,7 @@ export default function App() {
                     powerActive={powerActive}
                     shiftActive={shiftActive}
                     alphaActive={alphaActive}
+                    verifyActive={verifyActive}
                     angleMode={angleMode}
                     calcMode={calcMode}
                     activeMenu={activeMenu}
@@ -1410,10 +1634,13 @@ export default function App() {
                     }))}
                     variables={variables}
                     linearInput={preferences.inputOutput.startsWith('LineI/')}
+                    compactRows={preferences.multilineFont === 'small'}
+                    overwriteInput={preferences.inputEditMode === 'overwrite'}
+                    language={preferences.language}
                     listTitle={activeMenu === 'CATALOG'
                       ? catalogView.title
                       : activeMenu === 'SETUP'
-                        ? setupPageTitle(setupPage)
+                        ? setupPageTitle(setupPage, preferences.language)
                         : activeMenu === 'CALC'
                           ? 'CALC'
                           : activeMenu === 'SOLVE'
@@ -1433,9 +1660,9 @@ export default function App() {
                             `${calcSession.index + 1}/${calcSession.names.length}`,
                             calcSession.ready ? '按 = 计算' : '按 = 确认',
                           ]
-                          : activeMenu === 'SOLVE'
-                            ? extractVariables(expr).slice(0, 4).map((name, index) =>
-                              `${index + 1} ${name}=${formatCoreValue(variables[name] ?? 0)}`)
+                          : activeMenu === 'SOLVE' && solveSession
+                            ? solveSession.names.slice(0, 4).map((name, index) =>
+                              `${index + 1} ${name}=${index === solveSession.index ? '[' + solveSession.buffer + ']' : formatCoreValue(variables[name] ?? 0)}`)
                             : activeMenu === 'RESET'
                               ? ['1 设置数据', '2 存储器', '3 全部初始化']
                               : activeMenu === 'RESET_CONFIRM'
@@ -1450,20 +1677,27 @@ export default function App() {
                       : activeMenu === 'SETUP'
                         ? setupIndex - setupPageStart
                         : undefined}
-                    modeScreen={runtimeScreenView(modeRuntime)}
+                    modeScreen={runtimeScreenView(modeRuntime, runtimeContext)}
                     onExpressionChange={setExpr}
-                    onMenuSelect={index => {
+                    onMenuSelect={(index, column) => {
                       if (activeMenu === 'MAIN') confirmMenuMode(index);
                       else if (activeMenu === 'CATALOG') selectCatalogItem(catalogPageStart + index);
                       else if (activeMenu === 'SETUP') selectSetupItem(setupPageStart + index);
-                      else handleKeypress('append', String(index + 1));
+                      else if (activeMenu === 'SOLVE' && solveSession) {
+                        const selected = Math.min(solveSession.names.length - 1, index);
+                        const name = solveSession.names[selected];
+                        setSolveSession({ ...solveSession, index: selected, buffer: String(variables[name] ?? ans ?? 0), fresh: true });
+                      } else if (activeMenu === 'RESET_CONFIRM') {
+                        if (index === 1) handleKeypress('append', column === 1 ? '2' : '1');
+                        else if (index === 2) handleKeypress('evaluate');
+                      } else handleKeypress('append', String(index + 1));
                     }}
-                    onModeScreenSelect={index => {
+                    onModeScreenSelect={(row, column) => {
                       if (modeRuntime.screen.kind === 'menu') {
                         const start = Math.floor(modeRuntime.screen.selected / 5) * 5;
-                        const option = modeRuntime.screen.options[start + index];
+                        const option = modeRuntime.screen.options[start + row];
                         if (option) applyModeAction({ type: 'append', value: option.key });
-                      }
+                      } else applyModeAction({ type: 'select', row, column });
                     }}
                   />
 
@@ -2232,7 +2466,7 @@ export default function App() {
                           </button>
                           <button 
                             onClick={() => {
-                              const numericalVal = Number(resultVal) || 0;
+                              const numericalVal = Number.isFinite(ans) ? ans : 0;
                               setVariables(prev => ({ ...prev, [name]: numericalVal }));
                               triggerClickAudio();
                             }}

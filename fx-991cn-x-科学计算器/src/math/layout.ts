@@ -240,6 +240,27 @@ function powerBox(node: Extract<MathNode, { type: 'power' }>): LayoutBox {
 }
 
 function functionBox(node: Extract<MathNode, { type: 'function' }>): LayoutBox {
+  if (node.name === '__polar__' && node.args.length === 2) {
+    const radius = sequenceBox(node.args[0]);
+    const angle = glyphBox('∠');
+    const theta = sequenceBox(node.args[1]);
+    const baseline = Math.max(radius.baseline, angle.baseline, theta.baseline);
+    const height = baseline + Math.max(
+      radius.height - radius.baseline,
+      angle.height - angle.baseline,
+      theta.height - theta.baseline,
+    );
+    return {
+      width: radius.width + angle.width + theta.width + 2,
+      height,
+      baseline,
+      draw(context, x, y, options) {
+        radius.draw(context, x, y + baseline - radius.baseline, options);
+        angle.draw(context, x + radius.width + 1, y + baseline - angle.baseline, options);
+        theta.draw(context, x + radius.width + angle.width + 2, y + baseline - theta.baseline, options);
+      },
+    };
+  }
   const name = glyphBox(node.name.toUpperCase());
   const args = node.args.map(sequenceBox);
   const argBaseline = Math.max(...args.map(arg => arg.baseline));

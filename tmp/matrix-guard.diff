@@ -1,0 +1,11 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1546 +1546,2 @@
+-                    if (A.length !== A[0].length) throw new Error('求逆需要方阵');
++                    if (A.length !== A[0].length) throw new Error('求逆需要方阵');
++                    if (A.length > 6) throw new Error('为避免浏览器长时间卡住，求逆最多支持 6×6 矩阵。');
+@@ -1570,0 +1572,3 @@
++            if (Math.max(A.length, A[0].length) > 6) {
++                throw new Error('为避免浏览器长时间卡住，矩阵分解最多支持 6×6。');
++            }

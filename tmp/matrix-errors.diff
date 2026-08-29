@@ -1,0 +1,21 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1529 +1529 @@
+-            resultContent.innerHTML = '<span class="mc-error">请先选择矩阵 A</span>';
++            showError('请先选择矩阵 A');
+@@ -1557 +1557 @@
+-            resultContent.innerHTML = `<span class="mc-error">${e.message || String(e)}</span>`;
++            showError(e.message || String(e));
+@@ -1564 +1564 @@
+-            resultContent.innerHTML = '<span class="mc-error">请先选择矩阵 A</span>';
++            showError('请先选择矩阵 A');
+@@ -1670 +1670 @@
+-            resultContent.innerHTML = '<span class="mc-error">未知的分解类型</span>';
++            showError('未知的分解类型');
+@@ -1672 +1672 @@
+-            resultContent.innerHTML = `<span class="mc-error">${e.message || String(e)}</span>`;
++            showError(e.message || String(e));
+@@ -1679 +1679 @@
+-            resultContent.innerHTML = '<span class="mc-error">请确保当前结果是单个矩阵</span>';
++            showError('请确保当前结果是单个矩阵');

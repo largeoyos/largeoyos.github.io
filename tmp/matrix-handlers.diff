@@ -1,0 +1,96 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1809,38 +1809,54 @@
+-    $('btnResize').addEventListener('click', () => {
+-        const r = parseInt(matrixRows.value) || 3;
+-        const c = parseInt(matrixCols.value) || 3;
+-        const oldData = {};
+-        matrixGrid.querySelectorAll('input').forEach(inp => {
+-            oldData[inp.dataset.r + ',' + inp.dataset.c] = inp.value;
+-        });
+-        buildGrid(r, c);
+-        matrixGrid.querySelectorAll('input').forEach(inp => {
+-            const key = inp.dataset.r + ',' + inp.dataset.c;
+-            if (oldData[key] !== undefined) inp.value = oldData[key];
+-        });
+-    });
+-
+-    $('btnIdentity').addEventListener('click', () => {
+-        const r = parseInt(matrixRows.value) || 3;
+-        const c = parseInt(matrixCols.value) || 3;
+-        buildGrid(r, c);
+-    });
+-
+-    $('btnClearGrid').addEventListener('click', () => {
+-        matrixGrid.querySelectorAll('input').forEach(inp => { inp.value = ''; });
+-    });
+-
+-    $('btnConfirmMatrix').addEventListener('click', () => {
+-        const name = matrixName.value.trim() || 'M';
+-        const matrix = readGrid();
+-        addMatrix(name, matrix);
+-        defineModal.classList.remove('show');
+-    });
+-
+-    $('btnCancelModal').addEventListener('click', () => {
+-        defineModal.classList.remove('show');
+-    });
+-
+-    defineModal.addEventListener('click', (e) => {
+-        if (e.target === defineModal) defineModal.classList.remove('show');
+-    });
++    $('btnResize').addEventListener('click', () => {
++        try {
++            const { rows, cols } = getGridSize();
++            const oldData = {};
++            matrixGrid.querySelectorAll('input').forEach(input => {
++                oldData[input.dataset.r + ',' + input.dataset.c] = input.value;
++            });
++            buildGrid(rows, cols);
++            matrixGrid.querySelectorAll('input').forEach(input => {
++                const key = input.dataset.r + ',' + input.dataset.c;
++                if (oldData[key] !== undefined) input.value = oldData[key];
++            });
++            modalFeedback.textContent = '';
++        } catch (error) {
++            modalFeedback.textContent = error.message;
++        }
++    });
++
++    $('btnIdentity').addEventListener('click', () => {
++        try {
++            const { rows, cols } = getGridSize();
++            buildGrid(rows, cols);
++            modalFeedback.textContent = '';
++        } catch (error) {
++            modalFeedback.textContent = error.message;
++        }
++    });
++
++    $('btnClearGrid').addEventListener('click', () => {
++        matrixGrid.querySelectorAll('input').forEach(input => { input.value = ''; });
++        modalFeedback.textContent = '';
++    });
++
++    $('btnConfirmMatrix').addEventListener('click', () => {
++        try {
++            const name = validateMatrixName(matrixName.value || 'M');
++            if (matrixStore[name]) throw new Error(`矩阵 ${name} 已存在，请使用新名称。`);
++            const matrix = readGrid();
++            addMatrix(name, matrix);
++            closeDefineModal();
++        } catch (error) {
++            modalFeedback.textContent = error.message;
++        }
++    });
++
++    $('btnCancelModal').addEventListener('click', closeDefineModal);
++
++    defineModal.addEventListener('click', event => {
++        if (event.target === defineModal) closeDefineModal();
++    });
++
++    document.addEventListener('keydown', event => {
++        if (event.key === 'Escape' && defineModal.classList.contains('show')) closeDefineModal();
++    });

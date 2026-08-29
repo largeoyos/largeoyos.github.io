@@ -1,0 +1,7 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1424 +1424,2 @@
+-        currentResultType = 'matrix';
++        currentResultType = 'matrix';
++        selectA.value = name;

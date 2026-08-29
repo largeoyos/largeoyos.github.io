@@ -1,0 +1,94 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -829,41 +829,49 @@
+-    function getBombRange() {
+-        const min = parseFloat(bombMin.value) || -100;
+-        const max = parseFloat(bombMax.value) || 100;
+-        return { min: Math.min(min, max), max: Math.max(min, max) };
+-    }
+-
+-    function startBombGame(mode) {
+-        const { min, max } = getBombRange();
+-        if (min >= max) {
+-            bombStatus.textContent = '错误：最小必须小于最大';
+-            return;
+-        }
+-
+-        bombGameEnded = false;
+-        bombRestartWrap.style.display = 'none';
+-        bombState.running = true;
+-        bombState.mode = mode;
+-        bombState.reMin = min;
+-        bombState.reMax = max;
+-        bombState.imMin = min;
+-        bombState.imMax = max;
+-        bombState.vReMin = min;
+-        bombState.vReMax = max;
+-        bombState.vImMin = min;
+-        bombState.vImMax = max;
+-        bombState.guessCount = 0;
+-        bombState.animating = false;
+-
+-        if (mode === 'INT') {
+-            bombState.target = Math.floor(Math.random() * (max - min + 1)) + min;
+-        } else {
+-            bombState.targetRe = Math.floor(Math.random() * (max - min + 1)) + min;
+-            bombState.targetIm = Math.floor(Math.random() * (max - min + 1)) + min;
+-        }
+-
+-        bombCount.textContent = '已猜次数: 0';
+-        bombStatus.textContent = '游戏开始！点击画布进行猜测';
+-        bombState.hoverX = null;
+-        bombState.hoverY = null;
+-        drawBombCanvas();
+-    }
++    function getBombRange() {
++        const rawMin = parseFiniteInput(bombMin, '范围下限');
++        const rawMax = parseFiniteInput(bombMax, '范围上限');
++        const min = Math.ceil(rawMin);
++        const max = Math.floor(rawMax);
++        if (!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) throw new Error('炸弹范围必须是安全整数。');
++        if (min >= max) throw new Error('范围下限必须小于范围上限。');
++        if (!Number.isSafeInteger(max - min + 1)) throw new Error('炸弹范围过大，请缩小范围。');
++        return { min, max };
++    }
++
++    function startBombGame(mode) {
++        let range;
++        try {
++            range = getBombRange();
++        } catch (error) {
++            bombStatus.textContent = `ERROR / ${error.message}`;
++            return;
++        }
++        const { min, max } = range;
++
++        bombGameEnded = false;
++        bombRestartWrap.style.display = 'none';
++        bombState.running = true;
++        bombState.mode = mode;
++        bombState.reMin = min;
++        bombState.reMax = max;
++        bombState.imMin = min;
++        bombState.imMax = max;
++        bombState.vReMin = min;
++        bombState.vReMax = max;
++        bombState.vImMin = min;
++        bombState.vImMax = max;
++        bombState.guessCount = 0;
++        bombState.animating = false;
++
++        if (mode === 'INT') {
++            bombState.target = Math.floor(randomUnit() * (max - min + 1)) + min;
++        } else {
++            bombState.targetRe = Math.floor(randomUnit() * (max - min + 1)) + min;
++            bombState.targetIm = Math.floor(randomUnit() * (max - min + 1)) + min;
++        }
++
++        bombCount.textContent = 'TRIES / 0';
++        bombStatus.textContent = `${mode === 'INT' ? 'INT' : 'CPLX'} / 游戏开始，点击画布锁定目标。`;
++        bombState.hoverX = null;
++        bombState.hoverY = null;
++        drawBombCanvas();
++    }

@@ -1,0 +1,11 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1048,0 +1049,3 @@
++        if (A.length !== B.length || A[0].length !== B[0].length) {
++            throw new Error('矩阵加法要求 A 与 B 的行列数完全相同。');
++        }
+@@ -1059,0 +1063,3 @@
++        if (A[0].length !== B.length) {
++            throw new Error('矩阵乘法要求 A 的列数等于 B 的行数。');
++        }

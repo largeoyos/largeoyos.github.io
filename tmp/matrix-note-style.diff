@@ -1,0 +1,5 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -598,0 +599,1 @@
++        .numeric-note { width: 100%; margin-top: 12px; color: #c04c15; font-size: 11px; text-align: center; }

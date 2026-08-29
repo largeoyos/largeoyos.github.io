@@ -1,0 +1,171 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -531,57 +531,110 @@
+-<header>
+-    <h1>🎲 随机数助手</h1>
+-    <p>随机数生成器 + 数字炸弹小游戏</p>
+-</header>
+-
+-<div class="container rn-container">
+-    <!-- 选项卡 -->
+-    <div class="tab-bar" id="tabBar">
+-        <button class="tab-btn active" data-tab="generator">随机数生成器</button>
+-        <button class="tab-btn" data-tab="bomb">数字炸弹小游戏</button>
+-    </div>
+-
+-    <!-- 面板：生成器 -->
+-    <div class="tab-panel active" id="panel-generator">
+-        <div class="gen-display" id="genDisplay">
+-            <div class="gen-value" id="genResult">READY</div>
+-            <div class="gen-grid" id="genGrid" style="display:none;"></div>
+-        </div>
+-        <div class="gen-controls">
+-            <label>最小:</label>
+-            <input type="text" id="genMin" value="-100">
+-            <label>最大:</label>
+-            <input type="text" id="genMax" value="100">
+-            <label>小数位:</label>
+-            <input type="number" id="genPrec" value="2" min="0" max="15">
+-            <label>生成数量:</label>
+-            <input type="number" id="genCount" value="1" min="1" max="100">
+-        </div>
+-        <div class="gen-btns">
+-            <button class="btn-gen-int" id="genInt">生成整数</button>
+-            <button class="btn-gen-float" id="genFloat">生成小数</button>
+-            <button class="btn-gen-complex" id="genComplex">生成复数</button>
+-        </div>
+-    </div>
+-
+-    <!-- 面板：炸弹游戏 -->
+-    <div class="tab-panel" id="panel-bomb">
+-        <div class="bomb-controls">
+-            <label>范围:</label>
+-            <input type="text" id="bombMin" value="-100">
+-            <label>~</label>
+-            <input type="text" id="bombMax" value="100">
+-        </div>
+-        <div class="bomb-status" id="bombStatus">设置范围后选择模式开始</div>
+-        <div class="bomb-count" id="bombCount">已猜次数: 0</div>
+-        <div class="bomb-btns">
+-            <button class="btn-mode-int" id="bombModeInt">模式: 整数</button>
+-            <button class="btn-mode-complex" id="bombModeComplex">模式: 复数</button>
+-        </div>
+-        <div class="bomb-restart" id="bombRestartWrap" style="display:none; text-align:center; margin-bottom:12px;">
+-            <button class="btn-restart" id="bombRestartBtn">🔄 重新开始</button>
+-        </div>
+-        <div class="bomb-canvas-wrap">
+-            <canvas id="bombCanvas" width="500" height="500"></canvas>
+-        </div>
+-    </div>
+-</div>
++<header class="tool-hero">
++    <div class="tool-hero-inner">
++        <div class="tool-kicker">UTILITY / 01</div>
++        <h1>随机数实验台</h1>
++        <p>从单次抽样到复数坐标，用一套明确参数完成生成、复制和范围推理。</p>
++        <div class="hero-status" aria-label="工具特性">
++            <span>LOCAL ONLY</span>
++            <span>CRYPTO SOURCE</span>
++            <span>1—100 OUTPUTS</span>
++        </div>
++    </div>
++</header>
++
++<main class="container rn-container">
++    <div class="tab-bar" id="tabBar" role="tablist" aria-label="随机数工具模式">
++        <button class="tab-btn active" id="tab-generator" data-tab="generator" role="tab" aria-controls="panel-generator" aria-selected="true">01 / 随机生成</button>
++        <button class="tab-btn" id="tab-bomb" data-tab="bomb" role="tab" aria-controls="panel-bomb" aria-selected="false">02 / 数字炸弹</button>
++    </div>
++
++    <section class="tab-panel active" id="panel-generator" role="tabpanel" aria-labelledby="tab-generator">
++        <div class="panel-head">
++            <div>
++                <div class="panel-index">MODULE 01</div>
++                <h2>随机生成器</h2>
++            </div>
++            <p>整数会自动使用有效整数边界；小数与复数遵循所设精度。所有结果只在浏览器内生成。</p>
++        </div>
++        <div class="generator-workbench">
++            <div class="control-deck">
++                <h3>参数 / PARAMETERS</h3>
++                <div class="gen-controls">
++                    <label class="field" for="genMin">
++                        <span class="field-label">Min / 最小值</span>
++                        <input type="number" id="genMin" value="-100" step="any" inputmode="decimal">
++                    </label>
++                    <label class="field" for="genMax">
++                        <span class="field-label">Max / 最大值</span>
++                        <input type="number" id="genMax" value="100" step="any" inputmode="decimal">
++                    </label>
++                    <label class="field" for="genPrec">
++                        <span class="field-label">Precision / 小数位</span>
++                        <input type="number" id="genPrec" value="2" min="0" max="15" step="1" inputmode="numeric">
++                    </label>
++                    <label class="field" for="genCount">
++                        <span class="field-label">Count / 数量</span>
++                        <input type="number" id="genCount" value="1" min="1" max="100" step="1" inputmode="numeric">
++                    </label>
++                </div>
++                <p class="input-note">范围必须从小到大。整数模式会取 ⌈最小值⌉ 到 ⌊最大值⌋。</p>
++                <div class="gen-btns">
++                    <button class="btn-gen-int" id="genInt">INT 整数</button>
++                    <button class="btn-gen-float" id="genFloat">DEC 小数</button>
++                    <button class="btn-gen-complex" id="genComplex">CPLX 复数</button>
++                </div>
++            </div>
++            <div class="result-deck">
++                <div class="result-toolbar">
++                    <span class="result-label">Output / 生成结果</span>
++                    <button class="utility-btn" id="copyGenResult" type="button" disabled>复制结果</button>
++                </div>
++                <div class="gen-display" id="genDisplay" aria-live="polite">
++                    <div class="gen-value" id="genResult">READY</div>
++                    <div class="gen-grid" id="genGrid" style="display:none;"></div>
++                </div>
++                <div class="feedback" id="genMessage" aria-live="polite">等待生成指令。</div>
++            </div>
++        </div>
++    </section>
++
++    <section class="tab-panel" id="panel-bomb" role="tabpanel" aria-labelledby="tab-bomb" hidden>
++        <div class="panel-head">
++            <div>
++                <div class="panel-index">MODULE 02</div>
++                <h2>数字炸弹</h2>
++            </div>
++            <p>点击坐标逐步压缩范围。整数模式是一维数轴，复数模式是二维复平面。</p>
++        </div>
++        <div class="bomb-workbench">
++            <aside class="bomb-sidebar">
++                <div class="bomb-controls">
++                    <label class="field" for="bombMin">
++                        <span class="field-label">Range min / 范围下限</span>
++                        <input type="number" id="bombMin" value="-100" step="1" inputmode="numeric">
++                    </label>
++                    <label class="field" for="bombMax">
++                        <span class="field-label">Range max / 范围上限</span>
++                        <input type="number" id="bombMax" value="100" step="1" inputmode="numeric">
++                    </label>
++                </div>
++                <div class="bomb-btns">
++                    <button class="btn-mode-int" id="bombModeInt">启动整数模式</button>
++                    <button class="btn-mode-complex" id="bombModeComplex">启动复数模式</button>
++                </div>
++                <div class="bomb-console">
++                    <div class="bomb-status" id="bombStatus" aria-live="polite">设置整数范围后选择模式开始。</div>
++                    <div class="bomb-count" id="bombCount">TRIES / 0</div>
++                </div>
++                <div class="bomb-restart" id="bombRestartWrap" style="display:none; text-align:center;">
++                    <button class="btn-restart" id="bombRestartBtn">重新开始</button>
++                </div>
++            </aside>
++            <div class="bomb-board">
++                <div class="board-ruler"><span>INPUT / POINTER</span><span>RANGE / LIVE</span></div>
++                <div class="bomb-canvas-wrap">
++                    <canvas id="bombCanvas" width="500" height="500" aria-label="数字炸弹猜测画布"></canvas>
++                </div>
++            </div>
++        </div>
++    </section>
++</main>

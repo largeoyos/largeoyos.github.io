@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>矩阵计算器 | LarGeoYos</title>
+    <title>矩阵计算工作站 | LarGeoYos</title>
     <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -338,8 +338,346 @@
             .modal { width: 100%; }
         }
     </style>
+    <style>
+        :root {
+            --lab-ink: #102033;
+            --lab-muted: #5d6b7b;
+            --lab-line: #c9d1dc;
+            --lab-soft: #eef2f6;
+            --lab-paper: #ffffff;
+            --lab-blue: #165dff;
+            --lab-blue-dark: #0c3fb4;
+            --lab-green: #087f5b;
+            --lab-orange: #f26a2e;
+            --lab-red: #c9364f;
+            --lab-shadow: 6px 6px 0 #102033;
+        }
+        body {
+            min-width: 320px;
+            background:
+                linear-gradient(rgba(16, 32, 51, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 32, 51, 0.045) 1px, transparent 1px),
+                #f4f6f8;
+            background-size: 24px 24px;
+            color: var(--lab-ink);
+        }
+        .global-nav { border-bottom: 3px solid var(--lab-blue); background: var(--lab-ink); }
+        .tool-hero {
+            padding: 54px 20px 72px;
+            border-bottom: 1px solid var(--lab-line);
+            background: rgba(255, 255, 255, 0.96);
+            text-align: left;
+        }
+        .tool-hero-inner { width: min(1240px, 100%); margin: 0 auto; }
+        .tool-kicker, .panel-index, .field-label, .section-code, .status-code {
+            font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .tool-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            color: var(--lab-blue);
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .tool-kicker::before { width: 28px; height: 3px; background: var(--lab-blue); content: ""; }
+        .tool-hero h1 {
+            margin: 0;
+            color: var(--lab-ink);
+            font-family: "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
+            font-size: clamp(38px, 7vw, 72px);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+        }
+        .tool-hero p {
+            max-width: 760px;
+            margin: 18px 0 0;
+            color: var(--lab-muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .hero-status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+        .hero-status span {
+            padding: 6px 9px;
+            border: 1px solid var(--lab-line);
+            background: var(--lab-soft);
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .matrix-shell {
+            width: min(1240px, calc(100% - 32px));
+            max-width: none;
+            margin: -38px auto 72px;
+            padding: 0;
+        }
+        .mc-layout {
+            display: grid;
+            grid-template-columns: 250px minmax(0, 1fr);
+            gap: 0;
+            min-height: 650px;
+            margin-top: 0;
+            border: 2px solid var(--lab-ink);
+            background: var(--lab-paper);
+            box-shadow: var(--lab-shadow);
+        }
+        .mc-warehouse {
+            display: flex;
+            min-width: 0;
+            padding: 0;
+            border: 0;
+            border-right: 1px solid #35475b;
+            border-radius: 0;
+            background: var(--lab-ink);
+            color: #fff;
+        }
+        .warehouse-head { padding: 22px 18px 16px; border-bottom: 1px solid #35475b; }
+        .warehouse-head .panel-index { color: #79a5ff; font-size: 10px; font-weight: 800; }
+        .warehouse-head h2 { margin: 7px 0 0; color: #fff; font-size: 18px; }
+        .warehouse-head p { margin: 7px 0 0; color: #9fb3ca; font-size: 11px; line-height: 1.6; }
+        .mc-warehouse-list {
+            flex: 1;
+            min-height: 280px;
+            margin: 0;
+            padding: 12px;
+            overflow-y: auto;
+        }
+        .mc-warehouse-list li { margin: 0 0 7px; padding: 0; border: 0; border-radius: 0; background: transparent; }
+        .matrix-item {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 11px 12px;
+            border: 1px solid #455a70;
+            background: #182b40;
+            color: #eaf1f9;
+            font-family: "Cascadia Code", Consolas, monospace;
+            text-align: left;
+            cursor: pointer;
+        }
+        .matrix-item:hover { border-color: #79a5ff; background: #203a56; }
+        .matrix-item.active { border-color: #79a5ff; background: var(--lab-blue); color: #fff; }
+        .matrix-item small { color: #a9bbcf; font-size: 9px; }
+        .matrix-item.active small { color: #dbe6ff; }
+        .btn-primary {
+            margin: 12px;
+            padding: 12px;
+            border: 1px solid #fff;
+            border-radius: 0;
+            background: #fff;
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 11px;
+            font-weight: 800;
+        }
+        .btn-primary:hover { background: #dbe6ff; }
+        .mc-main { display: flex; min-width: 0; gap: 0; background: #f8fafc; }
+        .workspace-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--lab-line);
+            background: #fff;
+        }
+        .dependency-state { display: flex; align-items: center; gap: 8px; color: var(--lab-muted); font-size: 11px; }
+        .dependency-state::before { width: 8px; height: 8px; background: var(--lab-green); content: ""; }
+        .dependency-state.error::before { background: var(--lab-red); }
+        .status-code { color: var(--lab-ink); font-size: 10px; font-weight: 800; }
+        .mc-mode {
+            display: inline-flex;
+            gap: 0;
+            padding: 0;
+            border: 1px solid var(--lab-ink);
+            border-radius: 0;
+            background: #fff;
+        }
+        .mc-mode label {
+            min-height: 34px;
+            padding: 8px 11px;
+            border-right: 1px solid var(--lab-ink);
+            color: var(--lab-muted);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 10px;
+        }
+        .mc-mode label:last-child { border-right: 0; }
+        .mc-mode label:has(input:checked) { background: var(--lab-ink); color: #fff; }
+        .mc-mode input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+        .workspace-body { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 16px; padding: 18px; }
+        .operation-grid { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 16px; }
+        .mc-section {
+            padding: 0;
+            border: 1px solid var(--lab-line);
+            border-radius: 0;
+            background: #fff;
+        }
+        .section-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 15px 16px;
+            border-bottom: 1px solid var(--lab-line);
+        }
+        .section-head h3 { margin: 4px 0 0; color: var(--lab-ink); font-size: 15px; }
+        .section-code { color: var(--lab-blue); font-size: 9px; font-weight: 800; }
+        .section-head p { max-width: 240px; color: var(--lab-muted); font-size: 10px; line-height: 1.6; text-align: right; }
+        .section-body { padding: 16px; }
+        .selector-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .selector-field { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
+        .field-label { color: var(--lab-muted); font-size: 9px; font-weight: 800; }
+        .mc-op-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+        .mc-op-row.decomp { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .mc-op-row select, .mc-save input {
+            width: 100%;
+            min-height: 42px;
+            padding: 9px 11px;
+            border: 1px solid #95a1b1;
+            border-radius: 0;
+            background: #fff;
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 13px;
+        }
+        .mc-op-row select:focus, .mc-save input:focus { border-color: var(--lab-blue); outline: 3px solid rgba(22, 93, 255, 0.14); }
+        .btn-op, .btn-secondary, .btn-save, .utility-btn {
+            min-height: 40px;
+            padding: 9px 12px;
+            border: 1px solid var(--lab-ink);
+            border-radius: 0;
+            background: #fff;
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.12s;
+        }
+        .btn-op:hover, .btn-secondary:hover, .btn-save:hover, .utility-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 3px 3px 0 var(--lab-ink);
+        }
+        .btn-op:active, .btn-secondary:active, .btn-save:active, .utility-btn:active { transform: none; box-shadow: none; }
+        .btn-op.accent { background: var(--lab-blue); color: #fff; }
+        .btn-op.green { background: #d9f5ee; color: #075d43; }
+        .mc-result {
+            min-height: 250px;
+            padding: 0;
+            border: 1px solid var(--lab-ink);
+            border-radius: 0;
+            background: #fff;
+        }
+        .result-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--lab-line);
+            background: var(--lab-ink);
+            color: #fff;
+        }
+        .result-head h3 { margin: 0; color: #fff; font-size: 13px; }
+        .result-head .utility-btn { min-height: 30px; padding: 5px 9px; border-color: #8fa2b7; background: transparent; color: #fff; }
+        .mc-result-content {
+            min-height: 190px;
+            padding: 24px;
+            background:
+                linear-gradient(rgba(22, 93, 255, 0.055) 1px, transparent 1px),
+                #fbfdff;
+            background-size: 100% 30px;
+        }
+        .mc-result-content .katex { color: var(--lab-ink); font-size: 1.15em; }
+        .mc-error { color: var(--lab-red); font-size: 13px; font-weight: 700; }
+        .numeric-note { width: 100%; margin-top: 12px; color: #c04c15; font-size: 11px; text-align: center; }
+        .mc-save {
+            display: grid;
+            grid-template-columns: minmax(180px, 1fr) 180px auto;
+            gap: 10px;
+            align-items: end;
+            padding: 14px 16px;
+            border: 1px solid var(--lab-line);
+            background: #fff;
+        }
+        .mc-save label { color: var(--lab-muted); font-size: 11px; line-height: 1.5; }
+        .save-field { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
+        .modal-overlay { padding: 20px; background: rgba(16, 32, 51, 0.76); }
+        .modal {
+            width: min(760px, 96vw);
+            max-height: 92vh;
+            padding: 0;
+            border: 2px solid var(--lab-ink);
+            border-radius: 0;
+            background: #fff;
+            box-shadow: 8px 8px 0 #06111e;
+        }
+        .modal-header { padding: 18px 20px; border-bottom: 1px solid var(--lab-line); }
+        .modal-header h3 { margin: 5px 0 0; color: var(--lab-ink); font-size: 20px; }
+        .modal-body { padding: 18px 20px; }
+        .modal-top { display: grid; grid-template-columns: 1.4fr 0.7fr 0.7fr auto; gap: 10px; align-items: end; }
+        .modal-top label { display: flex; flex-direction: column; gap: 6px; color: var(--lab-muted); font-size: 10px; }
+        .modal-top input {
+            width: 100% !important;
+            min-height: 40px;
+            padding: 8px 10px;
+            border: 1px solid #95a1b1;
+            border-radius: 0;
+            background: #fff;
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+        }
+        .matrix-grid-wrap { margin: 16px 0 0; padding: 14px; border: 1px solid var(--lab-line); background: #f8fafc; }
+        .matrix-grid input {
+            width: 66px;
+            min-height: 38px;
+            border: 1px solid #a9b5c3;
+            border-radius: 0;
+            font-family: "Cascadia Code", Consolas, monospace;
+        }
+        .matrix-grid input:focus { border-color: var(--lab-blue); outline: 2px solid rgba(22, 93, 255, 0.16); }
+        .modal-feedback { min-height: 20px; margin-top: 10px; color: var(--lab-red); font-size: 11px; font-weight: 700; }
+        .modal-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .btn-save { background: var(--lab-blue); color: #fff; }
+        footer { color: var(--lab-muted); }
+        @media (max-width: 900px) {
+            .matrix-shell { width: min(100% - 24px, 760px); }
+            .mc-layout { grid-template-columns: 1fr; }
+            .mc-warehouse { min-height: 0; border-right: 0; border-bottom: 1px solid #35475b; }
+            .mc-warehouse-list { display: flex; min-height: 0; gap: 8px; padding-bottom: 4px; overflow-x: auto; }
+            .mc-warehouse-list li { min-width: 130px; }
+            .operation-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 620px) {
+            .tool-hero { padding: 42px 18px 64px; }
+            .tool-hero h1 { font-size: 42px; }
+            .hero-status { display: none; }
+            .matrix-shell { margin-top: -28px; }
+            .workspace-topline { align-items: flex-start; flex-direction: column; }
+            .mc-mode { width: 100%; }
+            .mc-mode label { flex: 1; justify-content: center; }
+            .workspace-body { padding: 12px; }
+            .section-head { flex-direction: column; }
+            .section-head p { text-align: left; }
+            .mc-op-row.decomp { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .mc-save { grid-template-columns: 1fr; align-items: stretch; }
+            .modal-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .modal-top .name-field { grid-column: 1 / -1; }
+            .modal-top .btn-secondary { grid-column: 1 / -1; }
+            .matrix-grid input { width: 56px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+        }
+    </style>
 </head>
-<body>
+<body class="lab-page">
 
 <nav class="global-nav">
     <a href="../../index.html">🏠 工作主页</a>
@@ -350,103 +688,152 @@
     <a href="../../quick-nav/index.html">🔗 快捷导航</a>
 </nav>
 
-<header>
-    <h1>🧮 矩阵计算器</h1>
-    <p>符号 / 数值双模工作站</p>
-</header>
-
-<div class="container">
-    <div class="mc-layout">
-
-        <!-- 左侧仓库 -->
-        <div class="mc-warehouse">
-            <h3>📦 矩阵仓库</h3>
-            <ul class="mc-warehouse-list" id="warehouseList"></ul>
-            <button class="btn-primary" id="btnDefineMatrix">+ 定义新矩阵</button>
-        </div>
-
-        <!-- 右侧主面板 -->
-        <div class="mc-main">
-
-            <!-- 显示偏好 -->
-            <div class="mc-mode">
-                <label><input type="radio" name="displayMode" value="exact" checked> 精确解（分数）</label>
-                <label><input type="radio" name="displayMode" value="approx"> 近似解（小数）</label>
-            </div>
-
-            <!-- 核心运算 -->
-            <div class="mc-section">
-                <h4>核心运算</h4>
-                <div class="mc-op-row">
-                    <label style="color:#a6adc8;font-size:13px;">A:</label>
-                    <select id="selectA"></select>
-                    <label style="color:#a6adc8;font-size:13px;">B:</label>
-                    <select id="selectB"></select>
-                    <button class="btn-op accent" data-op="add">A + B</button>
-                    <button class="btn-op accent" data-op="mul">A × B</button>
-                    <button class="btn-op" data-op="inv">A⁻¹</button>
-                    <button class="btn-op" data-op="trans">Aᵀ</button>
-                </div>
-            </div>
-
-            <!-- 矩阵分解 -->
-            <div class="mc-section">
-                <h4>矩阵分解（针对 A）</h4>
-                <div class="mc-op-row">
-                    <button class="btn-op green" data-dec="LU">LU</button>
-                    <button class="btn-op green" data-dec="QR">QR</button>
-                    <button class="btn-op green" data-dec="EIGEN">EIGEN</button>
-                    <button class="btn-op green" data-dec="SVD">SVD</button>
-                    <button class="btn-op green" data-dec="LDL">LDL</button>
-                </div>
-            </div>
-
-            <!-- 结果 -->
-            <div class="mc-result">
-                <h4>计算结果</h4>
-                <div class="mc-result-content" id="resultContent">
-                    <span style="color:#6c7086;">定义矩阵后开始计算</span>
-                </div>
-            </div>
-
-            <!-- 保存 -->
-            <div class="mc-save">
-                <label style="color:#a6adc8;font-size:13px;">保存当前结果为:</label>
-                <input type="text" id="saveName" value="ANS">
-                <button class="btn-op green" id="btnSave">存入仓库</button>
-            </div>
-
+<header class="tool-hero">
+    <div class="tool-hero-inner">
+        <div class="tool-kicker">UTILITY / 02</div>
+        <h1>矩阵计算工作站</h1>
+        <p>在同一工作区定义矩阵、组合运算并比较精确解与近似解，符号推导和数值分解各自保持清晰边界。</p>
+        <div class="hero-status" aria-label="工具特性">
+            <span>SYMBOLIC + NUMERIC</span>
+            <span>MAX 8 × 8</span>
+            <span>LATEX OUTPUT</span>
         </div>
     </div>
-</div>
+</header>
+
+<main class="container matrix-shell">
+    <div class="mc-layout">
+        <aside class="mc-warehouse" aria-label="矩阵仓库">
+            <div class="warehouse-head">
+                <div class="panel-index">LIBRARY / 00</div>
+                <h2>矩阵仓库</h2>
+                <p id="warehouseCount">0 个矩阵</p>
+            </div>
+            <ul class="mc-warehouse-list" id="warehouseList"></ul>
+            <button class="btn-primary" id="btnDefineMatrix">+ 定义新矩阵</button>
+        </aside>
+
+        <section class="mc-main" aria-label="矩阵计算工作区">
+            <div class="workspace-topline">
+                <div class="dependency-state" id="dependencyState">
+                    <span class="status-code">ENGINE / READY</span>
+                    <span>计算组件已连接</span>
+                </div>
+                <div class="mc-mode" aria-label="结果显示模式">
+                    <label><input type="radio" name="displayMode" value="exact" checked>精确解</label>
+                    <label><input type="radio" name="displayMode" value="approx">近似解</label>
+                </div>
+            </div>
+
+            <div class="workspace-body">
+                <div class="operation-grid">
+                    <section class="mc-section">
+                        <div class="section-head">
+                            <div>
+                                <div class="section-code">BLOCK 01 / OPERATE</div>
+                                <h3>核心运算</h3>
+                            </div>
+                            <p>加法、乘法使用 A 与 B；求逆和转置只作用于 A。</p>
+                        </div>
+                        <div class="section-body">
+                            <div class="selector-grid">
+                                <label class="selector-field" for="selectA">
+                                    <span class="field-label">Matrix A / 主矩阵</span>
+                                    <select id="selectA"></select>
+                                </label>
+                                <label class="selector-field" for="selectB">
+                                    <span class="field-label">Matrix B / 次矩阵</span>
+                                    <select id="selectB"></select>
+                                </label>
+                            </div>
+                            <div class="mc-op-row">
+                                <button class="btn-op accent" data-op="add">A + B</button>
+                                <button class="btn-op accent" data-op="mul">A × B</button>
+                                <button class="btn-op" data-op="inv">A⁻¹</button>
+                                <button class="btn-op" data-op="trans">Aᵀ</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="mc-section">
+                        <div class="section-head">
+                            <div>
+                                <div class="section-code">BLOCK 02 / DECOMPOSE</div>
+                                <h3>矩阵分解</h3>
+                            </div>
+                            <p>分解仅针对当前选择的 A，SVD 只接受纯数值矩阵。</p>
+                        </div>
+                        <div class="section-body">
+                            <div class="mc-op-row decomp">
+                                <button class="btn-op green" data-dec="LU">LU</button>
+                                <button class="btn-op green" data-dec="QR">QR</button>
+                                <button class="btn-op green" data-dec="EIGEN">EIGEN</button>
+                                <button class="btn-op green" data-dec="SVD">SVD</button>
+                                <button class="btn-op green" data-dec="LDL">LDL</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="mc-result" aria-live="polite">
+                    <div class="result-head">
+                        <h3>OUTPUT / 计算结果</h3>
+                        <button class="utility-btn" id="btnCopyResult" type="button">复制纯文本</button>
+                    </div>
+                    <div class="mc-result-content" id="resultContent">
+                        <span style="color:#5d6b7b;">从仓库选择矩阵，或先定义一个新矩阵。</span>
+                    </div>
+                </section>
+
+                <div class="mc-save">
+                    <label>RESULT STORAGE<br>只可保存单个矩阵结果，分解结果不会被合并。</label>
+                    <label class="save-field" for="saveName">
+                        <span class="field-label">Name / 保存名称</span>
+                        <input type="text" id="saveName" value="ANS" maxlength="16" autocomplete="off">
+                    </label>
+                    <button class="btn-save" id="btnSave">存入仓库</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
 
 <footer>
     <p>&copy; 2026 Largeoyos &middot; Built with &hearts; and Hosted on GitHub Pages</p>
-    <p><small>Version 1.13.0 &mdash; 新增工具箱子空间</small></p>
+    <p><small>Version 4.3.0 &mdash; 工具工作站界面重构</small></p>
 </footer>
 
 <!-- 定义矩阵模态框 -->
-<div class="modal-overlay" id="defineModal">
-    <div class="modal">
-        <h3>定义新矩阵</h3>
-        <div class="modal-top">
-            <label>名称:</label>
-            <input type="text" id="matrixName" value="A" style="width:70px;">
-            <label>行:</label>
-            <input type="number" id="matrixRows" value="3" min="1" max="20">
-            <label>列:</label>
-            <input type="number" id="matrixCols" value="3" min="1" max="20">
-            <button class="btn-secondary" id="btnResize">调整网格</button>
+<div class="modal-overlay" id="defineModal" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="matrixModalTitle">
+        <div class="modal-header">
+            <div class="section-code">LIBRARY / NEW MATRIX</div>
+            <h3 id="matrixModalTitle">定义新矩阵</h3>
         </div>
-        <div class="matrix-grid-wrap">
-            <table class="matrix-grid" id="matrixGrid"></table>
-        </div>
-        <div class="modal-btns">
-            <button class="btn-secondary" id="btnIdentity">设为单位矩阵</button>
-            <button class="btn-secondary" id="btnClearGrid">清空</button>
-            <div style="flex:1;"></div>
-            <button class="btn-secondary" id="btnCancelModal">取消</button>
-            <button class="btn-save" id="btnConfirmMatrix">✔ 确认并保存</button>
+        <div class="modal-body">
+            <div class="modal-top">
+                <label class="name-field" for="matrixName">Name / 名称
+                    <input type="text" id="matrixName" value="A" maxlength="16" autocomplete="off">
+                </label>
+                <label for="matrixRows">Rows / 行
+                    <input type="number" id="matrixRows" value="3" min="1" max="8" step="1">
+                </label>
+                <label for="matrixCols">Cols / 列
+                    <input type="number" id="matrixCols" value="3" min="1" max="8" step="1">
+                </label>
+                <button class="btn-secondary" id="btnResize">调整网格</button>
+            </div>
+            <div class="matrix-grid-wrap">
+                <table class="matrix-grid" id="matrixGrid" aria-label="矩阵元素输入"></table>
+            </div>
+            <div class="modal-feedback" id="modalFeedback" aria-live="polite"></div>
+            <div class="modal-btns">
+                <button class="btn-secondary" id="btnIdentity">设为单位矩阵</button>
+                <button class="btn-secondary" id="btnClearGrid">清空</button>
+                <div style="flex:1;"></div>
+                <button class="btn-secondary" id="btnCancelModal">取消</button>
+                <button class="btn-save" id="btnConfirmMatrix">确认并保存</button>
+            </div>
         </div>
     </div>
 </div>
@@ -455,22 +842,41 @@
 (function() {
     'use strict';
 
-    if (typeof nerdamer === 'undefined') {
-        document.getElementById('resultContent').innerHTML =
-            '<span class="mc-error">nerdamer 符号计算库加载失败，请刷新页面重试。</span>';
+    const $ = id => document.getElementById(id);
+    const missingLibraries = [
+        ['math.js', typeof math === 'undefined'],
+        ['KaTeX', typeof katex === 'undefined'],
+        ['numeric.js', typeof numeric === 'undefined'],
+        ['nerdamer', typeof nerdamer === 'undefined']
+    ].filter(([, missing]) => missing).map(([name]) => name);
+
+    if (missingLibraries.length) {
+        const message = `计算组件加载失败：${missingLibraries.join('、')}。请检查网络后刷新页面。`;
+        const result = $('resultContent');
+        result.replaceChildren();
+        const error = document.createElement('span');
+        error.className = 'mc-error';
+        error.textContent = message;
+        result.appendChild(error);
+        const state = $('dependencyState');
+        state.classList.add('error');
+        state.querySelector('.status-code').textContent = 'ENGINE / ERROR';
+        state.lastElementChild.textContent = '计算组件未就绪';
         return;
     }
 
     // ======================== 数据 ========================
     // matrixStore[name] = [[string_expr, ...], ...] (2D 符号表达式数组)
+    const MAX_MATRIX_SIZE = 8;
     const matrixStore = {};
     let currentResult = null;
     let currentResultType = 'none'; // 'matrix' | 'dict' | 'string'
     let _numericNote = '';          // 数值模式提示文字
+    let lastFocusedElement = null;
 
     // ======================== DOM 引用 ========================
-    const $ = id => document.getElementById(id);
     const warehouseList = $('warehouseList');
+    const warehouseCount = $('warehouseCount');
     const selectA = $('selectA');
     const selectB = $('selectB');
     const resultContent = $('resultContent');
@@ -480,6 +886,16 @@
     const matrixRows = $('matrixRows');
     const matrixCols = $('matrixCols');
     const matrixGrid = $('matrixGrid');
+    const modalFeedback = $('modalFeedback');
+    const btnCopyResult = $('btnCopyResult');
+
+    function showError(message, container = resultContent) {
+        container.replaceChildren();
+        const error = document.createElement('span');
+        error.className = 'mc-error';
+        error.textContent = String(message);
+        container.appendChild(error);
+    }
 
     // ======================== 符号工具函数 ========================
     // nerdamer 将 e/E 视为欧拉常数而非变量，此处做转义
@@ -631,6 +1047,9 @@
     }
 
     function symAdd(A, B) {
+        if (A.length !== B.length || A[0].length !== B[0].length) {
+            throw new Error('矩阵加法要求 A 与 B 的行列数完全相同。');
+        }
         const result = [];
         for (let i = 0; i < A.length; i++) {
             result[i] = [];
@@ -642,6 +1061,9 @@
     }
 
     function symMul(A, B) {
+        if (A[0].length !== B.length) {
+            throw new Error('矩阵乘法要求 A 的列数等于 B 的行数。');
+        }
         const m = A.length, p = A[0].length, n = B[0].length;
         const result = [];
         for (let i = 0; i < m; i++) {
@@ -960,14 +1382,22 @@
     }
 
     // ======================== 刷新仓库 & 选择框 ========================
+    function replaceSelectOptions(select, names, previousValue) {
+        select.replaceChildren(...names.map(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            return option;
+        }));
+        if (names.includes(previousValue)) select.value = previousValue;
+    }
+
     function refreshSelects() {
         const names = Object.keys(matrixStore);
         const aVal = selectA.value;
         const bVal = selectB.value;
-        selectA.innerHTML = names.map(n => `<option value="${n}">${n}</option>`).join('');
-        selectB.innerHTML = names.map(n => `<option value="${n}">${n}</option>`).join('');
-        if (names.includes(aVal)) selectA.value = aVal;
-        if (names.includes(bVal)) selectB.value = bVal;
+        replaceSelectOptions(selectA, names, aVal);
+        replaceSelectOptions(selectB, names, bVal);
     }
 
     function dataPreview(data) {
@@ -977,58 +1407,108 @@
                     const s = nerdamer(escE(c)).toString();
                     return unescE(s.length > 10 ? s.slice(0, 10) + '…' : s);
                 }).join(' ')
-            ).join(' \\\\ ');
+            ).join(' \\ ');
         } catch (e) { return ''; }
+    }
+
+    function setActiveWarehouseItem(name) {
+        document.querySelectorAll('.matrix-item').forEach(item => {
+            item.classList.toggle('active', item.dataset.name === name);
+        });
+    }
+
+    function selectMatrix(name) {
+        const data = matrixStore[name];
+        if (!data) return;
+        currentResult = data;
+        currentResultType = 'matrix';
+        selectA.value = name;
+        _numericNote = '';
+        renderCurrentResult();
+        setActiveWarehouseItem(name);
     }
 
     function refreshWarehouse() {
         const names = Object.keys(matrixStore);
-        warehouseList.innerHTML = names.map(n => {
-            const data = matrixStore[n];
-            const tip = data ? dataPreview(data) : '';
-            return `<li data-name="${n}" title="${tip}" onclick="window._mcSelect('${n}')">${n}</li>`;
-        }).join('');
+        warehouseCount.textContent = `${names.length} 个矩阵`;
+        warehouseList.replaceChildren(...names.map(name => {
+            const data = matrixStore[name];
+            const item = document.createElement('li');
+            const button = document.createElement('button');
+            const label = document.createElement('span');
+            const size = document.createElement('small');
+            button.type = 'button';
+            button.className = 'matrix-item';
+            button.dataset.name = name;
+            button.title = data ? dataPreview(data) : '';
+            label.textContent = name;
+            size.textContent = data ? `${data.length}×${data[0].length}` : '';
+            button.append(label, size);
+            button.addEventListener('click', () => selectMatrix(name));
+            item.appendChild(button);
+            return item;
+        }));
         refreshSelects();
     }
-
-    window._mcSelect = function(name) {
-        const data = matrixStore[name];
-        if (data) {
-            currentResult = data;
-            currentResultType = 'matrix';
-            _numericNote = '';
-            renderCurrentResult();
-        }
-        document.querySelectorAll('.mc-warehouse-list li').forEach(el => {
-            el.classList.toggle('active', el.dataset.name === name);
-        });
-    };
 
     // ======================== 显示结果 ========================
     function renderCurrentResult() {
         const exact = isExact();
         if (currentResultType === 'matrix') {
-            const latex = matrixToLatex(currentResult, exact);
-            renderLatex(latex, resultContent);
+            renderLatex(matrixToLatex(currentResult, exact), resultContent);
         } else if (currentResultType === 'dict') {
             const parts = [];
             for (const [key, mat] of Object.entries(currentResult)) {
-                const l = matrixToLatex(mat, exact);
-                parts.push(`\\text{${key}} = ${l}`);
+                parts.push(`\text{${key}} = ${matrixToLatex(mat, exact)}`);
             }
-            renderLatex(parts.join('\\quad'), resultContent);
+            renderLatex(parts.join('\quad'), resultContent);
         } else if (currentResultType === 'string') {
-            resultContent.innerHTML = `<span class="mc-error">${currentResult}</span>`;
+            showError(currentResult);
         } else {
-            resultContent.innerHTML = '<span style="color:#6c7086;">定义矩阵后开始计算</span>';
+            resultContent.replaceChildren();
+            const placeholder = document.createElement('span');
+            placeholder.style.color = '#5d6b7b';
+            placeholder.textContent = '从仓库选择矩阵，或先定义一个新矩阵。';
+            resultContent.appendChild(placeholder);
         }
         if (_numericNote) {
             const note = document.createElement('div');
-            note.style.cssText = 'color:#fab387;font-size:12px;margin-top:8px;text-align:center;';
+            note.className = 'numeric-note';
             note.textContent = _numericNote;
             resultContent.appendChild(note);
         }
     }
+
+    function valueToRows(value) {
+        if (value && (value instanceof math.Matrix || value.isMatrix)) return value.toArray();
+        return Array.isArray(value) ? value : [[value]];
+    }
+
+    function matrixToPlainText(value) {
+        return valueToRows(value).map(row =>
+            (Array.isArray(row) ? row : [row]).map(cell => unescE(String(cell))).join('\t')
+        ).join('\n');
+    }
+
+    function currentResultToPlainText() {
+        if (currentResultType === 'matrix') return matrixToPlainText(currentResult);
+        if (currentResultType === 'dict') {
+            return Object.entries(currentResult).map(([key, value]) => `${key}\n${matrixToPlainText(value)}`).join('\n\n');
+        }
+        return currentResultType === 'string' ? String(currentResult) : '';
+    }
+
+    btnCopyResult.addEventListener('click', async () => {
+        const text = currentResultToPlainText();
+        if (!text) return;
+        try {
+            await navigator.clipboard.writeText(text);
+            btnCopyResult.textContent = '已复制';
+            window.setTimeout(() => { btnCopyResult.textContent = '复制纯文本'; }, 1200);
+        } catch (error) {
+            showError('复制失败，请手动选择结果。');
+        }
+    });
 
     // ======================== 添加矩阵 ========================
     function addMatrix(name, data) {
@@ -1039,9 +1519,7 @@
         currentResult = matrixStore[name];
         currentResultType = 'matrix';
         renderCurrentResult();
-        document.querySelectorAll('.mc-warehouse-list li').forEach(el => {
-            el.classList.toggle('active', el.dataset.name === name);
-        });
+        setActiveWarehouseItem(name);
     }
 
     // ======================== 运算入口 ========================
@@ -1049,7 +1527,7 @@
         const aName = selectA.value;
         const bName = selectB.value;
         if (!aName || !matrixStore[aName]) {
-            resultContent.innerHTML = '<span class="mc-error">请先选择矩阵 A</span>';
+            showError('请先选择矩阵 A');
             return;
         }
         const A = matrixStore[aName];
@@ -1067,6 +1545,7 @@
                     break;
                 case 'inv':
                     if (A.length !== A[0].length) throw new Error('求逆需要方阵');
+                    if (A.length > 6) throw new Error('为避免浏览器长时间卡住，求逆最多支持 6×6 矩阵。');
                     res = symInv(A);
                     break;
                 case 'trans':
@@ -1077,20 +1556,23 @@
             currentResultType = 'matrix';
             renderCurrentResult();
         } catch (e) {
-            resultContent.innerHTML = `<span class="mc-error">${e.message || String(e)}</span>`;
+            showError(e.message || String(e));
         }
     }
 
     function performDecomp(mode) {
         const aName = selectA.value;
         if (!aName || !matrixStore[aName]) {
-            resultContent.innerHTML = '<span class="mc-error">请先选择矩阵 A</span>';
+            showError('请先选择矩阵 A');
             return;
         }
         const A = matrixStore[aName];
         _numericNote = '';
 
         try {
+            if (Math.max(A.length, A[0].length) > 6) {
+                throw new Error('为避免浏览器长时间卡住，矩阵分解最多支持 6×6。');
+            }
             // LU: 符号
             if (mode === 'LU') {
                 if (A.length !== A[0].length) throw new Error('LU 分解需要方阵');
@@ -1190,19 +1672,33 @@
                 return;
             }
 
-            resultContent.innerHTML = '<span class="mc-error">未知的分解类型</span>';
+            showError('未知的分解类型');
         } catch (e) {
-            resultContent.innerHTML = `<span class="mc-error">${e.message || String(e)}</span>`;
+            showError(e.message || String(e));
         }
     }
 
     // ======================== 保存 ========================
+    function validateMatrixName(rawName) {
+        const name = rawName.trim();
+        if (!/^[A-Za-z_\u4e00-\u9fa5][A-Za-z0-9_\u4e00-\u9fa5]{0,15}$/.test(name)) {
+            throw new Error('名称需以字母、中文或下划线开头，最长 16 个字符。');
+        }
+        return name;
+    }
+
     function saveResult() {
         if (currentResultType !== 'matrix' || !Array.isArray(currentResult)) {
-            resultContent.innerHTML = '<span class="mc-error">请确保当前结果是单个矩阵</span>';
+            showError('请确保当前结果是单个矩阵');
             return;
         }
-        const name = saveName.value.trim() || 'ANS';
+        let name;
+        try {
+            name = validateMatrixName(saveName.value || 'ANS');
+        } catch (error) {
+            showError(error.message);
+            return;
+        }
         let finalName = name;
         if (matrixStore[name]) {
             let i = 1;
@@ -1214,38 +1710,65 @@
     }
 
     // ======================== 模态框 ========================
+    function getGridSize() {
+        const rows = Number(matrixRows.value);
+        const cols = Number(matrixCols.value);
+        if (!Number.isInteger(rows) || !Number.isInteger(cols) || rows < 1 || cols < 1 || rows > MAX_MATRIX_SIZE || cols > MAX_MATRIX_SIZE) {
+            throw new Error(`矩阵行列数必须是 1—${MAX_MATRIX_SIZE} 的整数。`);
+        }
+        return { rows, cols };
+    }
+
     function buildGrid(rows, cols) {
-        matrixGrid.innerHTML = '';
+        matrixGrid.replaceChildren();
         for (let i = 0; i < rows; i++) {
             const tr = document.createElement('tr');
             for (let j = 0; j < cols; j++) {
                 const td = document.createElement('td');
-                const inp = document.createElement('input');
-                inp.type = 'text';
-                inp.value = i === j ? '1' : '0';
-                inp.dataset.r = i;
-                inp.dataset.c = j;
-                td.appendChild(inp);
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = i === j ? '1' : '0';
+                input.dataset.r = i;
+                input.dataset.c = j;
+                input.maxLength = 80;
+                input.autocomplete = 'off';
+                input.setAttribute('aria-label', `第 ${i + 1} 行第 ${j + 1} 列`);
+                td.appendChild(input);
                 tr.appendChild(td);
             }
             matrixGrid.appendChild(tr);
         }
     }
 
+    function validateExpression(expression, row, col) {
+        if (expression.length > 80) throw new Error(`第 ${row + 1} 行第 ${col + 1} 列表达式过长。`);
+        try {
+            nerdamer(escE(expression));
+        } catch (error) {
+            throw new Error(`第 ${row + 1} 行第 ${col + 1} 列不是有效表达式。`);
+        }
+        return expression;
+    }
+
     function readGrid() {
-        const rows = parseInt(matrixRows.value);
-        const cols = parseInt(matrixCols.value);
+        const { rows, cols } = getGridSize();
         const data = [];
         for (let i = 0; i < rows; i++) {
             const row = [];
             for (let j = 0; j < cols; j++) {
-                const inp = matrixGrid.querySelector(`input[data-r="${i}"][data-c="${j}"]`);
-                const raw = inp ? inp.value.trim() : '';
-                row.push(raw === '' ? '0' : raw);
+                const input = matrixGrid.querySelector(`input[data-r="${i}"][data-c="${j}"]`);
+                const raw = input ? input.value.trim() : '';
+                row.push(validateExpression(raw === '' ? '0' : raw, i, j));
             }
             data.push(row);
         }
         return data;
+    }
+
+    function closeDefineModal() {
+        defineModal.classList.remove('show');
+        modalFeedback.textContent = '';
+        if (lastFocusedElement) lastFocusedElement.focus();
     }
 
     function openDefineModal() {
@@ -1258,11 +1781,14 @@
                 break;
             }
         }
+        lastFocusedElement = document.activeElement;
         matrixName.value = suggested || 'M' + Object.keys(matrixStore).length;
         matrixRows.value = 3;
         matrixCols.value = 3;
+        modalFeedback.textContent = '';
         buildGrid(3, 3);
         defineModal.classList.add('show');
+        matrixName.focus();
     }
 
     // ======================== 事件绑定 ========================
@@ -1282,42 +1808,58 @@
     $('btnDefineMatrix').addEventListener('click', openDefineModal);
 
     $('btnResize').addEventListener('click', () => {
-        const r = parseInt(matrixRows.value) || 3;
-        const c = parseInt(matrixCols.value) || 3;
-        const oldData = {};
-        matrixGrid.querySelectorAll('input').forEach(inp => {
-            oldData[inp.dataset.r + ',' + inp.dataset.c] = inp.value;
-        });
-        buildGrid(r, c);
-        matrixGrid.querySelectorAll('input').forEach(inp => {
-            const key = inp.dataset.r + ',' + inp.dataset.c;
-            if (oldData[key] !== undefined) inp.value = oldData[key];
-        });
+        try {
+            const { rows, cols } = getGridSize();
+            const oldData = {};
+            matrixGrid.querySelectorAll('input').forEach(input => {
+                oldData[input.dataset.r + ',' + input.dataset.c] = input.value;
+            });
+            buildGrid(rows, cols);
+            matrixGrid.querySelectorAll('input').forEach(input => {
+                const key = input.dataset.r + ',' + input.dataset.c;
+                if (oldData[key] !== undefined) input.value = oldData[key];
+            });
+            modalFeedback.textContent = '';
+        } catch (error) {
+            modalFeedback.textContent = error.message;
+        }
     });
 
     $('btnIdentity').addEventListener('click', () => {
-        const r = parseInt(matrixRows.value) || 3;
-        const c = parseInt(matrixCols.value) || 3;
-        buildGrid(r, c);
+        try {
+            const { rows, cols } = getGridSize();
+            buildGrid(rows, cols);
+            modalFeedback.textContent = '';
+        } catch (error) {
+            modalFeedback.textContent = error.message;
+        }
     });
 
     $('btnClearGrid').addEventListener('click', () => {
-        matrixGrid.querySelectorAll('input').forEach(inp => { inp.value = ''; });
+        matrixGrid.querySelectorAll('input').forEach(input => { input.value = ''; });
+        modalFeedback.textContent = '';
     });
 
     $('btnConfirmMatrix').addEventListener('click', () => {
-        const name = matrixName.value.trim() || 'M';
-        const matrix = readGrid();
-        addMatrix(name, matrix);
-        defineModal.classList.remove('show');
+        try {
+            const name = validateMatrixName(matrixName.value || 'M');
+            if (matrixStore[name]) throw new Error(`矩阵 ${name} 已存在，请使用新名称。`);
+            const matrix = readGrid();
+            addMatrix(name, matrix);
+            closeDefineModal();
+        } catch (error) {
+            modalFeedback.textContent = error.message;
+        }
     });
 
-    $('btnCancelModal').addEventListener('click', () => {
-        defineModal.classList.remove('show');
+    $('btnCancelModal').addEventListener('click', closeDefineModal);
+
+    defineModal.addEventListener('click', event => {
+        if (event.target === defineModal) closeDefineModal();
     });
 
-    defineModal.addEventListener('click', (e) => {
-        if (e.target === defineModal) defineModal.classList.remove('show');
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && defineModal.classList.contains('show')) closeDefineModal();
     });
 
     // ======================== 初始化 ========================

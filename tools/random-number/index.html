@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>随机数助手 | LarGeoYos</title>
+    <title>随机数实验台 | LarGeoYos</title>
     <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
     <link rel="stylesheet" href="../../css/style.css">
     <style>
@@ -228,8 +228,296 @@
             .gen-controls input { width: 60px; }
         }
     </style>
+    <style>
+        :root {
+            --lab-ink: #102033;
+            --lab-muted: #5d6b7b;
+            --lab-line: #c9d1dc;
+            --lab-soft: #eef2f6;
+            --lab-paper: #ffffff;
+            --lab-blue: #165dff;
+            --lab-blue-dark: #0c3fb4;
+            --lab-orange: #f26a2e;
+            --lab-red: #c9364f;
+            --lab-shadow: 6px 6px 0 #102033;
+        }
+        body {
+            min-width: 320px;
+            background:
+                linear-gradient(rgba(16, 32, 51, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 32, 51, 0.045) 1px, transparent 1px),
+                #f4f6f8;
+            background-size: 24px 24px;
+            color: var(--lab-ink);
+        }
+        .global-nav { border-bottom: 3px solid var(--lab-blue); background: var(--lab-ink); }
+        .tool-hero {
+            padding: 54px 20px 72px;
+            border-bottom: 1px solid var(--lab-line);
+            background: rgba(255, 255, 255, 0.96);
+            text-align: left;
+        }
+        .tool-hero-inner { width: min(1100px, 100%); margin: 0 auto; }
+        .tool-kicker, .panel-index, .field-label, .result-label {
+            font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .tool-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            color: var(--lab-blue);
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .tool-kicker::before { width: 28px; height: 3px; background: var(--lab-blue); content: ""; }
+        .tool-hero h1 {
+            margin: 0;
+            color: var(--lab-ink);
+            font-family: "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
+            font-size: clamp(38px, 7vw, 72px);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+        }
+        .tool-hero p {
+            max-width: 680px;
+            margin: 18px 0 0;
+            color: var(--lab-muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .hero-status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+        .hero-status span {
+            padding: 6px 9px;
+            border: 1px solid var(--lab-line);
+            background: var(--lab-soft);
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .rn-container {
+            width: min(1100px, calc(100% - 32px));
+            max-width: none;
+            margin: -38px auto 72px;
+            padding: 0;
+        }
+        .tab-bar {
+            position: relative;
+            z-index: 2;
+            width: fit-content;
+            border: 2px solid var(--lab-ink);
+            background: var(--lab-paper);
+            box-shadow: 4px 4px 0 var(--lab-ink);
+        }
+        .tab-btn {
+            min-width: 190px;
+            padding: 14px 20px;
+            border-right: 1px solid var(--lab-ink);
+            border-radius: 0 !important;
+            background: var(--lab-paper);
+            color: var(--lab-muted);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 13px;
+            letter-spacing: 0.03em;
+        }
+        .tab-btn:last-child { border-right: 0; }
+        .tab-btn:hover:not(.active) { background: var(--lab-soft); color: var(--lab-ink); }
+        .tab-btn.active { background: var(--lab-ink); color: #fff; }
+        .tab-btn:focus-visible { outline: 3px solid var(--lab-orange); outline-offset: 3px; }
+        .tab-panel {
+            margin-top: 18px;
+            padding: 0;
+            border: 2px solid var(--lab-ink);
+            border-radius: 0;
+            background: var(--lab-paper);
+            box-shadow: var(--lab-shadow);
+        }
+        .panel-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--lab-line);
+        }
+        .panel-index { color: var(--lab-blue); font-size: 11px; font-weight: 800; }
+        .panel-head h2 { margin: 5px 0 0; color: var(--lab-ink); font-size: 22px; }
+        .panel-head p {
+            max-width: 480px;
+            margin: 0;
+            color: var(--lab-muted);
+            font-size: 13px;
+            line-height: 1.7;
+            text-align: right;
+        }
+        .generator-workbench {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.8fr) minmax(340px, 1.2fr);
+            min-height: 430px;
+        }
+        .control-deck {
+            padding: 26px 24px;
+            border-right: 1px solid var(--lab-line);
+            background: #f8fafc;
+        }
+        .control-deck h3, .result-deck h3 { margin: 0 0 18px; color: var(--lab-ink); font-size: 14px; }
+        .gen-controls, .bomb-controls {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin: 0;
+        }
+        .field { display: flex; min-width: 0; flex-direction: column; gap: 7px; }
+        .field-label { color: var(--lab-muted); font-size: 10px; font-weight: 800; }
+        .gen-controls input, .bomb-controls input {
+            width: 100%;
+            min-height: 44px;
+            padding: 10px 12px;
+            border: 1px solid #95a1b1;
+            border-radius: 0;
+            background: #fff;
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 15px;
+            text-align: left;
+        }
+        .gen-controls input:focus, .bomb-controls input:focus {
+            border-color: var(--lab-blue);
+            outline: 3px solid rgba(22, 93, 255, 0.14);
+        }
+        .input-note { margin: 14px 0 0; color: var(--lab-muted); font-size: 12px; line-height: 1.6; }
+        .gen-btns, .bomb-btns {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .gen-btns button, .bomb-btns button, .btn-restart, .utility-btn {
+            min-height: 44px;
+            padding: 10px 13px;
+            border: 1px solid var(--lab-ink);
+            border-radius: 0;
+            background: #fff;
+            color: var(--lab-ink);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+        }
+        .gen-btns button:hover, .bomb-btns button:hover, .btn-restart:hover, .utility-btn:hover:not(:disabled) {
+            transform: translate(-2px, -2px);
+            box-shadow: 3px 3px 0 var(--lab-ink);
+        }
+        .gen-btns button:active, .bomb-btns button:active, .btn-restart:active, .utility-btn:active {
+            transform: translate(0, 0);
+            box-shadow: none;
+        }
+        .btn-gen-int, .btn-mode-int { background: var(--lab-blue) !important; color: #fff !important; }
+        .btn-gen-float { background: #d9f5ee !important; }
+        .btn-gen-complex, .btn-mode-complex { background: #ffe6da !important; }
+        .result-deck { display: flex; min-width: 0; flex-direction: column; padding: 26px 24px; }
+        .result-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .result-label { color: var(--lab-muted); font-size: 10px; font-weight: 800; }
+        .utility-btn { min-height: 34px; padding: 7px 10px; }
+        .utility-btn:disabled { border-color: var(--lab-line); color: #99a3af; cursor: not-allowed; }
+        .gen-display {
+            flex: 1;
+            min-height: 250px;
+            margin: 14px 0 0;
+            padding: 28px;
+            border: 1px solid var(--lab-line);
+            border-radius: 0;
+            background: linear-gradient(rgba(22, 93, 255, 0.06) 1px, transparent 1px), #f9fbff;
+            background-size: 100% 28px;
+        }
+        .gen-display .gen-value {
+            overflow-wrap: anywhere;
+            color: var(--lab-blue);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: clamp(32px, 6vw, 58px);
+            line-height: 1.1;
+        }
+        .gen-grid { align-content: center; align-items: center; gap: 8px; }
+        .gen-grid span {
+            padding: 6px 8px;
+            border: 1px solid var(--lab-line);
+            background: #fff;
+            color: var(--lab-blue-dark);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 13px;
+        }
+        .feedback { min-height: 22px; margin-top: 12px; color: var(--lab-muted); font-size: 12px; line-height: 1.6; }
+        .feedback.error { color: var(--lab-red); font-weight: 700; }
+        .feedback.success { color: #087f5b; font-weight: 700; }
+        .bomb-workbench { display: grid; grid-template-columns: 290px minmax(0, 1fr); }
+        .bomb-sidebar { padding: 24px; border-right: 1px solid var(--lab-line); background: #f8fafc; }
+        .bomb-controls { grid-template-columns: 1fr; }
+        .bomb-btns { grid-template-columns: 1fr; margin-top: 18px; }
+        .bomb-console { margin-top: 20px; border: 1px solid var(--lab-ink); background: var(--lab-ink); color: #fff; }
+        .bomb-status {
+            min-height: 76px;
+            margin: 0;
+            padding: 14px;
+            color: #fff;
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.65;
+            text-align: left;
+        }
+        .bomb-count {
+            margin: 0;
+            padding: 9px 14px;
+            border-top: 1px solid #3c4d61;
+            color: #9fb3ca;
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 11px;
+            text-align: left;
+        }
+        .bomb-restart { margin-top: 12px !important; margin-bottom: 0 !important; }
+        .btn-restart { width: 100%; background: var(--lab-orange); color: #fff; }
+        .bomb-board { min-width: 0; padding: 24px; }
+        .board-ruler {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: var(--lab-muted);
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+        }
+        .bomb-canvas-wrap { max-width: 620px; border: 1px solid var(--lab-line); background: #f9fbff; }
+        .bomb-canvas-wrap canvas { border: 0; border-radius: 0; background: transparent; cursor: crosshair; touch-action: manipulation; }
+        footer { color: var(--lab-muted); }
+        @media (max-width: 800px) {
+            .tool-hero { padding: 42px 18px 64px; }
+            .rn-container { width: min(100% - 24px, 680px); }
+            .tab-bar { width: 100%; }
+            .tab-btn { min-width: 0; padding-inline: 10px; }
+            .generator-workbench, .bomb-workbench { grid-template-columns: 1fr; }
+            .control-deck, .bomb-sidebar { border-right: 0; border-bottom: 1px solid var(--lab-line); }
+            .panel-head { flex-direction: column; }
+            .panel-head p { text-align: left; }
+        }
+        @media (max-width: 520px) {
+            .tool-hero h1 { font-size: 42px; }
+            .hero-status { display: none; }
+            .rn-container { margin-top: -28px; }
+            .tab-btn { font-size: 11px; }
+            .panel-head, .control-deck, .result-deck, .bomb-sidebar, .bomb-board { padding: 18px; }
+            .gen-controls, .gen-btns { grid-template-columns: 1fr; }
+            .gen-display { min-height: 200px; padding: 18px; }
+            .gen-grid span { font-size: 12px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+        }
+    </style>
 </head>
-<body>
+<body class="lab-page">
 
 <nav class="global-nav">
     <a href="../../index.html">🏠 工作主页</a>
@@ -240,67 +528,120 @@
     <a href="../../quick-nav/index.html">🔗 快捷导航</a>
 </nav>
 
-<header>
-    <h1>🎲 随机数助手</h1>
-    <p>随机数生成器 + 数字炸弹小游戏</p>
+<header class="tool-hero">
+    <div class="tool-hero-inner">
+        <div class="tool-kicker">UTILITY / 01</div>
+        <h1>随机数实验台</h1>
+        <p>从单次抽样到复数坐标，用一套明确参数完成生成、复制和范围推理。</p>
+        <div class="hero-status" aria-label="工具特性">
+            <span>LOCAL ONLY</span>
+            <span>CRYPTO SOURCE</span>
+            <span>1—100 OUTPUTS</span>
+        </div>
+    </div>
 </header>
 
-<div class="container rn-container">
-    <!-- 选项卡 -->
-    <div class="tab-bar" id="tabBar">
-        <button class="tab-btn active" data-tab="generator">随机数生成器</button>
-        <button class="tab-btn" data-tab="bomb">数字炸弹小游戏</button>
+<main class="container rn-container">
+    <div class="tab-bar" id="tabBar" role="tablist" aria-label="随机数工具模式">
+        <button class="tab-btn active" id="tab-generator" data-tab="generator" role="tab" aria-controls="panel-generator" aria-selected="true">01 / 随机生成</button>
+        <button class="tab-btn" id="tab-bomb" data-tab="bomb" role="tab" aria-controls="panel-bomb" aria-selected="false">02 / 数字炸弹</button>
     </div>
 
-    <!-- 面板：生成器 -->
-    <div class="tab-panel active" id="panel-generator">
-        <div class="gen-display" id="genDisplay">
-            <div class="gen-value" id="genResult">READY</div>
-            <div class="gen-grid" id="genGrid" style="display:none;"></div>
+    <section class="tab-panel active" id="panel-generator" role="tabpanel" aria-labelledby="tab-generator">
+        <div class="panel-head">
+            <div>
+                <div class="panel-index">MODULE 01</div>
+                <h2>随机生成器</h2>
+            </div>
+            <p>整数会自动使用有效整数边界；小数与复数遵循所设精度。所有结果只在浏览器内生成。</p>
         </div>
-        <div class="gen-controls">
-            <label>最小:</label>
-            <input type="text" id="genMin" value="-100">
-            <label>最大:</label>
-            <input type="text" id="genMax" value="100">
-            <label>小数位:</label>
-            <input type="number" id="genPrec" value="2" min="0" max="15">
-            <label>生成数量:</label>
-            <input type="number" id="genCount" value="1" min="1" max="100">
+        <div class="generator-workbench">
+            <div class="control-deck">
+                <h3>参数 / PARAMETERS</h3>
+                <div class="gen-controls">
+                    <label class="field" for="genMin">
+                        <span class="field-label">Min / 最小值</span>
+                        <input type="number" id="genMin" value="-100" step="any" inputmode="decimal">
+                    </label>
+                    <label class="field" for="genMax">
+                        <span class="field-label">Max / 最大值</span>
+                        <input type="number" id="genMax" value="100" step="any" inputmode="decimal">
+                    </label>
+                    <label class="field" for="genPrec">
+                        <span class="field-label">Precision / 小数位</span>
+                        <input type="number" id="genPrec" value="2" min="0" max="15" step="1" inputmode="numeric">
+                    </label>
+                    <label class="field" for="genCount">
+                        <span class="field-label">Count / 数量</span>
+                        <input type="number" id="genCount" value="1" min="1" max="100" step="1" inputmode="numeric">
+                    </label>
+                </div>
+                <p class="input-note">范围必须从小到大。整数模式会取 ⌈最小值⌉ 到 ⌊最大值⌋。</p>
+                <div class="gen-btns">
+                    <button class="btn-gen-int" id="genInt">INT 整数</button>
+                    <button class="btn-gen-float" id="genFloat">DEC 小数</button>
+                    <button class="btn-gen-complex" id="genComplex">CPLX 复数</button>
+                </div>
+            </div>
+            <div class="result-deck">
+                <div class="result-toolbar">
+                    <span class="result-label">Output / 生成结果</span>
+                    <button class="utility-btn" id="copyGenResult" type="button" disabled>复制结果</button>
+                </div>
+                <div class="gen-display" id="genDisplay" aria-live="polite">
+                    <div class="gen-value" id="genResult">READY</div>
+                    <div class="gen-grid" id="genGrid" style="display:none;"></div>
+                </div>
+                <div class="feedback" id="genMessage" aria-live="polite">等待生成指令。</div>
+            </div>
         </div>
-        <div class="gen-btns">
-            <button class="btn-gen-int" id="genInt">生成整数</button>
-            <button class="btn-gen-float" id="genFloat">生成小数</button>
-            <button class="btn-gen-complex" id="genComplex">生成复数</button>
-        </div>
-    </div>
+    </section>
 
-    <!-- 面板：炸弹游戏 -->
-    <div class="tab-panel" id="panel-bomb">
-        <div class="bomb-controls">
-            <label>范围:</label>
-            <input type="text" id="bombMin" value="-100">
-            <label>~</label>
-            <input type="text" id="bombMax" value="100">
+    <section class="tab-panel" id="panel-bomb" role="tabpanel" aria-labelledby="tab-bomb" hidden>
+        <div class="panel-head">
+            <div>
+                <div class="panel-index">MODULE 02</div>
+                <h2>数字炸弹</h2>
+            </div>
+            <p>点击坐标逐步压缩范围。整数模式是一维数轴，复数模式是二维复平面。</p>
         </div>
-        <div class="bomb-status" id="bombStatus">设置范围后选择模式开始</div>
-        <div class="bomb-count" id="bombCount">已猜次数: 0</div>
-        <div class="bomb-btns">
-            <button class="btn-mode-int" id="bombModeInt">模式: 整数</button>
-            <button class="btn-mode-complex" id="bombModeComplex">模式: 复数</button>
+        <div class="bomb-workbench">
+            <aside class="bomb-sidebar">
+                <div class="bomb-controls">
+                    <label class="field" for="bombMin">
+                        <span class="field-label">Range min / 范围下限</span>
+                        <input type="number" id="bombMin" value="-100" step="1" inputmode="numeric">
+                    </label>
+                    <label class="field" for="bombMax">
+                        <span class="field-label">Range max / 范围上限</span>
+                        <input type="number" id="bombMax" value="100" step="1" inputmode="numeric">
+                    </label>
+                </div>
+                <div class="bomb-btns">
+                    <button class="btn-mode-int" id="bombModeInt">启动整数模式</button>
+                    <button class="btn-mode-complex" id="bombModeComplex">启动复数模式</button>
+                </div>
+                <div class="bomb-console">
+                    <div class="bomb-status" id="bombStatus" aria-live="polite">设置整数范围后选择模式开始。</div>
+                    <div class="bomb-count" id="bombCount">TRIES / 0</div>
+                </div>
+                <div class="bomb-restart" id="bombRestartWrap" style="display:none; text-align:center;">
+                    <button class="btn-restart" id="bombRestartBtn">重新开始</button>
+                </div>
+            </aside>
+            <div class="bomb-board">
+                <div class="board-ruler"><span>INPUT / POINTER</span><span>RANGE / LIVE</span></div>
+                <div class="bomb-canvas-wrap">
+                    <canvas id="bombCanvas" width="500" height="500" aria-label="数字炸弹猜测画布"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="bomb-restart" id="bombRestartWrap" style="display:none; text-align:center; margin-bottom:12px;">
-            <button class="btn-restart" id="bombRestartBtn">🔄 重新开始</button>
-        </div>
-        <div class="bomb-canvas-wrap">
-            <canvas id="bombCanvas" width="500" height="500"></canvas>
-        </div>
-    </div>
-</div>
+    </section>
+</main>
 
 <footer>
     <p>&copy; 2026 Largeoyos &middot; Built with &hearts; and Hosted on GitHub Pages</p>
-    <p><small>Version 1.13.0 &mdash; 新增工具箱子空间</small></p>
+    <p><small>Version 4.3.0 &mdash; 工具工作站界面重构</small></p>
 </footer>
 
 <script>
@@ -309,78 +650,146 @@
 
     // ======================== 选项卡 ========================
     const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+
+    function activateTab(activeBtn) {
+        tabBtns.forEach(btn => {
+            const active = btn === activeBtn;
+            const panel = document.getElementById('panel-' + btn.dataset.tab);
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-selected', String(active));
+            panel.classList.toggle('active', active);
+            panel.hidden = !active;
+        });
+    }
+
+    tabBtns.forEach((btn, index) => {
+        btn.addEventListener('click', () => activateTab(btn));
+        btn.addEventListener('keydown', (event) => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+            event.preventDefault();
+            const direction = event.key === 'ArrowRight' ? 1 : -1;
+            const next = tabBtns[(index + direction + tabBtns.length) % tabBtns.length];
+            activateTab(next);
+            next.focus();
         });
     });
 
     // ======================== 随机数生成器 ========================
     const genResult = document.getElementById('genResult');
     const genGrid = document.getElementById('genGrid');
-    const genDisplay = document.getElementById('genDisplay');
     const genMin = document.getElementById('genMin');
     const genMax = document.getElementById('genMax');
     const genPrec = document.getElementById('genPrec');
     const genCount = document.getElementById('genCount');
+    const genMessage = document.getElementById('genMessage');
+    const copyGenResult = document.getElementById('copyGenResult');
+    let latestGenValues = [];
+
+    function parseFiniteInput(input, label) {
+        const raw = input.value.trim();
+        const value = Number(raw);
+        if (raw === '' || !Number.isFinite(value)) throw new Error(`${label}必须是有限数字。`);
+        return value;
+    }
 
     function getGenRange() {
-        const min = parseFloat(genMin.value) || 0;
-        const max = parseFloat(genMax.value) || 0;
-        return { min: Math.min(min, max), max: Math.max(min, max) };
+        const min = parseFiniteInput(genMin, '最小值');
+        const max = parseFiniteInput(genMax, '最大值');
+        if (min > max) throw new Error('最小值不能大于最大值。');
+        return { min, max };
     }
 
     function getGenCount() {
-        return Math.max(1, Math.min(100, parseInt(genCount.value) || 1));
+        const count = Number(genCount.value);
+        if (!Number.isInteger(count) || count < 1 || count > 100) throw new Error('生成数量必须是 1—100 的整数。');
+        return count;
     }
 
-    function showGenResults(vals) {
-        if (vals.length === 1) {
-            genResult.textContent = vals[0];
+    function getPrecision() {
+        const precision = Number(genPrec.value);
+        if (!Number.isInteger(precision) || precision < 0 || precision > 15) throw new Error('小数位必须是 0—15 的整数。');
+        return precision;
+    }
+
+    function randomUnit() {
+        if (window.crypto && window.crypto.getRandomValues) {
+            const buffer = new Uint32Array(1);
+            window.crypto.getRandomValues(buffer);
+            return buffer[0] / 4294967296;
+        }
+        return Math.random();
+    }
+
+    function showGenMessage(message, type = '') {
+        genMessage.textContent = message;
+        genMessage.className = `feedback${type ? ' ' + type : ''}`;
+    }
+
+    function showGenResults(values, label) {
+        latestGenValues = values.map(String);
+        copyGenResult.disabled = false;
+        if (values.length === 1) {
+            genResult.textContent = values[0];
             genResult.style.display = '';
             genGrid.style.display = 'none';
         } else {
-            genGrid.innerHTML = vals.map(v => `<span>${v}</span>`).join('');
+            genGrid.replaceChildren(...values.map(value => {
+                const item = document.createElement('span');
+                item.textContent = value;
+                return item;
+            }));
             genGrid.style.display = 'flex';
             genResult.style.display = 'none';
         }
+        showGenMessage(`已生成 ${values.length} 个${label}。`, 'success');
     }
 
-    document.getElementById('genInt').addEventListener('click', () => {
-        const { min, max } = getGenRange();
-        const count = getGenCount();
-        const vals = [];
-        for (let i = 0; i < count; i++) {
-            vals.push(Math.floor(Math.random() * (max - min + 1)) + min);
-        }
-        showGenResults(vals);
-    });
+    function runGenerator(type) {
+        try {
+            const { min, max } = getGenRange();
+            const count = getGenCount();
+            const values = [];
+            if (type === 'INT') {
+                const intMin = Math.ceil(min);
+                const intMax = Math.floor(max);
+                if (!Number.isSafeInteger(intMin) || !Number.isSafeInteger(intMax) || intMin > intMax) {
+                    throw new Error('当前范围内没有可安全生成的整数。');
+                }
+                const span = intMax - intMin + 1;
+                if (!Number.isSafeInteger(span)) throw new Error('整数范围过大，请缩小范围。');
+                for (let i = 0; i < count; i++) values.push(Math.floor(randomUnit() * span) + intMin);
+                showGenResults(values, '整数');
+                return;
+            }
 
-    document.getElementById('genFloat').addEventListener('click', () => {
-        const { min, max } = getGenRange();
-        const prec = Math.max(0, parseInt(genPrec.value) || 0);
-        const count = getGenCount();
-        const vals = [];
-        for (let i = 0; i < count; i++) {
-            vals.push((Math.random() * (max - min) + min).toFixed(prec));
+            const precision = getPrecision();
+            for (let i = 0; i < count; i++) {
+                if (type === 'DEC') {
+                    values.push((randomUnit() * (max - min) + min).toFixed(precision));
+                } else {
+                    const re = randomUnit() * (max - min) + min;
+                    const im = randomUnit() * (max - min) + min;
+                    values.push(`${re.toFixed(precision)}${im >= 0 ? '+' : ''}${im.toFixed(precision)}i`);
+                }
+            }
+            showGenResults(values, type === 'DEC' ? '小数' : '复数');
+        } catch (error) {
+            showGenMessage(error.message, 'error');
         }
-        showGenResults(vals);
-    });
+    }
 
-    document.getElementById('genComplex').addEventListener('click', () => {
-        const { min, max } = getGenRange();
-        const prec = Math.max(0, parseInt(genPrec.value) || 0);
-        const count = getGenCount();
-        const vals = [];
-        for (let i = 0; i < count; i++) {
-            const re = (Math.random() * (max - min) + min).toFixed(prec);
-            const im = (Math.random() * (max - min) + min).toFixed(prec);
-            vals.push(re + (im >= 0 ? '+' : '') + im + 'i');
+    document.getElementById('genInt').addEventListener('click', () => runGenerator('INT'));
+    document.getElementById('genFloat').addEventListener('click', () => runGenerator('DEC'));
+    document.getElementById('genComplex').addEventListener('click', () => runGenerator('CPLX'));
+
+    copyGenResult.addEventListener('click', async () => {
+        if (!latestGenValues.length) return;
+        try {
+            await navigator.clipboard.writeText(latestGenValues.join('\n'));
+            showGenMessage('结果已复制到剪贴板。', 'success');
+        } catch (error) {
+            showGenMessage('复制失败，请手动选择结果。', 'error');
         }
-        showGenResults(vals);
     });
 
     // ======================== 数字炸弹游戏 ========================
@@ -418,17 +827,25 @@
     let animFrameId = null;
 
     function getBombRange() {
-        const min = parseFloat(bombMin.value) || -100;
-        const max = parseFloat(bombMax.value) || 100;
-        return { min: Math.min(min, max), max: Math.max(min, max) };
+        const rawMin = parseFiniteInput(bombMin, '范围下限');
+        const rawMax = parseFiniteInput(bombMax, '范围上限');
+        const min = Math.ceil(rawMin);
+        const max = Math.floor(rawMax);
+        if (!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) throw new Error('炸弹范围必须是安全整数。');
+        if (min >= max) throw new Error('范围下限必须小于范围上限。');
+        if (!Number.isSafeInteger(max - min + 1)) throw new Error('炸弹范围过大，请缩小范围。');
+        return { min, max };
     }
 
     function startBombGame(mode) {
-        const { min, max } = getBombRange();
-        if (min >= max) {
-            bombStatus.textContent = '错误：最小必须小于最大';
+        let range;
+        try {
+            range = getBombRange();
+        } catch (error) {
+            bombStatus.textContent = `ERROR / ${error.message}`;
             return;
         }
+        const { min, max } = range;
 
         bombGameEnded = false;
         bombRestartWrap.style.display = 'none';
@@ -446,14 +863,14 @@
         bombState.animating = false;
 
         if (mode === 'INT') {
-            bombState.target = Math.floor(Math.random() * (max - min + 1)) + min;
+            bombState.target = Math.floor(randomUnit() * (max - min + 1)) + min;
         } else {
-            bombState.targetRe = Math.floor(Math.random() * (max - min + 1)) + min;
-            bombState.targetIm = Math.floor(Math.random() * (max - min + 1)) + min;
+            bombState.targetRe = Math.floor(randomUnit() * (max - min + 1)) + min;
+            bombState.targetIm = Math.floor(randomUnit() * (max - min + 1)) + min;
         }
 
-        bombCount.textContent = '已猜次数: 0';
-        bombStatus.textContent = '游戏开始！点击画布进行猜测';
+        bombCount.textContent = 'TRIES / 0';
+        bombStatus.textContent = `${mode === 'INT' ? 'INT' : 'CPLX'} / 游戏开始，点击画布锁定目标。`;
         bombState.hoverX = null;
         bombState.hoverY = null;
         drawBombCanvas();
@@ -519,7 +936,7 @@
         }
 
         // 背景网格
-        ctx.strokeStyle = '#262837';
+        ctx.strokeStyle = '#dbe4ef';
         ctx.lineWidth = 1;
         const viewW = bombState.vReMax - bombState.vReMin;
         let step = viewW > 100 ? 20 : (viewW > 20 ? 10 : 2);
@@ -545,7 +962,7 @@
             const xEnd = toX(bombState.reMax);
 
             // 背景线（剩余范围）
-            ctx.strokeStyle = '#313244';
+            ctx.strokeStyle = '#d6deea';
             ctx.lineWidth = 12;
             ctx.lineCap = 'round';
             ctx.beginPath();
@@ -554,7 +971,7 @@
             ctx.stroke();
 
             // 活跃范围
-            ctx.strokeStyle = '#89b4fa';
+            ctx.strokeStyle = '#165dff';
             ctx.lineWidth = 12;
             ctx.lineCap = 'round';
             ctx.beginPath();
@@ -563,8 +980,8 @@
             ctx.stroke();
 
             // 端点数字
-            ctx.fillStyle = '#cdd6f4';
-            ctx.font = 'bold 13px Arial';
+            ctx.fillStyle = '#102033';
+            ctx.font = 'bold 13px Cascadia Code, Consolas, monospace';
             ctx.textAlign = 'center';
             ctx.fillText(Math.round(bombState.reMin), xStart, yMid + 35);
             ctx.fillText(Math.round(bombState.reMax), xEnd, yMid + 35);
@@ -576,8 +993,8 @@
             const y1 = toY(bombState.imMin);
             const y2 = toY(bombState.imMax);
 
-            ctx.fillStyle = 'rgba(243, 139, 168, 0.2)';
-            ctx.strokeStyle = '#f38ba8';
+            ctx.fillStyle = 'rgba(242, 106, 46, 0.12)';
+            ctx.strokeStyle = '#f26a2e';
             ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.rect(x1, Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
@@ -585,8 +1002,8 @@
             ctx.stroke();
 
             // 坐标标签
-            ctx.fillStyle = '#fab387';
-            ctx.font = '13px Arial';
+            ctx.fillStyle = '#c04c15';
+            ctx.font = '13px Cascadia Code, Consolas, monospace';
             ctx.textAlign = 'center';
             ctx.fillText(Math.round(bombState.reMin), x1 - 30, (y1 + y2) / 2 + 4);
             ctx.fillText(Math.round(bombState.reMax), x2 + 30, (y1 + y2) / 2 + 4);
@@ -613,7 +1030,7 @@
             const bx = bombState.hoverX + 15;
             const by = bombState.hoverY - 45;
 
-            ctx.fillStyle = 'rgba(44, 62, 80, 0.85)';
+            ctx.fillStyle = 'rgba(16, 32, 51, 0.92)';
             ctx.beginPath();
             const rw = tw + 20;
             const rh = 28;
@@ -622,7 +1039,7 @@
             ctx.fill();
 
             ctx.fillStyle = '#ffffff';
-            ctx.font = '13px Arial';
+            ctx.font = '13px Cascadia Code, Consolas, monospace';
             ctx.textAlign = 'center';
             ctx.fillText(text, bx + rw / 2, by + 19);
         }
@@ -658,15 +1075,19 @@
         const dw = canvas.width - 2 * pad;
         const dh = canvas.height - 2 * pad;
 
-        const clickRe = Math.round(
+        if (x < pad || x > pad + dw || y < pad || y > pad + dh) {
+            bombStatus.textContent = 'POINTER / 请点击图表有效区域。';
+            return;
+        }
+        const clickRe = Math.max(bombState.reMin, Math.min(bombState.reMax, Math.round(
             bombState.reMin + ((x - pad) / dw) * (bombState.reMax - bombState.reMin)
-        );
-        const clickIm = Math.round(
+        )));
+        const clickIm = Math.max(bombState.imMin, Math.min(bombState.imMax, Math.round(
             bombState.imMin + ((pad + dh - y) / dh) * (bombState.imMax - bombState.imMin)
-        );
+        )));
 
         bombState.guessCount++;
-        bombCount.textContent = `已猜次数: ${bombState.guessCount}`;
+        bombCount.textContent = `TRIES / ${bombState.guessCount}`;
 
         let nReMin = bombState.reMin, nReMax = bombState.reMax;
         let nImMin = bombState.imMin, nImMax = bombState.imMax;
@@ -691,7 +1112,7 @@
             }
         } else {
             if (clickRe === bombState.targetRe && clickIm === bombState.targetIm) {
-                bombStatus.textContent = `💥 BOOM! 炸弹是 ${bombState.targetRe}+${bombState.targetIm}i，总次数: ${bombState.guessCount}`;
+                bombStatus.textContent = `💥 BOOM! 炸弹是 ${bombState.targetRe}${bombState.targetIm >= 0 ? "+" : ""}${bombState.targetIm}i，总次数: ${bombState.guessCount}`;
                 bombGameEnded = true;
                 bombRestartWrap.style.display = 'block';
                 return;
@@ -702,7 +1123,7 @@
             else if (clickIm > bombState.targetIm) nImMax = clickIm - 1;
 
             if (nReMin === nReMax && nImMin === nImMax) {
-                bombStatus.textContent = `🎯 绝杀! 坐标 ${nReMin}+${nImMin}i 已被锁死！`;
+                bombStatus.textContent = `🎯 绝杀! 坐标 ${nReMin}${nImMin >= 0 ? "+" : ""}${nImMin}i 已被锁死！`;
                 animateRange(bombState.vReMin, bombState.vReMax, bombState.vImMin, bombState.vImMax,
                              nReMin, nReMax, nImMin, nImMax);
                 bombState.reMin = nReMin; bombState.reMax = nReMax;

@@ -1,0 +1,9 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -1115 +1115 @@
+-                bombStatus.textContent = `💥 BOOM! 炸弹是 ${bombState.targetRe}+${bombState.targetIm}i，总次数: ${bombState.guessCount}`;
++                bombStatus.textContent = \💥 BOOM! 炸弹是 i，总次数: \;
+@@ -1126 +1126 @@
+-                bombStatus.textContent = `🎯 绝杀! 坐标 ${nReMin}+${nImMin}i 已被锁死！`;
++                bombStatus.textContent = \🎯 绝杀! 坐标 i 已被锁死！\;

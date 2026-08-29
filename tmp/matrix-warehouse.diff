@@ -1,0 +1,114 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1384,43 +1384,67 @@
+-    function refreshSelects() {
+-        const names = Object.keys(matrixStore);
+-        const aVal = selectA.value;
+-        const bVal = selectB.value;
+-        selectA.innerHTML = names.map(n => `<option value="${n}">${n}</option>`).join('');
+-        selectB.innerHTML = names.map(n => `<option value="${n}">${n}</option>`).join('');
+-        if (names.includes(aVal)) selectA.value = aVal;
+-        if (names.includes(bVal)) selectB.value = bVal;
+-    }
+-
+-    function dataPreview(data) {
+-        try {
+-            return data.map(row =>
+-                row.map(c => {
+-                    const s = nerdamer(escE(c)).toString();
+-                    return unescE(s.length > 10 ? s.slice(0, 10) + '…' : s);
+-                }).join(' ')
+-            ).join(' \\\\ ');
+-        } catch (e) { return ''; }
+-    }
+-
+-    function refreshWarehouse() {
+-        const names = Object.keys(matrixStore);
+-        warehouseList.innerHTML = names.map(n => {
+-            const data = matrixStore[n];
+-            const tip = data ? dataPreview(data) : '';
+-            return `<li data-name="${n}" title="${tip}" onclick="window._mcSelect('${n}')">${n}</li>`;
+-        }).join('');
+-        refreshSelects();
+-    }
+-
+-    window._mcSelect = function(name) {
+-        const data = matrixStore[name];
+-        if (data) {
+-            currentResult = data;
+-            currentResultType = 'matrix';
+-            _numericNote = '';
+-            renderCurrentResult();
+-        }
+-        document.querySelectorAll('.mc-warehouse-list li').forEach(el => {
+-            el.classList.toggle('active', el.dataset.name === name);
+-        });
+-    };
++    function replaceSelectOptions(select, names, previousValue) {
++        select.replaceChildren(...names.map(name => {
++            const option = document.createElement('option');
++            option.value = name;
++            option.textContent = name;
++            return option;
++        }));
++        if (names.includes(previousValue)) select.value = previousValue;
++    }
++
++    function refreshSelects() {
++        const names = Object.keys(matrixStore);
++        const aVal = selectA.value;
++        const bVal = selectB.value;
++        replaceSelectOptions(selectA, names, aVal);
++        replaceSelectOptions(selectB, names, bVal);
++    }
++
++    function dataPreview(data) {
++        try {
++            return data.map(row =>
++                row.map(c => {
++                    const s = nerdamer(escE(c)).toString();
++                    return unescE(s.length > 10 ? s.slice(0, 10) + '…' : s);
++                }).join(' ')
++            ).join(' \\ ');
++        } catch (e) { return ''; }
++    }
++
++    function setActiveWarehouseItem(name) {
++        document.querySelectorAll('.matrix-item').forEach(item => {
++            item.classList.toggle('active', item.dataset.name === name);
++        });
++    }
++
++    function selectMatrix(name) {
++        const data = matrixStore[name];
++        if (!data) return;
++        currentResult = data;
++        currentResultType = 'matrix';
++        _numericNote = '';
++        renderCurrentResult();
++        setActiveWarehouseItem(name);
++    }
++
++    function refreshWarehouse() {
++        const names = Object.keys(matrixStore);
++        warehouseCount.textContent = `${names.length} 个矩阵`;
++        warehouseList.replaceChildren(...names.map(name => {
++            const data = matrixStore[name];
++            const item = document.createElement('li');
++            const button = document.createElement('button');
++            const label = document.createElement('span');
++            const size = document.createElement('small');
++            button.type = 'button';
++            button.className = 'matrix-item';
++            button.dataset.name = name;
++            button.title = data ? dataPreview(data) : '';
++            label.textContent = name;
++            size.textContent = data ? `${data.length}×${data[0].length}` : '';
++            button.append(label, size);
++            button.addEventListener('click', () => selectMatrix(name));
++            item.appendChild(button);
++            return item;
++        }));
++        refreshSelects();
++    }

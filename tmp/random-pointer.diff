@@ -1,0 +1,26 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -1078,9 +1078,13 @@
+-        const clickRe = Math.round(
+-            bombState.reMin + ((x - pad) / dw) * (bombState.reMax - bombState.reMin)
+-        );
+-        const clickIm = Math.round(
+-            bombState.imMin + ((pad + dh - y) / dh) * (bombState.imMax - bombState.imMin)
+-        );
+-
+-        bombState.guessCount++;
+-        bombCount.textContent = `已猜次数: ${bombState.guessCount}`;
++        if (x < pad || x > pad + dw || y < pad || y > pad + dh) {
++            bombStatus.textContent = 'POINTER / 请点击图表有效区域。';
++            return;
++        }
++        const clickRe = Math.max(bombState.reMin, Math.min(bombState.reMax, Math.round(
++            bombState.reMin + ((x - pad) / dw) * (bombState.reMax - bombState.reMin)
++        )));
++        const clickIm = Math.max(bombState.imMin, Math.min(bombState.imMax, Math.round(
++            bombState.imMin + ((pad + dh - y) / dh) * (bombState.imMax - bombState.imMin)
++        )));
++
++        bombState.guessCount++;
++        bombCount.textContent = `TRIES / ${bombState.guessCount}`;

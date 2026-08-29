@@ -1,0 +1,341 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -340,0 +341,337 @@
++    <style>
++        :root {
++            --lab-ink: #102033;
++            --lab-muted: #5d6b7b;
++            --lab-line: #c9d1dc;
++            --lab-soft: #eef2f6;
++            --lab-paper: #ffffff;
++            --lab-blue: #165dff;
++            --lab-blue-dark: #0c3fb4;
++            --lab-green: #087f5b;
++            --lab-orange: #f26a2e;
++            --lab-red: #c9364f;
++            --lab-shadow: 6px 6px 0 #102033;
++        }
++        body {
++            min-width: 320px;
++            background:
++                linear-gradient(rgba(16, 32, 51, 0.045) 1px, transparent 1px),
++                linear-gradient(90deg, rgba(16, 32, 51, 0.045) 1px, transparent 1px),
++                #f4f6f8;
++            background-size: 24px 24px;
++            color: var(--lab-ink);
++        }
++        .global-nav { border-bottom: 3px solid var(--lab-blue); background: var(--lab-ink); }
++        .tool-hero {
++            padding: 54px 20px 72px;
++            border-bottom: 1px solid var(--lab-line);
++            background: rgba(255, 255, 255, 0.96);
++            text-align: left;
++        }
++        .tool-hero-inner { width: min(1240px, 100%); margin: 0 auto; }
++        .tool-kicker, .panel-index, .field-label, .section-code, .status-code {
++            font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
++            letter-spacing: 0.12em;
++            text-transform: uppercase;
++        }
++        .tool-kicker {
++            display: inline-flex;
++            align-items: center;
++            gap: 10px;
++            margin-bottom: 14px;
++            color: var(--lab-blue);
++            font-size: 12px;
++            font-weight: 800;
++        }
++        .tool-kicker::before { width: 28px; height: 3px; background: var(--lab-blue); content: ""; }
++        .tool-hero h1 {
++            margin: 0;
++            color: var(--lab-ink);
++            font-family: "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
++            font-size: clamp(38px, 7vw, 72px);
++            line-height: 0.98;
++            letter-spacing: -0.04em;
++        }
++        .tool-hero p {
++            max-width: 760px;
++            margin: 18px 0 0;
++            color: var(--lab-muted);
++            font-size: 16px;
++            line-height: 1.8;
++        }
++        .hero-status { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
++        .hero-status span {
++            padding: 6px 9px;
++            border: 1px solid var(--lab-line);
++            background: var(--lab-soft);
++            color: var(--lab-ink);
++            font-family: "Cascadia Code", Consolas, monospace;
++            font-size: 11px;
++            font-weight: 700;
++        }
++        .matrix-shell {
++            width: min(1240px, calc(100% - 32px));
++            max-width: none;
++            margin: -38px auto 72px;
++            padding: 0;
++        }
++        .mc-layout {
++            display: grid;
++            grid-template-columns: 250px minmax(0, 1fr);
++            gap: 0;
++            min-height: 650px;
++            margin-top: 0;
++            border: 2px solid var(--lab-ink);
++            background: var(--lab-paper);
++            box-shadow: var(--lab-shadow);
++        }
++        .mc-warehouse {
++            display: flex;
++            min-width: 0;
++            padding: 0;
++            border: 0;
++            border-right: 1px solid #35475b;
++            border-radius: 0;
++            background: var(--lab-ink);
++            color: #fff;
++        }
++        .warehouse-head { padding: 22px 18px 16px; border-bottom: 1px solid #35475b; }
++        .warehouse-head .panel-index { color: #79a5ff; font-size: 10px; font-weight: 800; }
++        .warehouse-head h2 { margin: 7px 0 0; color: #fff; font-size: 18px; }
++        .warehouse-head p { margin: 7px 0 0; color: #9fb3ca; font-size: 11px; line-height: 1.6; }
++        .mc-warehouse-list {
++            flex: 1;
++            min-height: 280px;
++            margin: 0;
++            padding: 12px;
++            overflow-y: auto;
++        }
++        .mc-warehouse-list li { margin: 0 0 7px; padding: 0; border: 0; border-radius: 0; background: transparent; }
++        .matrix-item {
++            display: flex;
++            width: 100%;
++            align-items: center;
++            justify-content: space-between;
++            gap: 8px;
++            padding: 11px 12px;
++            border: 1px solid #455a70;
++            background: #182b40;
++            color: #eaf1f9;
++            font-family: "Cascadia Code", Consolas, monospace;
++            text-align: left;
++            cursor: pointer;
++        }
++        .matrix-item:hover { border-color: #79a5ff; background: #203a56; }
++        .matrix-item.active { border-color: #79a5ff; background: var(--lab-blue); color: #fff; }
++        .matrix-item small { color: #a9bbcf; font-size: 9px; }
++        .matrix-item.active small { color: #dbe6ff; }
++        .btn-primary {
++            margin: 12px;
++            padding: 12px;
++            border: 1px solid #fff;
++            border-radius: 0;
++            background: #fff;
++            color: var(--lab-ink);
++            font-family: "Cascadia Code", Consolas, monospace;
++            font-size: 11px;
++            font-weight: 800;
++        }
++        .btn-primary:hover { background: #dbe6ff; }
++        .mc-main { display: flex; min-width: 0; gap: 0; background: #f8fafc; }
++        .workspace-topline {
++            display: flex;
++            align-items: center;
++            justify-content: space-between;
++            gap: 16px;
++            padding: 14px 18px;
++            border-bottom: 1px solid var(--lab-line);
++            background: #fff;
++        }
++        .dependency-state { display: flex; align-items: center; gap: 8px; color: var(--lab-muted); font-size: 11px; }
++        .dependency-state::before { width: 8px; height: 8px; background: var(--lab-green); content: ""; }
++        .dependency-state.error::before { background: var(--lab-red); }
++        .status-code { color: var(--lab-ink); font-size: 10px; font-weight: 800; }
++        .mc-mode {
++            display: inline-flex;
++            gap: 0;
++            padding: 0;
++            border: 1px solid var(--lab-ink);
++            border-radius: 0;
++            background: #fff;
++        }
++        .mc-mode label {
++            min-height: 34px;
++            padding: 8px 11px;
++            border-right: 1px solid var(--lab-ink);
++            color: var(--lab-muted);
++            font-family: "Cascadia Code", Consolas, monospace;
++            font-size: 10px;
++        }
++        .mc-mode label:last-child { border-right: 0; }
++        .mc-mode label:has(input:checked) { background: var(--lab-ink); color: #fff; }
++        .mc-mode input { position: absolute; width: 1px; height: 1px; opacity: 0; }
++        .workspace-body { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 16px; padding: 18px; }
++        .operation-grid { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 16px; }
++        .mc-section {
++            padding: 0;
++            border: 1px solid var(--lab-line);
++            border-radius: 0;
++            background: #fff;
++        }
++        .section-head {
++            display: flex;
++            align-items: flex-start;
++            justify-content: space-between;
++            gap: 14px;
++            padding: 15px 16px;
++            border-bottom: 1px solid var(--lab-line);
++        }
++        .section-head h3 { margin: 4px 0 0; color: var(--lab-ink); font-size: 15px; }
++        .section-code { color: var(--lab-blue); font-size: 9px; font-weight: 800; }
++        .section-head p { max-width: 240px; color: var(--lab-muted); font-size: 10px; line-height: 1.6; text-align: right; }
++        .section-body { padding: 16px; }
++        .selector-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
++        .selector-field { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
++        .field-label { color: var(--lab-muted); font-size: 9px; font-weight: 800; }
++        .mc-op-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
++        .mc-op-row.decomp { grid-template-columns: repeat(3, minmax(0, 1fr)); }
++        .mc-op-row select, .mc-save input {
++            width: 100%;
++            min-height: 42px;
++            padding: 9px 11px;
++            border: 1px solid #95a1b1;
++            border-radius: 0;
++            background: #fff;
++            color: var(--lab-ink);
++            font-family: "Cascadia Code", Consolas, monospace;
++            font-size: 13px;
++        }
++        .mc-op-row select:focus, .mc-save input:focus { border-color: var(--lab-blue); outline: 3px solid rgba(22, 93, 255, 0.14); }
++        .btn-op, .btn-secondary, .btn-save, .utility-btn {
++            min-height: 40px;
++            padding: 9px 12px;
++            border: 1px solid var(--lab-ink);
++            border-radius: 0;
++            background: #fff;
++            color: var(--lab-ink);
++            font-family: "Cascadia Code", Consolas, monospace;
++            font-size: 11px;
++            font-weight: 800;
++            cursor: pointer;
++            transition: transform 0.12s, box-shadow 0.12s;
++        }
++        .btn-op:hover, .btn-secondary:hover, .btn-save:hover, .utility-btn:hover {
++            transform: translate(-2px, -2px);
++            box-shadow: 3px 3px 0 var(--lab-ink);
++        }
++        .btn-op:active, .btn-secondary:active, .btn-save:active, .utility-btn:active { transform: none; box-shadow: none; }
++        .btn-op.accent { background: var(--lab-blue); color: #fff; }
++        .btn-op.green { background: #d9f5ee; color: #075d43; }
++        .mc-result {
++            min-height: 250px;
++            padding: 0;
++            border: 1px solid var(--lab-ink);
++            border-radius: 0;
++            background: #fff;
++        }
++        .result-head {
++            display: flex;
++            align-items: center;
++            justify-content: space-between;
++            gap: 12px;
++            padding: 13px 16px;
++            border-bottom: 1px solid var(--lab-line);
++            background: var(--lab-ink);
++            color: #fff;
++        }
++        .result-head h3 { margin: 0; color: #fff; font-size: 13px; }
++        .result-head .utility-btn { min-height: 30px; padding: 5px 9px; border-color: #8fa2b7; background: transparent; color: #fff; }
++        .mc-result-content {
++            min-height: 190px;
++            padding: 24px;
++            background:
++                linear-gradient(rgba(22, 93, 255, 0.055) 1px, transparent 1px),
++                #fbfdff;
++            background-size: 100% 30px;
++        }
++        .mc-result-content .katex { color: var(--lab-ink); font-size: 1.15em; }
++        .mc-error { color: var(--lab-red); font-size: 13px; font-weight: 700; }
++        .mc-save {
++            display: grid;
++            grid-template-columns: minmax(180px, 1fr) 180px auto;
++            gap: 10px;
++            align-items: end;
++            padding: 14px 16px;
++            border: 1px solid var(--lab-line);
++            background: #fff;
++        }
++        .mc-save label { color: var(--lab-muted); font-size: 11px; line-height: 1.5; }
++        .save-field { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
++        .modal-overlay { padding: 20px; background: rgba(16, 32, 51, 0.76); }
++        .modal {
++            width: min(760px, 96vw);
++            max-height: 92vh;
++            padding: 0;
++            border: 2px solid var(--lab-ink);
++            border-radius: 0;
++            background: #fff;
++            box-shadow: 8px 8px 0 #06111e;
++        }
++        .modal-header { padding: 18px 20px; border-bottom: 1px solid var(--lab-line); }
++        .modal-header h3 { margin: 5px 0 0; color: var(--lab-ink); font-size: 20px; }
++        .modal-body { padding: 18px 20px; }
++        .modal-top { display: grid; grid-template-columns: 1.4fr 0.7fr 0.7fr auto; gap: 10px; align-items: end; }
++        .modal-top label { display: flex; flex-direction: column; gap: 6px; color: var(--lab-muted); font-size: 10px; }
++        .modal-top input {
++            width: 100% !important;
++            min-height: 40px;
++            padding: 8px 10px;
++            border: 1px solid #95a1b1;
++            border-radius: 0;
++            background: #fff;
++            color: var(--lab-ink);
++            font-family: "Cascadia Code", Consolas, monospace;
++        }
++        .matrix-grid-wrap { margin: 16px 0 0; padding: 14px; border: 1px solid var(--lab-line); background: #f8fafc; }
++        .matrix-grid input {
++            width: 66px;
++            min-height: 38px;
++            border: 1px solid #a9b5c3;
++            border-radius: 0;
++            font-family: "Cascadia Code", Consolas, monospace;
++        }
++        .matrix-grid input:focus { border-color: var(--lab-blue); outline: 2px solid rgba(22, 93, 255, 0.16); }
++        .modal-feedback { min-height: 20px; margin-top: 10px; color: var(--lab-red); font-size: 11px; font-weight: 700; }
++        .modal-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
++        .btn-save { background: var(--lab-blue); color: #fff; }
++        footer { color: var(--lab-muted); }
++        @media (max-width: 900px) {
++            .matrix-shell { width: min(100% - 24px, 760px); }
++            .mc-layout { grid-template-columns: 1fr; }
++            .mc-warehouse { min-height: 0; border-right: 0; border-bottom: 1px solid #35475b; }
++            .mc-warehouse-list { display: flex; min-height: 0; gap: 8px; padding-bottom: 4px; overflow-x: auto; }
++            .mc-warehouse-list li { min-width: 130px; }
++            .operation-grid { grid-template-columns: 1fr; }
++        }
++        @media (max-width: 620px) {
++            .tool-hero { padding: 42px 18px 64px; }
++            .tool-hero h1 { font-size: 42px; }
++            .hero-status { display: none; }
++            .matrix-shell { margin-top: -28px; }
++            .workspace-topline { align-items: flex-start; flex-direction: column; }
++            .mc-mode { width: 100%; }
++            .mc-mode label { flex: 1; justify-content: center; }
++            .workspace-body { padding: 12px; }
++            .section-head { flex-direction: column; }
++            .section-head p { text-align: left; }
++            .mc-op-row.decomp { grid-template-columns: repeat(2, minmax(0, 1fr)); }
++            .mc-save { grid-template-columns: 1fr; align-items: stretch; }
++            .modal-top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
++            .modal-top .name-field { grid-column: 1 / -1; }
++            .modal-top .btn-secondary { grid-column: 1 / -1; }
++            .matrix-grid input { width: 56px; }
++        }
++        @media (prefers-reduced-motion: reduce) {
++            *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
++        }
++    </style>

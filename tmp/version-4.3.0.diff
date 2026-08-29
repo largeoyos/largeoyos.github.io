@@ -1,0 +1,48 @@
+diff --git a/index.html b/index.html
+--- a/index.html
++++ b/index.html
+@@ -163 +163 @@
+-    <p><small>Version 4.2.0 — fx-991CN X 原机兼容计算系统</small></p>
++    <p><small>Version 4.3.0 — 工具工作站界面重构</small></p>
+diff --git a/blog/index.html b/blog/index.html
+--- a/blog/index.html
++++ b/blog/index.html
+@@ -85 +85 @@
+-    <p><small>Version 4.2.0</small></p>
++    <p><small>Version 4.3.0</small></p>
+diff --git a/ai-tutorials/index.html b/ai-tutorials/index.html
+--- a/ai-tutorials/index.html
++++ b/ai-tutorials/index.html
+@@ -77 +77 @@
+-    <p><small>Version 4.2.0</small></p>
++    <p><small>Version 4.3.0</small></p>
+diff --git a/games/index.html b/games/index.html
+--- a/games/index.html
++++ b/games/index.html
+@@ -134 +134 @@
+-    <p><small>Version 4.2.0</small></p>
++    <p><small>Version 4.3.0</small></p>
+diff --git a/quick-nav/index.html b/quick-nav/index.html
+--- a/quick-nav/index.html
++++ b/quick-nav/index.html
+@@ -191 +191 @@
+-    <p><small>Version 4.2.0</small></p>
++    <p><small>Version 4.3.0</small></p>
+diff --git a/tools/index.html b/tools/index.html
+--- a/tools/index.html
++++ b/tools/index.html
+@@ -77 +77 @@
+-    <p><small>Version 1.14.0 &mdash; 新增 C++ 算法笔记</small></p>
++    <p><small>Version 4.3.0 &mdash; 工具工作站界面重构</small></p>
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -644 +644 @@
+-    <p><small>Version 1.13.0 &mdash; 新增工具箱子空间</small></p>
++    <p><small>Version 4.3.0 &mdash; 工具工作站界面重构</small></p>
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -803 +803 @@
+-    <p><small>Version 1.13.0 &mdash; 新增工具箱子空间</small></p>
++    <p><small>Version 4.3.0 &mdash; 工具工作站界面重构</small></p>

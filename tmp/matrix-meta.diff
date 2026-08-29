@@ -1,0 +1,9 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -6 +6 @@
+-    <title>矩阵计算器 | LarGeoYos</title>
++    <title>矩阵计算工作站 | LarGeoYos</title>
+@@ -680 +680 @@
+-<body>
++<body class="lab-page">

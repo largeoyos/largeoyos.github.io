@@ -1,0 +1,182 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1681,67 +1681,111 @@
+-    function saveResult() {
+-        if (currentResultType !== 'matrix' || !Array.isArray(currentResult)) {
+-            showError('请确保当前结果是单个矩阵');
+-            return;
+-        }
+-        const name = saveName.value.trim() || 'ANS';
+-        let finalName = name;
+-        if (matrixStore[name]) {
+-            let i = 1;
+-            while (matrixStore[name + '_' + i]) i++;
+-            finalName = name + '_' + i;
+-        }
+-        addMatrix(finalName, cloneData(currentResult));
+-        saveName.value = finalName;
+-    }
+-
+-    // ======================== 模态框 ========================
+-    function buildGrid(rows, cols) {
+-        matrixGrid.innerHTML = '';
+-        for (let i = 0; i < rows; i++) {
+-            const tr = document.createElement('tr');
+-            for (let j = 0; j < cols; j++) {
+-                const td = document.createElement('td');
+-                const inp = document.createElement('input');
+-                inp.type = 'text';
+-                inp.value = i === j ? '1' : '0';
+-                inp.dataset.r = i;
+-                inp.dataset.c = j;
+-                td.appendChild(inp);
+-                tr.appendChild(td);
+-            }
+-            matrixGrid.appendChild(tr);
+-        }
+-    }
+-
+-    function readGrid() {
+-        const rows = parseInt(matrixRows.value);
+-        const cols = parseInt(matrixCols.value);
+-        const data = [];
+-        for (let i = 0; i < rows; i++) {
+-            const row = [];
+-            for (let j = 0; j < cols; j++) {
+-                const inp = matrixGrid.querySelector(`input[data-r="${i}"][data-c="${j}"]`);
+-                const raw = inp ? inp.value.trim() : '';
+-                row.push(raw === '' ? '0' : raw);
+-            }
+-            data.push(row);
+-        }
+-        return data;
+-    }
+-
+-    function openDefineModal() {
+-        const existing = Object.keys(matrixStore).filter(n => /^[A-Z]$/.test(n));
+-        const used = new Set(existing);
+-        let suggested = '';
+-        for (let c = 65; c <= 90; c++) {
+-            if (!used.has(String.fromCharCode(c))) {
+-                suggested = String.fromCharCode(c);
+-                break;
+-            }
+-        }
+-        matrixName.value = suggested || 'M' + Object.keys(matrixStore).length;
+-        matrixRows.value = 3;
+-        matrixCols.value = 3;
+-        buildGrid(3, 3);
+-        defineModal.classList.add('show');
+-    }
++    function validateMatrixName(rawName) {
++        const name = rawName.trim();
++        if (!/^[A-Za-z_\u4e00-\u9fa5][A-Za-z0-9_\u4e00-\u9fa5]{0,15}$/.test(name)) {
++            throw new Error('名称需以字母、中文或下划线开头，最长 16 个字符。');
++        }
++        return name;
++    }
++
++    function saveResult() {
++        if (currentResultType !== 'matrix' || !Array.isArray(currentResult)) {
++            showError('请确保当前结果是单个矩阵');
++            return;
++        }
++        let name;
++        try {
++            name = validateMatrixName(saveName.value || 'ANS');
++        } catch (error) {
++            showError(error.message);
++            return;
++        }
++        let finalName = name;
++        if (matrixStore[name]) {
++            let i = 1;
++            while (matrixStore[name + '_' + i]) i++;
++            finalName = name + '_' + i;
++        }
++        addMatrix(finalName, cloneData(currentResult));
++        saveName.value = finalName;
++    }
++
++    // ======================== 模态框 ========================
++    function getGridSize() {
++        const rows = Number(matrixRows.value);
++        const cols = Number(matrixCols.value);
++        if (!Number.isInteger(rows) || !Number.isInteger(cols) || rows < 1 || cols < 1 || rows > MAX_MATRIX_SIZE || cols > MAX_MATRIX_SIZE) {
++            throw new Error(`矩阵行列数必须是 1—${MAX_MATRIX_SIZE} 的整数。`);
++        }
++        return { rows, cols };
++    }
++
++    function buildGrid(rows, cols) {
++        matrixGrid.replaceChildren();
++        for (let i = 0; i < rows; i++) {
++            const tr = document.createElement('tr');
++            for (let j = 0; j < cols; j++) {
++                const td = document.createElement('td');
++                const input = document.createElement('input');
++                input.type = 'text';
++                input.value = i === j ? '1' : '0';
++                input.dataset.r = i;
++                input.dataset.c = j;
++                input.maxLength = 80;
++                input.autocomplete = 'off';
++                input.setAttribute('aria-label', `第 ${i + 1} 行第 ${j + 1} 列`);
++                td.appendChild(input);
++                tr.appendChild(td);
++            }
++            matrixGrid.appendChild(tr);
++        }
++    }
++
++    function validateExpression(expression, row, col) {
++        if (expression.length > 80) throw new Error(`第 ${row + 1} 行第 ${col + 1} 列表达式过长。`);
++        try {
++            nerdamer(escE(expression));
++        } catch (error) {
++            throw new Error(`第 ${row + 1} 行第 ${col + 1} 列不是有效表达式。`);
++        }
++        return expression;
++    }
++
++    function readGrid() {
++        const { rows, cols } = getGridSize();
++        const data = [];
++        for (let i = 0; i < rows; i++) {
++            const row = [];
++            for (let j = 0; j < cols; j++) {
++                const input = matrixGrid.querySelector(`input[data-r="${i}"][data-c="${j}"]`);
++                const raw = input ? input.value.trim() : '';
++                row.push(validateExpression(raw === '' ? '0' : raw, i, j));
++            }
++            data.push(row);
++        }
++        return data;
++    }
++
++    function closeDefineModal() {
++        defineModal.classList.remove('show');
++        modalFeedback.textContent = '';
++        if (lastFocusedElement) lastFocusedElement.focus();
++    }
++
++    function openDefineModal() {
++        const existing = Object.keys(matrixStore).filter(n => /^[A-Z]$/.test(n));
++        const used = new Set(existing);
++        let suggested = '';
++        for (let c = 65; c <= 90; c++) {
++            if (!used.has(String.fromCharCode(c))) {
++                suggested = String.fromCharCode(c);
++                break;
++            }
++        }
++        lastFocusedElement = document.activeElement;
++        matrixName.value = suggested || 'M' + Object.keys(matrixStore).length;
++        matrixRows.value = 3;
++        matrixCols.value = 3;
++        modalFeedback.textContent = '';
++        buildGrid(3, 3);
++        defineModal.classList.add('show');
++        matrixName.focus();
++    }

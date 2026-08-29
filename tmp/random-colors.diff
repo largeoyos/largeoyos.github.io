@@ -1,0 +1,36 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -939 +939 @@
+-        ctx.strokeStyle = '#262837';
++        ctx.strokeStyle = '#dbe4ef';
+@@ -965 +965 @@
+-            ctx.strokeStyle = '#313244';
++            ctx.strokeStyle = '#d6deea';
+@@ -974 +974 @@
+-            ctx.strokeStyle = '#89b4fa';
++            ctx.strokeStyle = '#165dff';
+@@ -983 +983 @@
+-            ctx.fillStyle = '#cdd6f4';
++            ctx.fillStyle = '#102033';
+@@ -984 +984 @@
+-            ctx.font = 'bold 13px Arial';
++            ctx.font = 'bold 13px Cascadia Code, Consolas, monospace';
+@@ -996 +996 @@
+-            ctx.fillStyle = 'rgba(243, 139, 168, 0.2)';
++            ctx.fillStyle = 'rgba(242, 106, 46, 0.12)';
+@@ -997 +997 @@
+-            ctx.strokeStyle = '#f38ba8';
++            ctx.strokeStyle = '#f26a2e';
+@@ -1005 +1005 @@
+-            ctx.fillStyle = '#fab387';
++            ctx.fillStyle = '#c04c15';
+@@ -1006 +1006 @@
+-            ctx.font = '13px Arial';
++            ctx.font = '13px Cascadia Code, Consolas, monospace';
+@@ -1033 +1033 @@
+-            ctx.fillStyle = 'rgba(44, 62, 80, 0.85)';
++            ctx.fillStyle = 'rgba(16, 32, 51, 0.92)';
+@@ -1042 +1042 @@
+-            ctx.font = '13px Arial';
++            ctx.font = '13px Cascadia Code, Consolas, monospace';

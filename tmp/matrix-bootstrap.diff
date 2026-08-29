@@ -1,0 +1,83 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -844,25 +844,54 @@
+-    if (typeof nerdamer === 'undefined') {
+-        document.getElementById('resultContent').innerHTML =
+-            '<span class="mc-error">nerdamer 符号计算库加载失败，请刷新页面重试。</span>';
+-        return;
+-    }
+-
+-    // ======================== 数据 ========================
+-    // matrixStore[name] = [[string_expr, ...], ...] (2D 符号表达式数组)
+-    const matrixStore = {};
+-    let currentResult = null;
+-    let currentResultType = 'none'; // 'matrix' | 'dict' | 'string'
+-    let _numericNote = '';          // 数值模式提示文字
+-
+-    // ======================== DOM 引用 ========================
+-    const $ = id => document.getElementById(id);
+-    const warehouseList = $('warehouseList');
+-    const selectA = $('selectA');
+-    const selectB = $('selectB');
+-    const resultContent = $('resultContent');
+-    const saveName = $('saveName');
+-    const defineModal = $('defineModal');
+-    const matrixName = $('matrixName');
+-    const matrixRows = $('matrixRows');
+-    const matrixCols = $('matrixCols');
+-    const matrixGrid = $('matrixGrid');
++    const $ = id => document.getElementById(id);
++    const missingLibraries = [
++        ['math.js', typeof math === 'undefined'],
++        ['KaTeX', typeof katex === 'undefined'],
++        ['numeric.js', typeof numeric === 'undefined'],
++        ['nerdamer', typeof nerdamer === 'undefined']
++    ].filter(([, missing]) => missing).map(([name]) => name);
++
++    if (missingLibraries.length) {
++        const message = `计算组件加载失败：${missingLibraries.join('、')}。请检查网络后刷新页面。`;
++        const result = $('resultContent');
++        result.replaceChildren();
++        const error = document.createElement('span');
++        error.className = 'mc-error';
++        error.textContent = message;
++        result.appendChild(error);
++        const state = $('dependencyState');
++        state.classList.add('error');
++        state.querySelector('.status-code').textContent = 'ENGINE / ERROR';
++        state.lastElementChild.textContent = '计算组件未就绪';
++        return;
++    }
++
++    // ======================== 数据 ========================
++    // matrixStore[name] = [[string_expr, ...], ...] (2D 符号表达式数组)
++    const MAX_MATRIX_SIZE = 8;
++    const matrixStore = {};
++    let currentResult = null;
++    let currentResultType = 'none'; // 'matrix' | 'dict' | 'string'
++    let _numericNote = '';          // 数值模式提示文字
++    let lastFocusedElement = null;
++
++    // ======================== DOM 引用 ========================
++    const warehouseList = $('warehouseList');
++    const warehouseCount = $('warehouseCount');
++    const selectA = $('selectA');
++    const selectB = $('selectB');
++    const resultContent = $('resultContent');
++    const saveName = $('saveName');
++    const defineModal = $('defineModal');
++    const matrixName = $('matrixName');
++    const matrixRows = $('matrixRows');
++    const matrixCols = $('matrixCols');
++    const matrixGrid = $('matrixGrid');
++    const modalFeedback = $('modalFeedback');
++    const btnCopyResult = $('btnCopyResult');
++
++    function showError(message, container = resultContent) {
++        container.replaceChildren();
++        const error = document.createElement('span');
++        error.className = 'mc-error';
++        error.textContent = String(message);
++        container.appendChild(error);
++    }

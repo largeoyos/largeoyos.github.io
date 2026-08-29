@@ -1,0 +1,182 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -690,69 +690,109 @@
+-<header>
+-    <h1>🧮 矩阵计算器</h1>
+-    <p>符号 / 数值双模工作站</p>
+-</header>
+-
+-<div class="container">
+-    <div class="mc-layout">
+-
+-        <!-- 左侧仓库 -->
+-        <div class="mc-warehouse">
+-            <h3>📦 矩阵仓库</h3>
+-            <ul class="mc-warehouse-list" id="warehouseList"></ul>
+-            <button class="btn-primary" id="btnDefineMatrix">+ 定义新矩阵</button>
+-        </div>
+-
+-        <!-- 右侧主面板 -->
+-        <div class="mc-main">
+-
+-            <!-- 显示偏好 -->
+-            <div class="mc-mode">
+-                <label><input type="radio" name="displayMode" value="exact" checked> 精确解（分数）</label>
+-                <label><input type="radio" name="displayMode" value="approx"> 近似解（小数）</label>
+-            </div>
+-
+-            <!-- 核心运算 -->
+-            <div class="mc-section">
+-                <h4>核心运算</h4>
+-                <div class="mc-op-row">
+-                    <label style="color:#a6adc8;font-size:13px;">A:</label>
+-                    <select id="selectA"></select>
+-                    <label style="color:#a6adc8;font-size:13px;">B:</label>
+-                    <select id="selectB"></select>
+-                    <button class="btn-op accent" data-op="add">A + B</button>
+-                    <button class="btn-op accent" data-op="mul">A × B</button>
+-                    <button class="btn-op" data-op="inv">A⁻¹</button>
+-                    <button class="btn-op" data-op="trans">Aᵀ</button>
+-                </div>
+-            </div>
+-
+-            <!-- 矩阵分解 -->
+-            <div class="mc-section">
+-                <h4>矩阵分解（针对 A）</h4>
+-                <div class="mc-op-row">
+-                    <button class="btn-op green" data-dec="LU">LU</button>
+-                    <button class="btn-op green" data-dec="QR">QR</button>
+-                    <button class="btn-op green" data-dec="EIGEN">EIGEN</button>
+-                    <button class="btn-op green" data-dec="SVD">SVD</button>
+-                    <button class="btn-op green" data-dec="LDL">LDL</button>
+-                </div>
+-            </div>
+-
+-            <!-- 结果 -->
+-            <div class="mc-result">
+-                <h4>计算结果</h4>
+-                <div class="mc-result-content" id="resultContent">
+-                    <span style="color:#6c7086;">定义矩阵后开始计算</span>
+-                </div>
+-            </div>
+-
+-            <!-- 保存 -->
+-            <div class="mc-save">
+-                <label style="color:#a6adc8;font-size:13px;">保存当前结果为:</label>
+-                <input type="text" id="saveName" value="ANS">
+-                <button class="btn-op green" id="btnSave">存入仓库</button>
+-            </div>
+-
+-        </div>
+-    </div>
+-</div>
++<header class="tool-hero">
++    <div class="tool-hero-inner">
++        <div class="tool-kicker">UTILITY / 02</div>
++        <h1>矩阵计算工作站</h1>
++        <p>在同一工作区定义矩阵、组合运算并比较精确解与近似解，符号推导和数值分解各自保持清晰边界。</p>
++        <div class="hero-status" aria-label="工具特性">
++            <span>SYMBOLIC + NUMERIC</span>
++            <span>MAX 8 × 8</span>
++            <span>LATEX OUTPUT</span>
++        </div>
++    </div>
++</header>
++
++<main class="container matrix-shell">
++    <div class="mc-layout">
++        <aside class="mc-warehouse" aria-label="矩阵仓库">
++            <div class="warehouse-head">
++                <div class="panel-index">LIBRARY / 00</div>
++                <h2>矩阵仓库</h2>
++                <p id="warehouseCount">0 个矩阵</p>
++            </div>
++            <ul class="mc-warehouse-list" id="warehouseList"></ul>
++            <button class="btn-primary" id="btnDefineMatrix">+ 定义新矩阵</button>
++        </aside>
++
++        <section class="mc-main" aria-label="矩阵计算工作区">
++            <div class="workspace-topline">
++                <div class="dependency-state" id="dependencyState">
++                    <span class="status-code">ENGINE / READY</span>
++                    <span>计算组件已连接</span>
++                </div>
++                <div class="mc-mode" aria-label="结果显示模式">
++                    <label><input type="radio" name="displayMode" value="exact" checked>精确解</label>
++                    <label><input type="radio" name="displayMode" value="approx">近似解</label>
++                </div>
++            </div>
++
++            <div class="workspace-body">
++                <div class="operation-grid">
++                    <section class="mc-section">
++                        <div class="section-head">
++                            <div>
++                                <div class="section-code">BLOCK 01 / OPERATE</div>
++                                <h3>核心运算</h3>
++                            </div>
++                            <p>加法、乘法使用 A 与 B；求逆和转置只作用于 A。</p>
++                        </div>
++                        <div class="section-body">
++                            <div class="selector-grid">
++                                <label class="selector-field" for="selectA">
++                                    <span class="field-label">Matrix A / 主矩阵</span>
++                                    <select id="selectA"></select>
++                                </label>
++                                <label class="selector-field" for="selectB">
++                                    <span class="field-label">Matrix B / 次矩阵</span>
++                                    <select id="selectB"></select>
++                                </label>
++                            </div>
++                            <div class="mc-op-row">
++                                <button class="btn-op accent" data-op="add">A + B</button>
++                                <button class="btn-op accent" data-op="mul">A × B</button>
++                                <button class="btn-op" data-op="inv">A⁻¹</button>
++                                <button class="btn-op" data-op="trans">Aᵀ</button>
++                            </div>
++                        </div>
++                    </section>
++
++                    <section class="mc-section">
++                        <div class="section-head">
++                            <div>
++                                <div class="section-code">BLOCK 02 / DECOMPOSE</div>
++                                <h3>矩阵分解</h3>
++                            </div>
++                            <p>分解仅针对当前选择的 A，SVD 只接受纯数值矩阵。</p>
++                        </div>
++                        <div class="section-body">
++                            <div class="mc-op-row decomp">
++                                <button class="btn-op green" data-dec="LU">LU</button>
++                                <button class="btn-op green" data-dec="QR">QR</button>
++                                <button class="btn-op green" data-dec="EIGEN">EIGEN</button>
++                                <button class="btn-op green" data-dec="SVD">SVD</button>
++                                <button class="btn-op green" data-dec="LDL">LDL</button>
++                            </div>
++                        </div>
++                    </section>
++                </div>
++
++                <section class="mc-result" aria-live="polite">
++                    <div class="result-head">
++                        <h3>OUTPUT / 计算结果</h3>
++                        <button class="utility-btn" id="btnCopyResult" type="button">复制纯文本</button>
++                    </div>
++                    <div class="mc-result-content" id="resultContent">
++                        <span style="color:#5d6b7b;">从仓库选择矩阵，或先定义一个新矩阵。</span>
++                    </div>
++                </section>
++
++                <div class="mc-save">
++                    <label>RESULT STORAGE<br>只可保存单个矩阵结果，分解结果不会被合并。</label>
++                    <label class="save-field" for="saveName">
++                        <span class="field-label">Name / 保存名称</span>
++                        <input type="text" id="saveName" value="ANS" maxlength="16" autocomplete="off">
++                    </label>
++                    <button class="btn-save" id="btnSave">存入仓库</button>
++                </div>
++            </div>
++        </section>
++    </div>
++</main>

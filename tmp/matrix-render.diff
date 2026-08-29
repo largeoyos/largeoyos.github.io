@@ -1,0 +1,111 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -1453,38 +1453,69 @@
+-    function renderCurrentResult() {
+-        const exact = isExact();
+-        if (currentResultType === 'matrix') {
+-            const latex = matrixToLatex(currentResult, exact);
+-            renderLatex(latex, resultContent);
+-        } else if (currentResultType === 'dict') {
+-            const parts = [];
+-            for (const [key, mat] of Object.entries(currentResult)) {
+-                const l = matrixToLatex(mat, exact);
+-                parts.push(`\\text{${key}} = ${l}`);
+-            }
+-            renderLatex(parts.join('\\quad'), resultContent);
+-        } else if (currentResultType === 'string') {
+-            resultContent.innerHTML = `<span class="mc-error">${currentResult}</span>`;
+-        } else {
+-            resultContent.innerHTML = '<span style="color:#6c7086;">定义矩阵后开始计算</span>';
+-        }
+-        if (_numericNote) {
+-            const note = document.createElement('div');
+-            note.style.cssText = 'color:#fab387;font-size:12px;margin-top:8px;text-align:center;';
+-            note.textContent = _numericNote;
+-            resultContent.appendChild(note);
+-        }
+-    }
+-
+-    // ======================== 添加矩阵 ========================
+-    function addMatrix(name, data) {
+-        _numericNote = '';
+-        // 转义 e/E 为 _e_/_E_，使 nerdamer 将其视为变量而非欧拉常数
+-        matrixStore[name] = data.map(row => row.map(cell => escE(String(cell))));
+-        refreshWarehouse();
+-        currentResult = matrixStore[name];
+-        currentResultType = 'matrix';
+-        renderCurrentResult();
+-        document.querySelectorAll('.mc-warehouse-list li').forEach(el => {
+-            el.classList.toggle('active', el.dataset.name === name);
+-        });
+-    }
++    function renderCurrentResult() {
++        const exact = isExact();
++        if (currentResultType === 'matrix') {
++            renderLatex(matrixToLatex(currentResult, exact), resultContent);
++        } else if (currentResultType === 'dict') {
++            const parts = [];
++            for (const [key, mat] of Object.entries(currentResult)) {
++                parts.push(`\text{${key}} = ${matrixToLatex(mat, exact)}`);
++            }
++            renderLatex(parts.join('\quad'), resultContent);
++        } else if (currentResultType === 'string') {
++            showError(currentResult);
++        } else {
++            resultContent.replaceChildren();
++            const placeholder = document.createElement('span');
++            placeholder.style.color = '#5d6b7b';
++            placeholder.textContent = '从仓库选择矩阵，或先定义一个新矩阵。';
++            resultContent.appendChild(placeholder);
++        }
++        if (_numericNote) {
++            const note = document.createElement('div');
++            note.className = 'numeric-note';
++            note.textContent = _numericNote;
++            resultContent.appendChild(note);
++        }
++    }
++
++    function valueToRows(value) {
++        if (value && (value instanceof math.Matrix || value.isMatrix)) return value.toArray();
++        return Array.isArray(value) ? value : [[value]];
++    }
++
++    function matrixToPlainText(value) {
++        return valueToRows(value).map(row =>
++            (Array.isArray(row) ? row : [row]).map(cell => unescE(String(cell))).join('\t')
++        ).join('\n');
++    }
++
++    function currentResultToPlainText() {
++        if (currentResultType === 'matrix') return matrixToPlainText(currentResult);
++        if (currentResultType === 'dict') {
++            return Object.entries(currentResult).map(([key, value]) => `${key}\n${matrixToPlainText(value)}`).join('\n\n');
++        }
++        return currentResultType === 'string' ? String(currentResult) : '';
++    }
++
++    btnCopyResult.addEventListener('click', async () => {
++        const text = currentResultToPlainText();
++        if (!text) return;
++        try {
++            await navigator.clipboard.writeText(text);
++            btnCopyResult.textContent = '已复制';
++            window.setTimeout(() => { btnCopyResult.textContent = '复制纯文本'; }, 1200);
++        } catch (error) {
++            showError('复制失败，请手动选择结果。');
++        }
++    });
++
++    // ======================== 添加矩阵 ========================
++    function addMatrix(name, data) {
++        _numericNote = '';
++        // 转义 e/E 为 _e_/_E_，使 nerdamer 将其视为变量而非欧拉常数
++        matrixStore[name] = data.map(row => row.map(cell => escE(String(cell))));
++        refreshWarehouse();
++        currentResult = matrixStore[name];
++        currentResultType = 'matrix';
++        renderCurrentResult();
++        setActiveWarehouseItem(name);
++    }

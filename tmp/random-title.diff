@@ -1,0 +1,6 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -6 +6 @@
+-    <title>随机数助手 | LarGeoYos</title>
++    <title>随机数实验台 | LarGeoYos</title>

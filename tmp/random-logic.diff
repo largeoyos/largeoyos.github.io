@@ -1,0 +1,220 @@
+diff --git a/tools/random-number/index.html b/tools/random-number/index.html
+--- a/tools/random-number/index.html
++++ b/tools/random-number/index.html
+@@ -652,74 +652,142 @@
+-    const tabBtns = document.querySelectorAll('.tab-btn');
+-    tabBtns.forEach(btn => {
+-        btn.addEventListener('click', () => {
+-            tabBtns.forEach(b => b.classList.remove('active'));
+-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+-            btn.classList.add('active');
+-            document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+-        });
+-    });
+-
+-    // ======================== 随机数生成器 ========================
+-    const genResult = document.getElementById('genResult');
+-    const genGrid = document.getElementById('genGrid');
+-    const genDisplay = document.getElementById('genDisplay');
+-    const genMin = document.getElementById('genMin');
+-    const genMax = document.getElementById('genMax');
+-    const genPrec = document.getElementById('genPrec');
+-    const genCount = document.getElementById('genCount');
+-
+-    function getGenRange() {
+-        const min = parseFloat(genMin.value) || 0;
+-        const max = parseFloat(genMax.value) || 0;
+-        return { min: Math.min(min, max), max: Math.max(min, max) };
+-    }
+-
+-    function getGenCount() {
+-        return Math.max(1, Math.min(100, parseInt(genCount.value) || 1));
+-    }
+-
+-    function showGenResults(vals) {
+-        if (vals.length === 1) {
+-            genResult.textContent = vals[0];
+-            genResult.style.display = '';
+-            genGrid.style.display = 'none';
+-        } else {
+-            genGrid.innerHTML = vals.map(v => `<span>${v}</span>`).join('');
+-            genGrid.style.display = 'flex';
+-            genResult.style.display = 'none';
+-        }
+-    }
+-
+-    document.getElementById('genInt').addEventListener('click', () => {
+-        const { min, max } = getGenRange();
+-        const count = getGenCount();
+-        const vals = [];
+-        for (let i = 0; i < count; i++) {
+-            vals.push(Math.floor(Math.random() * (max - min + 1)) + min);
+-        }
+-        showGenResults(vals);
+-    });
+-
+-    document.getElementById('genFloat').addEventListener('click', () => {
+-        const { min, max } = getGenRange();
+-        const prec = Math.max(0, parseInt(genPrec.value) || 0);
+-        const count = getGenCount();
+-        const vals = [];
+-        for (let i = 0; i < count; i++) {
+-            vals.push((Math.random() * (max - min) + min).toFixed(prec));
+-        }
+-        showGenResults(vals);
+-    });
+-
+-    document.getElementById('genComplex').addEventListener('click', () => {
+-        const { min, max } = getGenRange();
+-        const prec = Math.max(0, parseInt(genPrec.value) || 0);
+-        const count = getGenCount();
+-        const vals = [];
+-        for (let i = 0; i < count; i++) {
+-            const re = (Math.random() * (max - min) + min).toFixed(prec);
+-            const im = (Math.random() * (max - min) + min).toFixed(prec);
+-            vals.push(re + (im >= 0 ? '+' : '') + im + 'i');
+-        }
+-        showGenResults(vals);
+-    });
++    const tabBtns = document.querySelectorAll('.tab-btn');
++
++    function activateTab(activeBtn) {
++        tabBtns.forEach(btn => {
++            const active = btn === activeBtn;
++            const panel = document.getElementById('panel-' + btn.dataset.tab);
++            btn.classList.toggle('active', active);
++            btn.setAttribute('aria-selected', String(active));
++            panel.classList.toggle('active', active);
++            panel.hidden = !active;
++        });
++    }
++
++    tabBtns.forEach((btn, index) => {
++        btn.addEventListener('click', () => activateTab(btn));
++        btn.addEventListener('keydown', (event) => {
++            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
++            event.preventDefault();
++            const direction = event.key === 'ArrowRight' ? 1 : -1;
++            const next = tabBtns[(index + direction + tabBtns.length) % tabBtns.length];
++            activateTab(next);
++            next.focus();
++        });
++    });
++
++    // ======================== 随机数生成器 ========================
++    const genResult = document.getElementById('genResult');
++    const genGrid = document.getElementById('genGrid');
++    const genMin = document.getElementById('genMin');
++    const genMax = document.getElementById('genMax');
++    const genPrec = document.getElementById('genPrec');
++    const genCount = document.getElementById('genCount');
++    const genMessage = document.getElementById('genMessage');
++    const copyGenResult = document.getElementById('copyGenResult');
++    let latestGenValues = [];
++
++    function parseFiniteInput(input, label) {
++        const raw = input.value.trim();
++        const value = Number(raw);
++        if (raw === '' || !Number.isFinite(value)) throw new Error(`${label}必须是有限数字。`);
++        return value;
++    }
++
++    function getGenRange() {
++        const min = parseFiniteInput(genMin, '最小值');
++        const max = parseFiniteInput(genMax, '最大值');
++        if (min > max) throw new Error('最小值不能大于最大值。');
++        return { min, max };
++    }
++
++    function getGenCount() {
++        const count = Number(genCount.value);
++        if (!Number.isInteger(count) || count < 1 || count > 100) throw new Error('生成数量必须是 1—100 的整数。');
++        return count;
++    }
++
++    function getPrecision() {
++        const precision = Number(genPrec.value);
++        if (!Number.isInteger(precision) || precision < 0 || precision > 15) throw new Error('小数位必须是 0—15 的整数。');
++        return precision;
++    }
++
++    function randomUnit() {
++        if (window.crypto && window.crypto.getRandomValues) {
++            const buffer = new Uint32Array(1);
++            window.crypto.getRandomValues(buffer);
++            return buffer[0] / 4294967296;
++        }
++        return Math.random();
++    }
++
++    function showGenMessage(message, type = '') {
++        genMessage.textContent = message;
++        genMessage.className = `feedback${type ? ' ' + type : ''}`;
++    }
++
++    function showGenResults(values, label) {
++        latestGenValues = values.map(String);
++        copyGenResult.disabled = false;
++        if (values.length === 1) {
++            genResult.textContent = values[0];
++            genResult.style.display = '';
++            genGrid.style.display = 'none';
++        } else {
++            genGrid.replaceChildren(...values.map(value => {
++                const item = document.createElement('span');
++                item.textContent = value;
++                return item;
++            }));
++            genGrid.style.display = 'flex';
++            genResult.style.display = 'none';
++        }
++        showGenMessage(`已生成 ${values.length} 个${label}。`, 'success');
++    }
++
++    function runGenerator(type) {
++        try {
++            const { min, max } = getGenRange();
++            const count = getGenCount();
++            const values = [];
++            if (type === 'INT') {
++                const intMin = Math.ceil(min);
++                const intMax = Math.floor(max);
++                if (!Number.isSafeInteger(intMin) || !Number.isSafeInteger(intMax) || intMin > intMax) {
++                    throw new Error('当前范围内没有可安全生成的整数。');
++                }
++                const span = intMax - intMin + 1;
++                if (!Number.isSafeInteger(span)) throw new Error('整数范围过大，请缩小范围。');
++                for (let i = 0; i < count; i++) values.push(Math.floor(randomUnit() * span) + intMin);
++                showGenResults(values, '整数');
++                return;
++            }
++
++            const precision = getPrecision();
++            for (let i = 0; i < count; i++) {
++                if (type === 'DEC') {
++                    values.push((randomUnit() * (max - min) + min).toFixed(precision));
++                } else {
++                    const re = randomUnit() * (max - min) + min;
++                    const im = randomUnit() * (max - min) + min;
++                    values.push(`${re.toFixed(precision)}${im >= 0 ? '+' : ''}${im.toFixed(precision)}i`);
++                }
++            }
++            showGenResults(values, type === 'DEC' ? '小数' : '复数');
++        } catch (error) {
++            showGenMessage(error.message, 'error');
++        }
++    }
++
++    document.getElementById('genInt').addEventListener('click', () => runGenerator('INT'));
++    document.getElementById('genFloat').addEventListener('click', () => runGenerator('DEC'));
++    document.getElementById('genComplex').addEventListener('click', () => runGenerator('CPLX'));
++
++    copyGenResult.addEventListener('click', async () => {
++        if (!latestGenValues.length) return;
++        try {
++            await navigator.clipboard.writeText(latestGenValues.join('\n'));
++            showGenMessage('结果已复制到剪贴板。', 'success');
++        } catch (error) {
++            showGenMessage('复制失败，请手动选择结果。', 'error');
++        }
++    });

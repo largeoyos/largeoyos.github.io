@@ -1,0 +1,63 @@
+diff --git a/tools/matrix-calculator/index.html b/tools/matrix-calculator/index.html
+--- a/tools/matrix-calculator/index.html
++++ b/tools/matrix-calculator/index.html
+@@ -805,25 +805,34 @@
+-<!-- 定义矩阵模态框 -->
+-<div class="modal-overlay" id="defineModal">
+-    <div class="modal">
+-        <h3>定义新矩阵</h3>
+-        <div class="modal-top">
+-            <label>名称:</label>
+-            <input type="text" id="matrixName" value="A" style="width:70px;">
+-            <label>行:</label>
+-            <input type="number" id="matrixRows" value="3" min="1" max="20">
+-            <label>列:</label>
+-            <input type="number" id="matrixCols" value="3" min="1" max="20">
+-            <button class="btn-secondary" id="btnResize">调整网格</button>
+-        </div>
+-        <div class="matrix-grid-wrap">
+-            <table class="matrix-grid" id="matrixGrid"></table>
+-        </div>
+-        <div class="modal-btns">
+-            <button class="btn-secondary" id="btnIdentity">设为单位矩阵</button>
+-            <button class="btn-secondary" id="btnClearGrid">清空</button>
+-            <div style="flex:1;"></div>
+-            <button class="btn-secondary" id="btnCancelModal">取消</button>
+-            <button class="btn-save" id="btnConfirmMatrix">✔ 确认并保存</button>
+-        </div>
+-    </div>
+-</div>
++<!-- 定义矩阵模态框 -->
++<div class="modal-overlay" id="defineModal" role="presentation">
++    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="matrixModalTitle">
++        <div class="modal-header">
++            <div class="section-code">LIBRARY / NEW MATRIX</div>
++            <h3 id="matrixModalTitle">定义新矩阵</h3>
++        </div>
++        <div class="modal-body">
++            <div class="modal-top">
++                <label class="name-field" for="matrixName">Name / 名称
++                    <input type="text" id="matrixName" value="A" maxlength="16" autocomplete="off">
++                </label>
++                <label for="matrixRows">Rows / 行
++                    <input type="number" id="matrixRows" value="3" min="1" max="8" step="1">
++                </label>
++                <label for="matrixCols">Cols / 列
++                    <input type="number" id="matrixCols" value="3" min="1" max="8" step="1">
++                </label>
++                <button class="btn-secondary" id="btnResize">调整网格</button>
++            </div>
++            <div class="matrix-grid-wrap">
++                <table class="matrix-grid" id="matrixGrid" aria-label="矩阵元素输入"></table>
++            </div>
++            <div class="modal-feedback" id="modalFeedback" aria-live="polite"></div>
++            <div class="modal-btns">
++                <button class="btn-secondary" id="btnIdentity">设为单位矩阵</button>
++                <button class="btn-secondary" id="btnClearGrid">清空</button>
++                <div style="flex:1;"></div>
++                <button class="btn-secondary" id="btnCancelModal">取消</button>
++                <button class="btn-save" id="btnConfirmMatrix">确认并保存</button>
++            </div>
++        </div>
++    </div>
++</div>

@@ -46,12 +46,15 @@
 </head>
 <body>
 
-<nav class="global-nav">
+<nav class="global-nav" aria-label="全站导航">
     <a href="../index.html">🏠 工作主页</a>
     <a href="../blog/index.html">📝 博客大厅</a>
-    <a href="./index.html">📚 AI 教学</a>
+    <a href="./index.html" aria-current="page">📚 AI 教学</a>
     <a href="../games/index.html">🎮 游戏大厅</a>
     <a href="../tools/index.html">🔧 工具箱</a>
+    <a href="../markets/index.html">📈 全球行情</a>
+    <a href="../quant-lab/index.html">🧪 量化实验室</a>
+    <a href="../quick-nav/index.html">🔗 快捷导航</a>
 </nav>
 
 <header class="tutorial-header">
@@ -72,7 +75,9 @@
 </div>
 
 <footer>
-    <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>    <p><small>Version 1.14.0</small></p></footer>
+    <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
+    <p><small>Version 4.3.2 · AI 教学阅读页</small></p>
+</footer>
 
 <script>
     async function loadDoc() {
@@ -128,6 +133,9 @@
                 heading.style.cursor = 'pointer';
                 heading.style.userSelect = 'none';
                 heading.title = "点击折叠/展开本章节";
+                heading.tabIndex = 0;
+                heading.setAttribute('role', 'button');
+                heading.setAttribute('aria-expanded', 'true');
                 
                 const icon = document.createElement('span');
                 icon.innerHTML = '▼';
@@ -136,6 +144,7 @@
                 icon.style.transition = 'transform 0.2s';
                 icon.style.fontSize = '0.8em';
                 icon.style.color = '#aaa';
+                icon.setAttribute('aria-hidden', 'true');
                 
                 const contentNodes = Array.from(heading.childNodes);
                 heading.innerHTML = '';
@@ -151,6 +160,7 @@
                         heading.classList.add('collapsed');
                         icon.style.transform = 'rotate(-90deg)';
                     }
+                    heading.setAttribute('aria-expanded', String(isCollapsed));
                     
                     const level = parseInt(heading.tagName.substring(1));
                     let sibling = heading.nextElementSibling;
@@ -172,6 +182,12 @@
                         sibling = sibling.nextElementSibling;
                     }
                 });
+                heading.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        heading.click();
+                    }
+                });
             });
 
             // 应用代码语法高亮并添加复制按钮
@@ -184,6 +200,7 @@
                 // 创建复制按钮
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'copy-code-btn';
+                copyBtn.type = 'button';
                 copyBtn.innerText = '复制';
                 
                 copyBtn.addEventListener('click', async () => {
@@ -209,6 +226,7 @@
             copyAllBtnContainer.style.marginTop = '2rem';
             const copyAllBtn = document.createElement('button');
             copyAllBtn.className = 'card';
+            copyAllBtn.type = 'button';
             copyAllBtn.style.display = 'inline-block';
             copyAllBtn.style.padding = '8px 16px';
             copyAllBtn.style.background = '#e17055';
@@ -247,7 +265,7 @@
                 navHtml += `<a href="index.html" class="card" style="padding: 10px 20px; border-left: none; background: #636e72; color: white;">🏠 回到长教程主页</a>`;
             }
 
-            navHtml += `<a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="card" style="padding: 10px 20px; border-left: none; background: var(--accent); color: white;">⬆️ 回到最上</a>`;
+            navHtml += `<a href="#content" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="card" style="padding: 10px 20px; border-left: none; background: var(--accent); color: white;">⬆️ 回到最上</a>`;
 
             if (nextDoc) {
                 navHtml += `<a href="?id=${nextDoc.id}" class="card" style="padding: 10px 20px; border-left: none; background: #e17055; color: white;">下一篇 ⏭</a>`;
@@ -258,7 +276,8 @@
             navContainer.innerHTML = navHtml;
 
         } catch (err) {
-            document.getElementById('content').innerHTML = `<h1>🚨 渲染中断</h1><p>加载资料时出现异常：${err.message}</p>`;
+            console.error('教学文档加载失败', err);
+            document.getElementById('content').innerHTML = '<h1>🚨 加载失败</h1><p>教学内容暂时无法加载，请返回教学主页后重试。</p>';
         }
     }
 

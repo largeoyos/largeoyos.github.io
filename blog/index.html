@@ -40,9 +40,9 @@
 </head>
 <body>
 
-<nav class="global-nav">
+<nav class="global-nav" aria-label="全站导航">
     <a href="../index.html">🏠 工作主页</a>
-    <a href="./index.html">📝 博客大厅</a>
+    <a href="./index.html" aria-current="page">📝 博客大厅</a>
     <a href="../ai-tutorials/index.html">📚 AI 教学</a>
     <a href="../games/index.html">🎮 游戏大厅</a>
     <a href="../tools/index.html">🔧 工具箱</a>
@@ -65,7 +65,7 @@
 
     <h2 style="margin-top: 3rem; text-align: center;">分类筛选</h2>
     <div class="filter-bar" id="category-filter">
-        <button class="filter-btn active" data-cat="all">全部</button>
+            <button class="filter-btn active" type="button" data-cat="all" aria-pressed="true">全部</button>
         <!-- 其他分类由 JS 动态生成 -->
     </div>
 
@@ -82,7 +82,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 4.3.1</small></p>
+    <p><small>Version 4.3.2</small></p>
 </footer>
 
 <script>
@@ -99,7 +99,8 @@
             initCategories(allPosts);
             renderPosts(allPosts);
         } catch (err) {
-            document.getElementById('post-list').innerHTML = "<p>博客列表加载失败，请检查网络或文件路径。"+err+"</p>";
+            console.error('博客列表加载失败', err);
+            document.getElementById('post-list').innerHTML = '<p role="status">博客列表暂时无法加载，请稍后重试。</p>';
         }
     }
 
@@ -111,7 +112,9 @@
         categories.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn';
+            btn.type = 'button';
             btn.dataset.cat = cat;
+            btn.setAttribute('aria-pressed', 'false');
             btn.innerText = cat;
             filterBar.appendChild(btn);
         });
@@ -121,7 +124,9 @@
             if (e.target.tagName === 'BUTTON') {
                 // 更新高亮样式
                 filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                filterBar.querySelectorAll('.filter-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
                 e.target.classList.add('active');
+                e.target.setAttribute('aria-pressed', 'true');
                 
                 // 执行过滤重绘
                 const selectedCat = e.target.dataset.cat;

@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<nav class="global-nav">
-    <a href="./index.html">🏠 工作主页</a>
+<nav class="global-nav" aria-label="全站导航">
+    <a href="./index.html" aria-current="page">🏠 工作主页</a>
     <a href="./blog/index.html">📝 博客大厅</a>
     <a href="./ai-tutorials/index.html">📚 AI 教学</a>
     <a href="./games/index.html">🎮 游戏大厅</a>
@@ -32,7 +32,7 @@
                 <h2 style="margin: 0;">👋 欢迎来到我的数字空间</h2>
                 <p style="margin: 0.5rem 0 0;">我是 LarGeoYos</p>
             </div>
-            <button id="layout-toggle-btn" class="settings-btn" title="切换布局顺序">
+            <button id="layout-toggle-btn" class="settings-btn" type="button" title="切换布局顺序" aria-label="切换日历和项目的布局顺序">
                 ⚙️ 布局设置
             </button>
         </div>
@@ -45,13 +45,13 @@
                 <p class="section-kicker">今天 · 日历</p>
                 <h2 id="daily-calendar-title">每日签到日历</h2>
                 <div class="calendar-nav">
-                    <button id="prev-month-btn" class="nav-btn" title="上个月">❮</button>
+                    <button id="prev-month-btn" class="nav-btn" type="button" title="上个月" aria-label="查看上个月">❮</button>
                     <div class="nav-selectors">
                         <select id="year-select" class="nav-select"></select>
                         <select id="month-select" class="nav-select"></select>
                     </div>
-                    <button id="next-month-btn" class="nav-btn" title="下个月">❯</button>
-                    <button id="back-to-today-btn" class="nav-btn today-btn" title="回到今天">今</button>
+                    <button id="next-month-btn" class="nav-btn" type="button" title="下个月" aria-label="查看下个月">❯</button>
+                    <button id="back-to-today-btn" class="nav-btn today-btn" type="button" title="回到今天" aria-label="回到今天">今</button>
                 </div>
                 <p id="calendar-heading">--</p>
             </div>
@@ -113,7 +113,7 @@
 
                 <a href="./ai-tutorials/index.html" class="card" style="border-left-color: #d63031;">
                     <h3>📚 AI 教学专栏</h3>
-                    <p>用于沉淀长篇幅的计算机科学 AI 对话总结 and 系统性教学笔记，与日常流水账博客分离。</p>
+                    <p>用于沉淀长篇幅的计算机科学 AI 对话总结与系统性教学笔记，与日常流水账博客分离。</p>
                     <span class="tag">AI对话</span><span class="tag">长文学习</span>
                 </a>
 
@@ -141,7 +141,7 @@
                     <span class="tag">学习练习</span><span class="tag">回测思维</span>
                 </a>
 
-                <a href="https://github.com/largeoyos" class="card" style="border-left-color: var(--accent);">
+                <a href="https://github.com/largeoyos" target="_blank" rel="noopener noreferrer" class="card" style="border-left-color: var(--accent);">
                     <h3>📝 课程实验室</h3>
                     <p>存放 CS:APP Data Lab, Shell Lab 以及 CS61A 的作业实现与心得。</p>
                     <span class="tag">C</span><span class="tag">Python</span><span class="tag">Git</span>
@@ -160,7 +160,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 4.3.1 — 快捷导航资源更新</small></p>
+    <p><small>Version 4.3.2 — 全站一致性修复</small></p>
 </footer>
 
 <script src="./js/vendor/lunar.js" defer></script>

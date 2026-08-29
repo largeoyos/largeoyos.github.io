@@ -40,6 +40,24 @@ body {
     color: var(--primary);
 }
 
+.global-nav a[aria-current="page"] {
+    color: #ffffff;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25rem;
+}
+
+.global-nav a:focus-visible,
+.card:focus-visible,
+.quick-nav-item:focus-visible,
+.nav-btn:focus-visible,
+.nav-select:focus-visible,
+.settings-btn:focus-visible,
+.filter-btn:focus-visible {
+    outline: 3px solid var(--highlight);
+    outline-offset: 3px;
+}
+
 header {
     background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
     color: white;

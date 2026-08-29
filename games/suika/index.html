@@ -75,6 +75,16 @@
             background: rgba(255,255,255,0.06);
         }
 
+        .nav a[aria-current="page"] {
+            border-color: rgba(0, 184, 148, 0.55);
+            color: #7ff0d1;
+        }
+
+        .nav a:focus-visible {
+            outline: 3px solid var(--accent-2);
+            outline-offset: 3px;
+        }
+
         .page {
             width: min(1180px, calc(100vw - 24px));
             margin: 0 auto;
@@ -349,12 +359,15 @@
     </style>
 </head>
 <body>
-    <nav class="nav">
+    <nav class="nav" aria-label="全站导航">
         <a href="../../index.html">🏠 工作主页</a>
         <a href="../../blog/index.html">📝 博客大厅</a>
         <a href="../../ai-tutorials/index.html">📚 AI 教学</a>
-        <a href="../index.html">🎮 游戏大厅</a>
+        <a href="../index.html" aria-current="page">🎮 游戏大厅</a>
         <a href="../../tools/index.html">🔧 工具箱</a>
+        <a href="../../markets/index.html">📈 全球行情</a>
+        <a href="../../quant-lab/index.html">🧪 量化实验室</a>
+        <a href="../../quick-nav/index.html">🔗 快捷导航</a>
     </nav>
 
     <main class="page">
@@ -460,7 +473,7 @@
 
         <div class="footer">
             <p>按住屏幕顶部滑动也可以控制落点。合并后的水果会释放更高的分数，但越晚合成越容易顶线。</p>
-            <p><small>Version 1.1.0</small></p>
+            <p><small>Version 4.3.2 · 合成大西瓜</small></p>
         </div>
     </main>
 

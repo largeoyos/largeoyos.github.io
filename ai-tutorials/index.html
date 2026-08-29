@@ -11,6 +11,7 @@
         .category-section { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-top: 3px solid #d63031; }
         .category-title { color: #d63031; margin-top: 0; border-bottom: 1px solid #f1f2f6; padding-bottom: 8px; font-size: 1.2rem; display: flex; align-items: center; justify-content: space-between; list-style: none; user-select: none;}
         .category-title::-webkit-details-marker { display: none; }
+        .category-title:focus-visible { outline: 3px solid var(--highlight); outline-offset: 3px; }
         
         /* 为了紧凑显示 */
         .chapter-container {
@@ -38,10 +39,10 @@
 </head>
 <body>
 
-<nav class="global-nav">
+<nav class="global-nav" aria-label="全站导航">
     <a href="../index.html">🏠 工作主页</a>
     <a href="../blog/index.html">📝 博客大厅</a>
-    <a href="./index.html">📚 AI 教学</a>
+    <a href="./index.html" aria-current="page">📚 AI 教学</a>
     <a href="../games/index.html">🎮 游戏大厅</a>
     <a href="../tools/index.html">🔧 工具箱</a>
     <a href="../markets/index.html">📈 全球行情</a>
@@ -74,7 +75,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 4.3.1</small></p>
+    <p><small>Version 4.3.2</small></p>
 </footer>
 
 <script>
@@ -84,7 +85,8 @@
             const allDocs = await response.json();
             renderDocsGrouped(allDocs);
         } catch (err) {
-            document.getElementById('doc-list').innerHTML = "<p>教学列表加载失败，请检查网络或文件路径。"+err+"</p>";
+            console.error('教学列表加载失败', err);
+            document.getElementById('doc-list').innerHTML = '<p role="status">教学列表暂时无法加载，请稍后重试。</p>';
         }
     }
 

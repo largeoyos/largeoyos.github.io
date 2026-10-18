@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>预测与残差 · 原讲解演示</title><style>:root{--foreground:#20342d;--viz-series-1:#bb542f;--muted:#dedbd0}*{box-sizing:border-box}body{margin:0;padding:18px;background:#faf8f1;font:15px/1.7 "Microsoft YaHei",sans-serif}label{display:flex;align-items:center;flex-wrap:wrap;gap:10px}select{padding:8px;border:1px solid #a8b0a7;border-radius:4px;background:white;color:#20342d;font:inherit}h1{font-size:18px;margin:0 0 12px}.note{font-size:13px;color:#56655d;margin:12px 0 0}</style><h1>切换预测，观察残差</h1><div id="video-prediction-basics">
+<div class="viz-controls">
+<label class="form-label" for="vpb-mode">预测方式
+      <select class="form-select" id="vpb-mode">
+<option value="previous">沿用上一帧</option>
+<option value="motion">上一帧向右移 1 格</option>
+<option value="none">不预测</option>
+</select>
+</label>
+</div>
+<div aria-label="一行八个灰度像素，亮块向右移动一格" class="vpb-pixels" role="group">
+<div class="vpb-row"><span>上一帧</span><div class="vpb-cells" data-row="previous"></div></div>
+<div class="vpb-row"><span>当前帧</span><div class="vpb-cells" data-row="current"></div></div>
+<div class="vpb-row"><span>预测帧</span><div class="vpb-cells" data-row="prediction"></div></div>
+<div class="vpb-row"><span>残差</span><div class="vpb-cells" data-row="residual"></div></div>
+</div>
+<div aria-live="polite" class="vpb-result tabular-nums"></div>
+</div>
+<style>
+  #video-prediction-basics { color:var(--foreground); }
+  #video-prediction-basics .vpb-pixels { display:grid; gap:12px; margin:18px 0; }
+  #video-prediction-basics .vpb-row { display:grid; grid-template-columns:70px minmax(0,1fr); align-items:center; gap:10px; }
+  #video-prediction-basics .vpb-cells { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:5px; }
+  #video-prediction-basics .vpb-cell { position:relative; display:grid; place-items:center; min-height:40px; color:var(--foreground); font-variant-numeric:tabular-nums; overflow:hidden; }
+  #video-prediction-basics .vpb-fill { position:absolute; inset:0; background:var(--viz-series-1); opacity:var(--vpb-opacity); }
+  #video-prediction-basics .vpb-number { position:relative; }
+  #video-prediction-basics .vpb-zero .vpb-fill { background:var(--muted); opacity:0.55; }
+  #video-prediction-basics .vpb-result { color:var(--foreground); }
+  @media(max-width:440px) {
+    #video-prediction-basics .vpb-row { grid-template-columns:1fr; gap:5px; }
+    #video-prediction-basics .vpb-cells { gap:3px; }
+  }
+</style>
+<script>
+(() => {
+  const root = document.getElementById('video-prediction-basics');
+  if (!root) return;
+  const control = root.querySelector('#vpb-mode');
+  const result = root.querySelector('.vpb-result');
+  const rows = Object.fromEntries(['previous','current','prediction','residual'].map(k => [k,root.querySelector('[data-row="'+k+'"]')]));
+  const previous = [20,20,100,100,20,20,20,20];
+  const current = [20,20,20,100,100,20,20,20];
+  const modes = ['previous','motion','none'];
+  const draw = () => {
+    const mode = control.value;
+    const prediction = mode === 'none' ? previous.map(() => 0) : mode === 'motion' ? [20,...previous.slice(0,-1)] : [...previous];
+    const residual = current.map((value,i) => value-prediction[i]);
+    for (const [key,values] of Object.entries({previous,current,prediction,residual})) {
+      rows[key].replaceChildren();
+      values.forEach((value,i) => {
+        const cell = document.createElement('div');
+        cell.className = 'vpb-cell'+(value===0?' vpb-zero':'');
+        cell.setAttribute('aria-label','第 '+(i+1)+' 个像素：'+value);
+        const fill = document.createElement('span');
+        fill.className = 'vpb-fill';
+        fill.style.setProperty('--vpb-opacity',String(Math.min(0.34,0.035+Math.abs(value)*0.0025)));
+        fill.setAttribute('aria-hidden','true');
+        const number = document.createElement('span');
+        number.className = 'vpb-number';
+        number.textContent = String(value);
+        cell.append(fill,number);
+        rows[key].append(cell);
+      });
+    }
+    const n = residual.filter(value => value!==0).length;
+    const movement = mode==='motion'?'向右 1 格':mode==='previous'?'0 格':'无';
+    result.textContent = '非零残差：'+n+' / 8　·　运动信息：'+movement;
+  };
+  const restore = state => {
+    const value = state && state.modelContent && state.modelContent.predictionMode;
+    control.value = modes.includes(value) ? value : 'previous';
+    draw();
+  };
+  control.addEventListener('change',() => {
+    draw();
+    if (window.openai && typeof window.openai.setWidgetState === 'function') {
+      Promise.resolve(window.openai.setWidgetState({modelContent:{predictionMode:control.value},privateContent:null})).catch(() => {});
+    }
+  });
+  window.addEventListener('openai:set_globals',event => {
+    const globals = event.detail && event.detail.globals;
+    if (globals && Object.prototype.hasOwnProperty.call(globals,'widgetState')) restore(globals.widgetState);
+  });
+  restore(window.openai && window.openai.widgetState);
+})();
+</script>
+<p class="note">讲解辅助示例。非零残差的数量不等于实际码率；所有状态也已列入主文打印表。</p></html>

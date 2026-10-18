@@ -1,0 +1,925 @@
+{
+  "compiled": "2026-09-25",
+  "catalogChecked": "2026-09-23",
+  "characters": 108888,
+  "chapters": [
+    {
+      "id": "R01",
+      "characters": 3215,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "resnet",
+            "sections": "§3；图1、2、4；表1、2",
+            "pages": "1–6",
+            "methodEvidence": "残差F(x)+x，形状变化使用投影；以训练退化建立动机",
+            "experimentEvidence": "ImageNet普通/残差网络深度对照，CIFAR训练曲线",
+            "limitations": "不是任意数据和任意深度的优化保证"
+          },
+          {
+            "key": "clip",
+            "sections": "§2；图1；§3评价；§6局限",
+            "pages": "3–7、12–14、18–20",
+            "methodEvidence": "图文双编码器，批次对称交叉熵与文本候选推理",
+            "experimentEvidence": "零样本与线性探测分开；原文提醒早期方法比较有数据算力混杂",
+            "limitations": "关系、细粒度、提示与任务分布限制"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R02",
+      "characters": 3127,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "simclr",
+            "sections": "§2；§3.1；§4.2；图2、5、8；表3",
+            "pages": "2–6",
+            "methodEvidence": "随机增强正对、编码器与非线性投影头、NT-Xent",
+            "experimentEvidence": "增强组合和投影头消融用ImageNet线性评价",
+            "limitations": "假负例及增强语义破坏；预训练损失不等价迁移能力"
+          },
+          {
+            "key": "mae",
+            "sections": "§3；图1；表1、3；§4",
+            "pages": "3–7",
+            "methodEvidence": "仅可见图块进入编码器，解码器补mask token重建",
+            "experimentEvidence": "遮挡方式、decoder和目标消融；微调与线性探测分开",
+            "limitations": "像素重建与识别目标不同；整体速度不能只按注意力矩阵推断"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R03",
+      "characters": 3268,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "calibration",
+            "sections": "§2；§4温度缩放；表1及结果",
+            "pages": "2–3、6–8",
+            "methodEvidence": "验证集拟合正标量温度，缩放logits不改argmax",
+            "experimentEvidence": "固定分桶ECE对比视觉与语言模型；校准而非准确率提升",
+            "limitations": "分桶和分布依赖，不能保证新域仍校准"
+          },
+          {
+            "key": "wilds",
+            "sections": "图1；构建原则；§4示例；表2；§6.1–6.2",
+            "pages": "4、6、15–16、20–21",
+            "methodEvidence": "域泛化与子群比例变化，域标签及固定划分",
+            "experimentEvidence": "ERM/CORAL/IRM/GroupDRO对照并含重复运行标准差",
+            "limitations": "基准变化有限；没有跨任务普遍占优方法"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R04",
+      "characters": 2872,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "resnet",
+            "sections": "§3、§4.1；图2、4；表2",
+            "pages": "3–6",
+            "methodEvidence": "残差分支学习修正，变维时捷径投影",
+            "experimentEvidence": "普通与残差网络训练误差、深度对照",
+            "limitations": "不保证任意深度收益"
+          },
+          {
+            "key": "vit",
+            "sections": "§3、§4.3；图1、3、4",
+            "pages": "3–7",
+            "methodEvidence": "图块投影、位置编码、注意力与分类头",
+            "experimentEvidence": "预训练数据规模与迁移比较",
+            "limitations": "数据计算依赖及分辨率成本"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R05",
+      "characters": 2854,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "faster",
+            "sections": "§3.1；图2；§4消融",
+            "pages": "3–9",
+            "methodEvidence": "共享卷积特征、RPN参考框及正样本回归",
+            "experimentEvidence": "候选数量、特征共享与数据设置对照",
+            "limitations": "多阶段流程、参考框与后处理取舍"
+          },
+          {
+            "key": "detr",
+            "sections": "§3.1–3.2；图1、2、4；§4",
+            "pages": "3–9",
+            "methodEvidence": "查询集合预测，一对一匹配后计算损失",
+            "experimentEvidence": "COCO尺度分析、解码层与长训练协议",
+            "limitations": "小目标、查询上限与长训练"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R06",
+      "characters": 2917,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "unet",
+            "sections": "§2–4；图1；权重图",
+            "pages": "2–5",
+            "methodEvidence": "不补零卷积与裁剪跳跃连接、重叠切块",
+            "experimentEvidence": "显微图挑战赛、弹性形变与加权损失",
+            "limitations": "领域增强不可直接泛化"
+          },
+          {
+            "key": "mask2former",
+            "sections": "§3.1–3.3；图2；§4",
+            "pages": "3–8",
+            "methodEvidence": "预测掩码限制交叉注意力、多尺度与采样点损失",
+            "experimentEvidence": "COCO和ADE20K分任务评价及组件消融",
+            "limitations": "小对象与分辨率成本；架构通用不等于权重通用"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R07",
+      "characters": 2823,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "raft",
+            "sections": "§3.1–3.4；图1–2；式1、7；§4",
+            "pages": "5–12",
+            "methodEvidence": "全对相关体、目标侧池化及共享GRU迭代",
+            "experimentEvidence": "跨域和微调分别评价、组件与迭代消融",
+            "limitations": "平方存储、遮挡与重复纹理"
+          },
+          {
+            "key": "bytetrack",
+            "sections": "§3算法1；§4；表1–4；附录",
+            "pages": "3–10",
+            "methodEvidence": "高分优先关联、低分恢复剩余轨迹",
+            "experimentEvidence": "MOT17验证划分与检测器协议、跨域实验",
+            "limitations": "相机运动与标注差异；离线插值使用未来"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R08",
+      "characters": 2862,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "i3d",
+            "sections": "§2.4；图3；§4–5；表1–5",
+            "pages": "4–8",
+            "methodEvidence": "二维权重沿时间复制归一化初始化三维网络",
+            "experimentEvidence": "图像初始化、Kinetics预训练与双流迁移",
+            "limitations": "帧数分辨率混杂、光流与视频解码成本"
+          },
+          {
+            "key": "videomae",
+            "sections": "§3.2–3.3；图1–2；§4；表1–4",
+            "pages": "4–8",
+            "methodEvidence": "高比例管状遮蔽与仅遮蔽块重建",
+            "experimentEvidence": "遮蔽方式、域内预训练及跨域迁移分开",
+            "limitations": "像素目标不等于动作语义；微调成本仍高"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R09",
+      "characters": 3067,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "actionformer",
+            "sections": "§3；图2；式2–7；§4",
+            "pages": "4–13",
+            "methodEvidence": "局部注意力时间金字塔、中心采样和距离回归",
+            "experimentEvidence": "THUMOS与ActivityNet阈值组、组件消融",
+            "limitations": "特征时间步长限制；比较特征不完全一致"
+          },
+          {
+            "key": "internvideo2",
+            "sections": "§3；图2–3；§5.1.2、5.2.2、5.4",
+            "pages": "3–6、8–13",
+            "methodEvidence": "教师表征学习、多模态对齐、语言指令三个阶段",
+            "experimentEvidence": "ActionFormer定位头、文本时刻头与分阶段评价",
+            "limitations": "大规模成本、采帧限制和字幕噪声"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R10",
+      "characters": 2823,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "dncnn",
+            "sections": "§III、IV；图1–2；表II–V",
+            "pages": "3–11",
+            "methodEvidence": "噪声残差目标与批归一化，末层线性输出",
+            "experimentEvidence": "残差与归一化组合，高斯与多退化协议分开",
+            "limitations": "真实噪声和规则微纹理需另测；表V在PDF11页"
+          },
+          {
+            "key": "dip",
+            "sections": "§2、§3.1、§4；图2–4、6–7",
+            "pages": "3–7、14",
+            "methodEvidence": "每图随机初始化网络拟合观测，结构及优化作先验",
+            "experimentEvidence": "不同信号拟合曲线、输出平均与停止策略",
+            "limitations": "逐图优化慢，过拟合噪声与停止困难"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R11",
+      "characters": 3053,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "srcnn",
+            "sections": "§3.1–3.3；图2–3；§4.1、4.3、4.4；表2–4",
+            "pages": "3–10",
+            "methodEvidence": "插值输入后特征提取、映射、线性重建",
+            "experimentEvidence": "数据规模、结构与亮度通道分倍率对照",
+            "limitations": "固定退化及均方误差限制真实纹理"
+          },
+          {
+            "key": "realesrgan",
+            "sections": "§3.1–3.4；图2、4、6；§4.1–4.4；图7–11",
+            "pages": "3–8",
+            "methodEvidence": "重复退化与sinc、两阶段目标及谱归一化判别器",
+            "experimentEvidence": "Real-ESRNet退化消融与GAN判别器消融分开",
+            "limitations": "线条扭曲、对抗伪影和分布外退化"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R12",
+      "characters": 3340,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "zero_dce",
+            "sections": "§3.1–3.3；式1–8；§4.1–4.2；图2、4–5；表1–3；§5",
+            "pages": "3–8",
+            "methodEvidence": "八轮像素曲线，四种无参考训练约束",
+            "experimentEvidence": "损失、结构与数据消融；主观、参考与检测分开",
+            "limitations": "曲线不恢复全黑信息；原文留噪声为未来方向"
+          },
+          {
+            "key": "retinexformer",
+            "sections": "§3.1–3.2；图2；§4.1–4.4；表1–4",
+            "pages": "3–8",
+            "methodEvidence": "提亮乘法图与照明特征引导退化修复",
+            "experimentEvidence": "多数据集、检测与SDSD室外消融",
+            "limitations": "全局注意力对照下采样；跨传感器边界为教学推导"
+          }
+        ],
+        "notes": "页码为research-cache缓存PDF页；精读方法、实验协议与局限对应正文。方向、算例和设备建议是教学分析。",
+        "checked": "2026-09-25"
+      }
+    },
+    {
+      "id": "R13",
+      "characters": 3233,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "vae",
+            "sections": "§2–3、§5；式1、3及图2",
+            "pages": "缓存PDF 3–7",
+            "methodEvidence": "变分下界分成重建项和先验KL，并以重参数化估计梯度",
+            "experimentEvidence": "不同潜变量维度下平均下界随训练样本变化的曲线",
+            "limitations": "下界非精确似然，重建与样本视觉质量是不同评价"
+          },
+          {
+            "key": "gan",
+            "sections": "§3–4；式1–2及图1–3",
+            "pages": "缓存PDF 2–6",
+            "methodEvidence": "生成器与判别器交替优化；均衡分析依赖理想化条件",
+            "experimentEvidence": "合成分布和自然图像示例用于显示生成能力",
+            "limitations": "均衡证明不保证有限网络训练收敛或覆盖全部模式"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R14",
+      "characters": 3309,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "ddpm",
+            "sections": "§2–4；算法1–2、式5、11、14",
+            "pages": "缓存PDF 3–6",
+            "methodEvidence": "固定前向加噪、学习反向噪声预测并用简化目标训练",
+            "experimentEvidence": "采样质量和似然取舍在论文的图表中分开评价",
+            "limitations": "简化损失改变权重；多步采样成本和训练数据依赖"
+          },
+          {
+            "key": "ldm",
+            "sections": "§3–4；自动编码器与条件潜空间扩散图",
+            "pages": "缓存PDF 方法与实验部分",
+            "methodEvidence": "先压缩到感知潜空间，再在潜变量上去噪与条件化",
+            "experimentEvidence": "不同潜空间压缩强度、任务和采样配置的比较",
+            "limitations": "自动编码器误差不可由扩散模型恢复；速度依赖分辨率与配置"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R15",
+      "characters": 3322,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "controlnet",
+            "sections": "§3–4；图2–3、式2",
+            "pages": "缓存PDF 4、6–8",
+            "methodEvidence": "冻结预训练主干，复制条件分支并用零初始化卷积注入增量",
+            "experimentEvidence": "多类空间条件的可控生成与消融示例",
+            "limitations": "控制依赖条件质量，结构符合与多样性需要分别评价"
+          },
+          {
+            "key": "svd",
+            "sections": "方法和实验；时间层与视频采样图",
+            "pages": "缓存PDF 方法与结果部分",
+            "methodEvidence": "图像生成先验扩展为带时间交互的视频生成模型",
+            "experimentEvidence": "帧质量、运动和视频生成设置的比较",
+            "limitations": "短视频与训练分布限制，单帧质量不代表时序一致"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R16",
+      "characters": 3033,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "mvsnet",
+            "sections": "§3.2–3.4；代价体与深度回归图",
+            "pages": "缓存PDF 5–8、10–11",
+            "methodEvidence": "可微单应搬运多视图特征，方差聚合并以三维卷积正则化",
+            "experimentEvidence": "多视图深度与重建指标及组件对照",
+            "limitations": "相机标定、遮挡和远距离视差误差会影响结果"
+          },
+          {
+            "key": "monodepth2",
+            "sections": "方法、自动遮挡与最小重投影，实验表",
+            "pages": "缓存PDF 方法与结果部分",
+            "methodEvidence": "单目视频自监督训练中处理静止像素与遮挡",
+            "experimentEvidence": "深度误差与训练策略的消融",
+            "limitations": "单目尺度歧义，动态物体与位姿误差影响训练监督"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R17",
+      "characters": 3075,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "colmap",
+            "sections": "增量SfM的图像注册、三角化和束调整；实验",
+            "pages": "缓存PDF 方法及实验部分",
+            "methodEvidence": "用几何验证、视图选择与全局束调整管理增长的重建",
+            "experimentEvidence": "多场景重建规模、精度与运行成本比较",
+            "limitations": "错误匹配与弱纹理仍可导致漂移或不完整地图"
+          },
+          {
+            "key": "orbslam3",
+            "sections": "多地图、惯性初始化、回环及实验",
+            "pages": "缓存PDF 系统与实验部分",
+            "methodEvidence": "失跟后建新地图并在条件满足时合并，结合视觉惯性约束",
+            "experimentEvidence": "多序列轨迹误差和地图恢复结果",
+            "limitations": "传感器标定、同步和场景覆盖限制结果迁移"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R18",
+      "characters": 3004,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "nerf",
+            "sections": "§3–5；体渲染式、位置编码与新视角实验",
+            "pages": "缓存PDF 方法及结果部分",
+            "methodEvidence": "坐标与视角映射到密度和颜色，沿光线可微积分",
+            "experimentEvidence": "保留视角的新视角渲染质量和消融",
+            "limitations": "位姿精度与训练、渲染成本限制实际使用"
+          },
+          {
+            "key": "gs",
+            "sections": "§4–7；高斯投影、密度控制和渲染图",
+            "pages": "缓存PDF 方法及结果部分",
+            "methodEvidence": "显式三维高斯投影为屏幕椭圆并作可微合成",
+            "experimentEvidence": "新视角质量、训练与渲染时间、表示大小比较",
+            "limitations": "未见视角、薄结构和几何真实性不由高帧率保证"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R19",
+      "characters": 2882,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "pointnet",
+            "sections": "对称池化、变换网络与分类/分割实验；图2、5",
+            "pages": "缓存PDF 方法及实验部分",
+            "methodEvidence": "共享点函数配合对称最大池化实现置换不变全局表示",
+            "experimentEvidence": "分类、分割及缺点噪声鲁棒性对照",
+            "limitations": "全局聚合对精细局部几何关系表达有限"
+          },
+          {
+            "key": "pointtransformer",
+            "sections": "相对位置、向量注意力与点云实验",
+            "pages": "缓存PDF 方法及结果部分",
+            "methodEvidence": "邻域注意力同时在权重和特征变换中编码相对位置",
+            "experimentEvidence": "分类和语义分割及局部组件消融",
+            "limitations": "邻域构造与点数增加会抬高内存和计算成本"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R20",
+      "characters": 3055,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "dreamfusion",
+            "sections": "SDS梯度、NeRF表示与多视角结果",
+            "pages": "缓存PDF 方法及结果部分",
+            "methodEvidence": "以冻结二维扩散模型的分数蒸馏梯度优化三维表示",
+            "experimentEvidence": "转台视角与文本生成示例及组件对照",
+            "limitations": "二维先验可产生多面结构错误，展示图不等于准确三维几何"
+          },
+          {
+            "key": "four_d_gs",
+            "sections": "形变场、时空平面与§5消融表4",
+            "pages": "缓存PDF 方法及结果部分",
+            "methodEvidence": "规范空间高斯经时间条件形变表示动态场景",
+            "experimentEvidence": "动态新视角指标、渲染速度与形变头消融",
+            "limitations": "大幅运动、相机误差和单目歧义限制场景泛化"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R21",
+      "characters": 3372,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "habitat",
+            "sections": "§3–5；图1–3、表2及SPL定义",
+            "pages": "缓存PDF 3–8",
+            "methodEvidence": "模拟器、API任务定义和代理分层组织导航评测",
+            "experimentEvidence": "PointGoal训练曲线与Gibson/Matterport3D独立测试",
+            "limitations": "理想GPS罗盘及仿真设置不等于纯视觉真实机器人"
+          },
+          {
+            "key": "openvla",
+            "sections": "§3、5、6；图2、5与表1–2",
+            "pages": "缓存PDF 4–11",
+            "methodEvidence": "视觉特征与语言骨干预测离散化七维末端动作",
+            "experimentEvidence": "BridgeData/Google机器人试验、适配及低位宽效率比较",
+            "limitations": "单图输入、控制频率和简化骨干效率协议限制外推"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R22",
+      "characters": 2858,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "red",
+            "sections": "§3–4、§6；式25、27、28，图2–4",
+            "pages": "缓存PDF 8–9、13–20、24–35",
+            "methodEvidence": "去噪残差作为正则项的梯度需要局部齐次及雅可比条件",
+            "experimentEvidence": "合成模糊与噪声下不同求解器、去噪器和参数对照",
+            "limitations": "算子和去噪器条件、测试子集调参及迭代成本"
+          },
+          {
+            "key": "dps",
+            "sections": "§3、算法1、图3及附录",
+            "pages": "缓存PDF 4–9、15–22",
+            "methodEvidence": "用Tweedie干净图估计近似测量似然梯度引导扩散",
+            "experimentEvidence": "线性及非线性带噪逆问题，质量和步数成本对照",
+            "limitations": "点估计似然不是严格多峰后验，域外先验有风险"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R23",
+      "characters": 2802,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "e2vid",
+            "sections": "§3–4；图3–4、式1–2及评估协议",
+            "pages": "缓存PDF 3–7、11",
+            "methodEvidence": "事件体素化、ConvLSTM循环重建与时间一致性损失",
+            "experimentEvidence": "ESIM训练、DAVIS筛选片段的MSE/SSIM/LPIPS",
+            "limitations": "合成到真实差异，直方图均衡与片段筛选限制量化解释"
+          },
+          {
+            "key": "evtflow",
+            "sections": "§III；图3、式3–6及MVSEC实验",
+            "pages": "缓存PDF 3–6",
+            "methodEvidence": "正负计数及最新时间组成四通道，帧光度损失自监督光流",
+            "experimentEvidence": "MVSEC有效事件区域端点误差及迁移测试",
+            "limitations": "同步灰度帧参与训练；有效掩码不代表全像素性能"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R24",
+      "characters": 3085,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "nlos",
+            "sections": "作者项目页、同作者SIGGRAPH 2018 Talks两页摘要",
+            "pages": "Talk 1–2；Nature原文全文未获取",
+            "methodEvidence": "共焦扫描与光锥变换的公开示意和作者说明",
+            "experimentEvidence": "Talk仅展示重建示例，无法据此独立核实Nature全文定量表",
+            "limitations": "全文受限；R24不把短报告等同原论文精读或复现"
+          },
+          {
+            "key": "flatcam",
+            "sections": "arXiv HTML v2 方法、标定与实验",
+            "pages": "HTML全文；缓存PDF截断",
+            "methodEvidence": "可分离掩模与标定将二维求逆分解为较小矩阵运算",
+            "experimentEvidence": "原文不同掩模和重建设置的比较",
+            "limitations": "标定漂移、噪声和固定成像几何影响重建"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R25",
+      "characters": 2852,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "hyper",
+            "sections": "§2–4；图2–4，式7、10、11",
+            "pages": "缓存PDF 3–7",
+            "methodEvidence": "先编解码超潜变量，再预测主潜变量尺度分布",
+            "experimentEvidence": "Kodak率失真、MSE与MS-SSIM目标比较",
+            "limitations": "侧流比特、独立高斯假设和训练估计与实际码流差异"
+          },
+          {
+            "key": "hpcm",
+            "sections": "§3–4；图2–4、表1–3及补充计时",
+            "pages": "缓存PDF 3–7及补充材料",
+            "methodEvidence": "三空间尺度与通道组按已解码上下文渐进预测",
+            "experimentEvidence": "Kodak/CLIC/Tecnick的率失真、速度及日程消融",
+            "limitations": "渐进指内部编码顺序，不自动支持截断预览；速度依设备"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R26",
+      "characters": 2934,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "dcvc",
+            "sections": "§3；图2、式1–3及实验",
+            "pages": "缓存PDF 3–8",
+            "methodEvidence": "利用已解码参考提取并运动对齐特征上下文供变换与熵模型使用",
+            "experimentEvidence": "低延迟视频率失真与组件消融",
+            "limitations": "运动支路计算、码流和递归误差需要全部计账"
+          },
+          {
+            "key": "dcvcrt",
+            "sections": "§3–4；图3–5、表1及实验",
+            "pages": "缓存PDF 3–8",
+            "methodEvidence": "低分辨率特征和系统复杂度分析减少访存与模块调用",
+            "experimentEvidence": "多序列实际码流、全高清指定硬件速度与内容分组",
+            "limitations": "硬件和精度协议决定速度；大运动与场景切换需单查"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R27",
+      "characters": 2850,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "octattention",
+            "sections": "Methodology；图2–3、式1–3、表1–4",
+            "pages": "缓存PDF 3–7",
+            "methodEvidence": "兄弟与祖先占用上下文在因果掩码下预测八叉树符号",
+            "experimentEvidence": "SemanticKITTI/MVUB/MPEG 8i的每点比特、上下文与速度消融",
+            "limitations": "几何量化已发生；码率结论依数据密度和上下文范围"
+          },
+          {
+            "key": "hac",
+            "sections": "§3；图2–3、§4表1、图4与6",
+            "pages": "缓存PDF 5–14",
+            "methodEvidence": "哈希网格为锚点属性提供概率上下文并自适应量化",
+            "experimentEvidence": "场景存储、视角质量与组件消融",
+            "limitations": "网格、网络和元数据文件都要计账；单场景倍率不能泛化"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R28",
+      "characters": 2816,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "perception",
+            "sections": "率失真感知权衡定理及生成例子",
+            "pages": "缓存PDF 理论与实验部分",
+            "methodEvidence": "同时约束失真和分布偏离时可行域不同于只优化像素误差",
+            "experimentEvidence": "图像质量与感知取舍的教学解读",
+            "limitations": "定理依距离和分布定义，不能把视觉偏好写成精确事实恢复"
+          },
+          {
+            "key": "hific",
+            "sections": "方法网络图、判别损失与率失真实验",
+            "pages": "缓存PDF 方法与结果部分",
+            "methodEvidence": "变换压缩结合对抗训练优化低码率纹理观感",
+            "experimentEvidence": "感知评价与失真指标在固定码率协议下比较",
+            "limitations": "生成纹理可能偏离原图，小病灶与文字真实性需单独检查"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R29",
+      "characters": 2987,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "vib",
+            "sections": "理论推导、§4.1、图1–2、表1",
+            "pages": "缓存PDF 2–8",
+            "methodEvidence": "随机瓶颈的预测负对数似然和相对先验KL代理",
+            "experimentEvidence": "不同β的分类信息取舍与置换不变MNIST设置",
+            "limitations": "KL正则不是实际码流长度，也不是任意攻击保证"
+          },
+          {
+            "key": "vcm",
+            "sections": "§IV、VI–VII；图1–8、表I–IV",
+            "pages": "缓存PDF 5–12",
+            "methodEvidence": "人机视觉共用像素、特征与任务反馈的框架",
+            "experimentEvidence": "特征压缩、检测、重建和率失真的初步实验",
+            "limitations": "框架和探索性实验不是冻结的统一标准或跨任务最优证明"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R30",
+      "characters": 3113,
+      "audit": {
+        "checked": "2026-09-25",
+        "paperReadings": [
+          {
+            "key": "integer",
+            "sections": "§2–4；图1.1、图4.1–4.2、表4.4",
+            "pages": "缓存PDF 2–8",
+            "methodEvidence": "八位仿射量化、宽位累加、零点修正与重定标构成整数推理路径",
+            "experimentEvidence": "ImageNet/COCO与移动CPU的准确率延迟权衡",
+            "limitations": "模型训练与硬件核共同影响收益，不能外推到神经压缩码流"
+          },
+          {
+            "key": "adaround",
+            "sections": "§2–3、§5；图1–2，表2、3、7",
+            "pages": "缓存PDF 1–9",
+            "methodEvidence": "泰勒展开指出舍入交互，以层输出重建代理优化权重的上下舍入",
+            "experimentEvidence": "ImageNet等模型的训练后量化消融及方法比较",
+            "limitations": "代表性校准数据和局部近似必要；未直接解决激活或熵模型一致性"
+          }
+        ]
+      }
+    },
+    {
+      "id": "R31",
+      "characters": 2982,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "clip",
+            "sections": "§2；图1；§3评价；§6局限",
+            "pages": "3–7、12–14、18–20",
+            "methodEvidence": "图文双编码器，批次对称交叉熵与文本候选推理",
+            "experimentEvidence": "零样本与线性探测分开；原文提醒早期方法比较有数据算力混杂",
+            "limitations": "关系、细粒度、提示与任务分布限制"
+          },
+          {
+            "key": "siglip",
+            "sections": "§3.2；算法1；图1、2、3、6；§4.2–4.6",
+            "pages": "2–7",
+            "methodEvidence": "成对sigmoid目标与分块跨设备计算",
+            "experimentEvidence": "匹配训练数据模型的loss、batch、训练时长对照；区分SigLiT",
+            "limitations": "损失收益受训练配方影响，sigmoid不自动校准语义概率"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R32",
+      "characters": 3223,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "blip2",
+            "sections": "§3；图2、3；§4.1；§5",
+            "pages": "2–8",
+            "methodEvidence": "Q-Former在冻结视觉和语言模型间两阶段桥接",
+            "experimentEvidence": "零样本VQA有提示与解码协议；多任务评价",
+            "limitations": "上下文学习不足及继承语言模型错误；训练参数不等于总成本"
+          },
+          {
+            "key": "llava",
+            "sections": "§3；表1；§4；表2；实验及失败案例",
+            "pages": "3–8",
+            "methodEvidence": "文本化图像标注合成指令，投影对齐与指令微调",
+            "experimentEvidence": "问答及开放评审分开；关系组合失败案例",
+            "limitations": "合成标注覆盖与开放评审限制，流畅不代表事实正确"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R33",
+      "characters": 2900,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "owlvit",
+            "sections": "图1；§3.1–3.2；§4.1及评价",
+            "pages": "3–8",
+            "methodEvidence": "移除全局池化，在图像token上接定位与分类头",
+            "experimentEvidence": "图像级预训练到对象级微调，开放词汇与图像查询",
+            "limitations": "全局到局部迁移及稀有概念限制；文本定位不保证关系推理"
+          },
+          {
+            "key": "groundingdino",
+            "sections": "§3；图3、4；LVIS表3；Limitations",
+            "pages": "5–7、10、14",
+            "methodEvidence": "特征增强、语言引导查询选择、跨模态解码",
+            "experimentEvidence": "COCO/LVIS零样本与微调分开，长尾类别表现不同",
+            "limitations": "误检、稀有类别与框输出不等于分割"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R34",
+      "characters": 3021,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "unet",
+            "sections": "图1、2；§2结构；§3训练；§4实验",
+            "pages": "2–6",
+            "methodEvidence": "收缩扩张与裁剪跳连，原版不填充卷积",
+            "experimentEvidence": "EM与细胞分割；增强、平铺和加权边界背景",
+            "limitations": "现代U-Net变体不等于原配置；不推到全部医学任务"
+          },
+          {
+            "key": "medsam",
+            "sections": "Results；Discussion；Methods/Training protocol",
+            "pages": "4–6、9–12",
+            "methodEvidence": "提示框、图像编码和掩码解码；模态归一化",
+            "experimentEvidence": "内部与外部任务，扫描/视频/切片层级划分说明",
+            "limitations": "模态不均与血管分支框提示歧义，非全自动临床验证"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R35",
+      "characters": 3026,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "seco",
+            "sections": "§3.1–3.2；图2；表1；图3",
+            "pages": "2–6",
+            "methodEvidence": "季节正对与多个时间变/不变嵌入子空间",
+            "experimentEvidence": "BigEarthNet线性探测/微调/标签比例及变化任务",
+            "limitations": "同地点也可能真实变化，自然配对不是完美监督"
+          },
+          {
+            "key": "satmae",
+            "sections": "§4.1–4.2；图2、3；§5.1–5.5；表1",
+            "pages": "3–8",
+            "methodEvidence": "时空编码、波段分组与遮挡任务",
+            "experimentEvidence": "fMoW RGB/多光谱、冻结与微调及下游任务",
+            "limitations": "元数据与配准假设；大规模预训练不适合笔记本从零运行"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    },
+    {
+      "id": "R36",
+      "characters": 2933,
+      "audit": {
+        "paperReadings": [
+          {
+            "key": "imagenet_c",
+            "sections": "§3基准；指标；§5；图1、3",
+            "pages": "3–8",
+            "methodEvidence": "常见损坏与扰动序列，CE/相对CE和预测翻转",
+            "experimentEvidence": "干净表现与损坏下降分开；多架构与方法对照",
+            "limitations": "合成损坏不覆盖所有部署变化，不能使用测试损坏训练混称泛化"
+          },
+          {
+            "key": "ensembles",
+            "sections": "§2.1–2.4；图1；§3.3–3.4；表1",
+            "pages": "2–7",
+            "methodEvidence": "独立模型平均分布，回归均值方差与NLL",
+            "experimentEvidence": "玩具/UCI回归以及分类评价概率质量与误差",
+            "limitations": "多个模型有额外成本，共同偏差仍可一致犯错"
+          }
+        ],
+        "notes": "PDF文本方法、图表说明、实验及局限核读；页码为缓存PDF页。方向与设备建议是教学分析。",
+        "checked": "2026-09-24"
+      }
+    }
+  ]
+}

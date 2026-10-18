@@ -1,0 +1,385 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DCVC 阅读记录</title><link rel="stylesheet" href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_阅读记录.md · <a href="DCVC_%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95.md">原始 Markdown</a></p><h1 id="dcvc">DCVC 阅读记录</h1>
+<p>阅读模式与进度管理遵循 <a href="../README.md.html">项目入口</a>。精读完整版规则当前保存为 <a href="../%E6%96%B0%E5%BB%BA%20%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3.txt">新建 文本文档.txt</a>。</p>
+<h2 id="1">1. 论文与材料</h2>
+<ul>
+<li>论文标题：Deep Contextual Video Compression，中文译名为“深度上下文视频压缩”。</li>
+<li>作者与机构：Jiahao Li、Bin Li、Yan Lu，Microsoft Research Asia。</li>
+<li>年份及发表状态：NeurIPS 2021，Advances in Neural Information Processing Systems 34。</li>
+<li>用户指定材料：<a href="deep-contextual-video-compression.bib">deep-contextual-video-compression.bib</a>，包含书目信息与摘要。</li>
+<li>正文：<a href="Li_Deep_Contextual_Video_Compression_NeurIPS_2021_paper.pdf">NeurIPS 正式版 PDF</a>，12 页；<a href="https://proceedings.neurips.cc/paper_files/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Paper.pdf">官方下载来源</a>。</li>
+<li>补充材料：<a href="Li_Deep_Contextual_Video_Compression_NeurIPS_2021_supplemental.pdf">Supplemental PDF</a>，7 页；<a href="https://proceedings.neurips.cc/paper_files/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Supplemental.pdf">官方下载来源</a>。已完成全部 6 节、8 张图、1 张表、脚注与参考文献条目核对。</li>
+<li>版本标识：本次采用 NeurIPS 2021 正式会议版，不以 arXiv 页码代替正式版页码。arXiv:2109.15047v2（2021-12-14）为另一个可用版本，本轮不混用其页码。</li>
+<li>代码与权重：已取得并核对固定提交 cbdae87a5445114cdc7f48816da63ea80bdeac40 的官方 2021 完整子目录 31 个文件，已讲解 Python 推理主链与实际使用的 C++ CDF/rANS 主调用链，另核查固定版本外部 rans64.h。完成文件封装及独立熵编码参考机制验证；未运行官方扩展、下载权重或复现实验。</li>
+<li>当前模式：精读。</li>
+<li>当前精读任务：全文，按原文顺序分轮推进。</li>
+<li>最近更新：2026-10-16，Asia/Shanghai。</li>
+<li>完整导航：<a href="DCVC_%E5%85%A8%E6%96%87%E7%B2%BE%E8%AF%BB%E5%AF%BC%E8%88%AA.md.html">全文精读导航</a>。</li>
+<li>最新讲解：<a href="DCVC_%E7%AD%94%E7%96%9102_%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E4%B8%8E%E7%B2%BE%E8%AF%BB%E5%AE%8C%E6%88%90%E6%A0%B8%E6%9F%A5.md.html">底层熵编码与精读完成核查</a>，接续<a href="DCVC_%E7%AD%94%E7%96%9101_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3.md.html">完整代码讲解</a>；论文、补充材料、Python 推理与底层熵编码主调用链精读完成。</li>
+<li>既有讲解：<a href="DCVC_%E7%B2%BE%E8%AF%BB01_%E6%A0%87%E9%A2%98%E6%91%98%E8%A6%81%E4%B8%8E%E5%BC%95%E8%A8%80.md.html">第 1 轮 标题摘要与引言</a>、<a href="DCVC_%E7%B2%BE%E8%AF%BB02_Figure1%E4%B8%8E%E5%BC%95%E8%A8%80%E8%B4%A1%E7%8C%AE.md.html">第 2 轮 Figure 1 与引言贡献</a>。</li>
+</ul>
+<h2 id="2">2. 可复用的背景与知识</h2>
+<ul>
+<li>研究问题与输入输出：利用参考帧提供的信息压缩当前视频帧，输出可解码的码流并重建当前帧；关注压缩所需码率与重建失真的权衡。</li>
+<li>研究动机与现有不足：【作者主张，摘要及引言第 1 至 2 段】许多早期神经视频压缩方法仍保留先预测、再编码残差的结构；作者希望扩大模型利用时空相关性的方式。</li>
+<li>核心 Idea 与技术主线：【论文事实，Sections 3.1 至 3.4、补充 Sections 1 至 2】重建参考帧经特征提取、解码运动 warp 与细化生成上下文；上下文参与编码、解码及时间先验；图像概率融合超先验、空间先验与时间先验；联合优化四路潜变量码率与重建失真。</li>
+<li>已讲解的知识：预测与残差、共享重建参考、熵与条件熵、互信息、交叉熵与 KL、量化区间概率质量与 Laplace CDF、空间解码依赖、超先验与时间先验、warp 与特征细化、率失真目标、四阶段训练、GOP、I 帧控制、BD-Rate 和实验归因边界。</li>
+<li>后续可研究而非尚未讲完的问题：完整训练工程、重复实验不确定性、实际文件封装码率、全链条计时、多参考帧、通道冗余和时间稳定性。它们不影响本篇论文讲解完成的状态。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>中文术语</th>
+<th>英文及缩写</th>
+<th>当前含义</th>
+<th>原文位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>预测编码</td>
+<td>Predictive coding</td>
+<td>先生成预测帧，再编码当前帧与预测帧的差异</td>
+<td>摘要，引言第 1 段</td>
+</tr>
+<tr>
+<td>残差</td>
+<td>Residue / residual</td>
+<td>当前帧与预测帧之差</td>
+<td>引言第 1 至 2 段</td>
+</tr>
+<tr>
+<td>条件编码</td>
+<td>Conditional coding</td>
+<td>在已知条件信息的情况下编码当前信号</td>
+<td>摘要，引言第 2 段</td>
+</tr>
+<tr>
+<td>特征域上下文</td>
+<td>Feature domain context</td>
+<td>由可学习特征表达的条件信息，同时参与编码、解码和熵建模</td>
+<td>摘要，引言第 3 段，Figure 1</td>
+</tr>
+<tr>
+<td>高频内容</td>
+<td>High-frequency contents</td>
+<td>本轮解释为边缘、纹理等空间变化较快的内容</td>
+<td>摘要</td>
+</tr>
+<tr>
+<td>熵</td>
+<td>Shannon entropy</td>
+<td>离散随机变量的平均信息量，使用 log2 时以 bit 为单位</td>
+<td>引言第 2 段</td>
+</tr>
+<tr>
+<td>运动估计与运动补偿</td>
+<td>Motion estimation and motion compensation，MEMC</td>
+<td>以运动信息帮助参考内容对齐；特征域方案的细节后续精读</td>
+<td>引言第 3 段；Section 3.3 仅作事实核查</td>
+</tr>
+<tr>
+<td>熵模型</td>
+<td>Entropy model</td>
+<td>利用条件等信息估计量化表示的概率，帮助熵编解码</td>
+<td>引言第 3 段，Figure 1 橙色虚线</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">3. 证据与待验证问题</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>内容</th>
+<th>来源及依据</th>
+<th>尚需验证的内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>论文事实</td>
+<td>作者、机构、会议及正文结构</td>
+<td>正式版 PDF 第 1 页，官方论文页</td>
+<td>无</td>
+</tr>
+<tr>
+<td>作者主张及支持证据</td>
+<td>特征上下文改善高频与新内容重建</td>
+<td>正文 Figure 3、Table 2、补充 Figure 8</td>
+<td>已解释证据；不把个例通道可视化当成通用语义分工或唯一因果机制</td>
+</tr>
+<tr>
+<td>论文事实</td>
+<td>26.0% 对应 HEVC B 相对 x265 veryslow 的 PSNR BD-Bitrate；其余集合分别报告不同节省</td>
+<td>正文 Table 1、Section 4.2；补充 Section 3</td>
+<td>已检查 GOP、帧数、I 帧设置与配置边界；未独立复现实验</td>
+</tr>
+<tr>
+<td>论文事实</td>
+<td>引言给出 H(X-P) &gt;= H(X given P) 的动机公式</td>
+<td>正式版第 1 页，引言第 2 段，引用 [12]，无独立公式编号</td>
+<td>已结合相关工作核对 [12] 的作用及设定；不等于该被引论文已全文精读</td>
+</tr>
+<tr>
+<td>独立分析</td>
+<td>令 R=X-P，若给定 P 后 X 与 R 一一对应，则 H(R given P)=H(X given P)，差值为 I(R;P) &gt;= 0</td>
+<td>本轮补充推导，离散随机变量且熵有限</td>
+<td>对实际量化、学习变换和总码率的影响需结合方法与实验</td>
+</tr>
+<tr>
+<td>独立分析</td>
+<td>减法本身不丢失信息；若残差也充分利用同一条件，理论上可达到相同的条件熵</td>
+<td>R=X-P 与 X=R+P 的可逆性</td>
+<td>不将抽象熵比较直接等同于任意有损编码器的码率优势</td>
+</tr>
+<tr>
+<td>独立分析</td>
+<td>传统视频编码也会利用上下文；不宜把引言的简化描述理解为所有传统编码都只利用单个预测像素</td>
+<td><a href="https://www.hhi.fraunhofer.de/en/departments/vca/research-groups/video-coding-technologies/research-topics/past-research-topics/context-based-adaptive-binary-arithmetic-coding-cabac.html">Fraunhofer HHI 的 CABAC 技术说明</a>，结合对作者论证范围的限定</td>
+<td>后续比较具体方法时，针对真实模块检查条件信息</td>
+</tr>
+<tr>
+<td>论文事实</td>
+<td>上下文同时作为编码器、解码器和熵模型的输入；Figure 1 的橙色虚线表示其用于熵建模</td>
+<td>正式版第 2 页，引言第 3 段及 Figure 1 图注；公式 3、5</td>
+<td>已完成网络结构、概率分解及补充网络图的讲解</td>
+</tr>
+<tr>
+<td>论文事实</td>
+<td>参考重建帧与当前帧估计运动，运动编码并解码后用于参考特征 warp 与细化</td>
+<td>Section 3.3、公式 6、补充 Figure 2</td>
+<td>已完成逐段讲解与代码接口核查，未执行编解码</td>
+</tr>
+<tr>
+<td>论文事实及独立分析</td>
+<td>Figure 1 省略的运动开销由完整四路码流计入；解码条件可从参考和码流一致生成</td>
+<td>Figure 2、补充 Table 1、DCVC_net.py</td>
+<td>已检查数据依赖；未验证实际运行的数值一致性</td>
+</tr>
+<tr>
+<td>作者主张</td>
+<td>相比 DVCPro 节省 16.4% 码率，适用范围为本段的 1080p 标准测试视频报告</td>
+<td>正式版第 2 页，引言第 3 段</td>
+<td>实验设置、统计方式与复现结果</td>
+</tr>
+<tr>
+<td>作者主张及独立分析</td>
+<td>创新在条件的系统使用与特征表示；条件编码概念已有先例，前作模式也可由网络学习</td>
+<td>Section 2；交叉核对 [12,15,16] 摘要与 [17] Section 2</td>
+<td>已限定比较范围；未独立重现所有前作，未将作者的训练难度判断升级为已证实事实</td>
+</tr>
+<tr>
+<td>论文事实及证据边界</td>
+<td>去掉图像空间先验后仍使用超先验和时间先验，码率增加 3.8%；不能直接据此断言整个系统实时</td>
+<td>Section 3.2、Table 3、Section 4.2、补充 Section 1</td>
+<td>已解释依赖；快速变体的完整端到端实际计时仍需额外实验</td>
+</tr>
+<tr>
+<td>论文事实</td>
+<td>完整训练码率含 y_hat、z_hat、g_hat、s_hat，四阶段先运动预热、重建、内容率失真、全联合</td>
+<td>补充 Section 2 与 Table 1</td>
+<td>已完整讲解；具体训练阶段轮数等未被论文完整给出</td>
+</tr>
+<tr>
+<td>论文事实</td>
+<td>长 GOP 中相对 DVCPro 优势增大，移除 MEMC 两者都变差，256 通道在 HEVC E 上不如 64 通道</td>
+<td>补充 Figures 4 至 7</td>
+<td>已解释锚点与统计范围，不把相对优势扩大当作绝对质量提高</td>
+</tr>
+<tr>
+<td>代码核查</td>
+<td>write_stream 默认 false；真实码流需显式开启，日志实际码率使用四段 payload 长度</td>
+<td>官方 2021 子目录 test_video.py、DCVC_net.py、stream_helper.py</td>
+<td>已确认 P/I 文件头 24/16 字节，完成原始封装函数微型往返；带权重运行未执行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">4. 略读进度</h2>
+<ul>
+<li>状态：未启动独立略读任务。</li>
+<li>实际检查的范围：已按精读模式完成全部论文与补充材料；没有另行启动独立略读任务。</li>
+<li>关键实验与固定输出结构：未分析。</li>
+<li>当前研究价值判断：作为理解条件编码、视频上下文与熵模型的基础论文有较强学习价值；实际创新证据与局限见第 4 部分全篇评价。</li>
+<li>下一步：本文与实现精读均已完成；后续可进入实验复现，不再登记为未读论文段落。</li>
+</ul>
+<h2 id="5">5. 全文精读进度</h2>
+<ul>
+<li>状态：论文正文、补充材料、Python 推理及 C++ 熵编码主调用链精读已完成；实验复现未执行。</li>
+<li>已连续完成的原文范围：正式版第 1 至 12 页，包括标题、作者与机构、摘要、Sections 1 至 5、图表与参考文献条目；随后完成补充材料第 1 至 7 页全部结构单元。</li>
+<li>呈现方式：bib 中用户提供的摘要全文及翻译；网络正文采用短摘录、逐段释义与独立讲解，不标为完整英文转载或全文翻译。</li>
+<li>已单独完成的其他范围：无。</li>
+<li>尚未讲解的论文结构单元：无。40 项正文参考文献和 15 项补充参考文献保留书目信息、重点分析关联，并不意味着全部被引论文已全文精读。</li>
+<li>当前停止位置：补充材料第 7 页末与全篇评价结束。</li>
+<li>下一次阅读起点：无待继续的本文精读章节。代码主链深读亦已完成；复现实验及延伸研究另记。</li>
+<li>已解释的公式：引言无编号熵不等式、正文编号公式 1 至 7、去掉空间先验的变体、补充 Table 1 四阶段损失；补充推导交叉熵与 KL、量化区间积分、BD-Rate、张量尺度等，均与原文编号区分。</li>
+<li>已解释的图表与算法：正文 Figures 1 至 7、Tables 1 至 3；补充 Figures 1 至 8、Table 1；没有独立 Algorithm 编号，编解码与训练按操作顺序展开。完整对应表见 <a href="DCVC_%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E4%B8%8E%E8%A6%86%E7%9B%96%E6%A0%B8%E6%9F%A5.md.html">覆盖核查</a>。</li>
+</ul>
+<p>页码均指正式版 PDF 的页面序号，从 1 起算。</p>
+<h2 id="6">6. 局部精读任务</h2>
+<p>实现扩展精读已完成：2026-10-15 的 Python 推理与测试入口，以及 2026-10-16 的 CDF 构表、rANS 编解码、逃逸与旁路、固定外部状态函数和构建入口。详见答疑 01、02；不改变论文页码进度。</p>
+<h2 id="7">7. 逐轮记录与模式切换</h2>
+<table>
+<thead>
+<tr>
+<th>轮次与时间</th>
+<th>模式与范围</th>
+<th>本轮实际覆盖内容</th>
+<th>关键公式与图表</th>
+<th>下一次起点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 轮，2026-10-15</td>
+<td>全文精读，正式版第 1 页</td>
+<td>标题、作者与机构、摘要、引言第 1 至 2 段；解释预测与条件编码、熵不等式及其边界</td>
+<td>引言无编号熵不等式；独立推导与 1.5 bit / 0.5 bit 教学例子；未读原始 Figure 1</td>
+<td>第 2 页 Figure 1 与图注，随后引言第 3 段</td>
+</tr>
+<tr>
+<td>第 2 轮，2026-10-15</td>
+<td>全文精读，正式版第 2 页</td>
+<td>Figure 1 与图注、引言第 3 至 4 段、贡献导语及四项贡献；Introduction 结束</td>
+<td>原始 Figure 1；条件在三个位置的作用；教学简化式及符号概率例子。另核查 Section 3.3 的运动输入及特征对齐，不计作该节精读</td>
+<td>第 3 页 Section 2 Related works，Deep image compression 首段</td>
+</tr>
+<tr>
+<td>第 3 部分，2026-10-15</td>
+<td>用户要求继续直到讲完，正文第 3 至 12 页</td>
+<td>Related works、Sections 3.1 至 3.4、实验 4.1 至 4.4、Discussion 与参考文献条目</td>
+<td>公式 1 至 7、Figures 2 至 7、Tables 1 至 3；独立推导和关键参考文献核查</td>
+<td>补充材料第 1 页</td>
+</tr>
+<tr>
+<td>第 4 部分，2026-10-15</td>
+<td>补充第 1 至 7 页及全篇评价</td>
+<td>网络、四阶段训练、设置、长 GOP、通道数与 MEMC 消融、视觉比较、脚注与书目、复现路线</td>
+<td>补充 Figures 1 至 8、Table 1；官方 2021 代码只读核查</td>
+<td>论文讲解已完成，无未读结构单元；实验未复现</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8">8. 讲解全文整理与完整讲解文件清单</h2>
+<p>2026-10-15 按 paper-lecture-export 技能整理：<a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87.html">HTML 离线阅读版</a> · <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87.md.html">Markdown 全文</a> · <a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E8%B5%84%E6%BA%90%E8%AF%B4%E6%98%8E.md.html">资源与核对说明</a>。</p>
+<p>收录范围：3 轮实际聊天完整回复、10 条准备或补充说明、4 份与聊天内容不完全相同的已保存讲解稿，以及参考文献与覆盖核查附录。共 18 项正文来源，另保留本记录及旧导航的整理前快照。包含 19 张不同原图和原有全部 TeX 公式；列表、表格、数值例子、证据边界与不同轮次的重复解释均保留。会话同一回复的存储副本去重，详情见全文末的来源覆盖表。</p>
+<p>整理不改变精读停止位置：论文正文与补充材料讲解已完成；实验未复现。用户提出“展开讲代码实现”后，完整代码课在切换到整理任务时尚未形成回复，因此只登记实际发送的两条核查说明，不能把源码已读取等同于代码课已讲完。后续代码讲解仍从逐模块数据流与实现展开继续。</p>
+<p>下表登记完整回复与保存稿；保存稿是原有文档版本，并不声称逐字等于聊天回复。各条简短说明逐项登记在<a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87.md.html#coverage">全文来源覆盖表</a>及<a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E6%9D%A5%E6%BA%90%E6%B8%85%E5%8D%95.json">机器可读来源清单</a>。</p>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>范围与完成状态</th>
+<th>完整文本文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 轮聊天，JSONL 第 199 行</td>
+<td>标题、摘要、引言第 1—2 段；本轮已完成</td>
+<td><a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E6%9D%A5%E6%BA%90/%E8%81%8A%E5%A4%A9%E8%AE%B2%E8%A7%A301_%E6%A0%87%E9%A2%98%E6%91%98%E8%A6%81%E4%B8%8E%E5%BC%95%E8%A8%80.md.html">原始完整回复</a></td>
+</tr>
+<tr>
+<td>第 2 轮聊天，第 285 行</td>
+<td>Figure 1、引言第 3—4 段与贡献；本轮已完成</td>
+<td><a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E6%9D%A5%E6%BA%90/%E8%81%8A%E5%A4%A9%E8%AE%B2%E8%A7%A302_Figure1%E4%B8%8E%E8%B4%A1%E7%8C%AE.md.html">原始完整回复</a></td>
+</tr>
+<tr>
+<td>第 3 轮聊天，第 539 行</td>
+<td>其余正文、补充材料与全篇评价；论文讲解已完成</td>
+<td><a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E6%9D%A5%E6%BA%90/%E8%81%8A%E5%A4%A9%E8%AE%B2%E8%A7%A303_%E6%AD%A3%E6%96%87%E4%B8%8E%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%99.md.html">原始完整回复</a></td>
+</tr>
+<tr>
+<td>保存稿 1</td>
+<td>正式版第 1 页；原有独立文稿版本</td>
+<td><a href="DCVC_%E7%B2%BE%E8%AF%BB01_%E6%A0%87%E9%A2%98%E6%91%98%E8%A6%81%E4%B8%8E%E5%BC%95%E8%A8%80.md.html">标题摘要与引言</a></td>
+</tr>
+<tr>
+<td>保存稿 2</td>
+<td>正式版第 2 页；原有独立文稿版本</td>
+<td><a href="DCVC_%E7%B2%BE%E8%AF%BB02_Figure1%E4%B8%8E%E5%BC%95%E8%A8%80%E8%B4%A1%E7%8C%AE.md.html">Figure 1 与引言贡献</a></td>
+</tr>
+<tr>
+<td>保存稿 3</td>
+<td>正式版第 3—12 页；原有独立文稿版本</td>
+<td><a href="DCVC_%E7%B2%BE%E8%AF%BB03_%E6%AD%A3%E6%96%87%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AE%9E%E9%AA%8C.md.html">正文方法与实验</a></td>
+</tr>
+<tr>
+<td>保存稿 4</td>
+<td>补充第 1—7 页与全篇评价；原有独立文稿版本</td>
+<td><a href="DCVC_%E7%B2%BE%E8%AF%BB04_%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%99%E4%B8%8E%E6%80%BB%E7%BB%93.md.html">补充材料与总结</a></td>
+</tr>
+<tr>
+<td>文献与覆盖核查</td>
+<td>正文 40 项、补充 15 项参考文献，结构覆盖</td>
+<td><a href="DCVC_%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E4%B8%8E%E8%A6%86%E7%9B%96%E6%A0%B8%E6%9F%A5.md.html">参考文献与覆盖核查</a></td>
+</tr>
+<tr>
+<td>代码核查第 571 行</td>
+<td>forward() 与真实码流量化差异；仅已发出的核查说明</td>
+<td><a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E6%9D%A5%E6%BA%90/%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5%E8%AF%B4%E6%98%8E01.md.html">说明 1</a></td>
+</tr>
+<tr>
+<td>代码核查第 610 行</td>
+<td>逐位置编码、Laplace 与 24 字节 P 帧头；仅已发出的核查说明</td>
+<td><a href="DCVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/%E6%9D%A5%E6%BA%90/%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5%E8%AF%B4%E6%98%8E02.md.html">说明 2</a></td>
+</tr>
+</tbody>
+</table>
+<p>需要携带离线阅读副本时，同时复制 Markdown、HTML 和整个 <code>DCVC_讲解资源/</code> 目录。原有四份讲解稿及原图没有被本次整理覆盖。</p>
+<h2 id="9">9. 完整代码讲解续讲完成</h2>
+<p>2026-10-15，用户要求“做完整代码讲解”。本轮已保存<a href="DCVC_%E7%AD%94%E7%96%9101_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3.md.html">答疑 01：完整代码讲解</a>，与本轮最终回复正文一致；上节“完整代码课未完成”是此前中断时的历史状态，由本节续讲接上。</p>
+<table>
+<thead>
+<tr>
+<th>类型与顺序</th>
+<th>版本和来源定位</th>
+<th>本轮实际完成范围</th>
+<th>保存与下一起点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实质性代码答疑 01</td>
+<td>官方 microsoft/DCVC 的 DCVC-family/DCVC，提交 cbdae87a5445114cdc7f48816da63ea80bdeac40；原有与补充来源清单共 17 份文件</td>
+<td>张量与网络模块、SpyNet/warp、三类先验、forward 与真实量化差异、空间自回归及掩码前提、Laplace/CDF/rANS 接口、四路码流、I/P 文件、I 帧集成、测试入口、训练工程边界</td>
+<td><a href="DCVC_%E7%AD%94%E7%96%9101_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3.md.html">完整正文</a>；代码讲解本轮完成，实验下一步为单质量点 I 帧加短 GOP 真实编解码</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>新确认的代码细节：P 帧 GaussianEncoder 实际为 Laplace，I 帧 GaussianConditional 为高斯；P/I 文件头分别 24/16 字节；测试日志仅计 payload；真实自回归路径直接读权重，需要检查权重掩码已生效。</li>
+<li>已执行核查：17 份来源哈希与 Python 语法、原始 I/P 封装函数微型往返、掩码结构、均值量化差异、因果重建例子、尺度索引与 Laplace 概率；结果见<a href="DCVC_%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5/%E6%A0%B8%E6%9F%A5%E7%BB%93%E6%9E%9C.json">机制核查</a>。</li>
+<li>仍未执行：带权重模型推理、rANS 实际往返、编译扩展内部审阅、训练和性能复现。没有将静态讲解或文件封装验证标为模型复现成功。</li>
+<li>全文汇编已追加本轮完整讲解，现为 19 项来源；新增可按行跳转的离线源码阅读页。补入前版本保留为 <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87_%E4%BB%A3%E7%A0%81%E8%AF%BE%E8%A1%A5%E5%85%A5%E5%89%8D_20261015.md.html">旧 Markdown</a> 与 <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87_%E4%BB%A3%E7%A0%81%E8%AF%BE%E8%A1%A5%E5%85%A5%E5%89%8D_20261015.html">旧 HTML</a>。</li>
+<li>论文正文和补充材料原有精读停止位置、已完成状态不变。</li>
+</ul>
+<h2 id="10">10. 全部精读完成核查</h2>
+<p>2026-10-16，用户要求“完成全部精读”。核对论文结构覆盖后，补完上一轮明确未展开的 C++ 熵编码主调用链，保存<a href="DCVC_%E7%AD%94%E7%96%9102_%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E4%B8%8E%E7%B2%BE%E8%AF%BB%E5%AE%8C%E6%88%90%E6%A0%B8%E6%9F%A5.md.html">答疑 02：底层熵编码与精读完成核查</a>，与本轮最终回复正文一致。</p>
+<table>
+<thead>
+<tr>
+<th>类型与顺序</th>
+<th>版本和来源定位</th>
+<th>实际完成范围</th>
+<th>保存与下一起点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实质性答疑与实现精读 02</td>
+<td>同一固定官方提交的 src/cpp/ops/ops.cpp、rans_interface.cpp/.hpp、构建配置、write_stream_readme.md；外部 ryg_rans 固定提交 c9d162d996fd600315af9ae8eb89d832576cb32d</td>
+<td>整数 CDF 归一化及零频数修复、rANS 可逆公式、正序概率预测与逆序刷新、32 位状态归一化、超范围整数逃逸/旁路、持续分组解码、构建与训练工程边界</td>
+<td><a href="DCVC_%E7%AD%94%E7%96%9102_%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E4%B8%8E%E7%B2%BE%E8%AF%BB%E5%AE%8C%E6%88%90%E6%A0%B8%E6%9F%A5.md.html">完整正文</a>；本文及实现主链无待继续精读位置</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>完成范围：正式版 12 页、补充 7 页；正文 7 图 3 表和公式 1—7；补充 8 图 1 表；正文 40 项与补充 15 项参考文献条目及重点关联分析；Python 推理和实际使用的底层熵编码主调用链。</li>
+<li>源码覆盖依据：官方 2021 完整子目录共 31 个文件，逐文件哈希核对；外部状态函数按构建配置固定提交取回。见<a href="DCVC_2021_%E6%BA%90%E7%A0%81/SOURCE_MANIFEST_%E5%AE%8C%E6%95%B4%E5%AD%90%E7%9B%AE%E5%BD%95.json">完整子目录清单</a>。</li>
+<li>验证结果：独立 Python 熵编码参考实现使 4106 个整数分组解码后精确恢复，其中 4101 个走逃逸路径；验证整数 CDF 修复、状态归一化和旁路。没有执行官方编译扩展，不声称逐字节兼容或模型复现。见<a href="DCVC_%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5/%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E6%A0%B8%E6%9F%A5%E7%BB%93%E6%9E%9C.json">底层核查结果</a>。</li>
+<li>汇编状态：本轮完整正文已追加到 Markdown 与 HTML，现为 20 项正文来源；新增 C++/头文件按行跳转页。旧版保留为 <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87_%E5%BA%95%E5%B1%82%E8%A1%A5%E5%85%A5%E5%89%8D_20261016.md.html">补入前 Markdown</a> 与 <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87_%E5%BA%95%E5%B1%82%E8%A1%A5%E5%85%A5%E5%89%8D_20261016.html">补入前 HTML</a>。</li>
+<li>仍未执行但不属于未读章节：带权重真实编解码、官方扩展运行、训练、性能计时和 BD-Rate 复现。被引文献条目保留不等于所有被引论文均全文精读。</li>
+<li>当前停止位置：论文与补充材料末尾、实际使用的熵编码主调用链末尾。下一次精读起点：无；若继续研究，应另开实验记录。</li>
+</ul></main><script src="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

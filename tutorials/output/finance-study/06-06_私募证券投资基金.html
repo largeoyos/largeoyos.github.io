@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第六章 · 第六节 · 私募证券投资基金 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第六章 / 06</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 80.8916%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第六节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c6s6-part-01">01 · 本节目标：私募的“私”说的是募集方式</a><a class="" href="#c6s6-part-02">02 · 私募证券与私募股权：底层资产和退出方式不同</a><a class="" href="#c6s6-part-03">03 · 合格投资者：单只金额和财产收入条件同时检查</a><a class="" href="#c6s6-part-04">04 · 募集流程：先筛对象，再让他冷静决定</a><a class="" href="#c6s6-part-05">05 · 管理人登记、产品备案：两件手续，不是两种担保</a><a class="" href="#c6s6-part-06">06 · 投资、财产独立与托管：不能拿基金当借贷壳</a><a class="" href="#c6s6-part-07">07 · 2024运作指引的规模约束：初始1000万不等于个人100万</a><a href="#c6s6-part-08">08 · 信息披露：面向投资者，不是面向社会晒收益</a><a class="current" href="#c6s6-part-09">09 · 业绩评价：收益、波动、回撤与VaR不能互相替代</a><a href="#c6s6-part-10">10 · 外资私募管理人：股东身份改变，不取消境内责任</a><a href="#c6s6-part-11">11 · 自编诊断题：先确定主体和阶段</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 06 / SECTION 06 · 第六章</div><h2>第六节 · 私募证券投资基金</h2><p>证券投资基金 · 教材正文第428—435页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="06-05_基金的监管与信息披露.html">上一节 · 基金的监管与信息披露</a><a href="06-07_公开募集基础设施证券投资基金.html">下一节 · 公开募集基础设施证券投资基金</a></nav><section class="lesson" id="c6s6-part-01"><h3>01 · 本节目标：私募的“私”说的是募集方式</h3>
+<p>教材正文428—435页介绍私募证券基金。先理解：向特定合格投资者非公开募集，由管理人按约管理，投资者依法承担风险。<strong>私募不是私下随便收钱，不是无监管，也不是私募股权的唯一简称。</strong></p>
+<p>学完应能判断合格投资者条件、募集程序、登记备案的功能、投资与托管边界，并把证券基金与股权基金区分。2026年私募披露新规已生效，相关时限在本节明确列出。</p></section><section class="lesson" id="c6s6-part-02"><h3>02 · 私募证券与私募股权：底层资产和退出方式不同</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>私募证券基金</th>
+<th>私募股权基金</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要投资</td>
+<td>股票、债券、基金、依法允许的期货与衍生品等</td>
+<td>非公开交易的企业股权等</td>
+</tr>
+<tr>
+<td>回报路径</td>
+<td>证券收益、价差及策略运作结果等</td>
+<td>企业成长、分红及退出等</td>
+</tr>
+<tr>
+<td>退出典型安排</td>
+<td>按基金合同开放赎回或清算</td>
+<td>项目退出及合同分配，常有较长周期</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>资产可能较易交易，也可能受限或高杠杆</td>
+<td>非上市股权通常更难及时变现</td>
+</tr>
+<tr>
+<td>必须避免</td>
+<td>以为所有证券基金随时能赎回</td>
+<td>以为上市是唯一退出方式</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="diagram" data-diagram="c6-private-types"><figcaption class="figure-label">SVG · 非公开募集相同，底层和退出不同</figcaption><div class="diagram-interactive"><div id="finance-c6-private-types">
+<h3>非公开募集相同，底层和退出不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">证券私募</button><button aria-pressed="false" class="btn" type="button">股权私募</button></div>
+<div data-diagrams=""><svg aria-label="按合同运作" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>按合同运作</title><desc>证券及衍生品等，依法允许范围；持有人退出，按开放或清算安排。收益风险传递</desc><defs><marker id="arrow-c6-private-types-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">按合同运作</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">证券及衍生品等</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依法允许范围</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">持有人退出</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按开放或清算安排</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c6-private-types-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">收益风险传递</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">证券私募</div>
+<script data-config="" type="application/json">{"heading": "非公开募集相同，底层和退出不同", "states": [{"label": "证券私募", "rows": [{"label": "按合同运作", "nodes": [["证券及衍生品等", "依法允许范围"], ["持有人退出", "按开放或清算安排"]], "edges": ["收益风险传递"]}]}, {"label": "股权私募", "rows": [{"label": "典型项目退出", "nodes": [["非公开企业股权", "参与企业成长"], ["转让并购上市等", "实现项目退出"]], "edges": ["长期经营与退出"]}]}]}</script>
+</div>
+<style>
+#finance-c6-private-types .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-private-types .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-private-types .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-private-types .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-private-types .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-private-types');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-private-types-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-private-types-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>证券私募</h4><div><svg aria-label="按合同运作" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>按合同运作</title><desc>证券及衍生品等，依法允许范围；持有人退出，按开放或清算安排。收益风险传递</desc><defs><marker id="print-06-06-0-0-arrow-c6-private-types-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">按合同运作</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">证券及衍生品等</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依法允许范围</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">持有人退出</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按开放或清算安排</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-06-0-0-arrow-c6-private-types-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">收益风险传递</text></svg></div></div><div class="diagram-print-state"><h4>股权私募</h4><div><svg aria-label="典型项目退出" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>典型项目退出</title><desc>非公开企业股权，参与企业成长；转让并购上市等，实现项目退出。长期经营与退出</desc><defs><marker id="print-06-06-0-1-arrow-c6-private-types-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">典型项目退出</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">非公开企业股权</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">参与企业成长</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">转让并购上市等</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">实现项目退出</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-06-0-1-arrow-c6-private-types-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">长期经营与退出</text></svg></div></div></div></figure>
+<p>股权基金可通过股权转让、并购、上市后退出等路径实现回收，不能固定说“全部两年内退出”。证券基金包含衍生品策略也不代表风险低；市场流动性好与基金投资者能否立即退出，是不同问题。</p>
+<p>教材列契约型、公司型、合伙型等组织形式。公司和合伙还有各自法律人数限制：有限合伙一般2至50人，并至少有一名普通合伙人，不能只记“私募200人”而忽略组织法约束。契约型基金份额也不能随意等同证券公司的债务型收益凭证。</p></section><section class="lesson" id="c6s6-part-03"><h3>03 · 合格投资者：单只金额和财产收入条件同时检查</h3>
+<p>按教材一般标准及相关规则，投资者要具备相应风险识别与承担能力，投资单只私募基金金额不低于100万元，同时满足下列财产或收入条件之一类要求。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>普通投资者类别</th>
+<th>资格条件</th>
+<th>与单只100万元如何组合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单位</td>
+<td>净资产不低于1000万元</td>
+<td>还要满足单只投资金额等要求</td>
+</tr>
+<tr>
+<td>个人</td>
+<td>金融资产不低于300万元，或最近3年个人年均收入不低于50万元</td>
+<td>金融资产与收入二者择一；再与100万元条件结合</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="diagram" data-diagram="c6-private-qualified"><figcaption class="figure-label">SVG · 单只投资金额与资格条件结合</figcaption><div class="diagram-interactive"><div id="finance-c6-private-qualified">
+<h3>单只投资金额与资格条件结合</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">普通个人</button><button aria-pressed="false" class="btn" type="button">普通单位</button></div>
+<div data-diagrams=""><svg aria-label="条件同时检查" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>条件同时检查</title><desc>风险能力适当，单只至少100万；金融资产300万，或三年均收50万。并且</desc><defs><marker id="arrow-c6-private-qualified-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">条件同时检查</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">风险能力适当</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">单只至少100万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">金融资产300万</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">或三年均收50万</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c6-private-qualified-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">并且</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">普通个人</div>
+<script data-config="" type="application/json">{"heading": "单只投资金额与资格条件结合", "states": [{"label": "普通个人", "rows": [{"label": "条件同时检查", "nodes": [["风险能力适当", "单只至少100万"], ["金融资产300万", "或三年均收50万"]], "edges": ["并且"]}]}, {"label": "普通单位", "rows": [{"label": "一般标准", "nodes": [["风险能力适当", "单只至少100万"], ["单位净资产", "至少1000万"]], "edges": ["并且"]}]}]}</script>
+</div>
+<style>
+#finance-c6-private-qualified .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-private-qualified .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-private-qualified .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-private-qualified .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-private-qualified .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-private-qualified');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-private-qualified-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-private-qualified-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>普通个人</h4><div><svg aria-label="条件同时检查" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>条件同时检查</title><desc>风险能力适当，单只至少100万；金融资产300万，或三年均收50万。并且</desc><defs><marker id="print-06-06-1-0-arrow-c6-private-qualified-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">条件同时检查</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">风险能力适当</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">单只至少100万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">金融资产300万</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">或三年均收50万</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-06-1-0-arrow-c6-private-qualified-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">并且</text></svg></div></div><div class="diagram-print-state"><h4>普通单位</h4><div><svg aria-label="一般标准" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>一般标准</title><desc>风险能力适当，单只至少100万；单位净资产，至少1000万。并且</desc><defs><marker id="print-06-06-1-1-arrow-c6-private-qualified-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一般标准</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">风险能力适当</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">单只至少100万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">单位净资产</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">至少1000万</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-06-1-1-arrow-c6-private-qualified-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">并且</text></svg></div></div></div></figure>
+<p>个人公式用语言表达：<strong>风险能力适当，并且单只至少100万，并且“金融资产300万或三年年均收入50万”之一成立。</strong>“我凑够100万”不能单独证明合格；“我房子值300万”也不直接等于金融资产300万。</p>
+<p>社保基金、依法设立并备案的投资计划等以及法律规定的其他特定投资者，有相应当然合格或特别适用安排，不能将普通个人财产条件机械套到每一种主体。拆分份额、多人拼凑规避门槛或非法汇集他人资金，都不能把不合格变合格。</p>
+<p>私募证券基金投资者人数按相应规则累计不超过200人等，还须结合组织形式与穿透要求。这里的“不公开”与“人数、合格性”一起约束募集，不能靠群里只有199个人就认定合法。<a href="https://www.csrc.gov.cn/csrc/c106256/c1653981/content.shtml" rel="noopener" target="_blank">证监会一般合格投资者规则</a></p></section><section class="lesson" id="c6s6-part-04"><h3>04 · 募集流程：先筛对象，再让他冷静决定</h3>
+<p>通常依次完成特定对象确定、投资者适当性匹配、风险揭示、合格投资者确认、投资冷静期及回访确认等。不是先收完钱，再补一张风险问卷。</p>
+<figure class="diagram" data-diagram="c6-private-raise"><figcaption class="figure-label">SVG · 先确定对象，再确认自主理解</figcaption><div class="diagram-interactive"><div id="finance-c6-private-raise">
+<h3>先确定对象，再确认自主理解</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">收款前</button><button aria-pressed="false" class="btn" type="button">冷静回访</button></div>
+<div data-diagrams=""><svg aria-label="一般募集流程前半段" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>一般募集流程前半段</title><desc>特定对象，适当性匹配；充分风险揭示，确认知晓风险；合格性确认，验证条件。匹配；核验</desc><defs><marker id="arrow-c6-private-raise-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一般募集流程前半段</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">特定对象</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">适当性匹配</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">充分风险揭示</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">确认知晓风险</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">合格性确认</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">验证条件</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c6-private-raise-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">匹配</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c6-private-raise-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">核验</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">收款前</div>
+<script data-config="" type="application/json">{"heading": "先确定对象，再确认自主理解", "states": [{"label": "收款前", "rows": [{"label": "一般募集流程前半段", "nodes": [["特定对象", "适当性匹配"], ["充分风险揭示", "确认知晓风险"], ["合格性确认", "验证条件"]], "edges": ["匹配", "核验"]}]}, {"label": "冷静回访", "rows": [{"label": "一般证券私募程序", "nodes": [["签约并缴款", "开始相应冷静期"], ["不少于24小时", "不得主动联系"], ["独立回访确认", "按规则完成"]], "edges": ["给决策时间", "回访确认"]}]}]}</script>
+</div>
+<style>
+#finance-c6-private-raise .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-private-raise .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-private-raise .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-private-raise .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-private-raise .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-private-raise');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-private-raise-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-private-raise-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>收款前</h4><div><svg aria-label="一般募集流程前半段" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>一般募集流程前半段</title><desc>特定对象，适当性匹配；充分风险揭示，确认知晓风险；合格性确认，验证条件。匹配；核验</desc><defs><marker id="print-06-06-2-0-arrow-c6-private-raise-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一般募集流程前半段</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">特定对象</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">适当性匹配</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">充分风险揭示</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">确认知晓风险</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">合格性确认</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">验证条件</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-06-2-0-arrow-c6-private-raise-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">匹配</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-06-2-0-arrow-c6-private-raise-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">核验</text></svg></div></div><div class="diagram-print-state"><h4>冷静回访</h4><div><svg aria-label="一般证券私募程序" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>一般证券私募程序</title><desc>签约并缴款，开始相应冷静期；不少于24小时，不得主动联系；独立回访确认，按规则完成。给决策时间；回访确认</desc><defs><marker id="print-06-06-2-1-arrow-c6-private-raise-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一般证券私募程序</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">签约并缴款</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">开始相应冷静期</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">不少于24小时</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">不得主动联系</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">独立回访确认</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按规则完成</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-06-2-1-arrow-c6-private-raise-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">给决策时间</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-06-2-1-arrow-c6-private-raise-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">回访确认</text></svg></div></div></div></figure>
+<p>教材私募证券基金的一般募集程序设不少于24小时投资冷静期，通常自签署合同并缴纳认购款项后起算；冷静期内募集机构不得主动联系投资者，结束后由合适人员独立回访确认。特殊投资者依法适用的豁免另判断，不能把一般程序扩大为毫无例外。</p>
+<p>冷静期是给投资者重新审视风险的时间，回访验证是否真实理解并自主决定。签了风险揭示书不意味着管理人从此可违法；平台也不能以已签字为理由掩盖误导销售。</p>
+<p>非公开推介应面向经确认的特定合格对象；面向社会公众发布收益榜、喊“人人可买”，与私募募集原则冲突。非公开披露也不等于不给已投资的人看资料。</p></section><section class="lesson" id="c6s6-part-05"><h3>05 · 管理人登记、产品备案：两件手续，不是两种担保</h3>
+<p>管理人依法向基金业协会办理登记，基金募集完成后依规定办理基金备案等；教材产品募集完成后20个工作日内报送备案材料的节点，与公募募集注册不是同一个程序。</p>
+<figure class="diagram" data-diagram="c6-private-register"><figcaption class="figure-label">SVG · 登记主体与备案产品不同</figcaption><div class="diagram-interactive"><div id="finance-c6-private-register">
+<h3>登记主体与备案产品不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">先后对象</button><button aria-pressed="false" class="btn" type="button">不是担保</button></div>
+<div data-diagrams=""><svg aria-label="两件手续" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>两件手续</title><desc>基金管理人，依法办理登记；具体私募基金，募后办理备案。依法募集后</desc><defs><marker id="arrow-c6-private-register-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两件手续</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基金管理人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依法办理登记</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">具体私募基金</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">募后办理备案</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c6-private-register-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">依法募集后</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">先后对象</div>
+<script data-config="" type="application/json">{"heading": "登记主体与备案产品不同", "states": [{"label": "先后对象", "rows": [{"label": "两件手续", "nodes": [["基金管理人", "依法办理登记"], ["具体私募基金", "募后办理备案"]], "edges": ["依法募集后"]}]}, {"label": "不是担保", "rows": [{"label": "不能推出保证收益", "nodes": [["有登记备案", "仍须持续合规"], ["投资结果", "仍由资产策略决定"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c6-private-register .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-private-register .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-private-register .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-private-register .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-private-register .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-private-register');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-private-register-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-private-register-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>先后对象</h4><div><svg aria-label="两件手续" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>两件手续</title><desc>基金管理人，依法办理登记；具体私募基金，募后办理备案。依法募集后</desc><defs><marker id="print-06-06-3-0-arrow-c6-private-register-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两件手续</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基金管理人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依法办理登记</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">具体私募基金</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">募后办理备案</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-06-3-0-arrow-c6-private-register-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">依法募集后</text></svg></div></div><div class="diagram-print-state"><h4>不是担保</h4><div><svg aria-label="不能推出保证收益" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不能推出保证收益</title><desc>有登记备案，仍须持续合规；投资结果，仍由资产策略决定。</desc><defs><marker id="print-06-06-3-1-arrow-c6-private-register-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不能推出保证收益</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">有登记备案</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">仍须持续合规</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">投资结果</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">仍由资产策略决定</text></svg></div></div></div></figure>
+<p>管理人登记记录主体，产品备案记录具体基金。已有管理人登记号，不能推出它新推出的任何产品都已备案；产品备案完成，也不能推出产品合法收益有政府保证。</p>
+<p>管理人必须持续符合真实经营、人员、制度、业务范围等要求。产品不能只作为“通道”，由出钱人或其他第三方直接下达投资指令而管理人只盖章。登记备案与持续监管共同作用，不是一张证照解决全部问题。</p>
+<p>教材提及旧备案系统名称、早期试行制度或统计数据时，要识别历史背景。2025年4月私募规模20.22万亿元、其中证券基金5.51万亿元等数字是当时统计，第一轮不需要背小数，也不能当今天实时规模。</p></section><section class="lesson" id="c6s6-part-06"><h3>06 · 投资、财产独立与托管：不能拿基金当借贷壳</h3>
+<p>基金应按合同、法律法规和适用规则投资，资金与管理人自有财产分开，公平对待投资者，防止利益输送、内幕交易、操纵市场和非公开信息滥用。正常投资风险由投资者承担，违法违规责任不能用“风险自担”掩盖。</p>
+<p>教材依据私募条例讲不得经营或变相经营贷款、担保等不当活动。<strong>股权投资目的下向被投企业提供短期借款或担保的特定20%实缴比例例外，不能当作私募证券基金普遍开展贷款的授权。</strong></p>
+<p>托管也要区分产品和规则。2024《私募证券投资基金运作指引》要求依法托管，存续未按要求托管的证券基金不得新增投资者、不得新增规模、不得展期，并有年度审计要求。不能把教材一般性“合同另约可不托管”直接套成证券私募任意豁免。<a href="https://www.amac.org.cn/xwfb/xhyw/202404/t20240430_25508.html" rel="noopener" target="_blank">基金业协会正式指引及附件</a></p>
+<p>托管人有保管、复核和监督职责；发现违规投资指令按规则拒绝、通知与报告。托管存在仍不能防止全部正常市场损失。</p></section><section class="lesson" id="c6s6-part-07"><h3>07 · 2024运作指引的规模约束：初始1000万不等于个人100万</h3>
+<p>私募证券基金初始实缴募集资金规模不得低于1000万元，不能用短期赎回安排规避。此处主体是<strong>整只基金</strong>，不是每个个人的最低出资。</p>
+<figure class="diagram" data-diagram="c6-private-scale"><figcaption class="figure-label">SVG · 不同金额与连续交易日对应不同阶段</figcaption><div class="diagram-interactive"><div id="finance-c6-private-scale">
+<h3>不同金额与连续交易日对应不同阶段</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">初始与运行</button><button aria-pressed="false" class="btn" type="button">后续清算</button></div>
+<div data-diagrams=""><svg aria-label="整只基金" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>整只基金</title><desc>初始实缴，不低于1000万；低于500万等，连续60交易日；停止申购，依法披露处理。看运行条件；触发暂停</desc><defs><marker id="arrow-c6-private-scale-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">整只基金</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">初始实缴</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">不低于1000万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">低于500万等</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">连续60交易日</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">停止申购</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依法披露处理</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c6-private-scale-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">看运行条件</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c6-private-scale-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">触发暂停</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">初始与运行</div>
+<script data-config="" type="application/json">{"heading": "不同金额与连续交易日对应不同阶段", "states": [{"label": "初始与运行", "rows": [{"label": "整只基金", "nodes": [["初始实缴", "不低于1000万"], ["低于500万等", "连续60交易日"], ["停止申购", "依法披露处理"]], "edges": ["看运行条件", "触发暂停"]}]}, {"label": "后续清算", "rows": [{"label": "不是一天跌破即清算", "nodes": [["停止申购之后", "继续观察"], ["连续120交易日", "仍低于500万等"], ["触发清算", "按正式规则处理"]], "edges": ["观察期限", "进入清算"]}]}]}</script>
+</div>
+<style>
+#finance-c6-private-scale .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-private-scale .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-private-scale .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-private-scale .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-private-scale .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-private-scale');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-private-scale-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-private-scale-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>初始与运行</h4><div><svg aria-label="整只基金" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>整只基金</title><desc>初始实缴，不低于1000万；低于500万等，连续60交易日；停止申购，依法披露处理。看运行条件；触发暂停</desc><defs><marker id="print-06-06-4-0-arrow-c6-private-scale-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">整只基金</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">初始实缴</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">不低于1000万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">低于500万等</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">连续60交易日</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">停止申购</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依法披露处理</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-06-4-0-arrow-c6-private-scale-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">看运行条件</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-06-4-0-arrow-c6-private-scale-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">触发暂停</text></svg></div></div><div class="diagram-print-state"><h4>后续清算</h4><div><svg aria-label="不是一天跌破即清算" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不是一天跌破即清算</title><desc>停止申购之后，继续观察；连续120交易日，仍低于500万等；触发清算，按正式规则处理。观察期限；进入清算</desc><defs><marker id="print-06-06-4-1-arrow-c6-private-scale-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是一天跌破即清算</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">停止申购之后</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">继续观察</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">连续120交易日</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">仍低于500万等</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">触发清算</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按正式规则处理</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-06-4-1-arrow-c6-private-scale-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">观察期限</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-06-4-1-arrow-c6-private-scale-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">进入清算</text></svg></div></div></div></figure>
+<p>连续60个交易日出现净资产低于500万元等情形，应按指引停止申购；停止申购后连续120个交易日净资产仍低于500万元等，触发清算要求。初始门槛、运行警戒和清算条件是不同阶段，不宜压缩成“基金一跌破1000万立刻清算”。<a href="https://www.amac.org.cn/xwfb/xhyw/202404/P020240430698706100795.pdf" rel="noopener" target="_blank">2024正式《运作指引》</a></p>
+<p>同一指引还针对开放频率、锁定期、组合与杠杆等加强约束，相关特殊情形另有规定。这里讲规模，是因为教材其他单元也出现1000万、100万，最容易把三个门槛混成一个。其他细则遇到明确题目再按产品与条款查。</p></section><section class="lesson" id="c6s6-part-08"><h3>08 · 信息披露：面向投资者，不是面向社会晒收益</h3>
+<p>私募管理人应依规定与合同提供净值、投资、费用、重大变化、关联交易等信息；不得虚假、误导、重大遗漏或承诺保本与最低收益。费用还可能包括业绩报酬，计提基准、高水位、计提时点等要看合同，不能仅凭“盈利的20%”推导所有私募费用。</p>
+<p>2026年9月1日起施行的新办法把证券与股权私募的时限分开。下表是新制度的关键区别，不应拿公募15个工作日、3个月来答私募题。<a href="https://www.csrc.gov.cn/csrc/c101953/c7616837/content.shtml" rel="noopener" target="_blank">证监会第233号令</a></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>新办法主要期限</th>
+<th>私募证券基金</th>
+<th>私募股权基金</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定期报告</td>
+<td>季度结束1个月内季报；年度结束4个月内年报</td>
+<td>半年结束2个月内半年报；年度结束6个月内年报</td>
+</tr>
+<tr>
+<td>重大事项</td>
+<td>按规定5个工作日内临时披露</td>
+<td>按规定5个工作日内临时披露</td>
+</tr>
+<tr>
+<td>披露资料保存</td>
+<td>自基金清算结束起不少于20年</td>
+<td>自基金清算结束起不少于20年</td>
+</tr>
+</tbody>
+</table></div>
+<p>开放式证券私募净值披露频率不得低于开放频率，封闭式至少每季度一次；合同可增加要求，不能降低法定要求。教材旧“至少10年”不得作为新办法下披露资料的现行保存期限。</p>
+<p>这一段修订的用途是防止把旧教材数字当成当前业务标准。相关题目先定位适用日期、证券还是股权、报告类型，再回答期限。</p></section><section class="lesson" id="c6s6-part-09"><h3>09 · 业绩评价：收益、波动、回撤与VaR不能互相替代</h3>
+<p>收益率看赚赔比例；波动率看收益离散；夏普看每单位总风险的超额收益；索提诺侧重下行风险；最大回撤看历史峰值到其后谷值跌幅；VaR是在给定期限、置信水平及模型下描述损失分位数的风险指标。</p>
+<p><span aria-label="Drawdown=\frac{Peak-Trough}{Peak}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="4.676ex" role="img" style="vertical-align: -1.577ex;" viewbox="0 -1370 13373 2067" width="30.256ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M287 628Q287 635 230 637Q207 637 200 638T193 647Q193 655 197 667T204 682Q206 683 403 683Q570 682 590 682T630 676Q702 659 752 597T803 431Q803 275 696 151T444 3L430 1L236 0H125H72Q48 0 41 2T33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM703 469Q703 507 692 537T666 584T629 613T590 629T555 636Q553 636 541 636T512 636T479 637H436Q392 637 386 627Q384 623 313 339T242 52Q242 48 253 48T330 47Q335 47 349 47T373 46Q499 46 581 128Q617 164 640 212T683 339T703 469Z" id="FORMULA-14-MJX-15-TEX-I-1D437"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-14-MJX-15-TEX-I-1D45F"></path><path d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z" id="FORMULA-14-MJX-15-TEX-I-1D44E"></path><path d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z" id="FORMULA-14-MJX-15-TEX-I-1D464"></path><path d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z" id="FORMULA-14-MJX-15-TEX-I-1D451"></path><path d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z" id="FORMULA-14-MJX-15-TEX-I-1D45C"></path><path d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" id="FORMULA-14-MJX-15-TEX-I-1D45B"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-14-MJX-15-TEX-N-3D"></path><path d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z" id="FORMULA-14-MJX-15-TEX-I-1D443"></path><path d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z" id="FORMULA-14-MJX-15-TEX-I-1D452"></path><path d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z" id="FORMULA-14-MJX-15-TEX-I-1D458"></path><path d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" id="FORMULA-14-MJX-15-TEX-N-2212"></path><path d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z" id="FORMULA-14-MJX-15-TEX-I-1D447"></path><path d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-14-MJX-15-TEX-I-1D462"></path><path d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z" id="FORMULA-14-MJX-15-TEX-I-1D454"></path><path d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z" id="FORMULA-14-MJX-15-TEX-I-210E"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D437" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D437"></use></g><g data-mml-node="mi" transform="translate(828,0)"><use data-c="1D45F" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(1279,0)"><use data-c="1D44E" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(1808,0)"><use data-c="1D464" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D464"></use></g><g data-mml-node="mi" transform="translate(2524,0)"><use data-c="1D451" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D451"></use></g><g data-mml-node="mi" transform="translate(3044,0)"><use data-c="1D45C" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D45C"></use></g><g data-mml-node="mi" transform="translate(3529,0)"><use data-c="1D464" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D464"></use></g><g data-mml-node="mi" transform="translate(4245,0)"><use data-c="1D45B" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D45B"></use></g><g data-mml-node="mo" transform="translate(5122.8,0)"><use data-c="3D" xlink:href="#FORMULA-14-MJX-15-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(6178.6,0)"><g data-mml-node="mrow" transform="translate(220,676)"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D443"></use></g><g data-mml-node="mi" transform="translate(751,0)"><use data-c="1D452" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D452"></use></g><g data-mml-node="mi" transform="translate(1217,0)"><use data-c="1D44E" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(1746,0)"><use data-c="1D458" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D458"></use></g><g data-mml-node="mo" transform="translate(2489.2,0)"><use data-c="2212" xlink:href="#FORMULA-14-MJX-15-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(3489.4,0)"><use data-c="1D447" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D447"></use></g><g data-mml-node="mi" transform="translate(4193.4,0)"><use data-c="1D45F" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(4644.4,0)"><use data-c="1D45C" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D45C"></use></g><g data-mml-node="mi" transform="translate(5129.4,0)"><use data-c="1D462" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D462"></use></g><g data-mml-node="mi" transform="translate(5701.4,0)"><use data-c="1D454" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D454"></use></g><g data-mml-node="mi" transform="translate(6178.4,0)"><use data-c="210E" xlink:href="#FORMULA-14-MJX-15-TEX-I-210E"></use></g></g><g data-mml-node="mrow" transform="translate(2463.7,-686)"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D443"></use></g><g data-mml-node="mi" transform="translate(751,0)"><use data-c="1D452" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D452"></use></g><g data-mml-node="mi" transform="translate(1217,0)"><use data-c="1D44E" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(1746,0)"><use data-c="1D458" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D458"></use></g></g><rect height="60" width="6954.4" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<p>净值先到1.2，后跌到0.9，回撤＝0.3÷1.2＝25%。从0.9回到1.2则需涨33.33%，跌幅与回本涨幅不是同一分母。</p>
+<figure class="diagram" data-diagram="c6-private-performance"><figcaption class="figure-label">SVG · 跌幅与回本涨幅的分母不同</figcaption><div class="diagram-interactive"><div id="finance-c6-private-performance">
+<h3>跌幅与回本涨幅的分母不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">回撤</button><button aria-pressed="false" class="btn" type="button">回本</button></div>
+<div data-diagrams=""><svg aria-label="先峰后谷" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>先峰后谷</title><desc>前期峰值1.2，后期谷值0.9；跌幅0.3，除峰值1.2；回撤25%，0.3除1.2。先相减；再除峰值</desc><defs><marker id="arrow-c6-private-performance-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先峰后谷</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">前期峰值1.2</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">后期谷值0.9</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">跌幅0.3</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">除峰值1.2</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">回撤25%</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">0.3除1.2</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c6-private-performance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">先相减</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c6-private-performance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">再除峰值</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">回撤</div>
+<script data-config="" type="application/json">{"heading": "跌幅与回本涨幅的分母不同", "states": [{"label": "回撤", "rows": [{"label": "先峰后谷", "nodes": [["前期峰值1.2", "后期谷值0.9"], ["跌幅0.3", "除峰值1.2"], ["回撤25%", "0.3除1.2"]], "edges": ["先相减", "再除峰值"]}]}, {"label": "回本", "rows": [{"label": "从0.9回到1.2", "nodes": [["起点0.9", "目标1.2"], ["要涨0.3", "除当前0.9"], ["需涨33.33%", "不等于25%"]], "edges": ["目标差额", "再除起点"]}]}]}</script>
+</div>
+<style>
+#finance-c6-private-performance .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-private-performance .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-private-performance .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-private-performance .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-private-performance .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-private-performance');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-private-performance-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-private-performance-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>回撤</h4><div><svg aria-label="先峰后谷" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>先峰后谷</title><desc>前期峰值1.2，后期谷值0.9；跌幅0.3，除峰值1.2；回撤25%，0.3除1.2。先相减；再除峰值</desc><defs><marker id="print-06-06-5-0-arrow-c6-private-performance-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先峰后谷</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">前期峰值1.2</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">后期谷值0.9</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">跌幅0.3</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">除峰值1.2</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">回撤25%</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">0.3除1.2</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-06-5-0-arrow-c6-private-performance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">先相减</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-06-5-0-arrow-c6-private-performance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">再除峰值</text></svg></div></div><div class="diagram-print-state"><h4>回本</h4><div><svg aria-label="从0.9回到1.2" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>从0.9回到1.2</title><desc>起点0.9，目标1.2；要涨0.3，除当前0.9；需涨33.33%，不等于25%。目标差额；再除起点</desc><defs><marker id="print-06-06-5-1-arrow-c6-private-performance-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">从0.9回到1.2</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">起点0.9</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">目标1.2</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">要涨0.3</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">除当前0.9</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">需涨33.33%</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">不等于25%</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-06-5-1-arrow-c6-private-performance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">目标差额</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-06-5-1-arrow-c6-private-performance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">再除起点</text></svg></div></div></div></figure>
+<p>VaR不是“绝对最大可能亏损”，尾部情形可以更严重，估计也依赖模型。教材把夏普放在收益指标的介绍中，不意味着它只衡量收益；它明明用了风险分母。</p>
+<p>选择同类策略、同一期间、同口径收益再比较，不能用某只私募短短几周收益与另一只基金多年收益做排名。管理人挑出最好一段历史展示，也不代表完整运作结果。</p></section><section class="lesson" id="c6s6-part-10"><h3>10 · 外资私募管理人：股东身份改变，不取消境内责任</h3>
+<p>教材介绍外商独资、合资私募证券基金管理人的条件，关注境内依法设立、股东或实际控制人资质与监管背景、相应跨境监管合作及近年重大处罚情况等。</p>
+<p>外国股东在其本国有资质，不等于可直接跨过境内登记经营。投资决策与管理仍应由境内管理人依制度独立履责，不能把境外股东指令视为所有合规检查的替代。跨境资金与外汇安排另须合法，不等同一拿到外资身份就自然成为QDII。</p>
+<p><span class="level context">背景</span>这里讲外资条件，是让你认出“股东资格”和“基金管理人境内责任”两层。具体资料提交和旧系统路径不必第一轮照抄；做制度题须按对应时期文本核对。</p></section><section class="lesson" id="c6s6-part-11"><h3>11 · 自编诊断题：先确定主体和阶段</h3>
+<ol>
+<li>“私募”是否意味着无监管？</li>
+<li>普通个人金融资产400万，但拟投单只基金50万，满足一般金额条件吗？</li>
+<li>普通个人金融资产200万、最近三年年均收入60万、单只投资100万，财产收入与金额条件怎样？</li>
+<li>只有一套价值300万的自住房，可直接认定金融资产300万吗？</li>
+<li>管理人登记与产品备案有什么区别？</li>
+<li>募集冷静期通常不少于多长？</li>
+<li>私募证券基金初始实缴1000万是每位投资者的条件吗？</li>
+<li>基金净资产一天跌破1000万是否立即按规模条款清算？</li>
+<li>未按要求托管的存续证券私募能随意新增规模、展期吗？</li>
+<li>2026新办法下证券私募年报一般期限多少？股权私募呢？</li>
+<li>净值1.2跌到0.9，回撤与回本涨幅分别多少？</li>
+<li>VaR能说明绝对最大损失不超过给定数额吗？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与错因</summary>
+<div class="answer-content">
+<ol>
+<li>不是，非公开募集仍有行政与自律等要求。</li>
+<li>不满足单只100万元的一般金额门槛。</li>
+<li>收入条件满足“财产或收入”中的收入一项，金额条件也满足；仍需风险能力、适当性等核验。</li>
+<li>不能，自住房不是该口径的金融资产。</li>
+<li>登记针对管理人主体，备案针对具体产品，两者均不担保收益。</li>
+<li>私募证券基金一般不少于24小时，起点及适用豁免按规则确认。</li>
+<li>不是，是整只基金的初始实缴要求；一般个人单只门槛另看100万元。</li>
+<li>不是，运行警戒、停止申购与清算分别有金额、连续交易日等条件。</li>
+<li>不能，按2024运作指引相关约束处理。</li>
+<li>证券年度结束4个月内，股权年度结束6个月内，不要套公募3个月。</li>
+<li>回撤25%，回本需涨约33.33%，分母不同。</li>
+<li>不能，VaR是给定条件下的损失分位数指标，极端尾部仍可能更大。</li>
+</ol>
+</div>
+</details>
+<p>记忆时把100万元、1000万元、200人、24小时、20个工作日分别绑定单只投资、基金规模或单位资格、人数、冷静期、备案节点，遇到相同数字先问主体，别只背数字串。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="06-05_基金的监管与信息披露.html">上一节 · 基金的监管与信息披露</a><a href="06-07_公开募集基础设施证券投资基金.html">下一节 · 公开募集基础设施证券投资基金</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>src/entropy_models/video_entropy_models.py</title><style>body{margin:28px;color:#23303b;background:#fff;font:14px/1.6 Consolas,monospace}h1{font:22px/1.5 'Microsoft YaHei',sans-serif}a{color:#26717f}pre{overflow:auto;background:#f5f7f8;padding:15px}.line{display:grid;grid-template-columns:50px 1fr;min-width:max-content;scroll-margin-top:20px}.line>a{text-decoration:none;color:#7a8990;user-select:none}.line:target{background:#fff0bd}.line>span{white-space:pre}</style><h1>src/entropy_models/video_entropy_models.py</h1><p>官方固定版本源码 · <a href="../../../../DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87.html#code-lecture-2">返回精读讲解</a> · <a href="../../../%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5%E5%BF%AB%E7%85%A7/src/entropy_models/video_entropy_models.py">原始源码</a></p><pre><span class="line" id="L1"><a href="#L1">1</a><span># Copyright (c) Microsoft Corporation.</span></span>
+<span class="line" id="L2"><a href="#L2">2</a><span># Licensed under the MIT License.</span></span>
+<span class="line" id="L3"><a href="#L3">3</a><span></span></span>
+<span class="line" id="L4"><a href="#L4">4</a><span>import torch</span></span>
+<span class="line" id="L5"><a href="#L5">5</a><span>import math</span></span>
+<span class="line" id="L6"><a href="#L6">6</a><span>import torch.nn as nn</span></span>
+<span class="line" id="L7"><a href="#L7">7</a><span>import torch.nn.functional as F</span></span>
+<span class="line" id="L8"><a href="#L8">8</a><span></span></span>
+<span class="line" id="L9"><a href="#L9">9</a><span></span></span>
+<span class="line" id="L10"><a href="#L10">10</a><span>class EntropyCoder(object):</span></span>
+<span class="line" id="L11"><a href="#L11">11</a><span>    def __init__(self, entropy_coder_precision=16):</span></span>
+<span class="line" id="L12"><a href="#L12">12</a><span>        super().__init__()</span></span>
+<span class="line" id="L13"><a href="#L13">13</a><span></span></span>
+<span class="line" id="L14"><a href="#L14">14</a><span>        from .MLCodec_rans import RansEncoder, RansDecoder</span></span>
+<span class="line" id="L15"><a href="#L15">15</a><span>        self.encoder = RansEncoder()</span></span>
+<span class="line" id="L16"><a href="#L16">16</a><span>        self.decoder = RansDecoder()</span></span>
+<span class="line" id="L17"><a href="#L17">17</a><span>        self.entropy_coder_precision = int(entropy_coder_precision)</span></span>
+<span class="line" id="L18"><a href="#L18">18</a><span>        self._offset = None</span></span>
+<span class="line" id="L19"><a href="#L19">19</a><span>        self._quantized_cdf = None</span></span>
+<span class="line" id="L20"><a href="#L20">20</a><span>        self._cdf_length = None</span></span>
+<span class="line" id="L21"><a href="#L21">21</a><span></span></span>
+<span class="line" id="L22"><a href="#L22">22</a><span>    def encode_with_indexes(self, *args, **kwargs):</span></span>
+<span class="line" id="L23"><a href="#L23">23</a><span>        return self.encoder.encode_with_indexes(*args, **kwargs)</span></span>
+<span class="line" id="L24"><a href="#L24">24</a><span></span></span>
+<span class="line" id="L25"><a href="#L25">25</a><span>    def decode_with_indexes(self, *args, **kwargs):</span></span>
+<span class="line" id="L26"><a href="#L26">26</a><span>        return self.decoder.decode_with_indexes(*args, **kwargs)</span></span>
+<span class="line" id="L27"><a href="#L27">27</a><span></span></span>
+<span class="line" id="L28"><a href="#L28">28</a><span>    def set_cdf_states(self, offset, quantized_cdf, cdf_length):</span></span>
+<span class="line" id="L29"><a href="#L29">29</a><span>        self._offset = offset</span></span>
+<span class="line" id="L30"><a href="#L30">30</a><span>        self._quantized_cdf = quantized_cdf</span></span>
+<span class="line" id="L31"><a href="#L31">31</a><span>        self._cdf_length = cdf_length</span></span>
+<span class="line" id="L32"><a href="#L32">32</a><span></span></span>
+<span class="line" id="L33"><a href="#L33">33</a><span>    @staticmethod</span></span>
+<span class="line" id="L34"><a href="#L34">34</a><span>    def pmf_to_quantized_cdf(pmf, precision=16):</span></span>
+<span class="line" id="L35"><a href="#L35">35</a><span>        from .MLCodec_CXX import pmf_to_quantized_cdf as _pmf_to_quantized_cdf</span></span>
+<span class="line" id="L36"><a href="#L36">36</a><span>        cdf = _pmf_to_quantized_cdf(pmf.tolist(), precision)</span></span>
+<span class="line" id="L37"><a href="#L37">37</a><span>        cdf = torch.IntTensor(cdf)</span></span>
+<span class="line" id="L38"><a href="#L38">38</a><span>        return cdf</span></span>
+<span class="line" id="L39"><a href="#L39">39</a><span></span></span>
+<span class="line" id="L40"><a href="#L40">40</a><span>    def pmf_to_cdf(self, pmf, tail_mass, pmf_length, max_length):</span></span>
+<span class="line" id="L41"><a href="#L41">41</a><span>        cdf = torch.zeros((len(pmf_length), max_length + 2), dtype=torch.int32)</span></span>
+<span class="line" id="L42"><a href="#L42">42</a><span>        for i, p in enumerate(pmf):</span></span>
+<span class="line" id="L43"><a href="#L43">43</a><span>            prob = torch.cat((p[: pmf_length[i]], tail_mass[i]), dim=0)</span></span>
+<span class="line" id="L44"><a href="#L44">44</a><span>            _cdf = self.pmf_to_quantized_cdf(prob, self.entropy_coder_precision)</span></span>
+<span class="line" id="L45"><a href="#L45">45</a><span>            cdf[i, : _cdf.size(0)] = _cdf</span></span>
+<span class="line" id="L46"><a href="#L46">46</a><span>        return cdf</span></span>
+<span class="line" id="L47"><a href="#L47">47</a><span></span></span>
+<span class="line" id="L48"><a href="#L48">48</a><span>    def _check_cdf_size(self):</span></span>
+<span class="line" id="L49"><a href="#L49">49</a><span>        if self._quantized_cdf.numel() == 0:</span></span>
+<span class="line" id="L50"><a href="#L50">50</a><span>            raise ValueError("Uninitialized CDFs. Run update() first")</span></span>
+<span class="line" id="L51"><a href="#L51">51</a><span></span></span>
+<span class="line" id="L52"><a href="#L52">52</a><span>        if len(self._quantized_cdf.size()) != 2:</span></span>
+<span class="line" id="L53"><a href="#L53">53</a><span>            raise ValueError(f"Invalid CDF size {self._quantized_cdf.size()}")</span></span>
+<span class="line" id="L54"><a href="#L54">54</a><span></span></span>
+<span class="line" id="L55"><a href="#L55">55</a><span>    def _check_offsets_size(self):</span></span>
+<span class="line" id="L56"><a href="#L56">56</a><span>        if self._offset.numel() == 0:</span></span>
+<span class="line" id="L57"><a href="#L57">57</a><span>            raise ValueError("Uninitialized offsets. Run update() first")</span></span>
+<span class="line" id="L58"><a href="#L58">58</a><span></span></span>
+<span class="line" id="L59"><a href="#L59">59</a><span>        if len(self._offset.size()) != 1:</span></span>
+<span class="line" id="L60"><a href="#L60">60</a><span>            raise ValueError(f"Invalid offsets size {self._offset.size()}")</span></span>
+<span class="line" id="L61"><a href="#L61">61</a><span></span></span>
+<span class="line" id="L62"><a href="#L62">62</a><span>    def _check_cdf_length(self):</span></span>
+<span class="line" id="L63"><a href="#L63">63</a><span>        if self._cdf_length.numel() == 0:</span></span>
+<span class="line" id="L64"><a href="#L64">64</a><span>            raise ValueError("Uninitialized CDF lengths. Run update() first")</span></span>
+<span class="line" id="L65"><a href="#L65">65</a><span></span></span>
+<span class="line" id="L66"><a href="#L66">66</a><span>        if len(self._cdf_length.size()) != 1:</span></span>
+<span class="line" id="L67"><a href="#L67">67</a><span>            raise ValueError(f"Invalid offsets size {self._cdf_length.size()}")</span></span>
+<span class="line" id="L68"><a href="#L68">68</a><span></span></span>
+<span class="line" id="L69"><a href="#L69">69</a><span>    def compress(self, inputs, indexes):</span></span>
+<span class="line" id="L70"><a href="#L70">70</a><span>        """</span></span>
+<span class="line" id="L71"><a href="#L71">71</a><span>        """</span></span>
+<span class="line" id="L72"><a href="#L72">72</a><span>        if len(inputs.size()) != 4:</span></span>
+<span class="line" id="L73"><a href="#L73">73</a><span>            raise ValueError("Invalid `inputs` size. Expected a 4-D tensor.")</span></span>
+<span class="line" id="L74"><a href="#L74">74</a><span></span></span>
+<span class="line" id="L75"><a href="#L75">75</a><span>        if inputs.size() != indexes.size():</span></span>
+<span class="line" id="L76"><a href="#L76">76</a><span>            raise ValueError("`inputs` and `indexes` should have the same size.")</span></span>
+<span class="line" id="L77"><a href="#L77">77</a><span>        symbols = inputs.int()</span></span>
+<span class="line" id="L78"><a href="#L78">78</a><span></span></span>
+<span class="line" id="L79"><a href="#L79">79</a><span>        self._check_cdf_size()</span></span>
+<span class="line" id="L80"><a href="#L80">80</a><span>        self._check_cdf_length()</span></span>
+<span class="line" id="L81"><a href="#L81">81</a><span>        self._check_offsets_size()</span></span>
+<span class="line" id="L82"><a href="#L82">82</a><span></span></span>
+<span class="line" id="L83"><a href="#L83">83</a><span>        assert symbols.size(0) == 1</span></span>
+<span class="line" id="L84"><a href="#L84">84</a><span>        rv = self.encode_with_indexes(</span></span>
+<span class="line" id="L85"><a href="#L85">85</a><span>            symbols[0].reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L86"><a href="#L86">86</a><span>            indexes[0].reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L87"><a href="#L87">87</a><span>            self._quantized_cdf.tolist(),</span></span>
+<span class="line" id="L88"><a href="#L88">88</a><span>            self._cdf_length.reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L89"><a href="#L89">89</a><span>            self._offset.reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L90"><a href="#L90">90</a><span>        )</span></span>
+<span class="line" id="L91"><a href="#L91">91</a><span>        return rv</span></span>
+<span class="line" id="L92"><a href="#L92">92</a><span></span></span>
+<span class="line" id="L93"><a href="#L93">93</a><span>    def decompress(self, strings, indexes):</span></span>
+<span class="line" id="L94"><a href="#L94">94</a><span>        """</span></span>
+<span class="line" id="L95"><a href="#L95">95</a><span>        Decompress char strings to tensors.</span></span>
+<span class="line" id="L96"><a href="#L96">96</a><span></span></span>
+<span class="line" id="L97"><a href="#L97">97</a><span>        Args:</span></span>
+<span class="line" id="L98"><a href="#L98">98</a><span>            strings (str): compressed tensors</span></span>
+<span class="line" id="L99"><a href="#L99">99</a><span>            indexes (torch.IntTensor): tensors CDF indexes</span></span>
+<span class="line" id="L100"><a href="#L100">100</a><span>        """</span></span>
+<span class="line" id="L101"><a href="#L101">101</a><span></span></span>
+<span class="line" id="L102"><a href="#L102">102</a><span>        assert indexes.size(0) == 1</span></span>
+<span class="line" id="L103"><a href="#L103">103</a><span></span></span>
+<span class="line" id="L104"><a href="#L104">104</a><span>        if len(indexes.size()) != 4:</span></span>
+<span class="line" id="L105"><a href="#L105">105</a><span>            raise ValueError("Invalid `indexes` size. Expected a 4-D tensor.")</span></span>
+<span class="line" id="L106"><a href="#L106">106</a><span></span></span>
+<span class="line" id="L107"><a href="#L107">107</a><span>        self._check_cdf_size()</span></span>
+<span class="line" id="L108"><a href="#L108">108</a><span>        self._check_cdf_length()</span></span>
+<span class="line" id="L109"><a href="#L109">109</a><span>        self._check_offsets_size()</span></span>
+<span class="line" id="L110"><a href="#L110">110</a><span></span></span>
+<span class="line" id="L111"><a href="#L111">111</a><span>        cdf = self._quantized_cdf</span></span>
+<span class="line" id="L112"><a href="#L112">112</a><span>        outputs = cdf.new(indexes.size())</span></span>
+<span class="line" id="L113"><a href="#L113">113</a><span></span></span>
+<span class="line" id="L114"><a href="#L114">114</a><span>        values = self.decode_with_indexes(</span></span>
+<span class="line" id="L115"><a href="#L115">115</a><span>            strings,</span></span>
+<span class="line" id="L116"><a href="#L116">116</a><span>            indexes[0].reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L117"><a href="#L117">117</a><span>            self._quantized_cdf.tolist(),</span></span>
+<span class="line" id="L118"><a href="#L118">118</a><span>            self._cdf_length.reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L119"><a href="#L119">119</a><span>            self._offset.reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L120"><a href="#L120">120</a><span>        )</span></span>
+<span class="line" id="L121"><a href="#L121">121</a><span>        outputs[0] = torch.Tensor(values).reshape(outputs[0].size())</span></span>
+<span class="line" id="L122"><a href="#L122">122</a><span>        return outputs.float()</span></span>
+<span class="line" id="L123"><a href="#L123">123</a><span></span></span>
+<span class="line" id="L124"><a href="#L124">124</a><span>    def set_stream(self, stream):</span></span>
+<span class="line" id="L125"><a href="#L125">125</a><span>        self.decoder.set_stream(stream)</span></span>
+<span class="line" id="L126"><a href="#L126">126</a><span></span></span>
+<span class="line" id="L127"><a href="#L127">127</a><span>    def decode_stream(self, indexes):</span></span>
+<span class="line" id="L128"><a href="#L128">128</a><span>        rv = self.decoder.decode_stream(</span></span>
+<span class="line" id="L129"><a href="#L129">129</a><span>            indexes.squeeze().int().tolist(),</span></span>
+<span class="line" id="L130"><a href="#L130">130</a><span>            self._quantized_cdf.tolist(),</span></span>
+<span class="line" id="L131"><a href="#L131">131</a><span>            self._cdf_length.reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L132"><a href="#L132">132</a><span>            self._offset.reshape(-1).int().tolist(),</span></span>
+<span class="line" id="L133"><a href="#L133">133</a><span>        )</span></span>
+<span class="line" id="L134"><a href="#L134">134</a><span>        rv = torch.Tensor(rv).reshape(1, -1, 1, 1)</span></span>
+<span class="line" id="L135"><a href="#L135">135</a><span>        return rv</span></span>
+<span class="line" id="L136"><a href="#L136">136</a><span></span></span>
+<span class="line" id="L137"><a href="#L137">137</a><span></span></span>
+<span class="line" id="L138"><a href="#L138">138</a><span>class Bitparm(nn.Module):</span></span>
+<span class="line" id="L139"><a href="#L139">139</a><span>    def __init__(self, channel, final=False):</span></span>
+<span class="line" id="L140"><a href="#L140">140</a><span>        super(Bitparm, self).__init__()</span></span>
+<span class="line" id="L141"><a href="#L141">141</a><span>        self.final = final</span></span>
+<span class="line" id="L142"><a href="#L142">142</a><span>        self.h = nn.Parameter(torch.nn.init.normal_(</span></span>
+<span class="line" id="L143"><a href="#L143">143</a><span>            torch.empty(channel).view(1, -1, 1, 1), 0, 0.01))</span></span>
+<span class="line" id="L144"><a href="#L144">144</a><span>        self.b = nn.Parameter(torch.nn.init.normal_(</span></span>
+<span class="line" id="L145"><a href="#L145">145</a><span>            torch.empty(channel).view(1, -1, 1, 1), 0, 0.01))</span></span>
+<span class="line" id="L146"><a href="#L146">146</a><span>        if not final:</span></span>
+<span class="line" id="L147"><a href="#L147">147</a><span>            self.a = nn.Parameter(torch.nn.init.normal_(</span></span>
+<span class="line" id="L148"><a href="#L148">148</a><span>                torch.empty(channel).view(1, -1, 1, 1), 0, 0.01))</span></span>
+<span class="line" id="L149"><a href="#L149">149</a><span>        else:</span></span>
+<span class="line" id="L150"><a href="#L150">150</a><span>            self.a = None</span></span>
+<span class="line" id="L151"><a href="#L151">151</a><span></span></span>
+<span class="line" id="L152"><a href="#L152">152</a><span>    def forward(self, x):</span></span>
+<span class="line" id="L153"><a href="#L153">153</a><span>        if self.final:</span></span>
+<span class="line" id="L154"><a href="#L154">154</a><span>            return torch.sigmoid(x * F.softplus(self.h) + self.b)</span></span>
+<span class="line" id="L155"><a href="#L155">155</a><span>        else:</span></span>
+<span class="line" id="L156"><a href="#L156">156</a><span>            x = x * F.softplus(self.h) + self.b</span></span>
+<span class="line" id="L157"><a href="#L157">157</a><span>            return x + torch.tanh(x) * torch.tanh(self.a)</span></span>
+<span class="line" id="L158"><a href="#L158">158</a><span></span></span>
+<span class="line" id="L159"><a href="#L159">159</a><span></span></span>
+<span class="line" id="L160"><a href="#L160">160</a><span>class BitEstimator(nn.Module):</span></span>
+<span class="line" id="L161"><a href="#L161">161</a><span>    def __init__(self, channel):</span></span>
+<span class="line" id="L162"><a href="#L162">162</a><span>        super(BitEstimator, self).__init__()</span></span>
+<span class="line" id="L163"><a href="#L163">163</a><span>        self.f1 = Bitparm(channel)</span></span>
+<span class="line" id="L164"><a href="#L164">164</a><span>        self.f2 = Bitparm(channel)</span></span>
+<span class="line" id="L165"><a href="#L165">165</a><span>        self.f3 = Bitparm(channel)</span></span>
+<span class="line" id="L166"><a href="#L166">166</a><span>        self.f4 = Bitparm(channel, True)</span></span>
+<span class="line" id="L167"><a href="#L167">167</a><span>        self.channel = channel</span></span>
+<span class="line" id="L168"><a href="#L168">168</a><span>        self.entropy_coder = None</span></span>
+<span class="line" id="L169"><a href="#L169">169</a><span></span></span>
+<span class="line" id="L170"><a href="#L170">170</a><span>    def forward(self, x):</span></span>
+<span class="line" id="L171"><a href="#L171">171</a><span>        x = self.f1(x)</span></span>
+<span class="line" id="L172"><a href="#L172">172</a><span>        x = self.f2(x)</span></span>
+<span class="line" id="L173"><a href="#L173">173</a><span>        x = self.f3(x)</span></span>
+<span class="line" id="L174"><a href="#L174">174</a><span>        return self.f4(x)</span></span>
+<span class="line" id="L175"><a href="#L175">175</a><span></span></span>
+<span class="line" id="L176"><a href="#L176">176</a><span>    def update(self, force=False):</span></span>
+<span class="line" id="L177"><a href="#L177">177</a><span>        # Check if we need to update the bottleneck parameters, the offsets are</span></span>
+<span class="line" id="L178"><a href="#L178">178</a><span>        # only computed and stored when the conditonal model is update()'d.</span></span>
+<span class="line" id="L179"><a href="#L179">179</a><span>        if self.entropy_coder is not None and not force:  # pylint: disable=E0203</span></span>
+<span class="line" id="L180"><a href="#L180">180</a><span>            return</span></span>
+<span class="line" id="L181"><a href="#L181">181</a><span></span></span>
+<span class="line" id="L182"><a href="#L182">182</a><span>        self.entropy_coder = EntropyCoder()</span></span>
+<span class="line" id="L183"><a href="#L183">183</a><span>        with torch.no_grad():</span></span>
+<span class="line" id="L184"><a href="#L184">184</a><span>            device = next(self.parameters()).device</span></span>
+<span class="line" id="L185"><a href="#L185">185</a><span>            medians = torch.zeros((self.channel), device=device)</span></span>
+<span class="line" id="L186"><a href="#L186">186</a><span></span></span>
+<span class="line" id="L187"><a href="#L187">187</a><span>            minima = medians + 50</span></span>
+<span class="line" id="L188"><a href="#L188">188</a><span>            for i in range(50, 1, -1):</span></span>
+<span class="line" id="L189"><a href="#L189">189</a><span>                samples = torch.zeros_like(medians) - i</span></span>
+<span class="line" id="L190"><a href="#L190">190</a><span>                samples = samples[None, :, None, None]</span></span>
+<span class="line" id="L191"><a href="#L191">191</a><span>                probs = self.forward(samples)</span></span>
+<span class="line" id="L192"><a href="#L192">192</a><span>                probs = torch.squeeze(probs)</span></span>
+<span class="line" id="L193"><a href="#L193">193</a><span>                minima = torch.where(probs &lt; torch.zeros_like(medians) + 0.0001,</span></span>
+<span class="line" id="L194"><a href="#L194">194</a><span>                                     torch.zeros_like(medians) + i, minima)</span></span>
+<span class="line" id="L195"><a href="#L195">195</a><span></span></span>
+<span class="line" id="L196"><a href="#L196">196</a><span>            maxima = medians + 50</span></span>
+<span class="line" id="L197"><a href="#L197">197</a><span>            for i in range(50, 1, -1):</span></span>
+<span class="line" id="L198"><a href="#L198">198</a><span>                samples = torch.zeros_like(medians) + i</span></span>
+<span class="line" id="L199"><a href="#L199">199</a><span>                samples = samples[None, :, None, None]</span></span>
+<span class="line" id="L200"><a href="#L200">200</a><span>                probs = self.forward(samples)</span></span>
+<span class="line" id="L201"><a href="#L201">201</a><span>                probs = torch.squeeze(probs)</span></span>
+<span class="line" id="L202"><a href="#L202">202</a><span>                maxima = torch.where(probs &gt; torch.zeros_like(medians) + 0.9999,</span></span>
+<span class="line" id="L203"><a href="#L203">203</a><span>                                     torch.zeros_like(medians) + i, maxima)</span></span>
+<span class="line" id="L204"><a href="#L204">204</a><span></span></span>
+<span class="line" id="L205"><a href="#L205">205</a><span>            minima = minima.int()</span></span>
+<span class="line" id="L206"><a href="#L206">206</a><span>            maxima = maxima.int()</span></span>
+<span class="line" id="L207"><a href="#L207">207</a><span></span></span>
+<span class="line" id="L208"><a href="#L208">208</a><span>            offset = -minima</span></span>
+<span class="line" id="L209"><a href="#L209">209</a><span></span></span>
+<span class="line" id="L210"><a href="#L210">210</a><span>            pmf_start = medians - minima</span></span>
+<span class="line" id="L211"><a href="#L211">211</a><span>            pmf_length = maxima + minima + 1</span></span>
+<span class="line" id="L212"><a href="#L212">212</a><span></span></span>
+<span class="line" id="L213"><a href="#L213">213</a><span>            max_length = pmf_length.max()</span></span>
+<span class="line" id="L214"><a href="#L214">214</a><span>            device = pmf_start.device</span></span>
+<span class="line" id="L215"><a href="#L215">215</a><span>            samples = torch.arange(max_length, device=device)</span></span>
+<span class="line" id="L216"><a href="#L216">216</a><span></span></span>
+<span class="line" id="L217"><a href="#L217">217</a><span>            samples = samples[None, :] + pmf_start[:, None, None]</span></span>
+<span class="line" id="L218"><a href="#L218">218</a><span></span></span>
+<span class="line" id="L219"><a href="#L219">219</a><span>            half = float(0.5)</span></span>
+<span class="line" id="L220"><a href="#L220">220</a><span></span></span>
+<span class="line" id="L221"><a href="#L221">221</a><span>            lower = self.forward(samples - half).squeeze(0)</span></span>
+<span class="line" id="L222"><a href="#L222">222</a><span>            upper = self.forward(samples + half).squeeze(0)</span></span>
+<span class="line" id="L223"><a href="#L223">223</a><span>            pmf = upper - lower</span></span>
+<span class="line" id="L224"><a href="#L224">224</a><span></span></span>
+<span class="line" id="L225"><a href="#L225">225</a><span>            pmf = pmf[:, 0, :]</span></span>
+<span class="line" id="L226"><a href="#L226">226</a><span>            tail_mass = lower[:, 0, :1] + (1.0 - upper[:, 0, -1:])</span></span>
+<span class="line" id="L227"><a href="#L227">227</a><span></span></span>
+<span class="line" id="L228"><a href="#L228">228</a><span>            quantized_cdf = self.entropy_coder.pmf_to_cdf(pmf, tail_mass, pmf_length, max_length)</span></span>
+<span class="line" id="L229"><a href="#L229">229</a><span>            cdf_length = pmf_length + 2</span></span>
+<span class="line" id="L230"><a href="#L230">230</a><span>            self.entropy_coder.set_cdf_states(offset, quantized_cdf, cdf_length)</span></span>
+<span class="line" id="L231"><a href="#L231">231</a><span></span></span>
+<span class="line" id="L232"><a href="#L232">232</a><span>    @staticmethod</span></span>
+<span class="line" id="L233"><a href="#L233">233</a><span>    def build_indexes(size):</span></span>
+<span class="line" id="L234"><a href="#L234">234</a><span>        N, C, H, W = size</span></span>
+<span class="line" id="L235"><a href="#L235">235</a><span>        indexes = torch.arange(C).view(1, -1, 1, 1)</span></span>
+<span class="line" id="L236"><a href="#L236">236</a><span>        indexes = indexes.int()</span></span>
+<span class="line" id="L237"><a href="#L237">237</a><span>        return indexes.repeat(N, 1, H, W)</span></span>
+<span class="line" id="L238"><a href="#L238">238</a><span></span></span>
+<span class="line" id="L239"><a href="#L239">239</a><span>    def compress(self, x):</span></span>
+<span class="line" id="L240"><a href="#L240">240</a><span>        indexes = self.build_indexes(x.size())</span></span>
+<span class="line" id="L241"><a href="#L241">241</a><span>        return self.entropy_coder.compress(x, indexes)</span></span>
+<span class="line" id="L242"><a href="#L242">242</a><span></span></span>
+<span class="line" id="L243"><a href="#L243">243</a><span>    def decompress(self, strings, size):</span></span>
+<span class="line" id="L244"><a href="#L244">244</a><span>        output_size = (1, self.entropy_coder._quantized_cdf.size(0), size[0], size[1])</span></span>
+<span class="line" id="L245"><a href="#L245">245</a><span>        indexes = self.build_indexes(output_size)</span></span>
+<span class="line" id="L246"><a href="#L246">246</a><span>        return self.entropy_coder.decompress(strings, indexes)</span></span>
+<span class="line" id="L247"><a href="#L247">247</a><span></span></span>
+<span class="line" id="L248"><a href="#L248">248</a><span></span></span>
+<span class="line" id="L249"><a href="#L249">249</a><span>class GaussianEncoder(object):</span></span>
+<span class="line" id="L250"><a href="#L250">250</a><span>    def __init__(self):</span></span>
+<span class="line" id="L251"><a href="#L251">251</a><span>        self.scale_table = self.get_scale_table()</span></span>
+<span class="line" id="L252"><a href="#L252">252</a><span>        self.entropy_coder = None</span></span>
+<span class="line" id="L253"><a href="#L253">253</a><span></span></span>
+<span class="line" id="L254"><a href="#L254">254</a><span>    @staticmethod</span></span>
+<span class="line" id="L255"><a href="#L255">255</a><span>    def get_scale_table(min=0.01, max=16, levels=64):  # pylint: disable=W0622</span></span>
+<span class="line" id="L256"><a href="#L256">256</a><span>        return torch.exp(torch.linspace(math.log(min), math.log(max), levels))</span></span>
+<span class="line" id="L257"><a href="#L257">257</a><span></span></span>
+<span class="line" id="L258"><a href="#L258">258</a><span>    def update(self, force=False):</span></span>
+<span class="line" id="L259"><a href="#L259">259</a><span>        if self.entropy_coder is not None and not force:</span></span>
+<span class="line" id="L260"><a href="#L260">260</a><span>            return</span></span>
+<span class="line" id="L261"><a href="#L261">261</a><span>        self.entropy_coder = EntropyCoder()</span></span>
+<span class="line" id="L262"><a href="#L262">262</a><span></span></span>
+<span class="line" id="L263"><a href="#L263">263</a><span>        pmf_center = torch.zeros_like(self.scale_table) + 50</span></span>
+<span class="line" id="L264"><a href="#L264">264</a><span>        scales = torch.zeros_like(pmf_center) + self.scale_table</span></span>
+<span class="line" id="L265"><a href="#L265">265</a><span>        mu = torch.zeros_like(scales)</span></span>
+<span class="line" id="L266"><a href="#L266">266</a><span>        gaussian = torch.distributions.laplace.Laplace(mu, scales)</span></span>
+<span class="line" id="L267"><a href="#L267">267</a><span>        for i in range(50, 1, -1):</span></span>
+<span class="line" id="L268"><a href="#L268">268</a><span>            samples = torch.zeros_like(pmf_center) + i</span></span>
+<span class="line" id="L269"><a href="#L269">269</a><span>            probs = gaussian.cdf(samples)</span></span>
+<span class="line" id="L270"><a href="#L270">270</a><span>            probs = torch.squeeze(probs)</span></span>
+<span class="line" id="L271"><a href="#L271">271</a><span>            pmf_center = torch.where(probs &gt; torch.zeros_like(pmf_center) + 0.9999,</span></span>
+<span class="line" id="L272"><a href="#L272">272</a><span>                                     torch.zeros_like(pmf_center) + i, pmf_center)</span></span>
+<span class="line" id="L273"><a href="#L273">273</a><span></span></span>
+<span class="line" id="L274"><a href="#L274">274</a><span>        pmf_center = pmf_center.int()</span></span>
+<span class="line" id="L275"><a href="#L275">275</a><span>        pmf_length = 2 * pmf_center + 1</span></span>
+<span class="line" id="L276"><a href="#L276">276</a><span>        max_length = torch.max(pmf_length).item()</span></span>
+<span class="line" id="L277"><a href="#L277">277</a><span></span></span>
+<span class="line" id="L278"><a href="#L278">278</a><span>        device = pmf_center.device</span></span>
+<span class="line" id="L279"><a href="#L279">279</a><span>        samples = torch.arange(max_length, device=device) - pmf_center[:, None]</span></span>
+<span class="line" id="L280"><a href="#L280">280</a><span>        samples = samples.float()</span></span>
+<span class="line" id="L281"><a href="#L281">281</a><span></span></span>
+<span class="line" id="L282"><a href="#L282">282</a><span>        scales = torch.zeros_like(samples) + self.scale_table[:, None]</span></span>
+<span class="line" id="L283"><a href="#L283">283</a><span>        mu = torch.zeros_like(scales)</span></span>
+<span class="line" id="L284"><a href="#L284">284</a><span>        gaussian = torch.distributions.laplace.Laplace(mu, scales)</span></span>
+<span class="line" id="L285"><a href="#L285">285</a><span></span></span>
+<span class="line" id="L286"><a href="#L286">286</a><span>        upper = gaussian.cdf(samples + 0.5)</span></span>
+<span class="line" id="L287"><a href="#L287">287</a><span>        lower = gaussian.cdf(samples - 0.5)</span></span>
+<span class="line" id="L288"><a href="#L288">288</a><span>        pmf = upper - lower</span></span>
+<span class="line" id="L289"><a href="#L289">289</a><span></span></span>
+<span class="line" id="L290"><a href="#L290">290</a><span>        tail_mass = 2 * lower[:, :1]</span></span>
+<span class="line" id="L291"><a href="#L291">291</a><span></span></span>
+<span class="line" id="L292"><a href="#L292">292</a><span>        quantized_cdf = torch.Tensor(len(pmf_length), max_length + 2)</span></span>
+<span class="line" id="L293"><a href="#L293">293</a><span>        quantized_cdf = self.entropy_coder.pmf_to_cdf(pmf, tail_mass, pmf_length, max_length)</span></span>
+<span class="line" id="L294"><a href="#L294">294</a><span>        self.entropy_coder.set_cdf_states(-pmf_center, quantized_cdf, pmf_length+2)</span></span>
+<span class="line" id="L295"><a href="#L295">295</a><span></span></span>
+<span class="line" id="L296"><a href="#L296">296</a><span>    def build_indexes(self, scales):</span></span>
+<span class="line" id="L297"><a href="#L297">297</a><span>        scales = torch.maximum(scales, torch.zeros_like(scales) + 1e-5)</span></span>
+<span class="line" id="L298"><a href="#L298">298</a><span>        indexes = scales.new_full(scales.size(), len(self.scale_table) - 1).int()</span></span>
+<span class="line" id="L299"><a href="#L299">299</a><span>        for s in self.scale_table[:-1]:</span></span>
+<span class="line" id="L300"><a href="#L300">300</a><span>            indexes -= (scales &lt;= s).int()</span></span>
+<span class="line" id="L301"><a href="#L301">301</a><span>        return indexes</span></span>
+<span class="line" id="L302"><a href="#L302">302</a><span></span></span>
+<span class="line" id="L303"><a href="#L303">303</a><span>    def compress(self, x, scales):</span></span>
+<span class="line" id="L304"><a href="#L304">304</a><span>        indexes = self.build_indexes(scales)</span></span>
+<span class="line" id="L305"><a href="#L305">305</a><span>        return self.entropy_coder.compress(x, indexes)</span></span>
+<span class="line" id="L306"><a href="#L306">306</a><span></span></span>
+<span class="line" id="L307"><a href="#L307">307</a><span>    def decompress(self, strings, scales):</span></span>
+<span class="line" id="L308"><a href="#L308">308</a><span>        indexes = self.build_indexes(scales)</span></span>
+<span class="line" id="L309"><a href="#L309">309</a><span>        return self.entropy_coder.decompress(strings, indexes)</span></span>
+<span class="line" id="L310"><a href="#L310">310</a><span></span></span>
+<span class="line" id="L311"><a href="#L311">311</a><span>    def set_stream(self, stream):</span></span>
+<span class="line" id="L312"><a href="#L312">312</a><span>        self.entropy_coder.set_stream(stream)</span></span>
+<span class="line" id="L313"><a href="#L313">313</a><span></span></span>
+<span class="line" id="L314"><a href="#L314">314</a><span>    def decode_stream(self, scales):</span></span>
+<span class="line" id="L315"><a href="#L315">315</a><span>        indexes = self.build_indexes(scales)</span></span>
+<span class="line" id="L316"><a href="#L316">316</a><span>        return self.entropy_coder.decode_stream(indexes)</span></span></pre></html>

@@ -1,0 +1,81 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Introduction</title><link rel="stylesheet" href="../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_2021_源码/README.md · <a href="README.md">原始 Markdown</a></p><h1 id="introduction">Introduction</h1>
+<p>Official Pytorch implementation for <a href="https://proceedings.neurips.cc/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Paper.pdf">Deep Contextual Video Compression</a>, NeurIPS 2021</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<ul>
+<li>Python 3.8 and conda, get <a href="https://www.anaconda.com/">Conda</a></li>
+<li>CUDA 11.0</li>
+<li>
+<p>Environment
+    ```
+    conda create -n $YOUR_PY38_ENV_NAME python=3.8
+    conda activate $YOUR_PY38_ENV_NAME</p>
+<p>pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+python -m pip install -r requirements.txt
+```</p>
+</li>
+</ul>
+<h1 id="test-dataset">Test dataset</h1>
+<p>Currenlty the spatial resolution of video needs to be cropped into the integral times of 64.</p>
+<p>The dataset format can be seen in dataset_config_example.json. </p>
+<p>For example, one video of HEVC Class B can be prepared as:
+* Crop the original YUV via ffmpeg:
+    <code>ffmpeg -pix_fmt yuv420p  -s 1920x1080 -i  BasketballDrive_1920x1080_50.yuv -vf crop=1920:1024:0:0 BasketballDrive_1920x1024_50.yuv</code>
+* Make the video path:
+    <code>mkdir BasketballDrive_1920x1024_50</code>
+* Convert YUV to PNG:
+    <code>ffmpeg -pix_fmt yuv420p -s 1920x1024 -i BasketballDrive_1920x1024_50.yuv   -f image2 BasketballDrive_1920x1024_50/im%05d.png</code>
+At last, the folder structure of dataset is like:</p>
+<pre><code>/media/data/HEVC_B/
+    * BQTerrace_1920x1024_60/
+        - im00001.png
+        - im00002.png
+        - im00003.png
+        - ...
+    * BasketballDrive_1920x1024_50/
+        - im00001.png
+        - im00002.png
+        - im00003.png
+        - ...
+    * ...
+/media/data/HEVC_D
+/media/data/HEVC_C/
+...
+</code></pre>
+<h1 id="pretrained-models">Pretrained models</h1>
+<ul>
+<li>
+<p>Download CompressAI models
+    <code>cd ./checkpoints
+    python download_compressai_models.py
+    cd ..</code></p>
+</li>
+<li>
+<p>Download <a href="https://1drv.ms/u/s!AozfVVwtWWYoiS5mcGX320bFXI0k?e=iMeykH">DCVC models</a> and put them into ./checkpoints folder.</p>
+</li>
+</ul>
+<h1 id="test-dcvc">Test DCVC</h1>
+<p>Example of test the PSNR model:</p>
+<pre><code class="language-bash">python test_video.py --i_frame_model_name cheng2020-anchor  --i_frame_model_path  checkpoints/cheng2020-anchor-3-e49be189.pth.tar  checkpoints/cheng2020-anchor-4-98b0b468.pth.tar   checkpoints/cheng2020-anchor-5-23852949.pth.tar   checkpoints/cheng2020-anchor-6-4c052b1a.pth.tar  --test_config     dataset_config_example.json  --cuda true --cuda_device 0,1,2,3   --worker 4   --output_json_result_path  DCVC_result_psnr.json    --model_type psnr  --recon_bin_path recon_bin_folder_psnr --model_path checkpoints/model_dcvc_quality_0_psnr.pth  checkpoints/model_dcvc_quality_1_psnr.pth checkpoints/model_dcvc_quality_2_psnr.pth checkpoints/model_dcvc_quality_3_psnr.pth
+</code></pre>
+<p>Example of test the MSSSIM model:</p>
+<pre><code class="language-bash">python test_video.py --i_frame_model_name bmshj2018-hyperprior  --i_frame_model_path  checkpoints/bmshj2018-hyperprior-ms-ssim-3-92dd7878.pth.tar checkpoints/bmshj2018-hyperprior-ms-ssim-4-4377354e.pth.tar    checkpoints/bmshj2018-hyperprior-ms-ssim-5-c34afc8d.pth.tar    checkpoints/bmshj2018-hyperprior-ms-ssim-6-3a6d8229.pth.tar   --test_config   dataset_config_example.json  --cuda true --cuda_device 0,1,2,3   --worker 4   --output_json_result_path  DCVC_result_msssim.json  --model_type msssim  --recon_bin_path recon_bin_folder_msssim --model_path checkpoints/model_dcvc_quality_0_msssim.pth checkpoints/model_dcvc_quality_1_msssim.pth checkpoints/model_dcvc_quality_2_msssim.pth checkpoints/model_dcvc_quality_3_msssim.pth
+</code></pre>
+<p>It is recommended that the <code>--worker</code> number is equal to your GPU number.</p>
+<h1 id="r-d-curve-of-dcvc">R-D Curve of DCVC</h1>
+<p><img alt="PSNR RD Curve" src="assets/rd_curve_psnr.png"/></p>
+<h1 id="acknowledgement">Acknowledgement</h1>
+<p>The implementation is based on <a href="https://github.com/InterDigitalInc/CompressAI">CompressAI</a> and <a href="https://github.com/ZhihaoHu/PyTorchVideoCompression">PyTorchVideoCompression</a>. The model weights of intra coding come from <a href="https://github.com/InterDigitalInc/CompressAI">CompressAI</a>.</p>
+<h1 id="citation">Citation</h1>
+<p>If you find this work useful for your research, please cite:</p>
+<pre><code>@article{li2021deep,
+  title={Deep Contextual Video Compression},
+  author={Li, Jiahao and Li, Bin and Lu, Yan},
+  journal={Advances in Neural Information Processing Systems},
+  volume={34},
+  year={2021}
+}
+</code></pre>
+<h1 id="trademarks">Trademarks</h1>
+<p>This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow <a href="https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general">Microsoft’s Trademark &amp; Brand Guidelines</a>. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party’s policies.</p></main><script src="../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

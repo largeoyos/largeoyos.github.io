@@ -1,0 +1,99 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>10.0 常见问题</title><link rel="stylesheet" href="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/bitahub/10.0 常见问题.md · <a href="10.0%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md">原始 Markdown</a></p><p>Source: https://bitahub.ustc.edu.cn/help/md/10.0%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html</p>
+<p>1、退款说明</p>
+<p>自购买之日起7天内可申请，申请通过邮箱icpadmin@iai.ustc.edu.cn联系，届时请提供订单号、邮箱号及退款理由。</p>
+<p>系统会将费用退还至原账户。退款金额 =（剩余资源数/总资源数）×资源购买金额。退款期间产生的费用不退还，即提交退订申请至退订成功期间产生的费用不退还。</p>
+<p>如出现疑似异常或恶意退货，bitahub有权否决退货申请，bitahub法律范围保持最终解释权。</p>
+<p>2、每个用户可以使用多少存储？</p>
+<p>1TiB。</p>
+<p>对存储可能不足的用户有以下改善方式：
+（1）在减少文件数量的前提下，可以对空间大小进行调整，可以在1TiB（包括项目200GiB和数据集800GiB）、2TiB、4TiB三种规格中进行选择（发邮件，默认1TiB），相应地文件数量对应为100万、50万、25万。项目和数据集目录按2:8分配。
+（2）可以发邮件购买额外的存储空间（仅限大小，文件数量不可额外购买）。每GiB每月按0.25元计。超过50TiB的部分，费用加收50%。可随时退订，剩余费用退还到算力账户。
+（3）数据集可以发邮件申请转为公开数据集，由运维账户接管，接管之后不算个人配额。（这点和自行公开有差别，自行公开后仍然在自己目录下，算个人配额）
+（4）鼓励课题组之间共享数据集、模型，平台支持数据集、模型定向地共享给特定用户
+（5）以上发邮件指 icpadmin@iai.ustc.edu.cn，凡存储的处理都默认有1个工作日的延迟。</p>
+<p>个人存储使用量可以在个人中心查询。</p>
+<p>3、为什么要限制文件数量？</p>
+<p>太多小文件会拖慢整体性能，只能用户自行对小文件聚合，如HDF5、Tfrecords等。也建议用户在访问数据时使用多线程。集群使用的存储是共享的分布式存储，擅长于应对多线程并发的聚合读写（压测可以到16GB/s，全体用户共享），单线程的IOPS对比本地的ssd没有优势。</p>
+<p>4、使用平台需要哪些前置条件？</p>
+<p>对linux系统比较熟悉，能编写启动脚本；对Docker有一定了解，尤其是平台提供的软件环境（如深度学习框架）不符合要求时，需要自定义Docker镜像。</p>
+<p>5、怎么计费？</p>
+<p>任务排队使用计算资源，按时长收费。见帮助文档，或网页提交任务时的说明。</p>
+<p>6、可以部署在线服务吗？</p>
+<p>不支持。原因：（1）卡类型大部分不适合；（2）没有网络虚拟化功能；（3）不想开放太多的公网端口，现在只在调试节点对每个调试任务开放了一个ssh端口，而且每个调试任务只能使用3小时。</p>
+<p>7、支持多机多卡训练吗？</p>
+<p>支持。需要自行处理通信问题。平台的网络是100Gbps infiniband，使用以太网IP通信。</p>
+<p>在平台上，debug、V100、3090、A40这四类节点上启动的任务，他们内部的IP类似这样：</p>
+<p>172.17.1.2  # V100-1
+172.17.2.2  # V100-2
+172.17.3.2  # V100-3
+172.19.1.2  # 3090-1
+172.19.2.2  # 3090-2
+172.19.3.2  # 3090-3
+172.20.1.2  # A40-1
+172.20.2.2  # A40-2</p>
+<p>在同类型节点的任务中，可以直接使用上述ip进行通信，即使是跨机器。因为宿主机上开启了路由转发。</p>
+<p>跨类型的任务不能直接通信（没开转发）。</p>
+<p>8、除了上传Dockerfile有哪些生成Docker镜像的方法？</p>
+<p>使用者本地可以用docker commit的方式将容器转化为镜像。但平台上没有开发这个功能，只能用Dockerfile。</p>
+<p>9、观察到有奇怪现象：在调试时能看到代码文件(/code)，项目代码中也可见，但运行任务时，却看不见代码了。什么机制会导致该现象？</p>
+<p>很可能是代码中有.gitignore，并且忽略了部分文件名或文件类型。平台对于调试任务是将项目代码直接挂载到容器中，并且给用户修改权限；而运行任务时，会增加git push和git pull的操作（在后台运行，用户不可见），此时会将这部分文件忽略。</p>
+<p>解决方法：修改或删除.gitignore文件</p>
+<p>10、平台除了GPU服务器外，有大型的CPU计算服务器吗？</p>
+<p>没有。如果您的计算只需要CPU，且比较密集，那传统的超算资源可能更适合。如，科大超算中心：https://scc.ustc.edu.cn/ 。</p>
+<p>平台也有一部分CPU服务器，主要是用于平台上数据需要预处理的情况。</p>
+<p>11、数据集、模型超过网页传输大小的，该怎么办？</p>
+<p>参考这里上传数据集。这里介绍的方法，同时适用于上传和下载。</p>
+<p>12、ftp是公开可见的，我上传的数据并不想让其他人看到，能申请私有账号吗？</p>
+<p>能（但尽量少申请），发送邮件到icpadmin@iai.ustc.edu.cn。同样默认只在工作日处理。</p>
+<p>13、使用pytorch中预训练的模型(torchvision.models)时，需要去网站上下载模型参数，有时快有时慢，为什么？有解决方案吗？</p>
+<p>当使用如 torchvision.models.resnet18(pretrained=True)这样的语句定义模型时，会从pytorch网站下载预训练后的模型参数，如：https://download.pytorch.org/models/resnet18-5c106cde.pth ，这个网址有时又会被解析到AWS的S3存储上，有概率下载很慢或不成功。这个下载后的文件会被缓存到<hub_dir>/checkpoints目录中，如果此前已经成功下载过了，可以直接使用。</hub_dir></p>
+<p>这里的hub_dir默认值是/root/.cache/torch/hub，你可以使用函数torch.hub.get_dir()获取该值，也可以通过torch.hub.set_dir(your_path)来设置。torch.hub.get_dir()在计算值时会查看是否有环境变量$TORCH_HOME，若存在则会使用。</p>
+<p>在平台上使用不便，源自于默认的hub_dir无法持久化保持数据，需要反复下载。解决方法如下：在平台上创建一个私有模型或数据集，并在任务启动时挂载，假设它的目录是/model/bitahub/torch_hub_cache，将其他环境中已经缓存后的内容上传到这个目录中。然后在平台上启动任务时添加export TORCH_HOME=/model/bitahub/torch_hub_cache，此时你调用torch.hub.get_dir()将返回/model/bitahub/torch_hub_cache/hub，如此则使用的是模型目录，可避免重复下载。</p>
+<p>14、为什么有时会显示”提交失败“，怎么应对？</p>
+<p>可能原因与应对：
+（1）代码超过200MB，建议代码中的数据集和模型文件单独维护，如果代码部分就是超过了200M，:(，那只能把其中一部分放到数据集里面。
+（2）包含了.git文件夹（一般使用git clone的项目会包含），请删除后再上传，已经上传的可以在网页端删除
+（3）项目目录超出配额。在个人中心中，查看存储使用情况，文件数量或大小，都可能引起超额。需对应删除项目或任务，释放新的空间才可再提交。注意，删除是非即时的，一般在30分钟内完成。
+（4）另一个可能原因是项目版本控制被锁（一般是前一次操作被意外中断引起），须后台管理员删锁。您需要：提供项目名称和用户邮箱。或者，直接创建新的项目。这个情况很少见。</p>
+<p>以上4种情况的表现是提交失败会很快返回。</p>
+<p>（5）如果是等待长时间后（20分钟）再返回提交失败，并伴随着文件中心刷新慢或直接不刷新（即网页端看不到代码、模型和output）则是文件服务故障，管理员会及时排查该故障。这种情况也比较少见。</p>
+<p>除了提交失败，还有一种特殊情形需要讨论：
+（6）前期运行时，已经有任务正常运行，后期又额外地往项目代码中拷贝进了.git文件夹，并重新提交了任务，此时，版本管理信息将被破坏，造成任务相关的代码在网页端不可见（不影响已运行任务），只剩项目代码可见。这种情况无法恢复，请重建项目。</p>
+<p>在排查“提交失败”时，请点击任务详情，记录网页上提示的失败信息。</p>
+<p>15、项目的存储空间显示不足了，哪些会占用它？</p>
+<p>项目空间占用来自两部分：（1）代码以及代码更改过程中git自动记录的开销（因代码有大小限制，一般不会太大），这部分是所有任务共享的；（2）计算任务的output，根据程序运行过程写入的内容而定，这部分是根据每个任务而不同。
+删除某个任务，其伴随的/output也会删除，即（2）这部分的空间会被释放。而（1）这部分的空间只有删除项目时会释放。</p>
+<p>16、我删了一部分任务和数据，为什么还提示空间不足？</p>
+<p>页面上点删除任务或删除项目，后台并没有实时响应，而是每隔半小时处理一次。所以你最长可能要等待半小时。</p>
+<p>另外，网页上显示的存储明细，也不是实时更新的，它取的是缓存数据，10分钟更新一次。假如后台已删，不妨碍接着写入。</p>
+<p>如果你比较着急，可以通过文件中心或命令行(debug任务)进行删除，是实时生效的（尽管网页上并不一定会实时更新）。</p>
+<p>17、哪里能看存储的使用情况？</p>
+<p>（1）空间或文件数量不足时，会在项目汇总页上提示。请不要等到用完才清理，否则可能要等待半小时才可用。</p>
+<p>（2）可以在个人中心中，查看项目、数据集、模型各分项的使用情况。</p>
+<p>（3）如果还要再观察更细的，就只能挂载数据集、模型后，在终端中，用ls -l命令去查看。</p>
+<p>类似这样：</p>
+<p>root@RTX004:/data/bitatest001# ls -lh
+total 451G
+-rw-r--r--     1 root root    6 Jul  9  2022 1.txt
+drwxr-xr-x     2 root root 4.0K Jul 21  2022 coco_for_yolov5
+drwxr-xr-x    12 root root  82M Aug 29  2022 FashionMNIST
+drwxr-xr-x     2 root root 4.0K Jul 21  2022 mycoco
+drwxr-xr-x    12 root root  44K Apr 27  2022 tb_logs
+drwxr-xr-x     8 root root 4.5G Apr 28 20:36 test001</p>
+<p>其中第2栏为目录下的文件数量，第5栏为大小。</p>
+<p>在项目、数据集、模型、输出这四类目录下，因为是使用共享存储，如果你像平常使用du ./命令来查看大小的话，并不能得到正确的值。而应该使用ls</p>
+<p>18、使用jupyter进行调试时，启动其中的terminal，但没有tab补全，有什么办法？</p>
+<p>启动terminal默认使用的shell是/bin/sh，没有tab补全支持。直接运行bash命令，切换shell后可以支持。</p>
+<p>19、我的任务GPU利用率持续在一个比较低的水平，有什么建议？</p>
+<p>GPU利用率因任务而异。建议先排查下CPU利用率是否是瓶颈。查看资源监控，如果CPU利用率在一个整百利用率上，那很可能是：1）系统配给的CPU资源用完了，如1张1080ti，CPU利用率最多只能到400%；2）没利用好多线程，如线程数开少了。此时GPU一直在等待CPU。</p>
+<p>也可能是任务需要频繁地从共享存储上取数据，且时间长。</p>
+<p>20、观察到一个现象，刚开始训练时，会花较长的时间读取数据，训练一段时间后就降下来了，会是什么原因？</p>
+<p>可能是宿主机的缓存命中了。平台上个人的数据集是存放在共享存储上的，当开始计算时，才从共享存储上取，受限于网络和存储带宽，可能较慢。取到计算节点上后，会在本地的SSD盘上缓存，下次取同样的数据则不再从共享存储取。</p>
+<p>缓存有时候也不能起到很好的作用，如：</p>
+<p>（1）1080ti、titanxp、v100这些老的机器上，只有400G的空间用于缓存，如果数据集比较大，或者同一机器上其他人的任务的数据量较大，缓存很可能不断地填入新数据，难以命中。</p>
+<p>3090、A40这些新买的机器，则有2TB~4TB的空间用于缓存。</p>
+<p>21、数据存放时是Float16的格式，计算时则是Float32，有什么性能优化上的建议？</p>
+<p>出于节省存储空间等方面的考虑，有些数据集会选择将浮点数存放为Float16，当这些数据被加载并参与运算时，如果需要转换为Float32，建议将这部分放在GPU上进行。因为：（1）看似只是一个精度转换，但需要访存和计算，如果数据量特别大，会造成CPU的负载剧增；（2）这种简单的计算，GPU可以很好地并行加速，性能优化特别明显，而且GPU显存比内存性能更优；（3）将Float16从CPU传输到GPU时，相比Float32还可节省一半带宽。</p>
+<p>在Pytorch中，上述过程怎么实现？Tensor.float或Tensor.float16是精度转换函数，Tensor.to(device="cpu/gpu")是数据迁移函数，要让精度转换在数据迁移之后，如Tensor.to(device="cuda:0").float().</p></main><script src="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

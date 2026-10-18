@@ -1,0 +1,621 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>第八章 · 第七节 · 我国证券公司风险管理实践 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第八章 / 07</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button class="btn menu-button" aria-controls="book-index" aria-expanded="false">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div class="progress" aria-hidden="true" style="width: 76.3264%;"></div></header><div class="layout"><nav class="sidebar" id="book-index" aria-label="本节目录"><div class="index-label">第七节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a href="#c8s7-part-01" class="">01 · 本节目标：把制度历史压成主线，把指标变成管理动作</a><a href="#c8s7-part-02" class="">02 · 三个阶段：事后检查→集中资本约束→全面动态管理</a><a href="#c8s7-part-03">03 · 为什么做综合治理：客户资金隔离和公司承受能力</a><a href="#c8s7-part-04">04 · 创新业务为什么需要新工具：风险来源增加了</a><a href="#c8s7-part-05">05 · 资本监管的主线：损失缓冲、业务约束、流动性一起看</a><a href="#c8s7-part-06" class="">06 · 风险处置与分类监管：处置公司，不等于保证投资收益</a><a href="#c8s7-part-07" class="">07 · 全面风险管理：全业务、全人员、全流程、集团范围</a><a href="#c8s7-part-08" class="">08 · 把制度沿革和现行要求分开：旧征求意见已经不是最新状态</a><a href="#c8s7-part-09" class="">09 · 工具地图：按风险的问题选指标</a><a href="#c8s7-part-10" class="">10 · 数字化管理：统一数据比一块好看的屏幕更重要</a><a href="#c8s7-part-11" class="">11 · 绩效归因：赚钱是行情、配置、选择还是其他因素</a><a href="#c8s7-part-12" class="">12 · 风险调整绩效：利润、资本成本、风险兑现时间一起看</a><a href="#c8s7-part-13" class="">13 · 四早与闭环：识别、预警、暴露、处置</a><a href="#c8s7-part-14" class="current">14 · 全书能力检查：用问题串起八章</a><a href="#c8s7-part-15">15 · 自编诊断题：把整章变成具体判断</a><a href="#c8s7-part-16">16 · 第八章过关清单：用七句话收住概念</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 08 / SECTION 07 · 第八章</div><h2>第七节 · 我国证券公司风险管理实践</h2><p>金融风险管理 · 教材正文第544—554页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav class="section-links" aria-label="章节切换"><a href="index.html">返回总目录</a><a href="08-06_操作风险、声誉风险及其他风险管理.html">上一节 · 操作风险、声誉风险及其他风险管理</a></nav><section class="lesson" id="c8s7-part-01"><h3>01 · 本节目标：把制度历史压成主线，把指标变成管理动作</h3>
+<p>教材正文544—554页。这是全书最后一节。它总结我国证券公司风险管理如何发展，以及资本、组织、指标、数据和绩效管理如何结合。</p>
+<p><span class="level use">会用</span>三阶段主线、净资本与流动性监管逻辑、全面与穿透管理、风险类型和工具匹配、四早与管理闭环。<span class="level recognize">会认</span>重要制度类别、数字化作用、几类绩效归因。<span class="level context">背景</span>旧统计、文件沿革、国外制度细节；说明改革原因，不要求把所有年份当无条件现行规则背。</p></section><section class="lesson" id="c8s7-part-02"><h3>02 · 三个阶段：事后检查→集中资本约束→全面动态管理</h3>
+<figure class="diagram" data-diagram="c8-risk-history"><figcaption class="figure-label">SVG · 从事后检查到资本约束，再到全集团动态管理</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-history">
+  <h3>从事后检查到资本约束，再到全集团动态管理</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">三个阶段</button><button class="btn" type="button" aria-pressed="false">为什么讲历史</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="教材历史主线" viewBox="0 0 840 140" style="height: 140px;"><title>教材历史主线</title><desc>早期至2004，简单事后检查；2005至2012，集中与净资本约束；2013以后，全面动态数字化。发展完善；范围扩大</desc><defs><marker id="arrow-c8-risk-history-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">教材历史主线</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">早期至2004</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">简单事后检查</text><rect x="315" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="420" y="83" text-anchor="middle" dominant-baseline="middle">2005至2012</text><text x="420" y="105" text-anchor="middle" dominant-baseline="middle">集中与净资本约束</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">2013以后</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">全面动态数字化</text><path d="M 229 94 L 308 94" class="finance-arrow" marker-end="url(#arrow-c8-risk-history-0)"></path><text x="270.5" y="44" text-anchor="middle" dominant-baseline="middle">发展完善</text><path d="M 528 94 L 607 94" class="finance-arrow" marker-end="url(#arrow-c8-risk-history-0)"></path><text x="569.5" y="44" text-anchor="middle" dominant-baseline="middle">范围扩大</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">三个阶段</div>
+  <script type="application/json" data-config="">{"heading": "从事后检查到资本约束，再到全集团动态管理", "states": [{"label": "三个阶段", "rows": [{"label": "教材历史主线", "nodes": [["早期至2004", "简单事后检查"], ["2005至2012", "集中与净资本约束"], ["2013以后", "全面动态数字化"]], "edges": ["发展完善", "范围扩大"]}]}, {"label": "为什么讲历史", "rows": [{"label": "防止把改革目的背反", "nodes": [["客户资金隔离", "回应挪用风险"], ["资本与流动性约束", "回应承受力与偿付"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-history .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-history .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-history .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-history .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-history .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-history');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-history-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-history-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三个阶段</h4><div><svg class="finance-flow" role="img" aria-label="教材历史主线" viewBox="0 0 660 140" style="height: 140px;"><title>教材历史主线</title><desc>早期至2004，简单事后检查；2005至2012，集中与净资本约束；2013以后，全面动态数字化。发展完善；范围扩大</desc><defs><marker id="print-08-07-0-0-arrow-c8-risk-history-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">教材历史主线</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">早期至2004</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">简单事后检查</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">2005至2012</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">集中与净资本约束</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">2013以后</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">全面动态数字化</text><path d="M 200.33333333333334 94 L 232.33333333333334 94" class="finance-arrow" marker-end="url(#print-08-07-0-0-arrow-c8-risk-history-0)"></path><text x="218.33333333333334" y="44" text-anchor="middle" dominant-baseline="middle">发展完善</text><path d="M 423.6666666666667 94 L 455.6666666666667 94" class="finance-arrow" marker-end="url(#print-08-07-0-0-arrow-c8-risk-history-0)"></path><text x="441.6666666666667" y="44" text-anchor="middle" dominant-baseline="middle">范围扩大</text></svg></div></div><div class="diagram-print-state"><h4>为什么讲历史</h4><div><svg class="finance-flow" role="img" aria-label="防止把改革目的背反" viewBox="0 0 660 140" style="height: 140px;"><title>防止把改革目的背反</title><desc>客户资金隔离，回应挪用风险；资本与流动性约束，回应承受力与偿付。</desc><defs><marker id="print-08-07-0-1-arrow-c8-risk-history-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">防止把改革目的背反</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">客户资金隔离</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">回应挪用风险</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">资本与流动性约束</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">回应承受力与偿付</text></svg></div></div></div></figure>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材时期</th>
+<th>主要变化</th>
+<th>第一轮关键词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>早期至2004年前后</td>
+<td>业务和监管体系发展中，管理较偏部门、检查和事后处理</td>
+<td>基础、分散、事后</td>
+</tr>
+<tr>
+<td>2005—2012年前后</td>
+<td>综合治理，集中风险管理，净资本约束和制度体系加强</td>
+<td>治理、集中、净资本</td>
+</tr>
+<tr>
+<td>2013年以后</td>
+<td>业务创新带来复杂风险，推进全面风险管理、集团覆盖、压力测试和数字化</td>
+<td>全面、动态、穿透</td>
+</tr>
+</tbody>
+</table></div>
+<p>分期是教材归纳，改革不是某年1月1日所有公司同时换了一套系统。做分类题按教材阶段；理解题要看演进：发现问题→建立约束→扩展覆盖和实时能力。</p></section><section class="lesson" id="c8s7-part-03"><h3>03 · 为什么做综合治理：客户资金隔离和公司承受能力</h3>
+<p>早期一些机构出现客户资金挪用、账实不符、违规经营等问题。治理中的客户资金独立、第三方存管、规范账户和资产处置等安排，服务于隔离与透明，不能把客户的钱与公司自有资金混在一起。</p>
+<p>第三方存管是资金管理制度，不等于证券投资损失由存管银行赔偿。客户持有股票发生正常价格损失，也不是客户资金被挪用的同一个问题。</p>
+<p>净资本监管则约束公司业务和风险的承受能力。公司账面看起来资产很多，但质量、可变现程度与风险占用不同，监管需要更审慎的调整口径。</p>
+<p><span class="level context">背景</span>讲治理历史，是为了解释制度为何存在；先理解两个目的，不必背旧事件每家公司的细节。</p></section><section class="lesson" id="c8s7-part-04"><h3>04 · 创新业务为什么需要新工具：风险来源增加了</h3>
+<p>传统经纪、自营、承销与后来的信用、资管、场外衍生品等，风险结构不同。融资融券和质押带来客户信用、担保、集中与资金风险；衍生品带来非线性、对手、保证金和模型问题；集团及跨境业务又增加关联和当地规则问题。</p>
+<p>教材列早年试点、文件发布与业务推出，注意<strong>发布规则、启动试点、正式交易</strong>是不同事件。不要把某年存在试点准备文件，直接说成当年全部业务已正式全面开展。</p>
+<p>适合普通持仓的规模或波动指标，不能独立解释所有衍生品风险；只看母公司也可能漏掉子公司风险。这是全面管理和穿透统计的实际用途。</p></section><section class="lesson" id="c8s7-part-05"><h3>05 · 资本监管的主线：损失缓冲、业务约束、流动性一起看</h3>
+<p>教材比较境外净资本与资本充足等制度，第一轮理解共同问题：机构要有足够损失吸收能力，不能无限扩张，还需支付和变现能力。具体国外系数与版本不同，旧年概述不应直接用于今天所有机构。</p>
+<p>我国证券公司的四项核心指标可统一回忆：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>分子 / 分母</th>
+<th>最低标准</th>
+<th>预警标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>风险覆盖率</td>
+<td>净资本 / 风险资本准备</td>
+<td>100%</td>
+<td>120%</td>
+</tr>
+<tr>
+<td>资本杠杆率</td>
+<td>核心净资本 / 表内外资产</td>
+<td>8%</td>
+<td>9.6%</td>
+</tr>
+<tr>
+<td>流动性覆盖率</td>
+<td>优质流动性资产 / 30天压力净现金流出</td>
+<td>100%</td>
+<td>120%</td>
+</tr>
+<tr>
+<td>净稳定资金率</td>
+<td>可用稳定资金 / 所需稳定资金</td>
+<td>100%</td>
+<td>120%</td>
+</tr>
+</tbody>
+</table></div>
+<p>资本足够也可能暂时没现金；现金充裕也可能承受不了大额损失。公司需要同时满足对应要求，不能“一个指标很好，就抵消另一个不达标”。</p></section><section class="lesson" id="c8s7-part-06"><h3>06 · 风险处置与分类监管：处置公司，不等于保证投资收益</h3>
+<p>教材梳理风险处置中的停业整顿、托管、接管、行政重组、撤销等安排。它们回应不同程度、类型的机构风险，由适用规则确定条件和程序。</p>
+<p><span class="level recognize">会认</span>能识别这组处置工具即可；不能推出所有措施都会给所有投资者无条件赔付全部本金或收益。具体资产、债权、客户资金和投资损失须依法区分。</p>
+<p>分类监管评估资本、治理合规、动态监控、信息系统、客户权益和信息披露等管理能力，服务于监管。机构分类结果不是对它发行或管理的每个产品作收益担保，也不能替代对产品风险的判断。</p></section><section class="lesson" id="c8s7-part-07"><h3>07 · 全面风险管理：全业务、全人员、全流程、集团范围</h3>
+<p>全面管理需要覆盖市场、信用、流动性、操作、声誉等相关风险，落实董事会、经理层、首席风险官、业务、职能和审计责任。不能只有一本制度，却让新产品、子公司或临时人员成为盲区。</p>
+<figure class="diagram" data-diagram="c8-consolidated"><figcaption class="figure-label">SVG · 同一个集团内的业务要汇总识别，也要守住边界</figcaption><div class="diagram-interactive"><div id="finance-c8-consolidated">
+  <h3>同一个集团内的业务要汇总识别，也要守住边界</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">穿透汇总</button><button class="btn" type="button" aria-pressed="false">法律约束</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="不能只看单一公司的账" viewBox="0 0 840 140" style="height: 140px;"><title>不能只看单一公司的账</title><desc>母子公司相关业务，境内境外暴露；统一客户与口径，防重复漏记集中；集团整体风险，识别传导与相关。穿透统计；综合评估</desc><defs><marker id="arrow-c8-consolidated-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不能只看单一公司的账</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">母子公司相关业务</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">境内境外暴露</text><rect x="315" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="420" y="83" text-anchor="middle" dominant-baseline="middle">统一客户与口径</text><text x="420" y="105" text-anchor="middle" dominant-baseline="middle">防重复漏记集中</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">集团整体风险</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">识别传导与相关</text><path d="M 229 94 L 308 94" class="finance-arrow" marker-end="url(#arrow-c8-consolidated-0)"></path><text x="270.5" y="44" text-anchor="middle" dominant-baseline="middle">穿透统计</text><path d="M 528 94 L 607 94" class="finance-arrow" marker-end="url(#arrow-c8-consolidated-0)"></path><text x="569.5" y="44" text-anchor="middle" dominant-baseline="middle">综合评估</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">穿透汇总</div>
+  <script type="application/json" data-config="">{"heading": "同一个集团内的业务要汇总识别，也要守住边界", "states": [{"label": "穿透汇总", "rows": [{"label": "不能只看单一公司的账", "nodes": [["母子公司相关业务", "境内境外暴露"], ["统一客户与口径", "防重复漏记集中"], ["集团整体风险", "识别传导与相关"]], "edges": ["穿透统计", "综合评估"]}]}, {"label": "法律约束", "rows": [{"label": "汇总不意味着资金任意挪动", "nodes": [["独立法人监管要求", "当地法律与授权"], ["客户资金与隐私", "合规处理数据"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-consolidated .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-consolidated .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-consolidated .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-consolidated .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-consolidated .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-consolidated');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-consolidated-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-consolidated-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>穿透汇总</h4><div><svg class="finance-flow" role="img" aria-label="不能只看单一公司的账" viewBox="0 0 660 140" style="height: 140px;"><title>不能只看单一公司的账</title><desc>母子公司相关业务，境内境外暴露；统一客户与口径，防重复漏记集中；集团整体风险，识别传导与相关。穿透统计；综合评估</desc><defs><marker id="print-08-07-1-0-arrow-c8-consolidated-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不能只看单一公司的账</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">母子公司相关业务</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">境内境外暴露</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">统一客户与口径</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">防重复漏记集中</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">集团整体风险</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">识别传导与相关</text><path d="M 200.33333333333334 94 L 232.33333333333334 94" class="finance-arrow" marker-end="url(#print-08-07-1-0-arrow-c8-consolidated-0)"></path><text x="218.33333333333334" y="44" text-anchor="middle" dominant-baseline="middle">穿透统计</text><path d="M 423.6666666666667 94 L 455.6666666666667 94" class="finance-arrow" marker-end="url(#print-08-07-1-0-arrow-c8-consolidated-0)"></path><text x="441.6666666666667" y="44" text-anchor="middle" dominant-baseline="middle">综合评估</text></svg></div></div><div class="diagram-print-state"><h4>法律约束</h4><div><svg class="finance-flow" role="img" aria-label="汇总不意味着资金任意挪动" viewBox="0 0 660 140" style="height: 140px;"><title>汇总不意味着资金任意挪动</title><desc>独立法人监管要求，当地法律与授权；客户资金与隐私，合规处理数据。</desc><defs><marker id="print-08-07-1-1-arrow-c8-consolidated-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">汇总不意味着资金任意挪动</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">独立法人监管要求</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">当地法律与授权</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">客户资金与隐私</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">合规处理数据</text></svg></div></div></div></figure>
+
+<p>穿透是看清最终资产、客户、交易结构、关联和风险来源；并表和集团管理使相关暴露能够统筹识别。相关头寸的风险不能只凭名字不同就按“互不相关”相加或抵消。</p>
+<p>统一管理也必须尊重独立法人、当地监管、数据保护和资金限制。知道集团总资产，不等于集团每一家公司都可以立即动用全部资金。</p></section><section class="lesson" id="c8s7-part-08"><h3>08 · 把制度沿革和现行要求分开：旧征求意见已经不是最新状态</h3>
+<p>教材历史部分提到2006年资本管理制度、2008年处置、2009年分类、2014年全面风险规范，以及后续修订、压力、声誉、操作等规则。第一轮按“管理目的→制度类别”记，年份优先抓题目明确考的节点。</p>
+<p>整理日期为2026年10月14日。2024年正式发布的风险控制计算标准已于2025年1月1日起实施；教材中的2023年征求意见是当时进程，不能继续当现行草案。<a href="https://www.csrc.gov.cn/csrc/c101954/c7507765/content.shtml" target="_blank" rel="noopener">正式计算标准发布页</a></p>
+<p>全面风险管理规范2025年修订，2025年9月1日起施行；市场风险管理亦有2025年指引。讲义在第二、三节按主要概念解释，具体业务计算要查配套文本。<a href="https://www.sac.net.cn/flfg/zlgz/202504/t20250401_67571.html" target="_blank" rel="noopener">全面风险管理规范</a>、<a href="https://www.sac.net.cn/flfg/zlgz/202504/t20250401_67572.html" target="_blank" rel="noopener">市场风险管理指引</a></p>
+<p><span class="level use">会用</span>题干指定“某年办法”就先定位版本；未指定而讨论现实业务，就确认有效规则。只背一个百分比、却忽略业务分类及年份，容易算对数但答错题。</p></section><section class="lesson" id="c8s7-part-09"><h3>09 · 工具地图：按风险的问题选指标</h3>
+<figure class="diagram" data-diagram="c8-risk-practice-map"><figcaption class="figure-label">SVG · 先选风险类型，再选指标和处置</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-practice-map">
+  <h3>先选风险类型，再选指标和处置</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">市场与信用</button><button class="btn" type="button" aria-pressed="false">流动性与操作</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="指标对应风险来源" viewBox="0 0 840 140" style="height: 140px;"><title>指标对应风险来源</title><desc>市场价格风险，DV01波动VaR压力；违约信用风险，评级PDLGDEAD。</desc><defs><marker id="arrow-c8-risk-practice-map-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">指标对应风险来源</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">市场价格风险</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">DV01波动VaR压力</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">违约信用风险</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">评级PDLGDEAD</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">市场与信用</div>
+  <script type="application/json" data-config="">{"heading": "先选风险类型，再选指标和处置", "states": [{"label": "市场与信用", "rows": [{"label": "指标对应风险来源", "nodes": [["市场价格风险", "DV01波动VaR压力"], ["违约信用风险", "评级PDLGDEAD"]], "edges": [""], "noArrows": true}]}, {"label": "流动性与操作", "rows": [{"label": "工具对应问题", "nodes": [["现金与融资缺口", "LCRNSFR现金流"], ["流程系统人员问题", "RCSAKRILDC"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-practice-map .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-practice-map .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-practice-map .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-practice-map .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-practice-map .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-practice-map');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-practice-map-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-practice-map-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>市场与信用</h4><div><svg class="finance-flow" role="img" aria-label="指标对应风险来源" viewBox="0 0 660 140" style="height: 140px;"><title>指标对应风险来源</title><desc>市场价格风险，DV01波动VaR压力；违约信用风险，评级PDLGDEAD。</desc><defs><marker id="print-08-07-2-0-arrow-c8-risk-practice-map-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">指标对应风险来源</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">市场价格风险</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">DV01波动VaR压力</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">违约信用风险</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">评级PDLGDEAD</text></svg></div></div><div class="diagram-print-state"><h4>流动性与操作</h4><div><svg class="finance-flow" role="img" aria-label="工具对应问题" viewBox="0 0 660 140" style="height: 140px;"><title>工具对应问题</title><desc>现金与融资缺口，LCRNSFR现金流；流程系统人员问题，RCSAKRILDC。</desc><defs><marker id="print-08-07-2-1-arrow-c8-risk-practice-map-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">工具对应问题</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">现金与融资缺口</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">LCRNSFR现金流</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">流程系统人员问题</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">RCSAKRILDC</text></svg></div></div></div></figure>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>先看的工具</th>
+<th>可考虑的管理动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>市场变量变化损失多大</td>
+<td>DV01、Greeks、波动率、VaR、ES、压力测试</td>
+<td>限额、调整头寸、匹配对冲</td>
+</tr>
+<tr>
+<td>谁可能违约、违约损失多大</td>
+<td>评级、PD/LGD/EAD、集中度、对手暴露</td>
+<td>尽调授信、担保、净额、转移与处置</td>
+</tr>
+<tr>
+<td>什么时候缺现金</td>
+<td>LCR、NSFR、到期结构、现金流与可用额度</td>
+<td>缓冲、融资分散、期限管理与应急</td>
+</tr>
+<tr>
+<td>人流程系统哪里薄弱</td>
+<td>RCSA、KRI、LDC、控制检查</td>
+<td>权限复核、IT、数据治理、连续性</td>
+</tr>
+<tr>
+<td>信任是否受损</td>
+<td>投诉与媒体监测、事件评估</td>
+<td>预防、核实、授权沟通、解决问题</td>
+</tr>
+</tbody>
+</table></div>
+<p>先选工具，再看假设和数据，最后行动。一个市场风险VaR不能充当整个公司信用、现金和操作风险的综合证明。</p></section><section class="lesson" id="c8s7-part-10"><h3>10 · 数字化管理：统一数据比一块好看的屏幕更重要</h3>
+<p>教材谈风险数据集市、集团统一识别、实时监测、穿透和归因。价值在于打通业务、客户、产品、合同、头寸、担保、现金流等数据，让同一对象的风险能够汇总、核对与追踪。</p>
+<p>技术不会自动修正脏数据、错误分类、漏报、权限漏洞和不合适模型。需有数据标准、质量检查、来源、版本、授权与问责。图表刷新很快，只说明显示快，不能证明风险估计可靠。</p>
+<p>教材引用2023年风险数据集市75.2%、归因58.1%等调查比例，属于当年调查，分母和样本也有范围。<span class="level context">背景</span>它说明行业应用程度，并非2026年实时覆盖率，第一轮不必记旧百分数。</p></section><section class="lesson" id="c8s7-part-11"><h3>11 · 绩效归因：赚钱是行情、配置、选择还是其他因素</h3>
+<figure class="diagram" data-diagram="c8-attribution"><figcaption class="figure-label">SVG · 归因把收益拆成来源，不等于自动证明管理能力</figcaption><div class="diagram-interactive"><div id="finance-c8-attribution">
+  <h3>归因把收益拆成来源，不等于自动证明管理能力</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">股票与债券</button><button class="btn" type="button" aria-pressed="false">因子与衍生</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="教材主要模型对应" viewBox="0 0 840 140" style="height: 140px;"><title>教材主要模型对应</title><desc>Brinson，配置与选择等；Campisi，债券利息利率信用。</desc><defs><marker id="arrow-c8-attribution-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">教材主要模型对应</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">Brinson</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">配置与选择等</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">Campisi</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">债券利息利率信用</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">股票与债券</div>
+  <script type="application/json" data-config="">{"heading": "归因把收益拆成来源，不等于自动证明管理能力", "states": [{"label": "股票与债券", "rows": [{"label": "教材主要模型对应", "nodes": [["Brinson", "配置与选择等"], ["Campisi", "债券利息利率信用"]], "edges": [""], "noArrows": true}]}, {"label": "因子与衍生", "rows": [{"label": "按解释对象选模型", "nodes": [["Barra等因子", "市场风格风险暴露"], ["Greek归因", "DeltaGammaVega等"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-attribution .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-attribution .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-attribution .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-attribution .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-attribution .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-attribution');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-attribution-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-attribution-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>股票与债券</h4><div><svg class="finance-flow" role="img" aria-label="教材主要模型对应" viewBox="0 0 660 140" style="height: 140px;"><title>教材主要模型对应</title><desc>Brinson，配置与选择等；Campisi，债券利息利率信用。</desc><defs><marker id="print-08-07-3-0-arrow-c8-attribution-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">教材主要模型对应</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">Brinson</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">配置与选择等</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">Campisi</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">债券利息利率信用</text></svg></div></div><div class="diagram-print-state"><h4>因子与衍生</h4><div><svg class="finance-flow" role="img" aria-label="按解释对象选模型" viewBox="0 0 660 140" style="height: 140px;"><title>按解释对象选模型</title><desc>Barra等因子，市场风格风险暴露；Greek归因，DeltaGammaVega等。</desc><defs><marker id="print-08-07-3-1-arrow-c8-attribution-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">按解释对象选模型</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">Barra等因子</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">市场风格风险暴露</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">Greek归因</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">DeltaGammaVega等</text></svg></div></div></div></figure>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材模型</th>
+<th>主要识别对象</th>
+<th>学到什么程度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brinson</td>
+<td>资产配置、选择等相对收益来源</td>
+<td>认股票组合归因思路</td>
+</tr>
+<tr>
+<td>Campisi</td>
+<td>债券利息、利率曲线和信用等来源</td>
+<td>认债券归因思路</td>
+</tr>
+<tr>
+<td>Barra等因子模型</td>
+<td>市场、行业、风格等因子暴露</td>
+<td>认风险因子解释</td>
+</tr>
+<tr>
+<td>Fama等分解思路</td>
+<td>对绩效来源作进一步解释</td>
+<td>知道属于归因框架，按题干版本判断</td>
+</tr>
+<tr>
+<td>Greek归因</td>
+<td>Delta、Gamma、Vega等对衍生品变化的解释</td>
+<td>与第三节敏感度连起来</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="level context">背景</span>这些模型是为了区别“赚了钱”和“为什么赚钱”，不要求第一轮推导所有归因公式。归因依赖基准、模型和数据，分解出一项收益不等于已经证明纯粹的管理能力或因果。</p>
+<p>自编例：两个经理都赚10%，但一个跟随上涨20%的市场，一个在下跌环境中控制风险；单看10%不能公平比较，还需适当基准、暴露和限制。</p></section><section class="lesson" id="c8s7-part-12"><h3>12 · 风险调整绩效：利润、资本成本、风险兑现时间一起看</h3>
+<p>第三节RAROC用风险调整收益相对经济资本衡量效率；这里把它放到实际绩效考核。相同利润，占用资本、流动性、风险和合规成本不同，价值贡献可能不同。</p>
+<p>经济增加值EVA强调扣除资本使用成本。若额外做算例，可采用明确的经典口径：</p>
+<p><span class="math-display" role="math" aria-label="EVA=NOPAT-WACC\times Invested\ Capital"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="46.791ex" height="2.059ex" role="img" focusable="false" viewBox="0 -716 20681.4 910" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="FORMULA-17-MJX-18-TEX-I-1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path id="FORMULA-17-MJX-18-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path><path id="FORMULA-17-MJX-18-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D44A" d="M436 683Q450 683 486 682T553 680Q604 680 638 681T677 682Q695 682 695 674Q695 670 692 659Q687 641 683 639T661 637Q636 636 621 632T600 624T597 615Q597 603 613 377T629 138L631 141Q633 144 637 151T649 170T666 200T690 241T720 295T759 362Q863 546 877 572T892 604Q892 619 873 628T831 637Q817 637 817 647Q817 650 819 660Q823 676 825 679T839 682Q842 682 856 682T895 682T949 681Q1015 681 1034 683Q1048 683 1048 672Q1048 666 1045 655T1038 640T1028 637Q1006 637 988 631T958 617T939 600T927 584L923 578L754 282Q586 -14 585 -15Q579 -22 561 -22Q546 -22 542 -17Q539 -14 523 229T506 480L494 462Q472 425 366 239Q222 -13 220 -15T215 -19Q210 -22 197 -22Q178 -22 176 -15Q176 -12 154 304T131 622Q129 631 121 633T82 637H58Q51 644 51 648Q52 671 64 683H76Q118 680 176 680Q301 680 313 683H323Q329 677 329 674T327 656Q322 641 318 637H297Q236 634 232 620Q262 160 266 136L501 550L499 587Q496 629 489 632Q483 636 447 637Q428 637 422 639T416 648Q416 650 418 660Q419 664 420 669T421 676T424 680T428 682T436 683Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path><path id="FORMULA-17-MJX-18-TEX-N-D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D43C" d="M43 1Q26 1 26 10Q26 12 29 24Q34 43 39 45Q42 46 54 46H60Q120 46 136 53Q137 53 138 54Q143 56 149 77T198 273Q210 318 216 344Q286 624 286 626Q284 630 284 631Q274 637 213 637H193Q184 643 189 662Q193 677 195 680T209 683H213Q285 681 359 681Q481 681 487 683H497Q504 676 504 672T501 655T494 639Q491 637 471 637Q440 637 407 634Q393 631 388 623Q381 609 337 432Q326 385 315 341Q245 65 245 59Q245 52 255 50T307 46H339Q345 38 345 37T342 19Q338 6 332 0H316Q279 2 179 2Q143 2 113 2T65 2T43 1Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path id="FORMULA-17-MJX-18-TEX-N-A0" d=""></path><path id="FORMULA-17-MJX-18-TEX-I-1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path id="FORMULA-17-MJX-18-TEX-I-1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D438" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D438"></use></g><g data-mml-node="mi" transform="translate(764,0)"><use data-c="1D449" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D449"></use></g><g data-mml-node="mi" transform="translate(1533,0)"><use data-c="1D434" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D434"></use></g><g data-mml-node="mo" transform="translate(2560.8,0)"><use data-c="3D" xlink:href="#FORMULA-17-MJX-18-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(3616.6,0)"><use data-c="1D441" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D441"></use></g><g data-mml-node="mi" transform="translate(4504.6,0)"><use data-c="1D442" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D442"></use></g><g data-mml-node="mi" transform="translate(5267.6,0)"><use data-c="1D443" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D443"></use></g><g data-mml-node="mi" transform="translate(6018.6,0)"><use data-c="1D434" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D434"></use></g><g data-mml-node="mi" transform="translate(6768.6,0)"><use data-c="1D447" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D447"></use></g><g data-mml-node="mo" transform="translate(7694.8,0)"><use data-c="2212" xlink:href="#FORMULA-17-MJX-18-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(8695,0)"><use data-c="1D44A" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D44A"></use></g><g data-mml-node="mi" transform="translate(9743,0)"><use data-c="1D434" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D434"></use></g><g data-mml-node="mi" transform="translate(10493,0)"><use data-c="1D436" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D436"></use></g><g data-mml-node="mi" transform="translate(11253,0)"><use data-c="1D436" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D436"></use></g><g data-mml-node="mo" transform="translate(12235.2,0)"><use data-c="D7" xlink:href="#FORMULA-17-MJX-18-TEX-N-D7"></use></g><g data-mml-node="mi" transform="translate(13235.4,0)"><use data-c="1D43C" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D43C"></use></g><g data-mml-node="mi" transform="translate(13739.4,0)"><use data-c="1D45B" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D45B"></use></g><g data-mml-node="mi" transform="translate(14339.4,0)"><use data-c="1D463" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D463"></use></g><g data-mml-node="mi" transform="translate(14824.4,0)"><use data-c="1D452" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D452"></use></g><g data-mml-node="mi" transform="translate(15290.4,0)"><use data-c="1D460" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D460"></use></g><g data-mml-node="mi" transform="translate(15759.4,0)"><use data-c="1D461" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D461"></use></g><g data-mml-node="mi" transform="translate(16120.4,0)"><use data-c="1D452" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D452"></use></g><g data-mml-node="mi" transform="translate(16586.4,0)"><use data-c="1D451" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D451"></use></g><g data-mml-node="mtext" transform="translate(17106.4,0)"><use data-c="A0" xlink:href="#FORMULA-17-MJX-18-TEX-N-A0"></use></g><g data-mml-node="mi" transform="translate(17356.4,0)"><use data-c="1D436" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D436"></use></g><g data-mml-node="mi" transform="translate(18116.4,0)"><use data-c="1D44E" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(18645.4,0)"><use data-c="1D45D" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D45D"></use></g><g data-mml-node="mi" transform="translate(19148.4,0)"><use data-c="1D456" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D456"></use></g><g data-mml-node="mi" transform="translate(19493.4,0)"><use data-c="1D461" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D461"></use></g><g data-mml-node="mi" transform="translate(19854.4,0)"><use data-c="1D44E" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(20383.4,0)"><use data-c="1D459" xlink:href="#FORMULA-17-MJX-18-TEX-I-1D459"></use></g></g></g></svg></mjx-container></span></p>
+<p>NOPAT为税后经营利润，WACC为加权平均资本成本，投入资本按题设定义。自编例：NOPAT100、投入资本1000、WACC12%，EVA＝−20，说明会计利润为正也可能未覆盖全部资本成本。</p>
+<p>这一公式用于说明教材的绩效逻辑，不要把投入资本随意替换成净资本或经济资本；若题目明确采用风险调整的其他EVA口径，就按它给的定义。第一轮至少会解释“要考虑资本成本”。</p>
+<p>薪酬递延、追索等安排，是让激励与风险兑现时间更匹配，仍需按机构、人员及制度条件判断。年度当期利润高，不代表长期风险已经消失。</p></section><section class="lesson" id="c8s7-part-13"><h3>13 · 四早与闭环：识别、预警、暴露、处置</h3>
+<figure class="diagram" data-diagram="c8-four-early"><figcaption class="figure-label">SVG · 四早把管理往损失扩大之前移动</figcaption><div class="diagram-interactive"><div id="finance-c8-four-early">
+  <h3>四早把管理往损失扩大之前移动</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">四早</button><button class="btn" type="button" aria-pressed="false">管理闭环</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="识别预警暴露处置" viewBox="0 0 840 140" style="height: 140px;"><title>识别预警暴露处置</title><desc>早识别与早预警，发现问题和信号；早暴露与早处置，如实呈现及时行动。转为管理行动</desc><defs><marker id="arrow-c8-four-early-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">识别预警暴露处置</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">早识别与早预警</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">发现问题和信号</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">早暴露与早处置</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">如实呈现及时行动</text><path d="M 229 94 L 607 94" class="finance-arrow" marker-end="url(#arrow-c8-four-early-0)"></path><text x="420" y="44" text-anchor="middle" dominant-baseline="middle">转为管理行动</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">四早</div>
+  <script type="application/json" data-config="">{"heading": "四早把管理往损失扩大之前移动", "states": [{"label": "四早", "rows": [{"label": "识别预警暴露处置", "nodes": [["早识别与早预警", "发现问题和信号"], ["早暴露与早处置", "如实呈现及时行动"]], "edges": ["转为管理行动"]}]}, {"label": "管理闭环", "rows": [{"label": "不是报告发出就完成", "nodes": [["处置执行", "谁何时做什么"], ["复查剩余风险", "改流程模型限额"]], "edges": ["反馈验证"]}]}]}</script>
+</div>
+<style>
+#finance-c8-four-early .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-four-early .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-four-early .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-four-early .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-four-early .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-four-early');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-four-early-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-four-early-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>四早</h4><div><svg class="finance-flow" role="img" aria-label="识别预警暴露处置" viewBox="0 0 660 140" style="height: 140px;"><title>识别预警暴露处置</title><desc>早识别与早预警，发现问题和信号；早暴露与早处置，如实呈现及时行动。转为管理行动</desc><defs><marker id="print-08-07-4-0-arrow-c8-four-early-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">识别预警暴露处置</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">早识别与早预警</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">发现问题和信号</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">早暴露与早处置</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">如实呈现及时行动</text><path d="M 229 94 L 427 94" class="finance-arrow" marker-end="url(#print-08-07-4-0-arrow-c8-four-early-0)"></path><text x="330" y="44" text-anchor="middle" dominant-baseline="middle">转为管理行动</text></svg></div></div><div class="diagram-print-state"><h4>管理闭环</h4><div><svg class="finance-flow" role="img" aria-label="不是报告发出就完成" viewBox="0 0 660 140" style="height: 140px;"><title>不是报告发出就完成</title><desc>处置执行，谁何时做什么；复查剩余风险，改流程模型限额。反馈验证</desc><defs><marker id="print-08-07-4-1-arrow-c8-four-early-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不是报告发出就完成</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">处置执行</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">谁何时做什么</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">复查剩余风险</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">改流程模型限额</text><path d="M 229 94 L 427 94" class="finance-arrow" marker-end="url(#print-08-07-4-1-arrow-c8-four-early-0)"></path><text x="330" y="44" text-anchor="middle" dominant-baseline="middle">反馈验证</text></svg></div></div></div></figure>
+
+<p>早识别：在风险隐藏时发现来源。早预警：指标和信号恶化时提示。早暴露：真实、及时反映问题，避免遮掩。早处置：在损失和传染扩大前采取措施。</p>
+<p>教材其他段落会出现“早发现”等相近表述，表达的是管理前移；本节按“早识别、早预警、早暴露、早处置”理解。背这四个词后还要会配动作，否则只是口号。</p>
+<p>闭环意味着报告→明确责任及期限→执行→复查剩余风险→修订流程、模型和限额。只有仪表盘警报，没人处理，不能算已经管理完成。</p></section><section class="lesson" id="c8s7-part-14"><h3>14 · 全书能力检查：用问题串起八章</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>合上讲义时至少能回答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一、二章金融市场及其体系</td>
+<td>谁供资金、谁需资金，直接与间接融资如何区分</td>
+</tr>
+<tr>
+<td>第三章市场主体</td>
+<td>发行、投资、中介、交易与监管分别由谁承担</td>
+</tr>
+<tr>
+<td>第四章股票</td>
+<td>股东有什么权利，发行交易制度怎样影响题干，估值的分子分母是什么</td>
+</tr>
+<tr>
+<td>第五章债券</td>
+<td>现金流、价格、收益率、信用、利率风险如何联系</td>
+</tr>
+<tr>
+<td>第六章基金</td>
+<td>投资者、管理人、托管人分工，净值、费用、申赎如何计算</td>
+</tr>
+<tr>
+<td>第七章衍生品</td>
+<td>谁买谁卖、权利义务、基础变量、现金流与盈亏怎样确定</td>
+</tr>
+<tr>
+<td>第八章风险管理</td>
+<td>风险从哪来，怎样衡量，谁负责，采取什么动作</td>
+</tr>
+</tbody>
+</table></div>
+<p>这一表是检验理解的入口，不能取代各节的具体制度、定义与计算。做错题时，先标是概念、条件、分母、方向、单位还是规则年份错，再回对应讲解单元。</p></section><section class="lesson" id="c8s7-part-15"><h3>15 · 自编诊断题：把整章变成具体判断</h3>
+<ol>
+<li>教材三阶段中，2005—2012年前后的主要管理关键词是什么？</li>
+<li>第三方存管能否推出普通证券投资损失由存管银行赔付？</li>
+<li>流动性指标很好，能否抵消资本指标不符合要求？</li>
+<li>托管、接管等措施是否等于所有投资者收益无条件受保证？</li>
+<li>母公司风险指标合格，是否可以忽略子公司和集团关联暴露？</li>
+<li>穿透统计是否意味着可以无视独立法人、客户资金和跨境规则调资金？</li>
+<li>教材提2023年征求意见稿，2026年是否应仍直接称它为当前尚未正式实施的规则？</li>
+<li>价格敏感度、借款人违约损失、30天资金需求分别先选哪些工具？</li>
+<li>一块实时更新的大屏能否证明输入数据和模型可靠？</li>
+<li>Brinson、Campisi、Greek归因分别主要联系什么对象？</li>
+<li>NOPAT100、投入资本1000、WACC12%，EVA多少？正利润是否一定覆盖资本成本？</li>
+<li>预警报告已发送但没有负责人执行，是否形成完整闭环？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与管理含义</summary>
+<div class="answer-content">
+<ol>
+<li><strong>治理、集中管理、净资本约束。</strong>全面动态和数字化是后续强化方向。</li>
+<li><strong>不能。</strong>资金隔离管理与投资价格损失不同。</li>
+<li><strong>不能。</strong>各项要求分别满足，资本与现金回答不同问题。</li>
+<li><strong>不等于。</strong>处置依规则和程序，不构成普遍收益担保。</li>
+<li><strong>不能。</strong>全面与集团管理要识别子公司、关联与传导。</li>
+<li><strong>不意味着。</strong>汇总识别仍需守法律、授权和资金边界。</li>
+<li><strong>不应。</strong>正式计算标准已于2025年1月1日起实施，应确认指定版本。</li>
+<li><strong>DV01/Greeks等；PD/LGD/EAD；LCR与现金流。</strong>再结合其他指标和条件。</li>
+<li><strong>不能。</strong>更新速度与数据、模型质量不同。</li>
+<li><strong>组合配置选择、债券来源、衍生品敏感因素。</strong>按具体模型版本解释。</li>
+<li><strong>−20。</strong>100−12%×1000；利润为正仍可能不足以覆盖资本成本。</li>
+<li><strong>没有。</strong>需要责任、执行、反馈和剩余风险复查。</li>
+</ol>
+</div>
+</details></section><section class="lesson" id="c8s7-part-16"><h3>16 · 第八章过关清单：用七句话收住概念</h3>
+<ol>
+<li>风险是结果的不确定性或不利可能，已经亏损是一次实现结果。</li>
+<li>管理有识别、衡量、监测和应对，业务、风险部门与内审各有责任。</li>
+<li>VaR是条件明确的损失分位数，ES进一步看尾部平均损失。</li>
+<li>信用风险既有违约也有信用质量下降，EL与条件违约损失不能混。</li>
+<li>流动性看可用现金与时间，资本和利润不能替代及时付款。</li>
+<li>操作、声誉、国家、战略与系统风险按来源、后果和范围区分。</li>
+<li>全面管理需要真实数据、有效模型、具体动作和反馈，制度与指标都应看适用版本。</li>
+</ol>
+<p>能用自己的例子解释这七句，并完成本章七节诊断题，再回做对应习题。具体法规数字继续按各节表格和题干版本核对，暂时不必反复背不影响判断的旧统计和模型推导。</p></section><nav class="section-links" aria-label="章节切换"><a href="index.html">返回总目录</a><a href="08-06_操作风险、声誉风险及其他风险管理.html">上一节 · 操作风险、声誉风险及其他风险管理</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。计算须确认单位、期间、分母与模型假设；指标达标也不保证所有情况下无损失。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第六章 · 第一节 · 证券投资基金概述 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第六章 / 01</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 82.9965%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第一节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c6s1-part-01">01 · 这一节先学到什么程度</a><a class="" href="#c6s1-part-02">02 · 基金到底买了什么：先区分三层关系</a><a href="#c6s1-part-03">03 · 五个特点：每一个都对应一道判断题</a><a class="" href="#c6s1-part-04">04 · 股票、债券、基金：先看你对谁有什么权利</a><a class="" href="#c6s1-part-05">05 · 分类不是一条队伍：一个基金可以同时贴很多标签</a><a class="" href="#c6s1-part-06">06 · 契约型与公司型：法律身份不同，不是投资水平不同</a><a class="" href="#c6s1-part-07">07 · 封闭式与开放式：赎回和卖出不是一回事</a><a href="#c6s1-part-08">08 · 按投资对象分类：80%先看分母</a><a class="" href="#c6s1-part-09">09 · 主动与被动：评价标准也随之改变</a><a class="" href="#c6s1-part-10">10 · ETF和LOF：同时看场内交易与申赎通道</a><a class="" href="#c6s1-part-11">11 · QDII、FOF、MOM：到底多了一层什么</a><a class="current" href="#c6s1-part-12">12 · 发展史：知道制度为什么长成这样，再保留年份表</a><a href="#c6s1-part-13">13 · 自编诊断题：闭卷判断，再展开解析</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 06 / SECTION 01 · 第六章</div><h2>第一节 · 证券投资基金概述</h2><p>证券投资基金 · 教材正文第390—399页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="05-04_债券估值.html">上一节 · 债券估值</a><a href="06-02_证券投资基金的运作与业务流程.html">下一节 · 证券投资基金的运作与业务流程</a></nav><section class="lesson" id="c6s1-part-01"><h3>01 · 这一节先学到什么程度</h3>
+<p>先把“基金”理解为：很多人的钱按制度组成独立财产，由专业机构按约定投资；你持有的是基金份额，盈亏由基金资产的变化传到你的份额上。它不是基金公司向你承诺还本付息的借条。</p>
+<p>本节沿教材正文390—399页讲概念、特点、分类和发展。第一轮的合格标准是：<strong>给你一个产品描述，你能判断它按哪个维度分类；给你一句绝对化说法，你能指出错在哪里。</strong>基金历史和行业规模主要帮助理解制度，不需要先把所有年份金额背完。</p>
+<p><span class="level use">会用</span>基金、股票、债券的关系；封闭与开放；ETF与LOF；FOF与MOM。<span class="level recognize">会认</span>80%门槛、QDII、组织形式。<span class="level context">背景</span>起源及发展阶段。</p></section><section class="lesson" id="c6s1-part-02"><h3>02 · 基金到底买了什么：先区分三层关系</h3>
+<p>你花1000元买基金，获得基金份额；基金用募集资金买股票、债券等资产；资产产生股息、利息和价差，扣除费用后影响基金净值。<strong>你不是直接登记在每家被投公司的股东名册上的股东。</strong></p>
+<figure class="diagram" data-diagram="c6-fund-chain"><figcaption class="figure-label">SVG · 投资者持有基金份额，基金持有底层资产</figcaption><div class="diagram-interactive"><div id="finance-c6-fund-chain">
+<h3>投资者持有基金份额，基金持有底层资产</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">权利路径</button><button aria-pressed="false" class="btn" type="button">收益路径</button></div>
+<div data-diagrams=""><svg aria-label="分清两个层次" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>分清两个层次</title><desc>投资者，持有基金份额；独立基金财产，管理人依法管理；底层股票债券，相应投资权益。份额权益；组合投资</desc><defs><marker id="arrow-c6-fund-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">分清两个层次</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">持有基金份额</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">独立基金财产</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">管理人依法管理</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">底层股票债券</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">相应投资权益</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c6-fund-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">份额权益</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c6-fund-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">组合投资</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">权利路径</div>
+<script data-config="" type="application/json">{"heading": "投资者持有基金份额，基金持有底层资产", "states": [{"label": "权利路径", "rows": [{"label": "分清两个层次", "nodes": [["投资者", "持有基金份额"], ["独立基金财产", "管理人依法管理"], ["底层股票债券", "相应投资权益"]], "edges": ["份额权益", "组合投资"]}]}, {"label": "收益路径", "rows": [{"label": "先扣相应费用", "nodes": [["底层资产", "股息利息价差"], ["基金财产", "扣费反映净值"], ["持有人", "依份额享有权益"]], "edges": ["资产收益", "对应权益"]}]}]}</script>
+</div>
+<style>
+#finance-c6-fund-chain .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-fund-chain .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-fund-chain .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-fund-chain .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-fund-chain .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-fund-chain');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-fund-chain-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-fund-chain-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>权利路径</h4><div><svg aria-label="分清两个层次" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>分清两个层次</title><desc>投资者，持有基金份额；独立基金财产，管理人依法管理；底层股票债券，相应投资权益。份额权益；组合投资</desc><defs><marker id="print-06-01-0-0-arrow-c6-fund-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">分清两个层次</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">持有基金份额</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">独立基金财产</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">管理人依法管理</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">底层股票债券</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">相应投资权益</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-01-0-0-arrow-c6-fund-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">份额权益</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-01-0-0-arrow-c6-fund-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">组合投资</text></svg></div></div><div class="diagram-print-state"><h4>收益路径</h4><div><svg aria-label="先扣相应费用" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>先扣相应费用</title><desc>底层资产，股息利息价差；基金财产，扣费反映净值；持有人，依份额享有权益。资产收益；对应权益</desc><defs><marker id="print-06-01-0-1-arrow-c6-fund-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先扣相应费用</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">底层资产</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">股息利息价差</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">基金财产</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">扣费反映净值</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">持有人</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依份额享有权益</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-06-01-0-1-arrow-c6-fund-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">资产收益</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-06-01-0-1-arrow-c6-fund-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">对应权益</text></svg></div></div></div></figure>
+<p>这解释了教材所谓“间接投资”：你通过基金参与底层资产投资。“间接投资”说的是投资路径，不要直接等同第一章的“间接融资”。基金参与证券发行时，底层融资仍可能属于直接融资。</p>
+<p>契约型基金中，投资者、管理人、托管人依据基金合同形成关系。基金财产独立于管理人、托管人的自有财产。管理公司经营不善与基金投资资产亏损是不同问题；独立性减少财产混同风险，<strong>不会消除底层股票下跌、债券违约等风险</strong>。</p>
+<p>教材开头用“向不特定投资者”描述募集，适合公募的典型情形。基金还包括向特定合格投资者非公开募集的私募，不能据此推出“所有基金都是向社会公众募集”。第六节会专门讲。</p></section><section class="lesson" id="c6s1-part-03"><h3>03 · 五个特点：每一个都对应一道判断题</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>特点</th>
+<th>用日常语言理解</th>
+<th>做题时防止过度推论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>集合理财、专业管理</td>
+<td>把资金集中，交给专业人员按约定管理</td>
+<td>专业不等于保证盈利</td>
+</tr>
+<tr>
+<td>组合投资、分散风险</td>
+<td>持有不同证券，降低某一资产出问题的影响</td>
+<td>不能消除市场整体下跌风险</td>
+</tr>
+<tr>
+<td>利益共享、风险共担</td>
+<td>按份额和类别安排享受收益、承担风险</td>
+<td>管理人不对正常投资损失无条件兜底</td>
+</tr>
+<tr>
+<td>严格监管、信息透明</td>
+<td>有准入、投资限制和披露要求</td>
+<td>注册、备案不等于监管机构推荐购买</td>
+</tr>
+<tr>
+<td>独立托管、保障安全</td>
+<td>保管、核算、监督与投资管理分工</td>
+<td>托管银行不是存款银行角色，基金不是存款</td>
+</tr>
+</tbody>
+</table></div>
+<p>为什么专门讲这些话？因为选项经常把“降低风险”换成“消除风险”，把“监管”换成“保证”。你需要掌握的是<strong>制度解决什么问题，以及解决到什么边界</strong>，不用照抄五段宣传式文字。</p></section><section class="lesson" id="c6s1-part-04"><h3>04 · 股票、债券、基金：先看你对谁有什么权利</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>股票</th>
+<th>债券</th>
+<th>基金份额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本关系</td>
+<td>对公司的股权</td>
+<td>对发行人的债权</td>
+<td>对基金财产的相应权益；契约型通常体现信托关系</td>
+</tr>
+<tr>
+<td>回报主要来自</td>
+<td>股利和股价变化</td>
+<td>利息、价差及约定偿付</td>
+<td>底层资产投资结果，扣除费用</td>
+</tr>
+<tr>
+<td>是否通常由你直接选底层证券</td>
+<td>是</td>
+<td>是</td>
+<td>管理人依合同配置</td>
+</tr>
+<tr>
+<td>风险判断</td>
+<td>看具体股票与组合</td>
+<td>看信用、利率、条款等</td>
+<td>看基金底层资产、策略、杠杆及运作</td>
+</tr>
+</tbody>
+</table></div>
+<p>教材以普通股票、普通债券、分散投资基金比较典型风险。<strong>不能把“所有基金风险介于所有股票和所有债券之间”当成定理。</strong>股票基金、货币基金、衍生品策略基金的风险差异很大。</p>
+<p>看到基金名称，先问“它实际投什么”，再判断风险。买10只都重仓同一行业的基金，也可能只是重复承担同一种风险。</p></section><section class="lesson" id="c6s1-part-05"><h3>05 · 分类不是一条队伍：一个基金可以同时贴很多标签</h3>
+<p>一只基金可以同时是“契约型、开放式、公募、股票型、被动指数基金、ETF”。这些词没有互相排斥，因为回答的问题不同。</p>
+<figure class="diagram" data-diagram="c6-fund-axes"><figcaption class="figure-label">SVG · 不同分类回答不同问题</figcaption><div class="diagram-interactive"><div id="finance-c6-fund-axes">
+<h3>不同分类回答不同问题</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">法律与运作</button><button aria-pressed="false" class="btn" type="button">募集与投资</button></div>
+<div data-diagrams=""><svg aria-label="法律组织" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>法律组织</title><desc>契约型，基金合同；公司型，公司章程。</desc><defs><marker id="arrow-c6-fund-axes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">法律组织</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">契约型</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">基金合同</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">公司型</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">公司章程</text></svg><svg aria-label="运作方式" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>运作方式</title><desc>封闭式，通常不得赎回；开放式，按约申购赎回。</desc><defs><marker id="arrow-c6-fund-axes-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">运作方式</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">封闭式</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通常不得赎回</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">开放式</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按约申购赎回</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">法律与运作</div>
+<script data-config="" type="application/json">{"heading": "不同分类回答不同问题", "states": [{"label": "法律与运作", "rows": [{"label": "法律组织", "nodes": [["契约型", "基金合同"], ["公司型", "公司章程"]], "edges": [""], "noArrows": true}, {"label": "运作方式", "nodes": [["封闭式", "通常不得赎回"], ["开放式", "按约申购赎回"]], "edges": [""], "noArrows": true}]}, {"label": "募集与投资", "rows": [{"label": "募集方式", "nodes": [["公募", "面向社会公众"], ["私募", "特定合格对象"]], "edges": [""], "noArrows": true}, {"label": "投资对象", "nodes": [["股票债券货币", "看底层类别"], ["混合或FOF等", "看组合及比例"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c6-fund-axes .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-fund-axes .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-fund-axes .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-fund-axes .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-fund-axes .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-fund-axes');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-fund-axes-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-fund-axes-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>法律与运作</h4><div><svg aria-label="法律组织" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>法律组织</title><desc>契约型，基金合同；公司型，公司章程。</desc><defs><marker id="print-06-01-1-0-arrow-c6-fund-axes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">法律组织</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">契约型</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">基金合同</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">公司型</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">公司章程</text></svg><svg aria-label="运作方式" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>运作方式</title><desc>封闭式，通常不得赎回；开放式，按约申购赎回。</desc><defs><marker id="print-06-01-1-0-arrow-c6-fund-axes-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">运作方式</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">封闭式</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通常不得赎回</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">开放式</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按约申购赎回</text></svg></div></div><div class="diagram-print-state"><h4>募集与投资</h4><div><svg aria-label="募集方式" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>募集方式</title><desc>公募，面向社会公众；私募，特定合格对象。</desc><defs><marker id="print-06-01-1-1-arrow-c6-fund-axes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">募集方式</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">公募</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">面向社会公众</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">私募</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">特定合格对象</text></svg><svg aria-label="投资对象" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>投资对象</title><desc>股票债券货币，看底层类别；混合或FOF等，看组合及比例。</desc><defs><marker id="print-06-01-1-1-arrow-c6-fund-axes-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资对象</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">股票债券货币</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">看底层类别</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">混合或FOF等</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">看组合及比例</text></svg></div></div></div></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类维度</th>
+<th>回答什么问题</th>
+<th>主要类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>法律组织形式</td>
+<td>权利按合同还是公司组织安排</td>
+<td>契约型、公司型</td>
+</tr>
+<tr>
+<td>运作方式</td>
+<td>能否按约申赎，份额如何变化</td>
+<td>封闭式、开放式</td>
+</tr>
+<tr>
+<td>投资对象</td>
+<td>钱主要投向什么</td>
+<td>股票、债券、货币、混合、FOF等</td>
+</tr>
+<tr>
+<td>投资目标与管理方式</td>
+<td>追求主动超额还是跟踪目标</td>
+<td>主动、被动；成长、收入、平衡等目标</td>
+</tr>
+<tr>
+<td>募集方式</td>
+<td>面向社会公众还是特定合格投资者</td>
+<td>公募、私募</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>题目把“公募”与“开放式”当成反义词，就是把不同维度混到一起。</strong>基础设施公募REITs通常采用封闭式运作，就是反例。</p></section><section class="lesson" id="c6s1-part-06"><h3>06 · 契约型与公司型：法律身份不同，不是投资水平不同</h3>
+<p>契约型靠基金合同组织投资者、管理人、托管人的权利义务，基金本身通常不具备公司法人资格；持有人不是基金管理公司的股东。我国公募证券投资基金主要采用契约型。</p>
+<p>公司型通过公司形式设立，基金公司具有法人资格，投资者持有股份，依据公司章程和公司治理安排享有股东权利。这里的“基金公司”指公司型基金这个载体，不要与负责管理许多契约型基金的“基金管理公司”混淆。</p>
+<p><span class="level recognize">会认</span>合同、受益凭证或基金份额、持有人，对应契约型；章程、股份、股东、法人，对应公司型。两类都可能聘请专业机构管理，不能推出公司型必然更主动或更安全。</p></section><section class="lesson" id="c6s1-part-07"><h3>07 · 封闭式与开放式：赎回和卖出不是一回事</h3>
+<p>封闭式在合同期限内通常份额固定，持有人不能要求基金按净值赎回。上市后可以把份额卖给另一位投资者：<strong>卖出改变份额的主人，基金本身没有因此向你支付赎回款。</strong></p>
+<p>开放式允许按合同安排申购、赎回，份额总额随之变化。申购使钱进入基金、份额增加；赎回使基金付出资金、份额减少。开放日、暂停申赎、限额、定期开放、锁定安排都可能存在，不能说“任何时候都能赎回”。</p>
+<figure class="diagram" data-diagram="c6-fund-exit"><figcaption class="figure-label">SVG · 卖出给别人，赎回由基金支付</figcaption><div class="diagram-interactive"><div id="finance-c6-fund-exit">
+<h3>卖出给别人，赎回由基金支付</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">卖出</button><button aria-pressed="false" class="btn" type="button">赎回</button></div>
+<div data-diagrams=""><svg aria-label="上市封闭式典型" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>上市封闭式典型</title><desc>卖方持有人，交出基金份额；买方持有人，支付成交款。份额转让</desc><defs><marker id="arrow-c6-fund-exit-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">上市封闭式典型</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">卖方持有人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">交出基金份额</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">买方持有人</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">支付成交款</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c6-fund-exit-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">份额转让</text></svg><svg aria-label="总份额" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>总份额</title><desc>基金总份额，通常没有减少；份额主人，从卖方变买方。</desc><defs><marker id="arrow-c6-fund-exit-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">总份额</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基金总份额</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通常没有减少</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">份额主人</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">从卖方变买方</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">卖出</div>
+<script data-config="" type="application/json">{"heading": "卖出给别人，赎回由基金支付", "states": [{"label": "卖出", "rows": [{"label": "上市封闭式典型", "nodes": [["卖方持有人", "交出基金份额"], ["买方持有人", "支付成交款"]], "edges": ["份额转让"]}, {"label": "总份额", "nodes": [["基金总份额", "通常没有减少"], ["份额主人", "从卖方变买方"]], "edges": [""], "noArrows": true}]}, {"label": "赎回", "rows": [{"label": "普通开放式典型", "nodes": [["持有人", "提出份额赎回"], ["基金财产", "依规则支付款项"]], "edges": ["按净值等结算"]}, {"label": "份额总数", "nodes": [["赎回份额", "按规则注销"], ["基金总份额", "相应减少"]], "edges": ["减少份额"]}]}]}</script>
+</div>
+<style>
+#finance-c6-fund-exit .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-fund-exit .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-fund-exit .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-fund-exit .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-fund-exit .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-fund-exit');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-fund-exit-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-fund-exit-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>卖出</h4><div><svg aria-label="上市封闭式典型" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>上市封闭式典型</title><desc>卖方持有人，交出基金份额；买方持有人，支付成交款。份额转让</desc><defs><marker id="print-06-01-2-0-arrow-c6-fund-exit-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">上市封闭式典型</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">卖方持有人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">交出基金份额</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">买方持有人</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">支付成交款</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-2-0-arrow-c6-fund-exit-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">份额转让</text></svg><svg aria-label="总份额" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>总份额</title><desc>基金总份额，通常没有减少；份额主人，从卖方变买方。</desc><defs><marker id="print-06-01-2-0-arrow-c6-fund-exit-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">总份额</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基金总份额</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通常没有减少</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">份额主人</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">从卖方变买方</text></svg></div></div><div class="diagram-print-state"><h4>赎回</h4><div><svg aria-label="普通开放式典型" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>普通开放式典型</title><desc>持有人，提出份额赎回；基金财产，依规则支付款项。按净值等结算</desc><defs><marker id="print-06-01-2-1-arrow-c6-fund-exit-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">普通开放式典型</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">持有人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">提出份额赎回</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">基金财产</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">依规则支付款项</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-2-1-arrow-c6-fund-exit-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">按净值等结算</text></svg><svg aria-label="份额总数" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>份额总数</title><desc>赎回份额，按规则注销；基金总份额，相应减少。减少份额</desc><defs><marker id="print-06-01-2-1-arrow-c6-fund-exit-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">份额总数</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">赎回份额</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规则注销</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">基金总份额</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">相应减少</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-2-1-arrow-c6-fund-exit-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">减少份额</text></svg></div></div></div></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>判断点</th>
+<th>普通封闭式</th>
+<th>普通开放式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存续和规模</td>
+<td>合同约定，通常份额固定</td>
+<td>份额可随申赎变化，但可限额</td>
+</tr>
+<tr>
+<td>退出典型方式</td>
+<td>上市交易转让</td>
+<td>向基金申请赎回</td>
+</tr>
+<tr>
+<td>定价典型依据</td>
+<td>二级市场供求形成成交价</td>
+<td>按申赎规则使用基金净值</td>
+</tr>
+<tr>
+<td>是否一定上市</td>
+<td>不是只靠名字即可判断</td>
+<td>ETF、LOF等可以上市</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>净值1元、成交价0.9元</strong>，是二级市场折价10%；不是基金资产必然今天亏了10%。净值变动与成交价相对净值的折溢价必须分开。开放式基金也不能一概说“没有规模限制”。</p></section><section class="lesson" id="c6s1-part-08"><h3>08 · 按投资对象分类：80%先看分母</h3>
+<p>公募基金的常见分类口径如下，题目具体合同另有要求时还要核对。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>常见识别条件</th>
+<th>你该理解的风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>股票基金</td>
+<td>80%以上基金资产投资股票</td>
+<td>股票波动占主要地位</td>
+</tr>
+<tr>
+<td>债券基金</td>
+<td>80%以上基金资产投资债券</td>
+<td>利率、信用、流动性风险仍存在</td>
+</tr>
+<tr>
+<td>基金中基金FOF</td>
+<td>80%以上基金资产投资其他基金份额</td>
+<td>需要穿透看被投基金及费用</td>
+</tr>
+<tr>
+<td>货币市场基金</td>
+<td>投向规定的货币市场工具</td>
+<td>期限通常较短，仍不是保本存款</td>
+</tr>
+<tr>
+<td>混合基金</td>
+<td>投股票、债券等，比例不满足对应单一类别标准</td>
+<td>风险由实际配置决定</td>
+</tr>
+</tbody>
+</table></div>
+<p>这里的80%是<strong>基金资产投资比例</strong>，不是80%的持有人人数、80%的收益或80%的净利润。私募证券基金2024年的产品分类还有“已投资产”口径，不能直接照搬这一分母。</p>
+<p>成长型侧重资本增值，收入型侧重经常性收入，平衡型兼顾。它们是目标倾向，不能理解成成长型不收股息、收入型绝不会出现价格亏损。</p></section><section class="lesson" id="c6s1-part-09"><h3>09 · 主动与被动：评价标准也随之改变</h3>
+<p>主动基金根据研究选择资产，追求相对于适当基准的表现；被动指数基金依规则跟踪目标指数，常通过复制或抽样建立组合。跟踪偏离度看收益偏离，跟踪误差看偏离的波动程度，概念不要互换。</p>
+<p>指数跌10%、跟踪基金跌9.9%，投资者仍亏钱，但基金可能较好完成跟踪目标。指数基金不是“保证跑赢指数”的基金。指数增强会增加主动策略，追求在控制跟踪风险时取得超额，也没有保证。</p>
+<p>为什么讲这个？第四节要评价业绩。把“是否跟好指数”和“是否赚到正收益”混成一个指标，会错判基金是否完成投资任务。</p></section><section class="lesson" id="c6s1-part-10"><h3>10 · ETF和LOF：同时看场内交易与申赎通道</h3>
+<p>ETF是交易型开放式指数基金的常见形式。场内可以买卖份额；一级申赎按产品安排使用一篮子证券、现金或现金替代等。教材重点用实物申赎解释典型股票ETF，<strong>不是每种ETF都只收实物证券</strong>。</p>
+<p>LOF是上市开放式基金，常见特点是可在场内交易，又可按规则现金申赎；通过转托管等安排衔接场内场外。它既可以主动管理，也可以跟踪指数。</p>
+<figure class="diagram" data-diagram="c6-etf-lof"><figcaption class="figure-label">SVG · 上市交易与开放申赎同时存在</figcaption><div class="diagram-interactive"><div id="finance-c6-etf-lof">
+<h3>上市交易与开放申赎同时存在</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">ETF</button><button aria-pressed="false" class="btn" type="button">LOF</button></div>
+<div data-diagrams=""><svg aria-label="两个通道" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>两个通道</title><desc>二级交易，买卖基金份额；一级申赎，按单位及清单。</desc><defs><marker id="arrow-c6-etf-lof-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两个通道</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">二级交易</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">买卖基金份额</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">一级申赎</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按单位及清单</text></svg><svg aria-label="申赎对价" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>申赎对价</title><desc>证券或现金等，看具体产品；基金份额，相应申赎变化。清单安排</desc><defs><marker id="arrow-c6-etf-lof-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">申赎对价</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">证券或现金等</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">看具体产品</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">基金份额</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">相应申赎变化</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c6-etf-lof-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">清单安排</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">ETF</div>
+<script data-config="" type="application/json">{"heading": "上市交易与开放申赎同时存在", "states": [{"label": "ETF", "rows": [{"label": "两个通道", "nodes": [["二级交易", "买卖基金份额"], ["一级申赎", "按单位及清单"]], "edges": [""], "noArrows": true}, {"label": "申赎对价", "nodes": [["证券或现金等", "看具体产品"], ["基金份额", "相应申赎变化"]], "edges": ["清单安排"]}]}, {"label": "LOF", "rows": [{"label": "两个通道", "nodes": [["场内市场交易", "按成交价"], ["现金申购赎回", "按适用净值"]], "edges": [""], "noArrows": true}, {"label": "渠道衔接", "nodes": [["场外持有", "同一基金"], ["场内持有", "依规则转托管"]], "edges": ["转托管"]}]}]}</script>
+</div>
+<style>
+#finance-c6-etf-lof .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-etf-lof .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-etf-lof .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-etf-lof .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-etf-lof .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-etf-lof');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-etf-lof-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-etf-lof-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>ETF</h4><div><svg aria-label="两个通道" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>两个通道</title><desc>二级交易，买卖基金份额；一级申赎，按单位及清单。</desc><defs><marker id="print-06-01-3-0-arrow-c6-etf-lof-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两个通道</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">二级交易</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">买卖基金份额</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">一级申赎</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按单位及清单</text></svg><svg aria-label="申赎对价" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>申赎对价</title><desc>证券或现金等，看具体产品；基金份额，相应申赎变化。清单安排</desc><defs><marker id="print-06-01-3-0-arrow-c6-etf-lof-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">申赎对价</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">证券或现金等</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">看具体产品</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">基金份额</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">相应申赎变化</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-3-0-arrow-c6-etf-lof-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">清单安排</text></svg></div></div><div class="diagram-print-state"><h4>LOF</h4><div><svg aria-label="两个通道" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>两个通道</title><desc>场内市场交易，按成交价；现金申购赎回，按适用净值。</desc><defs><marker id="print-06-01-3-1-arrow-c6-etf-lof-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两个通道</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">场内市场交易</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按成交价</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">现金申购赎回</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按适用净值</text></svg><svg aria-label="渠道衔接" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>渠道衔接</title><desc>场外持有，同一基金；场内持有，依规则转托管。转托管</desc><defs><marker id="print-06-01-3-1-arrow-c6-etf-lof-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">渠道衔接</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">场外持有</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">同一基金</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">场内持有</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">依规则转托管</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-3-1-arrow-c6-etf-lof-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">转托管</text></svg></div></div></div></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对比</th>
+<th>ETF</th>
+<th>LOF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>场内买卖</td>
+<td>买卖基金份额，成交价随市场形成</td>
+<td>同样有场内成交价</td>
+</tr>
+<tr>
+<td>一级申赎</td>
+<td>按申赎清单和最小单位；证券、现金等依产品</td>
+<td>通常现金申购、现金赎回</td>
+</tr>
+<tr>
+<td>典型投资目标</td>
+<td>跟踪指数</td>
+<td>主动或被动均可能</td>
+</tr>
+<tr>
+<td>份额变化</td>
+<td>一级申赎改变份额</td>
+<td>申赎改变份额</td>
+</tr>
+<tr>
+<td>常见混淆</td>
+<td>场内100份买卖与几十万份申赎单位不同</td>
+<td>场内卖出与场外赎回不同</td>
+</tr>
+</tbody>
+</table></div>
+<p>教材列30万、50万、100万等ETF申赎单位，是产品安排的例子，不是“所有ETF必须某一固定数”。ETF联接基金主要投资目标ETF，给不便直接参与ETF的投资者提供通道；不是普通FOF任选一篮子基金的同义词。</p>
+<p>套利机制可以促进ETF价格接近资产价值，但交易成本、额度、时差和跨境市场关闭等会阻碍套利。<strong>ETF和LOF均可能出现折溢价</strong>，不要接受“上市开放式所以绝不折价”的选项。</p></section><section class="lesson" id="c6s1-part-11"><h3>11 · QDII、FOF、MOM：到底多了一层什么</h3>
+<p>QDII表示境内合格机构依规定开展境外证券投资。QDII基金面对境外资产价格、汇率、时差、节假日和投资额度等因素；QDII不是境外资金进入中国市场的QFII。</p>
+<p>FOF直接买其他基金份额，管理人主要做基金筛选与组合配置；风险与费用需要穿透到底层。多买基金并不自动分散，底层持仓可能重复。</p>
+<p>MOM是管理人中管理人模式：管理人把资产分成多个资产单元，委托符合条件的第三方投资顾问提供投资建议，由管理人依法负责管理。教材识别点是<strong>两个或以上资产单元、不同投资顾问、组合配置</strong>；不是把资产所有权送给顾问，也不是管理人从此免责。</p>
+<figure class="diagram" data-diagram="c6-fof-mom"><figcaption class="figure-label">SVG · FOF买基金，MOM分资产单元与顾问</figcaption><div class="diagram-interactive"><div id="finance-c6-fof-mom">
+<h3>FOF买基金，MOM分资产单元与顾问</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">FOF</button><button aria-pressed="false" class="btn" type="button">MOM</button></div>
+<div data-diagrams=""><svg aria-label="基金层组合" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>基金层组合</title><desc>FOF管理人，筛选基金组合；其他基金份额，底层各有持仓。投资基金</desc><defs><marker id="arrow-c6-fof-mom-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">基金层组合</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">FOF管理人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">筛选基金组合</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">其他基金份额</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">底层各有持仓</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c6-fof-mom-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">投资基金</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">FOF</div>
+<script data-config="" type="application/json">{"heading": "FOF买基金，MOM分资产单元与顾问", "states": [{"label": "FOF", "rows": [{"label": "基金层组合", "nodes": [["FOF管理人", "筛选基金组合"], ["其他基金份额", "底层各有持仓"]], "edges": ["投资基金"]}]}, {"label": "MOM", "rows": [{"label": "资产单元", "nodes": [["MOM管理人", "承担管理职责"], ["多个资产单元", "配置不同顾问"]], "edges": ["分配单元"]}, {"label": "顾问不替代责任", "nodes": [["投资顾问", "提供投资建议"], ["管理人", "依法决策管理"]], "edges": ["建议支持"]}]}]}</script>
+</div>
+<style>
+#finance-c6-fof-mom .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c6-fof-mom .finance-flow text {fill:currentColor;font:inherit}
+#finance-c6-fof-mom .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c6-fof-mom .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c6-fof-mom .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c6-fof-mom');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c6-fof-mom-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c6-fof-mom-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>FOF</h4><div><svg aria-label="基金层组合" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>基金层组合</title><desc>FOF管理人，筛选基金组合；其他基金份额，底层各有持仓。投资基金</desc><defs><marker id="print-06-01-4-0-arrow-c6-fof-mom-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">基金层组合</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">FOF管理人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">筛选基金组合</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">其他基金份额</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">底层各有持仓</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-4-0-arrow-c6-fof-mom-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">投资基金</text></svg></div></div><div class="diagram-print-state"><h4>MOM</h4><div><svg aria-label="资产单元" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资产单元</title><desc>MOM管理人，承担管理职责；多个资产单元，配置不同顾问。分配单元</desc><defs><marker id="print-06-01-4-1-arrow-c6-fof-mom-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资产单元</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">MOM管理人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">承担管理职责</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">多个资产单元</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">配置不同顾问</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-4-1-arrow-c6-fof-mom-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">分配单元</text></svg><svg aria-label="顾问不替代责任" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>顾问不替代责任</title><desc>投资顾问，提供投资建议；管理人，依法决策管理。建议支持</desc><defs><marker id="print-06-01-4-1-arrow-c6-fof-mom-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">顾问不替代责任</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资顾问</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">提供投资建议</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">管理人</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">依法决策管理</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-06-01-4-1-arrow-c6-fof-mom-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">建议支持</text></svg></div></div></div></figure>
+<p>养老目标基金通常采取FOF形式，以长期养老资金积累为目标。名称带“养老”仍不等于收益兜底或每年按固定利率发养老金。REITs的底层是基础设施项目权益，另在第七节展开。</p></section><section class="lesson" id="c6s1-part-12"><h3>12 · 发展史：知道制度为什么长成这样，再保留年份表</h3>
+<p>教材回溯1774年荷兰的早期集合投资安排，再介绍英国、美国基金业的发展。学习目的：基金并非单一市场的新发明，它一直在处理“小额资金如何参与分散投资、管理人如何被约束”两个问题。第一轮不需要背每一家早期机构的外文名。</p>
+<p>国内发展按逻辑记：早期探索→规范封闭式基金→开放式扩展→ETF、LOF、QDII等创新→制度与产品逐步完善。1998年是规范化基金发展的重要节点；2004年《证券投资基金法》实施及相关创新产品推进具有制度意义。别把“最早地方探索产品”与“最早规范证券投资基金”混为同一问法。</p>
+<details class="reference-section">
+<summary>展开：教材历史与数据识别表，第二轮再记</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材线索</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1992年前后的天骥、淄博等探索</td>
+<td>识别早期发展，不等同全部现行制度</td>
+</tr>
+<tr>
+<td>1998年规范化发展</td>
+<td>与早期不规范探索区分</td>
+</tr>
+<tr>
+<td>2003年开放式规模超过封闭式</td>
+<td>理解开放式成为重要形态</td>
+</tr>
+<tr>
+<td>2004年法律实施、LOF与ETF发展</td>
+<td>法律基础与产品创新</td>
+</tr>
+<tr>
+<td>2007年QDII基金等发展</td>
+<td>境外投资通道</td>
+</tr>
+<tr>
+<td>2015年内地香港基金互认</td>
+<td>跨市场基金销售机制</td>
+</tr>
+<tr>
+<td>2020年侧袋机制、基础设施REITs试点推进</td>
+<td>流动性处置与新资产类型</td>
+</tr>
+<tr>
+<td>2023年私募基金条例</td>
+<td>私募监管制度进一步完善</td>
+</tr>
+<tr>
+<td>教材2024年末公募管理人163家、规模32.83万亿元</td>
+<td>历史统计，不能当今天实时数据</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>第一轮把产品关系学清楚更有价值；若练习明确问年份或机构，再回这张表。这里讲历史，是为了避免把今天的制度直接套到早期产品，不要求先背行业规模的小数。</p></section><section class="lesson" id="c6s1-part-13"><h3>13 · 自编诊断题：闭卷判断，再展开解析</h3>
+<ol>
+<li>基金由银行托管，因此亏损应由托管银行补足。判断并说明。</li>
+<li>投资者买入契约型基金后，是否成为基金管理公司的股东？</li>
+<li>上市封闭式基金卖出1000份，基金份额总数通常是否减少？</li>
+<li>ETF可以上市交易，所以属于封闭式基金。判断。</li>
+<li>某公募基金85%基金资产投股票，按投资对象通常属于哪类？</li>
+<li>一只基金既是公募又是开放式，是否矛盾？</li>
+<li>目标指数跌10%，基金跌9.9%，是否一定说明跟踪失败？</li>
+<li>QDII基金主要对应哪个跨境投资方向？</li>
+<li>FOF与MOM分别直接配置什么？</li>
+<li>ETF净值1元、成交价1.1元，是基金资产必然上涨10%吗？</li>
+<li>两只基金单位净值分别1元、2元，能仅凭净值判断谁更便宜、更值得买吗？</li>
+<li>教材给出的2024年行业规模可直接用于回答当前行业规模吗？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与错因</summary>
+<div class="answer-content">
+<ol>
+<li>错。托管职责不包含无条件承担正常投资亏损，基金不是银行存款。</li>
+<li>不是。持有的是基金份额，对基金财产享有相应权益。</li>
+<li>通常不减少，份额从卖方转到买方；赎回才涉及基金付钱并减少份额。</li>
+<li>错。上市交易和开放式运作属于可同时存在的特征。</li>
+<li>股票基金。80%的分母是基金资产，不是收益或人数。</li>
+<li>不矛盾，分别回答募集方式和运作方式。</li>
+<li>不一定。基金仍亏损，但可能完成了跟踪目标，还要看跟踪偏离和误差。</li>
+<li>境内机构依规定投资境外证券，不是QFII的境外投资境内方向。</li>
+<li>FOF买基金份额；MOM配置资产单元及投资顾问，管理责任仍由管理人承担。</li>
+<li>不是。相对净值溢价10%，资产涨幅需与之前净值比较。</li>
+<li>不能。成立时间、分红和投资策略等都会影响净值；每份价格低不等于估值便宜。</li>
+<li>不能。该数字带统计时点，属于历史背景。</li>
+</ol>
+</div>
+</details>
+<p>能做对1—10，说明概念骨架基本清楚。若把“交易、申赎、份额、净值、成交价”混在一起，先回第七与第十单元；第二节会用数字继续拆开。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="05-04_债券估值.html">上一节 · 债券估值</a><a href="06-02_证券投资基金的运作与业务流程.html">下一节 · 证券投资基金的运作与业务流程</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

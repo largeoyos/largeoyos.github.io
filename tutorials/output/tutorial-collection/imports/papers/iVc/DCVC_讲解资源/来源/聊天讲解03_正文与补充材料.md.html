@@ -1,0 +1,748 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>聊天讲解03_正文与补充材料</title><link rel="stylesheet" href="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_讲解资源/来源/聊天讲解03_正文与补充材料.md · <a href="%E8%81%8A%E5%A4%A9%E8%AE%B2%E8%A7%A303_%E6%AD%A3%E6%96%87%E4%B8%8E%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%99.md">原始 Markdown</a></p><p>下面从 Related works 接着讲到补充材料结束。<strong>正文、补充材料、全部图表和公式的讲解现已完成</strong>，逐段内容已保存到<a href="../../DCVC_%E5%85%A8%E6%96%87%E7%B2%BE%E8%AF%BB%E5%AF%BC%E8%88%AA.md.html">全文精读导航</a>。</p>
+<p>阅读依据是 :codex-file-citation{path="E:/Projects/papers/iVc/Li_Deep_Contextual_Video_Compression_NeurIPS_2021_paper.pdf" purpose="source"} 和 :codex-file-citation{path="E:/Projects/papers/iVc/Li_Deep_Contextual_Video_Compression_NeurIPS_2021_supplemental.pdf" purpose="source"}。以下继续区分论文报告、作者解释与独立分析。</p>
+<p><strong>一、Related works：DCVC 接续了哪些研究？</strong></p>
+<p>这一节有三个段落。</p>
+<p>第一段回顾学习式图像压缩的发展。这里需要建立一个基本认识：压缩网络既要学习<strong>怎样表示图像</strong>，也要学习<strong>怎样给表示分配比特</strong>。</p>
+<p>编码器与解码器主要负责前者；超先验、自回归上下文和概率分布模型主要负责后者。DCVC 同时改动这两个层面，所以不能将其理解为单纯换了一个预测网络。</p>
+<p>第二段区分两类视频方法：</p>
+<table>
+<thead>
+<tr>
+<th>参考方式</th>
+<th>主要特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可以使用未来显示帧</td>
+<td>能利用双向信息，但通常涉及缓存和重排序</td>
+</tr>
+<tr>
+<td>只使用过去参考信息</td>
+<td>避免未来参考依赖，适合低延迟结构</td>
+</tr>
+</tbody>
+</table>
+<p>DCVC 属于第二类。<strong>参考结构具有因果性，并不等于计算速度达到实时。</strong> 这个区别在复杂度实验中会再次出现。</p>
+<p>第三段讨论已有条件编码。DCVC 并非首次提出条件编码概念：</p>
+<ul>
+<li>Liu 等人的方法重点学习帧间潜变量的条件熵，并省去显式帧间变换。<a href="https://arxiv.org/abs/2008.09180">原论文摘要</a></li>
+<li>Ladune 等人的工作已经采用条件编码，并具有显式的 skip 与编码分支。<a href="https://arxiv.org/abs/2104.07930">原论文</a></li>
+</ul>
+<p>这里还要纠正一种容易出现的误读：前作具有显式模式划分，不意味着每帧的划分由人工标注。其模式参数也可以由网络生成。</p>
+<p>因此，DCVC 的创新定位应当是：<strong>选择特征域上下文，并让条件系统地参与编码、解码与熵建模。</strong></p>
+<p><strong>二、Section 3.1：从残差编码到上下文编码</strong></p>
+<p>作者用三个公式逐步改变框架。</p>
+<p>传统残差形式为：</p>
+<p><span class="math display" data-tex="
+\hat x_t=
+f_{\mathrm{dec}}\!\left(
+Q\!\left(f_{\mathrm{enc}}(x_t-\tilde x_t)\right)
+\right)+\tilde x_t .
+\tag{1}
+">
+\hat x_t=
+f_{\mathrm{dec}}\!\left(
+Q\!\left(f_{\mathrm{enc}}(x_t-\tilde x_t)\right)
+\right)+\tilde x_t .
+\tag{1}
+</span></p>
+<p>其中 <span class="math" data-tex="Q">Q</span> 代表量化。流程是“预测—相减—编码残差—恢复残差—相加”。</p>
+<p>第一步改变，是直接把 RGB 预测图作为条件：</p>
+<p><span class="math display" data-tex="
+\hat x_t=
+f_{\mathrm{dec}}\!\left(
+Q(f_{\mathrm{enc}}(x_t\mid\tilde x_t))
+\mid\tilde x_t
+\right).
+\tag{2}
+">
+\hat x_t=
+f_{\mathrm{dec}}\!\left(
+Q(f_{\mathrm{enc}}(x_t\mid\tilde x_t))
+\mid\tilde x_t
+\right).
+\tag{2}
+</span></p>
+<p>这里的竖线表示网络接收条件。实际操作采用通道拼接，不是概率运算。</p>
+<p>第二步改变，是把预测图换成学习到的特征上下文：</p>
+<p><span class="math display" data-tex="
+\hat x_t=
+f_{\mathrm{dec}}\!\left(
+Q(f_{\mathrm{enc}}(x_t\mid\bar x_t))
+\mid\bar x_t
+\right).
+\tag{3}
+">
+\hat x_t=
+f_{\mathrm{dec}}\!\left(
+Q(f_{\mathrm{enc}}(x_t\mid\bar x_t))
+\mid\bar x_t
+\right).
+\tag{3}
+</span></p>
+<p>从公式 1 到 2，改变的是<strong>条件的使用方式</strong>；从 2 到 3，改变的是<strong>条件的表示形式</strong>。</p>
+<p>看完整框架：</p>
+<p><img alt="正文 Figure 2" src="../../DCVC_%E7%B2%BE%E8%AF%BB%E9%85%8D%E5%9B%BE/Figure2_%E5%8E%9F%E5%9B%BE.png"/></p>
+<p>按数据依赖读这张图：</p>
+<ol>
+<li>编码端利用当前帧和上一重建帧估计运动 <span class="math" data-tex="m_t">m_t</span>。</li>
+<li>运动经过编码与解码，得到双方一致可用的 <span class="math" data-tex="\hat m_t">\hat m_t</span>。</li>
+<li>从上一重建帧提取特征，用 <span class="math" data-tex="\hat m_t">\hat m_t</span> 对齐，再细化为上下文 <span class="math" data-tex="\bar x_t">\bar x_t</span>。</li>
+<li>当前帧与上下文共同生成图像潜变量 <span class="math" data-tex="y_t">y_t</span>。</li>
+<li>解码端恢复量化潜变量，再结合相同上下文重建 <span class="math" data-tex="\hat x_t">\hat x_t</span>。</li>
+<li>当前重建帧继续作为下一帧的参考。</li>
+</ol>
+<p><strong>解码器不需要原始当前帧，因为它使用的是已解码运动和重建参考。</strong></p>
+<p>随后 Figure 3 展示不同特征通道及重建误差变化。作者观察到部分通道更像在响应纹理，部分更像在响应颜色，并展示了高频区域、新出现区域的改善。</p>
+<p>该示例中，DCVC 为 <strong>0.0306 BPP</strong>，DVCPro 为 <strong>0.0359 BPP</strong>。</p>
+<p>【独立分析】这些图支持设计直觉，但不能证明每个通道都有固定语义。新内容没有可靠参考时，条件网络可以降低对参考的依赖；论文没有因此显式增加一个硬性的帧内/帧间开关。</p>
+<p><strong>三、Section 3.2：熵模型究竟怎样节省比特？</strong></p>
+<p>作者首先给出码率与负对数概率的关系：</p>
+<p><span class="math display" data-tex="
+R(\hat y_t)\ge
+\mathbb E_{\hat y_t\sim q}
+[-\log_2p(\hat y_t)].
+\tag{4}
+">
+R(\hat y_t)\ge
+\mathbb E_{\hat y_t\sim q}
+[-\log_2p(\hat y_t)].
+\tag{4}
+</span></p>
+<p>其中 <span class="math" data-tex="q">q</span> 是实际潜变量分布，<span class="math" data-tex="p">p</span> 是模型估计的分布。论文将右侧作为使用该模型进行熵编码时的紧致码率估计。</p>
+<p>理解它可以补充一个推导：</p>
+<p><span class="math display" data-tex="
+\begin{aligned}
+H(q,p)
+&amp;=-\sum_u q(u)\log_2p(u)\\
+&amp;=H(q)+D_{\mathrm{KL}}(q\Vert p).
+\end{aligned}
+">
+\begin{aligned}
+H(q,p)
+&amp;=-\sum_u q(u)\log_2p(u)\\
+&amp;=H(q)+D_{\mathrm{KL}}(q\Vert p).
+\end{aligned}
+</span></p>
+<p>表示分布固定时，概率模型越准确，失配造成的额外比特通常越少。实际文件还可能包含有限精度、终止与封装开销。</p>
+<p>DCVC 使用三种先验：</p>
+<p><img alt="正文 Figure 4" src="../../DCVC_%E7%B2%BE%E8%AF%BB%E9%85%8D%E5%9B%BE/Figure4_%E5%8E%9F%E5%9B%BE.png"/></p>
+<table>
+<thead>
+<tr>
+<th>先验</th>
+<th>从哪里来</th>
+<th>主要代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超先验</td>
+<td>从当前潜变量生成并传输的侧信息</td>
+<td>本身需要比特</td>
+</tr>
+<tr>
+<td>空间先验</td>
+<td>当前帧已经解码的潜变量符号</td>
+<td>引入顺序依赖</td>
+</tr>
+<tr>
+<td>时间先验</td>
+<td>参考信息生成的上下文</td>
+<td>依赖参考和已解码运动</td>
+</tr>
+</tbody>
+</table>
+<p>融合网络利用三者，预测分布参数：</p>
+<p><span class="math display" data-tex="
+(\mu_{t,i},\sigma_{t,i})=
+f_{\mathrm{pf}}\!\left(
+f_{\mathrm{hpd}}(\hat z_t),
+f_{\mathrm{ar}}(\hat y_{t,&lt;i}),
+f_{\mathrm{tpe}}(\bar x_t)
+\right).
+">
+(\mu_{t,i},\sigma_{t,i})=
+f_{\mathrm{pf}}\!\left(
+f_{\mathrm{hpd}}(\hat z_t),
+f_{\mathrm{ar}}(\hat y_{t,&lt;i}),
+f_{\mathrm{tpe}}(\bar x_t)
+\right).
+</span></p>
+<p>注意 <span class="math" data-tex="\hat y_{t,&lt;i}">\hat y_{t,&lt;i}</span>：解码当前位置之前，需要先恢复前面的符号。因此，公式中的概率乘积<strong>不表示所有符号无条件独立</strong>。</p>
+<p>论文用 Laplace 分布与均匀分布卷积表示量化符号概率：</p>
+<p><span class="math display" data-tex="
+p(\hat y_t\mid\bar x_t,\hat z_t)
+=
+\prod_i
+\left[
+\mathcal L(\mu_{t,i},\sigma_{t,i}^{2})
+*\mathcal U(-\tfrac12,\tfrac12)
+\right](\hat y_{t,i}).
+\tag{5}
+">
+p(\hat y_t\mid\bar x_t,\hat z_t)
+=
+\prod_i
+\left[
+\mathcal L(\mu_{t,i},\sigma_{t,i}^{2})
+*\mathcal U(-\tfrac12,\tfrac12)
+\right](\hat y_{t,i}).
+\tag{5}
+</span></p>
+<p>这里最值得推导的是：<strong>为什么需要均匀卷积？</strong></p>
+<p>量化得到整数 <span class="math" data-tex="k">k</span>，意味着连续值落在对应量化区间内。因此它的概率质量是：</p>
+<p><span class="math display" data-tex="
+p(\hat y=k)
+=
+\int_{k-1/2}^{k+1/2}f(u)\,du
+=
+F(k+1/2)-F(k-1/2).
+">
+p(\hat y=k)
+=
+\int_{k-1/2}^{k+1/2}f(u)\,du
+=
+F(k+1/2)-F(k-1/2).
+</span></p>
+<p>宽度为 1 的均匀核卷积，正好表达这个积分。</p>
+<p>【补充示例】若 Laplace 的位置为 0、尺度为 1，则：</p>
+<p><span class="math display" data-tex="
+p(\hat y=0)=1-e^{-0.5}\approx0.39347.
+">
+p(\hat y=0)=1-e^{-0.5}\approx0.39347.
+</span></p>
+<p>不能直接使用连续密度 <span class="math" data-tex="f(0)=0.5">f(0)=0.5</span> 作为离散符号概率。</p>
+<p>原文的尺度记号也值得留意：公式写了 <span class="math" data-tex="\sigma^2">\sigma^2</span>，但官方实现直接将预测的尺度传给 Laplace，并计算 CDF 差。复现时应检查参数约定，不能机械地额外平方。</p>
+<p>最后，作者给出删除空间先验的变体：</p>
+<p><span class="math display" data-tex="
+(\mu,\sigma)=
+f_{\mathrm{pf}}\!\left(
+f_{\mathrm{hpd}}(\hat z_t),
+f_{\mathrm{tpe}}(\bar x_t)
+\right).
+">
+(\mu,\sigma)=
+f_{\mathrm{pf}}\!\left(
+f_{\mathrm{hpd}}(\hat z_t),
+f_{\mathrm{tpe}}(\bar x_t)
+\right).
+</span></p>
+<p>它仍然保留超先验。删除图像潜变量的空间自回归，也不意味着整个运动与内容编解码系统已经完全并行。</p>
+<p><strong>四、Section 3.3：上下文为什么要先对齐再细化？</strong></p>
+<p>作者的上下文生成公式为：</p>
+<p><span class="math display" data-tex="
+\bar x_t=
+f_{\mathrm{cr}}\!\left(
+\operatorname{warp}
+\left(f_{\mathrm{fe}}(\hat x_{t-1}),\hat m_t\right)
+\right).
+\tag{6}
+">
+\bar x_t=
+f_{\mathrm{cr}}\!\left(
+\operatorname{warp}
+\left(f_{\mathrm{fe}}(\hat x_{t-1}),\hat m_t\right)
+\right).
+\tag{6}
+</span></p>
+<p>依次执行：</p>
+<p><span class="math display" data-tex="
+\text{参考图像}
+\rightarrow\text{特征提取}
+\rightarrow\text{运动对齐}
+\rightarrow\text{上下文细化}.
+">
+\text{参考图像}
+\rightarrow\text{特征提取}
+\rightarrow\text{运动对齐}
+\rightarrow\text{上下文细化}.
+</span></p>
+<p>运动后，同一坐标处的参考内容可能已经不相关。warp 根据运动寻找其他位置的特征，细化网络再处理采样误差和不连续。</p>
+<p>【补充示例】相邻特征值为 10 和 14，采样点在两者之间的 0.25 处，线性插值得到：</p>
+<p><span class="math display" data-tex="
+0.75\times10+0.25\times14=11.
+">
+0.75\times10+0.25\times14=11.
+</span></p>
+<p>二维双线性采样对应组合四个邻点。实际流方向、边界处理和坐标归一化仍需服从实现。</p>
+<p>这一节也解释了为什么必须使用<strong>解码后的运动</strong>：编码端若使用高精度原始运动，而解码端只能获得有损运动，两边生成的条件就可能不同。</p>
+<p><strong>五、Section 3.4：训练优化的是什么？</strong></p>
+<p>正文目标是：</p>
+<p><span class="math display" data-tex="
+L=\lambda D+R.
+\tag{7}
+">
+L=\lambda D+R.
+\tag{7}
+</span></p>
+<p><span class="math" data-tex="\lambda">\lambda</span> 越大，优化通常越愿意付出比特来减少失真。</p>
+<p>论文训练了四个工作点：</p>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th><span class="math" data-tex="\lambda">\lambda</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSE</td>
+<td>256、512、1024、2048</td>
+</tr>
+<tr>
+<td>MS-SSIM</td>
+<td>8、16、32、64</td>
+</tr>
+</tbody>
+</table>
+<p>学习率从 <span class="math" data-tex="10^{-4}">10^{-4}</span> 降到微调阶段的 <span class="math" data-tex="10^{-5}">10^{-5}</span>，batch size 为 4。</p>
+<p>这表示多个分别训练的模型，不是一个模型已支持连续码率控制。另外，MS-SSIM 原值越大越好；用于最小化目标时，应转成合适的失真形式，不能直接把它理解为越小越好。</p>
+<p>完整码率和渐进训练细节，作者放在补充材料中，下面按原顺序继续到那里。</p>
+<p><strong>六、Section 4：实验到底证明了什么？</strong></p>
+<p>训练数据是 Vimeo-90k septuplet，随机裁剪为 <span class="math" data-tex="256\times256">256\times256</span>。</p>
+<p>测试覆盖 MCL-JCV、UVG、HEVC Class B/C/D/E。主实验使用：</p>
+<ul>
+<li>HEVC：GOP 为 10，测试 100 帧。</li>
+<li>MCL-JCV、UVG：GOP 为 12，测试 120 帧。</li>
+<li>神经方法采用相同 I 帧模型重新比较。</li>
+<li>x264/x265 使用 veryslow 和固定 QP。</li>
+</ul>
+<p>统一 I 帧很重要：一个 GOP 的总结果既受 P 帧方法影响，也受第一张参考图像的质量和码率影响。</p>
+<p>Figures 5、6 分别展示 PSNR 与 MS-SSIM 曲线，横轴为 BPP，纵轴为质量；更靠左上方通常更有利。MS-SSIM 图对应为该指标微调过的神经模型。</p>
+<p>正文 Table 1 的关键结果如下，均为<strong>相对 x265 veryslow 的 PSNR BD-Rate</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th style="text-align: right;">DCVC</th>
+<th style="text-align: right;">DVCPro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCL-JCV</td>
+<td style="text-align: right;">−23.9%</td>
+<td style="text-align: right;">−4.1%</td>
+</tr>
+<tr>
+<td>UVG</td>
+<td style="text-align: right;">−25.3%</td>
+<td style="text-align: right;">−7.9%</td>
+</tr>
+<tr>
+<td>HEVC B</td>
+<td style="text-align: right;">−26.0%</td>
+<td style="text-align: right;">−9.0%</td>
+</tr>
+<tr>
+<td>HEVC C</td>
+<td style="text-align: right;">−5.8%</td>
+<td style="text-align: right;">+7.2%</td>
+</tr>
+<tr>
+<td>HEVC D</td>
+<td style="text-align: right;">−17.5%</td>
+<td style="text-align: right;">−6.9%</td>
+</tr>
+<tr>
+<td>HEVC E</td>
+<td style="text-align: right;">−11.9%</td>
+<td style="text-align: right;">+17.2%</td>
+</tr>
+</tbody>
+</table>
+<p>负数表示码率节省。<strong>摘要中的 26.0% 对应 HEVC B，不是所有视频共同的收益。</strong></p>
+<p>BD-Rate 的基本过程是：在共同质量区间内，对两条曲线的对数码率差取平均，再转换为相对百分比。它不是某个单独文件的大小差。</p>
+<p>也因此，不能简单计算：</p>
+<p><span class="math display" data-tex="
+26\%-9\%=17\%
+">
+26\%-9\%=17\%
+</span></p>
+<p>便声称验证了相对 DVCPro 的节省。改变锚点时，应重新比较曲线与共同积分区间。</p>
+<p>作者将高分辨率上的较大提升解释为丰富纹理使特征上下文更有用。这个解释与可视化相符，但跨数据集还同时改变了内容和运动，不能仅凭这些结果确定分辨率是独立原因。</p>
+<p>复杂度方面，论文报告：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align: right;">DCVC</th>
+<th style="text-align: right;">DVCPro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAC</td>
+<td style="text-align: right;">2268G</td>
+<td style="text-align: right;">2014G</td>
+</tr>
+<tr>
+<td>P40 上每个 1080p 帧的推理耗时</td>
+<td style="text-align: right;">857 ms</td>
+<td style="text-align: right;">849 ms</td>
+</tr>
+</tbody>
+</table>
+<p>运算量约增加 13%，所报推理耗时约增加 1%。这说明硬件并行度会影响运算量与耗时的关系，<strong>没有证明原始 DCVC 已达到实时运行</strong>。</p>
+<p><strong>七、Section 4.3：消融实验如何支持设计？</strong></p>
+<p>第一组拆分“条件形式”和“时间先验”：</p>
+<table>
+<thead>
+<tr>
+<th>时间先验</th>
+<th>编码方式</th>
+<th style="text-align: right;">相对最终方案的码率增加</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有</td>
+<td>特征上下文条件</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr>
+<td>有</td>
+<td>RGB 预测条件</td>
+<td style="text-align: right;">5.4%</td>
+</tr>
+<tr>
+<td>无</td>
+<td>特征上下文条件</td>
+<td style="text-align: right;">4.6%</td>
+</tr>
+<tr>
+<td>无</td>
+<td>RGB 预测条件</td>
+<td style="text-align: right;">8.7%</td>
+</tr>
+<tr>
+<td>有</td>
+<td>残差编码</td>
+<td style="text-align: right;">11.2%</td>
+</tr>
+<tr>
+<td>无</td>
+<td>残差编码</td>
+<td style="text-align: right;">12.9%</td>
+</tr>
+</tbody>
+</table>
+<p>可以得到三个较具体的判断：</p>
+<ol>
+<li>有无时间先验时，特征条件都优于相应 RGB 条件和残差方案。</li>
+<li>时间先验对三种编码方式都有帮助。</li>
+<li>改变条件表示与改变概率模型，确实是两个有作用的设计环节。</li>
+</ol>
+<p>但这些百分比不能直接线性相加。方向也要保留：RGB 方案“比最终方案多 5.4%”，反向节省约为：</p>
+<p><span class="math display" data-tex="
+1-\frac1{1.054}\approx5.12\%.
+">
+1-\frac1{1.054}\approx5.12\%.
+</span></p>
+<p>第二组拆分熵模型：</p>
+<table>
+<thead>
+<tr>
+<th>先验组合</th>
+<th style="text-align: right;">码率增加</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超先验＋空间＋时间</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr>
+<td>超先验＋时间</td>
+<td style="text-align: right;">3.8%</td>
+</tr>
+<tr>
+<td>超先验＋空间</td>
+<td style="text-align: right;">4.6%</td>
+</tr>
+<tr>
+<td>仅超先验</td>
+<td style="text-align: right;">60.9%</td>
+</tr>
+</tbody>
+</table>
+<p>这说明空间与时间上下文都提供重要帮助。删除空间先验只损失 3.8%，为作者的速度取舍提供了依据；但没有快速变体的完整实际计时，就不能进一步给出确定的加速倍数。</p>
+<p>60.9% 也不是“时间先验单独贡献了这么多”，因为它的比较对象同时使用了多种先验。</p>
+<p><strong>八、Section 4.4 与 Discussion：证据边界是什么？</strong></p>
+<p>Figure 7 说明，更强的 I 帧编码能明显提高 DVC 与 DVCPro 的结果；统一 I 帧后，DCVC 仍然领先。</p>
+<p>图中一部分曲线来自公开结果，一部分来自作者重新测试。因此不能把所有新增基线都描述为已经在完全统一条件下重新训练、测试。</p>
+<p>Discussion 的三个段落依次强调：</p>
+<ul>
+<li>条件编码对时间与空间信息的适应性，以及高维特征的作用。</li>
+<li>条件怎样定义、使用和学习仍是开放问题。</li>
+<li>当前存在通道冗余、单参考帧、未专门考虑时间稳定性等限制。</li>
+</ul>
+<p>这里没有独立的 Conclusion，Discussion 后面直接进入参考文献。</p>
+<p>【独立分析】本文已经提供了较完整的框架与消融证据，但没有证明：</p>
+<ul>
+<li>所有残差模型都必然严格更差。</li>
+<li>任意视频都能节省 26%。</li>
+<li>原始模型优于所有传统编码配置或 VVC。</li>
+<li>缓解误差传播就等于消除了闪烁。</li>
+</ul>
+<p><strong>九、补充材料 Section 1：网络实际长什么样？</strong></p>
+<p>编码器与解码器如下：</p>
+<p><img alt="补充 Figure 1" src="../../DCVC_%E7%B2%BE%E8%AF%BB%E9%85%8D%E5%9B%BE/Supplement_Figure1_%E5%8E%9F%E5%9B%BE.png"/></p>
+<p>默认上下文为 <strong>64 通道</strong>，图像潜变量为 <strong>96 通道</strong>。</p>
+<p>以 NCHW 张量表示：</p>
+<p><span class="math display" data-tex="
+x_t:[B,3,H,W],\qquad
+c_t:[B,64,H,W].
+">
+x_t:[B,3,H,W],\qquad
+c_t:[B,64,H,W].
+</span></p>
+<p>拼接后：</p>
+<p><span class="math display" data-tex="
+[x_t,c_t]:[B,67,H,W].
+">
+[x_t,c_t]:[B,67,H,W].
+</span></p>
+<p>四次二倍下采样后：</p>
+<p><span class="math display" data-tex="
+y_t:[B,96,H/16,W/16].
+">
+y_t:[B,96,H/16,W/16].
+</span></p>
+<p>注意：每个空间方向缩小 16 倍，对应面积缩小到 <span class="math" data-tex="1/256">1/256</span>。</p>
+<p>解码器将潜变量恢复到原分辨率特征，再与上下文拼接，最终输出 RGB 图像。</p>
+<p>GDN 用于改变特征的统计结构，IGDN 用于相应的合成变换。由于包含学习变换和量化，不能把整套网络当成严格可逆函数。网络里的 ResBlock，也不等于图像域的帧间残差编码。</p>
+<p>补充 Figure 2 给出较浅的特征提取与细化网络；Figure 3 给出将原分辨率上下文下采样到潜变量尺度的时间先验编码器。</p>
+<p>还有一个重要区别：<strong>运动潜变量另有熵模型，使用超先验和自回归，但没有本文这个时间先验编码器。</strong></p>
+<p><strong>十、补充材料 Section 2：为什么要分四阶段训练？</strong></p>
+<p>完整 P 帧码流有四部分：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math" data-tex="\hat y_t">\hat y_t</span></td>
+<td>图像内容潜变量</td>
+</tr>
+<tr>
+<td><span class="math" data-tex="\hat z_t">\hat z_t</span></td>
+<td>图像超先验</td>
+</tr>
+<tr>
+<td><span class="math" data-tex="\hat g_t">\hat g_t</span></td>
+<td>运动潜变量</td>
+</tr>
+<tr>
+<td><span class="math" data-tex="\hat s_t">\hat s_t</span></td>
+<td>运动超先验</td>
+</tr>
+</tbody>
+</table>
+<p>因此：</p>
+<p><span class="math display" data-tex="
+R_{\mathrm{P}}
+=
+R(\hat y_t)+R(\hat z_t)
++R(\hat g_t)+R(\hat s_t).
+">
+R_{\mathrm{P}}
+=
+R(\hat y_t)+R(\hat z_t)
++R(\hat g_t)+R(\hat s_t).
+</span></p>
+<p>作者报告，直接联合训练有时会出现：运动码率很小，但总体率失真很差。其解释是，模型绕开了还没学好的运动补偿路径。</p>
+<p>四阶段就是逐步建立这条路径：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>训练安排</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>预热运动分支</td>
+<td>像素域预测失真＋运动码率</td>
+</tr>
+<tr>
+<td>2</td>
+<td>冻结运动，训练重建链条</td>
+<td>仅重建失真</td>
+</tr>
+<tr>
+<td>3</td>
+<td>继续冻结运动</td>
+<td>重建失真＋内容及其超先验码率</td>
+</tr>
+<tr>
+<td>4</td>
+<td>解冻运动，联合优化</td>
+<td>重建失真＋全部四项码率</td>
+</tr>
+</tbody>
+</table>
+<p>第一阶段虽然使用像素域 warp 损失训练运动，最终模型仍然执行特征域补偿，两者并不矛盾。</p>
+<p>第二阶段先让上下文“确实有用”，第三阶段再要求它“用更少比特完成任务”，第四阶段协调运动开销与内容开销。</p>
+<p>作者报告单张 V100 约一周训练，但该段没有充分明确涵盖多少个质量模型，也没有完整列出各阶段时长，不能据此确定所有模型的总训练预算。</p>
+<p><strong>十一、补充材料 Section 3：复现不能忽略的设置</strong></p>
+<p>补充材料明确了 I 帧档位：CompressAI 的 quality 3、4、5、6，分别匹配 DCVC 四个工作点。</p>
+<p>FFmpeg 配置采用固定 QP、明确 GOP、veryslow 等参数。x264 命令还包含具体 B 帧相关设置，因此应保留整套命令并检查实际帧型，不能只凭 tune 名称判断参考结构一致。</p>
+<p>数据集段落和脚注还列出了来源及当时的许可说明。这些是论文报告的信息，不等于本次重新审计了全部数据和授权。</p>
+<p><strong>十二、补充材料 Section 4：长 GOP 是否缓解误差传播？</strong></p>
+<p>作者将 GOP 扩大三倍，比较 DCVC 相对对应 DVCPro 的节省：</p>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th style="text-align: right;">默认 GOP</th>
+<th style="text-align: right;">三倍 GOP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCL-JCV</td>
+<td style="text-align: right;">14.7%</td>
+<td style="text-align: right;">20.6%</td>
+</tr>
+<tr>
+<td>UVG</td>
+<td style="text-align: right;">17.3%</td>
+<td style="text-align: right;">25.0%</td>
+</tr>
+<tr>
+<td>HEVC B</td>
+<td style="text-align: right;">16.2%</td>
+<td style="text-align: right;">24.0%</td>
+</tr>
+<tr>
+<td>HEVC C</td>
+<td style="text-align: right;">10.5%</td>
+<td style="text-align: right;">14.2%</td>
+</tr>
+<tr>
+<td>HEVC D</td>
+<td style="text-align: right;">10.4%</td>
+<td style="text-align: right;">15.5%</td>
+</tr>
+<tr>
+<td>HEVC E</td>
+<td style="text-align: right;">24.6%</td>
+<td style="text-align: right;">31.3%</td>
+</tr>
+</tbody>
+</table>
+<p>这组测试只使用 HEVC 的 30 帧、其他集合的 36 帧，不能直接与主实验 100/120 帧的统计混读。</p>
+<p>结果支持：随着参考递推链变长，DCVC 相对 DVCPro 的优势增大。它不意味着 DCVC 自身的绝对质量不会下降。</p>
+<p>看 BasketballDrive 的逐帧例子：</p>
+<p><img alt="补充 Figure 5" src="../../DCVC_%E7%B2%BE%E8%AF%BB%E9%85%8D%E5%9B%BE/Supplement_Figure5_%E5%8E%9F%E5%9B%BE.png"/></p>
+<p>GOP 为 30，共 60 帧。实线看左轴 PSNR，虚线看右轴比特成本。</p>
+<p>第一 GOP 中：</p>
+<ul>
+<li>DVCPro：34.1 dB 降到 26.6 dB。</li>
+<li>DCVC：下降到 31.8 dB。</li>
+</ul>
+<p>周期性 I 帧使参考质量回升，并出现比特峰值。</p>
+<p>这个例子说明误差积累得到缓解，但 DCVC 的质量也在下降，所以不能称为消除了误差传播；它也没有替代专门的时间稳定性评测。</p>
+<p><strong>十三、补充材料 Section 5：维度与运动的消融</strong></p>
+<p>通道实验以 3 通道为锚点，比较 16、64、256 通道：</p>
+<ul>
+<li>16 通道已有收益。</li>
+<li>64 通道通常进一步改善。</li>
+<li>256 通道收益有限，在 HEVC E 上明显不如 64 通道。</li>
+</ul>
+<p>因此，<strong>特征维度存在收益、优化难度和计算成本的取舍。</strong></p>
+<p>作者推测高维上下文缺少额外监督时可能训练不稳定，但该实验没有排除其他解释，不能把推测当成唯一原因。</p>
+<p>移除 MEMC 的实验则使用像素域条件 DCVC，与相应 DVCPro 控制比较：</p>
+<ul>
+<li>有 MEMC 时，DCVC 相对 DVCPro 节省 12.7%。</li>
+<li>无 MEMC 时，DCVC 相对无 MEMC 的 DVCPro 节省 22.1%。</li>
+<li>移除 MEMC 后，两种方法本身都明显变差。</li>
+</ul>
+<p>所以，不能把 22.1% 解读成“去掉运动后 DCVC 更好”。它说明条件框架在参考不够准确时仍保留了相对优势，运动对齐本身仍然重要。</p>
+<p>后面提到 Transformer，只是未来方向，不是本文已经实现的网络。</p>
+<p><strong>十四、补充材料 Section 6：视觉结果怎样读？</strong></p>
+<p>补充 Figure 8 展示了人像、彩色车辆、鸟和篮球场景。标注结果为：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>DVCPro：BPP / PSNR</th>
+<th>DCVC：BPP / PSNR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人像</td>
+<td>0.012 / 38.9</td>
+<td>0.011 / 43.0</td>
+</tr>
+<tr>
+<td>彩色车辆</td>
+<td>0.032 / 25.6</td>
+<td>0.031 / 33.7</td>
+</tr>
+<tr>
+<td>鸟</td>
+<td>0.020 / 34.0</td>
+<td>0.019 / 36.2</td>
+</tr>
+<tr>
+<td>篮球</td>
+<td>0.050 / 26.2</td>
+<td>0.047 / 28.6</td>
+</tr>
+</tbody>
+</table>
+<p>这些例子支持较低 BPP 下改善颜色、异常纹理和条纹细节的观察。</p>
+<p>但它们是挑选出的展示，不是全数据集平均结果，也不是人类偏好的盲测。图中的裁切展示与标注 PSNR，也不能未经核实就认定为同一个局部统计范围。</p>
+<p>至此，补充材料正文结束，后面是 15 项参考文献。正文的 40 项与补充的 15 项条目信息均已保存在<a href="../../DCVC_%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%E4%B8%8E%E8%A6%86%E7%9B%96%E6%A0%B8%E6%9F%A5.md.html">参考文献与覆盖核查表</a>，重点关联工作已结合方法解释。</p>
+<p><strong>十五、读完之后，应该怎样评价这篇论文？</strong></p>
+<p>DCVC 最值得学习的，是把三个问题组织成一个可运行系统：</p>
+<p><span class="math display" data-tex="
+\boxed{
+\text{条件怎样表示}
+\quad+\quad
+\text{条件在哪些环节使用}
+\quad+\quad
+\text{条件怎样学得}
+}
+">
+\boxed{
+\text{条件怎样表示}
+\quad+\quad
+\text{条件在哪些环节使用}
+\quad+\quad
+\text{条件怎样学得}
+}
+</span></p>
+<p>它既改变表示与重建，也改变概率估计，并通过完整码流与渐进训练使这些想法落地。</p>
+<p>最有说服力的证据，是主实验、条件形式消融、先验消融，以及长 GOP、通道数和 MEMC 实验之间的相互印证。</p>
+<p>其限制也比较清楚：单参考帧、通道冗余、实际速度、训练细节完整性，以及未专门处理的时间稳定性。若从本文出发做实验，比较具体的方向是：</p>
+<ul>
+<li>在统一训练预算下研究上下文通道裁剪或门控。</li>
+<li>按遮挡、显露区域和场景切换分析条件失效。</li>
+<li>比较多参考收益时，同时计算运动与内容总码率。</li>
+<li>引入时间一致性目标，同时检查码率、逐帧质量和闪烁。</li>
+</ul>
+<p>这些是从本文出发的研究接口，不应直接声称是当前年份尚未有人研究的新问题。</p>
+<p><strong>十六、最小复现路线</strong></p>
+<p>应使用<a href="https://github.com/microsoft/DCVC/tree/main/DCVC-family/DCVC">官方仓库中的 2021 子目录</a>，不要套用仓库根目录后来模型的配置。</p>
+<p>我只读核对了其 README、测试脚本和核心模型，发现两个实际复现要点：</p>
+<ol>
+<li>原始 README 要求尺寸为 64 的整数倍，并示例将 <span class="math" data-tex="1920\times1080">1920\times1080</span> 裁成 <span class="math" data-tex="1920\times1024">1920\times1024</span>。传统基线必须处理相同区域。<a href="https://raw.githubusercontent.com/microsoft/DCVC/main/DCVC-family/DCVC/README.md">原始 README</a></li>
+<li>测试脚本默认 <code>write_stream=false</code>，走概率码率估计路径；需要显式开启写流来检查实际编解码。<a href="https://raw.githubusercontent.com/microsoft/DCVC/main/DCVC-family/DCVC/test_video.py">测试脚本</a></li>
+</ol>
+<p>即使写出码流，日志中的四段 payload 长度也需要与完整文件字节数区分，确认头信息是否计入。<a href="https://raw.githubusercontent.com/microsoft/DCVC/main/DCVC-family/DCVC/src/models/DCVC_net.py">核心实现</a></p>
+<p>合理的顺序是：先用一个质量模型跑通短 GOP，检查参考递推与四项码率；再检查真实码流解码；最后统一 I 帧、GOP、帧数、裁剪与指标，在四个工作点上比较曲线和 BD-Rate。</p>
+<p><strong>完成范围：</strong> 已讲解全部正文与补充材料，覆盖正文公式 1—7、7 张图、3 张表，以及补充材料 8 张图和训练表。阅读记录已标为完成；本次没有训练模型或重新计算论文性能。</p>
+<p><a href="../../DCVC_%E7%B2%BE%E8%AF%BB03_%E6%AD%A3%E6%96%87%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AE%9E%E9%AA%8C.md.html">正文方法与实验详解</a> · <a href="../../DCVC_%E7%B2%BE%E8%AF%BB04_%E8%A1%A5%E5%85%85%E6%9D%90%E6%96%99%E4%B8%8E%E6%80%BB%E7%BB%93.md.html">补充材料与全篇评价</a> · <a href="../../DCVC_%E5%85%A8%E6%96%87%E7%B2%BE%E8%AF%BB%E5%AF%BC%E8%88%AA.md.html">完整导航</a></p></main><script src="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

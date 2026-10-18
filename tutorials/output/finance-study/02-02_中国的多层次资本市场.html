@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第二章 · 第二节 · 中国的多层次资本市场 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body>
+<header class="bookbar"><strong>金融市场基础知识 · 第二章 / 02</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 6.37563%;"></div></header>
+<div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第二节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#chapter-2-section-53">第二节：中国的多层次资本市场，第87—112页。</a><a class="current" href="#chapter-2-section-54">第88—94页：主板、科创板、创业板、北交所、新三板。【会用】</a><a href="#chapter-2-section-55">第89页：主板。【会认】</a><a href="#chapter-2-section-56">第89—91页：科创板。【会用】</a><a href="#chapter-2-section-57">教材第90页的数量条件，怎么记？</a><a href="#chapter-2-section-58">科创属性四项指标，注意“且”与“或”。</a><a href="#chapter-2-section-59">第91页：科创成长层。【会认】</a><a href="#chapter-2-section-60">第91—92页：创业板。【会用】</a><a href="#chapter-2-section-61">第92页：退市段落，怎样学？</a><a href="#chapter-2-section-62">第92—93页：北交所。【会认＋理解】</a><a href="#chapter-2-section-63">第93—94页：新三板。【会用】</a><a href="#chapter-2-section-64">第94—97页：场外市场。【会认＋会用】</a><a href="#chapter-2-section-65">场外市场的三项功能。</a><a href="#chapter-2-section-66">第95—96页：区域性股权市场。【会认，规则边界要会用】</a><a href="#chapter-2-section-67">第96页：券商柜台市场。【会认】</a><a href="#chapter-2-section-68">第96—97页：机构间私募产品报价与服务系统。【会认】</a><a href="#chapter-2-section-69">第97—99页：多层次资本市场的六个意义。【会认＋理解】</a><a href="#chapter-2-section-70">第99—101页：全面注册制。必须理解。【会用】</a><a href="#chapter-2-section-71">第100页：与核准制的实质区别。</a><a href="#chapter-2-section-72">发行人与中介责任。</a><a href="#chapter-2-section-73">第101—111页：新“国九条”与“1＋N”。【会认，问题逻辑要会用】</a><a href="#chapter-2-section-74">第一条：总体要求。</a><a href="#chapter-2-section-75">第二条：严把发行上市准入关。</a><a href="#chapter-2-section-76">第三条：严格上市公司持续监管。</a><a href="#chapter-2-section-77">第四条：加大退市监管。</a><a href="#chapter-2-section-78">第五条：加强证券基金机构监管。</a><a href="#chapter-2-section-79">第六条：加强交易监管。</a><a href="#chapter-2-section-80">第七条：中长期资金入市，“长钱长投”。</a><a href="#chapter-2-section-81">第八条：深化改革开放，服务高质量发展。</a><a href="#chapter-2-section-82">第九条：形成监管、执法与其他制度的合力。</a><a href="#chapter-2-section-83">第111—112页：本章最后落到板块分工。【会认】</a><a href="#chapter-2-section-84">现在，哪些是你必须留下来的？</a><a href="#chapter-2-section-85">最后做十道原创诊断题。先答，再看答案。</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 02 / SECTION 02 · 第二章</div><h2>第二节 · 中国的多层次资本市场</h2><p>中国的金融体系与多层次资本市场 · 教材正文第87—112页 · 整理日期：2026年10月13日</p><p>会用：能判断例子　会认：能识别对应　背景：理解用途，第一轮不逐字背</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="02-01_中国的金融体系.html">上一节 · 中国的金融体系</a><a href="03-01_证券发行人.html">下一节 · 证券发行人</a></nav><section class="lesson" id="chapter-2-section-53"><h3>第二节：中国的多层次资本市场，第87—112页。</h3><h4 class="subhead">第87—88页：为什么需要“多层次”？<span class="level use">会用</span></h4>
+<p>先想两家企业：</p>
+<p>一家规模大、经营成熟、收入稳定。</p>
+<p>另一家刚研发出新技术，暂时没盈利、资产也少。</p>
+<p>再想两类投资者：</p>
+<p>一类不能承受太大损失。</p>
+<p>另一类愿意承担高风险，换取成长机会。</p>
+<h4 class="subhead">如果只设置一套准入标准、一种产品、一种交易安排，就很难同时服务它们。</h4>
+<p>因此需要按企业特点、投资者需求、产品和交易方式等分层。</p>
+<h4 class="subhead">“多层次”不只是把股票板块画成几个高低台阶。</h4>
+<p>它还包括：</p>
+<p>不同产品、公开与非公开募集、交易组织、地域、投资者、中介和监管安排等。</p>
+<p>而且各层次可以联系、交叉。</p>
+<h4 class="subhead">不是每家企业都必须按一条固定路线，从最低层一路升到最高层。</h4></section><section class="lesson" id="chapter-2-section-54"><h3>第88—94页：主板、科创板、创业板、北交所、新三板。【会用】</h3><p>先把定位放到正确位置：</p>
+<figure class="diagram" data-diagram="capital-market-levels" data-figure="19"><figcaption class="figure-label">图 2-10 · 矢量关系图</figcaption><div class="diagram-interactive"><div id="finance-capital-market-levels">
+<h3>板块定位：企业不同，服务对象不同</h3>
+<div class="viz-controls" data-controls="" hidden=""></div>
+<div data-diagrams=""><svg aria-label="交易所内的不同板块" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>交易所内的不同板块</title><desc>主板，成熟大型企业；科创板 · 上交所，硬科技企业；创业板 · 深交所，成长型创新创业。</desc><defs><marker id="arrow-capital-market-levels-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">交易所内的不同板块</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">主板</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">成熟大型企业</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">科创板 · 上交所</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">硬科技企业</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">创业板 · 深交所</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">成长型创新创业</text></svg><svg aria-label="服务创新型中小企业" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>服务创新型中小企业</title><desc>新三板，全国性证券交易场所；北交所，证券交易所。</desc><defs><marker id="arrow-capital-market-levels-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">服务创新型中小企业</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">新三板</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">全国性证券交易场所</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">北交所</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">证券交易所</text></svg><svg aria-label="区域与私募服务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>区域与私募服务</title><desc>区域性股权市场，本省级区域中小微；券商柜台等，私募产品与特定对象。</desc><defs><marker id="arrow-capital-market-levels-2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">区域与私募服务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">区域性股权市场</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">本省级区域中小微</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">券商柜台等</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">私募产品与特定对象</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">板块定位：企业不同，服务对象不同</div>
+<script data-config="" type="application/json">{"slug": "capital-market-levels", "heading": "板块定位：企业不同，服务对象不同", "rows": [{"label": "交易所内的不同板块", "nodes": [["主板", "成熟大型企业"], ["科创板 · 上交所", "硬科技企业"], ["创业板 · 深交所", "成长型创新创业"]], "edges": [], "noArrows": true}, {"label": "服务创新型中小企业", "nodes": [["新三板", "全国性证券交易场所"], ["北交所", "证券交易所"]], "edges": [], "noArrows": true}, {"label": "区域与私募服务", "nodes": [["区域性股权市场", "本省级区域中小微"], ["券商柜台等", "私募产品与特定对象"]], "edges": [], "noArrows": true}]}</script>
+</div>
+<style>
+#finance-capital-market-levels .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-capital-market-levels .finance-flow text {fill:currentColor;font:inherit}
+#finance-capital-market-levels .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-capital-market-levels .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-capital-market-levels .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-capital-market-levels');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-capital-market-levels-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-capital-market-levels-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><div><svg aria-label="交易所内的不同板块" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>交易所内的不同板块</title><desc>主板，成熟大型企业；科创板 · 上交所，硬科技企业；创业板 · 深交所，成长型创新创业。</desc><defs><marker id="print-02-02-0-0-arrow-capital-market-levels-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">交易所内的不同板块</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">主板</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">成熟大型企业</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">科创板 · 上交所</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">硬科技企业</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">创业板 · 深交所</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">成长型创新创业</text></svg><svg aria-label="服务创新型中小企业" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>服务创新型中小企业</title><desc>新三板，全国性证券交易场所；北交所，证券交易所。</desc><defs><marker id="print-02-02-0-0-arrow-capital-market-levels-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">服务创新型中小企业</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">新三板</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">全国性证券交易场所</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">北交所</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">证券交易所</text></svg><svg aria-label="区域与私募服务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>区域与私募服务</title><desc>区域性股权市场，本省级区域中小微；券商柜台等，私募产品与特定对象。</desc><defs><marker id="print-02-02-0-0-arrow-capital-market-levels-2" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">区域与私募服务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">区域性股权市场</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">本省级区域中小微</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">券商柜台等</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">私募产品与特定对象</text></svg></div></div></div></figure>
+<p>这里先纠正一个分类问题：</p>
+<p>教材把新三板划入“场内市场”，甚至在介绍中用“交易所市场”笼统包括它。</p>
+<h4 class="subhead">新三板是国务院批准的全国性证券交易场所，但不是上海、深圳、北京那样的证券交易所。</h4>
+<p>官方也按“全国性证券交易场所”介绍其身份。<a href="https://www.neeq.com.cn/about_neeq/overview.html" rel="noopener" target="_blank">全国股转系统官方介绍</a></p>
+<p>做题时：</p>
+<h4 class="subhead">“按本书场内外分组”与“是不是证券交易所”，是不同问题。</h4></section><section class="lesson" id="chapter-2-section-55"><h3>第89页：主板。【会认】</h3><p>重点服务成熟大型企业，教材强调经营规模、盈利和资本等条件。</p>
+<p>它具有较重要的市场规模和经济观察作用。</p>
+<h4 class="subhead">沪深交易所不只有主板。</h4>
+<p>上交所有主板和科创板等相应安排；深交所有主板和创业板。</p>
+<h4 class="subhead">中小板。</h4>
+<p>教材讲其2004年设立，后来与深交所主板合并。</p>
+<h4 class="subhead">2021年合并后，不应再把中小板作为独立现行板块与创业板并列背诵。</h4>
+<p>历史身份与现在结构要分开。</p></section><section class="lesson" id="chapter-2-section-56"><h3>第89—91页：科创板。【会用】</h3><p>设在上交所，突出<strong>硬科技</strong>。</p>
+<p>教材列新一代信息技术、高端装备、新材料、新能源、节能环保、生物医药等领域。</p>
+<h4 class="subhead">“公司名字听起来有科技感”，不等于符合科创板定位。</h4>
+<p>要看主营业务、核心技术、研发与相应产业定位。</p>
+<h4 class="subhead">上市条件的三个概念不要混。</h4>
+<p><strong>发行条件</strong>：能否依法发行证券。</p>
+<p><strong>上市条件</strong>：能否在该市场上市。</p>
+<p><strong>科创属性与板块定位</strong>：是不是这个板块要服务的企业。</p>
+<p>满足其中一项，不代表自动满足全部。</p></section><section class="lesson" id="chapter-2-section-57"><h3>教材第90页的数量条件，怎么记？</h3><p>按其所述一般安排：</p>
+<ul>
+<li>发行后股本总额不低于3000万元。</li>
+<li>一般公开发行比例达到25%以上。</li>
+<li>股本总额超过4亿元时，公开发行比例为10%以上。</li>
+<li>符合有关市值与财务标准之一。</li>
+</ul>
+<p>这组是发行人条件，<strong>不是个人投资者买股票需要有多少资金</strong>。</p>
+<p>五套标准体现：</p>
+<h4 class="subhead">评价企业不只看当前净利润，还可以结合市值、收入、研发、现金流和研发成果。</h4>
+<p>允许符合条件的未盈利企业，<strong>不等于任何亏损公司都能上市</strong>。</p></section><section class="lesson" id="chapter-2-section-58"><h3>科创属性四项指标，注意“且”与“或”。</h3><p>教材引用2024年修订口径：</p>
+<ol>
+<li>最近三年研发投入占收入比例达到相应5%要求，<strong>或</strong>累计投入达到8000万元要求。</li>
+<li>研发人员占比不低于10%。</li>
+<li>应用于主营业务并符合要求的发明专利7项以上。</li>
+<li>最近三年收入复合增长达到25%，<strong>或</strong>最近一年收入达到3亿元。</li>
+</ol>
+<h4 class="subhead">四项之间强调同时满足；某项内部可能有“或”。</h4>
+<p>不能把它简化成“随便满足一项就行”。指标和特殊适用条件可对照<a href="https://www.csrc.gov.cn/csrc/c101954/c7477483/7477483/files/%E9%99%84%E4%BB%B61.%E5%85%B3%E4%BA%8E%E4%BF%AE%E6%94%B9%E3%80%8A%E7%A7%91%E5%88%9B%E5%B1%9E%E6%80%A7%E8%AF%84%E4%BB%B7%E6%8C%87%E5%BC%95%EF%BC%88%E8%AF%95%E8%A1%8C%EF%BC%89%E3%80%8B%E7%9A%84%E5%86%B3%E5%AE%9A.pdf" rel="noopener" target="_blank">证监会的评价指引</a>。</p>
+<p>后面的五类特别情形，包括重要技术、国家科技奖、重大专项、进口替代、有关专利等。</p>
+<h4 class="subhead">这一段为什么讲？</h4>
+<p>它告诉你一般量化标准之外，还有符合规则的特殊评价路径。</p>
+<p>脚注又列部分企业和软件行业的特殊适用要求。</p>
+<p>第一轮理解框架，第二轮再把特殊条件单独配对，不与一般标准混背。</p></section><section class="lesson" id="chapter-2-section-59"><h3>第91页：科创成长层。【会认】</h3><p>教材列2025年改革，重点是提高对符合条件的未盈利科技企业的包容性。</p>
+<p>包括专业机构投资者、预先审阅、第五套标准适用领域等措施。</p>
+<h4 class="subhead">科创成长层是科创板内的相应安排，不是另一个独立证券交易所。</h4>
+<p>它的作用是让特定企业融资与投资者风险识别更加匹配。</p></section><section class="lesson" id="chapter-2-section-60"><h3>第91—92页：创业板。【会用】</h3><p>设在深交所。</p>
+<p>核心定位：</p>
+<h4 class="subhead">成长型创新创业企业。</h4>
+<p>与科创板相比，强调成长创新，也支持传统产业与新技术、新产业、新业态、新模式融合。</p>
+<p>因此：</p>
+<h4 class="subhead">科创板更突出硬科技；创业板不必全部是同一种硬科技企业。</h4>
+<p>教材讲行业负面清单与融合条件，是提示板块定位要结合规则，不能只用企业所属大行业简单判断。</p>
+<h4 class="subhead">交易制度。</h4>
+<p>教材重点：</p>
+<ul>
+<li>新股上市前5个交易日不设通常涨跌幅限制。</li>
+<li>此后相关普通交易安排的涨跌幅限制为20%。</li>
+<li>无涨跌幅限制阶段还有有关临时停牌机制。</li>
+</ul>
+<h4 class="subhead">无涨跌幅限制，不等于没有任何交易规则。</h4>
+<h4 class="subhead">新增个人投资者准入。</h4>
+<p>教材列：</p>
+<h4 class="subhead">前20个交易日日均资产不低于10万元，证券交易经验24个月以上。</h4>
+<p>不是20个自然日，也不是只在申请当天放入10万元。<a href="https://investor.szse.cn/index/update/t20200527_577693.html" rel="noopener" target="_blank">深交所投资者适当性说明</a></p>
+<p>科创板的有关个人准入资产门槛，则是50万元这组安排。</p></section><section class="lesson" id="chapter-2-section-61"><h3>第92页：退市段落，怎样学？</h3><p>四种强制退市类别要认识：</p>
+<h4 class="subhead">财务类、交易类、规范类、重大违法类。</h4>
+<ul>
+<li>财务类：有关财务和持续经营指标触及规则。</li>
+<li>交易类：价格、市值、交易等指标。</li>
+<li>规范类：披露和规范运作等重大问题。</li>
+<li>重大违法类：符合规则的重大违法情形。</li>
+</ul>
+<h4 class="subhead">退市不等于所有债务、赔偿责任自动消失。</h4>
+<p>教材将科创板退市整理期写为30个交易日，是旧表述。相关制度此前已将整理期缩为15个交易日，交易类退市等还有不进入整理期的安排，不能背成“所有退市都有30天”。<a href="https://www.csrc.gov.cn/csrc/c100210/c1498835/content.shtml" rel="noopener" target="_blank">交易所退市规则修订说明</a></p>
+<p>具体金额门槛会修订。第一轮先分四类，练规则题时再按题目适用版本核对数值。</p></section><section class="lesson" id="chapter-2-section-62"><h3>第92—93页：北交所。【会认＋理解】</h3><p>教材列：</p>
+<h4 class="subhead">2021年成立，2021年11月15日开市。</h4>
+<p>重点服务：</p>
+<h4 class="subhead">创新型中小企业。</h4>
+<p>“专精特新”先理解为专业化、精细化、特色化、新颖化等方向的企业特点。</p>
+<p>相比其他板块，其服务对象更强调较早、较小、具有创新特点的企业。</p>
+<p>它与新三板基础层、创新层相联系：</p>
+<figure class="diagram" data-diagram="neeq-growth" data-figure="20"><figcaption class="figure-label">图 2-11 · 矢量关系图</figcaption><div class="diagram-interactive"><div id="finance-neeq-growth">
+<h3>企业成长路径：符合条件才可进入下一层</h3>
+<div class="viz-controls" data-controls="" hidden=""></div>
+<div data-diagrams=""><svg aria-label="新三板与北交所的衔接示意" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>新三板与北交所的衔接示意</title><desc>新三板基础层，挂牌与规范培育；新三板创新层，符合进层要求；北交所，符合发行上市要求。条件与程序；条件与程序</desc><defs><marker id="arrow-neeq-growth-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">新三板与北交所的衔接示意</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">新三板基础层</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">挂牌与规范培育</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">新三板创新层</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">符合进层要求</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">北交所</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">符合发行上市要求</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-neeq-growth-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">条件与程序</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-neeq-growth-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">条件与程序</text></svg><svg aria-label="不是自动升级，也不必走同一路径" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>不是自动升级，也不必走同一路径</title><desc>不同企业，不同阶段与融资需求；适合的市场，依法申请相应路径。匹配定位</desc><defs><marker id="arrow-neeq-growth-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是自动升级，也不必走同一路径</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">不同企业</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">不同阶段与融资需求</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">适合的市场</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依法申请相应路径</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-neeq-growth-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">匹配定位</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">企业成长路径：符合条件才可进入下一层</div>
+<script data-config="" type="application/json">{"slug": "neeq-growth", "heading": "企业成长路径：符合条件才可进入下一层", "rows": [{"label": "新三板与北交所的衔接示意", "nodes": [["新三板基础层", "挂牌与规范培育"], ["新三板创新层", "符合进层要求"], ["北交所", "符合发行上市要求"]], "edges": ["条件与程序", "条件与程序"]}, {"label": "不是自动升级，也不必走同一路径", "nodes": [["不同企业", "不同阶段与融资需求"], ["适合的市场", "依法申请相应路径"]], "edges": ["匹配定位"]}]}</script>
+</div>
+<style>
+#finance-neeq-growth .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-neeq-growth .finance-flow text {fill:currentColor;font:inherit}
+#finance-neeq-growth .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-neeq-growth .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-neeq-growth .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-neeq-growth');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-neeq-growth-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-neeq-growth-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><div><svg aria-label="新三板与北交所的衔接示意" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>新三板与北交所的衔接示意</title><desc>新三板基础层，挂牌与规范培育；新三板创新层，符合进层要求；北交所，符合发行上市要求。条件与程序；条件与程序</desc><defs><marker id="print-02-02-1-0-arrow-neeq-growth-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">新三板与北交所的衔接示意</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">新三板基础层</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">挂牌与规范培育</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">新三板创新层</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">符合进层要求</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">北交所</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">符合发行上市要求</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-02-02-1-0-arrow-neeq-growth-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">条件与程序</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-02-02-1-0-arrow-neeq-growth-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">条件与程序</text></svg><svg aria-label="不是自动升级，也不必走同一路径" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不是自动升级，也不必走同一路径</title><desc>不同企业，不同阶段与融资需求；适合的市场，依法申请相应路径。匹配定位</desc><defs><marker id="print-02-02-1-0-arrow-neeq-growth-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是自动升级，也不必走同一路径</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">不同企业</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">不同阶段与融资需求</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">适合的市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">依法申请相应路径</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-02-02-1-0-arrow-neeq-growth-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">匹配定位</text></svg></div></div></div></figure>
+<h4 class="subhead">图上的每一步都需要满足相应条件和程序。</h4>
+<p>不是挂牌一段时间后就自动上市，也不是所有企业都必须走完这条路径。</p>
+<p>经营收入、盈利企业比例等统计，是用于描述服务对象，第一轮不逐项背。</p></section><section class="lesson" id="chapter-2-section-63"><h3>第93—94页：新三板。【会用】</h3><p>全称：</p>
+<h4 class="subhead">全国中小企业股份转让系统。</h4>
+<p>它为符合条件的中小微企业提供股份公开转让、有关融资和规范培育等服务。</p>
+<h4 class="subhead">挂牌与上市不能随意互换。</h4>
+<p>教材说“设立伊始就分基础层、创新层”，时间表述不准确。基础层、创新层的分层管理自2016年6月27日起实施。<a href="https://www.ndrc.gov.cn/xwdt/ztzl/jdstjjqycb/zccs/201705/t20170525_1028581.html" rel="noopener" target="_blank">相关分层公告</a></p>
+<p>层次演变：</p>
+<ul>
+<li>基础层、创新层。</li>
+<li>曾设精选层。</li>
+<li>以精选层为基础设立北交所。</li>
+</ul>
+<h4 class="subhead">不能把历史精选层继续作为当前新三板三层结构中的固定一层。</h4>
+<p>交易方式涉及集合竞价、做市等相应安排。</p>
+<p>做市商提供双边报价，可以联系第一章。</p>
+<h4 class="subhead">全国性新三板与地方区域性股权市场，范围与制度身份不同。</h4></section><section class="lesson" id="chapter-2-section-64"><h3>第94—97页：场外市场。【会认＋会用】</h3><p>教材概括其特点：</p>
+<p>挂牌或服务标准相对适配较小企业，交易产品和组织方式更加多样，部分安排采用做市、协议等方式。</p>
+<p>其中“披露较少、监管宽松”是相对性描述。</p>
+<h4 class="subhead">不能理解成无披露、无监管。</h4>
+<p>教材自己随后也说，场外交易已经存在电子撮合等机制。</p>
+<p>所以：</p>
+<h4 class="subhead">场外市场不是必须在银行柜台面对面交易。</h4></section><section class="lesson" id="chapter-2-section-65"><h3>场外市场的三项功能。</h3><h4 class="subhead">拓宽融资渠道。</h4>
+<p>帮助不适合直接进入大型交易所市场的企业融资。</p>
+<h4 class="subhead">提供流通转让。</h4>
+<p>资产需要退出和转让，才能更好吸引投资者。</p>
+<h4 class="subhead">提供不同风险层次的产品与管理渠道。</h4>
+<p>匹配不同投资者，而不是让所有人购买同样风险的产品。</p></section><section class="lesson" id="chapter-2-section-66"><h3>第95—96页：区域性股权市场。【会认，规则边界要会用】</h3><p>主要为<strong>本省级行政区域内</strong>有关中小微企业提供非公开发行、转让等服务。</p>
+<p>教材列几条边界：</p>
+<ul>
+<li>不能向不特定公众变相公开发行。</li>
+<li>不能非法集资。</li>
+<li>不采用其禁止的集中交易方式。</li>
+<li>同一证券反向交易间隔不得少于5个交易日。</li>
+<li>单只证券持有人累计原则上不超过200人，另有规定的除外。</li>
+<li>适用合格投资者要求。</li>
+</ul>
+<p>这里的数字我已核对原页，<strong>是200人，不是扫描识别中的“2人”</strong>。相关解释见<a href="https://www.csrc.gov.cn/csrc/c100028/c1001586/content.shtml" rel="noopener" target="_blank">证监会区域性股权市场说明</a>。</p>
+<p>教材对自然人列金融资产50万元等条件。</p>
+<h4 class="subhead">这是区域性股权市场合格投资者的一组要求，不能与科创板开通条件直接合并。</h4>
+<p>省级政府监管和风险处置责任、运营机构自律，也要分开。</p></section><section class="lesson" id="chapter-2-section-67"><h3>第96页：券商柜台市场。【会认】</h3><p>由证券公司在集中交易场所之外，为特定交易对象提供有关私募产品发行、销售、转让等服务。</p>
+<p>产品可能来自券商自己，也可能来自其他机构。</p>
+<h4 class="subhead">券商销售产品，不等于该产品就是券商自己发行、保证收益的产品。</h4>
+<p>交易可以有协议、报价、做市等相应方式，但必须遵守具体限制。</p>
+<p>账户、托管、清算和估值段落，强调客户资产记录与保护。</p>
+<h4 class="subhead">禁止挪用客户资产，是这里需要保留的关键点。</h4></section><section class="lesson" id="chapter-2-section-68"><h3>第96—97页：机构间私募产品报价与服务系统。【会认】</h3><p>名字长，先拆成三个词：</p>
+<h4 class="subhead">机构之间、私募产品、报价和服务。</h4>
+<p>它提供报价、发行转让、登记结算、信息等有关服务，并与其他私募市场连接。</p>
+<p>交易报告库相关身份，是基础设施功能。</p>
+<h4 class="subhead">它不是面向所有散户的一般股票交易所。</h4>
+<p>六个特点中，第一轮抓：</p>
+<p>参与机构、多种私募产品、前中后台服务连接、风险分类管理。</p>
+<p>“7×24小时”等系统服务描述，也不能理解成所有产品都像股票连续竞价一样随时成交。</p></section><section class="lesson" id="chapter-2-section-69"><h3>第97—99页：多层次资本市场的六个意义。【会认＋理解】</h3><p>分别对应六个实际问题：</p>
+<h4 class="subhead">① 储蓄多，企业仍可能融资难。</h4>
+<p>因为资金与风险、期限、企业阶段不匹配。</p>
+<p>分层帮助匹配。</p>
+<h4 class="subhead">② 对银行贷款依赖过大。</h4>
+<p>丰富股权等融资，改善融资结构和风险分布。</p>
+<p>特别注意：</p>
+<h4 class="subhead">股权融资可以改善负债结构；债券融资本身仍是举债。</h4>
+<p>不能说任何直接融资都自动降低企业债务。</p>
+<h4 class="subhead">③ 科技企业抵押物少、不确定性高。</h4>
+<p>股权、风险投资等可以分享收益、共同承担风险。</p>
+<h4 class="subhead">④ 企业需要并购、产业整合。</h4>
+<p>市场提供估值、融资和支付工具。</p>
+<h4 class="subhead">⑤ 居民有不同财富管理需求。</h4>
+<p>提供不同风险收益特征的产品。</p>
+<h4 class="subhead">⑥ 企业参与国际竞争。</h4>
+<p>需要跨境融资、风险管理和专业中介服务。</p>
+<p>第一轮能把意义与问题配对，就比背六段长句有效。</p></section><section class="lesson" id="chapter-2-section-70"><h3>第99—101页：全面注册制。必须理解。【会用】</h3><p>最重要的一句话：</p>
+<h4 class="subhead">注册制以信息披露为核心，投资价值判断交给市场，同时仍有发行上市条件、审核和监管。</h4>
+<figure class="diagram" data-diagram="registration-process" data-figure="21"><figcaption class="figure-label">图 2-12 · 矢量关系图</figcaption><div class="diagram-interactive"><div id="finance-registration-process">
+<h3>注册制：披露与审核，投资判断留给市场</h3>
+<div class="viz-controls" data-controls="" hidden=""></div>
+<div data-diagrams=""><svg aria-label="发行上市的基本分工" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>发行上市的基本分工</title><desc>发行人 + 中介，真实、准确、完整披露；交易所审核，条件、定位、披露；证监会注册，依法履行注册程序。提交与问询；审核意见</desc><defs><marker id="arrow-registration-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">发行上市的基本分工</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">发行人 + 中介</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">真实、准确、完整披露</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">交易所审核</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">条件、定位、披露</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">证监会注册</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依法履行注册程序</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-registration-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">提交与问询</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-registration-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">审核意见</text></svg><svg aria-label="投资判断" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>投资判断</title><desc>披露的信息，投资者评估价值风险；市场参与者，决定是否投资及价格。市场作判断</desc><defs><marker id="arrow-registration-process-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资判断</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">披露的信息</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">投资者评估价值风险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">市场参与者</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">决定是否投资及价格</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-registration-process-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">市场作判断</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">注册制：披露与审核，投资判断留给市场</div>
+<script data-config="" type="application/json">{"slug": "registration-process", "heading": "注册制：披露与审核，投资判断留给市场", "rows": [{"label": "发行上市的基本分工", "nodes": [["发行人 + 中介", "真实、准确、完整披露"], ["交易所审核", "条件、定位、披露"], ["证监会注册", "依法履行注册程序"]], "edges": ["提交与问询", "审核意见"]}, {"label": "投资判断", "nodes": [["披露的信息", "投资者评估价值风险"], ["市场参与者", "决定是否投资及价格"]], "edges": ["市场作判断"]}]}</script>
+</div>
+<style>
+#finance-registration-process .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-registration-process .finance-flow text {fill:currentColor;font:inherit}
+#finance-registration-process .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-registration-process .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-registration-process .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-registration-process');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-registration-process-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-registration-process-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><div><svg aria-label="发行上市的基本分工" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>发行上市的基本分工</title><desc>发行人 + 中介，真实、准确、完整披露；交易所审核，条件、定位、披露；证监会注册，依法履行注册程序。提交与问询；审核意见</desc><defs><marker id="print-02-02-2-0-arrow-registration-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">发行上市的基本分工</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">发行人 + 中介</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">真实、准确、完整披露</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">交易所审核</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">条件、定位、披露</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">证监会注册</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依法履行注册程序</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-02-02-2-0-arrow-registration-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">提交与问询</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-02-02-2-0-arrow-registration-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">审核意见</text></svg><svg aria-label="投资判断" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>投资判断</title><desc>披露的信息，投资者评估价值风险；市场参与者，决定是否投资及价格。市场作判断</desc><defs><marker id="print-02-02-2-0-arrow-registration-process-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资判断</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">披露的信息</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">投资者评估价值风险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">市场参与者</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">决定是否投资及价格</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-02-02-2-0-arrow-registration-process-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">市场作判断</text></svg></div></div></div></figure>
+<h4 class="subhead">注册制不是登记一下就能上市。</h4>
+<p>交易所审核发行、上市条件和披露等，证监会依法履行注册程序。</p>
+<h4 class="subhead">监管机构同意注册，不是保证企业股票值得买。</h4>
+<h4 class="subhead">第99页历史段落。</h4>
+<p>主要节点：</p>
+<ul>
+<li>提出注册制改革。</li>
+<li>科创板试点。</li>
+<li>创业板改革。</li>
+<li>北交所有关安排。</li>
+<li><strong>2023年全面实行股票发行注册制。</strong></li>
+</ul>
+<p>授权日期、规则数量属于改革过程细节，第一轮不逐个背。</p></section><section class="lesson" id="chapter-2-section-71"><h3>第100页：与核准制的实质区别。</h3><p>教材强调三个变化：</p>
+<h4 class="subhead">优化条件。</h4>
+<p>在保留必要资格、合规要求的同时，减少监管部门对投资价值的判断。</p>
+<h4 class="subhead">严格披露。</h4>
+<p>企业必须真实、准确、完整提供信息，问询与检查仍然重要。</p>
+<h4 class="subhead">公开透明。</h4>
+<p>审核标准、程序和过程更加公开。</p>
+<h4 class="subhead">不是仅把审核办公地点从证监会搬到交易所。</h4>
+<p>它还涉及政府与市场如何分工。</p></section><section class="lesson" id="chapter-2-section-72"><h3>发行人与中介责任。</h3><p><strong>发行人第一责任</strong>：自己披露的信息，首先由自己负责。</p>
+<p><strong>中介“看门人”责任</strong>：保荐、审计、法律等服务机构，需要履行相应核查和专业责任。</p>
+<h4 class="subhead">申报后撤回，不等于此前违法行为可以一笔勾销。</h4>
+<p>教材第101页的“放管结合”，就是：</p>
+<p>适当让市场判断价值，同时加强规则、披露、执法和投资者保护。</p></section><section class="lesson" id="chapter-2-section-73"><h3>第101—111页：新“国九条”与“1＋N”。【会认，问题逻辑要会用】</h3><p>先分清：</p>
+<h4 class="subhead">“1”是新“国九条”这一纲领性文件；“N”是若干配套制度。</h4>
+<p>不是固定只能有九个配套文件。</p>
+<p>教材表2-7列很多文件名称、日期，它的作用是告诉你：</p>
+<h4 class="subhead">大方向如何落实到发行、披露、减持、退市、交易、中介、长期资金等具体制度。</h4>
+<p>第一轮不从表格第一行开始背几十个完整文件名。</p>
+<p>我们按九个部分讲它们要解决什么问题。</p></section><section class="lesson" id="chapter-2-section-74"><h3>第一条：总体要求。</h3><p>主线：</p>
+<h4 class="subhead">强监管、防风险、促进资本市场高质量发展。</h4>
+<p>兼顾投资者保护、市场化法治化、服务经济和制度完善等。</p>
+<p>未来五年、2035年、本世纪中叶是目标层次，不能当作已完成状态。</p></section><section class="lesson" id="chapter-2-section-75"><h3>第二条：严把发行上市准入关。</h3><p>要防止：</p>
+<p>信息不真实、企业不符合条件、中介核查失职、发行利益输送等。</p>
+<p>教材列辅导、现场检查、科创属性、发行承销规则，是把准入责任落实到不同环节。</p>
+<p><strong>清仓式分红</strong>为何被关注？</p>
+<p>上市前突击把大量资金分出去，随后又向公众募资，可能涉及资金需要、股东利益与信息披露等问题。</p>
+<h4 class="subhead">“提高质量”不等于监管机构承诺新股不会亏。</h4></section><section class="lesson" id="chapter-2-section-76"><h3>第三条：严格上市公司持续监管。</h3><p>上市后继续管：</p>
+<h4 class="subhead">披露、治理、资金占用、减持、分红和市值管理。</h4>
+<p><strong>减持</strong>：股东减少持股。</p>
+<p>减持行为本身不等于违法，要看对象、条件、程序和披露。</p>
+<p><strong>资金占用</strong>：有关主体违规拿走或使用上市公司资金等问题。</p>
+<p><strong>分红监管</strong>：关注投资者回报及相应规则要求。</p>
+<p><strong>市值管理</strong>：通过提高经营质量、合规资本运作、投资者沟通等方式改善价值实现。</p>
+<h4 class="subhead">不允许拿“市值管理”作操纵价格、内幕交易的借口。</h4>
+<p>限售股、战略配售股份出借等段落，是在堵住绕开持股限制的有关路径。</p></section><section class="lesson" id="chapter-2-section-77"><h3>第四条：加大退市监管。</h3><p>目的是形成正常退出机制。</p>
+<p>上市资格不能成为无论经营和合规状况怎样都永久保留的特权。</p>
+<p>教材讲“壳资源价值”，就是：</p>
+<p>有人看重上市资格本身，而不是企业正常经营价值。</p>
+<p>完善退市与并购监管，有助于减少违规保壳、借壳等问题。</p>
+<h4 class="subhead">企业退市后，责任人对违法行为的赔偿责任不能因此消失。</h4></section><section class="lesson" id="chapter-2-section-78"><h3>第五条：加强证券基金机构监管。</h3><p>关注机构是否：</p>
+<ul>
+<li>真正提供专业金融服务。</li>
+<li>具有相应资本与风险管理能力。</li>
+<li>合规经营。</li>
+<li>合理处理收益、客户利益和从业激励。</li>
+</ul>
+<p>功能性与盈利性要协调。</p>
+<h4 class="subhead">不是所有能赚钱的业务，就天然符合金融服务和监管要求。</h4>
+<p>文化、薪酬和执业声誉段落，是在约束短期冲动和利益冲突。</p></section><section class="lesson" id="chapter-2-section-79"><h3>第六条：加强交易监管。</h3><p>重点包括：</p>
+<p>异常交易、操纵市场、程序化与高频交易、私募和跨市场风险等。</p>
+<p><strong>程序化交易</strong>：按照程序规则生成、执行交易等。</p>
+<h4 class="subhead">使用程序不自动等于违法。</h4>
+<p>监管重点是信息、行为、风险和市场影响。</p>
+<p>同样，普通卖出、合规风险管理，不等于恶意操纵做空。</p></section><section class="lesson" id="chapter-2-section-80"><h3>第七条：中长期资金入市，“长钱长投”。</h3><p>养老金、保险资金、长期基金等，可能具有较长期投资能力。</p>
+<p>但如果每几个月就按短期业绩考核，它们也可能被迫追逐短期收益。</p>
+<p>所以教材讲：</p>
+<h4 class="subhead">长期资金来源需要与长期考核、投资机制相匹配。</h4>
+<p>基金费率、指数投资、权益投资、保险考核等配套，是改善这种匹配。</p>
+<p><strong>ETF</strong>先认识为交易型开放式指数基金这一常见类型，后面基金章节会系统讲。</p>
+<p>中长期资金入市也不等于无限保证股价上涨。</p></section><section class="lesson" id="chapter-2-section-81"><h3>第八条：深化改革开放，服务高质量发展。</h3><p>联系前面的：</p>
+<p>五篇大文章、科技融资、多层次市场、并购、国际连接等。</p>
+<h4 class="subhead">“募投管退”四个字值得懂。</h4>
+<ul>
+<li>募：募集资金。</li>
+<li>投：投资项目或资产。</li>
+<li>管：管理与服务。</li>
+<li>退：通过合规方式退出、实现资金回收。</li>
+</ul>
+<h4 class="subhead">没有合理退出，新的资金也不容易进入。</h4>
+<p>REITs是有关不动产等资产投资安排的产品类型，第一轮认识名称和融资、投资作用即可。</p></section><section class="lesson" id="chapter-2-section-82"><h3>第九条：形成监管、执法与其他制度的合力。</h3><p>不仅由证监会单独完成。</p>
+<p>还涉及司法、地方政府、税收、行业和跨部门协作。</p>
+<h4 class="subhead">行政责任、民事赔偿、刑事责任，是不同责任。</h4>
+<p>受到行政处罚，不必然意味着投资者损失已经赔付，也不自动排除刑事责任。</p>
+<p>离职人员、影子股东、旋转门等治理，主要针对利益冲突和权力与资本不当勾连。</p>
+<p>教材最后的立法计划，说明制度在继续完善。</p>
+<h4 class="subhead">计划制定，不等于已经生效。</h4>
+<p>以上各段按教材展开；总体框架可对照<a href="https://www.csrc.gov.cn/csrc/c100028/c7473562/content.shtml" rel="noopener" target="_blank">新“国九条”官方全文</a>。</p></section><section class="lesson" id="chapter-2-section-83"><h3>第111—112页：本章最后落到板块分工。【会认】</h3><p>主板服务成熟大型企业。</p>
+<p>科创板突出硬科技。</p>
+<p>创业板服务成长型创新创业企业。</p>
+<p>北交所与新三板共同服务创新型中小企业。</p>
+<h4 class="subhead">它们要错位发展、相互补充。</h4>
+<p>不是所有板块都争取同一种企业，也不是“门槛越低就越没有价值”。</p>
+<p>主板普通新股前5个交易日与之后的涨跌幅安排，也是全面注册制下有关交易制度的一部分。</p>
+<h4 class="subhead">主板普通交易的10%与科创板、创业板相关20%安排，不能混背；特殊证券和特殊情形另外看规则。</h4>
+<p>第二章到这里结束。</p></section><section class="lesson" id="chapter-2-section-84"><h3>现在，哪些是你必须留下来的？</h3><p>先把这十二条学扎实：</p>
+<ol>
+<li><strong>金融体系比金融市场广。</strong></li>
+<li><strong>存款是银行负债，贷款是银行资产，自有资金是权益。</strong></li>
+<li><strong>经纪、自营、资管，资金归属和角色不同。</strong></li>
+<li><strong>表外不等于无风险。</strong></li>
+<li><strong>微观审慎看单家机构，宏观审慎看整个系统。</strong></li>
+<li><strong>央行是发行的银行、银行的银行、政府的银行。</strong></li>
+<li><strong>基础货币 <span aria-label="B=C+R" class="math-inline" role="math"><mjx-container class="MathJax" jax="SVG"><svg focusable="false" height="1.781ex" role="img" style="vertical-align: -0.186ex;" viewbox="0 -705 4834 787" width="10.937ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z" id="FORMULA-43-MJX-44-TEX-I-1D435"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-43-MJX-44-TEX-N-3D"></path><path d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z" id="FORMULA-43-MJX-44-TEX-I-1D436"></path><path d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" id="FORMULA-43-MJX-44-TEX-N-2B"></path><path d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z" id="FORMULA-43-MJX-44-TEX-I-1D445"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D435" xlink:href="#FORMULA-43-MJX-44-TEX-I-1D435"></use></g><g data-mml-node="mo" transform="translate(1036.8,0)"><use data-c="3D" xlink:href="#FORMULA-43-MJX-44-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(2092.6,0)"><use data-c="1D436" xlink:href="#FORMULA-43-MJX-44-TEX-I-1D436"></use></g><g data-mml-node="mo" transform="translate(3074.8,0)"><use data-c="2B" xlink:href="#FORMULA-43-MJX-44-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(4075,0)"><use data-c="1D445" xlink:href="#FORMULA-43-MJX-44-TEX-I-1D445"></use></g></g></g></svg></mjx-container></span>，本章模型货币供给 <span aria-label="M=C+D" class="math-inline" role="math"><mjx-container class="MathJax" jax="SVG"><svg focusable="false" height="1.781ex" role="img" style="vertical-align: -0.186ex;" viewbox="0 -705 5195 787" width="11.753ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z" id="FORMULA-44-MJX-45-TEX-I-1D440"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-44-MJX-45-TEX-N-3D"></path><path d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z" id="FORMULA-44-MJX-45-TEX-I-1D436"></path><path d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" id="FORMULA-44-MJX-45-TEX-N-2B"></path><path d="M287 628Q287 635 230 637Q207 637 200 638T193 647Q193 655 197 667T204 682Q206 683 403 683Q570 682 590 682T630 676Q702 659 752 597T803 431Q803 275 696 151T444 3L430 1L236 0H125H72Q48 0 41 2T33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM703 469Q703 507 692 537T666 584T629 613T590 629T555 636Q553 636 541 636T512 636T479 637H436Q392 637 386 627Q384 623 313 339T242 52Q242 48 253 48T330 47Q335 47 349 47T373 46Q499 46 581 128Q617 164 640 212T683 339T703 469Z" id="FORMULA-44-MJX-45-TEX-I-1D437"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D440" xlink:href="#FORMULA-44-MJX-45-TEX-I-1D440"></use></g><g data-mml-node="mo" transform="translate(1328.8,0)"><use data-c="3D" xlink:href="#FORMULA-44-MJX-45-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(2384.6,0)"><use data-c="1D436" xlink:href="#FORMULA-44-MJX-45-TEX-I-1D436"></use></g><g data-mml-node="mo" transform="translate(3366.8,0)"><use data-c="2B" xlink:href="#FORMULA-44-MJX-45-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(4367,0)"><use data-c="1D437" xlink:href="#FORMULA-44-MJX-45-TEX-I-1D437"></use></g></g></g></svg></mjx-container></span>。</strong></li>
+<li><strong>简单乘数 <span aria-label="1/r" class="math-inline" role="math"><mjx-container class="MathJax" jax="SVG"><svg focusable="false" height="2.262ex" role="img" style="vertical-align: -0.566ex;" viewbox="0 -750 1451 1000" width="3.283ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-45-MJX-46-TEX-N-31"></path><path d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z" id="FORMULA-45-MJX-46-TEX-N-2F"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-45-MJX-46-TEX-I-1D45F"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><use data-c="31" xlink:href="#FORMULA-45-MJX-46-TEX-N-31"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(500,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#FORMULA-45-MJX-46-TEX-N-2F"></use></g></g><g data-mml-node="mi" transform="translate(1000,0)"><use data-c="1D45F" xlink:href="#FORMULA-45-MJX-46-TEX-I-1D45F"></use></g></g></g></svg></mjx-container></span>，加入漏出后为 <span aria-label="(1+c)/(c+r+e)" class="math-inline" role="math"><mjx-container class="MathJax" jax="SVG"><svg focusable="false" height="2.262ex" role="img" style="vertical-align: -0.566ex;" viewbox="0 -750 8006.3 1000" width="18.114ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" id="FORMULA-46-MJX-47-TEX-N-28"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-46-MJX-47-TEX-N-31"></path><path d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" id="FORMULA-46-MJX-47-TEX-N-2B"></path><path d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z" id="FORMULA-46-MJX-47-TEX-I-1D450"></path><path d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" id="FORMULA-46-MJX-47-TEX-N-29"></path><path d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z" id="FORMULA-46-MJX-47-TEX-N-2F"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-46-MJX-47-TEX-I-1D45F"></path><path d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z" id="FORMULA-46-MJX-47-TEX-I-1D452"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="28" xlink:href="#FORMULA-46-MJX-47-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(389,0)"><use data-c="31" xlink:href="#FORMULA-46-MJX-47-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(1111.2,0)"><use data-c="2B" xlink:href="#FORMULA-46-MJX-47-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(2111.4,0)"><use data-c="1D450" xlink:href="#FORMULA-46-MJX-47-TEX-I-1D450"></use></g><g data-mml-node="mo" transform="translate(2544.4,0)"><use data-c="29" xlink:href="#FORMULA-46-MJX-47-TEX-N-29"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(2933.4,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#FORMULA-46-MJX-47-TEX-N-2F"></use></g></g><g data-mml-node="mo" transform="translate(3433.4,0)"><use data-c="28" xlink:href="#FORMULA-46-MJX-47-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(3822.4,0)"><use data-c="1D450" xlink:href="#FORMULA-46-MJX-47-TEX-I-1D450"></use></g><g data-mml-node="mo" transform="translate(4477.7,0)"><use data-c="2B" xlink:href="#FORMULA-46-MJX-47-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(5477.9,0)"><use data-c="1D45F" xlink:href="#FORMULA-46-MJX-47-TEX-I-1D45F"></use></g><g data-mml-node="mo" transform="translate(6151.1,0)"><use data-c="2B" xlink:href="#FORMULA-46-MJX-47-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(7151.3,0)"><use data-c="1D452" xlink:href="#FORMULA-46-MJX-47-TEX-I-1D452"></use></g><g data-mml-node="mo" transform="translate(7617.3,0)"><use data-c="29" xlink:href="#FORMULA-46-MJX-47-TEX-N-29"></use></g></g></g></svg></mjx-container></span>。</strong></li>
+<li><strong>总存款与派生存款要区分。</strong></li>
+<li><strong>央行逆回购操作时投放，到期回笼；正回购相反。</strong></li>
+<li><strong>板块定位、发行人条件、投资者准入是三件事。</strong></li>
+<li><strong>注册制仍有审核监管，同意注册不保证投资收益。</strong></li>
+</ol>
+<p>历史年份、行业规模、政策文件清单，放在这些关系弄清后记，效率会高很多。</p></section><section class="lesson" id="chapter-2-section-85"><h3>最后做十道原创诊断题。先答，再看答案。</h3><ol>
+<li>客户在银行存100万元，对银行而言是资产还是负债？</li>
+<li>银行股东投入资本，在会计上属于普通借款负债吗？</li>
+<li>银行为客户提供担保，暂时没有付款，因此绝对没有风险，对吗？</li>
+<li>原始存款1000元、准备金率20%、无现金漏出和超额准备金，总存款是多少？派生存款是多少？</li>
+<li><span aria-label="c=0.2,r=0.1,e=0.1" class="math-inline" role="math"><mjx-container class="MathJax" jax="SVG"><svg focusable="false" height="1.946ex" role="img" style="vertical-align: -0.439ex;" viewbox="0 -666 10074 860" width="22.792ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z" id="FORMULA-47-MJX-48-TEX-I-1D450"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-47-MJX-48-TEX-N-3D"></path><path d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" id="FORMULA-47-MJX-48-TEX-N-30"></path><path d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" id="FORMULA-47-MJX-48-TEX-N-2E"></path><path d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" id="FORMULA-47-MJX-48-TEX-N-32"></path><path d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z" id="FORMULA-47-MJX-48-TEX-N-2C"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-47-MJX-48-TEX-I-1D45F"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-47-MJX-48-TEX-N-31"></path><path d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z" id="FORMULA-47-MJX-48-TEX-I-1D452"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D450" xlink:href="#FORMULA-47-MJX-48-TEX-I-1D450"></use></g><g data-mml-node="mo" transform="translate(710.8,0)"><use data-c="3D" xlink:href="#FORMULA-47-MJX-48-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1766.6,0)"><use data-c="30" xlink:href="#FORMULA-47-MJX-48-TEX-N-30"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-47-MJX-48-TEX-N-2E"></use><use data-c="32" transform="translate(778,0)" xlink:href="#FORMULA-47-MJX-48-TEX-N-32"></use></g><g data-mml-node="mo" transform="translate(3044.6,0)"><use data-c="2C" xlink:href="#FORMULA-47-MJX-48-TEX-N-2C"></use></g><g data-mml-node="mi" transform="translate(3489.2,0)"><use data-c="1D45F" xlink:href="#FORMULA-47-MJX-48-TEX-I-1D45F"></use></g><g data-mml-node="mo" transform="translate(4218,0)"><use data-c="3D" xlink:href="#FORMULA-47-MJX-48-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(5273.8,0)"><use data-c="30" xlink:href="#FORMULA-47-MJX-48-TEX-N-30"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-47-MJX-48-TEX-N-2E"></use><use data-c="31" transform="translate(778,0)" xlink:href="#FORMULA-47-MJX-48-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(6551.8,0)"><use data-c="2C" xlink:href="#FORMULA-47-MJX-48-TEX-N-2C"></use></g><g data-mml-node="mi" transform="translate(6996.4,0)"><use data-c="1D452" xlink:href="#FORMULA-47-MJX-48-TEX-I-1D452"></use></g><g data-mml-node="mo" transform="translate(7740.2,0)"><use data-c="3D" xlink:href="#FORMULA-47-MJX-48-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(8796,0)"><use data-c="30" xlink:href="#FORMULA-47-MJX-48-TEX-N-30"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-47-MJX-48-TEX-N-2E"></use><use data-c="31" transform="translate(778,0)" xlink:href="#FORMULA-47-MJX-48-TEX-N-31"></use></g></g></g></svg></mjx-container></span>，货币乘数是多少？</li>
+<li>央行逆回购到期，单看这笔操作，是投放还是回笼？</li>
+<li>稳定物价属于操作目标还是最终目标？</li>
+<li>个人开通创业板需要的日均资产条件，与企业申请科创板上市的股本条件，是同一种条件吗？</li>
+<li>新三板是不是上海、深圳、北京那样的证券交易所？</li>
+<li>某公司获准注册发行股票，就说明监管机构保证它具有投资价值，对吗？</li>
+</ol>
+<details class="answer-section"><summary>查看答案与解析</summary><div class="answer-content">
+<ol>
+<li><strong>负债。</strong>银行负有偿付客户存款的义务。</li>
+<li><strong>不是。</strong>属于所有者权益。</li>
+<li><strong>错。</strong>约定事件发生后，可能需要履行担保责任。</li>
+<li><strong>总存款5000元，派生存款4000元。</strong></li>
+<li><span aria-label="\frac{1.2}{0.4}=3" class="math-inline" role="math"><mjx-container class="MathJax" jax="SVG"><svg focusable="false" height="2.773ex" role="img" style="vertical-align: -0.816ex;" viewbox="0 -864.9 3177.2 1225.5" width="7.188ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-48-MJX-49-TEX-N-31"></path><path d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" id="FORMULA-48-MJX-49-TEX-N-2E"></path><path d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" id="FORMULA-48-MJX-49-TEX-N-32"></path><path d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" id="FORMULA-48-MJX-49-TEX-N-30"></path><path d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" id="FORMULA-48-MJX-49-TEX-N-34"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-48-MJX-49-TEX-N-3D"></path><path d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" id="FORMULA-48-MJX-49-TEX-N-33"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><use data-c="31" xlink:href="#FORMULA-48-MJX-49-TEX-N-31"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-48-MJX-49-TEX-N-2E"></use><use data-c="32" transform="translate(778,0)" xlink:href="#FORMULA-48-MJX-49-TEX-N-32"></use></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><use data-c="30" xlink:href="#FORMULA-48-MJX-49-TEX-N-30"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-48-MJX-49-TEX-N-2E"></use><use data-c="34" transform="translate(778,0)" xlink:href="#FORMULA-48-MJX-49-TEX-N-34"></use></g><rect height="60" width="1103.7" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(1621.5,0)"><use data-c="3D" xlink:href="#FORMULA-48-MJX-49-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(2677.2,0)"><use data-c="33" xlink:href="#FORMULA-48-MJX-49-TEX-N-33"></use></g></g></g></svg></mjx-container></span>。</li>
+<li><strong>回笼。</strong>不要把操作时与到期时混淆。</li>
+<li><strong>最终目标。</strong></li>
+<li><strong>不是。</strong>前者是投资者条件，后者是发行人条件。</li>
+<li><strong>不是。</strong>它是全国性证券交易场所。</li>
+<li><strong>错。</strong>投资价值和风险仍需投资者判断。</li>
+</ol>
+<h4 class="subhead">这一章先以“会解释、会分类、会计算”为掌握标准。尤其把两道货币乘数例题独立算一遍；哪里算不通，我们就从那一步继续拆。</h4></div></details></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="02-01_中国的金融体系.html">上一节 · 中国的金融体系</a><a href="03-01_证券发行人.html">下一节 · 证券发行人</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。保留本聊天此前完整讲解，按教材节分拆排版。相邻节可能共用同一教材页。</p><p>优先级标记表示学习要求，不是已核验的出题频率。各制度数字须连同主体、分母、年份理解；修订说明在对应段标出。</p><p>本节HTML无需联网即可阅读，SVG图与公式保存在文件内；出处链接需联网。练习为本讲义自编诊断题。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

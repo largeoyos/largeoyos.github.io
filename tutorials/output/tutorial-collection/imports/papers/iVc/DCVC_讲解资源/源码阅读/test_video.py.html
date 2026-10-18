@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>test_video.py</title><style>body{margin:28px;color:#23303b;background:#fff;font:14px/1.6 Consolas,monospace}h1{font:22px/1.5 'Microsoft YaHei',sans-serif}a{color:#26717f}pre{overflow:auto;background:#f5f7f8;padding:15px}.line{display:grid;grid-template-columns:50px 1fr;min-width:max-content;scroll-margin-top:20px}.line>a{text-decoration:none;color:#7a8990;user-select:none}.line:target{background:#fff0bd}.line>span{white-space:pre}</style><h1>test_video.py</h1><p>官方固定版本源码 · <a href="../../DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87.html#code-lecture-2">返回精读讲解</a> · <a href="../%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5%E5%BF%AB%E7%85%A7/test_video.py">原始源码</a></p><pre><span class="line" id="L1"><a href="#L1">1</a><span># Copyright (c) Microsoft Corporation.</span></span>
+<span class="line" id="L2"><a href="#L2">2</a><span># Licensed under the MIT License.</span></span>
+<span class="line" id="L3"><a href="#L3">3</a><span></span></span>
+<span class="line" id="L4"><a href="#L4">4</a><span>import argparse</span></span>
+<span class="line" id="L5"><a href="#L5">5</a><span>import math</span></span>
+<span class="line" id="L6"><a href="#L6">6</a><span>import os</span></span>
+<span class="line" id="L7"><a href="#L7">7</a><span>import concurrent.futures</span></span>
+<span class="line" id="L8"><a href="#L8">8</a><span>import multiprocessing</span></span>
+<span class="line" id="L9"><a href="#L9">9</a><span>import torch</span></span>
+<span class="line" id="L10"><a href="#L10">10</a><span>import json</span></span>
+<span class="line" id="L11"><a href="#L11">11</a><span>import numpy as np</span></span>
+<span class="line" id="L12"><a href="#L12">12</a><span>from PIL import Image</span></span>
+<span class="line" id="L13"><a href="#L13">13</a><span>from src.models.DCVC_net import DCVC_net</span></span>
+<span class="line" id="L14"><a href="#L14">14</a><span>from src.zoo.image import model_architectures as architectures</span></span>
+<span class="line" id="L15"><a href="#L15">15</a><span>import time</span></span>
+<span class="line" id="L16"><a href="#L16">16</a><span>from tqdm import tqdm</span></span>
+<span class="line" id="L17"><a href="#L17">17</a><span>import warnings</span></span>
+<span class="line" id="L18"><a href="#L18">18</a><span>from pytorch_msssim import ms_ssim</span></span>
+<span class="line" id="L19"><a href="#L19">19</a><span></span></span>
+<span class="line" id="L20"><a href="#L20">20</a><span></span></span>
+<span class="line" id="L21"><a href="#L21">21</a><span>warnings.filterwarnings("ignore", message="Setting attributes on ParameterList is not supported.")</span></span>
+<span class="line" id="L22"><a href="#L22">22</a><span></span></span>
+<span class="line" id="L23"><a href="#L23">23</a><span></span></span>
+<span class="line" id="L24"><a href="#L24">24</a><span>def str2bool(v):</span></span>
+<span class="line" id="L25"><a href="#L25">25</a><span>    return str(v).lower() in ("yes", "y", "true", "t", "1")</span></span>
+<span class="line" id="L26"><a href="#L26">26</a><span></span></span>
+<span class="line" id="L27"><a href="#L27">27</a><span></span></span>
+<span class="line" id="L28"><a href="#L28">28</a><span>def parse_args():</span></span>
+<span class="line" id="L29"><a href="#L29">29</a><span>    parser = argparse.ArgumentParser(description="Example testing script")</span></span>
+<span class="line" id="L30"><a href="#L30">30</a><span></span></span>
+<span class="line" id="L31"><a href="#L31">31</a><span>    parser.add_argument('--i_frame_model_name', type=str, default="cheng2020-anchor")</span></span>
+<span class="line" id="L32"><a href="#L32">32</a><span>    parser.add_argument('--i_frame_model_path', type=str, nargs="+")</span></span>
+<span class="line" id="L33"><a href="#L33">33</a><span>    parser.add_argument('--model_path',  type=str, nargs="+")</span></span>
+<span class="line" id="L34"><a href="#L34">34</a><span>    parser.add_argument('--test_config', type=str, required=True)</span></span>
+<span class="line" id="L35"><a href="#L35">35</a><span>    parser.add_argument("--worker", "-w", type=int, default=1, help="worker number")</span></span>
+<span class="line" id="L36"><a href="#L36">36</a><span>    parser.add_argument("--cuda", type=str2bool, nargs='?', const=True, default=False)</span></span>
+<span class="line" id="L37"><a href="#L37">37</a><span>    parser.add_argument("--cuda_device", default=None,</span></span>
+<span class="line" id="L38"><a href="#L38">38</a><span>                        help="the cuda device used, e.g., 0; 0,1; 1,2,3; etc.")</span></span>
+<span class="line" id="L39"><a href="#L39">39</a><span>    parser.add_argument('--write_stream', type=str2bool, nargs='?',</span></span>
+<span class="line" id="L40"><a href="#L40">40</a><span>                        const=True, default=False)</span></span>
+<span class="line" id="L41"><a href="#L41">41</a><span>    parser.add_argument("--write_recon_frame", type=str2bool,</span></span>
+<span class="line" id="L42"><a href="#L42">42</a><span>                        nargs='?', const=True, default=False)</span></span>
+<span class="line" id="L43"><a href="#L43">43</a><span>    parser.add_argument('--recon_bin_path', type=str, default="recon_bin_path")</span></span>
+<span class="line" id="L44"><a href="#L44">44</a><span>    parser.add_argument('--output_json_result_path', type=str, required=True)</span></span>
+<span class="line" id="L45"><a href="#L45">45</a><span>    parser.add_argument("--model_type",  type=str,  default="psnr", help="psnr, msssim")</span></span>
+<span class="line" id="L46"><a href="#L46">46</a><span></span></span>
+<span class="line" id="L47"><a href="#L47">47</a><span>    args = parser.parse_args()</span></span>
+<span class="line" id="L48"><a href="#L48">48</a><span>    return args</span></span>
+<span class="line" id="L49"><a href="#L49">49</a><span></span></span>
+<span class="line" id="L50"><a href="#L50">50</a><span></span></span>
+<span class="line" id="L51"><a href="#L51">51</a><span>def PSNR(input1, input2):</span></span>
+<span class="line" id="L52"><a href="#L52">52</a><span>    mse = torch.mean((input1 - input2) ** 2)</span></span>
+<span class="line" id="L53"><a href="#L53">53</a><span>    psnr = 20 * torch.log10(1 / torch.sqrt(mse))</span></span>
+<span class="line" id="L54"><a href="#L54">54</a><span>    return psnr.item()</span></span>
+<span class="line" id="L55"><a href="#L55">55</a><span></span></span>
+<span class="line" id="L56"><a href="#L56">56</a><span></span></span>
+<span class="line" id="L57"><a href="#L57">57</a><span>def read_frame_to_torch(path):</span></span>
+<span class="line" id="L58"><a href="#L58">58</a><span>    input_image = Image.open(path).convert('RGB')</span></span>
+<span class="line" id="L59"><a href="#L59">59</a><span>    input_image = np.asarray(input_image).astype('float64').transpose(2, 0, 1)</span></span>
+<span class="line" id="L60"><a href="#L60">60</a><span>    input_image = torch.from_numpy(input_image).type(torch.FloatTensor)</span></span>
+<span class="line" id="L61"><a href="#L61">61</a><span>    input_image = input_image.unsqueeze(0)/255</span></span>
+<span class="line" id="L62"><a href="#L62">62</a><span>    return input_image</span></span>
+<span class="line" id="L63"><a href="#L63">63</a><span></span></span>
+<span class="line" id="L64"><a href="#L64">64</a><span></span></span>
+<span class="line" id="L65"><a href="#L65">65</a><span>def write_torch_frame(frame, path):</span></span>
+<span class="line" id="L66"><a href="#L66">66</a><span>    frame_result = frame.clone()</span></span>
+<span class="line" id="L67"><a href="#L67">67</a><span>    frame_result = frame_result.cpu().detach().numpy().transpose(1, 2, 0)*255</span></span>
+<span class="line" id="L68"><a href="#L68">68</a><span>    frame_result = np.clip(np.rint(frame_result), 0, 255)</span></span>
+<span class="line" id="L69"><a href="#L69">69</a><span>    frame_result = Image.fromarray(frame_result.astype('uint8'), 'RGB')</span></span>
+<span class="line" id="L70"><a href="#L70">70</a><span>    frame_result.save(path)</span></span>
+<span class="line" id="L71"><a href="#L71">71</a><span></span></span>
+<span class="line" id="L72"><a href="#L72">72</a><span></span></span>
+<span class="line" id="L73"><a href="#L73">73</a><span>def encode_one(args_dict, device):</span></span>
+<span class="line" id="L74"><a href="#L74">74</a><span>    i_frame_load_checkpoint = torch.load(args_dict['i_frame_model_path'],</span></span>
+<span class="line" id="L75"><a href="#L75">75</a><span>                                         map_location=torch.device('cpu'))</span></span>
+<span class="line" id="L76"><a href="#L76">76</a><span>    i_frame_net = architectures[args_dict['i_frame_model_name']].from_state_dict(</span></span>
+<span class="line" id="L77"><a href="#L77">77</a><span>        i_frame_load_checkpoint).eval()</span></span>
+<span class="line" id="L78"><a href="#L78">78</a><span></span></span>
+<span class="line" id="L79"><a href="#L79">79</a><span>    video_net = DCVC_net()</span></span>
+<span class="line" id="L80"><a href="#L80">80</a><span>    load_checkpoint = torch.load(args_dict['model_path'], map_location=torch.device('cpu'))</span></span>
+<span class="line" id="L81"><a href="#L81">81</a><span>    video_net.load_dict(load_checkpoint)</span></span>
+<span class="line" id="L82"><a href="#L82">82</a><span></span></span>
+<span class="line" id="L83"><a href="#L83">83</a><span>    video_net = video_net.to(device)</span></span>
+<span class="line" id="L84"><a href="#L84">84</a><span>    video_net.eval()</span></span>
+<span class="line" id="L85"><a href="#L85">85</a><span>    i_frame_net = i_frame_net.to(device)</span></span>
+<span class="line" id="L86"><a href="#L86">86</a><span>    i_frame_net.eval()</span></span>
+<span class="line" id="L87"><a href="#L87">87</a><span>    if args_dict['write_stream']:</span></span>
+<span class="line" id="L88"><a href="#L88">88</a><span>        video_net.update(force=True)</span></span>
+<span class="line" id="L89"><a href="#L89">89</a><span>        i_frame_net.update(force=True)</span></span>
+<span class="line" id="L90"><a href="#L90">90</a><span></span></span>
+<span class="line" id="L91"><a href="#L91">91</a><span>    sub_dir_name = args_dict['video_path']</span></span>
+<span class="line" id="L92"><a href="#L92">92</a><span>    ref_frame = None</span></span>
+<span class="line" id="L93"><a href="#L93">93</a><span>    frame_types = []</span></span>
+<span class="line" id="L94"><a href="#L94">94</a><span>    qualitys = []</span></span>
+<span class="line" id="L95"><a href="#L95">95</a><span>    bits = []</span></span>
+<span class="line" id="L96"><a href="#L96">96</a><span>    bits_mv_y = []</span></span>
+<span class="line" id="L97"><a href="#L97">97</a><span>    bits_mv_z = []</span></span>
+<span class="line" id="L98"><a href="#L98">98</a><span>    bits_y = []</span></span>
+<span class="line" id="L99"><a href="#L99">99</a><span>    bits_z = []</span></span>
+<span class="line" id="L100"><a href="#L100">100</a><span></span></span>
+<span class="line" id="L101"><a href="#L101">101</a><span>    gop_size = args_dict['gop']</span></span>
+<span class="line" id="L102"><a href="#L102">102</a><span>    frame_pixel_num = 0</span></span>
+<span class="line" id="L103"><a href="#L103">103</a><span>    frame_num = args_dict['frame_num']</span></span>
+<span class="line" id="L104"><a href="#L104">104</a><span></span></span>
+<span class="line" id="L105"><a href="#L105">105</a><span>    recon_bin_folder = os.path.join(args_dict['recon_bin_path'], sub_dir_name,</span></span>
+<span class="line" id="L106"><a href="#L106">106</a><span>                                    os.path.basename(args_dict['model_path'])[:-4])</span></span>
+<span class="line" id="L107"><a href="#L107">107</a><span>    if not os.path.exists(recon_bin_folder):</span></span>
+<span class="line" id="L108"><a href="#L108">108</a><span>        os.makedirs(recon_bin_folder)</span></span>
+<span class="line" id="L109"><a href="#L109">109</a><span></span></span>
+<span class="line" id="L110"><a href="#L110">110</a><span>    # Figure out the naming convention</span></span>
+<span class="line" id="L111"><a href="#L111">111</a><span>    pngs = os.listdir(os.path.join(args_dict['dataset_path'], sub_dir_name))</span></span>
+<span class="line" id="L112"><a href="#L112">112</a><span>    if 'im1.png' in pngs:</span></span>
+<span class="line" id="L113"><a href="#L113">113</a><span>        padding = 1</span></span>
+<span class="line" id="L114"><a href="#L114">114</a><span>    elif 'im00001.png' in pngs:</span></span>
+<span class="line" id="L115"><a href="#L115">115</a><span>        padding = 5</span></span>
+<span class="line" id="L116"><a href="#L116">116</a><span>    else:</span></span>
+<span class="line" id="L117"><a href="#L117">117</a><span>        raise ValueError('unknown image naming convention; please specify')</span></span>
+<span class="line" id="L118"><a href="#L118">118</a><span></span></span>
+<span class="line" id="L119"><a href="#L119">119</a><span>    with torch.no_grad():</span></span>
+<span class="line" id="L120"><a href="#L120">120</a><span>        for frame_idx in range(frame_num):</span></span>
+<span class="line" id="L121"><a href="#L121">121</a><span>            ori_frame = read_frame_to_torch(</span></span>
+<span class="line" id="L122"><a href="#L122">122</a><span>                os.path.join(args_dict['dataset_path'],</span></span>
+<span class="line" id="L123"><a href="#L123">123</a><span>                             sub_dir_name,</span></span>
+<span class="line" id="L124"><a href="#L124">124</a><span>                             f"im{str(frame_idx+1).zfill(padding)}.png"))</span></span>
+<span class="line" id="L125"><a href="#L125">125</a><span>            ori_frame = ori_frame.to(device)</span></span>
+<span class="line" id="L126"><a href="#L126">126</a><span></span></span>
+<span class="line" id="L127"><a href="#L127">127</a><span>            if frame_pixel_num == 0:</span></span>
+<span class="line" id="L128"><a href="#L128">128</a><span>                frame_pixel_num = ori_frame.shape[2]*ori_frame.shape[3]</span></span>
+<span class="line" id="L129"><a href="#L129">129</a><span>            else:</span></span>
+<span class="line" id="L130"><a href="#L130">130</a><span>                assert(frame_pixel_num == ori_frame.shape[2]*ori_frame.shape[3])</span></span>
+<span class="line" id="L131"><a href="#L131">131</a><span></span></span>
+<span class="line" id="L132"><a href="#L132">132</a><span>            if args_dict['write_stream']:</span></span>
+<span class="line" id="L133"><a href="#L133">133</a><span>                bin_path = os.path.join(recon_bin_folder, f"{frame_idx}.bin")</span></span>
+<span class="line" id="L134"><a href="#L134">134</a><span>                if frame_idx % gop_size == 0:</span></span>
+<span class="line" id="L135"><a href="#L135">135</a><span>                    result = i_frame_net.encode_decode(ori_frame, bin_path)</span></span>
+<span class="line" id="L136"><a href="#L136">136</a><span>                    ref_frame = result["x_hat"]</span></span>
+<span class="line" id="L137"><a href="#L137">137</a><span>                    bpp = result["bpp"]</span></span>
+<span class="line" id="L138"><a href="#L138">138</a><span>                    frame_types.append(0)</span></span>
+<span class="line" id="L139"><a href="#L139">139</a><span>                    bits.append(bpp*frame_pixel_num)</span></span>
+<span class="line" id="L140"><a href="#L140">140</a><span>                    bits_mv_y.append(0)</span></span>
+<span class="line" id="L141"><a href="#L141">141</a><span>                    bits_mv_z.append(0)</span></span>
+<span class="line" id="L142"><a href="#L142">142</a><span>                    bits_y.append(0)</span></span>
+<span class="line" id="L143"><a href="#L143">143</a><span>                    bits_z.append(0)</span></span>
+<span class="line" id="L144"><a href="#L144">144</a><span>                else:</span></span>
+<span class="line" id="L145"><a href="#L145">145</a><span>                    result = video_net.encode_decode(ref_frame, ori_frame, bin_path)</span></span>
+<span class="line" id="L146"><a href="#L146">146</a><span>                    ref_frame = result['recon_image']</span></span>
+<span class="line" id="L147"><a href="#L147">147</a><span>                    bpp = result['bpp']</span></span>
+<span class="line" id="L148"><a href="#L148">148</a><span>                    frame_types.append(1)</span></span>
+<span class="line" id="L149"><a href="#L149">149</a><span>                    bits.append(bpp*frame_pixel_num)</span></span>
+<span class="line" id="L150"><a href="#L150">150</a><span>                    bits_mv_y.append(result['bpp_mv_y']*frame_pixel_num)</span></span>
+<span class="line" id="L151"><a href="#L151">151</a><span>                    bits_mv_z.append(result['bpp_mv_z']*frame_pixel_num)</span></span>
+<span class="line" id="L152"><a href="#L152">152</a><span>                    bits_y.append(result['bpp_y']*frame_pixel_num)</span></span>
+<span class="line" id="L153"><a href="#L153">153</a><span>                    bits_z.append(result['bpp_z']*frame_pixel_num)</span></span>
+<span class="line" id="L154"><a href="#L154">154</a><span>            else:</span></span>
+<span class="line" id="L155"><a href="#L155">155</a><span>                if frame_idx % gop_size == 0:</span></span>
+<span class="line" id="L156"><a href="#L156">156</a><span>                    result = i_frame_net(ori_frame)</span></span>
+<span class="line" id="L157"><a href="#L157">157</a><span>                    bit = sum((torch.log(likelihoods).sum() / (-math.log(2)))</span></span>
+<span class="line" id="L158"><a href="#L158">158</a><span>                              for likelihoods in result["likelihoods"].values())</span></span>
+<span class="line" id="L159"><a href="#L159">159</a><span>                    ref_frame = result["x_hat"]</span></span>
+<span class="line" id="L160"><a href="#L160">160</a><span>                    frame_types.append(0)</span></span>
+<span class="line" id="L161"><a href="#L161">161</a><span>                    bits.append(bit.item())</span></span>
+<span class="line" id="L162"><a href="#L162">162</a><span>                    bits_mv_y.append(0)</span></span>
+<span class="line" id="L163"><a href="#L163">163</a><span>                    bits_mv_z.append(0)</span></span>
+<span class="line" id="L164"><a href="#L164">164</a><span>                    bits_y.append(0)</span></span>
+<span class="line" id="L165"><a href="#L165">165</a><span>                    bits_z.append(0)</span></span>
+<span class="line" id="L166"><a href="#L166">166</a><span>                else:</span></span>
+<span class="line" id="L167"><a href="#L167">167</a><span>                    result = video_net(ref_frame, ori_frame)</span></span>
+<span class="line" id="L168"><a href="#L168">168</a><span>                    ref_frame = result['recon_image']</span></span>
+<span class="line" id="L169"><a href="#L169">169</a><span>                    bpp = result['bpp']</span></span>
+<span class="line" id="L170"><a href="#L170">170</a><span>                    frame_types.append(1)</span></span>
+<span class="line" id="L171"><a href="#L171">171</a><span>                    bits.append(bpp.item()*frame_pixel_num)</span></span>
+<span class="line" id="L172"><a href="#L172">172</a><span>                    bits_mv_y.append(result['bpp_mv_y'].item()*frame_pixel_num)</span></span>
+<span class="line" id="L173"><a href="#L173">173</a><span>                    bits_mv_z.append(result['bpp_mv_z'].item()*frame_pixel_num)</span></span>
+<span class="line" id="L174"><a href="#L174">174</a><span>                    bits_y.append(result['bpp_y'].item()*frame_pixel_num)</span></span>
+<span class="line" id="L175"><a href="#L175">175</a><span>                    bits_z.append(result['bpp_z'].item()*frame_pixel_num)</span></span>
+<span class="line" id="L176"><a href="#L176">176</a><span></span></span>
+<span class="line" id="L177"><a href="#L177">177</a><span>            ref_frame = ref_frame.clamp_(0, 1)</span></span>
+<span class="line" id="L178"><a href="#L178">178</a><span>            if args_dict['write_recon_frame']:</span></span>
+<span class="line" id="L179"><a href="#L179">179</a><span>                write_torch_frame(ref_frame.squeeze(), os.path.join(recon_bin_folder, f"recon_frame_{frame_idx}.png"))</span></span>
+<span class="line" id="L180"><a href="#L180">180</a><span>            if args_dict['model_type'] == 'psnr':</span></span>
+<span class="line" id="L181"><a href="#L181">181</a><span>                qualitys.append(PSNR(ref_frame, ori_frame))</span></span>
+<span class="line" id="L182"><a href="#L182">182</a><span>            else:</span></span>
+<span class="line" id="L183"><a href="#L183">183</a><span>                qualitys.append(</span></span>
+<span class="line" id="L184"><a href="#L184">184</a><span>                    ms_ssim(ref_frame, ori_frame, data_range=1.0).item())</span></span>
+<span class="line" id="L185"><a href="#L185">185</a><span></span></span>
+<span class="line" id="L186"><a href="#L186">186</a><span>    cur_all_i_frame_bit = 0</span></span>
+<span class="line" id="L187"><a href="#L187">187</a><span>    cur_all_i_frame_quality = 0</span></span>
+<span class="line" id="L188"><a href="#L188">188</a><span>    cur_all_p_frame_bit = 0</span></span>
+<span class="line" id="L189"><a href="#L189">189</a><span>    cur_all_p_frame_bit_mv_y = 0</span></span>
+<span class="line" id="L190"><a href="#L190">190</a><span>    cur_all_p_frame_bit_mv_z = 0</span></span>
+<span class="line" id="L191"><a href="#L191">191</a><span>    cur_all_p_frame_bit_y = 0</span></span>
+<span class="line" id="L192"><a href="#L192">192</a><span>    cur_all_p_frame_bit_z = 0</span></span>
+<span class="line" id="L193"><a href="#L193">193</a><span>    cur_all_p_frame_quality = 0</span></span>
+<span class="line" id="L194"><a href="#L194">194</a><span>    cur_i_frame_num = 0</span></span>
+<span class="line" id="L195"><a href="#L195">195</a><span>    cur_p_frame_num = 0</span></span>
+<span class="line" id="L196"><a href="#L196">196</a><span>    for idx in range(frame_num):</span></span>
+<span class="line" id="L197"><a href="#L197">197</a><span>        if frame_types[idx] == 0:</span></span>
+<span class="line" id="L198"><a href="#L198">198</a><span>            cur_all_i_frame_bit += bits[idx]</span></span>
+<span class="line" id="L199"><a href="#L199">199</a><span>            cur_all_i_frame_quality += qualitys[idx]</span></span>
+<span class="line" id="L200"><a href="#L200">200</a><span>            cur_i_frame_num += 1</span></span>
+<span class="line" id="L201"><a href="#L201">201</a><span>        else:</span></span>
+<span class="line" id="L202"><a href="#L202">202</a><span>            cur_all_p_frame_bit += bits[idx]</span></span>
+<span class="line" id="L203"><a href="#L203">203</a><span>            cur_all_p_frame_bit_mv_y += bits_mv_y[idx]</span></span>
+<span class="line" id="L204"><a href="#L204">204</a><span>            cur_all_p_frame_bit_mv_z += bits_mv_z[idx]</span></span>
+<span class="line" id="L205"><a href="#L205">205</a><span>            cur_all_p_frame_bit_y += bits_y[idx]</span></span>
+<span class="line" id="L206"><a href="#L206">206</a><span>            cur_all_p_frame_bit_z += bits_z[idx]</span></span>
+<span class="line" id="L207"><a href="#L207">207</a><span>            cur_all_p_frame_quality += qualitys[idx]</span></span>
+<span class="line" id="L208"><a href="#L208">208</a><span>            cur_p_frame_num += 1</span></span>
+<span class="line" id="L209"><a href="#L209">209</a><span></span></span>
+<span class="line" id="L210"><a href="#L210">210</a><span>    log_result = {}</span></span>
+<span class="line" id="L211"><a href="#L211">211</a><span>    log_result['name'] = f"{os.path.basename(args_dict['model_path'])}_{sub_dir_name}"</span></span>
+<span class="line" id="L212"><a href="#L212">212</a><span>    log_result['ds_name'] = args_dict['ds_name']</span></span>
+<span class="line" id="L213"><a href="#L213">213</a><span>    log_result['video_path'] = args_dict['video_path']</span></span>
+<span class="line" id="L214"><a href="#L214">214</a><span>    log_result['frame_pixel_num'] = frame_pixel_num</span></span>
+<span class="line" id="L215"><a href="#L215">215</a><span>    log_result['i_frame_num'] = cur_i_frame_num</span></span>
+<span class="line" id="L216"><a href="#L216">216</a><span>    log_result['p_frame_num'] = cur_p_frame_num</span></span>
+<span class="line" id="L217"><a href="#L217">217</a><span>    log_result['ave_i_frame_bpp'] = cur_all_i_frame_bit / cur_i_frame_num / frame_pixel_num</span></span>
+<span class="line" id="L218"><a href="#L218">218</a><span>    log_result['ave_i_frame_quality'] = cur_all_i_frame_quality / cur_i_frame_num</span></span>
+<span class="line" id="L219"><a href="#L219">219</a><span>    if cur_p_frame_num &gt; 0:</span></span>
+<span class="line" id="L220"><a href="#L220">220</a><span>        total_p_pixel_num = cur_p_frame_num * frame_pixel_num</span></span>
+<span class="line" id="L221"><a href="#L221">221</a><span>        log_result['ave_p_frame_bpp'] = cur_all_p_frame_bit / total_p_pixel_num</span></span>
+<span class="line" id="L222"><a href="#L222">222</a><span>        log_result['ave_p_frame_bpp_mv_y'] = cur_all_p_frame_bit_mv_y / total_p_pixel_num</span></span>
+<span class="line" id="L223"><a href="#L223">223</a><span>        log_result['ave_p_frame_bpp_mv_z'] = cur_all_p_frame_bit_mv_z / total_p_pixel_num</span></span>
+<span class="line" id="L224"><a href="#L224">224</a><span>        log_result['ave_p_frame_bpp_y'] = cur_all_p_frame_bit_y / total_p_pixel_num</span></span>
+<span class="line" id="L225"><a href="#L225">225</a><span>        log_result['ave_p_frame_bpp_z'] = cur_all_p_frame_bit_z / total_p_pixel_num</span></span>
+<span class="line" id="L226"><a href="#L226">226</a><span>        log_result['ave_p_frame_quality'] = cur_all_p_frame_quality / cur_p_frame_num</span></span>
+<span class="line" id="L227"><a href="#L227">227</a><span>    else:</span></span>
+<span class="line" id="L228"><a href="#L228">228</a><span>        log_result['ave_p_frame_bpp'] = 0</span></span>
+<span class="line" id="L229"><a href="#L229">229</a><span>        log_result['ave_p_frame_quality'] = 0</span></span>
+<span class="line" id="L230"><a href="#L230">230</a><span>        log_result['ave_p_frame_bpp_mv_y'] = 0</span></span>
+<span class="line" id="L231"><a href="#L231">231</a><span>        log_result['ave_p_frame_bpp_mv_z'] = 0</span></span>
+<span class="line" id="L232"><a href="#L232">232</a><span>        log_result['ave_p_frame_bpp_y'] = 0</span></span>
+<span class="line" id="L233"><a href="#L233">233</a><span>        log_result['ave_p_frame_bpp_z'] = 0</span></span>
+<span class="line" id="L234"><a href="#L234">234</a><span>    log_result['ave_all_frame_bpp'] = (cur_all_i_frame_bit + cur_all_p_frame_bit) / \</span></span>
+<span class="line" id="L235"><a href="#L235">235</a><span>        (frame_num * frame_pixel_num)</span></span>
+<span class="line" id="L236"><a href="#L236">236</a><span>    log_result['ave_all_frame_quality'] = (cur_all_i_frame_quality + cur_all_p_frame_quality) / frame_num</span></span>
+<span class="line" id="L237"><a href="#L237">237</a><span>    return log_result</span></span>
+<span class="line" id="L238"><a href="#L238">238</a><span></span></span>
+<span class="line" id="L239"><a href="#L239">239</a><span></span></span>
+<span class="line" id="L240"><a href="#L240">240</a><span>def worker(use_cuda, args):</span></span>
+<span class="line" id="L241"><a href="#L241">241</a><span>    if args['write_stream']:</span></span>
+<span class="line" id="L242"><a href="#L242">242</a><span>        torch.backends.cudnn.benchmark = False</span></span>
+<span class="line" id="L243"><a href="#L243">243</a><span>        if 'use_deterministic_algorithms' in dir(torch):</span></span>
+<span class="line" id="L244"><a href="#L244">244</a><span>            torch.use_deterministic_algorithms(True)</span></span>
+<span class="line" id="L245"><a href="#L245">245</a><span>        else:</span></span>
+<span class="line" id="L246"><a href="#L246">246</a><span>            torch.set_deterministic(True)</span></span>
+<span class="line" id="L247"><a href="#L247">247</a><span>    torch.manual_seed(0)</span></span>
+<span class="line" id="L248"><a href="#L248">248</a><span>    torch.set_num_threads(1)</span></span>
+<span class="line" id="L249"><a href="#L249">249</a><span>    np.random.seed(seed=0)</span></span>
+<span class="line" id="L250"><a href="#L250">250</a><span>    gpu_num = 0</span></span>
+<span class="line" id="L251"><a href="#L251">251</a><span>    if use_cuda:</span></span>
+<span class="line" id="L252"><a href="#L252">252</a><span>        gpu_num = torch.cuda.device_count()</span></span>
+<span class="line" id="L253"><a href="#L253">253</a><span></span></span>
+<span class="line" id="L254"><a href="#L254">254</a><span>    process_name = multiprocessing.current_process().name</span></span>
+<span class="line" id="L255"><a href="#L255">255</a><span>    process_idx = int(process_name[process_name.rfind('-') + 1:])</span></span>
+<span class="line" id="L256"><a href="#L256">256</a><span>    gpu_id = -1</span></span>
+<span class="line" id="L257"><a href="#L257">257</a><span>    if gpu_num &gt; 0:</span></span>
+<span class="line" id="L258"><a href="#L258">258</a><span>        gpu_id = process_idx % gpu_num</span></span>
+<span class="line" id="L259"><a href="#L259">259</a><span>    if gpu_id &gt;= 0:</span></span>
+<span class="line" id="L260"><a href="#L260">260</a><span>        device = f"cuda:{gpu_id}"</span></span>
+<span class="line" id="L261"><a href="#L261">261</a><span>    else:</span></span>
+<span class="line" id="L262"><a href="#L262">262</a><span>        device = "cpu"</span></span>
+<span class="line" id="L263"><a href="#L263">263</a><span></span></span>
+<span class="line" id="L264"><a href="#L264">264</a><span>    result = encode_one(args, device)</span></span>
+<span class="line" id="L265"><a href="#L265">265</a><span>    result['model_idx'] = args['model_idx']</span></span>
+<span class="line" id="L266"><a href="#L266">266</a><span>    return result</span></span>
+<span class="line" id="L267"><a href="#L267">267</a><span></span></span>
+<span class="line" id="L268"><a href="#L268">268</a><span></span></span>
+<span class="line" id="L269"><a href="#L269">269</a><span>def filter_dict(result):</span></span>
+<span class="line" id="L270"><a href="#L270">270</a><span>    keys = ['i_frame_num', 'p_frame_num', 'ave_i_frame_bpp', 'ave_i_frame_quality', 'ave_p_frame_bpp',</span></span>
+<span class="line" id="L271"><a href="#L271">271</a><span>            'ave_p_frame_bpp_mv_y', 'ave_p_frame_bpp_mv_z', 'ave_p_frame_bpp_y',</span></span>
+<span class="line" id="L272"><a href="#L272">272</a><span>            'ave_p_frame_bpp_z', 'ave_p_frame_quality', 'ave_all_frame_bpp', 'ave_all_frame_quality']</span></span>
+<span class="line" id="L273"><a href="#L273">273</a><span>    res = {k: v for k, v in result.items() if k in keys}</span></span>
+<span class="line" id="L274"><a href="#L274">274</a><span>    return res</span></span>
+<span class="line" id="L275"><a href="#L275">275</a><span></span></span>
+<span class="line" id="L276"><a href="#L276">276</a><span></span></span>
+<span class="line" id="L277"><a href="#L277">277</a><span>def main():</span></span>
+<span class="line" id="L278"><a href="#L278">278</a><span>    torch.backends.cudnn.enabled = True</span></span>
+<span class="line" id="L279"><a href="#L279">279</a><span>    args = parse_args()</span></span>
+<span class="line" id="L280"><a href="#L280">280</a><span>    if args.cuda_device is not None and args.cuda_device != '':</span></span>
+<span class="line" id="L281"><a href="#L281">281</a><span>        os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda_device</span></span>
+<span class="line" id="L282"><a href="#L282">282</a><span>    os.environ['CUBLAS_WORKSPACE_CONFIG'] = ":4096:8"</span></span>
+<span class="line" id="L283"><a href="#L283">283</a><span>    worker_num = args.worker</span></span>
+<span class="line" id="L284"><a href="#L284">284</a><span>    assert worker_num &gt;= 1</span></span>
+<span class="line" id="L285"><a href="#L285">285</a><span></span></span>
+<span class="line" id="L286"><a href="#L286">286</a><span>    with open(args.test_config) as f:</span></span>
+<span class="line" id="L287"><a href="#L287">287</a><span>        config = json.load(f)</span></span>
+<span class="line" id="L288"><a href="#L288">288</a><span></span></span>
+<span class="line" id="L289"><a href="#L289">289</a><span>    multiprocessing.set_start_method("spawn")</span></span>
+<span class="line" id="L290"><a href="#L290">290</a><span>    threadpool_executor = concurrent.futures.ProcessPoolExecutor(max_workers=worker_num)</span></span>
+<span class="line" id="L291"><a href="#L291">291</a><span>    objs = []</span></span>
+<span class="line" id="L292"><a href="#L292">292</a><span></span></span>
+<span class="line" id="L293"><a href="#L293">293</a><span>    count_frames = 0</span></span>
+<span class="line" id="L294"><a href="#L294">294</a><span>    count_sequences = 0</span></span>
+<span class="line" id="L295"><a href="#L295">295</a><span>    begin_time = time.time()</span></span>
+<span class="line" id="L296"><a href="#L296">296</a><span>    for ds_name in config:</span></span>
+<span class="line" id="L297"><a href="#L297">297</a><span>        for seq_name in config[ds_name]['sequences']:</span></span>
+<span class="line" id="L298"><a href="#L298">298</a><span>            count_sequences += 1</span></span>
+<span class="line" id="L299"><a href="#L299">299</a><span>            for model_idx in range(len(args.model_path)):</span></span>
+<span class="line" id="L300"><a href="#L300">300</a><span>                cur_dict = {}</span></span>
+<span class="line" id="L301"><a href="#L301">301</a><span>                cur_dict['model_idx'] = model_idx</span></span>
+<span class="line" id="L302"><a href="#L302">302</a><span>                cur_dict['i_frame_model_path'] = args.i_frame_model_path[model_idx]</span></span>
+<span class="line" id="L303"><a href="#L303">303</a><span>                cur_dict['i_frame_model_name'] = args.i_frame_model_name</span></span>
+<span class="line" id="L304"><a href="#L304">304</a><span>                cur_dict['model_path'] = args.model_path[model_idx]</span></span>
+<span class="line" id="L305"><a href="#L305">305</a><span>                cur_dict['video_path'] = seq_name</span></span>
+<span class="line" id="L306"><a href="#L306">306</a><span>                cur_dict['gop'] = config[ds_name]['sequences'][seq_name]['gop']</span></span>
+<span class="line" id="L307"><a href="#L307">307</a><span>                cur_dict['frame_num'] = config[ds_name]['sequences'][seq_name]['frames']</span></span>
+<span class="line" id="L308"><a href="#L308">308</a><span>                cur_dict['dataset_path'] = config[ds_name]['base_path']</span></span>
+<span class="line" id="L309"><a href="#L309">309</a><span>                cur_dict['write_stream'] = args.write_stream</span></span>
+<span class="line" id="L310"><a href="#L310">310</a><span>                cur_dict['write_recon_frame'] = args.write_recon_frame</span></span>
+<span class="line" id="L311"><a href="#L311">311</a><span>                cur_dict['recon_bin_path'] = args.recon_bin_path</span></span>
+<span class="line" id="L312"><a href="#L312">312</a><span>                cur_dict['model_type'] = args.model_type</span></span>
+<span class="line" id="L313"><a href="#L313">313</a><span>                cur_dict['ds_name'] = ds_name</span></span>
+<span class="line" id="L314"><a href="#L314">314</a><span></span></span>
+<span class="line" id="L315"><a href="#L315">315</a><span>                count_frames += cur_dict['frame_num']</span></span>
+<span class="line" id="L316"><a href="#L316">316</a><span></span></span>
+<span class="line" id="L317"><a href="#L317">317</a><span>                obj = threadpool_executor.submit(</span></span>
+<span class="line" id="L318"><a href="#L318">318</a><span>                    worker,</span></span>
+<span class="line" id="L319"><a href="#L319">319</a><span>                    args.cuda,</span></span>
+<span class="line" id="L320"><a href="#L320">320</a><span>                    cur_dict)</span></span>
+<span class="line" id="L321"><a href="#L321">321</a><span>                objs.append(obj)</span></span>
+<span class="line" id="L322"><a href="#L322">322</a><span></span></span>
+<span class="line" id="L323"><a href="#L323">323</a><span>    results = []</span></span>
+<span class="line" id="L324"><a href="#L324">324</a><span>    for obj in tqdm(objs):</span></span>
+<span class="line" id="L325"><a href="#L325">325</a><span>        result = obj.result()</span></span>
+<span class="line" id="L326"><a href="#L326">326</a><span>        results.append(result)</span></span>
+<span class="line" id="L327"><a href="#L327">327</a><span></span></span>
+<span class="line" id="L328"><a href="#L328">328</a><span>    log_result = {}</span></span>
+<span class="line" id="L329"><a href="#L329">329</a><span></span></span>
+<span class="line" id="L330"><a href="#L330">330</a><span>    for ds_name in config:</span></span>
+<span class="line" id="L331"><a href="#L331">331</a><span>        log_result[ds_name] = {}</span></span>
+<span class="line" id="L332"><a href="#L332">332</a><span>        for seq in config[ds_name]['sequences']:</span></span>
+<span class="line" id="L333"><a href="#L333">333</a><span>            log_result[ds_name][seq] = {}</span></span>
+<span class="line" id="L334"><a href="#L334">334</a><span>            for model_idx in range(len(args.model_path)):</span></span>
+<span class="line" id="L335"><a href="#L335">335</a><span>                ckpt = os.path.basename(args.model_path[model_idx])</span></span>
+<span class="line" id="L336"><a href="#L336">336</a><span>                for res in results:</span></span>
+<span class="line" id="L337"><a href="#L337">337</a><span>                    if res['name'].startswith(ckpt) and ds_name == res['ds_name'] \</span></span>
+<span class="line" id="L338"><a href="#L338">338</a><span>                            and seq == res['video_path']:</span></span>
+<span class="line" id="L339"><a href="#L339">339</a><span>                        log_result[ds_name][seq][ckpt] = filter_dict(res)</span></span>
+<span class="line" id="L340"><a href="#L340">340</a><span></span></span>
+<span class="line" id="L341"><a href="#L341">341</a><span>    with open(args.output_json_result_path, 'w') as fp:</span></span>
+<span class="line" id="L342"><a href="#L342">342</a><span>        json.dump(log_result, fp, indent=2)</span></span>
+<span class="line" id="L343"><a href="#L343">343</a><span></span></span>
+<span class="line" id="L344"><a href="#L344">344</a><span>    total_minutes = (time.time() - begin_time) / 60</span></span>
+<span class="line" id="L345"><a href="#L345">345</a><span></span></span>
+<span class="line" id="L346"><a href="#L346">346</a><span>    count_models = len(args.model_path)</span></span>
+<span class="line" id="L347"><a href="#L347">347</a><span>    count_frames = count_frames // count_models</span></span>
+<span class="line" id="L348"><a href="#L348">348</a><span>    print('Test finished')</span></span>
+<span class="line" id="L349"><a href="#L349">349</a><span>    print(f'Tested {count_models} models on {count_frames} frames from {count_sequences} sequences')</span></span>
+<span class="line" id="L350"><a href="#L350">350</a><span>    print(f'Total elapsed time: {total_minutes:.1f} min')</span></span>
+<span class="line" id="L351"><a href="#L351">351</a><span></span></span>
+<span class="line" id="L352"><a href="#L352">352</a><span></span></span>
+<span class="line" id="L353"><a href="#L353">353</a><span>if __name__ == "__main__":</span></span>
+<span class="line" id="L354"><a href="#L354">354</a><span>    main()</span></span></pre></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="八周 PyTorch 与本科科研见习学习计划" name="description"/>
+<title>见习前哨 · PyTorch 八周学习计划</title>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div aria-hidden="true" class="paper-grain"></div>
+<header class="masthead">
+<a aria-label="返回首页" class="brand" href="#top">
+<span class="brand-mark">研</span>
+<span>
+<strong>见习前哨</strong>
+<small>PYTORCH FIELD NOTES</small>
+</span>
+</a>
+<div class="header-actions">
+<button class="text-button" id="exportButton" type="button">导出备份</button>
+<label class="text-button file-button" for="importInput">导入备份</label>
+<input accept="application/json,.json" hidden="" id="importInput" type="file"/>
+<button aria-label="切换深色模式" class="icon-button" id="themeButton" title="切换深色模式" type="button">◐</button>
+</div>
+</header>
+<main id="top">
+<section class="hero">
+<div class="hero-copy">
+<p class="eyebrow">2026.09.20 — 2026.11.15 · 每周 6–8 小时</p>
+<h1>先让代码跑起来，<br/><em>再让问题变清楚。</em></h1>
+<p class="hero-intro">
+            从第一次组会出发，用八周完成 Python 动手、张量、训练循环、图像分类与卷积入门。组会计入每周学习时间，计划可以顺延。
+          </p>
+<div aria-label="已确认的学习环境" class="environment-note">
+<span>环境已验证</span>
+<strong>Windows Python 3.12</strong>
+<code>D:\soft\py12\python.exe</code>
+<small>PyTorch GPU 计算通过 · RTX 3060 Laptop 6GB</small>
+</div>
+</div>
+<aside aria-labelledby="next-title" class="next-card">
+<div aria-hidden="true" class="pin"></div>
+<p class="card-kicker">NEXT MILESTONE</p>
+<h2 id="next-title">第一次组会</h2>
+<time datetime="2026-09-21T14:00">09 月 21 日 · 周一<br/>14:00—17:00</time>
+<p>iVC II 组。以最新通知为准，提前 10 分钟到场或进入会议。</p>
+<a class="jump-link" href="#meeting-notes">打开组会记录页 <span>↘</span></a>
+</aside>
+</section>
+<section aria-label="学习进度总览" class="dashboard">
+<div class="progress-block">
+<div class="section-label">总体进度</div>
+<div class="progress-number"><strong id="progressPercent">0</strong><span>%</span></div>
+<div aria-hidden="true" class="progress-track"><span id="progressBar"></span></div>
+<p><span id="completedCount">0</span> / <span id="totalCount">0</span> 项已完成</p>
+</div>
+<div class="metric">
+<span>累计投入</span>
+<strong><span id="actualHours">0.0</span>h</strong>
+<small>本地自动保存</small>
+</div>
+<div class="metric">
+<span>计划总量</span>
+<strong><span id="plannedHours">0.0</span>h</strong>
+<small>含两次组会</small>
+</div>
+<div class="metric status-metric">
+<span>当前阶段</span>
+<strong id="currentPhase">准备起步</strong>
+<small id="todayText">今天先确认组会安排</small>
+</div>
+</section>
+<nav aria-label="八周学习导航" class="week-nav" id="weekNav"></nav>
+<section class="workspace">
+<div class="workspace-heading">
+<div>
+<p class="eyebrow">EIGHT-WEEK ROUTE</p>
+<h2>八周任务轨道</h2>
+</div>
+<div aria-label="任务状态说明" class="legend">
+<span><i class="dot todo"></i>未开始</span>
+<span><i class="dot doing"></i>进行中</span>
+<span><i class="dot review"></i>待复习</span>
+<span><i class="dot done"></i>已完成</span>
+</div>
+</div>
+<div class="weeks-container" id="weeksContainer"></div>
+</section>
+<section class="meeting-sheet" id="meeting-notes">
+<div class="meeting-title">
+<p class="eyebrow">MEETING FIELD NOTE</p>
+<h2>组会观察页</h2>
+<p>第一次旁听的目标是留下一个具体问题，不是听懂整场。</p>
+</div>
+<div class="meeting-grid">
+<label>
+<span>报告题目 / 研究问题</span>
+<textarea data-note="meeting-topic" placeholder="他们在尝试解决什么问题？" rows="3"></textarea>
+</label>
+<label>
+<span>输入与输出</span>
+<textarea data-note="meeting-io" placeholder="模型接收什么，产出什么？" rows="3"></textarea>
+</label>
+<label>
+<span>评价方法</span>
+<textarea data-note="meeting-eval" placeholder="与谁比较？好坏如何衡量？" rows="3"></textarea>
+</label>
+<label class="question-note">
+<span>我最想弄明白的一个问题</span>
+<textarea data-note="meeting-question" placeholder="先写下问题，之后只查最影响理解的 3 个词。" rows="3"></textarea>
+</label>
+</div>
+</section>
+<section aria-labelledby="principles-title" class="principles">
+<div>
+<p class="eyebrow">WORKING AGREEMENT</p>
+<h2 id="principles-title">执行约定</h2>
+</div>
+<ol>
+<li><strong>组会计入时间。</strong><span>当周参加组会，就相应减少阅读和练习。</span></li>
+<li><strong>每周留下代码。</strong><span>阅读和动手大致各占一半。</span></li>
+<li><strong>理解优先于赶进度。</strong><span>做到能运行、能解释、能改动；难点可以顺延。</span></li>
+</ol>
+</section>
+</main>
+<footer>
+<p>见习前哨 · 数据只保存在当前浏览器</p>
+<p>最后更新：<span id="lastSaved">尚未保存</span></p>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>

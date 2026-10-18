@@ -1,0 +1,47 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.3 调试任务</title><link rel="stylesheet" href="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/bitahub/3.3 调试任务.md · <a href="3.3%20%E8%B0%83%E8%AF%95%E4%BB%BB%E5%8A%A1.md">原始 Markdown</a></p><p>Source: https://bitahub.ustc.edu.cn/help/md/3.3%20%E8%B0%83%E8%AF%95%E4%BB%BB%E5%8A%A1.html</p>
+<p>调试任务指的是启动时选择节点类型为debug的任务，与之对应的是执行任务，其他类型卡的任务都是执行任务。</p>
+<p>两者之间的区别在于，调试任务有Jupyter或ssh可以连接到任务中，其对/code目录进行的修改会被保存；调试任务最多只能运行3小时，超时会被kill（debug资源有限），而执行任务则会完整地执行用户设定的启动命令。</p>
+<p>BitaHub提供在线的交互式开发调试服务，根据使用习惯，您可以从两种不同的调试方式中选一个。</p>
+<p>一、使用Jupyter调试模式</p>
+<p>调试模式基于Jupyter集成环境，在WEB界面直接使用。</p>
+<p>调试任务步骤如下：</p>
+<ol>
+<li>启动任务</li>
+</ol>
+<p>如下图所示，在项目详情页点击 调试 按钮，在弹出的窗口中，根据需要GPU卡的个数。</p>
+<p>确认完成资源配置后进入等待资源分配状态，此时按钮变为 等待中。</p>
+<ol start="2">
+<li>打开Jupyter调试工具</li>
+</ol>
+<p>如果成功分配到调试任务资源，则任务列表会生成相应的调试任务。等待中 按钮会变为 启动Jupyter，点击即可打开Jupyter调试工具。</p>
+<ol start="3">
+<li>在线调试</li>
+</ol>
+<p>下图为调试界面，您可以在网页中直接编写代码和运行代码，代码的运行结果也会直接在代码块下显示。您还可以使用集成的Terminal工具进行交互操作。</p>
+<p>终端默认启动是的sh，如需使用复制粘贴和自动补全功能，需在命令行中输入bash。</p>
+<p>关于Jupyter的详细操作指导，请参见Jupyter使用文档。</p>
+<p>二、使用SSH连接调试</p>
+<p>除了使用集成的Jupyter调试环境，您还可以使用SSH连接方式。但要注意，SSH和Jupyter只能选择一种。</p>
+<p>SSH方式的调试步骤如下：</p>
+<ol>
+<li>选择新建任务</li>
+</ol>
+<p>如下图，在项目详情页选择新建任务：</p>
+<ol start="2">
+<li>选择debug类型卡</li>
+</ol>
+<p>在运行任务界面，选择GPU类型为debug，然后提交任务：</p>
+<p>为什么启动命令是sleep 3h？这里只是为了让这个任务可以停留3个小时，注意命令执行完成时任务即终止。如果你预计仅需要调试1小时，那么写成sleep 1h也可以。</p>
+<ol start="3">
+<li>利用SSH进行调试</li>
+</ol>
+<p>等待任务分配到资源后，点击该任务行的查看按钮，进入任务详情页：</p>
+<p>滚动到页面最下端，在SSH信息版块，可以看到该任务的SSH信息，利用该信息即可进行SSH方式调试。</p>
+<p>SSH方式的调试，需要确保您的image镜像中安装了openssh-server。</p>
+<p>4.配置个人SSH key</p>
+<p>平台会为每次启动的任务新初始化一个ssh key，有些使用者会觉得不方便，想每次都使用自己固定的私钥进行登录。那么可以在启动命令中进行配置，如使用类似的启动命令(请替换为个人的公钥)：</p>
+<p>echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDfA6q+2qeTYzabyO+KnMruIuUsYKNfM9kz6w+QVR3Qm6llKgwwtO9c0STXSQqFyyTH28UU/eoLSKyywVN4S4EZ4Pm1uBkf3H3CPLNSt8JT7nCBAEpxW6/lVHmexTfl6iheG+CD1jercMWENSyJLRPeZff+P/2caigHhOEte7+uOWD0uhD/3CXEaKaPAE6NVWP/9KsW7Se64wMAlljwnCwYNbugfrn3AB2JQOPYvHjmmvNh7BdcTgiu5U1R9hu9HRmC4mSEj87BL4vAHGAMd1efRiJ7UyC8rnXQbGrYOLQKE5xM1klifvQ7ifffpW2UjaNwSRd8ZS4HVmST2hjLGRAf xx@ustc" &gt;&gt; ~/.ssh/authorized_keys ; sleep 3h</p>
+<p>这样就可以使用个人的私钥登录了（平台提供的私钥也依然可用）。</p>
+<p>这步不是必须的。</p></main><script src="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

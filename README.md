@@ -3,7 +3,7 @@
 LarGeoYos 的个人静态网站与知识库，集中收录博客、系统化学习笔记、网页游戏、在线工具、全球行情观察和量化学习实验。
 
 - 在线访问：[https://largeoyos.github.io](https://largeoyos.github.io)
-- 当前版本：`v3.2.1`
+- 当前版本：`v4.5.0`
 - 部署平台：GitHub Pages + Vercel
 
 ## 主要内容
@@ -13,6 +13,7 @@ LarGeoYos 的个人静态网站与知识库，集中收录博客、系统化学�
 | [工作主页](index.html) | 每日签到日历、农历与干支信息、古今时钟、运势计算及站点入口 |
 | [博客大厅](blog/) | 使用 Markdown 编写的技术文章、效率笔记与碎片知识归档 |
 | [AI 教学](ai-tutorials/) | STM32、数据结构、离散数学、编译原理、信息论、计算机网络、布尔代数及历史类系统笔记 |
+| [教程合集](tutorials/) | 11 个主题、188 个阅读条目与 15 份 PDF，汇集基础课程、PyTorch、视觉研究教材、论文讲解和编码实验 |
 | [游戏大厅](games/) | Acquire 桌游、合成大西瓜和带 AI 自动演示的 2048 |
 | [工具箱](tools/) | 矩阵计算器、随机数助手和 fx-991CN X 科学计算器 |
 | [全球行情](markets/) | 基于 TradingView 组件观察美股、港股、A 股、英国股票、黄金、期货与 ETF |
@@ -37,6 +38,7 @@ LarGeoYos 的个人静态网站与知识库，集中收录博客、系统化学�
 ├── js/                                # 首页逻辑与本地第三方脚本
 ├── blog/                              # 博客列表、渲染页面、索引和 Markdown 文章
 ├── ai-tutorials/                      # 教程目录、渲染页面及拆分后的章节
+├── tutorials/                        # 教程合集、完整讲义、论文讲解与配套资源
 ├── games/                             # Acquire、合成大西瓜、2048
 ├── tools/                             # 矩阵、随机数与科学计算器工具
 ├── markets/                           # 全球行情观察页
@@ -117,3 +119,9 @@ node auto_split_docs.js
 - 新增资源时应继续使用相对路径，确保两个平台均可访问。
 
 
+
+### 教程合集
+
+`tutorials/index.html` 是合集入口，首页和 AI 教学页均有链接。内容以静态 HTML、PDF、字体、图片和配套练习包保存，使用相对路径，兼容 GitHub Pages 与 Vercel。`tutorials/教程合集.html` 保留旧阅读页返回链接的兼容入口。
+
+合集汇总 CodexWrite、research 和 papers 中的现有教学内容。课程页面提供学习记录备份；从原本地入口迁移时，可先导出记录，再在网站课程入口恢复。配套实验在独立 Python 环境中运行。

@@ -1,0 +1,32 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1.2 文件结构说明</title><link rel="stylesheet" href="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/bitahub/1.2 文件结构说明.md · <a href="1.2%20%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E.md">原始 Markdown</a></p><p>Source: https://bitahub.ustc.edu.cn/help/md/1.2%20%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E.html</p>
+<p>在算法训练过程中，一个项目会包含以下的文件：数据集、代码、模型、任务的输出。</p>
+<p>我们针对以上四种文件类型，进行了隔离存放：</p>
+<p>文件夹
+具体作用
+读写权限</p>
+<p>/data/<span class="math" data-tex="username/">username/</span>dataset_name
+用于存放名为$dataset_name的数据集
+本人所属的私有数据集可写，其他仅可读。公开数据集（即使是本人所公开的）或他人分享的数据集，都不可写</p>
+<p>/code
+用于存放该项目中用户上传的代码
+仅调试环境可写。确切地说，仅调试环境下所做的更改会被保存，执行环境下虽然也可以向这个目录写入，但并不会被持久化保存</p>
+<p>/model/<span class="math" data-tex="username/">username/</span>model_name
+用于存放名为$model_name的预训练模型
+同数据集</p>
+<p>/output
+用于存放该项目中某个任务的输出文件
+可写，但仅限于本次任务可读，你无法跨任务读到其他的/output，也就是说，如果你的输出希望在多个任务间共享，那不要使用这个目录，而是用数据集目录</p>
+<p>/myproject_outputs
+该项目下所有任务的输出，以任务编号分目录存放
+只读。这一目录是为了便利下载。</p>
+<p>举例：</p>
+<p>比如创建项目"DemoProject"，在创建项目时，选择了数据集"MNIST"，并选择预训练模型"ResNet"（假设这个数据集和模型是用户名为bitahub的用户公开发布的），然后上传了一个"main.py"的代码文件，那么此时：</p>
+<p>main.py代码文件，将会放入项目的 /code 目录；</p>
+<p>在main.py文件中，如果需要获取MNIST数据集文件，需要使用 /data/bitahub/MNIST/… 的格式；</p>
+<p>在main.py文件中，如果需要获取ResNet模型中的文件，需要使用 /model/bitahub/ResNet 的格式；</p>
+<p>在main.py文件中，如果想保存模型训练后的参数，请使用 /output/checkpoint.pth 类似的目录。</p>
+<p>注意：</p>
+<p>每个任务都有独立的/output，这是它与数据集和模型的不同处，也就说同一个项目下，每一个任务看到的 /data和/model在实际存储上是同一份，而/output则不是。</p>
+<p>那每个任务看到的/code是同一份吗？这个要分情况讨论：（1）如果启动的是调试任务，则是同一份，是最新的代码；（2）如果启动的是执行任务，那么提交任务时，系统会自动对代码用git工具打上tag，任务看到的是这一时刻tag对应的版本。每一个任务详情页中有代码快照栏目，显示的是对应tag下的代码文件。</p></main><script src="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

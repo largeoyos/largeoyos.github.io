@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第五章 · 第二节 · 债券的发行 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第五章 / 02</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 60.2845%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第二节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c5s2-part-01">本节目标：不同债券，走不同发行路径</a><a class="" href="#c5s2-part-02">教材329—331页：国债招标，发行人偏好低利率、高价格会用</a><a href="#c5s2-part-03">教材330—331页：投标、承销和追加，数字的分母不同会认＋会用</a><a class="" href="#c5s2-part-04">教材331—333页：储蓄国债代销与发行额度管理会认</a><a class="" href="#c5s2-part-05">教材333—335页：承销、分销、销售价格，先后顺序怎样看会用＋背景</a><a href="#c5s2-part-06">教材335—337页：地方一般债、专项债，记预算和责任会用</a><a href="#c5s2-part-07">教材337—339页：金融债发行条件、申报材料和发行安排会认＋会用</a><a href="#c5s2-part-08">教材339—341页：公司债含企业债，一般规定与募集资金会用</a><a class="" href="#c5s2-part-09">教材341—342页：公开发行条件与普通投资者条件，是两层门槛会用</a><a class="current" href="#c5s2-part-10">教材342—344页：注册、有效期、中止、终止、撤销会用＋会认</a><a href="#c5s2-part-11">教材344—346页：非公开发行、承销责任和禁止自融会用</a><a href="#c5s2-part-12">教材346—349页：银行间CP、MTN、集合票据，别沿用旧强制评级会认＋会用</a><a href="#c5s2-part-13">教材349页：证券公司普通债与次级债，净资本分母看清会用＋会认</a><a href="#c5s2-part-14">教材349—352页：境外机构到境内发行，看机构类别与披露会认</a><a href="#c5s2-part-15">本节练习：给数字标主体、分母、阶段</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 05 / SECTION 02 · 第五章</div><h2>第二节 · 债券的发行</h2><p>债券 · 教材正文第329—352页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="05-01_债券概述.html">上一节 · 债券概述</a><a href="05-03_债券交易.html">下一节 · 债券交易</a></nav><section class="lesson" id="c5s2-part-01"><h3>本节目标：不同债券，走不同发行路径</h3>
+<p>这一节的数字很多，先学会辨认<strong>发行主体、监管注册机关、发行方式、投资者范围</strong>。国债招标、储蓄国债代销、金融债核准、公司债注册、银行间工具注册，不能只因为都是债券就混用流程。</p>
+<p><span class="level use">会用</span>招标排序与定价、公司债公开和非公开、利润覆盖利息、注册程序和募集资金规则；<span class="level recognize">会认</span>各类主体条件、时限、额度；<span class="level context">背景</span>早期传真、代码与销售细节。先理解再查表，不要求第一轮记住每份申报材料的排列顺序。</p>
+<figure class="diagram" data-diagram="c5-issuance-routes"><figcaption class="figure-label">SVG · 先按债券体系区分发行路径</figcaption><div class="diagram-interactive"><div id="finance-c5-issuance-routes">
+<h3>先按债券体系区分发行路径</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">政府债</button><button aria-pressed="false" class="btn" type="button">机构债</button></div>
+<div data-diagrams=""><svg aria-label="国债发行" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>国债发行</title><desc>记账式国债，竞争性招标；储蓄国债，按规定代销。</desc><defs><marker id="arrow-c5-issuance-routes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">国债发行</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">记账式国债</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">竞争性招标</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">储蓄国债</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按规定代销</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">政府债</div>
+<script data-config="" type="application/json">{"heading": "先按债券体系区分发行路径", "states": [{"label": "政府债", "rows": [{"label": "国债发行", "nodes": [["记账式国债", "竞争性招标"], ["储蓄国债", "按规定代销"]], "edges": [""], "noArrows": true}]}, {"label": "机构债", "rows": [{"label": "监管注册路径", "nodes": [["银行间金融债", "人民银行核准等"], ["公司债含企业债", "交易所审证监会注"], ["非金融企业工具", "交易商协会注册"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c5-issuance-routes .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-issuance-routes .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-issuance-routes .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-issuance-routes .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-issuance-routes .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-issuance-routes');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-issuance-routes-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-issuance-routes-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>政府债</h4><div><svg aria-label="国债发行" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>国债发行</title><desc>记账式国债，竞争性招标；储蓄国债，按规定代销。</desc><defs><marker id="print-05-02-0-0-arrow-c5-issuance-routes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">国债发行</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">记账式国债</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">竞争性招标</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">储蓄国债</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按规定代销</text></svg></div></div><div class="diagram-print-state"><h4>机构债</h4><div><svg aria-label="监管注册路径" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>监管注册路径</title><desc>银行间金融债，人民银行核准等；公司债含企业债，交易所审证监会注；非金融企业工具，交易商协会注册。；</desc><defs><marker id="print-05-02-0-1-arrow-c5-issuance-routes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">监管注册路径</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">银行间金融债</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">人民银行核准等</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">公司债含企业债</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">交易所审证监会注</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">非金融企业工具</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">交易商协会注册</text></svg></div></div></div></figure></section><section class="lesson" id="c5s2-part-02"><h3>教材329—331页：国债招标，发行人偏好低利率、高价格<span class="level use">会用</span></h3>
+<p>记账式国债常用竞争性招标，储蓄国债采用代销。前者通过投标确定价格或票面利率，后者按预定条件通过承销团成员向个人销售。国债预发行是在正式招标前的规定期间交易即将发行的国债，约定招标后交收，并不是财政部已经完成正式发债。</p>
+<p>站在财政部筹资的角度：要求利率越低，付息成本越低；愿付价格越高，获得资金越多。因此，<strong>利率投标低者优先，价格投标高者优先</strong>。不要套投资者“利率高才喜欢”的排序。</p>
+<p>例：拟发行100亿元，A报2.00%认30亿，B报2.05%认40亿，C报2.10%认50亿。不考虑剔除和其他限制，A取30、B取40，C只剩30。若边际同标位有C认30、D认20而剩余20，则先按30:20比例分配12、8，再按规定处理取整与尾数。</p>
+<figure class="diagram" data-diagram="c5-treasury-auction"><figcaption class="figure-label">SVG · 利率投标低优先，价格投标高优先</figcaption><div class="diagram-interactive"><div id="finance-c5-treasury-auction">
+<h3>利率投标低优先，价格投标高优先</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">利率</button><button aria-pressed="false" class="btn" type="button">单一价格</button></div>
+<div data-diagrams=""><svg aria-label="100亿元简化招标" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>100亿元简化招标</title><desc>A：2.00%，认30亿取30亿；B：2.05%，认40亿取40亿；C：2.10%，认50亿取30亿。低利率优先；边际部分</desc><defs><marker id="arrow-c5-treasury-auction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">100亿元简化招标</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A：2.00%</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">认30亿取30亿</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">B：2.05%</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">认40亿取40亿</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">C：2.10%</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">认50亿取30亿</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c5-treasury-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">低利率优先</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c5-treasury-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">边际部分</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">利率</div>
+<script data-config="" type="application/json">{"heading": "利率投标低优先，价格投标高优先", "states": [{"label": "利率", "rows": [{"label": "100亿元简化招标", "nodes": [["A：2.00%", "认30亿取30亿"], ["B：2.05%", "认40亿取40亿"], ["C：2.10%", "认50亿取30亿"]], "edges": ["低利率优先", "边际部分"]}]}, {"label": "单一价格", "rows": [{"label": "定价不是谁中标", "nodes": [["最高中标2.10%", "边际利率"], ["统一票面2.10%", "本例各中标机构"]], "edges": ["确定票面"]}]}]}</script>
+</div>
+<style>
+#finance-c5-treasury-auction .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-treasury-auction .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-treasury-auction .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-treasury-auction .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-treasury-auction .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-treasury-auction');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-treasury-auction-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-treasury-auction-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>利率</h4><div><svg aria-label="100亿元简化招标" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>100亿元简化招标</title><desc>A：2.00%，认30亿取30亿；B：2.05%，认40亿取40亿；C：2.10%，认50亿取30亿。低利率优先；边际部分</desc><defs><marker id="print-05-02-1-0-arrow-c5-treasury-auction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">100亿元简化招标</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">A：2.00%</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">认30亿取30亿</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">B：2.05%</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">认40亿取40亿</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">C：2.10%</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">认50亿取30亿</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-02-1-0-arrow-c5-treasury-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">低利率优先</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-02-1-0-arrow-c5-treasury-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">边际部分</text></svg></div></div><div class="diagram-print-state"><h4>单一价格</h4><div><svg aria-label="定价不是谁中标" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>定价不是谁中标</title><desc>最高中标2.10%，边际利率；统一票面2.10%，本例各中标机构。确定票面</desc><defs><marker id="print-05-02-1-1-arrow-c5-treasury-auction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">定价不是谁中标</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">最高中标2.10%</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">边际利率</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">统一票面2.10%</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">本例各中标机构</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-02-1-1-arrow-c5-treasury-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">确定票面</text></svg></div></div></div></figure>
+<p>单一价格招标：若利率为标的，最高中标利率为票面利率，各中标者按面值承销；若价格为标的，最低中标价为发行价，各中标者按该发行价承销。前例单一利率招标票面为2.10%，<strong>不是A仍按2.00%、B仍按2.05%各收票息</strong>。</p>
+<p>修正多重价格（混合式）：加权平均中标利率或价格按规则取整，作为相应票面或发行价格；再根据各标位与该基准的关系决定按面值、发行价还是折算价格承销。前例加权平均利率为：</p>
+<p><span aria-label="\frac{30\times2.00\%+40\times2.05\%+30\times2.10\%}{100}=2.05\%" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="4.828ex" role="img" style="vertical-align: -1.602ex;" viewbox="0 -1426 21329.8 2134" width="48.257ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" id="FORMULA-0-MJX-1-TEX-N-33"></path><path d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" id="FORMULA-0-MJX-1-TEX-N-30"></path><path d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z" id="FORMULA-0-MJX-1-TEX-N-D7"></path><path d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" id="FORMULA-0-MJX-1-TEX-N-32"></path><path d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" id="FORMULA-0-MJX-1-TEX-N-2E"></path><path d="M465 605Q428 605 394 614T340 632T319 641Q332 608 332 548Q332 458 293 403T202 347Q145 347 101 402T56 548Q56 637 101 693T202 750Q241 750 272 719Q359 642 464 642Q580 642 650 732Q662 748 668 749Q670 750 673 750Q682 750 688 743T693 726Q178 -47 170 -52Q166 -56 160 -56Q147 -56 142 -45Q137 -36 142 -27Q143 -24 363 304Q469 462 525 546T581 630Q528 605 465 605ZM207 385Q235 385 263 427T292 548Q292 617 267 664T200 712Q193 712 186 709T167 698T147 668T134 615Q132 595 132 548V527Q132 436 165 403Q183 385 203 385H207ZM500 146Q500 234 544 290T647 347Q699 347 737 292T776 146T737 0T646 -56Q590 -56 545 0T500 146ZM651 -18Q679 -18 707 24T736 146Q736 215 711 262T644 309Q637 309 630 306T611 295T591 265T578 212Q577 200 577 146V124Q577 -18 647 -18H651Z" id="FORMULA-0-MJX-1-TEX-N-25"></path><path d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" id="FORMULA-0-MJX-1-TEX-N-2B"></path><path d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" id="FORMULA-0-MJX-1-TEX-N-34"></path><path d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" id="FORMULA-0-MJX-1-TEX-N-35"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-0-MJX-1-TEX-N-31"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-0-MJX-1-TEX-N-3D"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mrow" transform="translate(220,676)"><g data-mml-node="mn"><use data-c="33" xlink:href="#FORMULA-0-MJX-1-TEX-N-33"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(1222.2,0)"><use data-c="D7" xlink:href="#FORMULA-0-MJX-1-TEX-N-D7"></use></g><g data-mml-node="mn" transform="translate(2222.4,0)"><use data-c="32" xlink:href="#FORMULA-0-MJX-1-TEX-N-32"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-2E"></use><use data-c="30" transform="translate(778,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use><use data-c="30" transform="translate(1278,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use></g><g data-mml-node="mi" transform="translate(4000.4,0)"><use data-c="25" xlink:href="#FORMULA-0-MJX-1-TEX-N-25"></use></g><g data-mml-node="mo" transform="translate(5055.7,0)"><use data-c="2B" xlink:href="#FORMULA-0-MJX-1-TEX-N-2B"></use></g><g data-mml-node="mn" transform="translate(6055.9,0)"><use data-c="34" xlink:href="#FORMULA-0-MJX-1-TEX-N-34"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(7278.1,0)"><use data-c="D7" xlink:href="#FORMULA-0-MJX-1-TEX-N-D7"></use></g><g data-mml-node="mn" transform="translate(8278.3,0)"><use data-c="32" xlink:href="#FORMULA-0-MJX-1-TEX-N-32"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-2E"></use><use data-c="30" transform="translate(778,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use><use data-c="35" transform="translate(1278,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-35"></use></g><g data-mml-node="mi" transform="translate(10056.3,0)"><use data-c="25" xlink:href="#FORMULA-0-MJX-1-TEX-N-25"></use></g><g data-mml-node="mo" transform="translate(11111.6,0)"><use data-c="2B" xlink:href="#FORMULA-0-MJX-1-TEX-N-2B"></use></g><g data-mml-node="mn" transform="translate(12111.8,0)"><use data-c="33" xlink:href="#FORMULA-0-MJX-1-TEX-N-33"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(13334,0)"><use data-c="D7" xlink:href="#FORMULA-0-MJX-1-TEX-N-D7"></use></g><g data-mml-node="mn" transform="translate(14334.2,0)"><use data-c="32" xlink:href="#FORMULA-0-MJX-1-TEX-N-32"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-2E"></use><use data-c="31" transform="translate(778,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-31"></use><use data-c="30" transform="translate(1278,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use></g><g data-mml-node="mi" transform="translate(16112.2,0)"><use data-c="25" xlink:href="#FORMULA-0-MJX-1-TEX-N-25"></use></g></g><g data-mml-node="mn" transform="translate(7942.6,-686)"><use data-c="31" xlink:href="#FORMULA-0-MJX-1-TEX-N-31"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use><use data-c="30" transform="translate(1000,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use></g><rect height="60" width="17145.2" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(17663,0)"><use data-c="3D" xlink:href="#FORMULA-0-MJX-1-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(18718.8,0)"><use data-c="32" xlink:href="#FORMULA-0-MJX-1-TEX-N-32"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-2E"></use><use data-c="30" transform="translate(778,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-30"></use><use data-c="35" transform="translate(1278,0)" xlink:href="#FORMULA-0-MJX-1-TEX-N-35"></use></g><g data-mml-node="mi" transform="translate(20496.8,0)"><use data-c="25" xlink:href="#FORMULA-0-MJX-1-TEX-N-25"></use></g></g></g></svg></mjx-container></span></p>
+<p>利率高于票面的中标标位要按相应价格折算，不是把每家中标利率都直接写成债券票息。</p>
+<p><strong>排序回答谁中标，招标模式回答中标后如何定价。</strong>两个问题分开。</p></section><section class="lesson" id="c5s2-part-03"><h3>教材330—331页：投标、承销和追加，数字的分母不同<span class="level use">会认＋会用</span></h3>
+<p>投标量是提出希望承销多少，中标量是实际分到多少，最低承销义务是必须承担多少，追加是竞争性招标后的额外承销安排。知道词义之后，数字才有地方放。</p>
+<details class="reference-section">
+<summary>第二轮查表：教材2022年记账式国债招标规则</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>教材口径</th>
+<th>记忆抓手</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通常竞标时间</td>
+<td>10:35—11:35</td>
+<td>发行通知可有特殊规定</td>
+</tr>
+<tr>
+<td>利率标位变动</td>
+<td>0.01个百分点，即1个基点</td>
+<td>不是利率乘0.01%</td>
+</tr>
+<tr>
+<td>单一标位最低量</td>
+<td>0.1亿元</td>
+<td>量的最小单位</td>
+</tr>
+<tr>
+<td>单一标位最高量</td>
+<td>招标额&gt;500亿：10%；≤500亿：50亿</td>
+<td>500亿元边界看清</td>
+</tr>
+<tr>
+<td>成员最高投标</td>
+<td>甲类35%，乙类25%</td>
+<td>分母是竞争性招标额</td>
+</tr>
+<tr>
+<td>成员最低投标</td>
+<td>甲类4%，乙类1.5%</td>
+<td>别和最低承销混淆</td>
+</tr>
+<tr>
+<td>成员最低承销</td>
+<td>甲类1%，乙类0.2%</td>
+<td>含追加部分</td>
+</tr>
+<tr>
+<td>可追加的通常期限</td>
+<td>10年及以下</td>
+<td>不是所有期限一律可追加</td>
+</tr>
+<tr>
+<td>追加时间</td>
+<td>竞争性招标结束后20分钟内</td>
+<td>通常限甲类</td>
+</tr>
+<tr>
+<td>追加承销上限</td>
+<td>竞争性中标额50%，且不超过该期最低承销额</td>
+<td>需同时满足两个上限</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>例：竞争性招标100亿元，甲类中标8亿元。中标额50%为4亿元，最低承销额为招标额1%=1亿元。按教材两个追加上限，最多追加1亿元，<strong>不是只算8×50%=4亿元</strong>。</p>
+<p>背离平均值过多的投标、某些中标标位，会按规定剔除。排序之前先看是否有效，不能把所有申报不加筛选都纳入平均值。边际同价或同利率分配、最低投标、最高投标、追加限制是不同控制环节。</p>
+<p>认购债权须按通知缴款并登记托管。客户端技术异常有应急投标程序，目的是保障发行连续性。<span class="level context">背景</span>传真、密押、托管应急表无需第一轮逐字背；会认“系统故障不等于自动取得债券”即可。</p></section><section class="lesson" id="c5s2-part-04"><h3>教材331—333页：储蓄国债代销与发行额度管理<span class="level recognize">会认</span></h3>
+<p>代销机构帮助销售，未售余额依安排退回或注销，不承担包销式把所有未售证券买下的义务。<strong>教材“代销者不承担任何风险与责任”说得过宽：没有余额包销义务，不等于可以违规销售、挪用资金或不承担业务责任。</strong></p>
+<p>电子式把额度分为基本代销与机动代销：先分基础额度，部分剩余额度在发行期间按规则抓取；销售进度不同，可以调整未售额度。凭证式主要按分配比例代销，发行期原则上不调整额度，期后注销未售部分，季度可调整比例。</p>
+<details class="reference-section">
+<summary>第二轮查表：教材电子式机动额度条件</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>教材数字或条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每日可申请时段</td>
+<td>8:30—16:30</td>
+</tr>
+<tr>
+<td>触发抓取条件</td>
+<td>未售额度低于初始基本代销额度10%</td>
+</tr>
+<tr>
+<td>单笔抓取上限</td>
+<td>初始基本代销额度10%</td>
+</tr>
+<tr>
+<td>同期两次申请间隔</td>
+<td>不少于1分钟</td>
+</tr>
+<tr>
+<td>日终核查后</td>
+<td>未售机动额度清零，按先基本后机动计算</td>
+</tr>
+<tr>
+<td>清零机动余额限制</td>
+<td>不超过初始基本代销额度5%</td>
+</tr>
+<tr>
+<td>调整方式</td>
+<td>定期、不定期；未通过核查时先冻结相应额度</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>例：一家银行初始基本额度2亿元，10%为2000万元；未售少于2000万元才触发教材抓取条件，单笔上限也为2000万元。两个10%碰巧同分母，但一个是触发阈值、一个是申请上限，不是同一个动作。</p>
+<p>讲额度管理，是解释为什么某家银行售罄、别家还有额度以及发行总量怎样控制。做基础判断会分基本、机动、调整、注销即可；具体操作数字放第二轮。</p></section><section class="lesson" id="c5s2-part-05"><h3>教材333—335页：承销、分销、销售价格，先后顺序怎样看<span class="level use">会用＋背景</span></h3>
+<p>记账式国债的逻辑是：承销商投标取得承销额；向投资者分销；办理资金缴付和债权登记托管；未分销余额按安排由承销商持有。场内分销依交易系统，场外分销按协议和过户安排，银行间分销要看参与资格与托管账户。</p>
+<figure class="diagram" data-diagram="c5-bond-distribution"><figcaption class="figure-label">SVG · 发行人、承销商、投资者分属不同环节</figcaption><div class="diagram-interactive"><div id="finance-c5-bond-distribution">
+<h3>发行人、承销商、投资者分属不同环节</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">承销与分销</button></div>
+<div data-diagrams=""><svg aria-label="把动作按顺序拆" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>把动作按顺序拆</title><desc>发行人，依法发行；承销商，取得承销额度；投资者，分销认购持有。承销分配；分销登记</desc><defs><marker id="arrow-c5-bond-distribution-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">把动作按顺序拆</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依法发行</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">承销商</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">取得承销额度</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">分销认购持有</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c5-bond-distribution-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">承销分配</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c5-bond-distribution-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">分销登记</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">承销与分销</div>
+<script data-config="" type="application/json">{"heading": "发行人、承销商、投资者分属不同环节", "states": [{"label": "承销与分销", "rows": [{"label": "把动作按顺序拆", "nodes": [["发行人", "依法发行"], ["承销商", "取得承销额度"], ["投资者", "分销认购持有"]], "edges": ["承销分配", "分销登记"]}]}]}</script>
+</div>
+<style>
+#finance-c5-bond-distribution .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-bond-distribution .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-bond-distribution .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-bond-distribution .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-bond-distribution .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-bond-distribution');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-bond-distribution-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-bond-distribution-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>承销与分销</h4><div><svg aria-label="把动作按顺序拆" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>把动作按顺序拆</title><desc>发行人，依法发行；承销商，取得承销额度；投资者，分销认购持有。承销分配；分销登记</desc><defs><marker id="print-05-02-2-0-arrow-c5-bond-distribution-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">把动作按顺序拆</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">依法发行</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">承销商</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">取得承销额度</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">分销认购持有</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-02-2-0-arrow-c5-bond-distribution-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">承销分配</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-02-2-0-arrow-c5-bond-distribution-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">分销登记</text></svg></div></div></div></figure>
+<p>分销总额不能超过承销额。<strong>承销商认到多少与投资者最后买到多少，分属一级分配和分销两个阶段。</strong>市场销售价格也不必等于每个承销商的中标成本，销售过低可能亏损，过高又会让投资者去买可比旧券。</p>
+<p>影响分销价的六类因素：市场利率、承销成本、可比债券收益率、手续费收入、资金回收速度、其他销售成本。核心判断：市场利率上升，旧有固定现金流价值趋于下降，分销价格空间受压；希望更快回款，可能降低报价。</p>
+<p>手续费是承销商收入的一部分，不是债券额外保证付给投资者的利息。成本加手续费、持有时间和定价共同影响承销商收益，不能只比票面价。</p>
+<p>凭证式通过合格代销网点开具收款凭证，在分配额度内销售，并依购买日期、期限和发行条款记录债权。教材大量早期代码、传真、月报和发售期限描述，是认识操作链条的背景；<strong>不把旧操作系统当今天所有发行的唯一流程。</strong></p></section><section class="lesson" id="c5s2-part-06"><h3>教材335—337页：地方一般债、专项债，记预算和责任<span class="level use">会用</span></h3>
+<p>一般债收支列入一般公共预算；专项债收入、支出、还本付息、发行费用纳入政府性基金预算。两者均在规定规模限额内自发自还，由地方财政部门办理发行兑付，组建承销团，开展评级、披露、登记托管。</p>
+<p>地方专项债用于对应公益项目，期限应与项目周期匹配，项目收入及融资规模的平衡值得关注。评级和项目收益测算是信息和风险管理，不是消除兑付责任。</p>
+<p><strong>教材纠正：335—336页只列至10年期限，并列单一期限30%、7与10年合计50%等早期限制，不能作为现行统一规则背。</strong>2021年起施行的地方债发行管理办法已废止2015年一般债、专项债暂行办法，要求结合项目、成本、需求合理确定期限；2020年相关意见已列15、20、30年等期限。<a href="https://www.mof.gov.cn/gkml/caizhengwengao/202001wg/wg202012/202105/t20210514_3702122.htm" rel="noopener" target="_blank">财政部发行管理办法</a>、<a href="https://www.mof.gov.cn/gkml/caizhengwengao/202001wg/wg202011/202103/t20210323_3674656.htm" rel="noopener" target="_blank">期限结构相关意见</a></p>
+<p>“一般债与专项债、一般公共预算与政府性基金预算”是能反复使用的区别；旧期限枚举和比例留作辨别旧口径，不要用旧表推断如今地方债绝不可能超过10年。</p></section><section class="lesson" id="c5s2-part-07"><h3>教材337—339页：金融债发行条件、申报材料和发行安排<span class="level use">会认＋会用</span></h3>
+<p>政策性银行按年报申请，依法核准；其他金融机构还要看公司治理、监管指标、盈利、违法记录、相应监管意见。<strong>银行间金融债核准与证监会公司债注册不是一个程序。</strong>同为金融机构，具体发什么工具、在哪个市场发行，决定适用规则。</p>
+<p>教材引用2005、2007、2014年文件：商业银行普通金融债的核心资本4%、近3年连续盈利；财务公司未兑付债≤净资产100%、发行后资本充足率≥10%、设立≥1年、注册资本≥3亿元等；租赁、汽车和消费金融公司看监管最低指标、近3年盈利等。把数字同对象和文件年份一起记，特别注意第一节已经解释旧核心资本口径不能替代当前银行资本监管要求。</p>
+<p>申报文件按用途分组更容易：申请与内部授权；监管意见；财务审计；募集说明书和发行公告；承销协议；偿债计划；评级安排；法律意见；担保情况下的担保协议和资信资料。知道每组证明什么，比机械背排列有效。</p>
+<details class="reference-section">
+<summary>第二轮查表：教材金融债发行操作</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>教材所引办法口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发行方式</td>
+<td>公开或定向，一次足额或限额内分期</td>
+</tr>
+<tr>
+<td>商业银行普通金融债担保</td>
+<td>无强制担保要求</td>
+</tr>
+<tr>
+<td>财务公司金融债担保</td>
+<td>母公司或有能力成员单位担保，依法豁免除外</td>
+</tr>
+<tr>
+<td>评级</td>
+<td>按要求初评、通常每年跟踪，重大事项及时调整</td>
+</tr>
+<tr>
+<td>定向发行评级</td>
+<td>经认购人同意可免评级</td>
+</tr>
+<tr>
+<td>定向转让范围</td>
+<td>认购人之间</td>
+</tr>
+<tr>
+<td>开始发行</td>
+<td>核准之日起60个工作日内</td>
+</tr>
+<tr>
+<td>发行结束报告</td>
+<td>10个工作日内</td>
+</tr>
+<tr>
+<td>自认购</td>
+<td>发行人不得认购或变相认购自己发行的金融债</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>业务财务、高管控制人、融资方案、专业机构等重大变化，要报告说明原因。核准失效后仍想发行，应另行申请，不是拿旧批文无限期发。</p>
+<p>登记托管记录债权；偿付仍由发行人履行。<strong>中央结算公司登记一只债券，不等于它替发行人承担信用保证。</strong></p></section><section class="lesson" id="c5s2-part-08"><h3>教材339—341页：公司债含企业债，一般规定与募集资金<span class="level use">会用</span></h3>
+<p>2023年改革后，公司债管理办法包含企业债，不把企业债和公司债分别写成两个现行审核主管。<a href="https://www.csrc.gov.cn/csrc/c101953/c7438204/content.shtml" rel="noopener" target="_blank">证监会第222号令</a></p>
+<p>发行前内部决议要明确金额、方式、期限、用途等；有增信和偿债保障安排也要说明。附认股权、转股、换股或资本补充条款的，还要适用相应专门规定，不能用普通公司债四项条件替代全部条件。</p>
+<p>投资者分普通与专业，适当性还可能有交易场所更严格要求。教材董事、监事、高管及持股超过5%的股东可视同专业投资者参与本发行人相关债券，<strong>不是给其买任何公司任何债券都授予无限资格</strong>。</p>
+<p>公开发行募集资金按说明书所列用途使用，改变用途要经债券持有人会议决议；非公开发行按约定用途，变更履行说明书约定程序。公开发行募集资金不得用于弥补亏损与非生产性支出，设专项账户接收、存储、划转。</p>
+<p><strong>有融资用途自由度，不等于发行人可以未经程序随意改用途。</strong>专户也不等于资金永远躺着不动，而是依约依法监督使用。</p></section><section class="lesson" id="c5s2-part-09"><h3>教材341—342页：公开发行条件与普通投资者条件，是两层门槛<span class="level use">会用</span></h3>
+<p>公开发行基本条件：健全且运行良好的组织机构；近3年平均可分配利润足以支付一年债券利息；合理资产负债结构、正常现金流；其他规定条件。</p>
+<p>例：拟发行10亿元、年票息4%，一年利息为4000万元；近3年可分配利润5000、3000、7000万元，平均5000万元，单看利润覆盖条件满足。<strong>不是把三年利润总额1.5亿元直接与一年利息比，也不能只看最近一年。</strong>其余发行条件仍须满足。</p>
+<p>不得再次公开发行的两类：已有公开公司债或其他债务本息违约、延迟且仍在继续；违法改变公开公司债募集资金用途。过去曾发生但已解决，与“仍处继续状态”不能混同；是否另有准入约束再看具体规则。</p>
+<p>让普通投资者也能参与，需要更高资信标准。教材包括：近3年无债务违约或延迟；平均可分配利润≥一年利息1.5倍；最近期末净资产≥250亿元；最近36个月公开发行≥3期且规模≥100亿元等。<strong>达公开发行条件但未达这一层，可以只向专业投资者公开发行，不能说所有公开债都向普通人开放。</strong></p>
+<figure class="diagram" data-diagram="c5-public-bond-gates"><figcaption class="figure-label">SVG · 公开发行与允许普通投资者，门槛不同</figcaption><div class="diagram-interactive"><div id="finance-c5-public-bond-gates">
+<h3>公开发行与允许普通投资者，门槛不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">基本门槛</button><button aria-pressed="false" class="btn" type="button">普通投资者</button></div>
+<div data-diagrams=""><svg aria-label="先检查发行条件" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>先检查发行条件</title><desc>平均可分配利润，至少覆盖年息；公开发行条件，还需其他条件；适当性另看，可仅面向专业。判断；下一层</desc><defs><marker id="arrow-c5-public-bond-gates-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先检查发行条件</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">平均可分配利润</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">至少覆盖年息</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">公开发行条件</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">还需其他条件</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">适当性另看</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">可仅面向专业</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c5-public-bond-gates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">判断</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c5-public-bond-gates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">下一层</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">基本门槛</div>
+<script data-config="" type="application/json">{"heading": "公开发行与允许普通投资者，门槛不同", "states": [{"label": "基本门槛", "rows": [{"label": "先检查发行条件", "nodes": [["平均可分配利润", "至少覆盖年息"], ["公开发行条件", "还需其他条件"], ["适当性另看", "可仅面向专业"]], "edges": ["判断", "下一层"]}]}, {"label": "普通投资者", "rows": [{"label": "资信要更强", "nodes": [["年息1.5倍等", "多条件同时满足"], ["普通与专业", "按规定参与"]], "edges": ["更高门槛"]}]}]}</script>
+</div>
+<style>
+#finance-c5-public-bond-gates .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-public-bond-gates .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-public-bond-gates .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-public-bond-gates .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-public-bond-gates .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-public-bond-gates');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-public-bond-gates-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-public-bond-gates-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>基本门槛</h4><div><svg aria-label="先检查发行条件" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>先检查发行条件</title><desc>平均可分配利润，至少覆盖年息；公开发行条件，还需其他条件；适当性另看，可仅面向专业。判断；下一层</desc><defs><marker id="print-05-02-3-0-arrow-c5-public-bond-gates-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先检查发行条件</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">平均可分配利润</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">至少覆盖年息</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">公开发行条件</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">还需其他条件</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">适当性另看</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">可仅面向专业</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-02-3-0-arrow-c5-public-bond-gates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">判断</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-02-3-0-arrow-c5-public-bond-gates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">下一层</text></svg></div></div><div class="diagram-print-state"><h4>普通投资者</h4><div><svg aria-label="资信要更强" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资信要更强</title><desc>年息1.5倍等，多条件同时满足；普通与专业，按规定参与。更高门槛</desc><defs><marker id="print-05-02-3-1-arrow-c5-public-bond-gates-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资信要更强</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">年息1.5倍等</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">多条件同时满足</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">普通与专业</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按规定参与</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-02-3-1-arrow-c5-public-bond-gates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">更高门槛</text></svg></div></div></div></figure>
+<p>前例平均利润5000万元、年息4000万元，覆盖为1.25倍，只满足这一项基本1倍要求，未达到普通投资者层面的1.5倍。而且普通投资者层面还有其他条件，不能用利润一项替代全套条件。</p></section><section class="lesson" id="c5s2-part-10"><h3>教材342—344页：注册、有效期、中止、终止、撤销<span class="level use">会用＋会认</span></h3>
+<p>发行人向交易所申报，交易所受理并问询审核，符合条件后报证监会履行发行注册。证监会可以问询、要求进一步问询、退回补充审核，最后作出同意或不同意注册。<strong>注册不是主管机关保收益，也不是完全不审查条件和披露。</strong></p>
+<figure class="diagram" data-diagram="c5-corporate-registration"><figcaption class="figure-label">SVG · 审核与注册分工明确，时限同起点</figcaption><div class="diagram-interactive"><div id="finance-c5-corporate-registration">
+<h3>审核与注册分工明确，时限同起点</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">流程</button><button aria-pressed="false" class="btn" type="button">时限</button></div>
+<div data-diagrams=""><svg aria-label="公开公司债" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>公开公司债</title><desc>发行人，向交易所申报；交易所，受理问询审核；证监会，履行发行注册。申报；报送意见</desc><defs><marker id="arrow-c5-corporate-registration-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">公开公司债</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">向交易所申报</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">交易所</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">受理问询审核</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">证监会</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">履行发行注册</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c5-corporate-registration-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">申报</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c5-corporate-registration-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">报送意见</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">流程</div>
+<script data-config="" type="application/json">{"heading": "审核与注册分工明确，时限同起点", "states": [{"label": "流程", "rows": [{"label": "公开公司债", "nodes": [["发行人", "向交易所申报"], ["交易所", "受理问询审核"], ["证监会", "履行发行注册"]], "edges": ["申报", "报送意见"]}]}, {"label": "时限", "rows": [{"label": "均从交易所受理起算", "nodes": [["交易所审核", "2个月内意见"], ["证监会决定", "3个月内决定"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c5-corporate-registration .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-corporate-registration .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-corporate-registration .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-corporate-registration .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-corporate-registration .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-corporate-registration');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-corporate-registration-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-corporate-registration-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>流程</h4><div><svg aria-label="公开公司债" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>公开公司债</title><desc>发行人，向交易所申报；交易所，受理问询审核；证监会，履行发行注册。申报；报送意见</desc><defs><marker id="print-05-02-4-0-arrow-c5-corporate-registration-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">公开公司债</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">向交易所申报</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">交易所</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">受理问询审核</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">证监会</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">履行发行注册</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-02-4-0-arrow-c5-corporate-registration-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">申报</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-02-4-0-arrow-c5-corporate-registration-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">报送意见</text></svg></div></div><div class="diagram-print-state"><h4>时限</h4><div><svg aria-label="均从交易所受理起算" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>均从交易所受理起算</title><desc>交易所审核，2个月内意见；证监会决定，3个月内决定。</desc><defs><marker id="print-05-02-4-1-arrow-c5-corporate-registration-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">均从交易所受理起算</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">交易所审核</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">2个月内意见</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">证监会决定</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">3个月内决定</text></svg></div></div></div></figure>
+<p>教材时限：5个工作日决定是否受理；交易所自受理起2个月内出审核意见；证监会自交易所受理起3个月内作出注册决定；发行人补充修改文件时间不计入。<strong>2个月与3个月从同一受理时点起算，不是先2再3累计5个月。</strong></p>
+<p>注册决定2年内有效，募集说明书自最后签署起6个月有效，注册后可分期自主择时发行，并需更新文件。两种有效期对象不同，不能说说明书2年不必更新。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>核心意思</th>
+<th>教材典型触发</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中止</td>
+<td>暂停，可按条件恢复</td>
+<td>重大影响的发行人调查、服务机构或人员被限制业务、正当申请等</td>
+</tr>
+<tr>
+<td>终止</td>
+<td>本次审核注册程序结束</td>
+<td>撤回、严重虚假或缺陷、拒绝检查、不符合条件、超时未恢复等</td>
+</tr>
+<tr>
+<td>撤销注册</td>
+<td>已有注册决定被取消</td>
+<td>注册后上市前重大事项导致不符合发行条件等</td>
+</tr>
+</tbody>
+</table></div>
+<p>中介被立案调查，不应一律等同已经受到限制业务措施。教材2023口径保留的是相应业务限制、纪律处分等具体情形，要看条件。</p>
+<p>撤销后未发行则停止；已发行尚未上市，按规定返还发行价并加算银行同期存款利息。<strong>“中止可恢复”不意味着任何原因停多久都自动恢复。</strong>教材终止还列中止注册超过6个月未恢复等。</p>
+<p>公开发行还需符合上市挂牌条件，发行与交易环节适当性保持一致。发行注册、实际发行、上市交易三个节点不能当成同一个完成状态。</p></section><section class="lesson" id="c5s2-part-11"><h3>教材344—346页：非公开发行、承销责任和禁止自融<span class="level use">会用</span></h3>
+<p>非公开公司债向专业投资者发行，不得广告、公开劝诱或变相公开；每次发行对象≤200人。转让也限专业投资者，转让后持有同次债券的人数合计≤200。<strong>200不是每次转手都可再加200个人。</strong></p>
+<p>公司债依法由具证券承销资格的证券公司承销，法定允许的证券公司、中国证券金融股份有限公司非公开发行可自行销售。不是任意企业都可以自行卖公司债。</p>
+<p>包销与代销要约定责任；多家联合主承销均承担相应主承销责任。教材承销团≥3家可设副主承销，不能把副主承销设立理解为强制每次都设。</p>
+<p>主承销商应审慎核查披露真实性、准确性、完整性，对专业意见中的合理疑点做必要复核。<strong>有会计师和律师，不等于主承销商可以完全不查。</strong>风险内控、人员、定价配售记录、内部问责都为这一责任服务。</p>
+<p>禁止操纵定价、暗箱、利益输送、认购财务资助等。发行人不能直接间接认购自己的本次公司债；有关董监高、大股东、关联方认购交易需披露。看似发债收到的钱若由自己绕道提供给认购人，可能使真实融资与风险披露失真。</p>
+<p>公开发行聘律师见证相关发行事项，上市后10个工作日内主承销报相应文件。宣传不得夸大误导，保存推介、定价、配售资料。<span class="level recognize">会认</span>这些期限与材料帮助判断责任；第一轮不背完整录音归档清单。</p></section><section class="lesson" id="c5s2-part-12"><h3>教材346—349页：银行间CP、MTN、集合票据，别沿用旧强制评级<span class="level use">会认＋会用</span></h3>
+<p>非金融企业工具由交易商协会注册，主承销商提交文件，符合条件机构承销，利率价格市场化确定。CP短期，MTN可按计划分期，具体要素可在规则内安排；投资者保护要约定风险恶化与违约后的措施。</p>
+<p>教材注册会议规则举例：5名委员、2名及以上反对相关披露合规则不接受、有效期2年、关联委员回避。<strong>会认这是协会注册机制，不是交易所审核、证监会注册。</strong>教材“降级自动失效”“6个月再申”等与旧版注册文件关联，不能认为所有现行分层或统一注册产品都机械如此处理。</p>
+<p><strong>教材纠正：347页说短融发行必须披露主体和债项评级，与本章319页取消强制评级说明冲突。</strong>2021年以后相关注册、发行可按规则选择评级披露；选择评级的仍须履行相应披露与跟踪，不是取消强制评级就禁止评级或免披露。<a href="https://www.nafmii.org.cn/cpxl/ywwd/zcfxywwd/xxplxgwt/qxqzpjxgap/" rel="noopener" target="_blank">交易商协会官方问答</a></p>
+<p>CP、MTN登记托管结算常见于上海清算所，交易服务看外汇交易中心。教材先说上海清算所、后又统一写中央结算的旧文字不能拼成“一家登记，另一家包办所有结算”的固定链条。</p>
+<p>集合票据由2至10家中小非金融企业共同发行，分别承担各自额度和发行费用；通过统一产品设计、冠名、增信、注册扩大规模和流动性。集合不自动改变独立负债关系。</p>
+<details class="reference-section">
+<summary>第二轮查表：教材集合票据所引旧业务指引</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>教材数字及含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>联合发行人</td>
+<td>2至10家，含边界</td>
+</tr>
+<tr>
+<td>发行</td>
+<td>一次注册、一次发行</td>
+</tr>
+<tr>
+<td>单个企业募集额</td>
+<td>不超过2亿元</td>
+</tr>
+<tr>
+<td>单只注册金额</td>
+<td>不超过10亿元</td>
+</tr>
+<tr>
+<td>余额与净资产</td>
+<td>教材旧指引写40%；不能移植为普通MTN现行统一条件</td>
+</tr>
+<tr>
+<td>偿债保障</td>
+<td>增信、资金安排、其他措施，在文件中披露</td>
+</tr>
+<tr>
+<td>保护机制</td>
+<td>任一发行人、增信方或债项风险下降时的措施</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>例：6家每家拟筹2亿元合计12亿元，就超过教材单只10亿元限制；即使每家都未超2亿元，也不满足总额限制。<strong>个体上限与总额上限同时检查。</strong></p>
+<p>讲这组安排，是为了会判断联合发行责任与限额，不是让你把所有产品都记成同一个40%限制。</p></section><section class="lesson" id="c5s2-part-13"><h3>教材349页：证券公司普通债与次级债，净资本分母看清<span class="level use">会用＋会认</span></h3>
+<p>证券公司普通公司债按相应公司债发行与交易规则；次级债还须满足次级债专门要求：用途合理、现金或认可方式融资、数额与风险控制指标合规、合同说明书符合规定。</p>
+<p>教材：长期次级债计入净资本的数额，不超过净资本中<strong>扣除长期次级债累计计入部分后</strong>金额的50%。这是对计入净资本的上限，不直接等于借入或发行面额的上限。</p>
+<p>例：未含该部分的净资本100亿元，则累计计入长期次级债的上限为50亿元。若总净资本150亿元，其中50亿元来自该部分，不能再以150×50%=75亿元替代这个约束。</p>
+<p><strong>短期流动性融资、长期计入净资本、普通债清偿、次级清偿，是不同问题。</strong>不要把第一节短融60%和本处长期次级50%互换。</p></section><section class="lesson" id="c5s2-part-14"><h3>教材349—352页：境外机构到境内发行，看机构类别与披露<span class="level recognize">会认</span></h3>
+<p>这里讲境外机构在我国银行间市场发行债券，包括外国政府类、国际开发机构、境外金融机构、非金融企业等，区别于中国企业在境外发美元债。</p>
+<p>按教材2018年办法：境外金融机构法人申请人民银行核准；外国政府、国际开发机构及境外非金融企业的相应发行向交易商协会注册。<strong>境外身份相同，不代表所有类别走同一机关。</strong></p>
+<p>境外金融机构教材条件包括实缴资本≥100亿元人民币或等值、治理风险管理健全、近3年盈利、经验与偿债能力、母国有效监管等；政府和开发机构看发行经验与偿债能力。分期发行有相应经历和披露条件，发行后登记托管、及时付息兑付，资金跨境还要遵守外汇账户与汇兑规则。</p>
+<p>公开披露需简体中文或译本，境外其他市场的重大信息也应按要求同步或尽快向境内市场披露。定向发行依书面约定在规定对象范围内披露，<strong>范围受限不等于信息可以虚假遗漏</strong>。</p>
+<p>会计准则、审计和差异调节：先说明用什么准则；非中国准则或认可等效准则时，按主体类别补充差异说明、调节信息；聘符合条件事务所并按要求备案。教材使用“证券期货业务资格”等旧措辞，应结合已实行的证券服务业务备案制度辨认，不机械理解为仍需原有审批牌照。</p>
+<p><span class="level recognize">会认</span>讲这一段，是为了分清“境外发行人进来发债”与“境外投资者进来买债”、公开与定向披露、准则与审计。第一轮会分类和责任即可；五年以上境外审计经验、首次报备20个工作日等材料时限放第二轮。</p></section><section class="lesson" id="c5s2-part-15"><h3>本节练习：给数字标主体、分母、阶段</h3>
+<ol>
+<li>利率招标，2.00%、2.05%、2.10%三档，通常按什么方向优先？</li>
+<li>100亿元单一利率招标，最高中标利率2.10%，A报2.00%且中标，票面利率通常是哪一个？</li>
+<li>100亿元招标，甲类中标8亿元，依教材追加两个上限，最多追加多少？</li>
+<li>代销期后未售余额不需包买，是否代表代销机构对违规销售没有责任？</li>
+<li>一般债的收支预算与专项债的收支预算分别是什么？</li>
+<li>公开发债10亿元、年息4%，近3年可分配利润5000、3000、7000万元，平均利润是否覆盖一年利息？是否同时达到1.5倍？</li>
+<li>公开发行债券是否自动允许普通投资者认购？</li>
+<li>交易所2个月、证监会3个月是否应从两个不同起点相加成5个月？</li>
+<li>注册决定2年有效是否代表同一说明书可两年不更新？</li>
+<li>非公开公司债转让后，同次发行持有人能否累计至300人？</li>
+<li>已发行未上市债因注册被撤销，教材要求怎样返还？</li>
+<li>CP、MTN是否都必须按347页旧说法提供强制主体与债项评级？</li>
+<li>教材6家集合发行，每家2亿元，总12亿元，是否满足单只10亿元限制？</li>
+<li>未含长期次级计入部分的净资本100亿元，教材累计计入上限是多少？</li>
+<li>境外金融机构与境外非金融企业到银行间发行，是否一概都由证监会注册？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li>低利率优先，发行人希望融资成本低；价格招标高价优先。</li>
+<li>2.10%，单一价格模式以边际最高中标利率统一定票面。</li>
+<li>1亿元，min(8×50%，100×1%)，别只算4亿元。</li>
+<li>不是，无余额包销义务不等于无合规业务责任。</li>
+<li>一般公共预算；政府性基金预算。</li>
+<li>平均5000万元，年息4000万元，满足1倍、不满足1.5倍；其余条件另查。</li>
+<li>不自动，有些公开债仅向专业投资者发行。</li>
+<li>不是，都从交易所受理时点起算，补充文件时间另依规则排除。</li>
+<li>不代表，说明书另有6个月有效期与更新要求。</li>
+<li>不能，教材同次发行转让后合计不超过200人。</li>
+<li>按发行价加银行同期存款利息返还。</li>
+<li>不应一概如此；取消强制评级与选择评级后的披露跟踪分别判断。</li>
+<li>不满足，个体上限通过不代表总额上限通过。</li>
+<li>50亿元，这是计入数额上限，不直接等于所有发行面额上限。</li>
+<li>不是，按机构类别看人民银行核准或交易商协会注册等路径。</li>
+</ol>
+</div>
+</details></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="05-01_债券概述.html">上一节 · 债券概述</a><a href="05-03_债券交易.html">下一节 · 债券交易</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

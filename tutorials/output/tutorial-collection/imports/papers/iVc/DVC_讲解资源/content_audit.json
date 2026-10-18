@@ -1,0 +1,72 @@
+{
+  "method": "Read back all archive files; compare entire normalized bodies against retained raw public messages; compare standalone round files with main; preserve every formula, code block, table and example within these equal bodies. Only explicitly labeled additions removed for this comparison. Browser independently compares rendered math/code and checks images/anchors/interactions.",
+  "all_passed": true,
+  "sources": [
+    {
+      "id": "R01",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "R02",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "R03",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "R04",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "C205",
+      "full_text_equal": true
+    },
+    {
+      "id": "R05",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "C270",
+      "full_text_equal": true
+    },
+    {
+      "id": "R06",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "R07",
+      "full_text_equal": true,
+      "standalone_equal": true
+    },
+    {
+      "id": "C346",
+      "full_text_equal": true
+    },
+    {
+      "id": "C399",
+      "full_text_equal": true
+    },
+    {
+      "id": "C422",
+      "full_text_equal": true
+    },
+    {
+      "id": "N01",
+      "full_text_equal": true,
+      "old_file_unchanged": true
+    }
+  ],
+  "source_count": 13,
+  "display_math_independent_count": 99,
+  "source_code_hashes_verified": 19,
+  "html_report_passed": true,
+  "main_md_sha256": "9e277ecd1451396b4a8fd16f8aba9834d4dd993700b034a8f13267d84c11cb0f",
+  "html_sha256": "1ac2baa9a06c5f8bb11c1fd71b52fe74b13d26f57bd4f4f90b15a0de3d816208"
+}

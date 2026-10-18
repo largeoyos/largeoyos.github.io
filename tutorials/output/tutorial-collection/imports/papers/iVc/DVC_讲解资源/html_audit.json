@@ -1,0 +1,111 @@
+{
+  "checkedAt": "2026-10-15T09:36:39.718Z",
+  "source": "DVC_讲解全文.md",
+  "method": "Offline Chrome rendering; exact rendered LaTeX annotations and code text compared with Markdown render input; actual local resources and hashes separately checked.",
+  "displayMath": 99,
+  "totalMath": 292,
+  "allMathSourceEqual": true,
+  "allCodeSourceEqual": true,
+  "codeBlocks": 20,
+  "tables": 22,
+  "images": [
+    {
+      "src": "DVC_讲解资源/figures/teaching-flow-1.svg",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-2.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-3.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-4.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/supp-figure-3.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-5.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/supp-table-1.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-6.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-table-1.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-7.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/figures/main-figure-8.png",
+      "loaded": true
+    },
+    {
+      "src": "DVC_讲解资源/figures/teaching-flow-2.svg",
+      "loaded": true
+    }
+  ],
+  "fontStatus": "loaded",
+  "mathErrors": 0,
+  "brokenAnchors": [],
+  "missingFiles": [],
+  "desktop": {
+    "width": 1440,
+    "scrollWidth": 1440
+  },
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "narrow": {
+    "width": 320,
+    "scrollWidth": 320
+  },
+  "darkTheme": true,
+  "copyHandlerWithClipboardStub": true,
+  "printHandlerWithStub": true,
+  "sourceViewer": true,
+  "sourceClosed": true,
+  "mobileNav": {
+    "hash": "#round-7",
+    "closed": true
+  },
+  "demoStates": [
+    {
+      "value": "previous",
+      "text": "非零残差：2 / 8　·　运动信息：0 格",
+      "passed": true
+    },
+    {
+      "value": "motion",
+      "text": "非零残差：0 / 8　·　运动信息：向右 1 格",
+      "passed": true
+    },
+    {
+      "value": "none",
+      "text": "非零残差：8 / 8　·　运动信息：无",
+      "passed": true
+    }
+  ],
+  "printView": {
+    "demoHidden": true,
+    "staticTablePresent": true,
+    "sidebarHidden": true
+  },
+  "externalRequests": [],
+  "errors": [],
+  "passed": true
+}

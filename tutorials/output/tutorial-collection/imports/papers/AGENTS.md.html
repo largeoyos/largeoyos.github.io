@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文阅读项目指令</title><link rel="stylesheet" href="iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/AGENTS.md · <a href="AGENTS.md">原始 Markdown</a></p><h1 id="_1">论文阅读项目指令</h1>
+<p>本文件所在目录是论文阅读项目根目录。以下路径均相对本文件解析；即使当前工作目录位于别处，也不要把规则、讲解或进度写入其他项目。</p>
+<p>开始论文任务前读取 <code>README.md</code>。完整版规则是细节依据；用户当前明确指定的模式与范围优先。</p>
+<h2 id="_2">选择工作流</h2>
+<ul>
+<li>论文讲解、略读、精读、论文答疑或续读：使用 <code>.agents/skills/paper-reading/SKILL.md</code>。</li>
+<li>“略读这篇论文”“介绍这篇论文”“快速分析这篇论文”：略读；未指定模式时默认略读。</li>
+<li>“精读这篇论文”“带我读这篇论文”“继续读论文”：精读；允许指定章节，按已有精读进度继续。</li>
+<li>“整理它”“整理他”“整理这篇论文”“把刚才的讲解整理成文件”：使用 <code>.agents/skills/paper-lecture-export/SKILL.md</code>，汇编已讲解全文，不压缩成摘要。</li>
+<li>维护项目文档、讨论规则或修改 skill 时，不触发论文阅读或讲解导出，不改动论文阅读进度。</li>
+</ul>
+<p>技能未出现在当前技能列表时，可直接读取上述项目内的 <code>SKILL.md</code> 并遵循其流程；不要声称已验证自动加载。</p>
+<h2 id="_3">阅读与保存</h2>
+<ol>
+<li>先核对论文版本、该论文的阅读记录和已保存讲解，保持背景、术语、问题与进度连续。</li>
+<li>略读参考 <code>科研论文高效略读规则.md</code>；精读参考 <code>科研论文深度精读规则.md</code>。精读按原文顺序，保留原文、翻译、必要讲解与关键推导；版权限制按对应规则处理。</li>
+<li>每轮论文讲解和实质性答疑都保存完整正文为该论文目录中的独立 Markdown 文件，并更新 <code>&lt;论文标识&gt;_阅读记录.md</code> 的讲解文件清单与下一起点。不能只保存摘要或进度。</li>
+<li>明确区分论文事实、作者主张、独立分析、合理推测与待验证问题。缺失原文或历史讲解时如实标明，不编造补齐。</li>
+<li>导出使用 <code>论文讲解全文整理提示词.md</code>，核对全部讲解来源；默认输出内容一致的 Markdown 与 HTML。整理不改变实际阅读完成范围。</li>
+</ol>
+<p>不要覆盖既有讲解、手工批注或原论文。补充和纠错单独保存并建立关联。用户已明确授权的本地阅读、保存和整理直接执行。</p></main><script src="iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

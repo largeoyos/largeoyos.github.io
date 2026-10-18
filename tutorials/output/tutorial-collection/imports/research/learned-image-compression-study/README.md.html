@@ -1,0 +1,109 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learned Image Compression Study</title><link rel="stylesheet" href="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/learned-image-compression-study/README.md · <a href="README.md">原始 Markdown</a></p><h1 id="learned-image-compression-study">Learned Image Compression Study</h1>
+<p>面向本科科研入门的学习式图像压缩项目，运行于 <strong>Windows 原生 PyTorch CUDA</strong>，不使用 Docker。</p>
+<p>第一阶段先建立一个轻量、可训练、能解释的实验闭环：</p>
+<ol>
+<li>下载固定图片；</li>
+<li>训练一个带因子化高斯先验的卷积编码器；</li>
+<li>使用量化近似和率失真损失；</li>
+<li>记录 estimated bpp、PSNR、MS-SSIM、耗时和参数量；</li>
+<li>保存 checkpoint、重建图和 JSON 结果。</li>
+</ol>
+<h2 id="_1">重要边界</h2>
+<p>当前模型是教学用的轻量基线，不是 CompressAI 官方模型：</p>
+<ul>
+<li>训练时用均匀噪声近似量化，评测时使用 rounding；</li>
+<li>使用每通道独立高斯分布估计 latent 概率；</li>
+<li>报告的是由 likelihood 估计的 bpp，尚未接入算术编码，因此不是实际码流大小；</li>
+<li>用 Kodak 图片训练仅用于验证代码链路，不能作为正式科研结果。</li>
+</ul>
+<p>等本地流程稳定后，再使用 DIV2K 训练、Kodak 测试，并把官方 CompressAI 真码流评测放到学校 Linux 服务器完成。</p>
+<h2 id="_2">当前机器</h2>
+<ul>
+<li>GPU：NVIDIA GeForce RTX 3060 Laptop，6GB；</li>
+<li>Python：3.12；</li>
+<li>PyTorch：2.11.0 + CUDA 12.8；</li>
+<li>默认训练：128×128 patch、batch size 4、轻量通道数。</li>
+</ul>
+<h2 id="_3">项目结构</h2>
+<pre><code class="language-text">learned-image-compression-study/
+├── data/kodak/           # 下载的数据，不提交 Git
+├── outputs/              # 重建图、指标与训练历史
+├── checkpoints/          # 模型 checkpoint
+├── src/lic_study/
+│   ├── model.py          # 因子化高斯先验编码模型
+│   ├── train_toy.py      # 训练入口
+│   ├── evaluate_toy.py   # 单图评测入口
+│   └── metrics.py        # PSNR 与 estimated bpp
+├── tests/
+├── install_windows.ps1
+└── pyproject.toml
+</code></pre>
+<h2 id="_4">安装</h2>
+<p>在 PowerShell 中进入项目目录，运行：</p>
+<pre><code class="language-powershell">.\install_windows.ps1
+</code></pre>
+<p>脚本会创建项目内的 <code>.venv</code>，从 PyTorch 官方 CUDA 12.8 源安装 GPU 版本，并安装项目依赖。不会修改系统 Python 中已有的 PyTorch。</p>
+<p>验证：</p>
+<pre><code class="language-powershell">.\.venv\Scripts\lic-check.exe
+</code></pre>
+<p><code>CUDA available</code> 应为 <code>True</code>。</p>
+<h2 id="_5">首次烟雾实验</h2>
+<p>下载一张 Kodak 图片：</p>
+<pre><code class="language-powershell">.\.venv\Scripts\lic-download-kodak.exe --count 1
+</code></pre>
+<p>只训练 20 步，验证端到端流程：</p>
+<pre><code class="language-powershell">.\.venv\Scripts\lic-train-toy.exe `
+  --data-dir data/kodak `
+  --epochs 1 `
+  --steps-per-epoch 20
+</code></pre>
+<p>评测并保存重建图：</p>
+<pre><code class="language-powershell">.\.venv\Scripts\lic-eval-toy.exe data/kodak/kodim01.png
+</code></pre>
+<p>预期生成：</p>
+<ul>
+<li><code>checkpoints/toy_factorized_smoke.pt</code></li>
+<li><code>outputs/toy_factorized_smoke_history.json</code></li>
+<li><code>outputs/kodim01_toy_factorized_reconstruction.png</code></li>
+<li><code>outputs/kodim01_toy_factorized_metrics.json</code></li>
+</ul>
+<p>20 步只用于检查程序能否运行；量化后的 latent 很可能尚未学出有效结构。若要检查模型是否具备基本学习能力，可运行单图过拟合实验：</p>
+<pre><code class="language-powershell">.\.venv\Scripts\lic-train-toy.exe `
+  --data-dir data/kodak `
+  --epochs 1 `
+  --steps-per-epoch 200 `
+  --device cuda `
+  --rd-lambda 0.05 `
+  --checkpoint checkpoints/toy_factorized_lambda005_200steps.pt `
+  --history outputs/toy_factorized_lambda005_200steps_history.json
+
+.\.venv\Scripts\lic-eval-toy.exe data/kodak/kodim01.png `
+  --checkpoint checkpoints/toy_factorized_lambda005_200steps.pt `
+  --device cuda `
+  --rd-lambda 0.05 `
+  --output-dir outputs/lambda005_200steps
+</code></pre>
+<p>这项实验的训练图和评测图相同，只验证模型与训练代码能否学习，不能用于论文或简历中的泛化性能结论。当前实测结果见 <code>docs/experiment_log.md</code>。</p>
+<h2 id="_6">测试</h2>
+<pre><code class="language-powershell">.\.venv\Scripts\python.exe -m pytest
+</code></pre>
+<h2 id="_7">第一阶段验收</h2>
+<ul>
+<li>[x] 原生 CUDA 环境检查通过；</li>
+<li>[x] Kodak 01 下载成功；</li>
+<li>[x] 20 步训练完成并保存 checkpoint；</li>
+<li>[x] 评测生成 estimated bpp、PSNR 与 MS-SSIM；</li>
+<li>[x] 重建图与 JSON 指标落盘；</li>
+<li>[x] 相同命令可以再次复现。</li>
+</ul>
+<h2 id="_8">科研记录原则</h2>
+<ul>
+<li>不手工改实验结果；</li>
+<li>始终标明训练集、测试集是否重叠；</li>
+<li>严格区分“估计码率”和“实际码流码率”；</li>
+<li>每次实验记录模型、lambda、随机种子、设备和版本；</li>
+<li>失败实验也记录原因；</li>
+<li>形成真实结果后，再更新科研申请简历。</li>
+</ul></main><script src="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

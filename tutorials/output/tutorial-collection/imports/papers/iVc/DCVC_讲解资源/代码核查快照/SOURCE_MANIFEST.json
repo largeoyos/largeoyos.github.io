@@ -1,0 +1,62 @@
+{
+  "repository": "https://github.com/microsoft/DCVC",
+  "commit": "cbdae87a5445114cdc7f48816da63ea80bdeac40",
+  "retrieved_client_date": "2026-10-15",
+  "scope": "Selected 2021 DCVC inference sources, not a complete runnable checkout",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/README.md",
+      "bytes": 4690,
+      "sha256": "d7ca41ab03525a88ead9792c7a6518a03ba6172af3be484277835af61d7fc250"
+    },
+    {
+      "path": "dataset_config_example.json",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/dataset_config_example.json",
+      "bytes": 4684,
+      "sha256": "b265114487129ca5e0860b3e7b264f472faf5cf2c0a13062f0fe5e42d790527e"
+    },
+    {
+      "path": "requirements.txt",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/requirements.txt",
+      "bytes": 49,
+      "sha256": "0fbfe664d3df179ff7ae1647fff0a7653b233aa0437911472283cea1f14b1efc"
+    },
+    {
+      "path": "src/entropy_models/video_entropy_models.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/entropy_models/video_entropy_models.py",
+      "bytes": 11398,
+      "sha256": "aa75e0208d247284a78483ce1c94886433e3affb686a4f08cf0dd4041044d967"
+    },
+    {
+      "path": "src/layers/layers.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/layers/layers.py",
+      "bytes": 4735,
+      "sha256": "2c2e459e60ee40396edd65c979716b579147c5cc2a9326f99c947bb2743a2c00"
+    },
+    {
+      "path": "src/models/DCVC_net.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/DCVC_net.py",
+      "bytes": 20996,
+      "sha256": "47fecbb1e0eefba8d3dad74bef83454d30993fd13614a606bc4c7e080a50c743"
+    },
+    {
+      "path": "src/models/video_net.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/video_net.py",
+      "bytes": 9786,
+      "sha256": "45ccd4bd55fc9aa15db7681e0cc76379e4d4aae2df186ebde1d137627471bb8f"
+    },
+    {
+      "path": "src/utils/stream_helper.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/utils/stream_helper.py",
+      "bytes": 4780,
+      "sha256": "0d2ad5cccc139b92f53e4bc6d5b6c0b4476fbb3ea5cc2546fd3d1f04c46338ce"
+    },
+    {
+      "path": "test_video.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/test_video.py",
+      "bytes": 14156,
+      "sha256": "6c3513831bd5b5f184fe3097c4d531b2875a3fa6fadd7df92845898005e39631"
+    }
+  ]
+}

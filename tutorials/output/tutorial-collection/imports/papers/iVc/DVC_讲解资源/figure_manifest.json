@@ -1,0 +1,112 @@
+[
+  {
+    "id": "main-figure-2",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 4,
+    "crop_normalized": [
+      0.077,
+      0.089,
+      0.9,
+      0.376
+    ]
+  },
+  {
+    "id": "main-figure-3",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 4,
+    "crop_normalized": [
+      0.5,
+      0.384,
+      0.9,
+      0.645
+    ]
+  },
+  {
+    "id": "main-figure-4",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 5,
+    "crop_normalized": [
+      0.503,
+      0.09,
+      0.897,
+      0.207
+    ]
+  },
+  {
+    "id": "main-figure-5",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 6,
+    "crop_normalized": [
+      0.079,
+      0.09,
+      0.9,
+      0.419
+    ]
+  },
+  {
+    "id": "main-figure-6",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 7,
+    "crop_normalized": [
+      0.079,
+      0.088,
+      0.47,
+      0.448
+    ]
+  },
+  {
+    "id": "main-table-1",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 7,
+    "crop_normalized": [
+      0.5,
+      0.087,
+      0.9,
+      0.183
+    ]
+  },
+  {
+    "id": "main-figure-7",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 7,
+    "crop_normalized": [
+      0.5,
+      0.198,
+      0.9,
+      0.55
+    ]
+  },
+  {
+    "id": "main-figure-8",
+    "pdf": "Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf",
+    "pdf_page": 8,
+    "crop_normalized": [
+      0.079,
+      0.089,
+      0.47,
+      0.236
+    ]
+  },
+  {
+    "id": "supp-table-1",
+    "pdf": "Lu_DVC_An_End-To-End_CVPR_2019_supplemental.pdf",
+    "pdf_page": 1,
+    "crop_normalized": [
+      0.077,
+      0.14,
+      0.904,
+      0.557
+    ]
+  },
+  {
+    "id": "supp-figure-3",
+    "pdf": "Lu_DVC_An_End-To-End_CVPR_2019_supplemental.pdf",
+    "pdf_page": 3,
+    "crop_normalized": [
+      0.242,
+      0.378,
+      0.75,
+      0.632
+    ]
+  }
+]

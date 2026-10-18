@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第七章 · 第一节 · 金融衍生工具概述 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第七章 / 01</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 67.1896%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第一节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c7s1-part-01">01 · 本章先抓住一个问题：未来价格变了，谁给谁多少钱</a><a class="" href="#c7s1-part-02">02 · 衍生：价值从哪来，不是必须生出一只新股票</a><a class="" href="#c7s1-part-03">03 · 会计识别的三个特征：变、少、后</a><a class="" href="#c7s1-part-04">04 · 独立与嵌入式：合约单独存在，还是藏在另一份合同里</a><a class="" href="#c7s1-part-05">05 · 四个基本合约：两种买卖约定，一种选择，一种交换</a><a class="" href="#c7s1-part-06">06 · 四个基本特征：跨期、杠杆、联动、不确定</a><a class="" href="#c7s1-part-07">07 · 六类风险：看具体事件，不背抽象形容词</a><a class="" href="#c7s1-part-08">08 · 分类是四条轴：形态、方法、基础、场所</a><a class="" href="#c7s1-part-09">09 · 价格发现：有参考价值，不是看到未来答案</a><a class="current" href="#c7s1-part-10">10 · 套期保值：现货怕什么，就用合约抵消什么</a><a href="#c7s1-part-11">11 · 宏观微观作用：把长段落压缩成对应关系</a><a href="#c7s1-part-12">12 · 发展动因与规模：避险最基本，名义额不是亏损额</a><a href="#c7s1-part-13">13 · 历史与国内市场：保留主线，纠正两处错误</a><a href="#c7s1-part-14">14 · 自编诊断题：先把这张骨架做对</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 07 / SECTION 01 · 第七章</div><h2>第一节 · 金融衍生工具概述</h2><p>金融衍生工具 · 教材正文第442—458页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="06-07_公开募集基础设施证券投资基金.html">上一节 · 公开募集基础设施证券投资基金</a><a href="07-02_期货与期权交易.html">下一节 · 期货与期权交易</a></nav><section class="lesson" id="c7s1-part-01"><h3>01 · 本章先抓住一个问题：未来价格变了，谁给谁多少钱</h3>
+<p>教材正文442—458页讲衍生工具的概念、分类、发展和市场功能。先别被一串名称吓住。衍生合约把未来的价格、利率、汇率或信用变化，变成按规则支付的现金流。</p>
+<p><strong>基础变量负责变化，合约负责规定变化后怎么算钱。</strong>买股票本身，与买“将来按100元买股票的权利”，是两件事。后者的价值来自股票价格等变量，又不等于股票本身。</p>
+<p><span class="level use">会用</span>四种基本合约、杠杆、风险类型、套保方向、名义本金口径。<span class="level recognize">会认</span>独立与嵌入式、分类维度、国内市场。<span class="level context">背景</span>历史、规模和发展动因，帮助理解为什么需要这些工具。</p></section><section class="lesson" id="c7s1-part-02"><h3>02 · 衍生：价值从哪来，不是必须生出一只新股票</h3>
+<p>基础产品可以是股票、债券、外汇，也可以是另一种衍生合约；基础变量可以是利率、汇率、价格指数、信用指标等。天气指数也可能成为基础变量，不要求标的一定是可搬走的物品。</p>
+<figure class="diagram" data-diagram="c7-derivative-chain"><figcaption class="figure-label">SVG · 基础变量变化，合约规定怎样支付</figcaption><div class="diagram-interactive"><div id="finance-c7-derivative-chain">
+<h3>基础变量变化，合约规定怎样支付</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">基础与合约</button><button aria-pressed="false" class="btn" type="button">期权例子</button></div>
+<div data-diagrams=""><svg aria-label="不是持有同一种东西" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>不是持有同一种东西</title><desc>股票或其他变量，价格等发生变化；衍生合约条款，约定现金流规则；合约价值与支付，依条款及变量变化。挂钩；形成结果</desc><defs><marker id="arrow-c7-derivative-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是持有同一种东西</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">股票或其他变量</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">价格等发生变化</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">衍生合约条款</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">约定现金流规则</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">合约价值与支付</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依条款及变量变化</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c7-derivative-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">挂钩</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c7-derivative-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">形成结果</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">基础与合约</div>
+<script data-config="" type="application/json">{"heading": "基础变量变化，合约规定怎样支付", "states": [{"label": "基础与合约", "rows": [{"label": "不是持有同一种东西", "nodes": [["股票或其他变量", "价格等发生变化"], ["衍生合约条款", "约定现金流规则"], ["合约价值与支付", "依条款及变量变化"]], "edges": ["挂钩", "形成结果"]}]}, {"label": "期权例子", "rows": [{"label": "未来按100买股票", "nodes": [["到期股票120", "买入权有价值"], ["执行价100", "合约约定价格"], ["到期股票80", "买入权可放弃"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c7-derivative-chain .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-derivative-chain .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-derivative-chain .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-derivative-chain .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-derivative-chain .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-derivative-chain');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-derivative-chain-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-derivative-chain-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>基础与合约</h4><div><svg aria-label="不是持有同一种东西" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不是持有同一种东西</title><desc>股票或其他变量，价格等发生变化；衍生合约条款，约定现金流规则；合约价值与支付，依条款及变量变化。挂钩；形成结果</desc><defs><marker id="print-07-01-0-0-arrow-c7-derivative-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是持有同一种东西</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">股票或其他变量</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">价格等发生变化</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">衍生合约条款</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">约定现金流规则</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">合约价值与支付</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依条款及变量变化</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-01-0-0-arrow-c7-derivative-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">挂钩</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-01-0-0-arrow-c7-derivative-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">形成结果</text></svg></div></div><div class="diagram-print-state"><h4>期权例子</h4><div><svg aria-label="未来按100买股票" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>未来按100买股票</title><desc>到期股票120，买入权有价值；执行价100，合约约定价格；到期股票80，买入权可放弃。；</desc><defs><marker id="print-07-01-0-1-arrow-c7-derivative-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">未来按100买股票</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">到期股票120</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">买入权有价值</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">执行价100</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">合约约定价格</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">到期股票80</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">买入权可放弃</text></svg></div></div></div></figure>
+<p>例子：股票价格100元；某合约让你未来按100元买它。如果到时价格120元，这项权利有用；若80元，你可能不行使。这已经具备“价值随基础变量变化”的直观特征。</p>
+<p>注意“联动”不等于同方向、同幅度。股票上涨，看涨期权通常更值钱，看跌期权通常反而降低价值；二者都与股票相关。合约还能规定上限、下限、触发条件，关系可以是非线性的。</p></section><section class="lesson" id="c7s1-part-03"><h3>03 · 会计识别的三个特征：变、少、后</h3>
+<p>教材引用金融工具会计准则识别衍生工具：价值随特定变量变动；不要求初始净投资，或所需初始净投资相对较少；在未来结算。非金融变量还须满足与合同任一方不存在特定关系等条件。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>识别点</th>
+<th>用简单语言解释</th>
+<th>不能误读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>价值变动</td>
+<td>合同价值随约定变量变化</td>
+<td>所有合同涨价都自动属于衍生工具</td>
+</tr>
+<tr>
+<td>初始净投资较少</td>
+<td>相比直接持有对应资产，占用初始资金可能较少</td>
+<td>任何衍生工具一分钱都不用付</td>
+</tr>
+<tr>
+<td>未来结算</td>
+<td>约定未来某日或期间处理现金流</td>
+<td>每天都不能产生收付</td>
+</tr>
+</tbody>
+</table></div>
+<p>期权通常要付权利金，期货要交保证金；所以“初始净投资少”不能写成“没有任何资金支出”。保证金、权利金和合约名义价值分别回答不同问题，第二节会计算。</p>
+<p><span class="level context">背景</span>FASB第133号、IFRS 9和我国金融工具准则，是教材讲识别与计量的发展线索。第一轮记三个识别条件即可，不必先背文件发布机构的完整英文名称。</p></section><section class="lesson" id="c7s1-part-04"><h3>04 · 独立与嵌入式：合约单独存在，还是藏在另一份合同里</h3>
+<p>独立衍生工具包括远期、期货、期权、互换等。嵌入式衍生工具是混合合同中的衍生部分，使全部或部分现金流随特定变量变化。</p>
+<figure class="diagram" data-diagram="c7-embedded"><figcaption class="figure-label">SVG · 单独衍生合约与混合合同中的衍生条款</figcaption><div class="diagram-interactive"><div id="finance-c7-embedded">
+<h3>单独衍生合约与混合合同中的衍生条款</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">独立</button><button aria-pressed="false" class="btn" type="button">嵌入</button></div>
+<div data-diagrams=""><svg aria-label="单独订立" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>单独订立</title><desc>远期期货，双方交易安排；期权互换，选择或现金交换。</desc><defs><marker id="arrow-c7-embedded-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">单独订立</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">远期期货</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">双方交易安排</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">期权互换</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">选择或现金交换</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">独立</div>
+<script data-config="" type="application/json">{"heading": "单独衍生合约与混合合同中的衍生条款", "states": [{"label": "独立", "rows": [{"label": "单独订立", "nodes": [["远期期货", "双方交易安排"], ["期权互换", "选择或现金交换"]], "edges": [""], "noArrows": true}]}, {"label": "嵌入", "rows": [{"label": "可转债帮助理解", "nodes": [["债务主合同", "利息本金安排"], ["转换选择条款", "股票转换权益"], ["混合结构", "两部分共同作用"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c7-embedded .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-embedded .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-embedded .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-embedded .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-embedded .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-embedded');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-embedded-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-embedded-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>独立</h4><div><svg aria-label="单独订立" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>单独订立</title><desc>远期期货，双方交易安排；期权互换，选择或现金交换。</desc><defs><marker id="print-07-01-1-0-arrow-c7-embedded-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">单独订立</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">远期期货</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">双方交易安排</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">期权互换</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">选择或现金交换</text></svg></div></div><div class="diagram-print-state"><h4>嵌入</h4><div><svg aria-label="可转债帮助理解" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>可转债帮助理解</title><desc>债务主合同，利息本金安排；转换选择条款，股票转换权益；混合结构，两部分共同作用。；</desc><defs><marker id="print-07-01-1-1-arrow-c7-embedded-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">可转债帮助理解</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">债务主合同</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">利息本金安排</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">转换选择条款</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">股票转换权益</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">混合结构</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">两部分共同作用</text></svg></div></div></div></figure>
+<p>可转债的债务部分与转换选择权可帮助理解混合结构：债券付息还本安排与转成股票的选择共同构成产品。但不能据此说所有混合工具都必须按同一种会计方法拆分。</p>
+<p>教材把确认后归入交易性资产、公允价值计量等作概括。实际要区分资产与负债、是否适用套期会计，以及金融资产主合同等情况。<strong>第一轮掌握“嵌入一项选择或变量联动条款”，无需在这里做完整会计分录。</strong>讲计量的理由，是这些条款会真实改变盈亏与报表，不能把它们当装饰文字。</p></section><section class="lesson" id="c7s1-part-05"><h3>05 · 四个基本合约：两种买卖约定，一种选择，一种交换</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>最小理解</th>
+<th>双方权利义务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>远期</td>
+<td>双方协商未来按约定价格买卖</td>
+<td>原则上双方按约履行</td>
+</tr>
+<tr>
+<td>期货</td>
+<td>在交易场所交易标准化合约，逐日结算等</td>
+<td>双方有合约义务，可按规则平仓</td>
+</tr>
+<tr>
+<td>期权</td>
+<td>买方付权利金，获得按约买或卖的选择权</td>
+<td>买方可选择行权，卖方按约承担对应义务</td>
+</tr>
+<tr>
+<td>互换</td>
+<td>在约定期间交换不同规则算出的现金流</td>
+<td>双方按约交换或净额结算</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="diagram" data-diagram="c7-four-contracts"><figcaption class="figure-label">SVG · 未来买卖、选择与交换不同</figcaption><div class="diagram-interactive"><div id="finance-c7-four-contracts">
+<h3>未来买卖、选择与交换不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">双方交易</button><button aria-pressed="false" class="btn" type="button">选择与交换</button></div>
+<div data-diagrams=""><svg aria-label="远期与期货" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>远期与期货</title><desc>远期，双边协商条款；期货，标准化与结算。</desc><defs><marker id="arrow-c7-four-contracts-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">远期与期货</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">远期</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">双边协商条款</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">期货</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">标准化与结算</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">双方交易</div>
+<script data-config="" type="application/json">{"heading": "未来买卖、选择与交换不同", "states": [{"label": "双方交易", "rows": [{"label": "远期与期货", "nodes": [["远期", "双边协商条款"], ["期货", "标准化与结算"]], "edges": [""], "noArrows": true}]}, {"label": "选择与交换", "rows": [{"label": "期权与互换", "nodes": [["期权买方", "按约行权选择"], ["互换双方", "按约交换现金流"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c7-four-contracts .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-four-contracts .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-four-contracts .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-four-contracts .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-four-contracts .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-four-contracts');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-four-contracts-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-four-contracts-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>双方交易</h4><div><svg aria-label="远期与期货" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>远期与期货</title><desc>远期，双边协商条款；期货，标准化与结算。</desc><defs><marker id="print-07-01-2-0-arrow-c7-four-contracts-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">远期与期货</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">远期</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">双边协商条款</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">期货</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">标准化与结算</text></svg></div></div><div class="diagram-print-state"><h4>选择与交换</h4><div><svg aria-label="期权与互换" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>期权与互换</title><desc>期权买方，按约行权选择；互换双方，按约交换现金流。</desc><defs><marker id="print-07-01-2-1-arrow-c7-four-contracts-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">期权与互换</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">期权买方</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按约行权选择</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">互换双方</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按约交换现金流</text></svg></div></div></div></figure>
+<p>“买期权”不等于“买股票”；买看跌期权，买到的反而是将来按约卖股票的权利。期权买方与标的买方不能混为同一个“买”。</p>
+<p>前四种是基本构件，结构化产品将它们组合或与基础金融产品结合。名称变复杂，不改变最根本的读合同方法：<strong>触发什么条件、谁有选择、支付多少、有没有上限、是否追加义务。</strong></p></section><section class="lesson" id="c7s1-part-06"><h3>06 · 四个基本特征：跨期、杠杆、联动、不确定</h3>
+<p>跨期是今天订合同，影响未来现金流；杠杆是以相对少的资金承担较大规模价格变动；联动是合同价值与基础变量联系；不确定是未来变量、对手履约和交易安排等均可能影响结果。</p>
+<p>教材例：合约价值100万元，保证金5万元，即5%，静态名义杠杆为20倍。价格向不利方向变1%，合约损失约1万元，相对于初始保证金是20%。</p>
+<p><span aria-label="Leverage=\frac{Notional}{Initial\ margin}=\frac{1}{m}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="5.115ex" role="img" style="vertical-align: -2.016ex;" viewbox="0 -1370 14958.1 2261" width="33.842ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z" id="FORMULA-0-MJX-1-TEX-I-1D43F"></path><path d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z" id="FORMULA-0-MJX-1-TEX-I-1D452"></path><path d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z" id="FORMULA-0-MJX-1-TEX-I-1D463"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-0-MJX-1-TEX-I-1D45F"></path><path d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z" id="FORMULA-0-MJX-1-TEX-I-1D44E"></path><path d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z" id="FORMULA-0-MJX-1-TEX-I-1D454"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-0-MJX-1-TEX-N-3D"></path><path d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z" id="FORMULA-0-MJX-1-TEX-I-1D441"></path><path d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z" id="FORMULA-0-MJX-1-TEX-I-1D45C"></path><path d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z" id="FORMULA-0-MJX-1-TEX-I-1D461"></path><path d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z" id="FORMULA-0-MJX-1-TEX-I-1D456"></path><path d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" id="FORMULA-0-MJX-1-TEX-I-1D45B"></path><path d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z" id="FORMULA-0-MJX-1-TEX-I-1D459"></path><path d="M43 1Q26 1 26 10Q26 12 29 24Q34 43 39 45Q42 46 54 46H60Q120 46 136 53Q137 53 138 54Q143 56 149 77T198 273Q210 318 216 344Q286 624 286 626Q284 630 284 631Q274 637 213 637H193Q184 643 189 662Q193 677 195 680T209 683H213Q285 681 359 681Q481 681 487 683H497Q504 676 504 672T501 655T494 639Q491 637 471 637Q440 637 407 634Q393 631 388 623Q381 609 337 432Q326 385 315 341Q245 65 245 59Q245 52 255 50T307 46H339Q345 38 345 37T342 19Q338 6 332 0H316Q279 2 179 2Q143 2 113 2T65 2T43 1Z" id="FORMULA-0-MJX-1-TEX-I-1D43C"></path><path d="" id="FORMULA-0-MJX-1-TEX-N-A0"></path><path d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-0-MJX-1-TEX-I-1D45A"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-0-MJX-1-TEX-N-31"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D43F" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D43F"></use></g><g data-mml-node="mi" transform="translate(681,0)"><use data-c="1D452" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D452"></use></g><g data-mml-node="mi" transform="translate(1147,0)"><use data-c="1D463" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D463"></use></g><g data-mml-node="mi" transform="translate(1632,0)"><use data-c="1D452" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D452"></use></g><g data-mml-node="mi" transform="translate(2098,0)"><use data-c="1D45F" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(2549,0)"><use data-c="1D44E" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(3078,0)"><use data-c="1D454" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D454"></use></g><g data-mml-node="mi" transform="translate(3555,0)"><use data-c="1D452" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D452"></use></g><g data-mml-node="mo" transform="translate(4298.8,0)"><use data-c="3D" xlink:href="#FORMULA-0-MJX-1-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(5354.6,0)"><g data-mml-node="mrow" transform="translate(1480.5,676)"><g data-mml-node="mi"><use data-c="1D441" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D441"></use></g><g data-mml-node="mi" transform="translate(888,0)"><use data-c="1D45C" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45C"></use></g><g data-mml-node="mi" transform="translate(1373,0)"><use data-c="1D461" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D461"></use></g><g data-mml-node="mi" transform="translate(1734,0)"><use data-c="1D456" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D456"></use></g><g data-mml-node="mi" transform="translate(2079,0)"><use data-c="1D45C" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45C"></use></g><g data-mml-node="mi" transform="translate(2564,0)"><use data-c="1D45B" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45B"></use></g><g data-mml-node="mi" transform="translate(3164,0)"><use data-c="1D44E" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(3693,0)"><use data-c="1D459" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D459"></use></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><use data-c="1D43C" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D43C"></use></g><g data-mml-node="mi" transform="translate(504,0)"><use data-c="1D45B" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45B"></use></g><g data-mml-node="mi" transform="translate(1104,0)"><use data-c="1D456" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D456"></use></g><g data-mml-node="mi" transform="translate(1449,0)"><use data-c="1D461" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D461"></use></g><g data-mml-node="mi" transform="translate(1810,0)"><use data-c="1D456" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D456"></use></g><g data-mml-node="mi" transform="translate(2155,0)"><use data-c="1D44E" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(2684,0)"><use data-c="1D459" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D459"></use></g><g data-mml-node="mtext" transform="translate(2982,0)"><use data-c="A0" xlink:href="#FORMULA-0-MJX-1-TEX-N-A0"></use></g><g data-mml-node="mi" transform="translate(3232,0)"><use data-c="1D45A" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45A"></use></g><g data-mml-node="mi" transform="translate(4110,0)"><use data-c="1D44E" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(4639,0)"><use data-c="1D45F" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(5090,0)"><use data-c="1D454" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D454"></use></g><g data-mml-node="mi" transform="translate(5567,0)"><use data-c="1D456" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D456"></use></g><g data-mml-node="mi" transform="translate(5912,0)"><use data-c="1D45B" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45B"></use></g></g><rect height="60" width="6712" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(12584.3,0)"><use data-c="3D" xlink:href="#FORMULA-0-MJX-1-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(13640.1,0)"><g data-mml-node="mn" transform="translate(409,676)"><use data-c="31" xlink:href="#FORMULA-0-MJX-1-TEX-N-31"></use></g><g data-mml-node="mi" transform="translate(220,-686)"><use data-c="1D45A" xlink:href="#FORMULA-0-MJX-1-TEX-I-1D45A"></use></g><rect height="60" width="1078" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<figure class="diagram" data-diagram="c7-derivative-leverage"><figcaption class="figure-label">SVG · 初始保证金与名义价值的分母不同</figcaption><div class="diagram-interactive"><div id="finance-c7-derivative-leverage">
+<h3>初始保证金与名义价值的分母不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">5%例子</button><button aria-pressed="false" class="btn" type="button">边界</button></div>
+<div data-diagrams=""><svg aria-label="简化线性合约" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>简化线性合约</title><desc>名义100万元，初始保证金5万；合约损失1万元，相对名义亏1%；相对保证金，亏损20%。价格风险；换分母</desc><defs><marker id="arrow-c7-derivative-leverage-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">简化线性合约</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">名义100万元</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">初始保证金5万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">合约损失1万元</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">相对名义亏1%</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">相对保证金</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">亏损20%</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c7-derivative-leverage-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">价格风险</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c7-derivative-leverage-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">换分母</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">5%例子</div>
+<script data-config="" type="application/json">{"heading": "初始保证金与名义价值的分母不同", "states": [{"label": "5%例子", "rows": [{"label": "简化线性合约", "nodes": [["名义100万元", "初始保证金5万"], ["合约损失1万元", "相对名义亏1%"], ["相对保证金", "亏损20%"]], "edges": ["价格风险", "换分母"]}]}, {"label": "边界", "rows": [{"label": "不能只看占用资金", "nodes": [["初始保证金", "履约资金安排"], ["可能追加与强平", "不是最大损失额"]], "edges": ["资金约束"]}]}]}</script>
+</div>
+<style>
+#finance-c7-derivative-leverage .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-derivative-leverage .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-derivative-leverage .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-derivative-leverage .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-derivative-leverage .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-derivative-leverage');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-derivative-leverage-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-derivative-leverage-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>5%例子</h4><div><svg aria-label="简化线性合约" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>简化线性合约</title><desc>名义100万元，初始保证金5万；合约损失1万元，相对名义亏1%；相对保证金，亏损20%。价格风险；换分母</desc><defs><marker id="print-07-01-3-0-arrow-c7-derivative-leverage-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">简化线性合约</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">名义100万元</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">初始保证金5万</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">合约损失1万元</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">相对名义亏1%</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">相对保证金</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">亏损20%</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-01-3-0-arrow-c7-derivative-leverage-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">价格风险</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-01-3-0-arrow-c7-derivative-leverage-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">换分母</text></svg></div></div><div class="diagram-print-state"><h4>边界</h4><div><svg aria-label="不能只看占用资金" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不能只看占用资金</title><desc>初始保证金，履约资金安排；可能追加与强平，不是最大损失额。资金约束</desc><defs><marker id="print-07-01-3-1-arrow-c7-derivative-leverage-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不能只看占用资金</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">初始保证金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">履约资金安排</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">可能追加与强平</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">不是最大损失额</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-01-3-1-arrow-c7-derivative-leverage-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">资金约束</text></svg></div></div></div></figure>
+<p>这是固定合约规模、简单线性价格变动、忽略费用等的示意。保证金会随规则与行情变化；衍生品杠杆也不都能用1/保证金率表达。<strong>5万元保证金不是最大亏损，追加与强平可能发生。</strong></p>
+<p>不确定性不是要求所有衍生工具都用来猜价格。已有现货风险的企业做套保，可能正是为了降低整体结果的不确定，而不是增加裸露风险。</p></section><section class="lesson" id="c7s1-part-07"><h3>07 · 六类风险：看具体事件，不背抽象形容词</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>题干事件</th>
+<th>主要风险类型</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对手不履行承诺</td>
+<td>信用风险</td>
+<td>承诺的现金或资产收不到</td>
+</tr>
+<tr>
+<td>标的价格向不利方向变化</td>
+<td>市场风险</td>
+<td>合同价值或支付结果变坏</td>
+</tr>
+<tr>
+<td>想平仓却找不到成交对手</td>
+<td>流动性风险</td>
+<td>无法及时或以合理价格退出</td>
+</tr>
+<tr>
+<td>应付款或应交资产未按时交付</td>
+<td>结算风险</td>
+<td>交收环节不能按约完成</td>
+</tr>
+<tr>
+<td>误下单、系统故障、控制失灵</td>
+<td>操作风险</td>
+<td>操作与制度过程出错</td>
+</tr>
+<tr>
+<td>条款违法、遗漏、解释含糊</td>
+<td>法律风险</td>
+<td>合同效力或执行出现问题</td>
+</tr>
+</tbody>
+</table></div>
+<p>同一事件可能有交叉：对手破产导致交割款不到账，同时涉及信用和结算。做题找题干强调的机制，而不是宣称风险类别永不重叠。</p>
+<p>交易所保证金、集中清算降低相应风险，不等于所有风险归零。场外交易可有担保、保证金、净额结算和集中清算等安排，也不能概括成“全部无监管”。</p></section><section class="lesson" id="c7s1-part-08"><h3>08 · 分类是四条轴：形态、方法、基础、场所</h3>
+<figure class="diagram" data-diagram="c7-derivative-axes"><figcaption class="figure-label">SVG · 同一产品可同时属于多个分类</figcaption><div class="diagram-interactive"><div id="finance-c7-derivative-axes">
+<h3>同一产品可同时属于多个分类</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">形态与方法</button><button aria-pressed="false" class="btn" type="button">基础与场所</button></div>
+<div data-diagrams=""><svg aria-label="两条分类轴" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>两条分类轴</title><desc>独立或嵌入，形态维度；远期期货期权互换，交易方法维度。</desc><defs><marker id="arrow-c7-derivative-axes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两条分类轴</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">独立或嵌入</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">形态维度</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">远期期货期权互换</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">交易方法维度</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">形态与方法</div>
+<script data-config="" type="application/json">{"heading": "同一产品可同时属于多个分类", "states": [{"label": "形态与方法", "rows": [{"label": "两条分类轴", "nodes": [["独立或嵌入", "形态维度"], ["远期期货期权互换", "交易方法维度"]], "edges": [""], "noArrows": true}]}, {"label": "基础与场所", "rows": [{"label": "再两条分类轴", "nodes": [["股权汇率利率信用", "基础变量维度"], ["场内或场外", "交易场所维度"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c7-derivative-axes .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-derivative-axes .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-derivative-axes .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-derivative-axes .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-derivative-axes .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-derivative-axes');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-derivative-axes-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-derivative-axes-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>形态与方法</h4><div><svg aria-label="两条分类轴" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>两条分类轴</title><desc>独立或嵌入，形态维度；远期期货期权互换，交易方法维度。</desc><defs><marker id="print-07-01-4-0-arrow-c7-derivative-axes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两条分类轴</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">独立或嵌入</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">形态维度</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">远期期货期权互换</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">交易方法维度</text></svg></div></div><div class="diagram-print-state"><h4>基础与场所</h4><div><svg aria-label="再两条分类轴" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>再两条分类轴</title><desc>股权汇率利率信用，基础变量维度；场内或场外，交易场所维度。</desc><defs><marker id="print-07-01-4-1-arrow-c7-derivative-axes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">再两条分类轴</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">股权汇率利率信用</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">基础变量维度</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">场内或场外</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">交易场所维度</text></svg></div></div></div></figure>
+<p>按产品形态分独立、嵌入式；按合约方法分远期、期货、期权、互换、结构化；按基础分股权、货币、利率、信用及其他；按场所分场内和场外。</p>
+<p>“场外利率互换”同时说明场所、基础变量与方法，并不矛盾。“独立看涨股票期权”同时说明形态、权利类型和标的，也不是三个互斥答案。</p>
+<p>大宗商品衍生工具可挂钩农产品、金属、能源化工等，海运或天气相关指数也可能进入广义商品风险管理体系。商品期货与商品期权的区别仍靠权利义务判断，不靠标的名字判断。</p></section><section class="lesson" id="c7s1-part-09"><h3>09 · 价格发现：有参考价值，不是看到未来答案</h3>
+<p>市场聚合供求、信息与预期，形成可用来参考的价格，称为价格发现。期货价格还受持有成本、分红、利率、供需和交易限制等影响，不能直接等于未来真实现货价格。</p>
+<p>“今天期货报价100，所以三个月后现货必定100”错误。价格发现效率较高与预测绝对准确，是两种说法；价格发现也不是期货市场独有。</p>
+<p><span class="level use">会用</span>题目提“大量信息形成公开价格、企业据此安排生产”主要对应价格发现。提“对冲已有价格风险”主要对应风险管理。提“按偏好配置不同风险暴露”主要对应资源配置。</p></section><section class="lesson" id="c7s1-part-10"><h3>10 · 套期保值：现货怕什么，就用合约抵消什么</h3>
+<p>生产者将来卖货，怕跌价，通常先卖出相应期货；采购者将来买货，怕涨价，通常先买入相应期货。先看现货风险方向，别先猜市场涨跌。</p>
+<figure class="diagram" data-diagram="c7-hedge-direction"><figcaption class="figure-label">SVG · 先找现货怕涨还是怕跌</figcaption><div class="diagram-interactive"><div id="finance-c7-hedge-direction">
+<h3>先找现货怕涨还是怕跌</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">将来卖货</button><button aria-pressed="false" class="btn" type="button">将来买货</button></div>
+<div data-diagrams=""><svg aria-label="生产者怕价格跌" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>生产者怕价格跌</title><desc>未来卖货，售价下跌风险；卖出相应期货，价格跌时合约盈利。相反风险抵消</desc><defs><marker id="arrow-c7-hedge-direction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">生产者怕价格跌</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">未来卖货</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">售价下跌风险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">卖出相应期货</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">价格跌时合约盈利</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c7-hedge-direction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">相反风险抵消</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">将来卖货</div>
+<script data-config="" type="application/json">{"heading": "先找现货怕涨还是怕跌", "states": [{"label": "将来卖货", "rows": [{"label": "生产者怕价格跌", "nodes": [["未来卖货", "售价下跌风险"], ["卖出相应期货", "价格跌时合约盈利"]], "edges": ["相反风险抵消"]}]}, {"label": "将来买货", "rows": [{"label": "采购者怕价格涨", "nodes": [["未来采购", "买价上涨风险"], ["买入相应期货", "价格涨时合约盈利"]], "edges": ["相反风险抵消"]}]}]}</script>
+</div>
+<style>
+#finance-c7-hedge-direction .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-hedge-direction .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-hedge-direction .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-hedge-direction .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-hedge-direction .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-hedge-direction');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-hedge-direction-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-hedge-direction-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>将来卖货</h4><div><svg aria-label="生产者怕价格跌" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>生产者怕价格跌</title><desc>未来卖货，售价下跌风险；卖出相应期货，价格跌时合约盈利。相反风险抵消</desc><defs><marker id="print-07-01-5-0-arrow-c7-hedge-direction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">生产者怕价格跌</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">未来卖货</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">售价下跌风险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">卖出相应期货</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">价格跌时合约盈利</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-01-5-0-arrow-c7-hedge-direction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">相反风险抵消</text></svg></div></div><div class="diagram-print-state"><h4>将来买货</h4><div><svg aria-label="采购者怕价格涨" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>采购者怕价格涨</title><desc>未来采购，买价上涨风险；买入相应期货，价格涨时合约盈利。相反风险抵消</desc><defs><marker id="print-07-01-5-1-arrow-c7-hedge-direction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">采购者怕价格涨</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">未来采购</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">买价上涨风险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">买入相应期货</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">价格涨时合约盈利</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-01-5-1-arrow-c7-hedge-direction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">相反风险抵消</text></svg></div></div></div></figure>
+<p>简化卖出套保例：预计卖100吨，期货卖价4000元/吨。到时现货及平仓期货同为3500元，卖货35万元，期货赚5万元，合计40万元；若同为4500元，卖货45万元，期货亏5万元，合计仍40万元。</p>
+<p>现实存在基差、数量、日期匹配和资金成本等问题，不一定完全锁定。套保结果要看<strong>现货加衍生工具的组合</strong>；期货亏钱不自动说明套保失败，更不能要求套保在两个市场同时盈利。</p></section><section class="lesson" id="c7s1-part-11"><h3>11 · 宏观微观作用：把长段落压缩成对应关系</h3>
+<p>宏观层面包括转移价格风险、为政策提供信息、连接国内国际市场、完善市场体系。微观层面包括稳定采购或销售价格、参考价格安排生产、通过合规交割等扩展采购销售渠道。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材长句</th>
+<th>你应识别的关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>稳定生产成本与预期利润</td>
+<td>套保缓解某类价格风险，不包办经营利润</td>
+</tr>
+<tr>
+<td>引导生产与政策判断</td>
+<td>价格信号提供参考，不保证判断正确</td>
+</tr>
+<tr>
+<td>连接国内外市场</td>
+<td>风险管理与价格联系，不等于取消跨境规则</td>
+</tr>
+<tr>
+<td>改善履约与交割渠道</td>
+<td>规则和清算提升约束，不是零违约、零成本</td>
+</tr>
+</tbody>
+</table></div>
+<p>为什么还讲这几页作用？多选题可能问宏观或微观用途。只需要将行为和功能对应，不必背每家企业参与套保的故事、每个规模排名和宣传式形容词。</p></section><section class="lesson" id="c7s1-part-12"><h3>12 · 发展动因与规模：避险最基本，名义额不是亏损额</h3>
+<p>教材发展动因四项：规避汇率、利率等波动风险；金融自由化改变市场与竞争；金融机构寻求业务收入；技术进步支持计算、交易和管理。最基本原因先抓避险，其他是推动因素。</p>
+<p>金融机构从衍生业务获取收入，包括提供中介服务和自营交易等。教材“表外业务既不影响资产负债表”的表述应结合历史理解：<strong>现代衍生工具的公允价值、风险敞口和资本要求会影响报表及监管，不能理解成永不入表或完全无需资本。</strong></p>
+<p>教材BIS统计表主要是未平仓名义金额，不是市场价值、成交额或实际风险损失。利率衍生品在该口径中占很大部分，场外名义规模很大；这两条结构性信息比背表内所有年份金额有用。<a href="https://data.bis.org/topics/OTC_DER" rel="noopener" target="_blank">BIS统计口径</a></p>
+<p>例如利率互换用1亿元名义本金算利息，通常不因此真的交换1亿元本金，更不代表已经亏掉1亿元。净额、担保、期限和价格变化影响实际敞口。教材“整个市场绝大部分监管失控”的概括不宜沿用，场外集中清算及监管已有长期发展。<a href="https://www.bis.org/publications/clearing-risks-otc-derivatives-markets-ccp-bank-nexus" rel="noopener" target="_blank">BIS关于场外集中清算的分析</a></p></section><section class="lesson" id="c7s1-part-13"><h3>13 · 历史与国内市场：保留主线，纠正两处错误</h3>
+<p>古代远期或期权故事说明“提前约定未来交易”有悠久历史；现代标准化、保证金和清算制度则是另一层发展。第一轮不要求背古代人物与传说。</p>
+<details class="reference-section">
+<summary>展开：第二轮历史节点与国内市场表</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>节点</th>
+<th>学习用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1848年CBOT成立，1865年标准化商品期货推进</td>
+<td>现代期货组织与标准化主线</td>
+</tr>
+<tr>
+<td>1972年CME推出外汇期货</td>
+<td>现代金融期货发展重要节点</td>
+</tr>
+<tr>
+<td>1973年CBOE成立及股票期权发展</td>
+<td>期权场内市场形成</td>
+</tr>
+<tr>
+<td>1975年利率期货、1982年股指期货发展</td>
+<td>由汇率扩展到利率与股票风险</td>
+</tr>
+<tr>
+<td>1981年IBM与世界银行货币互换</td>
+<td>场外互换创新的重要案例</td>
+</tr>
+<tr>
+<td>2006年中金所成立，2010年沪深300股指期货上市</td>
+<td>国内现代金融期货主线</td>
+</tr>
+<tr>
+<td>2013年5年国债期货，2015年10年，2018年2年，2023年30年</td>
+<td>国债期货期限体系完善</td>
+</tr>
+<tr>
+<td>2015年上证50ETF期权；2019年沪深300ETF及股指期权；2022年中证1000相关合约</td>
+<td>期权与股指工具扩展</td>
+</tr>
+<tr>
+<td>场内：中金所、证券交易所及商品期货交易所</td>
+<td>按产品定位市场</td>
+</tr>
+<tr>
+<td>场外：银行间与柜台、证券公司机构间及柜台</td>
+<td>协商定制及相应监管</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>教材448页把IBM互换对手写成国际货币基金组织，487页又写世界银行。应记<strong>世界银行</strong>，其官方历史资料可核对。<a href="https://thedocs.worldbank.org/en/doc/981111541019927135-0340022018/original/70yearschapterfour.pdf" rel="noopener" target="_blank">世界银行资料</a></p>
+<p>教材将欧洲美元期货说成“时至今日”短期代表也已过时：CME在2023年完成主要欧洲美元合约向SOFR的转换，剩余合约当年到期。把它当历史品种，再看SOFR等参考利率期货。<a href="https://investor.cmegroup.com/news-releases/news-release-details/cme-group-completes-key-milestones-conversion-eurodollar-futures" rel="noopener" target="_blank">CME转换公告</a></p>
+<p>2026年《衍生品交易监督管理办法（试行）》已经公布，<strong>将于11月16日施行</strong>；本讲义日期为10月14日，不能说它已经生效。这里提示是帮助区分公布与施行日期，不要求用新规细则覆盖全部2025教材题。<a href="https://www.csrc.gov.cn/csrc/c101953/c7632837/content.shtml" rel="noopener" target="_blank">证监会第234号令</a></p></section><section class="lesson" id="c7s1-part-14"><h3>14 · 自编诊断题：先把这张骨架做对</h3>
+<ol>
+<li>衍生工具的基础一定是股票或债券，不能是另一份衍生合约。判断。</li>
+<li>“初始净投资较少”等于所有衍生工具没有任何资金支出吗？</li>
+<li>可转债转换条款帮助理解独立还是嵌入式衍生部分？</li>
+<li>买方付权利金后可以选择是否行权，通常对应哪种合约？</li>
+<li>100万元合约，5万元初始保证金，静态名义杠杆多少？</li>
+<li>上题合约损失1万元，相对初始保证金损失比例多少？</li>
+<li>系统故障导致错误下单，主要是什么风险？</li>
+<li>想卖出平仓但无人接单，主要是什么风险？</li>
+<li>将来卖货怕跌价，通常买还是卖相应期货？</li>
+<li>将来采购怕涨价，通常买还是卖相应期货？</li>
+<li>卖出套保期货亏损，能否直接判套保失败？</li>
+<li>期货价格发现能保证未来现货等于今天期货报价吗？</li>
+<li>1亿元互换名义本金是否等于已支付或已亏损1亿元？</li>
+<li>IBM的1981年互换对手应记世界银行还是IMF？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与错因</summary>
+<div class="answer-content">
+<ol>
+<li>错，可挂钩衍生合约或其他适用变量。</li>
+<li>不等于，期权权利金、期货保证金都可能要支付。</li>
+<li>嵌入式，转换选择与主合同形成混合结构。</li>
+<li>期权；远期与期货通常双方有合约义务。</li>
+<li>20倍。</li>
+<li>20%，不是合约价值的1%就只损失保证金的1%。</li>
+<li>操作风险。</li>
+<li>流动性风险。</li>
+<li>卖出，抵消现货售价下跌的影响。</li>
+<li>买入，抵消采购价格上涨的影响。</li>
+<li>不能，需看现货与期货合计结果及目标。</li>
+<li>不能，价格有信息含义，仍有偏离。</li>
+<li>不等于，名义本金是约定计算基数等口径。</li>
+<li>世界银行，教材有前后不一致，应纠正。</li>
+</ol>
+</div>
+</details>
+<p>做到1—13，本节基础够进入第二节。历史节点和行业规模留到第二轮按明确题目补，不必现在把统计表所有数字背进脑子。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="06-07_公开募集基础设施证券投资基金.html">上一节 · 公开募集基础设施证券投资基金</a><a href="07-02_期货与期权交易.html">下一节 · 期货与期权交易</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

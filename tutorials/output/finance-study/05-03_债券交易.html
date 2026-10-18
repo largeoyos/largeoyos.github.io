@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第五章 · 第三节 · 债券交易 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第五章 / 03</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 89.0563%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第三节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c5s3-part-01">本节目标：把交易、结算、评级三个问题分开</a><a class="" href="#c5s3-part-02">教材352—354页：现券、回购、远期、期货，买的不是同一种东西会用</a><a class="" href="#c5s3-part-03">教材353页：正回购融入钱，逆回购融出钱会用</a><a class="" href="#c5s3-part-04">教材354—355页：四类报价，能看到不等于能点成交会用＋会认</a><a class="" href="#c5s3-part-05">教材355—357页：开户、交易、清算、交割、登记托管会用</a><a class="" href="#c5s3-part-06">教材357—359页：评级不是投资推荐，主体和债项分别看会用＋会认</a><a class="" href="#c5s3-part-07">教材359—362页：评级程序，谁调查、谁审核、谁定等级会用＋会认</a><a href="#c5s3-part-08">教材363—365页：跟踪评级、终止和撤销，风险会变化会用＋会认</a><a href="#c5s3-part-09">教材366—367页：评级符号及六组分析内容会认＋会用</a><a href="#c5s3-part-10">教材367—369页：银行间、交易所、柜台三个市场会用＋会认</a><a class="" href="#c5s3-part-11">教材369—371页：交易方式、托管、结算机构不要串错会用</a><a class="" href="#c5s3-part-12">教材371—374页：转托管与债券通，所有者和方向先确定会用＋背景</a><a class="current" href="#c5s3-part-13">本节练习：每题先说动作，再说名称</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 05 / SECTION 03 · 第五章</div><h2>第三节 · 债券交易</h2><p>债券 · 教材正文第352—374页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="05-02_债券的发行.html">上一节 · 债券的发行</a><a href="05-04_债券估值.html">下一节 · 债券估值</a></nav><section class="lesson" id="c5s3-part-01"><h3>本节目标：把交易、结算、评级三个问题分开</h3>
+<p>买卖是怎样达成的；钱和券是怎样交收的；发行人能否履约，分别对应交易、结算、信用分析。机构多、术语多，先弄清动作，再把机构名字放到相应位置。</p>
+<p><span class="level use">会用</span>现券与回购、正逆回购方向、远期与期货、报价与成交、清算与交收、主体与债项评级；<span class="level recognize">会认</span>评级程序和等级、市场分工；<span class="level context">背景</span>系统沿革、早期收费与发行成交规模。</p>
+<figure class="diagram" data-diagram="c5-trade-settle-credit"><figcaption class="figure-label">SVG · 成交、交收、履约分别问不同问题</figcaption><div class="diagram-interactive"><div id="finance-c5-trade-settle-credit">
+<h3>成交、交收、履约分别问不同问题</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">三个动作</button></div>
+<div data-diagrams=""><svg aria-label="交易与信用" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>交易与信用</title><desc>交易，怎样达成买卖；结算，券款怎样交付；信用，发行人能否履约。；</desc><defs><marker id="arrow-c5-trade-settle-credit-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">交易与信用</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">交易</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">怎样达成买卖</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">结算</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">券款怎样交付</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">信用</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">发行人能否履约</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">三个动作</div>
+<script data-config="" type="application/json">{"heading": "成交、交收、履约分别问不同问题", "states": [{"label": "三个动作", "rows": [{"label": "交易与信用", "nodes": [["交易", "怎样达成买卖"], ["结算", "券款怎样交付"], ["信用", "发行人能否履约"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c5-trade-settle-credit .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-trade-settle-credit .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-trade-settle-credit .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-trade-settle-credit .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-trade-settle-credit .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-trade-settle-credit');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-trade-settle-credit-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-trade-settle-credit-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三个动作</h4><div><svg aria-label="交易与信用" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>交易与信用</title><desc>交易，怎样达成买卖；结算，券款怎样交付；信用，发行人能否履约。；</desc><defs><marker id="print-05-03-0-0-arrow-c5-trade-settle-credit-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">交易与信用</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">交易</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">怎样达成买卖</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">结算</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">券款怎样交付</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">信用</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">发行人能否履约</text></svg></div></div></div></figure></section><section class="lesson" id="c5s3-part-02"><h3>教材352—354页：现券、回购、远期、期货，买的不是同一种东西<span class="level use">会用</span></h3>
+<p>现券是买卖现有债券，买方付款、卖方交券，按约定结算速度交收。即期不等于每笔都在按下按钮的同一秒完成款券转移。</p>
+<p>回购主要解决阶段性资金需求：融资方用债券作相应安排取得钱，到期按约归还资金及利息、解除质押或做反向买卖。<strong>现券交易主要转移债券投资持有，回购主要融通资金。</strong></p>
+<p>远期是在现在约定未来债券交易的标的、价格、数量、交割日等；期货是交易所标准化合约交易，有保证金、每日结算和相应平仓交割安排。期货价格不是现券价格，交易合约也不等于立刻持有全部现券。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对比</th>
+<th>远期</th>
+<th>期货</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>场所</td>
+<td>通常场外</td>
+<td>交易所</td>
+</tr>
+<tr>
+<td>合约</td>
+<td>双方协商，可定制</td>
+<td>主要条款标准化</td>
+</tr>
+<tr>
+<td>履约与结算</td>
+<td>双边安排，重视对手履约</td>
+<td>保证金、集中清算等机制</td>
+</tr>
+<tr>
+<td>提前退出</td>
+<td>依约协商、转让或对冲安排</td>
+<td>通常可用反向交易平仓</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>价格与对手方等风险</td>
+<td>价格、保证金流动性等风险，信用风险有机制缓释</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>教材354页“远期没有价格风险、期货不存在信用风险”都过于绝对。</strong>约定价格100，市场后来跌到90，买方仍须依约100买，经济上承受价格变化。期货清算降低对手方风险，但不是让所有清算、违约及流动性风险凭空消失。</p>
+<p>题目若比较标准化、场内、保证金、每日结算、平仓，期货是相应对象；若说双方定制未来交割，通常远期。不能因为合同锁定执行价，就认为持仓价值不会变。</p></section><section class="lesson" id="c5s3-part-03"><h3>教材353页：正回购融入钱，逆回购融出钱<span class="level use">会用</span></h3>
+<p>一直站在题干指定主体的视角：<strong>正回购方提供债券安排、融入资金；逆回购方提供资金、融出资金。</strong>同一笔交易两方名称相反，不存在“两边都在逆回购”。</p>
+<p>质押式回购：债券作为质押品，按规则冻结或登记质押，不是把所有权当普通现券买卖直接转走。买断式回购：首期有债券买卖和所有权转移，约定到期反向交易。教材一般回购定义较接近买断形式，后面又讲质押，应把两类分开。</p>
+<figure class="diagram" data-diagram="c5-repo-directions"><figcaption class="figure-label">SVG · 从题干主体看，正融入钱、逆融出钱</figcaption><div class="diagram-interactive"><div id="finance-c5-repo-directions">
+<h3>从题干主体看，正融入钱、逆融出钱</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">首期</button><button aria-pressed="false" class="btn" type="button">到期</button></div>
+<div data-diagrams=""><svg aria-label="A正回购B逆回购" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>A正回购B逆回购</title><desc>B提供资金，融出方逆回购；A取得资金，融入方正回购。资金流向</desc><defs><marker id="arrow-c5-repo-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">A正回购B逆回购</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">B提供资金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">融出方逆回购</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">A取得资金</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">融入方正回购</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c5-repo-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">资金流向</text></svg><svg aria-label="质押券安排" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>质押券安排</title><desc>A提供合格券，按规则质押；B融资保护，不等同普通买券。质押支持</desc><defs><marker id="arrow-c5-repo-directions-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">质押券安排</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A提供合格券</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规则质押</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">B融资保护</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">不等同普通买券</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c5-repo-directions-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">质押支持</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">首期</div>
+<script data-config="" type="application/json">{"heading": "从题干主体看，正融入钱、逆融出钱", "states": [{"label": "首期", "rows": [{"label": "A正回购B逆回购", "nodes": [["B提供资金", "融出方逆回购"], ["A取得资金", "融入方正回购"]], "edges": ["资金流向"]}, {"label": "质押券安排", "nodes": [["A提供合格券", "按规则质押"], ["B融资保护", "不等同普通买券"]], "edges": ["质押支持"]}]}, {"label": "到期", "rows": [{"label": "按约支付本息", "nodes": [["A融资方", "偿还本息"], ["B出资方", "收回资金利息"]], "edges": ["资金返回"]}]}]}</script>
+</div>
+<style>
+#finance-c5-repo-directions .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-repo-directions .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-repo-directions .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-repo-directions .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-repo-directions .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-repo-directions');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-repo-directions-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-repo-directions-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>首期</h4><div><svg aria-label="A正回购B逆回购" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>A正回购B逆回购</title><desc>B提供资金，融出方逆回购；A取得资金，融入方正回购。资金流向</desc><defs><marker id="print-05-03-1-0-arrow-c5-repo-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">A正回购B逆回购</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">B提供资金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">融出方逆回购</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">A取得资金</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">融入方正回购</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-1-0-arrow-c5-repo-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">资金流向</text></svg><svg aria-label="质押券安排" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>质押券安排</title><desc>A提供合格券，按规则质押；B融资保护，不等同普通买券。质押支持</desc><defs><marker id="print-05-03-1-0-arrow-c5-repo-directions-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">质押券安排</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A提供合格券</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规则质押</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">B融资保护</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">不等同普通买券</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-1-0-arrow-c5-repo-directions-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">质押支持</text></svg></div></div><div class="diagram-print-state"><h4>到期</h4><div><svg aria-label="按约支付本息" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>按约支付本息</title><desc>A融资方，偿还本息；B出资方，收回资金利息。资金返回</desc><defs><marker id="print-05-03-1-1-arrow-c5-repo-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">按约支付本息</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A融资方</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">偿还本息</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">B出资方</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收回资金利息</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-1-1-arrow-c5-repo-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">资金返回</text></svg></div></div></div></figure>
+<p>例：A持债券，向B借100万元，约定7天后返还本金及利息。A正回购融资，B逆回购出资。按本例假设年利率3%、计息7天、365天基准：利息=100万×3%×7/365≈575.34元，到期资金约1000575.34元。<strong>真实品种的日计数、实际占款天数、费用要看规则，不能一概只用品种名称中的“7”。</strong></p>
+<p>央行逆回购是央行融出资金、市场获得流动性；央行正回购是央行融入资金、市场资金被回收。这和你站在A公司视角判断，是同一套方向规则。</p>
+<p>正回购不是融资方永远获利，逆回购也不意味着零风险。风险包括对手履约、质押品不足、流动性、操作等，视产品机制而定。</p></section><section class="lesson" id="c5s3-part-04"><h3>教材354—355页：四类报价，能看到不等于能点成交<span class="level use">会用＋会认</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材报价</th>
+<th>对象及目的</th>
+<th>能否直接确认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公开报价</td>
+<td>面向市场表达意向</td>
+<td>不能仅凭意向直接成交</td>
+</tr>
+<tr>
+<td>对话报价</td>
+<td>向特定对手提出交易条件</td>
+<td>对手按条件确认可成交</td>
+</tr>
+<tr>
+<td>双边报价</td>
+<td>同时报买价、卖价与数量等</td>
+<td>按相应方式点击确认</td>
+</tr>
+<tr>
+<td>小额报价</td>
+<td>约定数量和对手范围的单向撮合</td>
+<td>符合范围可点击确认</td>
+</tr>
+</tbody>
+</table></div>
+<p>意向报价帮助找对手，实价或要约报价承担更具体的交易含义。<strong>报价、接受报价、成交是不同节点。</strong>公开报价里出现债券代码与价格，并不自动证明你的账户已经成交。</p>
+<p>做市双边报价中的买价，是报价方愿意从你手中买券的价格；卖价，是报价方愿意把券卖给你的价格。例：买价99、卖价100，你买券通常面对100，你卖券通常面对99，不能站反。</p>
+<figure class="diagram" data-diagram="c5-dealer-quotes"><figcaption class="figure-label">SVG · 买价卖价从报价方看</figcaption><div class="diagram-interactive"><div id="finance-c5-dealer-quotes">
+<h3>买价卖价从报价方看</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">你买券</button><button aria-pressed="false" class="btn" type="button">你卖券</button></div>
+<div data-diagrams=""><svg aria-label="做市商买99卖100" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>做市商买99卖100</title><desc>做市商卖价100，愿意出售券；你支付100，买入债券。你买对方卖</desc><defs><marker id="arrow-c5-dealer-quotes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">做市商买99卖100</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">做市商卖价100</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">愿意出售券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">你支付100</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">买入债券</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c5-dealer-quotes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">你买对方卖</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">你买券</div>
+<script data-config="" type="application/json">{"heading": "买价卖价从报价方看", "states": [{"label": "你买券", "rows": [{"label": "做市商买99卖100", "nodes": [["做市商卖价100", "愿意出售券"], ["你支付100", "买入债券"]], "edges": ["你买对方卖"]}]}, {"label": "你卖券", "rows": [{"label": "同一组报价", "nodes": [["你卖出债券", "收取99"], ["做市商买价99", "愿意收券"]], "edges": ["你卖对方买"]}]}]}</script>
+</div>
+<style>
+#finance-c5-dealer-quotes .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-dealer-quotes .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-dealer-quotes .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-dealer-quotes .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-dealer-quotes .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-dealer-quotes');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-dealer-quotes-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-dealer-quotes-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>你买券</h4><div><svg aria-label="做市商买99卖100" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>做市商买99卖100</title><desc>做市商卖价100，愿意出售券；你支付100，买入债券。你买对方卖</desc><defs><marker id="print-05-03-2-0-arrow-c5-dealer-quotes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">做市商买99卖100</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">做市商卖价100</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">愿意出售券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">你支付100</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">买入债券</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-2-0-arrow-c5-dealer-quotes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">你买对方卖</text></svg></div></div><div class="diagram-print-state"><h4>你卖券</h4><div><svg aria-label="同一组报价" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>同一组报价</title><desc>你卖出债券，收取99；做市商买价99，愿意收券。你卖对方买</desc><defs><marker id="print-05-03-2-1-arrow-c5-dealer-quotes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">同一组报价</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">你卖出债券</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">收取99</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">做市商买价99</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">愿意收券</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-2-1-arrow-c5-dealer-quotes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">你卖对方买</text></svg></div></div></div></figure>
+<p>报价要素包括方向、券种、数量、净价或全价、收益率、应计利息、结算速度及账户等。对话报价指定对手，公开意向面向市场。对剩余数量、撤销、是否允许修改等限制，要按该报价类型与系统规则判断。</p>
+<p>教材后面369页又使用询价、点击成交及意向、做市、限价等名称，是不同版本与方式的说明，不能凭名称不同就把它们当完全互斥的四个市场。</p></section><section class="lesson" id="c5s3-part-05"><h3>教材355—357页：开户、交易、清算、交割、登记托管<span class="level use">会用</span></h3>
+<p>开户与协议：确认身份、权利义务、账户和交易授权。有效委托经券商申报，按相应交易机制成交。教材卫星传输、口头报唱、板牌是历史系统例子，会理解功能即可。</p>
+<p>价格优先、同价时间优先是匹配成交的重要规则：买方价格高优先，卖方价格低优先。客户委托优先还涉及经纪与自营处理义务，不能替代交易所不同交易方式的全部匹配规则。</p>
+<p>清算回答“应交多少券、多少款”；交收回答“实际完成券款交付”。净额结算可将符合条件的买卖相互抵销；逐笔全额结算按每笔完成。<strong>清算不等于已经实际拿到钱，成交不等于结算无风险。</strong></p>
+<figure class="diagram" data-diagram="c5-clearing-settlement"><figcaption class="figure-label">SVG · 清算算义务，交收完成券款转移</figcaption><div class="diagram-interactive"><div id="finance-c5-clearing-settlement">
+<h3>清算算义务，交收完成券款转移</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">先算后交</button><button aria-pressed="false" class="btn" type="button">券款对付</button></div>
+<div data-diagrams=""><svg aria-label="交易后" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>交易后</title><desc>成交记录，有了交易合同；清算，确定应交券款；交收，实际完成转移。核算；完成支付</desc><defs><marker id="arrow-c5-clearing-settlement-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">交易后</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">成交记录</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">有了交易合同</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">清算</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">确定应交券款</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">交收</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">实际完成转移</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c5-clearing-settlement-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">核算</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c5-clearing-settlement-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">完成支付</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">先算后交</div>
+<script data-config="" type="application/json">{"heading": "清算算义务，交收完成券款转移", "states": [{"label": "先算后交", "rows": [{"label": "交易后", "nodes": [["成交记录", "有了交易合同"], ["清算", "确定应交券款"], ["交收", "实际完成转移"]], "edges": ["核算", "完成支付"]}]}, {"label": "券款对付", "rows": [{"label": "DVP关联交收", "nodes": [["交付证券", "按机制交割"], ["交付资金", "与券关联完成"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c5-clearing-settlement .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-clearing-settlement .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-clearing-settlement .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-clearing-settlement .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-clearing-settlement .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-clearing-settlement');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-clearing-settlement-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-clearing-settlement-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>先算后交</h4><div><svg aria-label="交易后" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>交易后</title><desc>成交记录，有了交易合同；清算，确定应交券款；交收，实际完成转移。核算；完成支付</desc><defs><marker id="print-05-03-3-0-arrow-c5-clearing-settlement-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">交易后</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">成交记录</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">有了交易合同</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">清算</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">确定应交券款</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">交收</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">实际完成转移</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-03-3-0-arrow-c5-clearing-settlement-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">核算</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-03-3-0-arrow-c5-clearing-settlement-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">完成支付</text></svg></div></div><div class="diagram-print-state"><h4>券款对付</h4><div><svg aria-label="DVP关联交收" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>DVP关联交收</title><desc>交付证券，按机制交割；交付资金，与券关联完成。</desc><defs><marker id="print-05-03-3-1-arrow-c5-clearing-settlement-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">DVP关联交收</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">交付证券</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按机制交割</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">交付资金</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">与券关联完成</text></svg></div></div></div></figure>
+<p>教材“债券都当日交割”不应无条件使用。<strong>交易可当天买卖（T+0回转）与最终资金交收哪天完成是两个问题。</strong>具体交收日、结算机制由品种、交易方式、登记结算规则决定。</p>
+<p>登记建立维护持有人名册，记录证券要素和权利；托管记录和管理持券；付息支付利息；兑付偿还本金。登记结算机构不是债券发行人的无条件代偿人。</p>
+<p>兑付可以到期、提前、分期、以条款约定转换等方式完成；股票转换不是简单等同现金还本。债券托管量与存续余额有关，<strong>不是一年累计成交量</strong>，同一券可反复买卖，使成交额远大于余额。</p></section><section class="lesson" id="c5s3-part-06"><h3>教材357—359页：评级不是投资推荐，主体和债项分别看<span class="level use">会用＋会认</span></h3>
+<p>信用评级评估按期还本付息的能力、意愿和相关信用风险，并用等级表达意见。主体评级关注发行人的整体信用；债项评级关注某只证券，还看担保、清偿顺序和交易结构。<strong>同一发行人，不同债项可能评级不同。</strong></p>
+<figure class="diagram" data-diagram="c5-rating-subject"><figcaption class="figure-label">SVG · 主体看整体，债项还看该只证券条件</figcaption><div class="diagram-interactive"><div id="finance-c5-rating-subject">
+<h3>主体看整体，债项还看该只证券条件</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">同一公司两只债</button></div>
+<div data-diagrams=""><svg aria-label="信用对象不同" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>信用对象不同</title><desc>公司主体，整体偿债信用；有担保普通债，相应债项信用；无担保次级债，相应债项信用。；</desc><defs><marker id="arrow-c5-rating-subject-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">信用对象不同</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">公司主体</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">整体偿债信用</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">有担保普通债</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">相应债项信用</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">无担保次级债</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">相应债项信用</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">同一公司两只债</div>
+<script data-config="" type="application/json">{"heading": "主体看整体，债项还看该只证券条件", "states": [{"label": "同一公司两只债", "rows": [{"label": "信用对象不同", "nodes": [["公司主体", "整体偿债信用"], ["有担保普通债", "相应债项信用"], ["无担保次级债", "相应债项信用"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c5-rating-subject .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-rating-subject .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-rating-subject .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-rating-subject .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-rating-subject .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-rating-subject');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-rating-subject-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-rating-subject-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>同一公司两只债</h4><div><svg aria-label="信用对象不同" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>信用对象不同</title><desc>公司主体，整体偿债信用；有担保普通债，相应债项信用；无担保次级债，相应债项信用。；</desc><defs><marker id="print-05-03-4-0-arrow-c5-rating-subject-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">信用对象不同</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">公司主体</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">整体偿债信用</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">有担保普通债</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">相应债项信用</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">无担保次级债</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">相应债项信用</text></svg></div></div></div></figure>
+<p>评级不告诉你股价或债价明天涨不涨，不保证流动性，不证明一定值得买。AAA也不是永远无违约风险，更不是官方保本承诺。</p>
+<p>证券市场评级机构向证监会备案，遵守独立、客观、公正、审慎原则；银行间评级看相应人民银行备案与自律安排。<strong>机构备案与每只债券是否强制评级，是两件事。</strong>本章已说明部分公司债和银行间工具取消强制评级，不能沿用“发行一定要评级”的泛化说法。</p>
+<p>备案材料可以按身份股权、人员专业能力、治理独立性、诚信与业务制度几类记。教材鼓励性条件里列实收资本和净资产超过2000万元、从业人员数量与经验等：会识别是对评级机构的条件，不是债券发行金额门槛，也别把“鼓励具备”改写为所有情况的唯一强制许可条件。</p>
+<p>讲这些，是帮助你判断谁评级、谁监管、哪些责任不能替代。第一轮不用背每份备案表附件的顺序。</p></section><section class="lesson" id="c5s3-part-07"><h3>教材359—362页：评级程序，谁调查、谁审核、谁定等级<span class="level use">会用＋会认</span></h3>
+<p>程序主线：评级准备；尽调；写报告；内部审核；等级评定；告知与复评；公布；归档；跟踪。评级不是项目组一个人看财务后直接对外发布一个等级。</p>
+<figure class="diagram" data-diagram="c5-rating-process"><figcaption class="figure-label">SVG · 项目组建议不等于已经公开评级</figcaption><div class="diagram-interactive"><div id="finance-c5-rating-process">
+<h3>项目组建议不等于已经公开评级</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">调查审核</button><button aria-pressed="false" class="btn" type="button">决定跟踪</button></div>
+<div data-diagrams=""><svg aria-label="评级前半段" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>评级前半段</title><desc>准备与尽调，收集核查信息；报告与建议，项目组意见；三级内部审核，项目部门公司。形成；审核</desc><defs><marker id="arrow-c5-rating-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">评级前半段</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">准备与尽调</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">收集核查信息</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">报告与建议</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">项目组意见</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">三级内部审核</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">项目部门公司</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c5-rating-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">形成</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c5-rating-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">审核</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">调查审核</div>
+<script data-config="" type="application/json">{"heading": "项目组建议不等于已经公开评级", "states": [{"label": "调查审核", "rows": [{"label": "评级前半段", "nodes": [["准备与尽调", "收集核查信息"], ["报告与建议", "项目组意见"], ["三级内部审核", "项目部门公司"]], "edges": ["形成", "审核"]}]}, {"label": "决定跟踪", "rows": [{"label": "评级后半段", "nodes": [["信用评审委员会", "依程序决定等级"], ["告知复评公布", "按规定披露"], ["归档跟踪", "持续观察变化"]], "edges": ["对外程序", "存续管理"]}]}]}</script>
+</div>
+<style>
+#finance-c5-rating-process .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-rating-process .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-rating-process .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-rating-process .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-rating-process .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-rating-process');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-rating-process-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-rating-process-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>调查审核</h4><div><svg aria-label="评级前半段" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>评级前半段</title><desc>准备与尽调，收集核查信息；报告与建议，项目组意见；三级内部审核，项目部门公司。形成；审核</desc><defs><marker id="print-05-03-5-0-arrow-c5-rating-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">评级前半段</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">准备与尽调</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">收集核查信息</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">报告与建议</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">项目组意见</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">三级内部审核</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">项目部门公司</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-03-5-0-arrow-c5-rating-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">形成</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-03-5-0-arrow-c5-rating-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">审核</text></svg></div></div><div class="diagram-print-state"><h4>决定跟踪</h4><div><svg aria-label="评级后半段" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>评级后半段</title><desc>信用评审委员会，依程序决定等级；告知复评公布，按规定披露；归档跟踪，持续观察变化。对外程序；存续管理</desc><defs><marker id="print-05-03-5-1-arrow-c5-rating-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">评级后半段</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">信用评审委员会</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">依程序决定等级</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">告知复评公布</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">按规定披露</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">归档跟踪</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">持续观察变化</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-05-03-5-1-arrow-c5-rating-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">对外程序</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-05-03-5-1-arrow-c5-rating-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">存续管理</text></svg></div></div></div></figure>
+<p>项目组调查并建议等级；内部三级审核是项目组初审、部门再审、公司三审；信用评审委员会按程序投票决定等级。三级审核与委员会评定，是先后不同环节。</p>
+<p>专业事项履行特别注意义务，其他事项普通注意义务；引用其他专业机构意见仍要审慎核查、排除职业怀疑后才能合理信赖。<strong>两家机构都涉及同一事项，不等于一家履责后另一家就免责任。</strong></p>
+<details class="reference-section">
+<summary>第二轮查表：教材2023执业规范的程序数字</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>教材要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目组</td>
+<td>至少2名分析人员，组长有相应登记与3年以上评级经验</td>
+</tr>
+<tr>
+<td>内部审核</td>
+<td>项目、部门、公司三级</td>
+</tr>
+<tr>
+<td>评审委员会参会</td>
+<td>不少于5人</td>
+</tr>
+<tr>
+<td>等级有效同意票</td>
+<td>2/3以上参会委员同意；不能只用普通过半</td>
+</tr>
+<tr>
+<td>复评申请</td>
+<td>仅限一次，依协议期限和补充材料要求</td>
+</tr>
+<tr>
+<td>复评结果</td>
+<td>最终评级结果，由委员会确定</td>
+</tr>
+<tr>
+<td>档案</td>
+<td>满足相应协议期满、存续期满、违约后5年要求，且不得少于10年</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>5人参会，2/3约3.33人，要达到这一比例至少4票；3票仅60%，不够。复评是按程序提供补充材料再评，不是发行人不喜欢低等级就要求评级机构自动上调。</p>
+<p>多家被委托评级要按规定公布，不能只披露最好的那家而隐藏不利评级。报告要充分揭示风险、数据有限等局限，区分个体信用与外部支持，不能把政府背景当无证据的万能支持。</p>
+<p>档案保存能证明判断依据和工作过程，保密材料单独保管。不是评级公布后可以马上删除工作底稿。</p></section><section class="lesson" id="c5s3-part-08"><h3>教材363—365页：跟踪评级、终止和撤销，风险会变化<span class="level use">会用＋会认</span></h3>
+<p>定期跟踪按安排周期检查变化，不定期跟踪由重大事项触发。<strong>首次评级高不意味着以后固定不变。</strong>跟踪报告应重点说明经营、现金流、担保、结构等变化，不只是重复首评文字。</p>
+<p>企业重大债务展期、未按期偿还、重大担保、资产冻结、经营停顿、亏损、重组等，可能影响信用；资产支持产品的现金流减少、资产损失、收益未按计划分配、参与方变更等，也可能触发分析。重大事项不是只包括“已正式破产”。</p>
+<details class="reference-section">
+<summary>第二轮查表：教材跟踪与披露时间</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情形</th>
+<th>教材口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>超过1年证券定期跟踪</td>
+<td>每年至少一次，年报披露后3个月内披露</td>
+</tr>
+<tr>
+<td>一年期内证券</td>
+<td>正式发行后第7个月，另有规定除外</td>
+</tr>
+<tr>
+<td>未用已公布最新年报的当年发行</td>
+<td>年报后3个月内或发行后45个工作日内按要求出具</td>
+</tr>
+<tr>
+<td>不定期结果变化</td>
+<td>报告出具后第2个工作日公布结果</td>
+</tr>
+<tr>
+<td>不定期结果未变化</td>
+<td>报告出具后7个工作日内发布报告</td>
+</tr>
+<tr>
+<td>ABS现金流触发例</td>
+<td>预计基础资产现金流比预期减少20%以上</td>
+</tr>
+<tr>
+<td>ABS损失触发例</td>
+<td>损失超过未偿还本金余额10%以上的教材表述</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>按题目对象使用时限，不把第7个月移植给所有不足7个月的品种；特定产品另有要求时按规定。结果没变也有披露义务，不是“不降级就不用报告”。</p>
+<p>关键材料拒不提供或存在严重失实、不正当干扰、对象解散破产、拒付跟踪费用、重组转股等使对象不存续，可能终止或撤销评级。<strong>评级终止不是发行人债务自动消失。</strong>终止应按要求说明原因、公布最近等级及有效期，不能把过期等级继续当更新后的现行意见。</p></section><section class="lesson" id="c5s3-part-09"><h3>教材366—367页：评级符号及六组分析内容<span class="level use">会认＋会用</span></h3>
+<p>教材中长期等级三等九级，顺序：AAA、AA、A、BBB、BB、B、CCC、CC、C。大方向是越往后，偿债能力与风险承受能力越弱。不能把AA误看为高于AAA。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材等级</th>
+<th>核心识别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AAA</td>
+<td>偿债能力极强，违约风险极低</td>
+</tr>
+<tr>
+<td>AA、A</td>
+<td>很强／较强，对不利环境敏感程度增加</td>
+</tr>
+<tr>
+<td>BBB</td>
+<td>偿债能力一般，受不利环境影响较大</td>
+</tr>
+<tr>
+<td>BB、B</td>
+<td>较弱或较依赖良好环境，风险较高／很高</td>
+</tr>
+<tr>
+<td>CCC、CC、C</td>
+<td>极度依赖良好环境、保护小、不能偿债等较差状态</td>
+</tr>
+</tbody>
+</table></div>
+<p>教材符号微调：AAA和CCC及以下不加“+”“-”；其余相应等级可微调。不同机构、不同国家的标识与定义未必完全相同，<strong>C在本表的含义不能直接替代全球所有机构的违约标识</strong>。</p>
+<p>短期四等六级：A-1、A-2、A-3、B、C、D，依次较弱，D不能按期还本付息，本表不微调。短期A-1中的“-1”是完整等级名称，不是给长期A做减号微调。</p>
+<p>评级分析的六组内容：企业素质与治理；经营与周转能力；获利能力；偿债能力与现金流；履约记录；发展与抗风险前景。利润、现金流、资产负债率各回答不同问题：<strong>账上利润很高，不保证还款时现金足够。</strong></p>
+<p>讲完整六组，是为了看到多选题某项属于哪个维度；无需第一轮手算本节提到的每一种周转比率。</p></section><section class="lesson" id="c5s3-part-10"><h3>教材367—369页：银行间、交易所、柜台三个市场<span class="level use">会用＋会认</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>市场</th>
+<th>主要理解</th>
+<th>常见服务与机构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>银行间</td>
+<td>以机构债券投资与资金管理为主的场外市场</td>
+<td>外汇交易中心交易服务；中央结算、上海清算等登记托管结算</td>
+</tr>
+<tr>
+<td>交易所</td>
+<td>按交易所规则组织多种债券交易</td>
+<td>券商等参与；中国结算相应登记结算</td>
+</tr>
+<tr>
+<td>商业银行柜台</td>
+<td>通过合格银行柜台及电子渠道提供债券业务</td>
+<td>相应账户、报价、托管结算服务</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>银行间不是只有银行，交易所债券也不是只有普通散户。</strong>主要投资者结构与法律资格要分开；机构同样会在交易所交易。</p>
+<p>教材2024发行79.3万亿元、银行间70.4万亿元等，主要用于说明市场规模。发行、现券成交、回购成交、托管余额的统计口径不同，不因一个数字最大就推断它是余额。</p>
+<p><strong>教材368页把“可卖现券数量按标准券折算”写成一般规则，混用了回购概念。</strong>现券卖出要看可用债券余额等；标准券是有关质押回购机制中将可质押券折算后用于融资额度的单位，不是所有现券持券数必须先按折算率打折才能卖。</p>
+<p>例：持有面值100万元合格券，标准券折算率0.8，在本例简化机制中可折80万元标准券；这说明相应回购融资能力，不意味着你只拥有80万元债券或只能出售80万元现券。</p>
+<p><strong>教材柜台“仅个人、仅现券”的概括已过时。</strong>2024年实施的通知把符合条件个人、企业、金融机构纳入，并明确与金融机构的柜台回购、债券借贷、衍生品等安排，仍有适当性条件。<a href="https://www.pbc.gov.cn/chubanwu/114566/114579/5358353/5358360/2024052114394886504.pdf" rel="noopener" target="_blank">人民银行正式通知，文告14—15页</a></p>
+<p>柜台购买储蓄国债与柜台买卖流通债券是不同业务。你在银行买的债券，不等于银行存款，也不等于银行自身保证支付。</p></section><section class="lesson" id="c5s3-part-11"><h3>教材369—371页：交易方式、托管、结算机构不要串错<span class="level use">会用</span></h3>
+<p>询价是双方协商条件后确认；点击成交是按具名、匿名要约或限价匹配等机制成交。银行间现券常见净价报价、全价结算；资产支持证券的本金因素、交易所部分产品的全价申报有例外，不能一句“债券全部净价”解决所有题。</p>
+<p>教材询价最低10万元面值、点击最低100万元面值，最小变化10万元等，是所引规则的对象口径。<span class="level recognize">会认</span>看到“最低”和“最小变化”要区分，不应移植给所有交易所或柜台产品。</p>
+<p>交易所不只一种撮合方式。2022年上交所债券交易规则将旧竞价、报价、指定对手方、询价等对应为匹配、点击、协商、询价成交，并列竞买方式；不同产品适用方式不同。<strong>教材旧固定收益平台描述不要当作唯一现行交易架构。</strong><a href="https://www.sse.com.cn/lawandrules/sselawsrules2025/bond/trading/currency/c/c_20250604_10780834.shtml" rel="noopener" target="_blank">上交所正式规则及适用安排</a></p>
+<p>托管要分别看：机构直接开立账户或通过结算代理；柜台常见一级总账户、二级客户账户；交易所中国结算记录证券权益、结算参与人与客户之间还有结算关系。<strong>一级托管与二级结算，是两条不同层次分类，不要把“二级结算”改写成中国结算不记录客户权利。</strong></p>
+<figure class="diagram" data-diagram="c5-custody-map"><figcaption class="figure-label">SVG · 交易服务、登记托管结算不混成一家</figcaption><div class="diagram-interactive"><div id="finance-c5-custody-map">
+<h3>交易服务、登记托管结算不混成一家</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">银行间</button><button aria-pressed="false" class="btn" type="button">交易所</button><button aria-pressed="false" class="btn" type="button">柜台</button></div>
+<div data-diagrams=""><svg aria-label="按品种安排" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>按品种安排</title><desc>外汇交易中心，交易服务；中央结算上海清算，各自托管结算。</desc><defs><marker id="arrow-c5-custody-map-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">按品种安排</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">外汇交易中心</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">交易服务</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">中央结算上海清算</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">各自托管结算</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">银行间</div>
+<script data-config="" type="application/json">{"heading": "交易服务、登记托管结算不混成一家", "states": [{"label": "银行间", "rows": [{"label": "按品种安排", "nodes": [["外汇交易中心", "交易服务"], ["中央结算上海清算", "各自托管结算"]], "edges": [""], "noArrows": true}]}, {"label": "交易所", "rows": [{"label": "相应参与层次", "nodes": [["中国结算", "证券登记结算"], ["结算参与人", "与客户相应结算"]], "edges": ["结算关系"]}]}, {"label": "柜台", "rows": [{"label": "托管层次", "nodes": [["一级总账户", "登记托管机构"], ["二级客户账户", "柜台开办机构"]], "edges": ["分账记录"]}]}]}</script>
+</div>
+<style>
+#finance-c5-custody-map .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-custody-map .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-custody-map .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-custody-map .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-custody-map .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-custody-map');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-custody-map-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-custody-map-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>银行间</h4><div><svg aria-label="按品种安排" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>按品种安排</title><desc>外汇交易中心，交易服务；中央结算上海清算，各自托管结算。</desc><defs><marker id="print-05-03-6-0-arrow-c5-custody-map-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">按品种安排</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">外汇交易中心</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">交易服务</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">中央结算上海清算</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">各自托管结算</text></svg></div></div><div class="diagram-print-state"><h4>交易所</h4><div><svg aria-label="相应参与层次" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>相应参与层次</title><desc>中国结算，证券登记结算；结算参与人，与客户相应结算。结算关系</desc><defs><marker id="print-05-03-6-1-arrow-c5-custody-map-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">相应参与层次</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">中国结算</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">证券登记结算</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">结算参与人</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">与客户相应结算</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-6-1-arrow-c5-custody-map-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">结算关系</text></svg></div></div><div class="diagram-print-state"><h4>柜台</h4><div><svg aria-label="托管层次" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>托管层次</title><desc>一级总账户，登记托管机构；二级客户账户，柜台开办机构。分账记录</desc><defs><marker id="print-05-03-6-2-arrow-c5-custody-map-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">托管层次</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">一级总账户</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">登记托管机构</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">二级客户账户</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">柜台开办机构</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-6-2-arrow-c5-custody-map-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">分账记录</text></svg></div></div></div></figure>
+<p>券款对付DVP使证券交付与资金交付关联完成，降低本金交收风险。实时逐笔全额与中央对手方多边净额，是不同结算机制；具体产品还可能有非担保、逐笔结算等安排，不能说交易所所有债券都由中央对手方担保。</p>
+<p>外汇交易中心是交易服务机构；中央结算、上海清算、中国结算承担各自登记托管结算业务，具体分工按券种与市场确定。教材371页把债券登记机构的名册称“股东名册”，应理解为<strong>债券持有人名册</strong>，持债不因此成为股东。</p></section><section class="lesson" id="c5s3-part-12"><h3>教材371—374页：转托管与债券通，所有者和方向先确定<span class="level use">会用＋背景</span></h3>
+<p>转托管是同一投资者把债券从自己一个托管账户转到另一个托管账户。<strong>所有者没换，不是买卖成交，也不是债券提前兑付。</strong>能否跨市场、可用日期、费用与指令时间须满足产品和市场安排。</p>
+<p>教材列国债、企业债跨市场以及其他产品“都不能”、传真录入时间、0.005%或0.01%收费等，是带制度与时期条件的说明，不能当不断变化的互联互通安排和所有产品的永恒清单。第一轮先掌握转移的是托管位置，不是债权主体；旧操作时限和费用只作查表背景。</p>
+<p>债券通北向：境外投资者通过香港与内地基础设施连接投资内地债券；南向：符合条件境内投资者通过连接投资香港债券市场相应标的。<strong>不是发行人把债券向北运送，而是按投资方向命名。</strong></p>
+<figure class="diagram" data-diagram="c5-bond-connect"><figcaption class="figure-label">SVG · 债券通按投资方向命名</figcaption><div class="diagram-interactive"><div id="finance-c5-bond-connect">
+<h3>债券通按投资方向命名</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">北向</button><button aria-pressed="false" class="btn" type="button">南向</button></div>
+<div data-diagrams=""><svg aria-label="境外投资内地" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>境外投资内地</title><desc>境外投资者，香港侧通道；内地债券市场，按规定投资。北向</desc><defs><marker id="arrow-c5-bond-connect-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境外投资内地</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">香港侧通道</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">内地债券市场</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按规定投资</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c5-bond-connect-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">北向</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">北向</div>
+<script data-config="" type="application/json">{"heading": "债券通按投资方向命名", "states": [{"label": "北向", "rows": [{"label": "境外投资内地", "nodes": [["境外投资者", "香港侧通道"], ["内地债券市场", "按规定投资"]], "edges": ["北向"]}]}, {"label": "南向", "rows": [{"label": "境内投资香港", "nodes": [["境内合格投资者", "内地侧通道"], ["香港债券市场", "按规定投资"]], "edges": ["南向"]}]}]}</script>
+</div>
+<style>
+#finance-c5-bond-connect .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c5-bond-connect .finance-flow text {fill:currentColor;font:inherit}
+#finance-c5-bond-connect .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c5-bond-connect .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c5-bond-connect .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c5-bond-connect');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c5-bond-connect-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c5-bond-connect-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>北向</h4><div><svg aria-label="境外投资内地" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>境外投资内地</title><desc>境外投资者，香港侧通道；内地债券市场，按规定投资。北向</desc><defs><marker id="print-05-03-7-0-arrow-c5-bond-connect-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境外投资内地</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">香港侧通道</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">内地债券市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按规定投资</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-7-0-arrow-c5-bond-connect-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">北向</text></svg></div></div><div class="diagram-print-state"><h4>南向</h4><div><svg aria-label="境内投资香港" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>境内投资香港</title><desc>境内合格投资者，内地侧通道；香港债券市场，按规定投资。南向</desc><defs><marker id="print-05-03-7-1-arrow-c5-bond-connect-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境内投资香港</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境内合格投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">内地侧通道</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">香港债券市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按规定投资</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-05-03-7-1-arrow-c5-bond-connect-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">南向</text></svg></div></div></div></figure>
+<p>境外机构直接入市、QFII/RQFII、互联互通等是不同参与渠道；熊猫债则是境外机构在境内发债，不能与境外投资者在境内买债混为一个业务。指数纳入说明国际投资便利度与配置需求，不意味着某只被纳入债券价格保证上涨。</p>
+<p>教材列2016扩大入市、2017债券通、后续流程和资金管理便利化，目的是说明市场开放与互联互通。税收优惠“至2025年末”、2024年境外持有量等有明确年份，不可默认为现在继续同一截止日期或相同余额。</p>
+<p><span class="level context">背景</span>讲开放沿革，是让你理解渠道、机构与方向为什么不同；第一轮不需要背每年所有公告日期与境外机构数量。</p></section><section class="lesson" id="c5s3-part-13"><h3>本节练习：每题先说动作，再说名称</h3>
+<ol>
+<li>A用债券质押取得B的资金，谁正回购，谁逆回购？</li>
+<li>央行逆回购从央行视角是融入还是融出资金？</li>
+<li>质押式回购能否直接等同一次普通现券所有权出售？</li>
+<li>远期执行价已约定，是否就没有价格风险？</li>
+<li>市场上公开意向报价出现价格，是否自动成交？</li>
+<li>做市商买价99、卖价100，你希望买债，通常面对哪一价？</li>
+<li>当日买入可当日卖出，能否据此证明最终资金当日已完成交收？</li>
+<li>评级机构给AAA，是否保证不会亏损或一定有流动性？</li>
+<li>同一公司两只债券，担保、清偿顺序不同，债项评级是否必然一样？</li>
+<li>5位评审委员、3票同意，是否达到教材2/3以上要求？</li>
+<li>AAA、AA、A哪个等级最高？短期A-1是否就是长期A减一档？</li>
+<li>评级终止是否代表债务注销？</li>
+<li>面值100万元质押券折算80万元标准券，是否证明只可卖80万元现券？</li>
+<li>银行柜台债券业务是否按2024通知仍只面向个人、仅有现券？</li>
+<li>把自己债券从账户甲转到账户乙，所有者没换，叫交易还是转托管？</li>
+<li>境外投资者通过香港通道买内地债券，叫北向还是南向？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li>A正回购融钱，B逆回购出钱。</li>
+<li>融出，向市场提供相应流动性。</li>
+<li>不能，质押安排与买断式回购的所有权变化不同。</li>
+<li>仍有经济价格风险和对手履约等风险。</li>
+<li>不自动；公开意向与可确认成交的要约、成交结果分别看。</li>
+<li>100，面对做市商卖价。</li>
+<li>不能，交易回转与款券交收分开。</li>
+<li>不保证，评级主要是信用风险意见。</li>
+<li>不必相同，主体与债项也不是同一个评级对象。</li>
+<li>不达；5人至少4票，3/5只有60%。</li>
+<li>AAA最高；A-1是短期完整符号，不能这样换算。</li>
+<li>不代表，评级意见停止与法定债务消失是两回事。</li>
+<li>不证明，标准券是相应回购融资机制的折算量。</li>
+<li>不是，还包括符合条件企业、金融机构及规定业务。</li>
+<li>转托管，债券的持有人不因托管地点改变而换人。</li>
+<li>北向，投资流向内地市场。</li>
+</ol>
+</div>
+</details></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="05-02_债券的发行.html">上一节 · 债券的发行</a><a href="05-04_债券估值.html">下一节 · 债券估值</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

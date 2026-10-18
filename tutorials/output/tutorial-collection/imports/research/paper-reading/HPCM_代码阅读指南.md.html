@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HPCM 代码阅读指南</title><link rel="stylesheet" href="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/paper-reading/HPCM_代码阅读指南.md · <a href="HPCM_%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E6%8C%87%E5%8D%97.md">原始 Markdown</a></p><h1 id="hpcm">HPCM 代码阅读指南</h1>
+<p>官方仓库：https://github.com/lyq133/LIC-HPCM</p>
+<p>本地位置：<code>E:\Projects\research\LIC-HPCM</code></p>
+<p>本次检查版本：<code>c271cfe2412071e7cacf4186825f1bbff4434664</code>。已拉取源码并静态检查，尚未安装依赖、下载权重或运行官方模型。以下行号对应此版本。</p>
+<h2 id="_1">先看哪个模型</h2>
+<p>先看 <code>src/models/HPCM_Base.py</code>。其中有分层编码和 CrossAttentionCell，可以对应论文中的两项主要设计。</p>
+<p><code>HPCM_Base_PhiContext.py</code> 是另一个上下文变体：其 forward_hpcm 直接将熵参数网络输出赋给 context_next，没有 Base 中的交叉注意力更新。README 也专门提到这个版本及 issue #3。阅读时不要把两个实现混起来。</p>
+<p><code>HPCM_Large.py</code> 和 <code>HPCM_1B.py</code> 暂时跳过；后者属于仓库增加的后续扩展工作。</p>
+<h2 id="_2">第一遍：从输入到输出</h2>
+<p>打开 <code>src/models/HPCM_Base.py:199</code>，看 <code>HPCM.forward</code>：</p>
+<ol>
+<li><code>y = self.g_a(x)</code>：把图像转换为潜变量。</li>
+<li><code>z = self.h_a(y)</code>：从潜变量提取超先验侧信息。</li>
+<li>得到量化的 <code>z_hat</code>，并计算其 likelihood。</li>
+<li><code>params = self.h_s(z_hat)</code>：生成后续概率估计所需的参数信息。</li>
+<li><code>forward_hpcm(y, params, ...)</code>：分层处理潜变量，得到重建潜变量及概率分布尺度。</li>
+<li><code>x_hat = self.g_s(y_hat)</code>：重建图像。</li>
+<li>返回重建图和 y、z 的 likelihood，供损失计算。</li>
+</ol>
+<p>第一次不用逐层研究卷积，只要分清 x、y、z、y_hat、x_hat 分别是什么。</p>
+<h2 id="2">第二遍：对应论文图2的分层编码</h2>
+<p>打开 <code>src/models/HPCM_Base.py:236</code>，看 <code>forward_hpcm</code>。</p>
+<ul>
+<li><code>get_s1_s2_with_mask</code>：按 mask 选择元素并重新排列成较小尺度。实现位于 <code>src/models/base.py:334</code>，不是插值缩图。</li>
+<li>S1：<code>for i in range(2)</code>，新增两个编码步骤。第一步只使用超先验提供的信息。</li>
+<li><code>recon_for_s2_s3</code>：把较小尺度的值填回较大尺度对应位置，见 <code>base.py:344</code>。</li>
+<li>S2：mask 列表使用 <code>[1:]</code>，新增三个步骤。</li>
+<li>S3：mask 列表使用 <code>[2:]</code>，新增六个步骤。</li>
+</ul>
+<p>代码注释中的 4-step、8-step 容易误导：较大尺度中有一部分已经由较小尺度编码，所以新增步骤总数为 2 + 3 + 6 = 11。</p>
+<p>重点跟踪 <code>y_hat_so_far</code>：它汇总当前已经重建的潜变量，后续步骤依赖这些已知值估计概率。这就是我们讨论的解码先后约束。</p>
+<h2 id="34">第三遍：对应图3和图4的渐进融合</h2>
+<p>打开 <code>src/models/HPCM_Base.py:136</code>，看 <code>CrossAttentionCell.forward</code>。</p>
+<ul>
+<li><code>x_t</code> 提供 Q，<code>h_prev</code> 提供 K、V。</li>
+<li><code>q @ k</code> 计算匹配分数；softmax 得到权重；权重与 V 相乘完成信息汇总。</li>
+<li>输出加上当前状态经过卷积的结果，形成新的上下文。</li>
+<li>代码先使用 <code>rearrange</code> 分窗口处理注意力，不是直接对整个潜变量网格做全局注意力。</li>
+</ul>
+<p>回到 <code>forward_hpcm</code>，寻找：</p>
+<pre><code class="language-python">params = torch.cat((context_next, y_hat_so_far), dim=1)
+context = y_spatial_prior_s1(...)
+context_next = self.attn_s1(context, context_next)
+scales, means = context.chunk(2, 1)
+</code></pre>
+<p>其中 <code>context</code> 是本步熵参数网络的输出，<code>context_next</code> 保存融合后的上下文。S2、S3有相同形式的更新。跨尺度则通过位置回填、超先验补充和 <code>context_net</code> 连接。</p>
+<h2 id="_3">最后再看训练和真实编码</h2>
+<p><code>train.py:36</code> 的 <code>RateDistortionLoss</code>：对 y 和 z 的 likelihood 计算负对数，得到估计 bpp；再加上 lambda × 255² × MSE。</p>
+<p><code>test.py:82</code> 的 <code>test</code>：加载权重并更新概率表，调用 compress 与 decompress。这里的 bpp 使用返回字节串长度计算，不是训练时的 likelihood 估计。默认测试流程把图像补齐到256的倍数，再裁回原尺寸。</p>
+<p><code>src/entropy_models/entropy_models.py:40</code> 的 <code>GGM</code>：概率估计与编码概率表相关实现。第一遍可以先跳过内部 CDF 和底层 rANS 代码。</p>
+<h2 id="_4">当前机器的运行注意点</h2>
+<p>仓库 README 标明 Python 3.8、PyTorch 1.12，并附带 Linux / CPython 3.8 的 <code>.so</code> 熵编码扩展。当前 Windows 教学环境是另一套版本，不代表官方代码已可运行。</p>
+<p>具体检查到：</p>
+<ul>
+<li><code>entropy_models.py:7</code> 在导入时就需要 <code>_CXX</code> 扩展，不能仅凭“不生成码流”便认定可以绕过所有原生依赖。</li>
+<li><code>HPCM_Base.py</code> 构造参数时指定 <code>device='cuda'</code>，<code>test.py</code> 也明确使用 CUDA。</li>
+<li>requirements.txt 包含多个深度学习框架和许多旧版依赖；正式配置环境前应梳理实际依赖，不宜直接装入现有教学环境。</li>
+</ul>
+<h2 id="_5">今天的阅读目标</h2>
+<p>只看 <code>HPCM.forward</code> 与 <code>RateDistortionLoss</code>，能回答：图像从哪里进入、潜变量如何产生、重建图如何生成、压缩码率如何参与训练。下一次再看分层 mask 和交叉注意力。无需一次读完整个仓库。</p></main><script src="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

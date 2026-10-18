@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>7.6 自定义镜像</title><link rel="stylesheet" href="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/bitahub/7.6 自定义镜像.md · <a href="7.6%20%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F.md">原始 Markdown</a></p><p>Source: https://bitahub.ustc.edu.cn/help/md/7.6%20%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F.html</p>
+<p>注意：在平台上创建镜像，常有失败，常见原因如下：</p>
+<p>引用docker hub上的镜像，尤其是大镜像，下载需要时间，也有概率出错。平台限一次编译在30分钟内完成，超时将失败，对于编译失败的镜像，并不会多次执行。</p>
+<p>引用私有镜像</p>
+<p>dockerfile中包含大量的安装命令，如从github拉取代码，常由于github不可达而失败</p>
+<p>语法错误</p>
+<p>由于平台只能上传dockerfile，所以ADD，COPY命令不可用</p>
+<p>30分钟是所有过程的总限时，拉取基础镜像、运行Dockerfile中的其他命令、推送到内网的仓库，要求在30分钟完成。同样的编译过程，再次提交，假如上一次的缓存未被清理（docker自带的机制），是可能能接着进行的。</p>
+<p>有两种比较推荐的：</p>
+<p>引用平台现有的镜像（在任务详情里可以找到具体的信息，格式如10.11.3.8:5000/user-images/xxxx），然后需要安装的软件和包，都通过镜像站点完成。这样可以减少拉取镜像、获取软件包失败的可能。尤其是你已经在平台有一个镜像了，想进行小幅修改的时候。</p>
+<p>自己编译好后，推送到国内站点（如阿里云），然后在dockerfile中直接FROM。注意，如果你的镜像很大，没及时拉取完成，也会导致镜像生成失败。</p>
+<p>=====分割线=====</p>
+<p>当用户对深度学习环境、开发库有特殊需求时，可自定义镜像。</p>
+<p>最多支持每个用户维护三个自定义镜像。在创建训练任务时，系统会根据编程语言和算法框架，优先推荐用户的自定义镜像。镜像管理页面如下图所示，用户可以进行新建镜像、删除、查看等操作。</p>
+<p>新建镜像</p>
+<p>BitaHub是通过上传Dockerfile文件，在服务器中编译镜像的方式新建镜像，在新建镜像之前需编写Dockerfile文件，文件需符合Dockerfile编码规范。点击 新建镜像 按钮进入新建镜像页面，填写必要的参数、上传Dockerfile文件，然后提交创建。当镜像处于生成中时，列表将显示“生成中”，生成完成后会显示该镜像的地址，生成的镜像将存储在平台的镜像仓库中。</p>
+<p>参数填写说明：</p>
+<p>镜像名称</p>
+<p>必填项。
+用于标识镜像的唯一ID，长度要求为1~50个字符（含），支持字母、数字及标点符号，名称不能重复。</p>
+<p>编程语言和算法框架</p>
+<p>必填项。
+选择该镜像的编程语言和算法框架信息。在创建训练任务时，系统会根据编程语言和算法框架，优先列出用户的自定义镜像。</p>
+<p>上传Dockerfile</p>
+<p>必填项。
+Dockerfile文件需符合编码规范。建议在本地环境进行编译测试，确保Dockerfile没问题后再提交。只能上传一个文件。</p>
+<p>镜像简介</p>
+<p>非必填项。
+描述该镜像的作用，最多不能超过10000个字符（含）。</p></main><script src="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

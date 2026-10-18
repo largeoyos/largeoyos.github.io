@@ -1,0 +1,65 @@
+{
+  "subjects": 11,
+  "entries": 188,
+  "pdfs": 15,
+  "chapters": 44,
+  "courses": [
+    {
+      "id": "math",
+      "title": "数学物理方法",
+      "entries": 31
+    },
+    {
+      "id": "analog",
+      "title": "模拟电子技术基础",
+      "entries": 1
+    },
+    {
+      "id": "digital",
+      "title": "数字电子技术基础",
+      "entries": 1
+    },
+    {
+      "id": "computer",
+      "title": "计算机系统",
+      "entries": 3
+    },
+    {
+      "id": "finance",
+      "title": "金融市场基础知识",
+      "entries": 36
+    },
+    {
+      "id": "linux",
+      "title": "Linux 配置与使用",
+      "entries": 1
+    },
+    {
+      "id": "compression",
+      "title": "图像与视频压缩",
+      "entries": 25
+    },
+    {
+      "id": "pytorch",
+      "title": "PyTorch 与学习式压缩",
+      "entries": 36
+    },
+    {
+      "id": "vision",
+      "title": "计算机视觉研究方向",
+      "entries": 37
+    },
+    {
+      "id": "paper-methods",
+      "title": "科研论文阅读方法",
+      "entries": 4
+    },
+    {
+      "id": "practice",
+      "title": "编码实验与科研环境",
+      "entries": 13
+    }
+  ],
+  "version": "4.5.0",
+  "published": "2026-10-18"
+}

@@ -1,0 +1,1179 @@
+{
+  "date": "2026-10-16",
+  "canonical_markdown": "DCVC_讲解全文.md",
+  "html": "DCVC_讲解全文.html",
+  "source_count": 20,
+  "chat_complete_replies": 3,
+  "chat_context_and_supplements": 10,
+  "saved_lectures": 4,
+  "reference_appendices": 1,
+  "new_complete_code_lectures": 2,
+  "audits": [
+    {
+      "id": "chat-41",
+      "name": "准备说明01.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "e2192420ccc1c158d7f403340ca8f8cff46f6ea22a371e83b9c896d36d5a7a7e",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-41",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-131",
+      "name": "补充说明01.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "0aa0d23a549917ff039fb4af00a370a389848137b08b8dbf3ab7534945eb17c0",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-131",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-187",
+      "name": "补充说明02.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "a9895d73a770ddf2984656d32d2649749ddf18d880ecacad3e24d7dc210e6ed4",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-187",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-199",
+      "name": "聊天讲解01_标题摘要与引言.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "238b25e44be4d8bf4743f458a50d9c28f49654c5a7e6400a2a696b2f6c487586",
+      "raw_structure": {
+        "paragraphs": 77,
+        "lists": 9,
+        "table_rows": 10,
+        "display_math": 12,
+        "inline_math": 19,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 77,
+        "lists": 9,
+        "table_rows": 10,
+        "display_math": 12,
+        "inline_math": 19,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-199",
+        "citations": 2,
+        "local_links": 2,
+        "heading_levels": 4
+      }
+    },
+    {
+      "id": "chat-257",
+      "name": "补充说明03.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "a870fda7b4e09f110bd7e926287b8f6f443caf9c75d1b72939e0f3bb28001c81",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-257",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-285",
+      "name": "聊天讲解02_Figure1与贡献.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "d7f38ba058a5c6ec080e8c484000609a8e2bfdb5e81549f1ade4f4e45a54bbd2",
+      "raw_structure": {
+        "paragraphs": 70,
+        "lists": 13,
+        "table_rows": 17,
+        "display_math": 4,
+        "inline_math": 13,
+        "images": 1
+      },
+      "output_structure": {
+        "paragraphs": 70,
+        "lists": 13,
+        "table_rows": 17,
+        "display_math": 4,
+        "inline_math": 13,
+        "images": 1
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-285",
+        "citations": 1,
+        "local_links": 3,
+        "heading_levels": 4
+      }
+    },
+    {
+      "id": "chat-348",
+      "name": "补充说明04.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "994aaa6ae86af8b45013dcf4652e0b61253801d9d70044607339587dcedde79e",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-348",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-437",
+      "name": "补充说明05.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "1678130bce73bb568c280b0f29a21ecdafa4c3580359c5afadec7eea804af334",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-437",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-450",
+      "name": "补充说明06.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "877a1e2046228d493a45e8b95b96d130b532434142e1698d936721ed38d3979f",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-450",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-489",
+      "name": "补充说明07.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "b4ba3e5116a8b9318617d08749212aaa53d1cf7576e7e0ccfe05eb6581ba5e67",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-489",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-539",
+      "name": "聊天讲解03_正文与补充材料.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "c2cc3dc603e71af3ab0fca8d10edefcd49e3fd7777563920f574bf123635869a",
+      "raw_structure": {
+        "paragraphs": 186,
+        "lists": 36,
+        "table_rows": 65,
+        "display_math": 21,
+        "inline_math": 25,
+        "images": 4
+      },
+      "output_structure": {
+        "paragraphs": 186,
+        "lists": 36,
+        "table_rows": 65,
+        "display_math": 21,
+        "inline_math": 25,
+        "images": 4
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-539",
+        "citations": 2,
+        "local_links": 9,
+        "heading_levels": 16
+      }
+    },
+    {
+      "id": "chat-571",
+      "name": "代码核查说明01.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "49637f38389a55b0143f7fce6e0b98723d03dc6644f0eeb7f99607e240b10548",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-571",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "chat-610",
+      "name": "代码核查说明02.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "55af842cc24bd109cb694b019e0f663925c0b66ad1067823858067a9cdef6813",
+      "raw_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 1,
+        "lists": 0,
+        "table_rows": 0,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "chat-610",
+        "citations": 0,
+        "local_links": 0,
+        "heading_levels": 0
+      }
+    },
+    {
+      "id": "file-1",
+      "name": "DCVC_精读01_标题摘要与引言.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "8a047bfad4a4a7b08f5b8355a316a4a07de40b7310c122d74fca06e394fa850d",
+      "raw_structure": {
+        "paragraphs": 79,
+        "lists": 4,
+        "table_rows": 5,
+        "display_math": 11,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 79,
+        "lists": 4,
+        "table_rows": 5,
+        "display_math": 11,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "file-1",
+        "citations": 0,
+        "local_links": 3,
+        "heading_levels": 10
+      }
+    },
+    {
+      "id": "file-2",
+      "name": "DCVC_精读02_Figure1与引言贡献.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "dc6a595fa7924b485ad2ee22465d62f7b5de91abd2508bd08427e3136e987555",
+      "raw_structure": {
+        "paragraphs": 56,
+        "lists": 17,
+        "table_rows": 5,
+        "display_math": 2,
+        "inline_math": 0,
+        "images": 1
+      },
+      "output_structure": {
+        "paragraphs": 56,
+        "lists": 17,
+        "table_rows": 5,
+        "display_math": 2,
+        "inline_math": 0,
+        "images": 1
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "file-2",
+        "citations": 0,
+        "local_links": 3,
+        "heading_levels": 13
+      }
+    },
+    {
+      "id": "file-3",
+      "name": "DCVC_精读03_正文方法与实验.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "1a4d0d08b71fdb7bcdf466281ac367b4d5a14b698dab9e83b41a98fe3828e300",
+      "raw_structure": {
+        "paragraphs": 114,
+        "lists": 6,
+        "table_rows": 34,
+        "display_math": 11,
+        "inline_math": 0,
+        "images": 9
+      },
+      "output_structure": {
+        "paragraphs": 114,
+        "lists": 6,
+        "table_rows": 34,
+        "display_math": 11,
+        "inline_math": 0,
+        "images": 9
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "file-3",
+        "citations": 0,
+        "local_links": 12,
+        "heading_levels": 30
+      }
+    },
+    {
+      "id": "file-4",
+      "name": "DCVC_精读04_补充材料与总结.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "555a0e761de12a59a6d1331d18f5da1df6fb6c80b09893cffe0631361e36731a",
+      "raw_structure": {
+        "paragraphs": 96,
+        "lists": 17,
+        "table_rows": 26,
+        "display_math": 7,
+        "inline_math": 0,
+        "images": 9
+      },
+      "output_structure": {
+        "paragraphs": 96,
+        "lists": 17,
+        "table_rows": 26,
+        "display_math": 7,
+        "inline_math": 0,
+        "images": 9
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "file-4",
+        "citations": 0,
+        "local_links": 12,
+        "heading_levels": 31
+      }
+    },
+    {
+      "id": "file-5",
+      "name": "DCVC_参考文献与覆盖核查.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "70978370019d8a348174fe7d9a8e3b0df7a23cb3cd3ef3dbd249714859544356",
+      "raw_structure": {
+        "paragraphs": 64,
+        "lists": 6,
+        "table_rows": 20,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 64,
+        "lists": 6,
+        "table_rows": 20,
+        "display_math": 0,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "file-5",
+        "citations": 0,
+        "local_links": 16,
+        "heading_levels": 5
+      }
+    },
+    {
+      "id": "code-lecture-1",
+      "name": "DCVC_答疑01_完整代码讲解.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "121bd0fc8958be93b3a96a3a3ed4265984e41e44eb9f4dd1824b9c34b85b2df1",
+      "raw_structure": {
+        "paragraphs": 152,
+        "lists": 26,
+        "table_rows": 34,
+        "display_math": 5,
+        "inline_math": 4,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 152,
+        "lists": 26,
+        "table_rows": 34,
+        "display_math": 5,
+        "inline_math": 4,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "code-lecture-1",
+        "citations": 0,
+        "local_links": 27,
+        "heading_levels": 26
+      }
+    },
+    {
+      "id": "code-lecture-2",
+      "name": "DCVC_答疑02_底层熵编码与精读完成核查.md",
+      "exact_body_after_documented_normalization": true,
+      "original_sha256_match": true,
+      "source_file_sha256": "11158236e0d2172b09211e5be46c8e9d848da88ebb9207e62b9ca85d2884de35",
+      "raw_structure": {
+        "paragraphs": 66,
+        "lists": 10,
+        "table_rows": 18,
+        "display_math": 4,
+        "inline_math": 0,
+        "images": 0
+      },
+      "output_structure": {
+        "paragraphs": 66,
+        "lists": 10,
+        "table_rows": 18,
+        "display_math": 4,
+        "inline_math": 0,
+        "images": 0
+      },
+      "structure_preserved": true,
+      "adjustments": {
+        "id": "code-lecture-2",
+        "citations": 0,
+        "local_links": 10,
+        "heading_levels": 1
+      }
+    }
+  ],
+  "unique_original_images": 19,
+  "image_occurrences": 24,
+  "math_rendered": 138,
+  "display_math": 77,
+  "inline_math": 61,
+  "math_expressions": [
+    {
+      "tex": "r_t=x_t-\\tilde{x}_t,\n\\qquad\n\\hat{x}_t=\\tilde{x}_t+\\hat{r}_t.",
+      "display": true
+    },
+    {
+      "tex": "x_t",
+      "display": false
+    },
+    {
+      "tex": "\\tilde{x}_t",
+      "display": false
+    },
+    {
+      "tex": "r_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat{r}_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat{x}_t",
+      "display": false
+    },
+    {
+      "tex": "H(x_t-\\tilde{x}_t)\\geq H(x_t\\mid\\tilde{x}_t).",
+      "display": true
+    },
+    {
+      "tex": "H",
+      "display": false
+    },
+    {
+      "tex": "X",
+      "display": false
+    },
+    {
+      "tex": "P",
+      "display": false
+    },
+    {
+      "tex": "R=X-P.",
+      "display": true
+    },
+    {
+      "tex": "P=p",
+      "display": false
+    },
+    {
+      "tex": "R=X-p,\\qquad X=R+p.",
+      "display": true
+    },
+    {
+      "tex": "\\Pr(R=r\\mid P=p)=\\Pr(X=r+p\\mid P=p).",
+      "display": true
+    },
+    {
+      "tex": "H(R\\mid P=p)=H(X\\mid P=p).",
+      "display": true
+    },
+    {
+      "tex": "p",
+      "display": false
+    },
+    {
+      "tex": "H(R\\mid P)=H(X\\mid P).",
+      "display": true
+    },
+    {
+      "tex": "I(R;P)=H(R)-H(R\\mid P)\\geq0.",
+      "display": true
+    },
+    {
+      "tex": "\\boxed{\nH(X-P)=H(X\\mid P)+I(X-P;P)\n\\geq H(X\\mid P)\n}",
+      "display": true
+    },
+    {
+      "tex": "P",
+      "display": false
+    },
+    {
+      "tex": "X",
+      "display": false
+    },
+    {
+      "tex": "R",
+      "display": false
+    },
+    {
+      "tex": "1/2",
+      "display": false
+    },
+    {
+      "tex": "1/4",
+      "display": false
+    },
+    {
+      "tex": "1/4",
+      "display": false
+    },
+    {
+      "tex": "H(R)\n=-\\frac12\\log_2\\frac12\n-2\\cdot\\frac14\\log_2\\frac14\n=1.5\\ \\text{bit}.",
+      "display": true
+    },
+    {
+      "tex": "P=50",
+      "display": false
+    },
+    {
+      "tex": "P=100",
+      "display": false
+    },
+    {
+      "tex": "H(R\\mid P)\n=\\frac12\\cdot0+\\frac12\\cdot1\n=0.5\\ \\text{bit}.",
+      "display": true
+    },
+    {
+      "tex": "P",
+      "display": false
+    },
+    {
+      "tex": "H(R\\mid P)=H(X\\mid P).",
+      "display": true
+    },
+    {
+      "tex": "x_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat{x}_{t-1}",
+      "display": false
+    },
+    {
+      "tex": "\\tilde{x}_t",
+      "display": false
+    },
+    {
+      "tex": "\\bar{x}_t",
+      "display": false
+    },
+    {
+      "tex": "\\tilde{x}_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat{x}_t",
+      "display": false
+    },
+    {
+      "tex": "\\bar{x}_t",
+      "display": false
+    },
+    {
+      "tex": "c_t:=\\bar{x}_t,\n\\qquad\ny_t=E_\\theta(x_t,c_t),",
+      "display": true
+    },
+    {
+      "tex": "\\hat y_t=Q(y_t),\n\\qquad\n\\hat x_t=D_\\phi(\\hat y_t,c_t).",
+      "display": true
+    },
+    {
+      "tex": "E",
+      "display": false
+    },
+    {
+      "tex": "D",
+      "display": false
+    },
+    {
+      "tex": "Q",
+      "display": false
+    },
+    {
+      "tex": "\\hat y_t",
+      "display": false
+    },
+    {
+      "tex": "\\ell(\\hat y_t,c_t)\n\\approx-\\log_2 p_\\psi(\\hat y_t\\mid c_t,\\ldots).",
+      "display": true
+    },
+    {
+      "tex": "1/8",
+      "display": false
+    },
+    {
+      "tex": "1/2",
+      "display": false
+    },
+    {
+      "tex": "\\text{参考信息}\n\\rightarrow\n\\text{运动对齐的特征上下文}\n\\rightarrow\n\\begin{cases}\n\\text{帮助形成表示}\\\\\n\\text{帮助图像重建}\\\\\n\\text{帮助概率估计}\n\\end{cases}",
+      "display": true
+    },
+    {
+      "tex": "\\hat x_t=\nf_{\\mathrm{dec}}\\!\\left(\nQ\\!\\left(f_{\\mathrm{enc}}(x_t-\\tilde x_t)\\right)\n\\right)+\\tilde x_t .\n\\tag{1}",
+      "display": true
+    },
+    {
+      "tex": "Q",
+      "display": false
+    },
+    {
+      "tex": "\\hat x_t=\nf_{\\mathrm{dec}}\\!\\left(\nQ(f_{\\mathrm{enc}}(x_t\\mid\\tilde x_t))\n\\mid\\tilde x_t\n\\right).\n\\tag{2}",
+      "display": true
+    },
+    {
+      "tex": "\\hat x_t=\nf_{\\mathrm{dec}}\\!\\left(\nQ(f_{\\mathrm{enc}}(x_t\\mid\\bar x_t))\n\\mid\\bar x_t\n\\right).\n\\tag{3}",
+      "display": true
+    },
+    {
+      "tex": "m_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat m_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat m_t",
+      "display": false
+    },
+    {
+      "tex": "\\bar x_t",
+      "display": false
+    },
+    {
+      "tex": "y_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat x_t",
+      "display": false
+    },
+    {
+      "tex": "R(\\hat y_t)\\ge\n\\mathbb E_{\\hat y_t\\sim q}\n[-\\log_2p(\\hat y_t)].\n\\tag{4}",
+      "display": true
+    },
+    {
+      "tex": "q",
+      "display": false
+    },
+    {
+      "tex": "p",
+      "display": false
+    },
+    {
+      "tex": "\\begin{aligned}\nH(q,p)\n&=-\\sum_u q(u)\\log_2p(u)\\\\\n&=H(q)+D_{\\mathrm{KL}}(q\\Vert p).\n\\end{aligned}",
+      "display": true
+    },
+    {
+      "tex": "(\\mu_{t,i},\\sigma_{t,i})=\nf_{\\mathrm{pf}}\\!\\left(\nf_{\\mathrm{hpd}}(\\hat z_t),\nf_{\\mathrm{ar}}(\\hat y_{t,<i}),\nf_{\\mathrm{tpe}}(\\bar x_t)\n\\right).",
+      "display": true
+    },
+    {
+      "tex": "\\hat y_{t,<i}",
+      "display": false
+    },
+    {
+      "tex": "p(\\hat y_t\\mid\\bar x_t,\\hat z_t)\n=\n\\prod_i\n\\left[\n\\mathcal L(\\mu_{t,i},\\sigma_{t,i}^{2})\n*\\mathcal U(-\\tfrac12,\\tfrac12)\n\\right](\\hat y_{t,i}).\n\\tag{5}",
+      "display": true
+    },
+    {
+      "tex": "k",
+      "display": false
+    },
+    {
+      "tex": "p(\\hat y=k)\n=\n\\int_{k-1/2}^{k+1/2}f(u)\\,du\n=\nF(k+1/2)-F(k-1/2).",
+      "display": true
+    },
+    {
+      "tex": "p(\\hat y=0)=1-e^{-0.5}\\approx0.39347.",
+      "display": true
+    },
+    {
+      "tex": "f(0)=0.5",
+      "display": false
+    },
+    {
+      "tex": "\\sigma^2",
+      "display": false
+    },
+    {
+      "tex": "(\\mu,\\sigma)=\nf_{\\mathrm{pf}}\\!\\left(\nf_{\\mathrm{hpd}}(\\hat z_t),\nf_{\\mathrm{tpe}}(\\bar x_t)\n\\right).",
+      "display": true
+    },
+    {
+      "tex": "\\bar x_t=\nf_{\\mathrm{cr}}\\!\\left(\n\\operatorname{warp}\n\\left(f_{\\mathrm{fe}}(\\hat x_{t-1}),\\hat m_t\\right)\n\\right).\n\\tag{6}",
+      "display": true
+    },
+    {
+      "tex": "\\text{参考图像}\n\\rightarrow\\text{特征提取}\n\\rightarrow\\text{运动对齐}\n\\rightarrow\\text{上下文细化}.",
+      "display": true
+    },
+    {
+      "tex": "0.75\\times10+0.25\\times14=11.",
+      "display": true
+    },
+    {
+      "tex": "L=\\lambda D+R.\n\\tag{7}",
+      "display": true
+    },
+    {
+      "tex": "\\lambda",
+      "display": false
+    },
+    {
+      "tex": "\\lambda",
+      "display": false
+    },
+    {
+      "tex": "10^{-4}",
+      "display": false
+    },
+    {
+      "tex": "10^{-5}",
+      "display": false
+    },
+    {
+      "tex": "256\\times256",
+      "display": false
+    },
+    {
+      "tex": "26\\%-9\\%=17\\%",
+      "display": true
+    },
+    {
+      "tex": "1-\\frac1{1.054}\\approx5.12\\%.",
+      "display": true
+    },
+    {
+      "tex": "x_t:[B,3,H,W],\\qquad\nc_t:[B,64,H,W].",
+      "display": true
+    },
+    {
+      "tex": "[x_t,c_t]:[B,67,H,W].",
+      "display": true
+    },
+    {
+      "tex": "y_t:[B,96,H/16,W/16].",
+      "display": true
+    },
+    {
+      "tex": "1/256",
+      "display": false
+    },
+    {
+      "tex": "\\hat y_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat z_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat g_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat s_t",
+      "display": false
+    },
+    {
+      "tex": "R_{\\mathrm{P}}\n=\nR(\\hat y_t)+R(\\hat z_t)\n+R(\\hat g_t)+R(\\hat s_t).",
+      "display": true
+    },
+    {
+      "tex": "\\boxed{\n\\text{条件怎样表示}\n\\quad+\\quad\n\\text{条件在哪些环节使用}\n\\quad+\\quad\n\\text{条件怎样学得}\n}",
+      "display": true
+    },
+    {
+      "tex": "1920\\times1080",
+      "display": false
+    },
+    {
+      "tex": "1920\\times1024",
+      "display": false
+    },
+    {
+      "tex": "x_t",
+      "display": false
+    },
+    {
+      "tex": "\\hat x_{t-1}",
+      "display": false
+    },
+    {
+      "tex": "v_i=\\frac{u_i}{\\sqrt{\\beta_i+\\sum_j\\gamma_{ij}u_j^2}}.",
+      "display": true
+    },
+    {
+      "tex": "q=\\operatorname{round}(y-\\mu),\\qquad\np(q)=F_b(q+1/2)-F_b(q-1/2).",
+      "display": true
+    },
+    {
+      "tex": "F_b",
+      "display": false
+    },
+    {
+      "tex": "-\\log_2p",
+      "display": false
+    },
+    {
+      "tex": "P(q=0)=F(0.5)-F(-0.5)=1-e^{-0.5}\\approx0.39347.",
+      "display": true
+    },
+    {
+      "tex": "\\mathrm{bpp}_{file}=\\mathrm{bpp}_{payload}+\\frac{24\\times8}{HW}.",
+      "display": true
+    },
+    {
+      "tex": "L=R_y+R_z+R_{mv_y}+R_{mv_z}+\\lambda D(x_t,\\hat x_t).",
+      "display": true
+    },
+    {
+      "tex": "c_0=0,\\qquad c_{s+1}=c_s+f_s,\\qquad\nf_s>0,\\qquad \\sum_s f_s=M.",
+      "display": true
+    },
+    {
+      "tex": "x'=M\\left\\lfloor\\frac{x}{f_s}\\right\\rfloor\n +(x\\bmod f_s)+c_s.",
+      "display": true
+    },
+    {
+      "tex": "x'\\bmod M=r+c_s\\in[c_s,c_s+f_s).",
+      "display": true
+    },
+    {
+      "tex": "x=f_s\\left\\lfloor\\frac{x'}{M}\\right\\rfloor\n +(x'\\bmod M)-c_s.",
+      "display": true
+    },
+    {
+      "tex": "r_t=x_t-\\tilde x_t.",
+      "display": true
+    },
+    {
+      "tex": "\\hat x_t=\\tilde x_t+\\hat r_t.",
+      "display": true
+    },
+    {
+      "tex": "H(x_t-\\tilde x_t)\\ge H(x_t\\mid\\tilde x_t).",
+      "display": true
+    },
+    {
+      "tex": "H(R)=-\\sum_r p(r)\\log_2 p(r),\n\\qquad\nH(R\\mid P)=\\sum_p p(p)H(R\\mid P=p).",
+      "display": true
+    },
+    {
+      "tex": "p(R=r\\mid P=p)=p(X=r+p\\mid P=p).",
+      "display": true
+    },
+    {
+      "tex": "H(R\\mid P=p)=H(X\\mid P=p).",
+      "display": true
+    },
+    {
+      "tex": "H(R\\mid P)=H(X\\mid P).",
+      "display": true
+    },
+    {
+      "tex": "I(R;P)=H(R)-H(R\\mid P)\\ge0.",
+      "display": true
+    },
+    {
+      "tex": "\\boxed{H(X-P)=H(X\\mid P)+I(X-P;P)\\ge H(X\\mid P).}",
+      "display": true
+    },
+    {
+      "tex": "H(R)=-\\frac12\\log_2\\frac12\n-2\\cdot\\frac14\\log_2\\frac14=1.5\\ \\text{bit}.",
+      "display": true
+    },
+    {
+      "tex": "H(R\\mid P)=\\frac12\\cdot0+\\frac12\\cdot1=0.5\\ \\text{bit}.",
+      "display": true
+    },
+    {
+      "tex": "c_t:=\\bar x_t,\\qquad\ny_t=E_\\theta(x_t,c_t),\\qquad\n\\hat y_t=Q(y_t),\\qquad\n\\hat x_t=D_\\phi(\\hat y_t,c_t).",
+      "display": true
+    },
+    {
+      "tex": "\\ell(\\hat y_t,c_t)\\approx-\\log_2 p_\\psi(\\hat y_t\\mid c_t,\\ldots).",
+      "display": true
+    },
+    {
+      "tex": "\\hat x_t=f_{\\rm dec}\\!\\left(Q\\!\\left(f_{\\rm enc}(x_t-\\tilde x_t)\\right)\\right)+\\tilde x_t,\n\\qquad \\tilde x_t=f_{\\rm predict}(\\hat x_{t-1}).\\tag{1}",
+      "display": true
+    },
+    {
+      "tex": "\\hat x_t=f_{\\rm dec}\\!\\left(Q(f_{\\rm enc}(x_t\\mid\\tilde x_t))\\mid\\tilde x_t\\right),\n\\qquad\\tilde x_t=f_{\\rm predict}(\\hat x_{t-1}).\\tag{2}",
+      "display": true
+    },
+    {
+      "tex": "\\hat x_t=f_{\\rm dec}\\!\\left(Q(f_{\\rm enc}(x_t\\mid\\bar x_t))\\mid\\bar x_t\\right),\n\\qquad \\bar x_t=f_{\\rm context}(\\hat x_{t-1}).\\tag{3}",
+      "display": true
+    },
+    {
+      "tex": "R(\\hat y_t)\\geq\\mathbb E_{\\hat y_t\\sim q_{\\hat y_t}}\n[-\\log_2p_{\\hat y_t}(\\hat y_t)].\\tag{4}",
+      "display": true
+    },
+    {
+      "tex": "H(q,p)=-\\sum_uq(u)\\log_2p(u)\n=H(q)+D_{\\rm KL}(q\\Vert p).",
+      "display": true
+    },
+    {
+      "tex": "p_{\\hat y_t}(\\hat y_t\\mid\\bar x_t,\\hat z_t)\n=\\prod_i\\left[\\mathcal L(\\mu_{t,i},\\sigma_{t,i}^{2})\n*\\mathcal U(-\\tfrac12,\\tfrac12)\\right](\\hat y_{t,i}),\\tag{5}",
+      "display": true
+    },
+    {
+      "tex": "(\\mu_{t,i},\\sigma_{t,i})=\nf_{\\rm pf}\\!\\left(f_{\\rm hpd}(\\hat z_t),\nf_{\\rm ar}(\\hat y_{t,<i}),f_{\\rm tpe}(\\bar x_t)\\right).",
+      "display": true
+    },
+    {
+      "tex": "f(u)=\\frac1{2b}e^{-|u-\\mu|/b},\\qquad\np(\\hat y=k)=\\int_{k-1/2}^{k+1/2}f(u)\\,du\n=F(k+1/2)-F(k-1/2).",
+      "display": true
+    },
+    {
+      "tex": "(\\mu_{t,i},\\sigma_{t,i})=f_{\\rm pf}\n\\left(f_{\\rm hpd}(\\hat z_t),f_{\\rm tpe}(\\bar x_t)\\right).",
+      "display": true
+    },
+    {
+      "tex": "\\bar x_t=f_{\\rm cr}\\!\\left(\n\\operatorname{warp}(f_{\\rm fe}(\\hat x_{t-1}),\\hat m_t)\n\\right).\\tag{6}",
+      "display": true
+    },
+    {
+      "tex": "L=\\lambda D+R.\\tag{7}",
+      "display": true
+    },
+    {
+      "tex": "x_t:[B,3,H,W],\\quad c_t:[B,64,H,W],",
+      "display": true
+    },
+    {
+      "tex": "\\operatorname{concat}(x_t,c_t):[B,67,H,W],\n\\quad y_t:[B,96,H/16,W/16].",
+      "display": true
+    },
+    {
+      "tex": "v_i=\\frac{u_i}{\\sqrt{\\beta_i+\\sum_j\\gamma_{ij}u_j^2}}.",
+      "display": true
+    },
+    {
+      "tex": "L_{\\rm me}=\\lambda D(x_t,\\tilde x_t)+R(\\hat g_t)+R(\\hat s_t),",
+      "display": true
+    },
+    {
+      "tex": "L_{\\rm reconstruction}=\\lambda D(x_t,\\hat x_t),",
+      "display": true
+    },
+    {
+      "tex": "L_{\\rm contextual\\_coding}=\\lambda D(x_t,\\hat x_t)+R(\\hat y_t)+R(\\hat z_t),",
+      "display": true
+    },
+    {
+      "tex": "L_{\\rm all}=\\lambda D(x_t,\\hat x_t)+R(\\hat y_t)+R(\\hat z_t)+R(\\hat g_t)+R(\\hat s_t).",
+      "display": true
+    }
+  ],
+  "missing_local_links": [],
+  "heading_count": 170,
+  "input_markdown_sha256": "b3c79ea715d817f9e6ddb265258c967fbfe2434588981360cd9e5a2e9b8915b6",
+  "output_html_sha256": "de91619a821b4a3df5a8cb8a77d01eec8819b5ac5fea43f6ccb83d766a1cf724",
+  "html_generation": "Rendered directly from the saved canonical Markdown with local Markdown-it and KaTeX HTML+MathML; no separate prose rewriting.",
+  "deduplication": "task_complete.last_agent_message duplicates response_item; only response_item retained. Saved lecture files are preserved separately because their contents differ from chat finals.",
+  "code_lecture_status": "Complete Python inference and active C++ entropy-path lectures; independent Python rANS reference verified, no official extension or trained model execution."
+}

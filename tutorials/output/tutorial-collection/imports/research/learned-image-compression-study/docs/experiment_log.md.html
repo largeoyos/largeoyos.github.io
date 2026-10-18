@@ -1,0 +1,37 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>实验记录</title><link rel="stylesheet" href="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/learned-image-compression-study/docs/experiment_log.md · <a href="experiment_log.md">原始 Markdown</a></p><h1 id="_1">实验记录</h1>
+<h2 id="2026-08-29">2026-08-29：本地端到端烟雾实验</h2>
+<h3 id="_2">目的</h3>
+<p>确认 Windows 原生 CUDA 环境、数据读取、模型前向传播、率失真训练、checkpoint 保存、量化评测和结果导出能够形成完整闭环。以下实验均使用同一张 Kodak 图像训练和评测，不衡量泛化能力。</p>
+<h3 id="_3">环境</h3>
+<ul>
+<li>GPU：NVIDIA GeForce RTX 3060 Laptop，6GB</li>
+<li>Python：3.12.10</li>
+<li>PyTorch：2.11.0+cu128</li>
+<li>模型：FactorizedPriorCodec，727,075 个参数</li>
+<li>图像：Kodak <code>kodim01.png</code>，768×512</li>
+<li>随机种子：42</li>
+</ul>
+<h3 id="a20">实验 A：20 步链路检查</h3>
+<ul>
+<li><code>rd_lambda</code>：0.01</li>
+<li>estimated bpp：0.4881</li>
+<li>PSNR：14.5355 dB</li>
+<li>MS-SSIM：0.2125</li>
+<li>GPU 推理时间：0.1589 秒</li>
+<li>观察：量化重建几乎为纯灰图，只能证明执行链路可用。</li>
+</ul>
+<h3 id="b200">实验 B：200 步单图过拟合检查</h3>
+<ul>
+<li><code>rd_lambda</code>：0.05</li>
+<li>estimated bpp：0.5384</li>
+<li>PSNR：17.9473 dB</li>
+<li>MS-SSIM：0.4366</li>
+<li>GPU 推理时间：0.1782 秒</li>
+<li>观察：房屋轮廓、窗户和屋顶结构已可辨认，但细节明显模糊。</li>
+</ul>
+<p>相对实验 A，PSNR 提升 3.4118 dB，MS-SSIM 提升 0.2241，说明模型和训练损失能够学习图像结构。estimated bpp 同时上升，符合更偏重失真项时用更多表示容量换取重建质量的预期。</p>
+<h3 id="_4">结论与边界</h3>
+<p>本次只完成了工程和可学习性验证。estimated bpp 来自因子化高斯 likelihood，没有产生可解码的实际压缩码流；训练集与评测集重叠，因此这些数值不得作为正式科研对比结果。</p>
+<p>下一阶段应使用独立训练集与测试集：以 DIV2K 训练、Kodak 测试，固定多个 <code>rd_lambda</code>，再加入真实熵编码或 CompressAI 基线，绘制可复现的率失真曲线。</p></main><script src="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

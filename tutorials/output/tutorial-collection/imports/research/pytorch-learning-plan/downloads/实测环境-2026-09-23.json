@@ -1,0 +1,13 @@
+{
+  "python": "3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]",
+  "torch": "2.11.0+cpu",
+  "compressai": "1.2.8",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "psnr": "mean per image RGB range 0..1",
+  "bpp": "full file / original pixels",
+  "padding": "right/bottom zero to multiples of 64",
+  "jpeg_subsampling": 0,
+  "models_shared": true,
+  "timing": "compress/decompress only, excludes model load, file IO, forward rate estimation; single samples, not a latency benchmark"
+}

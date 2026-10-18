@@ -1,0 +1,110 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>图像与视频压缩学习路线</title>
+<style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f6f5ef;color:#26352d;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:880px;margin:0 auto;padding:48px 32px 96px}a{color:#345f48;text-underline-offset:4px}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:32px;margin-top:40px}h2{margin-top:54px;border-top:1px solid #d9ddd3;padding-top:28px}h3{margin-top:30px}code{background:#e9ece3;padding:3px 5px;border-radius:3px;overflow-wrap:anywhere}pre{white-space:pre-wrap}li{margin:8px 0}.meta{font-size:13px;color:#667166;margin:28px 0 0}a:focus-visible{outline:3px solid #ae542f;outline-offset:4px}@media(max-width:500px){main{padding:26px 22px 64px}h1{font-size:27px}}@media print{body{background:white}main{padding:0}.back{display:none}}</style></head><body><main>
+<a class="back" href="../../教程合集.html">← 返回教程合集</a>
+<p class="meta">原有学习路线 · 8 周安排 · 按项目内文稿转换为阅读版</p>
+<h1>压缩线学习路线（大一暑假版）</h1>
+<p>目标不是一次学完所有理论，而是用 8 周建立一条能进组交流的完整链路：</p>
+<p><code>原始图像/视频 → 变换表示 → 量化 → 概率建模 → 熵编码 → 重建 → 率失真评价</code></p>
+<p>建议每天 2～3 小时，每周 5 天。每学一个概念，都要做到三件事：能用自己的话解释、能写出核心公式、能用小实验验证。</p>
+<h2>一、这些概念到底要学到什么程度</h2>
+<h3>1. 信息熵、交叉熵、互信息</h3>
+<ul>
+<li>熵：<code>H(X) = -Σ p(x) log₂ p(x)</code>，表示信源平均不确定性，也是理想无损编码平均码长的下界。</li>
+<li>交叉熵：<code>H(p,q) = -Σ p(x) log₂ q(x)</code>。真实分布是 p、熵模型预测 q 时，多出来的码长就是 <code>KL(p||q)</code>。</li>
+<li>互信息：<code>I(X;Y) = H(X)-H(X|Y)</code>，表示知道 Y 后能减少多少关于 X 的不确定性。</li>
+<li>在学习式压缩中，码率常用 <code>R ≈ E[-log₂ p(ŷ)]</code> 估计。熵模型预测越准，实际码流通常越短。</li>
+</ul>
+<p>达标任务：手算一个四符号信源的熵；用 Python 统计一张灰度图直方图的熵；故意用错误概率分布编码，观察交叉熵变大。</p>
+<h3>2. 率失真理论与 <code>L = R + λD</code></h3>
+<ul>
+<li>R 是码率，常用 bpp（bits per pixel）。</li>
+<li>D 是失真，例如 MSE、<code>1-MS-SSIM</code> 或感知损失。</li>
+<li>λ 控制取舍：在 <code>R + λD</code> 约定下，λ 越大越重视质量，通常码率也越高。</li>
+<li>有些代码写成 <code>D + λR</code>，此时 λ 的含义反过来；先看公式，不要死记参数趋势。</li>
+<li>单个模型只对应率失真曲线上的一个工作点；多个 λ 才能得到完整 RD 曲线。</li>
+</ul>
+<p>达标任务：用 JPEG 的不同质量参数压缩 Kodak/自选图片，画 bpp—PSNR 曲线，并解释为什么不能只报一个 PSNR。</p>
+<h3>3. 标量量化与向量量化</h3>
+<ul>
+<li>标量量化（SQ）：每个潜变量单独取整或映射到标量码字，简单、快速，但忽略维度间联合结构。</li>
+<li>向量量化（VQ）：把一组数整体映射到一个码字，更有可能获得好的率失真性能，但码本搜索和训练更难。</li>
+<li>训练时取整不可导，常见处理是加均匀噪声、STE 或软量化。</li>
+<li>NVTC 的核心问题正是：怎样在可控复杂度下发挥 VQ 优势。</li>
+</ul>
+<p>达标任务：对二维高斯点分别做逐维 SQ 和 K-means VQ，对比相同码字预算下的 MSE。</p>
+<h3>4. Hyperprior、上下文熵模型、算术编码</h3>
+<ul>
+<li>主潜变量 ŷ 保存图像内容；Hyperprior 再发送少量侧信息 ẑ，用它预测 ŷ 的均值、尺度等分布参数。</li>
+<li>上下文模型利用已解码符号预测当前符号，例如 <code>p(ŷᵢ | ŷ&lt;ᵢ, ẑ)</code>；预测更准，但串行依赖可能让解码变慢。</li>
+<li>算术编码/ANS 不负责“猜概率”，它把熵模型给出的概率真正变成比特流。概率模型和熵编码器两端必须完全一致。</li>
+<li>推荐先读 Ballé 2018 Hyperprior，再读 Minnen 2018 Hyperprior + Autoregressive，之后读本文件夹第 03 篇。</li>
+</ul>
+<p>达标任务：用 CompressAI 预训练模型调用 <code>compress()</code>/<code>decompress()</code>，比较估计 bpp 和实际文件 bpp；画出是否加入上下文模型时的速度—码率差异。</p>
+<h3>5. PSNR、MS-SSIM、LPIPS、BD-rate</h3>
+<ul>
+<li>PSNR：由 MSE 推出，越高越好；易计算，但不完全符合人眼感受。</li>
+<li>MS-SSIM：比较多尺度结构相似性，越接近 1 越好。</li>
+<li>LPIPS：用深度特征衡量感知距离，通常越低越好；更关注感知相似性，但也不是绝对的人类评分。</li>
+<li>BD-rate：比较两条 RD 曲线的平均码率差；负值通常表示在相近质量下更省码率。至少需要多个可靠工作点，并明确锚点编码器和质量指标。</li>
+<li>生成式压缩不能只看 PSNR：纹理可能更真实，却不等于逐像素更准确，需要同时讨论 rate、distortion 和 perception。</li>
+</ul>
+<p>达标任务：同一组重建图同时计算 PSNR、MS-SSIM、LPIPS，找出三个指标排序不一致的例子。</p>
+<h3>6. H.264/HEVC/VVC 框架</h3>
+<p>先掌握共同主线，不必一开始啃完整标准：</p>
+<ol>
+<li>帧内/帧间预测消除空间和时间冗余；</li>
+<li>对预测残差做块变换；</li>
+<li>量化控制码率和失真；</li>
+<li>熵编码生成码流；</li>
+<li>编码器内部必须重建参考帧，保证与解码端一致；</li>
+<li>环路滤波减少块效应并改善后续预测。</li>
+</ol>
+<p>VVC 比 HEVC 增加了更灵活的块划分和预测/变换工具，但学习时先用一张框图把共同骨架讲清楚。达标任务：用 FFmpeg 对同一视频改变 CRF/QP，记录文件大小、PSNR 和编码时间。</p>
+<h2>二、8 周顺序</h2>
+<h3>第 1 周：概率与信息论</h3>
+<p>完成熵、交叉熵、KL、互信息的手算和小实验。重点理解 <code>-log₂ p</code> 为什么既是训练损失又近似码长。</p>
+<h3>第 2 周：传统编码骨架</h3>
+<p>学习预测—残差—变换—量化—熵编码；做 JPEG/FFmpeg 小实验。暂时不追求标准细节。</p>
+<h3>第 3 周：学习式图像压缩基线</h3>
+<p>读 Ballé 的 factorized prior 和 scale hyperprior；运行 CompressAI 预训练模型，得到真实码流和 RD 点。</p>
+<h3>第 4 周：评价方法</h3>
+<p>实现 PSNR、MS-SSIM、LPIPS；理解 BD-rate 的输入是两条曲线而不是两个点。整理一页实验表。</p>
+<h3>第 5 周：读 01 综述 + 02 视频压缩</h3>
+<ul>
+<li>01 综述先读摘要、图 1/分类框架、总结，再按 VAE→GAN→自回归→Flow→Diffusion 回填概念。</li>
+<li>02 重点画出 PMCNN、运动预测、残差和重建参考帧的数据流，理解它与传统帧间编码的对应关系。</li>
+</ul>
+<h3>第 6 周：读 03 Causal Contextual Prediction</h3>
+<p>重点回答：它的概率分解是什么？空间、通道和全局上下文分别提供什么信息？为什么性能提升可能伴随串行解码开销？</p>
+<h3>第 7 周：读 04 NVTC</h3>
+<p>先完成二维 SQ/VQ 实验，再读多阶段量化、非线性向量变换和 entropy-constrained VQ。可运行官方仓库的测试/预训练流程，不建议一开始从零训练大模型。</p>
+<h3>第 8 周：读 05 Diff-ICMH + 汇报</h3>
+<p>重点区分 human vision 与 machine vision 的目标，梳理生成先验怎样改变传统 R-D 优化。最终做 8～10 页汇报：问题、方法、实验、你没看懂的三点、一个可做的小课题。</p>
+<h2>三、五篇论文的阅读顺序和产出</h2>
+<ol>
+<li><strong>2024 生成式视觉编码综述</strong>：建立地图；产出一张技术树。</li>
+<li><strong>Learning for Video Compression</strong>：理解学习式视频预测；产出一张端到端数据流图。</li>
+<li><strong>Causal Contextual Prediction</strong>：理解上下文熵模型；产出概率分解和复杂度分析。</li>
+<li><strong>NVTC</strong>：理解 SQ→VQ 的动机；复现或运行官方测试，产出一张 RD 对比图。</li>
+<li><strong>Diff-ICMH</strong>：进入生成式、人眼/机器联合压缩；产出一页研究问题与可验证假设。</li>
+</ol>
+<p>每篇只做一页笔记，固定回答：解决什么问题、核心假设、输入输出、损失函数、码率怎样计算、与谁比较、最重要消融、速度代价、局限、能否复现。</p>
+<h2>四、推荐入口</h2>
+<ul>
+<li>综述：https://arxiv.org/abs/2405.14221</li>
+<li>Ballé Hyperprior：https://arxiv.org/abs/1802.01436</li>
+<li>Minnen Hyperprior + Autoregressive：https://arxiv.org/abs/1809.02736</li>
+<li>CompressAI 自定义模型教程：https://interdigitalinc.github.io/CompressAI/tutorials/tutorial_custom.html</li>
+<li>CompressAI 训练与真实熵编码：https://interdigitalinc.github.io/CompressAI/tutorials/tutorial_train.html</li>
+<li>NVTC 官方代码：https://github.com/USTC-IMCL/NVTC</li>
+</ul>
+<h2>五、进组前的最低成果包</h2>
+<p>不用等“全学会”再联系老师。做到以下四项就足够证明执行力：</p>
+<ol>
+<li>五篇论文各一页笔记；</li>
+<li>一张学习式压缩结构图；</li>
+<li>一个 CompressAI 预训练模型的真实编解码实验；</li>
+<li>一张包含至少 4 个工作点的 RD 曲线，并报告 PSNR、MS-SSIM、实际 bpp 和速度。</li>
+</ol>
+<p>联系组内学长时可以直接说：我已经读完综述和两篇基础论文，跑通了 CompressAI 编解码并画了 RD 曲线，希望从复现实验或数据评测开始做。</p></main></body></html>

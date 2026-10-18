@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DCVC 讲解全文的配套资源</title><link rel="stylesheet" href="../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_讲解资源/资源说明.md · <a href="%E8%B5%84%E6%BA%90%E8%AF%B4%E6%98%8E.md">原始 Markdown</a></p><h1 id="dcvc">DCVC 讲解全文的配套资源</h1>
+<p>本目录与上一级的 <code>DCVC_讲解全文.md</code>、<code>DCVC_讲解全文.html</code> 一起保留和复制。</p>
+<ul>
+<li><code>来源/</code>：实际聊天消息和原有讲解文件的原始文本；原始链接和阶段性措辞保持不变，便于追溯。主文已经另行转换为可携带链接。原有阅读记录与导航在这里保留的是整理前快照。</li>
+<li><code>来源清单.json</code>：20 项正文来源的聊天行号、消息标识、时间或文件位置、哈希；第 19、20 项为完整代码课和底层熵编码续讲，未冒充早先聊天内容。</li>
+<li><code>图片/</code>：19 张原先已核对的原论文裁图；正文 7 图 3 表，补充 8 图 1 表。主文部分图片因不同轮次重复分析而重复出现。</li>
+<li><code>原论文/</code>：NeurIPS 2021 正式版、补充 PDF 和用户提供的 bib。页码以该正式版为准。</li>
+<li><code>代码核查快照/</code>：最初的选择性清单保留，现另有官方固定提交完整 2021 子目录的 31 文件清单，并按构建配置保留固定外部 rans64.h 及许可证。Python 推理与底层熵编码主链精读已完成；没有权重或模型复现实验输出。</li>
+<li><code>源码阅读/</code>：19 份 Python、C++ 与头文件的离线源码页，代码引用可跳至具体行号；提供原始文件链接。</li>
+<li><code>代码机制核查/</code>：独立机制例子、原始文件封装微型往返、独立 Python rANS 参考验证及结果。没有调用官方编译扩展或带权重模型。</li>
+<li><code>归档/</code> 及上一级文件名含“代码课补入前”的 Markdown/HTML：保留本次续讲之前的汇编和构建清单。</li>
+<li><code>vendor/</code>：Markdown-it 14.1.0、KaTeX 0.16.22 的本地发布文件及许可证；HTML 使用预渲染的 HTML+MathML 和本地字体，无需联网加载脚本。</li>
+<li><code>完整性核对.json</code>：逐来源正文匹配、段落/列表/表格/公式/图片结构和本地链接检查。</li>
+<li><code>独立正文与资源核对.json</code>：独立核对全部可比正文与 TeX、19 张原图字节、原有讲解稿未变更，以及 HTML 和字体引用均存在。</li>
+<li><code>排版核对/</code>：桌面和手机宽度的截图、浏览器核对结果。截图是抽样排版检查，不替代来源完整性核对。</li>
+</ul>
+<p><code>构建全文.cjs</code> 从原始来源生成同一份 Markdown 和 HTML。运行需要 Node.js，无需再安装依赖或联网。<code>检查阅读页.cjs</code> 使用本机 Playwright/Chrome 进行阅读排版检查，运行路径与当前电脑有关。</p>
+<p>原始会话文件不随资源分发；只抽取与本论文讲解相关的 assistant 文本，未复制其他会话内容。</p></main><script src="../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

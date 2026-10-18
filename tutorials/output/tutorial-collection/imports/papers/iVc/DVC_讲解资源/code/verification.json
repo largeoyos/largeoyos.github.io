@@ -1,0 +1,45 @@
+{
+  "gdn_jacobian_max_error": 1.0587911840678754e-22,
+  "warp_half_pixel_and_gradient": true,
+  "cdf_monotone_and_normalized": true,
+  "laplace_bin_integral": true,
+  "rd_gradients_reach_all_modules": {
+    "flow": 4.421051125280684e-05,
+    "motion_encoder": 0.00093932690710119,
+    "motion_decoder": 11.9200367142912,
+    "compensation": 118988.1742515564,
+    "residual_encoder": 5.2902557219313735,
+    "residual_decoder": 1256.2313269165643,
+    "hyper_encoder": 0.00030799405294601456,
+    "hyper_decoder": 0.16781475103925914,
+    "motion_cdf": 0.517866238951683,
+    "hyper_cdf": 0.03267550241434947
+  },
+  "eval_integer_latents_and_matching_neural_decoder": true,
+  "latent_shapes": {
+    "m_hat": [
+      1,
+      16,
+      4,
+      4
+    ],
+    "z_hat": [
+      1,
+      16,
+      1,
+      1
+    ],
+    "y_hat": [
+      1,
+      24,
+      4,
+      4
+    ]
+  },
+  "scope": "Untrained synthetic mathematical checks; no compression benchmark or bitstream.",
+  "runtime": {
+    "python": "D:/soft/py12/python.exe",
+    "torch": "2.13.0+cu126",
+    "check_device": "cpu"
+  }
+}

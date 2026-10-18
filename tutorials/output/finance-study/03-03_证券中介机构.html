@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第三章 · 第三节 · 证券中介机构 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body>
+<header class="bookbar"><strong>金融市场基础知识 · 第三章 / 03</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 82.4448%;"></div></header>
+<div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第三节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c3s3-part-01">本节怎么读：先把券商的不同业务拆开</a><a class="" href="#c3s3-part-02">教材136—137页：证券公司是什么，为什么既是中介又是投资者会用</a><a class="" href="#c3s3-part-03">教材137—141页：五阶段发展史，用问题串起来背景＋会认</a><a class="" href="#c3s3-part-04">教材141—145页：七项监管制度，分别管什么会认＋会用</a><a class="" href="#c3s3-part-05">教材144—145页：第三方存管与信息报送会用＋会认</a><a class="" href="#c3s3-part-06">教材145—146页：经纪业务，客户决定，券商执行会用</a><a class="" href="#c3s3-part-07">教材146—147页：投资咨询与财务顾问，服务对象和任务不同会用</a><a class="" href="#c3s3-part-08">教材147页：承销，包销与代销的风险到底谁承担会用</a><a class="" href="#c3s3-part-09">教材147—149页：保荐，核查督导，不是包赚会用</a><a class="" href="#c3s3-part-10">教材149—150页：自营业务，券商用自己的钱投资会用</a><a class="" href="#c3s3-part-11">教材150—152页：资产管理业务，管理的是受托财产会用</a><a class="" href="#c3s3-part-12">教材152—153页：融资融券，借钱与借证券分开会用</a><a class="" href="#c3s3-part-13">教材153—156页：做市，券商作为交易对手提供双边报价会用</a><a class="" href="#c3s3-part-14">教材156—158页：IB 中间介绍业务，介绍客户，不代做期货交易会用</a><a class="" href="#c3s3-part-15">教材158—160页：私募基金子公司与另类子公司会认＋会用</a><a class="" href="#c3s3-part-16">教材161—163页：券商国际化，走出去与引进来背景＋会认</a><a class="" href="#c3s3-part-17">教材163—166页：证券服务机构，谁出什么专业意见会认＋会用</a><a class="" href="#c3s3-part-18">教材166—167页：投资咨询机构的行为边界会用</a><a class="" href="#c3s3-part-19">教材167—168页：证券金融公司与转融通，借给谁会用</a><a class="current" href="#c3s3-part-20">教材169—172页：转融通账户、担保、权益和监管会认＋会用</a><a href="#c3s3-part-21">教材172页：服务机构的责任、保存资料与退出会用＋会认</a><a class="" href="#c3s3-part-22">本节练习：业务判断比名称背诵更重要</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 03 / SECTION 03 · 第三章</div><h2>第三节 · 证券中介机构</h2><p>证券市场主体 · 教材正文第136—172页 · 整理日期：2026年10月13日</p><p>会用：能判断例子　会认：能识别对应　背景：理解用途，第一轮不逐字背</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="03-02_证券投资者.html">上一节 · 证券投资者</a><a href="03-04_自律性组织.html">下一节 · 自律性组织</a></nav><section class="lesson" id="c3s3-part-01"><h3>本节怎么读：先把券商的不同业务拆开</h3>
+<p>本节是第三章最长的一节。不要按机构名死记，先记判断业务的三个问题：<strong>用的是谁的钱？谁决定买卖？盈亏主要归谁？</strong>然后才记牌照、比例、报送期限。</p>
+<p>本节按教材顺序分为券商概述、主要业务、国际化、证券服务机构。经纪、自营、资管、承销、保荐、融资融券、做市、IB的区别属于<span class="level use">会用</span>；准入数字、期限属于<span class="level recognize">会认</span>；券商发展史及某年的规模统计属于<span class="level context">背景</span>。下面保留背景，是解释监管为什么形成，不要求第一轮背每一笔统计数据。</p></section><section class="lesson" id="c3s3-part-02"><h3>教材136—137页：证券公司是什么，为什么既是中介又是投资者<span class="level use">会用</span></h3>
+<p>证券公司是依照公司法、证券法设立，经营证券业务的有限责任公司或股份有限公司。我国设立证券公司须经国务院证券监督管理机构批准。</p>
+<p>它为发行人、投资者提供经纪、咨询、承销、保荐等专业服务时，是中介。用自己的钱投资证券时，又是机构投资者。同一券商不是永远只有一个角色。</p>
+<p>教材中的国外名称：美国常称投资银行，英国有商人银行称谓；德国等混业经营国家可能由银行从事证券业务；日本及我国常称证券公司。这些是名称识别和制度背景，<strong>“投资银行”不等于专门吸收个人储蓄、发放普通贷款的商业银行。</strong></p></section><section class="lesson" id="c3s3-part-03"><h3>教材137—141页：五阶段发展史，用问题串起来<span class="level context">背景＋会认</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间口径</th>
+<th>一句理解</th>
+<th>识别点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>萌芽</td>
+<td>1980—1991</td>
+<td>证券发行增多，代理发行和交易需求出现</td>
+<td>1987年深圳特区证券公司，教材称首家专业性证券公司</td>
+</tr>
+<tr>
+<td>扩张与第一次治理</td>
+<td>1992—1997</td>
+<td>机构快速增加，也出现违规融资和不当投资</td>
+<td>1993年强调银行、证券分业；随后脱钩、重组</td>
+</tr>
+<tr>
+<td>证券法与第二次治理</td>
+<td>1998—2007</td>
+<td>法律地位明确，处理积累风险</td>
+<td>1998年证券法；2004年启动综合治理，2007年完成</td>
+</tr>
+<tr>
+<td>规范与创新</td>
+<td>2008—2017</td>
+<td>风控、合规制度建立，业务种类增加</td>
+<td>2008年监管、合规制度；融资融券等发展</td>
+</tr>
+<tr>
+<td>强监管与扩大开放</td>
+<td>2018年以后</td>
+<td>资管规范、责任强化，同时推进开放</td>
+<td>2018年资管新规；2020年新证券法、取消券商外资股比限制；2024年新国九条</td>
+</tr>
+</tbody>
+</table></div>
+<p>这段为什么讲？后面的第三方存管、净资本监管、合规管理，都是为防止挪用客户资产、资本不足、违规经营等问题。只背“监管加强”却不懂原因，容易把规则当成互不相关的条文。</p>
+<p>第一轮不背每家老券商成立日期、营业部数量、营业收入。历史上“经纪类与综合类”的分类、5亿元注册资本等，应放在当时规则中识别，<strong>不要与后面的现行分类评价A至E混用。</strong>教材2024年150家券商的资产、收入等是行业规模快照，作用是展示发展，不是本节业务区分的必要前提。</p></section><section class="lesson" id="c3s3-part-04"><h3>教材141—145页：七项监管制度，分别管什么<span class="level use">会认＋会用</span></h3>
+<p>监管不是同一种动作反复说七遍。每项制度解决不同问题：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>制度</th>
+<th>管的核心问题</th>
+<th>题目关键词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>业务许可</td>
+<td>能不能做某项证券业务</td>
+<td>牌照、经许可</td>
+</tr>
+<tr>
+<td>诚信与资质准入</td>
+<td>谁可以设立、入股、任职</td>
+<td>注册资本、股东诚信、高管能力</td>
+</tr>
+<tr>
+<td>分类评价与分类监管</td>
+<td>哪些机构风险更高，监管资源怎么分配</td>
+<td>A至E、区别监管</td>
+</tr>
+<tr>
+<td>净资本与流动性风控</td>
+<td>资本能否覆盖风险、现金能否应付义务</td>
+<td>风险覆盖、杠杆、流动性</td>
+</tr>
+<tr>
+<td>合规管理</td>
+<td>日常经营是否合法合规</td>
+<td>合规负责人、审查、监督、检查</td>
+</tr>
+<tr>
+<td>第三方存管</td>
+<td>客户交易结算资金怎样防挪用</td>
+<td>商业银行、单独管理</td>
+</tr>
+<tr>
+<td>信息报送与披露</td>
+<td>监管者和投资者怎样了解机构</td>
+<td>年报、月报、重大事项</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>业务许可<span class="level use">会用</span>：</strong>公司依法成立，不等于自动能经营所有证券业务。证券法列经纪、投资咨询、财务顾问、承销与保荐、融资融券、做市、自营等，经营相应业务要取得许可；资管还要符合基金法等规定。教材讲2016年多项许可证统一为“经营证券期货业务许可证”，只是证照形式统一，不等于监管门槛全部消失。</p>
+<p><strong>准入<span class="level recognize">会认</span>：</strong>看资本、股东、高管与业务人员、制度、场所、合规记录。不是仅交够注册资本就一定批准。</p>
+<p><strong>分类评价<span class="level use">会认＋会用</span>：</strong>以风险管理能力、持续合规状况为基础，结合业务发展与功能发挥。教材列5大类11级：A类AAA/AA/A，B类BBB/BB/B，C类CCC/CC/C，加D、E。教材低于60分为D；被停业整顿、托管、接管、行政重组等风险处置的定为E。分类用于监管安排与相关审慎判断，<strong>不是给投资者保证收益的信用评级。</strong>2025年8月22日规定名称调整为《证券公司分类评价规定》。<a href="https://www.csrc.gov.cn/csrc/c100028/c7579223/content.shtml" rel="noopener" target="_blank">证监会修订说明</a></p>
+<p><strong>净资本与流动性<span class="level use">会用</span>：</strong>净资本是经风险调整等计算的监管指标，不直接等于会计净资产；账面资产多，也不等于随时拿得出现金。业务范围、业务规模、风险准备与资本水平要动态匹配。</p>
+<p>教材四个核心指标先识别名称：<strong>风险覆盖率、资本杠杆率、流动性覆盖率、净稳定资金率。</strong>资本指标关心承受风险的能力，流动性指标关心按时履约的能力。本节没有必要把完整监管报表计算提前学一遍；后续若题目要求计算，再按明确公式练。</p>
+<p><strong>合规管理<span class="level use">会用</span>：</strong>不是出事后才补材料，而是事前审查、事中监督、事后检查，发现违规并改进。董事会、高管、合规负责人等分工明确，监管部门、行业自律、公司内部约束相互配合。合规总监与首席风险官职责有关联但不同，别把“合规”与“任何市场损失”画等号。</p></section><section class="lesson" id="c3s3-part-05"><h3>教材144—145页：第三方存管与信息报送<span class="level use">会用＋会认</span></h3>
+<p>客户交易结算资金存于商业银行，单独管理，证券公司不得挪用。银行承担资金存取与监督等存管职责；券商负责证券交易相关服务；中国结算办理登记结算相关工作。三者不是同一机构。</p>
+<figure class="diagram" data-diagram="client-money"><figcaption class="figure-label">SVG · 第三方存管：职责分开，客户财产隔离</figcaption><div class="diagram-interactive"><div id="finance-client-money">
+<h3>第三方存管：职责分开，客户财产隔离</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">职责区别</button></div>
+<div data-diagrams=""><svg aria-label="三个不同分工" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>三个不同分工</title><desc>商业银行，资金存管监督；证券公司，证券交易服务；中国结算，登记清算交收。；</desc><defs><marker id="arrow-client-money-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">三个不同分工</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">商业银行</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">资金存管监督</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">证券交易服务</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">中国结算</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">登记清算交收</text></svg><svg aria-label="两类财产隔离" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>两类财产隔离</title><desc>客户资金，按规定单独管理；券商自有资金，不得混同挪用。</desc><defs><marker id="arrow-client-money-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两类财产隔离</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户资金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规定单独管理</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">券商自有资金</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">不得混同挪用</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">职责区别</div>
+<script data-config="" type="application/json">{"heading": "第三方存管：职责分开，客户财产隔离", "states": [{"label": "职责区别", "rows": [{"label": "三个不同分工", "nodes": [["商业银行", "资金存管监督"], ["证券公司", "证券交易服务"], ["中国结算", "登记清算交收"]], "edges": ["", ""], "noArrows": true}, {"label": "两类财产隔离", "nodes": [["客户资金", "按规定单独管理"], ["券商自有资金", "不得混同挪用"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-client-money .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-client-money .finance-flow text {fill:currentColor;font:inherit}
+#finance-client-money .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-client-money .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-client-money .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-client-money');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-client-money-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-client-money-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>职责区别</h4><div><svg aria-label="三个不同分工" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>三个不同分工</title><desc>商业银行，资金存管监督；证券公司，证券交易服务；中国结算，登记清算交收。；</desc><defs><marker id="print-03-03-0-0-arrow-client-money-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">三个不同分工</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">商业银行</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">资金存管监督</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">证券交易服务</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">中国结算</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">登记清算交收</text></svg><svg aria-label="两类财产隔离" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>两类财产隔离</title><desc>客户资金，按规定单独管理；券商自有资金，不得混同挪用。</desc><defs><marker id="print-03-03-0-0-arrow-client-money-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两类财产隔离</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户资金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规定单独管理</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">券商自有资金</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">不得混同挪用</text></svg></div></div></div></figure>
+<p>“第三方”强调客户资金与券商自有资金的隔离和外部监督，<strong>不是商业银行保证客户投资不亏损。</strong>证券账户记录证券，资金账户反映相应资金，不能因为都叫账户就混成一个。</p>
+<p>教材另列专用账户数量限制：券商在同一家存管银行只能开一个客户交易结算资金专用存款账户；在主办存管银行只能开一个自有资金专用存款账户；营业部在相应当地分支机构的客户专户、结算机构相应清算备付金及自有资金等专户，也有各自数量要求。这是机构专户规则，<strong>不是说一家券商只能有一位客户或所有客户共用同一个权益记录。</strong></p>
+<p>信息监管三层：向监管者报送；向公众披露；审计与年报监管。教材期限是年末后<strong>4个月内报年报、月末后7个工作日内报月报、重大事件立即报临时报告</strong>。基本信息变化要持续更新，公开披露的财务信息包含审计报告、报表与附注。</p>
+<p>为什么讲这些数字？期限题能直接考，但第一轮先对应“年、月、重大事件”，别把工作日当自然日。</p></section><section class="lesson" id="c3s3-part-06"><h3>教材145—146页：经纪业务，客户决定，券商执行<span class="level use">会用</span></h3>
+<p>经纪业务就是代理客户买卖证券，券商赚佣金等业务收入。客户资金、客户决策、客户承受相应交易盈亏，是最重要的判断线索。</p>
+<p>开户和委托是两个环节。开户及签署相关协议先建立代理关系；客户提出具体委托、券商受理后，形成该笔交易的具体委托关系。<strong>开了账户不等于已要求券商买某只股票。</strong></p>
+<p>具体委托包括证券名称、数量、出价方式、价格范围等，券商应按要求和交易规则执行，真实记录，并提供成交报告、对账信息。</p>
+<p><strong>经纪业务不得接受全权委托，擅自替客户决定证券种类、数量和价格。</strong>“客户说随你买”并不会让普通经纪业务自动合法变成资管。资产管理需要另行合法设立的业务安排与合同。</p>
+<p>证券经纪人是受券商委托进行客户招揽、客户服务等的人员，要在授权范围执业并受监督。经纪人不是天然有权替客户做全权交易的人，券商也不能允许他人冒用公司名义直接参加集中交易。</p></section><section class="lesson" id="c3s3-part-07"><h3>教材146—147页：投资咨询与财务顾问，服务对象和任务不同<span class="level use">会用</span></h3>
+<p>投资咨询是提供分析、预测、建议等直接或间接有偿服务。两种基本形式：<strong>发布证券研究报告、证券投资顾问业务。</strong></p>
+<p>研究报告分析价值、行业、市场、策略，给出估值或评级等意见；投资顾问接受客户委托，按约定提供品种、组合、理财规划等建议，辅助客户决策。<strong>建议不是替客户下单，更不是承诺收益。</strong></p>
+<p>财务顾问围绕发行上市准备、并购重组、重大投资、债务重组、公司治理、股权激励、再融资方案等资本活动提供建议与策划。</p>
+<p>判断例子：分析某公司合理股价，偏证券研究；根据客户情况提供组合建议，偏投顾；设计上市公司收购与重组方案，偏财务顾问。不要只见“咨询”两个字就选同一业务。</p></section><section class="lesson" id="c3s3-part-08"><h3>教材147页：承销，包销与代销的风险到底谁承担<span class="level use">会用</span></h3>
+<p>承销是券商帮助发行人发售证券。包销和代销的关键在于<strong>没有卖出去的证券如何处理</strong>。</p>
+<figure class="diagram" data-diagram="underwriting"><figcaption class="figure-label">SVG · 承销结束后，未卖出的证券归谁</figcaption><div class="diagram-interactive"><div id="finance-underwriting">
+<h3>承销结束后，未卖出的证券归谁</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">全额包销</button><button aria-pressed="false" class="btn" type="button">余额包销</button><button aria-pressed="false" class="btn" type="button">代销</button></div>
+<div data-diagrams=""><svg aria-label="券商先全部买入" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>券商先全部买入</title><desc>发行人，发行证券；券商，先买下全部；投资者，后续认购。购入；销售</desc><defs><marker id="arrow-underwriting-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">券商先全部买入</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">发行证券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">券商</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">先买下全部</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">后续认购</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-underwriting-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">购入</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-underwriting-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">销售</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">全额包销</div>
+<script data-config="" type="application/json">{"heading": "承销结束后，未卖出的证券归谁", "states": [{"label": "全额包销", "rows": [{"label": "券商先全部买入", "nodes": [["发行人", "发行证券"], ["券商", "先买下全部"], ["投资者", "后续认购"]], "edges": ["购入", "销售"]}]}, {"label": "余额包销", "rows": [{"label": "剩余由券商购买", "nodes": [["100万份发行", "公众买70万份"], ["剩余30万份", "券商自行购入"]], "edges": ["余额包销"]}]}, {"label": "代销", "rows": [{"label": "剩余退给发行人", "nodes": [["100万份发行", "公众买70万份"], ["剩余30万份", "退回发行人"]], "edges": ["退还"]}]}]}</script>
+</div>
+<style>
+#finance-underwriting .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-underwriting .finance-flow text {fill:currentColor;font:inherit}
+#finance-underwriting .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-underwriting .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-underwriting .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-underwriting');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-underwriting-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-underwriting-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>全额包销</h4><div><svg aria-label="券商先全部买入" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>券商先全部买入</title><desc>发行人，发行证券；券商，先买下全部；投资者，后续认购。购入；销售</desc><defs><marker id="print-03-03-1-0-arrow-underwriting-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">券商先全部买入</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">发行证券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">券商</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">先买下全部</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">后续认购</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-1-0-arrow-underwriting-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">购入</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-1-0-arrow-underwriting-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">销售</text></svg></div></div><div class="diagram-print-state"><h4>余额包销</h4><div><svg aria-label="剩余由券商购买" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>剩余由券商购买</title><desc>100万份发行，公众买70万份；剩余30万份，券商自行购入。余额包销</desc><defs><marker id="print-03-03-1-1-arrow-underwriting-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">剩余由券商购买</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">100万份发行</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">公众买70万份</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">剩余30万份</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">券商自行购入</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-03-1-1-arrow-underwriting-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">余额包销</text></svg></div></div><div class="diagram-print-state"><h4>代销</h4><div><svg aria-label="剩余退给发行人" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>剩余退给发行人</title><desc>100万份发行，公众买70万份；剩余30万份，退回发行人。退还</desc><defs><marker id="print-03-03-1-2-arrow-underwriting-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">剩余退给发行人</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">100万份发行</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">公众买70万份</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">剩余30万份</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">退回发行人</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-03-1-2-arrow-underwriting-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">退还</text></svg></div></div></div></figure>
+<p>全额包销：券商先按约定把发行证券全部买下，再销售。余额包销：承销期结束后，把未售出的剩余证券自行买下。代销：期末未售出部分退给发行人。</p>
+<p>例子：计划发行100万份，公众买了70万份。余额包销下，券商买下余下30万份；代销下，余下30万份退回发行人。因此包销承担相应销售风险，代销不等于券商无论如何都替发行人筹够全部计划金额。</p>
+<p>承销团由主承销与参与承销券商组成。教材提醒旧法“超过5000万元必须组成承销团”的强制要求被取消，<strong>不要把旧门槛当作现行必然条件。</strong>金额大也可能选择组团，但“可选”与“必须”不同。</p></section><section class="lesson" id="c3s3-part-09"><h3>教材147—149页：保荐，核查督导，不是包赚<span class="level use">会用</span></h3>
+<p>保荐人对发行上市进行推荐、辅导、核查，并在上市后按规定持续督导。核心是诚实守信、勤勉尽责、审慎核查，保证出具文件真实、准确、完整，并督导规范运作。</p>
+<p>承销着重“把证券卖出去”；保荐着重“核查发行上市资料并履行督导职责”。同一家券商可以承担两种职责，但不意味着这两个概念相同。</p>
+<p>教材说承担责任时，要按法律条件理解。<strong>保荐不是为投资者的所有损失提供担保，也不是证明被保荐股票一定有投资价值。</strong>违法违规、虚假陈述等引发的责任，要结合相应规则与过错等条件判断。</p>
+<p>保荐机构资格须获核准；机构指定符合要求的保荐代表人负责具体工作。专业能力评价测试不等于个人可脱离保荐机构随意承接保荐项目。</p>
+<p>教材沿革从2003年暂行办法到后续管理办法修订，第一轮只识别制度建立与注册制衔接。2023年修订明确交易所上市保荐监管、北交所直接适用、删除发审委相关表述等。<strong>证监会行政监管，交易所与证券业协会自律管理</strong>，后面两节会专讲。</p></section><section class="lesson" id="c3s3-part-10"><h3>教材149—150页：自营业务，券商用自己的钱投资<span class="level use">会用</span></h3>
+<p>自营是券商以自己名义、使用自有或依法筹集资金，为自身买卖证券、获取收益。与经纪业务相比，钱与盈亏的归属变了。</p>
+<p>投资范围不只交易所股票，还包括符合规定的交易所与全国股转系统证券、银行间市场证券、区域市场特定证券及依法获准的柜台证券等。<strong>“自营只能买股票”不对。</strong></p>
+<p>券商的资金、信息与交易条件有优势，所以要防内幕交易、操纵市场与利益冲突，遵守许可、资本与风险控制要求。</p>
+<p>教材列一个需识别的例外：用自有资金投规定的低风险、高流动性证券，或委托符合要求的其他机构管理，规模合计不超过净资本80%时，可不需取得自营业务资格。<strong>例外有资产范围、资金性质、规模条件；不是所有投资都免牌照。</strong></p>
+<p>2024年修订的风险控制指标计算标准于2025年1月起施行，是本版沿革点。第一轮掌握风控围绕资本与流动性，不把报表清单当业务本身。</p></section><section class="lesson" id="c3s3-part-11"><h3>教材150—152页：资产管理业务，管理的是受托财产<span class="level use">会用</span></h3>
+<p>资管是接受投资者委托，对受托财产进行投资管理。券商可以依合法合同主动管理，但财产不因此变成券商自有财产，也不能与自营、经纪、承销、做市混合操作。</p>
+<figure class="diagram" data-diagram="broker-business"><figcaption class="figure-label">SVG · 经纪、自营、资管：谁的钱，谁决策</figcaption><div class="diagram-interactive"><div id="finance-broker-business">
+<h3>经纪、自营、资管：谁的钱，谁决策</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">经纪</button><button aria-pressed="false" class="btn" type="button">自营</button><button aria-pressed="false" class="btn" type="button">资管</button></div>
+<div data-diagrams=""><svg aria-label="客户决策，券商代理" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>客户决策，券商代理</title><desc>客户资金，客户下指令；券商，代理执行；交易盈亏，主要归客户。代理；客户承担</desc><defs><marker id="arrow-broker-business-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户决策，券商代理</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户资金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">客户下指令</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">券商</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">代理执行</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">交易盈亏</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">主要归客户</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">代理</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">客户承担</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">经纪</div>
+<script data-config="" type="application/json">{"heading": "经纪、自营、资管：谁的钱，谁决策", "states": [{"label": "经纪", "rows": [{"label": "客户决策，券商代理", "nodes": [["客户资金", "客户下指令"], ["券商", "代理执行"], ["交易盈亏", "主要归客户"]], "edges": ["代理", "客户承担"]}]}, {"label": "自营", "rows": [{"label": "券商投资自己的财产", "nodes": [["券商资金", "自有或合法筹集"], ["券商", "为自身决策"], ["交易盈亏", "归券商"]], "edges": ["自营", "自己承担"]}]}, {"label": "资管", "rows": [{"label": "按合同管理受托财产", "nodes": [["受托财产", "归相应投资者"], ["管理人", "按合同管理"], ["投资结果", "按合同归属"]], "edges": ["委托", "投资管理"]}]}]}</script>
+</div>
+<style>
+#finance-broker-business .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-broker-business .finance-flow text {fill:currentColor;font:inherit}
+#finance-broker-business .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-broker-business .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-broker-business .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-broker-business');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-broker-business-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-broker-business-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>经纪</h4><div><svg aria-label="客户决策，券商代理" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>客户决策，券商代理</title><desc>客户资金，客户下指令；券商，代理执行；交易盈亏，主要归客户。代理；客户承担</desc><defs><marker id="print-03-03-2-0-arrow-broker-business-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户决策，券商代理</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">客户资金</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">客户下指令</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">券商</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">代理执行</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">交易盈亏</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">主要归客户</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-2-0-arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">代理</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-2-0-arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">客户承担</text></svg></div></div><div class="diagram-print-state"><h4>自营</h4><div><svg aria-label="券商投资自己的财产" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>券商投资自己的财产</title><desc>券商资金，自有或合法筹集；券商，为自身决策；交易盈亏，归券商。自营；自己承担</desc><defs><marker id="print-03-03-2-1-arrow-broker-business-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">券商投资自己的财产</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">券商资金</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">自有或合法筹集</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">券商</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">为自身决策</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">交易盈亏</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">归券商</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-2-1-arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">自营</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-2-1-arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">自己承担</text></svg></div></div><div class="diagram-print-state"><h4>资管</h4><div><svg aria-label="按合同管理受托财产" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>按合同管理受托财产</title><desc>受托财产，归相应投资者；管理人，按合同管理；投资结果，按合同归属。委托；投资管理</desc><defs><marker id="print-03-03-2-2-arrow-broker-business-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">按合同管理受托财产</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">受托财产</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">归相应投资者</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">管理人</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">按合同管理</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">投资结果</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按合同归属</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-2-2-arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">委托</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-2-2-arrow-broker-business-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">投资管理</text></svg></div></div></div></figure>
+<p><strong>单一计划</strong>服务单一投资者；<strong>集合计划</strong>服务多个投资者，教材规定2至200人。单一计划可按规定接受货币、股票、债券等委托；集合计划原则上接受货币委托，认可情形例外。集合不等于向任何公众随意募集。</p>
+<p>资产管理计划按最终资产配置划分：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>教材判断标准</th>
+<th>易错点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>固定收益类</td>
+<td>债权类资产至少总资产80%</td>
+<td>固定收益类别不等于保证收益</td>
+</tr>
+<tr>
+<td>权益类</td>
+<td>股权类资产至少总资产80%</td>
+<td>包括规定范围内未上市股权，不只上市股票</td>
+</tr>
+<tr>
+<td>商品及金融衍生品类</td>
+<td>持仓合约价值至少总资产80%，且衍生品账户权益超过总资产20%</td>
+<td>两个条件都要满足</td>
+</tr>
+<tr>
+<td>混合类</td>
+<td>未达到前三类标准</td>
+<td>不是任何同时持有股债的计划都必然混合</td>
+</tr>
+</tbody>
+</table></div>
+<p>例子：债券85%、股票15%，仍可能为固定收益类；股权79%、债权21%，未达单类80%时不能硬选权益类。商品衍生品账户权益<strong>超过</strong>20%，不要把恰好20%读成满足。</p>
+<p>开放式在约定时间允许参与退出；封闭式存续期间不办理参与退出。教材开放式集合计划每三个月至多开放一次，另有规定除外。开放式不是随时想退就退。</p>
+<p>私募资管以非公开方式向合格投资者募集，不得用公开媒体或面向不特定对象的讲座、自媒体等宣传具体计划；不能拆分份额、多个计划投同一非标等绕过人数或资格要求。</p>
+<p>可投范围包括存款和标准化债权、标准化股权、集中清算的期货期权、公募基金等，也可按规定投非标准化资产和其他受监管资管产品。<strong>标准化</strong>与<strong>非标准化</strong>是资产规则分类，不是低风险与高风险的同义词。</p>
+<p>受托资金投股指期货、国债期货，要评估客户适当性、充分揭示风险，合同明确目的、比例、估值、披露、风控与责任，设置保证金应急机制。原合同没有约定时，不能直接自行增加期货投资；变更要履行同意及相关程序。讲这些条款，是让你能识别“客户有钱”不等于“管理人想投什么就投什么”。</p></section><section class="lesson" id="c3s3-part-12"><h3>教材152—153页：融资融券，借钱与借证券分开<span class="level use">会用</span></h3>
+<p>融资：客户向券商借钱买证券。融券：客户向券商借证券卖出，未来按约定归还证券。两者都需担保物及相应合同、征信、风险控制。</p>
+<figure class="diagram" data-diagram="margin"><figcaption class="figure-label">SVG · 融资借钱买，融券借证券卖</figcaption><div class="diagram-interactive"><div id="finance-margin">
+<h3>融资借钱买，融券借证券卖</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">融资</button><button aria-pressed="false" class="btn" type="button">融券</button></div>
+<div data-diagrams=""><svg aria-label="借钱买证券" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>借钱买证券</title><desc>证券公司，出借资金；客户，取得借款；证券市场，买入证券。出借；买入</desc><defs><marker id="arrow-margin-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">借钱买证券</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">出借资金</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">取得借款</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">证券市场</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">买入证券</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-margin-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">出借</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-margin-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">买入</text></svg><svg aria-label="客户的还款义务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>客户的还款义务</title><desc>客户，按约定清偿；证券公司，收回本息。还本付息</desc><defs><marker id="arrow-margin-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户的还款义务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按约定清偿</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">收回本息</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-margin-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">还本付息</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">融资</div>
+<script data-config="" type="application/json">{"heading": "融资借钱买，融券借证券卖", "states": [{"label": "融资", "rows": [{"label": "借钱买证券", "nodes": [["证券公司", "出借资金"], ["客户", "取得借款"], ["证券市场", "买入证券"]], "edges": ["出借", "买入"]}, {"label": "客户的还款义务", "nodes": [["客户", "按约定清偿"], ["证券公司", "收回本息"]], "edges": ["还本付息"]}]}, {"label": "融券", "rows": [{"label": "借证券后卖出", "nodes": [["证券公司", "出借证券"], ["客户", "取得借入证券"], ["证券市场", "卖出证券"]], "edges": ["出借", "卖出"]}, {"label": "客户的还券义务", "nodes": [["客户", "按约定买回等"], ["证券公司", "收到归还证券"]], "edges": ["还券付费"]}]}]}</script>
+</div>
+<style>
+#finance-margin .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-margin .finance-flow text {fill:currentColor;font:inherit}
+#finance-margin .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-margin .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-margin .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-margin');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-margin-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-margin-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>融资</h4><div><svg aria-label="借钱买证券" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>借钱买证券</title><desc>证券公司，出借资金；客户，取得借款；证券市场，买入证券。出借；买入</desc><defs><marker id="print-03-03-3-0-arrow-margin-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">借钱买证券</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">出借资金</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">取得借款</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">证券市场</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">买入证券</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-3-0-arrow-margin-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">出借</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-3-0-arrow-margin-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">买入</text></svg><svg aria-label="客户的还款义务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>客户的还款义务</title><desc>客户，按约定清偿；证券公司，收回本息。还本付息</desc><defs><marker id="print-03-03-3-0-arrow-margin-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户的还款义务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按约定清偿</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收回本息</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-03-3-0-arrow-margin-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">还本付息</text></svg></div></div><div class="diagram-print-state"><h4>融券</h4><div><svg aria-label="借证券后卖出" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>借证券后卖出</title><desc>证券公司，出借证券；客户，取得借入证券；证券市场，卖出证券。出借；卖出</desc><defs><marker id="print-03-03-3-1-arrow-margin-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">借证券后卖出</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">出借证券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">取得借入证券</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">证券市场</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">卖出证券</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-3-1-arrow-margin-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">出借</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-3-1-arrow-margin-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">卖出</text></svg><svg aria-label="客户的还券义务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>客户的还券义务</title><desc>客户，按约定买回等；证券公司，收到归还证券。还券付费</desc><defs><marker id="print-03-03-3-1-arrow-margin-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户的还券义务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按约定买回等</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收到归还证券</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-03-3-1-arrow-margin-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">还券付费</text></svg></div></div></div></figure>
+<p>融资买入后上涨可能获利，下跌也可能加大损失；融券卖出通常希望之后较低价买回归还，上涨则增加回补成本。这里先理解方向，保证金与盈亏完整计算在交易章节再细讲。</p>
+<p><strong>融券不是借钱买证券；融资也不是发行公司向公众发债。</strong>第一节“企业融资”与这里“投资者融资交易”都出现融资二字，但业务场景不同。</p>
+<p>券商须取得资格、满足治理、财务、客户资产安全、适当性、系统、人员等条件。融资融券账户以券商名义开立相应专用、担保和交收账户，客户权益另有明细记录，不代表券商可以挪用。</p>
+<details class="reference-section">
+<summary>账户识别：先按“用途”记，再按“放在哪”记</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场所</th>
+<th>教材列示的券商账户</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>证券登记结算机构</td>
+<td>融券专用证券账户、客户信用交易担保证券账户、信用交易证券交收账户、信用交易资金交收账户</td>
+</tr>
+<tr>
+<td>商业银行</td>
+<td>融资专用资金账户、客户信用交易担保资金账户</td>
+</tr>
+</tbody>
+</table></div>
+<p>专用账户用于出借资源；担保账户用于担保物；交收账户用于结算。融资融券合同需明确额度、期限、利率费率、保证金、维持担保比例、折算率、担保物集中度、追保与清偿方式、权益处理等。理解用途后再记全名，避免纯拼字。</p>
+</details></section><section class="lesson" id="c3s3-part-13"><h3>教材153—156页：做市，券商作为交易对手提供双边报价<span class="level use">会用</span></h3>
+<p>做市商持续报愿意买入和卖出的价格，在规定数量与义务范围内按报价成交。投资者卖时，做市商可以接；投资者买时，做市商可以供给。</p>
+<p>它与撮合经纪业务不同：撮合连接其他买卖双方；做市商自己承担交易对手角色，并承担库存与价格风险。买价通常低于卖价，价差可以成为收入来源，但<strong>有价差不代表稳赚，价格下跌、库存积压等仍会造成损失。</strong></p>
+<p>作用记三个：提供流动性、促进价格发现、有利于稳定市场运行。流动性较好不等于不会停牌、不会出现无法成交的特殊情况。</p>
+<p>教材沿革：早期自动报价系统试点；银行间债券市场建立完善做市规则；2014年新三板引入做市；科创板、北交所发展相应做市制度。它是多市场机制，不是只有新三板有。</p>
+<p><strong>新三板<span class="level recognize">会认</span>：</strong>证券公司开展做市需自营资格、专门部门人员、业务制度与技术系统等。不得不履行报价义务、内幕交易、操纵价格、串通报价、利益输送；规定允许的库存股回售转售约定不能泛化为任意股权回购承诺。</p>
+<details class="reference-section">
+<summary>第二轮记忆：科创板终止安排与北交所专门准入</summary>
+<p>科创板某只股票连续2个月做市评价D等，可能终止该只股票做市，1年内不得重新申请同一股票；不具资格、年度综合D、年度C且排名末位10%、严重违规等，可能终止全部科创板做市，1年内不得重新申请任一科创板股票做市。区分“某一只”与“全部”。</p>
+<p>教材2023年北交所特别规定：已取得上市证券做市资格的券商，或按特别规定满足条件并获核准的券商，可开展业务。后一途径包括自营资格、最近12个月净资本持续至少50亿元、近3年有1年A类A级及以上且近1年B类BB级及以上、北交所保荐上市家数前20或最近1年新三板做市金额前50、最近18个月风控指标符合规定，以及人员系统、内控合规、最近1年重大处罚和重大信息安全事件等要求。报送月度报告、季度压力测试、年度评估等。</p>
+<p>这些数字讲来用于准入条件题。第一轮先会做市本质，第二轮按“资金—评级—业务表现—风控—人员系统”记，别把北交所特别门槛当所有市场统一门槛。</p>
+</details></section><section class="lesson" id="c3s3-part-14"><h3>教材156—158页：IB 中间介绍业务，介绍客户，不代做期货交易<span class="level use">会用</span></h3>
+<p>IB是介绍经纪业务。券商接受符合规定关系的期货公司委托，介绍客户并协助开户、提供行情与交易设施等服务。</p>
+<figure class="diagram" data-diagram="ib-service"><figcaption class="figure-label">SVG · IB介绍服务与期货经纪的边界</figcaption><div class="diagram-interactive"><div id="finance-ib-service">
+<h3>IB介绍服务与期货经纪的边界</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">三个角色</button></div>
+<div data-diagrams=""><svg aria-label="介绍与开户协助" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>介绍与开户协助</title><desc>证券公司，IB介绍协助；客户，接受风险说明；期货公司，期货经纪服务。介绍；客户开户</desc><defs><marker id="arrow-ib-service-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">介绍与开户协助</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">IB介绍协助</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">接受风险说明</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">期货公司</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">期货经纪服务</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-ib-service-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">介绍</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-ib-service-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">客户开户</text></svg><svg aria-label="券商的权限边界" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>券商的权限边界</title><desc>可以，协助开户与行情；不可以，代下单收保证金。</desc><defs><marker id="arrow-ib-service-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">券商的权限边界</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">可以</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">协助开户与行情</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">不可以</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">代下单收保证金</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">三个角色</div>
+<script data-config="" type="application/json">{"heading": "IB介绍服务与期货经纪的边界", "states": [{"label": "三个角色", "rows": [{"label": "介绍与开户协助", "nodes": [["证券公司", "IB介绍协助"], ["客户", "接受风险说明"], ["期货公司", "期货经纪服务"]], "edges": ["介绍", "客户开户"]}, {"label": "券商的权限边界", "nodes": [["可以", "协助开户与行情"], ["不可以", "代下单收保证金"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-ib-service .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-ib-service .finance-flow text {fill:currentColor;font:inherit}
+#finance-ib-service .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-ib-service .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-ib-service .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-ib-service');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-ib-service-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-ib-service-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三个角色</h4><div><svg aria-label="介绍与开户协助" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>介绍与开户协助</title><desc>证券公司，IB介绍协助；客户，接受风险说明；期货公司，期货经纪服务。介绍；客户开户</desc><defs><marker id="print-03-03-4-0-arrow-ib-service-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">介绍与开户协助</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">IB介绍协助</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">接受风险说明</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">期货公司</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">期货经纪服务</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-4-0-arrow-ib-service-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">介绍</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-4-0-arrow-ib-service-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">客户开户</text></svg><svg aria-label="券商的权限边界" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>券商的权限边界</title><desc>可以，协助开户与行情；不可以，代下单收保证金。</desc><defs><marker id="print-03-03-4-0-arrow-ib-service-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">券商的权限边界</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">可以</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">协助开户与行情</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">不可以</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">代下单收保证金</text></svg></div></div></div></figure>
+<p>券商不能在IB业务中代理客户期货交易、结算、交割，不能代收付期货保证金，不能利用证券资金账户存取划转期货保证金。也不能代下单、保管修改交易密码、替客户融资担保，或承诺获利、共担风险。</p>
+<p><strong>提供交易设施，不等于替客户决定和执行交易。</strong>这是看起来相近、实际权限不同的典型考点。</p>
+<p>只能接受全资拥有、控股或同一机构控制的期货公司委托，不能任意替一家无关联关系期货公司办IB。券商与期货公司独立经营，财务、人员、经营场所等隔离，明确三方权利义务并揭示风险。</p>
+<p>准入数字<span class="level recognize">会认</span>：券商申请前6个月风控指标符合要求；相关期货公司申请前2个月风控指标符合要求；总部至少5名、拟开展业务营业部至少2名符合期货从业条件人员。再加第三方存管、内部制度、技术系统等要求。</p></section><section class="lesson" id="c3s3-part-15"><h3>教材158—160页：私募基金子公司与另类子公司<span class="level use">会认＋会用</span></h3>
+<p>两类子公司用来划清经营边界与隔离风险，母公司不能因为设了子公司就不负责管控。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>机构</th>
+<th>核心业务</th>
+<th>关键区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>私募投资基金子公司</td>
+<td>私募投资基金业务</td>
+<td>围绕合法设立、管理私募基金展开</td>
+</tr>
+<tr>
+<td>另类投资子公司</td>
+<td>规定的另类投资及相关获准品种、跟投等</td>
+<td>不得向投资者募资开展基金业务</td>
+</tr>
+</tbody>
+</table></div>
+<p>教材强调用自有资金全资设立、同类原则上不超过一家、不得代持绕规则、专业运营、限制非金融业务、不得对外贷款担保或承担被投企业债务连带责任等。另类子公司还要求母公司具备自营资格，不能把这项条件丢给所有私募基金子公司。</p>
+<p>旧规则列二级机构持股35%以上且有控制权、对子公司所设单只基金自有资金投资不超基金总额20%等；2024年修订又完善二级管理子公司、现金管理、跟投与其他投资范围、关联交易、人员管理、自律报送等要求。<strong>教材先讲旧规范、再讲修订，读时要把适用版本接上。</strong></p>
+<p>2024年修订的主线：业务范围更明确；二级管理子公司须按规定登记且不得再下设机构；穿透管理关联交易，防违规融资与利益输送；母公司选派合规负责人等；加强执业登记、自律措施与报送。第一轮能区分两类子公司及风险隔离目的即可，旧细项留给明确版本的练习。</p></section><section class="lesson" id="c3s3-part-16"><h3>教材161—163页：券商国际化，走出去与引进来<span class="level context">背景＋会认</span></h3>
+<p>国际化两个方向：内地券商到境外设立、收购、参股机构、开展业务与融资；境外投资者进入境内证券行业。</p>
+<p>香港是教材描述的内地券商国际业务重要市场。具体机构数量、每年IPO排名、融资规模是年份快照；讲它们的目的在于说明市场通道，第一轮不背所有数字，也不把它们当2026年实时规模。</p>
+<p>境外机构层级过多、经营边界不清、返程同质业务、母公司管控不足会带来风险。对应管理办法强调适当门槛、突出主业、规范架构、母公司管控、持续监管与跨境合作。<strong>走出去不等于绕开监管，境外风险也可能传回境内母公司。</strong></p>
+<p>开放沿革识别点：2002年外资参股规则；2018年外商投资券商办法允许外资控股并逐步放开业务；2020年4月起取消券商外资股比限制。<strong>取消股比限制不等于取消设立条件和业务许可。</strong>CEPA及某家机构获批时间属于背景，第一轮掌握双向开放和风险管控即可。</p></section><section class="lesson" id="c3s3-part-17"><h3>教材163—166页：证券服务机构，谁出什么专业意见<span class="level use">会认＋会用</span></h3>
+<p>证券中介包括券商和其他证券服务机构。其他服务机构不一定做买卖代理，它们可能提供审计、法律、评估、评级、信息系统等专业服务。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>专业机构</th>
+<th>本节主要文件或工作</th>
+<th>不能换成什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会计师事务所</td>
+<td>财务审计、内控审计鉴证、验资等</td>
+<td>不替代法律意见</td>
+</tr>
+<tr>
+<td>律师事务所</td>
+<td>法律意见书，核查发行、收购等法律事项</td>
+<td>不等于保证证券价格</td>
+</tr>
+<tr>
+<td>资产评估机构</td>
+<td>资产评估报告</td>
+<td>不等于财报审计</td>
+</tr>
+<tr>
+<td>资信评级机构</td>
+<td>评级报告与评级服务</td>
+<td>评级不是投资收益担保</td>
+</tr>
+<tr>
+<td>财务顾问机构</td>
+<td>收购重组等方案和专业意见</td>
+<td>不同于普通荐股投顾</td>
+</tr>
+<tr>
+<td>信息技术系统服务机构</td>
+<td>重要系统开发、测试、集成、测评、运维与安全</td>
+<td>不只是卖一台普通电脑</td>
+</tr>
+<tr>
+<td>投资咨询机构</td>
+<td>证券分析、预测与建议</td>
+<td>不能擅自代理投资</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>准入区别：投资咨询服务须核准；其他列示证券服务业务按规定备案。</strong>备案不等于不监管，也不等于出具的报告自动真实。</p>
+<p>教材备案期限：首次签服务协议起10个工作日内；如果实际服务早于签约，从实际服务起算10个工作日；每年4月30日前提交年度备案材料。关键词是<strong>实际早于合同要从实际开始算</strong>，不是靠迟签合同推迟备案。</p>
+<p>会计师事务所为相关主体重要组成部分或控制主体审计，审计对象资产或收入达到规定对应金额15%时，教材视同相关证券服务业务。律师事务所涉及IPO、再融资、并购重组、回购、合并分立分拆、激励、公司债、境外发行上市、特定非上市公众公司业务等。第一轮按专业工作识别，名单的重复业务不用逐项重新理解。</p></section><section class="lesson" id="c3s3-part-18"><h3>教材166—167页：投资咨询机构的行为边界<span class="level use">会用</span></h3>
+<p>咨询可以通过接受委托、讲座、报刊、广播电视、电话网络等方式开展。直接或间接有偿都在教材定义内，不能以“没直接收咨询费”断言一定不属于咨询。</p>
+<p>服务应完整、客观、准确，资料注明出处，公开发表意见说明机构、真实姓名与风险。不得用谣言、虚假或内幕信息作为分析依据。</p>
+<p>证券法列的禁止行为：<strong>代理委托人投资；约定分享投资收益或分担损失；买卖本咨询机构提供服务的证券；其他法定禁止行为。</strong>给建议与代为交易是不同权限；“赚了分成、亏了我扛”不是合规投顾的免责安排。</p></section><section class="lesson" id="c3s3-part-19"><h3>教材167—168页：证券金融公司与转融通，借给谁<span class="level use">会用</span></h3>
+<p>中证金融为券商融资融券提供配套服务。转融通是证券金融公司将资金、证券借给券商，供券商办理融资融券。客户是券商，不是直接向每个散户提供普通融资融券。</p>
+<figure class="diagram" data-diagram="refinance"><figcaption class="figure-label">SVG · 转融通与融资融券：服务对象不同</figcaption><div class="diagram-interactive"><div id="finance-refinance">
+<h3>转融通与融资融券：服务对象不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">制度关系</button></div>
+<div data-diagrams=""><svg aria-label="资金或证券的出借链" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>资金或证券的出借链</title><desc>中证金融，转融通服务；证券公司，融资融券业务；客户，按约定借入。借给券商；借给客户</desc><defs><marker id="arrow-refinance-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金或证券的出借链</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">中证金融</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">转融通服务</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">融资融券业务</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按约定借入</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-refinance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">借给券商</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-refinance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">借给客户</text></svg><svg aria-label="规则与实施状态" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>规则与实施状态</title><desc>教材规则，转融通制度；2024年公告，暂停转融券。</desc><defs><marker id="arrow-refinance-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">规则与实施状态</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">教材规则</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">转融通制度</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">2024年公告</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">暂停转融券</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">制度关系</div>
+<script data-config="" type="application/json">{"heading": "转融通与融资融券：服务对象不同", "states": [{"label": "制度关系", "rows": [{"label": "资金或证券的出借链", "nodes": [["中证金融", "转融通服务"], ["证券公司", "融资融券业务"], ["客户", "按约定借入"]], "edges": ["借给券商", "借给客户"]}, {"label": "规则与实施状态", "nodes": [["教材规则", "转融通制度"], ["2024年公告", "暂停转融券"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-refinance .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-refinance .finance-flow text {fill:currentColor;font:inherit}
+#finance-refinance .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-refinance .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-refinance .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-refinance');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-refinance-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-refinance-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>制度关系</h4><div><svg aria-label="资金或证券的出借链" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资金或证券的出借链</title><desc>中证金融，转融通服务；证券公司，融资融券业务；客户，按约定借入。借给券商；借给客户</desc><defs><marker id="print-03-03-5-0-arrow-refinance-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金或证券的出借链</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">中证金融</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">转融通服务</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">融资融券业务</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按约定借入</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-03-5-0-arrow-refinance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">借给券商</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-03-5-0-arrow-refinance-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">借给客户</text></svg><svg aria-label="规则与实施状态" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>规则与实施状态</title><desc>教材规则，转融通制度；2024年公告，暂停转融券。</desc><defs><marker id="print-03-03-5-0-arrow-refinance-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">规则与实施状态</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">教材规则</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">转融通制度</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">2024年公告</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">暂停转融券</text></svg></div></div></div></figure>
+<p><strong>制度与实施状态分开：</strong>教材讲转融通规则；证监会已公告自2024年7月11日起暂停转融券业务。这个历史实施调整必须一起知道，不能从教材规则存在推成转融券一直照常开展；也不能把“转融券暂停”改成所有融资交易、所有融券交易都被取消。这里说明已核实公告，不据此推断未来恢复日期。<a href="https://www.csrc.gov.cn/csrc/c100028/c7493852/content.shtml" rel="noopener" target="_blank">证监会暂停公告</a></p>
+<p>证券金融公司不以营利为目的，不等于没有收入利润。按教材为股份有限公司，国务院决定设立和解散，注册资本不少于60亿元，为实收资本，股东用货币出资。</p>
+<p>资金证券来源可包括自有、经业务平台融入、依法筹集等；可按规定发债或借入次级债。它连接货币市场和资本市场，但不是可以任意放贷、替别人担保的普通通道。</p>
+<p>教材脚注提醒：证券金融公司不在证券法明确列出的普通证券服务机构名单内。本节放在这里是因为它提供配套市场服务，<strong>不要因此把它与律师、会计师事务所完全等同。</strong></p></section><section class="lesson" id="c3s3-part-20"><h3>教材169—172页：转融通账户、担保、权益和监管<span class="level use">会认＋会用</span></h3>
+<p>先理解三组用途：专用账户放拟出借与归还资源；担保账户记录担保财产；交收账户办理结算。以中证金融名义开相关账户，券商又有担保明细账户记自己的权益。名义持有人与财产实际权益归属并非同一个概念。</p>
+<p>转融通要了解券商信用和风控状况、订合同，约定金额数量、期限费率、保证金、权益处理和违约责任。除暂停终止交易等特殊约定，教材期限不超过6个月。中证金融收保证金，证券可充抵，但货币资金至少占<strong>应收保证金</strong>15%，不是占全部借款15%。</p>
+<p>担保证券和资金按规定形成信托财产。保证金不足可要求补交；违约可处分担保物，不足可继续追偿。经券商书面同意可有偿使用担保品，不能把这一带条件安排理解成随意挪用。</p>
+<p>担保证券登记中证金融为名义持有人；行使发行人权利要事先征求委托券商意见并按意见办理。分红等记录到相应账户、明细更新；借入证券期间产生应得权益，按约定向融出方补偿相等利益。</p>
+<p><strong>中证金融担保账户证券不算其自有证券；券商达到规定持股披露比例时，要合并相关账户与一致行动人权益按规定履行义务。</strong>不要只看“登记在谁名下”就认定谁拥有全部经济利益。</p>
+<details class="reference-section">
+<summary>第二轮记忆：中证金融监管数字</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事项</th>
+<th>教材口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件资料保存</td>
+<td>至少20年</td>
+</tr>
+<tr>
+<td>年报、月报</td>
+<td>年末后4个月内；月末后7个工作日内；重大事件立即报告</td>
+</tr>
+<tr>
+<td>净资本/各项风险资本准备之和</td>
+<td>至少100%</td>
+</tr>
+<tr>
+<td>对单一券商转融通余额</td>
+<td>不超过中证金融净资本50%</td>
+</tr>
+<tr>
+<td>融出每种证券余额</td>
+<td>不超过该证券上市可流通市值10%</td>
+</tr>
+<tr>
+<td>每种充抵保证金证券余额</td>
+<td>不超过该证券总市值15%</td>
+</tr>
+<tr>
+<td>风险准备金</td>
+<td>每年税后利润10%，监管可按需调整</td>
+</tr>
+</tbody>
+</table></div>
+<p>中证金融资金除法定职责和正常运转外，仅按允许用途运用，如存款、国债、获认可高流动性产品、自用不动产等；不得为他人债务担保。这里的自用不动产用途，与QDII不得买不动产不是同一个主体的规则。</p>
+</details></section><section class="lesson" id="c3s3-part-21"><h3>教材172页：服务机构的责任、保存资料与退出<span class="level use">会用＋会认</span></h3>
+<p>机构出具文件要勤勉尽责，对所依据资料真实性、准确性、完整性核查验证。审计、评估、评级、法律意见等文件有虚假记载、误导性陈述、重大遗漏，造成损失时，按法律与委托人承担连带赔偿责任，<strong>能够证明没有过错的除外。</strong></p>
+<p>连带责任不是“只要收了服务费，所有价格下跌都赔”，也不是“资料由客户提供，机构完全不负责”。做题要保留文件问题、损失、法定责任及无过错例外。</p>
+<p>工作底稿、核查资料、委托文件等至少保存10年，从业务委托结束起算，不得泄露、隐匿、伪造、篡改或毁损。<strong>本段10年，与上一段中证金融20年，不是同一种保存义务。</strong></p>
+<p>资格审批改备案后，事中事后检查与处罚仍在；严重违规可暂停或禁止服务。备案、核准、业务许可在不同机构与业务上有不同适用，不能见“放管服”就选“不再承担法律责任”。</p></section><section class="lesson" id="c3s3-part-22"><h3>本节练习：业务判断比名称背诵更重要</h3>
+<ol>
+<li>客户指定买入某股票1000股，券商执行并收佣金，是什么业务？券商能替客户自行换成另一只股票吗？</li>
+<li>券商用自有资金买债券，盈亏归券商，是什么业务？</li>
+<li>券商按合法资管合同管理客户组合，是不是把客户钱变成自有资金？</li>
+<li>发行100万份证券，承销期只卖70万份，剩下30万份券商买下，属于哪种承销？退回发行人呢？</li>
+<li>保荐人持续督导，是否承诺上市股票只涨不跌？</li>
+<li>客户借券商钱买股票与借券商股票卖出，分别是什么交易？</li>
+<li>券商持续双边报价并与投资者成交，是普通经纪撮合还是做市？</li>
+<li>IB业务中提供行情设施，是否可以代客户下期货单、代收保证金？</li>
+<li>产品债权类资产恰好80%，可满足固定收益类比例标准吗？这是否意味着保本？</li>
+<li>商品衍生品持仓价值80%，账户权益恰好20%，是否满足本节两个分类条件？</li>
+<li>中证金融借钱给券商办理两融，属于直接给散户融资还是转融通？</li>
+<li>咨询机构可以和客户约定“赚钱分成、亏损分担”吗？</li>
+<li>其他证券服务机构备案后，可否不保存工作底稿、不核查客户资料？</li>
+<li>第三方存管能否保证客户买入股票不会下跌？</li>
+<li>固定收益类资管比例分母总资产，与QDII比例分母净值，能否直接混用？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li><strong>经纪；不能。</strong>按委托执行，不能擅自决策。</li>
+<li><strong>自营。</strong>自己的资金与盈亏。</li>
+<li><strong>不是。</strong>受托财产要隔离，按合法合同管理。</li>
+<li><strong>余额包销；代销。</strong>看未售出部分的处理。</li>
+<li><strong>不是。</strong>核查与督导义务不是收益担保。</li>
+<li><strong>融资交易；融券交易。</strong>借的东西及买卖方向不同。</li>
+<li><strong>做市。</strong>自己承担交易对手角色。</li>
+<li><strong>不能。</strong>介绍服务与期货经纪权限不同。</li>
+<li><strong>可以满足比例；不意味着保本。</strong>至少80%包含等于80%。</li>
+<li><strong>不满足。</strong>账户权益要求超过20%，严格大于。</li>
+<li><strong>转融通。</strong>服务对象是券商。</li>
+<li><strong>不能。</strong>属于禁止性行为。</li>
+<li><strong>不能。</strong>备案不解除核查和资料保存义务。</li>
+<li><strong>不能。</strong>存管保护资金管理安全，投资市场风险仍在。</li>
+<li><strong>不能。</strong>不同制度、不同分母，必须分别计算。</li>
+</ol>
+</div>
+</details>
+<p><strong>过关标准：</strong>能对一个业务例子说出业务名称、资金归属、决策者及盈亏归属；能分清承销与保荐、融资融券与转融通、咨询与代为投资、IB与期货经纪。第二轮再用本节表格练数字和期限。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="03-02_证券投资者.html">上一节 · 证券投资者</a><a href="03-04_自律性组织.html">下一节 · 自律性组织</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。依据用户提供的2025版扫描教材，按本节小标题顺序解释；保留必要概念、识别细节与练习，压缩重复论述。相邻节可能共用同一教材页。</p><p>优先级标记表示学习要求，不是已核验的出题频率。各制度数字须连同主体、分母、年份理解；修订说明在对应段标出。</p><p>本节HTML无需联网即可阅读，SVG图与公式保存在文件内；出处链接需联网。练习为本讲义自编诊断题。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

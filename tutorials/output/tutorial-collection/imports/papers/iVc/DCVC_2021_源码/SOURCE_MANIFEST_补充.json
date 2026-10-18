@@ -1,0 +1,54 @@
+{
+  "commit": "cbdae87a5445114cdc7f48816da63ea80bdeac40",
+  "retrieved_client_date": "2026-10-15",
+  "files": [
+    {
+      "path": "src/layers/gdn.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/layers/gdn.py",
+      "bytes": 2112,
+      "sha256": "7a1bbb3de66b159f7924baf1977f165b4c8a85cfcfa37d85b118b57ee9448d47"
+    },
+    {
+      "path": "src/zoo/image.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/zoo/image.py",
+      "bytes": 1045,
+      "sha256": "ef16ad75377b21ecaec9394cfbd57b0f7e0e1bfbd115312d2ba81ba1b6ca631b"
+    },
+    {
+      "path": "src/models/waseda.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/waseda.py",
+      "bytes": 3079,
+      "sha256": "21af99012f55016bb829dd3c1c672273ca7e3620f6a60491311b57620a7320d7"
+    },
+    {
+      "path": "src/models/priors.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/priors.py",
+      "bytes": 25381,
+      "sha256": "62db5fe7353dc651bd5b6fd705cc2e31337929f7123c9a8b25984bb8f6f35ddc"
+    },
+    {
+      "path": "src/ops/parametrizers.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/ops/parametrizers.py",
+      "bytes": 1420,
+      "sha256": "ac15d10424907e06a2e5ea60e9e7e8910ad5eae357d3a7f91741e7b0c70d9b6e"
+    },
+    {
+      "path": "src/ops/bound_ops.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/ops/bound_ops.py",
+      "bytes": 1767,
+      "sha256": "d17477355f2628121d7ff749b11fd30b00c4dd8d9c0fa6b27c6718c128d1c8b2"
+    },
+    {
+      "path": "src/entropy_models/entropy_models.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/entropy_models/entropy_models.py",
+      "bytes": 18282,
+      "sha256": "5c67b86d960df19a9c3b511cfd11a88c201720516f7cd1017735720f2f3466ed"
+    },
+    {
+      "path": "src/models/utils.py",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/utils.py",
+      "bytes": 3869,
+      "sha256": "42fbcce86a23499c33ba82dfadccce8622e36e4c5c2a08e286b93750369dcc1f"
+    }
+  ]
+}

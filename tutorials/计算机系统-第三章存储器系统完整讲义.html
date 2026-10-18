@@ -1,0 +1,2575 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="第三章存储器系统完整学习讲义，含存储器原理、CPU连接与芯片扩展、Cache、虚拟存储器，12幅SVG图解和29道习题答题卡，可离线阅读。"><title>第三章 · 存储器系统完整学习讲义</title><style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+body{overflow-x:clip}
+body{overflow-x:visible}html{scroll-padding-top:28px}.layout{gap:42px}main{width:100%}.book-cover .edition{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted-foreground)}.book-cover .edition:before{content:'';width:42px;height:3px;background:var(--primary)}.book-cover h1{max-width:850px}.cover-subtitle{display:block;font-size:.58em;margin-top:14px;line-height:1.65}.book-cover .lead{max-width:750px}.cover-facts{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:var(--muted-foreground);margin-top:32px}.book-cover .route{margin-bottom:0}.reader-tools{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.reader-tools button,.btn{appearance:none;border:1px solid #9eafb0;border-radius:3px;background:var(--card);color:#244f61;font:inherit;line-height:1.5;padding:8px 14px;cursor:pointer}.reader-tools button{font-size:14px}.reader-tools button:hover,.btn:hover{background:var(--accent)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--primary);outline-offset:3px}nav .chapter-nav{color:#243f4b;font-weight:700;padding-top:22px}.chapter-front{padding-top:78px;border-top:3px solid var(--primary);border-bottom:0;margin-top:40px}.chapter-front h2{font-size:2.5rem;line-height:1.45;margin-bottom:28px}.chapter-number{display:block;font-size:14px;font-family:'Microsoft YaHei',sans-serif;letter-spacing:.1em;color:var(--primary);margin-bottom:15px}.chapter-front .lead{max-width:none;font-size:19px}.chapter-front blockquote{font-size:19px}.part-head{border-top:1px solid var(--border)}.part-goal{font-size:15px;color:#354a54;border-left:3px solid #417562;padding:2px 0 2px 18px;margin-bottom:32px}.part-goal p{margin:0 0 8px}.part-goal p:last-child{margin:0}.unit{margin:35px 0 0;scroll-margin-top:25px}.unit h3{margin-top:0;font-size:1.14rem;line-height:1.65;position:relative}.unit-index{display:block;font-size:12px;font-weight:400;letter-spacing:.08em;color:#607778;margin:0 0 4px}.unit+.unit{padding-top:28px;border-top:1px dashed #d7ddd9}.unit h4{font-size:1rem;margin:26px 0 12px}.unit hr{display:none}blockquote{margin:24px 0;padding:12px 0 12px 22px;border-left:3px solid var(--primary);color:#284c5b}blockquote p:last-child{margin-bottom:0}pre{overflow-x:auto;background:#ecf0ed;padding:18px 20px;font-size:14px;line-height:1.85;border-left:3px solid #83999c;tab-size:4;margin:22px 0 26px}code{font-family:'Cascadia Mono',Consolas,'Microsoft YaHei',monospace;font-size:.9em;font-variant-ligatures:none}p code,li code,td code{background:#e8ece8;padding:1px 4px;border-radius:2px;overflow-wrap:anywhere}pre code{font-size:inherit;background:none;padding:0}.eq{white-space:normal;text-align:center;font-size:18px;line-height:1.9;overflow-x:auto;padding:18px 20px}.eq math{display:block;width:max-content;min-width:0;max-width:none;margin:0 auto}math{font-family:'Cambria Math','STIX Two Math',math;font-size:1.08em}.math-inline{white-space:nowrap}mtext{font-family:'Microsoft YaHei','SimSun',sans-serif;font-size:.85em}.diagram{margin:35px auto;max-width:680px;padding:22px 20px 18px;background:#fafaf4;border-top:1px solid #c9d6d6;border-bottom:1px solid #c9d6d6;break-inside:avoid}.diagram .diagram-live{font-size:14px;line-height:1.8}.diagram .text-small{font-size:12px}.diagram .drawing{overflow:visible}.diagram svg{height:auto}.viz-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 18px;margin-bottom:16px}.form-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:#354e5a;max-width:100%;min-width:0}.form-select,.form-control{font:14px/1.4 'Microsoft YaHei',sans-serif;color:var(--foreground);background:var(--card);border:1px solid #a9b7b5;border-radius:3px;padding:8px 9px;max-width:100%;min-height:38px}.form-control{width:170px}.viz-row{display:flex;flex-wrap:wrap;gap:7px 17px;margin:10px 0}.diagram [aria-live]{font-size:13px;line-height:1.9;margin-top:12px;color:#355260}.diagram figcaption{font-size:13px;line-height:1.9;color:#526269;margin-top:16px}.figure-number{font-weight:700;color:#355768;margin-right:8px}.tabular-nums{font-variant-numeric:tabular-nums}.diagram-print{display:none}.exercise{padding:22px 0;border-top:1px solid var(--border);scroll-margin-top:20px}.exercise h3{margin:0 0 12px;font-size:18px}.exercise>p{margin-bottom:8px}.exercise details{margin-bottom:8px}.answer-content{padding-top:15px;font-size:16px}.answer-content p{font-size:inherit;margin:0 0 14px}.answer-content p:last-child{margin-bottom:0}.answer-content pre{font-size:13px}.answer-content ul,.answer-content ol{padding-left:25px}.question-links{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px}.question-links a{border:1px solid var(--border);padding:4px 9px;text-decoration:none;font-size:14px;background:var(--card)}.source-note{font-size:14px;color:var(--muted-foreground)}.topic-tag{display:inline-block;font-size:12px;font-weight:400;color:var(--primary);border:1px solid #b1c5cb;padding:1px 8px;margin-bottom:12px}.correction-note{border-left:3px solid #ad512d;padding-left:16px;font-size:15px}.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.finish-grid h3{margin-top:0}.answer-tools-note{font-size:13px;color:var(--muted-foreground)}
+@media(max-width:999px){.chapter-front{margin-top:28px}.chapter-front h2{font-size:2.1rem}.layout{max-width:900px}.book-cover{padding-bottom:42px}aside summary{font-size:14px}nav .chapter-nav{grid-column:1/-1}nav a{padding:7px 0}.part-head h2{font-size:1.65rem}}
+@media(max-width:540px){.chapter-front{padding-top:45px}.chapter-front h2{font-size:1.85rem}.book-cover h1{font-size:2.1rem}.cover-subtitle{font-size:.66em}.chapter-front .lead{font-size:17px}.finish-grid{grid-template-columns:1fr}.diagram{padding:18px 12px 14px}.unit h3{font-size:17px}.eq{font-size:16px;padding:14px 10px}.reader-tools{gap:8px}.reader-tools button{font-size:13px;padding:7px 9px}.cover-facts{gap:5px 20px}.part-goal{font-size:14px;padding-left:12px}pre{font-size:13px;padding:14px 12px}.unit+.unit{padding-top:22px}.book-cover .route{font-size:16px}.exercise h3{font-size:17px}}
+@media(max-width:380px){.diagram{margin-left:-16px;margin-right:-16px;padding:18px 1px 14px;width:calc(100% + 32px);max-width:none}.diagram .viz-controls,.diagram .viz-row,.diagram [aria-live],.diagram figcaption{margin-left:15px;margin-right:15px}.diagram .form-select{font-size:13px}.chapter-front h2{font-size:1.7rem}.eq{padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:18mm 17mm 19mm}
+@media print{html{scroll-padding-top:0}body{font-size:10.5pt;line-height:1.75;background:#fff}.layout{display:block;max-width:none;padding:0}.book-cover{padding:20px 0 30px;break-after:page}.book-cover h1{font-size:30pt}.book-cover .lead{font-size:13pt}.chapter-front{break-before:page;margin:0;padding-top:18px;border-top:2px solid #286a88}.chapter-front h2{font-size:23pt}.chapter-front .lead{font-size:12pt}section{break-before:auto;padding:28px 0 10px}.unit{margin-top:22px}.unit+.unit{padding-top:15px}.unit h3{font-size:12pt}.part-head h2{font-size:17pt}.reader-tools,.answer-tools-note,.top-link{display:none!important}h2,h3,h4,summary{break-after:avoid}p,li{orphans:3;widows:3}table{min-width:0;font-size:9pt;line-height:1.7;break-inside:auto}tr{break-inside:avoid}thead{display:table-header-group}.table-wrap{overflow:visible;margin:14px 0}th,td{padding:7px 8px}td:first-child{min-width:0}.eq{font-size:12pt;padding:10px;overflow:visible;break-inside:avoid}pre{font-size:9pt;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid;padding:10px 13px}details{break-inside:auto;padding:8px 0}details::details-content{content-visibility:visible;display:block}details:not([open])>:not(summary){display:block!important}.answer-content,.answer-content p{font-size:10pt}.diagram{max-width:155mm;width:100%;margin:20px auto;padding:12px 10px;background:#fff}.diagram-live{display:none}.diagram-print{display:block;font-size:14px;line-height:1.8}.diagram-print svg{display:block;width:100%;height:auto;overflow:visible}.diagram-print .text-small{font-size:12px}.diagram-print text{fill:var(--foreground);font-family:'Microsoft YaHei',sans-serif}.diagram figcaption{font-size:9pt;margin-top:8px}.part-goal{font-size:10pt;margin-bottom:20px}.cover-facts,.scope,.source-note{font-size:9pt}.question-links{display:none}.exercise{padding:14px 0;break-inside:auto}.exercise h3{font-size:11pt}.finish-grid{display:block}footer{padding:25px 0}.chapter-front .eyebrow{font-size:9pt}strong{-webkit-print-color-adjust:exact}*{print-color-adjust:exact}}
+.diagram .ch3-diagram,.diagram .new-drawing{display:block;width:100%;height:auto;color:var(--foreground)}.diagram .new-drawing text{font-family:inherit;fill:var(--foreground)}.diagram .new-drawing .node{fill:var(--muted);stroke:var(--border)}.diagram .new-drawing .active{fill:var(--viz-series-1);fill-opacity:.15;stroke:#8daeb7}.diagram .new-drawing .wire{stroke:#6d7f83;fill:none;stroke-width:1.2}.diagram .new-drawing .hotwire{stroke:var(--viz-series-1);fill:none;stroke-width:2}.diagram .new-drawing .bank{fill:#f1f3ed;stroke:var(--border)}.diagram .new-drawing .bank-on{fill:var(--viz-series-1);fill-opacity:.06;stroke:#a6bec2}.diagram .form-label.inline{flex-direction:row;align-items:center;gap:8px}.diagram .btn:disabled{opacity:.45;cursor:default}.diagram .result{font-size:13px;line-height:1.9;margin-top:12px;color:#355260}.diagram-print .new-drawing text{fill:var(--foreground);font-family:'Microsoft YaHei',sans-serif}.chapter-front h2{font-size:2.7rem}.source-map td:first-child{white-space:nowrap}.source-map{min-width:510px}.formula-note{font-size:14px;color:var(--muted-foreground)}.diagram-print .new-drawing .node{fill:var(--muted);stroke:var(--border)}.diagram-print .new-drawing .active{fill:var(--viz-series-1);fill-opacity:.15;stroke:#8daeb7}.diagram-print .new-drawing .wire{stroke:#6d7f83;fill:none;stroke-width:1.2}.diagram-print .new-drawing .hotwire{stroke:var(--viz-series-1);fill:none;stroke-width:2}.diagram-print .new-drawing .bank{fill:#f1f3ed;stroke:var(--border)}.diagram-print .new-drawing .bank-on{fill:var(--viz-series-1);fill-opacity:.06;stroke:#a6bec2}
+@media(max-width:540px){.chapter-front h2{font-size:2rem}.cover-subtitle{font-size:.62em}.diagram .new-drawing{font-size:14px}}
+@media print{.chapter-front h2{font-size:24pt}.diagram-print .new-drawing{font-size:14px}.diagram-print .ch3-diagram{height:auto!important}.source-map{min-width:0}}
+</style></head><body><div class="layout"><aside aria-label="第三章目录"><p class="brand">计算机系统 / 第三章</p><details id="directory"><summary>展开目录 · 存储器系统</summary><nav><a href="#how">学习路线与掌握标准</a><a href="#s01">01 / 先把容量、地址、位宽分清</a><a href="#s02">02 / 3.1 存储器的类型、层次、接口与性能</a><a href="#s03">03 / 3.2 ROM：怎样保存、编程与擦除</a><a href="#s04">04 / 3.3 SRAM 与 DRAM</a><a href="#s05">05 / 3.4.1—3.4.2 CPU 连接与存储扩展</a><a href="#s06">06 / 3.4.3 嵌入式系统的存储扩展</a><a href="#s07">07 / 3.4.4 内存条、SDRAM 与 DDR</a><a href="#s08">08 / 3.5.1 Cache 的原理与性能</a><a href="#s09">09 / 3.5.2 三种映射与地址字段</a><a href="#s10">10 / 习题 3.20、3.21 完整演算</a><a href="#s11">11 / 3.5.3 Cache 读取、更新与替换</a><a href="#s12">12 / 3.6.1 虚拟存储器的用途</a><a href="#s13">13 / 3.6.2—3.6.4 段、页与段页式转换</a><a href="#s14">14 / TLB、页表开销与页面大小</a><a href="#coverage">原书小节与背景内容定位</a><a href="#selftest">七道章末自测</a><a href="#exercises">29 道习题答题卡</a><a href="#finish">易错点与学完标准</a><a href="#sources">整理依据</a></nav></details></aside><main>
+<header class="book-cover" id="start"><p class="edition">计算机原理与嵌入式系统 · 配套学习整理</p><h1>存储器怎样存信息<br>CPU 怎样找到它<span class="cover-subtitle">第三章 · 存储器系统</span></h1><p class="lead">从保存一位信息的电路，到多片芯片的连接；从 Cache 地址映射，到虚拟地址转换。每一步都落到“题目里怎样判断、怎样计算”。</p><p class="scope">完整覆盖原讲义 3.1—3.6 和 3.7 的全部 29 道习题。页码按第三章单独讲义：第 1 页为目录，正文及习题在第 2—50 页。沿用前两章的离线文件版式。</p><div class="cover-facts"><span>14 节完整讲解</span><span>12 幅 SVG 图解</span><span>29 道习题答题卡</span><span>7 道短自测</span></div><p class="route">存什么、怎么保持 → 怎样连接与扩展 → 怎样加速访问 → 怎样转换地址</p><div class="reader-tools"><button id="print-book" type="button">打印 / 保存为 PDF</button><button data-answers="open" type="button">展开全部答案</button><button data-answers="close" type="button">收起全部答案</button></div><a class="continue" href="#s01">从容量与地址开始 →</a><p class="source-note"><a href="计算机系统-第一二章完整讲义.html">需要复习进制、补码或 CPU 基本结构时，回到前两章 →</a></p></header>
+<section id="how"><p class="eyebrow">先把四类问题分开</p><h2>别把器件、接线、缓存与地址管理混成一团</h2><p>这一章跨越四个层面：器件怎样保持状态，芯片怎样组成更大的存储器，CPU 怎样少等数据，操作系统怎样组织地址。每个新名词先放回它负责的问题里，再看它与上下层怎样联系。</p><div class="table-wrap"><table><thead><tr><th>问题</th><th>对应内容</th><th>掌握标准</th></tr></thead><tbody><tr><td>信息能存在哪里？</td><td>磁、光、RAM、ROM、Flash</td><td>能比较原理、断电保持、读写方式和用途。</td></tr><tr><td>怎样组织足够大的存储器？</td><td>容量、地址、CPU 连接与扩展</td><td><strong>会算容量、地址线、芯片数、地址范围，会画组织关系。</strong></td></tr><tr><td>主存跟不上 CPU，怎么办？</td><td>Cache</td><td><strong>会拆地址、求候选位置、模拟替换并解释更新。</strong></td></tr><tr><td>程序地址怎样映射和隔离？</td><td>段、页、段页式与 TLB</td><td><strong>会按表项走转换路径，区分未命中、缺页和权限错误。</strong></td></tr></tbody></table></div>
+<p>每节开头注明“掌握要求”和“背景为什么要讲”。要求依据章后习题及后续知识依赖划分，不代表已知你的考试范围。必须会做的内容要离开示范重新算；背景内容也完整交代用途，但不用把每个旧型号参数都背成公式。</p><p class="source-note">12 幅图都保存在本文件中。带下拉框、输入框或按钮的图可以改变条件；章末答案默认折叠。打印时显示答案，并采用图解默认示例。外部链接仅供核对，正文、公式与图解离线可用。</p></section>
+<section class="part-head lesson" id="s01"><p class="eyebrow">第三章 · 第 01 节</p><h2>先把容量、地址、位宽分清</h2><div class="part-goal"><p><strong>掌握要求：</strong>不看提示能由 N×M 算容量、地址位数，区分按字与按字节编址。</p><p><strong>背景为什么要讲：</strong>扩展、Cache、分页都依赖这套单位关系；先把“一个地址选什么”说明白。</p></div>
+<p>这一段直接决定容量题和扩展题能不能做对。</p>
+<h3>位 bit，是一个 0 或 1。字节 Byte，是 8 位</h3>
+<p>因此：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>1</mn><mi>B</mi><mo>&#x0003D;</mo><mn>8</mn><mi>b</mi></mrow></math></div>
+
+
+
+<p>大写 <code>B</code> 和小写 <code>b</code> 不一样。例如：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>64</mn><mi>M</mi><mi>b</mi><mo>&#x0003D;</mo><mn>8</mn><mi>M</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>这里暂时按同一种数量级换算，核心就是除以 8。</p>
+<p>本讲义在计算题中沿用二进制习惯：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>1</mn><mi>K</mi><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>10</mn></mrow></msup><mi>B</mi><mo>&#x0003D;</mo><mn>1024</mn><mi>B</mi></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>1</mn><mi>M</mi><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>20</mn></mrow></msup><mi>B</mi><mo>&#x0002C;</mo><mspace width="2em" /><mn>1</mn><mi>G</mi><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>30</mn></mrow></msup><mi>B</mi></mrow></math></div>
+
+
+
+<p>严格区分时，1024 字节应写作 1KiB。<strong>做本章题，按讲义的二进制约定计算。</strong></p>
+<h3>“字”需要看上下文</h3>
+<p>在存储芯片的容量表达式里：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mtext>位</mtext></mrow></math></div>
+
+
+
+<p>意思是：</p>
+<blockquote>
+<p>有 4K 个可选择的存储单元，每个单元保存 8 位。</p>
+</blockquote>
+<p>你可以把它想成 <strong>4096 个抽屉，每个抽屉能放 8 个二进制位</strong>。</p>
+<p>所以总容量：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4096</mn><mo>&#x000D7;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>32768</mn><mtext>位</mtext><mo>&#x0003D;</mo><mn>4096</mn><mi>B</mi><mo>&#x0003D;</mo><mn>4</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>而：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn><mtext>位</mtext></mrow></math></div>
+
+
+
+<p>表示抽屉数量仍是 4096 个，每个抽屉扩大到 16 位，因此容量是：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4096</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x0002F;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>8192</mn><mi>B</mi><mo>&#x0003D;</mo><mn>8</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p><strong>注意：这里的“一个字”，是芯片一次选出的一个存储单元，不一定等于 CPU 的机器字。</strong></p>
+<p>教材说“32 位计算机一个机器字常为 4 字节”，这是 CPU 字长的语境；<code>4K×8</code> 中的单元宽度，则由这个芯片的组织方式决定。</p>
+<h3>地址是抽屉编号，数据是抽屉内容</h3>
+<p>如果有 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi></mrow></math></span> 位地址，就能组成：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow></math></div>
+
+
+
+<p>种编号。</p>
+<p>例如 12 位地址能选择：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mn>2</mn><mrow><mn>12</mn></mrow></msup><mo>&#x0003D;</mo><mn>4096</mn><mo>&#x0003D;</mo><mn>4</mn><mi>K</mi></mrow></math></div>
+
+
+
+<p>个单元，地址从 0 到 4095。</p>
+<p>因此，对一个<strong>地址不复用、每个地址选一个单元</strong>的普通芯片：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>单元数</mtext><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mtext>地址位数</mtext></mrow></msup></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>总容量（位）</mtext><mo>&#x0003D;</mo><mtext>单元数</mtext><mo>&#x000D7;</mo><mtext>每单元位数</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>举例：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>芯片组织</th>
+<th align="right">地址位数</th>
+<th align="right">数据位宽</th>
+<th align="right">总容量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span></td>
+<td align="right">10</td>
+<td align="right">8</td>
+<td align="right">1KB</td>
+</tr>
+<tr>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span></td>
+<td align="right">12</td>
+<td align="right">8</td>
+<td align="right">4KB</td>
+</tr>
+<tr>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></span></td>
+<td align="right">12</td>
+<td align="right">16</td>
+<td align="right">8KB</td>
+</tr>
+<tr>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>64</mn><mi>K</mi><mo>&#x000D7;</mo><mn>1</mn></mrow></math></span></td>
+<td align="right">16</td>
+<td align="right">1</td>
+<td align="right">8KB</td>
+</tr>
+<tr>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mi>M</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span></td>
+<td align="right">20</td>
+<td align="right">8</td>
+<td align="right">1MB</td>
+</tr>
+</tbody></table></div>
+<p>后面讲 DRAM 时你会看到：<strong>地址位数和芯片外部地址引脚数，也可能不同，因为地址可以分两次传入。</strong></p>
+<h3>再区分按字节编址和按字编址</h3>
+<p>按字节编址：</p>
+<blockquote>
+<p>每个地址编号对应 1 字节。</p>
+</blockquote>
+<p>按字编址：</p>
+<blockquote>
+<p>每个地址编号对应一个字，字有多少字节要看题目。</p>
+</blockquote>
+<p>所以：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>寻址容量</mtext><mo>&#x0003D;</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x000D7;</mo><mtext>每个地址对应的字节数</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>这是本章最容易错的公式之一。<strong>先判断一个地址对应多少字节，再算容量。</strong></p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s02"><p class="eyebrow">第三章 · 第 02 节</p><h2>3.1 存储器的类型、层次、接口与性能</h2><div class="part-goal"><p><strong>掌握要求：</strong>会按不同依据分类，解释主存/外存，比较延迟、周期和带宽。</p><p><strong>背景为什么要讲：</strong>历史器件和接口版本全部认识用途；年代、线缆长度和旧版本速率以查表为主。</p></div>
+<p>“磁存储器”“主存”“RAM”这些词，使用的分类标准并不相同。</p>
+<ul>
+<li>按<strong>存储介质</strong>分：磁、半导体、光。</li>
+<li>按<strong>系统中的作用</strong>分：寄存器、Cache、主存、外存。</li>
+<li>在本章讨论的半导体器件中，按<strong>读写和保持特性</strong>分：RAM、ROM 等。</li>
+</ul>
+<p>例如，SSD 同时是：</p>
+<blockquote>
+<p>半导体存储器、外部辅助存储器、主要使用 NAND Flash 的存储设备。</p>
+</blockquote>
+<p>这几种说法并不冲突。</p>
+<h3>磁存储器：利用磁化状态保存信息</h3>
+<p>本章提到的类型：</p>
+<ul>
+<li>**磁盘：**HDD、软盘。磁头定位到盘面上的位置进行读写。</li>
+<li>**磁带：**磁头读取移动的带状介质；访问远处内容往往需要先移动磁带。</li>
+<li>**历史器件：**磁泡、磁鼓、磁芯。</li>
+</ul>
+<p>要会解释的共同特点是：<strong>本章这些磁存储介质能在断电后保持信息。</strong></p>
+<p>磁盘和磁带的差别，可以这样记：</p>
+<blockquote>
+<p>磁盘适合定位访问不同位置；磁带偏向顺序访问。</p>
+</blockquote>
+<p>磁鼓、磁芯为什么要讲？它们说明“主存”是一种系统角色，历史上的主存并不一定是半导体器件。讲义还提到王安与磁芯“读后即写”技术，这是发展背景；本章做题重点是类型与工作原理，人物和年代认识即可。</p>
+<h3>光存储器：用光读取介质上的状态变化</h3>
+<p>讲义用激光和反射光变化解释光盘读取。光驱包括激光头、光电转换电路、旋转和定位机构。</p>
+<p>本章提到 CD-DA、CD-ROM、VCD、DVD：</p>
+<ul>
+<li>CD-DA 主要用于数字音频；</li>
+<li>CD-ROM 用于数据；</li>
+<li>VCD、DVD 常用于视频等内容。</li>
+</ul>
+<p>这里要掌握的是“介质上的光学特征怎样转成电信号”，以及典型形式。<strong>不需要为了本章习题背激光头内部每个部件的形状。</strong></p>
+<h3>半导体存储器：利用电子电路或器件状态保存信息</h3>
+<p>本章主要分成：</p>
+<ul>
+<li>**SRAM、DRAM：**用于快速、频繁地读写运行中的信息。</li>
+<li>**ROM、EEPROM、Flash 等：**用于断电后仍要保留的信息。</li>
+</ul>
+<p>先建立一个基础判断：</p>
+<blockquote>
+<p>程序运行时不断变化的变量，适合放 RAM；上电后还要存在的程序或配置，适合放非易失性存储器。</p>
+</blockquote>
+<p>后面会进一步区分这些器件。</p>
+<h3>为什么需要多级存储？因为速度、容量、成本不能同时都做到最优</h3>
+
+
+<figure class="diagram" id="fig-memory-hierarchy" data-figure="memory-hierarchy"><div class="diagram-live"><div id="ch3-hierarchy"><svg class="ch3-diagram" role="img" aria-label="寄存器、Cache、主存、外存四级存储层次"></svg></div>
+<style>#ch3-hierarchy .ch3-diagram{display:block;width:100%;color:var(--foreground)}#ch3-hierarchy text{fill:var(--foreground)}#ch3-hierarchy .node{fill:var(--muted);stroke:var(--border)}#ch3-hierarchy .link{stroke:var(--foreground);fill:none;stroke-width:1.5}</style>
+<script>
+(()=>{const root=document.getElementById('ch3-hierarchy'),svg=root.querySelector('svg');function draw(){const w=root.clientWidth,h=346,x=16,bw=Math.min(300,w-32),rows=[['寄存器','CPU 正在计算的数据'],['Cache · SRAM','主存中近期常用块的副本'],['主存 · DRAM','运行中的程序和数据'],['外存 · HDD / SSD','长期保存的程序和文件']];svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';svg.innerHTML='<title>分层存储，用少量快存储器配合大量慢存储器</title>'+rows.map((r,i)=>`<rect class="node" x="${x}" y="${12+i*78}" width="${bw}" height="60" rx="3"/><text x="${x+12}" y="${36+i*78}">${r[0]}</text><text x="${x+12}" y="${58+i*78}" class="text-small">${r[1]}</text>${i<3?`<path class="link" d="M ${x+bw/2} ${72+i*78} v18 m-4 -5 l4 5 l4 -5"/>`:''}`).join('')+(w>520?`<text x="${bw+46}" y="40">↑ 速度更快</text><text x="${bw+46}" y="66">↑ 每位成本更高</text><text x="${bw+46}" y="224">↓ 容量更大</text><text x="${bw+46}" y="250">↓ 每位成本更低</text>`:'<text x="16" y="336" class="text-small">上层：更快、更贵、更小；下层：更慢、更大</text>');}new ResizeObserver(draw).observe(root);draw();})();
+</script>
+</div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-hierarchy"><svg class="ch3-diagram" role="img" aria-label="寄存器、Cache、主存、外存四级存储层次" viewBox="0 0 640 346" style="height: 346px;"><title>分层存储，用少量快存储器配合大量慢存储器</title><rect class="node" x="16" y="12" width="300" height="60" rx="3"></rect><text x="28" y="36">寄存器</text><text x="28" y="58" class="text-small">CPU 正在计算的数据</text><path class="link" d="M 166 72 v18 m-4 -5 l4 5 l4 -5"></path><rect class="node" x="16" y="90" width="300" height="60" rx="3"></rect><text x="28" y="114">Cache · SRAM</text><text x="28" y="136" class="text-small">主存中近期常用块的副本</text><path class="link" d="M 166 150 v18 m-4 -5 l4 5 l4 -5"></path><rect class="node" x="16" y="168" width="300" height="60" rx="3"></rect><text x="28" y="192">主存 · DRAM</text><text x="28" y="214" class="text-small">运行中的程序和数据</text><path class="link" d="M 166 228 v18 m-4 -5 l4 5 l4 -5"></path><rect class="node" x="16" y="246" width="300" height="60" rx="3"></rect><text x="28" y="270">外存 · HDD / SSD</text><text x="28" y="292" class="text-small">长期保存的程序和文件</text><text x="346" y="40">↑ 速度更快</text><text x="346" y="66">↑ 每位成本更高</text><text x="346" y="224">↓ 容量更大</text><text x="346" y="250">↓ 每位成本更低</text></svg></div>
+<style>#print-ch3-hierarchy .ch3-diagram{display:block;width:100%;color:var(--foreground)}#print-ch3-hierarchy text{fill:var(--foreground)}#print-ch3-hierarchy .node{fill:var(--muted);stroke:var(--border)}#print-ch3-hierarchy .link{stroke:var(--foreground);fill:none;stroke-width:1.5}</style>
+
+</div><figcaption><span class="figure-number">图 3-1</span>四级存储角色与取舍。层次表示常见的速度、容量与每位成本关系，不是到 CPU 的物理距离定律。</figcaption></figure>
+
+
+<p>你可以把它理解成：</p>
+<blockquote>
+<p>手里正在算的东西放寄存器；马上可能再用的放 Cache；运行中的大量内容放主存；长期保存的内容放外存。</p>
+</blockquote>
+<p>四层的作用：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层次</th>
+<th>主要作用</th>
+<th>本章典型实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>寄存器</td>
+<td>CPU 直接运算、暂存地址与结果</td>
+<td>触发器等高速电路</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>保存常用主存数据的副本</td>
+<td>SRAM</td>
+</tr>
+<tr>
+<td>主存</td>
+<td>保存运行中的程序和数据</td>
+<td>DRAM</td>
+</tr>
+<tr>
+<td>外存</td>
+<td>长期保存程序、文件等</td>
+<td>HDD、SSD 等</td>
+</tr>
+</tbody></table></div>
+<h3>主存和外存，并不是根据“在机箱里面还是外面”简单划分</h3>
+<p>机箱里的 SSD 仍属于外部辅助存储器。这里的“外存”，强调的是它相对于主存的角色。</p>
+<p>讲义还区分：</p>
+<ul>
+<li>**联机外存：**通常连接在系统中，如内部硬盘。</li>
+<li>**脱机或可移除介质：**如移动硬盘、光盘、存储卡等。</li>
+</ul>
+<p>你要会写的简答题答案是：</p>
+<blockquote>
+<p>分层存储用少量高速、昂贵的存储器配合大量低速、便宜的存储器，在成本可接受的条件下兼顾容量与访问速度。</p>
+</blockquote>
+<h3>3.1.3 的外存接口，是在回答“存储设备如何接入计算机”</h3>
+<p>介质负责保存信息，接口规定如何交换命令、地址和数据。二者要分开。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>接口</th>
+<th>需要记住的特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IDE / ATA / PATA</td>
+<td>传统并行硬盘接口；PATA 强调并行</td>
+</tr>
+<tr>
+<td>SCSI</td>
+<td>可管理多种外设，讲义强调工作站、服务器用途</td>
+</tr>
+<tr>
+<td>SATA</td>
+<td>Serial ATA，串行传输</td>
+</tr>
+<tr>
+<td>SAS</td>
+<td>Serial Attached SCSI；常见 SAS 控制器可接 SATA 盘，普通 SATA 控制器不能接 SAS 盘</td>
+</tr>
+<tr>
+<td>SD</td>
+<td>可移除存储卡接口；卡内含 Flash 和控制器</td>
+</tr>
+<tr>
+<td>eMMC</td>
+<td>把 NAND Flash 和控制器整合起来的嵌入式存储方案</td>
+</tr>
+<tr>
+<td>UFS</td>
+<td>集成控制器的闪存方案，采用串行接口和 SCSI 命令模型</td>
+</tr>
+</tbody></table></div>
+<p>Mini SD、Micro SD/TF 是不同尺寸形式；Micro SD 可通过适配器装入相应 SD 卡槽。</p>
+<p>**为什么要讲接口？**章末 3.6 直接问接口标准，而且后面嵌入式系统接 Flash 时，是否需要控制器就是关键区别。</p>
+<p>讲义列出了 IDE、SATA、SAS 各代速率，以及 SD、eMMC、UFS 的历史版本参数。它们用于展示接口演进。先掌握“并行还是串行、连接什么设备、有没有控制器”，具体年代、线缆长度、版本速率属于查表层面的知识。</p>
+<h3>3.1.4 的性能指标，不能只看容量</h3>
+<p>需要会解释：</p>
+<ul>
+<li>**容量：**能保存多少信息。</li>
+<li>**存取时间 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>T</mi><mi>A</mi></msub></mrow></math></span>：**一次操作从启动到完成用了多久。</li>
+<li>**存取周期 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>T</mi><mi>M</mi></msub></mrow></math></span>：**连续启动两次独立操作，至少要间隔多久。</li>
+<li>**带宽：**单位时间能传输多少信息。</li>
+<li>还有可靠性、功耗、价格、供电电压与接口兼容性等。</li>
+</ul>
+<h3>存取时间与存取周期不是同一个东西</h3>
+<p>一个操作已经完成，器件可能还要恢复状态，才能开始下一次。因此教材通常有：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>T</mi><mi>M</mi></msub><mo>&#x02265;</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></math></div>
+
+
+
+<p>本章的简单带宽模型：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>B</mi><mo>&#x0003D;</mo><mfrac><mrow><mi>W</mi></mrow><mrow><msub><mi>T</mi><mi>M</mi></msub></mrow></mfrac></mrow></menclose></mrow></math></div>
+
+
+
+<p>这里 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>W</mi></mrow></math></span> 是每次传输的位数。</p>
+<p>若一次传 32 位，周期 100ns：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>B</mi><mo>&#x0003D;</mo><mfrac><mrow><mn>32</mn></mrow><mrow><mn>100</mn><mo>&#x000D7;</mo><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>9</mn></mrow></msup></mrow></mfrac><mo>&#x0003D;</mo><mn>320</mn><mo>&#x000D7;</mo><msup><mn>10</mn><mn>6</mn></msup><mi>b</mi><mo>&#x0002F;</mo><mi>s</mi><mo>&#x0003D;</mo><mn>40</mn><mo>&#x000D7;</mo><msup><mn>10</mn><mn>6</mn></msup><mi>B</mi><mo>&#x0002F;</mo><mi>s</mi></mrow></math></div>
+
+
+
+<p>即 <strong>320Mb/s，或 40MB/s</strong>。</p>
+<p>**学到什么程度？**会算容量、单位换算、带宽；能解释“速度快”可能指延迟短，也可能指吞吐量大。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s03"><p class="eyebrow">第三章 · 第 03 节</p><h2>3.2 ROM：怎样保存、编程与擦除</h2><div class="part-goal"><p><strong>掌握要求：</strong>比较五类 ROM，解释浮栅电荷、擦除粒度、NOR/NAND 及 XIP。</p><p><strong>背景为什么要讲：</strong>SIMOS、FLOTOX、2764A、2816 是器件原理和读手册的实例；不用背所有编程电压与脉冲宽度。</p></div>
+<p>ROM 的历史名称是只读存储器。后来很多 ROM 家族器件可以编程甚至反复改写，但它们仍保留这个名称。</p>
+<p>这道题不能只回答“ROM 只能读”。要回答：</p>
+<blockquote>
+<p>这些器件属于历史上的 ROM 家族，具有非易失性；部分器件可以在专门的编程或擦除条件下改写，读写特性与普通 RAM 不同。</p>
+</blockquote>
+<h3>先把五种器件放在一张表里</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>内容如何写入</th>
+<th>能否重新改写</th>
+<th>最重要的区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>掩模 ROM</td>
+<td>制造时固化</td>
+<td>用户不能改</td>
+<td>出厂内容固定</td>
+</tr>
+<tr>
+<td>PROM</td>
+<td>用户编程一次</td>
+<td>通常不能恢复后重写</td>
+<td>熔丝或反熔丝发生永久变化</td>
+</tr>
+<tr>
+<td>EPROM</td>
+<td>电编程</td>
+<td>可以，先紫外线擦除</td>
+<td>通常整片擦除</td>
+</tr>
+<tr>
+<td>EEPROM</td>
+<td>电擦除、电编程</td>
+<td>可以</td>
+<td>可支持较细粒度，典型是字节</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>电编程、电擦除</td>
+<td>可以</td>
+<td>高密度，通常按块擦除</td>
+</tr>
+</tbody></table></div>
+<h3>掩模 ROM：制造时就把内容定好了</h3>
+<p>内部主要有三个部分：</p>
+<ol>
+<li>**存储矩阵：**保存各个比特。</li>
+<li>**地址译码器：**把地址转换成选择某个单元的信号。</li>
+<li>**输出缓冲器：**把数据送出去，并控制是否连接到总线。</li>
+</ol>
+<p>讲义的 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mo>&#x000D7;</mo><mn>4</mn></mrow></math></span> ROM 示例是：</p>
+<blockquote>
+<p>四个地址，每个地址对应四位数据。</p>
+</blockquote>
+<p>需要两位地址，因为：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mn>2</mn><mn>2</mn></msup><mo>&#x0003D;</mo><mn>4</mn></mrow></math></div>
+
+
+
+<p>地址译码器产生四条字选择线，每次选择一个四位单元。</p>
+<p>讲义示例内容是：</p>
+<ul>
+<li>地址 <code>00</code>：<code>1010</code></li>
+<li>地址 <code>01</code>：<code>1011</code></li>
+<li>地址 <code>10</code>：<code>1110</code></li>
+<li>地址 <code>11</code>：<code>0001</code></li>
+</ul>
+<p>这里要学的是**“地址选择一组比特”**，不必背这四组数据。</p>
+<p>输出缓冲器还有一个重要状态：<strong>高阻态</strong>。</p>
+<p>高阻态可以理解成：</p>
+<blockquote>
+<p>这个芯片暂时退出总线，不主动输出 0，也不主动输出 1。</p>
+</blockquote>
+<p>后面多片存储器共用数据总线时，全靠它避免相互冲突。</p>
+
+
+
+<figure class="diagram" id="fig-rom-decoder" data-figure="rom-decoder"><div class="diagram-live"><div id="ch3-rom"><div class="viz-controls"><label class="form-label">地址<select class="form-select"><option value="0">00</option><option value="1">01</option><option value="2">10</option><option value="3">11</option></select></label><label class="form-label inline"><input type="checkbox" checked>允许输出</label></div><svg class="new-drawing" role="img" aria-label="四字四位 ROM：地址、译码与输出高阻"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-rom"><svg class="new-drawing" role="img" aria-label="四字四位 ROM：地址、译码与输出高阻" viewBox="0 0 640 291"><title>四个地址各选择四位数据，输出禁止时不驱动总线</title><text x="12" y="25" text-anchor="start" class="">2 位地址 → 选择 1 个四位字</text><rect class="node" x="8" y="65" width="59" height="169" rx="3"></rect><text x="37" y="111" text-anchor="middle" class="">2→4</text><text x="37" y="143" text-anchor="middle" class="">地址</text><text x="37" y="171" text-anchor="middle" class="">译码</text><path class="hotwire" d="M67 83 H112"></path><text x="88" y="77" text-anchor="middle" class="text-small">00</text><rect class="active" x="112" y="67" width="125.5" height="32" rx="3"></rect><text x="174.75" y="89" text-anchor="middle" class="">1</text><rect class="active" x="241.5" y="67" width="125.5" height="32" rx="3"></rect><text x="304.25" y="89" text-anchor="middle" class="">0</text><rect class="active" x="371" y="67" width="125.5" height="32" rx="3"></rect><text x="433.75" y="89" text-anchor="middle" class="">1</text><rect class="active" x="500.5" y="67" width="125.5" height="32" rx="3"></rect><text x="563.25" y="89" text-anchor="middle" class="">0</text><path class="wire" d="M67 127 H112"></path><text x="88" y="121" text-anchor="middle" class="text-small">01</text><rect class="node" x="112" y="111" width="125.5" height="32" rx="3"></rect><text x="174.75" y="133" text-anchor="middle" class="">1</text><rect class="node" x="241.5" y="111" width="125.5" height="32" rx="3"></rect><text x="304.25" y="133" text-anchor="middle" class="">0</text><rect class="node" x="371" y="111" width="125.5" height="32" rx="3"></rect><text x="433.75" y="133" text-anchor="middle" class="">1</text><rect class="node" x="500.5" y="111" width="125.5" height="32" rx="3"></rect><text x="563.25" y="133" text-anchor="middle" class="">1</text><path class="wire" d="M67 171 H112"></path><text x="88" y="165" text-anchor="middle" class="text-small">10</text><rect class="node" x="112" y="155" width="125.5" height="32" rx="3"></rect><text x="174.75" y="177" text-anchor="middle" class="">1</text><rect class="node" x="241.5" y="155" width="125.5" height="32" rx="3"></rect><text x="304.25" y="177" text-anchor="middle" class="">1</text><rect class="node" x="371" y="155" width="125.5" height="32" rx="3"></rect><text x="433.75" y="177" text-anchor="middle" class="">1</text><rect class="node" x="500.5" y="155" width="125.5" height="32" rx="3"></rect><text x="563.25" y="177" text-anchor="middle" class="">0</text><path class="wire" d="M67 215 H112"></path><text x="88" y="209" text-anchor="middle" class="text-small">11</text><rect class="node" x="112" y="199" width="125.5" height="32" rx="3"></rect><text x="174.75" y="221" text-anchor="middle" class="">0</text><rect class="node" x="241.5" y="199" width="125.5" height="32" rx="3"></rect><text x="304.25" y="221" text-anchor="middle" class="">0</text><rect class="node" x="371" y="199" width="125.5" height="32" rx="3"></rect><text x="433.75" y="221" text-anchor="middle" class="">0</text><rect class="node" x="500.5" y="199" width="125.5" height="32" rx="3"></rect><text x="563.25" y="221" text-anchor="middle" class="">1</text><text x="12" y="271" text-anchor="start" class="">数据输出：1010</text></svg><div aria-live="polite">选中地址 00；输出对应的 4 位数据。</div></div></div><figcaption><span class="figure-number">图 3-2</span>2 位地址选择 4 个四位字中的一个。输出禁止时，芯片不主动驱动数据总线；高阻不等于输出 0。</figcaption></figure>
+
+
+<h3>PROM：用不可逆的物理变化写入</h3>
+<p>熔丝型 PROM 用较大电流把某些连接烧断；反熔丝型则把原本绝缘的连接永久击穿。</p>
+<p>记住：</p>
+<blockquote>
+<p>熔丝是“原来接通，编程后断开”；反熔丝是“原来断开，编程后接通”。</p>
+</blockquote>
+<p>具体“断开代表 0 还是 1”取决于读出电路，不能脱离器件结构死记。</p>
+<p>为什么只能一次编程？因为这些变化通常不可恢复。</p>
+<h3>EPROM、EEPROM、Flash 的共同基础，是把电荷留在绝缘结构中，用它改变器件的电学状态</h3>
+<p>下面的图可以切换到“浮栅存储”。</p>
+
+
+<figure class="diagram" id="fig-memory-cells" data-figure="memory-cells"><div class="diagram-live"><div id="ch3-cells">
+ <div class="viz-controls"><label class="form-label">存储单元<select class="form-select"><option value="sram">SRAM：反馈保持状态</option><option value="dram">DRAM：电容保存电荷</option><option value="flash">浮栅存储：电荷改变阈值</option></select></label></div>
+ <svg class="ch3-diagram" role="img" aria-label="三种存储单元原理示意"></svg>
+</div>
+<style>#ch3-cells .ch3-diagram{display:block;width:100%;color:var(--foreground)}#ch3-cells text{fill:var(--foreground)}#ch3-cells .node{fill:var(--muted);stroke:var(--border)}#ch3-cells .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}#ch3-cells .charge{fill:var(--viz-series-1)}</style>
+<script>
+(()=>{const root=document.getElementById('ch3-cells'),svg=root.querySelector('svg'),sel=root.querySelector('select');function draw(){const w=root.clientWidth,c=w/2,h=245;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';let s='';if(sel.value==='sram'){s=`<title>SRAM 用两个交叉耦合反相器保持一个比特</title><rect class="node" x="${c-125}" y="74" width="95" height="50"/><rect class="node" x="${c+30}" y="74" width="95" height="50"/><text x="${c-113}" y="104">反相器 1</text><text x="${c+42}" y="104">反相器 2</text><path class="wire" d="M ${c-30} 86 H ${c+30} m-7 -4 l7 4 l-7 4 M ${c+125} 112 H ${c+140} V150 H ${c-140} V112 H ${c-125} m-7 -4 l7 4 l-7 4"/><text x="${c-26}" y="66">Q = 1</text><text x="${c-53}" y="176">互补节点 = 0</text><text x="${c}" y="211" text-anchor="middle">供电持续 → 反馈维持状态</text><text x="${c}" y="236" text-anchor="middle" class="text-small">读写时接通访问管；断电后不能保持</text>`;}else if(sel.value==='dram'){s=`<title>DRAM 一个访问晶体管加一个存储电容，漏电使其需要刷新</title><path class="wire" d="M ${c+110} 55 H ${c-14} V85 M ${c-14} 85 V125 M ${c-24} 85 V125 M ${c-14} 125 V132 H ${c+65} V140 M ${c+35} 140 H ${c+95} M ${c+35} 150 H ${c+95} M ${c+65} 150 V177 M ${c+47} 177 H ${c+83} M ${c+53} 183 H ${c+77} M ${c+59} 189 H ${c+71} M ${c-24} 105 H ${c-115}"/><text x="${c+70}" y="43">位线</text><text x="${c-121}" y="91">字线</text><text x="${c+77}" y="119">电容</text><circle class="charge" cx="${c+48}" cy="134" r="3"/><circle class="charge" cx="${c+64}" cy="134" r="3"/><circle class="charge" cx="${c+80}" cy="134" r="3"/><text x="${c}" y="217" text-anchor="middle">电荷会泄漏 → 必须定时刷新</text><text x="${c}" y="240" text-anchor="middle" class="text-small">读出后还原；刷新按行进行</text>`;}else{s=`<title>浮栅中的电子被绝缘层困住，提高晶体管的导通阈值</title><rect class="node" x="${c-95}" y="27" width="190" height="32"/><text x="${c}" y="49" text-anchor="middle">控制栅：施加读电压</text><rect class="node" x="${c-116}" y="69" width="232" height="68"/><rect x="${c-95}" y="84" width="190" height="38" fill="var(--viz-series-1)" opacity="0.16"/><text x="${c}" y="109" text-anchor="middle">浮栅：− − − −</text><text x="${c}" y="158" text-anchor="middle" class="text-small">绝缘层包围，电荷难以逃走</text><path class="wire" d="M ${c-120} 175 H ${c+120}"/><text x="${c-126}" y="197">源</text><text x="${c+107}" y="197">漏</text><text x="${c}" y="225" text-anchor="middle">电子更多 → 阈值更高 → 更难导通</text>`;}svg.innerHTML=s;}sel.addEventListener('change',draw);new ResizeObserver(draw).observe(root);draw();})();
+</script>
+</div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-cells">
+ 
+ <svg class="ch3-diagram" role="img" aria-label="三种存储单元原理示意" viewBox="0 0 640 245" style="height: 245px;"><title>SRAM 用两个交叉耦合反相器保持一个比特</title><rect class="node" x="195" y="74" width="95" height="50"></rect><rect class="node" x="350" y="74" width="95" height="50"></rect><text x="207" y="104">反相器 1</text><text x="362" y="104">反相器 2</text><path class="wire" d="M 290 86 H 350 m-7 -4 l7 4 l-7 4 M 445 112 H 460 V150 H 180 V112 H 195 m-7 -4 l7 4 l-7 4"></path><text x="294" y="66">Q = 1</text><text x="267" y="176">互补节点 = 0</text><text x="320" y="211" text-anchor="middle">供电持续 → 反馈维持状态</text><text x="320" y="236" text-anchor="middle" class="text-small">读写时接通访问管；断电后不能保持</text></svg>
+</div>
+<style>#print-ch3-cells .ch3-diagram{display:block;width:100%;color:var(--foreground)}#print-ch3-cells text{fill:var(--foreground)}#print-ch3-cells .node{fill:var(--muted);stroke:var(--border)}#print-ch3-cells .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}#print-ch3-cells .charge{fill:var(--viz-series-1)}</style>
+
+</div><figcaption><span class="figure-number">图 3-3</span>切换 SRAM、DRAM 与浮栅结构。图为原理示意：反馈、电容电荷、绝缘浮栅分别解释不同保持方式。</figcaption></figure>
+
+
+<p>图中浮栅被绝缘层包围，电子难以直接逃走，因此断电后仍能保持状态。</p>
+<p>这里真正需要理解的因果关系是：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>浮栅电荷变化</mtext><mo>&#x02192;</mo><mtext>导通阈值变化</mtext><mo>&#x02192;</mo><mtext>读出电路区分状态</mtext></mrow></math></div>
+
+
+
+<p>对本章讨论的典型 N 沟道浮栅器件，注入负电荷会提高阈值，使它在相同读电压下更难导通。<a href="https://www.micron.com/content/dam/micron/educatorhub/intro-to-memory/micron-intro-to-memory-presentation.pdf">Micron 的存储器教学资料</a>也用这个关系解释读取。</p>
+<p>**讲义这里有笔误和前后不一致。**第 11 页对电荷状态与逻辑值的叙述相互冲突，第 17 页关于电荷与导通的部分叙述也需要纠正。先掌握上面的物理关系；具体读成 0 还是 1，要看读出电路和器件规定。</p>
+<p>常见 EPROM 在擦除后各位为 1，即字节为 <code>FFH</code>，再通过编程把选定位变成 0；讲义第 11 页的“擦除后读出 00”不应作为通用结论。<a href="https://datasheet.datasheetarchive.com/originals/dk/DKDS-5/94660.pdf">ST 的 M27C64A 原厂数据手册</a>明确说明其擦除态为全 1。</p>
+<h3>EPROM：电写入，紫外线擦除</h3>
+<p>讲义使用 SIMOS，也就是叠栅注入 MOS 结构来解释它：</p>
+<ul>
+<li>控制栅用于施加控制电压；</li>
+<li>浮栅用于保持电荷；</li>
+<li>编程时用较强电场将电荷注入；</li>
+<li>紫外线使存储电荷得到释放，恢复擦除状态。</li>
+</ul>
+<p>因此传统 UV EPROM 封装有石英窗口，编程后需要遮光保护。</p>
+<p>它的主要缺点：</p>
+<blockquote>
+<p>即使只想改一小部分，通常也要把芯片取下，整片擦除后重新编程。</p>
+</blockquote>
+<p>**讲义为什么花很多篇幅讲 2764A？**它用一个具体器件教你阅读引脚、工作方式表和编程时序。</p>
+<p>2764A 是：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>8</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>所以有 13 位地址和 8 位数据。</p>
+<p>需要认识的信号：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>信号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CE# / CS#</td>
+<td>芯片使能、片选</td>
+</tr>
+<tr>
+<td>OE#</td>
+<td>输出允许</td>
+</tr>
+<tr>
+<td>PGM#</td>
+<td>编程控制</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>正常供电</td>
+</tr>
+<tr>
+<td>VPP</td>
+<td>编程所需的电压输入</td>
+</tr>
+</tbody></table></div>
+<p><code>#</code> 表示<strong>低电平有效</strong>。引脚名上画横线，也常表示这个意思。</p>
+<p>讲义列出的工作方式包括：读、输出禁止、备用、编程、校验、编程禁止、读标识符。</p>
+<p>你应该知道它们各自解决什么问题：</p>
+<ul>
+<li>读：取出内容。</li>
+<li>输出禁止：停止驱动数据总线。</li>
+<li>备用：降低功耗。</li>
+<li>编程：写入内容。</li>
+<li>校验：读回来，检查是否写对。</li>
+<li>编程禁止：避免未选中器件被误写。</li>
+<li>读标识符：识别厂商和器件。</li>
+</ul>
+<p>快速编程流程的核心思想则是：</p>
+<blockquote>
+<p>用较短编程脉冲尝试写入，随后校验；必要时继续编程并再次校验。</p>
+</blockquote>
+<p>**学习要求：会看表、会解释流程。**具体厂商编码、某个引脚的编程电压、某种算法的脉冲宽度属于型号参数，不能把不同器件或算法的数据混用。</p>
+<h3>EEPROM：改成用电擦除</h3>
+<p>讲义用 FLOTOX 管解释 EEPROM：</p>
+<blockquote>
+<p>在很薄的氧化层区域形成足够强的电场，使电子通过隧穿过程进出浮栅。</p>
+</blockquote>
+<p>因此擦除不再需要紫外线灯，也可以在系统内进行。</p>
+<p>本章典型 EEPROM 单元还增加了选通管，以提高选择性和擦写可靠性。薄氧化层的厚度、面积、耐压之所以要控制，是因为它既要允许受控隧穿，又要长期可靠地保持电荷。</p>
+<p>2816 是讲义的器件例子：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>2</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>2</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>需要认识它的特点：</p>
+<ul>
+<li>数据引脚可用于输入与输出；</li>
+<li>可按字节擦写；</li>
+<li>也可整片擦除；</li>
+<li>读、擦写、备用等工作方式由控制信号和编程条件决定；</li>
+<li>擦写速度比读取慢很多。</li>
+</ul>
+<p>讲义给出的读取、擦写时间和电压，是这个历史器件的例子。<strong>真正要会解释的是：EEPROM 可改写，但并不因此等同于可高速频繁写入的 RAM。</strong></p>
+<h3>Flash：通过更紧凑的单元结构提高密度</h3>
+<p>本章典型 Flash 电路减少了单元中的器件数量，又使用电擦除，适合较大容量存储。</p>
+<p>其代价之一是：</p>
+<blockquote>
+<p>擦除通常按块进行，不能把任意一个字节都当成 RAM 那样随意覆盖。</p>
+</blockquote>
+<p>对典型 Flash，可以先这样记：</p>
+<ul>
+<li>擦除：把一个擦除块恢复为擦除态。</li>
+<li>编程：把选定位从擦除态改成编程态。</li>
+<li>已编程的位要恢复擦除态，通常需要擦除所在块。</li>
+</ul>
+<p>擦写会损耗器件，所以寿命有限。讲义中的擦写次数用于展示这个限制，<strong>具体寿命应看器件，不存在适用于所有 Flash 的固定次数。</strong></p>
+<h3>NOR 与 NAND，必须分清</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较项目</th>
+<th>NOR Flash</th>
+<th>NAND Flash</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读取方式</td>
+<td>适合按地址随机读取</td>
+<td>主要按页组织读取</td>
+</tr>
+<tr>
+<td>编程方式</td>
+<td>可支持字节或字编程，依器件而定</td>
+<td>通常按页编程</td>
+</tr>
+<tr>
+<td>擦除方式</td>
+<td>按块或整片</td>
+<td>按块</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>程序、启动代码</td>
+<td>大容量数据、文件</td>
+</tr>
+<tr>
+<td>直接执行代码</td>
+<td>可支持 XIP</td>
+<td>原始 NAND 通常需先搬到可执行存储器</td>
+</tr>
+<tr>
+<td>管理问题</td>
+<td>接口较接近普通存储器</td>
+<td>常需处理 ECC、坏块等</td>
+</tr>
+<tr>
+<td>容量和成本取向</td>
+<td>适合代码存储等用途</td>
+<td>强调高密度、低位成本</td>
+</tr>
+</tbody></table></div>
+<p>XIP 的意思是 <strong>Execute In Place，原地执行</strong>：CPU 可以直接从相应的 NOR 存储地址取指令，不必先把整段代码复制到 RAM。</p>
+<p>**这一节的达标标准：**看到一种 ROM，能回答“能不能改、怎么擦除、擦除多大一片、适合存什么”。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s04"><p class="eyebrow">第三章 · 第 04 节</p><h2>3.3 SRAM 与 DRAM</h2><div class="part-goal"><p><strong>掌握要求：</strong>解释保持、刷新、读出还原，算地址复用与校验位容量，并会看控制信号表。</p><p><strong>背景为什么要讲：</strong>历史芯片提供具体组织例子；从 N×M 和手册算参数，比背型号更重要。</p></div>
+<p>3.2 的存储单元图也可以切到 SRAM 和 DRAM；下面补充行列地址复用的步骤。</p>
+<h3>SRAM：用双稳态电路保持一位</h3>
+<p>典型六管 SRAM：</p>
+<ul>
+<li>四个晶体管形成交叉耦合的保持电路；</li>
+<li>两个访问晶体管负责把内部节点接到位线上。</li>
+</ul>
+<p>两个互补节点可以稳定在：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>Q</mi><mo>&#x0003D;</mo><mn>1</mn><mo>&#x0002C;</mo><mspace width="1em" /><mover><mi>Q</mi><mo accent="true">&#x02015;</mo></mover><mo>&#x0003D;</mo><mn>0</mn></mrow></math></div>
+
+
+
+<p>或者：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>Q</mi><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="1em" /><mover><mi>Q</mi><mo accent="true">&#x02015;</mo></mover><mo>&#x0003D;</mo><mn>1</mn></mrow></math></div>
+
+
+
+<p>只要持续供电，反馈电路就能维持状态。</p>
+<p>因此：</p>
+<blockquote>
+<p><strong>SRAM 不需要刷新，但仍是易失性的。</strong></p>
+</blockquote>
+<p>“静态”说的是不需要定时刷新，绝不是断电不丢失。</p>
+<h3>DRAM：一个晶体管加一个电容，保存一位</h3>
+<p>电容保存的电荷会泄漏，因此需要刷新。</p>
+<p>你可以理解成：</p>
+<blockquote>
+<p>先识别原来保存的是 0 还是 1，再恢复对应的电荷状态。</p>
+</blockquote>
+<h3>刷新不是把所有位都写成 1</h3>
+<p>DRAM 读取也会扰动电容中的电荷，所以读出后需要还原。刷新通常按行进行，刷新该行的多个存储位，而不必把这些数据输出到 CPU 的数据总线上。</p>
+<p>讲义里的“2ms 内刷新一遍”是所讨论器件的参数，不是所有 DRAM 的统一要求。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较项目</th>
+<th>SRAM</th>
+<th>DRAM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保持方式</td>
+<td>双稳态反馈电路</td>
+<td>电容电荷</td>
+</tr>
+<tr>
+<td>是否刷新</td>
+<td>不需要</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>断电是否保持</td>
+<td>本章普通器件不能</td>
+<td>不能</td>
+</tr>
+<tr>
+<td>单元结构</td>
+<td>较复杂</td>
+<td>较简单</td>
+</tr>
+<tr>
+<td>集成密度</td>
+<td>相对低</td>
+<td>相对高</td>
+</tr>
+<tr>
+<td>每位成本</td>
+<td>相对高</td>
+<td>相对低</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>Cache、小容量快速存储</td>
+<td>大容量主存</td>
+</tr>
+</tbody></table></div>
+<p><strong>这张比较表是必会解释的内容。</strong></p>
+<h3>SRAM 芯片示例，是在教你怎样读组织方式和控制信号</h3>
+<p>讲义中的 6116：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>2</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>2</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>因此有 11 位地址。内部可以把这 11 位分给行、列译码器，选中一个八位单元。</p>
+<p>采用行列结构，是为了便于组织大型矩阵，<strong>并不会改变 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>11</mn></mrow></msup></mrow></math></span> 个单元这个事实。</strong></p>
+<p>对本章的 SRAM 控制方式，可以这样记：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th align="right">CS#</th>
+<th align="right">OE#</th>
+<th align="right">WE#</th>
+<th>数据由谁驱动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td>存储芯片</td>
+</tr>
+<tr>
+<td>写，采用讲义中的控制组合</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td>CPU 或总线主设备</td>
+</tr>
+<tr>
+<td>未选中</td>
+<td align="right">1</td>
+<td align="right">×</td>
+<td align="right">×</td>
+<td>芯片输出高阻</td>
+</tr>
+</tbody></table></div>
+<p>其中 <code>×</code> 表示这个条件下不关心该信号。</p>
+<p>其他例子如 6264、62256 等，主要是容量和引脚配置不同。6264 的备用电源保护电路值得认识：</p>
+<blockquote>
+<p>用电池继续供电，可以保持 SRAM 内容；这并没有让 SRAM 单元本身变成非易失性器件。</p>
+</blockquote>
+<h3>DRAM 的地址复用，必须理解</h3>
+<p>讲义的 2164A：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>64</mn><mi>K</mi><mo>&#x000D7;</mo><mn>1</mn></mrow></math></div>
+
+
+
+<p>选择 64K 个位置需要 16 位地址。</p>
+<p>但它可以把地址分两次传入：</p>
+<ol>
+<li>先用 8 个引脚传入行地址，由 RAS# 锁存。</li>
+<li>再用同样的 8 个引脚传入列地址，由 CAS# 锁存。</li>
+</ol>
+<p>所以：</p>
+<blockquote>
+<p><strong>只有 8 根外部地址引脚，也能接收合计 16 位的地址信息。</strong></p>
+</blockquote>
+<p>因此不能看到 8 根地址引脚，就直接判断容量是 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mn>8</mn></msup></mrow></math></span>。</p>
+<p>这颗芯片每个单元只有一位，所以八颗同时工作，才能组成：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>64</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>64</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<h3>讲义的 DRAM 存储条示例，还包含校验位</h3>
+<p>两个 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>256</mn><mi>K</mi><mo>&#x000D7;</mo><mn>4</mn></mrow></math></span> 芯片提供八位数据；一个 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>256</mn><mi>K</mi><mo>&#x000D7;</mo><mn>1</mn></mrow></math></span> 芯片提供一位奇偶校验：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>256</mn><mi>K</mi><mo>&#x000D7;</mo><mn>9</mn></mrow></math></div>
+
+
+
+<p>其中：</p>
+<ul>
+<li>8 位是用户数据；</li>
+<li>1 位是校验信息。</li>
+</ul>
+<p>因此用户数据容量是 256KB，不能把校验位都算成可用数据容量。</p>
+<p>为什么要讲这个？它把<strong>位扩展</strong>和<strong>可靠性开销</strong>联系起来了。</p>
+
+
+
+<figure class="diagram" id="fig-dram-mux" data-figure="dram-mux"><div class="diagram-live"><div id="ch3-mux"><div class="viz-controls"><label class="form-label">完整 16 位地址（十六进制）<input class="form-control" value="1234" maxlength="4"></label><label class="form-label">阶段<select class="form-select"><option value="0">① 传行地址</option><option value="1">② 传列地址</option><option value="2">③ 选择并读单元</option></select></label></div><svg class="new-drawing" role="img" aria-label="DRAM 行列地址分时复用"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-mux"><svg class="new-drawing" role="img" aria-label="DRAM 行列地址分时复用" viewBox="0 0 640 342"><title>行列分时复用八根引脚传入十六位地址</title><text x="12" y="25" text-anchor="start" class="">完整地址：1234 H · 共 16 位</text><rect class="active" x="8" y="43" width="308" height="45" rx="3"></rect><rect class="node" x="324" y="43" width="308" height="45" rx="3"></rect><text x="160" y="70" text-anchor="middle" class="">高 8 位：行</text><text x="480" y="70" text-anchor="middle" class="">低 8 位：列</text><text x="12" y="121" text-anchor="start" class="">同一组 8 引脚：本阶段传行地址</text><rect class="active" x="10" y="135" width="74" height="34" rx="3"></rect><text x="47" y="158" text-anchor="middle" class="">0</text><rect class="active" x="87" y="135" width="74" height="34" rx="3"></rect><text x="124" y="158" text-anchor="middle" class="">0</text><rect class="active" x="164" y="135" width="74" height="34" rx="3"></rect><text x="201" y="158" text-anchor="middle" class="">0</text><rect class="active" x="241" y="135" width="74" height="34" rx="3"></rect><text x="278" y="158" text-anchor="middle" class="">1</text><rect class="active" x="318" y="135" width="74" height="34" rx="3"></rect><text x="355" y="158" text-anchor="middle" class="">0</text><rect class="active" x="395" y="135" width="74" height="34" rx="3"></rect><text x="432" y="158" text-anchor="middle" class="">0</text><rect class="active" x="472" y="135" width="74" height="34" rx="3"></rect><text x="509" y="158" text-anchor="middle" class="">1</text><rect class="active" x="549" y="135" width="74" height="34" rx="3"></rect><text x="586" y="158" text-anchor="middle" class="">0</text><rect class="active" x="8" y="194" width="308" height="55" rx="3"></rect><rect class="node" x="324" y="194" width="308" height="55" rx="3"></rect><text x="160" y="216" text-anchor="middle" class="">行锁存</text><text x="160" y="239" text-anchor="middle" class="">0x12</text><text x="480" y="216" text-anchor="middle" class="">列锁存</text><text x="480" y="239" text-anchor="middle" class="">等待列地址</text><path class="wire" d="M160 249 V270 H480 V249"></path><rect class="node" x="12" y="279" width="616" height="47" rx="3"></rect><text x="320" y="308" text-anchor="middle" class="text-small">256 行 × 256 列，每单元 1 位</text></svg><div aria-live="polite">阶段①：RAS# 锁存行地址，高 8 位保留在行锁存器。</div></div></div><figcaption><span class="figure-number">图 3-4</span>64K×1 器件的示意：8 根地址引脚分两次接收 16 位地址。行地址先锁存，随后换成列地址，不会抹掉已锁存的信息。</figcaption></figure>
+
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s05"><p class="eyebrow">第三章 · 第 05 节</p><h2>3.4.1—3.4.2 CPU 连接与存储扩展</h2><div class="part-goal"><p><strong>掌握要求：</strong>会做 3.22—3.27：容量、地址译码、芯片数量、数据位分配和地址范围。</p><p><strong>背景为什么要讲：</strong>必须把字地址和 CPU 字节地址分开。图中的组织图不代替器件电气时序和控制器设计。</p></div>
+<p>先把三类总线记牢：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>总线</th>
+<th>回答的问题</th>
+<th>基本作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>地址总线 AB</td>
+<td>访问哪个位置？</td>
+<td>传地址</td>
+</tr>
+<tr>
+<td>数据总线 DB</td>
+<td>传什么内容？</td>
+<td>传数据</td>
+</tr>
+<tr>
+<td>控制总线 CB</td>
+<td>读还是写、谁工作？</td>
+<td>传控制信号</td>
+</tr>
+</tbody></table></div>
+<h3>地址线数决定可选择多少位置；数据线数决定一次能传多少位</h3>
+<p>两个量不能混为一谈。</p>
+<h3>直接做章末 3.22</h3>
+<p>题目说：</p>
+<blockquote>
+<p>按字节编址，40 位地址线，16 位数据线，问容量。</p>
+</blockquote>
+<p>按字节编址，每个地址对应一字节：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>最大可寻址容量</mtext><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>40</mn></mrow></msup><mi>B</mi><mo>&#x0003D;</mo><mn>1</mn><mi>T</mi><mi>B</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>16 位数据总线说明一次传输可以传两字节，<strong>不会把地址空间再乘以 2。</strong></p>
+<p>还有一个措辞要准确：这是最大可寻址容量，题目并没有证明机器实际安装了这么多内存。</p>
+<h3>低位地址选择片内位置，高位地址决定哪片芯片工作</h3>
+<p>讲义的例子：</p>
+<ul>
+<li>CPU 有 20 位地址；</li>
+<li>芯片是 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>256</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span>；</li>
+<li>256K 等于 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>18</mn></mrow></msup></mrow></math></span>，芯片需要 18 位地址。</li>
+</ul>
+<p>于是：</p>
+<ul>
+<li><code>A0～A17</code>：选择芯片内部的位置。</li>
+<li><code>A18、A19</code>：决定芯片放在 CPU 地址空间的哪个区域。</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>A19 A18</th>
+<th>对应地址范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00</td>
+<td><code>00000H～3FFFFH</code></td>
+</tr>
+<tr>
+<td>01</td>
+<td><code>40000H～7FFFFH</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>80000H～BFFFFH</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>C0000H～FFFFFH</code></td>
+</tr>
+</tbody></table></div>
+<p>例如把芯片安排在第二个区域，就要求：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mn>19</mn><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mspace width="1em" /><mi>A</mi><mn>18</mn><mo>&#x0003D;</mo><mn>1</mn></mrow></math></div>
+
+
+
+<p>时片选有效。</p>
+<h3>地址范围的结束地址：</h3>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>结束地址</mtext><mo>&#x0003D;</mo><mtext>起始地址</mtext><mo>&#x0002B;</mo><mtext>占用地址数</mtext><mo>&#x02212;</mo><mn>1</mn></mrow></menclose></mrow></math></div>
+
+
+
+<p>最后的减 1 不能漏，因为起始地址本身已经算第一个位置。</p>
+<h3>扩展分成三种：位扩展、字扩展、复合扩展</h3>
+<p>把芯片看成“行数 × 每行宽度”的表，最容易理解：</p>
+<ul>
+<li>位扩展：行数不变，让每行更宽。</li>
+<li>字扩展：每行宽度不变，让行数更多。</li>
+<li>复合扩展：两者都增加。</li>
+</ul>
+<h3>位扩展：同一个地址，多颗芯片一起提供不同的数据位</h3>
+<p>例如：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></div>
+
+
+
+<p>需要两颗：</p>
+<ul>
+<li>第一颗接 <code>D0～D7</code>。</li>
+<li>第二颗接 <code>D8～D15</code>。</li>
+<li>两颗地址线并联。</li>
+<li>两颗同时选中。</li>
+<li>两颗的读写控制同步。</li>
+</ul>
+<p>原因很直接：</p>
+<blockquote>
+<p>一颗只能给八位，两颗同时给出数据，拼成十六位。</p>
+</blockquote>
+<h3>字扩展：让不同芯片负责不同地址范围</h3>
+<p>例如：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>64</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>256</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></div>
+
+
+
+<p>需要四颗：</p>
+<ul>
+<li>各颗低 16 位地址线并联。</li>
+<li>数据线都连接 <code>D0～D7</code>。</li>
+<li>高两位地址经过 2-4 译码器，产生四个片选。</li>
+<li>每次只选中一颗，其他芯片输出高阻。</li>
+</ul>
+<p>为什么数据线可以并在一起？因为每次只有一颗负责输出。</p>
+<p>为什么不能四颗同时选中？因为它们可能在同一根数据线上输出不同电平，产生总线冲突。</p>
+<h3>复合扩展：先拼出足够宽的一组，再增加组数</h3>
+<p>章末 3.27：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mtext>颗&#x000A0;</mtext><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></div>
+
+
+
+<p>先两颗拼成：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></div>
+
+
+
+<p>再用两组实现：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></div>
+
+
+
+
+
+
+
+<figure class="diagram" id="fig-memory-expansion" data-figure="memory-expansion"><div class="diagram-live"><div id="ch3-expansion"><svg class="ch3-diagram" role="img" aria-label="四片4K乘8芯片构成8K乘16存储器的连接"></svg></div>
+<style>#ch3-expansion .ch3-diagram{display:block;width:100%;color:var(--foreground)}#ch3-expansion text{fill:var(--foreground)}#ch3-expansion .node{fill:var(--muted);stroke:var(--border)}#ch3-expansion .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}#ch3-expansion .bank{fill:var(--viz-series-1);fill-opacity:.10;stroke:none}</style>
+<script>
+(()=>{const root=document.getElementById('ch3-expansion'),svg=root.querySelector('svg');function draw(){const w=root.clientWidth,h=398,gap=16,cw=(w-48)/2;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';svg.innerHTML=`<title>复合扩展：同组两片同时工作，不同组由高位地址选择</title><text x="16" y="24">字地址 A12 → 译码器 → 两组片选</text><text x="16" y="49">A0~A11、读写控制 → 四片并联</text><text x="16" y="76" class="text-small">同组同时选中；不同组互斥</text>`+[0,1].map(i=>{const y=98+i*140;return `<rect class="bank" x="8" y="${y}" width="${w-16}" height="122"/><text x="16" y="${y+25}">第 ${i} 组 · A12 = ${i}</text><rect class="node" x="16" y="${y+39}" width="${cw}" height="48"/><rect class="node" x="${32+cw}" y="${y+39}" width="${cw}" height="48"/><text x="${16+cw/2}" y="${y+69}" text-anchor="middle">4K × 8</text><text x="${32+cw*1.5}" y="${y+69}" text-anchor="middle">4K × 8</text><text x="${16+cw/2}" y="${y+109}" text-anchor="middle">D0~D7</text><text x="${32+cw*1.5}" y="${y+109}" text-anchor="middle">D8~D15</text>`}).join('')+`<text x="16" y="389">两组 × 每组 4K × 16 = 8K × 16</text>`;}new ResizeObserver(draw).observe(root);draw();})();
+</script>
+</div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-expansion"><svg class="ch3-diagram" role="img" aria-label="四片4K乘8芯片构成8K乘16存储器的连接" viewBox="0 0 640 398" style="height: 398px;"><title>复合扩展：同组两片同时工作，不同组由高位地址选择</title><text x="16" y="24">字地址 A12 → 译码器 → 两组片选</text><text x="16" y="49">A0~A11、读写控制 → 四片并联</text><text x="16" y="76" class="text-small">同组同时选中；不同组互斥</text><rect class="bank" x="8" y="98" width="624" height="122"></rect><text x="16" y="123">第 0 组 · A12 = 0</text><rect class="node" x="16" y="137" width="296" height="48"></rect><rect class="node" x="328" y="137" width="296" height="48"></rect><text x="164" y="167" text-anchor="middle">4K × 8</text><text x="476" y="167" text-anchor="middle">4K × 8</text><text x="164" y="207" text-anchor="middle">D0~D7</text><text x="476" y="207" text-anchor="middle">D8~D15</text><rect class="bank" x="8" y="238" width="624" height="122"></rect><text x="16" y="263">第 1 组 · A12 = 1</text><rect class="node" x="16" y="277" width="296" height="48"></rect><rect class="node" x="328" y="277" width="296" height="48"></rect><text x="164" y="307" text-anchor="middle">4K × 8</text><text x="476" y="307" text-anchor="middle">4K × 8</text><text x="164" y="347" text-anchor="middle">D0~D7</text><text x="476" y="347" text-anchor="middle">D8~D15</text><text x="16" y="389">两组 × 每组 4K × 16 = 8K × 16</text></svg></div>
+<style>#print-ch3-expansion .ch3-diagram{display:block;width:100%;color:var(--foreground)}#print-ch3-expansion text{fill:var(--foreground)}#print-ch3-expansion .node{fill:var(--muted);stroke:var(--border)}#print-ch3-expansion .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}#print-ch3-expansion .bank{fill:var(--viz-series-1);fill-opacity:.10;stroke:none}</style>
+
+</div><figcaption><span class="figure-number">图 3-5</span>习题 3.27 的复合扩展。这里的 A0—A12 均是十六位存储字地址；CPU 字节地址的对应关系在正文另算。</figcaption></figure>
+
+
+<p>图中使用的是<strong>以 16 位存储字为单位的地址编号</strong>：</p>
+<ul>
+<li>低 12 位字地址：选每组内部的 4K 个位置。</li>
+<li>高一位字地址：选第 0 组还是第 1 组。</li>
+<li>同一组的两颗芯片同时工作，各负责八位。</li>
+<li>不同组互斥选中。</li>
+</ul>
+<h3>计算芯片数的通用方法：</h3>
+<p>目标为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><mo>&#x000D7;</mo><mi>M</mi></mrow></math></span>，单颗为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi><mo>&#x000D7;</mo><mi>m</mi></mrow></math></span>，若各项整除：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>每组芯片数</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>M</mi></mrow><mrow><mi>m</mi></mrow></mfrac></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>组数</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>N</mi></mrow><mrow><mi>n</mi></mrow></mfrac></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>总芯片数</mtext><mo>&#x0003D;</mo><mfrac><mrow><mi>N</mi></mrow><mrow><mi>n</mi></mrow></mfrac><mo>&#x000D7;</mo><mfrac><mrow><mi>M</mi></mrow><mrow><mi>m</mi></mrow></mfrac></mrow></menclose></mrow></math></div>
+
+
+
+<p>做题时把“每组几颗”和“共几组”分别写出来，连接关系就容易确定了。</p>
+<h3>把 3.23～3.27 全部做掉</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>题号</th>
+<th>目标</th>
+<th>所需芯片与组织</th>
+<th>关键连接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3.23</td>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mi>M</mi><mo>&#x000D7;</mo><mn>1</mn><mo>&#x02192;</mo><mn>1</mn><mi>M</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span></td>
+<td>8 颗，位扩展</td>
+<td>地址 A0～A19 并联，各颗分别负责 D0～D7 的一位；同时片选</td>
+</tr>
+<tr>
+<td>3.24</td>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></span></td>
+<td>2 颗，位扩展</td>
+<td>地址并联；一颗负责低八位，一颗负责高八位</td>
+</tr>
+<tr>
+<td>3.25</td>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>64</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>256</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span></td>
+<td>4 颗，字扩展</td>
+<td>A0～A15 并联；A16、A17 经 2-4 译码选择芯片</td>
+</tr>
+<tr>
+<td>3.26</td>
+<td><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn></mrow></math></span></td>
+<td>8 颗，字扩展</td>
+<td>A0～A9 并联；A10～A12 经 3-8 译码选择芯片</td>
+</tr>
+<tr>
+<td>3.27</td>
+<td>四颗 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>8</mn><mo>&#x02192;</mo><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></span></td>
+<td>2 组，每组 2 颗</td>
+<td>组内位扩展，组间字扩展</td>
+</tr>
+</tbody></table></div>
+<p>3.25 若从地址 0 开始：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>芯片</th>
+<th>地址范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 0 片</td>
+<td><code>00000H～0FFFFH</code></td>
+</tr>
+<tr>
+<td>第 1 片</td>
+<td><code>10000H～1FFFFH</code></td>
+</tr>
+<tr>
+<td>第 2 片</td>
+<td><code>20000H～2FFFFH</code></td>
+</tr>
+<tr>
+<td>第 3 片</td>
+<td><code>30000H～3FFFFH</code></td>
+</tr>
+</tbody></table></div>
+<p>3.26 每颗占 1K，即 <code>400H</code> 个字节地址。第 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>g</mi></mrow></math></span> 颗的范围为：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>g</mi><mo>&#x000D7;</mo><mn>400</mn><mi>H</mi><mspace width="1em" /><mtext>到</mtext><mspace width="1em" /><mi>g</mi><mo>&#x000D7;</mo><mn>400</mn><mi>H</mi><mo>&#x0002B;</mo><mn>3</mn><mi>F</mi><mi>F</mi><mi>H</mi></mrow></math></div>
+
+
+
+<p>所以第一颗是 <code>0000H～03FFH</code>，最后一颗是 <code>1C00H～1FFFH</code>。</p>
+<h3>还有一个实际接线时非常重要的细节：字地址和 CPU 字节地址可能错开一位</h3>
+<p>例如 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></span>：</p>
+<ul>
+<li>有 4K 个十六位字；</li>
+<li>共 8KB；</li>
+<li>芯片的一个地址选择两字节。</li>
+</ul>
+<p>若 CPU 按字节编址，那么相邻两个字的 CPU 地址差 2。</p>
+<p>因此，常见十六位连接中：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>C</mi><mi>P</mi><mi>U</mi><mtext>&#x000A0;</mtext><mi>A</mi><mn>1</mn><mo>&#x02192;</mo><mi>芯</mi><mi>片</mi><mtext>&#x000A0;</mtext><mi>A</mi><mn>0</mn></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>C</mi><mi>P</mi><mi>U</mi><mtext>&#x000A0;</mtext><mi>A</mi><mn>2</mn><mo>&#x02192;</mo><mi>芯</mi><mi>片</mi><mtext>&#x000A0;</mtext><mi>A</mi><mn>1</mn></mrow></math></div>
+
+
+
+<p>以此类推。CPU 的 A0 用于区分字中的字节位置，并配合字节使能或屏蔽信号。</p>
+<p>因此，上面 3.27 图中的<strong>字地址 A12</strong>，若换成 CPU 字节地址，通常对应 CPU 的 <strong>A13</strong>。</p>
+<p><strong>这也是讲义 NOR Flash 接口图把 CPU 的 A[20:1] 接到芯片 A[19:0] 的原因。</strong></p>
+<p>做芯片组织题可以先使用存储字地址；题目明确 CPU 按字节编址并要求实际接线时，必须处理这层对应关系。</p>
+
+<h3>把五种扩展方案逐个画出来</h3><p>先按存储字编号做组织题，确定同组芯片的数据位分工，再检查哪组被选中。下面可以切换全部五道扩展题；地址改到下一组时，观察片选变化。</p>
+
+
+<figure class="diagram" id="fig-expansion-cases" data-figure="expansion-cases"><div class="diagram-live"><div id="ch3-designs"><div class="viz-controls"><label class="form-label">扩展方案<select class="form-select"><option value="0">3.23：1M×1 → 1M×8</option><option value="1">3.24：4K×8 → 4K×16</option><option value="2">3.25：64K×8 → 256K×8</option><option value="3">3.26：1K×8 → 8K×8</option><option value="4">3.27：四片组成 8K×16</option></select></label><label class="form-label">字地址（十六进制）<input class="form-control" value="0" maxlength="5"></label></div><svg class="new-drawing" role="img" aria-label="五道芯片扩展题的连接与片选"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-designs"><svg class="new-drawing" role="img" aria-label="五道芯片扩展题的连接与片选" viewBox="0 0 640 313"><title>位扩展同组并行提供数据位，字扩展通过译码只选中一个组</title><text x="12" y="25" text-anchor="start" class="">3.23 · 位扩展 → 1M × 8</text><text x="12" y="52" text-anchor="start" class="text-small">低 20 位字地址 → 每片的片内地址</text><text x="12" y="76" text-anchor="start" class="text-small">所有芯片同时片选；读写控制共用</text><rect class="bank-on" x="7" y="94" width="626" height="179" rx="3"></rect><text x="15" y="117" text-anchor="start" class="text-small">第 0 组 · 选中</text><path class="hotwire" d="M19 124 V125 H548.75"></path><path class="hotwire" d="M19 124 V195 H548.75"></path><path class="hotwire" d="M103.25 125 V132"></path><rect class="active" x="33" y="132" width="140.5" height="32" rx="3"></rect><text x="103.25" y="154" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M103.25 164 v9"></path><text x="103.25" y="188" text-anchor="middle" class="text-small">D0</text><path class="hotwire" d="M251.75 125 V132"></path><rect class="active" x="181.5" y="132" width="140.5" height="32" rx="3"></rect><text x="251.75" y="154" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M251.75 164 v9"></path><text x="251.75" y="188" text-anchor="middle" class="text-small">D1</text><path class="hotwire" d="M400.25 125 V132"></path><rect class="active" x="330" y="132" width="140.5" height="32" rx="3"></rect><text x="400.25" y="154" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M400.25 164 v9"></path><text x="400.25" y="188" text-anchor="middle" class="text-small">D2</text><path class="hotwire" d="M548.75 125 V132"></path><rect class="active" x="478.5" y="132" width="140.5" height="32" rx="3"></rect><text x="548.75" y="154" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M548.75 164 v9"></path><text x="548.75" y="188" text-anchor="middle" class="text-small">D3</text><path class="hotwire" d="M103.25 195 V202"></path><rect class="active" x="33" y="202" width="140.5" height="32" rx="3"></rect><text x="103.25" y="224" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M103.25 234 v9"></path><text x="103.25" y="258" text-anchor="middle" class="text-small">D4</text><path class="hotwire" d="M251.75 195 V202"></path><rect class="active" x="181.5" y="202" width="140.5" height="32" rx="3"></rect><text x="251.75" y="224" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M251.75 234 v9"></path><text x="251.75" y="258" text-anchor="middle" class="text-small">D5</text><path class="hotwire" d="M400.25 195 V202"></path><rect class="active" x="330" y="202" width="140.5" height="32" rx="3"></rect><text x="400.25" y="224" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M400.25 234 v9"></path><text x="400.25" y="258" text-anchor="middle" class="text-small">D6</text><path class="hotwire" d="M548.75 195 V202"></path><rect class="active" x="478.5" y="202" width="140.5" height="32" rx="3"></rect><text x="548.75" y="224" text-anchor="middle" class="text-small">1M × 1</text><path class="wire" d="M548.75 234 v9"></path><text x="548.75" y="258" text-anchor="middle" class="text-small">D7</text><text x="12" y="303" text-anchor="start" class="text-small">片内字地址：0 H</text></svg><div aria-live="polite">1 组 × 每组 8 片＝8 片。当前只选择第 0 组，同组芯片同步读写。图中均为存储字地址；CPU 字节地址的接线换算见正文。</div></div></div><figcaption><span class="figure-number">图 3-6</span>切换 3.23—3.27，并输入不同字地址。数据位分配标在芯片下方；选中组中的芯片同步工作，其余组输出高阻。左侧分支表示片选控制，低位地址和读写控制按文字说明共用。</figcaption></figure>
+
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s06"><p class="eyebrow">第三章 · 第 06 节</p><h2>3.4.3 嵌入式系统的存储扩展</h2><div class="part-goal"><p><strong>掌握要求：</strong>会说明 NOR、NAND、SRAM/SDRAM 怎样连接，控制器需要配置什么。</p><p><strong>背景为什么要讲：</strong>具体 SoC 的启动地址和引脚不是所有 ARM 芯片通用的规则；本章先理解流程。</p></div>
+<p>这部分对应 3.28、3.29，不能略过。</p>
+<p>先理解嵌入式系统中的常见分工：</p>
+<ul>
+<li>NOR Flash：保存程序、启动代码。</li>
+<li>SRAM：保存变量、栈等运行数据。</li>
+<li>NAND Flash：保存大容量程序文件、数据。</li>
+<li>SDRAM：提供较大容量的运行空间。</li>
+</ul>
+<p>具体系统采用什么组合，取决于芯片和需求。</p>
+<h3>NOR Flash：比较像普通可寻址存储器</h3>
+<p>本章示例 HY29LV160，在十六位模式下：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>1</mn><mi>M</mi><mo>&#x000D7;</mo><mn>16</mn><mo>&#x0003D;</mo><mn>2</mn><mi>M</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>它有独立地址线、数据线和片选、读写控制信号。</p>
+<p>还需要认识：</p>
+<ul>
+<li><code>BYTE#</code>：选择相应字节模式。</li>
+<li><code>RESET#</code>：复位。</li>
+<li><code>RY/BY#</code>：指示就绪或忙。</li>
+<li><code>DQ15/A[-1]</code>：在不同模式下可以承担数据位或额外地址位的功能。</li>
+</ul>
+<p>为什么有这些复用？因为同一颗器件可以采用不同数据宽度组织。</p>
+<p>在讲义的 S3C2440 NOR 启动示例中，NOR 映射到启动地址区域，CPU 可以直接取启动指令。<strong>这里的启动地址和配置属于这个具体 SoC 示例，不能推广成所有 ARM 芯片都一样。</strong></p>
+<h3>NAND Flash：经控制器传命令、地址，再传数据</h3>
+<p>原始 NAND 常把命令、地址、数据分时放到同一组 I/O 引脚上。</p>
+<p>需要认识的信号：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>信号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLE</td>
+<td>命令锁存使能</td>
+</tr>
+<tr>
+<td>ALE</td>
+<td>地址锁存使能</td>
+</tr>
+<tr>
+<td>CE#</td>
+<td>片选</td>
+</tr>
+<tr>
+<td>WE#</td>
+<td>写使能</td>
+</tr>
+<tr>
+<td>RE#</td>
+<td>读使能</td>
+</tr>
+<tr>
+<td>WP#</td>
+<td>写保护</td>
+</tr>
+<tr>
+<td>R/B#</td>
+<td>就绪/忙</td>
+</tr>
+</tbody></table></div>
+<p>概念上的访问流程：</p>
+<ol>
+<li>发送操作命令。</li>
+<li>发送相应地址。</li>
+<li>等待器件完成内部操作。</li>
+<li>读取或写入数据。</li>
+<li>检查状态、校验等。</li>
+</ol>
+<p>控制器负责把 CPU 总线访问转换成 NAND 所需的接口动作。</p>
+<p>**地址、数据复用，不等于每次只传一位。**本章示例使用八位 I/O 总线，命令、地址、数据在不同阶段占用这八根线。</p>
+<p>讲义 K9F2808U0A 的每页组织为：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>512</mn><mi>B</mi><mtext>数据</mtext><mo>&#x0002B;</mo><mn>16</mn><mi>B</mi><mtext>附加区域</mtext></mrow></math></div>
+
+
+
+<p>附加区域可用于校验、状态等管理信息。它不是普通用户数据容量的一部分。</p>
+<p>因此 NAND 存储的工程管理不仅是“把位写进去”，还包括坏块和纠错等问题。eMMC 把 NAND 与控制器整合起来，正是为了把这些管理工作封装起来。</p>
+<h3>SDRAM：不仅要接线，还要配置控制器</h3>
+<p>本章 SDRAM 例子：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>M</mi><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mn>4</mn><mtext>&#x000A0;Banks</mtext></mrow></math></div>
+
+
+
+<p>容量：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>M</mi><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><mn>256</mn><mi>M</mi><mi>b</mi><mo>&#x0003D;</mo><mn>32</mn><mi>M</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>要把“每 Bank 单元数”“每单元位数”“Bank 数”分别乘进去。</p>
+<p>典型信号：</p>
+<ul>
+<li>地址线、数据线；</li>
+<li><code>BA0、BA1</code>：选择 Bank；</li>
+<li><code>CLK、CKE</code>：时钟及其使能；</li>
+<li><code>CS#、RAS#、CAS#、WE#</code>：命令与控制；</li>
+<li><code>LDQM、UDQM</code>：低、高字节屏蔽。</li>
+</ul>
+<p>多 Bank 的意义，是提供交错安排操作的机会，减少一部分等待。</p>
+<h3>刷新和预充电要分开</h3>
+<ul>
+<li>刷新：恢复存储电荷，保持数据。</li>
+<li>预充电：关闭或准备行相关电路，为后续操作做准备。</li>
+</ul>
+<p>讲义将二者放在一起叙述，容易让人误以为它们是同一个操作。实际分析时应分别看待。</p>
+<p>完成连接后，还要设置总线宽度、时序、刷新参数、模式等，否则 SDRAM 不会因为“线接上了”就自动正常运行。</p>
+<h3>3.29“ARM 微处理器如何扩展 RAM”，可以这样回答：</h3>
+<blockquote>
+<p>根据具体 ARM SoC 提供的外部存储控制器，选用 SRAM、SDRAM 等器件；确定容量、数据位宽、地址组织和片选关系，连接地址、数据、控制及时钟信号；再设置控制器的时序、地址映射和刷新等参数。必要时使用多颗芯片进行位扩展或字扩展。</p>
+</blockquote>
+<p>这里“ARM”描述处理器体系，<strong>具体可接什么 RAM，需要看 SoC 的存储控制器。</strong></p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s07"><p class="eyebrow">第三章 · 第 07 节</p><h2>3.4.4 内存条、SDRAM 与 DDR</h2><div class="part-goal"><p><strong>掌握要求：</strong>会解释模块化、SPD、预取和双边沿传输，能按速率与位宽算带宽。</p><p><strong>背景为什么要讲：</strong>DIP、TSOP、BGA、SIPP、SIMM、DIMM 都说明用途；不要求背完封装针数和历代产品参数。</p></div>
+<h3>为什么采用内存条？</h3>
+<p>把多颗存储芯片组织成可插拔模块，便于生产、安装、维修和升级，也形成标准接口。</p>
+<p>一根内存条主要包括：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>部件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DRAM 颗粒</td>
+<td>真正保存主存数据</td>
+</tr>
+<tr>
+<td>PCB</td>
+<td>安装器件并连接信号</td>
+</tr>
+<tr>
+<td>SPD 芯片</td>
+<td>记录容量、时序、电压等参数</td>
+</tr>
+<tr>
+<td>金手指</td>
+<td>连接主板插槽</td>
+</tr>
+<tr>
+<td>阻容元件</td>
+<td>改善供电和信号完整性等</td>
+</tr>
+</tbody></table></div>
+<p>SPD 是小型非易失性器件，讲义用 EEPROM 解释。启动时读取 SPD，帮助系统配置内存。</p>
+<h3>SPD 保存的是内存条参数，不是给用户存程序的大容量主存</h3>
+<p>讲义还列出封装和模块形式：</p>
+<ul>
+<li>DIP：双列直插封装。</li>
+<li>TSOP：薄型小外形封装。</li>
+<li>BGA：球栅阵列封装。</li>
+<li>SIPP：单排插针形式。</li>
+<li>SIMM：模块两面的对应触点传相同信号。</li>
+<li>DIMM：模块两面的触点可独立传输信号。</li>
+</ul>
+<p>为什么要讲这些？它们说明器件怎样从芯片变成可安装的模块。简答题中要会说明模块化的意义；封装外观和具体引脚数量，通常属于识别、查表层面。</p>
+<h3>异步 DRAM → FPM → EDO → SDRAM → DDR，是围绕减少等待、增加传输机会演进的</h3>
+<ul>
+<li>普通异步 DRAM：一次访问需要行、列选择等过程。</li>
+<li>**FPM：**保持同一行打开，连续访问不同列，省掉重复打开同一行的开销。</li>
+<li>**EDO：**延长数据输出有效时间，使部分操作可以重叠。</li>
+<li>**SDRAM：**按时钟组织命令和操作，便于流水线、突发与多 Bank 调度。</li>
+<li>**DDR：**在时钟两个边沿传数据。</li>
+</ul>
+<p>讲义第 33 页对 FPM 的行、列叙述写反了。正确抓法是：</p>
+<blockquote>
+<p><strong>同一行，多次访问不同列。</strong></p>
+</blockquote>
+<p>Micron 的原厂 FPM 数据手册也按“保持 RAS，重复给出列地址”的方式描述。<a href="https://bitsavers.computerhistory.org/components/micron/_dataBooks/1999_Micron_Memory_Data_Book.pdf">Micron Memory Data Book</a></p>
+<h3>SDR 与 DDR 的区别，看下面这张图</h3>
+
+
+<figure class="diagram" id="fig-ddr-clock" data-figure="ddr-clock"><div class="diagram-live"><div id="ch3-ddr"><svg class="ch3-diagram" role="img" aria-label="SDR仅在上升沿传输，DDR在上升沿和下降沿均传输"></svg></div>
+<style>#ch3-ddr .ch3-diagram{display:block;width:100%;color:var(--foreground)}#ch3-ddr text{fill:var(--foreground)}#ch3-ddr .wave{stroke:var(--foreground);fill:none;stroke-width:1.5}#ch3-ddr .sdr{fill:var(--viz-series-1)}#ch3-ddr .ddr{fill:var(--viz-series-2)}</style>
+<script>
+(()=>{const root=document.getElementById('ch3-ddr'),svg=root.querySelector('svg');function draw(){const w=root.clientWidth,h=199,l=65,r=w-25,step=(r-l)/8;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';let p=`M ${l} 64`,s='';for(let i=0;i<8;i++){const x=l+i*step,y=i%2?64:34;p+=` V ${y} H ${x+step}`;if(i%2===0)s+=`<circle class="sdr" cx="${x}" cy="107" r="5"/>`;s+=`<rect class="ddr" x="${x-4}" y="141" width="8" height="8"/>`;}svg.innerHTML=`<title>同一时钟频率下，DDR每周期有两次数据传输机会</title><text x="0" y="52">时钟</text><path class="wave" d="${p}"/><text x="0" y="112">SDR</text><text x="0" y="151">DDR</text>${s}<text x="65" y="187" class="text-small">● 上升沿；■ 上升沿 + 下降沿</text>`;}new ResizeObserver(draw).observe(root);draw();})();
+</script>
+</div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-ddr"><svg class="ch3-diagram" role="img" aria-label="SDR仅在上升沿传输，DDR在上升沿和下降沿均传输" viewBox="0 0 640 199" style="height: 199px;"><title>同一时钟频率下，DDR每周期有两次数据传输机会</title><text x="0" y="52">时钟</text><path class="wave" d="M 65 64 V 34 H 133.75 V 64 H 202.5 V 34 H 271.25 V 64 H 340 V 34 H 408.75 V 64 H 477.5 V 34 H 546.25 V 64 H 615"></path><text x="0" y="112">SDR</text><text x="0" y="151">DDR</text><circle class="sdr" cx="65" cy="107" r="5"></circle><rect class="ddr" x="61" y="141" width="8" height="8"></rect><rect class="ddr" x="129.75" y="141" width="8" height="8"></rect><circle class="sdr" cx="202.5" cy="107" r="5"></circle><rect class="ddr" x="198.5" y="141" width="8" height="8"></rect><rect class="ddr" x="267.25" y="141" width="8" height="8"></rect><circle class="sdr" cx="340" cy="107" r="5"></circle><rect class="ddr" x="336" y="141" width="8" height="8"></rect><rect class="ddr" x="404.75" y="141" width="8" height="8"></rect><circle class="sdr" cx="477.5" cy="107" r="5"></circle><rect class="ddr" x="473.5" y="141" width="8" height="8"></rect><rect class="ddr" x="542.25" y="141" width="8" height="8"></rect><text x="65" y="187" class="text-small">● 上升沿；■ 上升沿 + 下降沿</text></svg></div>
+<style>#print-ch3-ddr .ch3-diagram{display:block;width:100%;color:var(--foreground)}#print-ch3-ddr text{fill:var(--foreground)}#print-ch3-ddr .wave{stroke:var(--foreground);fill:none;stroke-width:1.5}#print-ch3-ddr .sdr{fill:var(--viz-series-1)}#print-ch3-ddr .ddr{fill:var(--viz-series-2)}</style>
+
+</div><figcaption><span class="figure-number">图 3-7</span>相同外部时钟下，SDR 单边沿、DDR 双边沿提供数据传输机会；不表示每个周期都必然有有效用户数据。</figcaption></figure>
+
+
+<ul>
+<li>SDR：每个时钟周期一次数据传输机会。</li>
+<li>DDR：上升沿和下降沿都有数据传输机会。</li>
+</ul>
+<p>因此在相同外部时钟频率下，DDR 的传输次数是 SDR 的两倍。</p>
+<h3>从 DDR 到 DDR4，必会解释的变化：</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类型</th>
+<th align="right">预取深度</th>
+<th align="right">典型标准电压</th>
+<th>主要改进</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DDR</td>
+<td align="right">2n</td>
+<td align="right">2.5V</td>
+<td>双边沿传输</td>
+</tr>
+<tr>
+<td>DDR2</td>
+<td align="right">4n</td>
+<td align="right">1.8V</td>
+<td>更深预取、信号完整性改进</td>
+</tr>
+<tr>
+<td>DDR3</td>
+<td align="right">8n</td>
+<td align="right">1.5V</td>
+<td>更深预取、更低电压及控制改进</td>
+</tr>
+<tr>
+<td>DDR4</td>
+<td align="right">8n</td>
+<td align="right">1.2V</td>
+<td>Bank Group、更高数据速率与密度</td>
+</tr>
+</tbody></table></div>
+<p>预取可以先理解为：</p>
+<blockquote>
+<p>内部一次准备更多数据，再按外部接口节奏连续送出去。</p>
+</blockquote>
+<p>**DDR4 的预取深度仍是 8n，不是继续变成 16n。**它通过 Bank Group 等设计提高操作安排与传输效率。</p>
+<p>讲义所说的 ODT，是片内终端匹配一类技术，用于改善高速信号质量；OCD、ZQ 校准、复位、自刷新相关技术等，也是围绕驱动匹配、可靠性和功耗做改进。认识目的即可，做本章简答题无需展开电路细节。</p>
+<p>**讲义 DDR4 的“284 个针脚”有误。**常见桌面 DDR4 DIMM 为 288 针，DDR3 DIMM 为 240 针；对应笔记本模块又有不同针数。<a href="https://www.kingston.com/unitedkingdom/en/memory/ddr4-overview">Kingston 的 DDR4 技术介绍</a></p>
+<p>讲义还提到 DDR5：</p>
+<ul>
+<li>更低的标准工作电压；</li>
+<li>更高的数据传输能力；</li>
+<li>一个模块中采用两个独立子通道；</li>
+<li>增加可靠性相关机制。</li>
+</ul>
+<p>这里先认识演进方向。芯片内部纠错与整条内存提供的系统级 ECC，也应区分，不能看到“ECC”就认为两者完全相同。</p>
+<h3>带宽题用这一条公式最稳：</h3>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>带宽</mtext><mo>&#x0003D;</mo><mtext>每秒传输次数</mtext><mo>&#x000D7;</mo><mtext>每次传输字节数</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>例如 64 位数据宽度，400MT/s：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>400</mn><mo>&#x000D7;</mo><msup><mn>10</mn><mn>6</mn></msup><mo>&#x000D7;</mo><mfrac><mrow><mn>64</mn></mrow><mrow><mn>8</mn></mrow></mfrac><mo>&#x0003D;</mo><mn>3.2</mn><mo>&#x000D7;</mo><msup><mn>10</mn><mn>9</mn></msup><mi>B</mi><mo>&#x0002F;</mo><mi>s</mi><mo>&#x0003D;</mo><mn>3.2</mn><mi>G</mi><mi>B</mi><mo>&#x0002F;</mo><mi>s</mi></mrow></math></div>
+
+
+
+<p>MT/s 表示每秒传输次数。不要把它直接当成内部存储单元的时钟频率。</p>
+<p>双通道在理想情况下，把两条独立的通道并行使用，总带宽可以相加。</p>
+<p><strong>特别注意：DDR2-400 与 DDR-400 的外部数据速率同为 400MT/s时，单通道同位宽的理论带宽相同。</strong>“代际带宽翻倍”需要说明比较的频率条件，不能只看名字。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s08"><p class="eyebrow">第三章 · 第 08 节</p><h2>3.5.1 Cache 的原理与性能</h2><div class="part-goal"><p><strong>掌握要求：</strong>理解局部性、命中、管理位和容量口径；会算命中率与简化平均访问时间。</p><p><strong>背景为什么要讲：</strong>特定 CPU 的 Cache 容量与路数是案例；要理解取舍，不能背成普遍常数。</p></div>
+<p>Cache 是主存中一部分数据的高速副本。</p>
+<p>CPU 请求数据时：</p>
+<ul>
+<li>已在 Cache 中：命中。</li>
+<li>不在 Cache 中：未命中，也叫脱靶；需要进一步访问主存。</li>
+</ul>
+<p>它主要解决：</p>
+<blockquote>
+<p>CPU 很快，主存相对慢，CPU 经常等数据。</p>
+</blockquote>
+<h3>Cache 有效的基础，是局部性</h3>
+<p>时间局部性：</p>
+<blockquote>
+<p>刚用过的东西，很可能很快再用。</p>
+</blockquote>
+<p>例如循环里不断更新同一个变量。</p>
+<p>空间局部性：</p>
+<blockquote>
+<p>刚访问一个位置，很可能很快访问相邻位置。</p>
+</blockquote>
+<p>例如顺序读取数组。</p>
+<p>因此，CPU 即使只请求一个字节，Cache 也常把这个字节所在的<strong>整块</strong>调入。</p>
+<p>这就是 Cache line 的数据块。</p>
+<h3>Cache line 除了数据，还必须知道“数据来自哪里、能不能使用”</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>回答的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据</td>
+<td>保存的内容是什么？</td>
+</tr>
+<tr>
+<td>Tag</td>
+<td>这行对应主存的哪个块？</td>
+</tr>
+<tr>
+<td>Valid，有效位</td>
+<td>这行当前是否保存有效内容？</td>
+</tr>
+<tr>
+<td>Dirty，脏位</td>
+<td>内容是否修改过，但尚未写回下一级？</td>
+</tr>
+<tr>
+<td>替换状态</td>
+<td>需要淘汰时，哪些行更适合淘汰？</td>
+</tr>
+</tbody></table></div>
+<p>其中<strong>数据、Tag、有效位是基本信息</strong>。脏位、替换信息取决于设计和策略。</p>
+<p>讲义例子：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>512</mn><mo>&#x0002B;</mo><mn>14</mn><mo>&#x0002B;</mo><mn>1</mn><mo>&#x0002B;</mo><mn>1</mn><mo>&#x0002B;</mo><mn>2</mn><mo>&#x0003D;</mo><mn>530</mn><mtext>位/行</mtext></mrow></math></div>
+
+
+
+<p>32 行需要：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>530</mn><mo>&#x000D7;</mo><mn>32</mn><mo>&#x0003D;</mo><mn>16960</mn><mtext>位</mtext></mrow></math></div>
+
+
+
+<p>但它的数据容量只有：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>32</mn><mo>&#x000D7;</mo><mn>64</mn><mi>B</mi><mo>&#x0003D;</mo><mn>2048</mn><mi>B</mi><mo>&#x0003D;</mo><mn>2</mn><mi>K</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>其余是管理开销。</p>
+<p>**题目说“Cache 容量 16KB”时，本章映射题指的是数据区容量。**若问总硬件存储开销，还要加 Tag 和控制位。</p>
+<h3>多级 Cache 的思路也一样</h3>
+<p>讲义介绍：</p>
+<ul>
+<li>L1 可分指令 Cache 和数据 Cache，减少两类访问争用。</li>
+<li>L2 通常容量更大。</li>
+<li>L3 在讲义的典型多核结构中由多个核心共享。</li>
+</ul>
+<p>具体某代 CPU 的容量、路数只是案例。你需要理解层次与分工，不需要背本章所有型号参数。</p>
+<h3>命中率：命中次数除以总请求次数</h3>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>h</mi><mo>&#x0003D;</mo><mfrac><mrow><msub><mi>N</mi><mrow><mtext>hit</mtext></mrow></msub></mrow><mrow><msub><mi>N</mi><mrow><mtext>hit</mtext></mrow></msub><mo>&#x0002B;</mo><msub><mi>N</mi><mrow><mtext>miss</mtext></mrow></msub></mrow></mfrac></mrow></menclose></mrow></math></div>
+
+
+
+<p>80 次命中，20 次未命中：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>h</mi><mo>&#x0003D;</mo><mn>80</mn><mi>&#x00025;</mi></mrow></math></div>
+
+
+
+<p>分母不是“Cache 查询次数 + 命中次数”。每个请求先查 Cache，不代表每次都命中。</p>
+<h3>补充一个常见性能题公式</h3>
+<p>如果每次先花 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>T</mi><mi>C</mi></msub></mrow></math></span> 查 Cache，未命中后再多花 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi></mrow></math></span> 处理：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><msub><mi>T</mi><mrow><mtext>平均</mtext></mrow></msub><mo>&#x0003D;</mo><msub><mi>T</mi><mi>C</mi></msub><mo>&#x0002B;</mo><mo stretchy="false">&#x00028;</mo><mn>1</mn><mo>&#x02212;</mo><mi>h</mi><mo stretchy="false">&#x00029;</mo><mi>P</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>例如：</p>
+<ul>
+<li>Cache 查询 2ns；</li>
+<li>命中率 95%；</li>
+<li>未命中额外花 80ns。</li>
+</ul>
+<p>则：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>T</mi><mrow><mtext>平均</mtext></mrow></msub><mo>&#x0003D;</mo><mn>2</mn><mo>&#x0002B;</mo><mn>0.05</mn><mo>&#x000D7;</mo><mn>80</mn><mo>&#x0003D;</mo><mn>6</mn><mi>n</mi><mi>s</mi></mrow></math></div>
+
+
+
+<p>为什么这里要补充？它把“命中率高所以快”变成可计算的关系，也能防止把未命中额外时间和未命中总时间混用。</p>
+<h3>影响 Cache 性能的因素，要理解方向，不能机械背“越大越好”</h3>
+<ul>
+<li>容量太小：常用内容装不下。</li>
+<li>映射限制太强：不同主存块争同一个位置。</li>
+<li>块太小：较难充分利用空间局部性。</li>
+<li>块太大：装入代价增加，同容量下行数减少，还可能带入大量用不到的数据。</li>
+<li>替换策略不合适：把马上要用的块淘汰了。</li>
+<li>多级结构、指令数据分离、预取：可改善部分访问行为。</li>
+</ul>
+<p>更标准的未命中分类是：</p>
+<ul>
+<li>**首次或强制未命中：**第一次访问，还没装入。</li>
+<li>**容量未命中：**Cache 放不下需要的工作内容。</li>
+<li>**冲突未命中：**位置限制造成相互挤出。</li>
+</ul>
+<p>讲义给出的特定命中率、容量比例属于例子，不是所有机器都满足的规律。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s09"><p class="eyebrow">第三章 · 第 09 节</p><h2>3.5.2 三种映射与地址字段</h2><div class="part-goal"><p><strong>掌握要求：</strong>由主存地址求块号、偏移、组号和 Tag，分清 Tag 位数、数值与路号。</p><p><strong>背景为什么要讲：</strong>映射公式必须会用；相联查找的电路思想要理解，暂不要求设计比较器网络。</p></div>
+<p>先统一符号：</p>
+<ul>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>A</mi></mrow></math></span>：主存字节地址；</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>B</mi></mrow></math></span>：每块字节数；</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi></mrow></math></span>：Cache 数据容量；</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi><mo>&#x0003D;</mo><mi>C</mi><mo>&#x0002F;</mo><mi>B</mi></mrow></math></span>：Cache 总行数；</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi></mrow></math></span>：每组路数；</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo>&#x0003D;</mo><mi>L</mi><mo>&#x0002F;</mo><mi>k</mi></mrow></math></span>：组数。</li>
+</ul>
+<p>先拆主存地址：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>主存块号&#x000A0;</mtext><mi>b</mi><mo>&#x0003D;</mo><mrow><mo stretchy="true" fence="true" form="prefix">&#x0230A;</mo><mfrac><mrow><mi>A</mi></mrow><mrow><mi>B</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x0230B;</mo></mrow></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>块内偏移&#x000A0;</mtext><mi>d</mi><mo>&#x0003D;</mo><mi>A</mi><mo>mod</mo><mi>B</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>这一步对三种映射都适用。</p>
+<h3>块号告诉你“在哪一块”，偏移告诉你“在这一块的哪个字节”</h3>
+<p>下面的图可切换映射方式，也可以修改地址。</p>
+
+
+<figure class="diagram" id="fig-cache-address" data-figure="cache-address"><div class="diagram-live"><div id="ch3-cache">
+ <div class="viz-controls"><label class="form-label">映射方式<select class="form-select"><option value="1">直接映射</option><option value="8">8 路组相联</option><option value="256">全相联</option></select></label><label class="form-label">主存地址（十六进制）<input class="form-control" value="02021" maxlength="7" aria-label="主存十六进制地址"></label></div>
+ <div class="text-small">主存 1MB · Cache 数据区 16KB · 块 64B</div>
+ <svg class="ch3-diagram" role="img" aria-label="主存地址的Tag索引和块内偏移拆分"></svg>
+ <div class="result" aria-live="polite"></div>
+</div>
+<style>#ch3-cache .ch3-diagram{display:block;width:100%;color:var(--foreground)}#ch3-cache text{fill:var(--foreground)}#ch3-cache .part{stroke:none}#ch3-cache .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}</style>
+<script>
+(()=>{const root=document.getElementById('ch3-cache'),svg=root.querySelector('svg'),sel=root.querySelector('select'),inp=root.querySelector('input'),res=root.querySelector('.result');function draw(){const raw=inp.value.trim().replace(/^0x/i,'');if(!/^[0-9a-f]{1,5}$/i.test(raw)){res.textContent='地址需为 00000~FFFFF。';svg.innerHTML='';svg.style.height='0px';return;}const a=parseInt(raw,16),ways=+sel.value,sets=256/ways,ib=Math.log2(sets),tb=20-6-ib,off=a%64,block=Math.floor(a/64),index=block%sets,tag=Math.floor(block/sets),w=root.clientWidth,small=w<560,h=small?280:232;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';let parts=[['Tag',tb,tag],...(ib?[['索引',ib,index]]:[]),['块内偏移',6,off]],s='<title>高位标记、中间索引、低位块内偏移；组相联地址不包含路号</title>';parts.forEach((p,i)=>{const x=small?8:8+i*(w-16)/parts.length,y=small?10+i*65:15,bw=small?w-16:(w-16)/parts.length-4;s+=`<rect class="part" x="${x}" y="${y}" width="${bw}" height="56" fill="var(--viz-series-${i+1})" opacity=".16"/><text x="${x+10}" y="${y+21}">${p[0]} · ${p[1]} 位</text><text x="${x+10}" y="${y+45}">${p[2].toString(2).padStart(p[1],'0')}₂ = ${p[2]}</text>`;});const y=small?225:112;s+=`<text x="8" y="${y}">主存块号 ${block} · 偏移 ${off}</text><text x="8" y="${y+26}">${ways===1?'候选：Cache 第 '+index+' 行':ways===256?'候选：任意一行':'候选：第 '+index+' 组的 8 路'}</text>`;if(!small)s+=`<text x="8" y="${y+61}">有效位 = 1 且 Tag 匹配 → 命中</text><text x="8" y="${y+87}" class="text-small">Tag = ${tag}；仅凭地址无法知道当前是否命中</text>`;svg.innerHTML=s;res.textContent=ways===1?'Cache 数据区地址：0x'+(index*64+off).toString(16).toUpperCase().padStart(4,'0'):ways===256?'实际行号由查找结果或装入位置决定。':'实际路号由命中结果或装入时的替换策略决定。';}sel.addEventListener('change',draw);inp.addEventListener('input',draw);new ResizeObserver(draw).observe(root);draw();})();
+</script>
+</div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-cache">
+ 
+ <div class="text-small">主存 1MB · Cache 数据区 16KB · 块 64B</div>
+ <svg class="ch3-diagram" role="img" aria-label="主存地址的Tag索引和块内偏移拆分" viewBox="0 0 640 232" style="height: 232px;"><title>高位标记、中间索引、低位块内偏移；组相联地址不包含路号</title><rect class="part" x="8" y="15" width="204" height="56" fill="var(--viz-series-1)" opacity=".16"></rect><text x="18" y="36">Tag · 6 位</text><text x="18" y="60">000000₂ = 0</text><rect class="part" x="216" y="15" width="204" height="56" fill="var(--viz-series-2)" opacity=".16"></rect><text x="226" y="36">索引 · 8 位</text><text x="226" y="60">10000000₂ = 128</text><rect class="part" x="424" y="15" width="204" height="56" fill="var(--viz-series-3)" opacity=".16"></rect><text x="434" y="36">块内偏移 · 6 位</text><text x="434" y="60">100001₂ = 33</text><text x="8" y="112">主存块号 128 · 偏移 33</text><text x="8" y="138">候选：Cache 第 128 行</text><text x="8" y="173">有效位 = 1 且 Tag 匹配 → 命中</text><text x="8" y="199" class="text-small">Tag = 0；仅凭地址无法知道当前是否命中</text></svg>
+ <div class="result" aria-live="polite">Cache 数据区地址：0x2021</div>
+</div>
+<style>#print-ch3-cache .ch3-diagram{display:block;width:100%;color:var(--foreground)}#print-ch3-cache text{fill:var(--foreground)}#print-ch3-cache .part{stroke:none}#print-ch3-cache .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}</style>
+
+</div><figcaption><span class="figure-number">图 3-8</span>主存 1 MiB、Cache 数据区 16 KiB、块 64 B。切换映射方式后，观察索引与 Tag 位数；地址不直接指定组内路号。</figcaption></figure>
+
+
+<h3>直接映射：一个主存块，只有一个候选 Cache 行</h3>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>行号</mtext><mo>&#x0003D;</mo><mi>b</mi><mo>mod</mo><mi>L</mi></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>T</mi><mi>a</mi><mi>g</mi><mo>&#x0003D;</mo><mrow><mo stretchy="true" fence="true" form="prefix">&#x0230A;</mo><mfrac><mrow><mi>b</mi></mrow><mrow><mi>L</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x0230B;</mo></mrow></mrow></menclose></mrow></math></div>
+
+
+
+<p>为什么还需要 Tag？</p>
+<p>因为不同主存块可能得到同一个行号。</p>
+<p>例如 Cache 有 256 行：</p>
+<ul>
+<li>主存块 128 → 行 128；</li>
+<li>主存块 384 → 也到行 128。</li>
+</ul>
+<p>因此只知道“第 128 行”还不能知道里面是谁，必须比较 Tag。</p>
+<p>命中的条件：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>V</mi><mi>a</mi><mi>l</mi><mi>i</mi><mi>d</mi><mo>&#x0003D;</mo><mn>1</mn><mspace width="1em" /><mi>且</mi><mspace width="1em" /><mi>T</mi><mi>a</mi><mi>g</mi><mi>匹</mi><mi>配</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>直接映射优点是简单；缺点是两个常用块可能不断争同一个位置。</p>
+<h3>全相联：一个主存块，可以放到任何 Cache 行</h3>
+<p>没有固定的行索引，需要在候选行中比较 Tag。</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>T</mi><mi>a</mi><mi>g</mi><mo>&#x0003D;</mo><mtext>完整主存块号</mtext></mrow></math></div>
+
+
+
+<p>优点：放置自由，减少固定位置冲突。</p>
+<p>代价：需要更多比较和替换管理电路，尤其容量或相联度很大时。</p>
+<p>讲义的“块表”，是表达主存块与 Cache 行关系的逻辑模型。实际可通过每行的 Tag 和比较电路完成查找，并不一定真的存在一张供 CPU 软件读取的普通表。</p>
+<p>相联存储器的意思是：</p>
+<blockquote>
+<p>根据内容是否匹配进行查找，而不只是给一个地址取出某个位置。</p>
+</blockquote>
+<h3>组相联：先固定组，再允许放在组内任意一路</h3>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>组号</mtext><mo>&#x0003D;</mo><mi>b</mi><mo>mod</mo><mi>S</mi></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>T</mi><mi>a</mi><mi>g</mi><mo>&#x0003D;</mo><mrow><mo stretchy="true" fence="true" form="prefix">&#x0230A;</mo><mfrac><mrow><mi>b</mi></mrow><mrow><mi>S</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x0230B;</mo></mrow></mrow></menclose></mrow></math></div>
+
+
+
+<p>例如 8 路组相联：</p>
+<blockquote>
+<p>每组有 8 个候选位置。地址决定哪一组；具体在哪一路，由查找结果或装入位置决定。</p>
+</blockquote>
+<p><strong>主存地址中没有一个字段直接指定“组内第几路”。</strong></p>
+<p>你一定要记住这句话。它是很多组相联题的关键。</p>
+<p>三种映射其实可以统一：</p>
+<ul>
+<li>1 路组相联，就是直接映射。</li>
+<li>只有一组、所有行都在这一组，就是全相联。</li>
+<li>中间情况，就是通常的组相联。</li>
+</ul>
+<h3>地址字段位数：先算低位，再算中间，剩下给 Tag</h3>
+<p>假设容量、块大小、组数都为 2 的整数次幂：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>偏移位数</mtext><mo>&#x0003D;</mo><msub><mi>log</mi><mn>2</mn></msub><mi>B</mi></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>索引位数</mtext><mo>&#x0003D;</mo><msub><mi>log</mi><mn>2</mn></msub><mi>S</mi></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>Tag位数</mtext><mo>&#x0003D;</mo><mtext>主存地址位数</mtext><mo>&#x02212;</mo><mtext>索引位数</mtext><mo>&#x02212;</mo><mtext>偏移位数</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>直接映射时 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo>&#x0003D;</mo><mi>L</mi></mrow></math></span>。</p>
+<p>全相联时 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi><mo>&#x0003D;</mo><mn>1</mn></mrow></math></span>，索引为 0 位。</p>
+<p>讲义在 Cache 一节使用了“页号”这个词，表示一种地址分区。<strong>它不是下一节操作系统分页中的虚拟页，也不需要去查虚拟存储器页表。</strong></p>
+<p>讲义组相联部分有些“页”的数量描述不一致，做题时用上面“总行数÷路数求组数”的方法最稳。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s10"><p class="eyebrow">第三章 · 第 10 节</p><h2>习题 3.20、3.21 完整演算</h2><div class="part-goal"><p><strong>掌握要求：</strong>能独立算直接映射和八路组相联，并解释结果为什么不同。</p><p><strong>背景为什么要讲：</strong>这两题是全章计算核心之一；数字相同的现象必须检查原因，不能推广成通则。</p></div>
+<p>两题共同条件：</p>
+<ul>
+<li>主存 1MB；</li>
+<li>Cache 16KB；</li>
+<li>块大小 64B；</li>
+<li>按字节编址。</li>
+</ul>
+<p>先统一换成 2 的幂：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>1</mn><mi>M</mi><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>20</mn></mrow></msup><mi>B</mi></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>16</mn><mi>K</mi><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>14</mn></mrow></msup><mi>B</mi></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>64</mn><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mn>6</mn></msup><mi>B</mi></mrow></math></div>
+
+
+
+<p>所以：</p>
+<ul>
+<li>主存地址 20 位。</li>
+<li>块内偏移 6 位。</li>
+<li>Cache 总行数：</li>
+</ul>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>L</mi><mo>&#x0003D;</mo><mfrac><mrow><msup><mn>2</mn><mrow><mn>14</mn></mrow></msup></mrow><mrow><msup><mn>2</mn><mn>6</mn></msup></mrow></mfrac><mo>&#x0003D;</mo><msup><mn>2</mn><mn>8</mn></msup><mo>&#x0003D;</mo><mn>256</mn></mrow></math></div>
+
+
+
+<h3>3.20：直接映射</h3>
+<p>第一问：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mn>256</mn><mtext>行</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>地址格式：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><munder><munder><mrow><mi>T</mi><mi>a</mi><mi>g</mi></mrow><mo>&#x23DF;</mo></munder><mrow><mn>6</mn><mi>位</mi></mrow></munder><mtext>&#x000A0;</mtext><mo minsize="1.2em" maxsize="1.2em">|</mo><mtext>&#x000A0;</mtext><munder><munder><mrow><mi>行</mi><mi>号</mi></mrow><mo>&#x23DF;</mo></munder><mrow><mn>8</mn><mi>位</mi></mrow></munder><mtext>&#x000A0;</mtext><mo minsize="1.2em" maxsize="1.2em">|</mo><mtext>&#x000A0;</mtext><munder><munder><mrow><mi>块</mi><mi>内</mi><mi>偏</mi><mi>移</mi></mrow><mo>&#x23DF;</mo></munder><mrow><mn>6</mn><mi>位</mi></mrow></munder></mrow></math></div>
+
+
+
+<p>为什么 Tag 六位？</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>20</mn><mo>&#x02212;</mo><mn>8</mn><mo>&#x02212;</mo><mn>6</mn><mo>&#x0003D;</mo><mn>6</mn></mrow></math></div>
+
+
+
+<p>题给地址：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mo>&#x0003D;</mo><mn>02021</mn><mi>H</mi><mo>&#x0003D;</mo><mn>8225</mn></mrow></math></div>
+
+
+
+<p>先分块：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>8225</mn><mo>&#x0003D;</mo><mn>128</mn><mo>&#x000D7;</mo><mn>64</mn><mo>&#x0002B;</mo><mn>33</mn></mrow></math></div>
+
+
+
+<p>因此：</p>
+<ul>
+<li>主存块号：128；</li>
+<li>块内偏移：33，即 <code>21H</code>。</li>
+</ul>
+<p>Cache 行号：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>128</mn><mo>mod</mo><mn>256</mn><mo>&#x0003D;</mo><mn>128</mn></mrow></math></div>
+
+
+
+<p>Tag：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mo stretchy="true" fence="true" form="prefix">&#x0230A;</mo><mn>128</mn><mo>&#x0002F;</mo><mn>256</mn><mo stretchy="true" fence="true" form="postfix">&#x0230B;</mo></mrow><mo>&#x0003D;</mo><mn>0</mn></mrow></math></div>
+
+
+
+<p>第三问答案：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>第128字块，即第128行</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>第二问 Cache 数据区地址：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>128</mn><mo>&#x000D7;</mo><mn>64</mn><mo>&#x0002B;</mo><mn>33</mn><mo>&#x0003D;</mo><mn>8225</mn><mo>&#x0003D;</mo><mn>2021</mn><mi>H</mi></mrow></math></div>
+
+
+
+<p>所以：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>C</mi><mi>a</mi><mi>c</mi><mi>h</mi><mi>e</mi><mi>地</mi><mi>址</mi><mo>&#x0003D;</mo><mn>2021</mn><mi>H</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>这次 Cache 地址恰好与主存地址的数值相同，是这个地址和映射条件导致的。不是通用规律。</p>
+<p>可以用 <code>06021H</code> 检查理解：</p>
+<ul>
+<li>主存块号 384；</li>
+<li>仍映射到 Cache 行 128；</li>
+<li>Tag 变成 1；</li>
+<li>Cache 数据区中的位置仍是 <code>2021H</code>。</li>
+</ul>
+<p><strong>位置相同，Tag 不同；两块不能同时占据这个直接映射行。</strong></p>
+<h3>3.21：8 路组相联</h3>
+<p>总行数仍是 256，但组数为：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>S</mi><mo>&#x0003D;</mo><mn>256</mn><mo>&#x0002F;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>32</mn><mo>&#x0003D;</mo><msup><mn>2</mn><mn>5</mn></msup></mrow></math></div>
+
+
+
+<p>因此：</p>
+<ul>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>W</mi></mrow></math></span>：块内偏移，6 位。</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>u</mi></mrow></math></span>：组索引，5 位。</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>s</mi></mrow></math></span>：Tag，剩余 9 位。</li>
+</ul>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>s</mi><mo>&#x0003D;</mo><mn>20</mn><mo>&#x02212;</mo><mn>5</mn><mo>&#x02212;</mo><mn>6</mn><mo>&#x0003D;</mo><mn>9</mn></mrow></math></div>
+
+
+
+<p>第一问：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>s</mi><mo>&#x0003D;</mo><mn>9</mn><mo>&#x0002C;</mo><mspace width="1em" /><mi>u</mi><mo>&#x0003D;</mo><mn>5</mn><mo>&#x0002C;</mo><mspace width="1em" /><mi>W</mi><mo>&#x0003D;</mo><mn>6</mn></mrow></menclose></mrow></math></div>
+
+
+
+<p>还是地址 <code>02021H</code>，主存块号还是 128。</p>
+<p>组号：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>128</mn><mo>mod</mo><mn>32</mn><mo>&#x0003D;</mo><mn>0</mn></mrow></math></div>
+
+
+
+<p>第二问：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>第0组</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>Tag：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mrow><mo stretchy="true" fence="true" form="prefix">&#x0230A;</mo><mn>128</mn><mo>&#x0002F;</mo><mn>32</mn><mo stretchy="true" fence="true" form="postfix">&#x0230B;</mo></mrow><mo>&#x0003D;</mo><mn>4</mn></mrow></math></div>
+
+
+
+<p>第三问问的是 Tag <strong>占多少位</strong>：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mn>9</mn><mi>位</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>注意区分：</p>
+<blockquote>
+<p>Tag 位数是 9，当前地址的 Tag 数值是 4。</p>
+</blockquote>
+<p>**组内哪一路无法单凭这个地址确定。**它可能在第 0 组的任意一路，取决于已有内容和装入策略。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s11"><p class="eyebrow">第三章 · 第 11 节</p><h2>3.5.3 Cache 读取、更新与替换</h2><div class="part-goal"><p><strong>掌握要求：</strong>区分串行/并行请求路径、写通/写回和写分配，并能按序列模拟替换。</p><p><strong>背景为什么要讲：</strong>多核与 DMA 的一致性机制还有更深内容；这里先掌握最新数据、Dirty 与替换的关系。</p></div>
+<p>这三个问题要分别处理。</p>
+<h3>读取结构有两种</h3>
+<p>贯穿读出 Look Through：</p>
+<blockquote>
+<p>先查 Cache，未命中再把请求送往主存。</p>
+</blockquote>
+<p>优点：命中时可以避免主存访问。</p>
+<p>代价：未命中访问要经过前面的 Cache 查询。</p>
+<p>旁路读出 Look Aside：</p>
+<blockquote>
+<p>同时向 Cache 和主存发出请求；若 Cache 命中，使用 Cache 返回的数据并抑制相应主存请求。</p>
+</blockquote>
+<p>优点：减少串行等待。</p>
+<p>代价：主存侧请求与总线活动更多。</p>
+<p>这里掌握请求路径和取舍即可，不必死记固定延迟数值。</p>
+<h3>写入策略：写通与写回</h3>
+<p>假设主存中 <code>x=3</code>，CPU 要改成 <code>x=5</code>。</p>
+<p>写通 Write Through：</p>
+<blockquote>
+<p>更新 Cache 时，也把写入送往主存。</p>
+</blockquote>
+<p>优点：更新关系简单。</p>
+<p>代价：主存写流量较大。实际可用写缓冲减少 CPU 等待，所以不必把它理解成每次都完全停下来等待主存。</p>
+<p>写回 Write Back：</p>
+<blockquote>
+<p>先只改 Cache，并设置 Dirty；需要把这个脏块淘汰或执行相应回写操作时，再写回主存。</p>
+</blockquote>
+<p>因此可能暂时出现：</p>
+<ul>
+<li>Cache：<code>x=5</code></li>
+<li>主存：<code>x=3</code></li>
+<li>Dirty：1</li>
+</ul>
+<p><strong>写回允许这种受管理的暂时差异。所谓一致性，是保证系统能获得正确的新数据，而不是要求每一时刻两个物理位置都完全相等。</strong></p>
+<p>讲义关于写回的表述容易让人误读成“再次修改就写回”。正确抓法是：</p>
+<blockquote>
+<p><strong>可以在 Cache 中反复修改；脏块被替换出去之前，要按策略写回。</strong></p>
+</blockquote>
+<p>如果把脏块直接丢弃，最新修改就会丢失。</p>
+<p>**为什么需要保证正确更新？**否则 CPU、其他访问者或后续主存读取可能读到过期内容，程序计算结果就会错。</p>
+<p>多核、DMA 等场合还涉及更完整的一致性机制，本章先掌握写通、写回、Dirty 的作用。</p>
+<h3>写未命中如何处理，是另一个维度</h3>
+<p>虽然讲义没有展开，你需要认识：</p>
+<ul>
+<li>写分配：把块装入 Cache 后写。</li>
+<li>不写分配：绕过 Cache，把写送向下一级。</li>
+</ul>
+<p>它们与写通、写回相关，但不是同一个分类问题。提这一嘴，是为了以后看到这些词时不把它们混在一起。</p>
+
+
+
+<figure class="diagram" id="fig-write-policy" data-figure="write-policy"><div class="diagram-live"><div id="ch3-write"><div class="viz-controls"><label class="form-label">写策略<select class="form-select" data-policy><option value="wb">写回 Write Back</option><option value="wt">写通 Write Through</option></select></label><label class="form-label">操作<select class="form-select" data-step><option value="0">① 初始 x=3</option><option value="1">② 写 x=5</option><option value="2">③ 再写 x=7</option><option value="3">④ 替换这一行</option></select></label></div><svg class="new-drawing" role="img" aria-label="连续修改与淘汰：写通和写回"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-write"><svg class="new-drawing" role="img" aria-label="连续修改与淘汰：写通和写回" viewBox="0 0 640 315"><title>写通与写回在连续修改和脏块替换时的副本状态</title><text x="12" y="25" text-anchor="start" class="">初始 Cache 与主存均保存 x = 3</text><rect class="node" x="12" y="49" width="616" height="45" rx="3"></rect><text x="320" y="78" text-anchor="middle" class="">尚未修改</text><rect class="active" x="12" y="131" width="301" height="108" rx="3"></rect><rect class="node" x="327" y="131" width="301" height="108" rx="3"></rect><text x="162.5" y="157" text-anchor="middle" class="">Cache 行</text><text x="162.5" y="187" text-anchor="middle" class="text-small">x = 3</text><text x="162.5" y="216" text-anchor="middle" class="text-small">Dirty = 0</text><text x="477.5" y="157" text-anchor="middle" class="">主存</text><text x="477.5" y="187" text-anchor="middle" class="">x = 3</text><text x="477.5" y="216" text-anchor="middle" class="text-small">下一层副本</text><path class="wire" d="M160 239 V269 H480 V239"></path><text x="320" y="294" text-anchor="middle" class="text-small">写回策略：修改可暂留在 Cache</text></svg><div aria-live="polite">本图忽略写缓冲延迟，只比较逻辑更新状态；不代表完整多核一致性协议。</div></div></div><figcaption><span class="figure-number">图 3-9</span>写回允许修改暂存在 Cache，但淘汰脏块前必须回写；写通把更新送往主存。这里只比较单行的逻辑状态，忽略写缓冲延迟。</figcaption></figure>
+
+
+<h3>替换策略：只有候选位置满了，才需要选淘汰对象</h3>
+<ul>
+<li>直接映射：目标行固定，没有多个候选行可选。</li>
+<li>组相联：在目标组内选择。</li>
+<li>全相联：在整个 Cache 的候选行中选择。</li>
+</ul>
+<p>先找无效空位置；没有可用空位置时，再按替换策略选择。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>淘汰依据</th>
+<th>要会说明的特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Random</td>
+<td>随机选</td>
+<td>简单，但可能淘汰马上要用的块</td>
+</tr>
+<tr>
+<td>FIFO</td>
+<td>最早进入</td>
+<td>访问命中不改变入队先后</td>
+</tr>
+<tr>
+<td>LFU</td>
+<td>统计期内使用次数最少</td>
+<td>看频率，受统计周期、老数据影响</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td>最久没有使用</td>
+<td>看最近一次访问时间</td>
+</tr>
+</tbody></table></div>
+<p><strong>LRU 是“最久没用”，LFU 才是“用得最少”。</strong></p>
+<p>讲义第 44 页把 LRU 开头描述成“近期使用次数最少”，这个措辞会把两种算法混淆。LRU 的正确定义是淘汰最后一次访问距今最久的块。<a href="https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/pages/c14/c14s1/">MIT 的 Cache 课程说明</a></p>
+<p>讲义中的计数器、队列等内容，是在说明替换信息如何保存：</p>
+<ul>
+<li>LFU：记录访问次数，并约定统计或清零规则。</li>
+<li>FIFO：记录进入顺序。</li>
+<li>LRU：记录最近使用顺序，或使用相应近似机制。</li>
+</ul>
+<p>不能背成“LRU 总是命中率最高”，它的效果取决于访问序列；高相联度下精确记录 LRU 也可能比较复杂。</p>
+<h3>用一个小例子区分 LRU 与 FIFO</h3>
+<p>两行 Cache，开始为空，访问：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>A</mi><mo>&#x0002C;</mo><mtext>&#x000A0;</mtext><mi>B</mi><mo>&#x0002C;</mo><mtext>&#x000A0;</mtext><mi>A</mi><mo>&#x0002C;</mo><mtext>&#x000A0;</mtext><mi>C</mi><mo>&#x0002C;</mo><mtext>&#x000A0;</mtext><mi>A</mi></mrow></math></div>
+
+
+
+<p>采用 LRU，按“最近使用 → 最久未用”记录：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>访问</th>
+<th>结果</th>
+<th>Cache 使用顺序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>未命中</td>
+<td>A</td>
+</tr>
+<tr>
+<td>B</td>
+<td>未命中</td>
+<td>B，A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>命中</td>
+<td>A，B</td>
+</tr>
+<tr>
+<td>C</td>
+<td>未命中，淘汰 B</td>
+<td>C，A</td>
+</tr>
+<tr>
+<td>A</td>
+<td>命中</td>
+<td>A，C</td>
+</tr>
+</tbody></table></div>
+<p>关键是第三次访问 A 后，A 变成最近使用，所以装 C 时淘汰 B。</p>
+<p>若用 FIFO，A 最早进入，即使命中过，仍会在装 C 时先被淘汰。</p>
+<p><strong>这部分的达标标准：会按访问序列一步一步更新状态，而不是只背缩写。</strong></p>
+
+
+
+<figure class="diagram" id="fig-replacement-trace" data-figure="replacement-trace"><div class="diagram-live"><div id="ch3-replace"><div class="viz-controls"><label class="form-label">替换策略<select class="form-select"><option value="lru">LRU · 最近最少使用</option><option value="fifo">FIFO · 最先进入</option><option value="lfu">LFU · 访问次数最少</option></select></label><button class="btn" type="button" data-next>下一次访问</button><button class="btn" type="button" data-reset>重新开始</button></div><svg class="new-drawing" role="img" aria-label="LRU、FIFO 与 LFU 的逐次访问"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-replace"><svg class="new-drawing" role="img" aria-label="LRU、FIFO 与 LFU 的逐次访问" viewBox="0 0 640 354"><title>按访问顺序逐步比较LRU FIFO和LFU替换行为</title><text x="12" y="25" text-anchor="start" class="">两行全相联 Cache · 从空开始</text><rect class="node" x="12" y="43" width="119.2" height="37" rx="3"></rect><text x="71.6" y="68" text-anchor="middle" class="">A</text><rect class="node" x="136.2" y="43" width="119.2" height="37" rx="3"></rect><text x="195.79999999999998" y="68" text-anchor="middle" class="">B</text><rect class="node" x="260.4" y="43" width="119.2" height="37" rx="3"></rect><text x="320" y="68" text-anchor="middle" class="">A</text><rect class="node" x="384.6" y="43" width="119.2" height="37" rx="3"></rect><text x="444.20000000000005" y="68" text-anchor="middle" class="">C</text><rect class="node" x="508.8" y="43" width="119.2" height="37" rx="3"></rect><text x="568.4" y="68" text-anchor="middle" class="">A</text><text x="12" y="111" text-anchor="start" class="text-small">点击“下一次访问”开始</text><rect class="node" x="12" y="132" width="616" height="71" rx="3"></rect><text x="23" y="157" text-anchor="start" class="">行 0：无效 / 空</text><rect class="node" x="12" y="223" width="616" height="71" rx="3"></rect><text x="23" y="248" text-anchor="start" class="">行 1：无效 / 空</text><text x="12" y="336" text-anchor="start" class="text-small">已访问 0 次 · 命中 0 次 · 未命中 0 次</text></svg><div aria-live="polite">LRU：淘汰最后一次使用最早的块；命中会更新最近使用时间。</div></div></div><figcaption><span class="figure-number">图 3-10</span>两行全相联 Cache，访问 A、B、A、C、A。命中是否更新替换依据，是 LRU 与 FIFO 的关键区别；LFU 的计数范围和同次数规则在图中明确约定。</figcaption></figure>
+
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s12"><p class="eyebrow">第三章 · 第 12 节</p><h2>3.6.1 虚拟存储器的用途</h2><div class="part-goal"><p><strong>掌握要求：</strong>区分 VA/PA，说明容量、重定位、地址隔离、保护和共享。</p><p><strong>背景为什么要讲：</strong>虚拟存储器首先是地址与管理机制；不要把它只记成“硬盘变 RAM”。</p></div>
+<p>程序使用的地址叫虚拟地址 VA。</p>
+<p>实际访问物理存储位置所用的地址叫物理地址 PA。</p>
+<p>基本关系：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>虚拟地址</mtext><mover><mstyle scriptlevel="0"><mo>&#x2192;</mo></mstyle><mpadded width="+0.833em" lspace="0.556em" voffset="-.2em" height="-.2em"><mrow><mtext>地址转换</mtext></mrow><mspace depth=".25em" /></mpadded></mover><mtext>物理地址</mtext></mrow></menclose></mrow></math></div>
+
+
+
+<p>程序看到的连续区域，可以映射到不连续的物理位置。</p>
+<p>两个程序也可以使用相同的虚拟地址数字，分别映射到不同的物理位置。</p>
+<h3>虚拟存储器解决的不只是内存容量问题</h3>
+<p>本章主要包括：</p>
+<ol>
+<li>程序不必一次全部装入物理内存。</li>
+<li>程序不必绑定一个固定物理位置。</li>
+<li>不同程序可有各自的地址空间。</li>
+<li>可设置访问权限，实现保护和受控共享。</li>
+</ol>
+<p>因此不能把虚拟存储器简单等同于“拿硬盘当 RAM”。</p>
+<p>它首先是一种地址空间和存储管理机制；借助外存进行按需调入，是其中一种重要用途。</p>
+<p>若当前需要的内容不在主存，可能要从外存调入，代价通常远高于普通内存访问。因此：</p>
+<blockquote>
+<p>虚拟存储器能缓解容量限制，但不能消除物理内存不足带来的性能问题。</p>
+</blockquote>
+<p>频繁调入调出，可能导致严重卡顿，称为抖动的相关现象。</p>
+<h3>Cache 与虚拟存储器的联系和差别</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>Cache</th>
+<th>虚拟存储器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主要矛盾</td>
+<td>CPU 与主存的速度差</td>
+<td>地址管理、保护、主存容量限制</td>
+</tr>
+<tr>
+<td>常见搬运关系</td>
+<td>主存 → Cache</td>
+<td>外存 → 主存</td>
+</tr>
+<tr>
+<td>信息单位</td>
+<td>Cache line</td>
+<td>页，或本章讨论的段</td>
+</tr>
+<tr>
+<td>主要管理者</td>
+<td>硬件</td>
+<td>操作系统与硬件共同配合</td>
+</tr>
+<tr>
+<td>查找关系</td>
+<td>主存块与 Cache 行</td>
+<td>虚拟地址与物理地址</td>
+</tr>
+</tbody></table></div>
+<p>共同点是：都利用局部性，把较常用的部分放到较快的存储层。</p>
+<h3>别把本章三种“块”混在一起：</h3>
+<ul>
+<li>NAND 页：Flash 内部读写组织。</li>
+<li>Cache line：Cache 与主存之间的数据块。</li>
+<li>虚拟页：地址空间管理单位。</li>
+</ul>
+<p>它们都叫块或页，但所在层次和用途不同。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s13"><p class="eyebrow">第三章 · 第 13 节</p><h2>3.6.2—3.6.4 段、页与段页式转换</h2><div class="part-goal"><p><strong>掌握要求：</strong>会查表、检查范围/权限、计算基址或页框与偏移，并乘表项长度。</p><p><strong>背景为什么要讲：</strong>三种路径都要认识，详细操作系统页面分配和调度算法在相关课程继续。</p></div>
+<p>下面可以切换三种管理方式。</p>
+
+
+<figure class="diagram" id="fig-virtual-address" data-figure="virtual-address"><div class="diagram-live"><div id="ch3-virtual"><div class="viz-controls"><label class="form-label">管理方式<select class="form-select"><option value="page">页式</option><option value="segment">段式</option><option value="both">段页式</option></select></label></div><svg class="ch3-diagram" role="img" aria-label="段式页式段页式的虚拟地址到物理地址转换"></svg></div>
+<style>#ch3-virtual .ch3-diagram{display:block;width:100%;color:var(--foreground)}#ch3-virtual text{fill:var(--foreground)}#ch3-virtual .node{fill:var(--muted);stroke:var(--border)}#ch3-virtual .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}</style>
+<script>
+(()=>{const root=document.getElementById('ch3-virtual'),svg=root.querySelector('svg'),sel=root.querySelector('select');function draw(){const w=root.clientWidth,bw=Math.min(390,w-32),x=16,mode=sel.value,rows=mode==='page'?[['虚拟地址：P = 3，D = 0x123'],['页表：虚页 3 → 物理页框 9'],['物理地址：页框 9 与偏移拼接'],['4KB 页面 → PA = 0x9123']]:mode==='segment'?[['虚拟地址：S = 2，D = 0x100'],['段表：基址 0x4000，段长 0x800'],['检查偏移与权限，再做加法'],['PA = 0x4000 + 0x100 = 0x4100']]:[['虚拟地址：S = 2，P = 3，D = 0x123'],['段表：找到第 2 段的页表'],['段内页表：虚页 3 → 页框 9'],['4KB 页面 → PA = 0x9123']];const h=rows.length*70+32;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';svg.innerHTML='<title>段式基址加偏移，页式页框拼接偏移，段页式先查段表再查页表</title>'+rows.map((r,i)=>`<rect class="node" x="${x}" y="${8+i*70}" width="${bw}" height="47" rx="3"/><text x="${x+10}" y="${37+i*70}">${r[0]}</text>${i<rows.length-1?`<path class="wire" d="M ${x+bw/2} ${55+i*70} v23 m-4 -6 l4 6 l4 -6"/>`:''}`).join('')+`<text x="16" y="${h-3}" class="text-small">示例假设：表项存在、已装入、访问权限允许</text>`;}sel.addEventListener('change',draw);new ResizeObserver(draw).observe(root);draw();})();
+</script>
+</div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-virtual"><svg class="ch3-diagram" role="img" aria-label="段式页式段页式的虚拟地址到物理地址转换" viewBox="0 0 640 312" style="height: 312px;"><title>段式基址加偏移，页式页框拼接偏移，段页式先查段表再查页表</title><rect class="node" x="16" y="8" width="390" height="47" rx="3"></rect><text x="26" y="37">虚拟地址：P = 3，D = 0x123</text><path class="wire" d="M 211 55 v23 m-4 -6 l4 6 l4 -6"></path><rect class="node" x="16" y="78" width="390" height="47" rx="3"></rect><text x="26" y="107">页表：虚页 3 → 物理页框 9</text><path class="wire" d="M 211 125 v23 m-4 -6 l4 6 l4 -6"></path><rect class="node" x="16" y="148" width="390" height="47" rx="3"></rect><text x="26" y="177">物理地址：页框 9 与偏移拼接</text><path class="wire" d="M 211 195 v23 m-4 -6 l4 6 l4 -6"></path><rect class="node" x="16" y="218" width="390" height="47" rx="3"></rect><text x="26" y="247">4KB 页面 → PA = 0x9123</text><text x="16" y="309" class="text-small">示例假设：表项存在、已装入、访问权限允许</text></svg></div>
+<style>#print-ch3-virtual .ch3-diagram{display:block;width:100%;color:var(--foreground)}#print-ch3-virtual text{fill:var(--foreground)}#print-ch3-virtual .node{fill:var(--muted);stroke:var(--border)}#print-ch3-virtual .wire{stroke:var(--foreground);fill:none;stroke-width:1.5}</style>
+
+</div><figcaption><span class="figure-number">图 3-11</span>段式做“基址＋偏移”；页式换页框、保留偏移；段页式先找页表。示例均假定表项和访问权限有效。</figcaption></figure>
+
+
+<h3>段式：按程序的逻辑部分划分，段长可以不同</h3>
+<p>例如：</p>
+<ul>
+<li>代码段；</li>
+<li>数据段；</li>
+<li>栈段。</li>
+</ul>
+<p>虚拟地址由：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo stretchy="false">&#x00028;</mo><mi>S</mi><mo>&#x0002C;</mo><mi>D</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<p>组成：</p>
+<ul>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi></mrow></math></span>：段号；</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi></mrow></math></span>：段内偏移。</li>
+</ul>
+<p>段表记录：</p>
+<ul>
+<li>段基址；</li>
+<li>段长；</li>
+<li>是否装入；</li>
+<li>访问权限等。</li>
+</ul>
+<p>转换过程：</p>
+<ol>
+<li>用段号查段表。</li>
+<li>检查段是否存在、是否已装入、权限是否允许。</li>
+<li>检查偏移是否越界。</li>
+<li>基址加偏移。</li>
+</ol>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>P</mi><mi>A</mi><mo>&#x0003D;</mo><mtext>段基址</mtext><mo>&#x0002B;</mo><mi>D</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>若段长为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>L</mi></mrow></math></span>，合法偏移通常满足：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0</mn><mo>&#x02264;</mo><mi>D</mi><mo>&#x0003C;</mo><mi>L</mi></mrow></math></div>
+
+
+
+<p>例子：</p>
+<ul>
+<li>段基址 <code>4000H</code>；</li>
+<li>段长 <code>0800H</code>；</li>
+<li>偏移 <code>0100H</code>。</li>
+</ul>
+<p>则：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>P</mi><mi>A</mi><mo>&#x0003D;</mo><mn>4000</mn><mi>H</mi><mo>&#x0002B;</mo><mn>0100</mn><mi>H</mi><mo>&#x0003D;</mo><mn>4100</mn><mi>H</mi></mrow></math></div>
+
+
+
+<p>若偏移为 <code>0800H</code>，已经越界，因为最后一个合法偏移是 <code>07FFH</code>。</p>
+<p>优点：</p>
+<blockquote>
+<p>与程序逻辑结构对应，便于按段设置保护与共享。</p>
+</blockquote>
+<p>缺点：</p>
+<blockquote>
+<p>段长不固定，容易形成外部碎片；大段搬运代价可能较高。</p>
+</blockquote>
+<h3>页式：虚拟空间和物理空间都按同样大小的固定单位划分</h3>
+<ul>
+<li>虚拟空间中的单位：页。</li>
+<li>物理空间中的单位：页框。</li>
+</ul>
+<p>虚拟地址：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo stretchy="false">&#x00028;</mo><mi>P</mi><mo>&#x0002C;</mo><mi>D</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<ul>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi></mrow></math></span>：虚页号。</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi></mrow></math></span>：页内偏移。</li>
+</ul>
+<p>页表回答：</p>
+<blockquote>
+<p>这个虚拟页，放在物理内存的哪个页框？</p>
+</blockquote>
+<p>若页大小为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mi>p</mi></msup></mrow></math></span> 字节：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>偏移占&#x000A0;</mtext><mi>p</mi><mtext>位</mtext></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mi>P</mi><mi>A</mi><mo>&#x0003D;</mo><mtext>页框号</mtext><mo>&#x000D7;</mo><mtext>页大小</mtext><mo>&#x0002B;</mo><mi>D</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>也可以理解成：</p>
+<blockquote>
+<p>将虚页号替换为页框号，低位偏移保持不变。</p>
+</blockquote>
+<h3>例子：4KB 页面</h3>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>4</mn><mi>K</mi><mi>B</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mn>12</mn></mrow></msup><mi>B</mi></mrow></math></div>
+
+
+
+<p>所以偏移 12 位。</p>
+<p>虚拟地址：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>V</mi><mi>A</mi><mo>&#x0003D;</mo><mn>3123</mn><mi>H</mi></mrow></math></div>
+
+
+
+<p>拆成：</p>
+<ul>
+<li>虚页号 3；</li>
+<li>偏移 <code>123H</code>。</li>
+</ul>
+<p>页表说虚页 3 在物理页框 9，则：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>P</mi><mi>A</mi><mo>&#x0003D;</mo><mn>9</mn><mo>&#x000D7;</mo><mn>1000</mn><mi>H</mi><mo>&#x0002B;</mo><mn>123</mn><mi>H</mi><mo>&#x0003D;</mo><mn>9123</mn><mi>H</mi></mrow></math></div>
+
+
+
+<p><strong>虚页号不要求等于物理页框号；转换前后页内偏移相同。</strong></p>
+<p>优点：</p>
+<ul>
+<li>页框固定大小，分配方便。</li>
+<li>相邻虚拟页可以映射到不相邻物理页框。</li>
+<li>避免段式那种可变长分配造成的外部碎片。</li>
+</ul>
+<p>代价：</p>
+<ul>
+<li>最后一页等位置可能有未使用空间，即内部碎片。</li>
+<li>需要页表。</li>
+<li>地址转换和缺页处理有开销。</li>
+</ul>
+<h3>缺页发生时，并不是继续用同一个公式随便找一块内存</h3>
+<p>如果访问合法，但该页尚未驻留，硬件触发异常，操作系统处理分配或调入，然后重新执行相应访问。</p>
+<p>如果地址非法或权限不允许，则是相应访问错误，不能当成普通缺页把数据调入就完事。</p>
+<h3>段页式：先按逻辑分段，再把每段分页</h3>
+<p>虚拟地址：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo stretchy="false">&#x00028;</mo><mi>S</mi><mo>&#x0002C;</mo><mi>P</mi><mo>&#x0002C;</mo><mi>D</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<p>步骤：</p>
+<ol>
+<li>用段号 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>S</mi></mrow></math></span> 查段表。</li>
+<li>得到这个段的页表位置及相关范围信息。</li>
+<li>用段内页号 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>P</mi></mrow></math></span> 查这个页表。</li>
+<li>得到物理页框号。</li>
+<li>拼接页内偏移 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi></mrow></math></span>，形成 PA。</li>
+</ol>
+<p>一句话记：</p>
+<blockquote>
+<p>段表告诉你查哪张页表，页表告诉你落在哪个物理页框。</p>
+</blockquote>
+<p>它结合了按段组织、保护与共享，以及按固定页面分配物理空间的特点；代价是转换和管理更复杂。</p>
+<h3>查表地址还要考虑表项大小</h3>
+<p>如果每项占 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>E</mi></mrow></math></span> 字节：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>表项地址</mtext><mo>&#x0003D;</mo><mtext>表基址</mtext><mo>&#x0002B;</mo><mtext>索引</mtext><mo>&#x000D7;</mo><mi>E</mi></mrow></menclose></mrow></math></div>
+
+
+
+<p>例如页表基址 <code>1000H</code>，每项 4B，虚页号 3：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>对应页表项地址</mtext><mo>&#x0003D;</mo><mn>1000</mn><mi>H</mi><mo>&#x0002B;</mo><mn>3</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><mn>100</mn><mi>C</mi><mi>H</mi></mrow></math></div>
+
+
+
+<p>讲义图中的“基址加段号、页号”是简化示意。做具体字节地址题，不能漏乘表项长度。</p>
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s14"><p class="eyebrow">第三章 · 第 14 节</p><h2>TLB、页表开销与页面大小</h2><div class="part-goal"><p><strong>掌握要求：</strong>区分 TLB 未命中和缺页，会算页表容量，能解释大页/小页的权衡。</p><p><strong>背景为什么要讲：</strong>多级页表要知道稀疏分配思想，不要求现在实现完整页表遍历器。</p></div>
+<h3>为什么需要 TLB？因为查页表本身也要访问存储器</h3>
+<p>在“单级页表、没有相关缓存命中”等简化条件下，一次数据访问可能需要：</p>
+<ol>
+<li>先读页表项。</li>
+<li>再读真正的数据。</li>
+</ol>
+<p>因此增加访问开销。</p>
+<p>TLB 是 Translation Lookaside Buffer，教材叫快表，用来高速保存近期常用的地址转换信息。</p>
+<h3>TLB 保存映射；普通数据 Cache 保存数据块</h3>
+<p>必须分清：</p>
+<ul>
+<li>TLB 命中，不等于数据 Cache 命中。</li>
+<li>TLB 未命中，不等于缺页。</li>
+</ul>
+<p>TLB 未命中只表示：</p>
+<blockquote>
+<p>当前转换信息不在这个高速缓存里。</p>
+</blockquote>
+<p>接下来查页表，若页本来就在内存，仍能完成访问，不需要从磁盘调页。</p>
+<h3>页表为什么可能很大？</h3>
+<p>讲义例子：</p>
+<ul>
+<li>虚拟地址 32 位；</li>
+<li>页大小 4KB；</li>
+<li>每个页表项 4B。</li>
+</ul>
+<p>偏移 12 位：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>32</mn><mo>&#x02212;</mo><mn>12</mn><mo>&#x0003D;</mo><mn>20</mn></mrow></math></div>
+
+
+
+<p>位用作虚页号。</p>
+<p>页数：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mn>2</mn><mrow><mn>20</mn></mrow></msup></mrow></math></div>
+
+
+
+<p>完整单级页表容量：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mn>2</mn><mrow><mn>20</mn></mrow></msup><mo>&#x000D7;</mo><mn>4</mn><mi>B</mi><mo>&#x0003D;</mo><mn>4</mn><mi>M</mi><mi>B</mi></mrow></math></div>
+
+
+
+<p>所以每个进程维护这样一张完整表，可能有很大开销。</p>
+<h3>多级页表的意义，是让没有使用的大量地址区域，不必都分配下级页表</h3>
+<p>一种示意拆分：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><munder><munder><mrow><mn>10</mn><mi>位</mi></mrow><mo>&#x23DF;</mo></munder><mrow><mi>一</mi><mi>级</mi><mi>索</mi><mi>引</mi></mrow></munder><mtext>&#x000A0;</mtext><mo minsize="1.2em" maxsize="1.2em">|</mo><mi>\
+</mi><munder><munder><mrow><mn>10</mn><mi>位</mi></mrow><mo>&#x23DF;</mo></munder><mrow><mi>二</mi><mi>级</mi><mi>索</mi><mi>引</mi></mrow></munder><mtext>&#x000A0;</mtext><mo minsize="1.2em" maxsize="1.2em">|</mo><mi>\
+</mi><munder><munder><mrow><mn>12</mn><mi>位</mi></mrow><mo>&#x23DF;</mo></munder><mrow><mi>偏</mi><mi>移</mi></mrow></munder></mrow></math></div>
+
+
+
+<p>先查一级表，再查对应二级表。</p>
+<p>这里认识思想即可。它在地址空间稀疏时节省存储；不能理解成无论映射多少地址，都必然比单级表占用更少。</p>
+<p>为什么要提？讲义明确提到二级页表，它也解释了操作系统为什么不总使用一张平铺的大表。</p>
+<h3>章末 3.14：页面大小怎样影响速度？</h3>
+<p>这是一个权衡题，不能回答“越大越快”或“越小越快”。</p>
+<p>页面较大：</p>
+<ul>
+<li>页数减少，页表项数减少。</li>
+<li>同样数量的 TLB 项能覆盖更大地址范围。</li>
+<li>一次缺页搬运更多数据。</li>
+<li>可能带入更多暂时不用的数据。</li>
+<li>内部碎片可能增加。</li>
+</ul>
+<p>页面较小：</p>
+<ul>
+<li>单次搬运的数据量较小。</li>
+<li>分配粒度更细，浪费可能减少。</li>
+<li>页表项更多。</li>
+<li>TLB 覆盖范围变小。</li>
+<li>可能发生更多转换和页面管理活动。</li>
+</ul>
+<h3>可以直接写进简答题的答案：</h3>
+<blockquote>
+<p>页面大小会同时影响页表开销、TLB 覆盖范围、缺页搬运代价和内部碎片。大页减少页表项并扩大 TLB 覆盖，但可能增加单次调页代价和无用数据搬运；小页分配更细，但管理与地址转换开销可能增大。需要结合程序局部性和系统特性选择。</p>
+</blockquote>
+<p>讲义中的 4KB 是常见页面大小示例，不是唯一大小。</p>
+
+
+
+<figure class="diagram" id="fig-tlb-path" data-figure="tlb-path"><div class="diagram-live"><div id="ch3-tlb"><div class="viz-controls"><label class="form-label">访问情况<select class="form-select"><option value="hit">TLB 命中且权限允许</option><option value="resident">TLB 未命中，页面已驻留</option><option value="fault">合法页面尚未驻留</option><option value="denied">不合法或权限不允许</option></select></label></div><svg class="new-drawing" role="img" aria-label="TLB 未命中、缺页与访问错误"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-ch3-tlb"><svg class="new-drawing" role="img" aria-label="TLB 未命中、缺页与访问错误" viewBox="0 0 640 261"><title>TLB未命中先查页表，并不自动意味着缺页或磁盘调入</title><text x="12" y="24" text-anchor="start" class="">4 KiB 页面 · 低 12 位偏移不变</text><rect class="node" x="12" y="45" width="616" height="47" rx="3"></rect><text x="320" y="74" text-anchor="middle" class="text-small">VA：虚页 3，偏移 123H</text><path class="wire" d="M320 92 v21 m-4 -6 l4 6 l4 -6"></path><rect class="node" x="12" y="115" width="616" height="47" rx="3"></rect><text x="320" y="144" text-anchor="middle" class="text-small">TLB 命中：页框 9，权限允许</text><path class="wire" d="M320 162 v21 m-4 -6 l4 6 l4 -6"></path><rect class="active" x="12" y="185" width="616" height="47" rx="3"></rect><text x="320" y="214" text-anchor="middle" class="text-small">PA = 9123H → 再访问数据</text></svg><div aria-live="polite">转换命中不代表普通数据 Cache 一定命中；这两个查询回答不同问题。</div></div></div><figcaption><span class="figure-number">图 3-12</span>TLB 查地址转换，数据 Cache 查数据块。TLB 未命中需要继续查页表，可能完全不需要从外存调页；权限检查始终不能省略。</figcaption></figure>
+
+
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section id="coverage"><p class="eyebrow">内容覆盖与学习边界</p><h2>原书每一小节，都能在这里找到位置</h2><p>下表按原目录核对。为了先建立解题基础，容量与地址单独放在开头；同一原书小节可以分成多个讲解节。</p>
+<div class="table-wrap"><table class="source-map"><thead><tr><th>原书位置</th><th>内容</th><th>完整讲解</th></tr></thead><tbody>
+<tr><td>3.1.1</td><td>存储器的类型</td><td><a href="#s02">第 02 节 →</a></td></tr>
+<tr><td>3.1.2</td><td>层次化的存储器系统</td><td><a href="#s02">第 02 节 →</a></td></tr>
+<tr><td>3.1.3</td><td>外存的接口标准</td><td><a href="#s02">第 02 节 →</a></td></tr>
+<tr><td>3.1.4</td><td>存储器性能指标</td><td><a href="#s02">第 02 节 →</a></td></tr>
+<tr><td>3.2.1—3.2.5</td><td>掩模 ROM、PROM、EPROM、EEPROM、Flash</td><td><a href="#s03">第 03 节 →</a></td></tr>
+<tr><td>3.3.1</td><td>静态 RAM</td><td><a href="#s04">第 04 节 →</a></td></tr>
+<tr><td>3.3.2</td><td>动态 DRAM</td><td><a href="#s04">第 04 节 →</a></td></tr>
+<tr><td>3.4.1—3.4.2</td><td>地址空间、CPU 连接与扩展</td><td><a href="#s05">第 05 节 →</a></td></tr>
+<tr><td>3.4.3</td><td>嵌入式系统的存储器扩展</td><td><a href="#s06">第 06 节 →</a></td></tr>
+<tr><td>3.4.4</td><td>存储器模块</td><td><a href="#s07">第 07 节 →</a></td></tr>
+<tr><td>3.5.1</td><td>Cache 概述</td><td><a href="#s08">第 08 节 →</a></td></tr>
+<tr><td>3.5.2</td><td>地址映射与转换</td><td><a href="#s09">第 09 节 →</a></td></tr>
+<tr><td>3.5.2 配套题</td><td>直接映射与八路组相联完整计算</td><td><a href="#s10">第 10 节 →</a></td></tr>
+<tr><td>3.5.3</td><td>Cache 更新与替换</td><td><a href="#s11">第 11 节 →</a></td></tr>
+<tr><td>3.6.1</td><td>虚拟存储器概述</td><td><a href="#s12">第 12 节 →</a></td></tr>
+<tr><td>3.6.2—3.6.4</td><td>段式、页式、段页式转换</td><td><a href="#s13">第 13 节 →</a></td></tr>
+<tr><td>3.6.3 延伸</td><td>TLB、页表容量、二级页表与页面大小</td><td><a href="#s14">第 14 节 →</a></td></tr>
+</tbody></table></div><h3>现在把章末 29 道题与学习内容对上</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>题目</th>
+<th>你应当掌握的能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3.1～3.5</td>
+<td>按介质、器件、系统角色分类；说明磁、光、半导体存储，以及主存、外存</td>
+</tr>
+<tr>
+<td>3.6</td>
+<td>列出 IDE/PATA、SCSI、SATA、SAS、SD、eMMC、UFS，并说明基本特点</td>
+</tr>
+<tr>
+<td>3.7</td>
+<td>说明容量、延迟、周期、带宽、可靠性、功耗、成本、供电等选择因素</td>
+</tr>
+<tr>
+<td>3.8</td>
+<td>比较 EPROM、EEPROM、Flash，解释可写器件为什么仍属于 ROM 家族</td>
+</tr>
+<tr>
+<td>3.9</td>
+<td>解释内存条模块化、可安装和可升级的意义</td>
+</tr>
+<tr>
+<td>3.10</td>
+<td>解释 DDR 到 DDR4 的边沿传输、预取、电压、Bank Group 等改进</td>
+</tr>
+<tr>
+<td>3.11</td>
+<td>解释速度、容量、成本之间的分层折中</td>
+</tr>
+<tr>
+<td>3.12～3.13</td>
+<td>解释虚拟存储器的用途，以及 VA 与 PA 的区别和映射关系</td>
+</tr>
+<tr>
+<td>3.14</td>
+<td>分析页面大小的权衡</td>
+</tr>
+<tr>
+<td>3.15</td>
+<td>说明段、页、段页三种管理方式，并写出转换步骤</td>
+</tr>
+<tr>
+<td>3.16</td>
+<td>说明 Cache 的作用、局部性和使用场景</td>
+</tr>
+<tr>
+<td>3.17</td>
+<td>说明更新正确性的必要性，以及写通、写回</td>
+</tr>
+<tr>
+<td>3.18</td>
+<td>说明数据、Tag、有效位及相关管理位</td>
+</tr>
+<tr>
+<td>3.19</td>
+<td>区分 Random、FIFO、LFU、LRU</td>
+</tr>
+<tr>
+<td>3.20～3.21</td>
+<td>本文已完整计算直接映射与 8 路组相联</td>
+</tr>
+<tr>
+<td>3.22</td>
+<td>本文已计算：按字节编址的 40 位地址空间为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>40</mn></mrow></msup><mi>B</mi></mrow></math></span></td>
+</tr>
+<tr>
+<td>3.23～3.27</td>
+<td>本文已给出五种芯片扩展方案及关键连接</td>
+</tr>
+<tr>
+<td>3.28</td>
+<td>比较 NOR、NAND 的功能、接口、执行代码方式与控制器需求</td>
+</tr>
+<tr>
+<td>3.29</td>
+<td>说明 ARM SoC 的 RAM 选择、连接、扩展和控制器配置</td>
+</tr>
+</tbody></table></div>
+<h3>正文中那些看起来很碎的内容，你现在可以这样处理</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>为什么讲它</th>
+<th>需要掌握到什么程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磁鼓、磁芯、磁泡及发展史</td>
+<td>说明存储技术与主存角色的演变</td>
+<td>认识名称和基本意义</td>
+</tr>
+<tr>
+<td>光驱的激光、定位、光电转换部件</td>
+<td>把“光学状态”与“电数据”联系起来</td>
+<td>能说出基本读取过程</td>
+</tr>
+<tr>
+<td>外存接口的历史版本、年代和速率</td>
+<td>展示标准化与性能演进</td>
+<td>会分类；具体参数查表</td>
+</tr>
+<tr>
+<td>SIMOS、FLOTOX 与薄氧化层</td>
+<td>解释非易失保持、注入、隧穿</td>
+<td>会讲因果关系，不必推器件物理公式</td>
+</tr>
+<tr>
+<td>2764A、2816 的模式与时序表</td>
+<td>教你读取器件手册和控制条件</td>
+<td>会查表、解释读写与校验</td>
+</tr>
+<tr>
+<td>6116、6264、2164A 等型号</td>
+<td>提供容量、控制、地址复用实例</td>
+<td>从组织方式算参数，不靠背型号猜</td>
+</tr>
+<tr>
+<td>电池保护 SRAM</td>
+<td>解释持续供电可以保持易失数据</td>
+<td>理解原理</td>
+</tr>
+<tr>
+<td>校验位、NAND 附加区</td>
+<td>说明可靠性也要占空间</td>
+<td>区分用户容量与管理开销</td>
+</tr>
+<tr>
+<td>DIP、TSOP、BGA、SIPP、SIMM、DIMM</td>
+<td>说明封装与模块接口</td>
+<td>认识区别与用途</td>
+</tr>
+<tr>
+<td>特定 CPU 的 Cache 容量、相联路数</td>
+<td>展示映射技术的真实应用</td>
+<td>理解路数含义，型号数字无需逐个背</td>
+</tr>
+<tr>
+<td>多级页表</td>
+<td>解释页表存储开销怎样管理</td>
+<td>认识查表路径与稀疏分配思想</td>
+</tr>
+</tbody></table></div>
+<p>所以，你不需要把每一个编程电压、脉冲宽度、封装针数都背下来，才能算“学会这一章”。<strong>但你需要知道那些表在描述什么，并能在题目给表时按条件分析。</strong></p>
+</section>
+<section id="selftest"><p class="eyebrow">先验收，再看答案</p><h2>七道短自测</h2><ol>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></span> 芯片总容量是多少字节？需要多少位片内地址？</li>
+<li>按字节编址，24 位地址、32 位数据总线，最大可寻址容量是多少？</li>
+<li>用 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>4</mn><mi>K</mi><mo>&#x000D7;</mo><mn>4</mn></mrow></math></span> 芯片组成 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn></mrow></math></span>，需要几颗、分几组？</li>
+<li>主存地址 20 位，Cache 16KB，块 64B，四路组相联。Tag、组索引、偏移各几位？</li>
+<li>LRU 与 LFU 的区别是什么？</li>
+<li>TLB 未命中，是否一定要从磁盘调页？</li>
+<li>页面 4KB，VA=<code>5123H</code>，虚页 5 映射到物理页框 A，PA 是多少？</li>
+</ol>
+<details class="answer"><summary>展开自测答案与达标标准</summary><div class="answer-content"><ol>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>8</mn><mi>K</mi><mo>&#x000D7;</mo><mn>16</mn><mo>&#x0002F;</mo><mn>8</mn><mo>&#x0003D;</mo><mn>16</mn><mi>K</mi><mi>B</mi></mrow></math></span>；8K 个单元，需要 <strong>13 位</strong>片内地址。</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>24</mn></mrow></msup><mi>B</mi><mo>&#x0003D;</mo><mrow><mn mathvariant="bold">16</mn><mi mathvariant="bold">M</mi><mi mathvariant="bold">B</mi></mrow></mrow></math></span>；数据总线宽度不再乘进去。</li>
+<li>每组 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>16</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x0003D;</mo><mn>4</mn></mrow></math></span> 颗，共 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>8</mn><mi>K</mi><mo>&#x0002F;</mo><mn>4</mn><mi>K</mi><mo>&#x0003D;</mo><mn>2</mn></mrow></math></span> 组，总共 <strong>8 颗</strong>。</li>
+<li>总行数 256；组数 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>256</mn><mo>&#x0002F;</mo><mn>4</mn><mo>&#x0003D;</mo><mn>64</mn></mrow></math></span>。偏移 <strong>6 位</strong>，组索引 <strong>6 位</strong>，Tag <strong>8 位</strong>。</li>
+<li>LRU 看<strong>最后一次使用距今多久</strong>；LFU 看<strong>统计期内使用次数</strong>。</li>
+<li>**不一定。**查页表后可能发现页面已经驻留。</li>
+<li>偏移仍为 <code>123H</code>，页框换成 A，所以 <strong><code>A123H</code></strong>。</li>
+</ol>
+<p>**这一章的达标线是：容量和扩展能自己算，Cache 地址能自己拆，三种虚拟地址转换能自己走一遍，其余内容能按“原理—特点—用途”解释。**有哪一步不顺，就沿题号回到相应例子重新做一遍。</p>
+</div></details></section>
+<section id="exercises"><p class="eyebrow">原讲义 3.7 · 全部习题</p><h2>29 道习题的答题卡</h2><p>题意经过归纳，保留题号与计算条件。先自行写答案，再展开核对；完整推导与图解请沿链接回查正文。涉及历史器件时，以题目给定条件为准。</p><div class="question-links"><a href="#q3-1">3.1</a><a href="#q3-2">3.2</a><a href="#q3-3">3.3</a><a href="#q3-4">3.4</a><a href="#q3-5">3.5</a><a href="#q3-6">3.6</a><a href="#q3-7">3.7</a><a href="#q3-8">3.8</a><a href="#q3-9">3.9</a><a href="#q3-10">3.10</a><a href="#q3-11">3.11</a><a href="#q3-12">3.12</a><a href="#q3-13">3.13</a><a href="#q3-14">3.14</a><a href="#q3-15">3.15</a><a href="#q3-16">3.16</a><a href="#q3-17">3.17</a><a href="#q3-18">3.18</a><a href="#q3-19">3.19</a><a href="#q3-20">3.20</a><a href="#q3-21">3.21</a><a href="#q3-22">3.22</a><a href="#q3-23">3.23</a><a href="#q3-24">3.24</a><a href="#q3-25">3.25</a><a href="#q3-26">3.26</a><a href="#q3-27">3.27</a><a href="#q3-28">3.28</a><a href="#q3-29">3.29</a></div>
+<article class="exercise" id="q3-1"><h3>习题 3.1 / 存储器分类与特点</h3><p>分别按介质、系统角色、读写与保持特性说明分类。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>按介质有磁、光、半导体；按角色有寄存器、Cache、主存、外存。半导体器件再按保持和改写特点区分 SRAM、DRAM、ROM 家族等。同一器件可以同时属于多个维度，例如 SSD 是半导体外存，主要采用 NAND Flash。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-2"><h3>习题 3.2 / 半导体器件的优缺点与用途</h3><p>比较常见 RAM 与 ROM 家族器件，并说明用途。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>SRAM 快、不需刷新，但每位器件较多、成本较高，常用于 Cache；DRAM 密度较高、适合主存，但需要刷新。ROM/EEPROM/Flash 非易失，适合程序、配置、长期数据；改写方法、速度、粒度和寿命依器件不同，不能把它们都当普通 RAM 用。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-3"><h3>习题 3.3 / RAM 与 ROM 的工作方式</h3><p>说明两种典型 RAM 的保持原理，并列出 ROM 家族。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>SRAM 用双稳态反馈保持，DRAM 用电容电荷保持并刷新。ROM 家族包括掩模 ROM、一次编程 PROM、电编程/紫外线擦除 EPROM、电擦写 EEPROM、通常按块电擦除的 Flash。具体器件的模式按手册分析。</p>
+<p><a href="#s04">回到第 04 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-4"><h3>习题 3.4 / 磁与光存储器</h3><p>说明类型、访问特点和基本读取过程。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>磁盘利用磁头定位到盘面位置读写，磁带侧重顺序访问，磁鼓、磁芯、磁泡是本章历史例子；本章这些介质断电可保持。光存储用激光读介质光学特征，经光电转换得到电信号，例子包括 CD-DA、CD-ROM、VCD、DVD。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-5"><h3>习题 3.5 / 主存与外存</h3><p>用系统角色区分，不能只看机箱位置。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>主存保存运行中需由处理器访问的程序和数据，典型为 DRAM；外存长期保存程序、文件等，典型为 HDD、SSD、光盘等。机箱内部的 SSD 仍是外部辅助存储器。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-6"><h3>习题 3.6 / 辅助存储器接口</h3><p>列出讲义介绍的接口并概括定位。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>IDE/ATA/PATA、SCSI、SATA、SAS、SD、eMMC、UFS。PATA 强调并行，SATA/SAS 等采用串行；SD 为存储卡接口，eMMC/UFS 是含控制器的闪存存储方案。接口与保存信息的介质是不同概念。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-7"><h3>习题 3.7 / 选择存储器的因素</h3><p>除容量外，还需要看哪些条件？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>容量、存取时间、存取周期、持续带宽、可靠性、功耗、成本、供电与接口兼容性、是否掉电保持、擦写粒度和寿命等。先看应用需要，不是单看一个速度数字。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-8"><h3>习题 3.8 / 可擦写器件为什么还叫 ROM</h3><p>比较 EPROM、EEPROM、Flash 的共同点与擦除差别。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>本章这些器件利用绝缘结构保存电荷、断电保持，属于历史 ROM 家族；可在特定编程/擦除条件下改写，不等于普通 RAM。EPROM 通常紫外线整片擦除，EEPROM 可较细粒度电擦写，Flash 通常按块电擦除。</p>
+<p><a href="#s03">回到第 03 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-9"><h3>习题 3.9 / 采用内存条的原因</h3><p>从系统制造、安装和升级说明。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>把多颗芯片及配套电路组织成标准模块，便于制造、安装、维修与容量升级。DRAM 颗粒保存主存数据，SPD 保存配置参数，PCB 与金手指等完成模块连接；SPD 不是用户程序的大容量主存。</p>
+<p><a href="#s07">回到第 07 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-10"><h3>习题 3.10 / DDR 到 DDR4 的改进</h3><p>从传输边沿、预取、供电和 Bank 组织概括。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>DDR 在两个时钟边沿传数据；DDR/DDR2/DDR3/DDR4 的典型预取深度依次为 2n/4n/8n/8n，典型标准电压逐步降低。DDR4 引入 Bank Group 等以改善操作组织。相同 MT/s、位宽和通道数下，理论带宽相同，不能仅凭代际名称判定翻倍。</p>
+<p><a href="#s07">回到第 07 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-11"><h3>习题 3.11 / 分层存储的意义</h3><p>说明为什么不全用最快或最便宜的器件。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>高速器件通常容量和每位成本受约束；通过少量快速存储配合大量较慢存储，利用局部性在可接受成本下兼顾速度与容量。层次职责与介质类型分别理解。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-12"><h3>习题 3.12 / 虚拟存储器解决的问题</h3><p>除容量不足以外，再说出两个目的。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>按需装入缓解容量限制，映射解除程序与固定物理位置的绑定，为不同程序提供地址空间，并支持保护和受控共享。物理内存不足时仍可能频繁调页，并不会凭空得到同速的大内存。</p>
+<p><a href="#s12">回到第 12 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-13"><h3>习题 3.13 / VA 与 PA 的联系</h3><p>说明数字相同或不同分别意味着什么。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>VA 是程序使用的地址；PA 是转换后用于访问物理存储位置的地址。通过映射联系，数值不必相同；不同程序可用相同 VA 映射到不同物理位置。权限与驻留状态也要检查。</p>
+<p><a href="#s12">回到第 12 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-14"><h3>习题 3.14 / 页面大小的权衡</h3><p>为什么不能回答“越大越快”？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>大页减少页表项并扩大相同 TLB 项数的覆盖，但可能增加单次搬运、无用数据与内部碎片；小页分配更细，但表项更多、TLB 覆盖更小，管理和转换活动可能增多。最终效果依工作负载与系统而定。</p>
+<p><a href="#s14">回到第 14 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-15"><h3>习题 3.15 / 段、页、段页式转换</h3><p>分别写出查表路径、合法性检查和物理地址形成方式。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>段式：段号查段表，检查范围、驻留和权限，基址加段内偏移。页式：虚页号查页表，检查表项，页框号乘页大小再加偏移。段页式：段号找本段页表，再用段内页号找页框，保留页内偏移。按字节求表项地址时，索引需乘表项字节数。</p>
+<p><a href="#s13">回到第 13 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-16"><h3>习题 3.16 / Cache 的原理、作用与场合</h3><p>解释为什么保存一小部分副本就可能有效。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>时间与空间局部性使近期和相邻数据被重复访问；Cache 以块保存下一级部分内容，命中时降低平均访问时间。硬件 Cache 用于处理器等存储层次；更一般的软件系统也采用缓存思想，具体一致性与管理方式另论。</p>
+<p><a href="#s08">回到第 08 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-17"><h3>习题 3.17 / Cache 与主存正确更新</h3><p>说明写通、写回怎样避免读到旧数据。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>写通把 Cache 更新也送往主存，可配写缓冲；写回先更新 Cache 并置 Dirty，在替换脏块或规定回写时更新主存。写回容许受管理的暂时差异，不能把一致性理解成任何时刻两个副本逐位相等。多访问者情形还需相应一致性机制。</p>
+<p><a href="#s11">回到第 11 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-18"><h3>习题 3.18 / Cache line 的基本信息</h3><p>区分数据容量和管理开销。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>数据、Tag、有效位是基本内容。写回常需脏位，替换与一致性状态依设计配置。题中 Cache 容量通常指数据区，若问硬件总存储，还要加标记与管理位。</p>
+<p><a href="#s08">回到第 08 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-19"><h3>习题 3.19 / 替换策略</h3><p>区分 Random、FIFO、LFU、LRU。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>Random 随机；FIFO 看最早装入；LFU 看约定统计范围内的次数；LRU 看最后一次访问距今多久。先使用无效空行，候选满时再淘汰；组相联限目标组内，直接映射没有任意选行余地。</p>
+<p><a href="#s11">回到第 11 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-20"><h3>习题 3.20 / 直接映射的完整计算</h3><p>主存 1 MB、Cache 16 KB、块 64 B，按字节编址。求总行数及 02021H 的 Cache 位置。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>按本章二进制容量约定：总行数 16K/64＝<strong>256</strong>。地址 8225＝128×64＋33，故块号 128，偏移 21H，行号 <strong>128</strong>，Tag 数值 0；地址字段为 <strong>6/8/6 位</strong>。Cache 数据区地址为 <strong>2021H</strong>。这次数值相同只是例子的结果。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-21"><h3>习题 3.21 / 八路组相联的完整计算</h3><p>沿用上一题条件改成八路；求 s/u/W 位数、02021H 的组号与 Tag 位数。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>256 行÷8＝32 组；按讲义字段，s/u/W 分别为 <strong>9/5/6 位</strong>。主存块号 128，组号 128 mod 32＝<strong>0</strong>，Tag 数值 floor(128/32)＝<strong>4</strong>，Tag 宽度 <strong>9 位</strong>。地址不能决定组内哪一路。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-22"><h3>习题 3.22 / 40 位字节地址空间</h3><p>按字节编址，40 位地址线、16 位数据线，最大可寻址容量是多少？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p><strong>2⁴⁰ 字节</strong>，严格写为 <strong>1 TiB</strong>，按本章旧单位写法为 1 TB。16 位数据通路不能再乘入地址空间；题目给的是可寻址上限，并未证明装有这么多内存。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-23"><h3>习题 3.23 / 1M×1 组成 1M×8</h3><p>给出芯片数、地址与数据线连接、片选关系。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p><strong>8 片，位扩展</strong>。20 位片内地址并联；每片提供 D0—D7 中的一位，所有片同时选中并同步读写。总共仍是 1M 个八位单元，不是 8M 个单元。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-24"><h3>习题 3.24 / 4K×8 组成 4K×16</h3><p>给出芯片数与高低字节分工。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p><strong>2 片，位扩展</strong>。12 位字地址并联，一片负责 D7…D0，另一片负责 D15…D8，同步选中。若 CPU 按字节编址，通常 CPU A1 对应芯片 A0，并配合字节使能；不能把组织图的字地址直接当 CPU 字节地址。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-25"><h3>习题 3.25 / 64K×8 组成 256K×8</h3><p>给出译码关系与从 0 开始的各片地址范围。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p><strong>4 片，字扩展</strong>。A0—A15 并联；A16/A17 经 2→4 译码，只选一片。四段为 00000H—0FFFFH、10000H—1FFFFH、20000H—2FFFFH、30000H—3FFFFH。数据线共用，未选中的输出高阻。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-26"><h3>习题 3.26 / 八片 1K×8 组成 8K×8</h3><p>给出片内地址、组选择地址和地址范围公式。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p><strong>8 片，字扩展</strong>。A0—A9 为片内地址，A10—A12 经 3→8 译码。第 g 片占 g×400H 至 g×400H＋3FFH；首片 0000H—03FFH，末片 1C00H—1FFFH。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-27"><h3>习题 3.27 / 四片 4K×8 组成 8K×16</h3><p>分别说明每组片数与组数。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p><strong>2 组，每组 2 片</strong>。组内拼成 4K×16；组间字扩展成 8K×16。12 位片内字地址共用，字地址 A12 选组；组内两片分高低八位。换成 CPU 字节编址时，组选择通常对应 CPU A13。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-28"><h3>习题 3.28 / NOR 与 NAND 的嵌入式连接</h3><p>比较用途、访问接口、是否能直接取指，以及管理要求。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>本章并行 NOR 有独立地址、数据与控制线，可映射到可取指区域并支持 XIP；原始 NAND 经控制器在 I/O 引脚分时传命令、地址和数据，常按页读/编程、按块擦除，并处理 ECC/坏块等。原始 NAND 的代码通常需先搬入可执行存储器；具体启动机制看 SoC。</p>
+<p><a href="#s06">回到第 06 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q3-29"><h3>习题 3.29 / ARM 系统扩展 RAM</h3><p>从器件选择、线路连接到控制器配置说明步骤。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>先查具体 ARM SoC 的外部存储控制器支持 SRAM、SDRAM 或其他哪类器件；确定容量、位宽、地址组织和片选，必要时做位/字扩展；连接地址、数据、控制与时钟，配置地址映射、访问时序、模式与刷新等。只有线路连接而未正确配置，通常不能保证工作。</p>
+<p><a href="#s06">回到第 06 节完整讲解 →</a></p></div></details></article>
+</section><section id="finish"><p class="eyebrow">做题前最后检查</p><h2>这几处最容易把会做的题做错</h2><ol><li><strong>先写单位：</strong>b 与 B 不同，芯片的 N×M 是单元数与每单元位数；本章 KB/MB/TB 的旧写法按二进制约定理解。</li><li><strong>先写编址单位：</strong>按字节编址的容量由地址位数决定，不能再乘数据总线宽度。字地址换成 CPU 字节地址可能要移位。</li><li><strong>先找组，再找路：</strong>地址决定候选组，不决定具体路；Tag 数值与 Tag 位数分别回答不同问题。</li><li><strong>先说明策略：</strong>写回允许主存暂旧，但脏块不能直接丢弃。LRU 看最近使用，LFU 看次数，FIFO 看进入顺序。</li><li><strong>先查表项状态：</strong>TLB 未命中不等于缺页；缺页不等于访问合法；段偏移、页框及表项长度都需要按规则检查。</li></ol><p class="correction-note">讲义中需要留意的表述已在正文说明：典型 EPROM 擦除态并非“全 0”；FPM 是同一行多次选列；DDR4 预取仍为 8n；LRU 并非“使用次数最少”；刷新与预充电也不是同一操作。理解原因，比单独记一句纠正更稳。</p><p>过关时，你应该能独立完成五道芯片扩展、两道 Cache 映射，再把段、页、段页式地址转换各走一遍。其余器件、接口、模块与历史内容，至少能按“原理—特点—用途”解释。</p></section>
+<footer id="sources"><h2>整理依据与核对资料</h2><p>依据用户提供的《计算机原理与嵌入式系统讲义》第三章《存储器系统》及章后 29 道习题重新讲解。保留全部 14 节已有讲解，并补充可交互 SVG、原书小节定位、折叠自测和逐题答题卡；本文件不包含原讲义扫描页。</p><p>沿用前两章及项目内其他教材整理版的纸张底色、目录、例题和掌握边界体例。容量题沿用原书二进制约定；需要严格单位时同时说明 KiB/MiB/TiB。具体器件参数、引脚与编程条件必须依对应手册核对。</p><p>文中对浮栅、EPROM、FPM、DDR4、Cache 替换等易错表述的核对链接放在相关段落，采用 Micron、ST、Kingston 与 MIT 等技术资料。旧版本接口参数和旧芯片均用于理解原理，不作为当前产品推荐。</p><p>所有公式与 SVG 都在本文件内，无需联网加载。打印按钮会显示折叠答案，并使用每幅图的默认示例；打印或另存 PDF 时可按需要选择页面范围。</p><p class="top-link"><a href="#start">返回封面 ↑</a></p></footer></main></div>
+<script>/* Every drawing uses its measured width; all assets stay inside the offline file. */
+(()=>{
+ const ns='http://www.w3.org/2000/svg';
+ const txt=(x,y,v,anchor='start',cl='')=>`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cl}">${v}</text>`;
+ const rect=(x,y,w,h,cl='node')=>`<rect class="${cl}" x="${x}" y="${y}" width="${w}" height="${h}" rx="3"/>`;
+ const wire=(d,cl='wire')=>`<path class="${cl}" d="${d}"/>`;
+ const svgFor=(r,h,title,body)=>{const s=r.querySelector('svg');s.setAttribute('viewBox',`0 0 ${r.clientWidth} ${h}`);s.innerHTML=`<title>${title}</title>`+body;};
+ const observe=(r,draw)=>{new ResizeObserver(draw).observe(r);draw()};
+
+ {const r=document.getElementById('ch3-rom'),a=r.querySelector('select'),oe=r.querySelector('input'),words=['1010','1011','1110','0001'];
+  const draw=()=>{const w=r.clientWidth,cw=(w-122)/4;let b=txt(12,25,'2 位地址 → 选择 1 个四位字');
+   b+=rect(8,65,59,169)+txt(37,111,'2→4','middle')+txt(37,143,'地址','middle')+txt(37,171,'译码','middle');
+   words.forEach((word,i)=>{const y=57+i*44,on=i===+a.value;b+=wire(`M67 ${y+26} H112`,on?'hotwire':'wire')+txt(88,y+20,i.toString(2).padStart(2,'0'),'middle','text-small');
+    [...word].forEach((v,j)=>{const x=112+j*cw;b+=rect(x,y+10,cw-4,32,on?'active':'node')+txt(x+(cw-4)/2,y+32,v,'middle')});});
+   b+=txt(12,271,'数据输出：'+(oe.checked?words[+a.value]:'高阻 Z（芯片退出总线）'));
+   svgFor(r,291,'四个地址各选择四位数据，输出禁止时不驱动总线',b);
+   r.querySelector('[aria-live]').textContent='选中地址 '+(+a.value).toString(2).padStart(2,'0')+'；'+(oe.checked?'输出对应的 4 位数据。':'内部地址仍可选中，但输出缓冲器不驱动总线。');};
+  a.onchange=oe.onchange=draw;observe(r,draw);
+ }
+
+ {const r=document.getElementById('ch3-mux'),a=r.querySelector('input'),stage=r.querySelector('select');
+  const draw=()=>{const w=r.clientWidth,raw=a.value.trim();if(!/^[0-9a-f]{1,4}$/i.test(raw)){r.querySelector('[aria-live]').textContent='请输入 0000～FFFF 内的十六进制地址。';svgFor(r,35,'地址格式不合法',txt(12,24,'请先输入有效地址'));return;}
+   const n=parseInt(raw,16),row=n>>8,col=n&255,k=+stage.value,cw=(w-24)/8;let b=txt(12,25,`完整地址：${n.toString(16).toUpperCase().padStart(4,'0')} H · 共 16 位`);
+   b+=rect(8,43,(w-24)/2,45,k===0?'active':'node')+rect(w/2+4,43,(w-24)/2,45,k===1?'active':'node');b+=txt(w/4,70,'高 8 位：行','middle')+txt(3*w/4,70,'低 8 位：列','middle');
+   const data=k===0?row:col;b+=txt(12,121,`同一组 8 引脚：本阶段传${k===0?'行':'列'}地址`);
+   [...data.toString(2).padStart(8,'0')].forEach((v,j)=>{const x=10+j*cw;b+=rect(x,135,cw-3,34,'active')+txt(x+(cw-3)/2,158,v,'middle')});
+   b+=rect(8,194,(w-24)/2,55,k>=0?'active':'node')+rect(w/2+4,194,(w-24)/2,55,k>=1?'active':'node');
+   b+=txt(w/4,216,'行锁存','middle')+txt(w/4,239,'0x'+row.toString(16).toUpperCase().padStart(2,'0'),'middle')+txt(3*w/4,216,'列锁存','middle')+txt(3*w/4,239,k>=1?'0x'+col.toString(16).toUpperCase().padStart(2,'0'):'等待列地址','middle');
+   b+=wire(`M${w/4} 249 V270 H${3*w/4} V249`)+rect(12,279,w-24,47,k===2?'active':'node')+txt(w/2,308,'256 行 × 256 列，每单元 1 位','middle','text-small');
+   svgFor(r,342,'行列分时复用八根引脚传入十六位地址',b);r.querySelector('[aria-live]').textContent=['阶段①：RAS# 锁存行地址，高 8 位保留在行锁存器。','阶段②：CAS# 锁存列地址；外部引脚改传低 8 位，已锁存的行不丢失。','阶段③：行、列共同选中一个单元，读出 1 位；不表示能一次输出 8 位。'][k];};
+  a.oninput=stage.onchange=draw;observe(r,draw);
+ }
+
+ {const r=document.getElementById('ch3-designs'),sel=r.querySelector('select'),inp=r.querySelector('input');
+  const cases=[{chip:'1M × 1',depth:1048576,bits:1,groups:1,per:8,low:20,high:0,title:'3.23 · 位扩展 → 1M × 8'},
+   {chip:'4K × 8',depth:4096,bits:8,groups:1,per:2,low:12,high:0,title:'3.24 · 位扩展 → 4K × 16'},
+   {chip:'64K × 8',depth:65536,bits:8,groups:4,per:1,low:16,high:2,title:'3.25 · 字扩展 → 256K × 8'},
+   {chip:'1K × 8',depth:1024,bits:8,groups:8,per:1,low:10,high:3,title:'3.26 · 字扩展 → 8K × 8'},
+   {chip:'4K × 8',depth:4096,bits:8,groups:2,per:2,low:12,high:1,title:'3.27 · 复合扩展 → 8K × 16'}];
+  const draw=()=>{const q=cases[+sel.value],w=r.clientWidth,raw=inp.value.trim(),valid=/^[0-9a-f]{1,5}$/i.test(raw),addr=valid?parseInt(raw,16):-1;
+   if(addr<0||addr>=q.depth*q.groups){r.querySelector('[aria-live]').textContent='本方案合法字地址为 0～'+(q.depth*q.groups-1).toString(16).toUpperCase()+'H。';svgFor(r,40,'地址越界',txt(12,25,'请先输入本方案范围内的字地址'));return;}
+   const chosen=Math.floor(addr/q.depth),colCount=q.per===8?4:q.per,cw=(w-46)/colCount-5,rows=Math.ceil(q.per/colCount),gh=49+rows*70;let b=txt(12,25,q.title);
+   b+=txt(12,52,`低 ${q.low} 位字地址 → 每片的片内地址`,'start','text-small');
+   b+=txt(12,76,q.high?`高 ${q.high} 位 → 译码器 → ${q.groups} 组片选`:'所有芯片同时片选；读写控制共用','start','text-small');
+   for(let g=0;g<q.groups;g++){const top=94+g*gh,on=g===chosen;b+=rect(7,top,w-14,gh-10,on?'bank-on':'bank');
+    b+=txt(15,top+23,`第 ${g} 组 · ${on?'选中':'未选中，高阻'}`,'start','text-small');
+    for(let row=0;row<rows;row++){const y=top+38+row*70,last=Math.min(colCount,q.per-row*colCount)-1,lastX=33+last*(cw+5)+(cw-3)/2;b+=wire(`M19 ${top+30} V${y-7} H${lastX}`,on?'hotwire':'wire');}
+    for(let j=0;j<q.per;j++){const x=33+(j%colCount)*(cw+5),y=top+38+Math.floor(j/colCount)*70;b+=wire(`M${x+(cw-3)/2} ${y-7} V${y}`,on?'hotwire':'wire')+rect(x,y,cw-3,32,on?'active':'node')+txt(x+(cw-3)/2,y+22,q.chip,'middle','text-small');
+     const lo=j*q.bits,hi=(j+1)*q.bits-1;b+=wire(`M${x+(cw-3)/2} ${y+32} v9`)+txt(x+(cw-3)/2,y+56,q.bits===1?`D${lo}`:`D${hi}…D${lo}`,'middle','text-small');}
+   }
+   const h=94+q.groups*gh+30;b+=txt(12,h-10,`片内字地址：${(addr%q.depth).toString(16).toUpperCase()} H`,'start','text-small');svgFor(r,h,'位扩展同组并行提供数据位，字扩展通过译码只选中一个组',b);
+   r.querySelector('[aria-live]').textContent=`${q.groups} 组 × 每组 ${q.per} 片＝${q.groups*q.per} 片。当前只选择第 ${chosen} 组，同组芯片同步读写。图中均为存储字地址；CPU 字节地址的接线换算见正文。`;};
+  sel.onchange=()=>{inp.value='0';draw()};inp.oninput=draw;observe(r,draw);
+ }
+
+ {const r=document.getElementById('ch3-replace'),policy=r.querySelector('select'),next=r.querySelector('[data-next]'),reset=r.querySelector('[data-reset]');let step=0;const seq=['A','B','A','C','A'];
+  function state(){let slots=[null,null],hits=0,last='',victim='';for(let i=0;i<step;i++){const key=seq[i];let at=slots.findIndex(x=>x&&x.key===key);if(at>=0){hits++;slots[at].used=i;slots[at].count++;last='命中 '+key;victim='';}else{at=slots.findIndex(x=>!x);victim='';if(at<0){at=0;const score=x=>policy.value==='lru'?x.used:policy.value==='fifo'?x.entered:x.count;for(let j=1;j<2;j++){if(score(slots[j])<score(slots[at])||(score(slots[j])===score(slots[at])&&slots[j].entered<slots[at].entered))at=j;}victim=slots[at].key;}slots[at]={key,used:i,entered:i,count:1};last='未命中 '+key+(victim?'，淘汰 '+victim:'，填入空行');}}return {slots,hits,last,victim};}
+  const draw=()=>{const w=r.clientWidth,{slots,hits,last}=state(),cw=(w-34)/5;let b=txt(12,25,'两行全相联 Cache · 从空开始');
+   seq.forEach((v,i)=>{const x=12+i*(cw+3);b+=rect(x,43,cw-2,37,i===step-1?'active':'node')+txt(x+(cw-2)/2,68,v,'middle')});
+   b+=txt(12,111,step?`第 ${step} 次：${last}`:'点击“下一次访问”开始','start','text-small');
+   slots.forEach((x,i)=>{const y=132+i*91;b+=rect(12,y,w-24,71,x?'active':'node')+txt(23,y+25,`行 ${i}：${x?x.key:'无效 / 空'}`);if(x)b+=txt(23,y+51,`进入第 ${x.entered+1} 次 · 最近第 ${x.used+1} 次 · 次数 ${x.count}`,'start','text-small');});
+   b+=txt(12,336,`已访问 ${step} 次 · 命中 ${hits} 次 · 未命中 ${step-hits} 次`,'start','text-small');svgFor(r,354,'按访问顺序逐步比较LRU FIFO和LFU替换行为',b);
+   next.disabled=step===seq.length;r.querySelector('[aria-live]').textContent=policy.value==='lru'?'LRU：淘汰最后一次使用最早的块；命中会更新最近使用时间。':policy.value==='fifo'?'FIFO：淘汰最早装入的块；命中不改变进入先后。':'LFU：淘汰当前驻留期间计数最少的块；本图同次数时淘汰先进入者。';};
+  next.onclick=()=>{step=Math.min(5,step+1);draw()};reset.onclick=()=>{step=0;draw()};policy.onchange=()=>{step=0;draw()};observe(r,draw);
+ }
+
+ {const r=document.getElementById('ch3-write'),policy=r.querySelector('[data-policy]'),step=r.querySelector('[data-step]');
+  const draw=()=>{const w=r.clientWidth,k=+step.value,wb=policy.value==='wb',cache=k===3?'无效 / 已淘汰':k===0?'x = 3':k===1?'x = 5':'x = 7',mem=wb&&k<3?3:k===0?3:k===1?5:7,dirty=wb&&k>0&&k<3?1:0,bw=(w-38)/2;let b=txt(12,25,'初始 Cache 与主存均保存 x = 3');
+   b+=rect(12,49,w-24,45,'node')+txt(w/2,78,['尚未修改','CPU 写 x = 5','CPU 再写 x = 7','将这一行替换出去'][k],'middle');
+   b+=rect(12,131,bw,108,'active')+rect(26+bw,131,bw,108,'node');b+=txt(12+bw/2,157,'Cache 行','middle')+txt(12+bw/2,187,cache,'middle','text-small')+txt(12+bw/2,216,'Dirty = '+dirty,'middle','text-small');
+   b+=txt(26+bw*1.5,157,'主存','middle')+txt(26+bw*1.5,187,'x = '+mem,'middle')+txt(26+bw*1.5,216,'下一层副本','middle','text-small');
+   b+=wire(`M${w/4} 239 V269 H${3*w/4} V239`,(!wb&&k>0)||(wb&&k===3)?'hotwire':'wire');
+   b+=txt(w/2,294,wb?(k===3?'淘汰脏块：先把 x = 7 写回':'写回策略：修改可暂留在 Cache'):'写通策略：修改也送向主存','middle','text-small');svgFor(r,315,'写通与写回在连续修改和脏块替换时的副本状态',b);
+   r.querySelector('[aria-live]').textContent=wb&&dirty?'Cache 是最新值，主存暂旧；Dirty=1 提醒后续必须按策略回写。':'本图忽略写缓冲延迟，只比较逻辑更新状态；不代表完整多核一致性协议。';};
+  policy.onchange=step.onchange=draw;observe(r,draw);
+ }
+
+ {const r=document.getElementById('ch3-tlb'),sel=r.querySelector('select');
+  const draw=()=>{const w=r.clientWidth,mode=sel.value,rows=mode==='hit'?['VA：虚页 3，偏移 123H','TLB 命中：页框 9，权限允许','PA = 9123H → 再访问数据']:mode==='resident'?['VA：虚页 3，偏移 123H','TLB 未命中 → 查页表','页表：已驻留，页框 9，权限允许','填入 TLB → PA = 9123H']:mode==='fault'?['VA：访问合法，页面尚未驻留','TLB 无相应驻留转换 → 查页表','页表发现未驻留 → 缺页异常','系统分配 / 调入 → 更新页表','重新执行访问，获得物理地址']:['VA：访问超出权限或不合法','按地址转换与保护规则检查','产生相应访问异常','不能靠普通调页绕过权限'];
+   let b=txt(12,24,'4 KiB 页面 · 低 12 位偏移不变');rows.forEach((v,i)=>{const y=45+i*70;b+=rect(12,y,w-24,47,i===rows.length-1?'active':'node')+txt(w/2,y+29,v,'middle','text-small');if(i<rows.length-1)b+=wire(`M${w/2} ${y+47} v21 m-4 -6 l4 6 l4 -6`)});svgFor(r,rows.length*70+51,'TLB未命中先查页表，并不自动意味着缺页或磁盘调入',b);
+   r.querySelector('[aria-live]').textContent=mode==='resident'?'TLB 未命中，但页面已在主存：无需从磁盘调页。':mode==='hit'?'转换命中不代表普通数据 Cache 一定命中；这两个查询回答不同问题。':mode==='fault'?'缺页处理由硬件与操作系统配合；合法页可能来自外存，也可能按规则新建。':'无权访问和合法但未驻留需要区分，异常细节依体系结构。';};
+  sel.onchange=draw;observe(r,draw);
+ }
+})();
+</script>
+<script>(()=>{const d=document.getElementById('directory');if(matchMedia('(min-width:1000px)').matches)d.open=true;const answers=()=>[...document.querySelectorAll('details.answer')];document.querySelectorAll('[data-answers]').forEach(b=>b.onclick=()=>answers().forEach(x=>x.open=b.dataset.answers==='open'));document.getElementById('print-book').onclick=()=>window.print();let before=[];addEventListener('beforeprint',()=>{before=answers().map(x=>x.open);answers().forEach(x=>x.open=true)});addEventListener('afterprint',()=>answers().forEach((x,i)=>x.open=before[i]||false));})();</script></body></html>

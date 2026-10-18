@@ -1,0 +1,420 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DCVC 2021 完整代码讲解</title><link rel="stylesheet" href="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_讲解资源/来源/DCVC_答疑01_完整代码讲解.md · <a href="DCVC_%E7%AD%94%E7%96%9101_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3.md">原始 Markdown</a></p><h1 id="dcvc-2021">DCVC 2021 完整代码讲解</h1>
+<p>这一轮沿着<strong>一帧图像怎样变成字节、字节怎样恢复图像</strong>讲代码，覆盖模型结构、张量尺寸、概率模型、自回归编解码、I/P 帧调度和测试统计，再说明训练需要补什么。</p>
+<p>依据是官方仓库 <code>DCVC-family/DCVC</code>，固定提交 <code>cbdae87a5445114cdc7f48816da63ea80bdeac40</code>。本地的<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/SOURCE_MANIFEST.json">来源清单</a>和<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/SOURCE_MANIFEST_%E8%A1%A5%E5%85%85.json">补充清单</a>可追溯原始文件。本次是源码核查与小规模机制验证，没有安装 PyTorch、下载权重或运行完整模型；下面区分源码事实、教学示例与需要运行确认的事项。</p>
+<h2 id="1">1. 先分清三个层次</h2>
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>入口</th>
+<th>实际做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概率码率估计</td>
+<td><code>forward()</code></td>
+<td>计算重建图像和概率码长，不输出可解码字节</td>
+</tr>
+<tr>
+<td>真实潜变量编解码</td>
+<td><code>compress()</code> / <code>decompress()</code></td>
+<td>用熵编码器输出、读取四段字节流</td>
+</tr>
+<tr>
+<td>文件与序列</td>
+<td><code>encode_decode()</code>、<code>test_video.py</code></td>
+<td>写文件、读文件、调度 I/P 帧并递推参考</td>
+</tr>
+</tbody>
+</table>
+<p>核心在 <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L15">DCVC_net.py</a>。它实现的是 P 帧模型；I 帧由另一套图像压缩模型负责。</p>
+<p>最外层的 <code>encode_decode()</code> 很短：先 <code>encode()</code>，再 <code>decode()</code>，把返回的 <code>recon_image</code> 替换为<strong>真正从文件解码的图像</strong>。这样下一帧可以使用真实解码参考，而不是只使用编码器内部的近似重建。</p>
+<p>这三层不能混为一谈。能运行 <code>forward()</code>，尚不能说明已跑通真实压缩。</p>
+<h2 id="2">2. 对照变量名，建立尺寸账本</h2>
+<p>设当前帧为 <span class="math" data-tex="x_t">x_t</span>，参考为上一帧重建 <span class="math" data-tex="\hat x_{t-1}">\hat x_{t-1}</span>。源码通常叫 <code>input_image</code> 和 <code>referframe</code>。两者都是 <code>[B,3,H,W]</code>，RGB 数值范围为 0—1。</p>
+<p>核心通道设置为：运动潜变量 128 通道，上下文与超潜变量 64 通道，内容潜变量 96 通道。以下假设 H、W 都是 64 的整数倍；真实 P 帧熵编码路径要求 B=1。</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>源码名字</th>
+<th>尺寸</th>
+<th>是否直接传输</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>估计光流</td>
+<td><code>estmv</code></td>
+<td><code>[1,2,H,W]</code></td>
+<td>不直接传输浮点光流</td>
+</tr>
+<tr>
+<td>运动潜变量</td>
+<td><code>mvfeature</code></td>
+<td><code>[1,128,H/16,W/16]</code></td>
+<td>量化后形成 <code>mv_y_string</code></td>
+</tr>
+<tr>
+<td>运动超潜变量</td>
+<td><code>z_mv</code></td>
+<td><code>[1,64,H/64,W/64]</code></td>
+<td>形成 <code>mv_z_string</code></td>
+</tr>
+<tr>
+<td>特征上下文</td>
+<td><code>context</code></td>
+<td><code>[1,64,H,W]</code></td>
+<td>从参考和已解码运动重新生成</td>
+</tr>
+<tr>
+<td>内容潜变量</td>
+<td><code>feature</code></td>
+<td><code>[1,96,H/16,W/16]</code></td>
+<td>量化后形成 <code>y_string</code></td>
+</tr>
+<tr>
+<td>内容超潜变量</td>
+<td><code>z</code></td>
+<td><code>[1,64,H/64,W/64]</code></td>
+<td>形成 <code>z_string</code></td>
+</tr>
+</tbody>
+</table>
+<p>例如 256×256 输入：运动潜变量是 <code>[1,128,16,16]</code>，内容潜变量是 <code>[1,96,16,16]</code>，两个超潜变量都是 <code>[1,64,4,4]</code>。<strong>潜变量元素数不等于比特数</strong>；实际码率取决于量化符号的概率和熵编码结果。</p>
+<p>这里也能直接对应论文四项码率：内容 y、内容 z、运动 y、运动 z。代码中的命名与论文符号不必逐字相同，要按功能对应。</p>
+<h2 id="3">3. 运动分支：先把运动变成双方共享的信息</h2>
+<h3 id="31">3.1 光流怎样估计</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/video_net.py#L226">ME_Spynet</a> 的调用是：</p>
+<pre><code class="language-python">estmv = self.opticFlow(input_image, referframe)
+</code></pre>
+<p>它建立四层图像金字塔，从粗到细细化光流。每层先把上一层光流双线性放大两倍，再把位移数值乘 2，因为图像尺寸翻倍后，同样的运动对应两倍像素距离。</p>
+<p>随后拼接三项：当前层当前帧 3 通道、按已有流采样的参考帧 3 通道、已有光流 2 通道，总计 8 通道。<code>MEBasic</code> 用五层 7×7 卷积，通道依次为 <code>8→32→64→32→16→2</code>，预测一个光流修正量，再加到已有光流上。</p>
+<p>这里的 warp 是<strong>采样参考图像</strong>：对当前输出位置，到参考图像的某个坐标取值。理解代码时用这个采样方向，比笼统说“把像素向前移动”更准确。</p>
+<h3 id="32">3.2 为什么还要压缩光流</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L41">运动编码器</a> 用四次 stride=2 的卷积，把两通道光流变成 128 通道、每个空间方向缩小 16 倍的 <code>mvfeature</code>；前三层后接 GDN。</p>
+<p>但编码器不能直接拿估计光流给后续网络用。解码器没有原始当前帧，无法重新估计相同光流。因此真实路径先编码运动，再在编码端恢复解码器能得到的运动：</p>
+<pre><code class="language-text">estmv → mvEncoder → mvfeature
+                     ├→ mvpriorEncoder → z_mv → 运动超先验字节
+                     └→ 自回归编码 → 运动主潜变量字节
+恢复的运动潜变量 → mvDecoder_part1 → mv_refine
+</code></pre>
+<p><code>mvpriorEncoder</code> 再下采样 4 倍，得到运动超潜变量；<code>mvpriorDecoder</code> 将其恢复到运动潜变量分辨率，输出 256 通道的概率辅助参数。运动分支有超先验和空间自回归，<strong>没有内容分支那条特征时间先验输入</strong>。</p>
+<h3 id="33">3.3 运动解码与细化</h3>
+<p><code>mvDecoder_part1</code> 用四次转置卷积上采样，配合 IGDN，恢复全分辨率两通道运动。随后：</p>
+<pre><code class="language-python">return self.mvDecoder_part2(torch.cat((mv, ref), 1)) + mv
+</code></pre>
+<p>输入是运动 2 通道加参考 RGB 3 通道，共 5 通道。细化网络用七层 3×3 卷积，中间为 64 通道与 LeakyReLU，最后预测两通道修正量。它输出的是<strong>修正后的运动</strong>，不是当前帧图像。</p>
+<h2 id="4">4. 上下文与内容分支：条件编码落实在哪里</h2>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L183">motioncompensation()</a> 做三件事：</p>
+<pre><code class="language-python">ref_feature = self.feature_extract(ref)
+prediction_init = flow_warp(ref_feature, mv)
+context = self.context_refine(prediction_init)
+</code></pre>
+<p>先从参考 RGB 提取 64 通道特征，再用已解码并细化的运动对齐这些特征，最后通过残差块和卷积细化。这里 warp 的对象是<strong>特征图</strong>。</p>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/video_net.py#L93">flow_warp</a> 把像素位移转成归一化坐标：横向除以 <code>(W−1)/2</code>，纵向除以 <code>(H−1)/2</code>，加到基础网格上，再调用 <code>grid_sample</code>。参数是双线性采样、越界取边界值、<code>align_corners=True</code>。复现时改动这些约定会改变上下文，不能把它们当成无关细节。</p>
+<p>同一个 <code>context</code> 接着进入三个位置：</p>
+<table>
+<thead>
+<tr>
+<th>使用位置</th>
+<th>代码行为</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容编码器</td>
+<td><code>cat(input_image, context)</code></td>
+<td>让表示变换知道哪些内容已有参考帮助</td>
+</tr>
+<tr>
+<td>内容解码器</td>
+<td><code>cat(recon_image_feature, context)</code></td>
+<td>帮助从潜变量恢复当前 RGB</td>
+</tr>
+<tr>
+<td>时间先验</td>
+<td><code>temporalPriorEncoder(context)</code></td>
+<td>帮助预测当前潜变量的概率</td>
+</tr>
+</tbody>
+</table>
+<p>内容编码器输入是 67 通道，四次 5×5、stride=2 卷积将尺寸降至 H/16、W/16，最终输出 96 通道；中间使用 GDN 和两个 LeakyReLU 残差块。</p>
+<p>内容解码分两段：第一段四次 <code>subpel_conv3x3(...,2)</code> 恢复全分辨率 64 通道特征，穿插 IGDN 和残差块；第二段将其与上下文拼成 128 通道，经卷积、两个残差块和最后的三通道卷积输出 RGB。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L80">结构定义</a></p>
+<p><code>subpel_conv3x3</code> 是“卷积产生 4 倍输出通道，再 <code>PixelShuffle(2)</code> 重排为空间尺寸翻倍”。它不等于普通插值。</p>
+<p>关键区别已经能从调用看出来：内容分支没有先计算 <code>input_image - prediction</code> 再只编码残差，也没有在最终输出上固定加回预测 RGB。当前帧与上下文如何组合，由网络学习。</p>
+<p>GDN 的核心是：</p>
+<p><span class="math display" data-tex="
+v_i=\frac{u_i}{\sqrt{\beta_i+\sum_j\gamma_{ij}u_j^2}}.
+">
+v_i=\frac{u_i}{\sqrt{\beta_i+\sum_j\gamma_{ij}u_j^2}}.
+</span></p>
+<p>它用通道间能量调节特征幅度；IGDN 改为乘归一化因子，是合成变换中的对应非线性，并不保证严格逆运算。P 帧使用 <code>video_net.py</code> 内的 GDN；I 帧组件使用 <code>layers/gdn.py</code> 的实现，阅读时要沿着 import 区分。</p>
+<p>GDN 的 beta、gamma 通过“下界约束后平方、再减小常数”获得非负参数，避免归一化分母失效。<code>LowerBound</code> 的反向传播也不是简单硬截断：参数低于下界时，如果梯度下降会把它推大，仍允许该梯度通过，使参数有机会回到有效区间。I 帧的 <code>NonNegativeParametrizer</code> 将同一思路封装为独立模块。</p>
+<h2 id="5">5. 三种先验怎样合并成均值和尺度</h2>
+<p>内容超先验来自 <code>priorEncoder(feature)</code>，量化后的 z 经 <code>priorDecoder</code> 输出 96 通道；时间先验把全分辨率上下文降到 H/16、W/16，也输出 96 通道；空间自回归卷积把已恢复的内容潜变量映射成 192 通道。</p>
+<p>三者拼接得到 <code>96+96+192=384</code> 通道。<code>entropy_parameters</code> 使用三层 1×1 卷积：</p>
+<pre><code class="language-text">384 → 320 → 256 → 192
+</code></pre>
+<p>最后把 192 通道分成两份，分别得到 96 通道均值 <code>means_hat</code> 和尺度 <code>scales_hat</code>。1×1 卷积只融合当前位置的各类参数；空间依赖来自前面的掩码卷积。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L111">先验模块</a></p>
+<p>运动分支则是运动超先验 256 通道与空间先验 256 通道拼成 512 通道，输出 256 通道后分成 128 通道均值和尺度。不要把内容分支三种先验的配置直接套到运动分支。</p>
+<p><strong>均值和尺度为什么不另占一段码流？</strong> 因为解码器已拥有参考、运动、超潜变量和此前恢复的符号，可以运行相同网络重新生成它们。需要传输的是使这些预测可重建的符号，而不是把每个预测参数作为浮点数发送。</p>
+<h2 id="6-forward">6. <code>forward()</code>：算了什么，为什么不能直接当训练代码</h2>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L414">forward()</a> 按运动、上下文、内容的顺序运行。运动潜变量直接 <code>round(mvfeature)</code>，内容潜变量直接 <code>round(feature)</code>，它们用于重建和整幅掩码卷积。</p>
+<p>码率估计另调用 <code>feature_probs_based_sigma()</code>：</p>
+<p><span class="math display" data-tex="
+q=\operatorname{round}(y-\mu),\qquad
+p(q)=F_b(q+1/2)-F_b(q-1/2).
+">
+q=\operatorname{round}(y-\mu),\qquad
+p(q)=F_b(q+1/2)-F_b(q-1/2).
+</span></p>
+<p>这里 <span class="math" data-tex="F_b">F_b</span> 是零均值 Laplace 的 CDF，b 是网络预测并限制为正的尺度。估计码长为各符号 <span class="math" data-tex="-\log_2p">-\log_2p</span> 之和。源码还有 <code>+1e-5</code> 和码长裁剪以稳定数值，因此它是实现中的估计量，不是实际文件大小。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L193">概率函数</a></p>
+<p>两个超潜变量的码长由各自 <code>BitEstimator</code> 的 CDF 差计算。四项除以像素数后相加得到 bpp；这里分母是 B×H×W，<strong>不乘 RGB 的 3</strong>。</p>
+<p>最需要留意的地方是：</p>
+<ul>
+<li><code>forward()</code> 用于重建的是 <code>round(y)</code>。</li>
+<li>概率函数按均值中心化，使用 <code>round(y−mu)</code>。</li>
+<li>真实自回归路径恢复的是 <code>round(y−mu)+mu</code>。</li>
+</ul>
+<p>【教学示例】y=1.2、mu=0.4 时，前者重建值为 1，后者为 1.4。所以两条路径可能从运动开始就不同，继而改变上下文、内容潜变量和后续帧参考。不能把实际码率与估计码率的全部差异都归因于文件头或熵编码取整。</p>
+<p>此外，这份 P 帧 <code>forward()</code> 没有训练/测试量化分支，也没有给 <code>round()</code> 配套噪声松弛或直通梯度。直接加一句 <code>loss.backward()</code>，不能得到论文所需的完整训练流程。</p>
+<h2 id="7">7. 自回归编解码：最值得逐步读的一段</h2>
+<h3 id="71">7.1 掩码允许看哪里</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/layers/layers.py#L21">MaskedConv2d</a> 默认是 A 型 5×5 掩码，按从上到下、从左到右的顺序，允许访问：</p>
+<pre><code class="language-text">1 1 1 1 1
+1 1 1 1 1
+1 1 0 0 0   ← 中央位置是当前符号
+0 0 0 0 0
+0 0 0 0 0
+</code></pre>
+<p>1 是可用空间位置，0 是屏蔽位置。前两行已经全部解码，因此当前列右侧的上方像素也可用。当前空间位置的所有输入通道被屏蔽；这里的主循环是按空间位置推进，并非在 Python 中逐通道运行一个完整神经网络。</p>
+<h3 id="72">7.2 编码端每个位置做什么</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L257">compress_ar()</a> 创建带两像素边界的 <code>y_hat</code> 缓冲区，然后双层循环 h、w：</p>
+<ol>
+<li>取当前中心周围 5×5 的特征块。</li>
+<li>用上下文卷积计算空间先验。</li>
+<li>取该位置的超先验，以及内容分支已有的时间先验。</li>
+<li>通过概率参数网络得到均值与尺度。</li>
+<li>计算整数符号 <code>q = round(y_current - mean)</code>。</li>
+<li><strong>立即把 <code>q + mean</code> 写回缓冲区。</strong></li>
+<li>记录整数符号和尺度，供熵编码器使用。</li>
+</ol>
+<p>第 6 步是因果一致性的关键。后续位置需要使用解码器也能得到的重建值，不能继续使用编码器独有的原始浮点潜变量。</p>
+<p>完成扫描后，代码将张量从 NCHW 变为 NHWC，再展平交给 rANS。这使字节流的符号顺序为：一个空间位置的各通道，然后下一个空间位置，与解码逐位置取出通道向量的顺序对应。</p>
+<p>因此准确说法是：<strong>参数预测和重建按位置推进；P 帧编码端扫描完成后再调用一次熵编码接口。</strong> 它不是每完成一个位置都立即写一次文件。</p>
+<h3 id="73-y">7.3 解码端怎样在不知道 y 的情况下工作</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L293">decompress_ar()</a> 将潜变量缓冲区初始化为零，并设置输入字节流。随后沿相同 h、w 顺序：</p>
+<pre><code class="language-text">已恢复邻居 + 已知先验 → 均值与尺度
+尺度 → CDF 表索引 → 从 rANS 流恢复整数 q
+q + 均值 → 当前重建值 → 写回缓冲区
+</code></pre>
+<p>解码器不需要先知道当前值才能预测概率，因为掩码排除了当前位置和未来位置。这避免了“必须先解码才能知道怎样解码”的循环依赖。</p>
+<p>【教学示例】假设每个位置均值等于前一重建值的一半，三个原始值都是 1.2：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>均值</th>
+<th>编码整数 q</th>
+<th>恢复值 q+mu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.5</td>
+<td>1</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.75</td>
+<td>0</td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+<p>解码器拿到整数 <code>[1,1,0]</code>，从相同初始状态计算，就恢复同样的 <code>[1,1.5,0.75]</code>。若错误地把第二个参考写成简单取整值 1，第三个位置的概率和重建就会改变。</p>
+<h3 id="74">7.4 掩码实现还有一个必须核查的前提</h3>
+<p><code>MaskedConv2d.forward()</code> 通过 <code>weight.data *= mask</code> 施加掩码；但真实 <code>compress_ar()</code> 和 <code>decompress_ar()</code> 调用的是 <code>F.conv2d(..., context_prediction.weight, ...)</code>，绕过该 <code>forward()</code>。</p>
+<p>编码端缓冲区最初包含原始 y，而解码端未来位置为零。因此<strong>直接使用的权重必须已经满足掩码约束</strong>，否则两端可能预测不同概率。这是源码中可以确认的条件；本次没有权重，不能断言官方 checkpoint 一定违反或一定满足它。</p>
+<p>运行前可检查：</p>
+<pre><code class="language-python">for layer in (net.auto_regressive, net.auto_regressive_mv):
+    masked_out = layer.weight.detach() * (1 - layer.mask)
+    print(masked_out.abs().max().item())
+</code></pre>
+<p>若编写自己的实现，可在真实路径明确使用 <code>weight * mask</code>，保证约束不依赖此前是否调用过 <code>forward()</code>。这是建议改法，未改动本次保存的官方源码。</p>
+<h2 id="8">8. 概率怎样真正变成字节</h2>
+<h3 id="81-cdf">8.1 预测的是分布，编码器需要的是整数 CDF</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/entropy_models/video_entropy_models.py#L249">GaussianEncoder</a> 虽然名字含 Gaussian，实际构造的是 <code>torch.distributions.laplace.Laplace</code>。这条结论针对 P 帧该类，不应扩大成“I 帧也全用 Laplace”。</p>
+<p>它建立从 0.01 到 16 的 64 个对数均匀尺度。<code>build_indexes()</code> 将预测尺度映射到首个不小于它的表项，两端落到端点。例如尺度 0.1 对应索引 20，1 对应索引 40；大于最大表项的值使用最后一项。</p>
+<p>所以真实编码使用的是有限尺度表，估计路径则使用预测尺度直接算 CDF。即便重建量化一致，两者仍可能有概率离散化差异。</p>
+<p><code>update()</code> 为每个尺度计算整数符号区间的概率质量，加上尾部质量，转换成默认精度为 16 的整数 CDF，并记录每张表的偏移与有效长度。均值通过符号中心化处理，不需要为每个均值另建一张表。</p>
+<p>【教学示例】零均值、尺度为 1 的 Laplace，符号 0 的概率是：</p>
+<p><span class="math display" data-tex="
+P(q=0)=F(0.5)-F(-0.5)=1-e^{-0.5}\approx0.39347.
+">
+P(q=0)=F(0.5)-F(-0.5)=1-e^{-0.5}\approx0.39347.
+</span></p>
+<p>对应理想码长约 1.346 bit。不能把中心处的连续密度 0.5 当作这个离散符号的概率。</p>
+<h3 id="82">8.2 超潜变量为什么用另一个模型</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/entropy_models/video_entropy_models.py#L138">BitEstimator</a> 由四个逐通道 <code>Bitparm</code> 组成，学习每个通道的累计分布。前三层使用正斜率变换和 tanh 修正，最后一层使用 sigmoid，形成单调的 CDF。</p>
+<p>符号概率仍是 CDF 两端之差。其索引由<strong>通道编号</strong>决定，而不是像主潜变量那样由每个位置预测的尺度决定。它没有主潜变量那套逐位置空间自回归。</p>
+<h3 id="83-rans">8.3 rANS 接口究竟接收什么</h3>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/entropy_models/video_entropy_models.py#L10">EntropyCoder</a> 给底层传递五类数据：整数符号、每个符号的 CDF 索引、整数 CDF 表、各表有效长度、符号偏移。</p>
+<p>神经网络负责给出这些概率条件，rANS 负责据此进行可逆字节编码。接收端需要相同的表与索引；仅有网络输出的浮点概率，不能替代真实熵编码接口。</p>
+<p>具体后端是 <code>MLCodec_rans</code> 和 <code>MLCodec_CXX</code> 编译扩展。本次核查了 Python 调用边界，没有审阅其二进制内部实现，也没有运行 rANS。因此不把字节封装验证称为“已验证熵编码无损往返”。</p>
+<h2 id="9-compress-decompress">9. 把 <code>compress()</code> 与 <code>decompress()</code> 连起来读</h2>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L330">compress()</a> 的完整依赖顺序是：</p>
+<pre><code class="language-text">1. 当前帧与参考 → 光流 → 运动潜变量
+2. 运动潜变量 → 运动超潜变量 → 编码并立即解码 mv_z
+3. 已恢复 mv_z → 运动概率参数 → 自回归编码 mv_y
+4. 已恢复 mv_y → 运动解码与细化 → 特征上下文
+5. 上下文 → 时间先验；当前帧+上下文 → 内容潜变量
+6. 内容潜变量 → 内容超潜变量 → 编码并立即解码 z
+7. 时间先验+已恢复 z → 内容概率参数 → 自回归编码 y
+8. 已恢复 y+上下文 → 重建图像
+</code></pre>
+<p>超潜变量编码后立即解码，是为了让后续参数使用接收端实际可恢复的数据。这不是多余操作。</p>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/DCVC_net.py#L386">decompress()</a> 的输入只有参考、四段字节流和图像尺寸。它依次恢复运动超潜变量、运动主潜变量、运动与上下文、内容超潜变量、内容主潜变量，最后重建并裁剪到 0—1。</p>
+<p><strong>真实解码的函数签名没有原始当前帧。</strong> 这就是检查方法是否满足可解码性的直接办法。</p>
+<p><code>compress()</code> 内部也返回一张重建图像，但没有最终的范围裁剪；<code>encode_decode()</code> 会用 <code>decode()</code> 的结果覆盖它。比较两者前，要统一裁剪约定，不能把单纯的输出范围差异误判成熵解码错误。</p>
+<h2 id="10">10. 文件里存什么，日志漏算了什么</h2>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/utils/stream_helper.py#L132">encode_p()/decode_p()</a> 的 P 帧格式为：</p>
+<pre><code class="language-text">6 个大端 uint32：H、W、四段字节流长度
+mv_y_string | mv_z_string | y_string | z_string
+</code></pre>
+<p>六个 32 位整数共 24 字节。文件中的存储顺序与解码依赖顺序不同：虽然 <code>mv_y</code> 放在前面，读取分段后仍先解 <code>mv_z</code>。</p>
+<p>P 帧返回的 bpp 仅用四段字节长度相加计算，未包含这 24 字节。因此在当前 B=1 封装下：</p>
+<p><span class="math display" data-tex="
+\mathrm{bpp}_{file}=\mathrm{bpp}_{payload}+\frac{24\times8}{HW}.
+">
+\mathrm{bpp}_{file}=\mathrm{bpp}_{payload}+\frac{24\times8}{HW}.
+</span></p>
+<p>I 帧对应四个 uint32，头部 16 字节；其当前编码接口同样按 y/z payload 长度返回码率。</p>
+<p>它们是实验用逐帧文件，文件头不携带模型权重、质量档位或完整视频容器信息。解码端仍需事先约定正确模型，并按相同 I/P 帧结构提供参考。</p>
+<p>本次用原始封装函数和人工字节串验证了 I/P 文件写入、读回及头部长度；没有把人工字节串说成模型实际产生的压缩流。</p>
+<h2 id="11-i">11. I 帧怎样进入整套系统</h2>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/test_video.py#L73">test_video.py</a> 通过 <code>src.zoo.image.model_architectures</code> 创建 I 帧模型，再单独加载 P 帧 <code>DCVC_net</code>。</p>
+<p>官方 README 的 PSNR 示例使用 <code>cheng2020-anchor</code>。本地 <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/waseda.py#L28">Cheng2020Anchor</a> 定义残差图像变换 <code>g_a/g_s</code> 与超先验变换 <code>h_a/h_s</code>，继承 <code>JointAutoregressiveHierarchicalPriors</code> 的编码接口：</p>
+<pre><code class="language-text">RGB → g_a → y；y → h_a → z
+先恢复 z → h_s → 超先验
+超先验+空间上下文 → 均值/尺度 → 自回归恢复 y
+y → g_s → I 帧重建
+</code></pre>
+<p>MS-SSIM 示例使用 <code>bmshj2018-hyperprior</code>，对应 <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/models/priors.py#L200">ScaleHyperprior</a>：没有上述空间自回归路径，主要由超先验给出尺度。</p>
+<p>I 帧的 <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/entropy_models/entropy_models.py#L392">GaussianConditional</a> 确实使用高斯 CDF，与 P 帧那个名字容易误导的 Laplace 类不同。还有一个接口差异：I 帧联合先验拆参数的顺序是 <code>scales_hat, means_hat</code>，P 帧是 <code>means_hat, scales_hat</code>；复制代码时不能交换。</p>
+<p>I 帧主变换总下采样 16 倍，超先验再下采样 4 倍，解释了为何测试准备要求尺寸与 64 对齐。<code>stream_helper.py</code> 虽有通用 pad/crop 函数，<strong>测试主循环没有自动调用它们为输入补齐</strong>。只看到工具函数存在，不代表任意尺寸已经受支持。</p>
+<h2 id="12">12. 测试入口怎样调度、评价与汇总</h2>
+<p>按 <code>test_video.py</code> 的执行顺序读：</p>
+<ol>
+<li><strong>解析配置。</strong> 每个序列给出数据目录、帧数和 GOP；每个 P 帧权重按列表下标配对一个 I 帧权重。</li>
+<li><strong>加载模型。</strong> <code>load_dict()</code> 去掉 P 帧权重键可能带的 <code>module.</code> 前缀。两模型都设为 <code>eval()</code>，主循环在 <code>no_grad()</code> 中执行。</li>
+<li><strong>真实编码时初始化 CDF。</strong> 只有 <code>write_stream=true</code> 时，才为 I/P 模型调用 <code>update(force=True)</code>。<code>eval()</code> 本身不建立这些编码表。</li>
+<li><strong>逐帧读取 PNG。</strong> 转 RGB、CHW、float32，再除以 255。文件名支持 <code>im1.png</code> 或 <code>im00001.png</code> 的模式。</li>
+<li><strong>决定帧类型。</strong> 从 0 开始，<code>frame_idx % gop_size == 0</code> 为 I 帧，其余为 P 帧。</li>
+<li><strong>更新参考。</strong> 每帧重建被限制到 0—1，作为下一帧的参考；不会把原始上一帧偷偷传回模型。</li>
+<li><strong>计算质量。</strong> <code>model_type=psnr</code> 用 RGB、0—1 范围的 MSE 算 PSNR；另一分支用 MS-SSIM。该参数不负责把一个权重模型变成另一种训练目标的模型。</li>
+<li><strong>汇总。</strong> 分别统计 I/P 帧及四路 P 帧码率，输出每序列、每模型的 JSON。</li>
+</ol>
+<p>默认 <code>write_stream=false</code>，走 <code>forward()</code> 估计码率；开启后走文件编解码。<code>write_recon_frame=true</code> 另存 PNG 时会取整到 8 bit，而内部参考仍是浮点重建。因此不能把保存 PNG 再读回，默认视为与原测试完全等价的参考递推。</p>
+<p>序列总 bpp 是总比特除以总像素；质量则是逐帧质量指标的平均。<strong>逐帧 PSNR 的平均，不等于先把所有像素 MSE 汇总再算一次 PSNR。</strong> 此脚本也没有直接计算 BD-Rate，需要跨质量工作点另行比较曲线。</p>
+<p>并行任务的单位是“序列×质量模型”。同一序列内的 P 帧仍按参考依赖顺序处理。真实码流模式还开启确定性设置并固定随机种子；这些有助于重复运行，但不构成跨设备、跨软件版本的字节兼容性证明。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/test_video.py#L240">调度与输出</a></p>
+<h2 id="13">13. 训练怎样对应论文，公开推理代码还缺什么</h2>
+<p>论文总目标可写为：</p>
+<p><span class="math display" data-tex="
+L=R_y+R_z+R_{mv_y}+R_{mv_z}+\lambda D(x_t,\hat x_t).
+">
+L=R_y+R_z+R_{mv_y}+R_{mv_z}+\lambda D(x_t,\hat x_t).
+</span></p>
+<p>内容编码、运动编码和各自超先验都要为使用的比特付费。只优化内容 y 的码率，会让网络把信息转移到未被计费的通路，目标就变了。</p>
+<p>补充材料的四阶段可以落实为下面的模块与目标对应；这里整理的是论文训练安排，不是声称推理源码已有四个训练入口：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>参数安排与损失</th>
+<th>为什么这样做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运动预热</td>
+<td>训练运动估计和运动编解码；像素域运动预测失真加两项运动码率</td>
+<td>先让需要付费的运动路径有效</td>
+</tr>
+<tr>
+<td>重建预热</td>
+<td>冻结运动，训练上下文与重建链条；只优化当前重建失真</td>
+<td>先学会利用上下文恢复图像</td>
+</tr>
+<tr>
+<td>内容率失真</td>
+<td>继续冻结运动；重建失真加内容 y/z 两项码率</td>
+<td>在可重建基础上压紧内容表示</td>
+</tr>
+<tr>
+<td>全联合</td>
+<td>解冻运动；重建失真加四项码率</td>
+<td>协调运动成本与内容收益</td>
+</tr>
+</tbody>
+</table>
+<p>若重建训练工程，需要明确各阶段的可训练参数、梯度截断、参考来源及损失，而不只是把四个阶段名称写成注释。</p>
+<p>下面是<strong>自行整理的联合训练框架示意</strong>，不是官方已发布的可运行训练脚本：</p>
+<pre><code class="language-python"># differentiable_model 需要实现训练量化松弛，并明确参考梯度策略
+out = differentiable_model(ref_hat, current)
+rate = out["bpp_y"] + out["bpp_z"] + out["bpp_mv_y"] + out["bpp_mv_z"]
+loss = rate + lmbda * distortion(current, out["recon_image"])
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+</code></pre>
+<p>还必须补齐：视频样本/连续帧组织，量化梯度近似，运动预训练或初始化，分阶段冻结与解冻，参考帧是否 detach，多帧展开长度，学习率与各阶段轮数，以及与真实编解码路径一致的验证。</p>
+<p>所核查的这套推理代码并没有提供这些内容的完整训练闭环。甚至 I 帧联合先验 <code>forward()</code> 在训练状态会请求 <code>noise</code> 模式，而其当前基础 <code>_quantize()</code> 只接受 <code>dequantize/symbols</code>，进一步说明不能把这份发布快照直接当作完整训练工程。</p>
+<p>因此本次可以讲清训练目标如何对应代码模块；不能凭这些推理文件声称已经恢复了作者全部训练过程。</p>
+<h2 id="14">14. 真正动手时，按什么顺序验证</h2>
+<p>第一步先固定版本、环境和输入。使用完整官方 2021 子目录及匹配的编译扩展、I/P 权重；本地保存的是选择性源码，不能仅凭这些文件就保证可运行。README 指定的是历史 PyTorch/CUDA 环境，迁移到其他版本需要重新验证算子与扩展兼容性。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/README.md.html">官方子目录说明的本地副本</a></p>
+<p>第二步用一个质量点、一个尺寸对齐的短序列，先检查 I 帧和一个 P 帧的估计路径，确认上述尺寸、参考更新和四项码率。</p>
+<p>第三步开启真实写流，检查三层一致性：</p>
+<table>
+<thead>
+<tr>
+<th>检查层</th>
+<th>应比较什么</th>
+<th>不宜使用的替代判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>熵符号</td>
+<td>编码的整数 q 与解码的整数 q 一致</td>
+<td>只看最终图像“差不多”</td>
+</tr>
+<tr>
+<td>参考递推</td>
+<td>编码端可重建参考与真实解码参考一致</td>
+<td>使用原始上一帧作参考</td>
+</tr>
+<tr>
+<td>码率记账</td>
+<td>四路 payload、完整文件大小分别统计</td>
+<td>直接把日志 bpp 当完整文件 bpp</td>
+</tr>
+</tbody>
+</table>
+<p>自回归部分先检查掩码；再定位第一个发生分歧的空间位置，比较其均值、尺度表索引、整数符号和重建值。先定位因果分歧，比只比较最后一帧 PSNR 更容易找到问题。</p>
+<p>第四步再处理多帧、多质量点与论文曲线：统一裁剪区域、颜色处理、I 帧模型、GOP、帧数、指标和码率口径。计时时明确是否包括模型加载、数据读写、概率预测、CPU 熵编码和 GPU 同步；源码双层自回归循环不能因网络在 GPU 上运行就视为全部并行。</p>
+<p>本次已核对 17 份清单文件及 Python 语法，验证原始 I/P 文件封装往返、24/16 字节头部、掩码结构、均值量化差异、因果数值例子与尺度索引；结果见<a href="../../DCVC_%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5/%E6%A0%B8%E6%9F%A5%E7%BB%93%E6%9E%9C.json">机制核查记录</a>。这些检查没有运行带权重网络或 rANS，不是性能复现。</p>
+<p>本轮停止位置：<strong>DCVC 2021 的 Python 推理主链与测试入口已讲解完成</strong>，并已解释训练目标与推理代码的边界。论文阅读位置保持完成；尚未完成的是带权重的真实运行、底层编译扩展内部审阅和训练/性能复现。后续若进入实验，应从一个质量点的 I 帧加短 GOP 真实编解码开始。</p></main><script src="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

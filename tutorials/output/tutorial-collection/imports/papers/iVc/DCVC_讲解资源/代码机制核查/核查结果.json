@@ -1,0 +1,133 @@
+{
+  "scope": "Static source integrity, exact original byte-packing functions, and independent scalar examples; no torch, weights or rANS execution.",
+  "verified_source_files": [
+    "README.md",
+    "dataset_config_example.json",
+    "requirements.txt",
+    "src/entropy_models/video_entropy_models.py",
+    "src/layers/layers.py",
+    "src/models/DCVC_net.py",
+    "src/models/video_net.py",
+    "src/utils/stream_helper.py",
+    "test_video.py",
+    "src/layers/gdn.py",
+    "src/zoo/image.py",
+    "src/models/waseda.py",
+    "src/models/priors.py",
+    "src/ops/parametrizers.py",
+    "src/ops/bound_ops.py",
+    "src/entropy_models/entropy_models.py",
+    "src/models/utils.py"
+  ],
+  "p_header_bytes": 24,
+  "i_header_bytes": 16,
+  "original_file_functions_roundtrip": true,
+  "mask_A": [
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "past_positions": 12,
+  "quantization_example": {
+    "y": 1.2,
+    "mu": 0.4,
+    "round_y": 1,
+    "centered": 1.4
+  },
+  "causal_example": {
+    "source": [
+      1.2,
+      1.2,
+      1.2
+    ],
+    "symbols": [
+      1,
+      1,
+      0
+    ],
+    "encoder_reconstruction": [
+      1.0,
+      1.5,
+      0.75
+    ],
+    "decoder_reconstruction": [
+      1.0,
+      1.5,
+      0.75
+    ]
+  },
+  "scale_index_cases": {
+    "0.001": 0,
+    "0.01": 0,
+    "0.1": 20,
+    "1.0": 40,
+    "16.0": 63,
+    "20.0": 63
+  },
+  "laplace_zero_probability_scale_one": 0.3934693402873666,
+  "ideal_bits": 1.3456768717052028,
+  "shapes_256": {
+    "context": [
+      1,
+      64,
+      256,
+      256
+    ],
+    "motion_y": [
+      1,
+      128,
+      16,
+      16
+    ],
+    "motion_z": [
+      1,
+      64,
+      4,
+      4
+    ],
+    "content_y": [
+      1,
+      96,
+      16,
+      16
+    ],
+    "content_z": [
+      1,
+      64,
+      4,
+      4
+    ]
+  }
+}

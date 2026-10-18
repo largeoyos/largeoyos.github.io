@@ -1,0 +1,472 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>第八章 · 第六节 · 操作风险、声誉风险及其他风险管理 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第八章 / 06</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button class="btn menu-button" aria-controls="book-index" aria-expanded="false">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div class="progress" aria-hidden="true" style="width: 76.1058%;"></div></header><div class="layout"><nav class="sidebar" id="book-index" aria-label="本节目录"><div class="index-label">第六节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a href="#c8s6-part-01" class="">01 · 本节目标：操作看原因，声誉看信任，其他风险看范围</a><a href="#c8s6-part-02" class="">02 · 操作风险四个来源：人员、流程、系统、外部事件</a><a href="#c8s6-part-03" class="">03 · 七类损失事件：要能将例子放进去</a><a href="#c8s6-part-04" class="">04 · RCSA、KRI、LDC：自评、信号、损失记录</a><a href="#c8s6-part-05">05 · 衡量的数据来源：内部、外部、情景、环境与控制</a><a href="#c8s6-part-06" class="">06 · 怎么识别：流程盘点与变更审查都要做</a><a href="#c8s6-part-07" class="">07 · 内控与IT：自动化减少一种差错，也会引入另一种风险</a><a href="#c8s6-part-08">08 · 保险与外包：可以分担，责任不会自动外包掉</a><a href="#c8s6-part-09" class="">09 · 数据治理与业务连续性：数据可信，关键服务能继续</a><a href="#c8s6-part-10" class="">10 · 声誉风险来源：真实问题、误解和关联传染都可能影响信任</a><a href="#c8s6-part-11" class="">11 · 声誉四原则与沟通：快，但要准确、合规、有权限</a><a href="#c8s6-part-12" class="current">12 · 国家风险：跨境环境不利变化带来的影响</a><a href="#c8s6-part-13">13 · 战略与两种系统性：中文同名要读语境</a><a href="#c8s6-part-14">14 · 自编诊断题：用原因、工具、范围判断</a><a href="#c8s6-part-15">15 · 本节过关标准</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 08 / SECTION 06 · 第八章</div><h2>第六节 · 操作风险、声誉风险及其他风险管理</h2><p>金融风险管理 · 教材正文第537—544页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav class="section-links" aria-label="章节切换"><a href="index.html">返回总目录</a><a href="08-05_流动性风险管理.html">上一节 · 流动性风险管理</a><a href="08-07_我国证券公司风险管理实践.html">下一节 · 我国证券公司风险管理实践</a></nav><section class="lesson" id="c8s6-part-01"><h3>01 · 本节目标：操作看原因，声誉看信任，其他风险看范围</h3>
+<p>教材正文537—544页。这一节概念多，先用情景分类，再认识工具。你需要能回答：哪里出了问题，用什么信号提前发现，事故后怎样保持服务，公众负面评价怎样处理。</p>
+<p><span class="level use">会用</span>操作风险定义边界、七类损失事件、RCSA/KRI/LDC、控制与外包责任、声誉全流程、国家与战略风险、两种“系统性”。<span class="level recognize">会认</span>数据来源和声誉原则。<span class="level context">背景</span>机构内部职责细节及宏观监管框架，用来理解实施方式，不要求复述全部制度。</p></section><section class="lesson" id="c8s6-part-02"><h3>02 · 操作风险四个来源：人员、流程、系统、外部事件</h3>
+<figure class="diagram" data-diagram="c8-ops-definition"><figcaption class="figure-label">SVG · 操作风险按原因分类，其他风险可能是后果</figcaption><div class="diagram-interactive"><div id="finance-c8-ops-definition">
+  <h3>操作风险按原因分类，其他风险可能是后果</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">四种来源</button><button class="btn" type="button" aria-pressed="false">法律边界</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="不只限于工作人员误操作" viewBox="0 0 840 140" style="height: 140px;"><title>不只限于工作人员误操作</title><desc>人员与流程，违规差错漏洞；系统与外部事件，故障灾害欺诈。</desc><defs><marker id="arrow-c8-ops-definition-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不只限于工作人员误操作</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">人员与流程</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">违规差错漏洞</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">系统与外部事件</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">故障灾害欺诈</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">四种来源</div>
+  <script type="application/json" data-config="">{"heading": "操作风险按原因分类，其他风险可能是后果", "states": [{"label": "四种来源", "rows": [{"label": "不只限于工作人员误操作", "nodes": [["人员与流程", "违规差错漏洞"], ["系统与外部事件", "故障灾害欺诈"]], "edges": [""], "noArrows": true}]}, {"label": "法律边界", "rows": [{"label": "教材采用的操作风险口径", "nodes": [["包括法律风险", "合同违法等"], ["排除战略声誉风险", "分类口径有区别"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-ops-definition .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-ops-definition .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-ops-definition .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-ops-definition .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-ops-definition .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-ops-definition');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-ops-definition-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-ops-definition-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>四种来源</h4><div><svg class="finance-flow" role="img" aria-label="不只限于工作人员误操作" viewBox="0 0 660 140" style="height: 140px;"><title>不只限于工作人员误操作</title><desc>人员与流程，违规差错漏洞；系统与外部事件，故障灾害欺诈。</desc><defs><marker id="print-08-06-0-0-arrow-c8-ops-definition-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不只限于工作人员误操作</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">人员与流程</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">违规差错漏洞</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">系统与外部事件</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">故障灾害欺诈</text></svg></div></div><div class="diagram-print-state"><h4>法律边界</h4><div><svg class="finance-flow" role="img" aria-label="教材采用的操作风险口径" viewBox="0 0 660 140" style="height: 140px;"><title>教材采用的操作风险口径</title><desc>包括法律风险，合同违法等；排除战略声誉风险，分类口径有区别。</desc><defs><marker id="print-08-06-0-1-arrow-c8-ops-definition-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">教材采用的操作风险口径</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">包括法律风险</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">合同违法等</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">排除战略声誉风险</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">分类口径有区别</text></svg></div></div></div></figure>
+
+<p>操作风险指由不完善或有问题的内部程序、人员、系统及外部事件等造成损失的风险。它比“工作人员误操作”宽，内部欺诈、系统宕机、流程缺失和外部灾害都可能属于此类。</p>
+<p>教材采用的定义包括法律风险，排除战略和声誉风险。但一个事件可能先有操作损失，再引起声誉后果。分类边界与因果传导要分开。</p>
+<p>自编例：订单系统重复发送交易，直接是系统与流程操作风险；客户投诉引发负面评价，涉及声誉风险；公司未来选择转向不擅长业务，则另看战略风险。</p></section><section class="lesson" id="c8s6-part-03"><h3>03 · 七类损失事件：要能将例子放进去</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>自编识别例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内部欺诈</td>
+<td>内部人员故意盗用资产、伪造记录</td>
+</tr>
+<tr>
+<td>外部欺诈</td>
+<td>外部诈骗、盗窃、恶意攻击等造成损失</td>
+</tr>
+<tr>
+<td>就业制度和工作场所安全</td>
+<td>劳动用工或安全责任相关损失</td>
+</tr>
+<tr>
+<td>客户、产品和业务活动</td>
+<td>销售不当、不适当产品或业务行为</td>
+</tr>
+<tr>
+<td>实物资产损坏</td>
+<td>火灾、灾害等损坏资产</td>
+</tr>
+<tr>
+<td>业务中断和系统失灵</td>
+<td>核心系统故障、服务中断</td>
+</tr>
+<tr>
+<td>执行、交割和流程管理</td>
+<td>输入、交收、对账或流程执行差错</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="level recognize">会认</span>七个名称应能识别；<span class="level use">会用</span>关键是“故意欺诈”与“差错”、系统故障与业务行为的区别。实际事故可以多因素叠加，统计上怎样归类要依内部标准；题目提供明确主因时，抓主因。</p></section><section class="lesson" id="c8s6-part-04"><h3>04 · RCSA、KRI、LDC：自评、信号、损失记录</h3>
+<figure class="diagram" data-diagram="c8-ops-tools"><figcaption class="figure-label">SVG · RCSA、KRI、LDC分别回答不同问题</figcaption><div class="diagram-interactive"><div id="finance-c8-ops-tools">
+  <h3>RCSA、KRI、LDC分别回答不同问题</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">三个问题</button><button class="btn" type="button" aria-pressed="false">数据联动</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="工具名称别混淆" viewBox="0 0 840 140" style="height: 140px;"><title>工具名称别混淆</title><desc>RCSA自评，有什么薄弱环节；KRI指标，风险信号是否变强；LDC损失数据，过去发生了什么。；</desc><defs><marker id="arrow-c8-ops-tools-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">工具名称别混淆</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">RCSA自评</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">有什么薄弱环节</text><rect x="315" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="420" y="83" text-anchor="middle" dominant-baseline="middle">KRI指标</text><text x="420" y="105" text-anchor="middle" dominant-baseline="middle">风险信号是否变强</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">LDC损失数据</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">过去发生了什么</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">三个问题</div>
+  <script type="application/json" data-config="">{"heading": "RCSA、KRI、LDC分别回答不同问题", "states": [{"label": "三个问题", "rows": [{"label": "工具名称别混淆", "nodes": [["RCSA自评", "有什么薄弱环节"], ["KRI指标", "风险信号是否变强"], ["LDC损失数据", "过去发生了什么"]], "edges": ["", ""], "noArrows": true}]}, {"label": "数据联动", "rows": [{"label": "例：转账错误", "nodes": [["复核不足", "自评发现问题"], ["差错率变高", "指标发出信号"], ["错付损失记录", "补入损失数据库"]], "edges": ["监测变化", "事后记录"]}]}]}</script>
+</div>
+<style>
+#finance-c8-ops-tools .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-ops-tools .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-ops-tools .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-ops-tools .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-ops-tools .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-ops-tools');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-ops-tools-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-ops-tools-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三个问题</h4><div><svg class="finance-flow" role="img" aria-label="工具名称别混淆" viewBox="0 0 660 140" style="height: 140px;"><title>工具名称别混淆</title><desc>RCSA自评，有什么薄弱环节；KRI指标，风险信号是否变强；LDC损失数据，过去发生了什么。；</desc><defs><marker id="print-08-06-1-0-arrow-c8-ops-tools-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">工具名称别混淆</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">RCSA自评</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">有什么薄弱环节</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">KRI指标</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">风险信号是否变强</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">LDC损失数据</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">过去发生了什么</text></svg></div></div><div class="diagram-print-state"><h4>数据联动</h4><div><svg class="finance-flow" role="img" aria-label="例：转账错误" viewBox="0 0 660 140" style="height: 140px;"><title>例：转账错误</title><desc>复核不足，自评发现问题；差错率变高，指标发出信号；错付损失记录，补入损失数据库。监测变化；事后记录</desc><defs><marker id="print-08-06-1-1-arrow-c8-ops-tools-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">例：转账错误</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">复核不足</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">自评发现问题</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">差错率变高</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">指标发出信号</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">错付损失记录</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">补入损失数据库</text><path d="M 200.33333333333334 94 L 232.33333333333334 94" class="finance-arrow" marker-end="url(#print-08-06-1-1-arrow-c8-ops-tools-0)"></path><text x="218.33333333333334" y="44" text-anchor="middle" dominant-baseline="middle">监测变化</text><path d="M 423.6666666666667 94 L 455.6666666666667 94" class="finance-arrow" marker-end="url(#print-08-06-1-1-arrow-c8-ops-tools-0)"></path><text x="441.6666666666667" y="44" text-anchor="middle" dominant-baseline="middle">事后记录</text></svg></div></div></div></figure>
+
+<p>RCSA是风险与控制自我评估，识别流程风险、控制措施及剩余风险，带有评估判断。KRI是关键风险指标，监测差错率、系统中断、人员异常等信号，可提供预警。LDC是损失数据收集，记录发生过的损失及事件信息。</p>
+<p>自编串联：部门自评发现审批与执行没有分离；监测中发现撤销、错单率提高；一次错付造成损失后记录金额、时间、原因、回收和整改。对应RCSA→KRI→LDC，三者相互支持。</p>
+<p><strong>易错点：</strong>给主观自评分一个数，不会使它自动成为完全客观数据；KRI不必等实际损失发生；LDC也不只是一个年度损失总额，事件明细更有分析价值。</p></section><section class="lesson" id="c8s6-part-05"><h3>05 · 衡量的数据来源：内部、外部、情景、环境与控制</h3>
+<p>内部损失数据贴近自身业务；外部数据可补充少见的大额事件；情景分析考虑尚未发生的严重组合；业务环境与内部控制因素帮助判断制度和经营变化。</p>
+<p>内部数据不一定“永远最好”：机构可能只有少量样本、遗漏记录或尚未经历严重事故。外部数据也需要可比性调整。将四类信息结合并检验，有助于减少单一来源局限，仍不能保证完整预测。</p>
+<p>损失口径要分总损失、已回收金额、净损失和预计回收，不能把尚未兑现的保险赔付直接当现金已到账。数据库还应记录事件原因、业务、日期与措施等。</p></section><section class="lesson" id="c8s6-part-06"><h3>06 · 怎么识别：流程盘点与变更审查都要做</h3>
+<p>梳理业务流程、职责、权限和控制点；检查重大事件与异常；分析风险指标；对新产品、新系统、人员或外包变化做风险评估。业务不变时也需持续检查，因为人员、系统和外部环境会变。</p>
+<p><span class="level context">背景</span>教材逐条列内部制度，是告诉公司如何落实识别。作为学习者，先能看出“流程漏洞、变更引入新风险、旧控制已经失效”，不必背一套公司内部审批表。</p></section><section class="lesson" id="c8s6-part-07"><h3>07 · 内控与IT：自动化减少一种差错，也会引入另一种风险</h3>
+<figure class="diagram" data-diagram="c8-ops-controls"><figcaption class="figure-label">SVG · 补偿损失、约束流程、维持业务各有用途</figcaption><div class="diagram-interactive"><div id="finance-c8-ops-controls">
+  <h3>补偿损失、约束流程、维持业务各有用途</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">控制与转移</button><button class="btn" type="button" aria-pressed="false">恢复与数据</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="风险管理工具不是替代关系" viewBox="0 0 840 140" style="height: 140px;"><title>风险管理工具不是替代关系</title><desc>复核权限控制，降低发生可能；保险与外包，有限转移或服务。</desc><defs><marker id="arrow-c8-ops-controls-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">风险管理工具不是替代关系</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">复核权限控制</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">降低发生可能</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">保险与外包</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">有限转移或服务</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">控制与转移</div>
+  <script type="application/json" data-config="">{"heading": "补偿损失、约束流程、维持业务各有用途", "states": [{"label": "控制与转移", "rows": [{"label": "风险管理工具不是替代关系", "nodes": [["复核权限控制", "降低发生可能"], ["保险与外包", "有限转移或服务"]], "edges": [""], "noArrows": true}]}, {"label": "恢复与数据", "rows": [{"label": "不能只存一份备份", "nodes": [["业务连续性计划", "关键服务继续恢复"], ["数据治理", "职责标准质量安全"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-ops-controls .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-ops-controls .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-ops-controls .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-ops-controls .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-ops-controls .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-ops-controls');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-ops-controls-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-ops-controls-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>控制与转移</h4><div><svg class="finance-flow" role="img" aria-label="风险管理工具不是替代关系" viewBox="0 0 660 140" style="height: 140px;"><title>风险管理工具不是替代关系</title><desc>复核权限控制，降低发生可能；保险与外包，有限转移或服务。</desc><defs><marker id="print-08-06-2-0-arrow-c8-ops-controls-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">风险管理工具不是替代关系</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">复核权限控制</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">降低发生可能</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">保险与外包</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">有限转移或服务</text></svg></div></div><div class="diagram-print-state"><h4>恢复与数据</h4><div><svg class="finance-flow" role="img" aria-label="不能只存一份备份" viewBox="0 0 660 140" style="height: 140px;"><title>不能只存一份备份</title><desc>业务连续性计划，关键服务继续恢复；数据治理，职责标准质量安全。</desc><defs><marker id="print-08-06-2-1-arrow-c8-ops-controls-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不能只存一份备份</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">业务连续性计划</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">关键服务继续恢复</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">数据治理</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">职责标准质量安全</text></svg></div></div></div></figure>
+
+<p>内控包括职责与权限分离、复核校验、授权、对账、监测及独立监督等。关键业务不能让同一人员无约束地发起、批准、执行和修改记录。</p>
+<p>IT自动化可以减少手工重复输入错误，但程序缺陷、错误配置、权限和网络攻击可能造成集中损失。新系统上线需测试、授权、变更管理、监控和恢复安排。不能由“系统已自动处理”推出不用控制。</p></section><section class="lesson" id="c8s6-part-08"><h3>08 · 保险与外包：可以分担，责任不会自动外包掉</h3>
+<p>保险可能覆盖特定损失，但有免赔额、限额、例外、等待和理赔条件，保险人也需要履约。它不能代替预防和业务连续性安排。</p>
+<p>外包是使用外部服务，可能获得专业能力；也会增加供应商集中、数据安全、服务中断、合同、退出和合规风险。公司仍需选择、监督、评估和准备替代方案，不能说“系统由供应商运维，事故都与公司无关”。</p>
+<p><span class="level use">会用</span>保险主要看按约转移或补偿，外包主要看服务安排和残余责任。名称不同，不等于它们都能消除操作风险。</p></section><section class="lesson" id="c8s6-part-09"><h3>09 · 数据治理与业务连续性：数据可信，关键服务能继续</h3>
+<p>数据治理侧重职责、标准、质量、生命周期、安全和问责等框架；数据管理还涉及具体采集、储存、处理等执行。买一套数据库，不等于数据治理完成。</p>
+<p>业务连续性计划BCP识别关键服务、人员、场所和系统依赖，安排在中断时维持或恢复业务，明确恢复优先级、目标、备用资源和演练。单独有文件备份，未必能及时恢复交易、结算和客户服务。</p>
+<p>业务连续性与流动性应急有关联，但目的不同：前者主要解决关键服务持续与恢复，后者关注现金和融资需求。事故可能两份计划同时启动。</p></section><section class="lesson" id="c8s6-part-10"><h3>10 · 声誉风险来源：真实问题、误解和关联传染都可能影响信任</h3>
+<p>不当战略和产品设计、误导营销、服务差错、员工行为、诉讼处罚、信息泄露、关联方事件和媒体信息等，都可能形成负面评价。消息可能真实、部分真实或失实，应先核实，不能把所有投诉当成事实，也不能只因尚未证实就无视信号。</p>
+<figure class="diagram" data-diagram="c8-reputation-cycle"><figcaption class="figure-label">SVG · 声誉管理贯穿业务前、中、后</figcaption><div class="diagram-interactive"><div id="finance-c8-reputation-cycle">
+  <h3>声誉管理贯穿业务前、中、后</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">预防</button><button class="btn" type="button" aria-pressed="false">应急</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="产品与人员行为先检查" viewBox="0 0 840 140" style="height: 140px;"><title>产品与人员行为先检查</title><desc>审慎宣传与审查，减少错误承诺；监测投诉与媒体，核实风险信号。业务中持续监测</desc><defs><marker id="arrow-c8-reputation-cycle-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">产品与人员行为先检查</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">审慎宣传与审查</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">减少错误承诺</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">监测投诉与媒体</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">核实风险信号</text><path d="M 229 94 L 607 94" class="finance-arrow" marker-end="url(#arrow-c8-reputation-cycle-0)"></path><text x="420" y="44" text-anchor="middle" dominant-baseline="middle">业务中持续监测</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">预防</div>
+  <script type="application/json" data-config="">{"heading": "声誉管理贯穿业务前、中、后", "states": [{"label": "预防", "rows": [{"label": "产品与人员行为先检查", "nodes": [["审慎宣传与审查", "减少错误承诺"], ["监测投诉与媒体", "核实风险信号"]], "edges": ["业务中持续监测"]}]}, {"label": "应急", "rows": [{"label": "快速响应需依事实与权限", "nodes": [["及时核实评估", "明确责任分工"], ["统一合规沟通", "处理实际问题"], ["复盘修复流程", "持续检查影响"]], "edges": ["响应处置", "防止重演"]}]}]}</script>
+</div>
+<style>
+#finance-c8-reputation-cycle .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-reputation-cycle .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-reputation-cycle .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-reputation-cycle .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-reputation-cycle .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-reputation-cycle');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-reputation-cycle-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-reputation-cycle-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>预防</h4><div><svg class="finance-flow" role="img" aria-label="产品与人员行为先检查" viewBox="0 0 660 140" style="height: 140px;"><title>产品与人员行为先检查</title><desc>审慎宣传与审查，减少错误承诺；监测投诉与媒体，核实风险信号。业务中持续监测</desc><defs><marker id="print-08-06-3-0-arrow-c8-reputation-cycle-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">产品与人员行为先检查</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">审慎宣传与审查</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">减少错误承诺</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">监测投诉与媒体</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">核实风险信号</text><path d="M 229 94 L 427 94" class="finance-arrow" marker-end="url(#print-08-06-3-0-arrow-c8-reputation-cycle-0)"></path><text x="330" y="44" text-anchor="middle" dominant-baseline="middle">业务中持续监测</text></svg></div></div><div class="diagram-print-state"><h4>应急</h4><div><svg class="finance-flow" role="img" aria-label="快速响应需依事实与权限" viewBox="0 0 660 140" style="height: 140px;"><title>快速响应需依事实与权限</title><desc>及时核实评估，明确责任分工；统一合规沟通，处理实际问题；复盘修复流程，持续检查影响。响应处置；防止重演</desc><defs><marker id="print-08-06-3-1-arrow-c8-reputation-cycle-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">快速响应需依事实与权限</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">及时核实评估</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">明确责任分工</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">统一合规沟通</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">处理实际问题</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">复盘修复流程</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">持续检查影响</text><path d="M 200.33333333333334 94 L 232.33333333333334 94" class="finance-arrow" marker-end="url(#print-08-06-3-1-arrow-c8-reputation-cycle-0)"></path><text x="218.33333333333334" y="44" text-anchor="middle" dominant-baseline="middle">响应处置</text><path d="M 423.6666666666667 94 L 455.6666666666667 94" class="finance-arrow" marker-end="url(#print-08-06-3-1-arrow-c8-reputation-cycle-0)"></path><text x="441.6666666666667" y="44" text-anchor="middle" dominant-baseline="middle">防止重演</text></svg></div></div></div></figure>
+
+<p>业务前做产品、宣传与重大决策评估；业务中监测投诉、舆情与行为；事发时及时核实、明确响应职责、依法沟通并处理实际问题；事后复盘流程和客户影响。声誉管理不是只在最后写一份公关稿。</p></section><section class="lesson" id="c8s6-part-11"><h3>11 · 声誉四原则与沟通：快，但要准确、合规、有权限</h3>
+<p>教材原则为<strong>全程全员、预防第一、审慎管理、快速响应</strong>。全员意味着每个岗位行为都可能影响信任，不是每人都能擅自对外代表公司。</p>
+<p>应建立明确的新闻发言、报告和授权机制。教材讲设置一名或多名新闻发言人，并至少包括一名高级管理人员，按其适用要求识别。沟通需依据核实的事实，遵守信息披露、客户隐私和监管要求。</p>
+<p>快速响应可以先确认事件、说明正在核实和安排处置，不能为了速度编造结论、泄露隐私或隐藏实际问题。此处讲机制是为了理解怎么管理，讲义不会代公司对外发消息。</p></section><section class="lesson" id="c8s6-part-12"><h3>12 · 国家风险：跨境环境不利变化带来的影响</h3>
+<figure class="diagram" data-diagram="c8-other-risks"><figcaption class="figure-label">SVG · 国家、战略、系统性风险按情景区分</figcaption><div class="diagram-interactive"><div id="finance-c8-other-risks">
+  <h3>国家、战略、系统性风险按情景区分</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">国家与战略</button><button class="btn" type="button" aria-pressed="false">两种系统性</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="不是换个名字的操作差错" viewBox="0 0 840 140" style="height: 140px;"><title>不是换个名字的操作差错</title><desc>跨境限制政治变化，国家风险；战略方向资源错配，战略风险。</desc><defs><marker id="arrow-c8-other-risks-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不是换个名字的操作差错</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">跨境限制政治变化</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">国家风险</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">战略方向资源错配</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">战略风险</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">国家与战略</div>
+  <script type="application/json" data-config="">{"heading": "国家、战略、系统性风险按情景区分", "states": [{"label": "国家与战略", "rows": [{"label": "不是换个名字的操作差错", "nodes": [["跨境限制政治变化", "国家风险"], ["战略方向资源错配", "战略风险"]], "edges": [""], "noArrows": true}]}, {"label": "两种系统性", "rows": [{"label": "中文同名需要结合语境", "nodes": [["systematic risk", "组合中的市场共同风险"], ["systemic risk", "金融体系功能受扰风险"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-other-risks .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-other-risks .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-other-risks .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-other-risks .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-other-risks .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-other-risks');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-other-risks-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-other-risks-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>国家与战略</h4><div><svg class="finance-flow" role="img" aria-label="不是换个名字的操作差错" viewBox="0 0 660 140" style="height: 140px;"><title>不是换个名字的操作差错</title><desc>跨境限制政治变化，国家风险；战略方向资源错配，战略风险。</desc><defs><marker id="print-08-06-4-0-arrow-c8-other-risks-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不是换个名字的操作差错</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">跨境限制政治变化</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">国家风险</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">战略方向资源错配</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">战略风险</text></svg></div></div><div class="diagram-print-state"><h4>两种系统性</h4><div><svg class="finance-flow" role="img" aria-label="中文同名需要结合语境" viewBox="0 0 660 140" style="height: 140px;"><title>中文同名需要结合语境</title><desc>systematic risk，组合中的市场共同风险；systemic risk，金融体系功能受扰风险。</desc><defs><marker id="print-08-06-4-1-arrow-c8-other-risks-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">中文同名需要结合语境</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">systematic risk</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">组合中的市场共同风险</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">systemic risk</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">金融体系功能受扰风险</text></svg></div></div></div></figure>
+
+<p>政治、社会、经济、法律政策及转移限制等变化，可能影响跨境贷款、投资、分支机构、交易对手和外包服务。外汇无法汇出、支付限制等即使交易对手有钱，也可能使资金无法到位。</p>
+<p>国家风险不只是汇率涨跌，也不只包括主权债违约。管理需评估国家和地区暴露、限额、分散、法律与应急安排，重大变化时及时重评。</p></section><section class="lesson" id="c8s6-part-13"><h3>13 · 战略与两种系统性：中文同名要读语境</h3>
+<p>战略风险涉及方向、定位、资源配置、实施与外部环境不匹配。制定目标、选择战略、配置资源与执行要一致；计划盈利很高却缺人员、技术和资金，可能存在战略问题。日常输入错误通常先归操作风险。</p>
+<p>教材前面投资组合语境中的systematic risk，是市场共同因素导致、不能靠一般分散消除的风险；本节金融稳定语境的systemic risk，关注金融体系或关键功能受到严重扰动、风险网络传染。中文都可能译成“系统性风险”，含义需要结合英文和情景。</p>
+<p>市场指数下跌不必然构成金融体系危机；金融体系风险也不限于股价。宏观审慎关注整体关联、顺周期和系统重要性，微观审慎关注个体稳健，两者互相补充。系统重要性不只由规模决定，还看关联、复杂度、关键功能和可替代性等。</p></section><section class="lesson" id="c8s6-part-14"><h3>14 · 自编诊断题：用原因、工具、范围判断</h3>
+<ol>
+<li>操作风险是否只指员工误操作？法律风险是否包含在教材定义中？</li>
+<li>系统事故引发声誉损害，能否说明操作风险定义必须把声誉风险也纳入？</li>
+<li>内部人员故意伪造记录盗用资金，主要是哪类损失事件？</li>
+<li>重复交割、对账差错，主要联系哪类事件？</li>
+<li>自评控制薄弱、监测差错率、记录实际损失，分别是哪些工具？</li>
+<li>内部数据是否永远比所有外部数据可靠而充分？</li>
+<li>全部交易自动化后是否无需操作风险管理？</li>
+<li>核心系统外包后，公司是否免除持续监督和应急责任？</li>
+<li>有文件备份，是否等于BCP已完善？</li>
+<li>快速响应是否允许未经核实就编造事实？</li>
+<li>对手有现金却因跨境转移限制不能付款，能否涉及国家风险？</li>
+<li>市场共同不可分散风险与金融体系严重失灵，是否是同一英文概念？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与分类依据</summary>
+<div class="answer-content">
+<ol>
+<li><strong>不限于误操作，并包括法律风险。</strong>来源还有流程、系统和外部事件。</li>
+<li><strong>不能。</strong>定义分类与因果后果不同，事故可向其他风险传导。</li>
+<li><strong>内部欺诈。</strong>关键词是内部人员故意行为。</li>
+<li><strong>执行、交割和流程管理。</strong>依题目给定主因分类。</li>
+<li><strong>RCSA、KRI、LDC。</strong>评估薄弱点、监测信号、收集事件数据。</li>
+<li><strong>不是。</strong>样本、漏报、可比性和严重事件覆盖都需考虑。</li>
+<li><strong>仍需。</strong>系统缺陷和集中故障可能造成新风险。</li>
+<li><strong>不免除。</strong>供应商管理、数据、连续性和合规责任仍需落实。</li>
+<li><strong>不等于。</strong>还需关键服务、恢复目标、资源、权限和演练。</li>
+<li><strong>不允许。</strong>快速与准确、合规应同时落实。</li>
+<li><strong>可能。</strong>国家风险包含转移限制等跨境环境因素。</li>
+<li><strong>不是。</strong>分别联系systematic risk与systemic risk，按语境识别。</li>
+</ol>
+</div>
+</details></section><section class="lesson" id="c8s6-part-15"><h3>15 · 本节过关标准</h3>
+<p>能列操作风险四个来源、辨认七类事件和三种工具；能说清保险、外包、IT各留下什么风险；能用事前、事中、事后解释声誉管理；能区分国家、战略及两种系统性概念。</p>
+<p>最后一节将这些概念放回我国证券公司制度和实际管理流程，帮你把整章合起来。</p></section><nav class="section-links" aria-label="章节切换"><a href="index.html">返回总目录</a><a href="08-05_流动性风险管理.html">上一节 · 流动性风险管理</a><a href="08-07_我国证券公司风险管理实践.html">下一节 · 我国证券公司风险管理实践</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。计算须确认单位、期间、分母与模型假设；指标达标也不保证所有情况下无损失。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

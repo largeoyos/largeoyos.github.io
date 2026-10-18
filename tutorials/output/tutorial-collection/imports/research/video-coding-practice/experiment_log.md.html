@@ -1,0 +1,63 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>本地实践记录</title><link rel="stylesheet" href="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/experiment_log.md · <a href="experiment_log.md">原始 Markdown</a></p><h1 id="_1">本地实践记录</h1>
+<p>日期：2026-10-08。输入：本地 Kodak <code>kodim01.png</code>，转为 768×512 的 8-bit 灰度图，原始像素共 393,216 字节。</p>
+<p>编解码：8×8 DCT-II → 量化 → zlib → 自定义 <code>.dct</code> 文件 → 独立读回文件 → 反量化和逆变换。这是教学实验，不是 JPEG 性能基准。</p>
+<table>
+<thead>
+<tr>
+<th>量化 scale</th>
+<th style="text-align: right;">完整 <code>.dct</code> 文件字节数</th>
+<th style="text-align: right;">file bpp</th>
+<th style="text-align: right;">灰度 PSNR / dB</th>
+<th style="text-align: right;">零系数比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5</td>
+<td style="text-align: right;">139309</td>
+<td style="text-align: right;">2.834</td>
+<td style="text-align: right;">33.06</td>
+<td style="text-align: right;">68.2%</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align: right;">95717</td>
+<td style="text-align: right;">1.947</td>
+<td style="text-align: right;">30.33</td>
+<td style="text-align: right;">78.3%</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">63077</td>
+<td style="text-align: right;">1.283</td>
+<td style="text-align: right;">28.11</td>
+<td style="text-align: right;">86.2%</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: right;">37798</td>
+<td style="text-align: right;">0.769</td>
+<td style="text-align: right;">26.02</td>
+<td style="text-align: right;">92.1%</td>
+</tr>
+<tr>
+<td>8</td>
+<td style="text-align: right;">19460</td>
+<td style="text-align: right;">0.396</td>
+<td style="text-align: right;">23.87</td>
+<td style="text-align: right;">95.9%</td>
+</tr>
+</tbody>
+</table>
+<p>原始精度结果在 <code>outputs/dct/metrics.csv</code> 与 <code>metrics.json</code>；对比图和 RD 曲线经过查看，标题和数据可读。</p>
+<p>验证：<code>python -m unittest -v test_dct</code> 的 5 项检查全部通过；包括新进程解码、非 8 倍数和 1×1 图像。Python 文件编译检查通过。</p>
+<p>视频输入准备：<code>python prepare_dcvc_input.py</code> 成功生成 640×360、24 帧、8-bit YUV420 的合成移动方块，文件大小 8,294,400 字节，与预期一致。配置路径是本机绝对路径；集群使用前应在集群重新运行准备脚本。</p>
+<p>GPU 环境读取：本机系统 Python 的 PyTorch 为 <code>2.13.0+cu126</code>，CUDA 可用，设备为 <code>NVIDIA GeForce RTX 3060 Laptop GPU</code>。该读取用于确认本机能力，不是 DCVC 官方验证环境。</p>
+<p>未执行的部分：没有访问学校 GPU 集群，没有下载 DCVC 权重，没有编译 DCVC 扩展，没有运行视频模型或训练。<code>run_dcvc_rt.py</code> 的语法与命令行帮助检查通过；其参数和配置结构对照了官方 RT 测试源文件，实际模型执行仍需对应环境验证。</p>
+<h2 id="2026-10-15-a100-apptainer">2026-10-15：按分享对话配置 A100 Apptainer 环境</h2>
+<p>读取用户提供的 ChatGPT 分享对话，确认其中的用户终端记录为 A100-SXM4-80GB、驱动 580.173.02、Apptainer 与持久 Home；对话建议从学校公共 <code>py312</code> 克隆专用环境。现有 <code>py311</code> 保留。</p>
+<p>调整 <code>apptainer/setup_dcvc_rt.sh</code>：克隆公共 Python 3.12 到个人 <code>dcvc-rt</code> 环境，再安装 PyTorch 2.6/cu126、CUDA Toolkit 12.6.3 和 GCC/G++ 12。新增 <code>build_dcvc_rt.sh</code> 获取或复用官方代码、编译两份扩展并验证导入。<code>check_environment.py</code> 增加严格检查、扩展检查及非零失败状态。</p>
+<p>本地验证：两个 Bash 脚本分别通过 <code>bash -n</code>；Python 编译检查与帮助入口通过；严格检查在本机 Windows + RTX 3060 上按预期返回失败，并列出非 Linux、GPU/版本不符、缺少 Toolkit 和扩展等原因。此检查不安装或修改依赖。上传 ZIP 完整性检查通过，Shell 文件使用 LF 换行。</p>
+<p>这些是本地交付与验证结果。本次未在学校远端执行环境安装、扩展编译或模型编解码，尚不能声称 A100 环境已就绪。</p></main><script src="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

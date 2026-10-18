@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第三章 · 第二节 · 证券投资者 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body>
+<header class="bookbar"><strong>金融市场基础知识 · 第三章 / 02</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 86.0862%;"></div></header>
+<div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第二节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c3s2-part-01">本节先搭框架：投资者有不止一种分类</a><a class="" href="#c3s2-part-02">教材116—117页：投资者的定义与三种分类会用</a><a class="" href="#c3s2-part-03">教材117—118页：投资者结构与演化背景＋会认</a><a class="" href="#c3s2-part-04">教材118—120页：机构投资者的概念与四个特点会认＋会用</a><a class="" href="#c3s2-part-05">教材120—121页：为什么发展机构投资者会认</a><a class="" href="#c3s2-part-06">教材121页：政府机构类投资者会用</a><a class="" href="#c3s2-part-07">教材122—123页：金融机构投资者，按资金性质区分会用</a><a class="" href="#c3s2-part-08">教材123—126页：QFII、RQFII，先记方向会用</a><a class="" href="#c3s2-part-09">教材126—128页：QDII，资格、范围与数字怎么学会用＋会认</a><a class="" href="#c3s2-part-10">教材128页：企业和事业法人投资者会认＋会用</a><a class="" href="#c3s2-part-11">教材128—132页：基金类投资者，先分清养老的钱会用</a><a class="" href="#c3s2-part-12">教材131—132页：企业年金、职业年金，旧比例要标清会认＋会用</a><a class="" href="#c3s2-part-13">教材132—133页：社会公益基金，不以个人发财为用途会认＋会用</a><a class="" href="#c3s2-part-14">教材133—134页：个人投资者的四个特点会认</a><a class="" href="#c3s2-part-15">教材134—136页：风险特征与适当性，把三个维度分开会用</a><a class="current" href="#c3s2-part-16">本节练习：类别、方向、分母、义务</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 03 / SECTION 02 · 第三章</div><h2>第二节 · 证券投资者</h2><p>证券市场主体 · 教材正文第116—136页 · 整理日期：2026年10月13日</p><p>会用：能判断例子　会认：能识别对应　背景：理解用途，第一轮不逐字背</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="03-01_证券发行人.html">上一节 · 证券发行人</a><a href="03-03_证券中介机构.html">下一节 · 证券中介机构</a></nav><section class="lesson" id="c3s2-part-01"><h3>本节先搭框架：投资者有不止一种分类</h3>
+<p>这一节内容很多。主线只有三个问题：谁在投资？这类资金为什么要投资、有哪些限制？销售机构怎样判断产品适不适合这个客户？</p>
+<p><strong><span class="level use">会用</span>优先掌握分类标准、QFII 与 QDII 的资金方向、四类养老资金的区别、适当性管理；<span class="level recognize">会认</span>投资范围和数字限制；<span class="level context">背景</span>历史统计与国外制度沿革。</strong>第一轮先理解结构，第二轮再记附表数字，避免一开始用数字把自己淹没。</p></section><section class="lesson" id="c3s2-part-02"><h3>教材116—117页：投资者的定义与三种分类<span class="level use">会用</span></h3>
+<p>投资者购买并持有证券，为了利息、股息或资本收益，同时承担风险、行使证券权利。利息是债权收益的一种；股息与持股有关；资本收益在这里主要指价格变动带来的收益。投资者是资金供给方，但二级市场买卖通常只是把钱交给卖方，不是每次都给发行公司新增融资。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类标准</th>
+<th>分类结果</th>
+<th>不要混淆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>身份</td>
+<td>机构投资者、个人投资者</td>
+<td>个人不必然是普通投资者</td>
+</tr>
+<tr>
+<td>持有时间</td>
+<td>短线、中线、长线</td>
+<td>时间划分不同于主体身份</td>
+</tr>
+<tr>
+<td>资格、实力、经历等适当性条件</td>
+<td>普通投资者、专业投资者</td>
+<td>某些机构也可能不符合专业投资者标准</td>
+</tr>
+</tbody>
+</table></div>
+<p>普通投资者在信息告知、风险警示、适当性匹配等方面获得特别保护。普通与专业投资者在满足规定条件时可以转换，<strong>不是永久不可改变的标签，也不是客户口头声称“我很专业”就能转换。</strong></p>
+<p>投资者有的谋求长线收益，有的通过交易赚差价，有的希望参与公司经营。多种目的支持证券发行、交易、价格发现与流动性。记住“目的不同”即可，不用背所有铺陈句。</p></section><section class="lesson" id="c3s2-part-03"><h3>教材117—118页：投资者结构与演化<span class="level context">背景＋会认</span></h3>
+<p>教材按机构、个人、外资机构、一般法人描述我国股票市场的结构，又按特定统计口径列持股比例。这里不是在重新定义法律上的机构投资者，而是在做数据分组。因此，一般法人为什么在统计表中单列，与它在概念上是不是法人机构，是两个问题。</p>
+<p>第一轮记两件事：我国市场早期个人投资者较多；发展专业机构投资者有助于增加长期资金和专业投资力量。<strong>专业机构多不等于市场绝不波动。</strong></p>
+<p>教材2025年一季度按流通市值口径排序为：<strong>一般法人、个人投资者、境内专业机构投资者、外资</strong>。年份和口径必须一起看。开户数量、持股市值、成交金额的占比不能互换。</p>
+<p>这里讲统计，是帮助理解为什么后面要介绍各类机构，不要求你在第一轮背各国每一个百分比。若练习明确考教材某年某口径，再回原表精记；不能把历史数据说成2026年的实时数据。</p></section><section class="lesson" id="c3s2-part-04"><h3>教材118—120页：机构投资者的概念与四个特点<span class="level use">会认＋会用</span></h3>
+<p>机构投资者可以使用自有资金，也可以集中管理外部资金。它通常拥有更大规模、更专业的投资管理能力。</p>
+<p>四个特点记成四个明确词：<strong>资金规模化、管理专业化、结构组合化、行为规范化。</strong></p>
+<p>规模化意味着资金大，对市场可能产生明显影响；专业化意味着有人专门研究、交易、管理风险；组合化意味着不把所有钱集中在单一标的；规范化意味着受到外部规则和内部治理约束。</p>
+<p>组合可以分散<strong>非系统性风险</strong>，也就是个别公司、个别资产的风险。市场整体下跌的系统性风险不能仅靠多买几只同市场股票消除。专业和规范是通常特点，不能推成每家机构都更赚钱、都不会违规。</p>
+<p>教材还按政策标准区分一般机构与战略机构，按业务区分金融与非金融机构，按所在地分境内与境外机构。每一道题先认分类标准，再认类别。</p>
+<p><strong>战略投资者不只是“大额买家”。</strong>教材强调长期共同战略利益、重要技术或市场渠道资源、资金实力、长期持股与参与治理、诚信记录等。只打算短期赚价差，不能仅凭持股金额大就称为战略投资者。近3年处罚情况等条件属于识别性记忆，别把某一种战略投资者定义扩展到所有制度场景。</p>
+<p>教材按历史法人参与交易权限列出的“有明确权利、受限制、规定不具体”分类，主要用于说明制度演变。理解监管会因主体不同设置不同限制即可；不把早期制度叙述当成今天所有法人交易权限的完整清单。</p></section><section class="lesson" id="c3s2-part-05"><h3>教材120—121页：为什么发展机构投资者<span class="level recognize">会认</span></h3>
+<p>四个作用及其逻辑如下：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>作用</th>
+<th>为什么会有这个作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>推动直接融资</td>
+<td>将部分储蓄转成股票、债券等市场投资，不全部依靠银行贷款</td>
+</tr>
+<tr>
+<td>连接不同金融市场</td>
+<td>在货币、债券、股票等市场配置资金，促进资金合理流动</td>
+</tr>
+<tr>
+<td>分散金融风险、稳定金融体系</td>
+<td>让风险由更多主体和工具承担，减少过度集中于银行体系</td>
+</tr>
+<tr>
+<td>连接社会保障与经济发展</td>
+<td>长期养老资金投资企业和基础设施，在控制风险前提下谋求保值增值</td>
+</tr>
+</tbody>
+</table></div>
+<p>这段需要讲，是因为多选题可能把这些作用拆成选项。你理解因果就能判断，不必逐字背论述。<strong>“分散风险”不等于“消灭风险”；“有利于稳定”不等于“永远稳定”。</strong></p></section><section class="lesson" id="c3s2-part-06"><h3>教材121页：政府机构类投资者<span class="level use">会用</span></h3>
+<p>政府机构投资通常服务政策目标，不单纯追求交易利润。央行买卖债券可以实施宏观调控；国有资产管理部门持股可以管理国有资产、实现政策目标；中央汇金、中证金融等也可能在维护市场稳定方面发挥作用。</p>
+<p>同一央行，发行票据时属于发行主体，买债券时属于投资主体。不要用“它是央行”替代对具体行为的判断。</p>
+<p>政府参与证券投资可以有收益，<strong>“通常不以盈利为主要考虑”不能改成“不得获得任何投资收益”。</strong></p></section><section class="lesson" id="c3s2-part-07"><h3>教材122—123页：金融机构投资者，按资金性质区分<span class="level use">会用</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>机构</th>
+<th>本节中的投资特征</th>
+<th>做题最需要的区分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>证券公司</td>
+<td>自营投资与受托资产管理</td>
+<td>自己的钱与客户的钱要隔离</td>
+</tr>
+<tr>
+<td>银行业金融机构</td>
+<td>按法律允许范围投资；还可有受托理财业务</td>
+<td>银行自有资金投资范围与理财产品投资范围不能混写</td>
+</tr>
+<tr>
+<td>保险机构</td>
+<td>管理保险资金，投资债券、股票、基金等符合规定的资产</td>
+<td>并非只能持有银行存款或国债</td>
+</tr>
+<tr>
+<td>基金公司</td>
+<td>募集、管理基金，进行组合投资</td>
+<td>管理人不是把基金财产当作自己的财产</td>
+</tr>
+<tr>
+<td>其他金融机构</td>
+<td>信托、企业集团财务公司、金融租赁公司等</td>
+<td>认名称及其机构类别</td>
+</tr>
+</tbody>
+</table></div>
+<p>证券公司的自营业务可以让它成为投资者，经纪业务则是代理客户交易。资产管理业务是管理受托财产，不能与自营混同。</p>
+<p>商业银行法一般限制商业银行在境内从事信托投资和证券经营、向非自用不动产和企业等投资，法律另有规定的除外。题目若换成理财子公司、受托产品或国家另有规定的业务，主体与规则可能变了，不能机械套“所有银行体系资金绝对不能投股票”。</p>
+<p>保险资金投资与保险资金关联交易要分开理解。用代持、抽屉协议、嵌套通道等掩盖关联关系，或绕监管向关联方融资，属于教材重点列出的违规模式。<strong>限制针对交易实质，换一层壳并不会自动变合规。</strong></p>
+<p>基金公司部分先认“公募与非公募”，投资范围仍要遵守规定，不是拿到公众的钱后可以随便投任何东西。各种具体投资工具后续章节还会专讲，在这里不提前堆一遍全套产品细节。</p></section><section class="lesson" id="c3s2-part-08"><h3>教材123—126页：QFII、RQFII，先记方向<span class="level use">会用</span></h3>
+<p>QFII 是合格境外机构投资者；RQFII 是人民币合格境外机构投资者。共同主线是：<strong>境外机构使用来自境外的资金，投资境内证券期货市场。</strong>它们不是境内个人直接炒境外股票的资格。</p>
+<p>QDII 则相反：合格境内机构投资者组织境内募集资金，进行境外投资。方向看机构和投资目的地，不靠某笔钱有没有换成美元判断。</p>
+<figure class="diagram" data-diagram="cross-border"><figcaption class="figure-label">SVG · 跨境投资，先看资金的投资方向</figcaption><div class="diagram-interactive"><div id="finance-cross-border">
+<h3>跨境投资，先看资金的投资方向</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">QFII</button><button aria-pressed="false" class="btn" type="button">RQFII</button><button aria-pressed="false" class="btn" type="button">QDII</button></div>
+<div data-diagrams=""><svg aria-label="境外投资境内" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>境外投资境内</title><desc>境外机构，获相应资格；境内市场，证券期货投资。境内投资</desc><defs><marker id="arrow-cross-border-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境外投资境内</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外机构</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">获相应资格</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">境内市场</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">证券期货投资</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-cross-border-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">境内投资</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">QFII</div>
+<script data-config="" type="application/json">{"heading": "跨境投资，先看资金的投资方向", "states": [{"label": "QFII", "rows": [{"label": "境外投资境内", "nodes": [["境外机构", "获相应资格"], ["境内市场", "证券期货投资"]], "edges": ["境内投资"]}]}, {"label": "RQFII", "rows": [{"label": "境外人民币资金", "nodes": [["境外机构", "人民币资金"], ["境内市场", "证券期货投资"]], "edges": ["境内投资"]}]}, {"label": "QDII", "rows": [{"label": "境内投资境外", "nodes": [["境内机构", "募集境内资金"], ["境外市场", "组合投资"]], "edges": ["境外投资"]}]}]}</script>
+</div>
+<style>
+#finance-cross-border .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-cross-border .finance-flow text {fill:currentColor;font:inherit}
+#finance-cross-border .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-cross-border .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-cross-border .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-cross-border');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-cross-border-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-cross-border-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>QFII</h4><div><svg aria-label="境外投资境内" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>境外投资境内</title><desc>境外机构，获相应资格；境内市场，证券期货投资。境内投资</desc><defs><marker id="print-03-02-0-0-arrow-cross-border-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境外投资境内</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外机构</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">获相应资格</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">境内市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">证券期货投资</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-02-0-0-arrow-cross-border-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">境内投资</text></svg></div></div><div class="diagram-print-state"><h4>RQFII</h4><div><svg aria-label="境外人民币资金" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>境外人民币资金</title><desc>境外机构，人民币资金；境内市场，证券期货投资。境内投资</desc><defs><marker id="print-03-02-0-1-arrow-cross-border-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境外人民币资金</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外机构</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">人民币资金</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">境内市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">证券期货投资</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-02-0-1-arrow-cross-border-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">境内投资</text></svg></div></div><div class="diagram-print-state"><h4>QDII</h4><div><svg aria-label="境内投资境外" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>境内投资境外</title><desc>境内机构，募集境内资金；境外市场，组合投资。境外投资</desc><defs><marker id="print-03-02-0-2-arrow-cross-border-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">境内投资境外</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境内机构</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">募集境内资金</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">境外市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">组合投资</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-02-0-2-arrow-cross-border-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">境外投资</text></svg></div></div></div></figure>
+<p>教材制度沿革按这个顺序理解：2002年引入QFII；2011年开始RQFII试点；2019年取消QFII、RQFII投资额度和RQFII试点国家地区限制；2020年资格与制度规则合并、投资范围扩大；2024年优化资金登记、账户、汇兑与外汇风险管理。</p>
+<p><strong>取消额度限制，不等于取消资格审核、账户管理、持股比例限制和持续监管。</strong>这是最值得会用的判断。</p>
+<p>2024年优化的四点，用白话记：托管银行办理资金登记；人民币证券和衍生品交易账户管理简化；允许人民币资金直接汇出并简化税务承诺材料；外汇风险管理渠道更便利。这段讲来让你识别“简化手续”和“放弃监管”不同，第一轮无需背全部平台名称。</p>
+<p><strong>申请条件<span class="level recognize">会认</span>：</strong>财务与资信良好、有投资经验；负责人符合所在地从业要求；治理、内控、合规健全并指定督察员；近3年或自成立以来没有监管机构重大处罚；不存在对境内资本市场运行产生重大影响的情形。</p>
+<p><strong>投资范围<span class="level recognize">会认</span>：</strong>交易所股票、存托凭证、债券、回购、ABS；全国股转系统证券；获准的银行间债券市场产品和衍生品；公募基金；获准的金融期货、商品期货、期权、套期保值外汇衍生品；允许的其他工具及符合条件的私募基金。大方向是范围扩大到多个市场、多个品种，具体品种和交易方式仍需获准，<strong>不是任何境外机构都能不受限制做全部衍生品交易。</strong></p>
+<p><strong>持股限制<span class="level use">会认＋会用</span>：</strong>单个合格境外投资者或其他境外投资者持有单个公司股份，一般不得超过股份总数的10%；全部相关境外投资者合计持有同一公司A股或境内挂牌股份，一般不得超过股份总数的30%。依法战略投资存在规定例外，更严格的境内法律和产业规定优先。</p>
+<p>分母是公司股份总数，不是投资者总资产。某公司1亿股，单一主体1000万股对应10%，所有相关境外投资者3000万股对应30%。不要把单一10%和合计30%调换。</p></section><section class="lesson" id="c3s2-part-09"><h3>教材126—128页：QDII，资格、范围与数字怎么学<span class="level use">会用＋会认</span></h3>
+<p>QDII 是境内机构通过获准安排，募集资金并以组合方式进行境外证券投资。2006年制度推出、2007年证券领域试行办法是沿革识别点；教材截至2025年5月底的机构数量与额度是历史统计，不是实时可用额度。</p>
+<p>资格数字分两种机构，别串列：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材所引证券领域要求</th>
+<th>基金管理公司</th>
+<th>证券公司</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>资本指标</td>
+<td>净资产至少2亿元</td>
+<td>净资本至少8亿元；净资本/净资产至少70%</td>
+</tr>
+<tr>
+<td>相关业务时间</td>
+<td>基金管理业务至少2年</td>
+<td>集合资产管理计划业务至少1年</td>
+</tr>
+<tr>
+<td>最近一季末管理规模</td>
+<td>至少200亿元或等值外汇资产</td>
+<td>至少20亿元或等值外汇资产</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>净资产与净资本不是同一个指标。</strong>先把数字与对象配对，不需要在本节展开整个券商风险指标计算方法。</p>
+<p>可投资的工具包括货币市场工具、债券与资产支持证券、符合要求的境外股票和存托凭证、房地产信托凭证、境外公募基金、结构性产品以及符合要求的衍生品等。房地产信托凭证与直接买一栋房产不同；住房按揭支持证券与直接购买一笔房地产抵押按揭也不同。题目常用“名称里都有房地产”混淆金融证券与直接资产。</p>
+<p><strong>禁止行为<span class="level use">会用</span>：</strong>按教材所引规定，原则上不得购买不动产、房地产抵押按揭、贵金属或其凭证、实物商品；不能随意借现金、融资买证券、裸卖空或从事证券承销。应付赎回、清算等临时用途借现金有规定例外且不超过净值10%；衍生品也有特定规定。读题时必须保留例外，不将“原则限制”改成完全无例外。</p>
+<details class="reference-section">
+<summary>第二轮记忆表：QDII 比例和报送期限</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事项</th>
+<th>教材口径</th>
+<th>注意分母及例外</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单只基金/集合计划在同一家银行存款</td>
+<td>不超过净值20%</td>
+<td>托管账户存款有例外</td>
+</tr>
+<tr>
+<td>持有同一机构发行证券市值</td>
+<td>不超过净值10%</td>
+<td>政府、国际金融组织不在此限制对象；指数基金有例外</td>
+</tr>
+<tr>
+<td>非监管合作国家地区市场证券</td>
+<td>合计不超过净值10%</td>
+<td>任一该类国家地区不超过3%</td>
+</tr>
+<tr>
+<td>同一QDII管理的全部基金/计划持有同一机构有投票权证券</td>
+<td>不超过该机构证券发行总量10%</td>
+<td>指数基金有例外；不得为控制、影响发行人而买证券</td>
+</tr>
+<tr>
+<td>单只基金/计划的非流动性资产</td>
+<td>不超过净值10%</td>
+<td>流通受限资产等</td>
+</tr>
+<tr>
+<td>单只基金/计划持有境外基金市值合计</td>
+<td>不超过净值10%</td>
+<td>货币市场基金有例外</td>
+</tr>
+<tr>
+<td>同一QDII管理的全部基金/计划持有某境外基金</td>
+<td>不超过该境外基金总份额20%</td>
+<td>分母从自身净值换成对方总份额</td>
+</tr>
+<tr>
+<td>托管人报告资金汇出入明细</td>
+<td>汇出入后2个工作日内</td>
+<td>不要当成2个自然日</td>
+</tr>
+<tr>
+<td>托管人月度信息报送</td>
+<td>月末后5个工作日内</td>
+<td>包括资金和资产分布等</td>
+</tr>
+<tr>
+<td>QDII年度报告</td>
+<td>会计年度末后4个月内</td>
+<td>与月报分开记</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>为什么还保留这些数字？因为针对比例限制的题需要精确认识对象与分母。第一轮先会方向和禁止行为，第二轮才背数字；不是把这一整页说成没有做题价值。</p></section><section class="lesson" id="c3s2-part-10"><h3>教材128页：企业和事业法人投资者<span class="level use">会认＋会用</span></h3>
+<p>普通企业可以用积累资金或闲置资金投资，目的可能是获取收益，也可能通过持股控股、参股另一家公司。事业法人按教材使用自有资金及有权支配的相关资金投资，关键在合法资金来源与支配权。</p>
+<p>企业发行股票筹钱时是发行人；企业买另一家公司的股票时是投资者。企业不是只能融资、不能投资。</p></section><section class="lesson" id="c3s2-part-11"><h3>教材128—132页：基金类投资者，先分清养老的钱<span class="level use">会用</span></h3>
+<p>基金类投资者列证券投资基金、社保基金、企业年金、职业年金、社会公益基金。看到“基金”不要全部想成股票基金。</p>
+<p>证券投资基金由基金管理人管理、托管人托管，以组合方式为份额持有人利益投资。管理人、托管人、持有人是不同角色；钱交给管理人运作不意味着管理人取得这些钱的所有权。</p>
+<p>四类养老相关资金按用途来分：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>钱的主要来源与性质</th>
+<th>用途及识别点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全国社会保障基金</td>
+<td>中央预算拨款、国有资本划转、投资收益等；国家储备基金</td>
+<td>为老龄化高峰期社保支出补充、调剂</td>
+</tr>
+<tr>
+<td>社会保险基金</td>
+<td>用人单位、个人缴费等；各项社会保险制度资金</td>
+<td>养老、医疗、工伤、失业、生育等当期待遇；投资运营遵守专门规定</td>
+</tr>
+<tr>
+<td>企业年金</td>
+<td>企业和职工在基本养老保险之外建立的补充安排</td>
+<td>企业职工补充养老；自愿建立</td>
+</tr>
+<tr>
+<td>职业年金</td>
+<td>机关事业单位及工作人员的补充养老安排</td>
+<td>机关事业单位的补充养老</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="diagram" data-diagram="pension-funds"><figcaption class="figure-label">SVG · 四类养老相关资金，来源与用途不同</figcaption><div class="diagram-interactive"><div id="finance-pension-funds">
+<h3>四类养老相关资金，来源与用途不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">资金性质</button></div>
+<div data-diagrams=""><svg aria-label="储备与当期保障" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>储备与当期保障</title><desc>全国社保基金，国家储备；社会保险基金，具体社保待遇。</desc><defs><marker id="arrow-pension-funds-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">储备与当期保障</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">全国社保基金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">国家储备</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">社会保险基金</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">具体社保待遇</text></svg><svg aria-label="两种补充养老" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>两种补充养老</title><desc>企业年金，企业及职工；职业年金，机关事业单位。</desc><defs><marker id="arrow-pension-funds-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两种补充养老</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">企业年金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">企业及职工</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">职业年金</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">机关事业单位</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">资金性质</div>
+<script data-config="" type="application/json">{"heading": "四类养老相关资金，来源与用途不同", "states": [{"label": "资金性质", "rows": [{"label": "储备与当期保障", "nodes": [["全国社保基金", "国家储备"], ["社会保险基金", "具体社保待遇"]], "edges": [""], "noArrows": true}, {"label": "两种补充养老", "nodes": [["企业年金", "企业及职工"], ["职业年金", "机关事业单位"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-pension-funds .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-pension-funds .finance-flow text {fill:currentColor;font:inherit}
+#finance-pension-funds .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-pension-funds .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-pension-funds .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-pension-funds');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-pension-funds-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-pension-funds-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>资金性质</h4><div><svg aria-label="储备与当期保障" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>储备与当期保障</title><desc>全国社保基金，国家储备；社会保险基金，具体社保待遇。</desc><defs><marker id="print-03-02-1-0-arrow-pension-funds-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">储备与当期保障</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">全国社保基金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">国家储备</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">社会保险基金</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">具体社保待遇</text></svg><svg aria-label="两种补充养老" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>两种补充养老</title><desc>企业年金，企业及职工；职业年金，机关事业单位。</desc><defs><marker id="print-03-02-1-0-arrow-pension-funds-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">两种补充养老</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">企业年金</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">企业及职工</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">职业年金</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">机关事业单位</text></svg></div></div></div></figure>
+<p><strong>全国社保基金不是每个人按月缴纳的基本养老保险统筹基金。</strong>社保基金理事会接受委托管理基本养老保险基金，也不会让这两类钱变成同一种钱；投资规则仍按资金性质适用。</p>
+<p>全国社会保障基金投资采用直接运作与委托运作结合，安全性、收益性、长期性是原则。教材所引早期直接运作范围为银行存款、一级市场购买国债，其他投资由专业管理人管理、托管人托管。<strong>社会保障基金理事会与投资管理人、托管人不要混成一个机构。</strong></p>
+<details class="reference-section">
+<summary>第二轮记忆表：教材引用的社保与基本养老投资限制</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>资金与规则口径</th>
+<th>主要数字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全国社会保障基金，教材引用早期暂行办法，货币资产按成本计算</td>
+<td>存款＋国债至少50%；其中存款至少10%；一家银行存款不超过基金银行存款总额50%；企业债＋金融债不超过10%；证券投资基金＋股票不超过40%</td>
+</tr>
+<tr>
+<td>全国社会保障基金，教材引用境外投资口径</td>
+<td>按成本计算境外投资不超过总资产20%</td>
+</tr>
+<tr>
+<td>基本养老保险基金，教材引用2015年办法，按公允价值计算</td>
+<td>流动性资产至少净值5%；相关固定收益类资产合计不超过净值135%；债券正回购余额不超过净值40%；股票等相关权益类不超过净值30%；重大项目和重点企业股权合计不超过净值20%</td>
+</tr>
+</tbody>
+</table></div>
+<p>基本养老基金不能向他人贷款或提供担保；不得直接投资权证，因其他投资派生取得的权证应在上市交易起10个交易日内卖出。教材第130页谈社会保险基金投资原则时引用的法律名称应理解为《社会保险法》，不要误记成《保险法》。</p>
+<p>135%为什么可能大于100%？比例用净资产作分母，存在债券回购等融资时，总资产可能大于净资产。因此上限并不在说可以凭空多出钱；也不是要求所有列出的比例同时取满。</p>
+</details></section><section class="lesson" id="c3s2-part-12"><h3>教材131—132页：企业年金、职业年金，旧比例要标清<span class="level use">会认＋会用</span></h3>
+<p>企业年金的受托人把账户管理、投资管理、托管等工作交给具有相应资格的机构，角色不同。投资管理人负责投资，托管人负责托管，账户管理人负责账户记录；不能只见“管理”两个字就互换。</p>
+<p>职业年金采用集中委托投资运营，按规定选择受托、托管、投资管理机构。你第一轮必须能用“企业职工”与“机关事业单位人员”分清两种年金。</p>
+<p><strong>版本纠正：</strong>教材第131—132页引用较早企业年金规则，写固定收益类95%、权益类30%、限于境内等。2020年《关于调整年金基金投资范围的通知》自2021年1月起调整年金投资规定：相关固定收益类上限135%、权益类上限40%，并允许按规定经产品投资港股通标的。不能把教材的旧30%直接当成现行年金通则，也不能因此把基本养老保险基金的30%改成40%。<a href="https://www.hunan.gov.cn/zqt/zcsd/202012/t20201231_14098989.html" rel="noopener" target="_blank">官方发布的调整通知</a></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>遇到的题目条件</th>
+<th>怎样使用比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>明确问教材所引早期企业年金办法的原有表述</td>
+<td>识别旧95%、30%等口径</td>
+</tr>
+<tr>
+<td>问2021年起年金调整后的相关规定</td>
+<td>按调整通知识别135%、40%等口径</td>
+</tr>
+<tr>
+<td>问基本养老保险基金2015年办法的权益比例</td>
+<td>仍识别该制度的30%，不能跨资金套用</td>
+</tr>
+</tbody>
+</table></div>
+<p>旧规定中个别集中度、权证派生处理等内容也要与后续修订分别核对。<strong>不混年份、不混资金、不混分母，比单纯记一串数更重要。</strong></p></section><section class="lesson" id="c3s2-part-13"><h3>教材132—133页：社会公益基金，不以个人发财为用途<span class="level use">会认＋会用</span></h3>
+<p>公益基金将收益用于特定公益事业。慈善组织投资要遵循合法、安全、有效原则，收益全部用于慈善目的。政府资助财产和捐赠协议禁止投资的财产，不能拿去投资。</p>
+<p>可以按规定买资产管理产品、直接股权投资或委托受监管机构投资；教材所引规定禁止直接买卖股票、直接购买商品及金融衍生品、投资人身保险产品、借投资名义对外放贷等。</p>
+<p><strong>“可直接股权投资”与“不得直接买卖股票”不是同一句话。</strong>前者包括发起设立、并购、参股等规定方式；后者限制直接证券交易行为。也不能把允许购买受监管资管产品改成允许自己随意交易其底层资产。</p>
+<p>慈善基金等社会公益基金在教材引用的适当性规则中属于专业投资者，但这不解除它自己的资金运用约束。</p></section><section class="lesson" id="c3s2-part-14"><h3>教材133—134页：个人投资者的四个特点<span class="level recognize">会认</span></h3>
+<p>四个特点是资金规模有限、专业知识相对匮乏、投资行为较随意分散短期、投资灵活性较强。</p>
+<p>这是对群体通常情况的描述，不是说每个个人都没有知识，也不是说个人必须短炒。规模较小让个人更容易迅速进退，但灵活不保证获利。</p>
+<p>部分高风险产品要求投资者具备相应知识、经验并签署风险揭示材料。仅签字不能把全部销售责任抹去。</p></section><section class="lesson" id="c3s2-part-15"><h3>教材134—136页：风险特征与适当性，把三个维度分开<span class="level use">会用</span></h3>
+<p>个人风险特征有三个维度：<strong>风险偏好、风险认知度、实际风险承受能力。</strong></p>
+<p>偏好是愿不愿意冒险；认知是知不知道风险是什么；承受能力是亏损发生后，经济和生活能否承受。一个人很想赚快钱，并不能证明他有足够资金承担巨大亏损。</p>
+<p>教材将理论态度分风险偏好、中立、规避三型。准确理解：风险偏好者相对愿意接受风险；风险中立者主要按期望收益评价，不因风险本身特别奖惩；风险规避者倾向要求风险补偿。<strong>偏好与实际承受力是不同维度，不要把“爱冒险”自动判为“承受力强”。</strong></p>
+<p>适当性就是产品服务与客户财务情况、目标、期限、知识经验、承受能力等的匹配程度。管理主线是销售机构的三类义务：</p>
+<figure class="diagram" data-diagram="suitability"><figcaption class="figure-label">SVG · 适当性：了解双方，再进行匹配</figcaption><div class="diagram-interactive"><div id="finance-suitability">
+<h3>适当性：了解双方，再进行匹配</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">三类义务</button></div>
+<div data-diagrams=""><svg aria-label="销售机构的工作" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>销售机构的工作</title><desc>投资者分类，评估承受力；产品分级，评估风险等级；销售匹配，明确匹配意见。评估；匹配</desc><defs><marker id="arrow-suitability-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">销售机构的工作</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者分类</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">评估承受力</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">产品分级</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">评估风险等级</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">销售匹配</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">明确匹配意见</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-suitability-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">评估</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-suitability-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">匹配</text></svg><svg aria-label="不是只问想不想冒险" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>不是只问想不想冒险</title><desc>风险偏好，愿不愿冒险；风险认知，是否理解风险；承受能力，能否承受损失。；</desc><defs><marker id="arrow-suitability-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是只问想不想冒险</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">风险偏好</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">愿不愿冒险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">风险认知</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">是否理解风险</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">承受能力</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">能否承受损失</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">三类义务</div>
+<script data-config="" type="application/json">{"heading": "适当性：了解双方，再进行匹配", "states": [{"label": "三类义务", "rows": [{"label": "销售机构的工作", "nodes": [["投资者分类", "评估承受力"], ["产品分级", "评估风险等级"], ["销售匹配", "明确匹配意见"]], "edges": ["评估", "匹配"]}, {"label": "不是只问想不想冒险", "nodes": [["风险偏好", "愿不愿冒险"], ["风险认知", "是否理解风险"], ["承受能力", "能否承受损失"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-suitability .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-suitability .finance-flow text {fill:currentColor;font:inherit}
+#finance-suitability .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-suitability .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-suitability .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-suitability');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-suitability-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-suitability-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三类义务</h4><div><svg aria-label="销售机构的工作" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>销售机构的工作</title><desc>投资者分类，评估承受力；产品分级，评估风险等级；销售匹配，明确匹配意见。评估；匹配</desc><defs><marker id="print-03-02-2-0-arrow-suitability-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">销售机构的工作</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">投资者分类</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">评估承受力</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">产品分级</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">评估风险等级</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">销售匹配</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">明确匹配意见</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-03-02-2-0-arrow-suitability-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">评估</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-03-02-2-0-arrow-suitability-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">匹配</text></svg><svg aria-label="不是只问想不想冒险" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不是只问想不想冒险</title><desc>风险偏好，愿不愿冒险；风险认知，是否理解风险；承受能力，能否承受损失。；</desc><defs><marker id="print-03-02-2-0-arrow-suitability-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是只问想不想冒险</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">风险偏好</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">愿不愿冒险</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">风险认知</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">是否理解风险</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">承受能力</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">能否承受损失</text></svg></div></div></div></figure>
+<ol>
+<li><strong>投资者分类：</strong>了解客户、评估承受能力。</li>
+<li><strong>产品分级：</strong>了解产品、评估其风险。</li>
+<li><strong>销售匹配：</strong>根据双方情况提出明确匹配意见、揭示风险。</li>
+</ol>
+<p>例如，客户明年必须付的学费不能仅因客户“愿意冒险”就推荐高度波动、退出困难的长期产品。解释这件事比背定义更能帮你做题。</p>
+<p>客户也有提供真实信息的义务。拒绝提供或没有按要求提供信息时，证券公司要告知后果，并按规定拒绝销售或提供服务。<strong>“买者自负”不能替代卖方尽责；适当性匹配也不能保证产品永不亏损。</strong></p>
+<p>教材所列美国、英国相关法律，是<strong>背景＋名称识别</strong>。讲它是让你知道适当性是普遍的投资者保护制度；第一轮不背各国每部法的年份，也不把历史英国FSA称谓当成当前完整监管架构。</p>
+<p>我国《证券期货投资者适当性管理办法》2017年7月起实施，教材采用2022年修正口径。证券法第88条将了解客户、说明内容、揭示风险、匹配销售及相应责任法定化。考试理解重点在义务如何对应具体销售行为，不在把法规沿革段逐字复述。</p></section><section class="lesson" id="c3s2-part-16"><h3>本节练习：类别、方向、分母、义务</h3>
+<ol>
+<li>“个人投资者必然是普通投资者，机构投资者必然是专业投资者。”对吗？</li>
+<li>某合格境外机构从境外汇入资金投资A股，是QFII方向还是QDII方向？取消额度限制是否等于取消持股比例限制？</li>
+<li>一家企业买另一家公司的股票，是发行人还是投资者？</li>
+<li>全国社会保障基金与职工每月缴纳形成的社会保险基金，是同一笔钱吗？</li>
+<li>企业年金与职业年金的主要参加群体分别是谁？</li>
+<li>某客户表示愿意承担高风险，但该笔资金是下个月必须用的生活费。销售机构能只依据他的风险偏好推荐高风险长期产品吗？</li>
+<li>一个QDII管理的全部基金持有某境外基金18%的总份额，应该与“占本基金净值10%”还是“占境外基金总份额20%”这条直接比较？</li>
+<li>多持有几家公司的股票，能消除市场整体下跌的系统性风险吗？</li>
+<li>基本养老保险基金的权益比例30%，能因为年金规定改为40%就一并改成40%吗？</li>
+<li>产品经过适当性匹配后发生正常市场亏损，是否说明销售机构一定违法？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li><strong>不对。</strong>身份分类与适当性分类是不同标准。</li>
+<li><strong>QFII方向；不是。</strong>境外投境内。额度与单一公司持股限制是不同约束。</li>
+<li><strong>投资者。</strong>角色由具体行为确定。</li>
+<li><strong>不是。</strong>前者是国家社保储备基金，后者是具体社会保险制度资金。</li>
+<li><strong>企业职工；机关事业单位及工作人员。</strong>两者都是补充养老安排。</li>
+<li><strong>不能。</strong>要同时评估真实承受力、期限、目标等，不能只问想不想冒险。</li>
+<li><strong>境外基金总份额20%这一条。</strong>注意投资主体是全部基金合计、分母是对方总份额；另有其他限制仍需同时符合。</li>
+<li><strong>不能。</strong>分散组合主要降低非系统性风险。</li>
+<li><strong>不能。</strong>两个资金制度不同，引用规则也不同。</li>
+<li><strong>不一定。</strong>要核查是否履行了解、分级、匹配与揭示等义务，市场风险本身不能等同违规。</li>
+</ol>
+</div>
+</details>
+<p><strong>过关标准：</strong>能用自己的话区分三种分类标准、三种跨境资格的方向、四类养老资金、三个风险维度和三类适当性义务。数字题必须把主体、分母、年份一起说出来。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="03-01_证券发行人.html">上一节 · 证券发行人</a><a href="03-03_证券中介机构.html">下一节 · 证券中介机构</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。依据用户提供的2025版扫描教材，按本节小标题顺序解释；保留必要概念、识别细节与练习，压缩重复论述。相邻节可能共用同一教材页。</p><p>优先级标记表示学习要求，不是已核验的出题频率。各制度数字须连同主体、分母、年份理解；修订说明在对应段标出。</p><p>本节HTML无需联网即可阅读，SVG图与公式保存在文件内；出处链接需联网。练习为本讲义自编诊断题。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

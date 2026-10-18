@@ -1,0 +1,194 @@
+{
+  "commit": "cbdae87a5445114cdc7f48816da63ea80bdeac40",
+  "retrieved_client_date": "2026-10-16",
+  "archive_url": "https://codeload.github.com/microsoft/DCVC/zip/cbdae87a5445114cdc7f48816da63ea80bdeac40",
+  "archive_sha256": "83be369687bdf74f5d107a97d098e8a1c1f5c0e8c1eebc24571fef9268560922",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4690,
+      "sha256": "d7ca41ab03525a88ead9792c7a6518a03ba6172af3be484277835af61d7fc250",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/README.md"
+    },
+    {
+      "path": "assets/rd_curve_psnr.png",
+      "bytes": 1292908,
+      "sha256": "602850c46e1b4cc86923ba46ab014235a2c114d3b7538c6f5f0a9cf4873c846c",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/assets/rd_curve_psnr.png"
+    },
+    {
+      "path": "checkpoints/download_compressai_models.py",
+      "bytes": 723,
+      "sha256": "58ef83572792817f7f88d07e86adba096916ff66727d4c0de811bc15b8663b02",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/checkpoints/download_compressai_models.py"
+    },
+    {
+      "path": "dataset_config_example.json",
+      "bytes": 4684,
+      "sha256": "b265114487129ca5e0860b3e7b264f472faf5cf2c0a13062f0fe5e42d790527e",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/dataset_config_example.json"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 49,
+      "sha256": "0fbfe664d3df179ff7ae1647fff0a7653b233aa0437911472283cea1f14b1efc",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/requirements.txt"
+    },
+    {
+      "path": "src/cpp/3rdparty/CMakeLists.txt",
+      "bytes": 127,
+      "sha256": "3b8dddc360f0a21b727ef2d7d147a9357fbdf50a13e379c721d5a98d8c3bb70c",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/3rdparty/CMakeLists.txt"
+    },
+    {
+      "path": "src/cpp/3rdparty/pybind11/CMakeLists.txt",
+      "bytes": 886,
+      "sha256": "f44f9515487dbcec493a900806c57d01f765aca754cb7cd624bae5d81e7680ac",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/3rdparty/pybind11/CMakeLists.txt"
+    },
+    {
+      "path": "src/cpp/3rdparty/pybind11/CMakeLists.txt.in",
+      "bytes": 1121,
+      "sha256": "53aabc78868b52667f395ec5299704c792ca744b21f60f703743383ff941171e",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/3rdparty/pybind11/CMakeLists.txt.in"
+    },
+    {
+      "path": "src/cpp/3rdparty/ryg_rans/CMakeLists.txt",
+      "bytes": 722,
+      "sha256": "ce8899f10a7a0db1af6ef68cfa9205b1818eea17b961e6f1aff8f608de0ec05b",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/3rdparty/ryg_rans/CMakeLists.txt"
+    },
+    {
+      "path": "src/cpp/3rdparty/ryg_rans/CMakeLists.txt.in",
+      "bytes": 1188,
+      "sha256": "ba3771219bd3f0781a9669df93f58b6b6d1652632719860e5d320cdaaff7e469",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/3rdparty/ryg_rans/CMakeLists.txt.in"
+    },
+    {
+      "path": "src/cpp/CMakeLists.txt",
+      "bytes": 578,
+      "sha256": "20ce66c87c579ed02d57d45cfe14bba57c270ba90c4d0ad34f4a96893554e11f",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/CMakeLists.txt"
+    },
+    {
+      "path": "src/cpp/ops/CMakeLists.txt",
+      "bytes": 671,
+      "sha256": "9406931f637978bc3d8661be10b2cf1d463e5b6eee71ba81486ec8e27a64b615",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/ops/CMakeLists.txt"
+    },
+    {
+      "path": "src/cpp/ops/ops.cpp",
+      "bytes": 2780,
+      "sha256": "d771daa4da7dc1176ad1ec2fc511f78966840d471879ddd625402888ea8ca410",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/ops/ops.cpp"
+    },
+    {
+      "path": "src/cpp/rans/CMakeLists.txt",
+      "bytes": 682,
+      "sha256": "dd33a145b05828abff6853caa14fba04c3a3034d25cec8ed30c73154d04e77fc",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/rans/CMakeLists.txt"
+    },
+    {
+      "path": "src/cpp/rans/rans_interface.cpp",
+      "bytes": 11512,
+      "sha256": "c5cb5e842e1299a7f8a9157649af3b8c2c8765417b96264121ac4cd8bc8e2aa1",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/rans/rans_interface.cpp"
+    },
+    {
+      "path": "src/cpp/rans/rans_interface.hpp",
+      "bytes": 3572,
+      "sha256": "321fcc4825da65f3e8d5795e10595eb554451e794078b0aab83e9e19463edeb8",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp/rans/rans_interface.hpp"
+    },
+    {
+      "path": "src/entropy_models/entropy_models.py",
+      "bytes": 18282,
+      "sha256": "5c67b86d960df19a9c3b511cfd11a88c201720516f7cd1017735720f2f3466ed",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/entropy_models/entropy_models.py"
+    },
+    {
+      "path": "src/entropy_models/video_entropy_models.py",
+      "bytes": 11398,
+      "sha256": "aa75e0208d247284a78483ce1c94886433e3affb686a4f08cf0dd4041044d967",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/entropy_models/video_entropy_models.py"
+    },
+    {
+      "path": "src/layers/gdn.py",
+      "bytes": 2112,
+      "sha256": "7a1bbb3de66b159f7924baf1977f165b4c8a85cfcfa37d85b118b57ee9448d47",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/layers/gdn.py"
+    },
+    {
+      "path": "src/layers/layers.py",
+      "bytes": 4735,
+      "sha256": "2c2e459e60ee40396edd65c979716b579147c5cc2a9326f99c947bb2743a2c00",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/layers/layers.py"
+    },
+    {
+      "path": "src/models/DCVC_net.py",
+      "bytes": 20996,
+      "sha256": "47fecbb1e0eefba8d3dad74bef83454d30993fd13614a606bc4c7e080a50c743",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/DCVC_net.py"
+    },
+    {
+      "path": "src/models/priors.py",
+      "bytes": 25381,
+      "sha256": "62db5fe7353dc651bd5b6fd705cc2e31337929f7123c9a8b25984bb8f6f35ddc",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/priors.py"
+    },
+    {
+      "path": "src/models/utils.py",
+      "bytes": 3869,
+      "sha256": "42fbcce86a23499c33ba82dfadccce8622e36e4c5c2a08e286b93750369dcc1f",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/utils.py"
+    },
+    {
+      "path": "src/models/video_net.py",
+      "bytes": 9786,
+      "sha256": "45ccd4bd55fc9aa15db7681e0cc76379e4d4aae2df186ebde1d137627471bb8f",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/video_net.py"
+    },
+    {
+      "path": "src/models/waseda.py",
+      "bytes": 3079,
+      "sha256": "21af99012f55016bb829dd3c1c672273ca7e3620f6a60491311b57620a7320d7",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/waseda.py"
+    },
+    {
+      "path": "src/ops/bound_ops.py",
+      "bytes": 1767,
+      "sha256": "d17477355f2628121d7ff749b11fd30b00c4dd8d9c0fa6b27c6718c128d1c8b2",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/ops/bound_ops.py"
+    },
+    {
+      "path": "src/ops/parametrizers.py",
+      "bytes": 1420,
+      "sha256": "ac15d10424907e06a2e5ea60e9e7e8910ad5eae357d3a7f91741e7b0c70d9b6e",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/ops/parametrizers.py"
+    },
+    {
+      "path": "src/utils/stream_helper.py",
+      "bytes": 4780,
+      "sha256": "0d2ad5cccc139b92f53e4bc6d5b6c0b4476fbb3ea5cc2546fd3d1f04c46338ce",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/utils/stream_helper.py"
+    },
+    {
+      "path": "src/zoo/image.py",
+      "bytes": 1045,
+      "sha256": "ef16ad75377b21ecaec9394cfbd57b0f7e0e1bfbd115312d2ba81ba1b6ca631b",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/zoo/image.py"
+    },
+    {
+      "path": "test_video.py",
+      "bytes": 14156,
+      "sha256": "6c3513831bd5b5f184fe3097c4d531b2875a3fa6fadd7df92845898005e39631",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/test_video.py"
+    },
+    {
+      "path": "write_stream_readme.md",
+      "bytes": 744,
+      "sha256": "db4c56b2efc9167eac15415348c56aa3387b6fd2123dc51a3398f5d04f6b3c5a",
+      "url": "https://raw.githubusercontent.com/microsoft/DCVC/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/write_stream_readme.md"
+    }
+  ]
+}

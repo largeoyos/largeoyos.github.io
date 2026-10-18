@@ -1,0 +1,141 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>科研论文阅读项目</title><link rel="stylesheet" href="iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/README.md · <a href="README.md">原始 Markdown</a></p><h1 id="_1">科研论文阅读项目</h1>
+<p>本项目专门用于科研论文阅读。导师式讲解应深入浅出、逻辑严谨，以可靠原文和证据为基础，帮助理解研究问题、方法原理、创新程度与研究价值。</p>
+<h2 id="_2">文档入口</h2>
+<p>开始阅读前，先依据本文件确定阅读模式，再读取并持续遵循对应的完整版规则。切换模式时，读取新模式的规则，并衔接同一篇论文的已有记录。</p>
+<table>
+<thead>
+<tr>
+<th>文档</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="AGENTS.md.html">AGENTS.md</a></td>
+<td>项目指令入口，按请求选择 skill，并要求每轮保存完整讲解</td>
+</tr>
+<tr>
+<td><a href="%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E9%AB%98%E6%95%88%E7%95%A5%E8%AF%BB%E8%A7%84%E5%88%99.md.html">科研论文高效略读规则.md</a></td>
+<td>略读的分析方法、实验评价与固定输出格式</td>
+</tr>
+<tr>
+<td><a href="%E7%A7%91%E7%A0%94%E8%AE%BA%E6%96%87%E6%B7%B1%E5%BA%A6%E7%B2%BE%E8%AF%BB%E8%A7%84%E5%88%99.md.html">科研论文深度精读规则.md</a></td>
+<td>逐段精读、翻译、理论讲解、公式推导与进度要求</td>
+</tr>
+<tr>
+<td><a href="%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95%E6%A8%A1%E6%9D%BF.md.html">论文阅读记录模板.md</a></td>
+<td>保存论文背景、术语、两种模式的阅读范围和下一次起点</td>
+</tr>
+<tr>
+<td><a href="%E8%AE%BA%E6%96%87%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87%E6%95%B4%E7%90%86%E6%8F%90%E7%A4%BA%E8%AF%8D.md.html">论文讲解全文整理提示词.md</a></td>
+<td>响应“整理它”“整理他”，将当前论文已经讲过的全部内容保存为文件</td>
+</tr>
+</tbody>
+</table>
+<p>本文件负责模式选择与切换；具体阅读和输出细节以对应的完整版规则为准。简明启动指令不能替代完整版规则。用户当前明确指定的模式、章节和范围应优先执行。</p>
+<h2 id="_3">项目技能</h2>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>适用请求</th>
+<th>执行内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href=".agents/skills/paper-reading/SKILL.md.html">paper-reading</a></td>
+<td>略读、精读、续读和论文答疑</td>
+<td>读取对应完整版规则，保存每轮完整讲解并维护进度</td>
+</tr>
+<tr>
+<td><a href=".agents/skills/paper-lecture-export/SKILL.md.html">paper-lecture-export</a></td>
+<td>“整理它”“整理他”“把讲解整理成文件”</td>
+<td>汇编已有讲解全文，核对来源并输出 Markdown 和 HTML</td>
+</tr>
+</tbody>
+</table>
+<p>技能安装在本项目的 <code>.agents/skills/</code>。以 <code>E:\Projects\papers</code> 作为项目工作目录启动新聊天，让项目入口与技能参与加载；仅把该目录加入其他项目的可访问范围不等于加载本项目指令。若技能列表未立即更新，在论文项目新开聊天后检查；当前任务也可以直接读取项目内的 <code>SKILL.md</code> 执行。</p>
+<p>项目规则集中在现有文档中维护，技能只负责模式选择与执行流程，避免重复维护两套完整版规则。</p>
+<h2 id="_4">阅读模式</h2>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>触发指令</th>
+<th>执行重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>略读模式</td>
+<td>“略读这篇论文”“介绍这篇论文”“快速分析这篇论文”</td>
+<td>研究动机、核心 Idea、创新点、技术流程、关键实验、局限性和研究价值</td>
+</tr>
+<tr>
+<td>精读模式</td>
+<td>“精读这篇论文”“带我读这篇论文”“继续读论文”</td>
+<td>按原文顺序逐段提供英文原文、中文翻译、理论讲解、公式推导、图表分析和实验解释</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有指定阅读模式，默认采用<strong>略读模式</strong>。“继续读论文”属于精读触发指令，应从该论文已记录的精读位置继续；明确要求“继续略读”时，则接续略读。</p>
+<h3 id="_5">略读模式</h3>
+<p>优先参考《科研论文高效略读规则.md》。按照科研逻辑建立整体理解，讲透核心 Idea 与研究动机，结合具体实验数据评价证据，判断是否值得精读、复现或借鉴。遵循该规则中的 12 项固定输出结构，并给出建议精读的章节。</p>
+<h3 id="_6">精读模式</h3>
+<p>优先参考《科研论文深度精读规则.md》。全文精读从标题开始，按论文实际顺序推进至参考文献、附录与补充材料；每个自然段采用“英文原文 → 中文翻译 → 必要讲解”。默认每轮约 2～5 个自然段，复杂公式、图表或算法适当放慢。</p>
+<p>正文实质性讨论图表或算法时同步展示并解释。核心公式讲清变量、假设、推导和直觉；每小节结束总结核心观点、技术逻辑和必须掌握的知识；每轮结束明确下一次阅读起点。</p>
+<h2 id="_7">模式切换与局部精读</h2>
+<p>允许在同一篇论文中由略读切换到精读，也允许切回略读，或只针对用户指定的章节、公式、图表或实验精读。</p>
+<p>切换时保留论文版本与材料来源、背景、术语、研究问题、核心 Idea、已确认的事实、待验证问题和两种模式的阅读进度。只补充当前任务必需的信息，避免从头重复无关内容。</p>
+<ol>
+<li><strong>略读转全文精读</strong>：如果已有逐段精读记录，从其下一起点继续；如果尚未逐段精读，从标题开始。此前略读过的章节不能直接算作已完成精读，已有背景说明与术语解释可引用或简要衔接。</li>
+<li><strong>略读转局部精读</strong>：从用户指定范围的起点开始，并在该范围内遵循原文顺序。记录范围外尚未精读的内容，不将局部完成标为全文完成。</li>
+<li><strong>精读转略读</strong>：保留精读停止位置，围绕当前研究问题形成整体分析，不覆盖原有精读进度。</li>
+<li><strong>恢复精读</strong>：优先使用该论文的阅读记录，核对章节、页码、段落定位和目标范围。若范围不明确但存在唯一未完成的精读任务，继续该任务；不能确认时，先核对材料与已有上下文，不自行假定已读内容。</li>
+</ol>
+<h2 id="_8">共同准确性要求</h2>
+<ul>
+<li>原文、公式、图表、算法、引用和实验数值必须依据可核实材料，不得编造。</li>
+<li>重要判断区分【论文事实】【作者主张】【独立分析】【合理推测】与【待验证问题】；未经验证的推测不能作为论文结论。</li>
+<li>缺少材料、PDF 解析不清或证据不足时，明确说明缺失和不确定性。</li>
+<li>独立推导、自行构造的示例、示意图和改进设想必须标为补充内容。</li>
+<li>评价实验时说明对照方法、指标、设置与证据边界，不将作者主张自动视为已证实结论。</li>
+</ul>
+<h2 id="_9">阅读记录</h2>
+<p>开始阅读一篇论文时，使用<a href="%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95%E6%A8%A1%E6%9D%BF.md.html">论文阅读记录模板.md</a>在该论文所在目录创建对应的 <code>&lt;论文标识&gt;_阅读记录.md</code>。已有记录应继续维护。</p>
+<p>每轮结束更新本轮实际阅读范围、讨论过的关键图表与公式、待验证问题和下一次起点。略读覆盖范围与精读覆盖范围分别记录；局部精读与全文精读分别记录。模板中的占位内容不代表真实阅读结果。</p>
+<h3 id="_10">每轮完整讲解保存</h3>
+<p>每轮论文讲解和实质性追问答疑，都应在最终回复前将完整讲解正文保存为论文目录中的独立 Markdown 文件。沿用已有命名，默认采用 <code>&lt;论文标识&gt;_&lt;讲解类型&gt;&lt;序号&gt;_&lt;主题&gt;.md</code>；讲解类型可为略读、精读或答疑。文件中保留全部解释、推导、例子、图表分析与来源，不用摘要代替正文。</p>
+<p>回复的讲解正文与保存正文保持一致，回复末尾可另加保存链接。核对文件写入与资源可用后，在阅读记录的“完整讲解文件清单”中登记文件、讨论范围和可核实的来源定位，再更新实际阅读进度。补充答疑独立留档，不自动推进原文阅读位置；保存失败应如实说明。</p>
+<p>补充和勘误使用新文件并关联原讲解，保留既有批注。已有讲解文件可逐步登记，但未经核对不能声称已恢复完整聊天历史。</p>
+<h2 id="_11">讲解全文整理</h2>
+<p>当用户说“整理它”“整理他”“整理这篇论文”或“把刚才的讲解整理成文件”，且指向当前论文的已完成讲解时，读取并执行<a href="%E8%AE%BA%E6%96%87%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87%E6%95%B4%E7%90%86%E6%8F%90%E7%A4%BA%E8%AF%8D.md.html">论文讲解全文整理提示词.md</a>。当前论文明确时直接整理，无需再次确认。</p>
+<p>收录同一篇论文的所有已讲解内容，包括略读、逐段精读、公式推导、图表分析、例子、补充答疑和勘误。保留全文与推理细节，不压缩为摘要，不只导出最后一轮。默认在论文所在目录生成 Markdown 正文和内容一致的 HTML 阅读文件，所需资源一并保存。</p>
+<p>按讲解来源逐项核对是否完整收录；历史记录无法恢复时明确列出缺口，不得重新编写后声称是原有讲解全文。整理文件沿用实际阅读进度，不将尚未讲过的章节标为已完成。修改本提示词或整理项目文档的请求不触发论文讲解导出。</p>
+<h2 id="_12">当前论文材料</h2>
+<p>以下名称根据现有文件列出；正式阅读时应从原文核对标题、作者和发表信息。</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>材料类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="iVc/Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf">Lu_DVC_An_End-To-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf</a></td>
+<td>论文正文</td>
+</tr>
+<tr>
+<td><a href="iVc/Lu_DVC_An_End-To-End_CVPR_2019_supplemental.pdf">Lu_DVC_An_End-To-End_CVPR_2019_supplemental.pdf</a></td>
+<td>补充材料</td>
+</tr>
+<tr>
+<td><a href="iVc/Li_Learned_Image_Compression_with_Hierarchical_Progressive_Context_Modeling_ICCV_2025_paper.pdf">Li_Learned_Image_Compression_with_Hierarchical_Progressive_Context_Modeling_ICCV_2025_paper.pdf</a></td>
+<td>论文正文</td>
+</tr>
+</tbody>
+</table></main><script src="iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

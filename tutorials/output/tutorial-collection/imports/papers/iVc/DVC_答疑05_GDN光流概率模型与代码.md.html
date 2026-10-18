@@ -1,0 +1,544 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DVC｜GDN、光流、概率模型及代码</title><link rel="stylesheet" href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DVC_答疑05_GDN光流概率模型与代码.md · <a href="DVC_%E7%AD%94%E7%96%9105_GDN%E5%85%89%E6%B5%81%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E4%BB%A3%E7%A0%81.md">原始 Markdown</a></p><h1 id="dvcgdn">DVC｜GDN、光流、概率模型及代码</h1>
+<blockquote>
+<p>用户问题：GDN、光流网络、概率模型的内部推导，以及代码实现 这些展开讲</p>
+<p>来源：本聊天 <code>01a13ae4-6cb2-7f23-b09c-942490bf8387</code>，公开回复记录第 463 行，2026-10-15 16:48:14 +08:00。</p>
+<p>可核实定位：补充推导；后续PyTorch源码；本地独立教学实现。</p>
+</blockquote>
+<h3 id="346">原进度消息中的实质性补充（记录第 346 行）</h3>
+<!-- source-body:C346:begin -->
+<p>发现了一个需要先说明的区别：作者原始仓库公开的是测试代码，明确未提供熵编码模块，特征以 <code>.pkl</code> 保存并报告估计码率。我会结合它链接的 PyTorch 实现讲解，并补一份可运行的教学代码，区分“估计比特数”和“真正生成压缩码流”。</p>
+<!-- source-body:C346:end -->
+<h3 id="399">原进度消息中的实质性补充（记录第 399 行）</h3>
+<!-- source-body:C399:begin -->
+<p>代码里有几处与论文图示不同：这份后续 PyTorch 实现用四层金字塔估计光流，残差概率采用 Laplace 分布；运动压缩使用 LeakyReLU，运动补偿网络接收变形图与参考图。它还显式统计旁信息 <span class="math" data-tex="z">z</span> 的码率。接下来的推导会标明这些区别，避免把论文和重实现混在一起。</p>
+<!-- source-body:C399:end -->
+<h3 id="422">原进度消息中的实质性补充（记录第 422 行）</h3>
+<!-- source-body:C422:begin -->
+<p>教学代码已跑通，并通过了 GDN 解析梯度、半像素采样、CDF 单调性与归一化、各模块反向传播，以及编码端和独立重建端一致性的检查。它使用合成图像验证数学和数据流；没有训练权重，码率是概率估计值，不代表论文的压缩性能。</p>
+<!-- source-body:C422:end -->
+<!-- source-body:R07:begin -->
+<p>可以。这次深入到<strong>公式为什么这样写、梯度怎样传播，以及源码中对应哪几行操作</strong>。</p>
+<p>我已经准备并运行了<a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/dvc_internals.py">完整教学代码</a>。它包含 GDN、金字塔光流、可学习概率模型、超先验和率失真训练。代码使用较小通道数和随机初始化，方便学习；尚未训练成具有实用压缩效果的模型。</p>
+<p>先说明依据：下面对照的是<a href="https://github.com/ZhihaoHu/PyTorchVideoCompression">作者原仓库链接的 PyTorch 重实现</a>。它与论文图示存在部分结构差异，我会逐处注明。</p>
+<hr/>
+<ol>
+<li><strong>GDN：用特征的“局部能量”调节特征幅度。</strong></li>
+</ol>
+<p>假设卷积层在某个空间位置输出 <span class="math" data-tex="C">C</span> 个特征：</p>
+<p><span class="math display" data-tex="
+   \mathbf{x}=[x_1,x_2,\ldots,x_C]
+   ">
+   \mathbf{x}=[x_1,x_2,\ldots,x_C]
+   </span></p>
+<p>GDN 对第 <span class="math" data-tex="i">i</span> 个通道进行变换：</p>
+<p><span class="math display" data-tex="
+   \boxed{
+   y_i=
+   \frac{x_i}
+   {\sqrt{\beta_i+\sum_j\gamma_{ij}x_j^2}}
+   }
+   ">
+   \boxed{
+   y_i=
+   \frac{x_i}
+   {\sqrt{\beta_i+\sum_j\gamma_{ij}x_j^2}}
+   }
+   </span></p>
+<p>其中，<span class="math" data-tex="\beta_i&gt;0">\beta_i&gt;0</span>，<span class="math" data-tex="\gamma_{ij}\geq0">\gamma_{ij}\geq0</span>，它们都是可学习参数。求和发生在<strong>同一空间位置的不同通道之间</strong>。<a href="https://arxiv.org/html/1611.01704v3">GDN 原始压缩论文，公式（3）</a></p>
+<p>为什么分母要看其他通道？</p>
+<p>卷积后的特征可能共同受到某种因素影响。例如，局部对比度变强时，多个通道的响应幅度会同时增大。这意味着它们之间仍有统计依赖，分别编码会损失效率。</p>
+<p>用一个简化模型说明：</p>
+<p><span class="math display" data-tex="
+   x_i=s\,a_i,\qquad s&gt;0
+   ">
+   x_i=s\,a_i,\qquad s&gt;0
+   </span></p>
+<p><span class="math" data-tex="s">s</span> 表示共同的幅度因素。暂时忽略较小的 <span class="math" data-tex="\beta_i">\beta_i</span>，则：</p>
+<p><span class="math display" data-tex="
+   y_i\approx
+   \frac{sa_i}{\sqrt{\sum_j\gamma_{ij}s^2a_j^2}}
+   =
+   \frac{a_i}{\sqrt{\sum_j\gamma_{ij}a_j^2}}
+   ">
+   y_i\approx
+   \frac{sa_i}{\sqrt{\sum_j\gamma_{ij}s^2a_j^2}}
+   =
+   \frac{a_i}{\sqrt{\sum_j\gamma_{ij}a_j^2}}
+   </span></p>
+<p>共同幅度 <span class="math" data-tex="s">s</span> 被抵消了。这解释了除法归一化为什么能够削弱一部分依赖。实际网络保留 <span class="math" data-tex="\beta_i">\beta_i</span>，并通过率失真训练决定合适的变换强度；它不保证所有特征完全独立。</p>
+<p>与 BatchNorm 相比，理解上的重要区别是：<strong>GDN 使用当前位置的特征和共享的可学习参数，不依赖当前批次统计量。</strong></p>
+<p>再看梯度。令：</p>
+<p><span class="math display" data-tex="
+   s_i=\beta_i+\sum_j\gamma_{ij}x_j^2,
+   \qquad y_i=x_i s_i^{-1/2}
+   ">
+   s_i=\beta_i+\sum_j\gamma_{ij}x_j^2,
+   \qquad y_i=x_i s_i^{-1/2}
+   </span></p>
+<p>根据乘法和链式法则：</p>
+<p><span class="math display" data-tex="
+   \boxed{
+   \frac{\partial y_i}{\partial x_k}
+   =
+   \frac{\delta_{ik}}{\sqrt{s_i}}
+   -
+   \frac{x_i\gamma_{ik}x_k}{s_i^{3/2}}
+   }
+   ">
+   \boxed{
+   \frac{\partial y_i}{\partial x_k}
+   =
+   \frac{\delta_{ik}}{\sqrt{s_i}}
+   -
+   \frac{x_i\gamma_{ik}x_k}{s_i^{3/2}}
+   }
+   </span></p>
+<p><span class="math" data-tex="\delta_{ik}">\delta_{ik}</span> 在 <span class="math" data-tex="i=k">i=k</span> 时为 1，否则为 0。</p>
+<p>第一项来自分子 <span class="math" data-tex="x_i">x_i</span>，第二项来自分母。第二项也说明：<strong>改变一个通道，会通过归一化影响其他通道。</strong></p>
+<p>教学代码中的核心操作只有几行：</p>
+<p>```python
+   beta = F.softplus(self.beta_raw) + 1e-6
+   gamma = F.softplus(self.gamma_raw)[:, :, None, None]</p>
+<p>norm = F.conv2d(x.square(), gamma, bias=beta).sqrt()
+   output = x / norm
+   ```</p>
+<p>这里的 <span class="math" data-tex="1\times1">1\times1</span> 卷积实现了：</p>
+<p><span class="math display" data-tex="
+   \beta_i+\sum_j\gamma_{ij}x_j^2
+   ">
+   \beta_i+\sum_j\gamma_{ij}x_j^2
+   </span></p>
+<p><code>softplus</code> 保证参数为正。它定义为：</p>
+<p><span class="math display" data-tex="
+   \operatorname{softplus}(a)=\log(1+e^a)
+   ">
+   \operatorname{softplus}(a)=\log(1+e^a)
+   </span></p>
+<p>原重实现采用的是“平方重参数化＋LowerBound”，与教学版的正值参数化不同。<a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/reference/subnet/GDN.py#L63">原 GDN 实现</a></p>
+<p><code>LowerBound</code> 的反向传播也有设计：参数低于下界时，如果梯度会推动它回到允许区域，仍然放行。因为更新为 <span class="math" data-tex="p\leftarrow p-\eta g">p\leftarrow p-\eta g</span>，当 <span class="math" data-tex="g&lt;0">g&lt;0</span> 时参数会增大。</p>
+<p>解码器中的 IGDN 则使用乘法：</p>
+<p><span class="math display" data-tex="
+   \hat x_i=
+   y_i\sqrt{\hat\beta_i+\sum_j\hat\gamma_{ij}y_j^2}
+   ">
+   \hat x_i=
+   y_i\sqrt{\hat\beta_i+\sum_j\hat\gamma_{ij}y_j^2}
+   </span></p>
+<p><strong>IGDN 是学习得到的近似逆变换，不是把 GDN 的同一组参数拿来就能精确求逆。</strong> 编码、解码两侧有各自的参数，并共同接受最终重建损失的训练。</p>
+<ol start="2">
+<li><strong>光流网络：先在小图上处理大运动，再逐层修正。</strong></li>
+</ol>
+<p>先明确光流是什么。它给每个位置一个二维位移：</p>
+<p><span class="math display" data-tex="
+   v(x,y)=(u(x,y),v(x,y))
+   ">
+   v(x,y)=(u(x,y),v(x,y))
+   </span></p>
+<p>在教学代码里，我们把它定义为：<strong>当前输出位置应该到参考图像的哪个位置取样</strong>。</p>
+<p>光流估计的一个基础出发点是亮度恒定假设：</p>
+<p><span class="math display" data-tex="
+   I(x,y,t)\approx I(x+u,y+v,t+1)
+   ">
+   I(x,y,t)\approx I(x+u,y+v,t+1)
+   </span></p>
+<p>对右侧作一阶展开：</p>
+<p><span class="math display" data-tex="
+   I(x+u,y+v,t+1)
+   \approx I(x,y,t)+I_xu+I_yv+I_t
+   ">
+   I(x+u,y+v,t+1)
+   \approx I(x,y,t)+I_xu+I_yv+I_t
+   </span></p>
+<p>得到：</p>
+<p><span class="math display" data-tex="
+   I_xu+I_yv+I_t\approx0
+   ">
+   I_xu+I_yv+I_t\approx0
+   </span></p>
+<p>这是一个约束，却有 <span class="math" data-tex="u,v">u,v</span> 两个未知数，因此单个像素的信息通常不够。网络需要观察邻域、纹理和上下文来估计运动。</p>
+<p>SPyNet 的结构进一步解决了“大运动难估计”的问题：原图中移动 32 个像素，在缩小至 <span class="math" data-tex="1/8">1/8</span> 的图像中只移动约 4 个像素。</p>
+<p>它从粗到细进行计算。在第 <span class="math" data-tex="k">k</span> 层，先把上一层光流放大：</p>
+<p><span class="math display" data-tex="
+   \tilde V_k=2\,\operatorname{Upsample}(V_{k-1})
+   ">
+   \tilde V_k=2\,\operatorname{Upsample}(V_{k-1})
+   </span></p>
+<p>再变形参考图像：</p>
+<p><span class="math display" data-tex="
+   W_k=w(I_k^{\mathrm{ref}},\tilde V_k)
+   ">
+   W_k=w(I_k^{\mathrm{ref}},\tilde V_k)
+   </span></p>
+<p>网络只估计剩余的光流修正量：</p>
+<p><span class="math display" data-tex="
+   \Delta V_k=
+   G_k\!\left(
+   \operatorname{concat}
+   [I_k^{\mathrm{cur}},W_k,\tilde V_k]
+   \right)
+   ">
+   \Delta V_k=
+   G_k\!\left(
+   \operatorname{concat}
+   [I_k^{\mathrm{cur}},W_k,\tilde V_k]
+   \right)
+   </span></p>
+<p>最后：</p>
+<p><span class="math display" data-tex="
+   \boxed{V_k=\tilde V_k+\Delta V_k}
+   ">
+   \boxed{V_k=\tilde V_k+\Delta V_k}
+   </span></p>
+<p><strong>每一层学习的是修正量。</strong> 金字塔处理大尺度位移，网络负责改善当前估计。<a href="https://arxiv.org/html/1611.00850v2">SPyNet 原论文，第 3 节</a></p>
+<p>上采样之后为什么还要乘 2？因为光流的单位也是像素。粗图上移动 2 个像素，对应尺寸加倍的细图上移动 4 个像素。</p>
+<p>每层修正网络的输入有：</p>
+<p><span class="math display" data-tex="
+   3\text{ 通道当前图}
+   +3\text{ 通道变形参考图}
+   +2\text{ 通道已有光流}
+   =8\text{ 通道}
+   ">
+   3\text{ 通道当前图}
+   +3\text{ 通道变形参考图}
+   +2\text{ 通道已有光流}
+   =8\text{ 通道}
+   </span></p>
+<p>对照的源码使用五层 <span class="math" data-tex="7\times7">7\times7</span> 卷积，通道依次为：</p>
+<p><span class="math display" data-tex="
+   8\rightarrow32\rightarrow64\rightarrow32\rightarrow16\rightarrow2
+   ">
+   8\rightarrow32\rightarrow64\rightarrow32\rightarrow16\rightarrow2
+   </span></p>
+<p>最后一层不加 ReLU，以便输出正、负方向的位移。<strong>原 SPyNet 论文使用五级金字塔，这份 DVC 重实现使用四级。</strong> <a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/reference/subnet/endecoder.py#L313">对应光流源码</a></p>
+<p>其中还藏着一个重要问题：<code>warp</code> 为什么能够传梯度给光流？</p>
+<p>因为它使用双线性插值。若采样位置落在四个像素之间，水平、竖直小数部分分别为 <span class="math" data-tex="\alpha,\rho">\alpha,\rho</span>，则：</p>
+<p><span class="math display" data-tex="
+   \begin{aligned}
+   w={}&amp;(1-\alpha)(1-\rho)I_{00}
+   +\alpha(1-\rho)I_{10}\\
+   &amp;+(1-\alpha)\rho I_{01}
+   +\alpha\rho I_{11}
+   \end{aligned}
+   ">
+   \begin{aligned}
+   w={}&amp;(1-\alpha)(1-\rho)I_{00}
+   +\alpha(1-\rho)I_{10}\\
+   &amp;+(1-\alpha)\rho I_{01}
+   +\alpha\rho I_{11}
+   \end{aligned}
+   </span></p>
+<p>在一个插值单元内部，对水平位移求导：</p>
+<p><span class="math display" data-tex="
+   \frac{\partial w}{\partial u}
+   =(1-\rho)(I_{10}-I_{00})
+   +\rho(I_{11}-I_{01})
+   ">
+   \frac{\partial w}{\partial u}
+   =(1-\rho)(I_{10}-I_{00})
+   +\rho(I_{11}-I_{01})
+   </span></p>
+<p>因此，图像误差可以通过采样坐标传回光流网络。对一片完全均匀的区域，这个梯度可能很小，也呼应了“局部外观不足以唯一确定运动”。</p>
+<p>教学代码使用 <code>grid_sample</code>，并显式设置坐标转换与 <code>align_corners=True</code> 一致。还要注意符号：正的水平位移表示<strong>向参考图像右侧取样</strong>，不能直接解释成物体向右运动。</p>
+<p>原 SPyNet 训练会使用真实光流的端点误差：</p>
+<p><span class="math display" data-tex="
+   \operatorname{EPE}
+   =\frac1{HW}\sum_{x,y}\|V(x,y)-V^*(x,y)\|_2
+   ">
+   \operatorname{EPE}
+   =\frac1{HW}\sum_{x,y}\|V(x,y)-V^*(x,y)\|_2
+   </span></p>
+<p>DVC 在此基础上继续优化的是视频压缩目标。因此，预训练光流和为压缩而调整后的光流，优化目的有所不同。</p>
+<ol start="3">
+<li><strong>概率模型：学习符号概率，再把概率转成编码成本。</strong></li>
+</ol>
+<p>先分清三个对象：</p>
+<ul>
+<li>编码器产生连续特征 <span class="math" data-tex="y">y</span>。</li>
+<li>量化得到整数符号 <span class="math" data-tex="\hat y=\operatorname{round}(y)">\hat y=\operatorname{round}(y)</span>。</li>
+<li>概率模型估计这些整数符号出现的概率。</li>
+</ul>
+<p>假设符号的真实分布是 <span class="math" data-tex="q">q</span>，我们使用的编码分布是 <span class="math" data-tex="p">p</span>。理想平均码长为：</p>
+<p><span class="math display" data-tex="
+   \mathbb E_{s\sim q}[-\log_2p(s)]
+   ">
+   \mathbb E_{s\sim q}[-\log_2p(s)]
+   </span></p>
+<p>将它展开：</p>
+<p><span class="math display" data-tex="
+   \boxed{
+   \mathbb E_q[-\log_2p]
+   =
+   H(q)+D_{\mathrm{KL}}(q\|p)
+   }
+   ">
+   \boxed{
+   \mathbb E_q[-\log_2p]
+   =
+   H(q)+D_{\mathrm{KL}}(q\|p)
+   }
+   </span></p>
+<p>右侧第一项是数据本身的熵，第二项是概率模型不匹配带来的额外成本。这解释了为什么改善概率模型能够降低码率。<a href="https://arxiv.org/html/1802.01436v2">超先验论文对编码成本的定义</a></p>
+<p>接下来最容易犯的错误是：<strong>把连续概率密度值直接当成整数符号的概率。</strong></p>
+<p>如果量化结果是整数 <span class="math" data-tex="k">k</span>，说明量化前的值落在：</p>
+<p><span class="math display" data-tex="
+   [k-\tfrac12,\ k+\tfrac12)
+   ">
+   [k-\tfrac12,\ k+\tfrac12)
+   </span></p>
+<p>因此，若连续密度为 <span class="math" data-tex="f">f</span>，正确概率为：</p>
+<p><span class="math display" data-tex="
+   p(\hat y=k)
+   =\int_{k-1/2}^{k+1/2}f(t)\,dt
+   ">
+   p(\hat y=k)
+   =\int_{k-1/2}^{k+1/2}f(t)\,dt
+   </span></p>
+<p>引入累积分布函数 <span class="math" data-tex="F">F</span>，就变成：</p>
+<p><span class="math display" data-tex="
+   \boxed{
+   p(\hat y=k)
+   =F(k+\tfrac12)-F(k-\tfrac12)
+   }
+   ">
+   \boxed{
+   p(\hat y=k)
+   =F(k+\tfrac12)-F(k-\tfrac12)
+   }
+   </span></p>
+<p>对照源码，你会反复看到：</p>
+<p><code>python
+   probability = cdf(symbols + 0.5) - cdf(symbols - 0.5)
+   bits = -torch.log2(probability.clamp_min(1e-9)).sum()</code></p>
+<p>前一行求区间概率，后一行估计编码成本。</p>
+<p>那么，CDF 本身怎么学习？</p>
+<p>这份重实现中的 <code>BitEstimator</code> 为每个通道学习一条单调 CDF，在不同空间位置共用参数。其内部层可以写成：</p>
+<p><span class="math display" data-tex="
+   u=h x+b,\qquad h=\operatorname{softplus}(h_{\rm raw})&gt;0
+   ">
+   u=h x+b,\qquad h=\operatorname{softplus}(h_{\rm raw})&gt;0
+   </span></p>
+<p><span class="math display" data-tex="
+   g(u)=u+a\tanh(u),
+   \qquad a=\tanh(a_{\rm raw})\in(-1,1)
+   ">
+   g(u)=u+a\tanh(u),
+   \qquad a=\tanh(a_{\rm raw})\in(-1,1)
+   </span></p>
+<p>最后一层通过 sigmoid，把输出限制到 <span class="math" data-tex="0">0</span> 与 <span class="math" data-tex="1">1</span> 之间。<a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/reference/subnet/bitEstimator.py#L6">概率估计器源码</a></p>
+<p>为什么这个结构是单调的？因为：</p>
+<p><span class="math display" data-tex="
+   g'(u)=1+a\bigl(1-\tanh^2u\bigr)&gt;0
+   ">
+   g'(u)=1+a\bigl(1-\tanh^2u\bigr)&gt;0
+   </span></p>
+<p>正斜率仿射变换、上述单调函数和 sigmoid 连续复合，仍然单调。这样就能把网络输出解释为 CDF，并用两端之差获得非负概率。</p>
+<p>残差潜变量还使用了<strong>尺度超先验</strong>。原因是，不同区域的特征幅度不同：平滑区域可能集中在零附近，复杂区域的分布可能更宽。使用一条固定分布难以同时适配。</p>
+<p>实现过程为：</p>
+<p><span class="math display" data-tex="
+   z=h_a(|y|),\qquad
+   \hat z=Q(z),\qquad
+   b=h_s(\hat z)&gt;0
+   ">
+   z=h_a(|y|),\qquad
+   \hat z=Q(z),\qquad
+   b=h_s(\hat z)&gt;0
+   </span></p>
+<p>其中 <span class="math" data-tex="\hat z">\hat z</span> 是要传输的旁信息，<span class="math" data-tex="b">b</span> 是为每个残差潜变量预测的分布尺度。</p>
+<p><code>mermaid
+   flowchart LR
+       A["残差潜变量 y"] --&gt; B["超编码器"]
+       B --&gt; C["量化旁信息 ẑ"]
+       C --&gt; D["超解码器"]
+       D --&gt; E["分布尺度 b"]
+       A --&gt; F["量化符号 ŷ"]
+       E --&gt; G["条件概率与熵编码"]
+       F --&gt; G</code></p>
+<p>解码端必须先恢复 <span class="math" data-tex="\hat z">\hat z</span>，才能得到相同的分布参数，再正确熵解码 <span class="math" data-tex="\hat y">\hat y</span>。<strong>旁信息必须付出比特成本。</strong></p>
+<p>Ballé 2018 的尺度超先验使用零均值 Gaussian 描述条件分布；这份后续 PyTorch 实现实际调用的是 <strong>Laplace 分布</strong>。虽然源码把变量命名为 <code>gaussian</code>、<code>sigma</code>，仍应以创建的分布对象为准。<a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/reference/net.py#L121">实际概率计算</a></p>
+<p>Laplace 分布的密度为：</p>
+<p><span class="math display" data-tex="
+   f(t\mid b)=\frac1{2b}e^{-|t|/b}
+   ">
+   f(t\mid b)=\frac1{2b}e^{-|t|/b}
+   </span></p>
+<p>积分得到 CDF：</p>
+<p><span class="math display" data-tex="
+   F(t\mid b)=
+   \begin{cases}
+   \frac12e^{t/b}, &amp; t&lt;0\\
+   1-\frac12e^{-t/b}, &amp; t\geq0
+   \end{cases}
+   ">
+   F(t\mid b)=
+   \begin{cases}
+   \frac12e^{t/b}, &amp; t&lt;0\\
+   1-\frac12e^{-t/b}, &amp; t\geq0
+   \end{cases}
+   </span></p>
+<p>因而：</p>
+<p><span class="math display" data-tex="
+   p(\hat y_i=k\mid\hat z)
+   =F(k+\tfrac12\mid b_i)-F(k-\tfrac12\mid b_i)
+   ">
+   p(\hat y_i=k\mid\hat z)
+   =F(k+\tfrac12\mid b_i)-F(k-\tfrac12\mid b_i)
+   </span></p>
+<p>这里 <span class="math" data-tex="b_i">b_i</span> 是 Laplace 的尺度，标准差为 <span class="math" data-tex="\sqrt2b_i">\sqrt2b_i</span>，不能直接套用 Gaussian 的标准差含义。</p>
+<p>于是实现中的完整码率分成三项：</p>
+<p><span class="math display" data-tex="
+   \boxed{
+   R=R_m+R_z+R_y
+   }
+   ">
+   \boxed{
+   R=R_m+R_z+R_y
+   }
+   </span></p>
+<p><span class="math display" data-tex="
+   R_m=-\sum_i\log_2p_m(\hat m_i)
+   ">
+   R_m=-\sum_i\log_2p_m(\hat m_i)
+   </span></p>
+<p><span class="math display" data-tex="
+   R_z=-\sum_j\log_2p_z(\hat z_j)
+   ">
+   R_z=-\sum_j\log_2p_z(\hat z_j)
+   </span></p>
+<p><span class="math display" data-tex="
+   R_y=-\sum_i\log_2p_y(\hat y_i\mid\hat z)
+   ">
+   R_y=-\sum_i\log_2p_y(\hat y_i\mid\hat z)
+   </span></p>
+<p>运动潜变量和超潜变量使用可学习 CDF；残差潜变量使用尺度条件分布。<strong>只统计 <span class="math" data-tex="R_y">R_y</span> 而漏掉 <span class="math" data-tex="R_z">R_z</span>，会低估码率。</strong></p>
+<p>训练时为什么它们能产生梯度？取任意一个连续训练符号 <span class="math" data-tex="s">s</span>：</p>
+<p><span class="math display" data-tex="
+   R(s)=-\log_2p(s)
+   ">
+   R(s)=-\log_2p(s)
+   </span></p>
+<p><span class="math display" data-tex="
+   \frac{\partial R}{\partial s}
+   =-\frac{p'(s)}{p(s)\ln2}
+   ">
+   \frac{\partial R}{\partial s}
+   =-\frac{p'(s)}{p(s)\ln2}
+   </span></p>
+<p>编码器因此会收到“怎样改变特征才能降低编码成本”的信号；概率模型同时学习怎样更准确地拟合这些特征。</p>
+<ol start="4">
+<li><strong>把代码连起来：一次前向计算同时产生重建误差和三种码率。</strong></li>
+</ol>
+<p><a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/dvc_internals.py#L288">教学代码中的 <code>MiniDVC</code></a> 把上述模块连接起来。主要数据流可以压缩成下面这些操作：</p>
+<p>```python
+   # 运动分支
+   flow = model.flow(current, reference)
+   m_hat = quantize(model.motion_encoder(flow), model.training)
+   prediction, warped = model.predict(reference, m_hat)</p>
+<p># 残差与超先验
+   y = model.residual_encoder(current - prediction)
+   z_hat = quantize(model.hyper_encoder(y.abs()), model.training)
+   scale = F.softplus(model.hyper_decoder(z_hat)) + 1e-4
+   y_hat = quantize(y, model.training)</p>
+<p># 重建
+   reconstruction = prediction + model.residual_decoder(y_hat)</p>
+<p># 三种编码成本
+   R_m = estimated_bits(model.motion_cdf.likelihood(m_hat))
+   R_z = estimated_bits(model.hyper_cdf.likelihood(z_hat))
+   R_y = estimated_bits(laplace_mass(y_hat, scale))
+   ```</p>
+<p>假设图像尺寸为 <code>[B, 3, H, W]</code>，则：</p>
+<p><span class="math display" data-tex="
+   \operatorname{bpp}
+   =\frac{R_m+R_z+R_y}{BHW}
+   ">
+   \operatorname{bpp}
+   =\frac{R_m+R_z+R_y}{BHW}
+   </span></p>
+<p><strong>分母使用原图的像素数量，不是潜变量数量，也不再乘 RGB 的通道数 3。</strong></p>
+<p>在 RGB 像素归一化到 <span class="math" data-tex="[0,1]">[0,1]</span> 的情况下，教学训练目标为：</p>
+<p><code>python
+   loss = 256 * F.mse_loss(reconstruction, current) + bpp
+   optimizer.zero_grad()
+   loss.backward()
+   optimizer.step()</code></p>
+<p><code>backward()</code> 会沿着两类路径传播：</p>
+<ul>
+<li>重建误差通过残差解码、运动补偿和可微采样，影响前面的网络。</li>
+<li>编码成本通过概率模型和连续潜变量，影响特征表示及分布参数。</li>
+</ul>
+<p>训练阶段，三个量化位置都使用：</p>
+<p><span class="math display" data-tex="
+   \tilde s=s+\eta,\qquad
+   \eta\sim\mathcal U(-0.5,0.5)
+   ">
+   \tilde s=s+\eta,\qquad
+   \eta\sim\mathcal U(-0.5,0.5)
+   </span></p>
+<p>推理阶段则使用取整。实际代码为：</p>
+<p><code>python
+   def quantize(x, training):
+       if training:
+           return x + torch.empty_like(x).uniform_(-0.5, 0.5)
+       return x.round()</code></p>
+<p>另外，源码还包含几处值得对照阅读的实现选择：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>对照代码中的做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运动压缩</td>
+<td>八层卷积与 LeakyReLU；论文图 3 使用 GDN 结构</td>
+</tr>
+<tr>
+<td>运动补偿</td>
+<td>输入变形图和参考图，输出修正量，再加回变形图</td>
+</tr>
+<tr>
+<td>残差变换</td>
+<td>使用 GDN/IGDN</td>
+</tr>
+<tr>
+<td>早期训练</td>
+<td>前 50 万步增加变形误差和预测误差辅助项，之后移除</td>
+</tr>
+<tr>
+<td>参考图训练方式</td>
+<td>此数据加载器直接读取参考图，不能当作论文在线缓存策略的完整复现</td>
+</tr>
+</tbody>
+</table>
+<p>其中，辅助训练目标对应：</p>
+<p><span class="math display" data-tex="
+   L=
+   \lambda\left[
+   D_{\rm recon}
+   +w(D_{\rm warp}+D_{\rm prediction})
+   \right]+R
+   ">
+   L=
+   \lambda\left[
+   D_{\rm recon}
+   +w(D_{\rm warp}+D_{\rm prediction})
+   \right]+R
+   </span></p>
+<p>早期 <span class="math" data-tex="w=0.1">w=0.1</span>，后期为 0。<a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/reference/main.py#L168">训练脚本</a></p>
+<p>我写的教学版使用纯率失真目标，没有加入这段辅助训练日程，也采用较小通道数与不同的正值参数化，因此不能直接加载原仓库权重。</p>
+<p>还有一个实现边界要明确：<strong>计算 <code>-log2(probability)</code> 只是估计码率。</strong> 真正生成压缩文件，还需要熵编码器用相同的离散概率表编码符号，解码端再用同样的表恢复符号。</p>
+<p>作者原始 TensorFlow 仓库明确未公开熵编码模块；后续 PyTorch 重实现包含 <code>torchac</code> 的实际比特分支，但默认 <code>calrealbits=False</code>。<a href="https://github.com/GuoLusjtu/DVC#entropy-coding">原仓库说明</a></p>
+<p>在你当前环境中，可以直接运行：</p>
+<pre><code class="language-powershell">&amp; "D:\soft\py12\python.exe" "E:\Projects\research\paper-reading\dvc-internals\dvc_internals.py" --check --steps 3
+</code></pre>
+<p>我已验证解析 GDN 梯度、半像素采样及其梯度、CDF 单调性和归一化、Laplace 区间概率、各模块反向传播，以及从相同解码潜变量重建出相同图像。<a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/code/verification.json">验证记录</a></p>
+<p>读代码时按 <code>GDN → warp → PyramidFlow → FactorizedCDF → MiniDVC.forward</code> 的顺序走，最后追踪 <code>loss.backward()</code>：这样能把每一个公式与实际张量操作对应起来。</p>
+<!-- export-addition:R07-portable:begin -->
+<p>【整理时补充运行路径】上方保留当时机器上的原始命令。随本汇编复制的教学代码位于 <code>DVC_讲解资源/code/dvc_internals.py</code>。在汇编所在目录中，用装有 PyTorch 的 Python 运行：</p>
+<pre><code class="language-powershell">python .\DVC_讲解资源\code\dvc_internals.py --check --steps 3
+</code></pre>
+<p>这只是路径适配；沿用原验证记录，不宣称本次重新训练。</p>
+<!-- export-addition:R07-portable:end -->
+<!-- source-body:R07:end --></main><script src="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

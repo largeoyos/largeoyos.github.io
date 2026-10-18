@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第三章 · 第一节 · 证券发行人 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body>
+<header class="bookbar"><strong>金融市场基础知识 · 第三章 / 01</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 59.025%;"></div></header>
+<div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第一节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c3s1-part-01">先看这一节要学到什么程度</a><a class="" href="#c3s1-part-02">教材113页：证券市场融资活动，把定义拆开会用</a><a class="" href="#c3s1-part-03">教材113—114页：融资的方式与三个特征会用</a><a class="" href="#c3s1-part-04">教材114页：发行人的三类主体会认＋会用</a><a class="" href="#c3s1-part-05">教材114—115页：政府为什么发债，央行为什么发票据会认＋背景</a><a class="current" href="#c3s1-part-06">教材115页：公司组织形式和资本性质会用</a><a href="#c3s1-part-07">教材115—116页：IPO 与再融资，按发行对象区分会用</a><a href="#c3s1-part-08">教材116页：金融机构发行的证券，哪些不要背成绝对规则会认</a><a class="" href="#c3s1-part-09">本节练习：先做，再展开解析</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 03 / SECTION 01 · 第三章</div><h2>第一节 · 证券发行人</h2><p>证券市场主体 · 教材正文第113—116页 · 整理日期：2026年10月13日</p><p>会用：能判断例子　会认：能识别对应　背景：理解用途，第一轮不逐字背</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="02-02_中国的多层次资本市场.html">上一节 · 中国的多层次资本市场</a><a href="03-02_证券投资者.html">下一节 · 证券投资者</a></nav><section class="lesson" id="c3s1-part-01"><h3>先看这一节要学到什么程度</h3>
+<p>第三章讲证券市场里的“人”。这里的“人”包括公司、机构和组织。不要把所有机构名称挤进同一个记忆抽屉，先问它在这件事里做什么。</p>
+<p>本节要做到：看见一个例子，能判断谁是发行人、谁是投资者；知道股票和债券给企业带来的资本性质不同；分清 IPO、配股、增发、定向发行和可转债。政府发债的历史背景只用于解释动机，不需要把整段背下来。</p>
+<p>这一章沿教材小标题顺序讲解，压缩重复表述。标记的意思是：<strong><span class="level use">会用</span>能判断例子和排除错误选项；<span class="level recognize">会认</span>能识别名称、特点、数字及对应关系；<span class="level context">背景</span>只理解它为什么出现。</strong>这是学习优先级，不是根据题库统计得到的出题频率。</p>
+<figure class="diagram" data-diagram="market-roles"><figcaption class="figure-label">SVG · 一张图认清第三章的六组角色</figcaption><div class="diagram-interactive"><div id="finance-market-roles">
+<h3>一张图认清第三章的六组角色</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">六组角色</button></div>
+<div data-diagrams=""><svg aria-label="资金两端与服务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>资金两端与服务</title><desc>发行人，发证券筹钱；投资者，买证券出资；中介机构，提供专业服务。；</desc><defs><marker id="arrow-market-roles-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金两端与服务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">发证券筹钱</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">买证券出资</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">中介机构</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">提供专业服务</text></svg><svg aria-label="规则与权益保障" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>规则与权益保障</title><desc>自律组织，维护行业秩序；保护机构，保护合法权益；监管机构，依法监督市场。；</desc><defs><marker id="arrow-market-roles-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">规则与权益保障</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">自律组织</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">维护行业秩序</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">保护机构</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">保护合法权益</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">监管机构</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依法监督市场</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">六组角色</div>
+<script data-config="" type="application/json">{"heading": "一张图认清第三章的六组角色", "states": [{"label": "六组角色", "rows": [{"label": "资金两端与服务", "nodes": [["发行人", "发证券筹钱"], ["投资者", "买证券出资"], ["中介机构", "提供专业服务"]], "edges": ["", ""], "noArrows": true}, {"label": "规则与权益保障", "nodes": [["自律组织", "维护行业秩序"], ["保护机构", "保护合法权益"], ["监管机构", "依法监督市场"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-market-roles .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-market-roles .finance-flow text {fill:currentColor;font:inherit}
+#finance-market-roles .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-market-roles .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-market-roles .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-market-roles');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-market-roles-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-market-roles-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>六组角色</h4><div><svg aria-label="资金两端与服务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资金两端与服务</title><desc>发行人，发证券筹钱；投资者，买证券出资；中介机构，提供专业服务。；</desc><defs><marker id="print-03-01-0-0-arrow-market-roles-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金两端与服务</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">发行人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">发证券筹钱</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">买证券出资</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">中介机构</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">提供专业服务</text></svg><svg aria-label="规则与权益保障" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>规则与权益保障</title><desc>自律组织，维护行业秩序；保护机构，保护合法权益；监管机构，依法监督市场。；</desc><defs><marker id="print-03-01-0-0-arrow-market-roles-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">规则与权益保障</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">自律组织</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">维护行业秩序</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">保护机构</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">保护合法权益</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">监管机构</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依法监督市场</text></svg></div></div></div></figure>
+<p>先认住六组角色：发行人需要融资；投资者提供资金；中介提供专业服务；自律组织维护行业和市场秩序；保护机构帮助保护投资者权益；监管机构依法监督市场。同一家公司在不同业务中可以扮演不同角色，角色取决于行为。</p></section><section class="lesson" id="c3s1-part-02"><h3>教材113页：证券市场融资活动，把定义拆开<span class="level use">会用</span></h3>
+<p>“资金盈余单位”就是暂时有钱可以拿出来投资的人或机构。“资金赤字单位”就是需要筹钱的人或机构。这里的赤字只是融资需求，不等于经营亏损。</p>
+<p>“以有价证券为媒介”就是说：出钱的人拿到的不是口头承诺，而是股票、债券、基金份额等证券及其对应权利。</p>
+<p>例如，甲公司发行债券筹到一亿元。投资者把钱交给甲公司，获得向甲公司要求还本付息的债权。甲是发行人，购买债券的人是投资者。如果发行的是股票，投资者取得股东权利，而不是一笔约定到期归还的贷款。</p>
+<p>“财产所有权、收益权或债权”列举的是不同证券可能代表的权利，<strong>不是每一种证券都同时给你这三种权利。</strong>股票、债券、基金份额要分别理解。</p>
+<p>原投资者想退出，可以把证券卖给另一位投资者。发行人通常并不因此重新收到一笔发行融资款。你在第一章学过的“一级市场融资、二级市场转让”在这里继续适用。</p>
+<p><strong>题目常见改写：</strong>“资金赤字单位是亏损企业”“所有证券都代表债权”“投资者出售股票相当于向发行公司要求还本”，都不成立。</p></section><section class="lesson" id="c3s1-part-03"><h3>教材113—114页：融资的方式与三个特征<span class="level use">会用</span></h3>
+<p>教材主要列股票融资、债券融资，也提到投资基金融资。第一轮先抓股票与债券。基金把投资者资金集中起来投资，基金份额与某一家被投企业的股票不是同一种权利凭证。</p>
+<p>三个特征逐个理解：</p>
+<ol>
+<li><strong>直接融资。</strong>投资者直接对发行人拥有股权或债权。券商帮忙销售债券，仍可以是直接融资，因为券商在承销服务环节没有把投资者的债权换成对券商的债权。注意，券商自己买入证券时，它在那笔交易中又可以成为投资者。</li>
+<li><strong>强市场性。</strong>证券可以在市场交易，原来的股权、债权可以转移，价格也受市场供求影响。“强”说的是证券市场融资与协议式融资相比的市场化、可交易特点，不是说所有证券随时都能卖出，也不是说没有交易限制。</li>
+<li><strong>依靠证券服务体系。</strong>发行、交易、登记、清算、交收需要不同专业机构协作。直接融资不等于发行人什么都自己办。</li>
+</ol>
+<p><strong>掌握检查：</strong>你要能解释“有中介服务”与“直接融资”为什么不矛盾。解释不清楚时，回到投资者究竟对谁拥有权利这一个问题。</p></section><section class="lesson" id="c3s1-part-04"><h3>教材114页：发行人的三类主体<span class="level use">会认＋会用</span></h3>
+<p>发行人就是为筹措资金而发行证券的主体。教材按政府及其机构、企业公司、金融机构三类讲。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>发行人</th>
+<th>本节抓住的融资工具</th>
+<th>要避免的混淆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>政府及政府机构</td>
+<td>政府证券一般为债券；央行还可能发行调控用票据</td>
+<td>买国债不是成为国家的股东</td>
+</tr>
+<tr>
+<td>企业公司</td>
+<td>符合条件发行股票或债券</td>
+<td>股份有限公司可以发行股票，不是所有企业组织都能发行股票</td>
+</tr>
+<tr>
+<td>金融机构</td>
+<td>可以发行债券，股份制机构也可发行股票</td>
+<td>银行发行债券时是发行人，银行买债券时是投资者</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么金融机构被单独列出？</strong>因为金融机构的业务性质、金融债监管与一般企业有区别。概念上金融机构也可能采用公司制，这两种分类视角有重叠，不能据此说金融机构绝不是公司。</p></section><section class="lesson" id="c3s1-part-05"><h3>教材114—115页：政府为什么发债，央行为什么发票据<span class="level context">会认＋背景</span></h3>
+<p>政府发债可以用于调剂财政短期周转、弥补财政赤字、基础设施建设、实施政策，历史上也用于战争开支。<strong><span class="level recognize">会认</span>认得这些用途；<span class="level context">背景</span>不需要背每种用途的历史论述。</strong>讲它是为了让你理解，发行债券既可能满足财政融资需要，也可能服务政策目标。</p>
+<p>教材把中央政府债券视为无风险证券，用其收益率代表无风险利率。这里采用的是金融分析中的常见基准：信用风险很低。<strong>“无风险基准”不要扩大成价格不会下跌、没有利率风险、没有通胀风险，或全球任何主权债都绝不违约。</strong>做题看清问的是信用风险还是所有风险。</p>
+<p>央行证券有两种教材例子：有些国家采用股份制央行，发行股票，但股东并不能像普通企业股东那样决定货币政策；我国央行曾发行中央银行票据，用于对冲过多流动性。</p>
+<p>买央行票据，资金从购买方流向央行，通常对应回收流动性；这是第二章公开市场操作的连接点。我国央票从2003年开始发行、教材所列期限3个月至3年，属于<strong><span class="level recognize">会认</span>历史口径</strong>。外国央行组织形式属于背景，第一轮抓“持股不等于决定央行政策”，无需扩展各国制度。</p></section><section class="lesson" id="c3s1-part-06"><h3>教材115页：公司组织形式和资本性质<span class="level use">会用</span></h3>
+<p>独资制、合伙制、公司制，是企业组织形式。现代公司主要有有限责任公司与股份有限公司。<strong>股票发行对应股份有限公司。</strong>不要将“有限责任”与“股份”当成同一个词。</p>
+<p>发行股票筹来的钱，进入公司的自有资本，也就是权益资本。发行债券筹来的钱，是借入资本，对应债务。</p>
+<figure class="diagram" data-diagram="equity-debt"><figcaption class="figure-label">SVG · 同样收到资金，股本与债务不同</figcaption><div class="diagram-interactive"><div id="finance-equity-debt">
+<h3>同样收到资金，股本与债务不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">股票融资</button><button aria-pressed="false" class="btn" type="button">债券融资</button></div>
+<div data-diagrams=""><svg aria-label="资金流向" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>资金流向</title><desc>投资者，支付认购款；公司，收到资金。出资</desc><defs><marker id="arrow-equity-debt-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金流向</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付认购款</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">收到资金</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-equity-debt-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">出资</text></svg><svg aria-label="权利与资本性质" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>权利与资本性质</title><desc>投资者，取得股东权利；公司，增加权益资本。</desc><defs><marker id="arrow-equity-debt-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">权利与资本性质</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">取得股东权利</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">增加权益资本</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">股票融资</div>
+<script data-config="" type="application/json">{"heading": "同样收到资金，股本与债务不同", "states": [{"label": "股票融资", "rows": [{"label": "资金流向", "nodes": [["投资者", "支付认购款"], ["公司", "收到资金"]], "edges": ["出资"]}, {"label": "权利与资本性质", "nodes": [["投资者", "取得股东权利"], ["公司", "增加权益资本"]], "edges": [""], "noArrows": true}]}, {"label": "债券融资", "rows": [{"label": "资金流向", "nodes": [["投资者", "支付认购款"], ["公司", "收到资金"]], "edges": ["出资"]}, {"label": "权利与资本性质", "nodes": [["投资者", "取得债权"], ["公司", "形成债务资本"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-equity-debt .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-equity-debt .finance-flow text {fill:currentColor;font:inherit}
+#finance-equity-debt .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-equity-debt .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-equity-debt .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-equity-debt');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-equity-debt-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-equity-debt-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>股票融资</h4><div><svg aria-label="资金流向" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资金流向</title><desc>投资者，支付认购款；公司，收到资金。出资</desc><defs><marker id="print-03-01-1-0-arrow-equity-debt-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金流向</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付认购款</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收到资金</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-01-1-0-arrow-equity-debt-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">出资</text></svg><svg aria-label="权利与资本性质" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>权利与资本性质</title><desc>投资者，取得股东权利；公司，增加权益资本。</desc><defs><marker id="print-03-01-1-0-arrow-equity-debt-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">权利与资本性质</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">取得股东权利</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">增加权益资本</text></svg></div></div><div class="diagram-print-state"><h4>债券融资</h4><div><svg aria-label="资金流向" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资金流向</title><desc>投资者，支付认购款；公司，收到资金。出资</desc><defs><marker id="print-03-01-1-1-arrow-equity-debt-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金流向</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付认购款</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收到资金</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-03-01-1-1-arrow-equity-debt-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">出资</text></svg><svg aria-label="权利与资本性质" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>权利与资本性质</title><desc>投资者，取得债权；公司，形成债务资本。</desc><defs><marker id="print-03-01-1-1-arrow-equity-debt-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">权利与资本性质</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">取得债权</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">形成债务资本</text></svg></div></div></div></figure>
+<p>例子：公司发行新股获得5000万元，它增加了权益融资；发行五年期债券获得5000万元，它增加了长期债务融资。金额一样，法律关系、偿还义务和资本性质不同。</p>
+<p>股票和长期债券主要用于长期资本；短期债券可用于补充流动资金。<strong>“长期资本”不是只指股本，也可以包括长期借入资本。</strong>技术进步使企业长期资本需求增加，是背景解释；讲它是说明企业发行证券的重要性，不需要逐字背。</p></section><section class="lesson" id="c3s1-part-07"><h3>教材115—116页：IPO 与再融资，按发行对象区分<span class="level use">会用</span></h3>
+<p>IPO 是首次公开发行股票。教材采用“首次面向公众发行并上市”的教学表述。抓住“首次公开发行”，并知道在注册制下发行注册与上市审核等程序相衔接。</p>
+<p>再融资是公司已经上市后，再发行证券筹钱。教材这里列四种：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>钱向谁募集</th>
+<th>一眼识别的关键词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配股</td>
+<td>原股东</td>
+<td>按原持股比例分配新股认购权</td>
+</tr>
+<tr>
+<td>向不特定对象募集股份，教材简称增发</td>
+<td>不特定对象</td>
+<td>公开募集新股</td>
+</tr>
+<tr>
+<td>向特定对象发行股票，常称定向增发</td>
+<td>特定对象</td>
+<td>发行对象特定</td>
+</tr>
+<tr>
+<td>发行可转换公司债券</td>
+<td>债券认购者</td>
+<td>先是债券，符合约定时可转为股票</td>
+</tr>
+</tbody>
+</table></div>
+<p>配股只是给原股东认购新股的权利，通常需要出钱认购；<strong>不是免费送红股。</strong>“一股配若干股”描述认购额度，不是在说自动获得新股。</p>
+<p>增发是发行新股，不是老股东在二级市场出售旧股票。“定向”描述对象特定，不能仅靠“公司想筹钱”判断是否定向。</p>
+<p>可转债在尚未转股时体现债权关系；转股后变成股东关系，公司相应债务转为股本。可能转换，不等于发行当天就全部变成股票，也不等于每位投资者必然选择转股。转换条款增加吸引力，可能降低发行人的融资成本，但不是永远比所有融资方式更便宜。</p>
+<p><strong>例题思路：</strong>“向所有原股东按10股配3股筹钱”找配股；“向一家机构发行新股”找向特定对象发行；“持有者可按约定价格换普通股”找可转债。</p></section><section class="lesson" id="c3s1-part-08"><h3>教材116页：金融机构发行的证券，哪些不要背成绝对规则<span class="level recognize">会认</span></h3>
+<p>金融机构既可以发债，也可以由符合条件的股份制金融机构发行股票。我国教材把金融机构发行的债券称为金融债券，金融机构股票通常归入公司股票。</p>
+<p>最可靠的核心是：<strong>金融债券代表金融机构与持有人之间的债权债务关系。</strong>买银行股票与买银行金融债，获得的权利不同。</p>
+<p>教材随后列不记名、不挂失、固定利率、不提前支取、利率高于同期储蓄利率、专款专用等特点。<strong>这些描述有历史产品背景，不宜理解为今天所有金融债都必须满足的通则。</strong>记名安排、计息方式、利率、赎回和用途要看具体发行规则与条款；“银行发的债一定高于存款利率、一定无风险”不能由本节推出。</p>
+<p>这里仍讲这段，是避免你看题遇到教材措辞时完全陌生；第一轮知道教材列了什么，但不要把历史特点升级成没有例外的定义。对明确引用该版教材特点的题，识别其版本口径；对现实产品判断，核对产品条款。</p></section><section class="lesson" id="c3s1-part-09"><h3>本节练习：先做，再展开解析</h3>
+<ol>
+<li>券商帮甲公司承销债券，投资者的债权指向甲公司。因为有券商参与，这属于间接融资吗？</li>
+<li>某银行发行金融债；另一笔业务中又买入国债。它在两笔业务中的角色分别是什么？</li>
+<li>公司向原股东按持股比例提供新股认购权，是配股还是免费送股？</li>
+<li>可转债投资者还没有转股，是否已经成为公司普通股股东？</li>
+<li>股份有限公司发行五年期债券筹钱，这笔钱属于自有资本还是借入资本？</li>
+<li>因为国债是无风险利率基准，国债市场价格不可能下跌。判断对错。</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li><strong>不是。</strong>服务中介没有改变投资者与发行人之间的直接债权关系。</li>
+<li><strong>发行人；投资者。</strong>机构身份相同，业务角色不同。</li>
+<li><strong>配股。</strong>认购新股需要按安排支付认购价，不是送红股。</li>
+<li><strong>不是。</strong>尚未转股仍按债券条款享有债权；转股后才取得对应股份。</li>
+<li><strong>借入资本。</strong>期限长不改变债务属性。</li>
+<li><strong>错误。</strong>无风险基准主要涉及信用风险判断，不消除利率变动带来的价格风险。</li>
+</ol>
+</div>
+</details>
+<p><strong>本节过关标准：</strong>不用看讲义，能解释直接融资与中介服务的关系；能举例区分三类发行人；能说清四种再融资方式；能区分权益与债务。错的是概念关系就重看对应图，错的是名称就重看表，不用整节从头背。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="02-02_中国的多层次资本市场.html">上一节 · 中国的多层次资本市场</a><a href="03-02_证券投资者.html">下一节 · 证券投资者</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。依据用户提供的2025版扫描教材，按本节小标题顺序解释；保留必要概念、识别细节与练习，压缩重复论述。相邻节可能共用同一教材页。</p><p>优先级标记表示学习要求，不是已核验的出题频率。各制度数字须连同主体、分母、年份理解；修订说明在对应段标出。</p><p>本节HTML无需联网即可阅读，SVG图与公式保存在文件内；出处链接需联网。练习为本讲义自编诊断题。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

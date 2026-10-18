@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第七章 · 第四节 · 其他衍生工具 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第七章 / 04</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 91.2539%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第四节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c7s4-part-01">01 · 本节目标：存托凭证看代表什么，结构化产品看怎么付钱</a><a class="" href="#c7s4-part-02">02 · DR：让本地投资者交易境外证券权益的凭证</a><a class="" href="#c7s4-part-03">03 · 存券银行、托管银行、中央存托机构：位置与职责不同</a><a class="" href="#c7s4-part-04">04 · 便利与风险：以美元交易没有抹去境外风险</a><a class="" href="#c7s4-part-05">05 · Sponsored不是收益担保：教材翻译容易误导</a><a class="" href="#c7s4-part-06">06 · ADR级别：一级交易便利、二级上市、三级公开融资</a><a class="" href="#c7s4-part-07">07 · 国内企业海外发行历程：保留五阶段用途</a><a class="" href="#c7s4-part-08">08 · CDR：境内存托人签发，代表境外基础证券权益</a><a class="" href="#c7s4-part-09">09 · 转换比例：1股对10份，价格也要按同一权益比较</a><a class="" href="#c7s4-part-10">10 · 结构化产品：拆基础资金安排与衍生支付条款</a><a class="" href="#c7s4-part-11">11 · 本金保障、最低收益、最高收益：三件事分别问</a><a class="" href="#c7s4-part-12">12 · 教材例7-1：数上涨股票的个数，不能算平均涨幅</a><a class="" href="#c7s4-part-13">13 · 教材例7-2：累算远期“打折买股”暗含更多义务</a><a class="" href="#c7s4-part-14">14 · 上涨被终止，下跌加量：收益风险不对称在哪里</a><a class="current" href="#c7s4-part-15">15 · 读任何结构化条款的六个检查点</a><a href="#c7s4-part-16">16 · 自编诊断题：本章最后一组</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 07 / SECTION 04 · 第七章</div><h2>第四节 · 其他衍生工具</h2><p>金融衍生工具 · 教材正文第489—497页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="07-03_远期与互换交易.html">上一节 · 远期与互换交易</a><a href="08-01_风险管理概述.html">下一节 · 风险管理概述</a></nav><section class="lesson" id="c7s4-part-01"><h3>01 · 本节目标：存托凭证看代表什么，结构化产品看怎么付钱</h3>
+<p>教材正文489—497页讲存托凭证与结构化产品，两者的读法不同。存托凭证是跨境基础证券权益的代表；结构化产品将基础工具与衍生条款组合，按条件计算支付。</p>
+<p><span class="level use">会用</span>存券与托管职责、ADR分类、CDR转换比例、结构化收益条件、累算远期的不对称风险。<span class="level recognize">会认</span>参与主体与国内制度。<span class="level context">背景</span>海外发行历程、案例机构与历史年份，为制度来源服务。</p>
+<p>存托凭证列在“其他衍生工具”下，不意味着每一份存托凭证都是期权或具备前述会计衍生工具的全部特征。<strong>“代表基础股票权益”与“未来触发后按公式结算”不能混成同一个定义。</strong></p></section><section class="lesson" id="c7s4-part-02"><h3>02 · DR：让本地投资者交易境外证券权益的凭证</h3>
+<p>存托凭证DR一般代表境外公司股票等基础证券的权益，可在另一市场按相应制度流通。ADR指美国存托凭证，CDR指中国境内存托凭证，GDR、HDR、TDR等有相应市场与制度含义。</p>
+<figure class="diagram" data-diagram="c7-dr-chain"><figcaption class="figure-label">SVG · 境外基础证券与本地存托凭证衔接</figcaption><div class="diagram-interactive"><div id="finance-c7-dr-chain">
+<h3>境外基础证券与本地存托凭证衔接</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">权益代表</button><button aria-pressed="false" class="btn" type="button">股利传递</button></div>
+<div data-diagrams=""><svg aria-label="简化存托结构" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>简化存托结构</title><desc>境外基础证券，托管账户保管；存券银行或存托人，签发相应凭证；本地投资者，持有存托凭证。代表权益；本地交易</desc><defs><marker id="arrow-c7-dr-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">简化存托结构</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外基础证券</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">托管账户保管</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">存券银行或存托人</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">签发相应凭证</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">本地投资者</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">持有存托凭证</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c7-dr-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">代表权益</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c7-dr-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">本地交易</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">权益代表</div>
+<script data-config="" type="application/json">{"heading": "境外基础证券与本地存托凭证衔接", "states": [{"label": "权益代表", "rows": [{"label": "简化存托结构", "nodes": [["境外基础证券", "托管账户保管"], ["存券银行或存托人", "签发相应凭证"], ["本地投资者", "持有存托凭证"]], "edges": ["代表权益", "本地交易"]}]}, {"label": "股利传递", "rows": [{"label": "扣除适用税费等", "nodes": [["基础公司股利", "依权利取得"], ["存托安排", "处理汇兑税费"], ["凭证持有人", "依协议收取"]], "edges": ["传递权益", "分配现金"]}]}]}</script>
+</div>
+<style>
+#finance-c7-dr-chain .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-dr-chain .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-dr-chain .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-dr-chain .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-dr-chain .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-dr-chain');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-dr-chain-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-dr-chain-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>权益代表</h4><div><svg aria-label="简化存托结构" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>简化存托结构</title><desc>境外基础证券，托管账户保管；存券银行或存托人，签发相应凭证；本地投资者，持有存托凭证。代表权益；本地交易</desc><defs><marker id="print-07-04-0-0-arrow-c7-dr-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">简化存托结构</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">境外基础证券</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">托管账户保管</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">存券银行或存托人</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">签发相应凭证</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">本地投资者</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">持有存托凭证</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-04-0-0-arrow-c7-dr-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">代表权益</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-04-0-0-arrow-c7-dr-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">本地交易</text></svg></div></div><div class="diagram-print-state"><h4>股利传递</h4><div><svg aria-label="扣除适用税费等" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>扣除适用税费等</title><desc>基础公司股利，依权利取得；存托安排，处理汇兑税费；凭证持有人，依协议收取。传递权益；分配现金</desc><defs><marker id="print-07-04-0-1-arrow-c7-dr-chain-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">扣除适用税费等</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">基础公司股利</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">依权利取得</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">存托安排</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">处理汇兑税费</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">凭证持有人</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依协议收取</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-04-0-1-arrow-c7-dr-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">传递权益</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-04-0-1-arrow-c7-dr-chain-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">分配现金</text></svg></div></div></div></figure>
+<p>直观例：英国股票存在指定托管账户，存券银行签发代表相应股票的ADR，美国投资者交易ADR。投资者不必每笔都直接到英国交易股票，股利等通过存托安排传递。</p>
+<p>1927年J.P.摩根与英国塞尔弗里奇公司有关的ADR案例，是教材讲跨境投资便利的历史起点。记“境外基础证券→本地可交易凭证”的结构即可，不必第一轮背公司英文拼写。</p></section><section class="lesson" id="c7s4-part-03"><h3>03 · 存券银行、托管银行、中央存托机构：位置与职责不同</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>机构</th>
+<th>主要职责</th>
+<th>识别词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存券银行或存托人</td>
+<td>签发、注销凭证，安排登记过户，传递股利与信息，依协议协助行使权益</td>
+<td>发凭证、管理存托安排</td>
+</tr>
+<tr>
+<td>托管银行或托管人</td>
+<td>在基础证券市场保管基础证券，按指令处理相应股利和证券事务等</td>
+<td>保管境外基础证券</td>
+</tr>
+<tr>
+<td>中央存托与结算机构</td>
+<td>在凭证市场提供集中保管、清算结算等服务</td>
+<td>市场层面的登记结算</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="diagram" data-diagram="c7-dr-roles"><figcaption class="figure-label">SVG · 签发、保管基础证券、集中结算分开</figcaption><div class="diagram-interactive"><div id="finance-c7-dr-roles">
+<h3>签发、保管基础证券、集中结算分开</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">三个职责</button></div>
+<div data-diagrams=""><svg aria-label="角色不要靠名字猜" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>角色不要靠名字猜</title><desc>存券银行存托人，签发注销凭证；托管银行托管人，保管基础证券；中央存托结算机构，凭证市场结算。；</desc><defs><marker id="arrow-c7-dr-roles-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">角色不要靠名字猜</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">存券银行存托人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">签发注销凭证</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">托管银行托管人</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">保管基础证券</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">中央存托结算机构</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">凭证市场结算</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">三个职责</div>
+<script data-config="" type="application/json">{"heading": "签发、保管基础证券、集中结算分开", "states": [{"label": "三个职责", "rows": [{"label": "角色不要靠名字猜", "nodes": [["存券银行存托人", "签发注销凭证"], ["托管银行托管人", "保管基础证券"], ["中央存托结算机构", "凭证市场结算"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c7-dr-roles .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-dr-roles .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-dr-roles .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-dr-roles .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-dr-roles .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-dr-roles');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-dr-roles-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-dr-roles-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三个职责</h4><div><svg aria-label="角色不要靠名字猜" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>角色不要靠名字猜</title><desc>存券银行存托人，签发注销凭证；托管银行托管人，保管基础证券；中央存托结算机构，凭证市场结算。；</desc><defs><marker id="print-07-04-1-0-arrow-c7-dr-roles-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">角色不要靠名字猜</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">存券银行存托人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">签发注销凭证</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">托管银行托管人</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">保管基础证券</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">中央存托结算机构</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">凭证市场结算</text></svg></div></div></div></figure>
+<p>教材ADR存券银行是ADR发行人和中介，但基础股票发行公司是经营公司，两种“发行”对象不同。托管银行可以是存券银行当地分支、附属或代理机构等，不能由此把两个角色永远认成一家机构。</p>
+<p>“存托”与“托管”名称像，但题目用“签发存托凭证”找存托人；用“保管境外基础证券”找托管人。比背三段相似机构介绍更有用。</p></section><section class="lesson" id="c7s4-part-04"><h3>04 · 便利与风险：以美元交易没有抹去境外风险</h3>
+<p>发行人可能扩大投资者基础、增加交易便利并按计划融资；投资者可在熟悉市场及币种交易、取得股利与相应信息。但是否融资，要看ADR计划与基础证券发行安排，不是每次签发都新增公司资本。</p>
+<p>ADR以美元报价或派息，不意味着底层股价、汇率、跨境规则、存托费用和转换条件风险消失。基础公司分红后还可能涉及汇兑、税费和存托费用，持有人到账不一定等于按简单汇率换算的毛股利。</p>
+<p>教材“避开直接发行法律要求”指制度安排与手续差别，不是可以绕开全部证券法、披露与上市条件。权利传递按存托协议，有时须通过存托人投票，不等于投资者直接在所有公司事务中独立行使全部股东程序。</p></section><section class="lesson" id="c7s4-part-05"><h3>05 · Sponsored不是收益担保：教材翻译容易误导</h3>
+<p>教材把ADR分成“有担保、无担保”，实质对应Sponsored与Unsponsored：前者有基础证券发行人参与的存托计划，后者通常由存券银行按需求发起、基础发行人不直接参与。</p>
+<figure class="diagram" data-diagram="c7-adr-sponsor"><figcaption class="figure-label">SVG · 有担保译法不意味着担保收益</figcaption><div class="diagram-interactive"><div id="finance-c7-adr-sponsor">
+<h3>有担保译法不意味着担保收益</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">Sponsored</button><button aria-pressed="false" class="btn" type="button">Unsponsored</button></div>
+<div data-diagrams=""><svg aria-label="基础发行人参与" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>基础发行人参与</title><desc>基础证券发行人，参与存托计划；存券银行，按协议签发凭证。参与安排</desc><defs><marker id="arrow-c7-adr-sponsor-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">基础发行人参与</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基础证券发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">参与存托计划</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">存券银行</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按协议签发凭证</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c7-adr-sponsor-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">参与安排</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">Sponsored</div>
+<script data-config="" type="application/json">{"heading": "有担保译法不意味着担保收益", "states": [{"label": "Sponsored", "rows": [{"label": "基础发行人参与", "nodes": [["基础证券发行人", "参与存托计划"], ["存券银行", "按协议签发凭证"]], "edges": ["参与安排"]}]}, {"label": "Unsponsored", "rows": [{"label": "基础发行人不直接参与", "nodes": [["存券银行", "依需求发起安排"], ["ADR持有人", "依协议享有权益"]], "edges": ["签发凭证"]}]}]}</script>
+</div>
+<style>
+#finance-c7-adr-sponsor .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-adr-sponsor .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-adr-sponsor .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-adr-sponsor .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-adr-sponsor .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-adr-sponsor');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-adr-sponsor-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-adr-sponsor-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>Sponsored</h4><div><svg aria-label="基础发行人参与" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>基础发行人参与</title><desc>基础证券发行人，参与存托计划；存券银行，按协议签发凭证。参与安排</desc><defs><marker id="print-07-04-2-0-arrow-c7-adr-sponsor-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">基础发行人参与</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基础证券发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">参与存托计划</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">存券银行</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">按协议签发凭证</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-2-0-arrow-c7-adr-sponsor-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">参与安排</text></svg></div></div><div class="diagram-print-state"><h4>Unsponsored</h4><div><svg aria-label="基础发行人不直接参与" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>基础发行人不直接参与</title><desc>存券银行，依需求发起安排；ADR持有人，依协议享有权益。签发凭证</desc><defs><marker id="print-07-04-2-1-arrow-c7-adr-sponsor-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">基础发行人不直接参与</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">存券银行</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依需求发起安排</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">ADR持有人</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">依协议享有权益</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-2-1-arrow-c7-adr-sponsor-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">签发凭证</text></svg></div></div></div></figure>
+<p>这里“有担保”<strong>不表示银行承诺股价不跌、保证分红或兜底本金</strong>。做题应按基础证券发行人是否参与辨认，不用金融担保的含义解释Sponsored。<a href="https://www.sec.gov/rules-regulations/2003/09/additional-form-f-6-eligibility-requirement-related-listed-status-deposited-securities-underlying" rel="noopener" target="_blank">SEC关于Sponsored与Unsponsored设施的说明</a></p>
+<p>存托协议明确发行人、存托人、持有人的权利义务；历史叙述中的承销安排不应替代所有计划的法定当事人判断。</p></section><section class="lesson" id="c7s4-part-06"><h3>06 · ADR级别：一级交易便利、二级上市、三级公开融资</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>典型计划</th>
+<th>主要定位</th>
+<th>不能误认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一级</td>
+<td>通常场外交易，为既有证券提供交易便利</td>
+<td>不等于已在美国交易所上市或公开募资</td>
+</tr>
+<tr>
+<td>二级</td>
+<td>交易所上市，通常不以新增公开募资为目的</td>
+<td>不等于三级公开募集</td>
+</tr>
+<tr>
+<td>三级</td>
+<td>上市并可开展相应公开募资</td>
+<td>仍有注册、披露等要求</td>
+</tr>
+<tr>
+<td>Rule 144A私募</td>
+<td>面向相应合格机构买家等</td>
+<td>不是向所有个人公开发售</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="diagram" data-diagram="c7-adr-levels"><figcaption class="figure-label">SVG · 级别看交易地点与融资功能</figcaption><div class="diagram-interactive"><div id="finance-c7-adr-levels">
+<h3>级别看交易地点与融资功能</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">典型安排</button><button aria-pressed="false" class="btn" type="button">144A</button></div>
+<div data-diagrams=""><svg aria-label="不是收益评级" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>不是收益评级</title><desc>一级，通常场外便利；二级，交易所上市；三级，上市及公开募资。；</desc><defs><marker id="arrow-c7-adr-levels-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是收益评级</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">一级</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通常场外便利</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">二级</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">交易所上市</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">三级</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">上市及公开募资</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">典型安排</div>
+<script data-config="" type="application/json">{"heading": "级别看交易地点与融资功能", "states": [{"label": "典型安排", "rows": [{"label": "不是收益评级", "nodes": [["一级", "通常场外便利"], ["二级", "交易所上市"], ["三级", "上市及公开募资"]], "edges": ["", ""], "noArrows": true}]}, {"label": "144A", "rows": [{"label": "机构私募", "nodes": [["相应合格机构买家", "按规则私募参与"], ["不向所有公众", "区别于公开募资"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c7-adr-levels .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-adr-levels .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-adr-levels .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-adr-levels .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-adr-levels .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-adr-levels');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-adr-levels-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-adr-levels-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>典型安排</h4><div><svg aria-label="不是收益评级" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>不是收益评级</title><desc>一级，通常场外便利；二级，交易所上市；三级，上市及公开募资。；</desc><defs><marker id="print-07-04-3-0-arrow-c7-adr-levels-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">不是收益评级</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">一级</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">通常场外便利</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">二级</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">交易所上市</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">三级</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">上市及公开募资</text></svg></div></div><div class="diagram-print-state"><h4>144A</h4><div><svg aria-label="机构私募" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>机构私募</title><desc>相应合格机构买家，按规则私募参与；不向所有公众，区别于公开募资。</desc><defs><marker id="print-07-04-3-1-arrow-c7-adr-levels-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">机构私募</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">相应合格机构买家</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规则私募参与</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">不向所有公众</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">区别于公开募资</text></svg></div></div></div></figure>
+<p>教材强调级别越高通常有更高披露或注册要求，不代表风险随级别上升自动降低，也不保证三级股价比一级更好。先掌握是否交易所上市、是否融资、面向谁，实际美国法律程序不在本节完整展开。</p></section><section class="lesson" id="c7s4-part-07"><h3>07 · 国内企业海外发行历程：保留五阶段用途</h3>
+<p>教材五阶段可以压成：1993—1995早期美国发行探索；1996—1998基础设施与公用事业扩展；1998—2000前后市场阶段性受限；2000—2001高科技与大型国企上市；2002年以来不同类型企业进一步分化发展。</p>
+<p><span class="level context">背景</span>作用是说明不同企业为什么选择跨境市场，以及ADR可能依托H股、境外上市股份等。企业名单、2016年交易规模与市值排名不是实时清单，<strong>“某企业历史上成功登陆美国”不证明其今天仍在同一交易所上市</strong>。</p>
+<p>第一轮不必背每个公司的上市年份与股票代码。若习题明确问国内最早探索或阶段，才回教材对应段落；本节主要机构题与结构题不依赖那串名单。</p></section><section class="lesson" id="c7s4-part-08"><h3>08 · CDR：境内存托人签发，代表境外基础证券权益</h3>
+<p>CDR由存托人签发，以境外证券为基础，在中国境内发行，代表相应境外基础证券权益。基础财产包括基础证券及其衍生权益，不只是最初一张股票证书。</p>
+<figure class="diagram" data-diagram="c7-cdr-rights"><figcaption class="figure-label">SVG · CDR通过存托协议代表境外权益</figcaption><div class="diagram-interactive"><div id="finance-c7-cdr-rights">
+<h3>CDR通过存托协议代表境外权益</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">基础与凭证</button><button aria-pressed="false" class="btn" type="button">保管</button></div>
+<div data-diagrams=""><svg aria-label="角色衔接" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>角色衔接</title><desc>境外基础发行人，发行基础证券；境内存托人，持有并签发CDR；CDR持有人，按协议享权益。基础财产；签发凭证</desc><defs><marker id="arrow-c7-cdr-rights-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">角色衔接</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">境外基础发行人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">发行基础证券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">境内存托人</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">持有并签发CDR</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">CDR持有人</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按协议享权益</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c7-cdr-rights-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">基础财产</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c7-cdr-rights-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">签发凭证</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">基础与凭证</div>
+<script data-config="" type="application/json">{"heading": "CDR通过存托协议代表境外权益", "states": [{"label": "基础与凭证", "rows": [{"label": "角色衔接", "nodes": [["境外基础发行人", "发行基础证券"], ["境内存托人", "持有并签发CDR"], ["CDR持有人", "按协议享权益"]], "edges": ["基础财产", "签发凭证"]}]}, {"label": "保管", "rows": [{"label": "委托托管不变成直接股票账户", "nodes": [["存托人", "委托保管安排"], ["托管人", "保管基础证券"]], "edges": ["按托管协议"]}]}]}</script>
+</div>
+<style>
+#finance-c7-cdr-rights .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-cdr-rights .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-cdr-rights .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-cdr-rights .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-cdr-rights .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-cdr-rights');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-cdr-rights-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-cdr-rights-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>基础与凭证</h4><div><svg aria-label="角色衔接" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>角色衔接</title><desc>境外基础发行人，发行基础证券；境内存托人，持有并签发CDR；CDR持有人，按协议享权益。基础财产；签发凭证</desc><defs><marker id="print-07-04-4-0-arrow-c7-cdr-rights-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">角色衔接</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">境外基础发行人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">发行基础证券</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">境内存托人</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">持有并签发CDR</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">CDR持有人</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按协议享权益</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-04-4-0-arrow-c7-cdr-rights-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">基础财产</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-04-4-0-arrow-c7-cdr-rights-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">签发凭证</text></svg></div></div><div class="diagram-print-state"><h4>保管</h4><div><svg aria-label="委托托管不变成直接股票账户" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>委托托管不变成直接股票账户</title><desc>存托人，委托保管安排；托管人，保管基础证券。按托管协议</desc><defs><marker id="print-07-04-4-1-arrow-c7-cdr-rights-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">委托托管不变成直接股票账户</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">存托人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">委托保管安排</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">托管人</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">保管基础证券</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-4-1-arrow-c7-cdr-rights-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">按托管协议</text></svg></div></div></div></figure>
+<p>基础证券发行人在境外发行证券；存托人按协议持有并签发CDR；托管人受委托保管基础证券；CDR持有人通过存托人及协议安排享有相应权益。境外注册地公司法等事项与境内证券、披露保护要求需要衔接，不能说一律只受一种法律约束。</p>
+<p>存托协议明确权利义务，持有CDR视为参与相应存托协议安排；教材相关存托纠纷适用中国法律及境内法院管辖等要求应与具体规则结合。<a href="https://www.csrc.gov.cn/csrc/c101953/c7121860/7121860/files/%E9%99%84%E4%BB%B61%EF%BC%9A%E5%AD%98%E6%89%98%E5%87%AD%E8%AF%81%E5%8F%91%E8%A1%8C%E4%B8%8E%E4%BA%A4%E6%98%93%E7%AE%A1%E7%90%86%E5%8A%9E%E6%B3%95%EF%BC%88%E8%AF%95%E8%A1%8C%EF%BC%89.pdf" rel="noopener" target="_blank">证监会2023年修订文本</a></p>
+<p>境内交易所上市、中国结算集中登记结算等是教材制度识别点；互联互通还有相应专门规定，不能把一条创新企业试点路径当成全部CDR的唯一途径。</p></section><section class="lesson" id="c7s4-part-09"><h3>09 · 转换比例：1股对10份，价格也要按同一权益比较</h3>
+<p>教材九号有限公司案例，1股基础股票转换10份CDR。故1份CDR代表0.1股基础股票，100股对应1000份CDR。</p>
+<p><span aria-label="Q_{CDR}=Q_{share}\,10,\qquad Q_{share}=\frac{Q_{CDR}}{10}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="4.724ex" role="img" style="vertical-align: -1.602ex;" viewbox="0 -1380 17056.7 2088" width="38.59ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M399 -80Q399 -47 400 -30T402 -11V-7L387 -11Q341 -22 303 -22Q208 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435Q740 255 592 107Q529 47 461 16L444 8V3Q444 2 449 -24T470 -66T516 -82Q551 -82 583 -60T625 -3Q631 11 638 11Q647 11 649 2Q649 -6 639 -34T611 -100T557 -165T481 -194Q399 -194 399 -87V-80ZM636 468Q636 523 621 564T580 625T530 655T477 665Q429 665 379 640Q277 591 215 464T153 216Q153 110 207 59Q231 38 236 38V46Q236 86 269 120T347 155Q372 155 390 144T417 114T429 82T435 55L448 64Q512 108 557 185T619 334T636 468ZM314 18Q362 18 404 39L403 49Q399 104 366 115Q354 117 347 117Q344 117 341 117T337 118Q317 118 296 98T274 52Q274 18 314 18Z" id="FORMULA-13-MJX-14-TEX-I-1D444"></path><path d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z" id="FORMULA-13-MJX-14-TEX-I-1D436"></path><path d="M287 628Q287 635 230 637Q207 637 200 638T193 647Q193 655 197 667T204 682Q206 683 403 683Q570 682 590 682T630 676Q702 659 752 597T803 431Q803 275 696 151T444 3L430 1L236 0H125H72Q48 0 41 2T33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM703 469Q703 507 692 537T666 584T629 613T590 629T555 636Q553 636 541 636T512 636T479 637H436Q392 637 386 627Q384 623 313 339T242 52Q242 48 253 48T330 47Q335 47 349 47T373 46Q499 46 581 128Q617 164 640 212T683 339T703 469Z" id="FORMULA-13-MJX-14-TEX-I-1D437"></path><path d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z" id="FORMULA-13-MJX-14-TEX-I-1D445"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-13-MJX-14-TEX-N-3D"></path><path d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z" id="FORMULA-13-MJX-14-TEX-I-1D460"></path><path d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z" id="FORMULA-13-MJX-14-TEX-I-210E"></path><path d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z" id="FORMULA-13-MJX-14-TEX-I-1D44E"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-13-MJX-14-TEX-I-1D45F"></path><path d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z" id="FORMULA-13-MJX-14-TEX-I-1D452"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-13-MJX-14-TEX-N-31"></path><path d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" id="FORMULA-13-MJX-14-TEX-N-30"></path><path d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z" id="FORMULA-13-MJX-14-TEX-N-2C"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="1D436" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D436"></use></g><g data-mml-node="mi" transform="translate(760,0)"><use data-c="1D437" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D437"></use></g><g data-mml-node="mi" transform="translate(1588,0)"><use data-c="1D445" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D445"></use></g></g></g><g data-mml-node="mo" transform="translate(2811.4,0)"><use data-c="3D" xlink:href="#FORMULA-13-MJX-14-TEX-N-3D"></use></g><g data-mml-node="msub" transform="translate(3867.1,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="1D460" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D460"></use></g><g data-mml-node="mi" transform="translate(469,0)"><use data-c="210E" xlink:href="#FORMULA-13-MJX-14-TEX-I-210E"></use></g><g data-mml-node="mi" transform="translate(1045,0)"><use data-c="1D44E" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(1574,0)"><use data-c="1D45F" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(2025,0)"><use data-c="1D452" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D452"></use></g></g></g><g data-mml-node="mstyle" transform="translate(6502.5,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="mn" transform="translate(6669.5,0)"><use data-c="31" xlink:href="#FORMULA-13-MJX-14-TEX-N-31"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-13-MJX-14-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(7669.5,0)"><use data-c="2C" xlink:href="#FORMULA-13-MJX-14-TEX-N-2C"></use></g><g data-mml-node="mstyle" transform="translate(7947.5,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="msub" transform="translate(10114.2,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="1D460" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D460"></use></g><g data-mml-node="mi" transform="translate(469,0)"><use data-c="210E" xlink:href="#FORMULA-13-MJX-14-TEX-I-210E"></use></g><g data-mml-node="mi" transform="translate(1045,0)"><use data-c="1D44E" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(1574,0)"><use data-c="1D45F" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D45F"></use></g><g data-mml-node="mi" transform="translate(2025,0)"><use data-c="1D452" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D452"></use></g></g></g><g data-mml-node="mo" transform="translate(13027.4,0)"><use data-c="3D" xlink:href="#FORMULA-13-MJX-14-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(14083.2,0)"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="1D436" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D436"></use></g><g data-mml-node="mi" transform="translate(760,0)"><use data-c="1D437" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D437"></use></g><g data-mml-node="mi" transform="translate(1588,0)"><use data-c="1D445" xlink:href="#FORMULA-13-MJX-14-TEX-I-1D445"></use></g></g></g><g data-mml-node="mn" transform="translate(986.8,-686)"><use data-c="31" xlink:href="#FORMULA-13-MJX-14-TEX-N-31"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-13-MJX-14-TEX-N-30"></use></g><rect height="60" width="2733.6" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<p>若CDR发行价18.94元/份，10份对应的一股权益金额为189.40元。不能因为股票1股比CDR1份价格高，就说CDR更便宜——两者权益数量不同。</p>
+<figure class="diagram" data-diagram="c7-dr-ratio"><figcaption class="figure-label">SVG · 10份CDR代表1股，比较要同权益</figcaption><div class="diagram-interactive"><div id="finance-c7-dr-ratio">
+<h3>10份CDR代表1股，比较要同权益</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">数量</button><button aria-pressed="false" class="btn" type="button">金额</button></div>
+<div data-diagrams=""><svg aria-label="教材1股对10份例" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>教材1股对10份例</title><desc>100股基础股票，每股对应10份；1000份CDR，每份代表0.1股。按比例换算</desc><defs><marker id="arrow-c7-dr-ratio-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">教材1股对10份例</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">100股基础股票</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">每股对应10份</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">1000份CDR</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">每份代表0.1股</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c7-dr-ratio-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">按比例换算</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">数量</div>
+<script data-config="" type="application/json">{"heading": "10份CDR代表1股，比较要同权益", "states": [{"label": "数量", "rows": [{"label": "教材1股对10份例", "nodes": [["100股基础股票", "每股对应10份"], ["1000份CDR", "每份代表0.1股"]], "edges": ["按比例换算"]}]}, {"label": "金额", "rows": [{"label": "忽略汇率费用及限制", "nodes": [["每份18.94元", "数量10份"], ["对应一股权益", "189.40元"]], "edges": ["同权益比较"]}]}]}</script>
+</div>
+<style>
+#finance-c7-dr-ratio .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-dr-ratio .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-dr-ratio .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-dr-ratio .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-dr-ratio .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-dr-ratio');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-dr-ratio-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-dr-ratio-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>数量</h4><div><svg aria-label="教材1股对10份例" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>教材1股对10份例</title><desc>100股基础股票，每股对应10份；1000份CDR，每份代表0.1股。按比例换算</desc><defs><marker id="print-07-04-5-0-arrow-c7-dr-ratio-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">教材1股对10份例</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">100股基础股票</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">每股对应10份</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">1000份CDR</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">每份代表0.1股</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-5-0-arrow-c7-dr-ratio-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">按比例换算</text></svg></div></div><div class="diagram-print-state"><h4>金额</h4><div><svg aria-label="忽略汇率费用及限制" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>忽略汇率费用及限制</title><desc>每份18.94元，数量10份；对应一股权益，189.40元。同权益比较</desc><defs><marker id="print-07-04-5-1-arrow-c7-dr-ratio-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">忽略汇率费用及限制</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">每份18.94元</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">数量10份</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">对应一股权益</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">189.40元</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-5-1-arrow-c7-dr-ratio-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">同权益比较</text></svg></div></div></div></figure>
+<p>真正跨市场价格比较还涉及汇率、费用、转换限制、时间差与市场供求。比例只是权益换算，不保证能立即无成本套利。</p>
+<p><span class="level context">背景</span>2018年创新企业试点，2020年九号公司CDR上市，2022年互联互通监管范围扩展，2023年办法修订，是教材制度线索。第一轮先理解转换结构，具体申报历时524天不必背。</p></section><section class="lesson" id="c7s4-part-10"><h3>10 · 结构化产品：拆基础资金安排与衍生支付条款</h3>
+<p>结构化产品把基础金融工具与衍生条款组合，可挂钩股票、指数、利率、汇率、商品等。收益公式可能有参与率、收益上下限、障碍、提前终止、最差标的、倍增购买等安排。</p>
+<figure class="diagram" data-diagram="c7-structured-build"><figcaption class="figure-label">SVG · 把基础安排与触发支付条款拆开</figcaption><div class="diagram-interactive"><div id="finance-c7-structured-build">
+<h3>把基础安排与触发支付条款拆开</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">产品结构</button><button aria-pressed="false" class="btn" type="button">读条款</button></div>
+<div data-diagrams=""><svg aria-label="可以有多个衍生条款" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>可以有多个衍生条款</title><desc>基础金融安排，本金资金与信用；衍生支付条款，挂钩触发与选择；结构化产品，共同决定结果。；</desc><defs><marker id="arrow-c7-structured-build-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">可以有多个衍生条款</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基础金融安排</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">本金资金与信用</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">衍生支付条款</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">挂钩触发与选择</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">结构化产品</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">共同决定结果</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">产品结构</div>
+<script data-config="" type="application/json">{"heading": "把基础安排与触发支付条款拆开", "states": [{"label": "产品结构", "rows": [{"label": "可以有多个衍生条款", "nodes": [["基础金融安排", "本金资金与信用"], ["衍生支付条款", "挂钩触发与选择"], ["结构化产品", "共同决定结果"]], "edges": ["", ""], "noArrows": true}]}, {"label": "读条款", "rows": [{"label": "名字不能替代规则", "nodes": [["基础与观察日", "看什么何时看"], ["触发与支付", "条件数量上限"], ["履约退出", "对手与资金义务"]], "edges": ["判断条件", "检查风险"]}]}]}</script>
+</div>
+<style>
+#finance-c7-structured-build .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-structured-build .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-structured-build .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-structured-build .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-structured-build .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-structured-build');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-structured-build-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-structured-build-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>产品结构</h4><div><svg aria-label="可以有多个衍生条款" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>可以有多个衍生条款</title><desc>基础金融安排，本金资金与信用；衍生支付条款，挂钩触发与选择；结构化产品，共同决定结果。；</desc><defs><marker id="print-07-04-6-0-arrow-c7-structured-build-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">可以有多个衍生条款</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">基础金融安排</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">本金资金与信用</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">衍生支付条款</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">挂钩触发与选择</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">结构化产品</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">共同决定结果</text></svg></div></div><div class="diagram-print-state"><h4>读条款</h4><div><svg aria-label="名字不能替代规则" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>名字不能替代规则</title><desc>基础与观察日，看什么何时看；触发与支付，条件数量上限；履约退出，对手与资金义务。判断条件；检查风险</desc><defs><marker id="print-07-04-6-1-arrow-c7-structured-build-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">名字不能替代规则</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">基础与观察日</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">看什么何时看</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">触发与支付</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">条件数量上限</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">履约退出</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">对手与资金义务</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-04-6-1-arrow-c7-structured-build-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">判断条件</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-04-6-1-arrow-c7-structured-build-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">检查风险</text></svg></div></div></div></figure>
+<p>名字叫“挂钩理财”“收益凭证”或“打折股票”，都不能替代合同分析。并不要求每份产品恰好可拆成一种零息债加一种看涨期权；有的结构包含多个期权、远期或互换。</p>
+<p>按挂钩基础分类、收益保障安排分类、发行方式分类、嵌入的衍生工具分类，是不同维度。可以同时是“股权挂钩、私募、内嵌期权、非本金保障”，不是四选一。</p></section><section class="lesson" id="c7s4-part-11"><h3>11 · 本金保障、最低收益、最高收益：三件事分别问</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>合同信息</th>
+<th>回答的问题</th>
+<th>需要补查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本金保障</td>
+<td>符合什么条件返还多少本金</td>
+<td>是否仅到期、保障币种、发行人信用与费用</td>
+</tr>
+<tr>
+<td>最低收益</td>
+<td>最坏约定情形支付多少</td>
+<td>是否税费前、年化或全期、触发条件</td>
+</tr>
+<tr>
+<td>最高收益</td>
+<td>最好某些情形可到多少</td>
+<td>是否有封顶、参与率、提前终止</td>
+</tr>
+</tbody>
+</table></div>
+<p>教材分类中的历史保证型产品，不等于今天任一资管产品都可以承诺保本。即使有合法合同偿付义务，也要关注履约主体与条件；银行出售或代销不自动把任何结构化产品变成银行存款。</p>
+<p><strong>预期、可能、上限、保证不是同义词。</strong>年化6%也不直接等于三个月本金增长6%，需按合同期限、天数和计息方式判断。</p></section><section class="lesson" id="c7s4-part-12"><h3>12 · 教材例7-1：数上涨股票的个数，不能算平均涨幅</h3>
+<p>历史一年期人民币产品挂钩4只港股，按教材合同：4只均高于基准价，收益6%；恰有3只高于基准价，收益2.25%；其他情形0.36%。这里只按教材一年题设，不作为当前产品报价。</p>
+<figure class="diagram" data-diagram="c7-structured-count"><figcaption class="figure-label">SVG · 教材例7-1数严格上涨的股票</figcaption><div class="diagram-interactive"><div id="finance-c7-structured-count">
+<h3>教材例7-1数严格上涨的股票</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">4只都上涨</button><button aria-pressed="false" class="btn" type="button">只有3只上涨</button><button aria-pressed="false" class="btn" type="button">其他情形</button></div>
+<div data-diagrams=""><svg aria-label="一年题设" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>一年题设</title><desc>上涨个数4，严格高于基准；收益率6%，10万收益6000。选档位</desc><defs><marker id="arrow-c7-structured-count-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一年题设</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">上涨个数4</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">严格高于基准</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">收益率6%</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">10万收益6000</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c7-structured-count-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">选档位</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">4只都上涨</div>
+<script data-config="" type="application/json">{"heading": "教材例7-1数严格上涨的股票", "states": [{"label": "4只都上涨", "rows": [{"label": "一年题设", "nodes": [["上涨个数4", "严格高于基准"], ["收益率6%", "10万收益6000"]], "edges": ["选档位"]}]}, {"label": "只有3只上涨", "rows": [{"label": "一只持平不计上涨", "nodes": [["上涨个数3", "严格大于的只有3"], ["收益率2.25%", "10万收益2250"]], "edges": ["选档位"]}]}, {"label": "其他情形", "rows": [{"label": "平均涨幅不决定档位", "nodes": [["上涨个数0至2", "即使平均上涨"], ["收益率0.36%", "10万收益360"]], "edges": ["选档位"]}]}]}</script>
+</div>
+<style>
+#finance-c7-structured-count .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-structured-count .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-structured-count .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-structured-count .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-structured-count .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-structured-count');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-structured-count-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-structured-count-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>4只都上涨</h4><div><svg aria-label="一年题设" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>一年题设</title><desc>上涨个数4，严格高于基准；收益率6%，10万收益6000。选档位</desc><defs><marker id="print-07-04-7-0-arrow-c7-structured-count-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一年题设</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">上涨个数4</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">严格高于基准</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">收益率6%</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">10万收益6000</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-7-0-arrow-c7-structured-count-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">选档位</text></svg></div></div><div class="diagram-print-state"><h4>只有3只上涨</h4><div><svg aria-label="一只持平不计上涨" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>一只持平不计上涨</title><desc>上涨个数3，严格大于的只有3；收益率2.25%，10万收益2250。选档位</desc><defs><marker id="print-07-04-7-1-arrow-c7-structured-count-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一只持平不计上涨</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">上涨个数3</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">严格大于的只有3</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">收益率2.25%</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">10万收益2250</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-7-1-arrow-c7-structured-count-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">选档位</text></svg></div></div><div class="diagram-print-state"><h4>其他情形</h4><div><svg aria-label="平均涨幅不决定档位" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>平均涨幅不决定档位</title><desc>上涨个数0至2，即使平均上涨；收益率0.36%，10万收益360。选档位</desc><defs><marker id="print-07-04-7-2-arrow-c7-structured-count-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">平均涨幅不决定档位</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">上涨个数0至2</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">即使平均上涨</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">收益率0.36%</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">10万收益360</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-7-2-arrow-c7-structured-count-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">选档位</text></svg></div></div></div></figure>
+<p>关键是<strong>严格高于</strong>。一只恰好等于基准价不计上涨；四只中三只涨、一只持平，属于3只上涨而不是4只。平均上涨很多，也不代表每只都上涨。</p>
+<figure class="diagram" data-diagram="derivative-structure-calculator"><figcaption class="figure-label">SVG · 结构化收益条件</figcaption><div class="diagram-interactive"><div class="derivative-calculator" data-valid="true" data-values='{"count":4,"rate":6,"interest":6000,"average":106}' id="derivative-calc-structure"><h3>教材例7-1：严格上涨个数决定收益档位</h3><p>将四只股票的初始价格统一为指数100，输入到期指数。持平不计上涨；本金与档位按教材历史一年期条件演示。</p><div class="calc-fields"><label>投入本金（元）<input data-calc="principal" max="100000000" min="0.01" step="0.01" style="" type="number" value="100000"/></label><label>股票A到期指数<input data-calc="a" max="1000" min="0" step="0.01" style="" type="number" value="110"/></label><label>股票B到期指数<input data-calc="b" max="1000" min="0" step="0.01" style="" type="number" value="108"/></label><label>股票C到期指数<input data-calc="c" max="1000" min="0" step="0.01" style="" type="number" value="105"/></label><label>股票D到期指数<input data-calc="d" max="1000" min="0" step="0.01" style="" type="number" value="101"/></label></div><div class="viz-controls"><button class="btn" data-preset="book" type="button">4只均涨</button><button class="btn" data-preset="three" type="button">3涨1持平</button><button class="btn" data-preset="average" type="button">平均涨10%仅2涨</button><button class="btn" data-preset="none" type="button">全部持平</button></div><p aria-live="polite" data-result="">严格高于基准100的有 4只；平均指数 106.00不决定档位。教材一年题设收益率 6.00%，收益 6,000.00元，本金加收益 106,000.00元。</p><div data-chart=""><svg aria-label="四只股票到期指数，相同基准100，严格上涨4只，收益档位6%" role="img" viewbox="0 0 840 430"><text fill="#46594f" font-size="12" x="18" y="18">每只初始指数100；竖线为基准</text><text fill="#17483b" font-size="14" x="18" y="50">A：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="804" x="18" y="65"></rect><rect fill="#225748" height="24" rx="3" width="765.7142857142857" x="18" y="65"></rect><line stroke="#67533f" stroke-width="1.5" x1="714.1038961038961" x2="714.1038961038961" y1="61" y2="93"></line><text fill="#303c35" font-size="14" x="18" y="114">到期指数 110.00</text><text fill="#17483b" font-size="14" x="18" y="144">B：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="804" x="18" y="159"></rect><rect fill="#225748" height="24" rx="3" width="751.7922077922078" x="18" y="159"></rect><line stroke="#67533f" stroke-width="1.5" x1="714.1038961038961" x2="714.1038961038961" y1="155" y2="187"></line><text fill="#303c35" font-size="14" x="18" y="208">到期指数 108.00</text><text fill="#17483b" font-size="14" x="18" y="238">C：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="804" x="18" y="253"></rect><rect fill="#225748" height="24" rx="3" width="730.9090909090909" x="18" y="253"></rect><line stroke="#67533f" stroke-width="1.5" x1="714.1038961038961" x2="714.1038961038961" y1="249" y2="281"></line><text fill="#303c35" font-size="14" x="18" y="302">到期指数 105.00</text><text fill="#17483b" font-size="14" x="18" y="332">D：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="804" x="18" y="347"></rect><rect fill="#225748" height="24" rx="3" width="703.0649350649351" x="18" y="347"></rect><line stroke="#67533f" stroke-width="1.5" x1="714.1038961038961" x2="714.1038961038961" y1="343" y2="375"></line><text fill="#303c35" font-size="14" x="18" y="396">到期指数 101.00</text></svg></div><p class="offline-note">档位只对应教材历史案例：4只上涨6%，3只上涨2.25%，其余0.36%。按一年题设简单计算，不是当前可购产品、实时利率或未来收益预测；实际合同还要核对天数、费用及发行人责任。</p></div><style>
+.derivative-calculator .calc-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:20px 0}
+.derivative-calculator label{display:grid;gap:6px;font-size:14px;color:var(--green)}
+.derivative-calculator input{font:inherit;min-width:0;width:100%;border:1px solid var(--border);background:#fffefa;padding:10px;border-radius:4px;color:var(--foreground)}
+.derivative-calculator [data-result]{color:var(--green);font-weight:600;overflow-wrap:anywhere}
+.derivative-calculator svg{display:block;width:100%;color:var(--foreground)}
+.derivative-calculator .calc-output{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.derivative-calculator .calc-output p{padding:10px;background:#edece2;margin:0;font-size:14px}
+@media(max-width:550px){.derivative-calculator .calc-fields,.derivative-calculator .calc-output{grid-template-columns:1fr}}
+</style><script>(()=>{const root=document.getElementById("derivative-calc-structure");
+const fields=Object.fromEntries([...root.querySelectorAll('[data-calc]')].map(x=>[x.dataset.calc,x])),host=root.querySelector('[data-chart]'),out=root.querySelector('[data-result]'),NS='http://www.w3.org/2000/svg';
+function el(tag,attrs={},text){const n=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;return n}
+function fmt(x,d=2){return x.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function read(){return Object.fromEntries(Object.entries(fields).map(([k,n])=>[k,n.value===''?NaN:Number(n.value)]))}
+function valid(v){return Object.entries(fields).every(([k,n])=>n.validity.valid&&Number.isFinite(v[k]))}
+function bad(message='请填写范围内的数值；空值不能参与计算。'){root.dataset.valid='false';root.dataset.values='{}';out.textContent=message;host.replaceChildren();root.querySelector('[data-four-results]')?.replaceChildren()}
+function accept(values){root.dataset.valid='true';root.dataset.values=JSON.stringify(values)}
+function bars(rows){
+const w=Math.max(180,Math.round(host.clientWidth)),h=rows.length*95+30,left=18,pw=w-36,min=Math.min(0,...rows.map(r=>r[1])),max=Math.max(0,...rows.map(r=>r[1])),span=max-min||1,x=v=>left+(v-min)/span*pw,s=el('svg',{viewBox:`0 0 ${w} ${h}`,role:'img','aria-label':rows.map(r=>r[0]+' '+fmt(r[1])+'元').join('；')});
+rows.forEach((r,i)=>{const y=18+i*95,z=x(0),end=x(r[1]);s.append(el('text',{x:left,y:y+12,fill:'#17483b','font-size':14},r[0]));s.append(el('rect',{x:left,y:y+27,width:pw,height:24,fill:'#e8e1d4',rx:3}));s.append(el('rect',{x:Math.min(z,end),y:y+27,width:Math.abs(z-end),height:24,fill:i===0?'#225748':i===1?'#bb6448':'#6a8190',rx:3}));s.append(el('line',{x1:z,x2:z,y1:y+22,y2:y+54,stroke:'#465c54'}));s.append(el('text',{x:left,y:y+75,fill:'#303c35','font-size':14},fmt(r[1])+'元'));});s.append(el('text',{x:left,y:h-9,fill:'#616b62','font-size':12},'各柱均为金额，采用同一尺度'));host.replaceChildren(s);
+}
+Object.values(fields).forEach(n=>n.addEventListener('input',update));new ResizeObserver(()=>update()).observe(host);
+
+function update(){const v=read();if(!valid(v)){bad();return}const prices=[v.a,v.b,v.c,v.d],count=prices.filter(p=>p>100).length,rate=count===4?6:count===3?2.25:.36,interest=v.principal*rate/100,average=prices.reduce((a,b)=>a+b,0)/4;accept({count,rate,interest,average});out.textContent=`严格高于基准100的有 ${count}只；平均指数 ${fmt(average)}不决定档位。教材一年题设收益率 ${fmt(rate)}%，收益 ${fmt(interest)}元，本金加收益 ${fmt(v.principal+interest)}元。`;
+const w=Math.max(180,Math.round(host.clientWidth)),left=18,pw=w-36,max=Math.max(100,...prices)*1.05,h=430,x=p=>left+p/max*pw,s=el('svg',{viewBox:`0 0 ${w} ${h}`,role:'img','aria-label':`四只股票到期指数，相同基准100，严格上涨${count}只，收益档位${rate}%`});s.append(el('text',{x:18,y:18,'font-size':12,fill:'#46594f'},'每只初始指数100；竖线为基准'));
+prices.forEach((p,i)=>{const y=38+i*94;s.append(el('text',{x:left,y:y+12,'font-size':14,fill:'#17483b'},String.fromCharCode(65+i)+'：'+(p>100?'高于基准':p===100?'等于基准':'低于基准')));s.append(el('rect',{x:left,y:y+27,width:pw,height:24,fill:'#e8e1d4',rx:3}));s.append(el('rect',{x:left,y:y+27,width:x(p)-left,height:24,fill:p>100?'#225748':'#bb6448',rx:3}));s.append(el('line',{x1:x(100),x2:x(100),y1:y+23,y2:y+55,stroke:'#67533f','stroke-width':1.5}));s.append(el('text',{x:left,y:y+76,'font-size':14,fill:'#303c35'},'到期指数 '+fmt(p)))});host.replaceChildren(s);}
+const presets={book:[100000,110,108,105,101],three:[100000,110,108,105,100],average:[100000,140,130,90,80],none:[100000,100,100,100,100]};root.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{Object.keys(fields).forEach((k,i)=>fields[k].value=presets[b.dataset.preset][i]);update()}));update();
+})();</script></div><div class="diagram-print"><div class="diagram-print-state"><h4>默认教学参数：完整计算条件及结果见上方说明</h4><div><svg aria-label="四只股票到期指数，相同基准100，严格上涨4只，收益档位6%" role="img" viewbox="0 0 660 430"><text fill="#46594f" font-size="12" x="18" y="18">每只初始指数100；竖线为基准</text><text fill="#17483b" font-size="14" x="18" y="50">A：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="624" x="18" y="65"></rect><rect fill="#225748" height="24" rx="3" width="594.2857142857142" x="18" y="65"></rect><line stroke="#67533f" stroke-width="1.5" x1="558.2597402597403" x2="558.2597402597403" y1="61" y2="93"></line><text fill="#303c35" font-size="14" x="18" y="114">到期指数 110.00</text><text fill="#17483b" font-size="14" x="18" y="144">B：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="624" x="18" y="159"></rect><rect fill="#225748" height="24" rx="3" width="583.4805194805194" x="18" y="159"></rect><line stroke="#67533f" stroke-width="1.5" x1="558.2597402597403" x2="558.2597402597403" y1="155" y2="187"></line><text fill="#303c35" font-size="14" x="18" y="208">到期指数 108.00</text><text fill="#17483b" font-size="14" x="18" y="238">C：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="624" x="18" y="253"></rect><rect fill="#225748" height="24" rx="3" width="567.2727272727273" x="18" y="253"></rect><line stroke="#67533f" stroke-width="1.5" x1="558.2597402597403" x2="558.2597402597403" y1="249" y2="281"></line><text fill="#303c35" font-size="14" x="18" y="302">到期指数 105.00</text><text fill="#17483b" font-size="14" x="18" y="332">D：高于基准</text><rect fill="#e8e1d4" height="24" rx="3" width="624" x="18" y="347"></rect><rect fill="#225748" height="24" rx="3" width="545.6623376623377" x="18" y="347"></rect><line stroke="#67533f" stroke-width="1.5" x1="558.2597402597403" x2="558.2597402597403" y1="343" y2="375"></line><text fill="#303c35" font-size="14" x="18" y="396">到期指数 101.00</text></svg></div></div></div></figure>
+<p>自编投入10万元：四只均涨得6000元；仅三只涨得2250元；其余得360元。若平均涨10%但只有两只涨，仍依合同为360元，不是跟着平均涨幅得1万元。</p>
+<p>这张收益表告诉你结构化产品可能是条件支付。图与算例的任务是训练读触发条件，不需要先推导发行人怎样用期权复制这款历史产品。</p></section><section class="lesson" id="c7s4-part-13"><h3>13 · 教材例7-2：累算远期“打折买股”暗含更多义务</h3>
+<p>教材历史案例按初始股价79.6%固定买价，通常每天买1000股；跌破固定买价时每天买2000股；升到初始股价103%等条件触发终止，另有最少供应期、两周交割等条款。</p>
+<figure class="diagram" data-diagram="c7-accumulator"><figcaption class="figure-label">SVG · 固定买价，下跌时买入数量增加</figcaption><div class="diagram-interactive"><div id="finance-c7-accumulator">
+<h3>固定买价，下跌时买入数量增加</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">正常购买</button><button aria-pressed="false" class="btn" type="button">跌破买价</button></div>
+<div data-diagrams=""><svg aria-label="历史条款示意" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>历史条款示意</title><desc>签约价定买价，初始价格79.6%；通常每天1000股，不是每天打现价折。固定义务</desc><defs><marker id="arrow-c7-accumulator-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">历史条款示意</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">签约价定买价</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">初始价格79.6%</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">通常每天1000股</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">不是每天打现价折</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c7-accumulator-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">固定义务</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">正常购买</div>
+<script data-config="" type="application/json">{"heading": "固定买价，下跌时买入数量增加", "states": [{"label": "正常购买", "rows": [{"label": "历史条款示意", "nodes": [["签约价定买价", "初始价格79.6%"], ["通常每天1000股", "不是每天打现价折"]], "edges": ["固定义务"]}]}, {"label": "跌破买价", "rows": [{"label": "教材3.29例", "nodes": [["固定价19.5356", "数量变2000股"], ["支付39071.20", "市值只有6580"], ["差额亏32491.20", "同为港元"]], "edges": ["继续且加量", "差额损失"]}]}]}</script>
+</div>
+<style>
+#finance-c7-accumulator .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-accumulator .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-accumulator .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-accumulator .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-accumulator .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-accumulator');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-accumulator-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-accumulator-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>正常购买</h4><div><svg aria-label="历史条款示意" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>历史条款示意</title><desc>签约价定买价，初始价格79.6%；通常每天1000股，不是每天打现价折。固定义务</desc><defs><marker id="print-07-04-9-0-arrow-c7-accumulator-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">历史条款示意</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">签约价定买价</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">初始价格79.6%</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">通常每天1000股</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">不是每天打现价折</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-9-0-arrow-c7-accumulator-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">固定义务</text></svg></div></div><div class="diagram-print-state"><h4>跌破买价</h4><div><svg aria-label="教材3.29例" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>教材3.29例</title><desc>固定价19.5356，数量变2000股；支付39071.20，市值只有6580；差额亏32491.20，同为港元。继续且加量；差额损失</desc><defs><marker id="print-07-04-9-1-arrow-c7-accumulator-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">教材3.29例</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">固定价19.5356</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">数量变2000股</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">支付39071.20</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">市值只有6580</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">差额亏32491.20</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">同为港元</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-04-9-1-arrow-c7-accumulator-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">继续且加量</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-04-9-1-arrow-c7-accumulator-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">差额损失</text></svg></div></div></div></figure>
+<p><strong>不是每天按当天现价打79.6折，而是签约日价定出的固定购买价格。</strong>后续跌得越多，这个固定“折扣价”越可能比市场价贵；而购买数量还可能翻倍。</p>
+<p>教材固定购买价19.5356港元，市场价后来为3.29港元。双倍购买2000股一天的购款为39071.20港元，股票当时价值6580港元，差额亏损<strong>32491.20港元</strong>，忽略费用和其他安排。</p>
+<p><span aria-label="Loss_{day}=(19.5356-3.29)\times2000=32491.20" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="2.364ex" role="img" style="vertical-align: -0.667ex;" viewbox="0 -750 19999.2 1045" width="45.247ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z" id="FORMULA-14-MJX-15-TEX-I-1D43F"></path><path d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z" id="FORMULA-14-MJX-15-TEX-I-1D45C"></path><path d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z" id="FORMULA-14-MJX-15-TEX-I-1D460"></path><path d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z" id="FORMULA-14-MJX-15-TEX-I-1D451"></path><path d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z" id="FORMULA-14-MJX-15-TEX-I-1D44E"></path><path d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-14-MJX-15-TEX-I-1D466"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-14-MJX-15-TEX-N-3D"></path><path d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" id="FORMULA-14-MJX-15-TEX-N-28"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-14-MJX-15-TEX-N-31"></path><path d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z" id="FORMULA-14-MJX-15-TEX-N-39"></path><path d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" id="FORMULA-14-MJX-15-TEX-N-2E"></path><path d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" id="FORMULA-14-MJX-15-TEX-N-35"></path><path d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" id="FORMULA-14-MJX-15-TEX-N-33"></path><path d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" id="FORMULA-14-MJX-15-TEX-N-36"></path><path d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" id="FORMULA-14-MJX-15-TEX-N-2212"></path><path d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" id="FORMULA-14-MJX-15-TEX-N-32"></path><path d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" id="FORMULA-14-MJX-15-TEX-N-29"></path><path d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z" id="FORMULA-14-MJX-15-TEX-N-D7"></path><path d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" id="FORMULA-14-MJX-15-TEX-N-30"></path><path d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" id="FORMULA-14-MJX-15-TEX-N-34"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D43F" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D43F"></use></g><g data-mml-node="mi" transform="translate(681,0)"><use data-c="1D45C" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D45C"></use></g><g data-mml-node="mi" transform="translate(1166,0)"><use data-c="1D460" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D460"></use></g><g data-mml-node="msub" transform="translate(1635,0)"><g data-mml-node="mi"><use data-c="1D460" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D460"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(502,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="1D451" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D451"></use></g><g data-mml-node="mi" transform="translate(520,0)"><use data-c="1D44E" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D44E"></use></g><g data-mml-node="mi" transform="translate(1049,0)"><use data-c="1D466" xlink:href="#FORMULA-14-MJX-15-TEX-I-1D466"></use></g></g></g><g data-mml-node="mo" transform="translate(3553,0)"><use data-c="3D" xlink:href="#FORMULA-14-MJX-15-TEX-N-3D"></use></g><g data-mml-node="mo" transform="translate(4608.8,0)"><use data-c="28" xlink:href="#FORMULA-14-MJX-15-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(4997.8,0)"><use data-c="31" xlink:href="#FORMULA-14-MJX-15-TEX-N-31"></use><use data-c="39" transform="translate(500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-39"></use><use data-c="2E" transform="translate(1000,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-2E"></use><use data-c="35" transform="translate(1278,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-35"></use><use data-c="33" transform="translate(1778,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-33"></use><use data-c="35" transform="translate(2278,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-35"></use><use data-c="36" transform="translate(2778,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-36"></use></g><g data-mml-node="mo" transform="translate(8498,0)"><use data-c="2212" xlink:href="#FORMULA-14-MJX-15-TEX-N-2212"></use></g><g data-mml-node="mn" transform="translate(9498.2,0)"><use data-c="33" xlink:href="#FORMULA-14-MJX-15-TEX-N-33"></use><use data-c="2E" transform="translate(500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-2E"></use><use data-c="32" transform="translate(778,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-32"></use><use data-c="39" transform="translate(1278,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-39"></use></g><g data-mml-node="mo" transform="translate(11276.2,0)"><use data-c="29" xlink:href="#FORMULA-14-MJX-15-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(11887.5,0)"><use data-c="D7" xlink:href="#FORMULA-14-MJX-15-TEX-N-D7"></use></g><g data-mml-node="mn" transform="translate(12887.7,0)"><use data-c="32" xlink:href="#FORMULA-14-MJX-15-TEX-N-32"></use><use data-c="30" transform="translate(500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-30"></use><use data-c="30" transform="translate(1000,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-30"></use><use data-c="30" transform="translate(1500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(15165.5,0)"><use data-c="3D" xlink:href="#FORMULA-14-MJX-15-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(16221.2,0)"><use data-c="33" xlink:href="#FORMULA-14-MJX-15-TEX-N-33"></use><use data-c="32" transform="translate(500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-32"></use><use data-c="34" transform="translate(1000,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-34"></use><use data-c="39" transform="translate(1500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-39"></use><use data-c="31" transform="translate(2000,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-31"></use><use data-c="2E" transform="translate(2500,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-2E"></use><use data-c="32" transform="translate(2778,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-32"></use><use data-c="30" transform="translate(3278,0)" xlink:href="#FORMULA-14-MJX-15-TEX-N-30"></use></g></g></g></svg></mjx-container></span></p>
+<p>买入“打折股”可能只让你觉得占便宜；合同还包含对上涨提前终止、下跌继续且加倍买的安排。它不像单独买一份普通期权那样可在不利时只损失权利金后放弃。</p></section><section class="lesson" id="c7s4-part-14"><h3>14 · 上涨被终止，下跌加量：收益风险不对称在哪里</h3>
+<p>上涨时，触发条件可能缩短有利购买机会；下跌时，合同仍强制高于市价购买，并增加数量；资金不足还可能借款维持，形成利息和强制处置风险。</p>
+<figure class="diagram" data-diagram="c7-accumulator-risk"><figcaption class="figure-label">SVG · 有利时可能终止，不利时仍须加量</figcaption><div class="diagram-interactive"><div id="finance-c7-accumulator-risk">
+<h3>有利时可能终止，不利时仍须加量</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">价格上涨</button><button aria-pressed="false" class="btn" type="button">价格下跌</button></div>
+<div data-diagrams=""><svg aria-label="有最少供应期等其他条款" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>有最少供应期等其他条款</title><desc>达到终止条件，如初始价103%；有利购买缩短，依条款终止安排。触发终止</desc><defs><marker id="arrow-c7-accumulator-risk-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">有最少供应期等其他条款</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">达到终止条件</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">如初始价103%</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">有利购买缩短</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依条款终止安排</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c7-accumulator-risk-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">触发终止</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">价格上涨</div>
+<script data-config="" type="application/json">{"heading": "有利时可能终止，不利时仍须加量", "states": [{"label": "价格上涨", "rows": [{"label": "有最少供应期等其他条款", "nodes": [["达到终止条件", "如初始价103%"], ["有利购买缩短", "依条款终止安排"]], "edges": ["触发终止"]}]}, {"label": "价格下跌", "rows": [{"label": "与单独期权不同", "nodes": [["跌破固定买价", "继续且加倍购入"], ["资金压力增加", "借款成本与处置"], ["结果风险更大", "不是只损失权利金"]], "edges": ["累积义务", "融资风险"]}]}]}</script>
+</div>
+<style>
+#finance-c7-accumulator-risk .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c7-accumulator-risk .finance-flow text {fill:currentColor;font:inherit}
+#finance-c7-accumulator-risk .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c7-accumulator-risk .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c7-accumulator-risk .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c7-accumulator-risk');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c7-accumulator-risk-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c7-accumulator-risk-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>价格上涨</h4><div><svg aria-label="有最少供应期等其他条款" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>有最少供应期等其他条款</title><desc>达到终止条件，如初始价103%；有利购买缩短，依条款终止安排。触发终止</desc><defs><marker id="print-07-04-10-0-arrow-c7-accumulator-risk-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">有最少供应期等其他条款</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">达到终止条件</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">如初始价103%</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">有利购买缩短</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">依条款终止安排</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-07-04-10-0-arrow-c7-accumulator-risk-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">触发终止</text></svg></div></div><div class="diagram-print-state"><h4>价格下跌</h4><div><svg aria-label="与单独期权不同" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>与单独期权不同</title><desc>跌破固定买价，继续且加倍购入；资金压力增加，借款成本与处置；结果风险更大，不是只损失权利金。累积义务；融资风险</desc><defs><marker id="print-07-04-10-1-arrow-c7-accumulator-risk-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">与单独期权不同</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">跌破固定买价</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">继续且加倍购入</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">资金压力增加</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">借款成本与处置</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">结果风险更大</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">不是只损失权利金</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-07-04-10-1-arrow-c7-accumulator-risk-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">累积义务</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-07-04-10-1-arrow-c7-accumulator-risk-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">融资风险</text></svg></div></div></div></figure>
+<p>教材叙述整个危机过程最终资产损失和欠款，是历史案例结果；本节没有逐日完整价格与现金账户数据，不能仅靠最后股价重新精确还原全年损失。人民币、美元、港元还必须分开，不能把不同币种直接相加。</p>
+<p>第一轮真正必须掌握：<strong>固定买价、下跌倍增、上涨终止、持续交割义务、融资压力</strong>。记住这五点，就能识别“既打折又保本”“最大亏损只有初始存款”的错误选项，不必背每天发生了哪笔转账。</p></section><section class="lesson" id="c7s4-part-15"><h3>15 · 读任何结构化条款的六个检查点</h3>
+<ol>
+<li>基础是什么：单一价格、平均值、最差标的，还是多只分别比较？</li>
+<li>观察何时：到期一次、每月、每日，或有连续触发？</li>
+<li>条件怎样写：大于还是不低于，触及还是收盘确认？</li>
+<li>支付怎么算：固定档位、参与率、封顶、保底，单位与币种是什么？</li>
+<li>会增加什么义务：加倍数量、追加资金、实物交割、提前终止？</li>
+<li>谁履约、怎样退出：发行人信用、对手、转让与提前终止估值？</li>
+</ol>
+<p>这些问题直接服务于做题，后续任何产品名字都可以先用它们拆。理解结构比先背十个营销名词有效。</p></section><section class="lesson" id="c7s4-part-16"><h3>16 · 自编诊断题：本章最后一组</h3>
+<ol>
+<li>ADR一定是期权合约吗？</li>
+<li>哪个角色签发存托凭证，哪个保管境外基础证券？</li>
+<li>Sponsored ADR中的“有担保”表示保证股价收益吗？</li>
+<li>ADR一级、二级、三级中，典型公开融资对应哪一级？</li>
+<li>ADR以美元交易，是否意味着没有汇率或境外风险？</li>
+<li>CDR基础财产只包括最初基础股票，不含衍生权益。判断。</li>
+<li>1股对10份CDR，1000份对应多少股？</li>
+<li>1份18.94元，10份权益对应金额多少？</li>
+<li>例7-1三只上涨、一只持平，依教材哪档收益？</li>
+<li>例7-1两只涨幅很大、两只下跌，平均涨10%，是否支付6%？</li>
+<li>例7-1本金10万元、0.36%一年题设，收益多少？</li>
+<li>累算远期79.6%买价是每天按当日市价再打折吗？</li>
+<li>固定价19.5356、市场3.29、买2000股，当日差额损失多少？</li>
+<li>带持续加倍买入义务的产品，可以一概按普通期权买方最大亏损只限权利金吗？</li>
+<li>“最高年化6%”能直接读成任何期限都保证赚6%本金吗？</li>
+<li>结构化产品一定比简单产品安全或收益高吗？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与错因</summary>
+<div class="answer-content">
+<ol>
+<li>不是，通常代表基础证券权益，与期权未来选择权不同。</li>
+<li>存托人或存券银行签发；托管人保管基础证券。</li>
+<li>不表示收益担保，主要区别是基础发行人是否参与存托计划。</li>
+<li>三级；一级典型场外交易，二级典型上市而非新增公开募资。</li>
+<li>不是，币种便利不消除底层及跨境风险。</li>
+<li>错，包括基础证券及其衍生权益。</li>
+<li>100股，除以10。</li>
+<li>189.40元，比较时还要核对币种和权益比例。</li>
+<li>2.25%，严格高于基准价的只有三只。</li>
+<li>不是，依上涨个数只有两只，其他情形为0.36%。</li>
+<li>360元，不是3600元。</li>
+<li>不是，按签约日股价确定固定购买价。</li>
+<li>（19.5356−3.29）×2000＝32491.20港元。</li>
+<li>不可以，额外远期或其他义务会改变损失范围。</li>
+<li>不能，最高与保证、年化与全期均不同。</li>
+<li>不一定，须从完整条款、风险与费用判断。</li>
+</ol>
+</div>
+</details>
+<p>第七章学到能做题的程度：能读四种合约权利义务，按单位算期货及期权盈亏，合并套保与互换现金流，区分存托机构职责，并从结构化条款中找到触发与支付。历史和规模查表，主干不用背成一坨名词。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="07-03_远期与互换交易.html">上一节 · 远期与互换交易</a><a href="08-01_风险管理概述.html">下一节 · 风险管理概述</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

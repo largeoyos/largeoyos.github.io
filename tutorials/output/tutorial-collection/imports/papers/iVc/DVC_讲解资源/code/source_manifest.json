@@ -1,0 +1,104 @@
+{
+  "upstream_repository": "https://github.com/ZhihaoHu/PyTorchVideoCompression",
+  "upstream_commit": "e9dafc2bccfa5d49f464e7b031f587a2225d3927",
+  "original_tensorflow_repository": "https://github.com/GuoLusjtu/DVC",
+  "teaching_file": "dvc_internals.py",
+  "teaching_scope": "Untrained small-width RD model; mathematical checks; no I-frame or entropy bitstream implementation.",
+  "files": [
+    {
+      "path": "reference/dataset.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/dataset.py",
+      "sha256": "8e17d7b532a03c000cc82a4bd062ea1e9b2d8376328c9080b9d2c56c94a8aeb6"
+    },
+    {
+      "path": "reference/examples/example/config.json",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/examples/example/config.json",
+      "sha256": "eabac4fda5e91a33d2e7d7106027ace044d5731b5386b5099865ed95dc40c516"
+    },
+    {
+      "path": "reference/examples/example/cp.sh",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/examples/example/cp.sh",
+      "sha256": "a84c49d5be0207c9a2268dff67294f3c11e686bd8466d162f774d923fb71ea7c"
+    },
+    {
+      "path": "reference/examples/example/run.sh",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/examples/example/run.sh",
+      "sha256": "813b59b3c48293f450f51232c58db3637dc4b519074707ed7f357c4877dd357f"
+    },
+    {
+      "path": "reference/LICENSE",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/LICENSE",
+      "sha256": "9a5b2862f6aa9d8e1b41baaa6e8f10319f5d89f8fa9da74295506fca2f516b4b"
+    },
+    {
+      "path": "reference/main.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/main.py",
+      "sha256": "bae0c8f9026d2ac9a993ad0fb0b04c4b70c70d319a3ac9b44a99b585b4922614"
+    },
+    {
+      "path": "reference/net.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/net.py",
+      "sha256": "25d6d345b465d6fdbabbfbec1e81863dffb0b83cffe9d639d15503ec28250be5"
+    },
+    {
+      "path": "reference/README.md",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/README.md",
+      "sha256": "a9abbed6140f6c237f159c3847018b061e44b373d4694eec0b4b5eee5940df46"
+    },
+    {
+      "path": "reference/subnet/__init__.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/__init__.py",
+      "sha256": "e984c5ef138511f9fd167b464a8535166da0447a9cb994ad79bd661b31708702"
+    },
+    {
+      "path": "reference/subnet/analysis.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/analysis.py",
+      "sha256": "482ee0df814102b39cd5a9d7cf8929e2c4462874083627731646e42adfe175af"
+    },
+    {
+      "path": "reference/subnet/analysis_mv.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/analysis_mv.py",
+      "sha256": "d998c1c72f2d94d43c65bfc7c4e4d4e58b1a18e6c2d34e9813ad9691ea7b9d95"
+    },
+    {
+      "path": "reference/subnet/analysis_prior.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/analysis_prior.py",
+      "sha256": "8a08f981a092e62329bd6924011f65967127aba840ba7dbb0df642b185b130b2"
+    },
+    {
+      "path": "reference/subnet/basics.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/basics.py",
+      "sha256": "ad6bb182643d3847f96ac50c7f2fb6a0edd636184e091251d2d51f7a6007a2a8"
+    },
+    {
+      "path": "reference/subnet/bitEstimator.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/bitEstimator.py",
+      "sha256": "3d0c4bf875a11a0cbc081586a80229fef01bccc39aaeb21dd83fbfa284847e99"
+    },
+    {
+      "path": "reference/subnet/endecoder.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/endecoder.py",
+      "sha256": "bcea00e6a9af4c2dd1351c11adee393abc0c07491d117849668d531c4e58f251"
+    },
+    {
+      "path": "reference/subnet/GDN.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/GDN.py",
+      "sha256": "1b20a7814e0d06ba30af71ef17b0fee20c6c0cecb565e6bf2b2133004f0f850f"
+    },
+    {
+      "path": "reference/subnet/synthesis.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/synthesis.py",
+      "sha256": "ee4f6b5886407e9db344783a657768fcb7b7c6882663db03f29605cece5840d2"
+    },
+    {
+      "path": "reference/subnet/synthesis_mv.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/synthesis_mv.py",
+      "sha256": "a57714e418a17db60b0af624d4ab660dfdd99dc95f2f664423ac62abd6552f77"
+    },
+    {
+      "path": "reference/subnet/synthesis_prior.py",
+      "url": "https://raw.githubusercontent.com/ZhihaoHu/PyTorchVideoCompression/e9dafc2bccfa5d49f464e7b031f587a2225d3927/DVC/subnet/synthesis_prior.py",
+      "sha256": "eaf145e5ee4a91b5d3bff8f5ad26023426a235b4e3f8f433b2565394a49b13f1"
+    }
+  ]
+}

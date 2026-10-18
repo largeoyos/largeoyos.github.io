@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第四章 · 第二节 · 股票发行 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第四章 / 02</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 75.8181%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第二节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c4s2-part-01">本节目标：一家公司怎样发行股票，怎样退出上市交易</a><a class="" href="#c4s2-part-02">教材216—219页：发行制度有三个层面，别混成一件事会用</a><a href="#c4s2-part-03">教材217—219页：注册制不能背成“谁都可发、监管只盖章”会用</a><a href="#c4s2-part-04">教材217、219—220页：公开、非公开与自销、承销会用</a><a href="#c4s2-part-05">教材219—221页：IPO 的四组发行条件与上市条件会认＋会用</a><a class="" href="#c4s2-part-06">教材221—222页：发行定价，询价不是散户自己报高价会用</a><a class="" href="#c4s2-part-07">教材222—224页：配售、回拨、申购、缴款，四件事会用</a><a href="#c4s2-part-08">教材224—227页：上市后再融资，向谁发行决定规则分支会认＋会用</a><a class="" href="#c4s2-part-09">教材226—228页：北交所公开发行与欺诈发行回购会用＋会认</a><a class="current" href="#c4s2-part-10">教材228—232页：退市，四类强制与主动退出会用</a><a href="#c4s2-part-11">本节练习：先认制度，再认条件</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 04 / SECTION 02 · 第四章</div><h2>第二节 · 股票发行</h2><p>股票 · 教材正文第216—232页 · 整理日期：2026年10月13日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="04-01_股票概述.html">上一节 · 股票概述</a><a href="04-03_股票交易.html">下一节 · 股票交易</a></nav><section class="lesson" id="c4s2-part-01"><h3>本节目标：一家公司怎样发行股票，怎样退出上市交易</h3>
+<p>这一节不要求你变成投行项目经理。你需要能区分发行制度、发行方式、定价、配售、上市与退市；看到条件题能识别对象、数字和例外。先走流程，再记附表。</p>
+<p><span class="level use">会用</span>注册制的责任分工、公开发行判断、包销代销、网上网下配售、退市分类；<span class="level recognize">会认</span>准入与配售数字；<span class="level context">背景</span>审批核准沿革。不要把注册理解成保证质量或收益。</p></section><section class="lesson" id="c4s2-part-02"><h3>教材216—219页：发行制度有三个层面，别混成一件事<span class="level use">会用</span></h3>
+<p>发行监管制度决定如何依法审核注册；发行方式决定向谁、怎样卖；发行定价决定以什么价格卖。</p>
+<p>审批制、核准制、注册制属于监管制度。公募私募、自销承销是发行方式的不同分类维度。询价、直接定价等涉及定价。<strong>注册制下仍可有承销、询价和配售；这些词不是互相排斥的三套制度。</strong></p>
+<figure class="diagram" data-diagram="c4-issuance-dimensions"><figcaption class="figure-label">SVG · 发行制度的三个不同层面</figcaption><div class="diagram-interactive"><div id="finance-c4-issuance-dimensions">
+<h3>发行制度的三个不同层面</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">认清分类轴</button></div>
+<div data-diagrams=""><svg aria-label="监管、方式、价格" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>监管、方式、价格</title><desc>监管制度，审批核准注册；发行方式，公募私募等；发行定价，询价直接定价。；</desc><defs><marker id="arrow-c4-issuance-dimensions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">监管、方式、价格</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">监管制度</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">审批核准注册</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">发行方式</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">公募私募等</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">发行定价</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">询价直接定价</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">认清分类轴</div>
+<script data-config="" type="application/json">{"heading": "发行制度的三个不同层面", "states": [{"label": "认清分类轴", "rows": [{"label": "监管、方式、价格", "nodes": [["监管制度", "审批核准注册"], ["发行方式", "公募私募等"], ["发行定价", "询价直接定价"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c4-issuance-dimensions .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-issuance-dimensions .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-issuance-dimensions .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-issuance-dimensions .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-issuance-dimensions .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-issuance-dimensions');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-issuance-dimensions-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-issuance-dimensions-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>认清分类轴</h4><div><svg aria-label="监管、方式、价格" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>监管、方式、价格</title><desc>监管制度，审批核准注册；发行方式，公募私募等；发行定价，询价直接定价。；</desc><defs><marker id="print-04-02-0-0-arrow-c4-issuance-dimensions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">监管、方式、价格</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">监管制度</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">审批核准注册</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">发行方式</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">公募私募等</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">发行定价</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">询价直接定价</text></svg></div></div></div></figure>
+<p>审批制历史上由行政分配额度指标，竞争焦点包括争取发行资格；核准制取消额度指标，引入中介责任并审查法定条件；注册制围绕法定发行上市条件及信息披露，由交易所审核、证监会依法注册，市场参与者承担相应责任。</p>
+<p>沿革<span class="level recognize">会认</span>：审批有额度、指标等阶段；核准有通道、保荐等安排；2019年科创、2020年创业板、2023年全面注册制改革与第二章衔接。<strong>沿革顺序有用，第一轮不背每次定价政策调整日期。</strong></p></section><section class="lesson" id="c4s2-part-03"><h3>教材217—219页：注册制不能背成“谁都可发、监管只盖章”<span class="level use">会用</span></h3>
+<p>教材概括“形式审核”帮助对比旧制度，但现实法定程序不是不用审核发行上市条件、也不是自行提交资料就自动注册。交易所依法审核条件与披露，证监会依法履行注册程序；发行人真实披露，中介勤勉核查，投资者判断价值并承担相应投资风险。</p>
+<p>注册不代表监管者保证财务永不出问题，也不代表承诺股票不会下跌。中介不因为注册制实施而失去责任。<a href="https://www.csrc.gov.cn/csrc/c101953/c7121923/content.shtml" rel="noopener" target="_blank">证监会《首次公开发行股票注册管理办法》</a></p>
+<p>保荐是推荐、核查、督导；承销是销售证券；核准制下发审委是历史审核安排。交易所上市审核组织与历史发审委不能直接称作同一个机构。教材这部分要讲，是让你不把旧流程套到全面注册制。</p></section><section class="lesson" id="c4s2-part-04"><h3>教材217、219—220页：公开、非公开与自销、承销<span class="level use">会用</span></h3>
+<p>公开发行包括向不特定对象发行；向特定对象累计超过200人也属公开发行，依法实施员工持股计划的员工有规定排除。<strong>对象特定并不自动等于永远非公开。</strong>200人不含“超过”；201人与200人条件不同。</p>
+<p>非公开发行不得以广告、公开劝诱或变相公开方式绕规则。教材写流程较简、无需公开披露，是过度简化，不能理解成不履行任何信息披露、注册备案或投资者保护义务，上市公司向特定对象发行也有法定披露要求。</p>
+<p>自销由发行人自己销售；承销由券商等合规中介销售。教材有时把“间接发行”叫代销发行，这是宽泛方式分类；<strong>具体承销合同的代销是未售部分退回，不包括余额包销。</strong></p>
+<p>全额包销先由承销商全部买入；余额包销买下期末未售余量；代销退回余量。这是第三章知识在股票发行中的运用，关键始终是剩余证券的风险谁承担。</p>
+<p>公开发行能扩大募集对象与融资潜力，但通常条件披露、程序和成本要求较高。不是公开融资天然更便宜，也不是非公开就完全不受监管。</p></section><section class="lesson" id="c4s2-part-05"><h3>教材219—221页：IPO 的四组发行条件与上市条件<span class="level use">会认＋会用</span></h3>
+<p>IPO是首次公开发行股票。本节采用发行并上市场景。<strong>发行条件与上市条件都要满足，不能满足其中一类就说一定获准上市。</strong></p>
+<p>发行条件归四组：依法持续经营且组织健全；会计财报和内控可靠；业务、资产、人员、财务等独立且能持续经营；合法规范，相关主体无规定重大犯罪违规等。</p>
+<p>教材沪深首次发行：股份公司持续经营至少3年，有限公司按原账面净资产整体变更的可从原成立起算；最近3年无保留审计，内控有效并有相应无保留鉴证；主板主营、董高等稳定期通常看3年，科创创业通常看2年，科创还看核心技术人员；实际控制人稳定、权属清晰，无重大不利持续经营事项。</p>
+<p><strong>无保留意见是审计意见类型，不等于保证未来不会亏损；独立经营也不是不允许任何关联交易，而是不能有规定的重大不利同业竞争、显失公平交易等。</strong></p>
+<details class="reference-section">
+<summary>第二轮记忆：教材主板上市三组市值财务标准</summary>
+<p>先认共同条件：发行后股本至少5000万元；公开发行比例至少25%，股本超过4亿元时至少10%。教材此表是主板口径，不能套给所有板块。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>可选择的标准</th>
+<th>教材所列条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>利润与现金流或收入</td>
+<td>最近3年净利润均正，累计至少2亿元，最近1年至少1亿元；最近3年经营现金净流量累计至少2亿元，或收入累计至少15亿元</td>
+</tr>
+<tr>
+<td>市值＋利润＋收入＋现金流</td>
+<td>预计市值至少50亿元；最近1年净利润正、收入至少6亿元；最近3年经营现金净流量累计至少2.5亿元</td>
+</tr>
+<tr>
+<td>较高市值＋利润＋收入</td>
+<td>预计市值至少100亿元；最近1年净利润正、收入至少10亿元</td>
+</tr>
+</tbody>
+</table></div>
+<p>至少符合一项，不是三项全部同时满足；一项内部“且”的条件须同时满足，“或”是替代。净利润取扣非前后孰低，经审计指标按规定。预计市值按发行后股数乘发行价格，不是账面注册资本。</p>
+</details></section><section class="lesson" id="c4s2-part-06"><h3>教材221—222页：发行定价，询价不是散户自己报高价<span class="level use">会用</span></h3>
+<p>发行人和主承销商依法采用询价、自主协商直接定价等方式，并在文件公告中披露。询价可初步询价后定价，也可先定区间再累计投标询价。</p>
+<p>网下询价对象是符合要求的专业机构及规则允许投资者，须注册、具备经验定价能力与承受力，接受协会自律。不是任意人在聊天群报个数就成为有效询价对象。</p>
+<p>报价独立客观诚信，不能串通压抬价。主承销商核查资格并按规则剔除最高报价部分，据剩余报价与数量确定价格；提供有效报价者按条件申购。<strong>剔除的高价配售对象不能再参加本次相应网下申购。</strong></p>
+<p>教材直接定价条件包括发行数量2000万股（份）以下且无老股转让计划等；未盈利发行人须网下询价，不得直接定价；直接定价对应PE与境外价格有规定约束。第一轮抓“方式有条件”，第二轮记数字。</p>
+<p>有效报价家数看<strong>本次公开发行数量</strong>：4亿股（份）以下至少10家，超过4亿至少20家；剔除后不足应中止发行。不要与下面“发行后总股本”这个不同分母混用。</p></section><section class="lesson" id="c4s2-part-07"><h3>教材222—224页：配售、回拨、申购、缴款，四件事<span class="level use">会用</span></h3>
+<p>配售决定谁分到多少；回拨在符合规则的网上网下份额之间调整；申购表达购买意向；获配后按要求缴款。<strong>申购不等于已经买到，申购时无需缴款不等于获配后也不用付钱。</strong></p>
+<figure class="diagram" data-diagram="c4-ipo-allocation"><figcaption class="figure-label">SVG · 申购、获配、缴款，不是同一个动作</figcaption><div class="diagram-interactive"><div id="finance-c4-ipo-allocation">
+<h3>申购、获配、缴款，不是同一个动作</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">基本流程</button></div>
+<div data-diagrams=""><svg aria-label="投资者的三步" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>投资者的三步</title><desc>申购，依法表达意向；获配，按规则分配；缴款，按时足额认购。配售结果；履行付款</desc><defs><marker id="arrow-c4-ipo-allocation-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资者的三步</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">申购</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">依法表达意向</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">获配</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">按规则分配</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">缴款</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">按时足额认购</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c4-ipo-allocation-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">配售结果</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c4-ipo-allocation-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">履行付款</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">基本流程</div>
+<script data-config="" type="application/json">{"heading": "申购、获配、缴款，不是同一个动作", "states": [{"label": "基本流程", "rows": [{"label": "投资者的三步", "nodes": [["申购", "依法表达意向"], ["获配", "按规则分配"], ["缴款", "按时足额认购"]], "edges": ["配售结果", "履行付款"]}]}]}</script>
+</div>
+<style>
+#finance-c4-ipo-allocation .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-ipo-allocation .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-ipo-allocation .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-ipo-allocation .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-ipo-allocation .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-ipo-allocation');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-ipo-allocation-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-ipo-allocation-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>基本流程</h4><div><svg aria-label="投资者的三步" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>投资者的三步</title><desc>申购，依法表达意向；获配，按规则分配；缴款，按时足额认购。配售结果；履行付款</desc><defs><marker id="print-04-02-1-0-arrow-c4-ipo-allocation-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资者的三步</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">申购</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">依法表达意向</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">获配</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">按规则分配</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">缴款</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按时足额认购</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-02-1-0-arrow-c4-ipo-allocation-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">配售结果</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-02-1-0-arrow-c4-ipo-allocation-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">履行付款</text></svg></div></div></div></figure>
+<p>网上、网下不能同一投资者同时参与，战略投资者参加网上网下也有规定限制与特定基金等例外。网上投资者要满足相应持有条件，自主表达意向，不得概括委托券商随便替自己申购。</p>
+<p>询价发行的网下初始比例，教材按板块及<strong>发行后总股本</strong>划分：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>板块</th>
+<th>总股本4亿股（份）以下</th>
+<th>超过4亿，或尚未盈利等规定情形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主板</td>
+<td>至少本次发行数量60%</td>
+<td>至少70%</td>
+</tr>
+<tr>
+<td>科创、创业</td>
+<td>至少70%</td>
+<td>至少80%</td>
+</tr>
+</tbody>
+</table></div>
+<p>数字60/70/80不是同一主体同一条件任选。扣除战略配售后确定网上网下比例；同类投资者配售比例相同；公募、社保、养老金、年金、理财、保险、合格境外等相应资金按规则享有优先配售安排。优先不是无需有效报价和资金条件。</p>
+<p>回拨<span class="level use">会用</span>：网上需求大可按规则由网下向网上回拨；网上不足可按规定向网下；<strong>网下申购不足不得靠把份额全挪网上补救，应中止发行。</strong>中止与取消永久发行资格不同，注册有效期内履行程序可能重启。</p>
+<details class="reference-section">
+<summary>第二轮记忆：战略配售与超额配售</summary>
+<p>战略配售投资者一般不超35名；战略配售不超本次公开发行数量50%；承诺持有至少12个月，从上市之日起算；按规定使用自有资金，特定合规基金等有例外。高管核心员工通过资管计划战略获配不超本次发行数量10%。超额配售选择权额外发行不超首次公开发行数量15%。</p>
+<p>超额配售常称绿鞋安排，但它不是每只新股必然行使、也不是确保股价不跌的承诺。战略配售的限售期不是投资者可以随便出借绕开的限制；2025年承销办法修订删除限售期内战略获配证券可出借的旧安排。<a href="https://www.csrc.gov.cn/csrc/c100028/c7547937/content.shtml" rel="noopener" target="_blank">证监会2025年修订说明</a></p>
+</details></section><section class="lesson" id="c4s2-part-08"><h3>教材224—227页：上市后再融资，向谁发行决定规则分支<span class="level use">会认＋会用</span></h3>
+<p>上市后可以向不特定或特定对象发行。向不特定对象要求组织、人员、独立经营、财报内控等符合规定；教材主板配股增发最近3个会计年度盈利，增发另有平均加权ROE至少6%条件，利润按扣非前后孰低。</p>
+<p>禁止条件围绕未经纠正的募集资金用途变更、处罚谴责、调查、未履承诺和重大犯罪违法等。向特定对象也有报告审计意见、人员处罚调查、控股股东损害利益等限制，<strong>不是私募对象少就可以财务造假或绕过监管。</strong></p>
+<details class="reference-section">
+<summary>第二轮记忆：教材禁止情形的常见时间差</summary>
+<p>沪深向不特定对象发行部分：相关主体最近3年证监会处罚、最近1年交易所公开谴责、法定调查等；最近1年未履公开承诺；最近3年重大犯罪违法等。</p>
+<p>向特定对象发行部分：最近1年财报重大不符合或相应不利审计意见；现任董监高最近3年处罚、最近1年公开谴责；相关立案及重大违法等。保留意见影响已消除、重大资产重组等要按具体条款判断，不能把所有保留意见一概当相同结果。</p>
+<p>北交所相关发行条件与时间要求另有规定，教材向特定对象有最近1年处罚谴责等项目。题目先认市场、发行对象，再认主体和期限，不能混用沪深与北交所条目。</p>
+</details>
+<p>募集资金用于符合产业环保土地等规则的项目，不能按禁止规则用于财务性投资或证券买卖通道，不得新增重大不利竞争、显失公平关联交易、破坏独立性；科创募集资金投科技创新领域。金融企业等例外须按条款保留。</p>
+<p>配股向登记在册股东按同样比例；增发可以对原股东优先配售、依法进行机构分类配售。向特定对象发行不得由上市公司及相关主体提供保底收益、变相财务资助补偿等违规安排。认购股份不等于拿到发行方保证回报的存款。</p></section><section class="lesson" id="c4s2-part-09"><h3>教材226—228页：北交所公开发行与欺诈发行回购<span class="level use">会用＋会认</span></h3>
+<p>教材北交所向不特定合格投资者公开发行，发行人应为全国股转系统连续挂牌满12个月的创新层公司，具组织、持续经营、财务规范及法定审计合规等条件。这与新三板、创新层、北交所路径衔接，不能把创新层挂牌直接等同北交所上市。</p>
+<p>定价可自主协商直接定价、合格投资者网上竞价、网下询价等，须说明披露依据合理性。北交所网上竞价与沪深一般询价模式不能混为一种。</p>
+<p>欺诈发行已经上市时，可依法责令发行人回购或负有责任控股股东、实际控制人买回，存在不适合采取措施等规定例外。这不是正常行情下跌的保本回购。</p>
+<p>教材收到责令回购决定后2个交易日披露；范围针对规定期间买入且仍持有的适格股票。负有责任的董监高控股实控人、负责券商包销持股、已知应知欺诈后买入的股票等不纳入。回购按基准价、适用更高买入价或更高承诺价等规则处理。<strong>先认适格范围，再算价格，不是所有人一律用发行价赔。</strong></p></section><section class="lesson" id="c4s2-part-10"><h3>教材228—232页：退市，四类强制与主动退出<span class="level use">会用</span></h3>
+<p>退市是终止在相应交易所上市交易，不直接等于公司法人当日消灭或股票权利全部归零。公司可能依法主动撤回、转往其他市场、被收购合并注销、解散等；也可能触发强制退市。</p>
+<figure class="diagram" data-diagram="c4-delisting-types"><figcaption class="figure-label">SVG · 四种强制退市，判断条件各不同</figcaption><div class="diagram-interactive"><div id="finance-c4-delisting-types">
+<h3>四种强制退市，判断条件各不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">四类原因</button></div>
+<div data-diagrams=""><svg aria-label="市场与财务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>市场与财务</title><desc>交易类，价量市值人数；财务类，财务审计条件。</desc><defs><marker id="arrow-c4-delisting-types-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">市场与财务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">交易类</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">价量市值人数</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">财务类</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">财务审计条件</text></svg><svg aria-label="规范与违法" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>规范与违法</title><desc>规范类，披露治理缺陷；重大违法类，严重违法行为。</desc><defs><marker id="arrow-c4-delisting-types-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">规范与违法</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">规范类</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">披露治理缺陷</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">重大违法类</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">严重违法行为</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">四类原因</div>
+<script data-config="" type="application/json">{"heading": "四种强制退市，判断条件各不同", "states": [{"label": "四类原因", "rows": [{"label": "市场与财务", "nodes": [["交易类", "价量市值人数"], ["财务类", "财务审计条件"]], "edges": [""], "noArrows": true}, {"label": "规范与违法", "nodes": [["规范类", "披露治理缺陷"], ["重大违法类", "严重违法行为"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c4-delisting-types .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-delisting-types .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-delisting-types .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-delisting-types .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-delisting-types .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-delisting-types');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-delisting-types-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-delisting-types-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>四类原因</h4><div><svg aria-label="市场与财务" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>市场与财务</title><desc>交易类，价量市值人数；财务类，财务审计条件。</desc><defs><marker id="print-04-02-2-0-arrow-c4-delisting-types-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">市场与财务</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">交易类</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">价量市值人数</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">财务类</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">财务审计条件</text></svg><svg aria-label="规范与违法" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>规范与违法</title><desc>规范类，披露治理缺陷；重大违法类，严重违法行为。</desc><defs><marker id="print-04-02-2-0-arrow-c4-delisting-types-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">规范与违法</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">规范类</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">披露治理缺陷</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">重大违法类</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">严重违法行为</text></svg></div></div></div></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>强制类别</th>
+<th>问的核心问题</th>
+<th>典型关键词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交易类</td>
+<td>交易及市场指标是否长期不达标</td>
+<td>成交量、收盘价、市值、股东人数</td>
+</tr>
+<tr>
+<td>财务类</td>
+<td>财务是否触及组合或单项条件</td>
+<td>利润与收入、净资产、审计意见</td>
+</tr>
+<tr>
+<td>规范类</td>
+<td>规范运作、披露治理是否严重缺陷</td>
+<td>逾期不披露、不改正、资金占用、内控等</td>
+</tr>
+<tr>
+<td>重大违法类</td>
+<td>是否严重违法，影响上市地位</td>
+<td>欺诈发行、重大披露违法、重大安全等</td>
+</tr>
+</tbody>
+</table></div>
+<p>主动与强制描述退出原因，不是主动一定经营好、强制一定只是亏损。重大违法退市也不与普通市场跌价混同。</p>
+<details class="reference-section">
+<summary>第二轮记忆：教材主板退市数字及组合条件</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材交易类条件</th>
+<th>数字口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>仅A股成交量</td>
+<td>连续120个交易日累计低于500万股</td>
+</tr>
+<tr>
+<td>仅B股成交量</td>
+<td>连续120个交易日累计低于100万股</td>
+</tr>
+<tr>
+<td>相应收盘价</td>
+<td>连续20个交易日每日低于1元，按相应市场规则</td>
+</tr>
+<tr>
+<td>股东数量</td>
+<td>连续20个交易日每日低于2000人</td>
+</tr>
+<tr>
+<td>仅A或A+B相应市值</td>
+<td>连续20个交易日每日低于5亿元</td>
+</tr>
+<tr>
+<td>仅B相应市值</td>
+<td>连续20个交易日每日低于3亿元</td>
+</tr>
+</tbody>
+</table></div>
+<p>A+B需要看两类股份指标的组合要求，不能仅看一类就忽略另一类。各板块门槛不同，本表是教材主板口径。</p>
+<p>财务条件之一：利润总额、净利润、扣非净利润孰低为负，<strong>且</strong>营业收入低于3亿元；其他条包括期末净资产为负、无法表示或否定审计意见等。不应把组合条件的“且”改成“或者”，也不能说所有亏损公司当即退市。</p>
+<p>教材财务风险通常有警示及后续触发程序，连续年度、撤销条件等按具体规则。规范类涉及停牌2个月仍未纠正、未披露或半数以上董事无法保证等，以及资金占用净资产绝对值30%以上或2亿元以上、连续内控非标、股本股权分布等。先识别类别，第二轮再逐项精记。</p>
+</details>
+<p>旧的暂停上市、恢复上市与现代终止上市、可能的重新上市不同，不能将旧流程当每次必经。一般市场重新上市有特定条件和程序，不是退市后等一阵自然回去。</p>
+<p><strong>教材232页纠正：</strong>教材将科创板退市后可按条件申请重新上市写进来，不能照背。上交所科创板投教明确，股票被终止上市不得申请重新上市；不要套主板一般表述。<a href="https://edu.sse.com.cn/tib/qa/" rel="noopener" target="_blank">上交所科创板退市问答</a></p>
+<p>科创板同样从重大违法、交易、财务、规范等维度管理，并有适应科创企业的具体规定。教材提到打击造假、资金占用、内控非标、控制权争夺，作用是理解严监管与退出机制，不要求第一轮把所有规则逐字抄一遍。</p></section><section class="lesson" id="c4s2-part-11"><h3>本节练习：先认制度，再认条件</h3>
+<ol>
+<li>注册制是否等于不审核法定条件、证监会替投资者保证利润？</li>
+<li>向特定对象累计201人发行，是否因对象特定就必然属于非公开？题目已说明无员工计划排除。</li>
+<li>直接定价、询价、注册制、包销，哪些是定价，哪个是监管制度，哪个是承销方式？</li>
+<li>发行后总股本3亿，科创板询价发行，教材网下初始比例下限多少？普通主板同条件呢？</li>
+<li>网上需求不足是否可依法回拨网下？网下不足是否可以全部回拨网上继续发行？</li>
+<li>战略配售获配1亿股，限售从申购日还是上市日起算？</li>
+<li>最近一年单纯亏损但收入很高，是否自动满足“亏损且收入低于3亿元”的组合条件？</li>
+<li>连续低价、市值过低和重大虚假披露分别主要属于哪些退市类别？</li>
+<li>公司因合并不再独立而依法注销退出，是否必须当成重大违法强制退市？</li>
+<li>科创板退市后是否可以照搬主板一般重新上市叙述？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li>都不是；须依法审核注册，投资价值风险不由注册保证。</li>
+<li>不是；累计超过200人是公开发行判断条件之一。</li>
+<li>前两种定价；注册制监管制度；包销承销方式。</li>
+<li>至少70%；主板至少60%，还要保留未盈利等特殊情形。</li>
+<li>网上不足按规则可回拨网下；网下不足不能靠回拨网上补救，应中止。</li>
+<li>上市日起按规定计算，教材至少12个月。</li>
+<li>不自动满足；“且”需要两条件同时成立，其他独立退市条件仍需另查。</li>
+<li>交易类；交易类；重大违法类。</li>
+<li>不必；依法合并等可以构成相应主动退市情形。</li>
+<li>不可以；科创板规则要单独识别。</li>
+</ol>
+</div>
+</details>
+<p><strong>过关标准：</strong>能讲清发行全过程各角色职责，能在公开与特定发行间保留200人等条件，能区分定价配售缴款，能识别四类强制退市；数字按市场、对象、分母、年份使用。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="04-01_股票概述.html">上一节 · 股票概述</a><a href="04-03_股票交易.html">下一节 · 股票交易</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-16",
+  "verified_official_subtree_files": 31,
+  "toy_cdf": [
+    0,
+    1,
+    8,
+    16
+  ],
+  "toy_rans_encoder_trace": [
+    [
+      "C",
+      16,
+      76
+    ],
+    [
+      "B",
+      76,
+      312
+    ],
+    [
+      "A",
+      312,
+      624
+    ]
+  ],
+  "reference_roundtrip_symbols": 4106,
+  "reference_bypass_symbols": 4101,
+  "reference_events": 23657,
+  "reference_stream_bytes": 11484,
+  "reference_roundtrip_exact": true,
+  "reference_final_state": 2147483648,
+  "official_cpp_extension_executed": false,
+  "neural_model_executed": false,
+  "note": "Independent Python reference of inspected integer equations, 32-bit renormalization and 4-bit bypass. Byte packing uses explicitly chosen little-endian words; no cross-platform or checkpoint compatibility claim."
+}

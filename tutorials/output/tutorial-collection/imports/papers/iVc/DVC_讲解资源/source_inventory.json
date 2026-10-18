@@ -1,0 +1,124 @@
+{
+  "session_id": "01a13ae4-6cb2-7f23-b09c-942490bf8387",
+  "sources": [
+    {
+      "id": "R01",
+      "line": 66,
+      "raw_sha256": "05ea38abc5f87acf72a77854dfcb974308ec297a42eb326203cb2c5d4be1853e",
+      "normalized_sha256": "552b71a392af7fbef50cf84b62e56cfb00c3330585534145b913d358a784e49f",
+      "file": "DVC_略读01_整体框架与实验.md"
+    },
+    {
+      "id": "R02",
+      "line": 87,
+      "raw_sha256": "08b6741bdb130710c6284e909b944ce5143e61ece56acb7ba1de8234e05b4978",
+      "normalized_sha256": "08b6741bdb130710c6284e909b944ce5143e61ece56acb7ba1de8234e05b4978",
+      "file": "DVC_答疑01_H264学习范围.md"
+    },
+    {
+      "id": "R03",
+      "line": 145,
+      "raw_sha256": "d37596d3caaab59150d2b4a6646be4174ee154aea47567f8a8f8ef1b258fbbeb",
+      "normalized_sha256": "d37596d3caaab59150d2b4a6646be4174ee154aea47567f8a8f8ef1b258fbbeb",
+      "file": "DVC_答疑02_预测与残差基础.md"
+    },
+    {
+      "id": "C205",
+      "line": 205,
+      "raw_sha256": "3100b39b12eb1486f370fc4b5938a3e0ff4a3f9fee4405b0a98a57e78dd8fafe",
+      "normalized_sha256": "3100b39b12eb1486f370fc4b5938a3e0ff4a3f9fee4405b0a98a57e78dd8fafe"
+    },
+    {
+      "id": "R04",
+      "line": 218,
+      "raw_sha256": "a34662608c3b93412a2bba2ccdcc0c4b45a3867ccce41b9d854deffda0e65b1a",
+      "normalized_sha256": "48f778c19eb09a67041e5e3ecf3252b035bb03ea2972968878c796603f1e2e85",
+      "file": "DVC_答疑03_H264核心流程与算法.md"
+    },
+    {
+      "id": "C270",
+      "line": 270,
+      "raw_sha256": "05910f33338e433495d0cbfcef711c43fbf9851819efbe4a35ceb3ade1c09935",
+      "normalized_sha256": "05910f33338e433495d0cbfcef711c43fbf9851819efbe4a35ceb3ade1c09935"
+    },
+    {
+      "id": "R05",
+      "line": 280,
+      "raw_sha256": "6d3e9f1be17a065af2c30485be09b158e22ec068b6c4372baa3235367a7c85f2",
+      "normalized_sha256": "76189fbd5a82823e6c7c74deee28690af11d0f3d49a4047ea23933024b738d45",
+      "file": "DVC_专题01_DVC方法训练与实验.md"
+    },
+    {
+      "id": "R06",
+      "line": 298,
+      "raw_sha256": "eff65c05c26250df6b16b7764beeb53a9a8edaf65b2c950f8998fa937b6d225c",
+      "normalized_sha256": "eff65c05c26250df6b16b7764beeb53a9a8edaf65b2c950f8998fa937b6d225c",
+      "file": "DVC_答疑04_讲解完成范围.md"
+    },
+    {
+      "id": "C346",
+      "line": 346,
+      "raw_sha256": "a4bc031d398885ebd72abc2d5a832bdb7e78904dbeb31bfec5ee72b906e1ab7f",
+      "normalized_sha256": "a4bc031d398885ebd72abc2d5a832bdb7e78904dbeb31bfec5ee72b906e1ab7f"
+    },
+    {
+      "id": "C399",
+      "line": 399,
+      "raw_sha256": "135687c7e81bb75426ca8d25f61463559b2fe1df3ff80bd6c83e9685fd236b65",
+      "normalized_sha256": "135687c7e81bb75426ca8d25f61463559b2fe1df3ff80bd6c83e9685fd236b65"
+    },
+    {
+      "id": "C422",
+      "line": 422,
+      "raw_sha256": "7f5a8b3bcfa4cd412e1a4da62a4b953093cbfa4ba34da1fc15276afa2d2ca800",
+      "normalized_sha256": "7f5a8b3bcfa4cd412e1a4da62a4b953093cbfa4ba34da1fc15276afa2d2ca800"
+    },
+    {
+      "id": "R07",
+      "line": 463,
+      "raw_sha256": "6b2354130dc3681a7332931ed345a25c5f0ecf1039cf6a1b0d20b5aa065dbe62",
+      "normalized_sha256": "656181f16c743db86991add4e6aeee248282c0c25afe0f5495e84dfe049d4b62",
+      "file": "DVC_答疑05_GDN光流概率模型与代码.md"
+    },
+    {
+      "id": "N01",
+      "path": "sources/DVC_学习笔记.original.md",
+      "raw_sha256": "218aaaaa116f91521fdcd38560fab11d591abe6415ef310f7e5eaec516cf8ce8",
+      "normalized_sha256": "341def53643a2e796894f523a6a24be04728267f34125741e42363033c4eb46a"
+    }
+  ],
+  "exclusions": [
+    {
+      "line": 527,
+      "timestamp": "2026-10-15T08:56:52.160Z",
+      "reason": "整理交付或skill操作说明；无新增论文讲解",
+      "text": "已整理成 [DVC 学习笔记](E:/Projects/research/paper-reading/dvc-internals/DVC_学习笔记.md)。\n\n包含 H.264 基础、论文精读、GDN／光流／概率模型推导、源码入口、运行命令和复习问答，并明确区分论文设计与 PyTorch 重实现。"
+    },
+    {
+      "line": 677,
+      "timestamp": "2026-10-15T09:12:57.826Z",
+      "reason": "整理交付或skill操作说明；无新增论文讲解",
+      "text": "已转换为 [HTML 学习笔记](E:/Projects/research/paper-reading/dvc-internals/DVC_学习笔记.html)。\n\n支持离线阅读、公式排版、目录跳转、页内源码查看、代码复制和深色模式。"
+    },
+    {
+      "line": 689,
+      "timestamp": "2026-10-15T09:13:30.117Z",
+      "reason": "整理交付或skill操作说明；无新增论文讲解",
+      "text": "用了。HTML 页面主要使用了 **frontend-design**，用于排版、配色和响应式布局；前一步整理内容用了 **pages:write-page**。\n\n**impeccable** 只阅读了指南，没有执行完整工作流，不能算完整使用。"
+    },
+    {
+      "line": 721,
+      "timestamp": "2026-10-15T09:16:38.668Z",
+      "reason": "整理交付或skill操作说明；无新增论文讲解",
+      "text": "你指的是截图里的两个专用 skill，**这次确实没有按它们执行**。刚才我回答成了网页排版 skill，答偏了。\n\n已找到并核对：\n\n- [论文阅读 skill](E:/Projects/papers/.agents/skills/paper-reading/SKILL.md)\n- [全文整理 skill](E:/Projects/papers/.agents/skills/paper-lecture-export/SKILL.md)\n\n它们要求每轮保存完整讲解、维护阅读进度，整理时逐项核对历史内容，并生成 Markdown 和 HTML。\n\n**现有 HTML 只是整理后的学习笔记，尚未完成上述全文核对，不能称为符合这两个 skill 的完整导出。**"
+    }
+  ],
+  "edits": [
+    "PDF citations converted to relative file links",
+    "Local code links adapted; original historical commands retained",
+    "Visualization directive replaced with working local copy; all print states added",
+    "Labeled original figure extracts added",
+    "K01 distinguishes topic lecture from continuous paragraph-by-paragraph reading"
+  ],
+  "no_lecture_text_summarized": true
+}

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第四章 · 第一节 · 股票概述 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第四章 / 01</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 85.1622%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第一节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c4s1-part-01">本节目标：买股票，究竟买到什么</a><a class="" href="#c4s1-part-02">教材196—197页：股票定义，股份、股东、公司财产会用</a><a class="" href="#c4s1-part-03">教材197—198页：五个性质，证权最容易考混会用＋会认</a><a class="" href="#c4s1-part-04">教材198—199页：五个特征，永久不等于必须一辈子拿着会用</a><a class="" href="#c4s1-part-05">教材199—200页：普通、特别、类别股，权利能不能不同会用</a><a class="" href="#c4s1-part-06">教材200—202页：记名与无记名，全球分类与中国规则分开会认＋会用</a><a class="" href="#c4s1-part-07">教材202—203页：有面额与无面额，面值不是股价会用</a><a class="" href="#c4s1-part-08">教材203—204页：四类股利政策，金额固定与比例固定不同会用</a><a class="" href="#c4s1-part-09">教材204—205页：分红四个日期，登记日与除权日会用</a><a class="" href="#c4s1-part-10">教材205—206页：七种股份变化，先看有没有新钱会用</a><a class="" href="#c4s1-part-11">教材206—209页：普通股权利，分红与清算排在谁后面会用</a><a class="" href="#c4s1-part-12">教材209—213页：优先股的优先，是相对普通股会用</a><a class="current" href="#c4s1-part-13">教材213—216页：国家股、法人股、A/B/H等，是不同分类轴会用＋会认</a><a href="#c4s1-part-14">本节诊断：能解释错在哪里才算掌握</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 04 / SECTION 01 · 第四章</div><h2>第一节 · 股票概述</h2><p>股票 · 教材正文第196—216页 · 整理日期：2026年10月13日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="03-06_证券市场监管机构.html">上一节 · 证券市场监管机构</a><a href="04-02_股票发行.html">下一节 · 股票发行</a></nav><section class="lesson" id="c4s1-part-01"><h3>本节目标：买股票，究竟买到什么</h3>
+<p>股票不是借条，不是公司仓库里一件货物，也不是一张保证赚钱的凭证。你要学会三件事：解释股东权利；分清股票类别；判断分红、送股、转增、配股、回购、拆股对股份和权益的影响。</p>
+<p><span class="level use">会用</span>权利关系、普通股与优先股、股份变化；<span class="level recognize">会认</span>分类名称和制度数字；<span class="level context">背景</span>历史与少数海外例子。按教材小标题顺序读，标记表示学习要求，不是已统计的出题频率。</p>
+<figure class="diagram" data-diagram="c4-stock-ownership"><figcaption class="figure-label">SVG · 股东拥有股权，公司拥有公司财产</figcaption><div class="diagram-interactive"><div id="finance-c4-stock-ownership">
+<h3>股东拥有股权，公司拥有公司财产</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">出资与权利</button></div>
+<div data-diagrams=""><svg aria-label="发行筹资" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>发行筹资</title><desc>投资者，认购出资；公司，取得经营资金。出资</desc><defs><marker id="arrow-c4-stock-ownership-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">发行筹资</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">认购出资</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">取得经营资金</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c4-stock-ownership-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">出资</text></svg><svg aria-label="财产与权利区别" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>财产与权利区别</title><desc>公司财产，法人依法拥有；股东权益，收益决策等权利。</desc><defs><marker id="arrow-c4-stock-ownership-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">财产与权利区别</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">公司财产</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">法人依法拥有</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">股东权益</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">收益决策等权利</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">出资与权利</div>
+<script data-config="" type="application/json">{"heading": "股东拥有股权，公司拥有公司财产", "states": [{"label": "出资与权利", "rows": [{"label": "发行筹资", "nodes": [["投资者", "认购出资"], ["公司", "取得经营资金"]], "edges": ["出资"]}, {"label": "财产与权利区别", "nodes": [["公司财产", "法人依法拥有"], ["股东权益", "收益决策等权利"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c4-stock-ownership .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-stock-ownership .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-stock-ownership .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-stock-ownership .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-stock-ownership .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-stock-ownership');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-stock-ownership-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-stock-ownership-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>出资与权利</h4><div><svg aria-label="发行筹资" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>发行筹资</title><desc>投资者，认购出资；公司，取得经营资金。出资</desc><defs><marker id="print-04-01-0-0-arrow-c4-stock-ownership-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">发行筹资</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">认购出资</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">取得经营资金</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-04-01-0-0-arrow-c4-stock-ownership-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">出资</text></svg><svg aria-label="财产与权利区别" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>财产与权利区别</title><desc>公司财产，法人依法拥有；股东权益，收益决策等权利。</desc><defs><marker id="print-04-01-0-0-arrow-c4-stock-ownership-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">财产与权利区别</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">公司财产</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">法人依法拥有</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">股东权益</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收益决策等权利</text></svg></div></div></div></figure></section><section class="lesson" id="c4s1-part-02"><h3>教材196—197页：股票定义，股份、股东、公司财产<span class="level use">会用</span></h3>
+<p>股票证明你持有多少公司股份、享有什么股东权利。公司发行股票取得权益融资，投资者成为股东。你在二级市场向原股东买股票，也可以取得股份，但钱通常交给卖方，公司并没有因此再次收到融资款。</p>
+<p>“对净资产的所有权”是教材的经济性表达。法律关系要这样理解：公司拥有自己的财产；股东拥有股权，包括收益、参与决策、剩余财产索取等权利。<strong>持有1%的股票，不能直接拿走公司1%的机器和现金。</strong>公司法人财产与股东个人财产分开。</p>
+<p>股票可以纸面或规定的其他形式存在，无纸化并不让股票失去法律效力。教材2023年公司法口径：公司发行股票应为记名股票；纸面应载公司名称、成立日期或发行时间、类别及相应金额股份数、编号等，并按规定签名盖章，发起人股票标明相应字样。</p>
+<p>1602年荷兰东印度公司的例子用于解释股份融资与股票转让的历史联系。第一轮认得这个教材历史点即可，不必扩展每个国家证券史。</p></section><section class="lesson" id="c4s1-part-03"><h3>教材197—198页：五个性质，证权最容易考混<span class="level use">会用＋会认</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>性质</th>
+<th>白话解释</th>
+<th>错误改写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有价证券</td>
+<td>代表财产价值与相应权利</td>
+<td>纸张本身很值钱才叫有价证券</td>
+</tr>
+<tr>
+<td>要式证券</td>
+<td>依法具备必要形式和内容</td>
+<td>格式内容完全随意</td>
+</tr>
+<tr>
+<td>证权证券</td>
+<td>证明已有股份及股东权利</td>
+<td>一印股票就凭空创造公司资产</td>
+</tr>
+<tr>
+<td>资本证券</td>
+<td>将投入公司资本的份额证券化</td>
+<td>股票就是公司用于经营的现金本身</td>
+</tr>
+<tr>
+<td>综合权利证券</td>
+<td>包含收益、决策等多种股东权利</td>
+<td>与普通借款一样只代表债权</td>
+</tr>
+</tbody>
+</table></div>
+<p>设权是权利随证券制作等法定行为产生；证权是将已经存在的权利表现为证券。教材将股票归<strong>证权证券</strong>，不要把“发行融资很重要”误变成设权分类。</p>
+<p>股票是虚拟资本，意思是证券可以独立交易、具有市场价格，与公司现实经营资本相区别，<strong>不是“假的、没有权利、非法资本”。</strong>公司的机器、现金等现实资产与股票市值可以变化不同。</p></section><section class="lesson" id="c4s1-part-04"><h3>教材198—199页：五个特征，永久不等于必须一辈子拿着<span class="level use">会用</span></h3>
+<p>收益性、价格波动和风险性、流动性、永久性、参与性，逐个理解：</p>
+<p>收益有股息红利和资本利得两类。股票涨价的价差不是公司派息；有收益性不等于每年都有正收益或固定分红。</p>
+<p>风险是实际收益与预期收益的偏离、不确定性，不只是已经发生的亏损。公司经营、利率、供求、心理等都可影响股价。</p>
+<p>流动性是能否较快、以合理价格和成本变现。停牌、限售、交投稀少都可能降低流动性。不是所有股票同样容易卖，也不是“不惜任何价格卖得出去”就流动性好。</p>
+<p>永久性是股票通常没有债券式固定到期日，其存续与公司联系。你可以依法转让退出，法定回购等安排也有特殊规则。<strong>投资者退出不等于公司退还原出资，股票永久性也不等于公司永远不会解散。</strong></p>
+<p>参与性是按权利安排参与重大决策，不是任何股东都直接负责日常经营。特别类别股还可能有参与权限制或特别安排。</p></section><section class="lesson" id="c4s1-part-05"><h3>教材199—200页：普通、特别、类别股，权利能不能不同<span class="level use">会用</span></h3>
+<p>普通股通常收益权与表决权按持股等比例配置。特别股票可以对收益、表决、转让等设置特别权利或限制，优先股只是其中一种，不是特别股票的全部。</p>
+<p>超级表决权是少量股份可能有较多投票权；限制或无表决权是投票较少或受限；金股案例强调特定事项否决权；特别董事提名权又是另一类安排。<strong>多表决权不自动等于多拿几倍分红。</strong>不同权利维度要分开。</p>
+<p>公司法类别股包括优先或劣后分配利润及剩余财产、表决权数量不同、转让受限及其他规定类别。公开发行股份的公司不得新发行某些差异表决权、转让受限类别，但公开发行前已发行的有规定例外。不能把这句缩成“公开发行公司绝不可能有特别表决权股份”。</p>
+<p>同类别股份应有同等权利，同次发行同类别的条件与价格相同。<strong>同股同权有同类别前提，不是所有类别必须完全一样。</strong>类别、权利数量、转让限制、中小股东保护等须在章程中明确。选举更换监事或审计委员会成员时，相关类别股与普通股每股表决权相同，是特定事项规则。</p>
+<p>优先股章程还要讲清固定或浮动股息、是否强制分红、欠息累积与否、参与剩余利润与否、表决权恢复方法等。这些正是后面六种优先股分类的来源。</p></section><section class="lesson" id="c4s1-part-06"><h3>教材200—202页：记名与无记名，全球分类与中国规则分开<span class="level use">会认＋会用</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>记名股票的教材通常特点</th>
+<th>无记名股票的教材通常特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>记录姓名</td>
+<td>票面及名册记载</td>
+<td>不记载</td>
+</tr>
+<tr>
+<td>股东身份确认</td>
+<td>记名及相应登记程序</td>
+<td>历史上与持有凭证关联</td>
+</tr>
+<tr>
+<td>转让</td>
+<td>需依法办理相应过户登记</td>
+<td>历史上凭证交付较简便</td>
+</tr>
+<tr>
+<td>遗失</td>
+<td>可按法定程序处理、补发</td>
+<td>通常不能挂失，风险较大</td>
+</tr>
+<tr>
+<td>缴款</td>
+<td>教材举某些国家可分次缴款例子</td>
+<td>通常须一次缴足</td>
+</tr>
+</tbody>
+</table></div>
+<p>这张表是概念比较，并不是今天中国两种股票都可以任选发行。<strong>教材采用2023年公司法，明确公司发行股票应为记名股票。</strong>“记名可以分次缴款”也只是海外一般性例子，不能用来否定我国股份公司发起人按法律缴款的义务。</p>
+<p>记名不等于不得转让；无纸化电子记录不等于无记名。你手机账户上看到股份记录，仍可以是记名权益。</p></section><section class="lesson" id="c4s1-part-07"><h3>教材202—203页：有面额与无面额，面值不是股价<span class="level use">会用</span></h3>
+<p>面额股有每股金额，发行价可以等于或高于面值，不得低于面值。无面额股不标每股面额，不是没有价值、没有股份数、不要出资。</p>
+<p>2023年公司法允许全部股份按章程择一采用面额或无面额，并可按章程全部转换。无面额股发行所得股款<strong>至少一半计入注册资本</strong>。因此不能背旧的“中国只准面额股”。</p>
+<p>例如每股面值1元，以10元发行：1元面值与10元发行价不同，差额按规定进入相应权益科目。以后市场价格涨到12元，面值也不会自动变成12元。</p>
+<p><span aria-label="\text{持股比例}=\frac{\text{持有股份数}}{\text{同口径股份总数}}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="5.285ex" role="img" style="vertical-align: -2.059ex;" viewbox="0 -1426 12773.6 2336" width="28.899ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-0-MJX-1-TEX-N-3D"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">持</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">比</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">例</text></g><g data-mml-node="mo" transform="translate(4277.8,0)"><use data-c="3D" xlink:href="#FORMULA-0-MJX-1-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(5333.6,0)"><g data-mml-node="mtext" transform="translate(1220,676)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">持</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">有</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">份</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">数</text></g><g data-mml-node="mtext" transform="translate(220,-710)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">同</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">口</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">径</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">份</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(5000,0) scale(1,-1)">总</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(6000,0) scale(1,-1)">数</text></g><rect height="60" width="7200" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<p>相同类别下，持100股、公司共10000股，比例1%。面值大小不是衡量今天每股实际价值的充分依据。无面额股没有面值约束，发行、转让与分割在这个维度更灵活，仍须遵守法律及公司安排。</p></section><section class="lesson" id="c4s1-part-08"><h3>教材203—204页：四类股利政策，金额固定与比例固定不同<span class="level use">会用</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>政策</th>
+<th>什么固定或优先</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>固定股利政策</td>
+<td>现金股利金额固定或稳定增长</td>
+<td>每股分红相对稳定</td>
+</tr>
+<tr>
+<td>固定股利支付率</td>
+<td>股利与收益的比率固定</td>
+<td>每股收益2元分40%，分0.8元；收益1元则分0.4元</td>
+</tr>
+<tr>
+<td>零股利政策</td>
+<td>盈利留作内部积累</td>
+<td>暂不发股利，不等于没有利润</td>
+</tr>
+<tr>
+<td>剩余股利政策</td>
+<td>先满足投资等资金需要，再分剩余</td>
+<td>有剩余才分红</td>
+</tr>
+</tbody>
+</table></div>
+<p><span aria-label="\text{股利支付率}=\frac{\text{每股现金股利}}{\text{每股收益}}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="5.285ex" role="img" style="vertical-align: -2.059ex;" viewbox="0 -1426 12773.6 2336" width="28.899ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-1-MJX-2-TEX-N-3D"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">利</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">支</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">付</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">率</text></g><g data-mml-node="mo" transform="translate(5277.8,0)"><use data-c="3D" xlink:href="#FORMULA-1-MJX-2-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(6333.6,0)"><g data-mml-node="mtext" transform="translate(220,676)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">每</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">现</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">金</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(5000,0) scale(1,-1)">利</text></g><g data-mml-node="mtext" transform="translate(1220,-710)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">每</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">股</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">收</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">益</text></g><rect height="60" width="6200" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<p>固定支付率不保证每年分红金额相同。零股利不证明公司必定亏损。剩余政策不是先分股利、钱不够再考虑投资。</p>
+<p>股利可用现金或股票。现金分红一般带来现金流出和权益相应减少；送股是留存收益转入股本，股数增加，但不是收到新的外部资金。教材蓝筹股指经营较好、通常有稳定现金分红的公司股票，<strong>名称不构成安全或盈利保证。</strong></p></section><section class="lesson" id="c4s1-part-09"><h3>教材204—205页：分红四个日期，登记日与除权日<span class="level use">会用</span></h3>
+<figure class="diagram" data-diagram="c4-dividend-dates"><figcaption class="figure-label">SVG · 分红四个日期，资格先由登记确认</figcaption><div class="diagram-interactive"><div id="finance-c4-dividend-dates">
+<h3>分红四个日期，资格先由登记确认</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">按公告日期</button></div>
+<div data-diagrams=""><svg aria-label="四个不同事项" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>四个不同事项</title><desc>宣告日，公布方案；登记日，确认权益资格；除权除息日，交易去掉本次权；派发日，发放相应股利。公布；按安排；按安排</desc><defs><marker id="arrow-c4-dividend-dates-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">四个不同事项</text><rect class="finance-node" height="72" rx="6" width="170.5" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="101.25" y="83">宣告日</text><text dominant-baseline="middle" text-anchor="middle" x="101.25" y="105">公布方案</text><rect class="finance-node finance-highlight" height="72" rx="6" width="170.5" x="228.5" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="313.75" y="83">登记日</text><text dominant-baseline="middle" text-anchor="middle" x="313.75" y="105">确认权益资格</text><rect class="finance-node" height="72" rx="6" width="170.5" x="441" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="526.25" y="83">除权除息日</text><text dominant-baseline="middle" text-anchor="middle" x="526.25" y="105">交易去掉本次权</text><rect class="finance-node" height="72" rx="6" width="170.5" x="653.5" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="738.75" y="83">派发日</text><text dominant-baseline="middle" text-anchor="middle" x="738.75" y="105">发放相应股利</text><path class="finance-arrow" d="M 189.5 94 L 221.5 94" marker-end="url(#arrow-c4-dividend-dates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="207.5" y="44">公布</text><path class="finance-arrow" d="M 402 94 L 434 94" marker-end="url(#arrow-c4-dividend-dates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">按安排</text><path class="finance-arrow" d="M 614.5 94 L 646.5 94" marker-end="url(#arrow-c4-dividend-dates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="632.5" y="44">按安排</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">按公告日期</div>
+<script data-config="" type="application/json">{"heading": "分红四个日期，资格先由登记确认", "states": [{"label": "按公告日期", "rows": [{"label": "四个不同事项", "nodes": [["宣告日", "公布方案"], ["登记日", "确认权益资格"], ["除权除息日", "交易去掉本次权"], ["派发日", "发放相应股利"]], "edges": ["公布", "按安排", "按安排"]}]}]}</script>
+</div>
+<style>
+#finance-c4-dividend-dates .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-dividend-dates .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-dividend-dates .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-dividend-dates .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-dividend-dates .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-dividend-dates');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-dividend-dates-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-dividend-dates-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>按公告日期</h4><div><svg aria-label="四个不同事项" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>四个不同事项</title><desc>宣告日，公布方案；登记日，确认权益资格；除权除息日，交易去掉本次权；派发日，发放相应股利。公布；按安排；按安排</desc><defs><marker id="print-04-01-1-0-arrow-c4-dividend-dates-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">四个不同事项</text><rect class="finance-node" height="72" rx="6" width="125.5" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="78.75" y="83">宣告日</text><text dominant-baseline="middle" text-anchor="middle" x="78.75" y="105">公布方案</text><rect class="finance-node finance-highlight" height="72" rx="6" width="125.5" x="183.5" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="246.25" y="83">登记日</text><text dominant-baseline="middle" text-anchor="middle" x="246.25" y="105">确认权益资格</text><rect class="finance-node" height="72" rx="6" width="125.5" x="351" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="413.75" y="83">除权除息日</text><text dominant-baseline="middle" text-anchor="middle" x="413.75" y="105">交易去掉本次权</text><rect class="finance-node" height="72" rx="6" width="125.5" x="518.5" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="581.25" y="83">派发日</text><text dominant-baseline="middle" text-anchor="middle" x="581.25" y="105">发放相应股利</text><path class="finance-arrow" d="M 144.5 94 L 176.5 94" marker-end="url(#print-04-01-1-0-arrow-c4-dividend-dates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="162.5" y="44">公布</text><path class="finance-arrow" d="M 312 94 L 344 94" marker-end="url(#print-04-01-1-0-arrow-c4-dividend-dates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">按安排</text><path class="finance-arrow" d="M 479.5 94 L 511.5 94" marker-end="url(#print-04-01-1-0-arrow-c4-dividend-dates-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="497.5" y="44">按安排</text></svg></div></div></div></figure>
+<p>宣告日公布方案；股权登记日确认本次享有权益的股东；除权除息日交易的股票不再包含本次相应权益；派发日实际发放。</p>
+<p>教材常见安排是登记日后一个工作日为除权除息日，具体按公告。<strong>在除权除息日买入通常不享有这次分红，不是只要派发日还没到就能补买享受。</strong>登记后依法卖出与是否已获得本次分红资格，要按登记结果理解。</p>
+<p>除息去掉现金分红权益；除权处理送股、转增、配股等权益。理论参考价会调整，实际开盘成交仍受供求影响，不保证恰好等于参考价。</p>
+<p>教材现金分红政策数字80%、40%、20%，分别对应成熟无重大支出、成熟有重大支出、成长有重大支出等情形。<strong>分母是本次利润分配中现金股利与股票股利之和，不是当年净利润。</strong>不能说成熟公司一定将年度全部利润的80%分现金。</p></section><section class="lesson" id="c4s1-part-10"><h3>教材205—206页：七种股份变化，先看有没有新钱<span class="level use">会用</span></h3>
+<figure class="diagram" data-diagram="c4-share-changes"><figcaption class="figure-label">SVG · 同样股数增加，资金和权益并不相同</figcaption><div class="diagram-interactive"><div id="finance-c4-share-changes">
+<h3>同样股数增加，资金和权益并不相同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">送股转增</button><button aria-pressed="false" class="btn" type="button">配股增发</button><button aria-pressed="false" class="btn" type="button">拆股并股</button></div>
+<div data-diagrams=""><svg aria-label="权益内部变化" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>权益内部变化</title><desc>送股，留存收益转股本；转增，资本公积转股本；共同点，通常没有新现金。；</desc><defs><marker id="arrow-c4-share-changes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">权益内部变化</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">送股</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">留存收益转股本</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">转增</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">资本公积转股本</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">共同点</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">通常没有新现金</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">送股转增</div>
+<script data-config="" type="application/json">{"heading": "同样股数增加，资金和权益并不相同", "states": [{"label": "送股转增", "rows": [{"label": "权益内部变化", "nodes": [["送股", "留存收益转股本"], ["转增", "资本公积转股本"], ["共同点", "通常没有新现金"]], "edges": ["", ""], "noArrows": true}]}, {"label": "配股增发", "rows": [{"label": "有新的认购资金", "nodes": [["投资者", "认购须付款"], ["公司", "收到新资金"], ["股份与权益", "按发行相应增加"]], "edges": ["出资", "发行"]}]}, {"label": "拆股并股", "rows": [{"label": "份数改变不凭空增值", "nodes": [["拆股", "1股变2股"], ["理论每股价格", "相应减半"], ["理论总权益", "持股比例不变"]], "edges": ["调整", "总量关系"]}]}]}</script>
+</div>
+<style>
+#finance-c4-share-changes .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-share-changes .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-share-changes .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-share-changes .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-share-changes .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-share-changes');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-share-changes-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-share-changes-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>送股转增</h4><div><svg aria-label="权益内部变化" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>权益内部变化</title><desc>送股，留存收益转股本；转增，资本公积转股本；共同点，通常没有新现金。；</desc><defs><marker id="print-04-01-2-0-arrow-c4-share-changes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">权益内部变化</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">送股</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">留存收益转股本</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">转增</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">资本公积转股本</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">共同点</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">通常没有新现金</text></svg></div></div><div class="diagram-print-state"><h4>配股增发</h4><div><svg aria-label="有新的认购资金" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>有新的认购资金</title><desc>投资者，认购须付款；公司，收到新资金；股份与权益，按发行相应增加。出资；发行</desc><defs><marker id="print-04-01-2-1-arrow-c4-share-changes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">有新的认购资金</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">认购须付款</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">公司</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">收到新资金</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">股份与权益</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">按发行相应增加</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-01-2-1-arrow-c4-share-changes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">出资</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-01-2-1-arrow-c4-share-changes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">发行</text></svg></div></div><div class="diagram-print-state"><h4>拆股并股</h4><div><svg aria-label="份数改变不凭空增值" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>份数改变不凭空增值</title><desc>拆股，1股变2股；理论每股价格，相应减半；理论总权益，持股比例不变。调整；总量关系</desc><defs><marker id="print-04-01-2-2-arrow-c4-share-changes-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">份数改变不凭空增值</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">拆股</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">1股变2股</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">理论每股价格</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">相应减半</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">理论总权益</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">持股比例不变</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-01-2-2-arrow-c4-share-changes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">调整</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-01-2-2-arrow-c4-share-changes-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">总量关系</text></svg></div></div></div></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事项</th>
+<th>公司是否通常收到新外部资金</th>
+<th>股数及权益理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>增发、定向发行</td>
+<td>收到认购资金</td>
+<td>股本、股数增加，权益增加；每股指标可能稀释</td>
+</tr>
+<tr>
+<td>配股</td>
+<td>认购者付钱，公司收到资金</td>
+<td>按原持股安排认购新股，不是免费送股</td>
+</tr>
+<tr>
+<td>送股</td>
+<td>没有新的外部现金</td>
+<td>留存收益转股本，股东持股比例通常不变</td>
+</tr>
+<tr>
+<td>资本公积转增</td>
+<td>没有新的外部现金</td>
+<td>权益内部转列，股数增，总权益通常不因转增增加</td>
+</tr>
+<tr>
+<td>回购</td>
+<td>公司支付资金</td>
+<td>自持、注销或按规定用途处理；不必然立即注销全部股份</td>
+</tr>
+<tr>
+<td>可转债转股</td>
+<td>转股时通常没有再次收到原债券本金</td>
+<td>原债务转权益，普通股股数增加</td>
+</tr>
+<tr>
+<td>拆股、并股</td>
+<td>没有新的外部资金</td>
+<td>股数改变，持股比例与理论总权益不变</td>
+</tr>
+</tbody>
+</table></div>
+<p>资本公积与留存收益不是同一来源，所以转增与送股不同；但两者都不能仅靠股数增加就让股东财富凭空增倍。</p>
+<p>发行新股后若利润尚未同步增加，每股收益可能下降，称稀释。发行价高于原每股净资产时，新的资金可能提升每股净资产；两种每股指标不必同向。</p>
+<p>回购可能传递积极信号，但效果取决于资金成本、价格与经营，不能从教材“通常”推出股价必涨。拆股将1股拆2股，理论每股价格减半、总市值不变；并股相反。分红送转的理论价格在第四节配计算。</p></section><section class="lesson" id="c4s1-part-11"><h3>教材206—209页：普通股权利，分红与清算排在谁后面<span class="level use">会用</span></h3>
+<p>普通股享有重大决策参与、资产收益及剩余财产分配，以及知情、合法转让、提案、诉讼、法定情况下请求回购等权利。</p>
+<p>股东会是权力机构，普通表决通常每股一票，公司自己持有的本公司股份没有表决权，类别股有特定安排。一般决议须出席股东所持表决权过半数；修改章程、增减资本、合并分立解散或变更形式等重大事项，须出席表决权2/3以上。<strong>按表决权算，不按在场人数算。</strong></p>
+<p>累积投票选董事监事时，每股拥有与应选人数相同的票，可集中使用。100股、选5人，有500票，可以按规则集中给候选人；不是每个股东无论股数都有500票。</p>
+<details class="reference-section">
+<summary>第二轮记忆：股东会与普通股义务的数字</summary>
+<p>年度股东会每年一次，年末6个月内；触发法定情形时2个月内开临时会。常见触发：董事人数不足法定或章程人数2/3；未弥补亏损达到实收股本1/3；持10%以上股东请求；董事会认为必要、监事会提议及章程规定等。</p>
+<p>持1%以上股份股东可在会议召开10日前提出临时提案并书面提交召集人，含按规定表决权恢复的优先股。10%是特定临时会请求条件，1%是临时提案条件，不能互换。</p>
+<p>发起设立时发起人认足设立时发行股份；募集设立时教材发起人认购至少35%，另有规定除外；发起人须在公司成立前全额缴款，出资不足有相应补足、赔偿及规定范围内连带责任。</p>
+</details>
+<p>分红前，要依法弥补亏损、提取法定公积等，是否及分多少还受利润、现金和政策约束，不是股东随时向公司拿钱。</p>
+<p>清算先付清算费用、职工工资社保法定补偿、税款、公司债务等，再分剩余；存在优先股时，按其权利顺序在普通股之前。<strong>普通股是剩余索取者，不在债权人前拿走财产。</strong></p>
+<p>法定请求回购包括特定异议、控股股东滥权严重损害等场景，具体有公司类型和法定条件。不能把“不得随意退股”解释成法律绝不允许公司收购股份，也不能说股价一跌就可以要求公司回购。</p>
+<p>股东义务主要是依法履行出资，不滥用权利、公司法人地位和有限责任损害公司、股东、债权人。有限责任不是合法逃债的工具，严重滥用可能承担相应连带责任。</p></section><section class="lesson" id="c4s1-part-12"><h3>教材209—213页：优先股的优先，是相对普通股<span class="level use">会用</span></h3>
+<figure class="diagram" data-diagram="c4-claim-order"><figcaption class="figure-label">SVG · 简化清算次序：债权、优先、普通</figcaption><div class="diagram-interactive"><div id="finance-c4-claim-order">
+<h3>简化清算次序：债权、优先、普通</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">分剩余的先后</button></div>
+<div data-diagrams=""><svg aria-label="先依法清偿费用等" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>先依法清偿费用等</title><desc>公司债权人，相应债权清偿；优先股股东，按条款分剩余；普通股股东，最后剩余索取。先清偿；剩余条件</desc><defs><marker id="arrow-c4-claim-order-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先依法清偿费用等</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">公司债权人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">相应债权清偿</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">优先股股东</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">按条款分剩余</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">普通股股东</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">最后剩余索取</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c4-claim-order-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">先清偿</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c4-claim-order-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">剩余条件</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">分剩余的先后</div>
+<script data-config="" type="application/json">{"heading": "简化清算次序：债权、优先、普通", "states": [{"label": "分剩余的先后", "rows": [{"label": "先依法清偿费用等", "nodes": [["公司债权人", "相应债权清偿"], ["优先股股东", "按条款分剩余"], ["普通股股东", "最后剩余索取"]], "edges": ["先清偿", "剩余条件"]}]}]}</script>
+</div>
+<style>
+#finance-c4-claim-order .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-claim-order .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-claim-order .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-claim-order .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-claim-order .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-claim-order');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-claim-order-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-claim-order-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>分剩余的先后</h4><div><svg aria-label="先依法清偿费用等" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>先依法清偿费用等</title><desc>公司债权人，相应债权清偿；优先股股东，按条款分剩余；普通股股东，最后剩余索取。先清偿；剩余条件</desc><defs><marker id="print-04-01-3-0-arrow-c4-claim-order-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先依法清偿费用等</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">公司债权人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">相应债权清偿</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">优先股股东</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">按条款分剩余</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">普通股股东</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">最后剩余索取</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-01-3-0-arrow-c4-claim-order-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">先清偿</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-01-3-0-arrow-c4-claim-order-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">剩余条件</text></svg></div></div></div></figure>
+<p>优先股通常在利润和清算剩余财产分配上先于普通股，后于债权人；日常经营表决权受限。<strong>优先不等于优先于所有人，也不等于没有风险。</strong></p>
+<p>“固定股息”不代表任何亏损年都一定付得出，还要看条款、可分配利润等。优先股可有浮动股息、是否累积等安排，不能将某一种优先股特点扩张到全部。</p>
+<p>两类表决：与自身权益直接相关重大事项享有分类表决；长期不按约定付息可按规定恢复表决权。教材固有表决的事项包括修改优先股相关章程、减少注册资本超过10%、合并分立解散变更形式、发行优先股等，普通与优先相应类别各需出席表决权2/3以上通过。</p>
+<p>教材恢复条件是累计3个会计年度或连续2个会计年度未按约定付股息，按章程恢复；全额付清欠息后该恢复权终止。“累计”可以不连续，“连续”中间不能断；恢复不是永久取得所有特权。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类维度</th>
+<th>两种类别</th>
+<th>会判断的关键词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>股息率</td>
+<td>固定、浮动</td>
+<td>率是否按约定调整</td>
+</tr>
+<tr>
+<td>有可分配利润时是否必须分</td>
+<td>强制、非强制</td>
+<td>有利润时的分配义务</td>
+</tr>
+<tr>
+<td>欠息以后是否补</td>
+<td>累积、非累积</td>
+<td>没付的差额是否结转</td>
+</tr>
+<tr>
+<td>约定股息之后还分剩余利润吗</td>
+<td>参与、非参与</td>
+<td>不是参与日常经营的意思</td>
+</tr>
+<tr>
+<td>能转普通股吗</td>
+<td>可转换、不可转换</td>
+<td>有无转股条款</td>
+</tr>
+<tr>
+<td>可依法按约定回购吗</td>
+<td>可回购、不可回购</td>
+<td>有无回购安排</td>
+</tr>
+</tbody>
+</table></div>
+<p>这些分类不是互斥的六种股票，一种优先股可以同时固定、累积、非参与、不可转换等。<strong>累积解决欠息，参与解决多余利润，两者不能混。</strong></p>
+<p>普通股通常投票更充分、剩余收益弹性更大；优先股在分配上优先但表决受限。优先股法律上是股票，会计计为权益还是负债要看具体条款；债券主要是债权，通常有还本付息义务；可转债在转股前后法律关系会变；永续债不因期限很长就取得优先股的股东表决恢复机制。</p>
+<p>教材股息来自税后可分配利润，债券利息税务处理另有规则，不理解成亏损公司就不需要偿付到期债务。优先股对发行人有长期融资、相应治理安排作用，对投资者有相对分配稳定性，但盈利很好时普通股可能分享更多增长。这里讲意义是解释产品动机，不要求背“安全”宣传式长句。</p></section><section class="lesson" id="c4s1-part-13"><h3>教材213—216页：国家股、法人股、A/B/H等，是不同分类轴<span class="level use">会用＋会认</span></h3>
+<p>按投资主体可分国家、法人、社会公众、外资等；按上市及交易安排又有A、B、H、N、L、S等称谓。<strong>法人持有A股并不矛盾，不要把两套分类当成同一组选项。</strong></p>
+<p>国家股由获授权机构代表国家投资形成；国有法人股由国有法人用依法支配资产投资形成，两者都属于国有股权。法人股不一定全是国有，国家股也不是“国家发行的股票”。</p>
+<p>社会公众股涉及公众发行流通。教材主板公开发行比例至少25%，股本总额超过4亿元时至少10%，属于规定口径，不是全市场每个板块统一的全部上市条件。</p>
+<figure class="diagram" data-diagram="c4-stock-locations"><figcaption class="figure-label">SVG · 注册、上市、币种是不同判断条件</figcaption><div class="diagram-interactive"><div id="finance-c4-stock-locations">
+<h3>注册、上市、币种是不同判断条件</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">A与B</button><button aria-pressed="false" class="btn" type="button">H与红筹</button></div>
+<div data-diagrams=""><svg aria-label="同为境内上市" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>同为境内上市</title><desc>A股，人民币交易；B股，外币认购交易。</desc><defs><marker id="arrow-c4-stock-locations-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">同为境内上市</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A股</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">人民币交易</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">B股</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">外币认购交易</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">A与B</div>
+<script data-config="" type="application/json">{"heading": "注册、上市、币种是不同判断条件", "states": [{"label": "A与B", "rows": [{"label": "同为境内上市", "nodes": [["A股", "人民币交易"], ["B股", "外币认购交易"]], "edges": [""], "noArrows": true}]}, {"label": "H与红筹", "rows": [{"label": "香港上市的两种区分", "nodes": [["H股", "中国内地注册"], ["红筹股", "境外注册等条件"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c4-stock-locations .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-stock-locations .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-stock-locations .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-stock-locations .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-stock-locations .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-stock-locations');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-stock-locations-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-stock-locations-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>A与B</h4><div><svg aria-label="同为境内上市" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>同为境内上市</title><desc>A股，人民币交易；B股，外币认购交易。</desc><defs><marker id="print-04-01-4-0-arrow-c4-stock-locations-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">同为境内上市</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A股</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">人民币交易</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">B股</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">外币认购交易</text></svg></div></div><div class="diagram-print-state"><h4>H与红筹</h4><div><svg aria-label="香港上市的两种区分" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>香港上市的两种区分</title><desc>H股，中国内地注册；红筹股，境外注册等条件。</desc><defs><marker id="print-04-01-4-1-arrow-c4-stock-locations-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">香港上市的两种区分</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">H股</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">中国内地注册</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">红筹股</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">境外注册等条件</text></svg></div></div></div></figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>注册与上市主线</th>
+<th>币种等识别点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A股</td>
+<td>境内公司、境内上市的人民币普通股</td>
+<td>人民币交易；不能据此排除获准境外投资者</td>
+</tr>
+<tr>
+<td>B股</td>
+<td>境内公司、境内上市的人民币特种股</td>
+<td>人民币面值，外币认购交易；沪美元、深港币</td>
+</tr>
+<tr>
+<td>H股</td>
+<td>中国内地注册，香港上市</td>
+<td>不是所有香港股票都叫H股</td>
+</tr>
+<tr>
+<td>N/L/S股</td>
+<td>教材对应纽约/伦敦/新加坡上市外资股</td>
+<td>按教材地区首字母识别</td>
+</tr>
+<tr>
+<td>红筹股</td>
+<td>境外注册、香港上市，主要业务或权益与内地有关</td>
+<td>注册地点区别于H股</td>
+</tr>
+</tbody>
+</table></div>
+<p>B股从2001年起对符合条件境内居民开放，所以“只有外国人可以买B股”是错误。外币现钞存款与直接拿外币钞票交易也不同；教材允许相应存款资金等，不允许用现钞直接交易。</p>
+<p>代码只作为识别辅助，不是权利定义。教材已经提示北交所2025年10月9日切换920代码，不要继续只记8字头。600/000等主板、688科创、300等创业、920北交是常见识别例子，具体以交易所代码安排为准。</p>
+<p>最早B/H/N/L/S发行公司的历史例子解释开放沿革。第一轮可以认识教材青岛啤酒首家H股等例子，不必用成立日期填满脑子；会区别注册、上市、面值币种、交易币种更重要。</p></section><section class="lesson" id="c4s1-part-14"><h3>本节诊断：能解释错在哪里才算掌握</h3>
+<ol>
+<li>持有公司1%股票，能直接拿走仓库1%货物吗？股票是债权、物权还是综合股东权利凭证？</li>
+<li>股票永久性是否意味着不能卖？股票证权性是不是说股票纸张创造了公司全部资产？</li>
+<li>每股面值1元、发行价10元、市场价12元，是否互相冲突？</li>
+<li>收益2元分40%与收益1元分40%，分红相同吗？是什么政策？</li>
+<li>送股和资本公积转增都增加股数，能否让股东总财富无条件翻倍？配股要不要出钱？</li>
+<li>股权登记日后在除息日买入，可以获得这次已登记的股息吗？</li>
+<li>100股选5名董事，累积投票可有多少票？</li>
+<li>优先股的参与，是参与剩余利润还是必定参与日常经营？累积指什么？</li>
+<li>清算时债权人、优先股、普通股的相对先后是什么？</li>
+<li>注册境外、香港上市、业务主要在内地，教材应按红筹还是H股区分？</li>
+<li>中国公司今天可以任选记名与无记名股票发行吗？可以按法律采用无面额股吗？</li>
+<li>公司回购股票，是否必然当日注销所有回购股、价格必涨？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li>不能直接取走公司财产；股票代表综合股东权利。</li>
+<li>可以依法卖；证权是证明相应权利，纸张不是现实经营资产。</li>
+<li>不冲突；三个价格性质不同。</li>
+<li>不同，分别0.8与0.4元；固定支付率。</li>
+<li>不能；权益内部变化与股数增加不等于财富凭空增加；配股须认购出资。</li>
+<li>通常不能；依据该次股权登记和公告确认。</li>
+<li>500票，可以按规则集中使用。</li>
+<li>参与剩余利润；累积是未足付的股息差额结转以后年度。</li>
+<li>相应债权清偿在前，优先股在普通股之前分剩余。</li>
+<li>红筹；H股需内地注册这一关键条件。</li>
+<li>应记名；2023年公司法允许按章程择一采用无面额股，符合相应规定。</li>
+<li>都不必然；用途、注销与市场价格分别分析。</li>
+</ol>
+</div>
+</details>
+<p><strong>过关标准：</strong>能说清股权关系，能区分六个优先股分类维度，能判断股份变化是否有新资金、权益比例是否变，能按注册上市与币种区分股票类型。第一轮背景读懂即可。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="03-06_证券市场监管机构.html">上一节 · 证券市场监管机构</a><a href="04-02_股票发行.html">下一节 · 股票发行</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

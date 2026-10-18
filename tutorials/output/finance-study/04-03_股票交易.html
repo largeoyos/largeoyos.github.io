@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第四章 · 第三节 · 股票交易 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第四章 / 03</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 87.9016%;"></div></header><div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第三节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#c4s3-part-01">本节目标：一笔买卖怎样成交，指数和跨境通道怎么理解</a><a class="" href="#c4s3-part-02">教材232—234页：三公原则和四种交易机制会用</a><a href="#c4s3-part-03">教材235页：融资融券的杠杆，不只是放大收益会用</a><a href="#c4s3-part-04">教材236—238页：开户、托管、存管会用＋会认</a><a class="" href="#c4s3-part-05">教材238—240页：委托、申报与撤单会用</a><a class="" href="#c4s3-part-06">教材240—241页：价格优先、时间优先，做题排序会用</a><a class="" href="#c4s3-part-07">教材240—241页：集合竞价，所有成交用同一价格会用</a><a href="#c4s3-part-08">教材241页：连续竞价，按既有对手申报价成交会用</a><a href="#c4s3-part-09">教材242页：涨跌幅公式与必须修正的旧规则会用＋会认</a><a href="#c4s3-part-10">教材242—244页：费用与清算交收，收益要扣成本会用</a><a href="#c4s3-part-11">教材244—246页：非交易过户与程序化交易会用＋会认</a><a href="#c4s3-part-12">教材246—248页：股票指数是什么，平均方式不同会改变结果会用</a><a class="" href="#c4s3-part-13">教材248—250页：沪深300，自由流通与分级靠档会用＋会认</a><a class="" href="#c4s3-part-14">教材250—255页：主要指数，第一轮记覆盖对象会认</a><a class="current" href="#c4s3-part-15">教材255—259页：沪港通、深港通、沪伦通，资金方向与产品方式会用</a><a href="#c4s3-part-16">本节练习：排序、撮合、比例、方向</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 04 / SECTION 03 · 第四章</div><h2>第三节 · 股票交易</h2><p>股票 · 教材正文第232—259页 · 整理日期：2026年10月13日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="04-02_股票发行.html">上一节 · 股票发行</a><a href="04-04_股票估值.html">下一节 · 股票估值</a></nav><section class="lesson" id="c4s3-part-01"><h3>本节目标：一笔买卖怎样成交，指数和跨境通道怎么理解</h3>
+<p>股票交易这一节先学流程，再学撮合，最后学指数和跨境通道。最值得练的是：买方价格高者优先、卖方价格低者优先；集合竞价与连续竞价怎样确定成交价；账户、托管、结算各干什么。</p>
+<p><span class="level use">会用</span>交易流程、委托限价、竞价、涨跌幅计算、指数权重、互联互通方向；<span class="level recognize">会认</span>时间和规则数字；<span class="level context">背景</span>指数历史、旧样本制度。下面的修订说明用于避免把旧规则背成现行规则。</p></section><section class="lesson" id="c4s3-part-02"><h3>教材232—234页：三公原则和四种交易机制<span class="level use">会用</span></h3>
+<p>公开是信息透明；公平是同条件参与机会与权益受公平保护；公正是依法公允处理交易事务和违法纠纷。第三章已经学过，这里应用于交易，不必再逐字背一次长定义。</p>
+<p>两组分类轴不能混：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>按什么分类</th>
+<th>两种机制</th>
+<th>判断关键词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成交时点</td>
+<td>定期、连续</td>
+<td>集中某个时点匹配，还是营业期间可持续匹配</td>
+</tr>
+<tr>
+<td>价格形成及对手方</td>
+<td>指令驱动、报价驱动</td>
+<td>其他买卖订单撮合，还是做市商双边报价并成交</td>
+</tr>
+</tbody>
+</table></div>
+<p>定期交易先收集委托再集中处理，有利于批量匹配与价格稳定；连续交易可以及时匹配，<strong>并非每秒都一定发生交易</strong>。指令驱动由买卖申报供求撮合；报价驱动做市商作为交易对手，提供双边报价并承担相应风险。</p>
+<figure class="diagram" data-diagram="c4-trading-mechanisms"><figcaption class="figure-label">SVG · 成交时间与价格驱动是两套分类</figcaption><div class="diagram-interactive"><div id="finance-c4-trading-mechanisms">
+<h3>成交时间与价格驱动是两套分类</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">时间</button><button aria-pressed="false" class="btn" type="button">价格驱动</button></div>
+<div data-diagrams=""><svg aria-label="成交时点" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>成交时点</title><desc>定期，集中时点匹配；连续，可持续匹配。</desc><defs><marker id="arrow-c4-trading-mechanisms-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">成交时点</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">定期</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">集中时点匹配</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">连续</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">可持续匹配</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">时间</div>
+<script data-config="" type="application/json">{"heading": "成交时间与价格驱动是两套分类", "states": [{"label": "时间", "rows": [{"label": "成交时点", "nodes": [["定期", "集中时点匹配"], ["连续", "可持续匹配"]], "edges": [""], "noArrows": true}]}, {"label": "价格驱动", "rows": [{"label": "价格与对手方", "nodes": [["指令驱动", "买卖订单撮合"], ["报价驱动", "做市商交易对手"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c4-trading-mechanisms .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-trading-mechanisms .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-trading-mechanisms .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-trading-mechanisms .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-trading-mechanisms .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-trading-mechanisms');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-trading-mechanisms-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-trading-mechanisms-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>时间</h4><div><svg aria-label="成交时点" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>成交时点</title><desc>定期，集中时点匹配；连续，可持续匹配。</desc><defs><marker id="print-04-03-0-0-arrow-c4-trading-mechanisms-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">成交时点</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">定期</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">集中时点匹配</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">连续</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">可持续匹配</text></svg></div></div><div class="diagram-print-state"><h4>价格驱动</h4><div><svg aria-label="价格与对手方" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>价格与对手方</title><desc>指令驱动，买卖订单撮合；报价驱动，做市商交易对手。</desc><defs><marker id="print-04-03-0-1-arrow-c4-trading-mechanisms-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">价格与对手方</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">指令驱动</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">买卖订单撮合</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">报价驱动</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">做市商交易对手</text></svg></div></div></div></figure>
+<p>机制目标是流动性、稳定性、有效性。流动性同时看速度与价格成本；稳定不是股价不变；有效包含信息反映效率、系统运行效率及成本。直接成本如佣金税费，间接成本如搜集信息成本。强、半强、弱式有效市场涉及价格反映的信息范围，后续有相应题再详细展开，本节先认识名称与信息效率关系。</p></section><section class="lesson" id="c4s3-part-03"><h3>教材235页：融资融券的杠杆，不只是放大收益<span class="level use">会用</span></h3>
+<p>融资借钱买证券，上涨可能放大盈利，下跌也放大本金损失；融券借证券卖出，之后买回归还，价格上涨增加回补成本。转融通是中证金融向券商提供相应资源，第三章已分清对象。</p>
+<p>例如自有10000元，再借10000元买价值20000元证券。价格跌10%，持仓剩18000元，忽略利息费用偿还10000元后自有权益剩8000元，<strong>自有资金亏20%</strong>。市场波动10%不等于自有本金只亏10%。</p>
+<p>融券空头理论上可能面对无限向上价格带来的损失；多头不借钱买入单一股票，其价格下跌至零的本金损失有相应边界。实际交易还涉及追保、强平、券源、费用等，不能只靠一个方向判断风险。</p>
+<p>保证金可按规则以现金或认可证券充抵，信用账户财产按规定担保债务；融券卖出所得资金用途受限，不是可随便取走花掉。教材讲制度定义，与具体时期暂停转融券等实施安排要分开。</p></section><section class="lesson" id="c4s3-part-04"><h3>教材236—238页：开户、托管、存管<span class="level use">会用＋会认</span></h3>
+<p>证券账户记证券种类、数量、变动；资金账户记货币收付、余额。一码通总账户汇总关联子账户，子账户对应市场或品种，如A、B、基金、衍生品等。<strong>一码通不是把股票余额和所有银行卡存款混成同一种资产。</strong></p>
+<p>开户合法、真实、实名，不冒名、不用虚假证件、不违规提供或借用账户。机构、合伙及依法设立的投资产品也有按规定开户安排，不能只认为自然人可以开户。</p>
+<p>托管在本节是投资者委托券商保管及处理相关权益；存管是券商等把相关证券交登记结算机构集中记录与处理。无纸化是电子登记划转，不是把一摞纸股票放柜台。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>市场的教材托管安排</th>
+<th>理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上海全面指定交易</td>
+<td>按规定指定会员受托交易，变更需撤销原指定再办理；特定B股情形有例外</td>
+</tr>
+<tr>
+<td>深圳</td>
+<td>自动托管，随处通买，哪买哪卖，转托不限；转托完成后可在转入单位卖</td>
+</tr>
+<tr>
+<td>北交所</td>
+<td>可按规定通过原交易单元卖或办理转托管后卖</td>
+</tr>
+</tbody>
+</table></div>
+<p>“哪买哪卖”是托管交易单元安排，不等于股票永远不能转到另一券商；“转托不限”也不是绕过法定流程、限售等限制。</p></section><section class="lesson" id="c4s3-part-05"><h3>教材238—240页：委托、申报与撤单<span class="level use">会用</span></h3>
+<p>委托是你要求券商怎么交易；申报是按规则报到交易系统。券商应核身份、指令合法性、资金及证券，并按委托执行。</p>
+<p>限价买入规定你能接受的最高买价；限价卖出规定最低卖价。限价10元买，可按条件以9.9元成交，不是必须精确10元；限价10元卖，不能未经授权以9.9元执行。市价委托按其规定类型成交，<strong>不意味着保证任何价格、任何数量立即全成交。</strong></p>
+<p>内容包括账户、代码、买卖方向、数量、价格、类型及其他规定信息。数量、方向、价格、期限是不同分类轴；教材当周、无期限等是一般分类，不意味着今天各交易所都接受每一种类型。</p>
+<p>券商向市场申报的原则是时间优先、客户优先；交易所撮合的原则则是价格优先、时间优先。<strong>客户与自营申报冲突时客户优先，不是交易所对每个客户成交都忽略价格。</strong></p>
+<figure class="diagram" data-diagram="c4-order-process"><figcaption class="figure-label">SVG · 从委托到成交，再到结算</figcaption><div class="diagram-interactive"><div id="finance-c4-order-process">
+<h3>从委托到成交，再到结算</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">交易流程</button></div>
+<div data-diagrams=""><svg aria-label="客户与市场" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>客户与市场</title><desc>客户，下达具体委托；证券公司，校验申报；交易所，依法规则撮合。委托；申报</desc><defs><marker id="arrow-c4-order-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户与市场</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">下达具体委托</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">校验申报</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">交易所</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">依法规则撮合</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c4-order-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">委托</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c4-order-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">申报</text></svg><svg aria-label="成交后" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>成交后</title><desc>成交结果，生成相应记录；登记结算与券商，清算交收登记。结算</desc><defs><marker id="arrow-c4-order-process-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">成交后</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">成交结果</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">生成相应记录</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">登记结算与券商</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">清算交收登记</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c4-order-process-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">结算</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">交易流程</div>
+<script data-config="" type="application/json">{"heading": "从委托到成交，再到结算", "states": [{"label": "交易流程", "rows": [{"label": "客户与市场", "nodes": [["客户", "下达具体委托"], ["证券公司", "校验申报"], ["交易所", "依法规则撮合"]], "edges": ["委托", "申报"]}, {"label": "成交后", "nodes": [["成交结果", "生成相应记录"], ["登记结算与券商", "清算交收登记"]], "edges": ["结算"]}]}]}</script>
+</div>
+<style>
+#finance-c4-order-process .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-order-process .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-order-process .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-order-process .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-order-process .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-order-process');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-order-process-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-order-process-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>交易流程</h4><div><svg aria-label="客户与市场" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>客户与市场</title><desc>客户，下达具体委托；证券公司，校验申报；交易所，依法规则撮合。委托；申报</desc><defs><marker id="print-04-03-1-0-arrow-c4-order-process-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">客户与市场</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">客户</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">下达具体委托</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">证券公司</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">校验申报</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">交易所</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">依法规则撮合</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-03-1-0-arrow-c4-order-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">委托</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-03-1-0-arrow-c4-order-process-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">申报</text></svg><svg aria-label="成交后" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>成交后</title><desc>成交结果，生成相应记录；登记结算与券商，清算交收登记。结算</desc><defs><marker id="print-04-03-1-0-arrow-c4-order-process-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">成交后</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">成交结果</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">生成相应记录</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">登记结算与券商</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">清算交收登记</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-04-03-1-0-arrow-c4-order-process-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">结算</text></svg></div></div></div></figure>
+<p>未成交部分在允许撤单阶段可以撤销；已经成交不能通过撤单反悔；部分成交只处理尚未成交余量。撤单要系统有效确认，不是按下按钮就可以保证赶在成交前撤回。</p>
+<p>教材普通竞价时间：开盘集合9:15—9:25；连续9:30—11:30、13:00—14:57；收盘集合14:57—15:00。休市日、特殊安排另看公告。不能将9:25—9:30看成普通连续竞价，盘后固定价格等其他方式也不要塞进这张普通竞价时间表。</p></section><section class="lesson" id="c4s3-part-06"><h3>教材240—241页：价格优先、时间优先，做题排序<span class="level use">会用</span></h3>
+<p>买方报得更高优先，卖方要价更低优先；同方向同价格按交易主机接受时间先后。<strong>优先是愿意更好满足对方交易，不是买卖双方都价格越高越优先。</strong></p>
+<p>例子：买单A为10.2元09:31，B为10.1元09:30，C为10.2元09:32，排序A、C、B。B来得早，但价格劣于A、C，不能跳队。</p>
+<p>卖单D为9.8元09:32，E为9.9元09:30，F为9.8元09:33，排序D、F、E。先看方向与价格，再看时间。</p>
+<figure class="diagram" data-diagram="c4-price-priority"><figcaption class="figure-label">SVG · 买价高优先，卖价低优先，同价看时间</figcaption><div class="diagram-interactive"><div id="finance-c4-price-priority">
+<h3>买价高优先，卖价低优先，同价看时间</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">买单排序</button><button aria-pressed="false" class="btn" type="button">卖单排序</button></div>
+<div data-diagrams=""><svg aria-label="价格在时间前" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>价格在时间前</title><desc>A：10.2元，09:31先同价；C：10.2元，09:32后同价；B：10.1元，09:30但低价。先后；价格排序</desc><defs><marker id="arrow-c4-price-priority-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">价格在时间前</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">A：10.2元</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">09:31先同价</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">C：10.2元</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">09:32后同价</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">B：10.1元</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">09:30但低价</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c4-price-priority-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">先后</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c4-price-priority-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">价格排序</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">买单排序</div>
+<script data-config="" type="application/json">{"heading": "买价高优先，卖价低优先，同价看时间", "states": [{"label": "买单排序", "rows": [{"label": "价格在时间前", "nodes": [["A：10.2元", "09:31先同价"], ["C：10.2元", "09:32后同价"], ["B：10.1元", "09:30但低价"]], "edges": ["先后", "价格排序"]}]}, {"label": "卖单排序", "rows": [{"label": "卖方要价低优先", "nodes": [["D：9.8元", "09:32"], ["F：9.8元", "09:33"], ["E：9.9元", "09:30"]], "edges": ["先后", "价格排序"]}]}]}</script>
+</div>
+<style>
+#finance-c4-price-priority .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-price-priority .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-price-priority .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-price-priority .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-price-priority .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-price-priority');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-price-priority-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-price-priority-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>买单排序</h4><div><svg aria-label="价格在时间前" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>价格在时间前</title><desc>A：10.2元，09:31先同价；C：10.2元，09:32后同价；B：10.1元，09:30但低价。先后；价格排序</desc><defs><marker id="print-04-03-2-0-arrow-c4-price-priority-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">价格在时间前</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">A：10.2元</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">09:31先同价</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">C：10.2元</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">09:32后同价</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">B：10.1元</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">09:30但低价</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-03-2-0-arrow-c4-price-priority-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">先后</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-03-2-0-arrow-c4-price-priority-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">价格排序</text></svg></div></div><div class="diagram-print-state"><h4>卖单排序</h4><div><svg aria-label="卖方要价低优先" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>卖方要价低优先</title><desc>D：9.8元，09:32；F：9.8元，09:33；E：9.9元，09:30。先后；价格排序</desc><defs><marker id="print-04-03-2-1-arrow-c4-price-priority-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">卖方要价低优先</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">D：9.8元</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">09:32</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">F：9.8元</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">09:33</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">E：9.9元</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">09:30</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-03-2-1-arrow-c4-price-priority-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">先后</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-03-2-1-arrow-c4-price-priority-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">价格排序</text></svg></div></div></div></figure></section><section class="lesson" id="c4s3-part-07"><h3>教材240—241页：集合竞价，所有成交用同一价格<span class="level use">会用</span></h3>
+<p>集合竞价集中委托，以可实现最大成交量等规定条件确定一个成交价；高于该价的买单、低于该价的卖单应符合相应全部成交条件；等于价格的一方至少全部成交。并列候选价的进一步选择按交易所及适用版本规则。</p>
+<p>不要记成买方出10.2就一律付10.2、卖方要9.9就只收到9.9。集合竞价当次成交统一用确定价格。</p>
+<p>自编例子，数量为股：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>买单限价</th>
+<th>数量</th>
+<th>卖单限价</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.2</td>
+<td>100</td>
+<td>9.9</td>
+<td>100</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>200</td>
+<td>10.0</td>
+<td>100</td>
+</tr>
+<tr>
+<td>10.0</td>
+<td>100</td>
+<td>10.1</td>
+<td>300</td>
+</tr>
+</tbody>
+</table></div>
+<p>逐个候选价算“愿意买的累计量”与“愿意卖的累计量”，可成交量取较小者：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>候选价</th>
+<th>买价至少此价的量</th>
+<th>卖价至多此价的量</th>
+<th>可成交量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9.9</td>
+<td>400</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr>
+<td>10.0</td>
+<td>400</td>
+<td>200</td>
+<td>200</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>300</td>
+<td>500</td>
+<td>300</td>
+</tr>
+<tr>
+<td>10.2</td>
+<td>100</td>
+<td>500</td>
+<td>100</td>
+</tr>
+</tbody>
+</table></div>
+<p>10.1元实现最大300股，并满足相关条件：高价买100股、低价卖200股都成交；等价买200股全部成交，等价卖有100股成交、200股未成交。<strong>总买量400、总卖量500并不意味着成交400或500；要看价格可匹配条件。</strong></p>
+<figure class="diagram" data-diagram="c4-call-auction"><figcaption class="figure-label">SVG · 集合竞价：比较每个候选价可成交量</figcaption><div class="diagram-interactive"><div id="finance-c4-call-auction">
+<h3>集合竞价：比较每个候选价可成交量</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">10.0元</button><button aria-pressed="false" class="btn" type="button">10.1元</button></div>
+<div data-diagrams=""><svg aria-label="较小累计量限制成交" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>较小累计量限制成交</title><desc>买单可买400股，限价至少10.0；卖单可卖200股，限价至多10.0；可成交200股，取较小累计量。比较；撮合</desc><defs><marker id="arrow-c4-call-auction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">较小累计量限制成交</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">买单可买400股</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">限价至少10.0</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">卖单可卖200股</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">限价至多10.0</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">可成交200股</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">取较小累计量</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c4-call-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">比较</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c4-call-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">撮合</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">10.0元</div>
+<script data-config="" type="application/json">{"heading": "集合竞价：比较每个候选价可成交量", "states": [{"label": "10.0元", "rows": [{"label": "较小累计量限制成交", "nodes": [["买单可买400股", "限价至少10.0"], ["卖单可卖200股", "限价至多10.0"], ["可成交200股", "取较小累计量"]], "edges": ["比较", "撮合"]}]}, {"label": "10.1元", "rows": [{"label": "本例最大成交量", "nodes": [["买单可买300股", "限价至少10.1"], ["卖单可卖500股", "限价至多10.1"], ["可成交300股", "统一10.1元"]], "edges": ["比较", "最大量"]}]}]}</script>
+</div>
+<style>
+#finance-c4-call-auction .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-call-auction .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-call-auction .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-call-auction .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-call-auction .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-call-auction');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-call-auction-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-call-auction-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>10.0元</h4><div><svg aria-label="较小累计量限制成交" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>较小累计量限制成交</title><desc>买单可买400股，限价至少10.0；卖单可卖200股，限价至多10.0；可成交200股，取较小累计量。比较；撮合</desc><defs><marker id="print-04-03-3-0-arrow-c4-call-auction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">较小累计量限制成交</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">买单可买400股</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">限价至少10.0</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">卖单可卖200股</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">限价至多10.0</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">可成交200股</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">取较小累计量</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-03-3-0-arrow-c4-call-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">比较</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-03-3-0-arrow-c4-call-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">撮合</text></svg></div></div><div class="diagram-print-state"><h4>10.1元</h4><div><svg aria-label="本例最大成交量" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>本例最大成交量</title><desc>买单可买300股，限价至少10.1；卖单可卖500股，限价至多10.1；可成交300股，统一10.1元。比较；最大量</desc><defs><marker id="print-04-03-3-1-arrow-c4-call-auction-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">本例最大成交量</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">买单可买300股</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">限价至少10.1</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">卖单可卖500股</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">限价至多10.1</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">可成交300股</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">统一10.1元</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-03-3-1-arrow-c4-call-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">比较</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-03-3-1-arrow-c4-call-auction-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">最大量</text></svg></div></div></div></figure>
+<p>未成交有效委托按规则进入后续阶段。教材沪深北并列价格细则不同，第一轮先把唯一最大成交价的题做对；并列题必须依据指定市场及版本判断，不自行平均所有报价。</p></section><section class="lesson" id="c4s3-part-08"><h3>教材241页：连续竞价，按既有对手申报价成交<span class="level use">会用</span></h3>
+<p>最高买价等于最低卖价，以该价成交；新买单高于即时最低卖价，与相应卖单按该卖价成交；新卖单低于即时最高买价，与相应买单按该买价成交。可部分成交，余量按指令类型及规则处理。</p>
+<p>例子：系统已有最低卖单10元100股，你报10.2元买100股，可以以10元成交。系统已有最高买单10元100股，你报9.8元卖100股，可以以10元成交。<strong>不是把买卖价随意取平均，也不是总用最后输入的限价。</strong>跨多档吃单按各档成交，不一定整笔同一个价格。</p>
+<p>开盘价为当日第一笔成交价，一般通过开盘集合产生，不成则按规则连续产生；股票收盘一般由收盘集合产生，无法产生则按规则成交量加权等计算，当日无成交用前收盘等。教材还列债券回购等不同收盘口径，是<span class="level recognize">会认</span>不同品种规则，不能把所有品种都记成最后一笔价格。</p></section><section class="lesson" id="c4s3-part-09"><h3>教材242页：涨跌幅公式与必须修正的旧规则<span class="level use">会用＋会认</span></h3>
+<p><span aria-label="P_{\rm up}=P_{\rm ref}(1+r),\qquad P_{\rm down}=P_{\rm ref}(1-r)" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="2.347ex" role="img" style="vertical-align: -0.65ex;" viewbox="0 -750 18059.7 1037.2" width="40.859ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z" id="FORMULA-2-MJX-3-TEX-I-1D443"></path><path d="M383 58Q327 -10 256 -10H249Q124 -10 105 89Q104 96 103 226Q102 335 102 348T96 369Q86 385 36 385H25V408Q25 431 27 431L38 432Q48 433 67 434T105 436Q122 437 142 438T172 441T184 442H187V261Q188 77 190 64Q193 49 204 40Q224 26 264 26Q290 26 311 35T343 58T363 90T375 120T379 144Q379 145 379 161T380 201T380 248V315Q380 361 370 372T320 385H302V431Q304 431 378 436T457 442H464V264Q464 84 465 81Q468 61 479 55T524 46H542V0Q540 0 467 -5T390 -11H383V58Z" id="FORMULA-2-MJX-3-TEX-N-75"></path><path d="M36 -148H50Q89 -148 97 -134V-126Q97 -119 97 -107T97 -77T98 -38T98 6T98 55T98 106Q98 140 98 177T98 243T98 296T97 335T97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 61 434T98 436Q115 437 135 438T165 441T176 442H179V416L180 390L188 397Q247 441 326 441Q407 441 464 377T522 216Q522 115 457 52T310 -11Q242 -11 190 33L182 40V-45V-101Q182 -128 184 -134T195 -145Q216 -148 244 -148H260V-194H252L228 -193Q205 -192 178 -192T140 -191Q37 -191 28 -194H20V-148H36ZM424 218Q424 292 390 347T305 402Q234 402 182 337V98Q222 26 294 26Q345 26 384 80T424 218Z" id="FORMULA-2-MJX-3-TEX-N-70"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-2-MJX-3-TEX-N-3D"></path><path d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" id="FORMULA-2-MJX-3-TEX-N-72"></path><path d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" id="FORMULA-2-MJX-3-TEX-N-65"></path><path d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" id="FORMULA-2-MJX-3-TEX-N-66"></path><path d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" id="FORMULA-2-MJX-3-TEX-N-28"></path><path d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" id="FORMULA-2-MJX-3-TEX-N-31"></path><path d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" id="FORMULA-2-MJX-3-TEX-N-2B"></path><path d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z" id="FORMULA-2-MJX-3-TEX-I-1D45F"></path><path d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" id="FORMULA-2-MJX-3-TEX-N-29"></path><path d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z" id="FORMULA-2-MJX-3-TEX-N-2C"></path><path d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" id="FORMULA-2-MJX-3-TEX-N-64"></path><path d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" id="FORMULA-2-MJX-3-TEX-N-6F"></path><path d="M90 368Q84 378 76 380T40 385H18V431H24L43 430Q62 430 84 429T116 428Q206 428 221 431H229V385H215Q177 383 177 368Q177 367 221 239L265 113L339 328L333 345Q323 374 316 379Q308 384 278 385H258V431H264Q270 428 348 428Q439 428 454 431H461V385H452Q404 385 404 369Q404 366 418 324T449 234T481 143L496 100L537 219Q579 341 579 347Q579 363 564 373T530 385H522V431H529Q541 428 624 428Q692 428 698 431H703V385H697Q696 385 691 385T682 384Q635 377 619 334L559 161Q546 124 528 71Q508 12 503 1T487 -11H479Q460 -11 456 -4Q455 -3 407 133L361 267Q359 263 266 -4Q261 -11 243 -11H238Q225 -11 220 -3L90 368Z" id="FORMULA-2-MJX-3-TEX-N-77"></path><path d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" id="FORMULA-2-MJX-3-TEX-N-6E"></path><path d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" id="FORMULA-2-MJX-3-TEX-N-2212"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-2-MJX-3-TEX-I-1D443"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(675,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="75" xlink:href="#FORMULA-2-MJX-3-TEX-N-75"></use></g><g data-mml-node="mi" transform="translate(556,0)"><use data-c="70" xlink:href="#FORMULA-2-MJX-3-TEX-N-70"></use></g></g></g><g data-mml-node="mo" transform="translate(1789.1,0)"><use data-c="3D" xlink:href="#FORMULA-2-MJX-3-TEX-N-3D"></use></g><g data-mml-node="msub" transform="translate(2844.9,0)"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-2-MJX-3-TEX-I-1D443"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(675,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="72" xlink:href="#FORMULA-2-MJX-3-TEX-N-72"></use></g><g data-mml-node="mi" transform="translate(392,0)"><use data-c="65" xlink:href="#FORMULA-2-MJX-3-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(836,0)"><use data-c="66" xlink:href="#FORMULA-2-MJX-3-TEX-N-66"></use></g></g></g><g data-mml-node="mo" transform="translate(4424,0)"><use data-c="28" xlink:href="#FORMULA-2-MJX-3-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(4813,0)"><use data-c="31" xlink:href="#FORMULA-2-MJX-3-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(5535.3,0)"><use data-c="2B" xlink:href="#FORMULA-2-MJX-3-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(6535.5,0)"><use data-c="1D45F" xlink:href="#FORMULA-2-MJX-3-TEX-I-1D45F"></use></g><g data-mml-node="mo" transform="translate(6986.5,0)"><use data-c="29" xlink:href="#FORMULA-2-MJX-3-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(7375.5,0)"><use data-c="2C" xlink:href="#FORMULA-2-MJX-3-TEX-N-2C"></use></g><g data-mml-node="mstyle" transform="translate(7653.5,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="msub" transform="translate(9820.2,0)"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-2-MJX-3-TEX-I-1D443"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(675,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="64" xlink:href="#FORMULA-2-MJX-3-TEX-N-64"></use></g><g data-mml-node="mi" transform="translate(556,0)"><use data-c="6F" xlink:href="#FORMULA-2-MJX-3-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(1056,0)"><use data-c="77" xlink:href="#FORMULA-2-MJX-3-TEX-N-77"></use></g><g data-mml-node="mi" transform="translate(1778,0)"><use data-c="6E" xlink:href="#FORMULA-2-MJX-3-TEX-N-6E"></use></g></g></g><g data-mml-node="mo" transform="translate(12473.3,0)"><use data-c="3D" xlink:href="#FORMULA-2-MJX-3-TEX-N-3D"></use></g><g data-mml-node="msub" transform="translate(13529.1,0)"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-2-MJX-3-TEX-I-1D443"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(675,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="72" xlink:href="#FORMULA-2-MJX-3-TEX-N-72"></use></g><g data-mml-node="mi" transform="translate(392,0)"><use data-c="65" xlink:href="#FORMULA-2-MJX-3-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(836,0)"><use data-c="66" xlink:href="#FORMULA-2-MJX-3-TEX-N-66"></use></g></g></g><g data-mml-node="mo" transform="translate(15108.3,0)"><use data-c="28" xlink:href="#FORMULA-2-MJX-3-TEX-N-28"></use></g><g data-mml-node="mn" transform="translate(15497.3,0)"><use data-c="31" xlink:href="#FORMULA-2-MJX-3-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(16219.5,0)"><use data-c="2212" xlink:href="#FORMULA-2-MJX-3-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(17219.7,0)"><use data-c="1D45F" xlink:href="#FORMULA-2-MJX-3-TEX-I-1D45F"></use></g><g data-mml-node="mo" transform="translate(17670.7,0)"><use data-c="29" xlink:href="#FORMULA-2-MJX-3-TEX-N-29"></use></g></g></g></svg></mjx-container></span></p>
+<p>前收盘等参考价10元，10%对应11与9元；20%对应12与8元；30%对应13与7元。按规定最小价格单位处理，不用涨跌幅百分数直接加减股价。</p>
+<p><strong>版本说明：</strong>教材写主板ST、*ST为5%，以及主板IPO仅首日不设限，不能直接当2026年10月规则。沪深2026交易规则已将主板风险警示涨跌幅改为10%；注册制主板IPO、科创创业IPO通常前5个交易日不设日涨跌幅限制；北交所通常30%、相应公开发行上市首日不设日限幅。更具体情形按市场规定。<a href="https://big5.sse.com.cn/site/cht/www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260424_10816474.shtml" rel="noopener" target="_blank">上交所2026修订说明及实施日</a>，<a href="https://docs.static.szse.cn/www/lawrules/rule/trade/current/W020260424690713155663.pdf" rel="noopener" target="_blank">深交所2026交易规则</a></p>
+<p>主板常规10%、科创创业常规20%、北交常规30%，是学习骨架。<strong>不能因为名称带ST就把所有板块都套5%，也不能因IPO不设日涨跌幅限制就认为完全没有申报范围、临停和风险控制。</strong></p>
+<p>教材把“恢复上市”列无涨跌幅情形，有旧制度背景，不用它恢复已经取消的暂停恢复流程。题目明确引用旧版时识别旧口径；题目问现行时按相应有效规则。</p></section><section class="lesson" id="c4s3-part-10"><h3>教材242—244页：费用与清算交收，收益要扣成本<span class="level use">会用</span></h3>
+<p>费用税收包括佣金、过户费、印花税等。佣金为经纪服务费用；过户费针对变更登记；印花税是国家税收。教材印花税段先写双边后又写卖方单边，<strong>按卖方单边理解，不能重复给买方加同一印花税。</strong>实际费率、最低费用与适用对象按制度及合同，计算题用题目明确数据。</p>
+<p><span aria-label="\text{净交易收益}=\text{卖出收入}-\text{买入成本}-\text{相关费用税收}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="2.149ex" role="img" style="vertical-align: -0.452ex;" viewbox="0 -750 22778.4 950" width="51.535ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-3-MJX-4-TEX-N-3D"></path><path d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" id="FORMULA-3-MJX-4-TEX-N-2212"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">净</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">交</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">易</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">收</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">益</text></g><g data-mml-node="mo" transform="translate(5277.8,0)"><use data-c="3D" xlink:href="#FORMULA-3-MJX-4-TEX-N-3D"></use></g><g data-mml-node="mtext" transform="translate(6333.6,0)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">卖</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">出</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">收</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">入</text></g><g data-mml-node="mo" transform="translate(10555.8,0)"><use data-c="2212" xlink:href="#FORMULA-3-MJX-4-TEX-N-2212"></use></g><g data-mml-node="mtext" transform="translate(11556,0)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">买</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">入</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">成</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">本</text></g><g data-mml-node="mo" transform="translate(15778.2,0)"><use data-c="2212" xlink:href="#FORMULA-3-MJX-4-TEX-N-2212"></use></g><g data-mml-node="mtext" transform="translate(16778.4,0)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">相</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">关</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">费</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">用</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">税</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(5000,0) scale(1,-1)">收</text></g></g></g></svg></mjx-container></span></p>
+<p>例如买入100股每股10元，卖出每股11元，买卖合计费用20元，净收益100减20等于80元。不能把股价差100元全部当净收益。</p>
+<p>结算仍是第三章分级结构：中国结算与券商等参与人，券商与客户相应结算；客户资金第三方存管由券商和指定银行配合核对划付。<strong>银行存管、交易所成交、中国结算登记交收各有分工，不能互换。</strong></p>
+<p>教材九个账户更新步骤，是系统协同解释。第一轮抓顺序：入金、校验、申报成交、生成清算交收数据、券商与银行对账划付、依法出金至同名银行账户。无须背每个后台字段，讲它是说明客户资金不能随便挪用，交易确认不等于所有资金划付已完成。</p>
+<p>普通A股当日新买股份通常不能当日再卖，回转交易规则与资金可用可取、交收日程不是同一概念。其他证券品种存在不同回转安排，不将A股规则套全部ETF债券等。</p></section><section class="lesson" id="c4s3-part-11"><h3>教材244—246页：非交易过户与程序化交易<span class="level use">会用＋会认</span></h3>
+<p>继承、捐赠、依法财产分割、法人资格丧失、私募资管等可能依法非交易过户。并非所有权变动都必须先在竞价系统买卖。教材继承、法人资格丧失由过入方申请；捐赠、离婚、私募资管等由双方共同申请，具体看业务条件。</p>
+<p>程序化交易是计算机程序自动生成或下达交易指令。优势是速度、稳定执行、处理多品种，可能促进流动性与价格发现；缺陷有技术信息速度差异、趋同共振、系统与模型风险。<strong>程序没有情绪，不代表写程序的人和策略假设没有偏差，也不代表模型稳赚。</strong></p>
+<p>教材2024规定、2025实施细则主线：先报告后交易、实时监控、客户管理、合规风控、系统管理、高频差异化监管、内外资一致监管等。</p>
+<p>高频识别<span class="level recognize">会认</span>：单账户每秒申报撤单合计最高达到300笔以上，或全日合计最高达到20000笔以上等规定标准。<strong>不是所有程序化都高频，也不是日成交20000笔才算，申报和撤单要按标准计算。</strong>历史美国15只股票的定义是沿革，不是中国今天程序化的必要门槛。</p></section><section class="lesson" id="c4s3-part-12"><h3>教材246—248页：股票指数是什么，平均方式不同会改变结果<span class="level use">会用</span></h3>
+<p>指数是某个样本集合股票价格总体变化的尺度，可用于看行情、研究、评价业绩、开发基金期货等。指数涨不等于你持有每只股票都涨，也不等于所有股票相同权重。</p>
+<p>编制四步：选样本、定基期、按方法计算并必要修正、指数化。基期1000、之后1100意味着相应指数相对基期约涨10%，不是每股股票售价1100元。</p>
+<p><span aria-label="I_t=\frac{\text{报告期相应平均价或调整市值}}{\text{基准口径或修正除数}}\times\text{基点}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="5.285ex" role="img" style="vertical-align: -2.059ex;" viewbox="0 -1426 18774.3 2336" width="42.476ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M43 1Q26 1 26 10Q26 12 29 24Q34 43 39 45Q42 46 54 46H60Q120 46 136 53Q137 53 138 54Q143 56 149 77T198 273Q210 318 216 344Q286 624 286 626Q284 630 284 631Q274 637 213 637H193Q184 643 189 662Q193 677 195 680T209 683H213Q285 681 359 681Q481 681 487 683H497Q504 676 504 672T501 655T494 639Q491 637 471 637Q440 637 407 634Q393 631 388 623Q381 609 337 432Q326 385 315 341Q245 65 245 59Q245 52 255 50T307 46H339Q345 38 345 37T342 19Q338 6 332 0H316Q279 2 179 2Q143 2 113 2T65 2T43 1Z" id="FORMULA-4-MJX-5-TEX-I-1D43C"></path><path d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z" id="FORMULA-4-MJX-5-TEX-I-1D461"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-4-MJX-5-TEX-N-3D"></path><path d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z" id="FORMULA-4-MJX-5-TEX-N-D7"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D43C" xlink:href="#FORMULA-4-MJX-5-TEX-I-1D43C"></use></g><g data-mml-node="mi" transform="translate(473,-150) scale(0.707)"><use data-c="1D461" xlink:href="#FORMULA-4-MJX-5-TEX-I-1D461"></use></g></g><g data-mml-node="mo" transform="translate(1056,0)"><use data-c="3D" xlink:href="#FORMULA-4-MJX-5-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2111.8,0)"><g data-mml-node="mtext" transform="translate(220,676)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">报</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">告</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">期</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">相</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">应</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(5000,0) scale(1,-1)">平</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(6000,0) scale(1,-1)">均</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(7000,0) scale(1,-1)">价</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(8000,0) scale(1,-1)">或</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(9000,0) scale(1,-1)">调</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(10000,0) scale(1,-1)">整</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(11000,0) scale(1,-1)">市</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(12000,0) scale(1,-1)">值</text></g><g data-mml-node="mtext" transform="translate(2220,-710)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">基</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">准</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(2000,0) scale(1,-1)">口</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(3000,0) scale(1,-1)">径</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(4000,0) scale(1,-1)">或</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(5000,0) scale(1,-1)">修</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(6000,0) scale(1,-1)">正</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(7000,0) scale(1,-1)">除</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(8000,0) scale(1,-1)">数</text></g><rect height="60" width="13200" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(15774,0)"><use data-c="D7" xlink:href="#FORMULA-4-MJX-5-TEX-N-D7"></use></g><g data-mml-node="mtext" transform="translate(16774.3,0)"><text data-variant="normal" font-family="serif" font-size="884px" transform="scale(1,-1)">基</text><text data-variant="normal" font-family="serif" font-size="884px" transform="translate(1000,0) scale(1,-1)">点</text></g></g></g></svg></mjx-container></span></p>
+<p>算术平均按样本价格简单平均；几何平均采用乘积开方；加权平均给不同股票不同权重。选择报告期数量等作权数，是派许加权的识别点。<strong>价格加权、等权、市值加权不是一个方法，不要只记“都是平均”。</strong></p>
+<p>例子：A从10涨12，B从20跌18，简单平均价格从15仍15；但各股涨跌幅等权平均是5%。说明两种计算口径不能随意换。</p></section><section class="lesson" id="c4s3-part-13"><h3>教材248—250页：沪深300，自由流通与分级靠档<span class="level use">会用＋会认</span></h3>
+<p>沪深300选沪深市场规模大、流动性好的300只代表性证券，是跨市场指数，基日2004年12月31日，基点1000，2005年4月8日发布。行业、规模、风格、主题、策略指数又是不同样本或选样逻辑。</p>
+<p>选择流动性、市值、合规等合适样本；样本和方法有定期调整。教材创业板上市3年等选样细节含历史口径，不作永恒门槛死记，题目指定版本再查当时编制方案。</p>
+<p>自由流通量剔除限售和按规则基本不流通战略等持股；不等于总股本。调整股本按自由流通比例分级靠档，<strong>不一定恰好等于自由流通股数。</strong></p>
+<p><span aria-label="Q_{\rm free}=Q_{\rm total}-Q_{\rm nonfree}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="2.032ex" role="img" style="vertical-align: -0.439ex;" viewbox="0 -704 10107.9 898" width="22.869ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M399 -80Q399 -47 400 -30T402 -11V-7L387 -11Q341 -22 303 -22Q208 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435Q740 255 592 107Q529 47 461 16L444 8V3Q444 2 449 -24T470 -66T516 -82Q551 -82 583 -60T625 -3Q631 11 638 11Q647 11 649 2Q649 -6 639 -34T611 -100T557 -165T481 -194Q399 -194 399 -87V-80ZM636 468Q636 523 621 564T580 625T530 655T477 665Q429 665 379 640Q277 591 215 464T153 216Q153 110 207 59Q231 38 236 38V46Q236 86 269 120T347 155Q372 155 390 144T417 114T429 82T435 55L448 64Q512 108 557 185T619 334T636 468ZM314 18Q362 18 404 39L403 49Q399 104 366 115Q354 117 347 117Q344 117 341 117T337 118Q317 118 296 98T274 52Q274 18 314 18Z" id="FORMULA-5-MJX-6-TEX-I-1D444"></path><path d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" id="FORMULA-5-MJX-6-TEX-N-66"></path><path d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" id="FORMULA-5-MJX-6-TEX-N-72"></path><path d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" id="FORMULA-5-MJX-6-TEX-N-65"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-5-MJX-6-TEX-N-3D"></path><path d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" id="FORMULA-5-MJX-6-TEX-N-74"></path><path d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" id="FORMULA-5-MJX-6-TEX-N-6F"></path><path d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" id="FORMULA-5-MJX-6-TEX-N-61"></path><path d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" id="FORMULA-5-MJX-6-TEX-N-6C"></path><path d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" id="FORMULA-5-MJX-6-TEX-N-2212"></path><path d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" id="FORMULA-5-MJX-6-TEX-N-6E"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-5-MJX-6-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="66" xlink:href="#FORMULA-5-MJX-6-TEX-N-66"></use></g><g data-mml-node="mi" transform="translate(372,0)"><use data-c="72" xlink:href="#FORMULA-5-MJX-6-TEX-N-72"></use></g><g data-mml-node="mi" transform="translate(764,0)"><use data-c="65" xlink:href="#FORMULA-5-MJX-6-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(1208,0)"><use data-c="65" xlink:href="#FORMULA-5-MJX-6-TEX-N-65"></use></g></g></g><g data-mml-node="mo" transform="translate(2319.9,0)"><use data-c="3D" xlink:href="#FORMULA-5-MJX-6-TEX-N-3D"></use></g><g data-mml-node="msub" transform="translate(3375.7,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-5-MJX-6-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="74" xlink:href="#FORMULA-5-MJX-6-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(389,0)"><use data-c="6F" xlink:href="#FORMULA-5-MJX-6-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(889,0)"><use data-c="74" xlink:href="#FORMULA-5-MJX-6-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(1278,0)"><use data-c="61" xlink:href="#FORMULA-5-MJX-6-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(1778,0)"><use data-c="6C" xlink:href="#FORMULA-5-MJX-6-TEX-N-6C"></use></g></g></g><g data-mml-node="mo" transform="translate(5925.7,0)"><use data-c="2212" xlink:href="#FORMULA-5-MJX-6-TEX-N-2212"></use></g><g data-mml-node="msub" transform="translate(6926,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-5-MJX-6-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="6E" xlink:href="#FORMULA-5-MJX-6-TEX-N-6E"></use></g><g data-mml-node="mi" transform="translate(556,0)"><use data-c="6F" xlink:href="#FORMULA-5-MJX-6-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(1056,0)"><use data-c="6E" xlink:href="#FORMULA-5-MJX-6-TEX-N-6E"></use></g><g data-mml-node="mi" transform="translate(1612,0)"><use data-c="66" xlink:href="#FORMULA-5-MJX-6-TEX-N-66"></use></g><g data-mml-node="mi" transform="translate(1984,0)"><use data-c="72" xlink:href="#FORMULA-5-MJX-6-TEX-N-72"></use></g><g data-mml-node="mi" transform="translate(2376,0)"><use data-c="65" xlink:href="#FORMULA-5-MJX-6-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(2820,0)"><use data-c="65" xlink:href="#FORMULA-5-MJX-6-TEX-N-65"></use></g></g></g></g></g></svg></mjx-container></span>
+<span aria-label="f=\frac{Q_{\rm free}}{Q_{\rm total}},\qquad Q_{\rm adj}=Q_{\rm total}\times w(f)" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="5.113ex" role="img" style="vertical-align: -1.991ex;" viewbox="0 -1380 15860.9 2260" width="35.884ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z" id="FORMULA-6-MJX-7-TEX-I-1D453"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-6-MJX-7-TEX-N-3D"></path><path d="M399 -80Q399 -47 400 -30T402 -11V-7L387 -11Q341 -22 303 -22Q208 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435Q740 255 592 107Q529 47 461 16L444 8V3Q444 2 449 -24T470 -66T516 -82Q551 -82 583 -60T625 -3Q631 11 638 11Q647 11 649 2Q649 -6 639 -34T611 -100T557 -165T481 -194Q399 -194 399 -87V-80ZM636 468Q636 523 621 564T580 625T530 655T477 665Q429 665 379 640Q277 591 215 464T153 216Q153 110 207 59Q231 38 236 38V46Q236 86 269 120T347 155Q372 155 390 144T417 114T429 82T435 55L448 64Q512 108 557 185T619 334T636 468ZM314 18Q362 18 404 39L403 49Q399 104 366 115Q354 117 347 117Q344 117 341 117T337 118Q317 118 296 98T274 52Q274 18 314 18Z" id="FORMULA-6-MJX-7-TEX-I-1D444"></path><path d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" id="FORMULA-6-MJX-7-TEX-N-66"></path><path d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" id="FORMULA-6-MJX-7-TEX-N-72"></path><path d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" id="FORMULA-6-MJX-7-TEX-N-65"></path><path d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" id="FORMULA-6-MJX-7-TEX-N-74"></path><path d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" id="FORMULA-6-MJX-7-TEX-N-6F"></path><path d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" id="FORMULA-6-MJX-7-TEX-N-61"></path><path d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" id="FORMULA-6-MJX-7-TEX-N-6C"></path><path d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z" id="FORMULA-6-MJX-7-TEX-N-2C"></path><path d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" id="FORMULA-6-MJX-7-TEX-N-64"></path><path d="M98 609Q98 637 116 653T160 669Q183 667 200 652T217 609Q217 579 200 564T158 549Q133 549 116 564T98 609ZM28 -163Q58 -168 64 -168Q124 -168 135 -77Q137 -65 137 141T136 353Q132 371 120 377T72 385H52V408Q52 431 54 431L58 432Q62 432 70 432T87 433T108 434T133 436Q151 437 171 438T202 441T214 442H218V184Q217 -36 217 -59T211 -98Q195 -145 153 -175T58 -205Q9 -205 -23 -179T-55 -117Q-55 -94 -40 -79T-2 -64T36 -79T52 -118Q52 -143 28 -163Z" id="FORMULA-6-MJX-7-TEX-N-6A"></path><path d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z" id="FORMULA-6-MJX-7-TEX-N-D7"></path><path d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z" id="FORMULA-6-MJX-7-TEX-I-1D464"></path><path d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" id="FORMULA-6-MJX-7-TEX-N-28"></path><path d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" id="FORMULA-6-MJX-7-TEX-N-29"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D453" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D453"></use></g><g data-mml-node="mo" transform="translate(827.8,0)"><use data-c="3D" xlink:href="#FORMULA-6-MJX-7-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(1883.6,0)"><g data-mml-node="msub" transform="translate(362.8,676)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="66" xlink:href="#FORMULA-6-MJX-7-TEX-N-66"></use></g><g data-mml-node="mi" transform="translate(372,0)"><use data-c="72" xlink:href="#FORMULA-6-MJX-7-TEX-N-72"></use></g><g data-mml-node="mi" transform="translate(764,0)"><use data-c="65" xlink:href="#FORMULA-6-MJX-7-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(1208,0)"><use data-c="65" xlink:href="#FORMULA-6-MJX-7-TEX-N-65"></use></g></g></g><g data-mml-node="msub" transform="translate(220,-686)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="74" xlink:href="#FORMULA-6-MJX-7-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(389,0)"><use data-c="6F" xlink:href="#FORMULA-6-MJX-7-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(889,0)"><use data-c="74" xlink:href="#FORMULA-6-MJX-7-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(1278,0)"><use data-c="61" xlink:href="#FORMULA-6-MJX-7-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(1778,0)"><use data-c="6C" xlink:href="#FORMULA-6-MJX-7-TEX-N-6C"></use></g></g></g><rect height="60" width="2527.8" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(4651.4,0)"><use data-c="2C" xlink:href="#FORMULA-6-MJX-7-TEX-N-2C"></use></g><g data-mml-node="mstyle" transform="translate(4929.4,0)"><g data-mml-node="mspace"></g></g><g data-mml-node="msub" transform="translate(7096,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="61" xlink:href="#FORMULA-6-MJX-7-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(500,0)"><use data-c="64" xlink:href="#FORMULA-6-MJX-7-TEX-N-64"></use></g><g data-mml-node="mi" transform="translate(1056,0)"><use data-c="6A" xlink:href="#FORMULA-6-MJX-7-TEX-N-6A"></use></g></g></g><g data-mml-node="mo" transform="translate(9210.9,0)"><use data-c="3D" xlink:href="#FORMULA-6-MJX-7-TEX-N-3D"></use></g><g data-mml-node="msub" transform="translate(10266.7,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="74" xlink:href="#FORMULA-6-MJX-7-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(389,0)"><use data-c="6F" xlink:href="#FORMULA-6-MJX-7-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(889,0)"><use data-c="74" xlink:href="#FORMULA-6-MJX-7-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(1278,0)"><use data-c="61" xlink:href="#FORMULA-6-MJX-7-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(1778,0)"><use data-c="6C" xlink:href="#FORMULA-6-MJX-7-TEX-N-6C"></use></g></g></g><g data-mml-node="mo" transform="translate(12816.7,0)"><use data-c="D7" xlink:href="#FORMULA-6-MJX-7-TEX-N-D7"></use></g><g data-mml-node="mi" transform="translate(13816.9,0)"><use data-c="1D464" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D464"></use></g><g data-mml-node="mo" transform="translate(14532.9,0)"><use data-c="28" xlink:href="#FORMULA-6-MJX-7-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(14921.9,0)"><use data-c="1D453" xlink:href="#FORMULA-6-MJX-7-TEX-I-1D453"></use></g><g data-mml-node="mo" transform="translate(15471.9,0)"><use data-c="29" xlink:href="#FORMULA-6-MJX-7-TEX-N-29"></use></g></g></g></svg></mjx-container></span>
+<span aria-label="M_{\rm adj}=\sum_i P_iQ_{i,\rm adj}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="4.847ex" role="img" style="vertical-align: -2.697ex;" viewbox="0 -950 8206.9 2142.2" width="18.568ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z" id="FORMULA-7-MJX-8-TEX-I-1D440"></path><path d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" id="FORMULA-7-MJX-8-TEX-N-61"></path><path d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" id="FORMULA-7-MJX-8-TEX-N-64"></path><path d="M98 609Q98 637 116 653T160 669Q183 667 200 652T217 609Q217 579 200 564T158 549Q133 549 116 564T98 609ZM28 -163Q58 -168 64 -168Q124 -168 135 -77Q137 -65 137 141T136 353Q132 371 120 377T72 385H52V408Q52 431 54 431L58 432Q62 432 70 432T87 433T108 434T133 436Q151 437 171 438T202 441T214 442H218V184Q217 -36 217 -59T211 -98Q195 -145 153 -175T58 -205Q9 -205 -23 -179T-55 -117Q-55 -94 -40 -79T-2 -64T36 -79T52 -118Q52 -143 28 -163Z" id="FORMULA-7-MJX-8-TEX-N-6A"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-7-MJX-8-TEX-N-3D"></path><path d="M60 948Q63 950 665 950H1267L1325 815Q1384 677 1388 669H1348L1341 683Q1320 724 1285 761Q1235 809 1174 838T1033 881T882 898T699 902H574H543H251L259 891Q722 258 724 252Q725 250 724 246Q721 243 460 -56L196 -356Q196 -357 407 -357Q459 -357 548 -357T676 -358Q812 -358 896 -353T1063 -332T1204 -283T1307 -196Q1328 -170 1348 -124H1388Q1388 -125 1381 -145T1356 -210T1325 -294L1267 -449L666 -450Q64 -450 61 -448Q55 -446 55 -439Q55 -437 57 -433L590 177Q590 178 557 222T452 366T322 544L56 909L55 924Q55 945 60 948Z" id="FORMULA-7-MJX-8-TEX-LO-2211"></path><path d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z" id="FORMULA-7-MJX-8-TEX-I-1D456"></path><path d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z" id="FORMULA-7-MJX-8-TEX-I-1D443"></path><path d="M399 -80Q399 -47 400 -30T402 -11V-7L387 -11Q341 -22 303 -22Q208 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435Q740 255 592 107Q529 47 461 16L444 8V3Q444 2 449 -24T470 -66T516 -82Q551 -82 583 -60T625 -3Q631 11 638 11Q647 11 649 2Q649 -6 639 -34T611 -100T557 -165T481 -194Q399 -194 399 -87V-80ZM636 468Q636 523 621 564T580 625T530 655T477 665Q429 665 379 640Q277 591 215 464T153 216Q153 110 207 59Q231 38 236 38V46Q236 86 269 120T347 155Q372 155 390 144T417 114T429 82T435 55L448 64Q512 108 557 185T619 334T636 468ZM314 18Q362 18 404 39L403 49Q399 104 366 115Q354 117 347 117Q344 117 341 117T337 118Q317 118 296 98T274 52Q274 18 314 18Z" id="FORMULA-7-MJX-8-TEX-I-1D444"></path><path d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z" id="FORMULA-7-MJX-8-TEX-N-2C"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D440" xlink:href="#FORMULA-7-MJX-8-TEX-I-1D440"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(1003,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="61" xlink:href="#FORMULA-7-MJX-8-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(500,0)"><use data-c="64" xlink:href="#FORMULA-7-MJX-8-TEX-N-64"></use></g><g data-mml-node="mi" transform="translate(1056,0)"><use data-c="6A" xlink:href="#FORMULA-7-MJX-8-TEX-N-6A"></use></g></g></g><g data-mml-node="mo" transform="translate(2293.9,0)"><use data-c="3D" xlink:href="#FORMULA-7-MJX-8-TEX-N-3D"></use></g><g data-mml-node="munder" transform="translate(3349.6,0)"><g data-mml-node="mo"><use data-c="2211" xlink:href="#FORMULA-7-MJX-8-TEX-LO-2211"></use></g><g data-mml-node="mi" transform="translate(600,-1084.4) scale(0.707)"><use data-c="1D456" xlink:href="#FORMULA-7-MJX-8-TEX-I-1D456"></use></g></g><g data-mml-node="msub" transform="translate(4960.3,0)"><g data-mml-node="mi"><use data-c="1D443" xlink:href="#FORMULA-7-MJX-8-TEX-I-1D443"></use></g><g data-mml-node="mi" transform="translate(675,-150) scale(0.707)"><use data-c="1D456" xlink:href="#FORMULA-7-MJX-8-TEX-I-1D456"></use></g></g><g data-mml-node="msub" transform="translate(5929.3,0)"><g data-mml-node="mi"><use data-c="1D444" xlink:href="#FORMULA-7-MJX-8-TEX-I-1D444"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(824,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="1D456" xlink:href="#FORMULA-7-MJX-8-TEX-I-1D456"></use></g><g data-mml-node="mo" transform="translate(345,0)"><use data-c="2C" xlink:href="#FORMULA-7-MJX-8-TEX-N-2C"></use></g><g data-mml-node="mi" transform="translate(623,0)"><use data-c="61" xlink:href="#FORMULA-7-MJX-8-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(1123,0)"><use data-c="64" xlink:href="#FORMULA-7-MJX-8-TEX-N-64"></use></g><g data-mml-node="mi" transform="translate(1679,0)"><use data-c="6A" xlink:href="#FORMULA-7-MJX-8-TEX-N-6A"></use></g></g></g></g></g></svg></mjx-container></span></p>
+<p>教材A总100000、非自由91000，自由9000、比例9%，权重9%，调整9000；B总8000、非自由4500，自由3500、43.75%，靠档50%，调整4000；C总5000、非自由900，自由4100、82%，靠档100%，调整5000。</p>
+<figure class="diagram" data-diagram="c4-free-float"><figcaption class="figure-label">SVG · 自由流通数与靠档调整股本不同</figcaption><div class="diagram-interactive"><div id="finance-c4-free-float">
+<h3>自由流通数与靠档调整股本不同</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">股票B例子</button></div>
+<div data-diagrams=""><svg aria-label="先算自由比例" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>先算自由比例</title><desc>总8000股，非自由4500股；自由3500股，比例43.75%；靠档50%，调整股本4000。扣除；靠档</desc><defs><marker id="arrow-c4-free-float-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先算自由比例</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">总8000股</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">非自由4500股</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">自由3500股</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">比例43.75%</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">靠档50%</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">调整股本4000</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-c4-free-float-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">扣除</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-c4-free-float-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">靠档</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">股票B例子</div>
+<script data-config="" type="application/json">{"heading": "自由流通数与靠档调整股本不同", "states": [{"label": "股票B例子", "rows": [{"label": "先算自由比例", "nodes": [["总8000股", "非自由4500股"], ["自由3500股", "比例43.75%"], ["靠档50%", "调整股本4000"]], "edges": ["扣除", "靠档"]}]}]}</script>
+</div>
+<style>
+#finance-c4-free-float .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-free-float .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-free-float .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-free-float .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-free-float .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-free-float');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-free-float-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-free-float-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>股票B例子</h4><div><svg aria-label="先算自由比例" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>先算自由比例</title><desc>总8000股，非自由4500股；自由3500股，比例43.75%；靠档50%，调整股本4000。扣除；靠档</desc><defs><marker id="print-04-03-4-0-arrow-c4-free-float-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">先算自由比例</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">总8000股</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">非自由4500股</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">自由3500股</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">比例43.75%</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">靠档50%</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">调整股本4000</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-04-03-4-0-arrow-c4-free-float-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">扣除</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-04-03-4-0-arrow-c4-free-float-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">靠档</text></svg></div></div></div></figure>
+<details class="reference-section">
+<summary>第二轮记忆：教材分级靠档表</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>自由流通比例</th>
+<th>教材加权比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不超过15%</td>
+<td>向上到最接近整数百分比</td>
+</tr>
+<tr>
+<td>大于15%至20%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>大于20%至30%</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>大于30%至40%</td>
+<td>40%</td>
+</tr>
+<tr>
+<td>大于40%至50%</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>大于50%至60%</td>
+<td>60%</td>
+</tr>
+<tr>
+<td>大于60%至70%</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>大于70%至80%</td>
+<td>80%</td>
+</tr>
+<tr>
+<td>大于80%</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+<p>15%属于前档、20%属于20%档、80%属于80%档、82%跳至100%，注意端点包含关系。</p>
+</details>
+<p><strong>教材公式括号纠正：</strong>第248页印成“调整市值/(除数×1000)”。在基点1000、除数采用基准调整市值归一化的口径，应理解为“调整市值/除数，再乘1000”。基期市值与除数相等时应得到1000，不能得到0.001。做题先用基期检验单位与缩放关系。</p>
+<p>非价格原因的样本或股本变化，用除数修正保持指数可比，不让换样本凭空造成行情涨跌：</p>
+<p><span aria-label="\frac{M_{\rm before}}{d_{\rm old}}=\frac{M_{\rm after}}{d_{\rm new}}" class="math-display" role="math"><mjx-container class="MathJax" display="true" jax="SVG"><svg focusable="false" height="4.984ex" role="img" style="vertical-align: -1.909ex;" viewbox="0 -1359 7717.2 2202.8" width="17.46ex" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z" id="FORMULA-8-MJX-9-TEX-I-1D440"></path><path d="M307 -11Q234 -11 168 55L158 37Q156 34 153 28T147 17T143 10L138 1L118 0H98V298Q98 599 97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V543Q179 391 180 391L183 394Q186 397 192 401T207 411T228 421T254 431T286 439T323 442Q401 442 461 379T522 216Q522 115 458 52T307 -11ZM182 98Q182 97 187 90T196 79T206 67T218 55T233 44T250 35T271 29T295 26Q330 26 363 46T412 113Q424 148 424 212Q424 287 412 323Q385 405 300 405Q270 405 239 390T188 347L182 339V98Z" id="FORMULA-8-MJX-9-TEX-N-62"></path><path d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" id="FORMULA-8-MJX-9-TEX-N-65"></path><path d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" id="FORMULA-8-MJX-9-TEX-N-66"></path><path d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" id="FORMULA-8-MJX-9-TEX-N-6F"></path><path d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" id="FORMULA-8-MJX-9-TEX-N-72"></path><path d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z" id="FORMULA-8-MJX-9-TEX-I-1D451"></path><path d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" id="FORMULA-8-MJX-9-TEX-N-6C"></path><path d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" id="FORMULA-8-MJX-9-TEX-N-64"></path><path d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" id="FORMULA-8-MJX-9-TEX-N-3D"></path><path d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" id="FORMULA-8-MJX-9-TEX-N-61"></path><path d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" id="FORMULA-8-MJX-9-TEX-N-74"></path><path d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" id="FORMULA-8-MJX-9-TEX-N-6E"></path><path d="M90 368Q84 378 76 380T40 385H18V431H24L43 430Q62 430 84 429T116 428Q206 428 221 431H229V385H215Q177 383 177 368Q177 367 221 239L265 113L339 328L333 345Q323 374 316 379Q308 384 278 385H258V431H264Q270 428 348 428Q439 428 454 431H461V385H452Q404 385 404 369Q404 366 418 324T449 234T481 143L496 100L537 219Q579 341 579 347Q579 363 564 373T530 385H522V431H529Q541 428 624 428Q692 428 698 431H703V385H697Q696 385 691 385T682 384Q635 377 619 334L559 161Q546 124 528 71Q508 12 503 1T487 -11H479Q460 -11 456 -4Q455 -3 407 133L361 267Q359 263 266 -4Q261 -11 243 -11H238Q225 -11 220 -3L90 368Z" id="FORMULA-8-MJX-9-TEX-N-77"></path></defs><g fill="currentColor" stroke="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><use data-c="1D440" xlink:href="#FORMULA-8-MJX-9-TEX-I-1D440"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(1003,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="62" xlink:href="#FORMULA-8-MJX-9-TEX-N-62"></use></g><g data-mml-node="mi" transform="translate(556,0)"><use data-c="65" xlink:href="#FORMULA-8-MJX-9-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(1000,0)"><use data-c="66" xlink:href="#FORMULA-8-MJX-9-TEX-N-66"></use></g><g data-mml-node="mi" transform="translate(1372,0)"><use data-c="6F" xlink:href="#FORMULA-8-MJX-9-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(1872,0)"><use data-c="72" xlink:href="#FORMULA-8-MJX-9-TEX-N-72"></use></g><g data-mml-node="mi" transform="translate(2264,0)"><use data-c="65" xlink:href="#FORMULA-8-MJX-9-TEX-N-65"></use></g></g></g><g data-mml-node="msub" transform="translate(930.8,-686)"><g data-mml-node="mi"><use data-c="1D451" xlink:href="#FORMULA-8-MJX-9-TEX-I-1D451"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(553,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="6F" xlink:href="#FORMULA-8-MJX-9-TEX-N-6F"></use></g><g data-mml-node="mi" transform="translate(500,0)"><use data-c="6C" xlink:href="#FORMULA-8-MJX-9-TEX-N-6C"></use></g><g data-mml-node="mi" transform="translate(778,0)"><use data-c="64" xlink:href="#FORMULA-8-MJX-9-TEX-N-64"></use></g></g></g><rect height="60" width="3167.8" x="120" y="220"></rect></g><g data-mml-node="mo" transform="translate(3685.6,0)"><use data-c="3D" xlink:href="#FORMULA-8-MJX-9-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(4741.4,0)"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><use data-c="1D440" xlink:href="#FORMULA-8-MJX-9-TEX-I-1D440"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(1003,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="61" xlink:href="#FORMULA-8-MJX-9-TEX-N-61"></use></g><g data-mml-node="mi" transform="translate(500,0)"><use data-c="66" xlink:href="#FORMULA-8-MJX-9-TEX-N-66"></use></g><g data-mml-node="mi" transform="translate(872,0)"><use data-c="74" xlink:href="#FORMULA-8-MJX-9-TEX-N-74"></use></g><g data-mml-node="mi" transform="translate(1261,0)"><use data-c="65" xlink:href="#FORMULA-8-MJX-9-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(1705,0)"><use data-c="72" xlink:href="#FORMULA-8-MJX-9-TEX-N-72"></use></g></g></g><g data-mml-node="msub" transform="translate(577.6,-686)"><g data-mml-node="mi"><use data-c="1D451" xlink:href="#FORMULA-8-MJX-9-TEX-I-1D451"></use></g><g data-mjx-texclass="ORD" data-mml-node="TeXAtom" transform="translate(553,-150) scale(0.707)"><g data-mml-node="mi"><use data-c="6E" xlink:href="#FORMULA-8-MJX-9-TEX-N-6E"></use></g><g data-mml-node="mi" transform="translate(556,0)"><use data-c="65" xlink:href="#FORMULA-8-MJX-9-TEX-N-65"></use></g><g data-mml-node="mi" transform="translate(1000,0)"><use data-c="77" xlink:href="#FORMULA-8-MJX-9-TEX-N-77"></use></g></g></g><rect height="60" width="2735.8" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<p>基点因子相同会约掉。调整市值从1000增到1200，旧除数10，则新除数12，前后相应比值仍100。这是调整指数口径，不是掩盖实际价格涨跌。</p></section><section class="lesson" id="c4s3-part-14"><h3>教材250—255页：主要指数，第一轮记覆盖对象<span class="level recognize">会认</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指数</th>
+<th>主要识别点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中证规模体系</td>
+<td>A100、200、沪深300、500、700、800等，反映不同规模组合；300与500构成800这一教材关系</td>
+</tr>
+<tr>
+<td>上证综指</td>
+<td>上海综合市场指标，不只50只蓝筹</td>
+</tr>
+<tr>
+<td>上证180、50</td>
+<td>教材180代表大型蓝筹；50为更集中龙头样本</td>
+</tr>
+<tr>
+<td>上证380、100、150</td>
+<td>教材用于不同新兴或潜力蓝筹样本，不与综合指数混同</td>
+</tr>
+<tr>
+<td>深证成指</td>
+<td>500只代表性A股样本，不是所有深市股票的简单平均</td>
+</tr>
+<tr>
+<td>深证综指、A/B、创业板综合等</td>
+<td>综合、特定类别、板块指数，覆盖范围不同</td>
+</tr>
+<tr>
+<td>深证100</td>
+<td>规模和成交较大代表性股票，含不同板块企业</td>
+</tr>
+<tr>
+<td>道琼斯工业平均</td>
+<td>美国30家公司代表样本，修正价格平均口径</td>
+</tr>
+<tr>
+<td>标普500</td>
+<td>美国大盘公司广泛样本、市值加权逻辑</td>
+</tr>
+<tr>
+<td>纳斯达克系列</td>
+<td>综合、100及行业等，不能把系列全当一个指数</td>
+</tr>
+<tr>
+<td>富时系列</td>
+<td>英国等相关指数体系，30、100与更广综合不是同一个样本</td>
+</tr>
+<tr>
+<td>日经225</td>
+<td>日本225只样本，价格平均相关口径</td>
+</tr>
+<tr>
+<td>恒生指数及分类、台湾加权等</td>
+<td>对应香港、台湾市场，样本与方法各有安排</td>
+</tr>
+</tbody>
+</table></div>
+<p>教材很多成立日期、历史行业配额、样本数用于沿革说明，第一轮不背所有年份。中小板名称、旧东京第一市场、恒生50只等存在历史版本，不能当2026年实时统一描述。</p>
+<p>例如恒生指数公司2026年2月公告把成分数由88增至90，已经说明教材50只不是固定现行数；此处不是要求你再背每天实时名单。<a href="https://origin-www.hsi.com.hk/static/uploads/contents/en/news/pressRelease/20260213T174500.pdf" rel="noopener" target="_blank">恒生指数公司公告</a></p>
+<p>为什么仍讲指数名单？名称、市场、代表性、样本与权重是识别题基础；每个指数的完整实时选样算法则不是第一轮全部掌握的必要条件。</p></section><section class="lesson" id="c4s3-part-15"><h3>教材255—259页：沪港通、深港通、沪伦通，资金方向与产品方式<span class="level use">会用</span></h3>
+<figure class="diagram" data-diagram="c4-connect-directions"><figcaption class="figure-label">SVG · 买哪里的股票，决定通道方向</figcaption><div class="diagram-interactive"><div id="finance-c4-connect-directions">
+<h3>买哪里的股票，决定通道方向</h3>
+<div class="viz-controls" data-controls=""><button aria-pressed="true" class="btn" type="button">北向</button><button aria-pressed="false" class="btn" type="button">南向</button><button aria-pressed="false" class="btn" type="button">沪伦通初期</button></div>
+<div data-diagrams=""><svg aria-label="沪股通深股通" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>沪股通深股通</title><desc>香港侧投资者，通过规定通道；内地市场，沪深规定股票。北向</desc><defs><marker id="arrow-c4-connect-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">沪股通深股通</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">香港侧投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通过规定通道</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">内地市场</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">沪深规定股票</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-c4-connect-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">北向</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">北向</div>
+<script data-config="" type="application/json">{"heading": "买哪里的股票，决定通道方向", "states": [{"label": "北向", "rows": [{"label": "沪股通深股通", "nodes": [["香港侧投资者", "通过规定通道"], ["内地市场", "沪深规定股票"]], "edges": ["北向"]}]}, {"label": "南向", "rows": [{"label": "港股通", "nodes": [["内地侧投资者", "通过沪深通道"], ["香港市场", "规定标的股票"]], "edges": ["南向"]}]}, {"label": "沪伦通初期", "rows": [{"label": "存托凭证产品跨境", "nodes": [["基础证券", "按规则对应"], ["当地存托凭证", "CDR或GDR"]], "edges": ["跨境转换"]}]}]}</script>
+</div>
+<style>
+#finance-c4-connect-directions .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c4-connect-directions .finance-flow text {fill:currentColor;font:inherit}
+#finance-c4-connect-directions .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c4-connect-directions .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c4-connect-directions .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c4-connect-directions');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c4-connect-directions-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c4-connect-directions-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>北向</h4><div><svg aria-label="沪股通深股通" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>沪股通深股通</title><desc>香港侧投资者，通过规定通道；内地市场，沪深规定股票。北向</desc><defs><marker id="print-04-03-5-0-arrow-c4-connect-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">沪股通深股通</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">香港侧投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通过规定通道</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">内地市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">沪深规定股票</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-04-03-5-0-arrow-c4-connect-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">北向</text></svg></div></div><div class="diagram-print-state"><h4>南向</h4><div><svg aria-label="港股通" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>港股通</title><desc>内地侧投资者，通过沪深通道；香港市场，规定标的股票。南向</desc><defs><marker id="print-04-03-5-1-arrow-c4-connect-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">港股通</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">内地侧投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">通过沪深通道</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">香港市场</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">规定标的股票</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-04-03-5-1-arrow-c4-connect-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">南向</text></svg></div></div><div class="diagram-print-state"><h4>沪伦通初期</h4><div><svg aria-label="存托凭证产品跨境" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>存托凭证产品跨境</title><desc>基础证券，按规则对应；当地存托凭证，CDR或GDR。跨境转换</desc><defs><marker id="print-04-03-5-2-arrow-c4-connect-directions-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">存托凭证产品跨境</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">基础证券</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">按规则对应</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">当地存托凭证</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">CDR或GDR</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-04-03-5-2-arrow-c4-connect-directions-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">跨境转换</text></svg></div></div></div></figure>
+<p>沪股通、深股通：投资者经香港一侧通道买规定范围沪、深股票，属于北向；港股通：内地投资者经沪深通道买规定范围香港股票，属于南向。<strong>港股通是买香港市场规定标的，不是给外国人在上海买A股的名字。</strong></p>
+<p>北向A股以人民币报价交易；教材南向港股通以港币报价、人民币交收。报价币种与结算安排不同，不从“港币报价”推出客户必须自己先用外币现钞付全部股款。</p>
+<p>教材个人港股通资产门槛50万元等，须按具体规则的考察期、适当性要求执行，不能只看一瞬间账户金额。北向科创等参与还有限定主体，通道开放不等于全部股票、全部投资者无条件可买。</p>
+<details class="reference-section">
+<summary>第二轮记忆：互联互通历史与额度</summary>
+<p>沪港通2014年11月17日开通；深港通2016年12月5日启动。教材2018年起沪股通、深股通各每日520亿元，沪深各自港股通每日420亿元，是通道额度不是个人账户额度、也不是每日成交总额上限的简单同义词。</p>
+<p>标的范围按指数、市值流动性、A+H、特殊权利或相应板块条件等规则动态调整，风险警示、退市及其他不合条件股票可能不纳入或调出。教材第257页深股通旧指数及60亿元筛选描述不宜作为所有时期规则，具体看指定版本与公布名单。</p>
+</details>
+<p>沪伦通初期以存托凭证实现产品跨境：东向为符合条件英国公司在上海CDR；西向为内地公司在伦敦GDR，凭证与基础证券可按规则转换。<strong>沪港深港是投资者经通道买对方市场股票；沪伦机制重点是将基础股票对应成当地可交易凭证。</strong></p>
+<p>教材2019年6月17日启动及华泰首只GDR、太保后续案例属于背景。初期CDR只上市不境内融资、西向可融资、初期总规模等都带试点条件，不能写成任何时期任何存托凭证都不能融资。存托凭证不等于发行人在两国各成立一个完全无关的新公司。</p></section><section class="lesson" id="c4s3-part-16"><h3>本节练习：排序、撮合、比例、方向</h3>
+<ol>
+<li>同方向买单10.2元晚来，10元早来，谁价格优先？卖方是否也价格高优先？</li>
+<li>系统有10元卖单100股，你限价10.2买100股，按连续竞价例子可用什么价格成交？</li>
+<li>集合竞价示例为什么10.1元成交300股，而不是总买量400股？</li>
+<li>1000股委托已成600股，能撤全部1000吗？</li>
+<li>前收盘10元、幅度20%，上下界多少？</li>
+<li>一码通是否就是银行卡全部存款与股票混合的一个可任意支取账户？</li>
+<li>8000总股本、4500非自由，教材靠档后用于加权是3500还是4000股？</li>
+<li>除数修正前市值1000、除数10，非价格因素变化后市值1200，新除数多少？</li>
+<li>港股通、沪股通各买哪里的规定股票？</li>
+<li>程序化一定高频、一定没有模型风险吗？</li>
+<li>指数涨5%，是否每个成分都涨5%？</li>
+<li>用沪伦通GDR与港股通买港股，是同一种产品跨境机制吗？</li>
+</ol>
+<details class="answer-section">
+<summary>查看答案与解析</summary>
+<div class="answer-content">
+<ol>
+<li>10.2买单优先；卖方低价优先。同价才看时间。</li>
+<li>10元，与既有对手卖价按规则成交。</li>
+<li>10.1以上愿买只有300，与可卖量500取较小，且满足成交价相关条件。</li>
+<li>不能撤已成交600；未成400在允许阶段申请撤销。</li>
+<li>12、8元，按规定最小价格单位处理。</li>
+<li>不是；总分账户证券记录与银行存款、客户资金账户职责不同。</li>
+<li>4000股；自由3500、43.75%靠档50%，8000乘50%。</li>
+<li>12，维持市值除数比100。</li>
+<li>香港规定标的；上海规定标的。</li>
+<li>都不一定；程序化与高频范围不同，有模型系统风险。</li>
+<li>不意味着；指数取决样本与权重。</li>
+<li>不是；存托凭证产品跨境与经通道直接交易对应股票不同。</li>
+</ol>
+</div>
+</details>
+<p><strong>过关标准：</strong>能走通开户到结算的流程，买卖排序与成交价判断不混，能算涨跌幅及靠档，能指出不同制度版本，能解释各通道买什么。</p></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="04-02_股票发行.html">上一节 · 股票发行</a><a href="04-04_股票估值.html">下一节 · 股票估值</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。模型计算依赖题设，不是价格收益保证。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

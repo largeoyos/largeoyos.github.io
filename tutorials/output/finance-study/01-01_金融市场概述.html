@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="light" name="color-scheme"/><title>第一章 · 第一节 · 金融市场概述 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+</style></head><body>
+<header class="bookbar"><strong>金融市场基础知识 · 第一章 / 01</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button aria-controls="book-index" aria-expanded="false" class="btn menu-button">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div aria-hidden="true" class="progress" style="width: 10.2171%;"></div></header>
+<div class="layout"><nav aria-label="本节目录" class="sidebar" id="book-index"><div class="index-label">第一节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a class="" href="#chapter-1-section-01">学习目标与阅读说明</a><a class="" href="#chapter-1-section-02">先进入第一节：金融市场概述，第1—9页。</a><a class="current" href="#chapter-1-section-03">第1—2页：金融市场的五大功能。【会用】</a><a href="#chapter-1-section-04">第2—5页：直接融资与间接融资。【会用，必须弄清】</a><a href="#chapter-1-section-05">直接融资的五个特点，分别在说什么？</a><a href="#chapter-1-section-06">第3页：五种直接融资方式。</a><a href="#chapter-1-section-07">第4页：提高直接融资比重，为什么有意义？【会用】</a><a href="#chapter-1-section-08">第4—5页：间接融资的定义和特点。</a><a href="#chapter-1-section-09">第5页：间接融资的三种方式。【会认】</a><a href="#chapter-1-section-10">第5页：直接与间接融资的区别，如何做题？【会用】</a><a href="#chapter-1-section-11">第5—6页：金融市场的四个重要性。【会认＋理解】</a><a href="#chapter-1-section-12">第6—9页：金融市场的七种分类。【会用，核心】</a><a href="#chapter-1-section-13">第一种：货币市场与资本市场，第6—7页。</a><a href="#chapter-1-section-14">第二种：债权市场与权益市场，第7页。</a><a href="#chapter-1-section-15">第三种：一级市场与二级市场，第7页。</a><a href="#chapter-1-section-16">第四种：交易所市场与场外市场，第7—8页。</a><a href="#chapter-1-section-17">第五种：现货市场与衍生品市场，第8页。</a><a href="#chapter-1-section-18">第六种：证券市场与非证券金融市场，第8—9页。</a><a href="#chapter-1-section-19">第七种：国内金融市场与国际金融市场，第9页。</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 01 / SECTION 01 · 第一章</div><h2>第一节 · 金融市场概述</h2><p>金融市场体系 · 教材正文第1—9页 · 整理日期：2026年10月13日</p><p>会用：能判断例子　会认：能识别对应　背景：理解用途，第一轮不逐字背</p></header><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="01-02_全球金融市场.html">下一节 · 全球金融市场</a></nav><section class="lesson" id="chapter-1-section-01"><h3>学习目标与阅读说明</h3><p>我们从头来。<strong>这一章的学习目标，是看到一个例子，能判断钱从哪来、流向谁、形成什么权利、属于哪种市场，以及由谁监管。</strong>先把这些关系弄明白，名称和数字才有地方放。</p>
+<p>我已核对你提供的 《金融市场基础知识（2025）》。下面覆盖第一章正文第 <strong>1—34页</strong>，对应 PDF 第 <strong>12—45页</strong>，按原书顺序拆解段落、长句和术语。</p>
+<p>先约定三个标记，帮你分配精力：</p>
+<ul>
+<li><strong><span class="level use">会用</span></strong>：要理解到能判断例子、排除错误选项。</li>
+<li><strong><span class="level recognize">会认</span></strong>：记住名称、特点和对应关系，能做识别题。</li>
+<li><strong><span class="level context">背景</span></strong>：我会解释它为何出现；第一轮读懂作用即可，暂时不逐字背。</li>
+</ul>
+<p>这些标记是我根据知识结构给你的学习优先级，<strong>不是未经验证的“必考频率”</strong>。<span class="level context">背景</span>也不等于绝对不会考。教材中的历史统计、机构数量和规则细节，适合框架建立后再补。</p>
+<p>还有一件事：这本书第一章确实有一些旧资料和不够严谨的说法。我会在对应位置说明，避免你把矛盾硬背下来。</p></section><section class="lesson" id="chapter-1-section-02"><h3>先进入第一节：金融市场概述，第1—9页。</h3><h4 class="subhead">第1页，第一段：金融市场到底是什么？<span class="level use">会用</span></h4>
+<p>教材这一段有四层意思，我们一句一句拆。</p>
+<p>第一层：“金融市场是要素市场的一种。”</p>
+<p>“要素”就是生产东西需要的投入，例如土地、劳动、资本。</p>
+<p>你去买一台已经生产出来的冰箱，发生的是产品交易。企业为了建厂，需要获得资金，涉及的就是生产要素中的资本。</p>
+<p>所以这句话只是在给金融市场定位：<strong>它与生产所需资金的配置有关。</strong></p>
+<p>“要素市场”这个名词能认出来即可，不用在这里钻经济学分类。</p>
+<p>第二层：“创造和交易金融资产。”</p>
+<p>先理解<strong>金融资产</strong>。</p>
+<p>你买了一张公司债券，这张债券让你有权按约定向公司收取本金和利息。你买了公司股票，就拥有了相应股权。</p>
+<p>因此，金融资产通常可以理解成：</p>
+<h4 class="subhead">能够给持有人带来相应经济利益的权利。</h4>
+<p>它不必是一张纸。电子账户里记录的股票，也可以是金融资产。</p>
+<p>“创造”与“交易”分别指：</p>
+<ul>
+<li>公司新发行股票、债券，产生新的金融资产。</li>
+<li>投资者把已经持有的股票、债券转让给别人，交易已有金融资产。</li>
+</ul>
+<p>后面讲一级市场、二级市场，就是把这两个过程展开。</p>
+<p>第三层：“供求关系和交易机制的总和。”</p>
+<p>这句话是在提醒你，市场包含一整套关系和规则。</p>
+<p>“供求关系”涉及谁想买、谁想卖、愿意出多少钱。</p>
+<p>“交易机制”涉及怎么报单、怎么配对、怎么付款、怎么交付资产。</p>
+<h4 class="subhead">做题抓住：金融市场以金融资产为交易对象。</h4>
+<p>第四层：“现代金融市场往往是无形的市场。”</p>
+<p>“无形”是指交易不一定集中在一个看得见的大厅里，可以通过电话、网络、电子系统完成。</p>
+<h4 class="subhead">无形市场照样有参与者、有规则、有交易。</h4>
+<p>不要把“无形”误解成“虚假”或“无人监管”。</p>
+<p>先看钱和资产的关系：</p>
+<figure class="diagram" data-diagram="financial-assets" data-figure="0"><figcaption class="figure-label">图 1-01 · 矢量关系图</figcaption><div class="diagram-interactive"><div id="finance-financial-assets">
+<h3>钱、金融资产、真实生产</h3>
+<div class="viz-controls" data-controls="" hidden=""></div>
+<div data-diagrams=""><svg aria-label="资金流向" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>资金流向</title><desc>居民 / 投资者，有暂时不用的钱；企业筹资，获得经营资金；购买机器 / 建厂，形成实物资本。购买新发行证券；投入生产</desc><defs><marker id="arrow-financial-assets-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金流向</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">居民 / 投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">有暂时不用的钱</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">企业筹资</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">获得经营资金</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">购买机器 / 建厂</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">形成实物资本</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-financial-assets-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">购买新发行证券</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-financial-assets-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">投入生产</text></svg><svg aria-label="投资者得到的权利" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>投资者得到的权利</title><desc>买股票，成为股东；买债券，成为债权人。两种不同权利</desc><defs><marker id="arrow-financial-assets-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资者得到的权利</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">买股票</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">成为股东</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">买债券</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">成为债权人</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">钱、金融资产、真实生产</div>
+<script data-config="" type="application/json">{"slug": "financial-assets", "heading": "钱、金融资产、真实生产", "rows": [{"label": "资金流向", "nodes": [["居民 / 投资者", "有暂时不用的钱"], ["企业筹资", "获得经营资金"], ["购买机器 / 建厂", "形成实物资本"]], "edges": ["购买新发行证券", "投入生产"]}, {"label": "投资者得到的权利", "nodes": [["买股票", "成为股东"], ["买债券", "成为债权人"]], "edges": ["两种不同权利"], "noArrows": true}]}</script>
+</div>
+<style>
+#finance-financial-assets .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-financial-assets .finance-flow text {fill:currentColor;font:inherit}
+#finance-financial-assets .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-financial-assets .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-financial-assets .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-financial-assets');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-financial-assets-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-financial-assets-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><div><svg aria-label="资金流向" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>资金流向</title><desc>居民 / 投资者，有暂时不用的钱；企业筹资，获得经营资金；购买机器 / 建厂，形成实物资本。购买新发行证券；投入生产</desc><defs><marker id="print-01-01-0-0-arrow-financial-assets-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">资金流向</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">居民 / 投资者</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">有暂时不用的钱</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">企业筹资</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">获得经营资金</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">购买机器 / 建厂</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">形成实物资本</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-01-01-0-0-arrow-financial-assets-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">购买新发行证券</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-01-01-0-0-arrow-financial-assets-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">投入生产</text></svg><svg aria-label="投资者得到的权利" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>投资者得到的权利</title><desc>买股票，成为股东；买债券，成为债权人。两种不同权利</desc><defs><marker id="print-01-01-0-0-arrow-financial-assets-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">投资者得到的权利</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">买股票</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">成为股东</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">买债券</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">成为债权人</text></svg></div></div></div></figure>
+<p>这里最容易混的两件事是：</p>
+<h4 class="subhead">投资者获得金融资产；企业获得资金后，可以购买机器、建厂，形成实物资本。</h4>
+<p>股票本身不是机器，却可以帮助企业筹到购买机器的钱。</p></section><section class="lesson" id="chapter-1-section-03"><h3>第1—2页：金融市场的五大功能。【会用】</h3><p>这五个名称要记，含义更要能区分。</p>
+<h4 class="subhead">① 资金融通：让有钱的一方与需要钱的一方接上。</h4>
+<p>“融通”可以先理解为调剂资金。</p>
+<p>例如：</p>
+<p>你暂时不用一万元，企业需要一万元购买设备。你认购它新发行的债券，企业获得资金，你获得债券。</p>
+<p>教材说这是金融市场的<strong>首要功能</strong>。</p>
+<p>做题看到“把资金从供给者转移到需求者”“解决资金余缺”，对应的就是资金融通。</p>
+<h4 class="subhead">② 价格发现：通过交易形成价格，并传递信息。</h4>
+<p>买方想便宜买，卖方想贵一点卖。双方根据各种信息报出价格，交易逐渐形成市场价格。</p>
+<p>这个价格又会影响其他人是否愿意投资。</p>
+<p>所以这段包含两个动作：</p>
+<ul>
+<li>市场参与者的交易形成价格。</li>
+<li>价格成为信号，影响资金流向。</li>
+</ul>
+<p><strong>“发现”不代表市场找到一个永远正确的价格。</strong>它指市场通过交易形成价格的过程，价格仍可能波动、偏离或受到错误信息影响。</p>
+<p>做题看到“供求相互作用决定价格”“价格给潜在投资者提供信号”，选价格发现。</p>
+<h4 class="subhead">③ 提供流动性：给投资者变现的渠道。</h4>
+<p>你买了股票，后来急需用钱，能够在市场上把它卖出去，这就是市场提供了变现渠道。</p>
+<p>理解流动性时，可以问三个问题：</p>
+<ul>
+<li>能否比较容易卖出去？</li>
+<li>能否比较快卖出去？</li>
+<li>是否需要大幅降价才能卖出去？</li>
+</ul>
+<h4 class="subhead">有价格，不一定有足够的流动性。</h4>
+<p>一件资产标价一百万元，却一直没人买，并不能说明它流动性好。</p>
+<p><strong>流动性好，也不等于稳赚。</strong>容易卖出与卖出时赚钱，是两回事。</p>
+<p>做题看到“出售资产”“变现”“赎回渠道”，首先想到流动性。</p>
+<h4 class="subhead">④ 风险管理：把风险转移、分散或对冲。</h4>
+<p>教材列举资产价格变化、信用恶化、操作错误、灾害等，是为了说明风险来源很多。</p>
+<p>例如：</p>
+<p>企业担心未来汇率变化，可以用适当的外汇衍生工具对冲风险。购买保险，也是在安排某些损失由谁承担。</p>
+<p>这里的关键词是：</p>
+<h4 class="subhead">管理风险、重新配置风险。</h4>
+<p>风险转移后，通常会由另一个主体承担，或者以其他方式分散。</p>
+<p>所以“金融市场可以消除所有风险”是错误表述。</p>
+<h4 class="subhead">⑤ 降低搜寻成本和信息成本：找人更省事，判断资产更省事。</h4>
+<p>这两个成本要分开。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>成本</th>
+<th>在解决什么问题</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜寻成本</td>
+<td>找谁交易</td>
+<td>花钱做广告寻找买家</td>
+</tr>
+<tr>
+<td>信息成本</td>
+<td>判断交易对象或资产怎么样</td>
+<td>调查企业的偿债能力</td>
+</tr>
+</tbody>
+</table></div>
+<p>搜寻成本还有两类：</p>
+<ul>
+<li><strong>显性成本</strong>：实际花出去的钱，例如广告费。</li>
+<li><strong>隐性成本</strong>：占用的时间、精力，例如花几天寻找合适的交易对手。</li>
+</ul>
+<p>信息成本则与了解资产的收益、风险、现金流等有关。</p>
+<p>教材最后说，在有效市场中，价格反映参与者搜集的信息。这是在解释：信息可以通过交易进入价格。</p>
+<p><strong>第一章学到这里，知道“信息会影响价格”即可。</strong>不用现在展开有效市场理论。</p>
+<p>这五项可以用五个问题回忆：</p>
+<h4 class="subhead">钱怎么过去？价格怎么出来？资产怎么变现？风险怎么安排？交易怎么省事？</h4>
+<p>小检验：</p>
+<p>“投资者通过市场出售已有债券，收回现金。”主要体现什么功能？</p>
+<p>答案是<strong>提供流动性</strong>。题目强调的是已有资产变现。</p></section><section class="lesson" id="chapter-1-section-04"><h3>第2—5页：直接融资与间接融资。【会用，必须弄清】</h3><p>先把“融资”翻成日常语言：</p>
+<h4 class="subhead">需要钱的一方，设法获得资金。</h4>
+<p>“资金盈余方”就是暂时有可用资金的一方。</p>
+<p>“资金短缺方”就是需要外部资金的一方。</p>
+<p>教材按照资金从盈余方到短缺方的方式，将融资分成直接融资与间接融资。</p>
+<p>看图时，重点看谁对谁拥有权利：</p>
+<figure class="diagram" data-diagram="direct-indirect" data-figure="1"><figcaption class="figure-label">图 1-02 · 矢量关系图</figcaption><div class="diagram-interactive"><div id="finance-direct-indirect">
+<h3>直接融资与间接融资：看权利关系</h3>
+<div class="viz-controls" data-controls="" hidden=""></div>
+<div data-diagrams=""><svg aria-label="直接融资：投资者持有企业发行的证券" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>直接融资：投资者持有企业发行的证券</title><desc>投资者，出资 100 元；企业，股票或债券发行人。直接形成权利关系</desc><defs><marker id="arrow-direct-indirect-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">直接融资：投资者持有企业发行的证券</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">出资 100 元</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">企业</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">股票或债券发行人</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-direct-indirect-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">直接形成权利关系</text></svg><svg aria-label="间接融资：存款和贷款是两份独立关系" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>间接融资：存款和贷款是两份独立关系</title><desc>存款人，对银行有存款债权；银行，吸收存款、发放贷款；借款企业，对银行负贷款债务。存款关系；贷款关系</desc><defs><marker id="arrow-direct-indirect-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">间接融资：存款和贷款是两份独立关系</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">存款人</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">对银行有存款债权</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="315" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="420" y="83">银行</text><text dominant-baseline="middle" text-anchor="middle" x="420" y="105">吸收存款、发放贷款</text><rect class="finance-node" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">借款企业</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">对银行负贷款债务</text><path class="finance-arrow" d="M 229 94 L 308 94" marker-end="url(#arrow-direct-indirect-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="270.5" y="44">存款关系</text><path class="finance-arrow" d="M 528 94 L 607 94" marker-end="url(#arrow-direct-indirect-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="569.5" y="44">贷款关系</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">直接融资与间接融资：看权利关系</div>
+<script data-config="" type="application/json">{"slug": "direct-indirect", "heading": "直接融资与间接融资：看权利关系", "rows": [{"label": "直接融资：投资者持有企业发行的证券", "nodes": [["投资者", "出资 100 元"], ["企业", "股票或债券发行人"]], "edges": ["直接形成权利关系"]}, {"label": "间接融资：存款和贷款是两份独立关系", "nodes": [["存款人", "对银行有存款债权"], ["银行", "吸收存款、发放贷款"], ["借款企业", "对银行负贷款债务"]], "edges": ["存款关系", "贷款关系"]}]}</script>
+</div>
+<style>
+#finance-direct-indirect .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-direct-indirect .finance-flow text {fill:currentColor;font:inherit}
+#finance-direct-indirect .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-direct-indirect .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-direct-indirect .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-direct-indirect');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-direct-indirect-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-direct-indirect-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><div><svg aria-label="直接融资：投资者持有企业发行的证券" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>直接融资：投资者持有企业发行的证券</title><desc>投资者，出资 100 元；企业，股票或债券发行人。直接形成权利关系</desc><defs><marker id="print-01-01-1-0-arrow-direct-indirect-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">直接融资：投资者持有企业发行的证券</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">出资 100 元</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">企业</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">股票或债券发行人</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-01-01-1-0-arrow-direct-indirect-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">直接形成权利关系</text></svg><svg aria-label="间接融资：存款和贷款是两份独立关系" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>间接融资：存款和贷款是两份独立关系</title><desc>存款人，对银行有存款债权；银行，吸收存款、发放贷款；借款企业，对银行负贷款债务。存款关系；贷款关系</desc><defs><marker id="print-01-01-1-0-arrow-direct-indirect-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">间接融资：存款和贷款是两份独立关系</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="83">存款人</text><text dominant-baseline="middle" text-anchor="middle" x="106.66666666666667" y="105">对银行有存款债权</text><rect class="finance-node finance-highlight" height="72" rx="6" width="181.33333333333334" x="239.33333333333334" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="330" y="83">银行</text><text dominant-baseline="middle" text-anchor="middle" x="330" y="105">吸收存款、发放贷款</text><rect class="finance-node" height="72" rx="6" width="181.33333333333334" x="462.6666666666667" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="83">借款企业</text><text dominant-baseline="middle" text-anchor="middle" x="553.3333333333334" y="105">对银行负贷款债务</text><path class="finance-arrow" d="M 200.33333333333334 94 L 232.33333333333334 94" marker-end="url(#print-01-01-1-0-arrow-direct-indirect-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="218.33333333333334" y="44">存款关系</text><path class="finance-arrow" d="M 423.6666666666667 94 L 455.6666666666667 94" marker-end="url(#print-01-01-1-0-arrow-direct-indirect-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="441.6666666666667" y="44">贷款关系</text></svg></div></div></div></figure>
+<h4 class="subhead">先讲直接融资的定义。</h4>
+<p>你直接认购企业发行的债券，对企业拥有债权。</p>
+<p>你直接认购企业发行的股票，拥有企业股权。</p>
+<p>这两种都是典型的直接融资。</p>
+<h4 class="subhead">直接融资也可以有证券公司等中介提供服务。</h4>
+<p>例如证券公司帮助企业承销债券，投资者最终持有的仍是企业发行的债券。</p>
+<p>因此，<strong>“有没有中介参与”不能单独决定直接还是间接融资。</strong></p>
+<p>要看这个中介只是帮助发行、交易，还是自己吸收资金后，再以自己的名义向另一方提供资金。</p>
+<p>教材把直接融资的基本关系写成“债权债务关系”，这里需要补充：</p>
+<h4 class="subhead">债券融资建立债权债务关系；股票融资建立股权关系。</h4>
+<p>不要因此把股票排除在直接融资之外。</p></section><section class="lesson" id="chapter-1-section-05"><h3>直接融资的五个特点，分别在说什么？</h3><h4 class="subhead">① 直接性。</h4>
+<p>资金提供者直接持有需求者发行的金融资产，或直接与其订立融资协议。</p>
+<p>例如你持有甲公司的债券，你的债权对应甲公司。</p>
+<h4 class="subhead">② 分散性。</h4>
+<p>融资可以发生在许多主体之间：</p>
+<p>企业与企业、政府与个人、个人与个人等。</p>
+<p>所以融资关系分散在大量主体和场合中。</p>
+<p>这里的“分散”描述融资活动分布，<strong>不代表每个投资者都做到了分散投资</strong>。</p>
+<h4 class="subhead">③ 融资信誉差异较大。</h4>
+<p>不同企业、个人的偿付能力和经营情况不同。投资者还可能难以充分了解对方。</p>
+<p>例如一家经营稳定的企业，与一家现金流紧张的企业，不能仅因为都发行债券就认为信用一样。</p>
+<h4 class="subhead">④ 部分融资方式具有不可逆性。</h4>
+<p>关键词是<strong>部分</strong>。</p>
+<p>股票融资一般没有像普通借款那样约定到期归还本金。股东通常通过转让股票退出。</p>
+<p>但是债券融资通常有还本付息安排。</p>
+<p>因此：</p>
+<ul>
+<li>“直接融资全部需要到期返还本金”错。</li>
+<li>“直接融资全部不需要返还本金”也错。</li>
+</ul>
+<p>教材用股票说明部分直接融资具有不可逆性。</p>
+<h4 class="subhead">⑤ 融资者自主性相对较强。</h4>
+<p>在法律允许的范围内，融资者可以对融资对象、融资数量等作出安排。</p>
+<p>“相对较强”不代表想怎么融资都行。证券发行仍需要遵守相关规则。</p>
+<p>第一轮不必把五条解释背成原句，能把特点与意思配上就够了。</p></section><section class="lesson" id="chapter-1-section-06"><h3>第3页：五种直接融资方式。</h3><h4 class="subhead">① 股票市场融资。<span class="level use">会用</span></h4>
+<p>企业通过发行股票获得资金，同时让投资者获得股权。</p>
+<p>教材列出三个比较拗口的权利：</p>
+<ul>
+<li><strong>经营控制权</strong>：通过股东表决等机制参与重大事项决策。</li>
+<li><strong>收益分配权</strong>：按照规则参与企业收益分配。</li>
+<li><strong>剩余索取权</strong>：企业清算时，在应当优先支付的项目支付后，对剩余财产享有相应权利。</li>
+</ul>
+<p>“剩余索取”可以先理解为：</p>
+<h4 class="subhead">前面该付的付完，剩下的再按股权关系分配。</h4>
+<p>股东分红不保证每年都有，公司盈利也不等于必然把所有利润立即分给股东。</p>
+<p>教材说股票“不退股、只能转让”，在这里讲的是普通股票投资的基本退出方式：<strong>不能像到期债权一样要求发行人正常归还投资本金。</strong></p>
+<p>特殊回购、减资等安排，后面有需要再展开。</p>
+<h4 class="subhead">② 债券市场融资。<span class="level use">会用</span></h4>
+<p>发行人借钱，投资者成为债权人，发行人按约定还本付息。</p>
+<p>教材列政府、金融机构、企业，是为了告诉你：债券发行人不只有企业。</p>
+<p>股票与债券先记这组区别：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>股票融资</th>
+<th>债券融资</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>投资者身份</td>
+<td>股东</td>
+<td>债权人</td>
+</tr>
+<tr>
+<td>基本权利</td>
+<td>股权</td>
+<td>债权</td>
+</tr>
+<tr>
+<td>是否通常约定偿还本金</td>
+<td>不按普通债务方式到期还本</td>
+<td>通常有还本安排</td>
+</tr>
+<tr>
+<td>收益</td>
+<td>不保证分红</td>
+<td>按约定支付，但可能违约</td>
+</tr>
+</tbody>
+</table></div>
+<h4 class="subhead">③ 风险投资融资。<span class="level use">会用</span></h4>
+<p>创业企业让出部分股权，获得投资者的资金。</p>
+<p>“风险投资”中的“风险”，是说这类投资通常存在较大不确定性。</p>
+<p>教材讲高科技中小企业、缺少抵押物、创业初期需要连续投入，是在解释：</p>
+<h4 class="subhead">为什么有些企业难以靠普通银行贷款满足融资需求，需要股权资本承担较高风险。</h4>
+<p>教材列举成功后可能获得很高回报，是在解释投资者的动机。</p>
+<p>你需要记住的是：</p>
+<h4 class="subhead">高风险、可能有高回报、常与创业或成长阶段企业有关。</h4>
+<p>不能把“可能有高回报”背成“保证高回报”。</p>
+<h4 class="subhead">④ 商业信用融资。<span class="level use">会用</span></h4>
+<p>企业在商品交易中相互提供信用。</p>
+<p>例如：</p>
+<ul>
+<li>供应商先交货，客户过两个月再付款。</li>
+<li>客户先付定金，企业之后交货。</li>
+<li>客户预付货款，企业用这笔钱组织生产。</li>
+</ul>
+<p>教材说货物与资金交付在时间、空间上分离，就是在描述这类安排。</p>
+<p>先交货后收钱，是卖方在向买方提供信用；先付款后收货，则是买方提前向卖方提供资金。</p>
+<h4 class="subhead">商业信用与商品交易相联系，通常用于短期周转。</h4>
+<h4 class="subhead">⑤ 民间借贷。<span class="level recognize">会认</span></h4>
+<p>个人之间、个人与企业或其他组织之间发生资金借贷。</p>
+<p>第一章重点是识别它属于教材列举的直接融资方式，不需要在这里展开民间借贷的全部法律规则。</p>
+<p>第4页列公债、国库券、公司债券、股票、借款合同、借据等，是在补充：</p>
+<h4 class="subhead">融资关系需要相应的金融工具或法律凭证记录。</h4>
+<p>这里不必把整串名词背成一句话，认识典型工具即可。</p></section><section class="lesson" id="chapter-1-section-07"><h3>第4页：提高直接融资比重，为什么有意义？【会用】</h3><p>教材三个长段落，可以拆成三个理由。</p>
+<h4 class="subhead">第一个理由：分散过度集中在银行的风险。</h4>
+<p>如果企业主要靠银行贷款，一旦大量企业还不上钱，损失就容易集中在银行体系。</p>
+<p>股权、债券等直接融资发展起来，融资结构更丰富，风险承担主体也更分散。</p>
+<h4 class="subhead">风险分散并不意味着风险消失。</h4>
+<h4 class="subhead">第二个理由：更好地匹配不同企业的资金需求。</h4>
+<p>有些创业企业暂时没有稳定现金流，却有成长潜力。</p>
+<p>银行贷款强调偿债安排，股权投资则可以通过分享未来成长收益支持企业。</p>
+<p>所以多种股权融资方式，能够补充普通信贷的不足。</p>
+<h4 class="subhead">第三个理由：发挥市场筛选和资源配置作用。</h4>
+<p>投资者比较企业的收益和风险，决定把钱投向谁。</p>
+<p>资金选择会影响哪些企业更容易获得融资。</p>
+<p>教材用“充分博弈”描述这种相互比较、判断和交易。</p>
+<p><strong>做题掌握：风险分布、融资匹配、资源配置。</strong>不用把政策性长句逐字背下来。</p></section><section class="lesson" id="chapter-1-section-08"><h3>第4—5页：间接融资的定义和特点。</h3><h4 class="subhead">间接融资的典型例子，是银行吸收存款后发放贷款。</h4>
+<p>你把钱存入银行：</p>
+<p>你对银行有存款债权。</p>
+<p>银行把钱贷给甲公司：</p>
+<p>银行对甲公司有贷款债权。</p>
+<p>你与甲公司之间，没有因为这笔银行贷款就建立直接的借贷关系。</p>
+<p>银行处在两份关系之间。</p>
+<p>教材的定义还列出信托、保险等金融机构，是要说明金融中介不只有商业银行。理解这段时，先用存款—贷款这个典型模型建立概念。</p>
+<p>五个特点与直接融资可以对应着看：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>直接融资</th>
+<th>间接融资</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关系</td>
+<td>出资人与融资者直接形成相应权利关系</td>
+<td>中介分别与两方建立关系</td>
+</tr>
+<tr>
+<td>分布</td>
+<td>相对分散</td>
+<td>相对集中</td>
+</tr>
+<tr>
+<td>信誉差异</td>
+<td>通常较大</td>
+<td>教材概括为相对较小</td>
+</tr>
+<tr>
+<td>返还性</td>
+<td>部分方式不按债务方式返还</td>
+<td>教材以借贷融资概括为具有返还性</td>
+</tr>
+<tr>
+<td>主动权</td>
+<td>融资者自主性相对较强</td>
+<td>中介决定资金配置的作用较大</td>
+</tr>
+</tbody>
+</table></div>
+<p>分别理解：</p>
+<h4 class="subhead">① 间接性。</h4>
+<p>初始资金提供者与最终借款者之间，被中介的独立融资关系连接起来。</p>
+<h4 class="subhead">② 相对集中性。</h4>
+<p>银行面对许多存款人，也面对许多借款人。</p>
+<p>通常不是“你的某一笔存款，专门对应某家企业的某一笔贷款”。</p>
+<p>教材提到委托贷款，是提示某些安排具有特殊对应关系，不能把所有业务都想象成同一个模式。</p>
+<h4 class="subhead">③ 信誉差异相对较小。</h4>
+<p>教材从监管、金融机构经营和存款保险等角度解释这一特点。</p>
+<p>做题注意“相对”两个字。</p>
+<h4 class="subhead">金融机构同样可能出现风险，不能推出间接融资绝对安全。</h4>
+<h4 class="subhead">④ 可返还性。</h4>
+<p>教材这里采用传统借贷融资模型：资金到期需要返还，并按约定支付利息。</p>
+<p>不要把这句话扩大成“所有保险、信托或资管产品都保本保息”。</p>
+<h4 class="subhead">⑤ 主动权主要在中介手中。</h4>
+<p>你把钱存入银行后，一般由银行决定将贷款贷给谁、贷多少。</p>
+<p>这就是教材所说的融资主动权。</p></section><section class="lesson" id="chapter-1-section-09"><h3>第5页：间接融资的三种方式。【会认】</h3><p><strong>银行信用融资</strong>：银行等金融机构以货币形式提供资金，例如银行贷款。</p>
+<p><strong>消费信用融资</strong>：消费者借助资金垫付，提前取得商品或服务，例如教材所列的分期购房、购车、助学贷款。</p>
+<p>这里在讲消费者如何获得购买能力。</p>
+<p><strong>租赁融资</strong>：通过支付租金取得设备使用权，减少一次性购置设备需要占用的资金。</p>
+<p>例如企业现在买不起一台贵重机器，先通过融资租赁等安排取得使用权，再按约定支付款项。</p>
+<p>第一章要求先能认出教材列举的类别。具体合同中由谁提供信用、采用什么结构，还需要看实际安排。</p></section><section class="lesson" id="chapter-1-section-10"><h3>第5页：直接与间接融资的区别，如何做题？【会用】</h3><p>按这个顺序判断：</p>
+<ol>
+<li><strong>谁是融资者？</strong></li>
+<li><strong>投资者或资金提供者，最终对谁拥有权利？</strong></li>
+<li><strong>中介是否分别与两方建立独立的融资关系？</strong></li>
+</ol>
+<p>例子一：</p>
+<p>企业发债，证券公司承销，个人认购。</p>
+<p>个人持有的是企业债券，属于企业的直接融资。</p>
+<p>例子二：</p>
+<p>个人存款，银行向企业发放贷款。</p>
+<p>个人对银行有债权，银行对企业有债权，属于典型间接融资。</p>
+<p>例子三：</p>
+<p>银行本身发行债券。</p>
+<p>此时银行是债券发行人。<strong>不能仅因为发行人名字中有“银行”，就把它与存款—贷款结构混为一谈。</strong></p>
+<p>教材这一页既给出了“分别形成独立关系”的判断标准，又提到“一方是金融机构”的习惯性说法。后者过于简化，遇到有完整结构的题目，优先按照关系判断。</p>
+<p>最后一段讲直接融资较早出现、两者并行发展、比例反映金融结构。</p>
+<h4 class="subhead">为何讲它？</h4>
+<p>为了让你知道两种融资方式可以相互补充，各有适用对象。</p>
+<p>学到能理解这层关系即可。</p></section><section class="lesson" id="chapter-1-section-11"><h3>第5—6页：金融市场的四个重要性。【会认＋理解】</h3><p>这一部分容易与前面的“五大功能”串起来。</p>
+<p>前面的功能，是市场具体能做什么。</p>
+<p>这里的重要性，是这些功能对经济有什么意义。</p>
+<h4 class="subhead">① 促进储蓄转化为投资。</h4>
+<p>你收入中没有消费掉的部分，可以形成储蓄。</p>
+<p>企业为了扩大生产，需要投资机器、厂房等。</p>
+<p>金融市场把可用资金连接起来，帮助企业获得投资所需资金。</p>
+<p>教材展开“非意愿存货投资”“事前计划均衡”，是在讨论宏观经济中的一个问题：</p>
+<h4 class="subhead">账面上的储蓄与投资关系，并不代表所有人的储蓄计划与企业的投资计划已经顺利协调。</h4>
+<p>例如企业生产了商品，却没有卖掉，库存增加，也可能被统计成存货投资。</p>
+<p>但企业并不一定希望积压库存。</p>
+<p><strong>第一轮学到：金融市场帮助储蓄与有意愿的投资需求衔接。</strong>不用现在证明宏观经济恒等式。</p>
+<p>这段讲解的必要性，是避免你误以为“收入没花掉，钱就自动变成了企业的新机器”。</p>
+<h4 class="subhead">② 优化资源配置。</h4>
+<p>资金支持不同企业，会影响生产要素流向哪些部门。</p>
+<p>较好的资金配置，能够帮助更有效率的企业扩大生产，提高资源利用效率。</p>
+<p>做题抓住“资金配置”“生产效率”“资源利用”。</p>
+<h4 class="subhead">③ 反映经济状态。</h4>
+<p>教材把金融市场称为经济的“晴雨表”。</p>
+<p>因为企业经营预期、风险、资金需求等信息，会在资产价格和交易活动中有所反映。</p>
+<h4 class="subhead">“晴雨表”表示提供观察信号，不代表金融市场与实体经济每天完全同步。</h4>
+<h4 class="subhead">④ 宏观调控。</h4>
+<p>政府、中央银行等可以通过影响利率、信用条件和金融市场环境，影响储蓄、消费、投资等行为。</p>
+<p>教材最后列产出、就业、物价、国际收支、分配、公平和福利，是在说明影响可能延伸到整个经济。</p>
+<p>第一章先掌握：</p>
+<h4 class="subhead">金融市场是宏观政策影响经济的重要传导渠道。</h4>
+<p>具体货币政策工具，第二章再系统学。</p></section><section class="lesson" id="chapter-1-section-12"><h3>第6—9页：金融市场的七种分类。【会用，核心】</h3><p>这部分最重要的一句话是：</p>
+<h4 class="subhead">先看分类标准，再看市场名称。</h4>
+<p>同一项交易，可以同时属于不同类别。</p>
+<p>例如，一只上市公司普通股在证券交易所被投资者转让，可以同时涉及资本市场、权益市场、二级市场、交易所市场和证券市场。</p>
+<p>因为这些名称回答的不是同一个问题。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类标准</th>
+<th>在问什么</th>
+<th>分类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>到期期限</td>
+<td>资金安排偏短期还是长期</td>
+<td>货币市场、资本市场</td>
+</tr>
+<tr>
+<td>交易工具</td>
+<td>是债权还是股权</td>
+<td>债权市场、权益市场</td>
+</tr>
+<tr>
+<td>发行流通性质</td>
+<td>新发行还是已有资产转让</td>
+<td>一级市场、二级市场</td>
+</tr>
+<tr>
+<td>组织方式</td>
+<td>按什么组织方式交易</td>
+<td>交易所市场、场外市场</td>
+</tr>
+<tr>
+<td>交割方式</td>
+<td>即期交易还是衍生合约</td>
+<td>现货市场、衍生品市场</td>
+</tr>
+<tr>
+<td>金融资产种类</td>
+<td>是否属于本书所指证券</td>
+<td>证券市场、非证券金融市场</td>
+</tr>
+<tr>
+<td>辐射地域</td>
+<td>涉及一个还是多个司法辖区</td>
+<td>国内金融市场、国际金融市场</td>
+</tr>
+</tbody>
+</table></div>
+<p>下面把每一段展开。</p></section><section class="lesson" id="chapter-1-section-13"><h3>第一种：货币市场与资本市场，第6—7页。</h3><h4 class="subhead">货币市场：短期资金市场，通常以一年及以内为界。</h4>
+<p>教材列四个例子：</p>
+<ul>
+<li>银行间同业拆借。</li>
+<li>商业票据。</li>
+<li>短期国库券。</li>
+<li>大额可转让存单。</li>
+</ul>
+<p>它们共同服务于短期资金周转和余缺调剂。</p>
+<h4 class="subhead">“货币市场”不等于专门兑换钞票的市场。</h4>
+<p>“货币性强”是指相关资产通常比较接近短期资金、流动性较强等特点。</p>
+<h4 class="subhead">资本市场：期限超过一年，或者没有到期期限的金融资产市场。</h4>
+<p>教材列：</p>
+<ul>
+<li>股票市场。</li>
+<li>中长期国债市场。</li>
+<li>中长期银行贷款市场。</li>
+</ul>
+<p>股票没有像普通定期债务那样的到期还本日，所以归入资本市场。</p>
+<p>做题特别注意：</p>
+<h4 class="subhead">不是所有债券都属于资本市场。</h4>
+<p>短期国库券与长期国债，要按期限区分。</p>
+<p><strong>银行贷款也不全属于货币市场。</strong>中长期贷款属于资本市场范畴。</p></section><section class="lesson" id="chapter-1-section-14"><h3>第二种：债权市场与权益市场，第7页。</h3><p><strong>债权</strong>：按约定要求对方履行偿付义务的权利。</p>
+<p><strong>权益</strong>：所有者在企业中的相应权益。</p>
+<p>典型例子：</p>
+<p>债券对应债权；股票对应权益。</p>
+<p>教材接着引入两个名称：</p>
+<p><strong>固定收益市场</strong>：本书把债务工具和优先股交易市场放在这一类别中。</p>
+<p><strong>普通股市场</strong>：不包含优先股的股票市场。</p>
+<p>优先股仍属于股权工具，但某些收益安排具有与固定收益工具相近的特征。</p>
+<p>做题抓住：</p>
+<h4 class="subhead">“固定收益”不代表“收益绝对安全”。</h4>
+<p>债券仍可能违约，价格也可能变化。</p></section><section class="lesson" id="chapter-1-section-15"><h3>第三种：一级市场与二级市场，第7页。</h3><p>这是第一章最值得花时间理解的关系之一。</p>
+<figure class="diagram" data-diagram="primary-secondary" data-figure="2"><figcaption class="figure-label">图 1-03 · 矢量关系图</figcaption><div class="diagram-interactive"><div id="finance-primary-secondary">
+<h3>钱给谁：发行与转让</h3>
+<div class="viz-controls" data-controls="" hidden=""></div>
+<div data-diagrams=""><svg aria-label="一级市场：新证券发行" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>一级市场：新证券发行</title><desc>甲投资者，支付 100 元；发行公司，收到筹资款。认购新股票</desc><defs><marker id="arrow-primary-secondary-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一级市场：新证券发行</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">甲投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付 100 元</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">发行公司</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">收到筹资款</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-primary-secondary-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">认购新股票</text></svg><svg aria-label="二级市场：已有证券转让" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 840 140"><title>二级市场：已有证券转让</title><desc>乙投资者，支付 120 元；甲投资者，卖出原有股票。转让款付给甲</desc><defs><marker id="arrow-primary-secondary-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">二级市场：已有证券转让</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">乙投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付 120 元</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="614" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="719" y="83">甲投资者</text><text dominant-baseline="middle" text-anchor="middle" x="719" y="105">卖出原有股票</text><path class="finance-arrow" d="M 229 94 L 607 94" marker-end="url(#arrow-primary-secondary-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="420" y="44">转让款付给甲</text></svg></div>
+<div aria-live="polite" class="sr-only" data-summary="">钱给谁：发行与转让</div>
+<script data-config="" type="application/json">{"slug": "primary-secondary", "heading": "钱给谁：发行与转让", "rows": [{"label": "一级市场：新证券发行", "nodes": [["甲投资者", "支付 100 元"], ["发行公司", "收到筹资款"]], "edges": ["认购新股票"]}, {"label": "二级市场：已有证券转让", "nodes": [["乙投资者", "支付 120 元"], ["甲投资者", "卖出原有股票"]], "edges": ["转让款付给甲"]}]}</script>
+</div>
+<style>
+#finance-primary-secondary .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-primary-secondary .finance-flow text {fill:currentColor;font:inherit}
+#finance-primary-secondary .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-primary-secondary .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-primary-secondary .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-primary-secondary');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-primary-secondary-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-primary-secondary-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><div><svg aria-label="一级市场：新证券发行" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>一级市场：新证券发行</title><desc>甲投资者，支付 100 元；发行公司，收到筹资款。认购新股票</desc><defs><marker id="print-01-01-2-0-arrow-primary-secondary-0" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">一级市场：新证券发行</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">甲投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付 100 元</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">发行公司</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">收到筹资款</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-01-01-2-0-arrow-primary-secondary-0)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">认购新股票</text></svg><svg aria-label="二级市场：已有证券转让" class="finance-flow" role="img" style="height: 140px;" viewbox="0 0 660 140"><title>二级市场：已有证券转让</title><desc>乙投资者，支付 120 元；甲投资者，卖出原有股票。转让款付给甲</desc><defs><marker id="print-01-01-2-0-arrow-primary-secondary-1" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text dominant-baseline="middle" text-anchor="start" x="12" y="18">二级市场：已有证券转让</text><rect class="finance-node" height="72" rx="6" width="210" x="16" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="121" y="83">乙投资者</text><text dominant-baseline="middle" text-anchor="middle" x="121" y="105">支付 120 元</text><rect class="finance-node finance-highlight" height="72" rx="6" width="210" x="434" y="58"></rect><text dominant-baseline="middle" text-anchor="middle" x="539" y="83">甲投资者</text><text dominant-baseline="middle" text-anchor="middle" x="539" y="105">卖出原有股票</text><path class="finance-arrow" d="M 229 94 L 427 94" marker-end="url(#print-01-01-2-0-arrow-primary-secondary-1)"></path><text dominant-baseline="middle" text-anchor="middle" x="330" y="44">转让款付给甲</text></svg></div></div></div></figure>
+<h4 class="subhead">一级市场：发行新的金融资产。</h4>
+<p>例如公司新发行股票，你支付认购款，公司获得筹资款。</p>
+<p>主要功能是筹资。</p>
+<p>公开发行或面向特定对象发行，只要讨论的是新证券发行，都属于这部分。</p>
+<h4 class="subhead">二级市场：转让已经发行的金融资产。</h4>
+<p>甲把已经持有的股票卖给乙，乙把转让款付给甲。</p>
+<h4 class="subhead">普通二级市场转让中，发行公司不会因为这次转让再获得一笔发行筹资款。</h4>
+<p>二级市场有两个重要功能：</p>
+<h4 class="subhead">一是提供流动性。</h4>
+<p>投资者知道以后可以转让，通常更愿意认购新证券。</p>
+<h4 class="subhead">二是发现价格。</h4>
+<p>已有股票、债券的市场交易价格，可以为新发行提供定价参考。</p>
+<p>所以二级市场能够支持一级市场发展。</p>
+<p>做题抓住：</p>
+<h4 class="subhead">一级：发行、筹资。二级：流通、变现、价格参考。</h4>
+<p>“二级市场不能直接完成这次新发行筹资，所以它与融资毫无关系”，也是错误理解。</p></section><section class="lesson" id="chapter-1-section-16"><h3>第四种：交易所市场与场外市场，第7—8页。</h3><p><strong>交易所市场</strong>具有较高的组织化程度，按照相应交易规则开展交易。</p>
+<p>教材列证券交易所、期货交易所、期权交易所等。</p>
+<p>理解几个动词：</p>
+<ul>
+<li><strong>竞价</strong>：买卖双方提出价格。</li>
+<li><strong>撮合</strong>：按照规则把符合条件的买卖指令配对。</li>
+<li><strong>结算</strong>：处理交易后的资金、证券或其他相关义务。</li>
+</ul>
+<p>教材把交易所与担保履约、交易对手等功能写在一起。理解时要知道：<strong>交易组织、清算结算和中央对手方职能，可以由不同机构承担。</strong></p>
+<p>第一章先学会识别组织方式，不必把所有交易所都想象成直接与投资者做买卖的商人。</p>
+<p>教材接着讲交易所的两种组织形式：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>形式</th>
+<th>最高权力机构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会员制</td>
+<td>会员大会</td>
+</tr>
+<tr>
+<td>公司制</td>
+<td>股东大会</td>
+</tr>
+</tbody>
+</table></div>
+<p>这一组适合做对应识别。</p>
+<p>交易所本身也可以成为上市公司。香港交易及结算所有限公司就是教材的例子。</p>
+<p><strong>场外市场</strong>则是相对于交易所组织方式而言的市场。</p>
+<p>传统上通过电话、网络、柜台等方式联系和成交，例如教材列出的银行信贷、拆借、外汇、黄金等市场。</p>
+<p>中国外汇交易中心暨全国银行间同业拆借中心，简称 <strong>CFETS</strong>，是教材列举的场外市场相关平台。</p>
+<h4 class="subhead">电子化交易，不会自动使市场变成交易所市场。</h4>
+<p>所以“无形市场”和“场外市场”也不能直接画等号：前者强调不必依赖固定实体场所，后者强调交易组织方式。</p>
+<p>第8页的三个段落，分别补充：</p>
+<ul>
+<li>场外交易结构和方式比较丰富。</li>
+<li>交易双方直接交易时，需要关注交易对手风险。</li>
+<li>场外市场也会提高组织化程度，引入做市商、主协议、保证金、中央清算等安排。</li>
+</ul>
+<h4 class="subhead">为何讲最后这一段？</h4>
+<p>为了防止你记成“场外市场永远松散、没有规则、没有监管”。</p>
+<p>这些绝对化选项很容易误导人。</p></section><section class="lesson" id="chapter-1-section-17"><h3>第五种：现货市场与衍生品市场，第8页。</h3><p><strong>现货交易</strong>：成交后，按照市场规定的即期交割安排，办理资金与资产交付。</p>
+<p>“即期”并不必然等于你按下成交按钮的同一秒，所有交付都已完成。</p>
+<p><strong>衍生工具</strong>：以某种基础资产、价格或指标等为基础形成的合约。</p>
+<p>教材列四类：</p>
+<h4 class="subhead">远期、期货、期权、互换。</h4>
+<p>第一章先知道这些属于常见衍生工具，具体权利义务后面再细学。</p>
+<p>“衍生”的意思是：合约价值与其基础对象有关。</p>
+<p>例如股票期权的价值，与相关股票价格等因素有关。</p>
+<p>教材按基础对象区分商品衍生品和金融衍生品。</p>
+<p>从商品交易发展到商品衍生品、金融衍生品的长段落，是在解释：</p>
+<h4 class="subhead">交易和生产活动扩大后，对管理价格、利率、汇率等风险的需求也会增加。</h4>
+<p>衍生工具可以用于风险管理，也可能被用于投机。不能因为它可以对冲风险，就认为所有衍生品交易都降低了交易者风险。</p>
+<p>第一章不要求现在计算期权价格。</p></section><section class="lesson" id="chapter-1-section-18"><h3>第六种：证券市场与非证券金融市场，第8—9页。</h3><p>这部分先处理“证券”这个词。</p>
+<p>教材讲广义有价证券时，分为三类：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>主要代表什么权利</th>
+<th>教材例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商品证券</td>
+<td>与商品所有权、使用权等有关的权利</td>
+<td>提货单、运货单、仓库栈单</td>
+</tr>
+<tr>
+<td>货币证券</td>
+<td>货币索取权</td>
+<td>汇票、本票、支票</td>
+</tr>
+<tr>
+<td>资本证券</td>
+<td>与金融投资有关的权利</td>
+<td>股票、债券、基金等</td>
+</tr>
+</tbody>
+</table></div>
+<p>货币证券又列：</p>
+<ul>
+<li>商业证券：商业汇票、商业本票。</li>
+<li>银行证券：银行汇票、银行本票、支票。</li>
+</ul>
+<h4 class="subhead">本书后续主要使用狭义口径，即资本证券。</h4>
+<p>因此本书所讲证券市场，主要围绕股票、债券、证券投资基金及有关衍生品等展开。</p>
+<p>教材说证券市场解决资本供求矛盾与流动性问题，可以联系前面：</p>
+<h4 class="subhead">发行帮助筹资；流通帮助投资者退出和变现。</h4>
+<p>非证券金融市场则包括教材所列的信托、融资租赁、外汇、黄金、保险、银行理财、长期贷款等。</p>
+<p>它还列“股权投资市场”。这里需要理解其分类口径：<strong>股权投资不必全部通过公开证券市场进行。</strong>不能仅看到“股权”二字，就认为任何股权投资活动都属于这里所说的公开股票交易市场。</p>
+<p>第9页脚注说，不同教材对资本市场与证券市场的范围会有不同口径。</p>
+<h4 class="subhead">为何要讲这个脚注？</h4>
+<p>因为你不能把所有市场分类硬接成一棵只有一种划分方法的树。</p>
+<p>按期限分类与按资产种类分类，可能出现交叉。</p>
+<p>做本书配套题时，先看题目给的分类标准和定义。</p></section><section class="lesson" id="chapter-1-section-19"><h3>第七种：国内金融市场与国际金融市场，第9页。</h3><p>教材使用的是<strong>司法辖区</strong>这个概念。</p>
+<p>司法辖区可以先理解为适用一套相应法律与监管安排的区域。</p>
+<ul>
+<li>涉及多个司法辖区居民之间的金融业务，属于国际金融市场范畴。</li>
+<li>单一司法辖区内的金融市场，属于国内金融市场范畴。</li>
+</ul>
+<p>国际市场还可分全球性、区域性。</p>
+<p>国内市场还可分全国性、地区性。</p>
+<h4 class="subhead">做题重点是地域范围，不是交易使用了什么语言。</h4>
+<p>第一节讲完，你应该至少能解释：</p>
+<h4 class="subhead">股票为什么属于资本市场；已有股票转让为什么属于二级市场；有证券公司承销为什么仍可能是直接融资。</h4></section><nav aria-label="章节切换" class="section-links"><a href="index.html">返回总目录</a><a href="01-02_全球金融市场.html">下一节 · 全球金融市场</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。保留本聊天此前完整讲解，按教材节分拆排版。相邻节可能共用同一教材页。</p><p>优先级标记表示学习要求，不是已核验的出题频率。各制度数字须连同主体、分母、年份理解；修订说明在对应段标出。</p><p>本节HTML无需联网即可阅读，SVG图与公式保存在文件内；出处链接需联网。练习为本讲义自编诊断题。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

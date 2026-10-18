@@ -1,0 +1,191 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DCVC 底层熵编码精读与完成核查</title><link rel="stylesheet" href="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_讲解资源/来源/DCVC_答疑02_底层熵编码与精读完成核查.md · <a href="DCVC_%E7%AD%94%E7%96%9102_%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E4%B8%8E%E7%B2%BE%E8%AF%BB%E5%AE%8C%E6%88%90%E6%A0%B8%E6%9F%A5.md">原始 Markdown</a></p><h1 id="dcvc">DCVC 底层熵编码精读与完成核查</h1>
+<p>本轮补完上一轮留下的 C++ 熵编码部分。至此，<strong>DCVC 2021 的论文正文、补充材料、Python 推理主链，以及真实码流所依赖的 CDF 构表和 rANS 主调用链，均已完成讲解</strong>。训练和性能复现仍属于实验工作，不计作未读论文段落。</p>
+<p>本轮沿用固定提交 <code>cbdae87a5445114cdc7f48816da63ea80bdeac40</code>，已取得并逐文件核对官方 <code>DCVC-family/DCVC</code> 完整子目录的 31 个文件；其中包含此前未收集的 C++、构建配置和真实写流说明。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/SOURCE_MANIFEST_%E5%AE%8C%E6%95%B4%E5%AD%90%E7%9B%AE%E5%BD%95.json">完整子目录来源清单</a></p>
+<p><strong>1. 补齐最后一层：模型输出概率之后发生什么</strong></p>
+<p>此前已讲清网络怎样得到整数符号、均值、尺度和表索引。底层把它们连成下面这条链：</p>
+<pre><code class="language-text">预测分布 → 各整数符号的概率质量 PMF
+         → 量化后的整数累计分布 CDF
+整数符号 + CDF 索引 → rANS 状态更新 → 字节串
+字节串 + 相同 CDF 索引 → 整数符号 → 加回均值 → 重建潜变量
+</code></pre>
+<p>Python 调用的两个扩展职责不同：<code>MLCodec_CXX</code> 负责 <code>pmf_to_quantized_cdf</code>；<code>MLCodec_rans</code> 提供缓冲编码器、编码器和解码器。前者准备编码表，后者使用这些表编码，并不替代神经网络预测概率。</p>
+<p>对应源码是 <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/cpp/ops/ops.cpp#L26">ops.cpp</a> 和 <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/cpp/rans/rans_interface.cpp#L97">rans_interface.cpp</a>。原始版本也可在<a href="https://github.com/microsoft/DCVC/tree/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/cpp">官方固定提交</a>核对。</p>
+<p><strong>2. 为什么概率必须变成整数 CDF</strong></p>
+<p>设第 s 个符号的概率为 p_s，整数频数为 f_s，累计起点为 c_s。编码器需要：</p>
+<p><span class="math display" data-tex="
+c_0=0,\qquad c_{s+1}=c_s+f_s,\qquad
+f_s&gt;0,\qquad \sum_s f_s=M.
+">
+c_0=0,\qquad c_{s+1}=c_s+f_s,\qquad
+f_s&gt;0,\qquad \sum_s f_s=M.
+</span></p>
+<p>真实 rANS 后端固定使用 16 位概率精度，因此 M=65536。这个 16 是概率表的分辨率，<strong>不是每个符号固定占 16 bit</strong>；状态使用 64 位整数，则是另一件事。</p>
+<p><code>pmf_to_quantized_cdf()</code> 的操作顺序是：</p>
+<ol>
+<li>将各概率乘以 M 并取整，得到初步频数。</li>
+<li>按初步频数总和重新归一化，用整数除法缩放到目标总量。</li>
+<li>做前缀和，并把最后一个累计值设为 M。</li>
+<li>检查相邻累计值是否相等；相等意味着该符号频数为零。</li>
+<li>从频数大于 1 的符号中挑选频数最小的一个，转移一个计数，修复零宽区间。</li>
+<li>检查 CDF 从 0 开始、以 M 结束，并且严格递增。</li>
+</ol>
+<p>为什么必须修复？因为 rANS 的状态更新包含除以 f_s；频数为零的符号无法编码，即使它只是在浮点概率量化时被舍成零。</p>
+<p>【教学示例】为了方便手算，临时用 M=16，输入 PMF <code>[0.001,0.499,0.5]</code>。初步频数为 <code>[0,8,8]</code>，CDF 为 <code>[0,0,8,16]</code>；给第一个符号补一个计数后，得到 <code>[0,1,8,16]</code>，频数为 <code>[1,7,8]</code>。</p>
+<p>这里改变的是用于编码的近似分布，不是被编码的整数符号；只要两端使用同一张合法表，整数仍能精确恢复。表量化却可能改变码率，这解释了概率估计与真实码率之间的一部分差异。</p>
+<p>还有一个接口约束：Python 类虽然暴露精度参数，当前 C++ rANS 中的 <code>precision</code> 是固定的 16。不能只改 Python 构表精度，就默认整条编码链自动跟着改变。</p>
+<p><strong>3. rANS 的核心公式为什么可逆</strong></p>
+<p>先忽略有限位宽带来的状态归一化，设当前整数状态为 x，当前符号频数为 f_s、CDF 起点为 c_s，则编码更新为：</p>
+<p><span class="math display" data-tex="
+x'=M\left\lfloor\frac{x}{f_s}\right\rfloor
+ +(x\bmod f_s)+c_s.
+">
+x'=M\left\lfloor\frac{x}{f_s}\right\rfloor
+ +(x\bmod f_s)+c_s.
+</span></p>
+<p>令 x=f_s q+r，其中 0≤r&lt;f_s，那么 x'=Mq+r+c_s。于是：</p>
+<p><span class="math display" data-tex="
+x'\bmod M=r+c_s\in[c_s,c_s+f_s).
+">
+x'\bmod M=r+c_s\in[c_s,c_s+f_s).
+</span></p>
+<p>解码器先取 x' 的低位累计频数，再找它落入的 CDF 区间，就知道符号 s。然后计算：</p>
+<p><span class="math display" data-tex="
+x=f_s\left\lfloor\frac{x'}{M}\right\rfloor
+ +(x'\bmod M)-c_s.
+">
+x=f_s\left\lfloor\frac{x'}{M}\right\rfloor
+ +(x'\bmod M)-c_s.
+</span></p>
+<p>代入前面的 q、r，右边就是 f_s q+r，因此恢复原状态。<strong>符号由低位所属区间确定，旧状态由商和区间内偏移恢复。</strong></p>
+<p>当前 DCVC 接口调用的是外部固定版本 <code>rans64.h</code> 的 <code>Rans64EncPut</code> 与 <code>Rans64DecAdvance</code>。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/%E5%A4%96%E9%83%A8%E4%BE%9D%E8%B5%96/ryg_rans/rans64.h#L77">底层状态函数</a></p>
+<p>该头文件后半部还有预计算倒数、用乘法替代除法的优化接口；DCVC 这里的调用链使用前述直接更新函数，不能把头文件中存在的所有优化都说成本模型已调用。</p>
+<p><strong>4. 为什么网络按正序扫描，rANS 却逆序编码</strong></p>
+<p>ANS 的状态具有栈式行为：最后压入的符号最先取出。为了让解码器按空间顺序恢复 A、B、C，底层实际把 C、B、A 压入状态。</p>
+<p>【教学示例】仍用 M=16，令 A/B/C 的频数为 8/4/4，累计起点为 0/8/12，教学初始状态取 16：</p>
+<table>
+<thead>
+<tr>
+<th>编码顺序</th>
+<th>状态变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>先压入 C</td>
+<td>16 → 76</td>
+</tr>
+<tr>
+<td>再压入 B</td>
+<td>76 → 312</td>
+</tr>
+<tr>
+<td>最后压入 A</td>
+<td>312 → 624</td>
+</tr>
+</tbody>
+</table>
+<p>解码时依次观察低位：624 mod 16=0，得到 A 并恢复 312；312 mod 16=8，得到 B 并恢复 76；76 mod 16=12，得到 C 并恢复 16。</p>
+<p>这与神经网络的因果顺序没有冲突：</p>
+<ul>
+<li>编码端先按正常空间顺序预测概率、量化并写回重建缓冲区，收集所有符号和表索引。</li>
+<li>C++ 的 <code>encode_with_indexes()</code> 将这些信息放入 <code>_syms</code>。</li>
+<li><code>flush()</code> 从 <code>_syms.back()</code> 逆序弹出，完成真正的状态编码。</li>
+<li>解码端按正常顺序恢复符号，及时更新上下文，再预测下一个位置的分布。</li>
+</ul>
+<p>源码里有一条注释写着“backward loop”，但紧随其后的收集循环实际是正序；逆序发生在 <code>flush()</code>。阅读代码应以循环和状态更新为准。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/cpp/rans/rans_interface.cpp#L164">收集与刷新</a></p>
+<p><strong>5. 状态会不会无限变大，怎样落成字节</strong></p>
+<p>真实实现不能使用无限大的整数。<code>rans64.h</code> 的归一化下界是 2^31，状态保存在 64 位容器中，设计上控制在有效范围内。</p>
+<p>编码前，如果状态达到与当前频数有关的阈值，就先向输出缓冲区写出低 32 位，并将状态右移 32 位；之后再执行编码更新。解码时做逆操作：状态低于下界，就从流中补进下一个 32 位字。</p>
+<p>最终 <code>Rans64EncFlush()</code> 把剩余状态写成两个 32 位字，解码器用它们初始化状态。这些状态字已经包含在四段 payload 的字节长度中；它们与外层文件的 24/16 字节头信息属于不同层次。</p>
+<p>外层头由 <code>struct.pack</code> 指定大端顺序，而这份 rANS 接口把 <code>uint32_t</code> 缓冲区直接解释为字节串。不能仅凭外层头是大端，就推断整个 payload 已定义统一的跨平台端序协议；本次不声称验证了跨平台兼容性。</p>
+<p><strong>6. 超出概率表范围的整数，为什么仍然能恢复</strong></p>
+<p>这是上一轮尚未进入 C++ 时没有展开的关键机制。</p>
+<p>对某张 CDF，先用 offset 把原始整数 q 转为内部索引 v=q−offset。设 N 是普通符号的数量，内部索引 0 到 N−1 都可直接编码，额外的索引 N 是<strong>逃逸符号</strong>。</p>
+<p>如果 v&lt;0，编码逃逸符号，并记录 raw=−2v−1；如果 v≥N，仍编码逃逸符号，并记录 raw=2(v−N)。奇偶性区分下侧溢出和上侧溢出。</p>
+<p>【教学示例】offset=−2、N=5，普通整数范围为 −2 到 2：</p>
+<table>
+<thead>
+<tr>
+<th>原始 q</th>
+<th>内部 v</th>
+<th>编码方式</th>
+<th>raw</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>普通符号 2</td>
+<td>不需要</td>
+</tr>
+<tr>
+<td>−4</td>
+<td>−2</td>
+<td>逃逸符号 5</td>
+<td>3，奇数</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7</td>
+<td>逃逸符号 5</td>
+<td>4，偶数</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+<td>逃逸符号 5</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>解码看到逃逸符号后，先恢复 raw。若 raw 为奇数，v=−(raw&gt;&gt;1)−1；若为偶数，v=(raw&gt;&gt;1)+N。最后加回 offset，即恢复 q。</p>
+<p>raw 通过每组 4 bit 的<strong>旁路编码</strong>传输。编码器先写需要多少组，再写每组的值；组数使用 15 作为延续标记。即便 raw=0，也要传递“零组”的数量信息，解码器才能确定没有后续 raw 数据。</p>
+<p>因此，<strong>有限概率表不等于把潜变量硬截断到有限范围</strong>。超范围符号会付出逃逸与旁路的比特成本，但整数值被保留。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/cpp/rans/rans_interface.cpp#L113">逃逸编码</a> · <a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/cpp/rans/rans_interface.cpp#L245">对应解码</a></p>
+<p><strong>7. <code>decode_stream()</code> 为什么能分多次调用</strong></p>
+<p>真实自回归解码并不是一次性已知所有表索引：后面位置的概率依赖前面位置恢复的值。因此 <code>set_stream()</code> 把输入字节串保存在对象内，初始化 <code>_rans</code> 状态和 <code>_ptr</code> 读指针；每次 <code>decode_stream(indexes)</code> 只恢复当前需要的一组符号，并保留更新后的状态和指针。</p>
+<p>Python 在一个空间位置调用一次，取回该位置的通道向量，写回潜变量缓冲区，然后才计算下一个位置的均值和尺度。若每次调用都重新初始化 rANS，就会不断读回流的开头，无法推进。<a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/src/cpp/rans/rans_interface.cpp#L277">持续解码状态</a></p>
+<p>这也解释了速度瓶颈：卷积运算可以部分并行，空间上的因果依赖、CPU 编码接口调用、符号表查找及设备数据转换仍有成本。代码中查找 CDF 区间使用 <code>std::find_if</code>；不能仅从“用了 C++”推断这一段已经消除全部串行开销。</p>
+<p><strong>8. 构建入口与训练代码的边界也已核清</strong></p>
+<p><a href="../../DCVC_2021_%E6%BA%90%E7%A0%81/write_stream_readme.md.html">write_stream_readme.md</a> 给出真实写流的构建与测试入口。CMake 使用 C++17，拉取 pybind11 v2.6.1 与固定提交的 ryg_rans，分别构建 <code>MLCodec_CXX</code> 和 <code>MLCodec_rans</code>，再把扩展复制到 <code>src/entropy_models/</code>。测试还需开启 <code>--write_stream True</code>。</p>
+<p>31 文件清单中还包含一个 I 帧权重下载脚本：它列出四档 PSNR 与四档 MS-SSIM 图像模型并下载，没有实现 P 帧训练。已核对完整的 2021 子目录，里面没有端到端视频训练入口；不能把仓库其他年代模型的训练脚本直接当作本文训练工程。</p>
+<p>这一点与上一轮发现的硬取整、缺少训练量化松弛和分阶段优化闭环一致。论文的训练安排已经讲解，原作者未在这份子目录提供的训练工程，不能靠精读凭空补成“已复现”。</p>
+<p><strong>9. 本轮验证做到了哪一步</strong></p>
+<p>除逐文件核对完整子目录外，本次按已读 C++ 公式编写了独立 Python 参考实现，验证整数 CDF 修复、状态更新、32 位归一化、4 bit 旁路以及多次分组解码。</p>
+<p>测试共包含 4106 个整数，覆盖负值、普通范围及上下两侧溢出；其中 4101 个走逃逸路径。分多次解码后全部精确恢复，最终状态回到初始下界。另验证了上面的 CDF 与 A/B/C 手算例子。<a href="../../DCVC_%E4%BB%A3%E7%A0%81%E6%A0%B8%E6%9F%A5/%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E6%A0%B8%E6%9F%A5%E7%BB%93%E6%9E%9C.json">核查结果</a></p>
+<p>这是<strong>根据源码机制编写的独立参考验证</strong>，没有加载官方 C++ 扩展，没有运行带权重模型，也没有证明与官方扩展逐字节相同；这些界限保留在结果记录中。</p>
+<p><strong>10. 全部精读的完成范围</strong></p>
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>完成范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正式版论文 12 页</td>
+<td>标题、摘要、Sections 1—5、正文公式 1—7、7 张图、3 张表、40 项参考文献条目与重点关联分析</td>
+</tr>
+<tr>
+<td>补充材料 7 页</td>
+<td>全部 6 节、8 张图、1 张训练表、脚注、实验设置与 15 项参考文献条目</td>
+</tr>
+<tr>
+<td>Python 实现</td>
+<td>运动、特征上下文、内容变换、三种先验、量化、四路码流、I 帧接入、文件读写、测试调度与指标统计</td>
+</tr>
+<tr>
+<td>底层熵编码</td>
+<td>PMF→整数 CDF、rANS 编解码、逆序刷新、状态归一化、逃逸/旁路、持续解码状态、构建入口与固定外部状态函数</td>
+</tr>
+<tr>
+<td>科研评价</td>
+<td>创新边界、消融锚点、训练安排、复现条件、局限与可检验的延伸方向</td>
+</tr>
+</tbody>
+</table>
+<p>参考文献条目已保留并按与本文的关系分析，不意味着把 55 个条目对应的所有论文也全部全文精读。</p>
+<p><strong>当前停止位置：论文与补充材料末尾，以及 DCVC 2021 实际使用的熵编码主调用链末尾。没有待继续的本文精读章节。</strong> 后续若开展带权重编解码、训练、计时或 BD-Rate 复现，应作为实验任务另记，不再混入精读完成状态。</p></main><script src="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

@@ -1,0 +1,56 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DVC｜H.264 学习范围</title><link rel="stylesheet" href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DVC_答疑01_H264学习范围.md · <a href="DVC_%E7%AD%94%E7%96%9101_H264%E5%AD%A6%E4%B9%A0%E8%8C%83%E5%9B%B4.md">原始 Markdown</a></p><h1 id="dvch264">DVC｜H.264 学习范围</h1>
+<blockquote>
+<p>用户问题：我需要学h.264的算法吗</p>
+<p>来源：本聊天 <code>01a13ae4-6cb2-7f23-b09c-942490bf8387</code>，公开回复记录第 87 行，2026-10-14 23:48:47 +08:00。</p>
+<p>可核实定位：传统预测编码前置知识；外部标准链接。</p>
+</blockquote>
+<!-- source-body:R02:begin -->
+<p><strong>需要掌握核心原理。以你现在理解 DVC 为目标，先学到能讲清楚一帧如何被压缩、再如何被重建，就可以继续读论文。</strong></p>
+<p>DVC 继承了传统视频编码的“预测→残差→变换→量化→熵编码”思路。理解这条流程，才能看懂它为什么设置运动网络和残差网络。<a href="https://www.itu.int/rec/dologin_pub.asp?id=T-REC-H.264-202108-S%21%21PDF-E&amp;lang=f&amp;type=items">H.264 标准中的预测编码说明</a></p>
+<p>建议按下面的顺序学习：</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>你需要理解的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>帧内与帧间预测，I/P/B 帧</td>
+<td>当前帧可以利用哪些已有信息？</td>
+</tr>
+<tr>
+<td>运动估计与运动补偿</td>
+<td>如何找到移动的位置，再生成预测图像？</td>
+</tr>
+<tr>
+<td>残差</td>
+<td>为什么传“原图减去预测图”能省比特？</td>
+</tr>
+<tr>
+<td>变换与量化</td>
+<td>如何把残差变成容易压缩的表示？失真在哪里产生？</td>
+</tr>
+<tr>
+<td>熵编码</td>
+<td>为什么概率高的符号可以用更少的比特表示？</td>
+</tr>
+<tr>
+<td>率失真优化</td>
+<td>如何在画质和码率之间做选择？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>其中，运动估计、运动补偿、残差和率失真优化，应当优先学透。</strong> DVC 的主要创新就围绕这些模块的联合训练展开。</p>
+<p>CABAC 的具体编码步骤、完整码流语法、各种预测模式和编码器源码，可以等到你需要复现、改进传统编码器时再深入。</p>
+<p>一个合适的学习验收标准是：你能解释清楚这三个问题：</p>
+<ul>
+<li>为什么编码端也要重建当前帧？</li>
+<li>为什么预测越准确，通常越容易压缩残差？</li>
+<li>为什么更准确的运动估计，未必带来更好的整体压缩效果？</li>
+</ul>
+<p>能回答这些问题，再回看 DVC 的图 2 和损失函数，就会容易很多。</p>
+<!-- source-body:R02:end --></main><script src="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

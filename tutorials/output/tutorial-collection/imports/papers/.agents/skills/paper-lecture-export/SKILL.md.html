@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>论文讲解全文整理</title><link rel="stylesheet" href="../../../iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/.agents/skills/paper-lecture-export/SKILL.md · <a href="SKILL.md">原始 Markdown</a></p><hr/>
+<p>name: paper-lecture-export
+description: 将当前论文已完成的全部讲解与补充答疑汇编成 Markdown 和 HTML，逐项核对来源与缺口。当用户说“整理它”“整理他”“把讲解整理成文件”时使用；修改提示词或整理项目文档时不触发。</p>
+<hr/>
+<h1 id="_1">论文讲解全文整理</h1>
+<p>本技能位于项目根目录的 <code>.agents/skills/paper-lecture-export/</code>。执行前读取 <a href="../../../%E8%AE%BA%E6%96%87%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87%E6%95%B4%E7%90%86%E6%8F%90%E7%A4%BA%E8%AF%8D.md.html">讲解全文整理提示词</a>和 <a href="../../../README.md.html#讲解全文整理">项目入口的整理约定</a>。完整版提示词规定收录范围、图表、勘误、文件结构与核对要求。</p>
+<h2 id="_2">确定范围与收集来源</h2>
+<p>从当前论文、阅读记录及用户指定范围识别目标，明确时直接执行。维护本技能、提示词或项目文件的请求不是论文导出请求。</p>
+<p>先检查该论文阅读记录中的完整讲解文件清单，再核对论文目录中的既有讲解、相关聊天内容及必要的可访问历史。包含略读、逐段精读、补充推导、实质性短答疑和纠错，不能只取最近回复或按字符长度筛选。</p>
+<p>建立逐项来源清单，记录顺序、文件或可核实的聊天定位、讨论范围、对应输出章节和收录状态。不自动汇入无关聊天、其他论文或私人内容。历史讲解仍有缺口时，交付已获取内容并明确列出缺口，不将重新编写的解释冒充历史全文。</p>
+<p>同一回复的存储副本可去重并登记；不同轮次对同一问题的再次解释应保留。文件内容发生矛盾时核对来源、保存时间与勘误关联，不凭名称相似就覆盖或删除。</p>
+<h2 id="_3">全文汇编与输出</h2>
+<p>按照实际讲解顺序完整汇编，保留原有推导深度、例子、图表分析、问答背景、来源及观点类别。增加按论文章节或主题跳转的导航；辅助索引不替代讲解正文。保留纠错过程，并在已知错误处链接正确解释。</p>
+<p>默认在论文所在目录生成 <code>&lt;论文标识&gt;_讲解全文.md</code> 和 <code>&lt;论文标识&gt;_讲解全文.html</code>，资源放在旁边的 <code>&lt;论文标识&gt;_讲解资源/</code>。先形成完整 Markdown 主文，再从同一主文生成 HTML，避免两份内容分别改写。</p>
+<p>HTML 应具备目录锚点、适合长文阅读与打印的排版。使用可用的本地 Markdown、公式渲染及文件工具完成转换；按实际需要选用环境与模板，不直接运行其他项目中写死教材路径的历史生成脚本。核对公式渲染、原图编号、补充示意图标签、交互状态和可携带的资源路径。</p>
+<p>已有整理文件时先核对其来源与手工批注，再增量汇入新讲解，保存旧版本或明确的新版本。不要为了凑成全文自动补讲尚未阅读的原文。</p>
+<h2 id="_4">完整性核对</h2>
+<ul>
+<li>每一项已获取讲解均有对应输出位置，包含短答疑、公式步骤、表格、例子、图注与引用。</li>
+<li>对照来源正文检查可比文本及结构；公式和图表单独核对。来源哈希、段落 ID、字数或文件数量只能辅助定位，不能单独证明完整。</li>
+<li>记录去重、交互措辞调整与勘误；不得静默删减重复解释或改变论断的证据强度。</li>
+<li>Markdown 与 HTML 的实质内容一致，目录、引用与本地资源可用；存在缺失图表或历史内容时在文件和交付说明中明确列出。</li>
+<li>以实际来源范围描述完成情况。“已讲解内容全部收录”不代表论文全文已经读完，导出不推进阅读进度。</li>
+</ul>
+<p>在该论文的阅读记录中补充整理文件链接与覆盖范围，保留原有精读停止位置。最后返回可点击的 Markdown、HTML 链接，简述收录范围与仍有缺口，不在聊天中再次压缩复述全部讲解。</p></main><script src="../../../iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>第八章 · 第一节 · 风险管理概述 · 金融市场基础知识</title><style>:root{--background:#f7f5ef;--foreground:#252c2b;--card:#fffef9;--card-foreground:#252c2b;--muted:#e7e8df;--muted-foreground:#59645f;--border:#cbd0c5;--primary:#254f43;--primary-foreground:#fff;--accent:#edf1e8;--accent-foreground:#254f43;--viz-series-1:#ad563b;--font-size-base:16px;--red:#a23d32;--ink:#244e43;--paper:#f7f5ef;--soft:#59645f;--clay:#a45239;--font-reading:'Noto Serif SC','Source Han Serif SC','Songti SC','SimSun',serif;--font-ui:'Microsoft YaHei','PingFang SC',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--paper);color:var(--foreground);font-family:var(--font-reading);font-size:17px;line-height:1.95}a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--clay)}button,input{font-family:var(--font-ui);font-size:14px}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c7834a;outline-offset:4px}button.btn{border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--foreground);padding:8px 15px;line-height:1.5;min-height:38px}button.btn:hover{background:var(--accent)}button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}[hidden]{display:none!important}
+.bookbar{position:sticky;top:0;z-index:10;background:var(--ink);color:#fbfaf5;font-family:var(--font-ui);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 30px;border-bottom:1px solid #416458}.bookbar strong{font-weight:500;font-size:14px;letter-spacing:.06em}.bookbar span{font-size:12px;opacity:.8}.bookbar .btn{color:#fff;border-color:#668176;background:transparent;padding:6px 12px;min-height:32px}.bookbar .btn:hover{background:#416458}.layout{display:grid;grid-template-columns:278px minmax(0,1fr);max-width:1470px;margin:auto}.sidebar{border-right:1px solid var(--border);padding:34px 23px;font-family:var(--font-ui);font-size:13px;line-height:1.7;position:sticky;top:67px;align-self:start;max-height:calc(100vh - 70px);overflow:auto}.sidebar .index-label{font-size:11px;letter-spacing:.2em;color:var(--clay);margin-bottom:18px}.sidebar details{margin-bottom:20px}.sidebar summary{cursor:pointer;font-weight:600;color:var(--ink);line-height:1.6;margin:5px 0 8px}.sidebar a{display:block;text-decoration:none;color:var(--soft);padding:7px 9px;border-left:2px solid transparent;font-size:12px}.sidebar a.current{border-color:var(--clay);color:var(--ink);background:#ebece3}.sidebar small{display:block;font-size:11px;color:var(--soft);padding:7px 0}.sidebar .top-link{margin-bottom:20px;font-size:13px;color:var(--ink)}.reader{padding:54px 60px 110px;min-width:0}.reader-inner{max-width:840px;margin:auto}.cover{border-top:5px solid var(--ink);padding:35px 0 44px;border-bottom:1px solid var(--border);margin-bottom:48px}.eyebrow{font-family:var(--font-ui);font-size:12px;letter-spacing:.18em;color:var(--clay);font-weight:600}.cover h1{font-weight:500;font-size:43px;line-height:1.35;letter-spacing:.04em;margin:20px 0 12px}.cover .subtitle{font-size:23px;color:var(--ink);margin:0 0 24px}.cover .description{max-width:690px;color:var(--soft);font-size:16px}.meta{display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--font-ui);font-size:12px;color:var(--soft);margin-top:27px}.guide{margin:32px 0 40px;padding-left:20px;border-left:3px solid var(--clay)}.guide strong{color:var(--ink)}.guide p{margin:8px 0;font-size:15px}.chapter-heading{padding:26px 0 25px;border-bottom:2px solid var(--ink);margin:55px 0 30px;scroll-margin-top:84px}.chapter-heading .chapter-no{font-family:var(--font-ui);font-size:12px;letter-spacing:.1em;color:var(--clay)}.chapter-heading h2{font-size:31px;line-height:1.4;font-weight:500;margin:10px 0}.chapter-heading p{font-family:var(--font-ui);font-size:12px;color:var(--soft);margin:7px 0}.lesson{margin:0 0 38px;scroll-margin-top:84px}.lesson+.lesson{border-top:1px solid var(--border);padding-top:30px}.lesson>h3{font-family:var(--font-ui);font-weight:600;font-size:21px;line-height:1.6;margin:0 0 18px;color:var(--ink)}.lesson h4,.lesson .subhead{font-family:var(--font-ui);font-weight:600;font-size:17px;line-height:1.65;color:var(--ink);margin:24px 0 12px}.lesson p{margin:13px 0}.lesson strong{font-weight:600;color:#234e42}.lesson ul,.lesson ol{padding-left:1.65em;margin:16px 0}.lesson li{padding-left:.15em;margin:7px 0}.lesson li p{margin:6px 0}.lesson hr{border:0;border-top:1px solid var(--border);margin:28px 0}.level{font-family:var(--font-ui);font-size:12px;display:inline-block;vertical-align:middle;line-height:1.7;padding:1px 6px;border-radius:3px;margin:0 2px;background:#edf0e8;color:var(--ink);white-space:nowrap}.level.use{background:#f2e5dc;color:#934a32}.level.context{background:#eceae4;color:#636c65}.table-wrap{overflow-x:auto;margin:21px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;font-family:var(--font-ui)}th{text-align:left;font-weight:600;color:var(--ink);background:#e8ebe1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:11px 13px}td{padding:10px 13px;vertical-align:top;border-bottom:1px solid var(--border)}tbody tr:nth-child(even){background:#efefe6}.diagram{margin:30px 0;padding:20px 0 17px;border-top:1px solid #c4cbbd;border-bottom:1px solid #c4cbbd;font-family:var(--font-ui);font-size:14px;line-height:1.65;break-inside:avoid}.diagram h3{font-size:16px!important;line-height:1.5!important;margin:0 0 16px!important;font-weight:600!important;color:var(--ink)}.figure-label{font-family:var(--font-ui);font-size:11px;color:var(--clay);letter-spacing:.08em;margin:0 0 9px}.viz-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:15px}.viz-controls .form-label{display:block;flex:1 1 200px;font-size:13px}.form-label span{float:right;font-variant-numeric:tabular-nums;color:var(--clay)}.form-range{display:block;width:100%;accent-color:var(--ink);height:25px;margin-top:6px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.math-display{display:block;text-align:center;padding:15px 8px;margin:18px 0;background:#eeeee5;overflow-x:auto;break-inside:avoid}.math-inline{display:inline-block;vertical-align:middle;max-width:100%;line-height:1.1}.math-inline mjx-container{margin:0!important}.math-display mjx-container{margin:0!important}.math-display svg,.math-inline svg{max-width:100%;height:auto}.math-display svg{font-size:110%}.answer-section{margin-top:27px;background:#ecefe5;padding:20px 24px}.answer-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.answer-content{padding-top:9px}.answer-content p:first-child{margin-top:8px}.study-prompt{border-left:3px solid var(--clay);padding-left:18px;margin-top:25px}.endnote{margin-top:55px;padding-top:25px;border-top:2px solid var(--ink);font-family:var(--font-ui);font-size:13px;color:var(--soft)}.print-toc,.diagram-print{display:none}.print-toc ul{padding-left:0;list-style:none;font-family:var(--font-ui);font-size:12px;line-height:1.7}.print-toc li{margin:5px 0}.print-toc a{text-decoration:none}.print-toc .toc-chapter{font-weight:600;font-size:17px;margin-top:18px}.progress{height:2px;background:#ad563b;position:absolute;bottom:0;left:0;width:0;transition:width .15s}.math-source{display:none}
+.diagram .finance-flow{display:block;width:100%;overflow:visible;color:var(--foreground)}.diagram .finance-flow text{fill:currentColor;font:inherit}.diagram .finance-node,.diagram .m-node{fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}.diagram .finance-highlight,.diagram .m-active{fill:var(--viz-series-1);fill-opacity:.12}.diagram .finance-arrow,.diagram .m-line{fill:none;stroke:currentColor;stroke-width:1.5}.diagram .diagram-print svg{color:var(--foreground)}.diagram .diagram-print svg text{fill:currentColor;font:inherit}
+@media(max-width:1100px){.layout{grid-template-columns:240px minmax(0,1fr)}.reader{padding:38px 34px 80px}.sidebar{padding:25px 16px}.cover h1{font-size:37px}}
+@media(max-width:760px){body{font-size:16px;line-height:1.95}.layout{display:block}.bookbar{padding:11px 16px}.bookbar span{display:none}.sidebar{position:static;max-height:none;display:none;border-right:0;border-bottom:1px solid var(--border);padding:22px}.sidebar.mobile-open{display:block}.reader{padding:30px 20px 70px}.cover{padding-top:25px}.cover h1{font-size:32px}.cover .subtitle{font-size:21px}.chapter-heading h2{font-size:25px}.lesson>h3{font-size:19px}.lesson .subhead{font-size:16px}.diagram{padding-top:16px}.answer-section{padding:17px}.math-display{padding:12px 4px}.table-wrap{margin-left:-2px;margin-right:-2px}table{min-width:400px;font-size:13px}}
+@media(min-width:761px){.menu-button{display:none}}
+@media print{
+ @page{size:A4;margin:18mm 17mm 18mm 17mm}html{scroll-behavior:auto}body{font-size:10.6pt;line-height:1.8;background:#fff;color:#1f2b26;-webkit-print-color-adjust:exact;print-color-adjust:exact}.bookbar,.sidebar{display:none!important}.layout{display:block;max-width:none}.reader{padding:0}.reader-inner{max-width:none}.cover{break-after:page;margin:0;padding-top:15mm;border-top-width:4px}.cover h1{font-size:30pt}.cover .subtitle{font-size:19pt}.cover .description{font-size:11pt}.cover .meta{font-size:9pt}.guide{margin-top:9mm}.print-toc{display:block;break-after:page}.print-toc h2{font-size:22pt;color:var(--ink)}.chapter-heading{break-before:page;break-after:avoid;padding:0 0 5mm;margin:0 0 6mm}.chapter-heading h2{font-size:22pt}.lesson{margin-bottom:6mm}.lesson+.lesson{padding-top:5mm}.lesson>h3{font-size:14pt;break-after:avoid;margin-bottom:4mm}.lesson .subhead{font-size:11.2pt;break-after:avoid;margin:5mm 0 2mm}.lesson p{margin:2.8mm 0;orphans:3;widows:3}.lesson li{margin:1.5mm 0}.lesson ul,.lesson ol{margin:3mm 0}.table-wrap{overflow:visible;margin:4mm 0}table{font-size:9pt;min-width:0!important;line-height:1.55}thead{display:table-header-group}tr{break-inside:avoid}td,th{padding:2.2mm 2.8mm}.diagram{padding:4mm 0;margin:5mm 0;break-inside:avoid}.diagram h3{font-size:10.8pt!important}.figure-label{font-size:8pt}.diagram-interactive{display:none}.diagram-print{display:block}.diagram-print-state{break-inside:avoid;margin:4mm 0}.diagram-print-state h4{font-size:9.5pt;margin:2mm 0}.diagram-print svg{display:block;max-width:100%;height:auto!important}.diagram svg text{font-size:12px!important}.level{font-size:8.5pt}.math-display{padding:3mm;margin:3.5mm 0}.math-inline svg{font-size:95%}.answer-section{padding:4mm;background:#eef1e7;break-inside:auto}.answer-section summary{display:block}.answer-content{display:block!important}.endnote{font-size:9pt}.study-prompt{break-inside:avoid}a{color:inherit}.sr-only{display:none}
+}
+
+.chapter-heading{margin-top:0}.bookbar a{color:#fff;text-decoration:none;font-family:var(--font-ui);font-size:13px}.bookbar .bar-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}.section-links{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0;font:14px/1.7 var(--font-ui)}.section-links a{border-bottom:1px solid var(--border);padding:5px 0;text-decoration:none}.reference-section{margin:24px 0;padding:18px 22px;border:1px solid var(--border);background:#f0f0e7}.reference-section summary{font-family:var(--font-ui);font-weight:600;color:var(--ink);cursor:pointer}.reference-section[open] summary{margin-bottom:18px}.index-main{max-width:1020px;margin:auto;padding:60px 35px 100px}.index-main h1{font-size:42px;font-weight:500;line-height:1.45;letter-spacing:.035em;margin:15px 0}.index-main .intro{max-width:730px;color:var(--soft)}.index-chapter{border-top:2px solid var(--ink);margin-top:45px;padding-top:20px}.index-chapter h2{font-size:25px;line-height:1.5;font-weight:500}.section-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;align-items:center;gap:18px;text-decoration:none;padding:21px 0;border-top:1px solid var(--border)}.section-row .number{font:18px/1.5 var(--font-ui);color:var(--clay)}.section-row strong{font:600 18px/1.5 var(--font-ui);display:block}.section-row small{font:12px/1.7 var(--font-ui);color:var(--soft);display:block;margin-top:6px}.section-row .read-label{font:13px/1.5 var(--font-ui)}.section-row:hover{background:#ecefe5}.index-guide{border-left:3px solid var(--clay);padding-left:20px;margin:30px 0;font-size:15px}.print-toc{display:none!important}.offline-note{font-size:13px;color:var(--soft);font-family:var(--font-ui)}
+@media(max-width:760px){.bookbar strong{font-size:12px}.bookbar{gap:8px}.bookbar .bar-actions{gap:8px}.bookbar [data-print]{font-size:12px;padding:5px 7px}.index-main{padding:32px 20px 60px}.index-main h1{font-size:30px}.index-chapter h2{font-size:22px}.section-row{grid-template-columns:40px minmax(0,1fr);gap:12px}.section-row .read-label{display:none}.section-row strong{font-size:16px}.section-links{font-size:13px}.reference-section{padding:15px}.bookbar .home-link{font-size:12px}}
+@media print{.section-links{display:none}.chapter-heading{break-before:auto}.reference-section{padding:4mm;background:#f3f3eb;break-inside:auto}.reference-section>summary{font-size:10.5pt;display:block}.reference-section[open] summary{margin-bottom:3mm}.diagram{break-inside:auto}}
+
+.lesson p,.lesson li,.endnote p{overflow-wrap:anywhere}</style></head><body><header class="bookbar"><strong>金融市场基础知识 · 第八章 / 01</strong><div class="bar-actions"><a class="home-link" href="index.html">总目录</a><button class="btn menu-button" aria-controls="book-index" aria-expanded="false">本节目录</button><button class="btn" data-print="">打印 / PDF</button></div><div class="progress" aria-hidden="true" style="width: 67.5788%;"></div></header><div class="layout"><nav class="sidebar" id="book-index" aria-label="本节目录"><div class="index-label">第一节 / 本节目录</div><a class="top-link" href="index.html">返回八章总目录</a><a href="#c8s1-part-01" class="">01 · 本节怎么学：先会辨认风险，再判断管理动作</a><a href="#c8s1-part-02" class="">02 · 风险的三种定义：不确定性、损失可能性、偏离预期</a><a href="#c8s1-part-03" class="">03 · 金融风险的范围与分类：同一对象可以有多个标签</a><a href="#c8s1-part-04" class="">04 · 最值得掌握的分类：价格、履约、现金与操作</a><a href="#c8s1-part-05" class="">05 · 六个特征：要能将名称翻译成情景</a><a href="#c8s1-part-06" class="">06 · 风险会传导：分类不同，后果可以连起来</a><a href="#c8s1-part-07" class="">07 · 风险与收益：期望补偿不等于实际必赚</a><a href="#c8s1-part-08" class="">08 · 风险管理为什么能创造价值：让公司承担得起业务</a><a href="#c8s1-part-09" class="current">09 · 规避与控制：不做这件事，和把这件事做好一点</a><a href="#c8s1-part-10">10 · 分散与对冲：不同来源的组合，和相反的风险暴露</a><a href="#c8s1-part-11">11 · 转移、补偿与准备金：改变承担者、价格和缓冲</a><a href="#c8s1-part-12">12 · 做题顺序：先找来源，再找动作，最后检查绝对词</a><a href="#c8s1-part-13">13 · 自编诊断题：先答，再展开解析</a><a href="#c8s1-part-14">14 · 本节学到什么程度可以往下走</a></nav><main class="reader"><div class="reader-inner" style=""><header class="chapter-heading" id="section-start"><div class="chapter-no">CHAPTER 08 / SECTION 01 · 第八章</div><h2>第一节 · 风险管理概述</h2><p>金融风险管理 · 教材正文第498—504页 · 整理日期：2026年10月14日</p><p>会用：能解释判断与计算　会认：能识别对应　背景：第一轮理解用途</p></header><nav class="section-links" aria-label="章节切换"><a href="index.html">返回总目录</a><a href="07-04_其他衍生工具.html">上一节 · 其他衍生工具</a><a href="08-02_金融风险管理流程与证券公司风险管理架构.html">下一节 · 金融风险管理流程与证券公司风险管理架构</a></nav><section class="lesson" id="c8s1-part-01"><h3>01 · 本节怎么学：先会辨认风险，再判断管理动作</h3>
+<p>教材正文498—504页。本节是后面六节的词典。先学到这样的程度：看到“债券下跌、对方违约、今天缺现金、系统出错”四个情景，你能说出风险来源；看到“退出、复核、分散、对冲、保险、提价、计提准备”，你能辨认管理方法。</p>
+<p><span class="level use">会用</span>风险分类、风险传导、风险与收益的关系、七类管理方法及其边界。<span class="level recognize">会认</span>风险定义、六个特征、狭义与广义金融风险。<span class="level context">背景</span>分类体系的来历和风险管理如何创造价值，用来理解为什么公司要管理风险，第一轮无需复述整段论文式论证。</p>
+<p>本章的“会用、会认、背景”是学习顺序，不是已经核验的考试命中率。遇到法规题，还要确认年份、机构和指标口径。全章按2025版教材解释，规则更新处单列说明。</p></section><section class="lesson" id="c8s1-part-02"><h3>02 · 风险的三种定义：不确定性、损失可能性、偏离预期</h3>
+<p>“结果不确定”是较宽的理解：同一决策可能产生不同结果。“发生损失的可能性”聚焦不利后果。“结果偏离预期”看实际结果与预期之间的差异，可以高于也可以低于预期。三种说法观察角度不同，判断题要按题干定义回答。</p>
+<figure class="diagram" data-diagram="c8-risk-meanings"><figcaption class="figure-label">SVG · 风险说的是不确定的结果，不只是一笔已发生的亏损</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-meanings">
+  <h3>风险说的是不确定的结果，不只是一笔已发生的亏损</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">三种理解</button><button class="btn" type="button" aria-pressed="false">风险与损失</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="先看题目采用哪种定义" viewBox="0 0 840 140" style="height: 140px;"><title>先看题目采用哪种定义</title><desc>不确定性，结果未确定；损失可能性，偏向不利结果；偏离预期，可向上也可向下。；</desc><defs><marker id="arrow-c8-risk-meanings-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">先看题目采用哪种定义</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">不确定性</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">结果未确定</text><rect x="315" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="420" y="83" text-anchor="middle" dominant-baseline="middle">损失可能性</text><text x="420" y="105" text-anchor="middle" dominant-baseline="middle">偏向不利结果</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">偏离预期</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">可向上也可向下</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">三种理解</div>
+  <script type="application/json" data-config="">{"heading": "风险说的是不确定的结果，不只是一笔已发生的亏损", "states": [{"label": "三种理解", "rows": [{"label": "先看题目采用哪种定义", "nodes": [["不确定性", "结果未确定"], ["损失可能性", "偏向不利结果"], ["偏离预期", "可向上也可向下"]], "edges": ["", ""], "noArrows": true}]}, {"label": "风险与损失", "rows": [{"label": "可能与已经发生不同", "nodes": [["债券可能违约", "信用风险"], ["已经少收本金", "已实现损失"]], "edges": ["事件发生"]}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-meanings .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-meanings .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-meanings .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-meanings .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-meanings .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-meanings');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-meanings-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-meanings-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>三种理解</h4><div><svg class="finance-flow" role="img" aria-label="先看题目采用哪种定义" viewBox="0 0 660 140" style="height: 140px;"><title>先看题目采用哪种定义</title><desc>不确定性，结果未确定；损失可能性，偏向不利结果；偏离预期，可向上也可向下。；</desc><defs><marker id="print-08-01-0-0-arrow-c8-risk-meanings-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">先看题目采用哪种定义</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">不确定性</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">结果未确定</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">损失可能性</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">偏向不利结果</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">偏离预期</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">可向上也可向下</text></svg></div></div><div class="diagram-print-state"><h4>风险与损失</h4><div><svg class="finance-flow" role="img" aria-label="可能与已经发生不同" viewBox="0 0 660 140" style="height: 140px;"><title>可能与已经发生不同</title><desc>债券可能违约，信用风险；已经少收本金，已实现损失。事件发生</desc><defs><marker id="print-08-01-0-1-arrow-c8-risk-meanings-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">可能与已经发生不同</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">债券可能违约</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">信用风险</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">已经少收本金</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">已实现损失</text><path d="M 229 94 L 427 94" class="finance-arrow" marker-end="url(#print-08-01-0-1-arrow-c8-risk-meanings-0)"></path><text x="330" y="44" text-anchor="middle" dominant-baseline="middle">事件发生</text></svg></div></div></div></figure>
+
+<p>自编例：你预期一笔投资收益5%，实际可能是−10%、5%、15%。投资之前，结果的分布体现风险；最终亏10%，则是一次已经实现的结果。<strong>风险不能只在亏损发生以后才被识别。</strong></p>
+<p><span class="level use">会用</span>“偏离预期的结果都属于损失”不成立，因为偏离也可能向上。“已经赚钱，所以这次决策事前没有风险”同样不成立；一次结果不能证明原来的不确定性不存在。</p></section><section class="lesson" id="c8s1-part-03"><h3>03 · 金融风险的范围与分类：同一对象可以有多个标签</h3>
+<p>狭义金融风险主要讨论金融机构经营中的不确定性和损失可能性；广义范围涵盖各类参与者金融活动中的风险，包括企业、居民、政府等。券商风险管理属于金融机构风险管理，居民买股票承担的价格风险也属于广义金融风险。</p>
+<p>教材还从不同轴分类：静态与动态、微观与宏观，以及按行业或业务划分。第一轮知道它们是<strong>不同的分类维度</strong>，不把某个业务只能归进一个标签。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>分类轴</th>
+<th>先抓的含义</th>
+<th>题目读法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静态与动态</td>
+<td>教材以相对稳定条件下的风险，与经济环境等变化带来的风险作区分</td>
+<td>按题干给定定义，别把“静态”解释为永远不变</td>
+</tr>
+<tr>
+<td>微观与宏观</td>
+<td>单个主体、业务层面，与整体环境、金融体系层面</td>
+<td>看讨论的是一个客户还是整个体系</td>
+</tr>
+<tr>
+<td>业务或机构</td>
+<td>银行、证券、保险等经营活动的风险</td>
+<td>业务标签与市场、信用等原因标签可以同时成立</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="level context">背景</span>讲这些分类，是为了让你看懂教材的组织方式。没有具体题干时，不必为一个现实案例争出唯一标签；现实风险经常跨维度。</p></section><section class="lesson" id="c8s1-part-04"><h3>04 · 最值得掌握的分类：价格、履约、现金与操作</h3>
+<figure class="diagram" data-diagram="c8-risk-categories"><figcaption class="figure-label">SVG · 按导致问题的原因辨认风险</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-categories">
+  <h3>按导致问题的原因辨认风险</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">价格与履约</button><button class="btn" type="button" aria-pressed="false">资金与操作</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="不是按最终都亏钱分类" viewBox="0 0 840 140" style="height: 140px;"><title>不是按最终都亏钱分类</title><desc>价格或利率变化，市场风险；对方违约或降级，信用风险。</desc><defs><marker id="arrow-c8-risk-categories-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不是按最终都亏钱分类</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">价格或利率变化</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">市场风险</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">对方违约或降级</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">信用风险</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">价格与履约</div>
+  <script type="application/json" data-config="">{"heading": "按导致问题的原因辨认风险", "states": [{"label": "价格与履约", "rows": [{"label": "不是按最终都亏钱分类", "nodes": [["价格或利率变化", "市场风险"], ["对方违约或降级", "信用风险"]], "edges": [""], "noArrows": true}]}, {"label": "资金与操作", "rows": [{"label": "现金缺口与工作差错不同", "nodes": [["无法及时筹到现金", "流动性风险"], ["人流程系统外部", "操作风险"]], "edges": [""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-categories .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-categories .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-categories .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-categories .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-categories .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-categories');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-categories-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-categories-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>价格与履约</h4><div><svg class="finance-flow" role="img" aria-label="不是按最终都亏钱分类" viewBox="0 0 660 140" style="height: 140px;"><title>不是按最终都亏钱分类</title><desc>价格或利率变化，市场风险；对方违约或降级，信用风险。</desc><defs><marker id="print-08-01-1-0-arrow-c8-risk-categories-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不是按最终都亏钱分类</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">价格或利率变化</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">市场风险</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">对方违约或降级</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">信用风险</text></svg></div></div><div class="diagram-print-state"><h4>资金与操作</h4><div><svg class="finance-flow" role="img" aria-label="现金缺口与工作差错不同" viewBox="0 0 660 140" style="height: 140px;"><title>现金缺口与工作差错不同</title><desc>无法及时筹到现金，流动性风险；人流程系统外部，操作风险。</desc><defs><marker id="print-08-01-1-1-arrow-c8-risk-categories-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">现金缺口与工作差错不同</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">无法及时筹到现金</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">流动性风险</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">人流程系统外部</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">操作风险</text></svg></div></div></div></figure>
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情景</th>
+<th>主要识别点</th>
+<th>对应风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>利率上升使持有债券价格下跌</td>
+<td>市场变量变化</td>
+<td>市场风险</td>
+</tr>
+<tr>
+<td>债券发行人未按期还本付息</td>
+<td>履约失败</td>
+<td>信用风险</td>
+</tr>
+<tr>
+<td>资产总额很大，但今天付不出到期款</td>
+<td>现金时点与融资能力</td>
+<td>流动性风险</td>
+</tr>
+<tr>
+<td>操作员重复转账、交易系统宕机</td>
+<td>人员、流程、系统、外部事件</td>
+<td>操作风险</td>
+</tr>
+<tr>
+<td>不实宣传引发公众负面评价</td>
+<td>对机构信任受损</td>
+<td>声誉风险</td>
+</tr>
+</tbody>
+</table></div>
+<p>题目问“直接原因”，先找起点；问“还可能引发”，顺着传导链继续分析。别因为最终都损失了钱，就把所有情景归为市场风险。</p></section><section class="lesson" id="c8s1-part-05"><h3>05 · 六个特征：要能将名称翻译成情景</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>教材特征</th>
+<th>普通话解释</th>
+<th>易误解处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐蔽性</td>
+<td>风险可能藏在合同、关联关系、担保、期限错配中</td>
+<td>报表暂时盈利不等于没有风险</td>
+</tr>
+<tr>
+<td>扩散性</td>
+<td>一个主体或业务的问题可以传到其他主体</td>
+<td>不代表每次事件必然扩散到全市场</td>
+</tr>
+<tr>
+<td>加速性</td>
+<td>压力下反馈可能让恶化速度加快</td>
+<td>例如价格跌与追加保证金互相强化</td>
+</tr>
+<tr>
+<td>不确定性</td>
+<td>时间、规模、结果存在不确定</td>
+<td>模型有概率，也仍有误差</td>
+</tr>
+<tr>
+<td>可管理性</td>
+<td>可以识别、衡量并采取措施</td>
+<td>不等于可以彻底消除</td>
+</tr>
+<tr>
+<td>周期性</td>
+<td>常与信用扩张、经济金融周期有关</td>
+<td>不等于严格按几年一个固定周期发生</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="level recognize">会认</span>六个名称应能完整识别；<span class="level use">会用</span>重点是后面那一列。把“可管理”背成“可保证”，会连带错掉VaR、保险和压力测试题。</p></section><section class="lesson" id="c8s1-part-06"><h3>06 · 风险会传导：分类不同，后果可以连起来</h3>
+<figure class="diagram" data-diagram="c8-risk-transmission"><figcaption class="figure-label">SVG · 一件事可以沿着多种风险传导</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-transmission">
+  <h3>一件事可以沿着多种风险传导</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">违约传导</button><button class="btn" type="button" aria-pressed="false">操作传导</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="融资业务情景" viewBox="0 0 840 140" style="height: 140px;"><title>融资业务情景</title><desc>借款人违约，信用风险起点；回款不能到账，资金流动性压力；被迫低价卖资产，市场损失扩大。现金短缺；变现补缺</desc><defs><marker id="arrow-c8-risk-transmission-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">融资业务情景</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">借款人违约</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">信用风险起点</text><rect x="315" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="420" y="83" text-anchor="middle" dominant-baseline="middle">回款不能到账</text><text x="420" y="105" text-anchor="middle" dominant-baseline="middle">资金流动性压力</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">被迫低价卖资产</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">市场损失扩大</text><path d="M 229 94 L 308 94" class="finance-arrow" marker-end="url(#arrow-c8-risk-transmission-0)"></path><text x="270.5" y="44" text-anchor="middle" dominant-baseline="middle">现金短缺</text><path d="M 528 94 L 607 94" class="finance-arrow" marker-end="url(#arrow-c8-risk-transmission-0)"></path><text x="569.5" y="44" text-anchor="middle" dominant-baseline="middle">变现补缺</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">违约传导</div>
+  <script type="application/json" data-config="">{"heading": "一件事可以沿着多种风险传导", "states": [{"label": "违约传导", "rows": [{"label": "融资业务情景", "nodes": [["借款人违约", "信用风险起点"], ["回款不能到账", "资金流动性压力"], ["被迫低价卖资产", "市场损失扩大"]], "edges": ["现金短缺", "变现补缺"]}]}, {"label": "操作传导", "rows": [{"label": "交易系统故障", "nodes": [["系统中断", "操作风险"], ["客户投诉传播", "声誉风险"], ["客户流失", "收入受到影响"]], "edges": ["引发后果", "持续影响"]}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-transmission .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-transmission .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-transmission .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-transmission .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-transmission .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-transmission');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-transmission-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-transmission-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>违约传导</h4><div><svg class="finance-flow" role="img" aria-label="融资业务情景" viewBox="0 0 660 140" style="height: 140px;"><title>融资业务情景</title><desc>借款人违约，信用风险起点；回款不能到账，资金流动性压力；被迫低价卖资产，市场损失扩大。现金短缺；变现补缺</desc><defs><marker id="print-08-01-2-0-arrow-c8-risk-transmission-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">融资业务情景</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">借款人违约</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">信用风险起点</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">回款不能到账</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">资金流动性压力</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">被迫低价卖资产</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">市场损失扩大</text><path d="M 200.33333333333334 94 L 232.33333333333334 94" class="finance-arrow" marker-end="url(#print-08-01-2-0-arrow-c8-risk-transmission-0)"></path><text x="218.33333333333334" y="44" text-anchor="middle" dominant-baseline="middle">现金短缺</text><path d="M 423.6666666666667 94 L 455.6666666666667 94" class="finance-arrow" marker-end="url(#print-08-01-2-0-arrow-c8-risk-transmission-0)"></path><text x="441.6666666666667" y="44" text-anchor="middle" dominant-baseline="middle">变现补缺</text></svg></div></div><div class="diagram-print-state"><h4>操作传导</h4><div><svg class="finance-flow" role="img" aria-label="交易系统故障" viewBox="0 0 660 140" style="height: 140px;"><title>交易系统故障</title><desc>系统中断，操作风险；客户投诉传播，声誉风险；客户流失，收入受到影响。引发后果；持续影响</desc><defs><marker id="print-08-01-2-1-arrow-c8-risk-transmission-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">交易系统故障</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">系统中断</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">操作风险</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">客户投诉传播</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">声誉风险</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">客户流失</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">收入受到影响</text><path d="M 200.33333333333334 94 L 232.33333333333334 94" class="finance-arrow" marker-end="url(#print-08-01-2-1-arrow-c8-risk-transmission-0)"></path><text x="218.33333333333334" y="44" text-anchor="middle" dominant-baseline="middle">引发后果</text><path d="M 423.6666666666667 94 L 455.6666666666667 94" class="finance-arrow" marker-end="url(#print-08-01-2-1-arrow-c8-risk-transmission-0)"></path><text x="441.6666666666667" y="44" text-anchor="middle" dominant-baseline="middle">持续影响</text></svg></div></div></div></figure>
+
+<p>例如股票质押借款人违约，使券商无法收到预期回款；券商为支付自身到期债务急售资产，成交价格更差。起点是信用风险，现金困难是流动性风险，急售造成价格损失又涉及市场风险。</p>
+<p>另一个例子：系统故障造成错单，客户投诉传播并引发流失。系统故障属于操作风险；信任受损属于声誉风险。<strong>“操作风险定义排除声誉风险”只是分类口径，不代表操作事故不会产生声誉后果。</strong>第六节会再讲。</p>
+<p>做情景题时可以问两句话：最先出了什么问题？这个问题还能影响哪一环？这是讲风险传导的实际用途。</p></section><section class="lesson" id="c8s1-part-07"><h3>07 · 风险与收益：期望补偿不等于实际必赚</h3>
+<figure class="diagram" data-diagram="c8-risk-return"><figcaption class="figure-label">SVG · 期望补偿与已经赚到的钱分开</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-return">
+  <h3>期望补偿与已经赚到的钱分开</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">预期</button><button class="btn" type="button" aria-pressed="false">实际</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="其他条件相同的简化比较" viewBox="0 0 840 140" style="height: 140px;"><title>其他条件相同的简化比较</title><desc>投资者承担风险，要求较高补偿；期望收益提高，未必能实现。要求风险溢价</desc><defs><marker id="arrow-c8-risk-return-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">其他条件相同的简化比较</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">投资者承担风险</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">要求较高补偿</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">期望收益提高</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">未必能实现</text><path d="M 229 94 L 607 94" class="finance-arrow" marker-end="url(#arrow-c8-risk-return-0)"></path><text x="420" y="44" text-anchor="middle" dominant-baseline="middle">要求风险溢价</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">预期</div>
+  <script type="application/json" data-config="">{"heading": "期望补偿与已经赚到的钱分开", "states": [{"label": "预期", "rows": [{"label": "其他条件相同的简化比较", "nodes": [["投资者承担风险", "要求较高补偿"], ["期望收益提高", "未必能实现"]], "edges": ["要求风险溢价"]}]}, {"label": "实际", "rows": [{"label": "高风险可能亏得更多", "nodes": [["风险很高", "结果分布更宽"], ["实现收益", "可能高也可能负"]], "edges": ["一次结果"]}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-return .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-return .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-return .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-return .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-return .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-return');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-return-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-return-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>预期</h4><div><svg class="finance-flow" role="img" aria-label="其他条件相同的简化比较" viewBox="0 0 660 140" style="height: 140px;"><title>其他条件相同的简化比较</title><desc>投资者承担风险，要求较高补偿；期望收益提高，未必能实现。要求风险溢价</desc><defs><marker id="print-08-01-3-0-arrow-c8-risk-return-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">其他条件相同的简化比较</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">投资者承担风险</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">要求较高补偿</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">期望收益提高</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">未必能实现</text><path d="M 229 94 L 427 94" class="finance-arrow" marker-end="url(#print-08-01-3-0-arrow-c8-risk-return-0)"></path><text x="330" y="44" text-anchor="middle" dominant-baseline="middle">要求风险溢价</text></svg></div></div><div class="diagram-print-state"><h4>实际</h4><div><svg class="finance-flow" role="img" aria-label="高风险可能亏得更多" viewBox="0 0 660 140" style="height: 140px;"><title>高风险可能亏得更多</title><desc>风险很高，结果分布更宽；实现收益，可能高也可能负。一次结果</desc><defs><marker id="print-08-01-3-1-arrow-c8-risk-return-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">高风险可能亏得更多</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">风险很高</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">结果分布更宽</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">实现收益</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">可能高也可能负</text><path d="M 229 94 L 427 94" class="finance-arrow" marker-end="url(#print-08-01-3-1-arrow-c8-risk-return-0)"></path><text x="330" y="44" text-anchor="middle" dominant-baseline="middle">一次结果</text></svg></div></div></div></figure>
+
+<p>在其他条件相近时，投资者承担更多不可分散风险，通常要求更高的期望收益作为补偿。这是事前的要求，最终实际收益仍可能为负。也不是每一种冒险都有合理溢价：重复集中持仓、违法违规、无效操作等，并不会因此获得市场奖励。</p>
+<p>分散投资可以减少特定主体的风险；市场共同变化的风险仍可能存在。承担了更多总风险，也未必意味着承担了更多能够获得补偿的风险。</p>
+<p><strong>教材表述提醒：</strong>若将“长期坚持高风险策略最终会盈利”读成保证，就错了。期限变长也不会把劣质资产、杠杆、违约和流动性风险自动变没。题目中的“高风险必有高实际收益”“长期投资保证盈利”不能据此选对。</p></section><section class="lesson" id="c8s1-part-08"><h3>08 · 风险管理为什么能创造价值：让公司承担得起业务</h3>
+<p>风险管理包含识别、评估、监测和应对，不只是在损失发生后善后。公司还要决定做哪些业务、需要多少资本、什么限额能接受、遇到压力如何筹现金和保持关键服务。</p>
+<p>有效管理可能减少破产或业务中断成本，使融资和资本配置更合理，让经营现金流更可持续。它同时影响能赚多少钱和能不能承受损失。</p>
+<p><span class="level context">背景</span>教材在这里谈资本成本、现金流和企业价值，是为了说明“管理风险不是白花钱”。第一轮理解用途即可，不必推导企业价值模型。教材强调价值最大化，并不意味着“降低损失完全不属于目标”；减少损失和控制破产可能性，正是创造价值的路径之一。</p></section><section class="lesson" id="c8s1-part-09"><h3>09 · 规避与控制：不做这件事，和把这件事做好一点</h3>
+<p>规避是决定不承担某个风险来源，例如退出无法评估风险的业务、拒绝违规交易。它可能同时放弃收益机会，也不能退出金融活动中的所有风险。</p>
+<p>控制是在继续开展业务时，降低发生概率或损失程度。例如权限分离、双人复核、授信限额、系统校验和应急预案。控制通常需要成本，仍可能有剩余风险。</p>
+<figure class="diagram" data-diagram="c8-risk-methods"><figcaption class="figure-label">SVG · 先判断你究竟改变了什么</figcaption><div class="diagram-interactive"><div id="finance-c8-risk-methods">
+  <h3>先判断你究竟改变了什么</h3>
+  <div class="viz-controls" data-controls=""><button class="btn" type="button" aria-pressed="true">不做与少犯错</button><button class="btn" type="button" aria-pressed="false">组合与相反暴露</button><button class="btn" type="button" aria-pressed="false">安排与缓冲</button></div>
+  <div data-diagrams=""><svg class="finance-flow" role="img" aria-label="两种方法" viewBox="0 0 840 140" style="height: 140px;"><title>两种方法</title><desc>退出某业务，规避；限额双人复核，控制。</desc><defs><marker id="arrow-c8-risk-methods-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">两种方法</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">退出某业务</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">规避</text><rect x="614" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="719" y="83" text-anchor="middle" dominant-baseline="middle">限额双人复核</text><text x="719" y="105" text-anchor="middle" dominant-baseline="middle">控制</text></svg></div>
+  <div class="sr-only" aria-live="polite" data-summary="">不做与少犯错</div>
+  <script type="application/json" data-config="">{"heading": "先判断你究竟改变了什么", "states": [{"label": "不做与少犯错", "rows": [{"label": "两种方法", "nodes": [["退出某业务", "规避"], ["限额双人复核", "控制"]], "edges": [""], "noArrows": true}]}, {"label": "组合与相反暴露", "rows": [{"label": "不是都叫对冲", "nodes": [["分散不同风险来源", "分散"], ["建立相反风险暴露", "对冲"]], "edges": [""], "noArrows": true}]}, {"label": "安排与缓冲", "rows": [{"label": "风险不会凭空消失", "nodes": [["保险担保卖出债权", "转移"], ["定价覆盖预期损失", "补偿"], ["损失准备缓冲", "准备金"]], "edges": ["", ""], "noArrows": true}]}]}</script>
+</div>
+<style>
+#finance-c8-risk-methods .finance-flow {display:block;width:100%;overflow:visible;color:var(--foreground)}
+#finance-c8-risk-methods .finance-flow text {fill:currentColor;font:inherit}
+#finance-c8-risk-methods .finance-node {fill:var(--muted);fill-opacity:.55;stroke:var(--border);stroke-width:1}
+#finance-c8-risk-methods .finance-highlight {fill:var(--viz-series-1);fill-opacity:.12}
+#finance-c8-risk-methods .finance-arrow {fill:none;stroke:currentColor;stroke-width:1.5}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('finance-c8-risk-methods');
+ const config=JSON.parse(root.querySelector('[data-config]').textContent);
+ const host=root.querySelector('[data-diagrams]');
+ const controls=root.querySelector('[data-controls]');
+ const ns='http://www.w3.org/2000/svg';
+ let selected=0;
+ const el=(name,attrs,parent)=>{const n=document.createElementNS(ns,name);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));parent.append(n);return n};
+ function text(svg,x,y,value,anchor='middle'){const n=el('text',{x,y,'text-anchor':anchor,'dominant-baseline':'middle'},svg);n.textContent=value;return n;}
+ function draw(){
+   host.replaceChildren();
+   const rows=config.states ? config.states[selected].rows : config.rows;
+   const w=Math.max(260,Math.floor(host.getBoundingClientRect().width));
+   rows.forEach((row,index)=>{
+     const svg=el('svg',{class:'finance-flow',role:'img','aria-label':row.label},host);
+     el('title',{},svg).textContent=row.label;
+     el('desc',{},svg).textContent=row.nodes.map(n=>n.join('，')).join('；')+'。'+row.edges.join('；');
+     const defs=el('defs',{},svg);const marker=el('marker',{id:'arrow-c8-risk-methods-'+index,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+     el('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'currentColor'},marker);
+     text(svg,12,18,row.label,'start');
+     const n=row.nodes.length,wide=w>=570;
+     const bw=wide?Math.min(210,(w-32-(n-1)*42)/n):Math.min(220,w-40);
+     const bh=72,gap=wide?(w-32-n*bw)/(n-1||1):50;
+     const x0=wide?16:(w-bw)/2;
+     const height=wide?140:48+n*bh+(n-1)*gap+14;
+     svg.setAttribute('viewBox','0 0 '+w+' '+height);svg.style.height=height+'px';
+     const points=row.nodes.map((lines,i)=>({x:wide?x0+i*(bw+gap):x0,y:wide?58:48+i*(bh+gap),lines}));
+     points.forEach((p,i)=>{
+       el('rect',{x:p.x,y:p.y,width:bw,height:bh,rx:6,class:'finance-node'+(i===1?' finance-highlight':'')},svg);
+       p.lines.forEach((line,j)=>text(svg,p.x+bw/2,p.y+bh/2+(j-(p.lines.length-1)/2)*22,line));
+     });
+     points.slice(0,-1).forEach((p,i)=>{
+       if(row.noArrows)return;
+       const q=points[i+1];
+       const d=wide?'M '+(p.x+bw+3)+' '+(p.y+bh/2)+' L '+(q.x-7)+' '+(q.y+bh/2):'M '+(p.x+bw/2)+' '+(p.y+bh+3)+' L '+(q.x+bw/2)+' '+(q.y-7);
+       el('path',{d,class:'finance-arrow',[row.reverseEdges?.includes(i)?'marker-start':'marker-end']:'url(#arrow-c8-risk-methods-'+index+')'},svg);
+       if(wide)text(svg,(p.x+bw+q.x)/2,44,row.edges[i]);
+       else text(svg,p.x+bw/2+12,p.y+bh+gap/2,row.edges[i],'start');
+     });
+   });
+   root.querySelector('[data-summary]').textContent=config.states?config.states[selected].label:config.heading;
+ }
+ if(config.states){
+   controls.hidden=false;
+   config.states.forEach((state,i)=>{const b=document.createElement('button');b.className='btn';b.type='button';b.textContent=state.label;b.setAttribute('aria-pressed',i===0?'true':'false');b.addEventListener('click',()=>{selected=i;controls.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j===i?'true':'false'));draw();});controls.append(b);});
+ }
+ new ResizeObserver(draw).observe(host);
+ draw();
+})();
+</script>
+</div><div class="diagram-print"><div class="diagram-print-state"><h4>不做与少犯错</h4><div><svg class="finance-flow" role="img" aria-label="两种方法" viewBox="0 0 660 140" style="height: 140px;"><title>两种方法</title><desc>退出某业务，规避；限额双人复核，控制。</desc><defs><marker id="print-08-01-4-0-arrow-c8-risk-methods-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">两种方法</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">退出某业务</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">规避</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">限额双人复核</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">控制</text></svg></div></div><div class="diagram-print-state"><h4>组合与相反暴露</h4><div><svg class="finance-flow" role="img" aria-label="不是都叫对冲" viewBox="0 0 660 140" style="height: 140px;"><title>不是都叫对冲</title><desc>分散不同风险来源，分散；建立相反风险暴露，对冲。</desc><defs><marker id="print-08-01-4-1-arrow-c8-risk-methods-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">不是都叫对冲</text><rect x="16" y="58" width="210" height="72" rx="6" class="finance-node"></rect><text x="121" y="83" text-anchor="middle" dominant-baseline="middle">分散不同风险来源</text><text x="121" y="105" text-anchor="middle" dominant-baseline="middle">分散</text><rect x="434" y="58" width="210" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="539" y="83" text-anchor="middle" dominant-baseline="middle">建立相反风险暴露</text><text x="539" y="105" text-anchor="middle" dominant-baseline="middle">对冲</text></svg></div></div><div class="diagram-print-state"><h4>安排与缓冲</h4><div><svg class="finance-flow" role="img" aria-label="风险不会凭空消失" viewBox="0 0 660 140" style="height: 140px;"><title>风险不会凭空消失</title><desc>保险担保卖出债权，转移；定价覆盖预期损失，补偿；损失准备缓冲，准备金。；</desc><defs><marker id="print-08-01-4-2-arrow-c8-risk-methods-0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path></marker></defs><text x="12" y="18" text-anchor="start" dominant-baseline="middle">风险不会凭空消失</text><rect x="16" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="106.66666666666667" y="83" text-anchor="middle" dominant-baseline="middle">保险担保卖出债权</text><text x="106.66666666666667" y="105" text-anchor="middle" dominant-baseline="middle">转移</text><rect x="239.33333333333334" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node finance-highlight"></rect><text x="330" y="83" text-anchor="middle" dominant-baseline="middle">定价覆盖预期损失</text><text x="330" y="105" text-anchor="middle" dominant-baseline="middle">补偿</text><rect x="462.6666666666667" y="58" width="181.33333333333334" height="72" rx="6" class="finance-node"></rect><text x="553.3333333333334" y="83" text-anchor="middle" dominant-baseline="middle">损失准备缓冲</text><text x="553.3333333333334" y="105" text-anchor="middle" dominant-baseline="middle">准备金</text></svg></div></div></div></figure>
+
+<p>自编识别：公司拒绝开展不符合准入的业务，选规避；公司继续做转账业务但新增双人复核，选控制。<strong>动作是什么，比“公司很谨慎”这个形容词更有用。</strong></p></section><section class="lesson" id="c8s1-part-10"><h3>10 · 分散与对冲：不同来源的组合，和相反的风险暴露</h3>
+<p>分散是把风险配置到不同资产、客户、期限、地区或业务来源。有效性取决于相关性、集中度和真实穿透暴露，不取决于买了多少个名字。十只同一行业、同一控制人相关公司的股票，可能仍高度集中。</p>
+<p>对冲是用方向相反或具有适当抵消关系的风险暴露，减少组合的特定风险。持有股票怕跌，卖出匹配的股指期货可能对冲一部分；将来需要买原料怕涨，可能买入相应期货。还要看数量、期限、基差和相关性。</p>
+<p>“同时买入股票和看涨期权”通常增强上涨方向暴露，不能只因买了衍生品就说是对冲。“信用风险完全不能对冲”也过于绝对，第七章已经讲过CDS；获得保护后仍有保护卖方等剩余风险。</p>
+<p><strong>教材表述提醒：</strong>分散能够降低某些风险，不能保证稳定盈利；对冲能改变风险，也不保证总成本或最终亏损为零。</p></section><section class="lesson" id="c8s1-part-11"><h3>11 · 转移、补偿与准备金：改变承担者、价格和缓冲</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>具体意思</th>
+<th>自编识别例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>转移</td>
+<td>按协议让他方承担部分风险或支付义务</td>
+<td>投保、取得保证、转让债权、购买信用保护</td>
+</tr>
+<tr>
+<td>补偿</td>
+<td>定价或收益要求覆盖所承担风险的成本</td>
+<td>信用较弱客户的融资定价包含风险补偿</td>
+</tr>
+<tr>
+<td>准备金</td>
+<td>按规则或估计预留、计提损失缓冲</td>
+<td>针对预期信用损失计提相应准备</td>
+</tr>
+</tbody>
+</table></div>
+<p>转移要看保险免赔、限额、例外、合同可执行性和对方偿付能力。补偿发生在经营定价等安排中，不能理解为“亏了以后找别人报销”。准备金也不是任意塞进一个账户的钱，更不等于所有损失都有现金赔付来源。</p>
+<p>预期损失常通过定价、准备等覆盖；经济资本主要帮助承受非预期损失。实际会计、监管与模型口径须分别看题设，第二节会将三个资本概念拆开。</p></section><section class="lesson" id="c8s1-part-12"><h3>12 · 做题顺序：先找来源，再找动作，最后检查绝对词</h3>
+<p>第一步读原因：价格、履约、现金时点、流程系统还是公众评价。第二步读动作：退出、复核、组合、反向暴露、保险、定价还是计提。第三步读范围：“全部、必然、保证、只有、任何情况下”常扩大了概念适用范围。</p>
+<p>这一顺序有助于判断，不是“看到绝对词一律判错”的机械口诀。比如一项法规明确要求所有特定机构遵守，题目中的“全部”可以正确。仍要回到定义和条件。</p></section><section class="lesson" id="c8s1-part-13"><h3>13 · 自编诊断题：先答，再展开解析</h3>
+<ol>
+<li>风险采用“偏离预期”定义时，偏离方向是否只能向下？</li>
+<li>一只正常兑付的债券因市场利率上升而下跌，主要是什么风险？</li>
+<li>公司资产总额大于负债，却付不出今天到期的款，是否仍有流动性风险？</li>
+<li>“可管理性”能否推出风险可以完全消除？</li>
+<li>股票质押客户违约，导致券商回款不足并被迫急售资产，至少涉及哪三类风险？</li>
+<li>高风险是否保证更高的实际收益？</li>
+<li>拒绝开展无法合法准入的业务，与增加双人复核分别是哪种方法？</li>
+<li>买20只高度相关的股票，能否据数量证明充分分散？</li>
+<li>持股怕跌时买入同方向看涨期权，是否当然属于对冲？</li>
+<li>购买保险后是否无需关注保险公司信用和合同例外？</li>
+<li>对风险较高的融资业务在定价中加入风险成本，属于补偿还是事后理赔？</li>
+<li>风险管理强调创造价值，是否意味着不需要降低损失？</li>
+</ol>
+<details class="answer-section">
+<summary>展开答案与判断依据</summary>
+<div class="answer-content">
+<ol>
+<li><strong>不能。</strong>广义偏离包含向上与向下；采用损失定义时才重点看不利结果。</li>
+<li><strong>市场风险，具体是利率风险。</strong>价格下降原因是市场利率变化，题设没有发行人违约。</li>
+<li><strong>有。</strong>偿付需要可在到期时使用的现金，资产总量不能替代时点要求。</li>
+<li><strong>不能。</strong>管理能降低或调整风险，仍有剩余风险与模型误差。</li>
+<li><strong>信用、流动性、市场风险。</strong>对应违约、现金短缺和急售价格损失。</li>
+<li><strong>不保证。</strong>期望收益与已实现收益不同，也并非所有风险都获得补偿。</li>
+<li><strong>规避、控制。</strong>分别改变是否做业务与业务操作方式。</li>
+<li><strong>不能。</strong>相关性和真实风险来源比数量重要。</li>
+<li><strong>不能。</strong>需要相反或适当抵消的风险关系，同向暴露可能增大风险。</li>
+<li><strong>不能。</strong>有保险范围、免赔、限额、履约等剩余风险。</li>
+<li><strong>风险补偿。</strong>提前定价覆盖风险成本；理赔属于按合同支付。</li>
+<li><strong>不意味着。</strong>降低损失和降低业务中断、破产风险可以创造价值。</li>
+</ol>
+</div>
+</details></section><section class="lesson" id="c8s1-part-14"><h3>14 · 本节学到什么程度可以往下走</h3>
+<p>合上页面，自己举出市场、信用、流动性、操作四类风险各一个例子，再将七个管理方法各配一个动作。最后解释：“风险可管理，但收益和安全都不能因此得到绝对保证。”能做到这些，本节概念骨架就稳了。</p>
+<p>背景段落暂时不必逐句背。六个特征和分类名称再过一遍，进入第二节，把“公司究竟怎样组织管理、用什么指标约束”连起来。</p></section><nav class="section-links" aria-label="章节切换"><a href="index.html">返回总目录</a><a href="07-04_其他衍生工具.html">上一节 · 其他衍生工具</a><a href="08-02_金融风险管理流程与证券公司风险管理架构.html">下一节 · 金融风险管理流程与证券公司风险管理架构</a></nav><footer class="endnote"><p>教材：《金融市场基础知识 2025》，中国证券业协会。按本节教材顺序解释，压缩重复论述，补充必要算例、SVG、自编诊断题及解析。相邻节可能共用同一教材页。</p><p>学习优先级不等同已核验的出题频率。规则修订及教材明显错误在对应位置说明；题目需确认适用市场、对象、分母、年份。计算须确认单位、期间、分母与模型假设；指标达标也不保证所有情况下无损失。</p><p>本节HTML可离线阅读，SVG与公式内嵌；外部出处链接需联网。打印会展开答案、参考表和图的不同状态。</p></footer></div></main></div><script>(()=>{
+ const menu=document.querySelector('.menu-button'),nav=document.querySelector('.sidebar');
+ menu?.addEventListener('click',()=>{const opened=nav.classList.toggle('mobile-open');menu.setAttribute('aria-expanded',String(opened));if(opened)nav.scrollIntoView({block:'start'})});
+ document.querySelector('[data-print]')?.addEventListener('click',()=>window.print());
+ document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('mobile-open');menu?.setAttribute('aria-expanded','false')}));
+ const links=[...document.querySelectorAll('.sidebar a[href^="#"]')];
+ const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('current',a.hash==='#'+entry.target.id));}}},{rootMargin:'-75px 0px -60% 0px',threshold:0});
+ document.querySelectorAll('.lesson,.chapter-heading').forEach(s=>observer.observe(s));
+ const progress=document.querySelector('.progress');
+ const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'};
+ addEventListener('scroll',update,{passive:true});update();
+ const answers=[...document.querySelectorAll('.answer-section,.reference-section')];
+ let answerStates=[];
+ addEventListener('beforeprint',()=>{answerStates=answers.map(d=>d.open);answers.forEach(d=>d.open=true)});
+ addEventListener('afterprint',()=>answers.forEach((d,i)=>d.open=answerStates[i]||false));
+})();
+</script></body></html>

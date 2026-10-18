@@ -1,0 +1,1883 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>研究文献索引</title><link rel="stylesheet" href="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/pytorch-learning-plan/downloads/研究文献索引.md · <a href="%E7%A0%94%E7%A9%B6%E6%96%87%E7%8C%AE%E7%B4%A2%E5%BC%95.md">原始 Markdown</a></p><h1 id="_1">研究文献索引</h1>
+<h2 id="szeliski-computer-vision-algorithms-and-applications-2nd-edition">[szeliski] Computer Vision: Algorithms and Applications, 2nd edition</h2>
+<p>作者：Richard Szeliski</p>
+<p>发表：2022 教材；首次公开：2022（第二版）；版本：第二版教材；作者网站可能更新勘误</p>
+<p>原文：https://szeliski.org/Book/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L03, L05, L07, L08, L09, L18, L29, L33, L34</p>
+<ul>
+<li>
+<p>R01 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R04 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+<li>
+<p>R07 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>R16 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R17 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R18 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+</ul>
+<h2 id="resnet-deep-residual-learning-for-image-recognition">[resnet] Deep Residual Learning for Image Recognition</h2>
+<p>作者：He, Kaiming; Zhang, Xiangyu; Ren, Shaoqing; Sun, Jian</p>
+<p>发表：CVPR 2016；首次公开：2015/12/10；版本：1512.03385v1</p>
+<p>原文：https://arxiv.org/abs/1512.03385</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L05, L07, L08, L09</p>
+<ul>
+<li>
+<p>R01 经典：§3；图1、2、4；表1、2。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R04 经典：§3、§4.1；图2、4；表2。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+</ul>
+<h2 id="vit-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale">[vit] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</h2>
+<p>作者：Dosovitskiy, Alexey; Beyer, Lucas; Kolesnikov, Alexander; Weissenborn, Dirk; Zhai, Xiaohua; Unterthiner, Thomas; Dehghani, Mostafa; Minderer, Matthias; Heigold, Georg; Gelly, Sylvain; Uszkoreit, Jakob; Houlsby, Neil</p>
+<p>发表：ICLR 2021；首次公开：2020/10/22；版本：2010.11929v2</p>
+<p>原文：https://arxiv.org/abs/2010.11929</p>
+<p>代码：https://github.com/google-research/vision_transformer</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L02, L05, L07, L08, L09</p>
+<ul>
+<li>
+<p>R01 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R04 经典：§3、§4.3；图1、3、4。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+</ul>
+<h2 id="gan-generative-adversarial-networks">[gan] Generative Adversarial Networks</h2>
+<p>作者：Goodfellow, Ian J.; Pouget-Abadie, Jean; Mirza, Mehdi; Xu, Bing; Warde-Farley, David; Ozair, Sherjil; Courville, Aaron; Bengio, Yoshua</p>
+<p>发表：NeurIPS 2014；首次公开：2014/06/10；版本：1406.2661</p>
+<p>原文：https://arxiv.org/abs/1406.2661</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09, L10, L13, L14, L15</p>
+<ul>
+<li>
+<p>R01 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R13 经典：§3–4；式1–2及图1–3。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R28 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+</ul>
+<h2 id="nerf-nerf-representing-scenes-as-neural-radiance-fields-for-view-synthesis">[nerf] NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis</h2>
+<p>作者：Mildenhall, Ben; Srinivasan, Pratul P.; Tancik, Matthew; Barron, Jonathan T.; Ramamoorthi, Ravi; Ng, Ren</p>
+<p>发表：ECCV 2020；首次公开：2020/03/19；版本：2003.08934</p>
+<p>原文：https://arxiv.org/abs/2003.08934</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L03, L07, L09, L13, L29</p>
+<ul>
+<li>
+<p>R01 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R18 经典：§3–5；体渲染式、位置编码与新视角实验。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R20 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</p>
+</li>
+</ul>
+<h2 id="clip-learning-transferable-visual-models-from-natural-language-supervision">[clip] Learning Transferable Visual Models From Natural Language Supervision</h2>
+<p>作者：Radford, Alec; Kim, Jong Wook; Hallacy, Chris; Ramesh, Aditya; Goh, Gabriel; Agarwal, Sandhini; Sastry, Girish; Askell, Amanda; Mishkin, Pamela; Clark, Jack; Krueger, Gretchen; Sutskever, Ilya</p>
+<p>发表：ICML 2021；首次公开：2021/02/26；版本：2103.00020v1</p>
+<p>原文：https://arxiv.org/abs/2103.00020</p>
+<p>代码：https://github.com/openai/CLIP</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L05, L07, L09, L14, L15, L18, L29</p>
+<ul>
+<li>
+<p>R01 近年代表：§2；图1；§3评价；§6局限。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R29 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+<li>
+<p>R31 经典：§2；图1；§3评价；§6局限。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+<li>
+<p>R32 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+<li>
+<p>R33 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+</ul>
+<h2 id="sam-segment-anything">[sam] Segment Anything</h2>
+<p>作者：Kirillov, Alexander; Mintun, Eric; Ravi, Nikhila; Mao, Hanzi; Rolland, Chloe; Gustafson, Laura; Xiao, Tete; Whitehead, Spencer; Berg, Alexander C.; Lo, Wan-Yen; Dollár, Piotr; Girshick, Ross</p>
+<p>发表：ICCV 2023；首次公开：2023/04/05；版本：2304.02643</p>
+<p>原文：https://arxiv.org/abs/2304.02643</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09, L10, L18, L29</p>
+<ul>
+<li>
+<p>R01 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R06 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+<li>
+<p>R33 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+</ul>
+<h2 id="ssl_survey-self-supervised-learning-generative-or-contrastive">[ssl_survey] Self-supervised Learning: Generative or Contrastive</h2>
+<p>作者：Liu, Xiao; Zhang, Fanjin; Hou, Zhenyu; Wang, Zhaoyu; Mian, Li; Zhang, Jing; Tang, Jie</p>
+<p>发表：IEEE TKDE；以所链接版本为准；首次公开：2020/06/15；版本：2006.08218</p>
+<p>原文：https://arxiv.org/abs/2006.08218</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L08, L14</p>
+<ul>
+<li>R02 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：模型改变的是任务、表示还是评价？</li>
+</ul>
+<h2 id="simclr-a-simple-framework-for-contrastive-learning-of-visual-representations">[simclr] A Simple Framework for Contrastive Learning of Visual Representations</h2>
+<p>作者：Chen, Ting; Kornblith, Simon; Norouzi, Mohammad; Hinton, Geoffrey</p>
+<p>发表：ICML 2020；首次公开：2020/02/13；版本：2002.05709v3</p>
+<p>原文：https://arxiv.org/abs/2002.05709</p>
+<p>代码：https://github.com/google-research/simclr</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L08, L14</p>
+<ul>
+<li>R02 经典：§2；§3.1；§4.2；图2、5、8；表3。阅读问题：模型改变的是任务、表示还是评价？</li>
+</ul>
+<h2 id="moco-momentum-contrast-for-unsupervised-visual-representation-learning">[moco] Momentum Contrast for Unsupervised Visual Representation Learning</h2>
+<p>作者：He, Kaiming; Fan, Haoqi; Wu, Yuxin; Xie, Saining; Girshick, Ross</p>
+<p>发表：CVPR 2020；首次公开：2019/11/13；版本：1911.05722</p>
+<p>原文：https://arxiv.org/abs/1911.05722</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L08, L14</p>
+<ul>
+<li>R02 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</li>
+</ul>
+<h2 id="mae-masked-autoencoders-are-scalable-vision-learners">[mae] Masked Autoencoders Are Scalable Vision Learners</h2>
+<p>作者：He, Kaiming; Chen, Xinlei; Xie, Saining; Li, Yanghao; Dollár, Piotr; Girshick, Ross</p>
+<p>发表：CVPR 2022；首次公开：2021/11/11；版本：2111.06377v3</p>
+<p>原文：https://arxiv.org/abs/2111.06377</p>
+<p>代码：https://github.com/facebookresearch/mae</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L05, L08, L14, L18</p>
+<ul>
+<li>
+<p>R02 经典：§3；图1；表1、3；§4。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R35 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="dinov2-dinov2-learning-robust-visual-features-without-supervision">[dinov2] DINOv2: Learning Robust Visual Features without Supervision</h2>
+<p>作者：Oquab, Maxime; Darcet, Timothée; Moutakanni, Théo; Vo, Huy; Szafraniec, Marc; Khalidov, Vasil; Fernandez, Pierre; Haziza, Daniel; Massa, Francisco; El-Nouby, Alaaeldin; Assran, Mahmoud; Ballas, Nicolas; Galuba, Wojciech; Howes, Russell; Huang, Po-Yao; Li, Shang-Wen; Misra, Ishan; Rabbat, Michael; Sharma, Vasu; Synnaeve, Gabriel; Xu, Hu; Jegou, Hervé; Mairal, Julien; Labatut, Patrick; Joulin, Armand; Bojanowski, Piotr</p>
+<p>发表：TMLR 2024；首次公开：2023/04/14；版本：2304.07193</p>
+<p>原文：https://arxiv.org/abs/2304.07193</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L06, L07, L08, L14, L18, L23</p>
+<ul>
+<li>
+<p>R02 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R03 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R04 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+<li>
+<p>R36 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="cs231n-cs231n-deep-learning-for-computer-vision">[cs231n] CS231n: Deep Learning for Computer Vision</h2>
+<p>作者：Stanford University</p>
+<p>发表：作者课程；动态更新；首次公开：滚动更新课程，无法指定单一首发日期；版本：网站当前课程内容；章节定位以访问日为准</p>
+<p>原文：https://cs231n.stanford.edu/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L08, L18, L23</p>
+<ul>
+<li>
+<p>R03 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R36 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="calibration-on-calibration-of-modern-neural-networks">[calibration] On Calibration of Modern Neural Networks</h2>
+<p>作者：Guo, Chuan; Pleiss, Geoff; Sun, Yu; Weinberger, Kilian Q.</p>
+<p>发表：ICML 2017；首次公开：2017/06/14；版本：1706.04599v2</p>
+<p>原文：https://arxiv.org/abs/1706.04599</p>
+<p>代码：https://github.com/gpleiss/temperature_scaling</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L09, L18, L23</p>
+<ul>
+<li>
+<p>R03 经典：§2；§4温度缩放；表1及结果。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R34 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="imagenet_c-benchmarking-neural-network-robustness-to-common-corruptions-and-perturbations">[imagenet_c] Benchmarking Neural Network Robustness to Common Corruptions and Perturbations</h2>
+<p>作者：Hendrycks, Dan; Dietterich, Thomas</p>
+<p>发表：ICLR 2019；首次公开：2019/03/28；版本：1903.12261v1</p>
+<p>原文：https://arxiv.org/abs/1903.12261</p>
+<p>代码：https://github.com/hendrycks/robustness</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L08, L18, L23</p>
+<ul>
+<li>
+<p>R03 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R36 经典：§3基准；指标；§5；图1、3。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="ensembles-simple-and-scalable-predictive-uncertainty-estimation-using-deep-ensembles">[ensembles] Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles</h2>
+<p>作者：Lakshminarayanan, Balaji; Pritzel, Alexander; Blundell, Charles</p>
+<p>发表：NeurIPS 2017；首次公开：2016/12/05；版本：1612.01474v3</p>
+<p>原文：https://arxiv.org/abs/1612.01474</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L08, L18, L23</p>
+<ul>
+<li>
+<p>R03 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R36 经典：§2.1–2.4；图1；§3.3–3.4；表1。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="wilds-wilds-a-benchmark-of-in-the-wild-distribution-shifts">[wilds] WILDS: A Benchmark of in-the-Wild Distribution Shifts</h2>
+<p>作者：Koh, Pang Wei; Sagawa, Shiori; Marklund, Henrik; Xie, Sang Michael; Zhang, Marvin; Balsubramani, Akshay; Hu, Weihua; Yasunaga, Michihiro; Phillips, Richard Lanas; Gao, Irena; Lee, Tony; David, Etienne; Stavness, Ian; Guo, Wei; Earnshaw, Berton A.; Haque, Imran S.; Beery, Sara; Leskovec, Jure; Kundaje, Anshul; Pierson, Emma; Levine, Sergey; Finn, Chelsea; Liang, Percy</p>
+<p>发表：ICML 2021；首次公开：2020/12/14；版本：2012.07421v3</p>
+<p>原文：https://arxiv.org/abs/2012.07421</p>
+<p>代码：https://github.com/p-lambda/wilds</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L08, L18, L23</p>
+<ul>
+<li>
+<p>R03 近年代表：图1；构建原则；§4示例；表2；§6.1–6.2。阅读问题：模型改变的是任务、表示还是评价？</p>
+</li>
+<li>
+<p>R36 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="convnext-a-convnet-for-the-2020s">[convnext] A ConvNet for the 2020s</h2>
+<p>作者：Liu, Zhuang; Mao, Hanzi; Wu, Chao-Yuan; Feichtenhofer, Christoph; Darrell, Trevor; Xie, Saining</p>
+<p>发表：CVPR 2022；首次公开：2022/01/10；版本：2201.03545</p>
+<p>原文：https://arxiv.org/abs/2201.03545</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L07, L08</p>
+<ul>
+<li>R04 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="det_survey-object-detection-in-20-years-a-survey">[det_survey] Object Detection in 20 Years: A Survey</h2>
+<p>作者：Zou, Zhengxia; Chen, Keyan; Shi, Zhenwei; Guo, Yuhong; Ye, Jieping</p>
+<p>发表：Proceedings of the IEEE 2023；首次公开：2019/05/13；版本：1905.05055</p>
+<p>原文：https://arxiv.org/abs/1905.05055</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R05 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="rcnn-rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation">[rcnn] Rich feature hierarchies for accurate object detection and semantic segmentation</h2>
+<p>作者：Girshick, Ross; Donahue, Jeff; Darrell, Trevor; Malik, Jitendra</p>
+<p>发表：CVPR 2014；首次公开：2013/11/11；版本：1311.2524</p>
+<p>原文：https://arxiv.org/abs/1311.2524</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R05 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="faster-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks">[faster] Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks</h2>
+<p>作者：Ren, Shaoqing; He, Kaiming; Girshick, Ross; Sun, Jian</p>
+<p>发表：NeurIPS 2015；首次公开：2015/06/04；版本：1506.01497</p>
+<p>原文：https://arxiv.org/abs/1506.01497</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R05 经典：§3.1；图2；§4消融。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="yolo-you-only-look-once-unified-real-time-object-detection">[yolo] You Only Look Once: Unified, Real-Time Object Detection</h2>
+<p>作者：Redmon, Joseph; Divvala, Santosh; Girshick, Ross; Farhadi, Ali</p>
+<p>发表：CVPR 2016；首次公开：2015/06/08；版本：1506.02640</p>
+<p>原文：https://arxiv.org/abs/1506.02640</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R05 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="detr-end-to-end-object-detection-with-transformers">[detr] End-to-End Object Detection with Transformers</h2>
+<p>作者：Carion, Nicolas; Massa, Francisco; Synnaeve, Gabriel; Usunier, Nicolas; Kirillov, Alexander; Zagoruyko, Sergey</p>
+<p>发表：ECCV 2020；首次公开：2020/05/26；版本：2005.12872v3</p>
+<p>原文：https://arxiv.org/abs/2005.12872</p>
+<p>代码：https://github.com/facebookresearch/detr</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R05 经典：§3.1–3.2；图1、2、4；§4。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="dino_det-dino-detr-with-improved-denoising-anchor-boxes-for-end-to-end-object-detection">[dino_det] DINO: DETR with Improved DeNoising Anchor Boxes for End-to-End Object Detection</h2>
+<p>作者：Zhang, Hao; Li, Feng; Liu, Shilong; Zhang, Lei; Su, Hang; Zhu, Jun; Ni, Lionel M.; Shum, Heung-Yeung</p>
+<p>发表：ICLR 2023；首次公开：2022/03/07；版本：2203.03605</p>
+<p>原文：https://arxiv.org/abs/2203.03605</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R05 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="seg_survey-image-segmentation-in-foundation-model-era-a-survey">[seg_survey] Image Segmentation in Foundation Model Era: A Survey</h2>
+<p>作者：Zhou, Tianfei; Xia, Wang; Zhang, Fei; Chang, Boyu; Wang, Wenguan; Yuan, Ye; Konukoglu, Ender; Cremers, Daniel</p>
+<p>发表：arXiv 综述；正式刊载信息见原站；首次公开：2024/08/23；版本：2408.12957</p>
+<p>原文：https://arxiv.org/abs/2408.12957</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L10, L29</p>
+<ul>
+<li>R06 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="fcn-fully-convolutional-networks-for-semantic-segmentation">[fcn] Fully Convolutional Networks for Semantic Segmentation</h2>
+<p>作者：Long, Jonathan; Shelhamer, Evan; Darrell, Trevor</p>
+<p>发表：CVPR 2015；首次公开：2014/11/14；版本：1411.4038</p>
+<p>原文：https://arxiv.org/abs/1411.4038</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L10, L29</p>
+<ul>
+<li>R06 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="unet-u-net-convolutional-networks-for-biomedical-image-segmentation">[unet] U-Net: Convolutional Networks for Biomedical Image Segmentation</h2>
+<p>作者：Ronneberger, Olaf; Fischer, Philipp; Brox, Thomas</p>
+<p>发表：MICCAI 2015；首次公开：2015/05/18；版本：1505.04597v1</p>
+<p>原文：https://arxiv.org/abs/1505.04597</p>
+<p>代码：https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L06, L07, L09, L10, L18, L29</p>
+<ul>
+<li>
+<p>R06 经典：§2–4；图1；权重图。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+<li>
+<p>R34 经典：图1、2；§2结构；§3训练；§4实验。阅读问题：领域采集和划分怎样影响结论？</p>
+</li>
+</ul>
+<h2 id="maskrcnn-mask-r-cnn">[maskrcnn] Mask R-CNN</h2>
+<p>作者：He, Kaiming; Gkioxari, Georgia; Dollár, Piotr; Girshick, Ross</p>
+<p>发表：ICCV 2017；首次公开：2017/03/20；版本：1703.06870</p>
+<p>原文：https://arxiv.org/abs/1703.06870</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L10, L18, L29</p>
+<ul>
+<li>
+<p>R06 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+<li>
+<p>R33 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+</ul>
+<h2 id="mask2former-masked-attention-mask-transformer-for-universal-image-segmentation">[mask2former] Masked-attention Mask Transformer for Universal Image Segmentation</h2>
+<p>作者：Cheng, Bowen; Misra, Ishan; Schwing, Alexander G.; Kirillov, Alexander; Girdhar, Rohit</p>
+<p>发表：CVPR 2022；首次公开：2021/12/02；版本：2112.01527v3</p>
+<p>原文：https://arxiv.org/abs/2112.01527</p>
+<p>代码：https://bowenc0221.github.io/mask2former/</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L07, L10, L29</p>
+<ul>
+<li>R06 经典：§3.1–3.3；图2；§4。阅读问题：如何同时识别对象并保留空间位置？</li>
+</ul>
+<h2 id="sam2-sam-2-segment-anything-in-images-and-videos">[sam2] SAM 2: Segment Anything in Images and Videos</h2>
+<p>作者：Ravi, Nikhila; Gabeur, Valentin; Hu, Yuan-Ting; Hu, Ronghang; Ryali, Chaitanya; Ma, Tengyu; Khedr, Haitham; Rädle, Roman; Rolland, Chloe; Gustafson, Laura; Mintun, Eric; Pan, Junting; Alwala, Kalyan Vasudev; Carion, Nicolas; Wu, Chao-Yuan; Girshick, Ross; Dollár, Piotr; Feichtenhofer, Christoph</p>
+<p>发表：ICLR 2025；首次公开：2024/08/01；版本：2408.00714</p>
+<p>原文：https://arxiv.org/abs/2408.00714</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L10, L29, L34</p>
+<ul>
+<li>
+<p>R06 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：如何同时识别对象并保留空间位置？</p>
+</li>
+<li>
+<p>R07 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+</ul>
+<h2 id="flownet-flownet-learning-optical-flow-with-convolutional-networks">[flownet] FlowNet: Learning Optical Flow with Convolutional Networks</h2>
+<p>作者：Fischer, Philipp; Dosovitskiy, Alexey; Ilg, Eddy; Häusser, Philip; Hazırbaş, Caner; Golkov, Vladimir; van der Smagt, Patrick; Cremers, Daniel; Brox, Thomas</p>
+<p>发表：ICCV 2015；首次公开：2015/04/26；版本：1504.06852</p>
+<p>原文：https://arxiv.org/abs/1504.06852</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>R07 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="raft-raft-recurrent-all-pairs-field-transforms-for-optical-flow">[raft] RAFT: Recurrent All-Pairs Field Transforms for Optical Flow</h2>
+<p>作者：Teed, Zachary; Deng, Jia</p>
+<p>发表：ECCV 2020；首次公开：2020/03/26；版本：2003.12039v3</p>
+<p>原文：https://arxiv.org/abs/2003.12039</p>
+<p>代码：https://github.com/princeton-vl/RAFT</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>
+<p>R07 经典：§3.1–3.4；图1–2；式1、7；§4。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>R23 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+</ul>
+<h2 id="sort-simple-online-and-realtime-tracking">[sort] Simple Online and Realtime Tracking</h2>
+<p>作者：Bewley, Alex; Ge, Zongyuan; Ott, Lionel; Ramos, Fabio; Upcroft, Ben</p>
+<p>发表：ICIP 2016；首次公开：2016/02/02；版本：1602.00763</p>
+<p>原文：https://arxiv.org/abs/1602.00763</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>R07 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="bytetrack-bytetrack-multi-object-tracking-by-associating-every-detection-box">[bytetrack] ByteTrack: Multi-Object Tracking by Associating Every Detection Box</h2>
+<p>作者：Zhang, Yifu; Sun, Peize; Jiang, Yi; Yu, Dongdong; Weng, Fucheng; Yuan, Zehuan; Luo, Ping; Liu, Wenyu; Wang, Xinggang</p>
+<p>发表：ECCV 2022；首次公开：2021/10/13；版本：2110.06864v3</p>
+<p>原文：https://arxiv.org/abs/2110.06864</p>
+<p>代码：https://github.com/FoundationVision/ByteTrack</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>R07 经典：§3算法1；§4；表1–4；附录。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="video_survey-deep-learning-approaches-for-human-action-recognition-in-video-data">[video_survey] Deep Learning Approaches for Human Action Recognition in Video Data</h2>
+<p>作者：Xie, Yufei</p>
+<p>发表：arXiv 综述；首次公开：2024/03/11；版本：2403.06810</p>
+<p>原文：https://arxiv.org/abs/2403.06810</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L18, L29, L34</p>
+<ul>
+<li>
+<p>R08 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>R09 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+</ul>
+<h2 id="two_stream-two-stream-convolutional-networks-for-action-recognition-in-videos">[two_stream] Two-Stream Convolutional Networks for Action Recognition in Videos</h2>
+<p>作者：Simonyan, Karen; Zisserman, Andrew</p>
+<p>发表：NeurIPS 2014；首次公开：2014/06/09；版本：1406.2199</p>
+<p>原文：https://arxiv.org/abs/1406.2199</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L18, L29, L34</p>
+<ul>
+<li>
+<p>R08 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>R09 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+</ul>
+<h2 id="i3d-quo-vadis-action-recognition-a-new-model-and-the-kinetics-dataset">[i3d] Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</h2>
+<p>作者：Carreira, Joao; Zisserman, Andrew</p>
+<p>发表：CVPR 2017；首次公开：2017/05/22；版本：1705.07750v3</p>
+<p>原文：https://arxiv.org/abs/1705.07750</p>
+<p>代码：https://github.com/google-deepmind/kinetics-i3d</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R08 经典：§2.4；图3；§4–5；表1–5。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="slowfast-slowfast-networks-for-video-recognition">[slowfast] SlowFast Networks for Video Recognition</h2>
+<p>作者：Feichtenhofer, Christoph; Fan, Haoqi; Malik, Jitendra; He, Kaiming</p>
+<p>发表：ICCV 2019；首次公开：2018/12/10；版本：1812.03982</p>
+<p>原文：https://arxiv.org/abs/1812.03982</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L18, L29, L34</p>
+<ul>
+<li>
+<p>R08 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>R09 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+</ul>
+<h2 id="videomae-videomae-masked-autoencoders-are-data-efficient-learners-for-self-supervised-video-pre-training">[videomae] VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training</h2>
+<p>作者：Tong, Zhan; Song, Yibing; Wang, Jue; Wang, Limin</p>
+<p>发表：NeurIPS 2022；首次公开：2022/03/23；版本：2203.12602v3</p>
+<p>原文：https://arxiv.org/abs/2203.12602</p>
+<p>代码：https://github.com/MCG-NJU/VideoMAE</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L07, L08, L29</p>
+<ul>
+<li>R08 经典：§3.2–3.3；图1–2；§4；表1–4。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="videomae2-videomae-v2-scaling-video-masked-autoencoders-with-dual-masking">[videomae2] VideoMAE V2: Scaling Video Masked Autoencoders with Dual Masking</h2>
+<p>作者：Wang, Limin; Huang, Bingkun; Zhao, Zhiyu; Tong, Zhan; He, Yinan; Wang, Yi; Wang, Yali; Qiao, Yu</p>
+<p>发表：CVPR 2023；首次公开：2023/03/29；版本：2303.16727</p>
+<p>原文：https://arxiv.org/abs/2303.16727</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L08, L18, L29, L34</p>
+<ul>
+<li>
+<p>R08 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>R09 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+</ul>
+<h2 id="actionformer-actionformer-localizing-moments-of-actions-with-transformers">[actionformer] ActionFormer: Localizing Moments of Actions with Transformers</h2>
+<p>作者：Zhang, Chenlin; Wu, Jianxin; Li, Yin</p>
+<p>发表：ECCV 2022；首次公开：2022/02/16；版本：2202.07925v2</p>
+<p>原文：https://arxiv.org/abs/2202.07925</p>
+<p>代码：https://github.com/happyharrycn/actionformer_release</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L18, L29, L34</p>
+<ul>
+<li>R09 经典：§3；图2；式2–7；§4。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="internvideo2-internvideo2-scaling-foundation-models-for-multimodal-video-understanding">[internvideo2] InternVideo2: Scaling Foundation Models for Multimodal Video Understanding</h2>
+<p>作者：Wang, Yi; Li, Kunchang; Li, Xinhao; Yu, Jiashuo; He, Yinan; Wang, Chenting; Chen, Guo; Pei, Baoqi; Yan, Ziang; Zheng, Rongkun; Xu, Jilan; Wang, Zun; Shi, Yansong; Jiang, Tianxiang; Li, Songze; Zhang, Hongjie; Huang, Yifei; Qiao, Yu; Wang, Yali; Wang, Limin</p>
+<p>发表：ECCV 2024；首次公开：2024/03/22；版本：2403.15377v4</p>
+<p>原文：https://arxiv.org/abs/2403.15377</p>
+<p>代码：https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo2</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L18, L29, L34</p>
+<ul>
+<li>R09 近年代表：§3；图2–3；§5.1.2、5.2.2、5.4。阅读问题：时间信息通过什么假设参与预测？</li>
+</ul>
+<h2 id="m03_flash-videochat-flash-hierarchical-compression-for-long-context-video-modeling">[m03_flash] VideoChat-Flash: Hierarchical Compression for Long-Context Video Modeling</h2>
+<p>作者：Xinhao Li et al.</p>
+<p>发表：arXiv 预印本 2024；首次公开：2024；版本：2501.00574v1</p>
+<p>原文：https://arxiv.org/abs/2501.00574</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；§3.1、图3、§4；层次压缩与评价协议。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：L18, L29, L34</p>
+<ul>
+<li>
+<p>R09 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：时间信息通过什么假设参与预测？</p>
+</li>
+<li>
+<p>M03 组会专题：§3.1、图3、§4；层次压缩与评价协议。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="ir_survey-taming-diffusion-models-for-image-restoration-a-review">[ir_survey] Taming Diffusion Models for Image Restoration: A Review</h2>
+<p>作者：Luo, Ziwei; Gustafsson, Fredrik K.; Zhao, Zheng; Sjölund, Jens; Schön, Thomas B.</p>
+<p>发表：arXiv 综述；发表版本见原站；首次公开：2024/09/16；版本：2409.10353</p>
+<p>原文：https://arxiv.org/abs/2409.10353</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L10, L11, L18</p>
+<ul>
+<li>
+<p>R10 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R11 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：退化与真实细节如何区分？</p>
+</li>
+</ul>
+<h2 id="dncnn-beyond-a-gaussian-denoiser-residual-learning-of-deep-cnn-for-image-denoising">[dncnn] Beyond a Gaussian Denoiser: Residual Learning of Deep CNN for Image Denoising</h2>
+<p>作者：Zhang, Kai; Zuo, Wangmeng; Chen, Yunjin; Meng, Deyu; Zhang, Lei</p>
+<p>发表：IEEE TIP 2017；首次公开：2016/08/13；版本：1608.03981v1</p>
+<p>原文：https://arxiv.org/abs/1608.03981</p>
+<p>代码：https://github.com/cszn/DnCNN</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L09, L11, L13, L18</p>
+<ul>
+<li>
+<p>R10 经典：§III、IV；图1–2；表II–V。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R12 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</p>
+</li>
+</ul>
+<h2 id="dip-deep-image-prior">[dip] Deep Image Prior</h2>
+<p>作者：Ulyanov, Dmitry; Vedaldi, Andrea; Lempitsky, Victor</p>
+<p>发表：CVPR 2018；首次公开：2017/11/29；版本：1711.10925v4</p>
+<p>原文：https://arxiv.org/abs/1711.10925</p>
+<p>代码：https://github.com/DmitryUlyanov/deep-image-prior</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L03, L09, L11, L13, L18</p>
+<ul>
+<li>
+<p>R10 经典：§2、§3.1、§4；图2–4、6–7。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R12 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R22 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+</ul>
+<h2 id="restormer-restormer-efficient-transformer-for-high-resolution-image-restoration">[restormer] Restormer: Efficient Transformer for High-Resolution Image Restoration</h2>
+<p>作者：Zamir, Syed Waqas; Arora, Aditya; Khan, Salman; Hayat, Munawar; Khan, Fahad Shahbaz; Yang, Ming-Hsuan</p>
+<p>发表：CVPR 2022；首次公开：2021/11/18；版本：2111.09881</p>
+<p>原文：https://arxiv.org/abs/2111.09881</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L11, L18</p>
+<ul>
+<li>R10 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="nafnet-simple-baselines-for-image-restoration">[nafnet] Simple Baselines for Image Restoration</h2>
+<p>作者：Chen, Liangyu; Chu, Xiaojie; Zhang, Xiangyu; Sun, Jian</p>
+<p>发表：ECCV 2022；首次公开：2022/04/10；版本：2204.04676</p>
+<p>原文：https://arxiv.org/abs/2204.04676</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L11, L18</p>
+<ul>
+<li>R10 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="retinexformer-retinexformer-one-stage-retinex-based-transformer-for-low-light-image-enhancement">[retinexformer] Retinexformer: One-stage Retinex-based Transformer for Low-light Image Enhancement</h2>
+<p>作者：Cai, Yuanhao; Bian, Hao; Lin, Jing; Wang, Haoqian; Timofte, Radu; Zhang, Yulun</p>
+<p>发表：ICCV 2023；首次公开：2023/03/12；版本：2303.06705v3</p>
+<p>原文：https://arxiv.org/abs/2303.06705</p>
+<p>代码：https://github.com/caiyuanhao1998/Retinexformer</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L09, L11, L13, L18</p>
+<ul>
+<li>
+<p>R10 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R12 近年代表：§3.1–3.2；图2；§4.1–4.4；表1–4。阅读问题：退化与真实细节如何区分？</p>
+</li>
+</ul>
+<h2 id="srcnn-image-super-resolution-using-deep-convolutional-networks">[srcnn] Image Super-Resolution Using Deep Convolutional Networks</h2>
+<p>作者：Dong, Chao; Loy, Chen Change; He, Kaiming; Tang, Xiaoou</p>
+<p>发表：IEEE TPAMI 2016；会议前身 ECCV 2014；首次公开：2014/12/31；版本：1501.00092v3</p>
+<p>原文：https://arxiv.org/abs/1501.00092</p>
+<p>代码：https://mmlab.ie.cuhk.edu.hk/projects/SRCNN.html</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>R11 经典：§3.1–3.3；图2–3；§4.1、4.3、4.4；表2–4。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="edsr-enhanced-deep-residual-networks-for-single-image-super-resolution">[edsr] Enhanced Deep Residual Networks for Single Image Super-Resolution</h2>
+<p>作者：Lim, Bee; Son, Sanghyun; Kim, Heewon; Nah, Seungjun; Lee, Kyoung Mu</p>
+<p>发表：CVPR Workshops 2017；首次公开：2017/07/10；版本：1707.02921</p>
+<p>原文：https://arxiv.org/abs/1707.02921</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>R11 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="esrgan-esrgan-enhanced-super-resolution-generative-adversarial-networks">[esrgan] ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks</h2>
+<p>作者：Wang, Xintao; Yu, Ke; Wu, Shixiang; Gu, Jinjin; Liu, Yihao; Dong, Chao; Loy, Chen Change; Qiao, Yu; Tang, Xiaoou</p>
+<p>发表：ECCV Workshops 2018；首次公开：2018/09/01；版本：1809.00219</p>
+<p>原文：https://arxiv.org/abs/1809.00219</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>R11 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="swinir-swinir-image-restoration-using-swin-transformer">[swinir] SwinIR: Image Restoration Using Swin Transformer</h2>
+<p>作者：Liang, Jingyun; Cao, Jiezhang; Sun, Guolei; Zhang, Kai; Van Gool, Luc; Timofte, Radu</p>
+<p>发表：ICCV Workshops 2021；首次公开：2021/08/23；版本：2108.10257</p>
+<p>原文：https://arxiv.org/abs/2108.10257</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>R11 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="realesrgan-real-esrgan-training-real-world-blind-super-resolution-with-pure-synthetic-data">[realesrgan] Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data</h2>
+<p>作者：Wang, Xintao; Xie, Liangbin; Dong, Chao; Shan, Ying</p>
+<p>发表：ICCV Workshops 2021；首次公开：2021/07/22；版本：2107.10833v2</p>
+<p>原文：https://arxiv.org/abs/2107.10833</p>
+<p>代码：https://github.com/xinntao/Real-ESRGAN</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>R11 近年代表：§3.1–3.4；图2、4、6；§4.1–4.4；图7–11。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="sr3-image-super-resolution-via-iterative-refinement">[sr3] Image Super-Resolution via Iterative Refinement</h2>
+<p>作者：Saharia, Chitwan; Ho, Jonathan; Chan, William; Salimans, Tim; Fleet, David J.; Norouzi, Mohammad</p>
+<p>发表：IEEE TPAMI；以原站版本为准；首次公开：2021/04/15；版本：2104.07636</p>
+<p>原文：https://arxiv.org/abs/2104.07636</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>R11 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</li>
+</ul>
+<h2 id="m03_gestalt-text-gestalt-stroke-aware-scene-text-image-super-resolution">[m03_gestalt] Text Gestalt: Stroke-Aware Scene Text Image Super-Resolution</h2>
+<p>作者：Jingye Chen; Haiyang Yu; Jianqi Ma; Bin Li; Xiangyang Xue</p>
+<p>发表：arXiv 预印本 2021；首次公开：2021；版本：2112.08171v1</p>
+<p>原文：https://arxiv.org/abs/2112.08171</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；Methodology 图2–3；Experiments 笔画监督与错误引导。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：L09, L10, L11</p>
+<ul>
+<li>
+<p>R11 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>M03 组会专题：Methodology 图2–3；Experiments 笔画监督与错误引导。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="inverse_review-deep-learning-techniques-for-inverse-problems-in-imaging">[inverse_review] Deep Learning Techniques for Inverse Problems in Imaging</h2>
+<p>作者：Ongie, Gregory; Jalal, Ajil; Metzler, Christopher A.; Baraniuk, Richard G.; Dimakis, Alexandros G.; Willett, Rebecca</p>
+<p>发表：IEEE JSAC 2020；首次公开：2020/05/12；版本：2005.06001</p>
+<p>原文：https://arxiv.org/abs/2005.06001</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L09, L11, L13</p>
+<ul>
+<li>
+<p>R12 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R22 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+<li>
+<p>R24 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+</ul>
+<h2 id="zero_dce-zero-reference-deep-curve-estimation-for-low-light-image-enhancement">[zero_dce] Zero-Reference Deep Curve Estimation for Low-Light Image Enhancement</h2>
+<p>作者：Guo, Chunle; Li, Chongyi; Guo, Jichang; Loy, Chen Change; Hou, Junhui; Kwong, Sam; Cong, Runmin</p>
+<p>发表：CVPR 2020；首次公开：2020/01/19；版本：2001.06826v2</p>
+<p>原文：https://arxiv.org/abs/2001.06826</p>
+<p>代码：https://github.com/Li-Chongyi/Zero-DCE</p>
+<p>核验：2026-09-23；已打开作者仓库或作者项目页，核对论文标题与实现入口</p>
+<p>先修：L03, L09, L11, L13</p>
+<ul>
+<li>
+<p>R12 经典：§3.1–3.3；式1–8；§4.1–4.2；图2、4–5；表1–3；§5。阅读问题：退化与真实细节如何区分？</p>
+</li>
+<li>
+<p>R22 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+</ul>
+<h2 id="diff_survey-diffusion-models-a-comprehensive-survey-of-methods-and-applications">[diff_survey] Diffusion Models: A Comprehensive Survey of Methods and Applications</h2>
+<p>作者：Yang, Ling; Zhang, Zhilong; Song, Yang; Hong, Shenda; Xu, Runsheng; Zhao, Yue; Zhang, Wentao; Cui, Bin; Yang, Ming-Hsuan</p>
+<p>发表：ACM Computing Surveys；以原站版本为准；首次公开：2022/09/02；版本：2209.00796</p>
+<p>原文：https://arxiv.org/abs/2209.00796</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L10, L11, L13, L14, L29</p>
+<ul>
+<li>
+<p>R13 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R14 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R15 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+</ul>
+<h2 id="vae-auto-encoding-variational-bayes">[vae] Auto-Encoding Variational Bayes</h2>
+<p>作者：Kingma, Diederik P; Welling, Max</p>
+<p>发表：ICLR 2014；首次公开：2013/12/20；版本：1312.6114</p>
+<p>原文：https://arxiv.org/abs/1312.6114</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L10, L13, L14</p>
+<ul>
+<li>
+<p>R13 经典：§2–3、§5；式1、3及图2。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>M03 组会专题：具体阅读定位及核验边界见专题正文。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="vqvae-neural-discrete-representation-learning">[vqvae] Neural Discrete Representation Learning</h2>
+<p>作者：Oord, Aaron van den; Vinyals, Oriol; Kavukcuoglu, Koray</p>
+<p>发表：NeurIPS 2017；首次公开：2017/11/02；版本：1711.00937</p>
+<p>原文：https://arxiv.org/abs/1711.00937</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L10, L13, L14</p>
+<ul>
+<li>
+<p>R13 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>M03 组会专题：具体阅读定位及核验边界见专题正文。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="stylegan2-analyzing-and-improving-the-image-quality-of-stylegan">[stylegan2] Analyzing and Improving the Image Quality of StyleGAN</h2>
+<p>作者：Karras, Tero; Laine, Samuli; Aittala, Miika; Hellsten, Janne; Lehtinen, Jaakko; Aila, Timo</p>
+<p>发表：CVPR 2020；首次公开：2019/12/03；版本：1912.04958</p>
+<p>原文：https://arxiv.org/abs/1912.04958</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L10, L13, L14</p>
+<ul>
+<li>R13 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</li>
+</ul>
+<h2 id="ldm-high-resolution-image-synthesis-with-latent-diffusion-models">[ldm] High-Resolution Image Synthesis with Latent Diffusion Models</h2>
+<p>作者：Rombach, Robin; Blattmann, Andreas; Lorenz, Dominik; Esser, Patrick; Ommer, Björn</p>
+<p>发表：CVPR 2022；首次公开：2021/12/20；版本：2112.10752</p>
+<p>原文：https://arxiv.org/abs/2112.10752</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L09, L10, L11, L13, L14, L15, L29</p>
+<ul>
+<li>
+<p>R13 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R14 经典：§3–4；自动编码器与条件潜空间扩散图。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R15 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R28 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+</ul>
+<h2 id="dit-scalable-diffusion-models-with-transformers">[dit] Scalable Diffusion Models with Transformers</h2>
+<p>作者：Peebles, William; Xie, Saining</p>
+<p>发表：ICCV 2023；首次公开：2022/12/19；版本：2212.09748</p>
+<p>原文：https://arxiv.org/abs/2212.09748</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L09, L10, L11, L13, L14, L15</p>
+<ul>
+<li>
+<p>R13 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R14 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>R28 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+</ul>
+<h2 id="ddpm-denoising-diffusion-probabilistic-models">[ddpm] Denoising Diffusion Probabilistic Models</h2>
+<p>作者：Ho, Jonathan; Jain, Ajay; Abbeel, Pieter</p>
+<p>发表：NeurIPS 2020；首次公开：2020/06/19；版本：2006.11239</p>
+<p>原文：https://arxiv.org/abs/2006.11239</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L11, L13</p>
+<ul>
+<li>
+<p>R14 经典：§2–4；算法1–2、式5、11、14。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>M03 组会专题：具体阅读定位及核验边界见专题正文。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="ddim-denoising-diffusion-implicit-models">[ddim] Denoising Diffusion Implicit Models</h2>
+<p>作者：Song, Jiaming; Meng, Chenlin; Ermon, Stefano</p>
+<p>发表：ICLR 2021；首次公开：2020/10/06；版本：2010.02502</p>
+<p>原文：https://arxiv.org/abs/2010.02502</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L11, L13</p>
+<ul>
+<li>R14 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</li>
+</ul>
+<h2 id="score_sde-score-based-generative-modeling-through-stochastic-differential-equations">[score_sde] Score-Based Generative Modeling through Stochastic Differential Equations</h2>
+<p>作者：Song, Yang; Sohl-Dickstein, Jascha; Kingma, Diederik P.; Kumar, Abhishek; Ermon, Stefano; Poole, Ben</p>
+<p>发表：ICLR 2021；首次公开：2020/11/26；版本：2011.13456</p>
+<p>原文：https://arxiv.org/abs/2011.13456</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L11, L13</p>
+<ul>
+<li>R14 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</li>
+</ul>
+<h2 id="instructpix-instructpix2pix-learning-to-follow-image-editing-instructions">[instructpix] InstructPix2Pix: Learning to Follow Image Editing Instructions</h2>
+<p>作者：Brooks, Tim; Holynski, Aleksander; Efros, Alexei A.</p>
+<p>发表：CVPR 2023；首次公开：2022/11/17；版本：2211.09800</p>
+<p>原文：https://arxiv.org/abs/2211.09800</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L11, L13, L29</p>
+<ul>
+<li>R15 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</li>
+</ul>
+<h2 id="controlnet-adding-conditional-control-to-text-to-image-diffusion-models">[controlnet] Adding Conditional Control to Text-to-Image Diffusion Models</h2>
+<p>作者：Zhang, Lvmin; Rao, Anyi; Agrawala, Maneesh</p>
+<p>发表：ICCV 2023；首次公开：2023/02/10；版本：2302.05543</p>
+<p>原文：https://arxiv.org/abs/2302.05543</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L11, L13, L29</p>
+<ul>
+<li>R15 经典：§3–4；图2–3、式2。阅读问题：分布建模如何影响生成与可控性？</li>
+</ul>
+<h2 id="svd-stable-video-diffusion-scaling-latent-video-diffusion-models-to-large-datasets">[svd] Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets</h2>
+<p>作者：Blattmann, Andreas; Dockhorn, Tim; Kulal, Sumith; Mendelevitch, Daniel; Kilian, Maciej; Lorenz, Dominik; Levi, Yam; English, Zion; Voleti, Vikram; Letts, Adam; Jampani, Varun; Rombach, Robin</p>
+<p>发表：arXiv 2023 预印本；首次公开：2023/11/25；版本：2311.15127</p>
+<p>原文：https://arxiv.org/abs/2311.15127</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L11, L13, L29</p>
+<ul>
+<li>R15 近年代表：方法和实验；时间层与视频采样图。阅读问题：分布建模如何影响生成与可控性？</li>
+</ul>
+<h2 id="m03_phyedit-phyedit-towards-real-world-object-manipulation-via-physically-grounded-image-editing">[m03_phyedit] PhyEdit: Towards Real-World Object Manipulation via Physically-Grounded Image Editing</h2>
+<p>作者：Ruihang Xu; Dewei Zhou; Xiaolong Shen; Fan Ma; Yi Yang</p>
+<p>发表：arXiv 预印本 2026；首次公开：2026；版本：2604.07230v1</p>
+<p>原文：https://arxiv.org/abs/2604.07230</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；v1 图2、§3.2、§4；3D预览与深度监督。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：L11, L13, L29</p>
+<ul>
+<li>
+<p>R15 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：分布建模如何影响生成与可控性？</p>
+</li>
+<li>
+<p>M03 组会专题：v1 图2、§3.2、§4；3D预览与深度监督。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="mvsnet-mvsnet-depth-inference-for-unstructured-multi-view-stereo">[mvsnet] MVSNet: Depth Inference for Unstructured Multi-view Stereo</h2>
+<p>作者：Yao, Yao; Luo, Zixin; Li, Shiwei; Fang, Tian; Quan, Long</p>
+<p>发表：ECCV 2018；首次公开：2018/04/07；版本：1804.02505</p>
+<p>原文：https://arxiv.org/abs/1804.02505</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09</p>
+<ul>
+<li>R16 经典：§3.2–3.4；代价体与深度回归图。阅读问题：观测几何如何约束场景表示？</li>
+</ul>
+<h2 id="monodepth2-digging-into-self-supervised-monocular-depth-estimation">[monodepth2] Digging Into Self-Supervised Monocular Depth Estimation</h2>
+<p>作者：Godard, Clément; Mac Aodha, Oisin; Firman, Michael; Brostow, Gabriel</p>
+<p>发表：ICCV 2019；首次公开：2018/06/04；版本：1806.01260</p>
+<p>原文：https://arxiv.org/abs/1806.01260</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09</p>
+<ul>
+<li>R16 经典：方法、自动遮挡与最小重投影，实验表。阅读问题：观测几何如何约束场景表示？</li>
+</ul>
+<h2 id="orbslam-orb-slam-a-versatile-and-accurate-monocular-slam-system">[orbslam] ORB-SLAM: a Versatile and Accurate Monocular SLAM System</h2>
+<p>作者：Mur-Artal, Raul; Montiel, J. M. M.; Tardos, Juan D.</p>
+<p>发表：IEEE TRO 2015；首次公开：2015/02/03；版本：1502.00956</p>
+<p>原文：https://arxiv.org/abs/1502.00956</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09, L18, L33</p>
+<ul>
+<li>
+<p>R16 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R17 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+</ul>
+<h2 id="depthanything-depth-anything-unleashing-the-power-of-large-scale-unlabeled-data">[depthanything] Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data</h2>
+<p>作者：Yang, Lihe; Kang, Bingyi; Huang, Zilong; Xu, Xiaogang; Feng, Jiashi; Zhao, Hengshuang</p>
+<p>发表：CVPR 2024；首次公开：2024/01/19；版本：2401.10891</p>
+<p>原文：https://arxiv.org/abs/2401.10891</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09, L18, L33</p>
+<ul>
+<li>
+<p>R16 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R17 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+</ul>
+<h2 id="colmap-structure-from-motion-revisited">[colmap] Structure-from-Motion Revisited</h2>
+<p>作者：Johannes L. Schönberger, Jan-Michael Frahm</p>
+<p>发表：CVPR 2016；首次公开：2016（CVPR论文）；版本：CVPR 2016 出版版</p>
+<p>原文：https://demuc.de/papers/schoenberger2016sfm.pdf</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L18, L33</p>
+<ul>
+<li>R17 经典：增量SfM的图像注册、三角化和束调整；实验。阅读问题：观测几何如何约束场景表示？</li>
+</ul>
+<h2 id="orbslam3-orb-slam3-an-accurate-open-source-library-for-visual-visual-inertial-and-multi-map-slam">[orbslam3] ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi-Map SLAM</h2>
+<p>作者：Campos, Carlos; Elvira, Richard; Rodríguez, Juan J. Gómez; Montiel, José M. M.; Tardós, Juan D.</p>
+<p>发表：IEEE TRO 2021；首次公开：2020/07/23；版本：2007.11898</p>
+<p>原文：https://arxiv.org/abs/2007.11898</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L18, L33</p>
+<ul>
+<li>R17 经典：多地图、惯性初始化、回环及实验。阅读问题：观测几何如何约束场景表示？</li>
+</ul>
+<h2 id="mipnerf-mip-nerf-a-multiscale-representation-for-anti-aliasing-neural-radiance-fields">[mipnerf] Mip-NeRF: A Multiscale Representation for Anti-Aliasing Neural Radiance Fields</h2>
+<p>作者：Barron, Jonathan T.; Mildenhall, Ben; Tancik, Matthew; Hedman, Peter; Martin-Brualla, Ricardo; Srinivasan, Pratul P.</p>
+<p>发表：ICCV 2021；首次公开：2021/03/24；版本：2103.13415</p>
+<p>原文：https://arxiv.org/abs/2103.13415</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L09, L29</p>
+<ul>
+<li>R18 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</li>
+</ul>
+<h2 id="instantngp-instant-neural-graphics-primitives-with-a-multiresolution-hash-encoding">[instantngp] Instant Neural Graphics Primitives with a Multiresolution Hash Encoding</h2>
+<p>作者：Müller, Thomas; Evans, Alex; Schied, Christoph; Keller, Alexander</p>
+<p>发表：ACM TOG / SIGGRAPH 2022；首次公开：2022/01/16；版本：2201.05989</p>
+<p>原文：https://arxiv.org/abs/2201.05989</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L09, L14, L20, L29, L34</p>
+<ul>
+<li>
+<p>R18 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R27 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+</ul>
+<h2 id="gs-3d-gaussian-splatting-for-real-time-radiance-field-rendering">[gs] 3D Gaussian Splatting for Real-Time Radiance Field Rendering</h2>
+<p>作者：Kerbl, Bernhard; Kopanas, Georgios; Leimkühler, Thomas; Drettakis, George</p>
+<p>发表：ACM TOG / SIGGRAPH 2023；首次公开：2023/08/08；版本：2308.04079</p>
+<p>原文：https://arxiv.org/abs/2308.04079</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L09, L13, L14, L20, L29, L34</p>
+<ul>
+<li>
+<p>R18 近年代表：§4–7；高斯投影、密度控制和渲染图。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R20 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</p>
+</li>
+<li>
+<p>R27 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+</ul>
+<h2 id="four_d_gs-4d-gaussian-splatting-for-real-time-dynamic-scene-rendering">[four_d_gs] 4D Gaussian Splatting for Real-Time Dynamic Scene Rendering</h2>
+<p>作者：Wu, Guanjun; Yi, Taoran; Fang, Jiemin; Xie, Lingxi; Zhang, Xiaopeng; Wei, Wei; Liu, Wenyu; Tian, Qi; Wang, Xinggang</p>
+<p>发表：CVPR 2024；首次公开：2023/10/12；版本：2310.08528</p>
+<p>原文：https://arxiv.org/abs/2310.08528</p>
+<p>代码：https://github.com/hustvl/4DGaussians</p>
+<p>核验：2026-09-25；作者项目仓库和论文题目一致。</p>
+<p>先修：L03, L09, L13, L29</p>
+<ul>
+<li>
+<p>R18 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：观测几何如何约束场景表示？</p>
+</li>
+<li>
+<p>R20 近年代表：形变场、时空平面与§5消融表4。阅读问题：空间表示与任务交互有什么关系？</p>
+</li>
+</ul>
+<h2 id="point_survey-deep-learning-for-3d-point-clouds-a-survey">[point_survey] Deep Learning for 3D Point Clouds: A Survey</h2>
+<p>作者：Guo, Yulan; Wang, Hanyun; Hu, Qingyong; Liu, Hao; Liu, Li; Bennamoun, Mohammed</p>
+<p>发表：IEEE TPAMI 2021；首次公开：2019/12/27；版本：1912.12033</p>
+<p>原文：https://arxiv.org/abs/1912.12033</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L29</p>
+<ul>
+<li>R19 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="pointnet-pointnet-deep-learning-on-point-sets-for-3d-classification-and-segmentation">[pointnet] PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation</h2>
+<p>作者：Qi, Charles R.; Su, Hao; Mo, Kaichun; Guibas, Leonidas J.</p>
+<p>发表：CVPR 2017；首次公开：2016/12/02；版本：1612.00593</p>
+<p>原文：https://arxiv.org/abs/1612.00593</p>
+<p>代码：https://github.com/charlesq34/pointnet</p>
+<p>核验：2026-09-25；作者仓库 README 明示训练与评价代码，原始实现为 TensorFlow。</p>
+<p>先修：L02, L07, L14, L20, L29, L34</p>
+<ul>
+<li>
+<p>R19 经典：对称池化、变换网络与分类/分割实验；图2、5。阅读问题：空间表示与任务交互有什么关系？</p>
+</li>
+<li>
+<p>R27 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+</ul>
+<h2 id="pointnet2-pointnet-deep-hierarchical-feature-learning-on-point-sets-in-a-metric-space">[pointnet2] PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space</h2>
+<p>作者：Qi, Charles R.; Yi, Li; Su, Hao; Guibas, Leonidas J.</p>
+<p>发表：NeurIPS 2017；首次公开：2017/06/07；版本：1706.02413</p>
+<p>原文：https://arxiv.org/abs/1706.02413</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L29</p>
+<ul>
+<li>R19 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="pointtransformer-point-transformer">[pointtransformer] Point Transformer</h2>
+<p>作者：Zhao, Hengshuang; Jiang, Li; Jia, Jiaya; Torr, Philip; Koltun, Vladlen</p>
+<p>发表：ICCV 2021；首次公开：2020/12/16；版本：2012.09164</p>
+<p>原文：https://arxiv.org/abs/2012.09164</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；可见 PyTorch 第三方实现标为 unofficial；未将其列作官方代码。</p>
+<p>先修：L02, L07, L29</p>
+<ul>
+<li>R19 经典：相对位置、向量注意力与点云实验。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="octattention-octattention-octree-based-large-scale-contexts-model-for-point-cloud-compression">[octattention] OctAttention: Octree-Based Large-Scale Contexts Model for Point Cloud Compression</h2>
+<p>作者：Fu, Chunyang; Li, Ge; Song, Rui; Gao, Wei; Liu, Shan</p>
+<p>发表：AAAI 2022；首次公开：2022/02/12；版本：2202.06028</p>
+<p>原文：https://arxiv.org/abs/2202.06028</p>
+<p>代码：https://github.com/zb12138/OctAttention</p>
+<p>核验：2026-09-25；AAAI 论文页面直接给出作者代码，仓库区分物体与 LiDAR 分支。</p>
+<p>先修：L02, L07, L14, L20, L29, L34</p>
+<ul>
+<li>
+<p>R19 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</p>
+</li>
+<li>
+<p>R27 经典：Methodology；图2–3、式1–3、表1–4。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+</ul>
+<h2 id="dynamic_survey-advances-in-radiance-field-for-dynamic-scene-from-neural-field-to-gaussian-field">[dynamic_survey] Advances in Radiance Field for Dynamic Scene: From Neural Field to Gaussian Field</h2>
+<p>作者：Fan, Jinlong; Zeng, Xuepu; Zhang, Jing; Gong, Mingming; Yang, Yuxiang; Tao, Dacheng</p>
+<p>发表：arXiv 综述；首次公开：2025/05/15；版本：2505.10049</p>
+<p>原文：https://arxiv.org/abs/2505.10049</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L13, L29</p>
+<ul>
+<li>R20 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="dreamfusion-dreamfusion-text-to-3d-using-2d-diffusion">[dreamfusion] DreamFusion: Text-to-3D using 2D Diffusion</h2>
+<p>作者：Poole, Ben; Jain, Ajay; Barron, Jonathan T.; Mildenhall, Ben</p>
+<p>发表：ICLR 2023；首次公开：2022/09/29；版本：2209.14988</p>
+<p>原文：https://arxiv.org/abs/2209.14988</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L13, L29</p>
+<ul>
+<li>R20 经典：SDS梯度、NeRF表示与多视角结果。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="zero123-zero-1-to-3-zero-shot-one-image-to-3d-object">[zero123] Zero-1-to-3: Zero-shot One Image to 3D Object</h2>
+<p>作者：Liu, Ruoshi; Wu, Rundi; Van Hoorick, Basile; Tokmakov, Pavel; Zakharov, Sergey; Vondrick, Carl</p>
+<p>发表：ICCV 2023；首次公开：2023/03/20；版本：2303.11328</p>
+<p>原文：https://arxiv.org/abs/2303.11328</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L13, L29</p>
+<ul>
+<li>R20 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="vla_survey-a-survey-on-vision-language-action-models-for-embodied-ai">[vla_survey] A Survey on Vision-Language-Action Models for Embodied AI</h2>
+<p>作者：Ma, Yueen; Song, Zixing; Zhuang, Yuzheng; Hao, Jianye; King, Irwin</p>
+<p>发表：arXiv 综述；期刊版本见原站；首次公开：2024/05/23；版本：2405.14093</p>
+<p>原文：https://arxiv.org/abs/2405.14093</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R21 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="habitat-habitat-a-platform-for-embodied-ai-research">[habitat] Habitat: A Platform for Embodied AI Research</h2>
+<p>作者：Savva, Manolis; Kadian, Abhishek; Maksymets, Oleksandr; Zhao, Yili; Wijmans, Erik; Jain, Bhavana; Straub, Julian; Liu, Jia; Koltun, Vladlen; Malik, Jitendra; Parikh, Devi; Batra, Dhruv</p>
+<p>发表：ICCV 2019；首次公开：2019/04/02；版本：1904.01201</p>
+<p>原文：https://arxiv.org/abs/1904.01201</p>
+<p>代码：https://github.com/facebookresearch/habitat-lab</p>
+<p>核验：2026-09-25；官方组织任务实现仓库；当前仓库版本未必等于原论文代码环境。</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R21 经典：§3–5；图1–3、表2及SPL定义。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="rt1-rt-1-robotics-transformer-for-real-world-control-at-scale">[rt1] RT-1: Robotics Transformer for Real-World Control at Scale</h2>
+<p>作者：Brohan, Anthony; Brown, Noah; Carbajal, Justice; Chebotar, Yevgen; Dabis, Joseph; Finn, Chelsea; Gopalakrishnan, Keerthana; Hausman, Karol; Herzog, Alex; Hsu, Jasmine; Ibarz, Julian; Ichter, Brian; Irpan, Alex; Jackson, Tomas; Jesmonth, Sally; Joshi, Nikhil J; Julian, Ryan; Kalashnikov, Dmitry; Kuang, Yuheng; Leal, Isabel; Lee, Kuang-Huei; Levine, Sergey; Lu, Yao; Malla, Utsav; Manjunath, Deeksha; Mordatch, Igor; Nachum, Ofir; Parada, Carolina; Peralta, Jodilyn; Perez, Emily; Pertsch, Karl; Quiambao, Jornell; Rao, Kanishka; Ryoo, Michael; Salazar, Grecia; Sanketi, Pannag; Sayed, Kevin; Singh, Jaspiar; Sontakke, Sumedh; Stone, Austin; Tan, Clayton; Tran, Huong; Vanhoucke, Vincent; Vega, Steve; Vuong, Quan; Xia, Fei; Xiao, Ted; Xu, Peng; Xu, Sichun; Yu, Tianhe; Zitkovich, Brianna</p>
+<p>发表：RSS 2023；首次公开：2022/12/13；版本：2212.06817</p>
+<p>原文：https://arxiv.org/abs/2212.06817</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R21 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="rt2-rt-2-vision-language-action-models-transfer-web-knowledge-to-robotic-control">[rt2] RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</h2>
+<p>作者：Brohan, Anthony; Brown, Noah; Carbajal, Justice; Chebotar, Yevgen; Chen, Xi; Choromanski, Krzysztof; Ding, Tianli; Driess, Danny; Dubey, Avinava; Finn, Chelsea; Florence, Pete; Fu, Chuyuan; Arenas, Montse Gonzalez; Gopalakrishnan, Keerthana; Han, Kehang; Hausman, Karol; Herzog, Alexander; Hsu, Jasmine; Ichter, Brian; Irpan, Alex; Joshi, Nikhil; Julian, Ryan; Kalashnikov, Dmitry; Kuang, Yuheng; Leal, Isabel; Lee, Lisa; Lee, Tsang-Wei Edward; Levine, Sergey; Lu, Yao; Michalewski, Henryk; Mordatch, Igor; Pertsch, Karl; Rao, Kanishka; Reymann, Krista; Ryoo, Michael; Salazar, Grecia; Sanketi, Pannag; Sermanet, Pierre; Singh, Jaspiar; Singh, Anikait; Soricut, Radu; Tran, Huong; Vanhoucke, Vincent; Vuong, Quan; Wahid, Ayzaan; Welker, Stefan; Wohlhart, Paul; Wu, Jialin; Xia, Fei; Xiao, Ted; Xu, Peng; Xu, Sichun; Yu, Tianhe; Zitkovich, Brianna</p>
+<p>发表：CoRL 2023；首次公开：2023/07/28；版本：2307.15818</p>
+<p>原文：https://arxiv.org/abs/2307.15818</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R21 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="openvla-openvla-an-open-source-vision-language-action-model">[openvla] OpenVLA: An Open-Source Vision-Language-Action Model</h2>
+<p>作者：Kim, Moo Jin; Pertsch, Karl; Karamcheti, Siddharth; Xiao, Ted; Balakrishna, Ashwin; Nair, Suraj; Rafailov, Rafael; Foster, Ethan; Lam, Grace; Sanketi, Pannag; Vuong, Quan; Kollar, Thomas; Burchfiel, Benjamin; Tedrake, Russ; Sadigh, Dorsa; Levine, Sergey; Liang, Percy; Finn, Chelsea</p>
+<p>发表：CoRL 2024；首次公开：2024/06/13；版本：2406.09246</p>
+<p>原文：https://arxiv.org/abs/2406.09246</p>
+<p>代码：https://github.com/openvla/openvla</p>
+<p>核验：2026-09-25；作者项目仓库，含模型与微调入口。</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R21 近年代表：§3、5、6；图2、5与表1–2。阅读问题：空间表示与任务交互有什么关系？</li>
+</ul>
+<h2 id="m03_pi0-0-a-vision-language-action-flow-model-for-general-robot-control">[m03_pi0] π0: A Vision-Language-Action Flow Model for General Robot Control</h2>
+<p>作者：Physical Intelligence; Kevin Black et al.</p>
+<p>发表：arXiv 预印本 2024；首次公开：2024；版本：2410.24164v1</p>
+<p>原文：https://arxiv.org/abs/2410.24164</p>
+<p>代码：https://github.com/Physical-Intelligence/openpi</p>
+<p>核验：2026-09-25；III–IV、附录 A-B；任务评价。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>
+<p>R21 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：空间表示与任务交互有什么关系？</p>
+</li>
+<li>
+<p>M03 组会专题：III–IV、附录 A-B；任务评价。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="red-the-little-engine-that-could-regularization-by-denoising-red">[red] The Little Engine that Could: Regularization by Denoising (RED)</h2>
+<p>作者：Romano, Yaniv; Elad, Michael; Milanfar, Peyman</p>
+<p>发表：SIAM Journal on Imaging Sciences 2017；首次公开：2016/11/09；版本：1611.02862</p>
+<p>原文：https://arxiv.org/abs/1611.02862</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L11, L13</p>
+<ul>
+<li>R22 经典：§3–4、§6；式25、27、28，图2–4。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="dps-diffusion-posterior-sampling-for-general-noisy-inverse-problems">[dps] Diffusion Posterior Sampling for General Noisy Inverse Problems</h2>
+<p>作者：Chung, Hyungjin; Kim, Jeongsol; Mccann, Michael T.; Klasky, Marc L.; Ye, Jong Chul</p>
+<p>发表：ICLR 2023；首次公开：2022/09/29；版本：2209.14687</p>
+<p>原文：https://arxiv.org/abs/2209.14687</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L03, L11, L13</p>
+<ul>
+<li>R22 近年代表：§3、算法1、图3及附录。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="event_survey-event-based-vision-a-survey">[event_survey] Event-based Vision: A Survey</h2>
+<p>作者：Gallego, Guillermo; Delbruck, Tobi; Orchard, Garrick; Bartolozzi, Chiara; Taba, Brian; Censi, Andrea; Leutenegger, Stefan; Davison, Andrew; Conradt, Joerg; Daniilidis, Kostas; Scaramuzza, Davide</p>
+<p>发表：IEEE TPAMI 2022；首次公开：2019/04/17；版本：1904.08405</p>
+<p>原文：https://arxiv.org/abs/1904.08405</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>R23 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="evtflow-ev-flownet-self-supervised-optical-flow-estimation-for-event-based-cameras">[evtflow] EV-FlowNet: Self-Supervised Optical Flow Estimation for Event-based Cameras</h2>
+<p>作者：Zhu, Alex Zihao; Yuan, Liangzhe; Chaney, Kenneth; Daniilidis, Kostas</p>
+<p>发表：RSS 2018；首次公开：2018/02/19；版本：1802.06898</p>
+<p>原文：https://arxiv.org/abs/1802.06898</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>R23 经典：§III；图3、式3–6及MVSEC实验。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="e2vid-high-speed-and-high-dynamic-range-video-with-an-event-camera">[e2vid] High Speed and High Dynamic Range Video with an Event Camera</h2>
+<p>作者：Rebecq, Henri; Ranftl, René; Koltun, Vladlen; Scaramuzza, Davide</p>
+<p>发表：IEEE TPAMI；以原站版本为准；首次公开：2019/06/15；版本：1906.07165</p>
+<p>原文：https://arxiv.org/abs/1906.07165</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L34</p>
+<ul>
+<li>R23 经典：§3–4；图3–4、式1–2及评估协议。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="eventnerf-eventnerf-neural-radiance-fields-from-a-single-colour-event-camera">[eventnerf] EventNeRF: Neural Radiance Fields from a Single Colour Event Camera</h2>
+<p>作者：Rudnev, Viktor; Elgharib, Mohamed; Theobalt, Christian; Golyanik, Vladislav</p>
+<p>发表：CVPR 2023；首次公开：2022/06/23；版本：2206.11896</p>
+<p>原文：https://arxiv.org/abs/2206.11896</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L07, L09, L11, L13, L34</p>
+<ul>
+<li>
+<p>R23 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+<li>
+<p>R24 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：传感器测量中缺少了什么信息？</p>
+</li>
+</ul>
+<h2 id="lightfield-light-field-photography-with-a-hand-held-plenoptic-camera">[lightfield] Light Field Photography with a Hand-Held Plenoptic Camera</h2>
+<p>作者：Ren Ng et al.</p>
+<p>发表：Stanford Technical Report 2005；首次公开：2005（Stanford Technical Report）；版本：Stanford 技术报告版</p>
+<p>原文：https://graphics.stanford.edu/papers/lfcamera/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L11, L13</p>
+<ul>
+<li>R24 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="flatcam-flatcam-thin-lensless-cameras-using-coded-aperture-and-computation">[flatcam] FlatCam: Thin, Lensless Cameras using Coded Aperture and Computation</h2>
+<p>作者：Asif, M. Salman; Ayremlou, Ali; Sankaranarayanan, Aswin; Veeraraghavan, Ashok; Baraniuk, Richard</p>
+<p>发表：IEEE TCI 2017；arXiv 2015；首次公开：2015/09/01；版本：1509.00116</p>
+<p>原文：https://arxiv.org/abs/1509.00116</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；arXiv HTML v2 正文可读，缓存 PDF 不完整；R24 方法与实验以 HTML 全文核对。</p>
+<p>先修：L09, L11, L13</p>
+<ul>
+<li>R24 经典：arXiv HTML v2 方法、标定与实验。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="nlos-confocal-non-line-of-sight-imaging-based-on-the-light-cone-transform">[nlos] Confocal non-line-of-sight imaging based on the light-cone transform</h2>
+<p>作者：Matthew O’Toole, David B. Lindell, Gordon Wetzstein</p>
+<p>发表：Nature 2018；首次公开：2018（Nature）；版本：Nature 2018；本次未取得正文</p>
+<p>原文：https://www.computationalimaging.org/publications/confocal-non-line-of-sight-imaging-based-on-the-light-cone-transform/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；Nature 原文全文访问受限；只核到作者项目页和同作者 SIGGRAPH Talks 两页摘要。R24 明确限制证据范围。</p>
+<p>先修：L09, L11, L13</p>
+<ul>
+<li>R24 经典：作者项目页、同作者SIGGRAPH 2018 Talks两页摘要。阅读问题：传感器测量中缺少了什么信息？</li>
+</ul>
+<h2 id="image_compression_survey-unveiling-the-future-of-human-and-machine-coding-a-survey-of-end-to-end-learned-image-compression">[image_compression_survey] Unveiling the Future of Human and Machine Coding: A Survey of End-to-End Learned Image Compression</h2>
+<p>作者：Chen-Hsiu Huang; Ja-Ling Wu</p>
+<p>发表：Entropy 26(5):357 (2024), doi:10.3390/e26050357；首次公开：2024-04-24（期刊网页）；版本：Entropy 26(5):357 出版版</p>
+<p>原文：https://pmc.ncbi.nlm.nih.gov/articles/PMC11120525/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；PMC 出版全文核对作者、日期、摘要与第 3、4 节。</p>
+<p>先修：L09, L13, L14, L15, L25, L26</p>
+<ul>
+<li>
+<p>R25 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+<li>
+<p>R28 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+</ul>
+<h2 id="balle-end-to-end-optimized-image-compression">[balle] End-to-end Optimized Image Compression</h2>
+<p>作者：Ballé, Johannes; Laparra, Valero; Simoncelli, Eero P.</p>
+<p>发表：ICLR 2017；首次公开：2016/11/05；版本：1611.01704</p>
+<p>原文：https://arxiv.org/abs/1611.01704</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L13, L15, L25, L26</p>
+<ul>
+<li>R25 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="hyper-variational-image-compression-with-a-scale-hyperprior">[hyper] Variational image compression with a scale hyperprior</h2>
+<p>作者：Ballé, Johannes; Minnen, David; Singh, Saurabh; Hwang, Sung Jin; Johnston, Nick</p>
+<p>发表：ICLR 2018；首次公开：2018/02/01；版本：1802.01436</p>
+<p>原文：https://arxiv.org/abs/1802.01436</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L13, L15, L20, L23, L25, L26, L34</p>
+<ul>
+<li>
+<p>R25 经典：§2–4；图2–4，式7、10、11。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+<li>
+<p>R26 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+</ul>
+<h2 id="minnen-joint-autoregressive-and-hierarchical-priors-for-learned-image-compression">[minnen] Joint Autoregressive and Hierarchical Priors for Learned Image Compression</h2>
+<p>作者：Minnen, David; Ballé, Johannes; Toderici, George</p>
+<p>发表：NeurIPS 2018；首次公开：2018/09/08；版本：1809.02736</p>
+<p>原文：https://arxiv.org/abs/1809.02736</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L13, L15, L25, L26</p>
+<ul>
+<li>R25 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="cheng-learned-image-compression-with-discretized-gaussian-mixture-likelihoods-and-attention-modules">[cheng] Learned Image Compression with Discretized Gaussian Mixture Likelihoods and Attention Modules</h2>
+<p>作者：Cheng, Zhengxue; Sun, Heming; Takeuchi, Masaru; Katto, Jiro</p>
+<p>发表：CVPR 2020；首次公开：2020/01/06；版本：2001.01568</p>
+<p>原文：https://arxiv.org/abs/2001.01568</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L13, L15, L25, L26</p>
+<ul>
+<li>R25 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="elic-elic-efficient-learned-image-compression-with-unevenly-grouped-space-channel-contextual-adaptive-coding">[elic] ELIC: Efficient Learned Image Compression with Unevenly Grouped Space-Channel Contextual Adaptive Coding</h2>
+<p>作者：He, Dailan; Yang, Ziming; Peng, Weikun; Ma, Rui; Qin, Hongwei; Wang, Yan</p>
+<p>发表：CVPR 2022；首次公开：2022/03/21；版本：2203.10886</p>
+<p>原文：https://arxiv.org/abs/2203.10886</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L13, L15, L25, L26</p>
+<ul>
+<li>R25 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="hpcm-learned-image-compression-with-hierarchical-progressive-context-modeling">[hpcm] Learned Image Compression with Hierarchical Progressive Context Modeling</h2>
+<p>作者：Li, Yuqi; Zhang, Haotian; Li, Li; Liu, Dong</p>
+<p>发表：ICCV 2025；首次公开：2025/07/25；版本：2507.19125</p>
+<p>原文：https://arxiv.org/abs/2507.19125</p>
+<p>代码：https://github.com/lyq133/LIC-HPCM</p>
+<p>核验：2026-09-25；ICCV 原论文与作者仓库均给出相同代码链接；仓库新增模型及权重不自动属于原论文配置。</p>
+<p>先修：L13, L15, L25, L26</p>
+<ul>
+<li>R25 近年代表：§3–4；图2–4、表1–3及补充计时。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="compressai-compressai-documentation-and-model-zoo">[compressai] CompressAI documentation and model zoo</h2>
+<p>作者：InterDigital</p>
+<p>发表：官方文档；首次公开：滚动更新文档，无法指定单一首发日期；版本：访问日文档；运行环境的包版本另见课程验证记录</p>
+<p>原文：https://interdigitalinc.github.io/CompressAI/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L13, L15, L25, L26</p>
+<ul>
+<li>R25 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="video_compression_survey-emerging-advances-in-learned-video-compression-models-systems-and-beyond">[video_compression_survey] Emerging Advances in Learned Video Compression: Models, Systems and Beyond</h2>
+<p>作者：Jia, Chuanmin; Ye, Feng; Ma, Siwei; Gao, Wen; Sun, Huifang; Chiariglione, Leonardo</p>
+<p>发表：arXiv 综述；首次公开：2025/04/30；版本：2504.21445</p>
+<p>原文：https://arxiv.org/abs/2504.21445</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L20, L23, L34</p>
+<ul>
+<li>R26 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="dvc-dvc-an-end-to-end-deep-video-compression-framework">[dvc] DVC: An End-to-end Deep Video Compression Framework</h2>
+<p>作者：Lu, Guo; Ouyang, Wanli; Xu, Dong; Zhang, Xiaoyun; Cai, Chunlei; Gao, Zhiyong</p>
+<p>发表：CVPR 2019；首次公开：2018/11/30；版本：1812.00101</p>
+<p>原文：https://arxiv.org/abs/1812.00101</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L20, L23, L34</p>
+<ul>
+<li>R26 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="dcvc-deep-contextual-video-compression">[dcvc] Deep Contextual Video Compression</h2>
+<p>作者：Li, Jiahao; Li, Bin; Lu, Yan</p>
+<p>发表：NeurIPS 2021；首次公开：2021/09/30；版本：2109.15047</p>
+<p>原文：https://arxiv.org/abs/2109.15047</p>
+<p>代码：https://github.com/microsoft/DCVC</p>
+<p>核验：2026-09-25；Microsoft 官方仓库含 DCVC 系列；运行应固定分支与检查点。</p>
+<p>先修：L20, L23, L34</p>
+<ul>
+<li>R26 经典：§3；图2、式1–3及实验。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="dcvcrt-towards-practical-real-time-neural-video-compression">[dcvcrt] Towards Practical Real-Time Neural Video Compression</h2>
+<p>作者：Jia, Zhaoyang; Li, Bin; Li, Jiahao; Xie, Wenxuan; Qi, Linfeng; Li, Houqiang; Lu, Yan</p>
+<p>发表：CVPR 2025；首次公开：2025/02/28；版本：2502.20762</p>
+<p>原文：https://arxiv.org/abs/2502.20762</p>
+<p>代码：https://github.com/microsoft/DCVC</p>
+<p>核验：2026-09-25；CVPR 2025 论文正文明确提供 microsoft/DCVC 代码入口。</p>
+<p>先修：L20, L23, L31, L32, L33, L34</p>
+<ul>
+<li>
+<p>R26 近年代表：§3–4；图3–5、表1及实验。阅读问题：概率模型收益如何变成实际码流？</p>
+</li>
+<li>
+<p>R30 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+</ul>
+<h2 id="pc_compression_survey-point-cloud-compression-and-objective-quality-assessment-a-survey">[pc_compression_survey] Point Cloud Compression and Objective Quality Assessment: A Survey</h2>
+<p>作者：Xu, Yiling; Zhang, Yujie; Xia, Shuting; Yang, Kaifa; Huang, He; Shan, Ziyu; Huang, Wenjie; Yang, Qi; Yang, Le</p>
+<p>发表：arXiv 综述；首次公开：2025/06/28；版本：2506.22902</p>
+<p>原文：https://arxiv.org/abs/2506.22902</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L14, L20, L34</p>
+<ul>
+<li>R27 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="hac-hac-hash-grid-assisted-context-for-3d-gaussian-splatting-compression">[hac] HAC: Hash-grid Assisted Context for 3D Gaussian Splatting Compression</h2>
+<p>作者：Chen, Yihang; Wu, Qianyi; Lin, Weiyao; Harandi, Mehrtash; Cai, Jianfei</p>
+<p>发表：ECCV 2024；首次公开：2024/03/21；版本：2403.14530</p>
+<p>原文：https://arxiv.org/abs/2403.14530</p>
+<p>代码：https://github.com/YihangChen-ee/HAC</p>
+<p>核验：2026-09-25；ECCV 作者仓库标明官方 PyTorch 实现。</p>
+<p>先修：L14, L20, L34</p>
+<ul>
+<li>R27 近年代表：§3；图2–3、§4表1、图4与6。阅读问题：概率模型收益如何变成实际码流？</li>
+</ul>
+<h2 id="perception-the-perception-distortion-tradeoff">[perception] The Perception-Distortion Tradeoff</h2>
+<p>作者：Blau, Yochai; Michaeli, Tomer</p>
+<p>发表：CVPR 2018；首次公开：2017/11/16；版本：1711.06077</p>
+<p>原文：https://arxiv.org/abs/1711.06077</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L14, L15</p>
+<ul>
+<li>R28 经典：率失真感知权衡定理及生成例子。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="hific-high-fidelity-generative-image-compression">[hific] High-Fidelity Generative Image Compression</h2>
+<p>作者：Mentzer, Fabian; Toderici, George; Tschannen, Michael; Agustsson, Eirikur</p>
+<p>发表：NeurIPS 2020；首次公开：2020/06/17；版本：2006.09965</p>
+<p>原文：https://arxiv.org/abs/2006.09965</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L09, L14, L15</p>
+<ul>
+<li>R28 经典：方法网络图、判别损失与率失真实验。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="split_survey-split-computing-and-early-exiting-for-deep-learning-applications-survey-and-research-challenges">[split_survey] Split Computing and Early Exiting for Deep Learning Applications: Survey and Research Challenges</h2>
+<p>作者：Matsubara, Yoshitomo; Levorato, Marco; Restuccia, Francesco</p>
+<p>发表：arXiv 综述；题名以抓取元数据为准；首次公开：2021/03/08；版本：2103.04505</p>
+<p>原文：https://arxiv.org/abs/2103.04505</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L14, L15, L18</p>
+<ul>
+<li>R29 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="vib-deep-variational-information-bottleneck">[vib] Deep Variational Information Bottleneck</h2>
+<p>作者：Alemi, Alexander A.; Fischer, Ian; Dillon, Joshua V.; Murphy, Kevin</p>
+<p>发表：ICLR 2017；首次公开：2016/12/01；版本：1612.00410</p>
+<p>原文：https://arxiv.org/abs/1612.00410</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L14, L15, L18</p>
+<ul>
+<li>R29 经典：理论推导、§4.1、图1–2、表1。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="vcm-video-coding-for-machines-a-paradigm-of-collaborative-compression-and-intelligent-analytics">[vcm] Video Coding for Machines: A Paradigm of Collaborative Compression and Intelligent Analytics</h2>
+<p>作者：Duan, Ling-Yu; Liu, Jiaying; Yang, Wenhan; Huang, Tiejun; Gao, Wen</p>
+<p>发表：IEEE TIP 2020；首次公开：2020/01/10；版本：2001.03569</p>
+<p>原文：https://arxiv.org/abs/2001.03569</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L14, L15, L18</p>
+<ul>
+<li>R29 经典：§IV、VI–VII；图1–8、表I–IV。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="siglip-sigmoid-loss-for-language-image-pre-training">[siglip] Sigmoid Loss for Language Image Pre-Training</h2>
+<p>作者：Zhai, Xiaohua; Mustafa, Basil; Kolesnikov, Alexander; Beyer, Lucas</p>
+<p>发表：ICCV 2023；首次公开：2023/03/27；版本：2303.15343</p>
+<p>原文：https://arxiv.org/abs/2303.15343</p>
+<p>代码：https://github.com/google-research/big_vision</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L14, L15, L18, L29</p>
+<ul>
+<li>
+<p>R29 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+<li>
+<p>R31 近年代表：§3.2；算法1；图1、2、3、6；§4.2–4.6。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+</ul>
+<h2 id="m03_remora-remora-multimodal-large-language-model-based-on-refined-motion-representation-for-long-video-understanding">[m03_remora] ReMoRa: Multimodal Large Language Model based on Refined Motion Representation for Long-Video Understanding</h2>
+<p>作者：Daichi Yashima; Shuhei Kurita; Yusuke Oda; Komei Sugiura</p>
+<p>发表：arXiv 预印本 2026；首次公开：2026；版本：2602.16412v1</p>
+<p>原文：https://arxiv.org/abs/2602.16412</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；§3–5；运动表示、方法与基准。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：L14, L15, L18</p>
+<ul>
+<li>
+<p>R29 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</p>
+</li>
+<li>
+<p>M03 组会专题：§3–5；运动表示、方法与基准。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="quant_survey-a-survey-of-quantization-methods-for-efficient-neural-network-inference">[quant_survey] A Survey of Quantization Methods for Efficient Neural Network Inference</h2>
+<p>作者：Gholami, Amir; Kim, Sehoon; Dong, Zhen; Yao, Zhewei; Mahoney, Michael W.; Keutzer, Kurt</p>
+<p>发表：综述；2021 arXiv 版本；首次公开：2021/03/25；版本：2103.13630</p>
+<p>原文：https://arxiv.org/abs/2103.13630</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L31, L32, L33</p>
+<ul>
+<li>R30 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="integer-quantization-and-training-of-neural-networks-for-efficient-integer-arithmetic-only-inference">[integer] Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference</h2>
+<p>作者：Jacob, Benoit; Kligys, Skirmantas; Chen, Bo; Zhu, Menglong; Tang, Matthew; Howard, Andrew; Adam, Hartwig; Kalenichenko, Dmitry</p>
+<p>发表：CVPR 2018；首次公开：2017/12/15；版本：1712.05877</p>
+<p>原文：https://arxiv.org/abs/1712.05877</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；arXiv 缓存 PDF 第 1–8 页，图 1.1、§2–4 与移动设备图表核对。</p>
+<p>先修：L31, L32, L33</p>
+<ul>
+<li>R30 经典：§2–4；图1.1、图4.1–4.2、表4.4。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="mobilenet-mobilenets-efficient-convolutional-neural-networks-for-mobile-vision-applications">[mobilenet] MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications</h2>
+<p>作者：Howard, Andrew G.; Zhu, Menglong; Chen, Bo; Kalenichenko, Dmitry; Wang, Weijun; Weyand, Tobias; Andreetto, Marco; Adam, Hartwig</p>
+<p>发表：arXiv 2017 预印本；首次公开：2017/04/17；版本：1704.04861</p>
+<p>原文：https://arxiv.org/abs/1704.04861</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L31, L32, L33</p>
+<ul>
+<li>R30 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="mobilenet2-mobilenetv2-inverted-residuals-and-linear-bottlenecks">[mobilenet2] MobileNetV2: Inverted Residuals and Linear Bottlenecks</h2>
+<p>作者：Sandler, Mark; Howard, Andrew; Zhu, Menglong; Zhmoginov, Andrey; Chen, Liang-Chieh</p>
+<p>发表：CVPR 2018；首次公开：2018/01/13；版本：1801.04381</p>
+<p>原文：https://arxiv.org/abs/1801.04381</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L31, L32, L33</p>
+<ul>
+<li>R30 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="adaround-up-or-down-adaptive-rounding-for-post-training-quantization">[adaround] Up or Down? Adaptive Rounding for Post-Training Quantization</h2>
+<p>作者：Nagel, Markus; Amjad, Rana Ali; van Baalen, Mart; Louizos, Christos; Blankevoort, Tijmen</p>
+<p>发表：ICML 2020；首次公开：2020/04/22；版本：2004.10568</p>
+<p>原文：https://arxiv.org/abs/2004.10568</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；ICML/PMLR 缓存论文 PDF 第 1–9 页，§2–5 和表 2、3、7 核对。</p>
+<p>先修：L31, L32, L33</p>
+<ul>
+<li>R30 经典：§2–3、§5；图1–2，表2、3、7。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="smoothquant-smoothquant-accurate-and-efficient-post-training-quantization-for-large-language-models">[smoothquant] SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models</h2>
+<p>作者：Xiao, Guangxuan; Lin, Ji; Seznec, Mickael; Wu, Hao; Demouth, Julien; Han, Song</p>
+<p>发表：ICML 2023；首次公开：2022/11/18；版本：2211.10438</p>
+<p>原文：https://arxiv.org/abs/2211.10438</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L31, L32, L33</p>
+<ul>
+<li>R30 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：计算、比特与任务质量怎样取舍？</li>
+</ul>
+<h2 id="vlm_intro-an-introduction-to-vision-language-modeling">[vlm_intro] An Introduction to Vision-Language Modeling</h2>
+<p>作者：Bordes, Florian; Pang, Richard Yuanzhe; Ajay, Anurag; Li, Alexander C.; Bardes, Adrien; Petryk, Suzanne; Mañas, Oscar; Lin, Zhiqiu; Mahmoud, Anas; Jayaraman, Bargav; Ibrahim, Mark; Hall, Melissa; Xiong, Yunyang; Lebensold, Jonathan; Ross, Candace; Jayakumar, Srihari; Guo, Chuan; Bouchacourt, Diane; Al-Tahan, Haider; Padthe, Karthik; Sharma, Vasu; Xu, Hu; Tan, Xiaoqing Ellen; Richards, Megan; Lavoie, Samuel; Astolfi, Pietro; Hemmat, Reyhane Askari; Chen, Jun; Tirumala, Kushal; Assouel, Rim; Moayeri, Mazda; Talattof, Arjang; Chaudhuri, Kamalika; Liu, Zechun; Chen, Xilun; Garrido, Quentin; Ullrich, Karen; Agrawal, Aishwarya; Saenko, Kate; Celikyilmaz, Asli; Chandra, Vikas</p>
+<p>发表：arXiv 2024 教程；首次公开：2024/05/27；版本：2405.17247</p>
+<p>原文：https://arxiv.org/abs/2405.17247</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L07, L14, L18, L29</p>
+<ul>
+<li>
+<p>R31 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+<li>
+<p>R32 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+<li>
+<p>R33 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+</ul>
+<h2 id="align-scaling-up-visual-and-vision-language-representation-learning-with-noisy-text-supervision">[align] Scaling Up Visual and Vision-Language Representation Learning With Noisy Text Supervision</h2>
+<p>作者：Jia, Chao; Yang, Yinfei; Xia, Ye; Chen, Yi-Ting; Parekh, Zarana; Pham, Hieu; Le, Quoc V.; Sung, Yunhsuan; Li, Zhen; Duerig, Tom</p>
+<p>发表：ICML 2021；首次公开：2021/02/11；版本：2102.05918</p>
+<p>原文：https://arxiv.org/abs/2102.05918</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L14, L29</p>
+<ul>
+<li>R31 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</li>
+</ul>
+<h2 id="flamingo-flamingo-a-visual-language-model-for-few-shot-learning">[flamingo] Flamingo: a Visual Language Model for Few-Shot Learning</h2>
+<p>作者：Alayrac, Jean-Baptiste; Donahue, Jeff; Luc, Pauline; Miech, Antoine; Barr, Iain; Hasson, Yana; Lenc, Karel; Mensch, Arthur; Millican, Katie; Reynolds, Malcolm; Ring, Roman; Rutherford, Eliza; Cabi, Serkan; Han, Tengda; Gong, Zhitao; Samangooei, Sina; Monteiro, Marianne; Menick, Jacob; Borgeaud, Sebastian; Brock, Andrew; Nematzadeh, Aida; Sharifzadeh, Sahand; Binkowski, Mikolaj; Barreira, Ricardo; Vinyals, Oriol; Zisserman, Andrew; Simonyan, Karen</p>
+<p>发表：NeurIPS 2022；首次公开：2022/04/29；版本：2204.14198</p>
+<p>原文：https://arxiv.org/abs/2204.14198</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L14, L18, L29</p>
+<ul>
+<li>
+<p>R31 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+<li>
+<p>R32 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+</ul>
+<h2 id="blip2-blip-2-bootstrapping-language-image-pre-training-with-frozen-image-encoders-and-large-language-models">[blip2] BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models</h2>
+<p>作者：Li, Junnan; Li, Dongxu; Savarese, Silvio; Hoi, Steven</p>
+<p>发表：ICML 2023；首次公开：2023/01/30；版本：2301.12597v3</p>
+<p>原文：https://arxiv.org/abs/2301.12597</p>
+<p>代码：https://github.com/salesforce/LAVIS</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R32 经典：§3；图2、3；§4.1；§5。阅读问题：语言在什么阶段影响视觉表示？</li>
+</ul>
+<h2 id="llava-visual-instruction-tuning">[llava] Visual Instruction Tuning</h2>
+<p>作者：Liu, Haotian; Li, Chunyuan; Wu, Qingyang; Lee, Yong Jae</p>
+<p>发表：NeurIPS 2023；首次公开：2023/04/17；版本：2304.08485v2</p>
+<p>原文：https://arxiv.org/abs/2304.08485</p>
+<p>代码：https://github.com/haotian-liu/LLaVA</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>R32 近年代表：§3；表1；§4；表2；实验及失败案例。阅读问题：语言在什么阶段影响视觉表示？</li>
+</ul>
+<h2 id="m03_flexmem-scaling-the-long-video-understanding-of-multimodal-large-language-models-via-visual-memory-mechanism">[m03_flexmem] Scaling the Long Video Understanding of Multimodal Large Language Models via Visual Memory Mechanism</h2>
+<p>作者：Tao Chen; Kun Zhang; Qiong Wu; Xiao Chen; Chao Chang; Xiaoshuai Sun; Yiyi Zhou; Rongrong Ji</p>
+<p>发表：arXiv 预印本 2026；首次公开：2026；版本：2603.29252v1</p>
+<p>原文：https://arxiv.org/abs/2603.29252</p>
+<p>代码：https://github.com/city1517/FlexMem</p>
+<p>核验：2026-09-25；§3.2–3.3、§4；记忆写入读取和流式协议。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：L05, L18, L29</p>
+<ul>
+<li>
+<p>R32 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：语言在什么阶段影响视觉表示？</p>
+</li>
+<li>
+<p>M03 组会专题：§3.2–3.3、§4；记忆写入读取和流式协议。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</p>
+</li>
+</ul>
+<h2 id="owlvit-simple-open-vocabulary-object-detection-with-vision-transformers">[owlvit] Simple Open-Vocabulary Object Detection with Vision Transformers</h2>
+<p>作者：Minderer, Matthias; Gritsenko, Alexey; Stone, Austin; Neumann, Maxim; Weissenborn, Dirk; Dosovitskiy, Alexey; Mahendran, Aravindh; Arnab, Anurag; Dehghani, Mostafa; Shen, Zhuoran; Wang, Xiao; Zhai, Xiaohua; Kipf, Thomas; Houlsby, Neil</p>
+<p>发表：ECCV 2022；首次公开：2022/05/12；版本：2205.06230</p>
+<p>原文：https://arxiv.org/abs/2205.06230</p>
+<p>代码：https://github.com/google-research/scenic/tree/main/scenic/projects/owl_vit</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L18, L29</p>
+<ul>
+<li>R33 经典：图1；§3.1–3.2；§4.1及评价。阅读问题：语言在什么阶段影响视觉表示？</li>
+</ul>
+<h2 id="groundingdino-grounding-dino-marrying-dino-with-grounded-pre-training-for-open-set-object-detection">[groundingdino] Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection</h2>
+<p>作者：Liu, Shilong; Zeng, Zhaoyang; Ren, Tianhe; Li, Feng; Zhang, Hao; Yang, Jie; Jiang, Qing; Li, Chunyuan; Yang, Jianwei; Su, Hang; Zhu, Jun; Zhang, Lei</p>
+<p>发表：ECCV 2024；首次公开：2023/03/09；版本：2303.05499v5</p>
+<p>原文：https://arxiv.org/abs/2303.05499</p>
+<p>代码：https://github.com/IDEA-Research/GroundingDINO</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L07, L18, L29</p>
+<ul>
+<li>R33 近年代表：§3；图3、4；LVIS表3；Limitations。阅读问题：语言在什么阶段影响视觉表示？</li>
+</ul>
+<h2 id="med_survey-a-survey-on-deep-learning-in-medical-image-analysis">[med_survey] A Survey on Deep Learning in Medical Image Analysis</h2>
+<p>作者：Litjens, Geert; Kooi, Thijs; Bejnordi, Babak Ehteshami; Setio, Arnaud Arindra Adiyoso; Ciompi, Francesco; Ghafoorian, Mohsen; van der Laak, Jeroen A. W. M.; van Ginneken, Bram; Sánchez, Clara I.</p>
+<p>发表：Medical Image Analysis 2017；首次公开：2017/02/19；版本：1702.05747</p>
+<p>原文：https://arxiv.org/abs/1702.05747</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L09, L18</p>
+<ul>
+<li>R34 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="nnunet-nnu-net-self-adapting-framework-for-u-net-based-medical-image-segmentation">[nnunet] nnU-Net: Self-adapting Framework for U-Net-Based Medical Image Segmentation</h2>
+<p>作者：Isensee, Fabian; Petersen, Jens; Klein, Andre; Zimmerer, David; Jaeger, Paul F.; Kohl, Simon; Wasserthal, Jakob; Koehler, Gregor; Norajitra, Tobias; Wirkert, Sebastian; Maier-Hein, Klaus H.</p>
+<p>发表：arXiv 初稿 2018；成熟框架发表于 Nature Methods 2021；首次公开：2018/09/27；版本：1809.10486</p>
+<p>原文：https://arxiv.org/abs/1809.10486</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L09, L18</p>
+<ul>
+<li>R34 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="medsam-segment-anything-in-medical-images">[medsam] Segment Anything in Medical Images</h2>
+<p>作者：Ma, Jun; He, Yuting; Li, Feifei; Han, Lin; You, Chenyu; Wang, Bo</p>
+<p>发表：Nature Communications 2024；首次公开：2023/04/24；版本：2304.12306v3</p>
+<p>原文：https://arxiv.org/abs/2304.12306</p>
+<p>代码：https://github.com/bowang-lab/MedSAM</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L09, L18</p>
+<ul>
+<li>R34 近年代表：Results；Discussion；Methods/Training protocol。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="remote_survey-deep-learning-in-remote-sensing-a-comprehensive-review-and-list-of-resources">[remote_survey] Deep Learning in Remote Sensing: A Comprehensive Review and List of Resources</h2>
+<p>作者：Xiao Xiang Zhu et al.</p>
+<p>发表：IEEE GRSM 2017；首次公开：2017（IEEE GRSM论文）；版本：IEEE GRSM 2017 出版版</p>
+<p>原文：https://elib.dlr.de/118694/</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L08, L18</p>
+<ul>
+<li>R35 综述／教材：目录／引言及与本章主题对应的分类部分；先了解术语，不要求通读。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="seco-seasonal-contrast-unsupervised-pre-training-from-uncurated-remote-sensing-data">[seco] Seasonal Contrast: Unsupervised Pre-Training from Uncurated Remote Sensing Data</h2>
+<p>作者：Mañas, Oscar; Lacoste, Alexandre; Giro-i-Nieto, Xavier; Vazquez, David; Rodriguez, Pau</p>
+<p>发表：ICCV 2021；首次公开：2021/03/30；版本：2103.16607v2</p>
+<p>原文：https://arxiv.org/abs/2103.16607</p>
+<p>代码：https://github.com/ServiceNow/seasonal-contrast</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L08, L18</p>
+<ul>
+<li>R35 经典：§3.1–3.2；图2；表1；图3。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="satmae-satmae-pre-training-transformers-for-temporal-and-multi-spectral-satellite-imagery">[satmae] SatMAE: Pre-training Transformers for Temporal and Multi-Spectral Satellite Imagery</h2>
+<p>作者：Cong, Yezhen; Khanna, Samar; Meng, Chenlin; Liu, Patrick; Rozi, Erik; He, Yutong; Burke, Marshall; Lobell, David B.; Ermon, Stefano</p>
+<p>发表：NeurIPS 2022；首次公开：2022/07/17；版本：2207.08051v3</p>
+<p>原文：https://arxiv.org/abs/2207.08051</p>
+<p>代码：https://github.com/sustainlab-group/SatMAE</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L08, L18</p>
+<ul>
+<li>R35 经典：§4.1–4.2；图2、3；§5.1–5.5；表1。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="rsfoundation_survey-foundation-models-for-remote-sensing-and-earth-observation-a-survey">[rsfoundation_survey] Foundation Models for Remote Sensing and Earth Observation: A Survey</h2>
+<p>作者：Xiao, Aoran; Xuan, Weihao; Wang, Junjue; Huang, Jiaxing; Tao, Dacheng; Lu, Shijian; Yokoya, Naoto</p>
+<p>发表：arXiv 综述；首次公开：2024/10/22；版本：2410.16602</p>
+<p>原文：https://arxiv.org/abs/2410.16602</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L02, L08, L18</p>
+<ul>
+<li>R35 近年代表：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="fgsm-explaining-and-harnessing-adversarial-examples">[fgsm] Explaining and Harnessing Adversarial Examples</h2>
+<p>作者：Goodfellow, Ian J.; Shlens, Jonathon; Szegedy, Christian</p>
+<p>发表：ICLR 2015；首次公开：2014/12/20；版本：1412.6572</p>
+<p>原文：https://arxiv.org/abs/1412.6572</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L08, L18</p>
+<ul>
+<li>R36 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="ood-a-baseline-for-detecting-misclassified-and-out-of-distribution-examples-in-neural-networks">[ood] A Baseline for Detecting Misclassified and Out-of-Distribution Examples in Neural Networks</h2>
+<p>作者：Hendrycks, Dan; Gimpel, Kevin</p>
+<p>发表：ICLR 2017；首次公开：2016/10/07；版本：1610.02136</p>
+<p>原文：https://arxiv.org/abs/1610.02136</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-23；书目页面已核对；全文核查范围见章末</p>
+<p>先修：L06, L08, L18</p>
+<ul>
+<li>R36 经典：摘要与引言：辨认研究问题和入选理由；方法、图表的进一步路线见对应章节。阅读问题：领域采集和划分怎样影响结论？</li>
+</ul>
+<h2 id="m03_pi05-05-a-vision-language-action-model-with-open-world-generalization">[m03_pi05] π0.5: a Vision-Language-Action Model with Open-World Generalization</h2>
+<p>作者：Physical Intelligence et al.</p>
+<p>发表：arXiv 预印本 2025；首次公开：2025；版本：2504.16054v1</p>
+<p>原文：https://arxiv.org/abs/2504.16054</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；仅核对书目与摘要，不据此解释完整训练机制。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：仅核对书目与摘要，不据此解释完整训练机制。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul>
+<h2 id="m03_pi07-07-a-steerable-generalist-robotic-foundation-model-with-emergent-capabilities">[m03_pi07] π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities</h2>
+<p>作者：Physical Intelligence; Bo Ai et al.</p>
+<p>发表：arXiv 预印本 2026；首次公开：2026；版本：2604.15483v1</p>
+<p>原文：https://arxiv.org/abs/2604.15483</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；IV–VI、IX、附录 A-C；多模态条件，不等同于仅增加世界模型。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：IV–VI、IX、附录 A-C；多模态条件，不等同于仅增加世界模型。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul>
+<h2 id="m03_wfs-wavelet-based-frame-selection-by-detecting-semantic-boundary-for-long-video-understanding">[m03_wfs] Wavelet-based Frame Selection by Detecting Semantic Boundary for Long Video Understanding</h2>
+<p>作者：Wang Chen; Yuhui Zeng; Yongdong Luo; Tianyu Xie; Luojun Lin; Jiayi Ji; Yan Zhang; Xiawu Zheng</p>
+<p>发表：arXiv 预印本 2026；首次公开：2026；版本：2603.00512v1</p>
+<p>原文：https://arxiv.org/abs/2603.00512</p>
+<p>代码：https://github.com/MAC-AutoML/WFS-SB</p>
+<p>核验：2026-09-25；Method 与预算实验；官方仓库确认 CVPR 2026。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：Method 与预算实验；官方仓库确认 CVPR 2026。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul>
+<h2 id="m03_rlframes-efficient-frame-selection-for-long-video-understanding-via-reinforcement-learning">[m03_rlframes] Efficient Frame Selection for Long Video Understanding via Reinforcement Learning</h2>
+<p>作者：Qin et al.（完整作者表待核验）</p>
+<p>发表：CVPR 2026，会议检索记录；首次公开：2026（首次预印本日期待核验）；版本：CVPR 2026</p>
+<p>原文：https://openaccess.thecvf.com/content/CVPR2026/html/Qin_Efficient_Frame_Selection_for_Long_Video_Understanding_via_Reinforcement_Learning_CVPR_2026_paper.html</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；会议检索可定位；网页403且PDF获取失败。仅保留线索，不以二手解读补造公式或实验。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：待获取全文后核对方法、奖励与实验。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul>
+<h2 id="m03_msjoe-msjoe-jointly-evolving-mllm-and-sampler-for-efficient-long-form-video-understanding">[m03_msjoe] MSJoE: Jointly Evolving MLLM and Sampler for Efficient Long-Form Video Understanding</h2>
+<p>作者：Wenhui Tan; Xiaoyi Yu; Jiaze Li; Yijing Chen; Jianzhong Ju; Zhenbo Luo; Ruihua Song; Jian Luan</p>
+<p>发表：arXiv 预印本 2026；首次公开：2026；版本：2602.22932v1</p>
+<p>原文：https://arxiv.org/abs/2602.22932</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；框架、Method 与消融；联合训练归因。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：框架、Method 与消融；联合训练归因。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul>
+<h2 id="m03_dalle-zero-shot-text-to-image-generation">[m03_dalle] Zero-Shot Text-to-Image Generation</h2>
+<p>作者：Aditya Ramesh; Mikhail Pavlov; Gabriel Goh; Scott Gray; Chelsea Voss; Alec Radford; Mark Chen; Ilya Sutskever</p>
+<p>发表：arXiv 预印本 2021；首次公开：2021；版本：2102.12092v1</p>
+<p>原文：https://arxiv.org/abs/2102.12092</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；§2与图1作为阅读定位；本轮核对书目摘要，不声称复现实验。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：§2与图1作为阅读定位；本轮核对书目摘要，不声称复现实验。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul>
+<h2 id="m03_tatsr-scene-text-image-super-resolution-via-content-perceptual-loss-and-criss-cross-transformer-blocks">[m03_tatsr] Scene Text Image Super-Resolution via Content Perceptual Loss and Criss-Cross Transformer Blocks</h2>
+<p>作者：Rui Qin; Bin Wang; Yu-Wing Tai</p>
+<p>发表：arXiv 预印本 2022；首次公开：2022；版本：2210.06924v1</p>
+<p>原文：https://arxiv.org/abs/2210.06924</p>
+<p>代码：未确认官方仓库</p>
+<p>核验：2026-09-25；PDF §III-B/C、§IV；内容损失与 TextZoom 评价。已访问原始资料；不作跨论文性能排名。</p>
+<p>先修：</p>
+<ul>
+<li>M03 组会专题：PDF §III-B/C、§IV；内容损失与 TextZoom 评价。阅读问题：这个方法作用在输入、表示、训练目标还是评价的哪一处？</li>
+</ul></main><script src="../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

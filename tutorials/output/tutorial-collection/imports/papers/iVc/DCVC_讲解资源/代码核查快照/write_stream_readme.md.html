@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Build</title><link rel="stylesheet" href="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_讲解资源/代码核查快照/write_stream_readme.md · <a href="write_stream_readme.md">原始 Markdown</a></p><p>Currently writing bitstream is very slow due to the auto-regressive model. If you want to write bitstream, you need to build the arithmetic coder first.</p>
+<h1 id="build">Build</h1>
+<ul>
+<li>
+<p>Build on Windows</p>
+<p>CMake and Visual Studio 2019 are needed.
+<code>bash
+cd src
+mkdir build
+cd build
+conda activate $YOUR_PY38_ENV_NAME
+cmake ../cpp -G "Visual Studio 16 2019" -A x64
+cmake --build . --config Release</code></p>
+</li>
+<li>
+<p>Build on Linux (recommended)</p>
+<p>CMake and g++ are needed.
+<code>bash
+sudo apt-get install cmake g++
+cd src
+mkdir build
+cd build
+conda activate $YOUR_PY38_ENV_NAME
+cmake ../cpp -DCMAKE_BUILD_TYPE=Release
+make -j</code></p>
+<h1 id="test">Test</h1>
+<p>Please append this into your test command:</p>
+</li>
+</ul>
+<pre><code>--write_stream True
+</code></pre></main><script src="../../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

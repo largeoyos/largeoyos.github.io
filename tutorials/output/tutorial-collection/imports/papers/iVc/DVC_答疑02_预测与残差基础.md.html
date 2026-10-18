@@ -1,0 +1,89 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DVC｜视频基础、预测与残差</title><link rel="stylesheet" href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DVC_答疑02_预测与残差基础.md · <a href="DVC_%E7%AD%94%E7%96%9102_%E9%A2%84%E6%B5%8B%E4%B8%8E%E6%AE%8B%E5%B7%AE%E5%9F%BA%E7%A1%80.md">原始 Markdown</a></p><h1 id="dvc">DVC｜视频基础、预测与残差</h1>
+<blockquote>
+<p>用户问题：先教我基础知识</p>
+<p>来源：本聊天 <code>01a13ae4-6cb2-7f23-b09c-942490bf8387</code>，公开回复记录第 145 行，2026-10-14 23:54:29 +08:00。</p>
+<p>可核实定位：讲解辅助交互演示；原自查问题。</p>
+</blockquote>
+<!-- source-body:R03:begin -->
+<p>我们先学最基础的一层：<strong>视频为什么能压缩，以及“预测”和“残差”是什么。</strong></p>
+<p>一张数字图像，可以理解为一张像素表。以常见的 8 位灰度图为例，每个像素用一个 0～255 的数字表示亮度：0 是黑，255 是白。彩色图像还需要表示颜色。</p>
+<p>视频则是一系列按时间播放的图像，每张图像叫一帧。30 fps 表示每秒播放 30 帧。每一帧都包含大量像素，直接保存所有像素会需要很多数据。</p>
+<p>视频压缩能省空间，是因为画面中存在大量<strong>重复或可以预测的信息</strong>，也叫“冗余”：</p>
+<ul>
+<li><strong>空间冗余：</strong> 同一帧里的相邻像素往往很相似，例如一大片天空。</li>
+<li><strong>时间冗余：</strong> 相邻帧往往很相似，例如背景没变，只有一个人向右移动。</li>
+</ul>
+<p>先看时间冗余。假设上一帧里有一个亮块，当前帧里它向右移动了一点。我们可以根据上一帧，生成一张对当前帧的猜测，这张猜测叫<strong>预测帧</strong>。</p>
+<p>接着计算：</p>
+<p><span class="math display" data-tex="
+\text{残差}=\text{当前帧}-\text{预测帧}
+">
+\text{残差}=\text{当前帧}-\text{预测帧}
+</span></p>
+<p>“残差”就是预测错了多少。接收端只要拥有相同的预测帧，就可以恢复当前帧：</p>
+<p><span class="math display" data-tex="
+\text{当前帧}=\text{预测帧}+\text{残差}
+">
+\text{当前帧}=\text{预测帧}+\text{残差}
+</span></p>
+<p>下面用一行像素演示。你可以切换预测方式，观察残差如何变化。</p>
+<p><a href="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/interactive/video-prediction-basics.html">交互演示：预测方式与残差</a></p>
+<p><a href="#prediction-static">演示在打印中的全部三种状态</a></p>
+<p><strong>预测越准确，残差通常越容易压缩。</strong> “沿用上一帧”已经能利用重复信息；根据运动调整上一帧，往往能得到更准确的预测。不过，运动参数也需要传输，因此还要考虑它消耗多少比特。演示中的非零数量用于帮助理解，不能直接当成真实码率。</p>
+<p>这里就引出了两个容易混淆的概念：</p>
+<ul>
+<li><strong>运动估计：</strong> 找出画面中的内容移动了多少，例如“向右移动一格”。</li>
+<li><strong>运动补偿：</strong> 根据这个移动量调整参考帧，生成预测帧。</li>
+</ul>
+<p>到这里，预测和残差相加可以精确恢复原图。常见的有损压缩还会加入<strong>量化</strong>：把一些数值近似表示。例如，把 101 和 103 都近似为 100，表示会更简单，但细微差别丢失了。这就是重建图像与原图出现误差的一个主要原因。</p>
+<p>H.264 的基本流程可以先这样记：</p>
+<p><strong>生成预测 → 计算残差 → 变换 → 量化 → 熵编码</strong></p>
+<p>其中，变换把残差换成更适合压缩的表示；熵编码把这些符号编码成比特。接收端再通过相应的解码过程重建图像。<a href="https://www.itu.int/rec/dologin_pub.asp?id=T-REC-H.264-202108-S%21%21PDF-E&amp;lang=f&amp;type=items">H.264 标准中的基本编码说明</a></p>
+<p>实际编码时，预测使用的是<strong>已经重建的参考帧</strong>。因为接收端也只有重建结果，两端必须从相同的信息出发，才能生成相同的预测。</p>
+<p>先检查一个小例子：某个像素的预测值是 100，真实值是 108，那么残差是多少？如果压缩后解码出的残差变成了 6，最终重建值又是多少？</p>
+<!-- export-addition:R03-demo:begin -->
+<div class="demo-embed">
+<iframe loading="lazy" src="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/interactive/video-prediction-basics.html" title="预测方式与残差：三种预测方式"></iframe>
+</div>
+<p><a id="prediction-static"></a>
+<strong>讲解辅助演示的打印内容（全部交互状态）</strong></p>
+<p>上一帧：<code>[20, 20, 100, 100, 20, 20, 20, 20]</code>；当前帧：<code>[20, 20, 20, 100, 100, 20, 20, 20]</code>。</p>
+<table>
+<thead>
+<tr>
+<th>预测方式</th>
+<th>预测像素</th>
+<th>残差（当前减预测）</th>
+<th style="text-align: right;">非零数量</th>
+<th>运动说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>沿用上一帧</td>
+<td>20, 20, 100, 100, 20, 20, 20, 20</td>
+<td>0, 0, -80, 0, 80, 0, 0, 0</td>
+<td style="text-align: right;">2/8</td>
+<td>0 格</td>
+</tr>
+<tr>
+<td>上一帧向右移 1 格</td>
+<td>20, 20, 20, 100, 100, 20, 20, 20</td>
+<td>0, 0, 0, 0, 0, 0, 0, 0</td>
+<td style="text-align: right;">0/8</td>
+<td>向右 1 格</td>
+</tr>
+<tr>
+<td>不预测</td>
+<td>0, 0, 0, 0, 0, 0, 0, 0</td>
+<td>20, 20, 20, 100, 100, 20, 20, 20</td>
+<td style="text-align: right;">8/8</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<p>这是已讲过的自构造示例，不是论文图表。非零数量不能替代实际码率。</p>
+<!-- export-addition:R03-demo:end -->
+<!-- source-body:R03:end --></main><script src="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

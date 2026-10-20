@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="模拟电子技术基础第六版第三章复习提要与习题3.1—3.3详解：共集共射级联、二极管微变模型、PNP增益、源电压增益，配SVG电路图。">
+<meta name="description" content="模拟电子技术基础第六版第三章复习提要与习题3.1—3.19详解：多级放大、差分电路、电流源、互补输出、运放读图，配SVG电路图。">
 <title>模拟电子技术基础 · 第三章学习讲义</title>
 <style>
 :root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
@@ -17,18 +17,20 @@
 .reading-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:18px}
 .reading-links a{font-size:14px}
 .new-circuit{max-width:288px}
+.chapter-circuit{width:100%;max-width:360px;margin:32px auto;color:var(--foreground)}
+.chapter-circuit svg{display:block;width:100%;height:auto}
 .eq{max-width:100%}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style></head><body>
 <div class="layout"><aside><div class="brand">模拟电子技术基础<br>第三章 · 集成运算放大电路</div>
 <div class="reading-links"><a class="collection-link" href="../../index.html#analog">教程合集</a><a href="模拟电子技术基础_前两章学习讲义.html">前两章</a></div>
-<details id="course-contents" open><summary>本页目录 · 更新至习题 3.3</summary><nav aria-label="第三章目录"><a href="#map">第三章到底在解决什么问题</a><a href="#review-cascade">3.1—3.2 复习：后一级既是放大器，也是前一级的负载</a><a href="#review-diff">3.3.1—3.3.2 复习：差分电路只把“差别”当作有用输入</a><a href="#review-units">3.3.3—3.4 复习：电流源、输出级和整张运放图</a><a href="#review-metrics">3.5—3.7 复习：性能指标要对上具体错误</a><a href="#procedure">开始做题：每次都执行同一套顺序</a><a href="#p31">习题 3.1 回看：接法由输入、输出和公共端决定</a><a href="#p32a">习题 3.2(a) 回看：共射后接共集</a><a href="#p32b">习题 3.2(b)：把共集放到前面，会改变什么</a><a href="#p32c">习题 3.2(c)：PNP、二极管和正负号一起出现</a><a href="#p32d">习题 3.2(d)：场效应管共源后接三极管共射</a><a href="#p33">习题 3.3：增益不到 1 的级，为什么能提高整体效果</a><a href="#check">合上答案，检查这次是否真的学会</a></nav></details></aside>
+<details id="course-contents" open><summary>本页目录 · 习题 3.1—3.19</summary><nav aria-label="第三章目录"><a href="#map">第三章到底在解决什么问题</a><a href="#review-cascade">3.1—3.2 复习：后一级既是放大器，也是前一级的负载</a><a href="#review-diff">3.3.1—3.3.2 复习：差分电路只把“差别”当作有用输入</a><a href="#review-units">3.3.3—3.4 复习：电流源、输出级和整张运放图</a><a href="#review-metrics">3.5—3.7 复习：性能指标要对上具体错误</a><a href="#procedure">开始做题：每次都执行同一套顺序</a><a href="#p31">习题 3.1 回看：接法由输入、输出和公共端决定</a><a href="#p32a">习题 3.2(a) 回看：共射后接共集</a><a href="#p32b">习题 3.2(b)：把共集放到前面，会改变什么</a><a href="#p32c">习题 3.2(c)：PNP、二极管和正负号一起出现</a><a href="#p32d">习题 3.2(d)：场效应管共源后接三极管共射</a><a href="#p33">习题 3.3：增益不到 1 的级，为什么能提高整体效果</a><a href="#check">3.1—3.3 阶段自测：合上答案检查</a><a href="#p34">3.4 共源接共集：先算后级，再决定能不能近似</a><a href="#p35">3.5 差分电路：100 Ω 的调零电位器不能直接删掉</a><a href="#p36">3.6 两个输入都是正电压，也可以有差模信号</a><a href="#p37">3.7 场效应管差分对：差模分解的方法没有变</a><a href="#p38">3.8 五只三极管不等于五级：先找信号路线</a><a href="#p39">3.9 最大摆幅与故障：元件坏了，要重新判断工作状态</a><a href="#p310">3.10—3.11 选运放：把要求对到最关键的指标</a><a href="#p312">3.12 多路电流源：T3 帮忙供应基极电流</a><a href="#p313">3.13 有源负载：两只管的动态电阻要并联</a><a href="#p314">3.14 镜像负载如何把两侧信号合到一个输出</a><a href="#p315">3.15 共射—共基：既保护超 β 输入管，又改善频率特性</a><a href="#p316">3.16 用电流相减作为输入：这次放大倍数有单位</a><a href="#p317">3.17 交越失真与过流保护：两套元件解决两件事</a><a href="#p318">3.18 高精度运放读图：沿一条输入变化追到底</a><a href="#p319">3.19 真实运放内部图：先认结构，再认辅助支路</a><a href="#ch3-finish">第三章收束：把每种题型归到一套动作</a></nav></details></aside>
 <main><header class="book-cover" id="start">
   <p class="eyebrow">模拟电子技术基础 · 第六版 · 第三章</p>
   <h1>集成运算放大电路<br>从看懂电路，到会做题</h1>
-  <p class="lead">先把已经学过的第三章接成一条线，再把习题 3.1—3.3 的读图、负载、增益和电阻一步步算清楚。</p>
-  <p class="scope">更新至 2026 年 10 月 20 日。正文部分为复习提要，习题部分为详细讲解；本轮新课从 <a href="#p32b">3.2(b)</a> 开始。三极管为主线，场效应管题标为选学。后续习题尚未讲完。</p>
-  <a class="continue" href="#p32b">接着上次，从 3.2(b) 读起 →</a>
+  <p class="lead">先把已经学过的第三章接成一条线，再把习题 3.1—3.19 的读图、负载、增益、电阻和单元电路一步步算清楚。</p>
+  <p class="scope">更新至 2026 年 10 月 20 日。正文部分为复习提要，习题部分为详细讲解；后续新课从 <a href="#p34">3.4</a> 开始，三极管主线可接 <a href="#p35">3.5</a>。三极管为主线，场效应管题标为选学。纸面章末习题 3.1—3.19 已逐题讲解。</p>
+  <a class="continue" href="#p35">继续三极管主线：从 3.5 读起 →</a>
 </header>
 <section id="map">
   <p class="eyebrow">先把知识接起来</p>
@@ -534,7 +536,7 @@
   <p class="level"><strong>必须掌握：</strong>R<sub>i</sub> 大能减少源端分压，R<sub>o</sub> 小能减少负载端分压；A<sub>u</sub> 与 A<sub>us</sub> 的分母不同。不要把“电压增益约 1”误解成“没有用”。</p>
 </section>
 <section id="check">
-  <h2>合上答案，检查这次是否真的学会</h2>
+  <h2>3.1—3.3 阶段自测：合上答案检查</h2>
   <p>先口头回答，再展开核对。这里的六问比重新背一遍长公式更能发现漏洞。</p>
   <details><summary>1. 3.2(b) 中，为什么 R3 不能删掉？</summary><p>它从第二管基极接到电源，交流时电源接地，所以 R3 从两级之间的 X 点接地。它既参与第二级偏置，也会加载第一管发射极。</p></details>
   <details><summary>2. (a) 与 (b) 都有 R1，为什么一个串联，一个并联？</summary><p>(a) 的输入电流到基极前必须经过 R1，所以与 rbe1 串联；(b) 的输入节点分出 R1 到交流地的支路，所以 R1 与晶体管输入支路并联。串并联由节点连接决定。</p></details>
@@ -542,13 +544,306 @@
   <details><summary>4. 3.2(c) 的第二级是 PNP，为什么增益仍为负？</summary><p>基极电位升高，使发射结正向电压减小、集电极电流减小，R3 上电压随之下降。因此它仍然是反相的共射级。</p></details>
   <details><summary>5. 二极管动态电阻只有 26 Ω，忽略它之前要和谁比较？</summary><p>先乘 β2+1，再与 rbe2 比较。折算后的发射极阻抗可能已经与基极输入电阻同量级。</p></details>
   <details><summary>6. 题目把 Au 换成 Aus，为什么排序可能改变？</summary><p>Aus 从信号源电压开始计，包含 Rs 与 Ri 的输入分压；Au 从放大器输入端电压开始计。两个量覆盖的电路范围不同。</p></details>
-  <p class="route">这次学到：习题 3.2(b)、(c)、(d) 的分析及 3.3 的整体性能比较。下一步：3.4 是场效应管相关计算，可按老师进度选学；三极管主线从 3.5 的差分静态工作点、增益和输入电阻继续。</p>
+  <p class="route">这次学到：习题 3.2(b)、(c)、(d) 的分析及 3.3 的整体性能比较。下文继续 3.4—3.19；三极管主线从 3.5 的差分静态工作点、增益和输入电阻继续。</p>
   <p>如果六问能用自己的话回答，再看电路时就应当知道哪些箭头需要保留：用来确定节点电流相加还是相减、用来写电压与电流的符号。图上不是每条线都需要编一段物理故事，但每个节点关系都得有依据。</p>
 </section>
+<section id="p34">
+  <p class="eyebrow">第三章续讲 · 习题 3.4—3.19</p>
+  <h2>3.4 共源接共集：先算后级，再决定能不能近似</h2>
+  <p>这道场效应管题可以选学，但把解题步骤保留下来。原图是 3.1(e)：第一管共源，第二管共集。已知 g<sub>m</sub>=15 mS、β=200、r<sub>be</sub>=3 kΩ，图中 R<sub>1</sub>=10 MΩ、R<sub>2</sub>=2 kΩ，末级发射极 R<sub>4</sub>=5 kΩ。源极的 R<sub>3</sub> 被电容充分旁路。</p>
+  <p>先求共集输入电阻，才能知道它加载前级有多严重。下面各式用 kΩ 和 mS 配合，乘积自然无量纲：</p>
+  <div class="eq">R<sub>i2</sub> = 3 + 201×5 = 1008 kΩ<br>A<sub>u1</sub> = −15×(2∥1008) ≈ −29.941<br>A<sub>u2</sub> = 1005/1008 ≈ 0.9970<br>A<sub>u</sub> ≈ −29.85 ≈ −30</div>
+  <p>这里可以把 R<sub>2</sub>∥R<sub>i2</sub> 近似成 R<sub>2</sub>，因为后级输入电阻大约是它的 500 倍。先看数值关系，再做近似，才能知道答案为什么可靠。</p>
+  <div class="eq">R<sub>i</sub> = R<sub>1</sub> = 10 MΩ<br>R<sub>o</sub> = 5 kΩ ∥ [(3+2) kΩ/201] ≈ 24.75 Ω ≈ 25 Ω</div>
+  <p>求 R<sub>o</sub> 时，输入信号置零使第一管的 g<sub>m</sub>u<sub>gs</sub> 为零；忽略其输出电阻后，第二管基极看到的前级电阻就是 R<sub>2</sub>。最终结果把这两级的任务说得很清楚：输入端几乎不加载信号源，中间获得约 30 倍电压增益，输出端又能提供较低的输出电阻。</p>
+  <p class="level"><strong>掌握标准：</strong>会解释为什么约等于 −30、为什么输出约 25 Ω。题目已经给 g<sub>m</sub>，本题不要求倒推场效应管内部参数或重新求静态工作点。</p>
+</section>
+<section id="p35">
+  <h2>3.5 差分电路：100 Ω 的调零电位器不能直接删掉</h2>
+  <p>已知两管对称，β=100，r<sub>bb′</sub>=100 Ω，U<sub>BEQ</sub>≈0.7 V；两侧 R<sub>C</sub>=10 kΩ，公共尾电阻 R<sub>e</sub>=5.1 kΩ，负电源为 −6 V。电位器总阻值 R<sub>w</sub>=100 Ω，滑动端位于中点。</p>
+  <p>这一题必须分开做：<strong>先求静态电流，再求 r<sub>be</sub>，最后画差模微变电路。</strong>千万别把 r<sub>bb′</sub>=100 Ω 当成整只管的 r<sub>be</sub>。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 490" role="img" aria-labelledby="p35-full-title">
+<title id="p35-full-title">3.5原电路重绘，电位器在中点时分为两个50欧支路，公共尾电阻流两管发射极电流之和。</title>
+<defs><marker id="p35-full-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">+VCC = +12 V</text><path class="wire" d="M160 35V55H90M160 55H230"/><path class="wire" d="M90 55V84.5M83 84.5H97V120.5H83ZM90 120.5V150"/><text x="76" y="107.5" text-anchor="end" font-size="15">10 kΩ</text><path class="wire" d="M230 55V84.5M223 84.5H237V120.5H223ZM230 120.5V150"/><text x="244" y="107.5" text-anchor="start" font-size="15">10 kΩ</text><path class="wire" d="M60 190V230M40 210H60M60 200L90 175V165M60 220L90 245V255"/><path class="wire" d="M70 228L85 241" marker-end="url(#p35-full-arrow)"/><path class="wire" d="M260 190V230M280 210H260M260 200L230 175V165M260 220L230 245V255"/><path class="wire" d="M250 228L235 241" marker-end="url(#p35-full-arrow)"/><text x="45" y="184" text-anchor="start" font-size="15">T1</text><text x="260" y="184" text-anchor="start" font-size="15">T2</text><path class="wire" d="M90 150V165M230 150V165M90 150H130M230 150H190"/><circle cx="90" cy="150" r="3.2" fill="currentColor"/><circle cx="230" cy="150" r="3.2" fill="currentColor"/><circle cx="130" cy="150" r="3.2" class="port"/><circle cx="190" cy="150" r="3.2" class="port"/><text x="160" y="135" text-anchor="middle" font-size="15">＋ uo −</text><path class="wire" d="M15 210L40 210"/><circle cx="15" cy="210" r="3.2" class="port"/><text x="15" y="194" text-anchor="start" font-size="15">ui</text><path class="wire" d="M280 210H303V260"/><path class="wire" d="M303 260V270M291 270H315M295 276H311M300 282H306"/><text x="281" y="194" text-anchor="start" font-size="15">0</text><path class="wire" d="M90 255V300M230 255V300"/><path class="wire" d="M90 300H107.0M107.0 293H143.0V307H107.0ZM143.0 300H160"/><text x="125.0" y="285" text-anchor="middle" font-size="15">50 Ω</text><path class="wire" d="M160 300H177.0M177.0 293H213.0V307H177.0ZM213.0 300H230"/><text x="195.0" y="285" text-anchor="middle" font-size="15">50 Ω</text><circle cx="160" cy="300" r="3.2" fill="currentColor"/><path class="wire" d="M160 300V352.0M153 352.0H167V388.0H153ZM160 388.0V440"/><text x="174" y="375.0" text-anchor="start" font-size="15">Re = 5.1 kΩ</text><circle cx="160" cy="440" r="3.2" class="port"/><text x="160" y="468" text-anchor="middle" font-size="15">−VEE = −6 V</text><path class="wire" d="M70 260L70 285" marker-end="url(#p35-full-arrow)"/><text x="31" y="278" text-anchor="start" font-size="13">IEQ</text><path class="wire" d="M250 260L250 285" marker-end="url(#p35-full-arrow)"/><text x="263" y="278" text-anchor="start" font-size="13">IEQ</text><path class="wire" d="M140 330L140 355" marker-end="url(#p35-full-arrow)"/><text x="126" y="347" text-anchor="end" font-size="13">2IEQ</text></svg></figure>
+  <h3>静态：每边经过 50 Ω，公共电阻经过两倍电流</h3>
+  <p>两只管基极的静态电位都为零，所以发射极电位约为 −0.7 V。对称意味着两边的发射极静态电流相等，均记 I<sub>EQ</sub>。每半边电位器只有本侧电流 I<sub>EQ</sub>，而公共 R<sub>e</sub> 承担两边之和 2I<sub>EQ</sub>。</p>
+  <div class="eq">0.7 + I<sub>EQ</sub>(R<sub>w</sub>/2) + 2I<sub>EQ</sub>R<sub>e</sub> = 6<br>I<sub>EQ</sub> = (6−0.7)/(0.05+2×5.1) mA ≈ 0.517 mA</div>
+  <p>这又是箭头的用途：让你知道哪个电阻流一份电流，哪个电阻流两份电流。把 R<sub>e</sub> 前的 2 漏掉，后面的 r<sub>be</sub>、增益都会一起错。</p>
+  <div class="eq">r<sub>be</sub> = r<sub>bb′</sub> + (β+1)U<sub>T</sub>/I<sub>EQ</sub><br>≈ 100 Ω + 101×26 mV/0.517 mA ≈ 5.18 kΩ</div>
+  <h3>差模：公共尾电阻不流增量电流，两个 50 Ω 仍然保留</h3>
+  <p>纯差模作用下，两侧电流变化一增一减，公共尾电流的变化抵消；电位器中点是交流虚地。但是每一侧自己的 50 Ω 仍有本侧增量电流经过，不能跟着公共尾电阻一起消失。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380" role="img" aria-labelledby="p35-half-title">
+<title id="p35-half-title">3.5差模左半电路，输入为uid除以2，发射极50欧不能省略，集电极10千欧接交流地。</title>
+<defs><marker id="p35-half-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<path class="wire" d="M140 150V190M120 170H140M140 160L170 135V125M140 180L170 205V215"/><path class="wire" d="M150 188L165 201" marker-end="url(#p35-half-arrow)"/><text x="183" y="175" text-anchor="start" font-size="15">T1</text><path class="wire" d="M20 170L120 170"/><circle cx="20" cy="170" r="3.2" class="port"/><text x="20" y="196" text-anchor="start" font-size="15">＋uid/2</text><path class="wire" d="M170 45V67.0M163 67.0H177V103.0H163ZM170 103.0V125"/><text x="184" y="90.0" text-anchor="start" font-size="15">RC = 10 kΩ</text><path class="wire" d="M170 45V35M158 35H182M162 29H178M167 23H173"/><path class="wire" d="M170 112L280 112"/><circle cx="170" cy="112" r="3.2" fill="currentColor"/><circle cx="280" cy="112" r="3.2" class="port"/><text x="250" y="139" text-anchor="start" font-size="15">uc1</text><path class="wire" d="M170 215V247.0M163 247.0H177V283.0H163ZM170 283.0V315"/><text x="184" y="270.0" text-anchor="start" font-size="15">Rw/2 = 50 Ω</text><path class="wire" d="M170 315V325M158 325H182M162 331H178M167 337H173"/><path class="wire" d="M72 149L108 149" marker-end="url(#p35-half-arrow)"/><text x="76" y="133" text-anchor="start" font-size="13">ib1</text><text x="160" y="366" text-anchor="middle" font-size="14">两个接地符号均表示交流参考点</text></svg></figure>
+  <p>令 u<sub>id</sub>=u<sub>b1</sub>−u<sub>b2</sub>，差模分量分别为 +u<sub>id</sub>/2 和 −u<sub>id</sub>/2。左半电路中：</p>
+  <div class="eq">u<sub>id</sub>/2 = i<sub>b1</sub>[r<sub>be</sub>+(β+1)R<sub>w</sub>/2]<br>u<sub>c1</sub> = −βi<sub>b1</sub>R<sub>C</sub>；u<sub>c2</sub> = −u<sub>c1</sub><br>u<sub>o</sub> = u<sub>c1</sub>−u<sub>c2</sub> = 2u<sub>c1</sub></div>
+  <p>输入的“除以 2”和双端输出的“乘以 2”抵消了，所以：</p>
+  <div class="eq">A<sub>d</sub> = −βR<sub>C</sub>/[r<sub>be</sub>+(β+1)R<sub>w</sub>/2]<br>≈ −100×10/(5.18+101×0.05) ≈ −98<br>R<sub>i</sub> = 2r<sub>be</sub>+(β+1)R<sub>w</sub> ≈ 20.5 kΩ</div>
+  <p>原图只给左端信号、右端接参考端，也可以分解成差模与共模。由于电路理想对称且采用双端输出，共模输出被相减抵消，以上差模结果仍决定输出。</p>
+  <details><summary>为什么 Rw 只有 100 Ω，却让增益变化明显？</summary><p>每侧 50 Ω 折算到基极，要乘 101，变成约 5.05 kΩ，与 rbe≈5.18 kΩ 同量级。它不是一个能随手忽略的小修饰。</p></details>
+  <p class="level"><strong>必会：</strong>公共电流的 2、差模半电路的 1/2、双端输出的 2、r<sub>bb′</sub> 与 r<sub>be</sub> 的区别。会这道题，才算把“差模虚地”落实到计算。</p>
+</section>
+<section id="p36">
+  <h2>3.6 两个输入都是正电压，也可以有差模信号</h2>
+  <p>本题给 u<sub>i1</sub>=20 mV、u<sub>i2</sub>=10 mV，β=140，r<sub>be</sub>=4 kΩ，左侧集电极电阻 10 kΩ，从左侧单端输出，尾部是理想电流源。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="p36-full-title">
+<title id="p36-full-title">3.6理想尾电流源差分对，左侧集电极10千欧并单端输出，右侧集电极直接接电源。</title>
+<defs><marker id="p36-full-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">+VCC</text><path class="wire" d="M160 35V55H90M160 55H230V165"/><path class="wire" d="M90 55V84.5M83 84.5H97V120.5H83ZM90 120.5V150"/><text x="76" y="107.5" text-anchor="end" font-size="15">10 kΩ</text><path class="wire" d="M90 150L90 165"/><path class="wire" d="M60 190V230M40 210H60M60 200L90 175V165M60 220L90 245V255"/><path class="wire" d="M70 228L85 241" marker-end="url(#p36-full-arrow)"/><path class="wire" d="M260 190V230M280 210H260M260 200L230 175V165M260 220L230 245V255"/><path class="wire" d="M250 228L235 241" marker-end="url(#p36-full-arrow)"/><text x="42" y="181" text-anchor="start" font-size="15">T1</text><text x="260" y="181" text-anchor="start" font-size="15">T2</text><path class="wire" d="M15 210L40 210"/><path class="wire" d="M280 210L305 210"/><circle cx="15" cy="210" r="3.2" class="port"/><circle cx="305" cy="210" r="3.2" class="port"/><text x="10" y="190" text-anchor="start" font-size="15">ui1</text><text x="280" y="190" text-anchor="start" font-size="15">ui2</text><path class="wire" d="M90 150H140M90 255V290H230V255M160 290V330"/><circle cx="90" cy="150" r="3.2" fill="currentColor"/><circle cx="160" cy="290" r="3.2" fill="currentColor"/><circle cx="140" cy="150" r="3.2" class="port"/><text x="140" y="133" text-anchor="start" font-size="15">uo</text><circle cx="160" cy="350" r="20" class="wire"/><path class="wire" d="M160 341L160 359" marker-end="url(#p36-full-arrow)"/><path class="wire" d="M160 370L160 420"/><circle cx="160" cy="420" r="3.2" class="port"/><text x="186" y="355" text-anchor="start" font-size="15">I</text><text x="160" y="450" text-anchor="middle" font-size="15">−VEE</text></svg></figure>
+  <h3>不要先猜，直接做输入分解</h3>
+  <div class="eq">u<sub>ic</sub> = (20+10)/2 = 15 mV<br>u<sub>id</sub> = 20−10 = 10 mV<br>20 mV = 15 mV + 5 mV<br>10 mV = 15 mV − 5 mV</div>
+  <p>“两端同时为正”只描述它们相对于地的符号；共模说的是共同变化部分，差模说的是两者之差。两种分量完全可以同时存在。</p>
+  <h3>这次是单端输出，不能把上一题的增益直接搬来</h3>
+  <div class="eq">A<sub>d</sub> = −βR<sub>C</sub>/(2r<sub>be</sub>)<br>= −140×10/(2×4) = −175</div>
+  <p>理想尾电流源固定总电流。在本题的匹配、小信号简化模型中，共模输入不改变两侧电流，因此 A<sub>c</sub>≈0：</p>
+  <div class="eq">Δu<sub>o</sub> = A<sub>d</sub>u<sub>id</sub> + A<sub>c</sub>u<sub>ic</sub><br>≈ −175×10 mV = −1.75 V</div>
+  <p><strong>−1.75 V 是相对原静态输出的变化量，不自动等于输出节点的总电压。</strong>总输出还要加上原来的 U<sub>OQ</sub>。输入是直流小变化，也可以用微变模型；“交流等效”这个习惯说法并不意味着只能代正弦波。</p>
+  <p class="correction">精度边界：10 mV 的差模输入是课本按线性模型估算的数值。要追求更高精度，需要考虑差分对的非线性电流分配，而不是把线性结果当成任意幅度都精确成立。</p>
+  <p class="level"><strong>必会：</strong>先求共模与差模，再按正确输出端口求增益，最后区分 Δu<sub>o</sub> 与总电压。</p>
+</section>
+<section id="p37">
+  <h2>3.7 场效应管差分对：差模分解的方法没有变</h2>
+  <p>选学题。两只场效应管匹配，尾电流源理想；g<sub>m</sub>=10 mS，两侧漏极电阻 R<sub>d</sub>=20 kΩ。输出定义为左侧漏极电压减右侧漏极电压。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 360" role="img" aria-labelledby="p37-model-title">
+<title id="p37-model-title">3.7纯差模微变模型，两侧受控漏极电流变化分别为正delta和负delta，输出是左漏极电位减右漏极电位。</title>
+<defs><marker id="p37-model-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="18" text-anchor="middle" font-size="15">3.7 差模微变模型</text><path class="wire" d="M95 50H225"/><path class="wire" d="M160 50V40M148 40H172M152 34H168M157 28H163"/><path class="wire" d="M95 50V84.5M88 84.5H102V120.5H88ZM95 120.5V155"/><text x="81" y="107.5" text-anchor="end" font-size="15">20 kΩ</text><path class="wire" d="M225 50V84.5M218 84.5H232V120.5H218ZM225 120.5V155"/><text x="239" y="107.5" text-anchor="start" font-size="15">20 kΩ</text><path class="wire" d="M95 155V187M225 155V187M95 233V285H225V233"/><path class="wire" d="M95 187L113 210L95 233L77 210Z"/><path class="wire" d="M95 201L95 219" marker-end="url(#p37-model-arrow)"/><path class="wire" d="M225 187L243 210L225 233L207 210Z"/><path class="wire" d="M225 201L225 219" marker-end="url(#p37-model-arrow)"/><path class="wire" d="M95 155L135 155"/><path class="wire" d="M225 155L185 155"/><circle cx="95" cy="155" r="3.2" fill="currentColor"/><circle cx="225" cy="155" r="3.2" fill="currentColor"/><circle cx="135" cy="155" r="3.2" class="port"/><circle cx="185" cy="155" r="3.2" class="port"/><text x="160" y="139" text-anchor="middle" font-size="15">＋ uo −</text><text x="48" y="216" text-anchor="end" font-size="15">＋δ</text><text x="259" y="216" text-anchor="start" font-size="15">−δ</text><path class="wire" d="M160 285V295M148 295H172M152 301H168M157 307H163"/><text x="160" y="337" text-anchor="middle" font-size="15">δ = gm·uid/2</text></svg></figure>
+  <p>差模输入使公共源极点成为交流虚地，因此两管栅源电压增量分别为 ±u<sub>id</sub>/2。每侧电流变化由跨导给出：</p>
+  <div class="eq">Δi<sub>d1</sub> = g<sub>m</sub>u<sub>id</sub>/2<br>Δi<sub>d2</sub> = −g<sub>m</sub>u<sub>id</sub>/2<br>u<sub>o</sub> = −R<sub>d</sub>(Δi<sub>d1</sub>−Δi<sub>d2</sub>)<br>A<sub>d</sub> = −g<sub>m</sub>R<sub>d</sub> = −10×20 = −200</div>
+  <p>图中没有跨接输入端的外部偏置电阻，理想栅极又不取电流，所以本题 R<sub>i</sub>≈∞。与 3.2(d) 不同：那里存在从输入端通向地的偏置电阻，不能写成无穷大。</p>
+  <p class="level"><strong>对应关系：</strong>三极管常出现 β/r<sub>be</sub>，场效应管出现 g<sub>m</sub>；差模分解与单双端输出的处理方式相同。</p>
+</section>
+<section id="p38">
+  <h2>3.8 五只三极管不等于五级：先找信号路线</h2>
+  <p>这题最值得训练的是拆图。T<sub>1</sub>、T<sub>2</sub> 组成差分输入级；T<sub>3</sub> 及其偏置电阻提供尾电流；T<sub>4</sub> 是带发射极电阻 R<sub>5</sub> 的 PNP 共射级；T<sub>5</sub> 是共集输出级。<strong>信号路线只有三级，T<sub>3</sub> 不另算一级。</strong></p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 480" role="img" aria-labelledby="p38-route-title">
+<title id="p38-route-title">3.8信号分为差分单端输出、PNP共射、共集三级，T3单独提供尾电流偏置。</title>
+<defs><marker id="p38-route-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<rect x="45" y="35" width="230" height="85" class="block"/><text x="160.0" y="70.5" text-anchor="middle" font-size="15">T1、T2：差分输入</text><text x="160.0" y="94.5" text-anchor="middle" font-size="15">从 T2 集电极输出 ＋</text><rect x="45" y="180" width="230" height="85" class="block"/><text x="160.0" y="215.5" text-anchor="middle" font-size="15">T4：PNP 共射</text><text x="160.0" y="239.5" text-anchor="middle" font-size="15">发射极保留 R5　−</text><rect x="45" y="325" width="230" height="85" class="block"/><text x="160.0" y="360.5" text-anchor="middle" font-size="15">T5：共集输出</text><text x="160.0" y="384.5" text-anchor="middle" font-size="15">输出端接 R7　＋</text><path class="wire" d="M160 120L160 174" marker-end="url(#p38-route-arrow)"/><text x="180" y="155" text-anchor="start" font-size="14">R2 ∥ Ri2</text><path class="wire" d="M160 265L160 319" marker-end="url(#p38-route-arrow)"/><text x="180" y="299" text-anchor="start" font-size="14">R6 ∥ Ri3</text><text x="160" y="455" text-anchor="middle" font-size="14">T3 与 R1、R3、R4：尾部偏置</text></svg></figure>
+  <p>沿用辅导书的低频简化：忽略晶体管输出电阻，尾部近似恒流，输入差分对按近似对称处理。先从最后一级往前算输入电阻：</p>
+  <div class="eq">R<sub>i3</sub> = r<sub>be5</sub>+(β<sub>5</sub>+1)R<sub>7</sub><br>R<sub>i2</sub> = r<sub>be4</sub>+(β<sub>4</sub>+1)R<sub>5</sub></div>
+  <p>末级加载中间级，故 T<sub>4</sub> 集电极负载为 R<sub>6</sub>∥R<sub>i3</sub>；中间级又加载输入级，故差分输出侧集电极负载为 R<sub>2</sub>∥R<sub>i2</sub>。</p>
+  <h3>逐级判断符号，再写式子</h3>
+  <p>输入定义是 T<sub>1</sub> 基极减 T<sub>2</sub> 基极，但第一级从 T<sub>2</sub> 集电极输出。u<sub>i</sub> 增大时，T<sub>1</sub> 电流增加、T<sub>2</sub> 电流减少，T<sub>2</sub> 集电极电位上升，所以第一级为正。T<sub>4</sub> 共射反相，T<sub>5</sub> 共集同相，最终总增益为负。</p>
+  <div class="eq">A<sub>u1</sub> ≈ +β<sub>1</sub>(R<sub>2</sub>∥R<sub>i2</sub>)/(r<sub>be1</sub>+r<sub>be2</sub>)<br>A<sub>u2</sub> = −β<sub>4</sub>(R<sub>6</sub>∥R<sub>i3</sub>)/[r<sub>be4</sub>+(β<sub>4</sub>+1)R<sub>5</sub>]<br>A<sub>u3</sub> = (β<sub>5</sub>+1)R<sub>7</sub>/[r<sub>be5</sub>+(β<sub>5</sub>+1)R<sub>7</sub>]<br>A<sub>u</sub> = A<sub>u1</sub>A<sub>u2</sub>A<sub>u3</sub></div>
+  <p>辅导书第一级公式写 β<sub>1</sub>，这是按输入对近似匹配处理的结果。不能据此断言任意 β<sub>1</sub>、β<sub>2</sub> 不匹配时都能照用；失配明显或尾部不够恒流时，要对公共发射极节点重新列方程。本题课堂解答采用前述近似即可。</p>
+  <div class="eq">R<sub>i</sub> ≈ r<sub>be1</sub>+r<sub>be2</sub><br>R<sub>o</sub> = R<sub>7</sub> ∥ [(r<sub>be5</sub>+R<sub>6</sub>)/(β<sub>5</sub>+1)]</div>
+  <p>求最后的 R<sub>o</sub> 时，T<sub>5</sub> 基极看到中间级的输出电阻 R<sub>6</sub>，再通过射极跟随器折算。不要把 R<sub>i2</sub> 填到这里：输入电阻和输出电阻是从不同端口看进去的量。</p>
+  <p class="level"><strong>必会：</strong>先分偏置与信号，再从后往前找负载、从前往后乘增益。把答案展开成一整行并不会更高明，保留 R<sub>i2</sub>、R<sub>i3</sub> 反而方便核对。</p>
+</section>
+<section id="p39">
+  <h2>3.9 最大摆幅与故障：元件坏了，要重新判断工作状态</h2>
+  <p>电路由共射驱动级和互补输出级组成，正常电压增益为 −100，电源为 ±12 V，题设输出管饱和压降幅值为 1 V，输入为正弦波。以下按题目给出的摆幅限制估算，默认驱动与负载没有提前造成更小的限制。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 610" role="img" aria-labelledby="p39-circuit-title">
+<title id="p39-circuit-title">3.9共射驱动加互补输出，R3位于正电源与二极管偏置链上方。输出电压相对地，输入参考端位于负电源。</title>
+<defs><marker id="p39-circuit-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="210" y="25" text-anchor="middle" font-size="15">+12 V</text><path class="wire" d="M70 55H240V135M160 55V65"/><path class="wire" d="M70 55V217.0M63 217.0H77V253.0H63ZM70 253.0V415"/><text x="84" y="240.0" text-anchor="start" font-size="15">R2</text><path class="wire" d="M70 415L70 450"/><path class="wire" d="M160 65V104.5M153 104.5H167V140.5H153ZM160 140.5V180"/><text x="146" y="127.5" text-anchor="end" font-size="15">R3</text><path class="wire" d="M160 180L190 180"/><circle cx="160" cy="180" r="3.2" fill="currentColor"/><path class="wire" d="M210 160V200M190 180H210M210 170L240 145V135M210 190L240 215V225"/><path class="wire" d="M220 198L235 211" marker-end="url(#p39-circuit-arrow)"/><text x="253" y="185" text-anchor="start" font-size="15">T2</text><path class="wire" d="M210 360V400M190 380H210M210 370L240 345V335M210 390L240 415V425"/><path class="wire" d="M235 349L220 362" marker-end="url(#p39-circuit-arrow)"/><text x="175" y="410" text-anchor="start" font-size="15">T3</text><path class="wire" d="M240 225V335M240 300H290M290 300V330"/><circle cx="240" cy="300" r="3.2" fill="currentColor"/><circle cx="290" cy="300" r="3.2" class="port"/><text x="285" y="283" text-anchor="start" font-size="15">uo</text><path class="wire" d="M290 330V357.0M283 357.0H297V393.0H283ZM290 393.0V420"/><text x="276" y="380.0" text-anchor="end" font-size="15">RL</text><path class="wire" d="M290 422V432M278 432H302M282 438H298M287 444H293"/><path class="wire" d="M160 180V200M160 250V260M160 310V405M160 380H190"/><path class="wire" d="M160 200V213M150 213H170L160 235ZM148 235H172M160 235V250"/><text x="142" y="230" text-anchor="end" font-size="15">D1</text><path class="wire" d="M160 260V273M150 273H170L160 295ZM148 295H172M160 295V310"/><text x="142" y="290" text-anchor="end" font-size="15">D2</text><circle cx="160" cy="380" r="3.2" fill="currentColor"/><path class="wire" d="M130 430V470M110 450H130M130 440L160 415V405M130 460L160 485V495"/><path class="wire" d="M140 468L155 481" marker-end="url(#p39-circuit-arrow)"/><text x="173" y="455" text-anchor="start" font-size="15">T1</text><path class="wire" d="M12 450H23.0M23.0 443H59.0V457H23.0ZM59.0 450H70"/><text x="41.0" y="435" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M70 450L110 450"/><circle cx="70" cy="450" r="3.2" fill="currentColor"/><circle cx="12" cy="450" r="3.2" class="port"/><path class="wire" d="M160 495V550H240V425M160 550H12"/><circle cx="12" cy="550" r="3.2" class="port"/><text x="16" y="480" text-anchor="start" font-size="15">＋ ui</text><text x="16" y="536" text-anchor="start" font-size="15">−</text><text x="215" y="582" text-anchor="middle" font-size="15">−12 V</text></svg></figure>
+  <h3>第一问：峰值先算出来，再换成有效值</h3>
+  <div class="eq">U<sub>op,max</sub> ≈ 12−1 = 11 V<br>U<sub>o,rms,max</sub> = 11/√2 ≈ 7.78 V<br>U<sub>i,rms,max</sub> = 7.78/100 ≈ 77.8 mV</div>
+  <p>不能把 11 V 直接除以 100 后，仍把结果叫输入“有效值”。正弦峰值与有效值之间差一个 √2。若输入有效值只有 10 mV，则正常输出有效值为 1 V，且波形与输入反相。</p>
+  <h3>R3 开路：原来的 −100 倍已经失去适用条件</h3>
+  <p>R<sub>3</sub> 是上方偏置支路的电阻，不是“某个可有可无的交流负载”。它开路后，上管的正常驱动消失，T<sub>1</sub> 与下方 PNP 管 T<sub>3</sub> 形成异常的复合通路。原来的基极偏置仍在，静态工作点可能严重偏移。</p>
+  <p>按辅导书的分析，负载较大时，驱动管 T<sub>1</sub> 可能进入饱和，输出被拉到接近负电源一侧：</p>
+  <div class="eq">u<sub>o</sub> ≈ −12 + U<sub>CES1</sub> + U<sub>EB3</sub>，约为 −11 V 的直流电平</div>
+  <p>这里约 −11 V 是特定故障工作状态下的估算，不是所有负载下唯一的精确答案。若负载较小，两管也可能仍在放大区，却流过很大的电流，造成功耗过大。题目没有给足所有参数，不能把故障后的输出继续机械写成“1 V 有效值”。</p>
+  <h3>R3 短路：上管基极直接被拉到正电源</h3>
+  <p>基极电位约为 +12 V，经发射结钳位，输出趋向：</p>
+  <div class="eq">u<sub>o</sub> ≈ 12−U<sub>BE2</sub> ≈ +11.3 V（直流钳位估算）</div>
+  <p>这是故障后的直流工作状态估算，与正常小信号增益和正常摆幅估算属于不同模型。解题时先写“偏置改变，原增益不再适用”，再说明新的导通路径，比只报一个数字重要。</p>
+  <p class="level"><strong>必会：</strong>峰值/有效值换算；故障后重画电路、重判状态。功耗问题在这里有直接用途：解释为什么“还能导通”不等于“还能正常放大”。</p>
+</section>
+<section id="p310">
+  <h2>3.10—3.11 选运放：把要求对到最关键的指标</h2>
+  <p>这两题不需要重推电路。它们训练你从需求中抓出主矛盾。课本给出的分类是教学上的优先选择，实际器件往往同时具有几类特征。</p>
+  <div class="table-wrap"><table><thead><tr><th>3.10 的需求</th><th>优先类型</th><th>判断理由</th></tr></thead><tbody>
+    <tr><td>一般低频放大</td><td>通用型（①）</td><td>没有额外苛刻条件，普通指标即可满足</td></tr>
+    <tr><td>宽频带</td><td>高速型（③）</td><td>关注带宽和转换速率</td></tr>
+    <tr><td>1 μV 以下微弱信号</td><td>高精度型（⑦）</td><td>失调、漂移等误差可能比信号本身还大</td></tr>
+    <tr><td>信号源内阻 100 kΩ</td><td>高阻型（②）</td><td>减少输入加载及偏置电流产生的压降</td></tr>
+    <tr><td>负载需要 5 A</td><td>大功率型（⑥）</td><td>输出电流与功耗能力是主要限制</td></tr>
+    <tr><td>输出幅值要求 ±80 V</td><td>高压型（⑤）</td><td>电源和输出摆幅必须足够</td></tr>
+    <tr><td>题设宇航仪器的功耗要求</td><td>低功耗型（④）</td><td>在给定选项中突出能耗预算</td></tr>
+  </tbody></table></div>
+  <p>最后一项是课本的分类答案，不意味着实际宇航器件只看功耗；真实选型还涉及可靠性、环境等要求。考试按题设给出的优先条件作答，不把这个标签背成万能规则。</p>
+  <h3>3.11 不用把整张参数表背下来，只抓识别证据</h3>
+  <div class="table-wrap"><table><thead><tr><th>表中器件</th><th>类型</th><th>最有区分力的证据</th></tr></thead><tbody>
+    <tr><td>A1</td><td>通用型</td><td>各项指标较常规，没有某一项特别突出</td></tr>
+    <tr><td>A2</td><td>高精度型</td><td>U<sub>IO</sub>=0.01 mV，失调小；共模抑制比高</td></tr>
+    <tr><td>A3</td><td>高阻型</td><td>r<sub>id</sub>=1000 MΩ，输入电流很小</td></tr>
+    <tr><td>A4</td><td>高速型</td><td>SR=65 V/μs，单位增益带宽较大</td></tr>
+  </tbody></table></div>
+  <p class="level"><strong>掌握标准：</strong>每个选择能补一句“因为哪个指标”。光背 ①③⑦②⑥⑤④，换一种题面就容易错。</p>
+</section>
+<section id="p312">
+  <h2>3.12 多路电流源：T3 帮忙供应基极电流</h2>
+  <p>电源 +15 V，R=136 kΩ，各管 U<sub>BE</sub>≈0.7 V。T<sub>0</sub>、T<sub>1</sub>、T<sub>2</sub> 共用基极电位且特性相同，因而三者的 I<sub>C</sub>、I<sub>B</sub> 分别相等。额外的 T<sub>3</sub> 是射极跟随器，它给三只管的基极供电流。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 415" role="img" aria-labelledby="p312-current-title">
+<title id="p312-current-title">3.12基极电流补偿的两处电流分配，电阻电流分成IC0和IB3，T3发射极电流再分成三个相等的基极电流。</title>
+<defs><marker id="p312-current-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">+15 V</text><path class="wire" d="M80 50H230V115"/><path class="wire" d="M80 50V87.0M73 87.0H87V123.0H73ZM80 123.0V160"/><text x="66" y="110.0" text-anchor="end" font-size="15">136 kΩ</text><circle cx="80" cy="160" r="3.2" fill="currentColor"/><path class="wire" d="M200 140V180M180 160H200M200 150L230 125V115M200 170L230 195V205"/><path class="wire" d="M210 178L225 191" marker-end="url(#p312-current-arrow)"/><text x="243" y="165" text-anchor="start" font-size="15">T3</text><path class="wire" d="M80 160L180 160"/><path class="wire" d="M110 140L155 140" marker-end="url(#p312-current-arrow)"/><text x="125" y="123" text-anchor="middle" font-size="14">IB3</text><path class="wire" d="M80 160L80 230"/><path class="wire" d="M80 185L80 220" marker-end="url(#p312-current-arrow)"/><text x="58" y="205" text-anchor="end" font-size="15">IC0</text><text x="80" y="255" text-anchor="middle" font-size="14">T0 集电极</text><path class="wire" d="M230 205V290H50M230 290H280"/><circle cx="230" cy="290" r="3.2" fill="currentColor"/><text x="241" y="253" text-anchor="start" font-size="14">3IB</text><path class="wire" d="M50 290L50 345" marker-end="url(#p312-current-arrow)"/><text x="50" y="371" text-anchor="middle" font-size="15">IB0</text><circle cx="50" cy="290" r="3.2" fill="currentColor"/><path class="wire" d="M165 290L165 345" marker-end="url(#p312-current-arrow)"/><text x="165" y="371" text-anchor="middle" font-size="15">IB1</text><circle cx="165" cy="290" r="3.2" fill="currentColor"/><path class="wire" d="M280 290L280 345" marker-end="url(#p312-current-arrow)"/><text x="280" y="371" text-anchor="middle" font-size="15">IB2</text><circle cx="280" cy="290" r="3.2" fill="currentColor"/><text x="160" y="404" text-anchor="middle" font-size="14">三份基极电流由 T3 发射极供应</text></svg></figure>
+  <h3>先找电阻下端电位：这里经过两个发射结</h3>
+  <p>电阻下端接 T<sub>3</sub> 基极；T<sub>3</sub> 发射极再连接下方三管的基极。相对于地，这个电阻下端约为 0.7+0.7=1.4 V：</p>
+  <div class="eq">I<sub>R</sub> = (15−0.7−0.7)/136 kΩ = 100 μA</div>
+  <p>不要只减一个 0.7 V。数清串过几个正向发射结，是直流读图题的重要得分点。</p>
+  <h3>再列两处 KCL，不把参考电流直接当输出</h3>
+  <p>T<sub>3</sub> 的发射极供给三个基极，所以 I<sub>E3</sub>=3I<sub>B</sub>，它自己的基极电流仅为这总量的 1/(β+1)。电阻电流只需供应 T<sub>0</sub> 的集电极电流和这一小份 I<sub>B3</sub>：</p>
+  <div class="eq">I<sub>B3</sub> = 3I<sub>B</sub>/(β+1) = 3I<sub>C</sub>/[β(β+1)]<br>I<sub>R</sub> = I<sub>C</sub> + I<sub>B3</sub><br>I<sub>C1</sub> = I<sub>C2</sub> = [β(β+1)/(β(β+1)+3)] I<sub>R</sub><br>当 β(β+1)≫3 时，I<sub>C1</sub>≈I<sub>C2</sub>≈100 μA</div>
+  <p>普通镜像源中，基极电流直接从参考电流中扣；这里通过 T<sub>3</sub> 的电流放大，参考支路承担的误差更小。引入这只管的原因就是这个，不需要为了说明它而重讲全部载流子过程。</p>
+  <p class="level"><strong>必会：</strong>两次 0.7 V、三份基极电流、T<sub>3</sub> 再除 β+1。公式不必整条死记，能从两个节点推出即可。</p>
+</section>
+<section id="p313">
+  <h2>3.13 有源负载：两只管的动态电阻要并联</h2>
+  <p>选学题。输入管 T<sub>1</sub> 为共源，T<sub>2</sub>、T<sub>3</sub> 构成镜像负载。题目特意给出 r<sub>ds1</sub>、r<sub>ds2</sub>，这次不能沿用“忽略所有输出电阻”的近似。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 360" role="img" aria-labelledby="p313-model-title">
+<title id="p313-model-title">3.13输出微变模型，gmui受控电流源与rds1和rds2并联，三者下端均为交流地。</title>
+<defs><marker id="p313-model-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="26" text-anchor="middle" font-size="15">3.13 输出端微变模型</text><path class="wire" d="M90 100H290M90 100V182M90 228V300H250V270"/><circle cx="180" cy="100" r="3.2" fill="currentColor"/><circle cx="250" cy="100" r="3.2" fill="currentColor"/><circle cx="290" cy="100" r="3.2" class="port"/><text x="267" y="80" text-anchor="start" font-size="15">uo</text><path class="wire" d="M90 182L108 205L90 228L72 205Z"/><path class="wire" d="M90 196L90 214" marker-end="url(#p313-model-arrow)"/><text x="20" y="210" text-anchor="start" font-size="15">gmui</text><path class="wire" d="M180 100V182.0M173 182.0H187V218.0H173ZM180 218.0V300"/><text x="194" y="205.0" text-anchor="start" font-size="15">rds1</text><path class="wire" d="M250 100V182.0M243 182.0H257V218.0H243ZM250 218.0V300"/><text x="264" y="205.0" text-anchor="start" font-size="15">rds2</text><path class="wire" d="M180 300V310M168 310H192M172 316H188M177 322H183"/></svg></figure>
+  <p>两条电源线在交流中都是地。从输出节点看，r<sub>ds1</sub> 和 r<sub>ds2</sub> 都接向交流地，所以并联。输入升高使下管向下吸取更多电流，输出节点电位下降：</p>
+  <div class="eq">Δi<sub>d1</sub> = g<sub>m</sub>Δu<sub>i</sub><br>Δu<sub>o</sub> = −g<sub>m</sub>Δu<sub>i</sub>(r<sub>ds1</sub>∥r<sub>ds2</sub>)<br>A<sub>u</sub> = −g<sub>m</sub>(r<sub>ds1</sub>∥r<sub>ds2</sub>)</div>
+  <p>镜像负载的优点在于动态电阻很大；但输入管自身的输出电阻也有限，会限制总负载。这里不能写 −g<sub>m</sub>r<sub>ds2</sub> 而把下管的通路丢掉。</p>
+</section>
+<section id="p314">
+  <h2>3.14 镜像负载如何把两侧信号合到一个输出</h2>
+  <p>选学题。上方两管是匹配的 P 沟道差分输入对，下方两管组成镜像负载，输出取右侧。结果与“只取普通差分对一侧的电阻电压”不同：镜像会把另一侧电流变化也送到这个输出节点。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380" role="img" aria-labelledby="p314-current-title">
+<title id="p314-current-title">3.14右侧输出节点，P沟道输入使T2流入电流增加delta，镜像使T4流出电流减少delta，净注入增加2delta。</title>
+<defs><marker id="p314-current-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">当 ui1−ui2 增大</text><rect x="65" y="55" width="190" height="60" class="block"/><text x="160.0" y="90.0" text-anchor="middle" font-size="15">T2：流入增加 δ</text><path class="wire" d="M160 115L160 185" marker-end="url(#p314-current-arrow)"/><circle cx="160" cy="205" r="3.2" fill="currentColor"/><path class="wire" d="M160 185L160 205"/><path class="wire" d="M160 205L290 205"/><circle cx="290" cy="205" r="3.2" class="port"/><text x="263" y="185" text-anchor="start" font-size="15">uo ↑</text><path class="wire" d="M160 205L160 275" marker-end="url(#p314-current-arrow)"/><rect x="65" y="275" width="190" height="60" class="block"/><text x="160.0" y="310.0" text-anchor="middle" font-size="15">T4：流出减少 δ</text><text x="15" y="229" text-anchor="start" font-size="14">净注入 +2δ</text></svg></figure>
+  <p>设 u<sub>id</sub>=u<sub>i1</sub>−u<sub>i2</sub> 为小的正变化。P 沟道输入管左侧电流减少 δ，右侧电流增加 δ；左侧的减少又通过镜像，使右侧向下抽取的电流减少 δ。输出节点同时“多流入 δ”和“少流出 δ”，合起来就是 2δ。</p>
+  <div class="eq">δ = g<sub>m</sub>u<sub>id</sub>/2<br>Δi<sub>注入输出</sub> = δ−(−δ) = 2δ = g<sub>m</sub>u<sub>id</sub><br>Δu<sub>o</sub> = g<sub>m</sub>u<sub>id</sub>(r<sub>ds2</sub>∥r<sub>ds4</sub>)<br>A<sub>u</sub> = +g<sub>m</sub>(r<sub>ds2</sub>∥r<sub>ds4</sub>)</div>
+  <p>本题为正号，必须与 P 沟道输入、镜像位置、取输出的一侧一起判断。把它改成 N 沟道输入或换输出端，不能保证仍然同号。</p>
+  <p class="level"><strong>关键：</strong>镜像负载不仅提供大动态电阻，还能把两侧差模电流贡献合并到单端输出；因此不能机械补一个“单端一定除以 2”。</p>
+</section>
+<section id="p315">
+  <h2>3.15 共射—共基：既保护超 β 输入管，又改善频率特性</h2>
+  <p>输入差分对 T<sub>1</sub>、T<sub>2</sub> 是超 β 管，集电极分别接到上方 T<sub>3</sub>、T<sub>4</sub> 的发射极。上管基极由偏置支路保持较稳定的电位。这就是每侧的共射—共基组合。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 490" role="img" aria-labelledby="p315-cascode-title">
+<title id="p315-cascode-title">3.15抽出左侧共射共基支路，T1集电极接T3发射极，T3基极偏置比T1发射极高约1.4伏。</title>
+<defs><marker id="p315-cascode-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">共射—共基：左侧支路</text><path class="wire" d="M90 320V360M70 340H90M90 330L120 305V295M90 350L120 375V385"/><path class="wire" d="M100 358L115 371" marker-end="url(#p315-cascode-arrow)"/><text x="133" y="345" text-anchor="start" font-size="15">T1</text><path class="wire" d="M90 165V205M70 185H90M90 175L120 150V140M90 195L120 220V230"/><path class="wire" d="M100 203L115 216" marker-end="url(#p315-cascode-arrow)"/><text x="133" y="190" text-anchor="start" font-size="15">T3</text><path class="wire" d="M120 45V74.5M113 74.5H127V110.5H113ZM120 110.5V140"/><text x="134" y="97.5" text-anchor="start" font-size="15">RC</text><text x="23" y="65" text-anchor="start" font-size="15">+VCC</text><path class="wire" d="M120 45H85"/><path class="wire" d="M120 230L120 295"/><circle cx="120" cy="260" r="3.2" fill="currentColor"/><text x="139" y="264" text-anchor="start" font-size="14">VC1 = VE1+0.7 V</text><path class="wire" d="M20 340L70 340"/><circle cx="20" cy="340" r="3.2" class="port"/><text x="15" y="321" text-anchor="start" font-size="15">ui1</text><path class="wire" d="M20 185L70 185"/><circle cx="20" cy="185" r="3.2" class="port"/><text x="15" y="164" text-anchor="start" font-size="15">VB3</text><path class="wire" d="M120 385L120 420"/><circle cx="120" cy="420" r="3.2" class="port"/><text x="140" y="425" text-anchor="start" font-size="15">VE1</text><text x="160" y="470" text-anchor="middle" font-size="15">VB3 = VE1 + 1.4 V</text></svg></figure>
+  <p>依照题目选项，答案依次为 <strong>C、C、B、A</strong>。更重要的是每个选择的理由：</p>
+  <ol>
+    <li><strong>共射—共基。</strong>下管从基极输入，信号电流进入上管发射极，上管从集电极输出。</li>
+    <li><strong>展宽频带。</strong>共基输入端阻抗低，使下管集电极的交流电压变化较小，减轻跨接输入与输出的结电容造成的影响。第四章会用米勒效应把这句话算清楚。</li>
+    <li><strong>超 β 管增强放大能力。</strong>较大的 β 有利于用小输入电流控制电流变化；它不意味着耐压更高。</li>
+    <li><strong>下管静态管压降约 0.7 V。</strong>偏置的两个二极管给出约 1.4 V，上方晶体管发射结再减去约 0.7 V。</li>
+  </ol>
+  <div class="eq">V<sub>B3</sub>−V<sub>E1</sub> ≈ U<sub>D1</sub>+U<sub>D2</sub> ≈ 1.4 V<br>U<sub>CE1</sub> = V<sub>E3</sub>−V<sub>E1</sub> ≈ 1.4−U<sub>BE3</sub> ≈ 0.7 V</div>
+  <p>另一侧同理。把输入管管压降限制在较小范围，是电路安排出来的；不能倒过来说超 β 管本来就耐高压。</p>
+</section>
+<section id="p316">
+  <h2>3.16 用电流相减作为输入：这次放大倍数有单位</h2>
+  <p>T<sub>1</sub>、T<sub>2</sub> 构成简单镜像电流源；i<sub>I2</sub> 输入到参考端，i<sub>I1</sub> 输入到 T<sub>2</sub> 集电极与 T<sub>3</sub> 基极的公共节点。题设 β≫2，先忽略镜像的基极电流误差。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 490" role="img" aria-labelledby="p316-circuit-title">
+<title id="p316-circuit-title">3.16镜像电流相减。iI1流入T2集电极和T3基极节点；iI2进入T1的二极管连接镜像参考端，T3共射输出。</title>
+<defs><marker id="p316-circuit-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="250" y="25" text-anchor="middle" font-size="15">+VCC</text><path class="wire" d="M250 40V59.5M243 59.5H257V95.5H243ZM250 95.5V115"/><text x="264" y="82.5" text-anchor="start" font-size="15">RC</text><path class="wire" d="M220 140V180M200 160H220M220 150L250 125V115M220 170L250 195V205"/><path class="wire" d="M230 178L245 191" marker-end="url(#p316-circuit-arrow)"/><text x="263" y="165" text-anchor="start" font-size="15">T3</text><path class="wire" d="M250 215V225M238 225H262M242 231H258M247 237H253"/><path class="wire" d="M250 100L300 100"/><circle cx="250" cy="100" r="3.2" fill="currentColor"/><circle cx="300" cy="100" r="3.2" class="port"/><text x="277" y="125" text-anchor="start" font-size="15">uo</text><path class="wire" d="M10 160L200 160"/><circle cx="10" cy="160" r="3.2" class="port"/><circle cx="180" cy="160" r="3.2" fill="currentColor"/><path class="wire" d="M35 140L75 140" marker-end="url(#p316-circuit-arrow)"/><text x="40" y="123" text-anchor="start" font-size="15">iI1</text><path class="wire" d="M180 160L180 275"/><path class="wire" d="M180 202L180 240" marker-end="url(#p316-circuit-arrow)"/><text x="192" y="229" text-anchor="start" font-size="15">iC2</text><path class="wire" d="M150 300V340M130 320H150M150 310L180 285V275M150 330L180 355V365"/><path class="wire" d="M160 338L175 351" marker-end="url(#p316-circuit-arrow)"/><text x="193" y="325" text-anchor="start" font-size="15">T2</text><path class="wire" d="M70 340V380M90 360H70M70 350L40 325V315M70 370L40 395V405"/><path class="wire" d="M60 378L45 391" marker-end="url(#p316-circuit-arrow)"/><text x="23" y="377" text-anchor="end" font-size="15">T1</text><path class="wire" d="M90 360H120V285H40V315M120 320H130M10 285H120M40 405V430H180V365"/><circle cx="120" cy="285" r="3.2" fill="currentColor"/><circle cx="120" cy="320" r="3.2" fill="currentColor"/><circle cx="10" cy="285" r="3.2" class="port"/><path class="wire" d="M20 265L55 265" marker-end="url(#p316-circuit-arrow)"/><text x="24" y="247" text-anchor="start" font-size="15">iI2</text><path class="wire" d="M110 430V440M98 440H122M102 446H118M107 452H113"/></svg></figure>
+  <div class="eq">i<sub>C2</sub> ≈ i<sub>C1</sub> ≈ i<sub>I2</sub><br>i<sub>B3</sub> = i<sub>I1</sub>−i<sub>C2</sub> ≈ i<sub>I1</sub>−i<sub>I2</sub></div>
+  <p>节点处一股输入电流流进来，一部分被镜像支路抽走，剩下的才进入 T<sub>3</sub> 基极。你在图上画箭头，就是为了明确这个“剩下的”应该相减。</p>
+  <div class="eq">Δu<sub>o</sub> = −β<sub>3</sub>R<sub>C</sub>Δi<sub>B3</sub><br>A<sub>ui</sub> = Δu<sub>o</sub>/Δ(i<sub>I1</sub>−i<sub>I2</sub>) ≈ −β<sub>3</sub>R<sub>C</sub></div>
+  <p>这是电流输入、电压输出的<strong>跨阻增益</strong>，单位 V/A，也就是 Ω。写成 −100 kΩ 是合理的；写成“放大了十万倍电压”则把输入输出量搞错了。</p>
+  <p>i<sub>I1</sub> 单独增大，使 T<sub>3</sub> 电流增加、输出降低，所以它是反相输入；i<sub>I2</sub> 增大，使镜像抽走更多电流、T<sub>3</sub> 基极电流减少、输出升高，所以它是同相输入。以上是围绕合适 Q 点的小变化，不能让总基极电流变成物理上不可能的状态后仍照套。</p>
+  <p class="level"><strong>必会：</strong>镜像关系、节点电流相减、共射负号、增益单位。β≫2 的条件用于允许忽略参考支路供应的两份基极电流。</p>
+</section>
+<section id="p317">
+  <h2>3.17 交越失真与过流保护：两套元件解决两件事</h2>
+  <p>两个电路都用互补输出管。先把“零点附近导通不连续”和“负载电流过大”分开，它们不是同一种故障，也不是由同一组元件负责。</p>
+  <h3>(a)：D1、D2 负责静态偏置，D3、D4 负责过流分流</h3>
+  <p>D<sub>1</sub>、D<sub>2</sub> 在上下管基极之间建立适当电压，使输出管在静态微导通，减轻零点附近两管同时截止的交越失真。输出管发射极串联的 R 则把负载电流转换成电压。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="p317-diode-title">
+<title id="p317-diode-title">3.17a只展开正半周保护，D1提供偏置，D3从偏置中点接输出节点，输出管发射极串联采样R。</title>
+<defs><marker id="p317-diode-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">(a) 正半周：二极管限流</text><path class="wire" d="M150 120V160M130 140H150M150 130L180 105V95M150 150L180 175V185"/><path class="wire" d="M160 158L175 171" marker-end="url(#p317-diode-arrow)"/><text x="193" y="145" text-anchor="start" font-size="15">T2</text><path class="wire" d="M180 95L180 50"/><text x="197" y="60" text-anchor="start" font-size="15">+VCC</text><path class="wire" d="M90 140H130M90 140V175M90 225V300H113M157 300H280"/><circle cx="90" cy="140" r="3.2" fill="currentColor"/><text x="63" y="125" text-anchor="start" font-size="15">驱动</text><path class="wire" d="M90 175V188M80 188H100L90 210ZM78 210H102M90 210V225"/><text x="72" y="205" text-anchor="end" font-size="15">D1</text><path class="wire" d="M113 290V310L137 300ZM138 288V312M138 300H157"/><text x="132" y="279" text-anchor="middle" font-size="15">D3</text><path class="wire" d="M180 185V224.5M173 224.5H187V260.5H173ZM180 260.5V300"/><text x="194" y="247.5" text-anchor="start" font-size="15">R</text><circle cx="180" cy="300" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" class="port"/><text x="268" y="282" text-anchor="start" font-size="15">uo</text><path class="wire" d="M180 300V337.0M173 337.0H187V373.0H173ZM180 373.0V410"/><text x="194" y="360.0" text-anchor="start" font-size="15">RL</text><path class="wire" d="M180 410V420M168 420H192M172 426H188M177 432H183"/><text x="160" y="458" text-anchor="middle" font-size="14">负半周由 D4 保护下管</text></svg></figure>
+  <p>只看正半周，上管 T<sub>2</sub> 导通。D<sub>3</sub> 两端的电压近似为：</p>
+  <div class="eq">u<sub>D3</sub> = u<sub>BE2</sub> + i<sub>o</sub>R − u<sub>D1</sub><br>若 u<sub>BE2</sub>≈u<sub>D1</sub>，则 u<sub>D3</sub>≈i<sub>o</sub>R</div>
+  <p>电流正常时，i<sub>o</sub>R 较小，D<sub>3</sub> 截止；过流时，采样压降增大到使 D<sub>3</sub> 导通，它分走驱动电流，限制上管继续增加输出。负半周由 D<sub>4</sub> 保护下管 T<sub>3</sub>。不同版本解答若把这里的下管写成 T<sub>4</sub>，应按原图的器件编号核对。</p>
+  <h3>(b)：用晶体管感知采样压降</h3>
+  <p>T<sub>4</sub>、T<sub>5</sub> 的二极管接法提供静态偏置；R<sub>2</sub> 是采样电阻；T<sub>6</sub>、T<sub>7</sub> 是保护管。看正半周，T<sub>6</sub> 的基极与发射极跨在上方采样电阻两端：</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="p317-transistor-title">
+<title id="p317-transistor-title">3.17b只展开正半周保护，T6基极接采样电阻上端、发射极接输出端、集电极接T2基极以分流驱动。</title>
+<defs><marker id="p317-transistor-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">(b) 正半周：晶体管限流</text><path class="wire" d="M150 120V160M130 140H150M150 130L180 105V95M150 150L180 175V185"/><path class="wire" d="M160 158L175 171" marker-end="url(#p317-transistor-arrow)"/><text x="193" y="145" text-anchor="start" font-size="15">T2</text><path class="wire" d="M180 95L180 50"/><text x="197" y="60" text-anchor="start" font-size="15">+VCC</text><path class="wire" d="M180 185V224.5M173 224.5H187V260.5H173ZM180 260.5V300"/><text x="194" y="247.5" text-anchor="start" font-size="15">R2</text><circle cx="180" cy="205" r="3.2" fill="currentColor"/><path class="wire" d="M65 215V255M45 235H65M65 225L95 200V190M65 245L95 270V280"/><path class="wire" d="M75 253L90 266" marker-end="url(#p317-transistor-arrow)"/><text x="108" y="240" text-anchor="start" font-size="15">T6</text><path class="wire" d="M95 190V140H130M45 235H30V205H180M95 280V300H280"/><circle cx="95" cy="140" r="3.2" fill="currentColor"/><circle cx="180" cy="300" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" class="port"/><text x="268" y="282" text-anchor="start" font-size="15">uo</text><path class="wire" d="M180 300V337.0M173 337.0H187V373.0H173ZM180 373.0V410"/><text x="194" y="360.0" text-anchor="start" font-size="15">RL</text><path class="wire" d="M180 410V420M168 420H192M172 426H188M177 432H183"/><text x="160" y="458" text-anchor="middle" font-size="14">T6 的 uBE 约等于采样压降</text></svg></figure>
+  <div class="eq">u<sub>BE6</sub>≈i<sub>o</sub>R<sub>2</sub><br>I<sub>lim</sub>≈U<sub>BE,on</sub>/R<sub>2</sub></div>
+  <p>例如按 0.6 V 开始明显导通估算，若采样电阻为 0.3 Ω，则限流开始发生的量级约 2 A。这个数值是教学估算，实际阈值随器件与温度变化，并非理想的硬开关。</p>
+  <p>T<sub>6</sub> 导通后从上管基极节点分走电流。保护动作的方向必须是“电流越大，驱动越弱”，否则就不是过流保护。负半周由 T<sub>7</sub> 完成对应动作。</p>
+  <p class="level"><strong>必会：</strong>指出哪组负责偏置、哪组采样、哪组分流，再用一条 u≈iR 说明保护如何启动。</p>
+</section>
+<section id="p318">
+  <h2>3.18 高精度运放读图：沿一条输入变化追到底</h2>
+  <p>题图很复杂，但只问输入极性和几个局部的作用。先把输入对、镜像负载、跟随级、共射级和互补输出级分开。下面是原图的信号路线重绘，偏置电流源另列在文字中。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 555" role="img" aria-labelledby="p318-route-title">
+<title id="p318-route-title">3.18：ui1 上升时的信号路线</title>
+<defs><marker id="p318-route-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="15">3.18：ui1 上升时的信号路线</text><rect x="35" y="50" width="250" height="62" class="block"/><text x="160.0" y="74.0" text-anchor="middle" font-size="15">差分对＋镜像负载</text><text x="160.0" y="98.0" text-anchor="middle" font-size="15">右侧节点上升</text><path class="wire" d="M160 112L160 138" marker-end="url(#p318-route-arrow)"/><rect x="35" y="145" width="250" height="62" class="block"/><text x="160.0" y="169.0" text-anchor="middle" font-size="15">T5：PNP 跟随</text><text x="160.0" y="193.0" text-anchor="middle" font-size="15">T6 基极上升</text><path class="wire" d="M160 207L160 233" marker-end="url(#p318-route-arrow)"/><rect x="35" y="240" width="250" height="62" class="block"/><text x="160.0" y="264.0" text-anchor="middle" font-size="15">T6：PNP 共射</text><text x="160.0" y="288.0" text-anchor="middle" font-size="15">集电极输出下降</text><path class="wire" d="M160 302L160 328" marker-end="url(#p318-route-arrow)"/><rect x="35" y="335" width="250" height="62" class="block"/><text x="160.0" y="359.0" text-anchor="middle" font-size="15">T7、T8 复合跟随；T9 跟随</text><text x="160.0" y="383.0" text-anchor="middle" font-size="15">后续驱动电位下降</text><path class="wire" d="M160 397L160 423" marker-end="url(#p318-route-arrow)"/><rect x="35" y="430" width="250" height="62" class="block"/><text x="160.0" y="454.0" text-anchor="middle" font-size="15">T10、T11 互补输出</text><text x="160.0" y="478.0" text-anchor="middle" font-size="15">uo 下降</text><text x="160" y="540" text-anchor="middle" font-size="14">仅展开信号路线，偏置支路另述</text></svg></figure>
+  <h3>输入极性：令 uI1 增大，另一输入不变</h3>
+  <p>先看差模作用。T<sub>1</sub> 电流增加，T<sub>2</sub> 电流减少。镜像管 T<sub>3</sub>、T<sub>4</sub> 把左侧增加的电流变化送到右侧，因此右侧输出节点更容易上升。这个节点接 T<sub>5</sub> 基极。</p>
+  <p>T<sub>5</sub> 是 PNP 射极跟随关系，发射极电位随基极上升；它驱动 T<sub>6</sub> 基极。T<sub>6</sub> 是 PNP 共射，基极上升使集电极电流减小，在电流源 I<sub>3</sub> 的加载下，其集电极输出节点下降。</p>
+  <p>后面的 T<sub>7</sub>、T<sub>8</sub> 构成复合跟随级；T<sub>9</sub> 从发射极输出，也是跟随关系；最后互补输出仍跟随。因此后面不再额外反相，最终 u<sub>o</sub> 下降。</p>
+  <div class="eq">u<sub>I1</sub> 增大 → u<sub>o</sub> 减小：u<sub>I1</sub> 是反相输入<br>u<sub>I2</sub> 增大 → u<sub>o</sub> 增大：u<sub>I2</sub> 是同相输入</div>
+  <p>这里容易错把 T<sub>9</sub> 当成共射。要看输出从哪里取：原图由它的发射极去驱动末级，所以它不再反相。</p>
+  <h3>其余三问：用“直流任务＋交流任务”回答</h3>
+  <ul>
+    <li><strong>T3、T4：</strong>组成镜像电流源，作为输入差分对的有源负载；同时把两侧差模电流变化合到单端输出，避免普通单侧电阻输出只利用一半变化的限制。</li>
+    <li><strong>I3：</strong>给 T6 设置静态电流；交流上提供很大的动态负载电阻，提高这一共射级的电压放大能力。</li>
+    <li><strong>D2、D3：</strong>给互补输出级提供适当静态偏置，使输出管微导通，减轻交越失真。</li>
+  </ul>
+  <p class="level"><strong>掌握标准：</strong>能按节点电位变化复述一次输入极性的判断，并说清三组器件的功能。没有必要把整张图每根导线的位置背下来。</p>
+</section>
+<section id="p319">
+  <h2>3.19 真实运放内部图：先认结构，再认辅助支路</h2>
+  <p>5G28 题图同时出现结型场效应管和双极型三极管，因此属于 <strong>Bi-FET 混合结构</strong>。注意“单极型管”是场效应管这一类器件的称呼，并不等于它只能用单电源。</p>
+  <figure class="chapter-circuit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 365" role="img" aria-labelledby="p319-route-title">
+<title id="p319-route-title">3.19：Bi-FET 的三级信号结构</title>
+<defs><marker id="p319-route-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="15">3.19：Bi-FET 的三级信号结构</text><rect x="35" y="50" width="250" height="62" class="block"/><text x="160.0" y="74.0" text-anchor="middle" font-size="15">T2、T3：场效应管差分输入</text><text x="160.0" y="98.0" text-anchor="middle" font-size="15">高输入电阻，单端输出</text><path class="wire" d="M160 112L160 138" marker-end="url(#p319-route-arrow)"/><rect x="35" y="145" width="250" height="62" class="block"/><text x="160.0" y="169.0" text-anchor="middle" font-size="15">T7、T8：复合共射</text><text x="160.0" y="193.0" text-anchor="middle" font-size="15">主要电压放大</text><path class="wire" d="M160 207L160 233" marker-end="url(#p319-route-arrow)"/><rect x="35" y="240" width="250" height="62" class="block"/><text x="160.0" y="264.0" text-anchor="middle" font-size="15">T10、T11：互补输出</text><text x="160.0" y="288.0" text-anchor="middle" font-size="15">驱动负载，低输出电阻</text><text x="160" y="350" text-anchor="middle" font-size="14">R7、R9：采样限流；C：补偿</text></svg></figure>
+  <h3>信号放大部分共三级</h3>
+  <ol>
+    <li><strong>第一级：</strong>T<sub>2</sub>、T<sub>3</sub> 组成双端输入、单端输出的差分放大级。场效应管输入有利于获得高输入电阻、小输入电流。</li>
+    <li><strong>第二级：</strong>T<sub>7</sub>、T<sub>8</sub> 构成复合共射放大级，承担较大的电压放大。把两管作为组合看；不能因其中一只局部呈跟随连接就把整个组合判为共集。</li>
+    <li><strong>第三级：</strong>T<sub>10</sub>、T<sub>11</sub> 构成互补输出级，改善带负载能力。</li>
+  </ol>
+  <p>其余器件参与偏置、电流源、有源负载、调零或保护，不是每增加一只管就增加一级放大。</p>
+  <h3>R7、R9 为什么只有 50 Ω，还需要专门问</h3>
+  <p>它们串在上下输出管发射极路径中，对负载电流采样。采样压降与 D<sub>3</sub>、D<sub>4</sub> 配合，在过流时分流驱动，限制输出电流。读法与上一题的二极管保护相同。</p>
+  <h3>补偿电容 C 不是“高频时把信号都旁路掉”</h3>
+  <p>C 用来调整运放的频率响应，避免引入负反馈后因高频附加相移造成自激。它往往以牺牲一定速度来换取稳定性。第四章先学习增益与相位怎样随频率变化，第五章再解释负反馈为什么会在某些频率变成促使振荡的作用。</p>
+  <p class="level"><strong>必会：</strong>Bi-FET 的含义、三级信号结构、采样限流、频率补偿的目的。现在能定位 C 并解释它服务于稳定性即可，不要求提前背后面章节的全部补偿公式。</p>
+</section>
+<section id="ch3-finish">
+  <h2>第三章收束：把每种题型归到一套动作</h2>
+  <div class="table-wrap"><table><thead><tr><th>遇到什么题</th><th>第一步</th><th>完成标准</th></tr></thead><tbody>
+    <tr><td>多级增益、电阻</td><td>先分信号级与偏置支路</td><td>后级加载前级，端口、符号、单位都对应</td></tr>
+    <tr><td>差分计算</td><td>先静态，再分差模与共模</td><td>会画半电路，正确处理单双端及发射极电阻</td></tr>
+    <tr><td>镜像电流源</td><td>先沿发射结找参考电阻压降</td><td>列出基极电流去向，知道何时可近似相等</td></tr>
+    <tr><td>输出级与故障</td><td>认偏置、输出通路和采样支路</td><td>分清正常增益、摆幅、故障直流电位</td></tr>
+    <tr><td>复杂运放读图</td><td>沿一个输入的微小变化逐级追踪</td><td>判输入极性，说明局部器件功能</td></tr>
+    <tr><td>指标与选型</td><td>明确需求限制在哪个物理量</td><td>用参数作理由，避免只背型号分类</td></tr>
+  </tbody></table></div>
+  <p>本页已覆盖纸面章末习题 3.1—3.19。正文部分保留已讲内容的复习提要；书中另附数字资源和拓展题未冒充已读取的内容。场效应管题也给出分析，但保留“选学”标识，方便按老师进度安排。</p>
+  <p class="route">下一章接第四章：先用一个 RC 电路讲清“频率变了，为什么增益和相位会变”，再进入三极管高频模型、米勒效应和多级带宽。</p>
+</section>
+
 <footer id="sources">
   <h2>来源与使用范围</h2>
-  <p>正文提要依据用户提供的《模拟电子技术基础》第六版第三章纸面内容；习题 3.1—3.3 对照教材印刷第 164—166 页及配套《学习辅导与习题解答》第六版相关解答校核。其中本轮 3.2、3.3 对照教材第 165—166 页、辅导书第 119—120 页。</p>
-  <p>本文采用独立讲解与矢量重绘；自设数值例题均已明确标注。正文提要不替代课堂逐段详讲，页面也不表示第三章全部章末题已经完成。网站仅发布讲义，不提供所用教材 PDF 的公开副本。</p>
+  <p>正文提要依据用户提供的《模拟电子技术基础》第六版第三章纸面内容；习题 3.1—3.19 对照教材印刷第 164—170 页及配套《学习辅导与习题解答》第六版相关解答校核。3.4—3.19 对照教材第 166—170 页、辅导书第 121—129 页逐题校核。</p>
+  <p>本文采用独立讲解与矢量重绘；自设数值例题均已明确标注。正文提要不替代课堂逐段详讲，纸面章末习题已逐题覆盖，另附数字资源和拓展题不在这一完成声明中。网站仅发布讲义，不提供所用教材 PDF 的公开副本。</p>
   <p><a href="模拟电子技术基础_前两章学习讲义.html">回看第一、二章</a> · <a class="collection-link" href="../../index.html#analog">返回教程合集</a> · <a href="#start">回到开头 ↑</a></p>
 </footer>
 </main></div>

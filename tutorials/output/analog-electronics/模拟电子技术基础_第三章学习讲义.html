@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="模拟电子技术基础第六版第三章复习提要与习题3.1—3.3详解：共集共射级联、二极管微变模型、PNP增益、源电压增益，配SVG电路图。">
+<title>模拟电子技术基础 · 第三章学习讲义</title>
+<style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+
+
+.lesson-diagram{margin:30px 0;--font-size-base:14px}
+.lesson-diagram .panels{align-items:start}
+.reading-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:18px}
+.reading-links a{font-size:14px}
+.new-circuit{max-width:288px}
+.eq{max-width:100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body>
+<div class="layout"><aside><div class="brand">模拟电子技术基础<br>第三章 · 集成运算放大电路</div>
+<div class="reading-links"><a class="collection-link" href="../../index.html#analog">教程合集</a><a href="模拟电子技术基础_前两章学习讲义.html">前两章</a></div>
+<details id="course-contents" open><summary>本页目录 · 更新至习题 3.3</summary><nav aria-label="第三章目录"><a href="#map">第三章到底在解决什么问题</a><a href="#review-cascade">3.1—3.2 复习：后一级既是放大器，也是前一级的负载</a><a href="#review-diff">3.3.1—3.3.2 复习：差分电路只把“差别”当作有用输入</a><a href="#review-units">3.3.3—3.4 复习：电流源、输出级和整张运放图</a><a href="#review-metrics">3.5—3.7 复习：性能指标要对上具体错误</a><a href="#procedure">开始做题：每次都执行同一套顺序</a><a href="#p31">习题 3.1 回看：接法由输入、输出和公共端决定</a><a href="#p32a">习题 3.2(a) 回看：共射后接共集</a><a href="#p32b">习题 3.2(b)：把共集放到前面，会改变什么</a><a href="#p32c">习题 3.2(c)：PNP、二极管和正负号一起出现</a><a href="#p32d">习题 3.2(d)：场效应管共源后接三极管共射</a><a href="#p33">习题 3.3：增益不到 1 的级，为什么能提高整体效果</a><a href="#check">合上答案，检查这次是否真的学会</a></nav></details></aside>
+<main><header class="book-cover" id="start">
+  <p class="eyebrow">模拟电子技术基础 · 第六版 · 第三章</p>
+  <h1>集成运算放大电路<br>从看懂电路，到会做题</h1>
+  <p class="lead">先把已经学过的第三章接成一条线，再把习题 3.1—3.3 的读图、负载、增益和电阻一步步算清楚。</p>
+  <p class="scope">更新至 2026 年 10 月 20 日。正文部分为复习提要，习题部分为详细讲解；本轮新课从 <a href="#p32b">3.2(b)</a> 开始。三极管为主线，场效应管题标为选学。后续习题尚未讲完。</p>
+  <a class="continue" href="#p32b">接着上次，从 3.2(b) 读起 →</a>
+</header>
+<section id="map">
+  <p class="eyebrow">先把知识接起来</p>
+  <h2>第三章到底在解决什么问题</h2>
+  <p>第二章让你会分析一个放大级；第三章要你知道：<strong>多个级接在一起，怎样既能接收微弱信号，又有足够增益，还能带动后面的负载。</strong>集成运放内部虽然管子很多，仍然由偏置、输入级、中间放大级和输出级组成。</p>
+  <p>做题先分清两件事。第一件是直流：每只管子有没有合适的静态工作点。第二件是交流：信号引起多大电流变化，这些变化又在哪个电阻上变成输出电压。题目已经说“Q 点合适”，通常就是让你直接进入第二件事。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>课本部分</th><th>必须会做什么</th><th>为什么要讲</th></tr></thead>
+    <tbody>
+      <tr><td>3.1 多级放大</td><td>带上后级负载算前级，再乘各级增益</td><td>解决“单级都会，接起来就算错”</td></tr>
+      <tr><td>3.2 运放概述</td><td>认输入端、输出端和线性区，判断输出方向</td><td>把内部电路与外部符号联系起来</td></tr>
+      <tr><td>3.3 单元电路</td><td>差模/共模分解、差分增益、电流镜、互补输出</td><td>本章主要计算与分析题集中在这里</td></tr>
+      <tr><td>3.4 整体电路</td><td>把偏置网络分出去，沿信号路径判断各级</td><td>训练读复杂图；不用背每根线的位置</td></tr>
+      <tr><td>3.5 性能指标</td><td>分清失调、偏置电流、带宽与转换速率</td><td>判断理想运放近似什么时候会失效</td></tr>
+      <tr><td>3.6—3.7 选择与使用</td><td>根据输入、速度、负载和电源条件判断是否适用</td><td>常见于简答与应用题，也解释计算为何不等于实物必然正常</td></tr>
+    </tbody>
+  </table></div>
+  <p class="level"><strong>掌握边界：</strong>工艺历史、型号罗列不必与电路计算投入同样精力；它们用于理解集成器件为什么这样设计。3.4.3 的实际运放数字资源及 3.8 的仿真内容未在这里逐项展开，本页不声称替代这些配套资源。</p>
+</section>
+<section id="review-cascade">
+  <h2>3.1—3.2 复习：后一级既是放大器，也是前一级的负载</h2>
+  <p>假设第一级单独测得空载增益 A<sub>u01</sub>、输出电阻 R<sub>o1</sub>。接上输入电阻为 R<sub>i2</sub> 的第二级后，第一级的输出会分压。这个损失发生在两级之间，不能等全部增益乘完再补一个随意的系数。</p>
+  <div class="eq">A<sub>u1</sub> = A<sub>u01</sub> · R<sub>i2</sub> / (R<sub>o1</sub> + R<sub>i2</sub>)<br>A<sub>u</sub> = A<sub>u1</sub>A<sub>u2</sub> ··· A<sub>un</sub></div>
+  <p>这里每个 A<sub>uk</sub> 都要包含它实际所带的负载。末级的实际负载是外接 R<sub>L</sub>。如果公式已经用了 R<sub>C</sub>∥R<sub>L</sub>，就不要再乘一次同一负载的分压系数。</p>
+  <p>直接耦合可以传递直流和缓慢变化的信号，但前一级的直流电位也会影响后一级偏置。阻容耦合隔开直流，低频时电容阻抗不能忽略。所谓“中频电容短路”，是题设频段下的近似，不是电容在任何情况下都等于导线。</p>
+  <p>运放的基本关系是 u<sub>o</sub>≈A<sub>ud</sub>(u<sub>+</sub>−u<sub>−</sub>)，只在线性范围内成立。开环增益很大，因此很小的差模输入就可能使输出饱和。<strong>看见运放符号，不能自动写“虚短”。</strong>还需要负反馈、能够维持线性等条件；这些会在后续章节系统应用。</p>
+  <p class="level"><strong>本段最低要求：</strong>能说出直接耦合与阻容耦合的区别；能把“空载增益”和“接上后级后的增益”分开；知道同相端升高使线性区输出升高。</p>
+</section>
+<section id="review-diff">
+  <h2>3.3.1—3.3.2 复习：差分电路只把“差别”当作有用输入</h2>
+  <p>把两个输入分解，是差分题的第一步。两端一起上升的部分叫共模；两端不一样的部分叫差模。这是代数拆分，不需要猜信号属于哪一类。</p>
+  <div class="eq">u<sub>id</sub> = u<sub>i1</sub> − u<sub>i2</sub>　　u<sub>ic</sub> = (u<sub>i1</sub> + u<sub>i2</sub>) / 2<br>u<sub>i1</sub> = u<sub>ic</sub> + u<sub>id</sub>/2　　u<sub>i2</sub> = u<sub>ic</sub> − u<sub>id</sub>/2</div>
+  <p>例如两端分别是 20 mV 和 10 mV，那么差模是 10 mV，共模是 15 mV。不能因为两个输入都是正数，就说“只有共模”。</p>
+  <p>对称的三极管差分对在纯差模作用下，两侧电流增量相反，尾部总电流的增量为零。公共发射极点可视为交流虚地。对称、无发射极退化、忽略管子输出电阻、两侧集电极各接 R<sub>C</sub> 时：</p>
+  <div class="eq">u<sub>c1</sub> = −βR<sub>C</sub>u<sub>id</sub>/(2r<sub>be</sub>)<br>u<sub>c2</sub> = +βR<sub>C</sub>u<sub>id</sub>/(2r<sub>be</sub>)<br>A<sub>ud,双端</sub> = (u<sub>c1</sub>−u<sub>c2</sub>)/u<sub>id</sub> = −βR<sub>C</sub>/r<sub>be</sub><br>R<sub>id</sub> = 2r<sub>be</sub></div>
+  <p>从第一侧单端输出，增益为双端的一半；从第二侧输出，符号相反。若负载跨接两个集电极，纯差模的半电路中每侧应放 R<sub>L</sub>/2，再与本侧 R<sub>C</sub> 并联。负载接法不同，不能照抄未带负载的结果。</p>
+  <p>纯共模时两侧电流同向变化。尾部电阻 R<sub>e</sub> 越大，这种共同变化越难发生；理想电流源的动态电阻趋于无穷，能够进一步抑制共模。对称且只用公共尾电阻的简单电路，单端共模增益为：</p>
+  <div class="eq">A<sub>uc,单端</sub> ≈ −βR<sub>C</sub> / [r<sub>be</sub> + 2(β+1)R<sub>e</sub>]<br>K<sub>CMR</sub> = |A<sub>ud</sub>/A<sub>uc</sub>|；以 dB 表示时用 20 log<sub>10</sub>K<sub>CMR</sub></div>
+  <p>理想对称的双端输出会把两侧相等的共模变化相减掉；实际器件不完全匹配，所以共模抑制不是无限好。计算 K<sub>CMR</sub> 时，差模和共模增益必须使用<strong>相同输出端口</strong>。</p>
+  <p class="level"><strong>必会：</strong>输入分解、静态尾电流分配、单端与双端的二倍关系及符号、负载折半条件。温度漂移这一段说明为什么需要差分结构，不必把微观过程背成长篇答案。</p>
+</section>
+<section id="review-units">
+  <h2>3.3.3—3.4 复习：电流源、输出级和整张运放图</h2>
+  <p><strong>电流镜：</strong>匹配管在相同 U<sub>BE</sub> 下有近似相同的集电极电流。简单双管镜像源若 β 有限，参考支路还要供应两只管的基极电流，因此不能无条件把 I<sub>REF</sub> 全部当成输出电流。</p>
+  <div class="eq">I<sub>REF</sub> = I<sub>C</sub> + I<sub>B1</sub> + I<sub>B2</sub><br>I<sub>O</sub> ≈ I<sub>REF</sub> / (1 + 2/β)</div>
+  <p>这里的箭头就是为了让你看清参考电流在哪个节点分成三份。题目说忽略基极电流时，才进一步取 I<sub>O</sub>≈I<sub>REF</sub>。输出管还要有足够的管压降维持放大区，电流源并非能在任何输出电压下保持恒流。</p>
+  <p><strong>有源负载：</strong>一个支路直流能流过电流，同时交流电流却几乎不随端电压变化，因此它的动态电阻可以很大。共射级增益取决于动态负载，大动态电阻有利于获得大电压增益。这里的“恒流”不等于这条支路从电路中消失。</p>
+  <p><strong>互补输出：</strong>上、下两管分别承担不同方向的负载电流。简单乙类输出在零点附近可能两管都不充分导通，造成交越失真；加入适当静态偏置能减轻它。输出级通常重视低输出电阻和电流驱动能力，电压增益接近 1 仍然很有价值。</p>
+  <p><strong>读复杂运放：</strong>先圈出电源和偏置支路，再找到差分输入对，沿集电极节点找中间级与输出级，最后逐级判断输入升高会使输出升高还是降低。别把给各级供电流的偏置网络也硬算成一个信号放大级。</p>
+  <p class="level"><strong>做题标准：</strong>会用 KCL 算简单镜像源；能辨认电流源作为尾部偏置还是作为有源负载；能解释交越失真；能在复杂图中标出信号路线。晶体管内部的全部载流子轨迹不需要逐条背诵。</p>
+</section>
+<section id="review-metrics">
+  <h2>3.5—3.7 复习：性能指标要对上具体错误</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>指标</th><th>它在描述什么</th><th>习题里怎么用</th></tr></thead>
+    <tbody>
+      <tr><td>输入失调电压 U<sub>IO</sub></td><td>为使输出回到指定零点所需的小差模补偿</td><td>估计零输入时的输出偏差</td></tr>
+      <tr><td>输入偏置电流 I<sub>IB</sub></td><td>两输入端静态电流的平均量</td><td>与外接电阻相乘，找附加压降</td></tr>
+      <tr><td>输入失调电流 I<sub>IO</sub></td><td>两个输入偏置电流的不一致程度</td><td>解释电阻平衡后为何仍有误差</td></tr>
+      <tr><td>共模抑制比</td><td>放大差模、抑制共模的相对能力</td><td>用一致端口的两种增益计算</td></tr>
+      <tr><td>带宽</td><td>小信号增益随频率下降的程度</td><td>看频率响应；单主极点近似下才用常见增益带宽关系</td></tr>
+      <tr><td>转换速率 SR</td><td>输出每单位时间最多改变多少电压</td><td>正弦输出需满足 2πfU<sub>om</sub>≤SR</td></tr>
+    </tbody>
+  </table></div>
+  <p>带宽不足和转换速率不足不是同一件事。前者属于小信号频率响应；后者常在大幅度、快速变化时暴露。输出正弦峰值越大，保持不受 SR 限制的最高频率越低。</p>
+  <p>选用与保护需要检查：电源电压、输入共模范围、允许差模电压、输出摆幅、负载电流、速度及所需精度。输入偏置电流还需要直流回路；电源旁路电容用于减少供电扰动。具体限值依赖器件，本页不把某一型号的数值当成所有运放的通用规定。</p>
+  <p class="level"><strong>优先级：</strong>先能解释指标、用单位正确的公式算简单限制；型号发展史和工艺名称作为背景认识。实物使用问题有自己的价值，不要求你为一道基本增益题先学完整本器件手册。</p>
+</section>
+<section id="procedure">
+  <h2>开始做题：每次都执行同一套顺序</h2>
+  <ol>
+    <li><strong>查题设。</strong>是否已知 Q 点合适？是否为中频？是否忽略 r<sub>ce</sub>、r<sub>ds</sub> 等输出电阻？</li>
+    <li><strong>画交流通路。</strong>直流理想电压源交流接地，充分大的耦合与旁路电容短路；偏置电阻仍保留。</li>
+    <li><strong>分级、定端口。</strong>每级从哪一极输入、哪一极输出；用 X 标出两级之间的节点。</li>
+    <li><strong>从后向前算负载。</strong>先求后一级输入电阻，再并到前一级输出负载上。</li>
+    <li><strong>从前向后乘增益。</strong>每个增益都写清分子、分母，特别是有没有把输入串联电阻算进去。</li>
+    <li><strong>分别求 R<sub>i</sub>、R<sub>o</sub>。</strong>求 R<sub>o</sub> 时独立信号源置零，受控源保留，并移去外接负载。</li>
+  </ol>
+  <p class="correction">以下 3.2 的解析采用教材的中频简化微变模型，忽略晶体管输出电阻与高频电容；u<sub>i</sub>、u<sub>o</sub> 都是题图所标端口电压。∥ 表示并联。没有另画的外接 R<sub>L</sub> 时，按题图给出的负载计算。</p>
+</section>
+<section id="p31">
+  <h2>习题 3.1 回看：接法由输入、输出和公共端决定</h2>
+  <p>三极管画在上方、箭头向内、使用负电源，都不能直接决定接法。先把电容和电源变成交流通路，然后找输入、输出对哪一极而言。</p>
+  <div class="table-wrap"><table><thead><tr><th>题图</th><th>第一级</th><th>第二级</th><th>读图要点</th></tr></thead><tbody>
+    <tr><td>(a)</td><td>共射</td><td>共基</td><td>第二级从发射极输入，基极交流固定</td></tr>
+    <tr><td>(b)</td><td>共射</td><td>共射</td><td>两级均由基极输入、集电极输出</td></tr>
+    <tr><td>(c)</td><td>共射</td><td>共射</td><td>第一级是 PNP，发射极在上方仍可以是共射</td></tr>
+    <tr><td>(d)</td><td>共集</td><td>共基</td><td>第一管从发射极输出，第二管从发射极输入</td></tr>
+    <tr><td>(e) 选学</td><td>共源</td><td>共集</td><td>场效应管源极被充分旁路，后级从发射极输出</td></tr>
+    <tr><td>(f)</td><td>共基</td><td>共集</td><td>第一管基极有旁路，实际信号送入发射极</td></tr>
+  </tbody></table></div>
+  <div class="lesson-diagram"><div id="ch3-quiz-p31-ab">
+  <style>
+    #ch3-quiz-p31-ab {color:var(--foreground)}
+    #ch3-quiz-p31-ab .panels {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,288px),1fr));gap:20px}
+    #ch3-quiz-p31-ab .circuit {display:block;width:100%;height:400px}
+    #ch3-quiz-p31-ab .wire {fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #ch3-quiz-p31-ab .dot {fill:currentColor}
+    #ch3-quiz-p31-ab text {fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <div class="panels">
+    <svg class="circuit" role="img" aria-label="P3.1(a) 识别用交流简图，偏置支路省略。T1 基极输入，发射极经 C2 交流接地，集电极接 T2 发射极。T2 基极经 C4 交流接地，集电极经 R3 接交流地，并取输出。">
+      <defs><marker id="p31a-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">(a) 交流识别图</text>
+        <path class="wire" d="M112 55H200V65M188 65H212M192 71H208M197 77H203M105 55H119V91H105ZM112 91V140L144 163M144 154V186M144 177L112 200V240L80 263M80 254V286M80 277L112 300V335M144 170H232V193M220 193H244M224 199H240M229 205H235M100 335H124M104 341H120M109 347H115M10 270H80M112 113H268"/>
+        <path class="wire" marker-end="url(#p31a-arr)" d="M135 183L117 197"/>
+        <path class="wire" marker-end="url(#p31a-arr)" d="M89 283L107 297"/>
+        <circle class="dot" cx="112" cy="113" r="3.5"/>
+        <text x="128" y="82">R3</text><text x="247" y="99">uo</text>
+        <text x="69" y="178">T2</text><text x="134" y="279">T1</text>
+        <text x="11" y="253">ui</text><text x="184" y="229">C4 短接</text>
+        <text x="142" y="339">C2 短接</text>
+        <text x="144" y="385" text-anchor="middle">地符号均表示交流地</text>
+      </g>
+    </svg>
+    <svg class="circuit" role="img" aria-label="P3.1(b) 识别用交流简图，偏置支路省略。T1 与 T2 均为 NPN，T1 发射极直接接地，T2 发射极经 C3 接交流地；T1 集电极连接 T2 基极，T2 集电极输出。">
+      <defs><marker id="p31b-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">(b) 交流识别图</text>
+        <path class="wire" d="M90 70V50H210V70M150 50V65M138 65H162M142 71H158M147 77H153M83 70H97V110H83ZM90 110V185L60 208M60 199V231M60 222L90 245V310M10 215H60M90 145H180M180 129V161M180 138L210 115V105M203 70H217V105H203ZM180 152L210 175V310M210 115H268M78 310H102M82 316H98M87 322H93M198 310H222M202 316H218M207 322H213"/>
+        <path class="wire" marker-end="url(#p31b-arr)" d="M69 229L85 242"/>
+        <path class="wire" marker-end="url(#p31b-arr)" d="M189 159L205 172"/>
+        <circle class="dot" cx="90" cy="145" r="3.5"/><circle class="dot" cx="210" cy="115" r="3.5"/>
+        <text x="107" y="96">R1</text><text x="229" y="79">R4</text>
+        <text x="112" y="226">T1</text><text x="231" y="150">T2</text>
+        <text x="11" y="197">ui</text><text x="247" y="99">uo</text>
+        <text x="181" y="345">C3 短接</text>
+        <text x="144" y="385" text-anchor="middle">地符号均表示交流地</text>
+      </g>
+    </svg>
+  </div>
+  <script>
+    (()=>{const root=document.getElementById('ch3-quiz-p31-ab');root.querySelectorAll('.circuit').forEach(svg=>{const draw=()=>{const w=svg.getBoundingClientRect().width;svg.setAttribute('viewBox',`0 0 ${w} 400`);svg.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(svg);draw()})})();
+  </script>
+</div>
+</div>
+  <div class="lesson-diagram"><div id="ch3-quiz-p31-cd">
+  <style>
+    #ch3-quiz-p31-cd {color:var(--foreground)}
+    #ch3-quiz-p31-cd .panels {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,288px),1fr));gap:20px}
+    #ch3-quiz-p31-cd .circuit {display:block;width:100%;height:400px}
+    #ch3-quiz-p31-cd .wire {fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #ch3-quiz-p31-cd .dot {fill:currentColor}
+    #ch3-quiz-p31-cd text {fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <div class="panels">
+    <svg class="circuit" role="img" aria-label="P3.1(c) 交流识别图。左边 T1 是 PNP，其带箭头的上支为发射极，经 C2 交流接地；下支为集电极，接 R3 并驱动 T2 基极。T2 是 NPN，发射极经 C3 接地，从集电极输出。偏置支路省略。">
+      <defs><marker id="p31c-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">(c) 交流识别图</text>
+        <path class="wire" d="M94 175V70H216V95M160 70V85M148 85H172M152 91H168M157 97H163M209 95H223V131H209ZM216 131V175L184 198M184 189V221M184 212L216 235V330H94V302M87 266H101V302H87ZM94 266V235L62 212M62 189V221M62 198L94 175M10 205H62M94 235H150V205H184M216 155H268M160 330V345M148 345H172M152 351H168M157 357H163"/>
+        <path class="wire" marker-end="url(#p31c-arr)" d="M89 179L71 192"/>
+        <path class="wire" marker-end="url(#p31c-arr)" d="M193 218L211 232"/>
+        <circle class="dot" cx="94" cy="235" r="3.5"/><circle class="dot" cx="216" cy="155" r="3.5"/>
+        <text x="15" y="140">C2 短接</text><text x="109" y="285">R3</text>
+        <text x="232" y="120">R4</text><text x="228" y="282">C3 短接</text>
+        <text x="15" y="241">T1</text><text x="15" y="262">PNP</text><text x="237" y="211">T2</text>
+        <text x="11" y="187">ui</text><text x="247" y="139">uo</text>
+        <text x="144" y="385" text-anchor="middle">带箭头的支路是发射极</text>
+      </g>
+    </svg>
+    <svg class="circuit" role="img" aria-label="P3.1(d) 交流识别图。T1 集电极接交流地，从基极输入、发射极输出。其发射极与 T2 发射极相连，T2 基极经 C2 接交流地，从集电极输出。偏置支路省略。">
+      <defs><marker id="p31d-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">(d) 交流识别图</text>
+        <path class="wire" d="M90 135V50H210V95M150 50V65M138 65H162M142 71H158M147 77H153M203 95H217V131H203ZM210 131V195L180 218M180 209V241M180 232L210 255H90V195L60 172M60 149V181M60 158L90 135M10 165H60M90 255V285M83 285H97V321H83ZM90 321V350M78 350H102M82 356H98M87 362H93M180 225H145V302M133 302H157M137 308H153M142 314H148M210 175H268"/>
+        <path class="wire" marker-end="url(#p31d-arr)" d="M69 179L85 192"/>
+        <path class="wire" marker-end="url(#p31d-arr)" d="M189 239L205 252"/>
+        <circle class="dot" cx="90" cy="255" r="3.5"/><circle class="dot" cx="210" cy="175" r="3.5"/>
+        <text x="108" y="166">T1</text><text x="230" y="227">T2</text>
+        <text x="230" y="120">R5</text><text x="105" y="300">R2</text>
+        <text x="165" y="335">C2 短接</text><text x="11" y="147">ui</text><text x="247" y="159">uo</text>
+        <text x="144" y="385" text-anchor="middle">两管相连的是发射极</text>
+      </g>
+    </svg>
+  </div>
+  <script>
+    (()=>{const root=document.getElementById('ch3-quiz-p31-cd');root.querySelectorAll('.circuit').forEach(svg=>{const draw=()=>{const w=svg.getBoundingClientRect().width;svg.setAttribute('viewBox',`0 0 ${w} 400`);svg.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(svg);draw()})})();
+  </script>
+</div>
+</div>
+  <div class="lesson-diagram"><div id="ch3-quiz-p31-ef">
+  <style>
+    #ch3-quiz-p31-ef {color:var(--foreground)}
+    #ch3-quiz-p31-ef .panels {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,288px),1fr));gap:20px}
+    #ch3-quiz-p31-ef .circuit {display:block;width:100%;height:410px}
+    #ch3-quiz-p31-ef .wire {fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #ch3-quiz-p31-ef .dot {fill:currentColor}
+    #ch3-quiz-p31-ef text {fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <div class="panels">
+    <svg class="circuit" role="img" aria-label="P3.1(e) 交流识别图。场效应管 T1 从栅极输入，源极经 C2 接交流地，从漏极驱动 T2 基极。T2 集电极接交流地、发射极输出。偏置支路省略。">
+      <defs><marker id="p31e-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">(e) 交流识别图</text>
+        <path class="wire" d="M110 65V45H222V95L190 118M190 109V141M190 132L222 155V265M215 265H229V301H215ZM222 301V350M210 350H234M214 356H230M219 362H225M103 65H117V101H103ZM110 101V179H88M88 169V222M88 213H110V250M98 250H122M102 256H118M107 262H113M110 125H190M222 205H268M165 45V60M153 60H177M157 66H173M162 72H168M10 195H58"/>
+        <path class="wire" marker-end="url(#p31e-arr)" d="M58 195H88"/>
+        <path class="wire" marker-end="url(#p31e-arr)" d="M199 139L217 152"/>
+        <circle class="dot" cx="110" cy="125" r="3.5"/><circle class="dot" cx="222" cy="205" r="3.5"/>
+        <text x="127" y="91">R2</text><text x="242" y="290">R4</text>
+        <text x="129" y="202">T1</text><text x="242" y="130">T2</text>
+        <text x="10" y="178">ui</text><text x="247" y="189">uo</text>
+        <text x="59" y="176">g</text><text x="121" y="165">d</text><text x="122" y="233">s</text>
+        <text x="69" y="290">C2 短接</text>
+        <text x="144" y="392" text-anchor="middle">场效应管只做接法识别</text>
+      </g>
+    </svg>
+    <svg class="circuit" role="img" aria-label="P3.1(f) 交流识别图。输入 ui 接在 T1 发射极，T1 基极由 C1 接交流地，集电极通过已短接的 C3 驱动 T2 基极。T2 集电极接交流地，发射极输出。偏置支路省略。">
+      <defs><marker id="p31f-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">(f) 交流识别图</text>
+        <path class="wire" d="M102 65V45H222V95L190 118M190 109V141M190 132L222 155V265M215 265H229V301H215ZM222 301V365H102V331M95 295H109V331H95ZM102 295V225L70 202M70 179V211M70 188L102 165V101M95 65H109V101H95ZM102 125H190M70 195H32V225M20 225H44M24 231H40M29 237H35M10 260H102M222 205H268M162 45V60M150 60H174M154 66H170M159 72H165M162 365V377M150 377H174M154 383H170M159 389H165"/>
+        <path class="wire" marker-end="url(#p31f-arr)" d="M79 209L97 222"/>
+        <path class="wire" marker-end="url(#p31f-arr)" d="M199 139L217 152"/>
+        <circle class="dot" cx="102" cy="125" r="3.5"/><circle class="dot" cx="102" cy="260" r="3.5"/><circle class="dot" cx="222" cy="205" r="3.5"/>
+        <text x="119" y="89">R3</text><text x="119" y="316">R4</text><text x="242" y="290">R6</text>
+        <text x="123" y="202">T1</text><text x="242" y="130">T2</text>
+        <text x="10" y="280">ui</text><text x="247" y="189">uo</text>
+        <text x="6" y="164">C1 短接</text><text x="126" y="112">C3 短接</text>
+      </g>
+    </svg>
+  </div>
+  <script>
+    (()=>{const root=document.getElementById('ch3-quiz-p31-ef');root.querySelectorAll('.circuit').forEach(svg=>{const draw=()=>{const w=svg.getBoundingClientRect().width;svg.setAttribute('viewBox',`0 0 ${w} 410`);svg.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(svg);draw()})})();
+  </script>
+</div>
+</div>
+  <p>这些识别图突出端口关系，省略的偏置支路不能在后面的增益计算中继续无条件省掉。判断接法与计算负载，是两步不同的工作。</p>
+  <p class="level"><strong>做对的标准：</strong>不用背 (a) 到 (f) 的答案，而是换一张画法仍能按三个端口判断。PNP 不自动代表同相，共基也不等于基极必须真的拿导线接电源地。</p>
+</section>
+<section id="p32a">
+  <h2>习题 3.2(a) 回看：共射后接共集</h2>
+  <div class="lesson-diagram"><div id="ch3-quiz-p32-a">
+  <style>
+    #ch3-quiz-p32-a {color:var(--foreground)}
+    #ch3-quiz-p32-a .panels {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,288px),1fr));gap:20px}
+    #ch3-quiz-p32-a .circuit {display:block;width:100%;height:545px}
+    #ch3-quiz-p32-a .wire {fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #ch3-quiz-p32-a .dot {fill:currentColor}
+    #ch3-quiz-p32-a .port {fill:var(--background);stroke:currentColor;stroke-width:1.8}
+    #ch3-quiz-p32-a text {fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <div class="panels">
+    <svg class="circuit" role="img" aria-label="P3.2(a) 交流通路。ui 经过串联电阻 R1 接 T1 基极。T1 发射极接地，集电极经 R2 接交流地并连接 T2 基极。T2 集电极接交流地，发射极接 R3 到地并输出 uo。">
+      <defs><marker id="p32a-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="25" text-anchor="middle">3.2(a) 交流通路</text>
+        <path class="wire" d="M122 85V55H214V135L182 158M182 149V181M182 172L214 195V270M207 270H221V310H207ZM214 310V365H122V260L90 237M90 214V246M90 223L122 200V125M115 85H129V125H115ZM122 165H182M10 230H37M37 223H67V237H37ZM67 230H90M214 230H268M168 55V72M156 72H180M160 78H176M165 84H171M168 365V382M156 382H180M160 388H176M165 394H171"/>
+        <path class="wire" marker-end="url(#p32a-arr)" d="M99 243L117 257"/>
+        <path class="wire" marker-end="url(#p32a-arr)" d="M191 178L209 192"/>
+        <circle class="dot" cx="122" cy="165" r="3.5"/><circle class="dot" cx="214" cy="230" r="3.5"/>
+        <circle class="port" cx="10" cy="230" r="3.5"/><circle class="port" cx="268" cy="230" r="3.5"/>
+        <text x="44" y="211">R1</text><text x="140" y="110">R2</text><text x="236" y="296">R3</text>
+        <text x="141" y="238">T1</text><text x="237" y="169">T2</text>
+        <text x="4" y="210">ui</text><text x="248" y="214">uo</text><text x="135" y="148">X：u1</text>
+        <text x="144" y="450" text-anchor="middle">VCC、VBB 的交流分量为零</text>
+      </g>
+    </svg>
+    <svg class="circuit" role="img" aria-label="P3.2(a) 微变等效模型，忽略各管输出电阻。上图第一级中，ui 经 R1 接 rbe1 到地，集电极节点 X 经 R2 到地，并有向地的受控电流 beta1 ib1。下图第二级中，同一节点 X 经 rbe2 接输出发射极，输出经 R3 到地，并有从地指向输出的受控电流 beta2 ib2。">
+      <defs><marker id="p32m-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="25" text-anchor="middle">微变等效：第一级</text>
+        <path class="wire" d="M10 110H30M30 103H60V117H30ZM60 110H80V145M73 145H87V185H73ZM80 185V220H220V187M220 143V110H160V145M153 145H167V185H153ZM160 185V220M220 110H270M150 220V235M138 235H162M142 241H158M147 247H153"/>
+        <path class="wire" d="M220 143L238 165L220 187L202 165ZM220 154V175" marker-end="url(#p32m-arr)"/>
+        <path class="wire" marker-end="url(#p32m-arr)" d="M38 85H64"/>
+        <circle class="port" cx="270" cy="110" r="3.5"/><circle class="dot" cx="220" cy="110" r="3.5"/>
+        <text x="3" y="95">ui</text><text x="39" y="137">R1</text><text x="36" y="70">ib1</text>
+        <text x="17" y="172">rbe1</text><text x="170" y="172">R2</text><text x="242" y="170">β1ib1</text>
+        <text x="257" y="93">X</text>
+        <text x="144" y="287" text-anchor="middle">微变等效：第二级</text>
+        <path class="wire" d="M18 335H80M80 328H130V342H80ZM130 335H270M180 335V370M173 370H187V410H173ZM180 410V450H234V397M234 353V335M207 450V466M195 466H219M199 472H215M204 478H210"/>
+        <path class="wire" d="M234 353L252 375L234 397L216 375Z"/>
+        <path class="wire" marker-end="url(#p32m-arr)" d="M234 385V365"/>
+        <path class="wire" marker-end="url(#p32m-arr)" d="M42 310H67"/>
+        <circle class="port" cx="18" cy="335" r="3.5"/><circle class="port" cx="270" cy="335" r="3.5"/>
+        <circle class="dot" cx="180" cy="335" r="3.5"/><circle class="dot" cx="234" cy="335" r="3.5"/>
+        <text x="12" y="318">X</text><text x="88" y="315">rbe2</text><text x="41" y="297">ib2</text>
+        <text x="144" y="396">R3</text><text x="242" y="427">β2ib2</text><text x="247" y="319">uo</text>
+        <text x="144" y="523" text-anchor="middle">同名 X 点直接相连</text>
+      </g>
+    </svg>
+  </div>
+  <script>
+    (()=>{const root=document.getElementById('ch3-quiz-p32-a');root.querySelectorAll('.circuit').forEach(svg=>{const draw=()=>{const w=svg.getBoundingClientRect().width;svg.setAttribute('viewBox',`0 0 ${w} 545`);svg.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(svg);draw()})})();
+  </script>
+</div>
+</div>
+  <p>这里输入端到第一管基极之间有一个<strong>串联</strong> R<sub>1</sub>。第一级共射负责电压放大，第二级共集主要降低输出电阻。先看第二级：</p>
+  <div class="eq">R<sub>i2</sub> = r<sub>be2</sub> + (β<sub>2</sub>+1)R<sub>3</sub><br>A<sub>u2</sub> = (β<sub>2</sub>+1)R<sub>3</sub> / R<sub>i2</sub></div>
+  <p>于是第一管集电极实际看到 R<sub>2</sub>∥R<sub>i2</sub>，不能只用 R<sub>2</sub>。本题把第一级增益定义为 u<sub>1</sub>/u<sub>i</sub>，因此输入串联 R<sub>1</sub> 也必须计入：</p>
+  <div class="eq">A<sub>u1</sub> = −β<sub>1</sub>(R<sub>2</sub>∥R<sub>i2</sub>) / (R<sub>1</sub>+r<sub>be1</sub>)<br>A<sub>u</sub> = A<sub>u1</sub>A<sub>u2</sub>　　R<sub>i</sub> = R<sub>1</sub>+r<sub>be1</sub><br>R<sub>o</sub> = R<sub>3</sub> ∥ [(r<sub>be2</sub>+R<sub>2</sub>)/(β<sub>2</sub>+1)]</div>
+  <p>求输出电阻时 u<sub>i</sub>=0，第一管的基极增量电流在本题简化模型下为零，所以其受控电流源恰好为零，T<sub>2</sub> 基极对地看到 R<sub>2</sub>。这不等于“受控源都可以关掉”。第二管受控源仍然参与输出测试电流的形成，正是它导致了除以 β<sub>2</sub>+1。</p>
+  <p class="level"><strong>记忆抓手：</strong>共射后面接共集，关键是“前级带上共集的输入电阻”和“输出电阻由共集折算”。</p>
+</section>
+<section id="p32b">
+  <p class="eyebrow">本轮新课 · 必会</p>
+  <h2>习题 3.2(b)：把共集放到前面，会改变什么</h2>
+  <p>这题变成<strong>共集 → 共射</strong>。不要因为仍然是一只共射加一只共集，就认为与 (a) 的 R<sub>i</sub>、R<sub>o</sub> 相同。放在输入端还是输出端，会决定它主要改善哪一端。</p>
+  <h3>第一步：电容短路后，R<sub>3</sub> 到底去了哪里</h3>
+  <p>C<sub>2</sub> 短路，把第一管发射极和第二管基极合成同一个 X 点。R<sub>3</sub> 上端接 V<sub>CC</sub>，交流时相当于接地。因此从 X 点看向地有三条路：R<sub>2</sub>、R<sub>3</sub>，以及第二管的 r<sub>be2</sub>。</p>
+  <div class="lesson-diagram"><div id="ch3-quiz-p32-b">
+  <style>
+    #ch3-quiz-p32-b{color:var(--foreground)}
+    #ch3-quiz-p32-b .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,288px),1fr));gap:20px}
+    #ch3-quiz-p32-b .circuit{display:block;width:100%;height:420px}
+    #ch3-quiz-p32-b .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #ch3-quiz-p32-b .dot{fill:currentColor}
+    #ch3-quiz-p32-b .port{fill:var(--background);stroke:currentColor;stroke-width:1.8}
+    #ch3-quiz-p32-b text{fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <div class="panels">
+    <svg class="circuit" role="img" aria-label="3.2(b)中频交流通路。T1共集，T2共射。输入ui接T1基极并通过R1接地；T1发射极和T2基极同为X点，X通过R2和R3分别接地。T2集电极通过R4接交流地并输出uo。">
+      <defs><marker id="p32b-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">3.2(b) 交流通路</text>
+        <path class="wire" d="M12 150H90M90 128V172M90 140L122 115V50H235V85M228 85H242V125H228ZM235 125V195L205 218M205 209V251M205 242L235 270V360H45V225M38 185H52V225H38ZM45 185V150M90 160L122 190V275M115 275H129V315H115ZM122 315V360M122 230H205M170 230V275M163 275H177V315H163ZM170 315V360M235 165H278M180 50V65M168 65H192M172 71H188M177 77H183M145 360V376M133 376H157M137 382H153M142 388H148"/>
+        <path class="wire" d="M99 168L118 187" marker-end="url(#p32b-arr)"/>
+        <path class="wire" d="M214 250L232 267" marker-end="url(#p32b-arr)"/>
+        <circle class="dot" cx="45" cy="150" r="3.4"/><circle class="dot" cx="122" cy="230" r="3.4"/><circle class="dot" cx="170" cy="230" r="3.4"/><circle class="dot" cx="235" cy="165" r="3.4"/>
+        <circle class="port" cx="12" cy="150" r="3.4"/><circle class="port" cx="278" cy="165" r="3.4"/>
+        <text x="5" y="132">ui</text><text x="252" y="148">uo</text>
+        <text x="13" y="210">R1</text><text x="87" y="301">R2</text><text x="180" y="301">R3</text><text x="250" y="110">R4</text>
+        <text x="81" y="111">T1</text><text x="247" y="245">T2</text><text x="139" y="214">X：u1</text>
+      </g>
+    </svg>
+    <svg class="circuit" role="img" aria-label="T1共集微变模型。基极电流ib1经过rbe1流向X。受控源从交流地向X注入beta1 ib1，因此从X流向负载RE的总电流ie1等于(beta1+1)ib1。">
+      <defs><marker id="p32bm-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">T1：为什么出现 β1＋1</text>
+        <path class="wire" d="M12 110H75M75 103H125V117H75ZM125 110H247V171M247 215V275H170V205M163 160H177V205H163ZM170 160V110M210 275V295M198 295H222M202 301H218M207 307H213M247 171L264 193L247 215L230 193Z"/>
+        <path class="wire" d="M247 203V183" marker-end="url(#p32bm-arr)"/>
+        <path class="wire" d="M34 86H62" marker-end="url(#p32bm-arr)"/>
+        <path class="wire" d="M147 126V151" marker-end="url(#p32bm-arr)"/>
+        <circle class="dot" cx="170" cy="110" r="3.4"/><circle class="port" cx="12" cy="110" r="3.4"/>
+        <text x="5" y="137">ui</text><text x="83" y="94">rbe1</text><text x="36" y="73">ib1</text><text x="178" y="94">X：u1</text>
+        <text x="111" y="146">ie1</text><text x="127" y="190">RE′</text><text x="214" y="243">β1ib1</text>
+        <text x="144" y="348" text-anchor="middle">RE′：R2、R3、rbe2 并联</text>
+      </g>
+    </svg>
+  </div>
+  <script>(()=>{const r=document.getElementById('ch3-quiz-p32-b');r.querySelectorAll('.circuit').forEach(s=>{const draw=()=>{const w=s.getBoundingClientRect().width;s.setAttribute('viewBox',`0 0 ${w} 420`);s.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(s);draw()})})();</script>
+</div>
+</div>
+  <div class="eq">R<sub>E</sub>′ = R<sub>2</sub> ∥ R<sub>3</sub> ∥ r<sub>be2</sub></div>
+  <p>R<sub>3</sub> 虽然在直流分析中负责偏置，但交流电压变化同样能在它上面产生电流。<strong>“偏置电阻”是用途描述，不是“交流时删掉”的许可。</strong></p>
+  <h3>第二步：那一堆电流箭头，在这里就用来得到 β＋1</h3>
+  <p>把第一管换成微变模型。流进基极的 i<sub>b1</sub> 经 r<sub>be1</sub> 到发射极；集电极支路的受控电流 β<sub>1</sub>i<sub>b1</sub> 也到发射极。它们在 X 点汇合，然后一起流入 R<sub>E</sub>′。</p>
+  <div class="eq">i<sub>e1</sub> = i<sub>b1</sub> + β<sub>1</sub>i<sub>b1</sub> = (β<sub>1</sub>+1)i<sub>b1</sub><br>u<sub>1</sub> = (β<sub>1</sub>+1)i<sub>b1</sub>R<sub>E</sub>′<br>u<sub>i</sub> = i<sub>b1</sub>r<sub>be1</sub> + u<sub>1</sub></div>
+  <p>最后一行就是沿输入端到地列电压：输入电压分给了基极—发射极这一段和发射极到地这一段。两式相除：</p>
+  <div class="eq">A<sub>u1</sub> = u<sub>1</sub>/u<sub>i</sub><br>= (β<sub>1</sub>+1)R<sub>E</sub>′ / [r<sub>be1</sub>+(β<sub>1</sub>+1)R<sub>E</sub>′]</div>
+  <p>它是正数，而且小于 1。只有在 (β<sub>1</sub>+1)R<sub>E</sub>′ 远大于 r<sub>be1</sub> 时，才能近似等于 1。后级输入电阻很小时，会把 R<sub>E</sub>′ 拉低，跟随效果也会变差。</p>
+  <h3>第三步：第二级是熟悉的共射</h3>
+  <p>第二管发射极交流接地，所以 i<sub>b2</sub>=u<sub>1</sub>/r<sub>be2</sub>。基极电流增大，集电极电流增大，R<sub>4</sub> 上的压降增大，输出节点电压降低，负号就从这里来。</p>
+  <div class="eq">A<sub>u2</sub> = −β<sub>2</sub>R<sub>4</sub>/r<sub>be2</sub><br>A<sub>u</sub> = [(β<sub>1</sub>+1)R<sub>E</sub>′ / (r<sub>be1</sub>+(β<sub>1</sub>+1)R<sub>E</sub>′)] · [−β<sub>2</sub>R<sub>4</sub>/r<sub>be2</sub>]</div>
+  <p>本题没有额外外接负载；若另接 R<sub>L</sub>，第二级增益中的 R<sub>4</sub> 要换成 R<sub>4</sub>∥R<sub>L</sub>。</p>
+  <h3>第四步：输入电阻要计入 R<sub>1</sub>，而且是并联</h3>
+  <p>从输入端看进去，一股电流通过 R<sub>1</sub> 流向交流地，另一股流入第一管基极。两条路径共用相同输入电压，因此它们并联：</p>
+  <div class="eq">R<sub>i</sub> = R<sub>1</sub> ∥ [r<sub>be1</sub>+(β<sub>1</sub>+1)R<sub>E</sub>′]<br>R<sub>o</sub> ≈ R<sub>4</sub></div>
+  <p>为什么 R<sub>o</sub> 没有再除 β+1？因为现在从<strong>末级集电极</strong>输出。输入置零、忽略管子输出电阻时，从输出端看到的就是 R<sub>4</sub>。共集放在前面，不会把最后这个集电极自动变成低阻输出。</p>
+  <h3>把结果翻译回这两级各自的任务</h3>
+  <p>电压增益主要来自第二级；第一级把发射极负载折算成较大的基极输入电阻，使信号源少供一些电流。最终输入电阻仍受到并联 R<sub>1</sub> 的限制：即使晶体管输入支路的电阻很大，整个电路的 R<sub>i</sub> 也不可能超过 R<sub>1</sub>。</p>
+  <p>如果题目另给直流元件数值，还需要先求 Q 点，再求 r<sub>be</sub>；不能任意指定一组 r<sub>be</sub>，就保证它与原图的偏置网络相容。本题只要求符号表达式，而且已说明 Q 点合适，因此做到上面的结果即可。</p>
+  <p class="level"><strong>必须掌握：</strong>三条并联负载、β+1 的 KCL 来历、R<sub>1</sub> 与 (a) 的串并联区别、首级共集与末级共集各改善哪一端。</p>
+</section>
+<section id="p32c">
+  <h2>习题 3.2(c)：PNP、二极管和正负号一起出现</h2>
+  <p>第一管是 NPN 共射，第二管是 PNP 共射。第二管的发射极在上方，通过一只正向导通二极管接电源；集电极在下方，通过 R<sub>3</sub> 接地，并从这里输出。</p>
+  <h3>先处理二极管：直流压降和交流电阻是两件事</h3>
+  <p>静态分析中可以用 U<sub>D</sub>≈0.7 V 等模型估算电位。微变分析问的是 Q 点附近“电流改一点，电压会改多少”。这个比例是动态电阻 r<sub>d</sub>。配套解答也保留了它。</p>
+  <div class="eq">r<sub>d</sub> = Δu<sub>D</sub>/Δi<sub>D</sub>（Q 点附近）<br>采用指数模型时，r<sub>d</sub> ≈ nU<sub>T</sub>/I<sub>DQ</sub></div>
+  <p>如果题目特别指定理想恒压降模型，其增量电阻才取零。题目保留动态模型时，不要因为“二极管导通了”就直接画成导线。</p>
+  <div class="lesson-diagram"><div id="ch3-quiz-p32-c">
+  <style>
+    #ch3-quiz-p32-c{color:var(--foreground)}
+    #ch3-quiz-p32-c .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,288px),1fr));gap:20px}
+    #ch3-quiz-p32-c .circuit{display:block;width:100%;height:445px}
+    #ch3-quiz-p32-c .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #ch3-quiz-p32-c .dot{fill:currentColor}
+    #ch3-quiz-p32-c .port{fill:var(--background);stroke:currentColor;stroke-width:1.8}
+    #ch3-quiz-p32-c text{fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <div class="panels">
+    <svg class="circuit" role="img" aria-label="3.2(c)交流通路。NPN共射T1的集电极X接PNP共射T2的基极。T2发射极经二极管动态电阻rd接交流地，集电极接R3到地并输出。T1输入串R1，集电极经R2接交流地。">
+      <defs><marker id="p32c-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">3.2(c) 二极管换成 rd</text>
+        <path class="wire" d="M122 85V55H214V85M115 85H129V125H115ZM207 85H221V125H207ZM122 125V210L90 235M90 225V265M90 255L122 280V365H214V315M207 275H221V315H207ZM214 275V210L182 190M182 160V200M182 170L214 150V125M122 180H182M12 245H35M35 238H65V252H35ZM65 245H90M214 245H278M165 55V70M153 70H177M157 76H173M162 82H168M165 365V383M153 383H177M157 389H173M162 395H168"/>
+        <path class="wire" d="M99 262L118 277" marker-end="url(#p32c-arr)"/>
+        <path class="wire" d="M210 153L190 165" marker-end="url(#p32c-arr)"/>
+        <circle class="dot" cx="122" cy="180" r="3.4"/><circle class="dot" cx="214" cy="245" r="3.4"/><circle class="port" cx="12" cy="245" r="3.4"/><circle class="port" cx="278" cy="245" r="3.4"/>
+        <text x="4" y="226">ui</text><text x="43" y="227">R1</text><text x="137" y="111">R2</text><text x="231" y="110">rd</text><text x="230" y="301">R3</text>
+        <text x="137" y="260">T1</text><text x="232" y="182">T2</text><text x="136" y="165">X：u1</text><text x="251" y="229">uo</text>
+        <text x="144" y="430" text-anchor="middle">上管箭头向内：PNP</text>
+      </g>
+    </svg>
+    <svg class="circuit" role="img" aria-label="PNP第二级的微变模型。基极电流ib2的参考方向从发射极经rbe2流向基极，集电极受控电流beta2 ib2参考方向从发射极流向集电极。发射极经rd接地，集电极经R3接地；电流增量可以为负。">
+      <defs><marker id="p32cm-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <g data-drawing>
+        <text x="144" y="24" text-anchor="middle">T2：PNP 微变模型</text>
+        <path class="wire" d="M18 150H60M60 143H110V157H60ZM110 150H190V125M183 85H197V125H183ZM190 85V55M178 55H202M182 49H198M187 43H193M190 150V185M190 229V265H270M190 265V300M183 300H197V340H183ZM190 340V365M178 365H202M182 371H198M187 377H193M190 185L208 207L190 229L172 207Z"/>
+        <path class="wire" d="M190 197V217" marker-end="url(#p32cm-arr)"/>
+        <path class="wire" d="M106 176H71" marker-end="url(#p32cm-arr)"/>
+        <circle class="dot" cx="190" cy="150" r="3.4"/><circle class="dot" cx="190" cy="265" r="3.4"/><circle class="port" cx="18" cy="150" r="3.4"/><circle class="port" cx="270" cy="265" r="3.4"/>
+        <text x="5" y="131">u1</text><text x="63" y="132">rbe2</text><text x="76" y="197">ib2</text><text x="206" y="110">rd</text><text x="203" y="145">e</text>
+        <text x="217" y="212">β2ib2</text><text x="206" y="327">R3</text><text x="247" y="250">uo</text>
+        <text x="144" y="417" text-anchor="middle">箭头是参考方向，增量可为负</text>
+      </g>
+    </svg>
+  </div>
+  <script>(()=>{const r=document.getElementById('ch3-quiz-p32-c');r.querySelectorAll('.circuit').forEach(s=>{const draw=()=>{const w=s.getBoundingClientRect().width;s.setAttribute('viewBox',`0 0 ${w} 445`);s.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(s);draw()})})();</script>
+</div>
+</div>
+  <h3>从第二级看入，发射极的 r<sub>d</sub> 会被放大折算</h3>
+  <p>把第二管基极流向外部的电流增量参考方向记作 i<sub>b2</sub>，集电极电流参考方向由发射极指向集电极。按图列式：</p>
+  <div class="eq">u<sub>e2</sub> = −(β<sub>2</sub>+1)i<sub>b2</sub>r<sub>d</sub><br>u<sub>e2</sub>−u<sub>1</sub> = i<sub>b2</sub>r<sub>be2</sub><br>u<sub>1</sub> = −i<sub>b2</sub>[r<sub>be2</sub>+(β<sub>2</sub>+1)r<sub>d</sub>]</div>
+  <p>第一行的负号来自电阻电流：我们把电流参考方向选为从交流地经 r<sub>d</sub> 流向发射极。沿这个方向出现压降，所以发射极电位是负的增量。这里的电流是<strong>带符号的变化量</strong>，算出负数表示实际变化与所选箭头相反。</p>
+  <p>从外部输入端流入该级的电流是 −i<sub>b2</sub>，所以输入电阻仍为正：</p>
+  <div class="eq">R<sub>i2</sub> = u<sub>1</sub>/(−i<sub>b2</sub>)<br>= r<sub>be2</sub>+(β<sub>2</sub>+1)r<sub>d</sub></div>
+  <p>这就是电流箭头的实际用途：帮你一致地列 KCL、KVL，避免把 PNP 的符号凭感觉写反。你不必额外追踪每一个电子经过了哪里。</p>
+  <h3>第二级为什么仍然反相</h3>
+  <p>PNP 基极电位升高，会使正向发射结电压减小，集电极电流减小，于是 R<sub>3</sub> 上的输出电压下降。发射极有 r<sub>d</sub> 时也会跟着变化，但方向仍是反相，只是增益幅值变小。</p>
+  <div class="eq">u<sub>o</sub> = β<sub>2</sub>i<sub>b2</sub>R<sub>3</sub><br>A<sub>u2</sub> = −β<sub>2</sub>R<sub>3</sub> / [r<sub>be2</sub>+(β<sub>2</sub>+1)r<sub>d</sub>]</div>
+  <p>第一级依旧使用“实际集电极负载”：</p>
+  <div class="eq">A<sub>u1</sub> = −β<sub>1</sub>(R<sub>2</sub>∥R<sub>i2</sub>) / (R<sub>1</sub>+r<sub>be1</sub>)<br>A<sub>u</sub> = A<sub>u1</sub>A<sub>u2</sub> &gt; 0<br>R<sub>i</sub> = R<sub>1</sub>+r<sub>be1</sub>　　R<sub>o</sub> ≈ R<sub>3</sub></div>
+  <p>总增益为正，原因是<strong>两个共射级连续反相两次</strong>。不是因为“出现一只 PNP，所以整个电路同相”。</p>
+  <h3>r<sub>d</sub> 只有几十欧，能不能忽略</h3>
+  <p>不能仅凭它的原始数值决定。假设 β<sub>2</sub>=100、r<sub>be2</sub>=3 kΩ、r<sub>d</sub>=26 Ω、R<sub>3</sub>=3 kΩ，则：</p>
+  <div class="eq">(β<sub>2</sub>+1)r<sub>d</sub> = 2626 Ω<br>R<sub>i2</sub> = 5626 Ω<br>A<sub>u2</sub> ≈ −53.32</div>
+  <p>若误把 r<sub>d</sub> 置零，会得到 A<sub>u2</sub>=−100，差别很大。判断可否忽略，应比较 <strong>(β<sub>2</sub>+1)r<sub>d</sub> 与 r<sub>be2</sub></strong>，而不是只比较 r<sub>d</sub> 与几千欧的电阻。</p>
+  <p class="level"><strong>必须掌握：</strong>二极管的直流模型与微变模型不同；PNP 共射仍反相；发射极阻抗折算到基极要乘 β+1。指数模型的深入推导不是这道题的解题门槛。</p>
+</section>
+<section id="p32d">
+  <p class="eyebrow">选学 · 不影响三极管主线</p>
+  <h2>习题 3.2(d)：场效应管共源后接三极管共射</h2>
+  <p>老师尚未要求场效应管计算时，这题先掌握三个对应关系即可。第一管从栅极输入、漏极输出，源极被电容充分旁路；第二管发射极也被充分旁路，因此是共源 → 共射，两次反相，总体同相。</p>
+  <p>第二级输入电阻由基极两只偏置电阻和 r<sub>be2</sub> 并联组成；第一管漏极除了 R<sub>4</sub>，还接着这个负载。</p>
+  <div class="eq">R<sub>i2</sub> = R<sub>6</sub>∥R<sub>7</sub>∥r<sub>be2</sub><br>A<sub>u1</sub> = −g<sub>m</sub>(R<sub>4</sub>∥R<sub>i2</sub>)<br>A<sub>u2</sub> = −β<sub>2</sub>R<sub>8</sub>/r<sub>be2</sub><br>A<sub>u</sub> = A<sub>u1</sub>A<sub>u2</sub></div>
+  <p>场效应管把栅源电压变化转换成漏极电流变化，使用 g<sub>m</sub>；三极管把基极电流变化转换成集电极电流变化，使用 β。两个模型的控制量不同，不要把 g<sub>m</sub> 当成无量纲电流倍数。</p>
+  <p>本题栅极通过 R<sub>3</sub> 连接 R<sub>1</sub>、R<sub>2</sub> 的分压中点。电源交流接地后，从输入端到地的电阻路径先经过 R<sub>3</sub>，再经过 R<sub>1</sub>∥R<sub>2</sub>：</p>
+  <figure class="new-circuit">
+    <svg viewBox="0 0 288 340" role="img" aria-label="3.2(d)的输入偏置网络交流等效。栅极输入端经串联R3接分压中点，该点经R1和R2分别接交流地。">
+      <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+        <path d="M80 74V44M68 44H92M72 38H88M77 32H83M73 74H87V114H73ZM80 114V234M73 234H87V274H73ZM80 274V306M68 306H92M72 312H88M77 318H83M80 174H133M133 167H183V181H133ZM183 174H263"/>
+        <circle cx="263" cy="174" r="3.5"/>
+      </g>
+      <circle cx="80" cy="174" r="3.5" fill="currentColor"/>
+      <g fill="currentColor" font-size="14" font-family="inherit"><text x="100" y="99">R1</text><text x="100" y="259">R2</text><text x="145" y="153">R3</text><text x="215" y="153">G / ui</text></g>
+    </svg>
+    <figcaption>只抽出输入端的电阻路径。上下两个接地符号表示同一个交流参考点，因此 R1 与 R2 并联。</figcaption>
+  </figure>
+  <div class="eq">R<sub>i</sub> = R<sub>3</sub> + (R<sub>1</sub>∥R<sub>2</sub>)<br>R<sub>o</sub> ≈ R<sub>8</sub></div>
+  <p>“栅极几乎不取电流”说的是器件栅极支路；输入端仍可以向偏置电阻供电流。因此整个放大电路的输入电阻不一定是无穷大。</p>
+  <p class="level"><strong>当前掌握边界：</strong>会沿电阻路径算 R<sub>i</sub>、知道 g<sub>m</sub> 的单位是 S、知道共源反相即可。场效应管 Q 点与 g<sub>m</sub> 的专项计算留到对应进度。</p>
+</section>
+<section id="p33">
+  <h2>习题 3.3：增益不到 1 的级，为什么能提高整体效果</h2>
+  <p>课本把两种基本电路装进方框：I 是共射放大级，II 是共集跟随级，然后接出三种组合。这里不需要重新推导整张图，先说清每个方框的特点。</p>
+  <p>共射通常有较大的电压增益，但输入电阻不算大，输出电阻也不低。共集电压增益接近 1，同时通常有较大的输入电阻、较小的输出电阻。题目讨论的是这种典型工作条件下的比较。</p>
+  <div class="lesson-diagram"><div id="ch3-quiz-p33">
+  <style>
+    #ch3-quiz-p33{color:var(--foreground)}
+    #ch3-quiz-p33 svg{display:block;width:100%;height:370px}
+    #ch3-quiz-p33 .wire{fill:none;stroke:currentColor;stroke-width:1.6}
+    #ch3-quiz-p33 rect{fill:var(--muted);stroke:var(--border);stroke-width:1}
+    #ch3-quiz-p33 text{fill:var(--foreground);font-size:var(--font-size-base);font-family:inherit}
+  </style>
+  <svg role="img" aria-label="习题3.3的三个级联结构。c为共射加共集，d为共集加共射，e为共集加共射加共集。左侧接有内阻Rs的信号源，右侧接负载RL。">
+    <defs><marker id="p33-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+    <g data-drawing>
+      <text x="144" y="24" text-anchor="middle">左端：信号源与 Rs　右端：RL</text>
+      <text x="4" y="75">(c)</text><text x="4" y="175">(d)</text><text x="4" y="275">(e)</text>
+      <rect x="40" y="48" width="68" height="42"/><rect x="130" y="48" width="68" height="42"/>
+      <path class="wire" d="M108 69H128" marker-end="url(#p33-arr)"/><path class="wire" d="M198 69H278" marker-end="url(#p33-arr)"/>
+      <text x="74" y="75" text-anchor="middle">I 共射</text><text x="164" y="75" text-anchor="middle">II 共集</text><text x="144" y="117" text-anchor="middle">末级共集：输出电阻小</text>
+      <rect x="40" y="148" width="68" height="42"/><rect x="130" y="148" width="68" height="42"/>
+      <path class="wire" d="M108 169H128" marker-end="url(#p33-arr)"/><path class="wire" d="M198 169H278" marker-end="url(#p33-arr)"/>
+      <text x="74" y="175" text-anchor="middle">II 共集</text><text x="164" y="175" text-anchor="middle">I 共射</text><text x="144" y="217" text-anchor="middle">首级共集：输入电阻大</text>
+      <rect x="40" y="248" width="68" height="42"/><rect x="125" y="248" width="68" height="42"/><rect x="210" y="248" width="68" height="42"/>
+      <path class="wire" d="M108 269H123" marker-end="url(#p33-arr)"/><path class="wire" d="M193 269H208" marker-end="url(#p33-arr)"/>
+      <text x="74" y="275" text-anchor="middle">II 共集</text><text x="159" y="275" text-anchor="middle">I 共射</text><text x="244" y="275" text-anchor="middle">II 共集</text><text x="144" y="317" text-anchor="middle">前后缓冲：减轻两端的分压损失</text>
+    </g>
+  </svg>
+  <script>(()=>{const r=document.getElementById('ch3-quiz-p33'),s=r.querySelector('svg');const draw=()=>{const w=s.getBoundingClientRect().width;s.setAttribute('viewBox',`0 0 ${w} 370`);s.querySelector('[data-drawing]').setAttribute('transform',`translate(${(w-288)/2} 0)`)};new ResizeObserver(draw).observe(s);draw()})();</script>
+</div>
+</div>
+  <h3>第一问：哪些输入电阻较大</h3>
+  <p>信号源首先碰到第一级。图 (d)、(e) 的第一级是共集，所以按本题常用近似判断，<strong>(d)、(e) 输入电阻较大</strong>。这里是定性比较；实际数值仍会受到后级负载和偏置电阻影响，不能只背“看首级”就停止计算。</p>
+  <h3>第二问：哪些输出电阻较小</h3>
+  <p>外部负载接在末级。图 (c)、(e) 的最后一级是共集，所以<strong>(c)、(e) 输出电阻较小</strong>。两端都安排共集的 (e)，同时改善了输入和输出的衔接。</p>
+  <h3>第三问：先看清分母是 u<sub>s</sub>，不是 u<sub>i</sub></h3>
+  <p>u<sub>s</sub> 是信号源的源电压，u<sub>i</sub> 是经过源内阻 R<sub>s</sub> 分压后真正加到放大器输入端的电压。二者一般不同：</p>
+  <div class="eq">u<sub>i</sub> = u<sub>s</sub> · R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)<br>A<sub>us</sub> = u<sub>o</sub>/u<sub>s</sub> = [R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)] A<sub>u</sub></div>
+  <p>如果把整个放大器用空载增益 A<sub>u0</sub>、输入电阻 R<sub>i</sub>、输出电阻 R<sub>o</sub> 的单向模型表示，还可以展开成：</p>
+  <div class="eq">A<sub>us</sub> = [R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)] · A<sub>u0</sub> · [R<sub>L</sub>/(R<sub>o</sub>+R<sub>L</sub>)]</div>
+  <p>最左边是输入损失，中间是放大器内部的空载增益，最右边是输出带负载后的损失。放在前面的共集增大 R<sub>i</sub>，放在后面的共集减小 R<sub>o</sub>，使两端少损失。因此本题预期的比较结论是：<strong>(e) 的 |A<sub>us</sub>| 最大。</strong></p>
+  <p>共集级自己虽然不能把电压变成两倍、十倍，却可以避免其他地方把电压分掉很多。它的作用是改善连接条件，所需输出能量仍来自电源。</p>
+  <h3>一组完整数字：只多乘两个 0.99，为什么结果反而变大</h3>
+  <p>以下是说明分压作用的自设单向模型，不是课本给定参数。共射级：空载增益 −100、R<sub>iI</sub>=2 kΩ、R<sub>oI</sub>=10 kΩ；共集级：空载增益 0.99、R<sub>iII</sub>=200 kΩ、R<sub>oII</sub>=0.1 kΩ。信号源 R<sub>s</sub>=10 kΩ，外接 R<sub>L</sub>=2 kΩ。每个连接处都算一次分压。</p>
+  <div class="eq">(c)：A<sub>us</sub> = (2/12) × (−100) × (200/210) × 0.99 × (2/2.1)<br>≈ −14.97<br><br>(d)：A<sub>us</sub> = (200/210) × 0.99 × (2/2.1) × (−100) × (2/12)<br>≈ −14.97<br><br>(e)：A<sub>us</sub> = (200/210) × 0.99 × (2/2.1) × (−100)<br>× (200/210) × 0.99 × (2/2.1) ≈ −80.63</div>
+  <p>(c) 的主要损失在输入端，(d) 的主要损失在输出端，(e) 把两端都改善了。这里特意选择了对称的数值，所以 (c)、(d) 的结果相等；它们一般不必相等。</p>
+  <p class="correction">适用边界：这不是“加跟随器就必定增益更高”的数学定律。如果信号源本来是理想电压源、负载又近似开路，原有两端损失已很小，再加有限增益的跟随器未必有利。课本结论针对共集能够明显改善源和负载条件的典型比较。</p>
+  <p class="level"><strong>必须掌握：</strong>R<sub>i</sub> 大能减少源端分压，R<sub>o</sub> 小能减少负载端分压；A<sub>u</sub> 与 A<sub>us</sub> 的分母不同。不要把“电压增益约 1”误解成“没有用”。</p>
+</section>
+<section id="check">
+  <h2>合上答案，检查这次是否真的学会</h2>
+  <p>先口头回答，再展开核对。这里的六问比重新背一遍长公式更能发现漏洞。</p>
+  <details><summary>1. 3.2(b) 中，为什么 R3 不能删掉？</summary><p>它从第二管基极接到电源，交流时电源接地，所以 R3 从两级之间的 X 点接地。它既参与第二级偏置，也会加载第一管发射极。</p></details>
+  <details><summary>2. (a) 与 (b) 都有 R1，为什么一个串联，一个并联？</summary><p>(a) 的输入电流到基极前必须经过 R1，所以与 rbe1 串联；(b) 的输入节点分出 R1 到交流地的支路，所以 R1 与晶体管输入支路并联。串并联由节点连接决定。</p></details>
+  <details><summary>3. 共集电路里的 β+1 从哪里来？</summary><p>发射极节点接收基极电流 ib 和集电极电流 βib，流向发射极负载的总电流就是 (β+1)ib。它是 KCL，不是要另背一个器件规律。</p></details>
+  <details><summary>4. 3.2(c) 的第二级是 PNP，为什么增益仍为负？</summary><p>基极电位升高，使发射结正向电压减小、集电极电流减小，R3 上电压随之下降。因此它仍然是反相的共射级。</p></details>
+  <details><summary>5. 二极管动态电阻只有 26 Ω，忽略它之前要和谁比较？</summary><p>先乘 β2+1，再与 rbe2 比较。折算后的发射极阻抗可能已经与基极输入电阻同量级。</p></details>
+  <details><summary>6. 题目把 Au 换成 Aus，为什么排序可能改变？</summary><p>Aus 从信号源电压开始计，包含 Rs 与 Ri 的输入分压；Au 从放大器输入端电压开始计。两个量覆盖的电路范围不同。</p></details>
+  <p class="route">这次学到：习题 3.2(b)、(c)、(d) 的分析及 3.3 的整体性能比较。下一步：3.4 是场效应管相关计算，可按老师进度选学；三极管主线从 3.5 的差分静态工作点、增益和输入电阻继续。</p>
+  <p>如果六问能用自己的话回答，再看电路时就应当知道哪些箭头需要保留：用来确定节点电流相加还是相减、用来写电压与电流的符号。图上不是每条线都需要编一段物理故事，但每个节点关系都得有依据。</p>
+</section>
+<footer id="sources">
+  <h2>来源与使用范围</h2>
+  <p>正文提要依据用户提供的《模拟电子技术基础》第六版第三章纸面内容；习题 3.1—3.3 对照教材印刷第 164—166 页及配套《学习辅导与习题解答》第六版相关解答校核。其中本轮 3.2、3.3 对照教材第 165—166 页、辅导书第 119—120 页。</p>
+  <p>本文采用独立讲解与矢量重绘；自设数值例题均已明确标注。正文提要不替代课堂逐段详讲，页面也不表示第三章全部章末题已经完成。网站仅发布讲义，不提供所用教材 PDF 的公开副本。</p>
+  <p><a href="模拟电子技术基础_前两章学习讲义.html">回看第一、二章</a> · <a class="collection-link" href="../../index.html#analog">返回教程合集</a> · <a href="#start">回到开头 ↑</a></p>
+</footer>
+</main></div>
+<script>(()=>{const menu=document.getElementById('course-contents'),wide=matchMedia('(min-width:1000px)');const fit=()=>{menu.open=wide.matches};fit();wide.addEventListener('change',fit)})();</script>
+</body></html>

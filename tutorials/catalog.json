@@ -1,6 +1,6 @@
 {
   "subjects": 11,
-  "entries": 188,
+  "entries": 189,
   "pdfs": 15,
   "chapters": 44,
   "courses": [
@@ -12,7 +12,7 @@
     {
       "id": "analog",
       "title": "模拟电子技术基础",
-      "entries": 1
+      "entries": 2
     },
     {
       "id": "digital",
@@ -60,6 +60,6 @@
       "entries": 13
     }
   ],
-  "version": "4.5.0",
-  "published": "2026-10-18"
+  "version": "4.6.0",
+  "published": "2026-10-20"
 }

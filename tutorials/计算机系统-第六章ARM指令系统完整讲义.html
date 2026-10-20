@@ -1,0 +1,1554 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="第六章ARM指令系统完整学习讲义，37节讲解、21幅SVG、52道习题、12道综合自测。包括T32编码、条件标志、寻址、栈、移位、位域、调用、跳转表、DSP和FPU，可离线阅读打印。"><title>第六章 · ARM指令系统完整讲义</title><style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+body{overflow-x:clip}
+body{overflow-x:visible}html{scroll-padding-top:28px}.layout{gap:42px}main{width:100%}.book-cover .edition{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted-foreground)}.book-cover .edition:before{content:'';width:42px;height:3px;background:var(--primary)}.book-cover h1{max-width:850px}.cover-subtitle{display:block;font-size:.58em;margin-top:14px;line-height:1.65}.book-cover .lead{max-width:750px}.cover-facts{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:var(--muted-foreground);margin-top:32px}.book-cover .route{margin-bottom:0}.reader-tools{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.reader-tools button,.btn{appearance:none;border:1px solid #9eafb0;border-radius:3px;background:var(--card);color:#244f61;font:inherit;line-height:1.5;padding:8px 14px;cursor:pointer}.reader-tools button{font-size:14px}.reader-tools button:hover,.btn:hover{background:var(--accent)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--primary);outline-offset:3px}nav .chapter-nav{color:#243f4b;font-weight:700;padding-top:22px}.chapter-front{padding-top:78px;border-top:3px solid var(--primary);border-bottom:0;margin-top:40px}.chapter-front h2{font-size:2.5rem;line-height:1.45;margin-bottom:28px}.chapter-number{display:block;font-size:14px;font-family:'Microsoft YaHei',sans-serif;letter-spacing:.1em;color:var(--primary);margin-bottom:15px}.chapter-front .lead{max-width:none;font-size:19px}.chapter-front blockquote{font-size:19px}.part-head{border-top:1px solid var(--border)}.part-goal{font-size:15px;color:#354a54;border-left:3px solid #417562;padding:2px 0 2px 18px;margin-bottom:32px}.part-goal p{margin:0 0 8px}.part-goal p:last-child{margin:0}.unit{margin:35px 0 0;scroll-margin-top:25px}.unit h3{margin-top:0;font-size:1.14rem;line-height:1.65;position:relative}.unit-index{display:block;font-size:12px;font-weight:400;letter-spacing:.08em;color:#607778;margin:0 0 4px}.unit+.unit{padding-top:28px;border-top:1px dashed #d7ddd9}.unit h4{font-size:1rem;margin:26px 0 12px}.unit hr{display:none}blockquote{margin:24px 0;padding:12px 0 12px 22px;border-left:3px solid var(--primary);color:#284c5b}blockquote p:last-child{margin-bottom:0}pre{overflow-x:auto;background:#ecf0ed;padding:18px 20px;font-size:14px;line-height:1.85;border-left:3px solid #83999c;tab-size:4;margin:22px 0 26px}code{font-family:'Cascadia Mono',Consolas,'Microsoft YaHei',monospace;font-size:.9em;font-variant-ligatures:none}p code,li code,td code{background:#e8ece8;padding:1px 4px;border-radius:2px;overflow-wrap:anywhere}pre code{font-size:inherit;background:none;padding:0}.eq{white-space:normal;text-align:center;font-size:18px;line-height:1.9;overflow-x:auto;padding:18px 20px}.eq math{display:block;width:max-content;min-width:0;max-width:none;margin:0 auto}math{font-family:'Cambria Math','STIX Two Math',math;font-size:1.08em}.math-inline{white-space:nowrap}mtext{font-family:'Microsoft YaHei','SimSun',sans-serif;font-size:.85em}.diagram{margin:35px auto;max-width:680px;padding:22px 20px 18px;background:#fafaf4;border-top:1px solid #c9d6d6;border-bottom:1px solid #c9d6d6;break-inside:avoid}.diagram .diagram-live{font-size:14px;line-height:1.8}.diagram .text-small{font-size:12px}.diagram .drawing{overflow:visible}.diagram svg{height:auto}.viz-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 18px;margin-bottom:16px}.form-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:#354e5a;max-width:100%;min-width:0}.form-select,.form-control{font:14px/1.4 'Microsoft YaHei',sans-serif;color:var(--foreground);background:var(--card);border:1px solid #a9b7b5;border-radius:3px;padding:8px 9px;max-width:100%;min-height:38px}.form-control{width:170px}.viz-row{display:flex;flex-wrap:wrap;gap:7px 17px;margin:10px 0}.diagram [aria-live]{font-size:13px;line-height:1.9;margin-top:12px;color:#355260}.diagram figcaption{font-size:13px;line-height:1.9;color:#526269;margin-top:16px}.figure-number{font-weight:700;color:#355768;margin-right:8px}.tabular-nums{font-variant-numeric:tabular-nums}.diagram-print{display:none}.exercise{padding:22px 0;border-top:1px solid var(--border);scroll-margin-top:20px}.exercise h3{margin:0 0 12px;font-size:18px}.exercise>p{margin-bottom:8px}.exercise details{margin-bottom:8px}.answer-content{padding-top:15px;font-size:16px}.answer-content p{font-size:inherit;margin:0 0 14px}.answer-content p:last-child{margin-bottom:0}.answer-content pre{font-size:13px}.answer-content ul,.answer-content ol{padding-left:25px}.question-links{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px}.question-links a{border:1px solid var(--border);padding:4px 9px;text-decoration:none;font-size:14px;background:var(--card)}.source-note{font-size:14px;color:var(--muted-foreground)}.topic-tag{display:inline-block;font-size:12px;font-weight:400;color:var(--primary);border:1px solid #b1c5cb;padding:1px 8px;margin-bottom:12px}.correction-note{border-left:3px solid #ad512d;padding-left:16px;font-size:15px}.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.finish-grid h3{margin-top:0}.answer-tools-note{font-size:13px;color:var(--muted-foreground)}
+@media(max-width:999px){.chapter-front{margin-top:28px}.chapter-front h2{font-size:2.1rem}.layout{max-width:900px}.book-cover{padding-bottom:42px}aside summary{font-size:14px}nav .chapter-nav{grid-column:1/-1}nav a{padding:7px 0}.part-head h2{font-size:1.65rem}}
+@media(max-width:540px){.chapter-front{padding-top:45px}.chapter-front h2{font-size:1.85rem}.book-cover h1{font-size:2.1rem}.cover-subtitle{font-size:.66em}.chapter-front .lead{font-size:17px}.finish-grid{grid-template-columns:1fr}.diagram{padding:18px 12px 14px}.unit h3{font-size:17px}.eq{font-size:16px;padding:14px 10px}.reader-tools{gap:8px}.reader-tools button{font-size:13px;padding:7px 9px}.cover-facts{gap:5px 20px}.part-goal{font-size:14px;padding-left:12px}pre{font-size:13px;padding:14px 12px}.unit+.unit{padding-top:22px}.book-cover .route{font-size:16px}.exercise h3{font-size:17px}}
+@media(max-width:380px){.diagram{margin-left:-16px;margin-right:-16px;padding:18px 1px 14px;width:calc(100% + 32px);max-width:none}.diagram .viz-controls,.diagram .viz-row,.diagram [aria-live],.diagram figcaption{margin-left:15px;margin-right:15px}.diagram .form-select{font-size:13px}.chapter-front h2{font-size:1.7rem}.eq{padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:18mm 17mm 19mm}
+@media print{html{scroll-padding-top:0}body{font-size:10.5pt;line-height:1.75;background:#fff}.layout{display:block;max-width:none;padding:0}.book-cover{padding:20px 0 30px;break-after:page}.book-cover h1{font-size:30pt}.book-cover .lead{font-size:13pt}.chapter-front{break-before:page;margin:0;padding-top:18px;border-top:2px solid #286a88}.chapter-front h2{font-size:23pt}.chapter-front .lead{font-size:12pt}section{break-before:auto;padding:28px 0 10px}.unit{margin-top:22px}.unit+.unit{padding-top:15px}.unit h3{font-size:12pt}.part-head h2{font-size:17pt}.reader-tools,.answer-tools-note,.top-link{display:none!important}h2,h3,h4,summary{break-after:avoid}p,li{orphans:3;widows:3}table{min-width:0;font-size:9pt;line-height:1.7;break-inside:auto}tr{break-inside:avoid}thead{display:table-header-group}.table-wrap{overflow:visible;margin:14px 0}th,td{padding:7px 8px}td:first-child{min-width:0}.eq{font-size:12pt;padding:10px;overflow:visible;break-inside:avoid}pre{font-size:9pt;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid;padding:10px 13px}details{break-inside:auto;padding:8px 0}details::details-content{content-visibility:visible;display:block}details:not([open])>:not(summary){display:block!important}.answer-content,.answer-content p{font-size:10pt}.diagram{max-width:155mm;width:100%;margin:20px auto;padding:12px 10px;background:#fff}.diagram-live{display:none}.diagram-print{display:block;font-size:14px;line-height:1.8}.diagram-print svg{display:block;width:100%;height:auto;overflow:visible}.diagram-print .text-small{font-size:12px}.diagram-print text{fill:var(--foreground);font-family:'Microsoft YaHei',sans-serif}.diagram figcaption{font-size:9pt;margin-top:8px}.part-goal{font-size:10pt;margin-bottom:20px}.cover-facts,.scope,.source-note{font-size:9pt}.question-links{display:none}.exercise{padding:14px 0;break-inside:auto}.exercise h3{font-size:11pt}.finish-grid{display:block}footer{padding:25px 0}.chapter-front .eyebrow{font-size:9pt}strong{-webkit-print-color-adjust:exact}*{print-color-adjust:exact}}
+.diagram svg{display:block;width:100%;height:auto}.diagram svg text{font-family:'Microsoft YaHei',sans-serif;fill:var(--foreground)}.diagram svg .node{fill:#edf0e8;stroke:#b8c7c2}.diagram svg .active{fill:#deebe9;stroke:#82a9ac}.diagram svg .waiting{fill:#f6e8d7;stroke:#c3a284}.diagram svg .wire{stroke:#395864;stroke-width:1.3;fill:none}.diagram svg .grid{stroke:#c8d3d0;stroke-width:1;fill:none}.diagram [aria-live]{overflow-wrap:anywhere}.diagram .form-control.short{width:116px}.diagram-print{font-size:14px;line-height:1.8}.section-context{font-size:14px;color:var(--muted-foreground)}.nav-group{font-weight:700;color:#294c5b!important;padding-top:22px!important}.question-links a{min-width:44px;text-align:center}.coverage-table{min-width:520px}.book-cover .lead{max-width:830px}.diagram .viz-controls:empty{display:none}.book-cover .scope{max-width:850px}
+@media(max-width:540px){.book-cover h1{font-size:2.05rem}.cover-subtitle{font-size:.63em}.diagram .form-select{font-size:13px}}
+@media print{.diagram-print svg{height:auto!important}.coverage-table{min-width:0}.lesson h2{font-size:17pt}.book-cover h1{font-size:30pt}.diagram-print svg{font-size:14px}.diagram-print .text-small{font-size:12px}table.compact-table{break-inside:avoid}}
+</style><noscript><style>.diagram-live{display:none}.diagram-print{display:block}</style></noscript></head><body><div class="layout"><aside aria-label="第六章目录"><p class="brand">计算机系统 / 第六章</p><details id="directory"><summary>展开目录 · ARM 指令系统</summary><nav><a href="#how">学习路线与掌握要求</a><a class="nav-group" href="#s01">编码、语法与条件执行</a><a href="#s01">01 / 这一章学什么：把指令读成状态变化</a><a href="#s02">02 / 从第一个半字判断长度，再看编码字段</a><a href="#s03">03 / 汇编语法：逗号、方括号、后缀分别表达什么</a><a href="#s04">04 / MOV、MOVS、MOV.W：看懂同一种操作的不同编码</a><a href="#s05">05 / N、Z、C、V、Q：特别把减法的 C 讲清楚</a><a href="#s06">06 / CMP 后怎样选条件：有符号和无符号不能混</a><a href="#s07">07 / IT 块：直线执行中的条件选择</a><a class="nav-group" href="#s08">寻址、基址与常量</a><a href="#s08">08 / 立即数：先问是哪条指令的哪一种编码</a><a href="#s09">09 / 数值与地址：寄存器直接、间接和移位操作数</a><a href="#s10">10 / 三种索引：先算本次地址，再单独算写回</a><a href="#s11">11 / 缩放寄存器偏移：数组下标怎样变成字节地址</a><a href="#s12">12 / LDM/STM：寄存器号越小，对应地址越低</a><a href="#s13">13 / PUSH/POP 与 FD 别名：批量压栈不是逐项反序写入</a><a href="#s14">14 / PC 相对：地址、该地址的内容和文字池要分三步</a><a class="nav-group" href="#s15">传送、访存与独占</a><a href="#s15">15 / 内部传送：MOVW/MOVT、MVN、MRS/MSR</a><a href="#s16">16 / LDR/STR 的宽度：加载扩展，存储截取</a><a href="#s17">17 / 带 T 的非特权访存：内核替用户检查访问</a><a href="#s18">18 / 独占访问：STREX 的第一个寄存器是状态</a><a class="nav-group" href="#s19">算术、逻辑与位操作</a><a href="#s19">19 / 加减、进位与借位：把 64 位运算接起来</a><a href="#s20">20 / MUL、长乘法、MLA/MLS：先决定要留下多少位</a><a href="#s21">21 / 除法与定点缩放：同一位串可以代表不同数</a><a href="#s22">22 / 逻辑指令与位掩码：设置、清零、翻转各用什么</a><a href="#s23">23 / LSL、LSR、ASR、ROR、RRX：把移出的位画出来</a><a href="#s24">24 / 扩展与字节反转：改变表示宽度不等于数值转换</a><a href="#s25">25 / 位域、CLZ、RBIT：按范围处理一段 bit</a><a href="#s26">26 / CMP、CMN、TST、TEQ：计算但不保存结果</a><a class="nav-group" href="#s27">分支、调用与查表</a><a href="#s27">27 / B、BL、BX、BLX：调用要能找到回来的路</a><a href="#s28">28 / BEQ、CBZ 与 MOVEQ：同样在判断，走法不同</a><a href="#s29">29 / TBB/TBH：查表地址与跳转基准不是一回事</a><a class="nav-group" href="#s30">饱和、屏障与系统</a><a href="#s30">30 / SSAT/USAT：输出范围变窄，寄存器仍是 32 位</a><a href="#s31">31 / 屏障指令：顺序、完成、执行上下文再对照</a><a href="#s32">32 / WFI、WFE、SEV：等待中断与等待事件</a><a href="#s33">33 / SVC、CPS、BKPT、NOP：系统类指令各管一层</a><a class="nav-group" href="#s34">M4 DSP 与浮点背景</a><a href="#s34">34 / M4 的 SIMD：四个小加法与一个大加法不同</a><a href="#s35">35 / M4 的半字乘加：BB、BT、TB、TT 选择哪两半</a><a href="#s36">36 / 打包和解包：要抽 byte0、byte2，不是最高字节</a><a href="#s37">37 / 浮点指令和星号题：值转换与位串搬运不同</a><a href="#coverage">原书小节完整覆盖表</a><a href="#selftest">十二道综合短自测</a><a href="#exercises">52 道原书习题答题卡</a><a href="#corrections">易错点与原书表述核对</a><a href="#finish">学完标准</a></nav></details></aside><main>
+<header class="book-cover" id="start"><p class="edition">计算机系统 · 第六章配套讲义</p><h1>从一条指令<br>走到执行结果<span class="cover-subtitle">第六章 · ARM 指令系统</span></h1><p class="lead">数值在哪里，地址怎么算，谁被写回，标志怎样变，下一条从哪里执行？按这五个问题读懂代码，再把寻址、计算和分支题独立做出来。</p><p class="scope">覆盖原讲义 6.1—6.4 全部小节及 6.5 的 52 道习题，包含最后七道星号题。页码按独立第六章讲义：正文与习题第 2—40 页，第 1 页为目录。沿用项目既有教材整理版样式。</p><div class="cover-facts"><span>37 节完整讲解</span><span>21 幅 SVG 演示</span><span>52 道习题答题卡</span><span>12 道综合短自测</span></div><p class="route">编码与条件 → 操作数和地址 → 算术与位运算 → 分支和调用 → 系统、DSP 与浮点</p><div class="reader-tools"><button type="button" id="print-book">打印 / 保存为 PDF</button><button type="button" data-answers="open">展开全部答案</button><button type="button" data-answers="close">收起全部答案</button></div><a class="continue" href="#s01">从指令怎样改变状态开始 →</a><p class="source-note"><a href="计算机系统-第五章ARM处理器体系结构和编程模型完整讲义.html">回到第五章：寄存器、权限与异常现场 →</a></p></header>
+<section id="how"><p class="eyebrow">把掌握深度说清楚</p><h2>重点是读对和算对，再按需要查完整指令表</h2><p>本章指令多，不要求一遍默写全部编码。每项原书内容都讲到，并区分独立做题的核心与需要认识的背景。对具体代码，先检查目标内核和语法，再写出寄存器、内存、标志及控制流变化。</p><div class="table-wrap"><table><thead><tr><th>内容</th><th>学到什么程度</th><th>定位</th></tr></thead><tbody><tr><td>指令集、编码长度、UAL</td><td>会读格式、判断半字长度；分类表会查</td><td>01—04</td></tr><tr><td>标志、CMP、条件、IT</td><td><strong>会算 NZCV，选对有/无符号条件，读懂条件块</strong></td><td>05—07、26、28</td></tr><tr><td>寻址、写回、多传输、栈</td><td><strong>会算 EA/新基址、每个寄存器地址，解释真实编码边界</strong></td><td>08—14、16</td></tr><tr><td>传送、算术、逻辑、移位、位域</td><td><strong>能写基础指令并手算结果，识别符号与位宽</strong></td><td>15、19—26、30</td></tr><tr><td>调用、零检测与跳转表</td><td><strong>会追 LR/PC、分清表项地址与目标</strong></td><td>27—29</td></tr><tr><td>非特权、独占、屏障、低功耗与 SVC</td><td>会解释用途与限制，读懂核心代码</td><td>17—18、31—33</td></tr><tr><td>DSP、打包、FPU 与星号题</td><td>理解 lane、缩放、符号扩展和浮点步骤；详细变体会查</td><td>20—21、34—37</td></tr></tbody></table></div><p>重点依据原章习题和后续编程依赖，不代表已知你的考试范围。原题含笔误或跨 A32/T32 的例子时，正文和答题卡都会说明；<strong>会解释题意与“这条代码能在 M3/M4 上汇编”是两个检查。</strong></p><ol><li>第一遍按顺序学，先用 SVG 默认例子理解。</li><li>第二遍先遮住结果，自己写 EA、新基址、NZCV、返回地址和数据位串，再换参数核对。</li><li>最后做十二道短自测，再逐题核对 52 道原题；星号题也做，但按标注的原理深度准备。</li></ol><p class="source-note">正文、公式、脚本和 SVG 全部在本文件内。图中是教学模型，不操作真实处理器或电脑内存。答案默认折叠；打印显示全部答案和默认图例。外部手册链接仅供核对，离线阅读不依赖网络。</p></section>
+<section class="part-head lesson" id="s01"><p class="eyebrow">第六章 · 第 01 节</p><h2>这一章学什么：把指令读成状态变化</h2><p class="section-context">6.1，第 2—3 页；习题 6.1、6.2、6.4—6.6、6.25</p><div class="part-goal"><p><strong>掌握要求：</strong>能区分指令、指令系统、指令字、汇编表示；读代码时写出数据、地址、标志和 PC 的变化。</p><p><strong>背景为什么要讲：</strong>第五章给出处理器有哪些状态，本章说明一条条指令怎样改变它们；第七章再组织完整程序。</p></div><p><strong>机器指令是处理器能解释并执行的编码；指令字是表示这条指令的二进制位串；指令系统是某处理器支持的指令集合。</strong>汇编语言用助记符、寄存器名、常量、标号等表示操作，由汇编器生成机器码。宏和伪指令可能展开成不同条数的机器指令，不能把所有源代码行都看成一行对应一条硬件操作。</p>
+<p>一条指令需要表达操作及必要的操作数/地址信息，有些信息是隐含的，例如 PUSH 隐含使用当前 SP，顺序执行时下一条地址由 PC 与指令长度确定。不是每条指令都显式拥有 Rd、Rn、立即数等全部字段。</p>
+<p>本章聚焦 <strong>Armv7-M/Armv7E-M 的 Cortex-M3/M4 与 T32</strong>。A32、A64 都采用 32 位定长指令编码，T32 使用 16/32 位编码；A64 的“64”主要关联其寄存器和执行架构，不表示每条编码 64 位。M3/M4 不执行 A32/A64。原书第 6.1 节的架构/扩展表是历史定位：A 侧常见虚拟内存 VMSA，R/M 常见保护模型 PMSA，具体产品和扩展仍要核对。</p>
+<p>原书列出的 M0/M0+/M1、M3/M4/M7、M23/M33 在基本 Thumb、IT、除法、DSP、FPU、TrustZone 等方面支持不同；Y/N/P/O 分别表示支持、不支持、部分支持、可选。<strong>表中指令总数、2019 年版本与扩展清单以查表为主，不用硬背，也不能由“都叫 T32”推断任意指令都兼容。</strong></p>
+<p>在本章的 32 位 M profile 语境，<strong>字节=8 位，半字=16 位，字=32 位，双字=64 位</strong>。双字传输常用一对 32 位寄存器；不意味着整数寄存器突然变成 64 位。</p>
+<h3>读任何指令，都做四个检查</h3>
+<ol>
+<li>操作数是数值，还是地址？是否真正访问内存？</li>
+<li>写了哪个寄存器或内存单元？基址会不会写回？</li>
+<li>哪些标志更新，哪些保留？后面的条件判断读哪一次结果？</li>
+<li>PC 顺序前进还是跳转？这条语法在目标内核上是否合法？</li>
+</ol>
+<p>下面所有算例均假定相应代码和 RAM 已实现、权限允许；涉及未对齐或不支持的写法会单独指出。重点不是背完所有指令，而是能把这些问题答对。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s02"><p class="eyebrow">第六章 · 第 02 节</p><h2>从第一个半字判断长度，再看编码字段</h2><p class="section-context">6.2.1—6.2.2，第 3—5 页；习题 6.3、6.5、6.6</p><div class="part-goal"><p><strong>掌握要求：</strong>会判断 T32 的 16/32 位长度，知道分类前缀不等于完整合法指令。</p><p><strong>背景为什么要讲：</strong>原书两张二进制分类表供查读；理解译码入口即可，不必默写每个操作类别的所有位。</p></div><p>T32 指令从半字边界开始。检查<strong>当前指令的第一个半字</strong>的 bit[15:11]：为 11101、11110、11111 时，表示一条 32 位指令的前半；其他前缀属于 16 位长度的译码入口。识别为 32 位后，还要再取一个半字，不能把第二半字又当新指令起点。</p>
+<figure class="diagram" id="fig-prefix" data-figure="prefix"><div class="diagram-live"><div id="c6-prefix"><div class="viz-controls"><label class="form-label">第一个半字（十六进制）<input class="form-control" data-value type="text" value="F04F" maxlength="6"></label></div><svg class="drawing" role="img" aria-label="T32 第一个半字的长度识别"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-prefix"><svg class="drawing" role="img" aria-label="T32 第一个半字的长度识别" viewBox="0 0 640 340"><title>从第一个半字的高五位识别长度</title><text x="12" y="25" text-anchor="start" class="text-small">首半字：0xF04F</text><rect x="13" y="48" width="36.5" height="27" rx="3" class="active"></rect><text x="31.25" y="67" text-anchor="middle" class="text-small">1</text><rect x="51.5" y="48" width="36.5" height="27" rx="3" class="active"></rect><text x="69.75" y="67" text-anchor="middle" class="text-small">1</text><rect x="90" y="48" width="36.5" height="27" rx="3" class="active"></rect><text x="108.25" y="67" text-anchor="middle" class="text-small">1</text><rect x="128.5" y="48" width="36.5" height="27" rx="3" class="active"></rect><text x="146.75" y="67" text-anchor="middle" class="text-small">1</text><rect x="167" y="48" width="36.5" height="27" rx="3" class="active"></rect><text x="185.25" y="67" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="67" text-anchor="middle" class="text-small">0</text><rect x="244" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="67" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="67" text-anchor="middle" class="text-small">0</text><rect x="321" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="67" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="67" text-anchor="middle" class="text-small">1</text><rect x="398" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="67" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="67" text-anchor="middle" class="text-small">0</text><rect x="475" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="67" text-anchor="middle" class="text-small">1</text><rect x="513.5" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="67" text-anchor="middle" class="text-small">1</text><rect x="552" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="67" text-anchor="middle" class="text-small">1</text><rect x="590.5" y="48" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="67" text-anchor="middle" class="text-small">1</text><text x="12" y="105" text-anchor="start" class="text-small">蓝色高五位：11110</text><rect x="12" y="130" width="616" height="56" rx="3" class="active"></rect><text x="24" y="151" text-anchor="start" class="text-small">长度入口</text><text x="616" y="176" text-anchor="end" class="text-small">32 位 · 还需第二半字</text><rect x="12" y="196" width="616" height="56" rx="3" class="node"></rect><text x="24" y="217" text-anchor="start" class="text-small">本条占用</text><text x="616" y="242" text-anchor="end" class="text-small">4 字节</text><rect x="12" y="262" width="616" height="56" rx="3" class="node"></rect><text x="24" y="283" text-anchor="start" class="text-small">随后要做</text><text x="616" y="308" text-anchor="end" class="text-small">核对完整字段与内核支持</text></svg><div aria-live="polite">高五位 11110：32 位指令前半。不能由长度判断全部编码合法。</div></div></div><figcaption><span class="figure-number">图 6-1</span>只判断长度入口，不能保证完整编码合法；按取指顺序先看低地址半字。</figcaption></figure>
+
+
+
+<p>例如 0xE001 的前五位为 11100，按 16 位译码；0xF04F 的前五位为 11110，需要第二半字。<strong>判出长度并不证明全部编码合法</strong>：其中还有未分配、保留或该内核不支持的组合。</p>
+<p>原书 16 位分类入口可以归纳为：00xxxx 常含移位/加减/比较/移动；010000 常规数据处理；010001 特殊数据处理；01001x 为 PC 相对加载；0101xx、011xxx、100xxx 涉及单数据访存；10100x/10101x 生成 PC/SP 相对地址；1011xx 为杂类；11000x/11001x 多存储/多加载；1101xx 条件分支等；11100x 为窄无条件分支。<strong>“高六位分类”不是说每条指令都只有固定的六位操作码。</strong>还要继续看子字段及特殊保留组合。</p>
+<p>32 位分类会结合第一个半字的 op1、op2 及第二半字中的相关位：多寄存器、双字/独占、移位寄存器数据处理、立即数数据处理、分支/杂类、各宽度加载存储、乘法及协处理器类等。原书表 6.5 的作用是展示<strong>分层译码</strong>，不是要求你靠肉眼完整反汇编所有机器码。</p>
+<p>注意字节序：若两个半字按编码顺序为 EA4F、0001，小端内存字节是 <strong>4F EA 01 00</strong>。不能先把这四字节当一个普通小端 32 位数读成 0x0001EA4F，再去看那个数的最高五位判断第一半字。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s03"><p class="eyebrow">第六章 · 第 03 节</p><h2>汇编语法：逗号、方括号、后缀分别表达什么</h2><p class="section-context">6.2.3、6.2.5，第 5—10 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能识别操作码、操作数、条件、S、.N/.W，区分语法说明符号与真正要输入的符号。</p><p><strong>背景为什么要讲：</strong>UAL 统一写法便于同一源文件选用不同长度编码；它不让任意参数组合都变合法。</p></div><p>UAL 是 Unified Assembly Language，统一汇编语言。典型写法可读作“助记符及适用后缀 + 操作数列表”，如 <code>ADDS.W R0,R1,R2</code>：加法、更新相应标志、选择宽编码，结果写 R0。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>符号/名字</th>
+<th>作用</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rd / Rt</td>
+<td>目标或传输寄存器占位名</td>
+<td><code>LDR R8,[R1,#4]</code> 中 R8 为加载目标</td>
+</tr>
+<tr>
+<td>Rn / Rm</td>
+<td>源或基址/偏移寄存器占位名</td>
+<td>含义由指令定义决定</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>立即数前缀</td>
+<td><code>#10</code>、<code>#0x10</code> 分别是十进制 10、十六进制 16</td>
+</tr>
+<tr>
+<td><code>[...]</code></td>
+<td>在实际访存语句中表示地址表达式</td>
+<td><code>[R1,#4]</code> 是计算地址去访存</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>相应寻址形式中的基址写回</td>
+<td><code>[R1,#4]!</code></td>
+</tr>
+<tr>
+<td><code>{R1-R4}</code></td>
+<td>实际代码中的寄存器列表</td>
+<td>包含 R1、R2、R3、R4</td>
+</tr>
+<tr>
+<td><code>;</code></td>
+<td>本讲义采用的 Arm 风格注释</td>
+<td>GNU 工具需按其注释语法转换</td>
+</tr>
+</tbody></table></div>
+<p>手册中的 <code>&lt;Rd&gt;</code>、<code>{S}</code>、<code>[cond]</code> 等是<strong>占位或可选语法说明</strong>，不全部照字面输入。尤其不能把手册的“方括号表示可选”与实际 LDR 的“方括号表示地址”混淆。</p>
+<p>S 表示按该条指令规则更新标志，不是“所有 APSR 位都重写”。<code>.N</code>/<code>.W</code> 选择窄/宽<strong>指令编码</strong>，不改变访问的数据宽度；LDR.W 仍可取一个 32 位字，LDRB.W 仍只取一个字节。MOVW 的 W 则是助记符的一部分，和 MOV.W 是两件事。</p>
+<p>不是所有指令都能任意加 S、.N、.W 或条件后缀。没有对应编码时汇编器应拒绝，不能靠后缀强迫硬件提供能力。不同工具还会选择不同别名或省略形式，本讲义优先给清楚、可核对的写法。<a href="https://sourceware.org/binutils/docs/as/ARM-Opcodes.html">GNU 汇编器的 Arm 语法与操作码说明</a></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s04"><p class="eyebrow">第六章 · 第 04 节</p><h2>MOV、MOVS、MOV.W：看懂同一种操作的不同编码</h2><p class="section-context">6.2.5，第 7—10 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能解释功能、长度与标志三个维度，能把两个半字顺序与小端字节写对。</p><p><strong>背景为什么要讲：</strong>T1/T2/T3 是某条指令说明里的编码编号，不是整个架构通用的三个指令等级。</p></div><p>以不在 IT 块内的 R1→R0 复制为例：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>汇编</th>
+<th>编码半字（按取指顺序）</th>
+<th>字节数</th>
+<th>标志行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>MOV R0,R1</code></td>
+<td>4608</td>
+<td>2</td>
+<td>不更新算术标志</td>
+</tr>
+<tr>
+<td><code>MOVS R0,R1</code></td>
+<td>0008</td>
+<td>2</td>
+<td>更新 N/Z；此复制形式保留 C/V</td>
+</tr>
+<tr>
+<td><code>MOV.W R0,R1</code></td>
+<td>EA4F 0001</td>
+<td>4</td>
+<td>不更新算术标志</td>
+</tr>
+<tr>
+<td><code>MOVS.W R0,R1</code></td>
+<td>EA5F 0001</td>
+<td>4</td>
+<td>此复制形式更新 N/Z，保留 C/V</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-encoding" data-figure="encoding"><div class="diagram-live"><div id="c6-encoding"><div class="viz-controls"><label class="form-label">指令形式<select class="form-select" data-kind><option value="MOV">MOV</option><option value="MOVS">MOVS</option><option value="MOV.W" selected>MOV.W</option><option value="MOVS.W">MOVS.W</option></select></label><label class="form-label">目标 Rd<select class="form-select" data-rd><option value="0" selected>R0</option><option value="1">R1</option><option value="2">R2</option><option value="3">R3</option><option value="4">R4</option><option value="5">R5</option><option value="6">R6</option><option value="7">R7</option></select></label><label class="form-label">源 Rm<select class="form-select" data-rm><option value="0">R0</option><option value="1" selected>R1</option><option value="2">R2</option><option value="3">R3</option><option value="4">R4</option><option value="5">R5</option><option value="6">R6</option><option value="7">R7</option></select></label></div><svg class="drawing" role="img" aria-label="MOV 的窄宽编码与标志选择"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-encoding"><svg class="drawing" role="img" aria-label="MOV 的窄宽编码与标志选择" viewBox="0 0 640 373"><title>MOV复制的不同编码</title><text x="12" y="25" text-anchor="start" class="">MOV.W R0, R1</text><text x="12" y="56" text-anchor="start" class="text-small">第 1 半字：0xEA4F</text><rect x="13" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="87" text-anchor="middle" class="text-small">1</text><rect x="51.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="87" text-anchor="middle" class="text-small">1</text><rect x="90" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="87" text-anchor="middle" class="text-small">1</text><rect x="128.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="87" text-anchor="middle" class="text-small">0</text><rect x="167" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="87" text-anchor="middle" class="text-small">1</text><rect x="205.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="87" text-anchor="middle" class="text-small">0</text><rect x="244" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="87" text-anchor="middle" class="text-small">1</text><rect x="282.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="87" text-anchor="middle" class="text-small">0</text><rect x="321" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="87" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="87" text-anchor="middle" class="text-small">1</text><rect x="398" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="87" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="87" text-anchor="middle" class="text-small">0</text><rect x="475" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="87" text-anchor="middle" class="text-small">1</text><rect x="513.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="87" text-anchor="middle" class="text-small">1</text><rect x="552" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="87" text-anchor="middle" class="text-small">1</text><rect x="590.5" y="68" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="87" text-anchor="middle" class="text-small">1</text><text x="12" y="132" text-anchor="start" class="text-small">第 2 半字：0x0001</text><rect x="13" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="90" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="167" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="244" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="321" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="398" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="475" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="163" text-anchor="middle" class="text-small">0</text><rect x="552" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="163" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="144" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="163" text-anchor="middle" class="text-small">1</text><rect x="12" y="225" width="616" height="57" rx="3" class="active"></rect><text x="24" y="246" text-anchor="start" class="text-small">小端字节（低地址先）</text><text x="616" y="272" text-anchor="end" class="text-small">4F EA 01 00</text><rect x="12" y="292" width="616" height="57" rx="3" class="node"></rect><text x="24" y="313" text-anchor="start" class="text-small">长度 / 标志</text><text x="616" y="339" text-anchor="end" class="text-small">4 字节 / 不更新算术标志</text></svg><div aria-live="polite">编码半字 0xEA4F 0x0001；内存字节 4F EA 01 00。数据结果相同，但不因此改标志。</div></div></div><figcaption><span class="figure-number">图 6-2</span>限定不在 IT 块内、低寄存器间复制，用相应编码展示长度与 S 的差别。半字按取指顺序排列，字节按小端显示。</figcaption></figure>
+
+
+
+<p>16 位 MOV 的寄存器字段和支持的寄存器范围与窄 MOVS 不同；MOVS 的窄复制可看作移位量为 0 的相应移位别名。宽 MOV 留出更多编码空间表达寄存器及 S 等选择。<strong>同一数据结果可以有不同编码长度和标志副作用。</strong></p>
+<p>原书脚注说 MOV 不可能产生某些宽编码，与同页 MOV.W 示例相矛盾，不应照背。T1/T2/T3 要连同具体指令页读取；不能推出“所有 T1 都不改标志，所有 T2 都改标志”。IT 块中的部分窄指令还存在上下文相关的标志行为，因此要看实际编码与上下文。</p>
+<p>做编码题先把字段填入相应模板，再拼成半字，最后按需要写内存字节。读程序结果题则先问有没有 S、它究竟更新哪几位，通常不需要背全部机器码。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s05"><p class="eyebrow">第六章 · 第 05 节</p><h2>N、Z、C、V、Q：特别把减法的 C 讲清楚</h2><p class="section-context">6.2.4，第 6—7 页；习题 6.8</p><div class="part-goal"><p><strong>掌握要求：</strong>会算 32 位加减的 N/Z/C/V，解释有无符号是解释方式而非不同加法电路。</p><p><strong>背景为什么要讲：</strong>后面比较、分支、多字长运算都依赖这里；标志不能靠“结果看起来像负数”猜。</p></div><p>N=结果 bit31，Z=结果全零，C 由相应算术/移位规则决定，V 表示<strong>有符号范围溢出</strong>。32 位加法结果保留低 32 位，C 记录无符号加法是否产生第 33 位；减法通常按加补码实现，<strong>C=1 表示没有借位，即无符号被减数不小于减数</strong>。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>运算</th>
+<th>低 32 位结果</th>
+<th>N Z C V</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0xFFFFFFFF+1</td>
+<td>0x00000000</td>
+<td>0 1 1 0</td>
+<td>无符号进位；有符号 −1+1 不溢出</td>
+</tr>
+<tr>
+<td>0x7FFFFFFF+1</td>
+<td>0x80000000</td>
+<td>1 0 0 1</td>
+<td>无无符号进位；正数相加越过有符号上限</td>
+</tr>
+<tr>
+<td>0−1</td>
+<td>0xFFFFFFFF</td>
+<td>1 0 0 0</td>
+<td>无符号需要借位，有符号结果 −1 合法</td>
+</tr>
+<tr>
+<td>0x80000000−1</td>
+<td>0x7FFFFFFF</td>
+<td>0 0 1 1</td>
+<td>无符号没有借位；有符号越过下限</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-flags" data-figure="flags"><div class="diagram-live"><div id="c6-flags"><div class="viz-controls"><label class="form-label">运算<select class="form-select" data-op><option value="ADD" selected>ADD</option><option value="SUB">SUB</option></select></label><label class="form-label">A（十六进制）<input class="form-control" data-a type="text" value="7FFFFFFF" maxlength="10"></label><label class="form-label">B（十六进制）<input class="form-control" data-b type="text" value="1" maxlength="10"></label></div><svg class="drawing" role="img" aria-label="32 位加减结果与 NZCV"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-flags"><svg class="drawing" role="img" aria-label="32 位加减结果与 NZCV" viewBox="0 0 640 369"><title>32位加减分别计算进位和溢出</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">无符号 A</text><text x="616" y="57" text-anchor="end" class="text-small">2147483647</text><rect x="12" y="77" width="616" height="55" rx="3" class="node"></rect><text x="24" y="98" text-anchor="start" class="text-small">无符号 B</text><text x="616" y="122" text-anchor="end" class="text-small">1</text><rect x="12" y="142" width="616" height="55" rx="3" class="active"></rect><text x="24" y="163" text-anchor="start" class="text-small">低 32 位结果</text><text x="616" y="187" text-anchor="end" class="text-small">0x80000000</text><rect x="12" y="222" width="148" height="64" rx="3" class="active"></rect><text x="86" y="245" text-anchor="middle" class="">N</text><text x="86" y="271" text-anchor="middle" class="">1</text><rect x="168" y="222" width="148" height="64" rx="3" class="node"></rect><text x="242" y="245" text-anchor="middle" class="">Z</text><text x="242" y="271" text-anchor="middle" class="">0</text><rect x="324" y="222" width="148" height="64" rx="3" class="node"></rect><text x="398" y="245" text-anchor="middle" class="">C</text><text x="398" y="271" text-anchor="middle" class="">0</text><rect x="480" y="222" width="148" height="64" rx="3" class="active"></rect><text x="554" y="245" text-anchor="middle" class="">V</text><text x="554" y="271" text-anchor="middle" class="">1</text><text x="12" y="316" text-anchor="start" class="text-small">C：无符号加法是否进位</text><text x="12" y="345" text-anchor="start" class="text-small">V：有符号数学结果是否超范围</text></svg><div aria-live="polite">结果 0x80000000；N=1 Z=0 C=0 V=1。signed 输入 2147483647、1。</div></div></div><figcaption><span class="figure-number">图 6-3</span>假定执行相应更新标志的 ADDS/SUBS。低 32 位结果、无符号进位/无借位、有符号溢出分别计算。</figcaption></figure>
+
+
+
+<p>Q 不是普通的“上一条指令是否溢出”：它是相关指令可能置位的<strong>黏性饱和/溢出状态</strong>，未发生新事件时往往保留旧值；需要按规定清除。M4 的 GE[3:0] 则由部分 SIMD 指令提供逐通道信息，不是普通有符号分支条件 GE 的四位编码。</p>
+<p>要读懂“最后一次<strong>更新该标志</strong>的操作”。LDR/MOV 或无 S 的算术不一定更新；SSAT 常只涉及 Q；MULS 常更新 N/Z 而保留 C/V。不能把所有标志都归给刚执行的最后一条指令。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s06"><p class="eyebrow">第六章 · 第 06 节</p><h2>CMP 后怎样选条件：有符号和无符号不能混</h2><p class="section-context">6.2.4、6.4.8—6.4.9；习题 6.7</p><div class="part-goal"><p><strong>掌握要求：</strong>会用 EQ/NE、HI/LS、CS/CC、GT/LE、GE/LT，能解释 N 与 V 为什么要结合。</p><p><strong>背景为什么要讲：</strong>条件表要全见过；常用条件必须会选，冷门条件可按标志查表。</p></div><p><code>CMP R0,R1</code> 按 R0−R1 计算标志，不把差写回 R0。之后比较同样的位串，如果你要按无符号解释，就用 HI/LS、HS/LO 等；如果按补码有符号解释，就用 GT/LE、GE/LT。EQ/NE 仅判断是否相等，两种解释都适用。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>条件</th>
+<th>判断式</th>
+<th>主要意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EQ / NE</td>
+<td>Z=1 / Z=0</td>
+<td>等于 / 不等于</td>
+</tr>
+<tr>
+<td>CS（HS） / CC（LO）</td>
+<td>C=1 / C=0</td>
+<td>无符号 ≥ / &lt;；也用于相应进位条件</td>
+</tr>
+<tr>
+<td>MI / PL</td>
+<td>N=1 / N=0</td>
+<td>结果最高位为 1 / 0，非完整有符号大小比较</td>
+</tr>
+<tr>
+<td>VS / VC</td>
+<td>V=1 / V=0</td>
+<td>有符号溢出 / 未溢出</td>
+</tr>
+<tr>
+<td>HI / LS</td>
+<td>C=1 且 Z=0 / C=0 或 Z=1</td>
+<td>无符号 &gt; / ≤</td>
+</tr>
+<tr>
+<td>GE / LT</td>
+<td>N=V / N≠V</td>
+<td>有符号 ≥ / &lt;</td>
+</tr>
+<tr>
+<td>GT / LE</td>
+<td>Z=0 且 N=V / Z=1 或 N≠V</td>
+<td>有符号 &gt; / ≤</td>
+</tr>
+<tr>
+<td>AL</td>
+<td>恒真</td>
+<td>无条件；一般省略</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-conditions" data-figure="conditions"><div class="diagram-live"><div id="c6-conditions"><div class="viz-controls"><label class="form-label">被减数 A（十六进制）<input class="form-control" data-a type="text" value="FFFFFFFF" maxlength="10"></label><label class="form-label">减数 B（十六进制）<input class="form-control" data-b type="text" value="1" maxlength="10"></label></div><svg class="drawing" role="img" aria-label="一次 CMP 的两种数值解释"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-conditions"><svg class="drawing" role="img" aria-label="一次 CMP 的两种数值解释" viewBox="0 0 640 425"><title>同一CMP的有无符号条件</title><text x="12" y="25" text-anchor="start" class="text-small">CMP：A − B = 0xFFFFFFFE</text><rect x="12" y="45" width="148" height="64" rx="3" class="active"></rect><text x="86" y="68" text-anchor="middle" class="">N</text><text x="86" y="94" text-anchor="middle" class="">1</text><rect x="168" y="45" width="148" height="64" rx="3" class="node"></rect><text x="242" y="68" text-anchor="middle" class="">Z</text><text x="242" y="94" text-anchor="middle" class="">0</text><rect x="324" y="45" width="148" height="64" rx="3" class="active"></rect><text x="398" y="68" text-anchor="middle" class="">C</text><text x="398" y="94" text-anchor="middle" class="">1</text><rect x="480" y="45" width="148" height="64" rx="3" class="node"></rect><text x="554" y="68" text-anchor="middle" class="">V</text><text x="554" y="94" text-anchor="middle" class="">0</text><rect x="12" y="136" width="616" height="58" rx="3" class="active"></rect><text x="24" y="157" text-anchor="start" class="text-small">unsigned 解释</text><text x="616" y="184" text-anchor="end" class="text-small">4294967295 &gt; 1</text><rect x="12" y="204" width="616" height="58" rx="3" class="node"></rect><text x="24" y="225" text-anchor="start" class="text-small">对应成立的大小条件</text><text x="616" y="252" text-anchor="end" class="text-small">HI / HS</text><rect x="12" y="272" width="616" height="58" rx="3" class="waiting"></rect><text x="24" y="293" text-anchor="start" class="text-small">signed 解释</text><text x="616" y="320" text-anchor="end" class="text-small">-1 &lt; 1</text><rect x="12" y="340" width="616" height="58" rx="3" class="node"></rect><text x="24" y="361" text-anchor="start" class="text-small">对应成立的大小条件</text><text x="616" y="388" text-anchor="end" class="text-small">LT / LE</text></svg><div aria-live="polite">NZCV=1010。无符号 A&gt;B；有符号 A&lt;B。用条件回答你所需的数值解释。</div></div></div><figcaption><span class="figure-number">图 6-4</span>先按同一次 CMP 生成标志，再分别判断 unsigned 的 HI/HS/LO/LS 与 signed 的 GT/GE/LT/LE。</figcaption></figure>
+
+
+
+<p>例：R0=0xFFFFFFFF，R1=1，CMP 后 N=1、Z=0、C=1、V=0。无符号是 4294967295&gt;1，HI 成立；有符号是 −1&lt;1，LT 成立。两者都正确，只是在回答不同问题。</p>
+<p>为什么不只看 N？0x80000000−1 得 0x7FFFFFFF，N=0，但原来的有符号 −2147483648 明明小于 1。这是减法发生 V=1，需用 N≠V 判断。<strong>原书表 6.6 将 LE 的中文写成无符号，是笔误；LE 是有符号 ≤。</strong></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s07"><p class="eyebrow">第六章 · 第 07 节</p><h2>IT 块：直线执行中的条件选择</h2><p class="section-context">6.2.5、6.4.9 的条件执行，第 9—10、30—31 页；习题 6.7、6.41</p><div class="part-goal"><p><strong>掌握要求：</strong>会写 IT、ITT、ITE、ITTE/ITTEE 等，并按 T/E 对照条件；分清条件执行与条件跳转。</p><p><strong>背景为什么要讲：</strong>用于短小分支，未必比跳转总更快；性能要看路径与实现。</p></div><p>M3/M4 的普通条件数据处理通常须放在 IT 块中。<code>IT{x{y{z}}} cond</code> 最多控制后面四条指令，<strong>第一条隐含 T</strong>，额外字母依次描述第二、三、四条。T 表示与首条件一致，E 表示取相反条件；不是 E 就永远不执行。</p>
+<pre><code class="language-asm">CMP R0, #0
+ITE EQ
+MOVEQ R1, #10
+MOVNE R1, #20
+</code></pre>
+<p>若 R0=0，只执行第一条赋值；否则只执行第二条。源代码中的 EQ/NE 要与 IT 模式匹配。不要在不了解上下文时直接单写 <code>MOVEQ</code> 并假设所有汇编器都自动补 IT；自动插入属于工具选项，不是机器保证。</p>
+<figure class="diagram" id="fig-itblock" data-figure="itblock"><div class="diagram-live"><div id="c6-itblock"><div class="viz-controls"><label class="form-label">IT 模式<select class="form-select" data-pattern><option value="IT">IT</option><option value="ITT">ITT</option><option value="ITE">ITE</option><option value="ITTE">ITTE</option><option value="ITTEE" selected>ITTEE</option><option value="ITETT">ITETT</option></select></label><label class="form-label">首条件<select class="form-select" data-cond><option value="EQ" selected>EQ</option><option value="NE">NE</option></select></label><label class="form-label">当前 Z<select class="form-select" data-z><option value="0">0</option><option value="1" selected>1</option></select></label></div><svg class="drawing" role="img" aria-label="IT 模式与实际条件"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-itblock"><svg class="drawing" role="img" aria-label="IT 模式与实际条件" viewBox="0 0 640 337"><title>IT隐含第一T并按后缀映射后续条件</title><text x="12" y="26" text-anchor="start" class="text-small">ITTEE EQ · 当前 Z=1</text><rect x="12" y="49" width="616" height="53" rx="3" class="active"></rect><text x="24" y="72" text-anchor="start" class="text-small">1 / T → EQ</text><text x="616" y="93" text-anchor="end" class="text-small">执行本条数据效果</text><rect x="12" y="117" width="616" height="53" rx="3" class="active"></rect><text x="24" y="140" text-anchor="start" class="text-small">2 / T → EQ</text><text x="616" y="161" text-anchor="end" class="text-small">执行本条数据效果</text><rect x="12" y="185" width="616" height="53" rx="3" class="node"></rect><text x="24" y="208" text-anchor="start" class="text-small">3 / E → NE</text><text x="616" y="229" text-anchor="end" class="text-small">跳过本条数据效果</text><rect x="12" y="253" width="616" height="53" rx="3" class="node"></rect><text x="24" y="276" text-anchor="start" class="text-small">4 / E → NE</text><text x="616" y="297" text-anchor="end" class="text-small">跳过本条数据效果</text></svg><div aria-live="polite">4 条条件指令：T、T、E、E；假定块内不修改这些条件标志。</div></div></div><figcaption><span class="figure-number">图 6-5</span>假定块内没有修改条件标志，每一条都是数据处理示意；第一条隐含 T。蓝色表示执行，灰色表示此条件下跳过其数据效果。</figcaption></figure>
+
+
+
+<p>ITTEE EQ 控制四条，条件依次是 EQ、EQ、NE、NE；ITETT NE 则是 NE、EQ、NE、NE。字母数算不清时，把“第一 T + 后缀字母”逐项展开。</p>
+<p>IT 块不能随意嵌套；改变 PC 的分支等须遵守只能位于块末等限制，某些指令不允许在块内。中途更新标志会影响后续条件，且部分编码有专门限制。入门例子应避免在块内修改条件依赖的 APSR，而不是背成“架构下绝无任何能更新标志的块内情况”。</p>
+<p><strong>BEQ 用标志决定改不改 PC，MOVEQ 用条件决定改不改数据寄存器。</strong>前者跳转后从另一处取指；后者保持直线位置前进。IT 不需要把每条普通指令都扩出四位条件字段，这正是它与本章编码格式的联系。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s08"><p class="eyebrow">第六章 · 第 08 节</p><h2>立即数：先问是哪条指令的哪一种编码</h2><p class="section-context">6.3.1，第 11—12 页；习题 6.10—6.12</p><div class="part-goal"><p><strong>掌握要求：</strong>能解释字段有限，区分 imm8、imm12、MOVW/MOVT 与修饰立即数，不把一套规则推广给所有指令。</p><p><strong>背景为什么要讲：</strong>修饰立即数算法用于读编码，日常可借汇编器判断；常见合法/非法例子必须知道原因。</p></div><p>立即数包含在指令自身，<code>MOVS R0,#66</code> 不去 RAM 取 66。32 位编码还要容纳操作码和寄存器等，<strong>不可能让每条指令同时直接携带任意 32 位常量</strong>，但不同指令有不同表示办法。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>形式</th>
+<th>典型限制/用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>窄 MOVS 的立即数</td>
+<td>8 位，目标通常为低寄存器</td>
+</tr>
+<tr>
+<td>MOVW / MOVT</td>
+<td>各提供 16 位常量，组合构造 32 位值</td>
+</tr>
+<tr>
+<td>ADDW / SUBW</td>
+<td>对相应寄存器加减未移位 imm12，即 0—4095 等编码约束</td>
+</tr>
+<tr>
+<td>某些宽数据处理指令</td>
+<td>采用 Thumb 修饰立即数（modified immediate）</td>
+</tr>
+<tr>
+<td>LDR/STR 的地址偏移</td>
+<td>按该访问的编码、缩放和写回形式限制，不能套数据运算立即数表</td>
+</tr>
+</tbody></table></div>
+<p>修饰立即数包含一个字节、字节重复（00ab00ab、ab00ab00、abababab）和特定旋转的位图等。精确算法是在旋转分支构造带最高有效 1 的 8 位模式再进行相应 32 位旋转；<strong>并非“任意 8 位数在任意 16 位寄存器里转几圈”</strong>。零重复组合等还受编码规则限制。</p>
+<p>编码查读补充：若 imm12[11:10]=00，由 [9:8] 选择低 imm8 的直接零扩展或上述三种重复（重复分支的 imm8 不能为 0）；否则先构造 <code>0x80 | imm12[6:0]</code>，再按 <code>imm12[11:7]</code> 给出的量做 32 位 ROR，该分支旋转量为 8—31。理解“有限字段经规则展开”即可，日常常量是否合法可交汇编器核对，不需穷举记忆全部值。</p>
+<p>原书的 0x01FC 可由八位模式扩展旋转形成；0x07FC 的连续 1 超出该类位图的表示能力。但 <strong>0x07FC 仍可用于 MOVW 或相应 ADDW 等，不能称为所有指令的非法立即数</strong>。原书 <code>ADDS R0,R0,#0x1234</code> 也不能直接因为“十六进制不大”就认定合法，应先用 MOVW 装入另一个寄存器，再做寄存器加法。</p>
+<p>任意 32 位常量可用 <code>MOVW</code>+<code>MOVT</code>，或 <code>LDR Rd,=常量</code> 伪指令交给工具选择合适序列。伪指令的加载常量不等于从那个数值表示的地址读数据，详见第 14—15 节。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s09"><p class="eyebrow">第六章 · 第 09 节</p><h2>数值与地址：寄存器直接、间接和移位操作数</h2><p class="section-context">6.3 概述、6.3.2—6.3.4，第 11—12 页；习题 6.10、6.12、6.13</p><div class="part-goal"><p><strong>掌握要求：</strong>会把操作数分为立即数、寄存器值、存储器内容；正确区分读内存与参与地址/算术计算。</p><p><strong>背景为什么要讲：</strong>源文“ADD 直接带 [R2]”等例子跨了指令集边界，需要在这里纠正。</p></div><p>设 R1=0x20000100，那个地址的内存字为 7：<code>MOV R0,R1</code> 得到的是 <strong>0x20000100 这个数值</strong>；<code>LDR R0,[R1]</code> 才读出内存中的 <strong>7</strong>。前者为寄存器直接，后者为寄存器间接。存储器地址本身也是一个整数，区别由指令怎么使用它决定。</p>
+<p>M3/M4 采用加载/存储分工，普通 ADD 不能写成 <code>ADD R0,R1,[R2]</code>。要先加载：</p>
+<pre><code class="language-asm">LDR R3, [R2]
+ADD R0, R1, R3
+</code></pre>
+<p>数据处理的移位寄存器操作数，是把寄存器值先移位再参与运算，如 <code>ADD R0,R1,R2,LSL #2</code> 表示 R1+4×R2，<strong>没有内存访问，也不把移位结果写回 R2</strong>。这里所谓“寻址”是原书宽泛的操作数形成方式。</p>
+<p>独立移位指令可用寄存器给移位量，例如 <code>LSL R0,R2,R1</code>；原书的 <code>MOV R0,R2,LSL R1</code> 在支持这种别名的工具中可转成相应寄存器移位指令，本讲义优先写显式 LSL 便于识别。<strong>不能由此推断普通 ADD 等也能任意附带寄存器指定移位量</strong>。立即数嵌入移位、寄存器控制的独立移位、访存地址中的缩放各有自己的编码限制，应以目标编码核对。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s10"><p class="eyebrow">第六章 · 第 10 节</p><h2>三种索引：先算本次地址，再单独算写回</h2><p class="section-context">6.3.5—6.3.7、6.4.2 的前三类模式；习题 6.14—6.19</p><div class="part-goal"><p><strong>掌握要求：</strong>能分别写出有效地址 EA 与执行后基址 Rn；遇到连续代码不擅自把基址重置。</p><p><strong>背景为什么要讲：</strong>这是本章寻址题的核心；改变数据宽度不会改变偏移的字节单位。</p></div><p>设执行前基址 B=0x20000100，立即数偏移 d=8，分别独立执行下列指令：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>写法</th>
+<th>本次 EA</th>
+<th>执行后的 R1</th>
+<th>口诀</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LDR R0,[R1,#8]</code></td>
+<td>B+8</td>
+<td>B</td>
+<td>加偏移访问，不写回</td>
+</tr>
+<tr>
+<td><code>LDR R0,[R1,#8]!</code></td>
+<td>B+8</td>
+<td>B+8</td>
+<td>加偏移访问，且写回</td>
+</tr>
+<tr>
+<td><code>LDR R0,[R1],#8</code></td>
+<td>B</td>
+<td>B+8</td>
+<td>用旧基址访问，之后写回</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-addressing" data-figure="addressing"><div class="diagram-live"><div id="c6-addressing"><div class="viz-controls"><label class="form-label">模式<select class="form-select" data-mode><option value="offset">偏移 · 不写回</option><option value="pre" selected>前变址 · 写回</option><option value="post">后变址 · 写回</option></select></label><label class="form-label">原基址 R1（十六进制）<input class="form-control" data-base type="text" value="20000100" maxlength="10"></label><label class="form-label">字节偏移 d（十进制）<input class="form-control" data-offset type="number" value="8" min="-255" max="255" step="1"></label></div><svg class="drawing" role="img" aria-label="偏移、前变址和后变址的两个结果"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-addressing"><svg class="drawing" role="img" aria-label="偏移、前变址和后变址的两个结果" viewBox="0 0 640 345"><title>先求有效地址再独立求基址写回</title><text x="12" y="25" text-anchor="start" class="text-small">LDR R0, [R1,#8]!</text><rect x="12" y="48" width="616" height="60" rx="3" class="node"></rect><text x="24" y="69" text-anchor="start" class="text-small">执行前 R1</text><text x="616" y="98" text-anchor="end" class="text-small">0x20000100</text><rect x="12" y="118" width="616" height="60" rx="3" class="active"></rect><text x="24" y="139" text-anchor="start" class="text-small">本次访存 EA</text><text x="616" y="168" text-anchor="end" class="text-small">0x20000108</text><rect x="12" y="188" width="616" height="60" rx="3" class="node"></rect><text x="24" y="209" text-anchor="start" class="text-small">R0 得到</text><text x="616" y="238" text-anchor="end" class="text-small">Mem32[0x20000108]</text><rect x="12" y="258" width="616" height="60" rx="3" class="waiting"></rect><text x="24" y="279" text-anchor="start" class="text-small">执行后的 R1</text><text x="616" y="308" text-anchor="end" class="text-small">0x20000108</text></svg><div aria-live="polite">EA=0x20000108；新 R1=0x20000108。前变址把有效地址写回。地址运算按 32 位模型，实际访问另核对。</div></div></div><figcaption><span class="figure-number">图 6-6</span>按立即数索引的逻辑模型计算。先求本次 EA，再求新基址；真实映射、权限与非对齐支持仍需检查。</figcaption></figure>
+
+
+
+<p>每次都先写两列，<strong>内存访问地址与执行后的基址是两个结果</strong>。<code>!</code> 不是“再读一遍内存”，逗号放在 <code>]</code> 外也不是排版差异。偏移可以为负，依具体编码范围；如 −4 表示地址退 4 字节，而非退四个字。</p>
+<p>寄存器偏移 <code>LDR R0,[R1,R4]</code> 的 EA=R1+R4，一般不改两个源寄存器。<strong>M3/M4 的这种寄存器偏移形式不能随意加 <code>!</code></strong>；原题 6.18 的 <code>LDR R0,[R1,R3]!</code> 可先解释其想表达 EA=旧 R1+R3 并写回，但它不是可直接使用的 T32 写法。可改成明确两条 <code>ADD R1,R1,R3</code>、<code>LDR R0,[R1]</code>；这两条整体并非一次不可分割的访问。<a href="https://documentation-service.arm.com/static/5ea823e69931941038df1af5">Arm M3 访存指令说明</a></p>
+<h3>原题 6.19 的 0xB 怎么看</h3>
+<p>如果三行分别从相同 B 开始：偏移形式 EA=B+0xB、不写回；前变址 EA=B+0xB、写回 B+0xB；后变址 EA=B、写回 B+0xB。<strong>若三行连续执行</strong>，第二行已改变 R1，第三行必须使用那个新值，最终 R1=B+0x16。</p>
+<p>0xA/0xB 这类偏移还可能让字访问未对齐。本节先求逻辑 EA；实际是否成功，要结合 Normal/Device、指令和非对齐配置，不能仅凭地址计算正确就断言一定读成功。带写回的加载还要避开基址与目标寄存器重叠等受限组合。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s11"><p class="eyebrow">第六章 · 第 11 节</p><h2>缩放寄存器偏移：数组下标怎样变成字节地址</h2><p class="section-context">6.3.5、6.4.2 的寄存器移位模式，第 12—13、20 页；习题 6.14、6.17—6.18</p><div class="part-goal"><p><strong>掌握要求：</strong>会把元素下标乘元素字节数，用 LSL 形成偏移；基址和下标均不因普通偏移形式而写回。</p><p><strong>背景为什么要讲：</strong>数组、结构体和查表都要用到；这是桶形移位器参与地址计算的具体用途。</p></div><p>若 R1 指向 32 位数组 a 的首元素，R2=i，则 a[i] 的地址为：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>E</mi><mi>A</mi><mo>&#x0003D;</mo><mi>B</mi><mo>&#x0002B;</mo><mi>i</mi><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><mi>B</mi><mo>&#x0002B;</mo><mo stretchy="false">&#x00028;</mo><mi>i</mi><mo>&#x0226A;</mo><mn>2</mn><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<pre><code class="language-asm">LDR R3, [R1,R2,LSL #2]   ; 读取 a[i] 的一个字
+</code></pre>
+<p>字节数组无需乘 4，半字数组常乘 2。<strong>下标本身不是字节偏移</strong>；题目若已经给 R2 为字节偏移，再左移 2 位就多乘了一遍。</p>
+<p>M3/M4 的这类单数据访存缩放通常支持 LSL #0—3，源寄存器与具体编码另有约束。不能把数据处理中的 ASR/ROR 或任意寄存器给移位量直接塞进这个访存形式。LDRD/STRD 等也不自动具有这里列出的每种寄存器偏移形式。</p>
+<p>原书表 6.15 把同一寻址框架展开为 LDRB/LDRSB/LDRH/LDRSH/LDR 与 STRB/STRH/STR。它们主要变化的是传输宽度与加载扩展：<strong>地址公式按所写参数算，结果扩展另按指令算</strong>。例如 <code>LDRB R8,[R1,#3]</code> 读一个字节，而不是因为 R8 为 32 位就读四字节。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s12"><p class="eyebrow">第六章 · 第 12 节</p><h2>LDM/STM：寄存器号越小，对应地址越低</h2><p class="section-context">6.3.8、6.4.2 的多加载/多存储，第 14—15、20—21 页；习题 6.20、6.21</p><div class="part-goal"><p><strong>掌握要求：</strong>能独立画 IA/IB/DA/DB 的地址表与写回，明确 M3/M4 支持 IA/DB 的边界。</p><p><strong>背景为什么要讲：</strong>四模式是经典 Arm 的通用模型；原题同时包含本内核不支持的 IB/DA，也要讲清原理。</p></div><p>LDM=Load Multiple，连续内存字加载到多个寄存器；STM=Store Multiple，多个寄存器写到连续内存字。列表中的寄存器可以不连续，但实际映射遵循<strong>最低寄存器号对应最低传输地址</strong>，不由你书写列表的先后决定。</p>
+<p>设 B 为原基址，n 为寄存器数，每字 4 字节：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>模式</th>
+<th>最低传输地址</th>
+<th>最高传输地址</th>
+<th>若写回，基址成为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IA</td>
+<td>B</td>
+<td>B+4n−4</td>
+<td>B+4n</td>
+</tr>
+<tr>
+<td>IB</td>
+<td>B+4</td>
+<td>B+4n</td>
+<td>B+4n</td>
+</tr>
+<tr>
+<td>DA</td>
+<td>B−4n+4</td>
+<td>B</td>
+<td>B−4n</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>B−4n</td>
+<td>B−4</td>
+<td>B−4n</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-multiple" data-figure="multiple"><div class="diagram-live"><div id="c6-multiple"><div class="viz-controls"><label class="form-label">模式<select class="form-select" data-mode><option value="IA">IA</option><option value="IB">IB</option><option value="DA">DA</option><option value="DB" selected>DB</option></select></label><label class="form-label">从 R1 开始的寄存器个数<select class="form-select" data-count><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="8">8</option></select></label><label class="form-check"><input type="checkbox" data-wb checked>使用 ! 写回</label></div><svg class="drawing" role="img" aria-label="多寄存器传输的地址布局"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-multiple"><svg class="drawing" role="img" aria-label="多寄存器传输的地址布局" viewBox="0 0 640 382"><title>按整个地址范围和寄存器号排列多传输</title><text x="12" y="26" text-anchor="start" class="text-small">STMDB R9!, {R1-R4}</text><text x="12" y="54" text-anchor="start" class="text-small">M3/M4 对应地址模式</text><rect x="12" y="77" width="616" height="34" rx="3" class="node"></rect><text x="24" y="100" text-anchor="start" class="text-small">R1</text><text x="616" y="100" text-anchor="end" class="text-small">0x200000F0</text><rect x="12" y="114" width="616" height="34" rx="3" class="node"></rect><text x="24" y="137" text-anchor="start" class="text-small">R2</text><text x="616" y="137" text-anchor="end" class="text-small">0x200000F4</text><rect x="12" y="151" width="616" height="34" rx="3" class="node"></rect><text x="24" y="174" text-anchor="start" class="text-small">R3</text><text x="616" y="174" text-anchor="end" class="text-small">0x200000F8</text><rect x="12" y="188" width="616" height="34" rx="3" class="node"></rect><text x="24" y="211" text-anchor="start" class="text-small">R4</text><text x="616" y="211" text-anchor="end" class="text-small">0x200000FC</text><rect x="12" y="243" width="616" height="52" rx="3" class="node"></rect><text x="24" y="264" text-anchor="start" class="text-small">原 R9</text><text x="616" y="285" text-anchor="end" class="text-small">0x20000100</text><rect x="12" y="305" width="616" height="52" rx="3" class="active"></rect><text x="24" y="326" text-anchor="start" class="text-small">执行后的 R9</text><text x="616" y="347" text-anchor="end" class="text-small">0x200000F0</text></svg><div aria-live="polite">R1 对应最低地址 0x200000F0，R4 对应 0x200000FC；新 R9=0x200000F0。</div></div></div><figcaption><span class="figure-number">图 6-7</span>原基址固定为 0x20000100。低寄存器号对应低地址；IB/DA 仅作经典模型对照，M3/M4 对应 T32 不提供这些形式。</figcaption></figure>
+
+
+
+<p>例：B=0x20000100，列表 {R1-R4}，DB 模式对应 R1→0x200000F0、R2→F4、R3→F8、R4→FC。<strong>不是 R1 先去 B−4，然后 R2 再去 B−8。</strong>原书“每取一个再递减”的口头说明容易在这里导致逆序，应先算整个区间再按寄存器号填。</p>
+<p><code>!</code> 只决定是否把调整后的基址写回，不决定传输地址有没有递增/递减。原题 <code>STMIA R9,{R1-R4}</code> 无 <code>!</code>，传输照常覆盖四个连续字，但 R9 不变。</p>
+<p><strong>T32 的 M3/M4 对应多传输使用 IA、DB；STMIB/STMDA 不应当作它们能直接汇编的指令。</strong>原题 6.21 仍可按上表解释经典模型，并说明目标内核限制。寄存器列表大小、SP/PC/LR、基址是否也在列表里等均有编码约束，入门例子避免重叠。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s13"><p class="eyebrow">第六章 · 第 13 节</p><h2>PUSH/POP 与 FD 别名：批量压栈不是逐项反序写入</h2><p class="section-context">6.3.9、6.4.2 的压栈/出栈，第 15、21 页；习题 6.22—6.24</p><div class="part-goal"><p><strong>掌握要求：</strong>会写 FD 栈的存取对应关系，算 SP 与各寄存器地址；理解返回地址为何要保存。</p><p><strong>背景为什么要讲：</strong>接上第五章的满递减栈，后续函数调用必须用得熟练。</p></div><p>M3/M4 的常用栈是满递减：压栈向低地址生长，弹出后 SP 增大。主要别名关系：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>含义</th>
+<th>常见写法</th>
+<th>相应地址模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>压栈</td>
+<td><code>PUSH {R1-R4}</code></td>
+<td><code>STMDB SP!,{R1-R4}</code>；也写 STMFD</td>
+</tr>
+<tr>
+<td>弹栈</td>
+<td><code>POP {R1-R4}</code></td>
+<td><code>LDMIA SP!,{R1-R4}</code>；也写 LDMFD</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-stack" data-figure="stack"><div class="diagram-live"><div id="c6-stack"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① PUSH 前</option><option value="1" selected>② PUSH {R1-R4} 后</option><option value="2">③ 配对 POP 后</option></select></label></div><svg class="drawing" role="img" aria-label="满递减栈的一次批量压入与恢复"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-stack"><svg class="drawing" role="img" aria-label="满递减栈的一次批量压入与恢复" viewBox="0 0 640 317"><title>满递减批量栈按递增地址对应递增寄存器号</title><text x="12" y="25" text-anchor="start" class="text-small">批量 PUSH 后</text><text x="12" y="54" text-anchor="start" class="text-small">当前 SP = 0x20000FF0</text><rect x="12" y="82" width="616" height="38" rx="3" class="active"></rect><text x="22" y="107" text-anchor="start" class="text-small">0x20000FF0</text><text x="618" y="107" text-anchor="end" class="text-small">保存的 R1</text><rect x="12" y="125" width="616" height="38" rx="3" class="active"></rect><text x="22" y="150" text-anchor="start" class="text-small">0x20000FF4</text><text x="618" y="150" text-anchor="end" class="text-small">保存的 R2</text><rect x="12" y="168" width="616" height="38" rx="3" class="active"></rect><text x="22" y="193" text-anchor="start" class="text-small">0x20000FF8</text><text x="618" y="193" text-anchor="end" class="text-small">保存的 R3</text><rect x="12" y="211" width="616" height="38" rx="3" class="active"></rect><text x="22" y="236" text-anchor="start" class="text-small">0x20000FFC</text><text x="618" y="236" text-anchor="end" class="text-small">保存的 R4</text><text x="12" y="293" text-anchor="start" class="text-small">R1 在最低地址；R4 在最高地址</text></svg><div aria-live="polite">新 SP=0x20000FF0，四字占 16 字节。</div></div></div><figcaption><span class="figure-number">图 6-8</span>固定保存四个字，旧 SP=0x20001000。图按低地址到高地址显示；POP 后旧比特可仍留在 RAM，但不再属于当前活动帧。</figcaption></figure>
+
+
+
+<p>SP 原为 0x20001000，压四个字后 SP=0x20000FF0；从低到高分别保存 R1、R2、R3、R4。一次 <code>PUSH {R1-R4}</code> 与四条“先 R1、再 R2、再 R3、再 R4”的单独 PUSH <strong>布局不同</strong>。POP 也按寄存器号与地址映射，不是任意从列表末尾开始。</p>
+<p>原题 6.22 的 <code>STMFD SP!,{R1-R8}</code> 与 <code>STMDB</code> 为同一满递减存储含义，n=8、SP 减 32；6.23 的 <code>LTMFD</code> 是拼写错误，应为 <strong>LDMFD</strong>，与 LDMIA 相应，SP 加 32。</p>
+<p>FD、EA 等是“栈的组织名称”，IA、DB 等是“具体多传输地址模式名称”。同样 FD 栈，存时用 DB，取时用 IA。原书 LDMEA/STMEA 作为其他组织的背景，应按“存与取互为恢复”理解，不能只见一个字母就把 LDMDB 当本章标准 POP。</p>
+<p>PUSH/POP 的可用寄存器受窄/宽编码限制；涉及 R8 等可能需宽编码。浮点 VPUSH/VPOP 还能保存 S/D 寄存器，64 位 D 视图是传输单位，不因此获得双精度算术。栈区需真实可写、容量足够并维持相应对齐，不能为了少写一条指令破坏调用约定。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s14"><p class="eyebrow">第六章 · 第 14 节</p><h2>PC 相对：地址、该地址的内容和文字池要分三步</h2><p class="section-context">6.3.10、6.4.2 的 PC 相对模式，第 15—16、21—22 页；习题 6.24</p><div class="part-goal"><p><strong>掌握要求：</strong>会用当前指令地址 +4 与相应对齐计算 literal 地址，区分 ADR、LDR 地址形式和 LDR 伪指令。</p><p><strong>背景为什么要讲：</strong>文字池解决大常量编码问题；下一章才系统学习数据定义和汇编控制。</p></div><p>Thumb 读取 PC 有架构规定的偏移，常见为当前指令地址 A+4；<strong>字面量加载和 ADR 等还会使用按字对齐的 PC 基址</strong>。不能把源码行号当字节地址，也不能一概把“PC+4”理解为跳过下一条源代码行。</p>
+<figure class="diagram" id="fig-pcrel" data-figure="pcrel"><div class="diagram-live"><div id="c6-pcrel"><div class="viz-controls"><label class="form-label">当前指令真实地址 A<input class="form-control" data-address type="text" value="08001002" maxlength="10"></label><label class="form-label">正偏移（字节）<input class="form-control" data-offset type="number" value="12" min="0" max="1020" step="4"></label></div><svg class="drawing" role="img" aria-label="literal 加载的 PC 与对齐基准"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-pcrel"><svg class="drawing" role="img" aria-label="literal 加载的 PC 与对齐基准" viewBox="0 0 640 374"><title>字面量加载先取PC偏移再按字对齐</title><rect x="12" y="12" width="616" height="60" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">当前指令地址 A</text><text x="616" y="62" text-anchor="end" class="text-small">0x08001002</text><rect x="12" y="82" width="616" height="60" rx="3" class="node"></rect><text x="24" y="103" text-anchor="start" class="text-small">可见 PC：A+4</text><text x="616" y="132" text-anchor="end" class="text-small">0x08001006</text><rect x="12" y="152" width="616" height="60" rx="3" class="active"></rect><text x="24" y="173" text-anchor="start" class="text-small">按字对齐的基准</text><text x="616" y="202" text-anchor="end" class="text-small">0x08001004</text><rect x="12" y="222" width="616" height="60" rx="3" class="waiting"></rect><text x="24" y="243" text-anchor="start" class="text-small">加偏移得到池单元地址</text><text x="616" y="272" text-anchor="end" class="text-small">0x08001010</text><rect x="12" y="292" width="616" height="60" rx="3" class="node"></rect><text x="24" y="313" text-anchor="start" class="text-small">加载到 R0 的内容</text><text x="616" y="342" text-anchor="end" class="text-small">Mem32[0x08001010]</text></svg><div aria-live="polite">A+4=0x08001006，对齐基准=0x08001004，文字池单元=0x08001010。R0 得该处存的字，不是地址本身。</div></div></div><figcaption><span class="figure-number">图 6-9</span>展示正向、按字缩放例子的基准计算：A+4，按字对齐，再加偏移。指令地址不带函数指针的 Thumb 标识位。</figcaption></figure>
+
+
+
+<p>以一条位于 A=0x08001002 的字面量 LDR 为例：可见 PC=A+4=0x08001006，按字对齐得 0x08001004。<code>LDR R0,[PC,#0xC]</code> 从 <strong>0x08001010</strong> 读字，而非从 A+0xC 读取。具体偏移范围和正负由编码决定。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>写法</th>
+<th>得到什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ADR R0,label</code></td>
+<td>生成附近标号地址，不读取该地址的数据</td>
+</tr>
+<tr>
+<td><code>LDR R0,[R1]</code></td>
+<td>读取 R1 指向的内存字</td>
+</tr>
+<tr>
+<td><code>LDR R0,[PC,#offset]</code></td>
+<td>读取 PC 相对位置的内存字</td>
+</tr>
+<tr>
+<td><code>LDR R0,=0x12345678</code></td>
+<td>伪指令：使 R0 得常量 0x12345678，由工具选择实现</td>
+</tr>
+</tbody></table></div>
+<p>文字池（literal pool，原文也叫文本池）是代码附近存放常量的数据区。若伪指令由 literal LDR 实现，它访问的是<strong>池中存常量的地址</strong>，不是去 0x12345678 读未知数据。工具也可能把可表示常量转换为其他指令，不保证所有 LDR= 都产生同一序列。</p>
+<p>原书 ADR 的 ±4095 等范围对应相关宽编码，窄形式范围、方向和缩放不同；标签距离超界需调整布局。分支的 PC 相对基准与取数据的对齐规则也要分开，见第 27、29 节。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s15"><p class="eyebrow">第六章 · 第 15 节</p><h2>内部传送：MOVW/MOVT、MVN、MRS/MSR</h2><p class="section-context">6.4.1，第 16—17 页；习题 6.9、6.35</p><div class="part-goal"><p><strong>掌握要求：</strong>会构造 32 位常量，知道 MOV 不代替 LDR，特殊 CPU 寄存器不用普通内存访存语法。</p><p><strong>背景为什么要讲：</strong>指令表每一项都要认识；这几条是系统初始化与常量加载的基础。</p></div><p>MOV 复制寄存器值或装载可编码的立即数，<strong>不直接读取任意内存单元</strong>。内存到通用寄存器通常用 LDR 系列。因此 <code>MOV R0,[R1]</code> 不能取代 <code>LDR R0,[R1]</code>。</p>
+<p>MOVW 写入一个 16 位立即数到目标低半并清零高半；MOVT 修改高 16 位，保留低半。构造 0x12345678：</p>
+<pre><code class="language-asm">MOVW R0, #0x5678      ; R0=0x00005678
+MOVT R0, #0x1234      ; R0=0x12345678
+</code></pre>
+<p>顺序不能随意交换：先 MOVT 再 MOVW，后者会清掉之前的高半。MVN 则是按位取反，<code>MVN R0,R1</code> 得 ~R1，<strong>不等于数学取负 −R1</strong>；补码取负通常还要加 1，或用 RSB 从 0 减。</p>
+<p>MRS 从特殊寄存器读到一般寄存器，MSR 反向写入，例如 <code>MRS R0,PRIMASK</code>、<code>MSR CONTROL,R0</code>；修改需满足权限与同步要求。SCB/NVIC 的内存映射寄存器则通过地址访问。第五章已区分 CPU 特殊寄存器与 MMIO，此处把对应指令接上。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s16"><p class="eyebrow">第六章 · 第 16 节</p><h2>LDR/STR 的宽度：加载扩展，存储截取</h2><p class="section-context">6.4.2、第 17—22 页；习题 6.26—6.28、6.34、6.51、6.52</p><div class="part-goal"><p><strong>掌握要求：</strong>会根据宽度和有无符号选指令，计算 8/16 位值进入 32 位寄存器后的结果。</p><p><strong>背景为什么要讲：</strong>原书各寻址模式反复列不同大小，本节用一套规则解释它们，避免机械背重复表。</p></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>读取指令</th>
+<th>读取多少</th>
+<th>高位怎样填</th>
+<th>相应写入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LDRB</td>
+<td>8 位</td>
+<td>零扩展到 32 位</td>
+<td>STRB 只写源寄存器低 8 位</td>
+</tr>
+<tr>
+<td>LDRSB</td>
+<td>8 位</td>
+<td>用 bit7 符号扩展</td>
+<td>存同样 8 位，不另外分 signed 存储</td>
+</tr>
+<tr>
+<td>LDRH</td>
+<td>16 位</td>
+<td>零扩展到 32 位</td>
+<td>STRH 只写低 16 位</td>
+</tr>
+<tr>
+<td>LDRSH</td>
+<td>16 位</td>
+<td>用 bit15 符号扩展</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>LDR</td>
+<td>32 位</td>
+<td>已为一个字</td>
+<td>STR 写一个字</td>
+</tr>
+<tr>
+<td>LDRD</td>
+<td>64 位</td>
+<td>写入两个 32 位寄存器</td>
+<td>STRD 从两个寄存器写双字</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-extend" data-figure="extend"><div class="diagram-live"><div id="c6-extend"><div class="viz-controls"><label class="form-label">加载形式<select class="form-select" data-kind><option value="LDRB">LDRB</option><option value="LDRSB" selected>LDRSB</option><option value="LDRH">LDRH</option><option value="LDRSH">LDRSH</option></select></label><label class="form-label">读得的原始数据（十六进制）<input class="form-control" data-value type="text" value="88" maxlength="6"></label></div><svg class="drawing" role="img" aria-label="窄数据加载后的 32 位扩展"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-extend"><svg class="drawing" role="img" aria-label="窄数据加载后的 32 位扩展" viewBox="0 0 640 337"><title>窄加载的符号扩展与零扩展</title><rect x="12" y="12" width="616" height="59" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">加载形式 / 原始宽度</text><text x="616" y="61" text-anchor="end" class="text-small">LDRSB / 8 位</text><rect x="12" y="81" width="616" height="59" rx="3" class="node"></rect><text x="24" y="102" text-anchor="start" class="text-small">内存原始位串</text><text x="616" y="130" text-anchor="end" class="text-small">0x88</text><rect x="12" y="150" width="616" height="59" rx="3" class="node"></rect><text x="24" y="171" text-anchor="start" class="text-small">按该类型解释的数值</text><text x="616" y="199" text-anchor="end" class="text-small">-120</text><rect x="12" y="219" width="616" height="59" rx="3" class="active"></rect><text x="24" y="240" text-anchor="start" class="text-small">寄存器的 32 位结果</text><text x="616" y="268" text-anchor="end" class="text-small">0xFFFFFF88</text><text x="12" y="310" text-anchor="start" class="text-small">复制原窄数据最高符号位</text></svg><div aria-live="polite">LDRSB：0x88 → 0xFFFFFF88；数值 -120。</div></div></div><figcaption><span class="figure-number">图 6-10</span>原始数据必须放得进所选 8/16 位宽。先解释该宽度的符号位，再扩展到 32 位；不额外读取其他内存字节。</figcaption></figure>
+
+
+
+<p>同一个内存字节 0x88：LDRB 得 0x00000088，即 136；LDRSB 得 0xFFFFFF88，即 −120。<strong>扩展保留原类型的数值意义</strong>，不是把负数一律补 1：正的有符号数也补 0。</p>
+<p>读 R1+3 的字节到 R8：<code>LDRB R8,[R1,#3]</code>；读 R1+4 半字：<code>LDRH R8,[R1,#4]</code>；读 R1+8 字：<code>LDR R8,[R1,#8]</code>。若要求有符号字节/半字，要改 SB/SH，不能只改注释。</p>
+<p>加载目标仍是 32 位；STRB/STRH 不先把源寄存器变窄，而只取低部去写，其他内存字节不应被当成一起写掉。对齐、支持的地址形式和基址/目标重叠仍需按指令检查。原书 immediate-offset、前变址、后变址、寄存器缩放表都沿用这些数据规则。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s17"><p class="eyebrow">第六章 · 第 17 节</p><h2>带 T 的非特权访存：内核替用户检查访问</h2><p class="section-context">6.4.2 的非特权等级加载/存储，第 22 页；习题 6.45</p><div class="part-goal"><p><strong>掌握要求：</strong>说明这些指令为什么存在，以及它们不会把调用者整体永久降权或给用户提权。</p><p><strong>背景为什么要讲：</strong>属于系统编程背景，现阶段不必实现完整用户缓冲区 API，但要懂保护边界。</p></div><p>特权操作系统要替用户读写一段缓冲区，不能只凭自己“权限够大”就把用户本不该访问的数据传出去。<strong>LDRT/STRT 等允许特权代码按非特权数据访问规则完成该次访问</strong>，从而发现不合法的用户地址。</p>
+<p>原书列出 LDRBT、LDRSBT、LDRHT、LDRSHT、LDRT，以及 STRBT、STRHT、STRT；B/H、SB/SH 的宽度与扩展含义和前节一致，T 在这里表示该类非特权访问语义。其立即数偏移等限制须查具体编码。</p>
+<p>这不把 Handler 变成非特权模式，也不让用户绕过 MPU。<strong>数据曾由特权程序写过，不意味着它必然受保护</strong>；真正限制来自区域权限与核心系统规则。访问被拒绝可能产生相应 Fault，系统还需设计错误处理，不能把一条访存当完整、无竞争的安全检查协议。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s18"><p class="eyebrow">第六章 · 第 18 节</p><h2>独占访问：STREX 的第一个寄存器是状态</h2><p class="section-context">6.4.2 的排他式访问，第 23 页</p><div class="part-goal"><p><strong>掌握要求：</strong>读懂 LDREX/STREX 的数据与状态寄存器，知道 0 成功、非零失败以及重试。</p><p><strong>背景为什么要讲：</strong>第五章讲原理，本节补上字节/半字/字与具体操作数顺序。</p></div><p>LDREXB/H、LDREX 分别按字节、半字、字加载并建立相应独占保留；STREXB/H、STREX 尝试条件存储。<strong><code>STREX R2,R1,[R0]</code> 不是把 R2 写出去，而是尝试写 R1，结果状态放 R2。</strong></p>
+<pre><code class="language-asm">retry:
+    LDREX R1, [R0]
+    ADD   R1, R1, #1
+    STREX R2, R1, [R0]
+    CMP   R2, #0
+    BNE   retry
+</code></pre>
+<p>成功状态为 0，失败时该次存储不发生，应重新读、重新计算。CLREX 用于清除本地独占保留，例如放弃一条尝试路径；它不清掉软件定义的“锁变量值”。相应操作需匹配地址、大小、对齐、内存类型，并满足寄存器限制。</p>
+<p>完整锁/信号量还需软件协议、必要屏障和系统独占监视支持。跨 DMA/多核的竞争能否被正确监控，取决于芯片；本循环不是任意 MMIO 寄存器都能使用的读改写模板。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s19"><p class="eyebrow">第六章 · 第 19 节</p><h2>加减、进位与借位：把 64 位运算接起来</h2><p class="section-context">6.4.3，第 23—24 页；习题 6.9、6.50</p><div class="part-goal"><p><strong>掌握要求：</strong>会写 ADD/ADC、SUB/SBC 的关系，理解 RSB，能追踪两字组成的 64 位加减。</p><p><strong>背景为什么要讲：</strong>相同位宽加法通常共用电路；跨字运算必须正确传递低字的 C。</p></div><p>ADD 得 A+B；ADC 得 A+B+C。SUB 得 A−B；<strong>SBC 得 A−B−(1−C)</strong>，不能误写成 A−B−C。RSB（Reverse Subtract）交换相减方向，例如 <code>RSB R0,R1,#0</code> 得 −R1 的补码结果。ADDW/SUBW 主要提供相应直接立即数形式，W 不代表 64 位加法。</p>
+<p>两对寄存器 {R1,R0}、{R3,R2} 分别为高字、低字，64 位加法：</p>
+<pre><code class="language-asm">ADDS R0, R0, R2       ; 先低字，产生 C
+ADC  R1, R1, R3       ; 高字加上低字进位
+</code></pre>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0</mn><mi>x</mi><mn>00000001</mn><mi>F</mi><mi>F</mi><mi>F</mi><mi>F</mi><mi>F</mi><mi>F</mi><mi>F</mi><mi>F</mi><mo>&#x0002B;</mo><mn>0</mn><mi>x</mi><mn>0000000200000001</mn><mo>&#x0003D;</mo><mn>0</mn><mi>x</mi><mn>0000000400000000</mn></mrow></math></div>
+
+
+
+
+
+<figure class="diagram" id="fig-carry" data-figure="carry"><div class="diagram-live"><div id="c6-carry"><div class="viz-controls"><label class="form-label">算例<select class="form-select" data-kind><option value="add" selected>ADDS → ADC</option><option value="sub">SUBS → SBC</option></select></label></div><svg class="drawing" role="img" aria-label="64 位加减的低字到高字链条"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-carry"><svg class="drawing" role="img" aria-label="64 位加减的低字到高字链条" viewBox="0 0 640 416"><title>低字C串接高字的64位加减</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">两个 64 位源</text><text x="616" y="57" text-anchor="end" class="text-small">00000001FFFFFFFF</text><rect x="12" y="77" width="616" height="55" rx="3" class="node"></rect><text x="24" y="98" text-anchor="start" class="text-small">第二个源</text><text x="616" y="122" text-anchor="end" class="text-small">0000000200000001</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">低字 ADDS</text><text x="616" y="187" text-anchor="end" class="text-small">FFFFFFFF + 1 → 00000000</text><rect x="12" y="207" width="616" height="55" rx="3" class="waiting"></rect><text x="24" y="228" text-anchor="start" class="text-small">低字传出</text><text x="616" y="252" text-anchor="end" class="text-small">C=1</text><rect x="12" y="272" width="616" height="55" rx="3" class="node"></rect><text x="24" y="293" text-anchor="start" class="text-small">高字 ADC</text><text x="616" y="317" text-anchor="end" class="text-small">1 + 2 + C → 00000004</text><rect x="12" y="337" width="616" height="55" rx="3" class="active"></rect><text x="24" y="358" text-anchor="start" class="text-small">最终高:低</text><text x="616" y="382" text-anchor="end" class="text-small">00000004:00000000</text></svg><div aria-live="polite">结果 0x0000000400000000。ADC 读取低字产生的 C。</div></div></div><figcaption><span class="figure-number">图 6-11</span>两步之间不插入破坏 C 的指令。R1/R3 是高字，R0/R2 是低字；SBC 使用 1−C 作为借位。</figcaption></figure>
+
+
+
+<p>64 位减法对应先 <code>SUBS R0,R0,R2</code>，再 <code>SBC R1,R1,R3</code>。例如 0x0000000200000000−0x0000000100000001：低字 0−1 得 FFFFFFFF、C=0；高字 2−1−1=0，结果为 0x00000000FFFFFFFF。</p>
+<p><strong>低字与高字之间不要插入会破坏 C 的指令。</strong>最终想得到完整 64 位的零/符号等状态，还需按需求组合；只看高字操作的 Z 不足以说明两个字全为零。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s20"><p class="eyebrow">第六章 · 第 20 节</p><h2>MUL、长乘法、MLA/MLS：先决定要留下多少位</h2><p class="section-context">6.4.3、6.4.12 的公共乘法表，第 24、36 页；习题 6.9、6.47、6.50</p><div class="part-goal"><p><strong>掌握要求：</strong>能区分 32 位低结果与 64 位完整结果，读懂 RdLo/RdHi 与累加关系。</p><p><strong>背景为什么要讲：</strong>乘法是 DSP 的基础，结果位宽和符号解释会决定用哪条指令。</p></div><p>MUL 取 32×32 乘积的低 32 位。对同样的输入位串，<strong>有符号与无符号乘法的低 32 位相同</strong>，但完整 64 位的高部可能不同；因此不能简单把 MUL 叫成“只会无符号乘法”。有符号结果是否溢出，也不能靠 MUL 不更新 V 来证明没有。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>指令</th>
+<th>数学含义</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MUL</td>
+<td>Rn×Rm 的低部</td>
+<td>32 位</td>
+</tr>
+<tr>
+<td>MLA</td>
+<td>Ra+Rn×Rm 的低部</td>
+<td>32 位</td>
+</tr>
+<tr>
+<td>MLS</td>
+<td>Ra−Rn×Rm 的低部</td>
+<td>32 位</td>
+</tr>
+<tr>
+<td>UMULL / SMULL</td>
+<td>无符号 / 有符号完整乘积</td>
+<td>RdHi:RdLo 共 64 位</td>
+</tr>
+<tr>
+<td>UMLAL / SMLAL</td>
+<td>64 位原累加值加相应乘积</td>
+<td>64 位</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-multiply" data-figure="multiply"><div class="diagram-live"><div id="c6-multiply"><div class="viz-controls"><label class="form-label">指令<select class="form-select" data-kind><option value="MUL">MUL</option><option value="UMULL">UMULL</option><option value="SMULL" selected>SMULL</option></select></label><label class="form-label">A（十六进制）<input class="form-control" data-a type="text" value="FFFFFFFF" maxlength="10"></label><label class="form-label">B（十六进制）<input class="form-control" data-b type="text" value="2" maxlength="10"></label></div><svg class="drawing" role="img" aria-label="低 32 位与完整有无符号乘积"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-multiply"><svg class="drawing" role="img" aria-label="低 32 位与完整有无符号乘积" viewBox="0 0 640 372"><title>完整乘积高低部及符号解释</title><rect x="12" y="12" width="616" height="59" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">A 的本次解释</text><text x="616" y="61" text-anchor="end" class="text-small">-1</text><rect x="12" y="81" width="616" height="59" rx="3" class="node"></rect><text x="24" y="102" text-anchor="start" class="text-small">B 的本次解释</text><text x="616" y="130" text-anchor="end" class="text-small">2</text><rect x="12" y="150" width="616" height="59" rx="3" class="node"></rect><text x="24" y="171" text-anchor="start" class="text-small">完整数学乘积</text><text x="616" y="199" text-anchor="end" class="text-small">-2</text><rect x="12" y="219" width="616" height="59" rx="3" class="active"></rect><text x="24" y="240" text-anchor="start" class="text-small">RdLo / 低 32 位</text><text x="616" y="268" text-anchor="end" class="text-small">0xFFFFFFFE</text><rect x="12" y="288" width="616" height="59" rx="3" class="waiting"></rect><text x="24" y="309" text-anchor="start" class="text-small">RdHi / 高 32 位</text><text x="616" y="337" text-anchor="end" class="text-small">0xFFFFFFFF</text></svg><div aria-live="polite">SMULL：低字 0xFFFFFFFE，高字 0xFFFFFFFF。</div></div></div><figcaption><span class="figure-number">图 6-12</span>同一输入位串，有无符号完整乘积的高部可能不同；MUL 只保留低 32 位，不提供完整溢出判定。</figcaption></figure>
+
+
+
+<p>例：位串 FFFFFFFF 与 00000002。UMULL 得 00000001:FFFFFFFE；SMULL 把前者解释为 −1，得 FFFFFFFF:FFFFFFFE。<strong>低字一样，高字不同</strong>。64 位寄存器对的写法里 RdLo 通常先写在操作数列表，不要因数学显示“高:低”就倒填。</p>
+<p>MAC（Multiply-Accumulate，乘并累加）对应点积 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>&#x02211;</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>h</mi><mi>i</mi></msub></mrow></math></span>，常见于 FIR 滤波、相关、矩阵乘法。MLA 可减少乘后再加的指令，但要选择足够累加位宽。MULS 的某些窄形式可改 N/Z；这些长乘及 MAC 通常不提供普通 S 后缀，不能一概假定更新 NZCV。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s21"><p class="eyebrow">第六章 · 第 21 节</p><h2>除法与定点缩放：同一位串可以代表不同数</h2><p class="section-context">6.4.3 与扩展背景；习题 6.48—6.50</p><div class="part-goal"><p><strong>掌握要求：</strong>区分 SDIV/UDIV，理解整数与定点共用电路的条件，能做简单 Q15 乘法缩放。</p><p><strong>背景为什么要讲：</strong>星号题仍然讲到，但不要求现在设计完整乘除法器。</p></div><p>UDIV 按无符号除法；SDIV 按有符号补码，商向零截断。例如 SDIV 的 −7/3=−2；若同样的 0xFFFFFFF9 当无符号，商就完全不同。<strong>整数低位乘积可以相同，不代表除法也能不分符号。</strong></p>
+<p>没有直接给余数的这一对指令，可用商 q 后 <code>MLS Rrem,Rq,Rden,Rnum</code> 求 n−q×d。除零行为取决于 CCR.DIV_0_TRP 等规定，不能把它想成总会得到数学有效值；普通除法也不自动靠 V 报告一切问题。</p>
+<p>定点小数把整数 I 解释成 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>x</mi><mo>&#x0003D;</mo><mi>I</mi><mo>&#x000D7;</mo><msup><mn>2</mn><mrow><mo>&#x02212;</mo><mi>f</mi></mrow></msup></mrow></math></span>。若加减两数使用<strong>相同缩放</strong>，整数加减电路可直接用于定点加减；若缩放不同，先对齐。乘法需调整结果的小数位位置，并考虑舍入、截断和溢出。</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>Q15&#x000A0;示例：</mtext><mspace width="1em" /><mn>0.5</mn><mo>&#x02194;</mo><mn>16384</mn><mo>&#x0003D;</mo><mn>0</mn><mi>x</mi><mn>4000</mn></mrow></math></div>
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0</mn><mi>x</mi><mn>4000</mn><mo>&#x000D7;</mo><mn>0</mn><mi>x</mi><mn>4000</mn><mo>&#x0003D;</mo><mn>0</mn><mi>x</mi><mn>10000000</mn><mspace width="1em" /><mo stretchy="false">&#x00028;</mo><mn>30</mn><mtext>&#x000A0;个小数位</mtext><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>右移&#x000A0;</mtext><mn>15</mn><mtext>&#x000A0;位得&#x000A0;</mtext><mn>0</mn><mi>x</mi><mn>2000</mn><mo>&#x0003D;</mo><mn>8192</mn><mspace width="1em" /><mo>&#x021D2;</mo><mspace width="1em" /><mn>8192</mn><mo>&#x0002F;</mo><mn>32768</mn><mo>&#x0003D;</mo><mn>0.25</mn></mrow></math></div>
+
+
+
+<p>这解释了为什么 DSP 需要乘加、算术移位、饱和和符号扩展。浮点则还需处理指数、对阶、规格化与舍入，见第 37 节；不能把定点/浮点的差异说成只换一条注释。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s22"><p class="eyebrow">第六章 · 第 22 节</p><h2>逻辑指令与位掩码：设置、清零、翻转各用什么</h2><p class="section-context">6.4.4，第 24 页；习题 6.29—6.33</p><div class="part-goal"><p><strong>掌握要求：</strong>会用 ORR、BIC、EOR 操作指定 bit，会区分 AND/ORR/ORN/EOR。</p><p><strong>背景为什么要讲：</strong>寄存器配置、GPIO 和标志集合都依赖掩码；这里处理的是寄存器值，还不自动写回外设。</p></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>按位运算</th>
+<th>常用目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AND</td>
+<td>A &amp; B</td>
+<td>只保留掩码允许的位</td>
+</tr>
+<tr>
+<td>ORR</td>
+<td>A | B</td>
+<td>掩码为 1 的位置置 1</td>
+</tr>
+<tr>
+<td>EOR</td>
+<td>A XOR B</td>
+<td>掩码为 1 的位置取反</td>
+</tr>
+<tr>
+<td>BIC</td>
+<td>A &amp; ~B</td>
+<td>掩码为 1 的位置清 0</td>
+</tr>
+<tr>
+<td>ORN</td>
+<td>A | ~B</td>
+<td>与“取反后的第二操作数”相或</td>
+</tr>
+<tr>
+<td>MVN</td>
+<td>~B</td>
+<td>全位取反</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-logic" data-figure="logic"><div class="diagram-live"><div id="c6-logic"><div class="viz-controls"><label class="form-label">操作<select class="form-select" data-op><option value="AND">AND</option><option value="ORR">ORR</option><option value="ORN">ORN</option><option value="EOR" selected>EOR</option><option value="BIC">BIC</option></select></label><label class="form-label">A（十六进制）<input class="form-control" data-a type="text" value="A5" maxlength="10"></label><label class="form-label">B / 掩码（十六进制）<input class="form-control" data-b type="text" value="4" maxlength="10"></label></div><svg class="drawing" role="img" aria-label="32 位逻辑与低字节逐位对照"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-logic"><svg class="drawing" role="img" aria-label="32 位逻辑与低字节逐位对照" viewBox="0 0 640 325"><title>32位按位逻辑并放大低字节</title><rect x="12" y="12" width="616" height="55" rx="3" class="active"></rect><text x="24" y="33" text-anchor="start" class="text-small">操作 / 完整 32 位结果</text><text x="616" y="57" text-anchor="end" class="text-small">EOR → 0x000000A1</text><text x="12" y="106" text-anchor="start" class="text-small">A 低 8 位</text><rect x="13" y="119" width="75" height="27" rx="3" class="node"></rect><text x="50.5" y="138" text-anchor="middle" class="text-small">1</text><rect x="90" y="119" width="75" height="27" rx="3" class="node"></rect><text x="127.5" y="138" text-anchor="middle" class="text-small">0</text><rect x="167" y="119" width="75" height="27" rx="3" class="node"></rect><text x="204.5" y="138" text-anchor="middle" class="text-small">1</text><rect x="244" y="119" width="75" height="27" rx="3" class="node"></rect><text x="281.5" y="138" text-anchor="middle" class="text-small">0</text><rect x="321" y="119" width="75" height="27" rx="3" class="node"></rect><text x="358.5" y="138" text-anchor="middle" class="text-small">0</text><rect x="398" y="119" width="75" height="27" rx="3" class="active"></rect><text x="435.5" y="138" text-anchor="middle" class="text-small">1</text><rect x="475" y="119" width="75" height="27" rx="3" class="node"></rect><text x="512.5" y="138" text-anchor="middle" class="text-small">0</text><rect x="552" y="119" width="75" height="27" rx="3" class="node"></rect><text x="589.5" y="138" text-anchor="middle" class="text-small">1</text><text x="12" y="174" text-anchor="start" class="text-small">B 低 8 位</text><rect x="13" y="187" width="75" height="27" rx="3" class="node"></rect><text x="50.5" y="206" text-anchor="middle" class="text-small">0</text><rect x="90" y="187" width="75" height="27" rx="3" class="node"></rect><text x="127.5" y="206" text-anchor="middle" class="text-small">0</text><rect x="167" y="187" width="75" height="27" rx="3" class="node"></rect><text x="204.5" y="206" text-anchor="middle" class="text-small">0</text><rect x="244" y="187" width="75" height="27" rx="3" class="node"></rect><text x="281.5" y="206" text-anchor="middle" class="text-small">0</text><rect x="321" y="187" width="75" height="27" rx="3" class="node"></rect><text x="358.5" y="206" text-anchor="middle" class="text-small">0</text><rect x="398" y="187" width="75" height="27" rx="3" class="active"></rect><text x="435.5" y="206" text-anchor="middle" class="text-small">1</text><rect x="475" y="187" width="75" height="27" rx="3" class="node"></rect><text x="512.5" y="206" text-anchor="middle" class="text-small">0</text><rect x="552" y="187" width="75" height="27" rx="3" class="node"></rect><text x="589.5" y="206" text-anchor="middle" class="text-small">0</text><text x="12" y="242" text-anchor="start" class="text-small">结果低 8 位</text><rect x="13" y="255" width="75" height="27" rx="3" class="node"></rect><text x="50.5" y="274" text-anchor="middle" class="text-small">1</text><rect x="90" y="255" width="75" height="27" rx="3" class="node"></rect><text x="127.5" y="274" text-anchor="middle" class="text-small">0</text><rect x="167" y="255" width="75" height="27" rx="3" class="node"></rect><text x="204.5" y="274" text-anchor="middle" class="text-small">1</text><rect x="244" y="255" width="75" height="27" rx="3" class="node"></rect><text x="281.5" y="274" text-anchor="middle" class="text-small">0</text><rect x="321" y="255" width="75" height="27" rx="3" class="node"></rect><text x="358.5" y="274" text-anchor="middle" class="text-small">0</text><rect x="398" y="255" width="75" height="27" rx="3" class="active"></rect><text x="435.5" y="274" text-anchor="middle" class="text-small">0</text><rect x="475" y="255" width="75" height="27" rx="3" class="node"></rect><text x="512.5" y="274" text-anchor="middle" class="text-small">0</text><rect x="552" y="255" width="75" height="27" rx="3" class="node"></rect><text x="589.5" y="274" text-anchor="middle" class="text-small">1</text></svg><div aria-live="polite">EOR 的结果 0x000000A1。蓝色列由 B 的低字节掩码标出，全部 32 位均参与实际计算。</div></div></div><figcaption><span class="figure-number">图 6-13</span>完整结果按 32 位计算，下方仅放大低 8 位。ORN 对第二源全部 32 位取反，不只是图中八位。</figcaption></figure>
+
+
+
+<p>本章 bit 编号从 0 开始，bit2 掩码为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x0226A;</mo><mn>2</mn><mo>&#x0003D;</mo><mn>4</mn></mrow></math></span>：</p>
+<pre><code class="language-asm">EOR R0, R0, #4       ; bit2 翻转
+ORR R0, R0, #4       ; bit2 置 1
+BIC R0, R0, #4       ; bit2 清 0
+AND R0, R0, R1       ; R0 与 R1 按位与，结果写 R0
+</code></pre>
+<p>这四行是<strong>四个独立要求</strong>，不是说应该连续全做一遍。翻转两次会还原；置位和清位重复做则保持同样结果。ORR 与 ORN 的区别是第二操作数是否先取反，ORN 不是 NOR；EOR 也不是 OR。</p>
+<p>原书表 6.24 把若干 EOR 行写成 <code>|</code>，应改为 XOR；BIC/ORR/EOR 的真值关系以本表为准。若是在内存映射寄存器上做读改写，还需配合 LDR/STR 并考虑副作用和并发，不能把寄存器内一条运算等同外设原子更新。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s23"><p class="eyebrow">第六章 · 第 23 节</p><h2>LSL、LSR、ASR、ROR、RRX：把移出的位画出来</h2><p class="section-context">6.3.4、6.4.5，第 12、25—26 页；习题 6.36—6.38</p><div class="part-goal"><p><strong>掌握要求：</strong>会算五种移位、移出位与 C，知道算术右移保符号，RRX 使用原 C。</p><p><strong>背景为什么要讲：</strong>桶形移位器还可参与其他数据处理；零和超过字长的移位属于查规则层，不能忽略。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>操作</th>
+<th>空位/回填</th>
+<th>右移一个位的例子，输入 0x80000001</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LSL</td>
+<td>低位补 0，高位丢弃</td>
+<td>左移 1 得 0x00000002</td>
+</tr>
+<tr>
+<td>LSR</td>
+<td>高位补 0</td>
+<td>0x40000000</td>
+</tr>
+<tr>
+<td>ASR</td>
+<td>高位复制原符号位</td>
+<td>0xC0000000</td>
+</tr>
+<tr>
+<td>ROR</td>
+<td>移出的低位回到高端</td>
+<td>0xC0000000</td>
+</tr>
+<tr>
+<td>RRX</td>
+<td>只右移 1 位，高端填原 C</td>
+<td>C=0 得 0x40000000；C=1 得 0xC0000000</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-shift" data-figure="shift"><div class="diagram-live"><div id="c6-shift"><div class="viz-controls"><label class="form-label">操作<select class="form-select" data-op><option value="LSL">LSL</option><option value="LSR">LSR</option><option value="ASR">ASR</option><option value="ROR">ROR</option><option value="RRX" selected>RRX</option></select></label><label class="form-label">32 位输入<input class="form-control" data-value type="text" value="80000001" maxlength="10"></label><label class="form-label">寄存器给移位量<select class="form-select" data-count><option value="0">0</option><option value="1" selected>1</option><option value="2">2</option><option value="4">4</option><option value="8">8</option><option value="31">31</option><option value="32">32</option><option value="33">33</option></select></label><label class="form-label">原 C<select class="form-select" data-c><option value="0">0</option><option value="1" selected>1</option></select></label><label class="form-check"><input type="checkbox" data-s checked>更新标志（S）</label></div><svg class="drawing" role="img" aria-label="移位结果、移出位与 APSR.C"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-shift"><svg class="drawing" role="img" aria-label="移位结果、移出位与 APSR.C" viewBox="0 0 640 498"><title>移位结果和真正写回的进位标志</title><text x="12" y="25" text-anchor="start" class="text-small">RRXS · 固定 1 位</text><text x="12" y="52" text-anchor="start" class="text-small">输入 0x80000001 · 原 C=1</text><text x="12" y="78" text-anchor="start" class="text-small">bit31—16</text><rect x="13" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="109" text-anchor="middle" class="text-small">1</text><rect x="51.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="90" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="167" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="244" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="321" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="398" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="475" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="552" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="109" text-anchor="middle" class="text-small">0</text><text x="12" y="139" text-anchor="start" class="text-small">bit15—0</text><rect x="13" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="90" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="167" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="244" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="321" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="398" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="475" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="552" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="170" text-anchor="middle" class="text-small">1</text><text x="12" y="207" text-anchor="start" class="text-small">结果 0xC0000000</text><text x="12" y="233" text-anchor="start" class="text-small">bit31—16</text><rect x="13" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="264" text-anchor="middle" class="text-small">1</text><rect x="51.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="264" text-anchor="middle" class="text-small">1</text><rect x="90" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="264" text-anchor="middle" class="text-small">0</text><rect x="167" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="264" text-anchor="middle" class="text-small">0</text><rect x="244" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="264" text-anchor="middle" class="text-small">0</text><rect x="321" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="264" text-anchor="middle" class="text-small">0</text><rect x="398" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="264" text-anchor="middle" class="text-small">0</text><rect x="475" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="264" text-anchor="middle" class="text-small">0</text><rect x="552" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="264" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="245" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="264" text-anchor="middle" class="text-small">0</text><text x="12" y="294" text-anchor="start" class="text-small">bit15—0</text><rect x="13" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="90" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="167" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="244" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="321" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="398" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="475" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="552" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="325" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="306" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="325" text-anchor="middle" class="text-small">0</text><rect x="12" y="357" width="616" height="52" rx="3" class="node"></rect><text x="24" y="378" text-anchor="start" class="text-small">本次移出/保留的 carry 值</text><text x="616" y="399" text-anchor="end" class="text-small">1</text><rect x="12" y="419" width="616" height="52" rx="3" class="active"></rect><text x="24" y="440" text-anchor="start" class="text-small">执行后的 APSR.C</text><text x="616" y="461" text-anchor="end" class="text-small">1 · 按移位规则更新</text></svg><div aria-live="polite">RRX 结果 0xC0000000；APSR.C=1。原 C 用于回填 bit31。</div></div></div><figcaption><span class="figure-number">图 6-14</span>LSL/LSR/ASR/ROR 按寄存器给量语义展示，不表示每个数都能写进立即数编码。RRX 固定 1 位，忽略移位量选择；原 C 只在 RRX 参与回填。</figcaption></figure>
+
+
+
+<p>这组数恰好使 ASR 与 ROR 的结果相同，不代表二者相同；改用 0x80000000，ASR #1 得 C0000000，ROR #1 得 40000000。RRX 把“原 C + 32 位寄存器”当扩展通道，输出的旧 bit0 可用于更新 C；<strong>ROR 不以原 C 作为回填位</strong>。</p>
+<p>带 S 的对应指令按规则更新 N/Z/C，V 通常保留；不带 S 时 APSR 的 C 不因图中出现一个“移出位”就自动改变。RRX 即使不改标志，仍要读取原 C 来填高位。</p>
+<h3>移位量的边界别用一种规则包办</h3>
+<p>立即数编码常见 LSL #0—31、LSR/ASR #1—32、ROR #1—31；寄存器给量则使用相应低 8 位，可出现 0、32、&gt;32。寄存器量为 0 常保留结果与 C；LSL/LSR 为 32 时结果 0，C 分别来自原 bit0/bit31，超过 32 时结果与 C 为 0；ASR≥32 则全填符号位。ROR 非零的 32 倍数结果不变但更新 C 的规则与“移位量为 0”不同。</p>
+<p>因此<strong>“最多只能移 32 位”不是全部寄存器形式的准确限制</strong>。日常做题先明确编码/移位形式，再处理边界；图采用寄存器给量的模型并明确 S 开关。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s24"><p class="eyebrow">第六章 · 第 24 节</p><h2>扩展与字节反转：改变表示宽度不等于数值转换</h2><p class="section-context">6.4.6，第 26—27 页；习题 6.34、6.51、6.52</p><div class="part-goal"><p><strong>掌握要求：</strong>会算 SXTB/SXTH/UXTB/UXTH 和 REV/REV16/REVSH，知道符号位来自截取的数据。</p><p><strong>背景为什么要讲：</strong>访存加载时可扩展，寄存器内部也可扩展；两者分开认识才能看懂 DSP 数据整理。</p></div><p>SXTB/SXTH 取源低 8/16 位做符号扩展，UXTB/UXTH 取同样的低部补零。R0=0x22AA8765 时：SXTB 和 UXTB 都得到 0x65；SXTH 得 0xFFFF8765；UXTH 得 0x00008765。符号取自<strong>被截取部分的 bit7/bit15</strong>，不是一律看原寄存器 bit31。</p>
+<p>这些指令的某些宽形式还可先 ROR #8/#16/#24，再取低部，方便提取另一个字节/半字。保留数值的前提是解释原数据类型；不同类型使用不同扩展，否则 0x88 可能从 −120 误变 136。</p>
+<figure class="diagram" id="fig-byteorder" data-figure="byteorder"><div class="diagram-live"><div id="c6-byteorder"><div class="viz-controls"><label class="form-label">操作<select class="form-select" data-op><option value="REV">REV</option><option value="REV16">REV16</option><option value="REVSH" selected>REVSH</option></select></label><label class="form-label">32 位输入<input class="form-control" data-value type="text" value="44558899" maxlength="10"></label></div><svg class="drawing" role="img" aria-label="REV、REV16、REVSH 的字节变化"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-byteorder"><svg class="drawing" role="img" aria-label="REV、REV16、REVSH 的字节变化" viewBox="0 0 640 357"><title>按字节重排并标注REVSH符号扩展</title><text x="12" y="31" text-anchor="start" class="text-small">输入字节（高 → 低）</text><text x="89" y="60" text-anchor="middle" class="text-small">31:24</text><rect x="14" y="73" width="150" height="38" rx="3" class="active"></rect><text x="89" y="98" text-anchor="middle" class="">44</text><text x="243" y="60" text-anchor="middle" class="text-small">23:16</text><rect x="168" y="73" width="150" height="38" rx="3" class="active"></rect><text x="243" y="98" text-anchor="middle" class="">55</text><text x="397" y="60" text-anchor="middle" class="text-small">15:8</text><rect x="322" y="73" width="150" height="38" rx="3" class="active"></rect><text x="397" y="98" text-anchor="middle" class="">88</text><text x="551" y="60" text-anchor="middle" class="text-small">7:0</text><rect x="476" y="73" width="150" height="38" rx="3" class="active"></rect><text x="551" y="98" text-anchor="middle" class="">99</text><text x="12" y="147" text-anchor="start" class="text-small">结果字节（高 → 低）</text><text x="89" y="176" text-anchor="middle" class="text-small">31:24</text><rect x="14" y="189" width="150" height="38" rx="3" class="waiting"></rect><text x="89" y="214" text-anchor="middle" class="">FF</text><text x="243" y="176" text-anchor="middle" class="text-small">23:16</text><rect x="168" y="189" width="150" height="38" rx="3" class="waiting"></rect><text x="243" y="214" text-anchor="middle" class="">FF</text><text x="397" y="176" text-anchor="middle" class="text-small">15:8</text><rect x="322" y="189" width="150" height="38" rx="3" class="active"></rect><text x="397" y="214" text-anchor="middle" class="">99</text><text x="551" y="176" text-anchor="middle" class="text-small">7:0</text><rect x="476" y="189" width="150" height="38" rx="3" class="active"></rect><text x="551" y="214" text-anchor="middle" class="">88</text><rect x="12" y="277" width="616" height="55" rx="3" class="active"></rect><text x="24" y="298" text-anchor="start" class="text-small">32 位结果</text><text x="616" y="322" text-anchor="end" class="text-small">0xFFFF9988</text></svg><div aria-live="polite">REVSH：0x44558899 → 0xFFFF9988。高半字由交换后的半字符号位填充。</div></div></div><figcaption><span class="figure-number">图 6-15</span>按高字节到低字节展示寄存器位串，不是画内存地址。REVSH 的高半字由交换后低半字的符号位扩展。</figcaption></figure>
+
+
+
+<p>REV 把四字节反序；REV16 在两个半字内部各交换字节；REVSH 只交换低半字的两个字节，再以<strong>交换后的 bit15</strong>符号扩展。输入 0x12345678：REV 得 0x78563412，REV16 得 0x34127856；输入 0x44558899，REVSH 得 0xFFFF9988。</p>
+<p>原书示例 <code>REVH</code> 应写 <strong>REV16</strong>。这些是字节重排，不是把每个字节的 bit 全部倒序；位序反转用下一节 RBIT。也不是把浮点位串变为其整数数值的转换指令。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s25"><p class="eyebrow">第六章 · 第 25 节</p><h2>位域、CLZ、RBIT：按范围处理一段 bit</h2><p class="section-context">6.4.7，第 27—28 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能根据 lsb 与 width 划范围，手算 BFC/BFI/UBFX/SBFX；知道 CLZ 与 RBIT 的用途。</p><p><strong>背景为什么要讲：</strong>用于寄存器字段与压缩数据，常比连续掩码移位更直接；不需要背每个二进制操作码。</p></div><p>位域从最低位置 lsb 开始，宽度 width，覆盖 <strong>lsb 到 lsb+width−1</strong>。必须满足 lsb≥0、width≥1、lsb+width≤32；因此 lsb=0 时可以覆盖 32 位，原书“仅 1—31 位”不完整。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BFC Rd,#lsb,#width</td>
+<td>把目标该段清 0，其余位保留</td>
+</tr>
+<tr>
+<td>BFI Rd,Rn,#lsb,#width</td>
+<td>把 Rn 的低 width 位放进目标该段，其余位保留</td>
+</tr>
+<tr>
+<td>UBFX Rd,Rn,#lsb,#width</td>
+<td>提取该段到低部，再零扩展</td>
+</tr>
+<tr>
+<td>SBFX Rd,Rn,#lsb,#width</td>
+<td>提取该段到低部，以字段最高位做符号扩展</td>
+</tr>
+<tr>
+<td>CLZ Rd,Rn</td>
+<td>从 bit31 向低数连续 0；全 0 返回 32</td>
+</tr>
+<tr>
+<td>RBIT Rd,Rn</td>
+<td>反转全部 32 位的位序</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-bitfield" data-figure="bitfield"><div class="diagram-live"><div id="c6-bitfield"><div class="viz-controls"><label class="form-label">操作<select class="form-select" data-op><option value="BFC" selected>BFC</option><option value="BFI">BFI</option><option value="UBFX">UBFX</option><option value="SBFX">SBFX</option><option value="CLZ">CLZ</option><option value="RBIT">RBIT</option></select></label><label class="form-label">目标原值 Rd<input class="form-control" data-dest type="text" value="12345678" maxlength="10"></label><label class="form-label">源 Rn<input class="form-control" data-source type="text" value="12345678" maxlength="10"></label><label class="form-label">lsb<input class="form-control" data-lsb type="number" value="4" min="0" max="31" step="1"></label><label class="form-label">width<input class="form-control" data-width type="number" value="8" min="1" max="32" step="1"></label></div><svg class="drawing" role="img" aria-label="位域范围、保留与提取"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-bitfield"><svg class="drawing" role="img" aria-label="位域范围、保留与提取" viewBox="0 0 640 355"><title>位域范围插入清除提取或位序操作</title><text x="12" y="25" text-anchor="start" class="text-small">BFC：bit4—11</text><text x="12" y="52" text-anchor="start" class="text-small">被操作值 0x12345678</text><text x="12" y="78" text-anchor="start" class="text-small">bit31—16</text><rect x="13" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="90" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="109" text-anchor="middle" class="text-small">1</text><rect x="167" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="244" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="109" text-anchor="middle" class="text-small">1</text><rect x="282.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="321" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="109" text-anchor="middle" class="text-small">0</text><rect x="398" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="109" text-anchor="middle" class="text-small">1</text><rect x="436.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="109" text-anchor="middle" class="text-small">1</text><rect x="475" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="109" text-anchor="middle" class="text-small">1</text><rect x="552" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="109" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="90" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="109" text-anchor="middle" class="text-small">0</text><text x="12" y="139" text-anchor="start" class="text-small">bit15—0</text><rect x="13" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="170" text-anchor="middle" class="text-small">1</text><rect x="90" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="170" text-anchor="middle" class="text-small">1</text><rect x="167" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="185.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="223.75" y="170" text-anchor="middle" class="text-small">1</text><rect x="244" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="262.25" y="170" text-anchor="middle" class="text-small">1</text><rect x="282.5" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="300.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="321" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="339.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="377.75" y="170" text-anchor="middle" class="text-small">1</text><rect x="398" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="416.25" y="170" text-anchor="middle" class="text-small">1</text><rect x="436.5" y="151" width="36.5" height="27" rx="3" class="active"></rect><text x="454.75" y="170" text-anchor="middle" class="text-small">1</text><rect x="475" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="170" text-anchor="middle" class="text-small">1</text><rect x="513.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="170" text-anchor="middle" class="text-small">0</text><rect x="552" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="170" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="151" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="170" text-anchor="middle" class="text-small">0</text><text x="12" y="209" text-anchor="start" class="text-small">结果 0x12345008</text><text x="12" y="235" text-anchor="start" class="text-small">bit31—16</text><rect x="13" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="266" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="266" text-anchor="middle" class="text-small">0</text><rect x="90" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="266" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="266" text-anchor="middle" class="text-small">1</text><rect x="167" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="185.25" y="266" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="223.75" y="266" text-anchor="middle" class="text-small">0</text><rect x="244" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="262.25" y="266" text-anchor="middle" class="text-small">1</text><rect x="282.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="300.75" y="266" text-anchor="middle" class="text-small">0</text><rect x="321" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="339.25" y="266" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="377.75" y="266" text-anchor="middle" class="text-small">0</text><rect x="398" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="416.25" y="266" text-anchor="middle" class="text-small">1</text><rect x="436.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="454.75" y="266" text-anchor="middle" class="text-small">1</text><rect x="475" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="266" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="266" text-anchor="middle" class="text-small">1</text><rect x="552" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="266" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="247" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="266" text-anchor="middle" class="text-small">0</text><text x="12" y="296" text-anchor="start" class="text-small">bit15—0</text><rect x="13" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="31.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="69.75" y="327" text-anchor="middle" class="text-small">1</text><rect x="90" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="108.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="146.75" y="327" text-anchor="middle" class="text-small">1</text><rect x="167" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="185.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="223.75" y="327" text-anchor="middle" class="text-small">0</text><rect x="244" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="262.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="300.75" y="327" text-anchor="middle" class="text-small">0</text><rect x="321" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="339.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="377.75" y="327" text-anchor="middle" class="text-small">0</text><rect x="398" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="416.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="308" width="36.5" height="27" rx="3" class="active"></rect><text x="454.75" y="327" text-anchor="middle" class="text-small">0</text><rect x="475" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="493.25" y="327" text-anchor="middle" class="text-small">1</text><rect x="513.5" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="531.75" y="327" text-anchor="middle" class="text-small">0</text><rect x="552" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="570.25" y="327" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="308" width="36.5" height="27" rx="3" class="node"></rect><text x="608.75" y="327" text-anchor="middle" class="text-small">0</text></svg><div aria-live="polite">BFC 结果 0x12345008。字段宽 8，最低位 4。</div></div></div><figcaption><span class="figure-number">图 6-16</span>BFC 处理目标，BFI 插入源低部，UBFX/SBFX 提取源字段。CLZ/RBIT 不使用 lsb/width。蓝色标出当前关注的位段。</figcaption></figure>
+
+
+
+<p><code>BFC R0,#4,#8</code> 清 bit4—11。原 R0=0x12345678，清除掩码 0x00000FF0 后得 <strong>0x12345008</strong>；原书附近文字的 0x1234F00F 与该操作不符。</p>
+<p><code>BFI R1,R0,#8,#16</code> 将 R0 低 16 位插到 R1 的 bit8—23。R0=12345678、R1=AABBCCDD 时，R1 变 <strong>AA5678DD</strong>，不是把 R0 自己的 bit8—23 原位搬过去。</p>
+<p>UBFX/SBFX 若取出 8 位 0xF0，分别得 0x000000F0 和 0xFFFFFFF0。RBIT 输入 1 得 0x80000000；REV 输入 1 得 0x01000000，二者不要混。CLZ 常用于规格化、查找最高有效位等，知道用途即可。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s26"><p class="eyebrow">第六章 · 第 26 节</p><h2>CMP、CMN、TST、TEQ：计算但不保存结果</h2><p class="section-context">6.4.8，第 28 页；习题 6.39</p><div class="part-goal"><p><strong>掌握要求：</strong>能说出隐藏的运算，知道它们更新哪些标志且不覆写源寄存器。</p><p><strong>背景为什么要讲：</strong>条件逻辑不一定要先产生一个新的数据寄存器结果，这组指令专门留下判断依据。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>指令</th>
+<th>内部运算</th>
+<th>保存什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMP A,B</td>
+<td>A−B</td>
+<td>算术 NZCV，差值不写回</td>
+</tr>
+<tr>
+<td>CMN A,B</td>
+<td>A+B</td>
+<td>算术 NZCV，和不写回</td>
+</tr>
+<tr>
+<td>TST A,B</td>
+<td>A AND B</td>
+<td>相应 N/Z/C，逻辑结果不写回，V 保留</td>
+</tr>
+<tr>
+<td>TEQ A,B</td>
+<td>A XOR B</td>
+<td>相应 N/Z/C，逻辑结果不写回，V 保留</td>
+</tr>
+</tbody></table></div>
+<p>CMN 的名字有“negative”，但实际是<strong>相加</strong>，不是先把 A 取负再比较，也不是直接把 CMP 的所有标志取反。TST 常检测某些 bit 是否为 0；TEQ 可用于位串异或为零的判断。</p>
+<pre><code class="language-asm">TST R0, #4
+BNE bit2_is_one       ; AND 结果非零，说明 bit2 为 1
+</code></pre>
+<p>它们不再另加 S 后缀。TST/TEQ 的 C 来自相应移位/立即数扩展规则，可能保留也可能更新；不能说“所有测试总会改全部标志”，也不能把它们的 C 当作减法无借位结果。第 06 节的有符号/无符号大小条件应与真正 CMP 的上下文配合。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s27"><p class="eyebrow">第六章 · 第 27 节</p><h2>B、BL、BX、BLX：调用要能找到回来的路</h2><p class="section-context">6.4.9，第 28—30 页；习题 6.9、6.40</p><div class="part-goal"><p><strong>掌握要求：</strong>区分改 PC 与同时建立 LR，解释嵌套调用为什么保存 LR；知道寄存器分支的 Thumb 标识。</p><p><strong>背景为什么要讲：</strong>完整函数约定在第七章，本节先把控制流和返回链条建立起来。</p></div><p>B 跳到标号，不建立新的返回链接；BL 跳到标号并把返回信息放 LR；BX 按寄存器给出的目标分支；BLX 的相应寄存器形式还建立返回链接。M3/M4 仍在 Thumb，BX/BLX 的合法目标 bit0 应标识 Thumb。</p>
+<figure class="diagram" id="fig-call" data-figure="call"><div class="diagram-live"><div id="c6-call"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① 调用者准备 BL</option><option value="1">② 进入函数 f</option><option value="2" selected>③ f 保存 LR 后调用 g</option><option value="3">④ g 返回 f</option><option value="4">⑤ f 恢复并返回调用者</option></select></label></div><svg class="drawing" role="img" aria-label="BL、嵌套调用与 LR 保护"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-call"><svg class="drawing" role="img" aria-label="BL、嵌套调用与 LR 保护" viewBox="0 0 640 457"><title>嵌套调用覆盖LR所以要保护原返回链接</title><rect x="12" y="15" width="616" height="61" rx="3" class="node"></rect><text x="24" y="39" text-anchor="start" class="">调用者</text><text x="616" y="63" text-anchor="end" class="text-small">BL f @ 0x08000000</text><path d="M320 76 v32 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="108" width="616" height="61" rx="3" class="node"></rect><text x="24" y="132" text-anchor="start" class="">函数 f</text><text x="616" y="156" text-anchor="end" class="text-small">BL g @ 0x08000100</text><path d="M320 169 v32 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="201" width="616" height="61" rx="3" class="active"></rect><text x="24" y="225" text-anchor="start" class="">函数 g</text><text x="616" y="249" text-anchor="end" class="text-small">BX LR 返回 f</text><rect x="12" y="307" width="616" height="57" rx="3" class="waiting"></rect><text x="24" y="328" text-anchor="start" class="text-small">当前 LR</text><text x="616" y="354" text-anchor="end" class="text-small">0x08000105</text><rect x="12" y="374" width="616" height="57" rx="3" class="node"></rect><text x="24" y="395" text-anchor="start" class="text-small">f 的原返回链接</text><text x="616" y="421" text-anchor="end" class="text-small">保存着 0x08000005</text></svg><div aria-live="polite">f 已保护原链接；BL g 改写 LR。</div></div></div><figcaption><span class="figure-number">图 6-17</span>示意固定代码地址，f 的原返回链接在调用 g 前已保存。图中采用恢复 LR 再 BX LR 返回的路径；正文 POP 到 PC 是另一种路径。此图不替代完整 ABI、栈布局和异常返回规则。</figcaption></figure>
+
+
+
+<p>若 4 字节 BL 位于 0x08000000，下一条地址为 0x08000004，LR 典型得到 0x08000005，低位表示 Thumb。<code>BX LR</code> 回到下一条实际指令，而不是去奇数字节取一条未对齐指令。</p>
+<p>函数自身还调用另一个函数，第二次 BL 会覆盖 LR，必须在合适位置保护原返回链接，例如 <code>PUSH {R4,LR}</code>、调用、<code>POP {R4,PC}</code>，并遵守对齐/保存约定。<strong>B 并非任何情况下都不能用于函数相关控制流</strong>：尾调用等可有意不建立新链接；习题要答的是普通可返回调用为什么用 BL/BLX 更方便。</p>
+<h3>跳转范围按编码查，不能只认助记符</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>形式</th>
+<th>相对 A+4 的典型字节位移范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B.N</td>
+<td>−2048 到 +2046</td>
+</tr>
+<tr>
+<td>B.W / BL 的宽直接分支</td>
+<td>−2²⁴ 到 +2²⁴−2（约 ±16 MiB）</td>
+</tr>
+<tr>
+<td>Bcond.N（块外）</td>
+<td>−256 到 +254</td>
+</tr>
+<tr>
+<td>Bcond.W（块外）</td>
+<td>−2²⁰ 到 +2²⁰−2（约 ±1 MiB）</td>
+</tr>
+<tr>
+<td>IT 中受条件控制的宽 B</td>
+<td>使用相应无条件分支编码的范围，并遵守块末限制</td>
+</tr>
+<tr>
+<td>BX/BLX 寄存器</td>
+<td>目标来自寄存器，但仍须有效、可执行、状态合法</td>
+</tr>
+</tbody></table></div>
+<p>原书把普通 B 的范围写成 ±1 MB，混入了宽条件分支范围，应分开。写 PC 的不同指令也有各自规则；第五章 MOV 写 PC 与 BX 的区分仍然适用，不要笼统说“所有 PC 数值必须奇数”。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s28"><p class="eyebrow">第六章 · 第 28 节</p><h2>BEQ、CBZ 与 MOVEQ：同样在判断，走法不同</h2><p class="section-context">6.4.9，第 29—31 页；习题 6.41、6.42</p><div class="part-goal"><p><strong>掌握要求：</strong>会选择标志条件分支与零检测分支，知道 CBZ 不改 APSR、只支持有限的前向范围。</p><p><strong>背景为什么要讲：</strong>代码变短不总是适用范围变大；要同时检查寄存器、距离和标志依赖。</p></div><p><code>CMP R0,#0</code>+<code>BEQ label</code> 先更新标志，再根据 Z 跳转；<code>CBZ R0,label</code> 直接检查寄存器是否为 0 并跳转，<strong>不修改 APSR</strong>。CBNZ 对应非零，原书的 CNBZ 是拼写错误。</p>
+<p>CBZ/CBNZ 只允许低寄存器 R0—R7，且为短前向分支；从 PC=A+4 起的位移为 0—126、按 2 字节计，等价于从当前指令 A 看 +4—+130。不能拿它直接做向后的循环回边，也不能放进不允许的 IT 上下文。</p>
+<p>普通 BEQ 的目标是<strong>标号/相对目标，不是寄存器操作数</strong>。原书 <code>BEQ R1</code> 的寄存器跳转解释不成立。若要在 EQ 时跳到 R1 给出的地址，可在合适上下文写 <code>IT EQ</code> 后 <code>BXEQ R1</code>，目标仍须合法，且分支位于块末。</p>
+<p>BL 的条件执行在 T32 下也要核对 IT 等规则，不应由 A32 的习惯直接推“任意 BLcond 都自带四位条件字段”。MOVEQ 则通常在 IT 中决定是否写数据，PC 保持顺序推进；二者比较时既要说“条件来自哪里”，也要说“条件满足后改变什么”。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s29"><p class="eyebrow">第六章 · 第 29 节</p><h2>TBB/TBH：查表地址与跳转基准不是一回事</h2><p class="section-context">6.4.9 的跳转表，第 31—32 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能独立完成“算表项地址 → 读取无符号项 → 乘 2 → 加分支 PC”的过程。</p><p><strong>背景为什么要讲：</strong>用于 switch 等多分支，原书的文字把表基址与跳转基准混在一起，需要明确拆开。</p></div><p>TBB 访问字节表，语法 <code>TBB [Rn,Rm]</code>；TBH 访问半字表，语法 <code>TBH [Rn,Rm,LSL #1]</code>。设该条 32 位指令位于 A，表基址 B 在 Rn，下标 i 在 Rm：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>TBB&#x000A0;表项地址</mtext><mo>&#x0003D;</mo><mi>B</mi><mo>&#x0002B;</mo><mi>i</mi><mo>&#x0002C;</mo><mspace width="1em" /><mi>e</mi><mo>&#x0003D;</mo><mo /><mrow><mi>M</mi><mi>e</mi><mi>m</mi><mn>8</mn></mrow><mo stretchy="false">[</mo><mi>B</mi><mo>&#x0002B;</mo><mi>i</mi><mo stretchy="false">]</mo></mrow></math></div>
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>TBH&#x000A0;表项地址</mtext><mo>&#x0003D;</mo><mi>B</mi><mo>&#x0002B;</mo><mn>2</mn><mi>i</mi><mo>&#x0002C;</mo><mspace width="1em" /><mi>e</mi><mo>&#x0003D;</mo><mo /><mrow><mi>M</mi><mi>e</mi><mi>m</mi><mn>16</mn></mrow><mo stretchy="false">[</mo><mi>B</mi><mo>&#x0002B;</mo><mn>2</mn><mi>i</mi><mo stretchy="false">]</mo></mrow></math></div>
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><menclose notation="box"><mrow><mtext>目标地址</mtext><mo>&#x0003D;</mo><mi>A</mi><mo>&#x0002B;</mo><mn>4</mn><mo>&#x0002B;</mo><mn>2</mn><mi>e</mi></mrow></menclose></mrow></math></div>
+
+
+
+
+
+<figure class="diagram" id="fig-tablebranch" data-figure="tablebranch"><div class="diagram-live"><div id="c6-tablebranch"><div class="viz-controls"><label class="form-label">指令<select class="form-select" data-kind><option value="TBB" selected>TBB</option><option value="TBH">TBH</option></select></label><label class="form-label">指令地址 A<input class="form-control" data-address type="text" value="08000100" maxlength="10"></label><label class="form-label">表基址 B<input class="form-control" data-base type="text" value="08000200" maxlength="10"></label><label class="form-label">下标 i<input class="form-control" data-index type="number" value="2" min="0" max="255" step="1"></label><label class="form-label">该表项读得值（十六进制）<input class="form-control" data-entry type="text" value="12" maxlength="6"></label></div><svg class="drawing" role="img" aria-label="TBB/TBH 的两套地址计算"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-tablebranch"><svg class="drawing" role="img" aria-label="TBB/TBH 的两套地址计算" viewBox="0 0 640 374"><title>查表地址与PC分支基准分别计算</title><rect x="12" y="12" width="616" height="59" rx="3" class="active"></rect><text x="24" y="33" text-anchor="start" class="text-small">表项地址 B + i×项宽</text><text x="616" y="61" text-anchor="end" class="text-small">0x08000202</text><rect x="12" y="81" width="616" height="59" rx="3" class="node"></rect><text x="24" y="102" text-anchor="start" class="text-small">该处读得无符号项 e</text><text x="616" y="130" text-anchor="end" class="text-small">0x12</text><rect x="12" y="150" width="616" height="59" rx="3" class="waiting"></rect><text x="24" y="171" text-anchor="start" class="text-small">真正分支基准 A+4</text><text x="616" y="199" text-anchor="end" class="text-small">0x08000104</text><rect x="12" y="219" width="616" height="59" rx="3" class="node"></rect><text x="24" y="240" text-anchor="start" class="text-small">表项变成字节偏移</text><text x="616" y="268" text-anchor="end" class="text-small">18 × 2 = 36</text><rect x="12" y="288" width="616" height="59" rx="3" class="active"></rect><text x="24" y="309" text-anchor="start" class="text-small">最终目标 A+4+2e</text><text x="616" y="337" text-anchor="end" class="text-small">0x08000128</text></svg><div aria-live="polite">TBB：表项地址 0x08000202；读得 0x12；目标 0x08000128。B 不自动成为跳转基准。</div></div></div><figcaption><span class="figure-number">图 6-18</span>表项值作为题目已知条件输入，并不读取电脑内存。先按项宽定位表项，目标始终从分支指令后 A+4 加 2e；还需程序自行检查真实表下标。</figcaption></figure>
+
+
+
+<p><strong>表放在哪里由 Rn 决定；跳到哪里从该分支指令后的位置 A+4 起算。</strong>表项存的是半字单位的无符号偏移，不是完整 32 位目标地址。原文“相对表首地址跳转”仅在表首恰好也是那个基准时才成立。<a href="https://documentation-service.arm.com/static/5f2ac76d60a93e65927bbdc5">Arm M4 的 TBB/TBH 指令定义</a></p>
+<p>例：TBB 位于 0x08000100，R0=0x08000200，R1=2，表地址 0x08000202 内的字节是 0x12，则目标=0x08000104+0x24=<strong>0x08000128</strong>，不是 0x08000224。</p>
+<p>TBB 的表项最大 255，对应前向 510 字节；TBH 最大 65535，对应 131070 字节。表项索引距离和目标分支距离是两套量。Rn 可按规则用 PC 指向紧接指令的表，不能用 SP；Rm 不能为 SP/PC，并且要先检查下标范围。它们不修改条件标志；IT 内还须遵守块末等限制。</p>
+<p>原书 DCB 用来定义字节数据，具体伪指令到第七章学习。构造表项时用 <code>(目标−分支后基准)/2</code>，再确认偏移非负且放得进相应表项，不能把任意标签差直接塞进去。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s30"><p class="eyebrow">第六章 · 第 30 节</p><h2>SSAT/USAT：输出范围变窄，寄存器仍是 32 位</h2><p class="section-context">6.4.10，第 32—33 页；习题 6.43</p><div class="part-goal"><p><strong>掌握要求：</strong>会按指定宽度计算有符号/无符号饱和值，知道输入解释和 Q 的黏性。</p><p><strong>背景为什么要讲：</strong>第五章讲削顶原因，本节落实到指令；饱和并不恢复已经丢失的精度。</p></div><p>SSAT 把输入夹到 n 位有符号范围；USAT 把其<strong>有符号输入值</strong>夹到 n 位无符号输出范围。结果仍放在 32 位寄存器，负的 SSAT 结果会符号扩展。可选移位在饱和前进行，须满足具体编码限制。</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mo>SSAT</mo><mi>n</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo>min</mo><mo stretchy="false">&#x00028;</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x0002C;</mo><mo>max</mo><mo stretchy="false">&#x00028;</mo><mo>&#x02212;</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msup><mo>&#x0002C;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mo>USAT</mo><mi>n</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo>min</mo><mo stretchy="false">&#x00028;</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x02212;</mo><mn>1</mn><mo>&#x0002C;</mo><mo>max</mo><mo stretchy="false">&#x00028;</mo><mn>0</mn><mo>&#x0002C;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+
+
+<figure class="diagram" id="fig-saturation" data-figure="saturation"><div class="diagram-live"><div id="c6-saturation"><div class="viz-controls"><label class="form-label">指令<select class="form-select" data-kind><option value="SSAT" selected>SSAT</option><option value="USAT">USAT</option></select></label><label class="form-label">输出位数 n<input class="form-control" data-bits type="number" value="16" min="1" max="32" step="1"></label><label class="form-label">32 位输入（十六进制）<input class="form-control" data-value type="text" value="00020000" maxlength="10"></label><label class="form-label">原 Q<select class="form-select" data-q><option value="0" selected>0</option><option value="1">1</option></select></label></div><svg class="drawing" role="img" aria-label="SSAT/USAT 的范围与黏性 Q"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-saturation"><svg class="drawing" role="img" aria-label="SSAT/USAT 的范围与黏性 Q" viewBox="0 0 640 374"><title>有符号输入的SSAT或USAT及黏性Q</title><rect x="12" y="12" width="616" height="59" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">输入按有符号解释</text><text x="616" y="61" text-anchor="end" class="text-small">131072</text><rect x="12" y="81" width="616" height="59" rx="3" class="node"></rect><text x="24" y="102" text-anchor="start" class="text-small">目标范围</text><text x="616" y="130" text-anchor="end" class="text-small">-32768 ～ 32767</text><rect x="12" y="150" width="616" height="59" rx="3" class="waiting"></rect><text x="24" y="171" text-anchor="start" class="text-small">夹取后的数值</text><text x="616" y="199" text-anchor="end" class="text-small">32767</text><rect x="12" y="219" width="616" height="59" rx="3" class="active"></rect><text x="24" y="240" text-anchor="start" class="text-small">32 位目标结果</text><text x="616" y="268" text-anchor="end" class="text-small">0x00007FFF</text><rect x="12" y="288" width="616" height="59" rx="3" class="node"></rect><text x="24" y="309" text-anchor="start" class="text-small">Q：旧值 → 新值</text><text x="616" y="337" text-anchor="end" class="text-small">0 → 1 · 本次饱和</text></svg><div aria-live="polite">SSAT #16：0x00020000 → 0x00007FFF，数值 32767，Q=1。发生饱和。</div></div></div><figcaption><span class="figure-number">图 6-19</span>输入按 32 位有符号值解释，不加可选预移位。SSAT n=1—32，USAT n=0—31；结果放回 32 位，发生饱和置 Q，否则保留旧 Q。</figcaption></figure>
+
+
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>输入位串（按有符号）</th>
+<th>SSAT #16</th>
+<th>USAT #16</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00020000</td>
+<td>00007FFF</td>
+<td>0000FFFF</td>
+</tr>
+<tr>
+<td>00008000</td>
+<td>00007FFF</td>
+<td>00008000</td>
+</tr>
+<tr>
+<td>00007FFF</td>
+<td>00007FFF</td>
+<td>00007FFF</td>
+</tr>
+<tr>
+<td>00000000</td>
+<td>00000000</td>
+<td>00000000</td>
+</tr>
+<tr>
+<td>FFFF8000（−32768）</td>
+<td>FFFF8000</td>
+<td>00000000</td>
+</tr>
+<tr>
+<td>FFFF7FFF（−32769）</td>
+<td>FFFF8000</td>
+<td>00000000</td>
+</tr>
+<tr>
+<td>FFFFFFFF（−1）</td>
+<td>FFFFFFFF</td>
+<td>00000000</td>
+</tr>
+</tbody></table></div>
+<p>SSAT 的 n 可按规则为 1—32，USAT 为 0—31；USAT #0 的合法输出只有 0。<strong>USAT 不是先把 FFFFFFFF 当 4294967295，再夹到最大值</strong>，本例它按 −1 夹到 0。</p>
+<p>溢出是数学结果超出表示范围的现象，截断/回绕是一种处理结果；饱和是另一种夹到上下限的处理。不能把“丢掉高位”直接当作溢出的完整定义。SSAT/USAT 发生饱和会置 Q，未饱和时通常不清旧 Q，NZCV 并非一并重算。</p>
+<p>若先用普通 32 位加法把真实结果溢出丢掉，再做 SSAT #32，已无法恢复那个数学结果；必须在正确位宽和合适阶段使用饱和或更宽中间结果。信号幅度削顶后仍有失真，只是避免回绕导致的突然反向。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s31"><p class="eyebrow">第六章 · 第 31 节</p><h2>屏障指令：顺序、完成、执行上下文再对照</h2><p class="section-context">6.4.11，第 33—34 页；习题 6.44</p><div class="part-goal"><p><strong>掌握要求：</strong>能分别解释 DMB、DSB、ISB，不把它们视为同一种“清空所有东西”。</p><p><strong>背景为什么要讲：</strong>第五章已有系统含义，本节要求把名字和实际指令对应起来。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>指令</th>
+<th>核心目的</th>
+<th>本章需要会说的话</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DMB</td>
+<td>约束相关存储器访问顺序</td>
+<td>防止需要有序的前后访问被越过</td>
+</tr>
+<tr>
+<td>DSB</td>
+<td>等待规定范围的先前操作完成再继续</td>
+<td>不只排顺序，还要等待完成</td>
+</tr>
+<tr>
+<td>ISB</td>
+<td>同步后续指令执行上下文</td>
+<td>后续按更新后的上下文重新取指/执行</td>
+</tr>
+</tbody></table></div>
+<p>M3/M4 即使顺序执行指令，也可能有写缓冲和互连延迟；指令退休、总线完成、外设内部动作完成不是同一时刻。因此不能因为没有通用乱序执行，就删除所有屏障。</p>
+<p>原表将 DMB 概括成“前面全部访问完成才执行后面指令”，过于接近 DSB，且省略访问范围。ISB 也不是保证把全部数据 Cache 写回。具体系统控制、休眠、共享数据协议要按手册选择，<code>volatile</code> 不能替代，DSB 也不替代设备状态轮询。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s32"><p class="eyebrow">第六章 · 第 32 节</p><h2>WFI、WFE、SEV：等待中断与等待事件</h2><p class="section-context">6.4.11，第 33—34 页</p><div class="part-goal"><p><strong>掌握要求：</strong>解释 WFI/WFE 区别，知道 WFE 会消费已记录事件，不保证每次执行都真的休眠。</p><p><strong>背景为什么要讲：</strong>低功耗不是普通算术题重点，但与中断和实时系统有关，需要知道用途。</p></div><p>WFI=Wait For Interrupt，等待中断相关唤醒条件；WFE=Wait For Event，等待事件；SEV=Send Event，发送事件，作用包括本处理器的事件记录，并可由系统传播给其他处理器。</p>
+<p>WFE 有一个简化的事件记录模型：<strong>记录为 1 时，执行 WFE 清掉记录并直接继续；记录为 0 时，才可能等待后续事件。</strong>不是把所有事件按次数排进 FIFO，已经记录时多个事件可能合并。</p>
+<figure class="diagram" id="fig-event" data-figure="event"><div class="diagram-live"><div id="c6-event"><div class="viz-controls"><label class="form-label">指令<select class="form-select" data-op><option value="WFE" selected>WFE</option><option value="SEV">SEV</option><option value="WFI">WFI</option></select></label><label class="form-label">执行前事件记录 E<select class="form-select" data-e><option value="0">0</option><option value="1" selected>1</option></select></label></div><svg class="drawing" role="img" aria-label="WFE 的事件记录与 SEV"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-event"><svg class="drawing" role="img" aria-label="WFE 的事件记录与 SEV" viewBox="0 0 640 294"><title>WFE消费已有事件或等待后续事件</title><rect x="12" y="12" width="616" height="61" rx="3" class="node"></rect><text x="24" y="35" text-anchor="start" class="text-small">执行 WFE</text><text x="616" y="59" text-anchor="end" class="text-small">看到原 E=1</text><path d="M320 73 v30 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="103" width="616" height="61" rx="3" class="active"></rect><text x="24" y="126" text-anchor="start" class="text-small">消费旧事件</text><text x="616" y="150" text-anchor="end" class="text-small">清记录，不进入本次事件等待</text><path d="M320 164 v30 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="194" width="616" height="61" rx="3" class="node"></rect><text x="24" y="217" text-anchor="start" class="text-small">后续指令</text><text x="616" y="241" text-anchor="end" class="text-small">直接继续</text></svg><div aria-live="polite">E=1：WFE 消费记录并继续，E 清为 0。</div></div></div><figcaption><span class="figure-number">图 6-20</span>只展示等待机制的关键区别。实际唤醒与 ISR 响应还受芯片集成、中断条件和屏蔽影响；图中“等待”不保证任何状态下都立即睡眠。</figcaption></figure>
+
+
+
+<p>唤醒以后是否立即进入 ISR，与能否从等待中醒来不是同一判断，还涉及 IRQ 使能、屏蔽、优先级和电源/时钟集成。存在已满足的条件时，WFI 也不保证一定停住。原书“立即进入休眠”应按这种条件理解。</p>
+<p>深睡眠、异常退出后睡眠等还与 SCB 的 SCR 和芯片电源控制配合。这里只需认识用途和事件记录行为，暂不要求设计无竞争的完整睡眠协议；不能不查芯片就复制一段指令宣称任何外设都能唤醒。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s33"><p class="eyebrow">第六章 · 第 33 节</p><h2>SVC、CPS、BKPT、NOP：系统类指令各管一层</h2><p class="section-context">6.4.11，第 33—34 页</p><div class="part-goal"><p><strong>掌握要求：</strong>知道 SVC 请求服务、CPS 改屏蔽、BKPT 与调试有关，不能把它们当普通分支或任意提权。</p><p><strong>背景为什么要讲：</strong>这是本章杂类表的其余内容，详细服务与启动程序在下一章延伸。</p></div><p>SVC #imm 产生编号 11 的 SVCall 异常，常用于用户任务请求可信服务。立即数字段可表示服务编号，但内核还需解释参数并实施权限检查。<strong>它不是直接把任意地址当函数入口调用，也不保证任何优先级/屏蔽上下文都能正常服务。</strong>若当前状态不允许，可能引出错误升级，不能在 NMI/HardFault 里把 SVC 当普通函数调用。</p>
+<pre><code class="language-asm">CPSID i              ; 设置 PRIMASK，限制可配置异常激活
+CPSIE i              ; 清除 PRIMASK
+CPSID f              ; 设置 FAULTMASK
+CPSIE f              ; 清除 FAULTMASK
+</code></pre>
+<p>这些操作受特权等规则约束，<strong>清某个屏蔽位不等于清所有外设屏蔽和 Pending</strong>。临界区应保存恢复原状态，而不是结束一律 CPSIE i；第五章已经给出保存 PRIMASK 的做法。FAULTMASK 的范围与返回清除规则也不能与 PRIMASK 混用。</p>
+<p>BKPT #imm 用于断点，按调试配置可能进入停机、调试处理或相应 Fault，没接调试器时不要假定程序会安全暂停等你。NOP 没有所需的数据运算效果，但占指令位置和执行资源，不能凭几个 NOP 得到跨所有时钟配置都准确的延时。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s34"><p class="eyebrow">第六章 · 第 34 节</p><h2>M4 的 SIMD：四个小加法与一个大加法不同</h2><p class="section-context">6.4.12 的 SIMD 与表 6.38—6.39，第 35—36 页；习题 6.46</p><div class="part-goal"><p><strong>掌握要求：</strong>理解 lane 内并行、跨 lane 不传普通加法进位，区分有无符号、饱和和半分系列。</p><p><strong>背景为什么要讲：</strong>星号题要求理解背景和技术思想，不要求背完数十个变体，但原表各类都要见过。</p></div><p>SIMD=Single Instruction Multiple Data，单指令处理多份数据。图像像素、多个音频采样常用 8/16 位，32 位寄存器可装四字节或两个半字，一条相应指令对各 lane 独立运算。它不等于多核，也不意味着普通 ADD 自动隔断字节之间的进位。</p>
+<figure class="diagram" id="fig-simd" data-figure="simd"><div class="diagram-live"><div id="c6-simd"><div class="viz-controls"><label class="form-label">输入情景<select class="form-select" data-case><option value="carry" selected>字节 FF+01 · 观察跨通道进位</option><option value="signed">字节 7F+01 · 观察有符号饱和</option></select></label><label class="form-label">运算<select class="form-select" data-op><option value="ADD32">ADD32</option><option value="UADD8" selected>UADD8</option><option value="UQADD8">UQADD8</option><option value="QADD8">QADD8</option><option value="UHADD8">UHADD8</option></select></label></div><svg class="drawing" role="img" aria-label="逐字节并行与普通 32 位加法"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c6-simd"><svg class="drawing" role="img" aria-label="逐字节并行与普通 32 位加法" viewBox="0 0 640 385"><title>普通跨字节进位与SIMD逐lane加法</title><text x="12" y="25" text-anchor="start" class="text-small">UADD8 · 每格一字节</text><text x="12" y="58" text-anchor="start" class="text-small">A = 0x00FF00FF</text><text x="89" y="86" text-anchor="middle" class="text-small">lane3</text><rect x="14" y="97" width="150" height="34" rx="3" class="node"></rect><text x="89" y="120" text-anchor="middle" class="text-small">00</text><text x="243" y="86" text-anchor="middle" class="text-small">lane2</text><rect x="168" y="97" width="150" height="34" rx="3" class="node"></rect><text x="243" y="120" text-anchor="middle" class="text-small">FF</text><text x="397" y="86" text-anchor="middle" class="text-small">lane1</text><rect x="322" y="97" width="150" height="34" rx="3" class="node"></rect><text x="397" y="120" text-anchor="middle" class="text-small">00</text><text x="551" y="86" text-anchor="middle" class="text-small">lane0</text><rect x="476" y="97" width="150" height="34" rx="3" class="node"></rect><text x="551" y="120" text-anchor="middle" class="text-small">FF</text><text x="12" y="149" text-anchor="start" class="text-small">B = 0x00010001</text><text x="89" y="177" text-anchor="middle" class="text-small">lane3</text><rect x="14" y="188" width="150" height="34" rx="3" class="node"></rect><text x="89" y="211" text-anchor="middle" class="text-small">00</text><text x="243" y="177" text-anchor="middle" class="text-small">lane2</text><rect x="168" y="188" width="150" height="34" rx="3" class="node"></rect><text x="243" y="211" text-anchor="middle" class="text-small">01</text><text x="397" y="177" text-anchor="middle" class="text-small">lane1</text><rect x="322" y="188" width="150" height="34" rx="3" class="node"></rect><text x="397" y="211" text-anchor="middle" class="text-small">00</text><text x="551" y="177" text-anchor="middle" class="text-small">lane0</text><rect x="476" y="188" width="150" height="34" rx="3" class="node"></rect><text x="551" y="211" text-anchor="middle" class="text-small">01</text><text x="12" y="240" text-anchor="start" class="text-small">结果 = 0x00000000</text><text x="89" y="268" text-anchor="middle" class="text-small">lane3</text><rect x="14" y="279" width="150" height="34" rx="3" class="active"></rect><text x="89" y="302" text-anchor="middle" class="text-small">00</text><text x="243" y="268" text-anchor="middle" class="text-small">lane2</text><rect x="168" y="279" width="150" height="34" rx="3" class="active"></rect><text x="243" y="302" text-anchor="middle" class="text-small">00</text><text x="397" y="268" text-anchor="middle" class="text-small">lane1</text><rect x="322" y="279" width="150" height="34" rx="3" class="active"></rect><text x="397" y="302" text-anchor="middle" class="text-small">00</text><text x="551" y="268" text-anchor="middle" class="text-small">lane0</text><rect x="476" y="279" width="150" height="34" rx="3" class="active"></rect><text x="551" y="302" text-anchor="middle" class="text-small">00</text><text x="12" y="361" text-anchor="start" class="text-small">GE=0101</text></svg><div aria-live="polite">UADD8 结果 0x00000000。GE=0101。</div></div></div><figcaption><span class="figure-number">图 6-21</span>按高 lane 到低 lane 展示。ADD32 可跨字节传进位；其他操作在 lane 内独立。并行 Q/UQ 饱和操作不更新 APSR.Q。</figcaption></figure>
+
+
+
+<p>原书 ADD8/SUB8 表示四对字节，ADD16/SUB16 表示两对半字；ASX 把第二源高低半字交换后，高通道做加、低通道做减；SAX 则高通道做减、低通道做加。下面前缀决定具体数值处理：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>基本操作</th>
+<th>S（有符号）</th>
+<th>U（无符号）</th>
+<th>Q（有符号饱和）</th>
+<th>UQ（无符号饱和）</th>
+<th>SH（有符号半分）</th>
+<th>UH（无符号半分）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ADD8</td>
+<td>SADD8</td>
+<td>UADD8</td>
+<td>QADD8</td>
+<td>UQADD8</td>
+<td>SHADD8</td>
+<td>UHADD8</td>
+</tr>
+<tr>
+<td>SUB8</td>
+<td>SSUB8</td>
+<td>USUB8</td>
+<td>QSUB8</td>
+<td>UQSUB8</td>
+<td>SHSUB8</td>
+<td>UHSUB8</td>
+</tr>
+<tr>
+<td>ADD16</td>
+<td>SADD16</td>
+<td>UADD16</td>
+<td>QADD16</td>
+<td>UQADD16</td>
+<td>SHADD16</td>
+<td>UHADD16</td>
+</tr>
+<tr>
+<td>SUB16</td>
+<td>SSUB16</td>
+<td>USUB16</td>
+<td>QSUB16</td>
+<td>UQSUB16</td>
+<td>SHSUB16</td>
+<td>UHSUB16</td>
+</tr>
+<tr>
+<td>ASX</td>
+<td>SASX</td>
+<td>UASX</td>
+<td>QASX</td>
+<td>UQASX</td>
+<td>SHASX</td>
+<td>UHASX</td>
+</tr>
+<tr>
+<td>SAX</td>
+<td>SSAX</td>
+<td>USAX</td>
+<td>QSAX</td>
+<td>UQSAX</td>
+<td>SHSAX</td>
+<td>UHSAX</td>
+</tr>
+</tbody></table></div>
+<p>半分系列在扩展中间运算后按规则除 2/移位，不能先把窄结果截断丢掉进位再平均。例：无符号字节 250+10，正确半分为 130，而不是先回绕成 4 再除 2 得 2。</p>
+<p><strong>原书“Q/UQ 前缀的并行饱和运算都更新 Q”不准确。QADD8/QADD16 及相应并行 UQ 系列不改变 Q</strong>；SSAT/USAT、标量 QADD 等另按自身规则。S/U 非饱和系列的部分指令更新 GE，判据按有无符号、加减分别规定；不能将 GE 简化为普通“是否负数”位。<a href="https://developer.arm.com/community/arm-community-blogs/b/architectures-and-processors-blog/posts/errors-in-the-definitive-guide-for-arm-cortex-m-book-series">Arm 作者对并行饱和标志的勘误说明</a></p>
+<p>原表 SUB16 的有符号助记符缺 S，应为 SSUB16。知道命名构成并能解释 lane 独立性即达到本节基本要求，写优化 DSP 程序时再逐条查寄存器、溢出、GE/Q 细节。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s35"><p class="eyebrow">第六章 · 第 35 节</p><h2>M4 的半字乘加：BB、BT、TB、TT 选择哪两半</h2><p class="section-context">6.4.12 的乘法/MAC，表 6.40—6.41，第 36—37 页；习题 6.47</p><div class="part-goal"><p><strong>掌握要求：</strong>按两个后缀字母选择第一、第二源半字，理解有符号乘积与累加位宽。</p><p><strong>背景为什么要讲：</strong>原书只给部分 DSP 乘加例子，学习命名和适用算法即可，不要求现在实现完整滤波器。</p></div><p>SMULxy 选择两个源的一个 16 位半字做有符号乘法，结果为 32 位；SMLAxy 再加一个 32 位累加数。x 对应第一源，y 对应第二源，B=Bottom（低半字），T=Top（高半字）。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>后缀</th>
+<th>第一源</th>
+<th>第二源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BB</td>
+<td>低 16 位</td>
+<td>低 16 位</td>
+</tr>
+<tr>
+<td>BT</td>
+<td>低 16 位</td>
+<td>高 16 位</td>
+</tr>
+<tr>
+<td>TB</td>
+<td>高 16 位</td>
+<td>低 16 位</td>
+</tr>
+<tr>
+<td>TT</td>
+<td>高 16 位</td>
+<td>高 16 位</td>
+</tr>
+</tbody></table></div>
+<p>例如 R1=0x0002FFFD、R2=0x00040005。R1 低半字按有符号是 −3，高半字为 2；R2 低为 5，高为 4。SMULBT 得 −3×4=−12；SMULTB 得 2×5=10。若累加数为 100，SMLABT 得 88。</p>
+<p>系数和采样可打包到寄存器里，这些指令减少解包与中间操作，适合点积、滤波、相关等。对可能累加很多项的算法，仍要检查 32 位是否足够，必要时选择更长累加形式；部分 DSP 累加还会按规则影响 Q，不能只看名字就推所有标志。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s36"><p class="eyebrow">第六章 · 第 36 节</p><h2>打包和解包：要抽 byte0、byte2，不是最高字节</h2><p class="section-context">6.4.12 的表 6.42，第 37 页；联系习题 6.51、6.52</p><div class="part-goal"><p><strong>掌握要求：</strong>解释 PKHBT/PKHTB 与扩展组合的功能，能追踪哪部分保留、哪部分换入。</p><p><strong>背景为什么要讲：</strong>SIMD 之前常要准备 lane，原书列举的几条均保留用途；旋转和扩展细节可查。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>指令</th>
+<th>主要结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PKHBT</td>
+<td>保留 Rn 低半字，与 Rm（可先 LSL）的高半字打包</td>
+</tr>
+<tr>
+<td>PKHTB</td>
+<td>保留 Rn 高半字，与 Rm（可先 ASR）的低半字打包</td>
+</tr>
+<tr>
+<td>SXTB16</td>
+<td>取 Rm 的 byte0、byte2，各符号扩展成半字，组成结果</td>
+</tr>
+<tr>
+<td>SXTAB16</td>
+<td>上述两份扩展值分别与 Rn 两个半字相加</td>
+</tr>
+<tr>
+<td>UXTAH</td>
+<td>Rm（可先 ROR）低半字零扩展，再与 Rn 相加</td>
+</tr>
+</tbody></table></div>
+<p>例：Rn=0x11223344，Rm=0xAABBCCDD。PKHBT 不移位时得 AABB3344；Rm 先 LSL #16 后则取其高半字 CCDD，结果 CCDD3344。PKHTB 若 Rm 先 ASR #16，低半字为 AABB，结果 1122AABB。</p>
+<p><strong>SXTB16 选 bit[7:0] 与 bit[23:16]，不是最低与最高字节。</strong>输入 0x118022FF，两个源字节分别 FF、80，扩展后结果 <strong>0xFF80FFFF</strong>；原书“最高字节”表述应纠正。可选 ROR #8/#16/#24 会先改变源布局，再按相应位置抽取。</p>
+<p>“打包”不是压缩算法，也不自动保护数值范围；它是在寄存器位段中摆放数据。要按 lane 类型决定符号/零扩展，否则后面的 SIMD 即使算得完全正确，处理的数也已经不是你想要的那个数。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s37"><p class="eyebrow">第六章 · 第 37 节</p><h2>浮点指令和星号题：值转换与位串搬运不同</h2><p class="section-context">6.4.12 的浮点表 6.43，第 37—38 页；习题 6.48、6.49、6.51、6.52</p><div class="part-goal"><p><strong>掌握要求：</strong>认识 M4F 单精度运算、传送与转换，解释浮点比定点增加了哪些处理步骤。</p><p><strong>背景为什么要讲：</strong>本章只要求理解表中用途与硬件区别；具体浮点编码、舍入和异常模式可查规范。</p></div><p>带并启用 FPU 的 M4 支持相应 FPv4-SP-D16 指令，普通 M4 不保证有 FPU。S0—S31 是 32 位寄存器视图，D0—D15 为重叠的 64 位视图。<strong>可以传送 64 位数据，不等于支持 F64 算术或任意单/双精度转换。</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原表涉及的指令组</th>
+<th>意义与正确理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VADD.F32 / VMUL.F32 / VSQRT.F32</td>
+<td>单精度加、乘、平方根</td>
+</tr>
+<tr>
+<td>VMLA.F32</td>
+<td>乘并累加，按该指令的中间舍入规则</td>
+</tr>
+<tr>
+<td>VFMA.F32</td>
+<td>融合乘加，组合计算后一次舍入，与 VMLA 不保证逐位相同</td>
+</tr>
+<tr>
+<td>VMOV</td>
+<td>传送位串；不自动完成整数到浮点的数值转换</td>
+</tr>
+<tr>
+<td>VCVT 等转换</td>
+<td>按支持的类型做数值/格式转换，如整数与单精度、部分半精度格式</td>
+</tr>
+<tr>
+<td>VLDR / VSTR</td>
+<td>浮点寄存器与内存间加载/存储，S/D 指定相应传输视图</td>
+</tr>
+<tr>
+<td>VPUSH / VPOP</td>
+<td>浮点寄存器组压栈/出栈</td>
+</tr>
+<tr>
+<td>VSTMIA / VSTMDB</td>
+<td>连续多存储，按列表和相应地址模式处理</td>
+</tr>
+<tr>
+<td>VMRS</td>
+<td>从 FPSCR 等允许的浮点系统状态读出，按语法选择目标</td>
+</tr>
+</tbody></table></div>
+<p>原表写 <code>VMRS.F32 Rt,FPCSR</code> 不规范，常见正确写法为 <strong><code>VMRS R0,FPSCR</code></strong>。浮点比较产生的状态与 CPU 的 APSR 也不是自动完全同一个东西，必要时用规定方式传递；涉及 NaN 的浮点条件不能直接套第 06 节整数比较表。</p>
+<h3>星号题为什么还要讲浮点电路</h3>
+<p>定点的比例因子事先约定好，相同尺度的加减可直接用整数电路；浮点的每个数自带符号、指数和有效数。浮点加法需比较指数、对阶、有效数运算、规格化、舍入，再处理零/无穷/NaN 等情况；乘法还需指数运算与结果规格化。<strong>差别不仅是“多放一个小数点”</strong>。</p>
+<p>整数与定点乘积共用电路，仍要按缩放选结果位并处理舍入/溢出；扩展指令则把不同宽度的 signed/unsigned 值送入更宽运算而保持原数值意义。知道这些因果，就能回答原章最后几道星号题，不必在本章手绘完整浮点加法器。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section id="coverage"><p class="eyebrow">每个原书小节都有去处</p><h2>完整覆盖表</h2><div class="table-wrap"><table class="coverage-table"><thead><tr><th>原书</th><th>内容</th><th>对应讲解</th></tr></thead><tbody>
+<tr><td>6.1</td><td>指令系统、A32/A64/T32、支持表</td><td><a href="#s01">01</a></td></tr>
+<tr><td>6.2.1</td><td>16 位编码与长度前缀</td><td><a href="#s02">02</a></td></tr>
+<tr><td>6.2.2</td><td>32 位分层编码分类</td><td><a href="#s02">02</a></td></tr>
+<tr><td>6.2.3</td><td>UAL、操作数与后缀</td><td><a href="#s03">03</a></td></tr>
+<tr><td>6.2.4</td><td>APSR、条件码</td><td><a href="#s05">05</a>、<a href="#s06">06</a></td></tr>
+<tr><td>6.2.5</td><td>MOV 编码和 IT 示例</td><td><a href="#s04">04</a>、<a href="#s07">07</a></td></tr>
+<tr><td>6.3.1</td><td>立即数寻址与限制</td><td><a href="#s08">08</a></td></tr>
+<tr><td>6.3.2</td><td>寄存器直接寻址</td><td><a href="#s09">09</a></td></tr>
+<tr><td>6.3.3</td><td>寄存器间接寻址</td><td><a href="#s09">09</a></td></tr>
+<tr><td>6.3.4</td><td>寄存器移位操作数</td><td><a href="#s09">09</a>、<a href="#s23">23</a></td></tr>
+<tr><td>6.3.5</td><td>基址与三种偏移</td><td><a href="#s10">10</a>、<a href="#s11">11</a></td></tr>
+<tr><td>6.3.6</td><td>前变址/写回</td><td><a href="#s10">10</a></td></tr>
+<tr><td>6.3.7</td><td>后变址</td><td><a href="#s10">10</a></td></tr>
+<tr><td>6.3.8</td><td>多寄存器 IA/IB/DA/DB</td><td><a href="#s12">12</a></td></tr>
+<tr><td>6.3.9</td><td>SP 与栈别名</td><td><a href="#s13">13</a></td></tr>
+<tr><td>6.3.10</td><td>PC 相对、ADR、文字池</td><td><a href="#s14">14</a></td></tr>
+<tr><td>6.4.1</td><td>MOV/MOVW/MOVT/MVN/MRS/MSR</td><td><a href="#s15">15</a></td></tr>
+<tr><td>6.4.2</td><td>九组访存：宽度、三种索引、缩放、多传输、栈、PC、非特权、独占</td><td><a href="#s10">10</a>、<a href="#s11">11</a>、<a href="#s12">12</a>、<a href="#s13">13</a>、<a href="#s14">14</a>、<a href="#s16">16</a>、<a href="#s17">17</a>、<a href="#s18">18</a></td></tr>
+<tr><td>6.4.3</td><td>算术、MAC、长乘和除法</td><td><a href="#s19">19</a>、<a href="#s20">20</a>、<a href="#s21">21</a></td></tr>
+<tr><td>6.4.4</td><td>逻辑与位掩码</td><td><a href="#s22">22</a></td></tr>
+<tr><td>6.4.5</td><td>五种移位与桶形移位器</td><td><a href="#s23">23</a></td></tr>
+<tr><td>6.4.6</td><td>扩展、旋转与字节反转</td><td><a href="#s24">24</a></td></tr>
+<tr><td>6.4.7</td><td>位域、CLZ、RBIT</td><td><a href="#s25">25</a></td></tr>
+<tr><td>6.4.8</td><td>比较/测试</td><td><a href="#s26">26</a></td></tr>
+<tr><td>6.4.9</td><td>分支、调用、CBZ、IT、跳转表</td><td><a href="#s07">07</a>、<a href="#s27">27</a>、<a href="#s28">28</a>、<a href="#s29">29</a></td></tr>
+<tr><td>6.4.10</td><td>SSAT/USAT 与波形削顶</td><td><a href="#s30">30</a></td></tr>
+<tr><td>6.4.11</td><td>屏障、休眠、系统异常与调试</td><td><a href="#s31">31</a>、<a href="#s32">32</a>、<a href="#s33">33</a></td></tr>
+<tr><td>6.4.12</td><td>SIMD 变体、额外 MAC、打包和浮点</td><td><a href="#s34">34</a>、<a href="#s35">35</a>、<a href="#s36">36</a>、<a href="#s37">37</a></td></tr>
+<tr><td>6.5</td><td>52 道习题，含 6.46—6.52 星号题</td><td><a href="#exercises">逐题答题卡 →</a></td></tr></tbody></table></div><p>第 6.1 节的历史支持表、二进制分类入口、冷门指令变体、低功耗与浮点背景均保留用途及掌握边界；重复的访存宽度/索引表用统一规则解释。现阶段不要求自行设计完整锁、OS 服务、浮点加法器或高性能 DSP 库，这些背景用于理解后续程序，不省略它们的存在与原因。</p></section>
+<section id="selftest"><p class="eyebrow">先自己算，再展开</p><h2>十二道综合短自测</h2><ol>
+<li>第一个半字 F04F 与 E001 分别表示几字节指令？还需检查什么？</li>
+<li>32 位 ADDS 的 FFFFFFFF+1，结果及 N/Z/C/V 分别是什么？</li>
+<li>CMP 的 80000000−1，有符号 LT 和无符号 HI 哪个成立？为什么不能只看 N？</li>
+<li>MOVW R0,#0x5678 后 MOVT R0,#0x1234 得什么？反过来为何不同？</li>
+<li>R1=20000100，三种 LDR [R1,#8]、[R1,#8]!、[R1],#8 分别独立执行，写出 EA/新 R1。</li>
+<li>STMDB R9!,{R2,R4,R7}，原 R9=20000100，三个地址和新 R9 是多少？</li>
+<li>指令在 08001002，LDR R0,[PC,#0xC] 的字面量地址是多少？</li>
+<li>同一内存字节 88 分别经 LDRB/LDRSB 读入，两个结果及数值意义是什么？</li>
+<li>输入 80000000，ASR #1 和 ROR #1 分别是什么？RRXS 输入 80000001、旧 C=0 呢？</li>
+<li>R0=12345678，BFC #4,#8 得什么？R1=AABBCCDD，BFI R1,R0,#8,#16 又得什么？两次都使用原 R0。</li>
+<li>TBB 在 08000100，表基址 08000200，下标 2，读得表项 12（十六进制）。目标是多少？</li>
+<li>M4 的 UADD8 输入 00FF00FF 与 00010001 得什么？UQADD8 又得什么？后者会把 Q 置 1 吗？</li>
+</ol>
+<details class="answer"><summary>展开答案与过关要求</summary><div class="answer-content"><ol>
+<li>分别为 <strong>4 字节、2 字节</strong>；长度识别后还需核对剩余字段/内核支持，不能由前缀证明合法。</li>
+<li><strong>00000000，N=0、Z=1、C=1、V=0</strong>。无符号进位，有符号 −1+1 不溢出。</li>
+<li><strong>LT、HI 都成立</strong>，分别回答 signed/unsigned；结果 7FFFFFFF，N=0、V=1、C=1、Z=0。</li>
+<li><strong>12345678</strong>；MOVW 会清高半，顺序反过来最后只剩 00005678。</li>
+<li><strong>(20000108,20000100)</strong>、<strong>(20000108,20000108)</strong>、<strong>(20000100,20000108)</strong>。</li>
+<li>R2→<strong>200000F4</strong>，R4→<strong>200000F8</strong>，R7→<strong>200000FC</strong>，新 R9=<strong>200000F4</strong>。按寄存器号对应递增地址。</li>
+<li><strong>08001010</strong>：先 A+4=08001006，再按字对齐为 08001004，最后加 C。</li>
+<li><strong>00000088=136</strong> 与 <strong>FFFFFF88=−120</strong>，后者按 bit7 扩展。</li>
+<li><strong>C0000000</strong> 与 <strong>40000000</strong>；RRXS 得 <strong>40000000，C=1</strong>。</li>
+<li>BFC 得 <strong>12345008</strong>；BFI 得 <strong>AA5678DD</strong>，插入的是原 R0 低 16 位。</li>
+<li><strong>08000128</strong>：基准为分支地址+4，再加表项×2；不是表基址+偏移。</li>
+<li>UADD8 得 <strong>00000000</strong>，逐字节进位信息可见 GE=0101；UQADD8 得 <strong>00FF00FF</strong>，<strong>Q 保留</strong>，不能因发生并行饱和就断言置 Q。</li>
+</ol>
+<p>过关要求：EA/基址、标志、寄存器结果、跳转目标至少能写出中间过程。出错时回对应讲解，不必重新背整张指令表；星号题能用自己的话解释缩放、lane 与数值解释的原因即可。</p>
+</div></details></section>
+<section id="exercises"><p class="eyebrow">原题 [6-1]—[6-52]</p><h2>52 道习题答题卡</h2><p>保留原题顺序并归纳题意。先独立作答，再展开核对；原题 6.9 完整填表、四种 STM 模式与最后七道星号题均包含。对于跨内核形式或缺少访问条件的题，限定条件也是答案的一部分。</p><div class="question-links"><a href="#q6-1">6.1</a><a href="#q6-2">6.2</a><a href="#q6-3">6.3</a><a href="#q6-4">6.4</a><a href="#q6-5">6.5</a><a href="#q6-6">6.6</a><a href="#q6-7">6.7</a><a href="#q6-8">6.8</a><a href="#q6-9">6.9</a><a href="#q6-10">6.10</a><a href="#q6-11">6.11</a><a href="#q6-12">6.12</a><a href="#q6-13">6.13</a><a href="#q6-14">6.14</a><a href="#q6-15">6.15</a><a href="#q6-16">6.16</a><a href="#q6-17">6.17</a><a href="#q6-18">6.18</a><a href="#q6-19">6.19</a><a href="#q6-20">6.20</a><a href="#q6-21">6.21</a><a href="#q6-22">6.22</a><a href="#q6-23">6.23</a><a href="#q6-24">6.24</a><a href="#q6-25">6.25</a><a href="#q6-26">6.26</a><a href="#q6-27">6.27</a><a href="#q6-28">6.28</a><a href="#q6-29">6.29</a><a href="#q6-30">6.30</a><a href="#q6-31">6.31</a><a href="#q6-32">6.32</a><a href="#q6-33">6.33</a><a href="#q6-34">6.34</a><a href="#q6-35">6.35</a><a href="#q6-36">6.36</a><a href="#q6-37">6.37</a><a href="#q6-38">6.38</a><a href="#q6-39">6.39</a><a href="#q6-40">6.40</a><a href="#q6-41">6.41</a><a href="#q6-42">6.42</a><a href="#q6-43">6.43</a><a href="#q6-44">6.44</a><a href="#q6-45">6.45</a><a href="#q6-46">6.46</a><a href="#q6-47">6.47</a><a href="#q6-48">6.48</a><a href="#q6-49">6.49</a><a href="#q6-50">6.50</a><a href="#q6-51">6.51</a><a href="#q6-52">6.52</a></div>
+<article class="exercise" id="q6-1"><h3>习题 6.1 / 四个基本名词</h3><p>解释指令、指令系统、汇编语言、指令字。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>机器指令规定处理器执行的操作；指令系统是支持的指令集合；汇编语言用助记符等描述操作并由工具转换；指令字是对应的二进制编码。伪指令/宏不保证一行对应一条硬件指令。</p>
+<p><a href="#s01">回到第 01 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-2"><h3>习题 6.2 / Arm 指令集</h3><p>Arm 有哪些主要指令集？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>本章沿用 A32、A64、T32 名称：A32/A64 主要为 32 位定长编码，T32 混合 16/32 位；具体内核只实现其架构允许部分，M3/M4 不执行 A32/A64。不能把原书历史表当成所有现今产品完整列表。</p>
+<p><a href="#s01">回到第 01 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-3"><h3>习题 6.3 / 区分指令长度</h3><p>T32 怎样区分 16/32 位编码？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>看当前指令第一个半字的 bit[15:11]：11101、11110、11111 为 32 位指令前半，其余走 16 位译码入口。第二半字不再作为新指令头；识别长度不等于全部编码合法。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-4"><h3>习题 6.4 / Word 与 Halfword</h3><p>本章中的字、半字怎样定义？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>在这里的 32 位 M profile 语境：字=32 位=4 字节，半字=16 位=2 字节；字节为 8 位，双字为 64 位。数据宽度不等于每条指令编码长度。</p>
+<p><a href="#s01">回到第 01 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-5"><h3>习题 6.5 / 二进制编码格式</h3><p>解释指令二进制编码格式。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>规定指令位串中哪些位表达操作、寄存器、立即数、地址方式、条件等，以及如何组合/解释；实际字段由具体指令编码决定，不是一套固定字段能覆盖所有指令。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-6"><h3>习题 6.6 / 指令的要素</h3><p>一条指令需要哪些信息？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>至少要能确定操作及必要的操作数/地址、结果位置和控制流等信息；可显式编码也可隐含，例如 PUSH 使用 SP，普通顺序指令的后继由 PC/长度得到。不是每条都显式列所有源目标。</p>
+<p><a href="#s01">回到第 01 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-7"><h3>习题 6.7 / 条件执行</h3><p>解释条件执行指令。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>按 APSR 条件决定是否产生相应效果。M3/M4 普通条件数据处理常由 IT 块控制，块内后缀必须匹配；条件 B 可直接按其编码检查标志。条件执行不一定改变 PC。</p>
+<p><a href="#s07">回到第 07 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-8"><h3>习题 6.8 / N Z C V Q</h3><p>说明这些标志取值。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>N 为结果最高位，Z 为结果全零；加法 C 为无符号进位，减法 C=1 为无借位；V 为有符号溢出；Q 由相关饱和/DSP 指令按规则置位且常为黏性，未饱和不自动清旧 Q，并非所有带 Q 的并行指令都改它。</p>
+<p><a href="#s05">回到第 05 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-9"><h3>习题 6.9 / 19 个助记符填表</h3><p>补全原题的助记符、英文和中文功能表。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>助记符</th>
+<th>英文</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ADD</td>
+<td>Add</td>
+<td>加法</td>
+</tr>
+<tr>
+<td>ADC</td>
+<td>Add with Carry</td>
+<td>带进位加法</td>
+</tr>
+<tr>
+<td>SUB</td>
+<td>Subtract</td>
+<td>减法</td>
+</tr>
+<tr>
+<td>MUL</td>
+<td>Multiply, 32-bit result</td>
+<td>乘法，取低 32 位</td>
+</tr>
+<tr>
+<td>SDIV</td>
+<td>Signed Divide</td>
+<td>有符号除法</td>
+</tr>
+<tr>
+<td>MLA</td>
+<td>Multiply with Accumulate</td>
+<td>乘并累加</td>
+</tr>
+<tr>
+<td>MLS</td>
+<td>Multiply and Subtract</td>
+<td>从累加源减去乘积</td>
+</tr>
+<tr>
+<td>ASR</td>
+<td>Arithmetic Shift Right</td>
+<td>算术右移</td>
+</tr>
+<tr>
+<td>LSR</td>
+<td>Logical Shift Right</td>
+<td>逻辑右移</td>
+</tr>
+<tr>
+<td>MOV</td>
+<td>Move</td>
+<td>寄存器/立即数等数据移动</td>
+</tr>
+<tr>
+<td>LDR</td>
+<td>Load Register with word</td>
+<td>从内存加载字到寄存器</td>
+</tr>
+<tr>
+<td>STR</td>
+<td>Store Register word</td>
+<td>将寄存器字写内存</td>
+</tr>
+<tr>
+<td>LDM</td>
+<td>Load Multiple registers</td>
+<td>从连续内存加载多个字</td>
+</tr>
+<tr>
+<td>STM</td>
+<td>Store Multiple registers</td>
+<td>多个寄存器字写连续内存</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Branch</td>
+<td>跳转</td>
+</tr>
+<tr>
+<td>BL</td>
+<td>Branch with Link</td>
+<td>跳转并建立返回链接</td>
+</tr>
+<tr>
+<td>BLX</td>
+<td>Branch with Link and Exchange</td>
+<td>按相应寄存器目标跳转并建立链接</td>
+</tr>
+<tr>
+<td>CMP</td>
+<td>Compare</td>
+<td>相减比较，只保留标志</td>
+</tr>
+<tr>
+<td>IT</td>
+<td>If-Then</td>
+<td>控制后续条件执行块</td>
+</tr>
+</tbody></table></div>
+<p><a href="#s03">回到第 03 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-10"><h3>习题 6.10 / 寻址术语</h3><p>解释寻址、操作数/指令寻址、立即数与几类寻址。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>寻址是按编码信息确定所需操作数或后继指令位置；立即数内含在指令，寄存器直接使用其中数值，寄存器移位先形成变换后的操作数；间接使用寄存器值作为地址读内存。操作数寻址与下一条指令的寻址要分开。</p>
+<p><a href="#s09">回到第 09 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-11"><h3>习题 6.11 / 立即数限制</h3><p>M3 指令的立即数有什么限制？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>受每种编码的字段与扩展算法限制。窄 imm8、MOVW/T 的 imm16、ADDW 等 imm12、Thumb 修饰立即数、访存缩放偏移规则不同。0x07FC 不适用于某种修饰立即数不表示它对 MOVW/ADDW 也非法。大常量可拆成 MOVW/T 或用 LDR= 伪指令。</p>
+<p><a href="#s08">回到第 08 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-12"><h3>习题 6.12 / 操作数的位置</h3><p>操作数可放在哪里？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>指令自身的立即数、一般/特殊寄存器、数据内存或代码附近常量池等。在哪儿与怎么取由指令定义决定；地址本身也可以是一个寄存器数值，不能把它与目标内存内容混淆。</p>
+<p><a href="#s09">回到第 09 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-13"><h3>习题 6.13 / 直接与间接</h3><p>比较寄存器寻址和寄存器间接寻址。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>直接把寄存器值当操作数，如 MOV R0,R1；间接把寄存器值当内存地址，如 LDR R0,[R1]。前者不因此访问数据内存，后者读取目标内容。</p>
+<p><a href="#s09">回到第 09 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-14"><h3>习题 6.14 / 偏移量形式</h3><p>寄存器偏移/基址偏移的 offset 有几种形式？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>原理上常见立即数、寄存器值、缩放寄存器值。M3/M4 的相应普通访存支持特定 LSL #0—3 等形式；正负、宽度和写回限制按编码，不能将全部数据处理移位都挪来。</p>
+<p><a href="#s11">回到第 11 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-15"><h3>习题 6.15 / 三种索引对照</h3><p>比较偏移、前变址、后变址。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>设原基址 B、偏移 d：普通偏移 EA=B+d、基址不变；前变址 EA=B+d、基址写回 B+d；后变址 EA=B、基址写回 B+d。先写本次 EA，再写执行后基址。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-16"><h3>习题 6.16 / 感叹号的意义</h3><p>解释 [Rn,offset]! 中的 !。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>表示该编码支持的基址写回，访问地址 B+offset 还被更新到 Rn。它不表示重复访问、取反或改变数据宽度；M3/M4 的寄存器偏移 LDR 不可随意加 !。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-17"><h3>习题 6.17 / 两条 LDR 的地址</h3><p>解释 LDR R0,[R1,#0xA]；LDR R0,[R1,R4]。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>第一条读 Mem32[R1+0xA] 到 R0；第二条读 Mem32[R1+R4] 到 R0。普通偏移都不写回基址/偏移寄存器。0xA 可能导致字未对齐，要另查内存类型与配置，算出 EA 不等于保证访问成功。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-18"><h3>习题 6.18 / 寄存器写回形式的边界</h3><p>解释 LDR R0,[R9,R1]；LDR R0,[R1,R3]!。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>第一条 EA=旧 R9+旧 R1，加载到 R0，不写回。第二条想表达 EA=旧 R1+R3 且写回 R1，但该寄存器偏移带写回不是 M3/M4 的对应 T32 编码；可显式 ADD R1,R1,R3 后 LDR R0,[R1]，说明两条的语义与非原子性。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-19"><h3>习题 6.19 / 三种 0xB 索引</h3><p>解释 [R1,#0xB]、[R1,#0xB]!、[R1],#0xB 三种 LDR。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>若各自从同一 B 开始：EA/新 R1 依次为 (B+0xB,B)、(B+0xB,B+0xB)、(B,B+0xB)。若三行连续执行，第三行使用第二行已写回的基址，最终 R1=B+0x16。还需核对字未对齐支持。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-20"><h3>习题 6.20 / LDM 语法</h3><p>解释 LDM{addr_mode} Rn{!},{registers}。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LDM 从连续内存读多个字；addr_mode 决定整个地址区间，Rn 为原基址，! 为相应写回，列表确定寄存器集合与数量。最低寄存器号对应最低地址；M3/M4 使用相应 IA/DB 编码，具体列表和重叠还有限制。</p>
+<p><a href="#s12">回到第 12 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-21"><h3>习题 6.21 / 四种 STM 模式</h3><p>解释 STMIA R9,{R1-R4}；STMIB/STMDA/STMDB R9!,{R1-R4}。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>设 B 为原 R9，列表按 R1、R2、R3、R4 对应以下递增地址：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>写法</th>
+<th>R1—R4 对应地址</th>
+<th>新 R9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IA，无 !</td>
+<td>B、B+4、B+8、B+12</td>
+<td>B</td>
+</tr>
+<tr>
+<td>IB，有 !</td>
+<td>B+4、B+8、B+12、B+16</td>
+<td>B+16</td>
+</tr>
+<tr>
+<td>DA，有 !</td>
+<td>B−12、B−8、B−4、B</td>
+<td>B−16</td>
+</tr>
+<tr>
+<td>DB，有 !</td>
+<td>B−16、B−12、B−8、B−4</td>
+<td>B−16</td>
+</tr>
+</tbody></table></div>
+<p>IB/DA 是经典模型解释，不是 M3/M4 可直接使用的相应 T32 指令。</p>
+<p><a href="#s12">回到第 12 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-22"><h3>习题 6.22 / STMFD 与 STMDB</h3><p>比较 STMFD SP!,{R1-R8} 与 STMDB SP!,{R1-R8}。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>相应满递减存储别名，8 字共 32 字节，最低 R1 在旧 SP−32，最高 R8 在旧 SP−4，新 SP=旧 SP−32。可用寄存器和编码仍须满足目标限制。</p>
+<p><a href="#s13">回到第 13 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-23"><h3>习题 6.23 / LDMFD 与 LDMIA</h3><p>解释原题 LTMFD SP!,{R1-R8} 与 LDMIA SP!,{R1-R8}。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LTMFD 为笔误，应 LDMFD。满递减栈弹出相应使用 LDMIA：R1 从旧 SP，直到 R8 从旧 SP+28，新 SP=旧 SP+32。不能因为名字 FD 就改用 DB 弹出。</p>
+<p><a href="#s13">回到第 13 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-24"><h3>习题 6.24 / 栈与 PC 相对基址</h3><p>这两类寻址基址分别在哪里？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>栈寻址使用当前 SP（按模式/CONTROL 映射 MSP/PSP）；PC 相对用架构规定的 PC 值，Thumb 常为指令地址+4，literal/ADR 等还需按字对齐。不能把当前源码行地址直接当全部相对寻址基准。</p>
+<p><a href="#s14">回到第 14 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-25"><h3>习题 6.25 / 指令类别</h3><p>一般指令集包含哪些类别？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>数据传送、存储器加载/存储、算术、逻辑、移位、格式转换、位域、比较测试、分支调用、系统/异常/屏障/低功耗等；M4 还涉及 DSP/SIMD、打包、额外乘加及可选 FPU。理解每类解决什么问题，无需仅靠数量背目录。</p>
+<p><a href="#s01">回到第 01 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-26"><h3>习题 6.26 / 加载字节到 R8</h3><p>从 R1 数值+3 的地址读取一个字节到 R8。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LDRB R8,[R1,#3]，零扩展。若题目明确要求有符号字节则 LDRSB。这里题面的 [R1] 按寄存器内容理解，不是先读 Mem[R1] 再加 3。</p>
+<p><a href="#s16">回到第 16 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-27"><h3>习题 6.27 / 加载半字到 R8</h3><p>从 R1 数值+4 的地址读取一个半字到 R8。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LDRH R8,[R1,#4]，零扩展；有符号要求则 LDRSH。基址不写回，实际对齐与权限仍检查。</p>
+<p><a href="#s16">回到第 16 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-28"><h3>习题 6.28 / 加载字到 R8</h3><p>从 R1 数值+8 的地址读取一个字到 R8。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LDR R8,[R1,#8]，读取 32 位字，不写回 R1。后缀宽编码与数据宽度不是同一维度。</p>
+<p><a href="#s16">回到第 16 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-29"><h3>习题 6.29 / bit2 翻转</h3><p>把 R0 的第 2 位取反。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>按 bit0 为最低位：EOR R0,R0,#4。掩码=1&lt;&lt;2，不改其他位；重复做两次恢复原值。</p>
+<p><a href="#s22">回到第 22 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-30"><h3>习题 6.30 / bit2 置 1</h3><p>把 R0 的第 2 位置 1。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>ORR R0,R0,#4，掩码对应位为 1 的位置设 1，其余保留。</p>
+<p><a href="#s22">回到第 22 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-31"><h3>习题 6.31 / bit2 清 0</h3><p>把 R0 的第 2 位置 0。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>BIC R0,R0,#4，或用可合法构造的取反掩码做 AND。BIC 不等于把整个 R0 清零。</p>
+<p><a href="#s22">回到第 22 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-32"><h3>习题 6.32 / R0 和 R1 按位与</h3><p>写出 R0 与 R1 按位与指令。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>若结果要求留在 R0：AND R0,R0,R1。若要保留两个源，可用另一目标，如 AND R2,R0,R1；题面未规定结果位置时需说明选择。</p>
+<p><a href="#s22">回到第 22 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-33"><h3>习题 6.33 / AND ORR ORN EOR</h3><p>解释这四条的差别。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>AND=A&amp;B；ORR=A|B；ORN=A|~B；EOR=A XOR B。ORN 不是 ~(A|B)，EOR 的公式不能像原表误写成 OR。</p>
+<p><a href="#s22">回到第 22 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-34"><h3>习题 6.34 / 符号扩展</h3><p>什么是符号扩展？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>窄有符号补码转更宽补码时，复制原数据最高符号位填充高位以保持值。8 位 0x88 扩成 32 位为 FFFFFF88（−120）；零扩展则 00000088（136）。正的有符号数也补 0。</p>
+<p><a href="#s24">回到第 24 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-35"><h3>习题 6.35 / MOV 能否读内存</h3><p>MOV 可直接从任意内存单元传到寄存器吗？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>本章 M3/M4 普通 MOV 不直接访问任意数据内存；用 LDR 系列。MOV 可搬寄存器/立即数；LDR Rd,=常量又是伪指令，不能把这几种形式混淆。</p>
+<p><a href="#s15">回到第 15 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-36"><h3>习题 6.36 / LSR 与 ASR</h3><p>两种右移有什么区别？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LSR 高位补 0，适合相应无符号位处理；ASR 高位复制符号位。80000000 右移 1 分别为 40000000、C0000000。ASR 负数移位的舍入也不能随意等同 SDIV 向零截断。</p>
+<p><a href="#s23">回到第 23 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-37"><h3>习题 6.37 / LSR 与 ROR</h3><p>两者的区别？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>LSR 丢掉低端移出位并在高端补 0；ROR 将移出位循环回高端。00000001 右移 1：LSR 得 0，ROR 得 80000000。</p>
+<p><a href="#s23">回到第 23 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-38"><h3>习题 6.38 / ROR 与 RRX</h3><p>两者的区别？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>ROR 在 32 位内部循环，不以原 C 回填；RRX 固定右移 1，原 C 进入 bit31，原 bit0 可成为新 C。是否实际写 APSR 要看 S 等规则。</p>
+<p><a href="#s23">回到第 23 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-39"><h3>习题 6.39 / CMP 与 CMN</h3><p>两者的区别？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>CMP 内部 A−B，CMN 内部 A+B，按相应算术规则更新 NZCV且不保存数据结果。CMN 不是把 CMP 标志逐位取反。</p>
+<p><a href="#s26">回到第 26 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-40"><h3>习题 6.40 / 调用为何要 Link</h3><p>为什么普通函数调用适合 BL/BLX，而普通 B 不方便？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>BL/BLX 除了跳转还建立 LR 返回链接，普通 B 不做这个工作；嵌套调用需保护原 LR。尾调用等场景可以有意使用 B，因此不能绝对说 B 永不能与函数控制流有关。</p>
+<p><a href="#s27">回到第 27 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-41"><h3>习题 6.41 / 条件分支与 MOVEQ</h3><p>比较 B/BL 的条件控制与 MOVEQ。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>条件分支满足后改 PC，BL 相应还建立 LR；MOVEQ 在 IT 等上下文里只条件更新目标数据，PC 顺序推进。T32 的独立 Bcond 与 IT 控制的 BL/普通指令编码不同，不能套 A32 一般化。</p>
+<p><a href="#s28">回到第 28 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-42"><h3>习题 6.42 / CBZ 与 CMP+BEQ</h3><p>CBZ 相比 CMP 后 BEQ 有何异同？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>都可实现寄存器为零则跳；CBZ 不改 APSR、仅 R0—R7、短前向范围且有上下文限制。CMP+BEQ 更新标志且编码选择更灵活，可用于其他距离/方向，但不是所有条件下代码大小时延都相同。</p>
+<p><a href="#s28">回到第 28 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-43"><h3>习题 6.43 / 饱和与溢出</h3><p>解释两者差别。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>溢出是超出表示范围的现象；饱和是把结果夹到上下限的处理方法，截断回绕是另一种结果。饱和仍有精度/波形失真，不能恢复之前已被窄运算丢掉的数学结果。</p>
+<p><a href="#s30">回到第 30 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-44"><h3>习题 6.44 / 屏障</h3><p>定性解释屏障指令作用。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>处理访问顺序、完成和后续执行上下文：DMB 约束相关访问顺序；DSB 等待规定先前操作完成；ISB 同步后续取指执行上下文。顺序执行内核也可能因写缓冲需要它们；volatile 不替代。</p>
+<p><a href="#s31">回到第 31 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-45"><h3>习题 6.45 / 非特权访存的用途</h3><p>为何提供非特权加载/存储？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>让特权系统在替用户访问缓冲区时按用户权限规则执行该次访问，避免仅凭自身高权限泄露/写坏受限区域。LDRT/STRT 等不让用户提权，也不永久改变当前模式；还需完整错误和并发处理。</p>
+<p><a href="#s17">回到第 17 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-46"><h3>习题 6.46 / SIMD 背景与思想 *</h3><p>说明 SIMD 为什么出现、怎样工作。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>音频、图像等包含大量相同操作的短数据，单个大寄存器可容纳多个 lane，一条指令在 lane 内并行处理，减少重复指令与打包开销。它与普通大整数跨字节进位、多核都不同；先准备合适类型与布局。</p>
+<p><a href="#s34">回到第 34 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-47"><h3>习题 6.47 / MAC 适合哪些算法 *</h3><p>乘并累加适用什么算法？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>点积、FIR 滤波、相关、卷积、矩阵乘法等反复求 Σ(xᵢhᵢ) 的算法。注意系数/样本符号、定点缩放和累加宽度，不能因有 MAC 就忽略溢出。</p>
+<p><a href="#s35">回到第 35 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-48"><h3>习题 6.48 / 整数与定点共电路 *</h3><p>什么条件下能用相同电路做整数与定点运算？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>位串运算与缩放解释相容时可共用：相同小数位尺度的加减可直接用整数电路；乘法的结果小数位数相加，须再缩放/舍入；不同尺度需先对齐，并处理有无符号与溢出。</p>
+<p><a href="#s21">回到第 21 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-49"><h3>习题 6.49 / 浮点与定点电路 *</h3><p>浮点运算电路比定点多什么？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>浮点需处理符号、指数与有效数，对阶、规格化、舍入以及特殊值/状态；加法与乘法的指数处理不同。定点比例因子预先约定，但仍需溢出与缩放，不是浮点只多存一个小数点。</p>
+<p><a href="#s37">回到第 37 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-50"><h3>习题 6.50 / 有无符号乘除 *</h3><p>为何常用不同指令处理有无符号乘除？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>同位串解释不同，完整乘积高部与除法商可能不同；低 32 位乘积是模 2³² 的结果，可由同一 MUL 处理，但 UMULL/SMULL 及 UDIV/SDIV 要区分。不能说每种情况下都必须两套不同低位乘法。</p>
+<p><a href="#s20">回到第 20 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-51"><h3>习题 6.51 / DSP 为何需要扩展 *</h3><p>DSP 为什么需要符号扩展和补零？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>短采样/系数搬到宽寄存器计算时要保持原数值。signed 窄值应复制符号位，unsigned 应补零；否则负采样会误作很大的正数或无符号数误作负数，后续 MAC 再准确也处理错了输入。</p>
+<p><a href="#s24">回到第 24 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q6-52"><h3>习题 6.52 / 扩展为何分 signed/unsigned *</h3><p>为什么数据扩展用不同指令？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>源位串本身不包含独立的类型标签，相同 0x80 可能代表 −128 或 128。符号扩展与零扩展需要不同高位填充规则，指令由程序员/编译器明确选择；不由处理器凭值自动猜类型。</p>
+<p><a href="#s24">回到第 24 节完整讲解 →</a></p></div></details></article>
+</section><section id="corrections"><p class="eyebrow">对照原书时别机械照抄</p><h2>最需要纠正和限定的地方</h2><div class="table-wrap"><table><thead><tr><th>易误解处</th><th>核对后的理解</th><th>定位</th></tr></thead><tbody>
+<tr><td>所有立即数共用一种旋转规则</td><td>按各指令编码判断，MOVW/T、ADDW 与修饰立即数不同</td><td>08</td></tr><tr><td>ADD 可以直接带 [R2]</td><td>先 LDR，再做寄存器算术</td><td>09</td></tr><tr><td>寄存器偏移 LDR 随意加 !</td><td>M3/M4 对应编码不支持该组合</td><td>10</td></tr><tr><td>DB 从 R1 对应 B−4 开始逆排</td><td>先算完整区间，最低寄存器号对应最低地址</td><td>12</td></tr><tr><td>STMIB/STMDA 是 M3/M4 现成指令</td><td>作为经典模型解释，实际 T32 仅相应 IA/DB</td><td>12</td></tr><tr><td>LTMFD、REVH、CNBZ</td><td>应分别核对为 LDMFD、REV16、CBNZ</td><td>13、24、28</td></tr><tr><td>C=借位；LE=无符号 ≤</td><td>减法 C=无借位；LE 是有符号 ≤</td><td>05、06、19</td></tr><tr><td>EOR 用或运算公式；MVN 是数学取负</td><td>EOR 为异或；MVN 为逐位取反</td><td>15、22</td></tr><tr><td>BFC 示例出现冲突数值</td><td>12345678 清 bit4—11 得 12345008</td><td>25</td></tr><tr><td>B 普通范围 ±1 MB；BEQ 可直接取寄存器目标</td><td>区分窄/宽/条件编码，寄存器目标用相应 BX</td><td>27、28</td></tr><tr><td>TBB 从表基址加目标偏移</td><td>表地址由 B 定，目标从指令后 A+4 起算</td><td>29</td></tr><tr><td>USAT 把输入先当无符号；所有 Q 前缀改 Q</td><td>USAT 输入按有符号；并行 Q/UQ 系列与标量规则分开</td><td>30、34</td></tr><tr><td>SXTB16 抽最低/最高字节</td><td>抽 byte0 与 byte2，各扩展为半字</td><td>36</td></tr><tr><td>VMRS.F32 / FPCSR；64 位传送等于双精度算术</td><td>核对 VMRS R0,FPSCR；M4F 数据视图与算术能力分开</td><td>37</td></tr></tbody></table></div></section>
+<section id="finish"><p class="eyebrow">学完后应该能独立做到</p><h2>把五张“结果单”写出来</h2><ol><li><strong>数据结果：</strong>传送、扩展、算术、逻辑、移位和位域的最终 32 位值。</li><li><strong>地址结果：</strong>EA 与写回分开，多寄存器按完整区间排列，文字池按正确 PC 基准。</li><li><strong>标志结果：</strong>NZCV、黏性 Q 与 SIMD GE 按具体指令判断，条件码按数值类型选择。</li><li><strong>控制流结果：</strong>条件块执行哪几条，BL 如何建立/覆盖 LR，TBB 怎样形成目标。</li><li><strong>合法性结果：</strong>内核支持、立即数字段、寄存器组合、对齐/权限以及工具别名都核对。</li></ol><p>基础题需要不看示范写出中间过程；星号题要能解释并行、缩放、扩展与浮点步骤。完整操作码表和冷门变体以查读为主。下一章把这些操作组织成程序，并接上开发工具、伪指令与 C/汇编调用。</p></section>
+<footer id="sources"><h2>整理依据与核对说明</h2><p>依据用户提供的《计算机原理与嵌入式系统讲义》第六章《ARM 指令系统》及 52 道习题重新讲解。材料中的说明按学习内容处理；本文件沿用项目内前几章的离线 HTML 体例。</p><p>主要范围为 M3/M4 的 T32；历史 A32 模型、不同 M 内核、DSP 与可选 FPU 已分别注明。部分编码、非法组合和算例通过独立汇编、反汇编及指令模拟核对；模拟用于检查示例，不构成具体 MCU 时序、权限、外设或功耗的保证。</p><p><a href="https://documentation-service.arm.com/static/5ea823e69931941038df1af5">Arm Cortex-M3 指令参考</a> · <a href="https://documentation-service.arm.com/static/5f2ac76d60a93e65927bbdc5">Arm Cortex-M4 指令参考</a> · <a href="https://sourceware.org/binutils/docs/as/ARM-Opcodes.html">GNU Arm 汇编器说明</a> · <a href="https://developer.arm.com/community/arm-community-blogs/b/architectures-and-processors-blog/posts/errors-in-the-definitive-guide-for-arm-cortex-m-book-series">并行饱和等勘误核对</a></p><p>21 幅 SVG 和全部公式保存在本文件中；无需打开外部链接即可阅读和做题。打印使用默认算例并显示全部答案。具体指令行为最终以目标架构、内核版本和工具说明为准。</p><p class="top-link"><a href="#start">返回封面 ↑</a></p></footer></main></div>
+<script>(()=>{
+const M=0xFFFFFFFFn,esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const txt=(x,y,s,a='start',c='')=>`<text x="${x}" y="${y}" text-anchor="${a}" class="${c}">${esc(s)}</text>`,box=(x,y,w,h,c='node')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="${c}"/>`,line=(d,c='wire')=>`<path d="${d}" class="${c}"/>`;
+const down=(x,y,h=20)=>line(`M${x} ${y} v${h} m-4 -6 l4 6 l4 -6`);
+const hx=(n,d=8)=>'0x'+BigInt(n).toString(16).toUpperCase().padStart(d,'0');
+const parse=s=>/^(?:0x)?[0-9a-f]{1,8}$/i.test(s.trim())?BigInt('0x'+s.trim().replace(/^0x/i,'')):null;
+const get=(r,q)=>r.querySelector(q),val=(r,q)=>get(r,q).value,num=(r,q)=>get(r,q).valueAsNumber,sgn=x=>BigInt.asIntN(32,x);
+const render=(r,h,title,b,info)=>{if(r.clientWidth<200)return;const s=get(r,'svg');s.setAttribute('viewBox',`0 0 ${r.clientWidth} ${h}`);s.innerHTML='<title>'+esc(title)+'</title>'+b;get(r,'[aria-live]').textContent=info;};
+const err=(r,s)=>render(r,52,'需要修正输入',txt(12,28,'请按下方提示修正输入。'),'输入提示：'+s);
+const setup=(id,f)=>{const r=document.getElementById('c6-'+id),draw=()=>{if(r.clientWidth>=200)f(r,r.clientWidth)};r.querySelectorAll('input,select').forEach(c=>c.addEventListener(c.tagName==='SELECT'||c.type==='checkbox'?'change':'input',draw));new ResizeObserver(draw).observe(r);draw();};
+const rows=(w,data,y=12,h=65)=>data.map(([a,b,c],i)=>{const yy=y+i*h;return box(12,yy,w-24,h-10,c||'node')+txt(24,yy+21,a,'start','text-small')+txt(w-24,yy+h-20,b,'end','text-small')}).join('');
+const bitrow=(w,y,v,count=16,mask=0n,start=0)=>{let b='';const cw=(w-24)/count;for(let i=0;i<count;i++){const bit=start+count-1-i,x=12+i*cw;b+=box(x+1,y,cw-2,27,((mask>>BigInt(bit))&1n)?'active':'node')+txt(x+cw/2,y+19,(v>>BigInt(bit))&1n,'middle','text-small')}return b};
+const bits32=(w,y,v,mask=0n)=>txt(12,y,'bit31—16','start','text-small')+bitrow(w,y+12,v,16,mask,16)+txt(12,y+61,'bit15—0','start','text-small')+bitrow(w,y+73,v,16,mask,0);
+const calc=(a,b,op)=>{const full=op==='ADD'?a+b:a-b,res=BigInt.asUintN(32,full),ss=op==='ADD'?sgn(a)+sgn(b):sgn(a)-sgn(b);return {res,N:Number((res>>31n)&1n),Z:Number(res===0n),C:Number(op==='ADD'?full>M:a>=b),V:Number(ss< -2147483648n||ss>2147483647n)}};
+const flags=(w,y,f)=>['N','Z','C','V'].map((s,i)=>{const cw=(w-48)/4,x=12+i*(cw+8);return box(x,y,cw,64,f[s]?'active':'node')+txt(x+cw/2,y+23,s,'middle')+txt(x+cw/2,y+49,f[s],'middle')}).join('');
+
+setup('prefix',(r,w)=>{const v=parse(val(r,'input'));if(v===null||v>65535n)return err(r,'请输入 0000—FFFF 的第一个半字，可带 0x。');const prefix=Number(v>>11n),wide=prefix>=29;let b=txt(12,25,'首半字：'+hx(v,4),'start','text-small')+bitrow(w,48,v,16,0xF800n)+txt(12,105,'蓝色高五位：'+prefix.toString(2).padStart(5,'0'),'start','text-small');b+=rows(w,[['长度入口',wide?'32 位 · 还需第二半字':'16 位 · 一个半字','active'],['本条占用',wide?'4 字节':'2 字节'],['随后要做','核对完整字段与内核支持']],130,66);render(r,340,'从第一个半字的高五位识别长度',b,`高五位 ${prefix.toString(2).padStart(5,'0')}：${wide?'32 位指令前半':'16 位译码入口'}。不能由长度判断全部编码合法。`);});
+setup('encoding',(r,w)=>{const k=val(r,'[data-kind]'),d=+val(r,'[data-rd]'),m=+val(r,'[data-rm]'),wide=k.includes('.W'),s=k.startsWith('MOVS'),words=wide?[0xea4f+(s?16:0),(d<<8)|m]:[s?(m<<3)|d:0x4600|(m<<3)|d];let b=txt(12,25,`${k} R${d}, R${m}`,'start');words.forEach((v,i)=>{b+=txt(12,56+i*76,`第 ${i+1} 半字：${hx(v,4)}`,'start','text-small')+bitrow(w,68+i*76,BigInt(v))});const y=wide?225:149,bytes=words.flatMap(v=>[v&255,v>>8]).map(v=>v.toString(16).toUpperCase().padStart(2,'0')).join(' ');b+=rows(w,[['小端字节（低地址先）',bytes,'active'],['长度 / 标志',`${wide?4:2} 字节 / ${s?'按规则更新 N/Z 等':'不更新算术标志'}`]],y,67);render(r,y+148,'MOV复制的不同编码',b,`编码半字 ${words.map(v=>hx(v,4)).join(' ')}；内存字节 ${bytes}。${s?'只更新本编码规定的标志。':'数据结果相同，但不因此改标志。'}`);});
+setup('flags',(r,w)=>{const a=parse(val(r,'[data-a]')),b=parse(val(r,'[data-b]')),op=val(r,'[data-op]');if(a===null||b===null)return err(r,'A/B 均需为 32 位十六进制。');const f=calc(a,b,op);let s=rows(w,[['无符号 A',a.toString()],['无符号 B',b.toString()],['低 32 位结果',hx(f.res),'active']],12,65);s+=flags(w,222,f)+txt(12,316,op==='ADD'?'C：无符号加法是否进位':'C：无符号减法是否无借位','start','text-small')+txt(12,345,'V：有符号数学结果是否超范围','start','text-small');render(r,369,'32位加减分别计算进位和溢出',s,`结果 ${hx(f.res)}；N=${f.N} Z=${f.Z} C=${f.C} V=${f.V}。signed 输入 ${sgn(a)}、${sgn(b)}。`);});
+setup('conditions',(r,w)=>{const a=parse(val(r,'[data-a]')),b=parse(val(r,'[data-b]'));if(a===null||b===null)return err(r,'请输入两个 32 位十六进制位串。');const f=calc(a,b,'SUB'),unsigned=a>b,signed=sgn(a)>sgn(b),eq=a===b;let s=txt(12,25,'CMP：A − B = '+hx(f.res),'start','text-small')+flags(w,45,f);s+=rows(w,[['unsigned 解释',`${a} ${eq?'=':unsigned?'>':'<'} ${b}`,'active'],['对应成立的大小条件',eq?'HS / LS':unsigned?'HI / HS':'LO / LS'],['signed 解释',`${sgn(a)} ${eq?'=':signed?'>':'<'} ${sgn(b)}`,'waiting'],['对应成立的大小条件',eq?'GE / LE':signed?'GT / GE':'LT / LE']],136,68);render(r,425,'同一CMP的有无符号条件',s,`NZCV=${f.N}${f.Z}${f.C}${f.V}。无符号 ${eq?'相等':unsigned?'A>B':'A<B'}；有符号 ${eq?'相等':signed?'A>B':'A<B'}。用条件回答你所需的数值解释。`);});
+setup('itblock',(r,w)=>{const pattern=val(r,'[data-pattern]'),cond=val(r,'[data-cond]'),z=+val(r,'[data-z]'),letters=['T',...pattern.slice(2)],base=cond==='EQ'?z===1:z===0;let b=txt(12,26,`${pattern} ${cond} · 当前 Z=${z}`,'start','text-small');letters.forEach((c,i)=>{const pass=c==='T'?base:!base,cc=c==='T'?cond:cond==='EQ'?'NE':'EQ',y=49+i*68;b+=box(12,y,w-24,53,pass?'active':'node')+txt(24,y+23,`${i+1} / ${c} → ${cc}`,'start','text-small')+txt(w-24,y+44,pass?'执行本条数据效果':'跳过本条数据效果','end','text-small')});render(r,65+letters.length*68,'IT隐含第一T并按后缀映射后续条件',b,`${letters.length} 条条件指令：${letters.join('、')}；假定块内不修改这些条件标志。`);});
+setup('addressing',(r,w)=>{const b=parse(val(r,'[data-base]')),d=num(r,'[data-offset]'),k=val(r,'[data-mode]');if(b===null||!Number.isInteger(d)||d< -255||d>255)return err(r,'基址为 32 位十六进制，偏移为 −255—255 的整数。');const added=BigInt.asUintN(32,b+BigInt(d)),ea=k==='post'?b:added,end=k==='offset'?b:added,syntax=k==='offset'?`[R1,#${d}]`:k==='pre'?`[R1,#${d}]!`:`[R1],#${d}`;let s=txt(12,25,'LDR R0, '+syntax,'start','text-small');s+=rows(w,[['执行前 R1',hx(b)],['本次访存 EA',hx(ea),'active'],['R0 得到',`Mem32[${hx(ea)}]`],['执行后的 R1',hx(end),k==='offset'?'node':'waiting']],48,70);render(r,345,'先求有效地址再独立求基址写回',s,`EA=${hx(ea)}；新 R1=${hx(end)}。${k==='post'?'后变址本次使用旧基址。':k==='pre'?'前变址把有效地址写回。':'偏移不写回。'}地址运算按 32 位模型，实际访问另核对。`);});
+setup('multiple',(r,w)=>{const mode=val(r,'[data-mode]'),n=+val(r,'[data-count]'),wb=get(r,'[data-wb]').checked,B=0x20000100,first={IA:B,IB:B+4,DA:B-4*n+4,DB:B-4*n}[mode],end=wb?B+(['IA','IB'].includes(mode)?4*n:-4*n):B;let b=txt(12,26,`STM${mode} R9${wb?'!':''}, {R1-R${n}}`,'start','text-small')+txt(12,54,['IB','DA'].includes(mode)?'经典模型；此 T32 形式不支持':'M3/M4 对应地址模式','start','text-small');for(let i=0;i<n;i++){const y=77+i*37;b+=box(12,y,w-24,34)+txt(24,y+23,'R'+(i+1),'start','text-small')+txt(w-24,y+23,hx(first+4*i),'end','text-small')}const y=95+n*37;b+=rows(w,[['原 R9',hx(B)],['执行后的 R9',hx(end),wb?'active':'node']],y,62);render(r,y+139,'按整个地址范围和寄存器号排列多传输',b,`R1 对应最低地址 ${hx(first)}，R${n} 对应 ${hx(first+4*(n-1))}；新 R9=${hx(end)}。${['IB','DA'].includes(mode)?'IB/DA 仅作原理对照。':''}`);});
+setup('stack',(r,w)=>{const k=+val(r,'select'),old=0x20001000,now=k===1?old-16:old;let b=txt(12,25,['压栈前','批量 PUSH 后','配对 POP 后'][k],'start','text-small')+txt(12,54,'当前 SP = '+hx(now),'start','text-small');for(let i=0;i<4;i++){const y=82+i*43;b+=box(12,y,w-24,38,k===1?'active':'node')+txt(22,y+25,hx(old-16+4*i),'start','text-small')+txt(w-22,y+25,k===0?'原 RAM 未显示':`保存的 R${i+1}`,'end','text-small')}b+=txt(12,293,k===1?'R1 在最低地址；R4 在最高地址':k===2?'SP 恢复；旧比特不再属活动帧':'一次列表 PUSH 不等于逐项压栈','start','text-small');render(r,317,'满递减批量栈按递增地址对应递增寄存器号',b,k===1?'新 SP=0x20000FF0，四字占 16 字节。':k===2?'SP=0x20001000；配对 POP 恢复这组值，RAM 不必清零。':'下一次批量压入先为全部四字留出 16 字节。');});
+setup('pcrel',(r,w)=>{const a=parse(val(r,'[data-address]')),d=num(r,'[data-offset]');if(a===null||a%2n||!Number.isInteger(d)||d<0||d>1020||d%4)return err(r,'真实指令地址须半字对齐；正偏移 0—1020 且为 4 的倍数。');const pc=a+4n,base=pc&~3n,ea=base+BigInt(d);if(ea>M)return err(r,'本示例地址超出 32 位范围。');const b=rows(w,[['当前指令地址 A',hx(a)],['可见 PC：A+4',hx(pc)],['按字对齐的基准',hx(base),'active'],['加偏移得到池单元地址',hx(ea),'waiting'],['加载到 R0 的内容',`Mem32[${hx(ea)}]`]],12,70);render(r,374,'字面量加载先取PC偏移再按字对齐',b,`A+4=${hx(pc)}，对齐基准=${hx(base)}，文字池单元=${hx(ea)}。R0 得该处存的字，不是地址本身。`);});
+setup('extend',(r,w)=>{const k=val(r,'[data-kind]'),v=parse(val(r,'[data-value]')),size=k.endsWith('H')?16:8,signed=k.includes('S'),limit=1n<<BigInt(size);if(v===null||v>=limit)return err(r,`读得数据需放进 ${size} 位，即不超过 ${hx(limit-1n,size/4)}。`);const value=signed?BigInt.asIntN(size,v):v,result=BigInt.asUintN(32,value);let b=rows(w,[['加载形式 / 原始宽度',`${k} / ${size} 位`],['内存原始位串',hx(v,size/4)],['按该类型解释的数值',value.toString()],['寄存器的 32 位结果',hx(result),'active']],12,69);b+=txt(12,310,signed?'复制原窄数据最高符号位':'高位全部补 0','start','text-small');render(r,337,'窄加载的符号扩展与零扩展',b,`${k}：${hx(v,size/4)} → ${hx(result)}；数值 ${value}。`);});
+setup('carry',(r,w)=>{const add=val(r,'[data-kind]')==='add',data=add?[['两个 64 位源','00000001FFFFFFFF'],['第二个源','0000000200000001'],['低字 ADDS','FFFFFFFF + 1 → 00000000'],['低字传出','C=1'],['高字 ADC','1 + 2 + C → 00000004'],['最终高:低','00000004:00000000']]:[['两个 64 位源','0000000200000000'],['减去','0000000100000001'],['低字 SUBS','0 − 1 → FFFFFFFF'],['低字传出','C=0，即借位为 1'],['高字 SBC','2 − 1 − (1−C) → 00000000'],['最终高:低','00000000:FFFFFFFF']];let b=rows(w,data.map((x,i)=>[...x,i===3?'waiting':i===5?'active':'node']),12,65);render(r,416,'低字C串接高字的64位加减',b,add?'结果 0x0000000400000000。ADC 读取低字产生的 C。':'结果 0x00000000FFFFFFFF。SBC 减的是 1−C。');});
+setup('multiply',(r,w)=>{const a=parse(val(r,'[data-a]')),b=parse(val(r,'[data-b]')),k=val(r,'[data-kind]');if(a===null||b===null)return err(r,'两个源均为 32 位十六进制。');const signed=k==='SMULL',x=signed?sgn(a):a,y=signed?sgn(b):b,product=x*y,raw=BigInt.asUintN(64,product),lo=raw&M,hi=raw>>32n;let s=rows(w,[['A 的本次解释',x.toString()],['B 的本次解释',y.toString()],['完整数学乘积',product.toString()],['RdLo / 低 32 位',hx(lo),'active'],['RdHi / 高 32 位',k==='MUL'?'MUL 不保存高部':hx(hi),k==='MUL'?'node':'waiting']],12,69);render(r,372,'完整乘积高低部及符号解释',s,`${k}：低字 ${hx(lo)}${k==='MUL'?'；仅留下低 32 位，不自动判断数学溢出。':'，高字 '+hx(hi)+'。'}`);});
+setup('logic',(r,w)=>{const a=parse(val(r,'[data-a]')),b=parse(val(r,'[data-b]')),op=val(r,'[data-op]');if(a===null||b===null)return err(r,'A/B 应为 32 位十六进制。');const result=({AND:a&b,ORR:a|b,ORN:a|(~b&M),EOR:a^b,BIC:a&(~b&M)})[op];let s=rows(w,[['操作 / 完整 32 位结果',`${op} → ${hx(result)}`,'active']],12,65);for(const [i,[label,v]] of [['A 低 8 位',a],['B 低 8 位',b],['结果低 8 位',result]].entries()){const y=106+i*68;s+=txt(12,y,label,'start','text-small')+bitrow(w,y+13,v,8,b&255n)}render(r,325,'32位按位逻辑并放大低字节',s,`${op} 的结果 ${hx(result)}。蓝色列由 B 的低字节掩码标出，全部 32 位均参与实际计算。`);});
+setup('shift',(r,w)=>{const a=parse(val(r,'[data-value]')),op=val(r,'[data-op]'),n=+val(r,'[data-count]'),C=+val(r,'[data-c]'),S=get(r,'[data-s]').checked;get(r,'[data-count]').disabled=op==='RRX';if(a===null)return err(r,'输入应为 32 位十六进制。');let res=a,out=C;if(op==='RRX'){res=(BigInt(C)<<31n)|(a>>1n);out=Number(a&1n)}else if(n){if(op==='LSL'){res=n>=32?0n:(a<<BigInt(n))&M;out=n<=32?Number((a>>BigInt(32-n))&1n):0}else if(op==='LSR'){res=n>=32?0n:a>>BigInt(n);out=n<=32?Number((a>>BigInt(n-1))&1n):0}else if(op==='ASR'){res=BigInt.asUintN(32,sgn(a)>>BigInt(Math.min(32,n)));out=Number((a>>BigInt(Math.min(32,n)-1))&1n)}else{const rot=n%32;res=rot?((a>>BigInt(rot))|(a<<BigInt(32-rot)))&M:a;out=Number((res>>31n)&1n)}}const finalC=S?out:C;let b=txt(12,25,`${op}${S?'S':''} · ${op==='RRX'?'固定 1 位':'量='+n}`,'start','text-small')+txt(12,52,'输入 '+hx(a)+' · 原 C='+C,'start','text-small')+bits32(w,78,a)+txt(12,207,'结果 '+hx(res),'start','text-small')+bits32(w,233,res);b+=rows(w,[['本次移出/保留的 carry 值',String(out)],['执行后的 APSR.C',`${finalC}${S?' · 按移位规则更新':' · 不带 S，保留原 C'}`,'active']],357,62);render(r,498,'移位结果和真正写回的进位标志',b,`${op} 结果 ${hx(res)}；APSR.C=${finalC}。${op==='RRX'?'原 C 用于回填 bit31。':n===0?'量为 0，结果与 C 保留。':'移出位是否写回，取决于 S。'}`);});
+setup('byteorder',(r,w)=>{const a=parse(val(r,'[data-value]')),op=val(r,'[data-op]');if(a===null)return err(r,'请输入 32 位十六进制。');const bytes=[24,16,8,0].map(x=>Number((a>>BigInt(x))&255n));let out;if(op==='REV')out=[...bytes].reverse();else if(op==='REV16')out=[bytes[1],bytes[0],bytes[3],bytes[2]];else{const v=(bytes[3]<<8)|bytes[2],sign=v&0x8000?255:0;out=[sign,sign,bytes[3],bytes[2]]}const result=out.reduce((s,v)=>(s<<8n)|BigInt(v),0n),cw=(w-24)/4;let b='';for(const [j,arr] of [bytes,out].entries()){const y=31+j*116;b+=txt(12,y,j?'结果字节（高 → 低）':'输入字节（高 → 低）','start','text-small');arr.forEach((v,i)=>{const x=12+i*cw;b+=txt(x+cw/2,y+29,['31:24','23:16','15:8','7:0'][i],'middle','text-small')+box(x+2,y+42,cw-4,38,op==='REVSH'&&j&&i<2?'waiting':'active')+txt(x+cw/2,y+67,hx(v,2).slice(2),'middle')})}b+=rows(w,[['32 位结果',hx(result),'active']],277,65);render(r,357,'按字节重排并标注REVSH符号扩展',b,`${op}：${hx(a)} → ${hx(result)}。${op==='REVSH'?'高半字由交换后的半字符号位填充。':'没有把单字节内部的位反序。'}`);});
+setup('bitfield',(r,w)=>{const a=parse(val(r,'[data-dest]')),s=parse(val(r,'[data-source]')),op=val(r,'[data-op]'),l=num(r,'[data-lsb]'),n=num(r,'[data-width]'),field=!['CLZ','RBIT'].includes(op);for(const q of ['[data-lsb]','[data-width]'])get(r,q).disabled=!field;if(a===null||s===null)return err(r,'源和原目标应为 32 位十六进制。');if(field&&(!Number.isInteger(l)||!Number.isInteger(n)||l<0||n<1||l+n>32))return err(r,'必须 lsb≥0、width≥1，且 lsb+width≤32。');let mask=field?((1n<<BigInt(n))-1n)<<BigInt(l):0n,result,v=op==='BFC'||op==='BFI'?a:s;if(op==='BFC')result=a&(~mask&M);else if(op==='BFI')result=(a&(~mask&M))|((s<<BigInt(l))&mask);else if(op==='UBFX'||op==='SBFX'){const f=(s&mask)>>BigInt(l);result=op==='SBFX'?BigInt.asUintN(32,BigInt.asIntN(n,f)):f}else if(op==='CLZ')result=BigInt(Math.clz32(Number(s)));else{result=0n;for(let i=0;i<32;i++)result=(result<<1n)|((s>>BigInt(i))&1n)}let b=txt(12,25,field?`${op}：bit${l}—${l+n-1}`:op+'：使用源 Rn','start','text-small')+txt(12,52,'被操作值 '+hx(v),'start','text-small')+bits32(w,78,v,mask)+txt(12,209,'结果 '+hx(result),'start','text-small')+bits32(w,235,result,op==='BFC'||op==='BFI'?mask:0n);render(r,355,'位域范围插入清除提取或位序操作',b,`${op} 结果 ${hx(result)}。${field?'字段宽 '+n+'，最低位 '+l+'。':'本操作不使用位域参数。'}`);});
+setup('call',(r,w)=>{const k=+val(r,'select'),active=[0,1,2,1,0][k],nodes=[['调用者','BL f @ 0x08000000'],['函数 f','BL g @ 0x08000100'],['函数 g','BX LR 返回 f']];let b='';nodes.forEach(([a,c],i)=>{const y=15+i*93;b+=box(12,y,w-24,61,i===active?'active':'node')+txt(24,y+24,a,'start')+txt(w-24,y+48,c,'end','text-small');if(i<2)b+=down(w/2,y+61,32)});const lr=k===0?'调用前旧值':k===1||k===4?'0x08000005':'0x08000105',saved=k===2||k===3?'保存着 0x08000005':k===4?'已恢复原链接并退出':'尚未为嵌套调用保存';b+=rows(w,[['当前 LR',lr,'waiting'],['f 的原返回链接',saved]],307,67);render(r,457,'嵌套调用覆盖LR所以要保护原返回链接',b,['即将执行 BL f。','BL 建立返回到 0x08000004 的链接。','f 已保护原链接；BL g 改写 LR。','g 通过 LR 返回 0x08000104，f 仍需恢复更外层链接。','f 恢复原返回信息，回到调用者 0x08000004。'][k]);});
+setup('tablebranch',(r,w)=>{const A=parse(val(r,'[data-address]')),B=parse(val(r,'[data-base]')),e=parse(val(r,'[data-entry]')),i=num(r,'[data-index]'),kind=val(r,'[data-kind]'),size=kind==='TBB'?1:2;if(A===null||B===null||e===null||A%2n||(size===2&&B%2n)||!Number.isInteger(i)||i<0||i>255||e>(size===1?255n:65535n))return err(r,'检查地址对齐、下标 0—255 与表项宽度（TBB 8 位、TBH 16 位）。');const entry=B+BigInt(i*size),pc=A+4n,target=pc+2n*e;if(entry>M||target>M)return err(r,'表项/目标超出本图 32 位范围。');const b=rows(w,[['表项地址 B + i×项宽',hx(entry),'active'],['该处读得无符号项 e',hx(e,size*2)],['真正分支基准 A+4',hx(pc),'waiting'],['表项变成字节偏移',`${e} × 2 = ${2n*e}`],['最终目标 A+4+2e',hx(target),'active']],12,69);render(r,374,'查表地址与PC分支基准分别计算',b,`${kind}：表项地址 ${hx(entry)}；读得 ${hx(e,size*2)}；目标 ${hx(target)}。B 不自动成为跳转基准。`);});
+setup('saturation',(r,w)=>{const k=val(r,'[data-kind]'),n=num(r,'[data-bits]'),a=parse(val(r,'[data-value]')),Q=+val(r,'[data-q]'),min=k==='SSAT'?1:0,max=k==='SSAT'?32:31;get(r,'[data-bits]').min=min;get(r,'[data-bits]').max=max;if(a===null||!Number.isInteger(n)||n<min||n>max)return err(r,`${k} 输出位数应为 ${min}—${max} 的整数，输入为 32 位十六进制。`);const x=sgn(a),L=k==='SSAT'?-(1n<<BigInt(n-1)):0n,U=k==='SSAT'?(1n<<BigInt(n-1))-1n:(1n<<BigInt(n))-1n,y=x<L?L:x>U?U:x,sat=x!==y,result=BigInt.asUintN(32,y),q=Q||Number(sat);const b=rows(w,[['输入按有符号解释',x.toString()],['目标范围',`${L} ～ ${U}`],['夹取后的数值',y.toString(),sat?'waiting':'node'],['32 位目标结果',hx(result),'active'],['Q：旧值 → 新值',`${Q} → ${q}${sat?' · 本次饱和':' · 保留旧值'}`]],12,69);render(r,374,'有符号输入的SSAT或USAT及黏性Q',b,`${k} #${n}：${hx(a)} → ${hx(result)}，数值 ${y}，Q=${q}。${sat?'发生饱和。':'没有新饱和，不清旧 Q。'}`);});
+setup('event',(r,w)=>{const op=val(r,'[data-op]'),E=+val(r,'[data-e]'),data=op==='SEV'?[['执行 SEV','发送事件'],['事件记录','本处理器记录可置为 1'],['传播','按系统集成通知其他处理器']]:op==='WFI'?[['执行 WFI','检查中断等唤醒条件'],['可能等待','不使用此图的 E 来作 WFE 判断'],['醒来以后','是否进入 ISR 还需另行判定']]:E?[['执行 WFE','看到原 E=1'],['消费旧事件','清记录，不进入本次事件等待'],['后续指令','直接继续']]:[['执行 WFE','看到原 E=0'],['等待条件','可能等待后续事件'],['事件到达后','可恢复后续执行']];let b='';data.forEach(([a,c],i)=>{const y=12+i*91;b+=box(12,y,w-24,61,i===1?'active':'node')+txt(24,y+23,a,'start','text-small')+txt(w-24,y+47,c,'end','text-small');if(i<2)b+=down(w/2,y+61,30)});render(r,294,'WFE消费已有事件或等待后续事件',b,op==='WFE'?(E?'E=1：WFE 消费记录并继续，E 清为 0。':'E=0：可能等待事件；实际退出条件按芯片与状态判断。'):op==='SEV'?'SEV 可设置本处理器事件记录，传播范围依系统。':'WFI 的唤醒与随后 ISR 激活是不同判断，不保证执行到这里一定睡住。');});
+setup('simd',(r,w)=>{const scenario=val(r,'[data-case]'),op=val(r,'[data-op]'),a=scenario==='carry'?0x00FF00FFn:0x7F7F7F7Fn,b=scenario==='carry'?0x00010001n:0x01010101n;let out=0n,GE=0;for(let j=0;j<4;j++){const av=Number((a>>BigInt(j*8))&255n),bv=Number((b>>BigInt(j*8))&255n);let v=av+bv;if(v>255)GE|=1<<j;if(op==='UQADD8')v=Math.min(255,v);else if(op==='QADD8'){const s=(av>=128?av-256:av)+(bv>=128?bv-256:bv);v=Math.min(127,Math.max(-128,s));}else if(op==='UHADD8')v=Math.floor(v/2);out|=BigInt((v+256)%256)<<BigInt(j*8)}if(op==='ADD32')out=(a+b)&M;let s=txt(12,25,op+' · 每格一字节','start','text-small'),cw=(w-24)/4;['A','B','结果'].forEach((label,row)=>{const value=row===0?a:row===1?b:out,y=58+row*91;s+=txt(12,y,label+' = '+hx(value),'start','text-small');for(let j=0;j<4;j++){const x=12+j*cw,v=Number((value>>BigInt((3-j)*8))&255n);s+=txt(x+cw/2,y+28,'lane'+(3-j),'middle','text-small')+box(x+2,y+39,cw-4,34,row===2?'active':'node')+txt(x+cw/2,y+62,hx(v,2).slice(2),'middle','text-small')}});s+=txt(12,361,op==='UADD8'?'GE='+GE.toString(2).padStart(4,'0'):['QADD8','UQADD8'].includes(op)?'本并行饱和操作保留 Q':'按相应指令处理，不猜 Q/GE','start','text-small');render(r,385,'普通跨字节进位与SIMD逐lane加法',s,`${op} 结果 ${hx(out)}。${op==='UADD8'?'GE='+GE.toString(2).padStart(4,'0')+'。':['QADD8','UQADD8'].includes(op)?'Q 保留，不因并行饱和自动置 1。':op==='ADD32'?'普通加法可跨字节传进位。':'按 lane 的扩展和做半分。'}`);});
+})();
+</script>
+<script>(()=>{const d=document.getElementById('directory');if(matchMedia('(min-width:1000px)').matches)d.open=true;const ans=()=>[...document.querySelectorAll('details.answer')];document.querySelectorAll('[data-answers]').forEach(b=>b.onclick=()=>ans().forEach(x=>x.open=b.dataset.answers==='open'));document.getElementById('print-book').onclick=()=>window.print();let saved=[];addEventListener('beforeprint',()=>{saved=ans().map(x=>x.open);ans().forEach(x=>x.open=true)});addEventListener('afterprint',()=>ans().forEach((x,i)=>x.open=saved[i]||false));})();</script></body></html>

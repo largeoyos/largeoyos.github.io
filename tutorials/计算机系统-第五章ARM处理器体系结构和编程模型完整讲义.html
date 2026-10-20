@@ -1,0 +1,1651 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="第五章ARM处理器体系结构和编程模型完整学习讲义，38节通俗讲解、15幅SVG图解、42道习题和10道综合自测。包括ARM体系、M3 M4结构、寄存器、双堆栈、位段、屏障、NVIC、优先级分组与VTOR，可离线阅读打印。"><title>第五章 · ARM处理器体系结构和编程模型完整讲义</title><style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+body{overflow-x:clip}
+body{overflow-x:visible}html{scroll-padding-top:28px}.layout{gap:42px}main{width:100%}.book-cover .edition{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted-foreground)}.book-cover .edition:before{content:'';width:42px;height:3px;background:var(--primary)}.book-cover h1{max-width:850px}.cover-subtitle{display:block;font-size:.58em;margin-top:14px;line-height:1.65}.book-cover .lead{max-width:750px}.cover-facts{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:var(--muted-foreground);margin-top:32px}.book-cover .route{margin-bottom:0}.reader-tools{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.reader-tools button,.btn{appearance:none;border:1px solid #9eafb0;border-radius:3px;background:var(--card);color:#244f61;font:inherit;line-height:1.5;padding:8px 14px;cursor:pointer}.reader-tools button{font-size:14px}.reader-tools button:hover,.btn:hover{background:var(--accent)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--primary);outline-offset:3px}nav .chapter-nav{color:#243f4b;font-weight:700;padding-top:22px}.chapter-front{padding-top:78px;border-top:3px solid var(--primary);border-bottom:0;margin-top:40px}.chapter-front h2{font-size:2.5rem;line-height:1.45;margin-bottom:28px}.chapter-number{display:block;font-size:14px;font-family:'Microsoft YaHei',sans-serif;letter-spacing:.1em;color:var(--primary);margin-bottom:15px}.chapter-front .lead{max-width:none;font-size:19px}.chapter-front blockquote{font-size:19px}.part-head{border-top:1px solid var(--border)}.part-goal{font-size:15px;color:#354a54;border-left:3px solid #417562;padding:2px 0 2px 18px;margin-bottom:32px}.part-goal p{margin:0 0 8px}.part-goal p:last-child{margin:0}.unit{margin:35px 0 0;scroll-margin-top:25px}.unit h3{margin-top:0;font-size:1.14rem;line-height:1.65;position:relative}.unit-index{display:block;font-size:12px;font-weight:400;letter-spacing:.08em;color:#607778;margin:0 0 4px}.unit+.unit{padding-top:28px;border-top:1px dashed #d7ddd9}.unit h4{font-size:1rem;margin:26px 0 12px}.unit hr{display:none}blockquote{margin:24px 0;padding:12px 0 12px 22px;border-left:3px solid var(--primary);color:#284c5b}blockquote p:last-child{margin-bottom:0}pre{overflow-x:auto;background:#ecf0ed;padding:18px 20px;font-size:14px;line-height:1.85;border-left:3px solid #83999c;tab-size:4;margin:22px 0 26px}code{font-family:'Cascadia Mono',Consolas,'Microsoft YaHei',monospace;font-size:.9em;font-variant-ligatures:none}p code,li code,td code{background:#e8ece8;padding:1px 4px;border-radius:2px;overflow-wrap:anywhere}pre code{font-size:inherit;background:none;padding:0}.eq{white-space:normal;text-align:center;font-size:18px;line-height:1.9;overflow-x:auto;padding:18px 20px}.eq math{display:block;width:max-content;min-width:0;max-width:none;margin:0 auto}math{font-family:'Cambria Math','STIX Two Math',math;font-size:1.08em}.math-inline{white-space:nowrap}mtext{font-family:'Microsoft YaHei','SimSun',sans-serif;font-size:.85em}.diagram{margin:35px auto;max-width:680px;padding:22px 20px 18px;background:#fafaf4;border-top:1px solid #c9d6d6;border-bottom:1px solid #c9d6d6;break-inside:avoid}.diagram .diagram-live{font-size:14px;line-height:1.8}.diagram .text-small{font-size:12px}.diagram .drawing{overflow:visible}.diagram svg{height:auto}.viz-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 18px;margin-bottom:16px}.form-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:#354e5a;max-width:100%;min-width:0}.form-select,.form-control{font:14px/1.4 'Microsoft YaHei',sans-serif;color:var(--foreground);background:var(--card);border:1px solid #a9b7b5;border-radius:3px;padding:8px 9px;max-width:100%;min-height:38px}.form-control{width:170px}.viz-row{display:flex;flex-wrap:wrap;gap:7px 17px;margin:10px 0}.diagram [aria-live]{font-size:13px;line-height:1.9;margin-top:12px;color:#355260}.diagram figcaption{font-size:13px;line-height:1.9;color:#526269;margin-top:16px}.figure-number{font-weight:700;color:#355768;margin-right:8px}.tabular-nums{font-variant-numeric:tabular-nums}.diagram-print{display:none}.exercise{padding:22px 0;border-top:1px solid var(--border);scroll-margin-top:20px}.exercise h3{margin:0 0 12px;font-size:18px}.exercise>p{margin-bottom:8px}.exercise details{margin-bottom:8px}.answer-content{padding-top:15px;font-size:16px}.answer-content p{font-size:inherit;margin:0 0 14px}.answer-content p:last-child{margin-bottom:0}.answer-content pre{font-size:13px}.answer-content ul,.answer-content ol{padding-left:25px}.question-links{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px}.question-links a{border:1px solid var(--border);padding:4px 9px;text-decoration:none;font-size:14px;background:var(--card)}.source-note{font-size:14px;color:var(--muted-foreground)}.topic-tag{display:inline-block;font-size:12px;font-weight:400;color:var(--primary);border:1px solid #b1c5cb;padding:1px 8px;margin-bottom:12px}.correction-note{border-left:3px solid #ad512d;padding-left:16px;font-size:15px}.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.finish-grid h3{margin-top:0}.answer-tools-note{font-size:13px;color:var(--muted-foreground)}
+@media(max-width:999px){.chapter-front{margin-top:28px}.chapter-front h2{font-size:2.1rem}.layout{max-width:900px}.book-cover{padding-bottom:42px}aside summary{font-size:14px}nav .chapter-nav{grid-column:1/-1}nav a{padding:7px 0}.part-head h2{font-size:1.65rem}}
+@media(max-width:540px){.chapter-front{padding-top:45px}.chapter-front h2{font-size:1.85rem}.book-cover h1{font-size:2.1rem}.cover-subtitle{font-size:.66em}.chapter-front .lead{font-size:17px}.finish-grid{grid-template-columns:1fr}.diagram{padding:18px 12px 14px}.unit h3{font-size:17px}.eq{font-size:16px;padding:14px 10px}.reader-tools{gap:8px}.reader-tools button{font-size:13px;padding:7px 9px}.cover-facts{gap:5px 20px}.part-goal{font-size:14px;padding-left:12px}pre{font-size:13px;padding:14px 12px}.unit+.unit{padding-top:22px}.book-cover .route{font-size:16px}.exercise h3{font-size:17px}}
+@media(max-width:380px){.diagram{margin-left:-16px;margin-right:-16px;padding:18px 1px 14px;width:calc(100% + 32px);max-width:none}.diagram .viz-controls,.diagram .viz-row,.diagram [aria-live],.diagram figcaption{margin-left:15px;margin-right:15px}.diagram .form-select{font-size:13px}.chapter-front h2{font-size:1.7rem}.eq{padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:18mm 17mm 19mm}
+@media print{html{scroll-padding-top:0}body{font-size:10.5pt;line-height:1.75;background:#fff}.layout{display:block;max-width:none;padding:0}.book-cover{padding:20px 0 30px;break-after:page}.book-cover h1{font-size:30pt}.book-cover .lead{font-size:13pt}.chapter-front{break-before:page;margin:0;padding-top:18px;border-top:2px solid #286a88}.chapter-front h2{font-size:23pt}.chapter-front .lead{font-size:12pt}section{break-before:auto;padding:28px 0 10px}.unit{margin-top:22px}.unit+.unit{padding-top:15px}.unit h3{font-size:12pt}.part-head h2{font-size:17pt}.reader-tools,.answer-tools-note,.top-link{display:none!important}h2,h3,h4,summary{break-after:avoid}p,li{orphans:3;widows:3}table{min-width:0;font-size:9pt;line-height:1.7;break-inside:auto}tr{break-inside:avoid}thead{display:table-header-group}.table-wrap{overflow:visible;margin:14px 0}th,td{padding:7px 8px}td:first-child{min-width:0}.eq{font-size:12pt;padding:10px;overflow:visible;break-inside:avoid}pre{font-size:9pt;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid;padding:10px 13px}details{break-inside:auto;padding:8px 0}details::details-content{content-visibility:visible;display:block}details:not([open])>:not(summary){display:block!important}.answer-content,.answer-content p{font-size:10pt}.diagram{max-width:155mm;width:100%;margin:20px auto;padding:12px 10px;background:#fff}.diagram-live{display:none}.diagram-print{display:block;font-size:14px;line-height:1.8}.diagram-print svg{display:block;width:100%;height:auto;overflow:visible}.diagram-print .text-small{font-size:12px}.diagram-print text{fill:var(--foreground);font-family:'Microsoft YaHei',sans-serif}.diagram figcaption{font-size:9pt;margin-top:8px}.part-goal{font-size:10pt;margin-bottom:20px}.cover-facts,.scope,.source-note{font-size:9pt}.question-links{display:none}.exercise{padding:14px 0;break-inside:auto}.exercise h3{font-size:11pt}.finish-grid{display:block}footer{padding:25px 0}.chapter-front .eyebrow{font-size:9pt}strong{-webkit-print-color-adjust:exact}*{print-color-adjust:exact}}
+.diagram svg{display:block;width:100%;height:auto}.diagram svg text{font-family:'Microsoft YaHei',sans-serif;fill:var(--foreground)}.diagram svg .node{fill:#edf0e8;stroke:#b8c7c2}.diagram svg .active{fill:#deebe9;stroke:#82a9ac}.diagram svg .waiting{fill:#f6e8d7;stroke:#c3a284}.diagram svg .wire{stroke:#395864;stroke-width:1.3;fill:none}.diagram svg .grid{stroke:#c8d3d0;stroke-width:1;fill:none}.diagram [aria-live]{overflow-wrap:anywhere}.diagram .form-control.short{width:116px}.diagram-print{font-size:14px;line-height:1.8}.section-context{font-size:14px;color:var(--muted-foreground)}.nav-group{font-weight:700;color:#294c5b!important;padding-top:22px!important}.question-links a{min-width:44px;text-align:center}.coverage-table{min-width:520px}.book-cover .lead{max-width:830px}.diagram .viz-controls:empty{display:none}.book-cover .scope{max-width:850px}
+@media(max-width:540px){.book-cover h1{font-size:2.05rem}.cover-subtitle{font-size:.63em}.diagram .form-select{font-size:13px}}
+@media print{.diagram-print svg{height:auto!important}.coverage-table{min-width:0}.lesson h2{font-size:17pt}.book-cover h1{font-size:30pt}.diagram-print svg{font-size:14px}.diagram-print .text-small{font-size:12px}table.compact-table{break-inside:avoid}}
+</style><noscript><style>.diagram-live{display:none}.diagram-print{display:block}</style></noscript></head><body><div class="layout"><aside aria-label="第五章目录"><p class="brand">计算机系统 / 第五章</p><details id="directory"><summary>展开目录 · ARM 处理器</summary><nav><a href="#how">学习路线与掌握要求</a><a class="nav-group" href="#s01">规则、结构与产品背景</a><a href="#s01">01 / ISA 与微架构：先分清规则和实现</a><a href="#s02">02 / 哈佛结构、TCM 与 Cache：为什么分路，为什么有两种快存储器</a><a href="#s03">03 / ARM、Thumb、Thumb-2：指令长度不等于处理器位数</a><a href="#s04">04 / 饱和运算：超过上限时为什么不绕回负数</a><a href="#s05">05 / 经典 ARM 型号和后缀：看到名字时能判断什么</a><a href="#s06">06 / Cortex-A、R、M：按任务理解产品，纠正“多核就是异构”</a><a class="nav-group" href="#s07">M3/M4 的组成与总线</a><a href="#s07">07 / M3 与 M4：哪些能力共有，哪些是扩展</a><a href="#s08">08 / 内核结构图：每个缩写究竟负责哪件事</a><a href="#s09">09 / MMU 与 MPU：地址转换和访问保护要分开</a><a href="#s10">10 / I-Code、D-Code、System、PPB：代码和数据究竟走哪条路</a><a href="#s11">11 / 异常总览：先认清“为什么离开当前程序”</a><a class="nav-group" href="#s12">编程模型、权限与寄存器</a><a href="#s12">12 / 状态、模式、特权：三个问题要分别回答</a><a href="#s13">13 / R0—R15：寄存器怎么分工，PC 的奇偶规则怎么用</a><a href="#s14">14 / xPSR 与 MRS/MSR：状态寄存器不是普通内存</a><a href="#s15">15 / PRIMASK、FAULTMASK、BASEPRI：屏蔽的是响应资格</a><a href="#s16">16 / BASEPRI 完整算例：逻辑等级先左移，再写寄存器</a><a href="#s17">17 / CONTROL：降权、选栈和 PSP 初始化</a><a class="nav-group" href="#s18">堆栈与异常现场</a><a href="#s18">18 / 堆栈的四种名字：M3/M4 采用满递减</a><a href="#s19">19 / 双堆栈和异常基本帧：现场先放到被打断者的栈</a><a href="#s20">20 / 栈对齐、浮点扩展帧与 EXC_RETURN</a><a class="nav-group" href="#s21">地址、位段与同步</a><a href="#s21">21 / 4 GiB 地址地图：有地址范围不等于装有存储器</a><a href="#s22">22 / 存储器连接：控制器、矩阵和 DMA 分别做什么</a><a href="#s23">23 / 大小端与 BE-8/BE-32：先画地址，再谈总线通道</a><a href="#s24">24 / 非对齐访问：支持某些情况，不代表任意指令都行</a><a href="#s25">25 / 位段 bit-band：从一个 bit 算到一个别名字地址</a><a href="#s26">26 / 存储权限与 Fault：先问访问是否被允许</a><a href="#s27">27 / 存储属性与写缓冲：发出写请求不等于写已经完成</a><a href="#s28">28 / LDREX/STREX：先建立保留，再尝试条件写入</a><a href="#s29">29 / DMB、DSB、ISB：顺序、完成和执行上下文</a><a class="nav-group" href="#s30">NVIC、向量与优先级</a><a href="#s30">30 / Pending 与 Active：被打断的处理程序仍然激活</a><a href="#s31">31 / 向量表与复位：表项放入口地址，不是跳转指令</a><a href="#s32">32 / 优先级的三套数字：来源数、逻辑等级、原始编码</a><a href="#s33">33 / PRIGROUP：哪些位决定抢占，哪些位只排队</a><a href="#s34">34 / 异常进入、嵌套、返回：硬件替你做了哪些工作</a><a href="#s35">35 / VTOR 重定位：向量表大小先算字节，再向上取二次幂</a><a href="#s36">36 / 请求、使能、挂起：为什么关掉以后还可能再进中断</a><a class="nav-group" href="#s37">NVIC 与 SCB 寄存器查阅</a><a href="#s37">37 / NVIC 寄存器：两个写 1 接口为什么更方便</a><a href="#s38">38 / SCB 寄存器：系统异常和系统状态集中在哪里</a><a href="#coverage">原书小节完整覆盖表</a><a href="#selftest">十道综合短自测</a><a href="#exercises">42 道原书习题答题卡</a><a href="#corrections">原书表述与易错点核对</a><a href="#finish">学完标准与复习方法</a></nav></details></aside><main>
+<header class="book-cover" id="start"><p class="edition">计算机原理与嵌入式系统 · 配套学习整理</p><h1>程序怎样运行<br>中断怎样接管<span class="cover-subtitle">第五章 · ARM 处理器体系结构和编程模型</span></h1><p class="lead">先把模式、权限、寄存器和堆栈分清，再追踪一次异常怎样保存现场、选择入口、完成服务并返回。每个计算都交代条件，每项背景都说明学到什么程度。</p><p class="scope">覆盖原讲义 5.1—5.5 全部小节及 5.6 的 42 道习题。按独立第五章讲义定位：正文与习题第 1—80 页，目录页另计。按项目既有教材整理版排版，保留完整讲解。</p><div class="cover-facts"><span>38 节完整讲解</span><span>15 幅 SVG 图解</span><span>42 道习题答题卡</span><span>10 道综合短自测</span></div><p class="route">规则与内核 → 总线与寄存器 → 模式和双堆栈 → 存储访问 → 异常、向量与优先级</p><div class="reader-tools"><button type="button" id="print-book">打印 / 保存为 PDF</button><button type="button" data-answers="open">展开全部答案</button><button type="button" data-answers="close">收起全部答案</button></div><a class="continue" href="#s01">从 ISA 与微架构开始 →</a><p class="source-note"><a href="计算机系统-第四章总线和接口完整讲义.html">回到第四章：总线和接口 →</a></p></header>
+<section id="how"><p class="eyebrow">先明确学到什么程度</p><h2>这一章不是背型号表，是建立可执行的处理器模型</h2><p>最重要的是能分析一个具体场景：现在什么模式、什么权限、用哪个栈；读写走哪条路；异常来后保存在哪里、从哪张表找入口、能否抢占、怎样返回。历史产品和配置表也全部涉及，但掌握深度不同。</p>
+<div class="table-wrap"><table><thead><tr><th>内容</th><th>做到什么程度</th><th>主要定位</th></tr></thead><tbody><tr><td>ISA、哈佛、TCM/Cache、MMU/MPU</td><td>能用例子比较，并说出取舍</td><td>01—03、09</td></tr><tr><td>型号历史、扩展、CoreSight</td><td>认识方向与用途；参数以查表为主</td><td>03、05—08</td></tr><tr><td>模式、寄存器、权限、选栈</td><td><strong>能独立判断场景，找出代码错误</strong></td><td>12—17</td></tr><tr><td>基本帧、双堆栈、对齐</td><td><strong>会画过程、算 SP、定位 PC/xPSR</strong></td><td>18—20</td></tr><tr><td>地址区、大小端、位段</td><td><strong>会展开字节，推公式并算别名</strong></td><td>21—26</td></tr><tr><td>属性、排他、屏障</td><td>能解释并发风险与三种同步作用</td><td>27—29</td></tr><tr><td>向量、优先级、PRIGROUP、VTOR</td><td><strong>会算编码、分组、表项与对齐，写明假设</strong></td><td>30—36</td></tr><tr><td>NVIC/SCB 地址与字段</td><td>会按 IRQ 定位 bank/bit，懂写入语义；其余会查</td><td>37—38</td></tr></tbody></table></div>
+<p>每节开头给出“掌握要求”和背景理由。这里的重点根据原章习题和后续学习依赖划分，并不假装知道你的考试范围。<strong>所有内容都要见过、知道用途，但不是所有型号、年份和保留位都需要同样深背。</strong></p>
+<ol><li>第一遍顺序读，遇到 SVG 先用默认例子理解关系。</li><li>第二遍独立重做 BASEPRI、对齐、位段、PRIGROUP、VTOR 五类计算，再切换图中条件验证。</li><li>最后先做十道短自测，再按原题号做 42 道题；有条件不足的题，先写假设。</li></ol><p class="source-note">正文、MathML 公式、交互代码和 SVG 都在本文件内，离线可读。答案默认折叠；打印时显示全部答案与图解默认示例。外部手册链接仅供核对，不影响阅读。若要打印改过参数的示例，可另行截图保存该图；本讲义打印版固定采用正文默认条件。</p></section>
+<section class="part-head lesson" id="s01"><p class="eyebrow">第五章 · 第 01 节</p><h2>ISA 与微架构：先分清规则和实现</h2><p class="section-context">5.1.1，第 1—3 页；习题 5.1</p><div class="part-goal"><p><strong>掌握要求：</strong>能给出两个定义，举出“ISA 相同但实现不同”的例子，并说明兼容性的条件。</p><p><strong>背景为什么要讲：</strong>后面频繁出现 ARMv7、Cortex-M4、STM32 等名字；先分层，才不会把架构版本、处理器内核和芯片型号混成一件事。</p></div><p>先接上前几章：存储器提供指令和数据，总线负责传输，<strong>处理器按指令的规则完成运算和控制</strong>。这一章主要研究程序能看到的处理器，而第六章才系统学习指令写法。</p>
+<p><strong>ISA（Instruction Set Architecture，指令集体系结构）规定软件与处理器之间的接口。</strong>它包含指令的编码与含义、可见寄存器、数据类型、寻址方式、异常和访问权限等。它回答“这段机器码应当产生什么结果”。不能把 ISA 缩成一张加减乘除指令表。</p>
+<p><strong>µarch（Microarchitecture，微架构）是实现 ISA 的具体组织方式。</strong>流水线有几级，是否乱序执行，有几个运算单元，Cache 怎么组织，分支怎样预测，属于实现选择。它回答“用怎样的硬件把规则做出来”。</p>
+<figure class="diagram" id="fig-isa" data-figure="isa"><div class="diagram-live"><div id="c5-isa"><div class="viz-controls"></div><svg class="drawing" role="img" aria-label="规则、内核与芯片的三个层次"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-isa"><svg class="drawing" role="img" aria-label="规则、内核与芯片的三个层次" viewBox="0 0 640 310"><title>软件规则、实现内核与集成芯片分层</title><rect x="12" y="12" width="616" height="70" rx="3" class="active"></rect><text x="320" y="40" text-anchor="middle" class="">ISA · 软件规则</text><text x="320" y="65" text-anchor="middle" class="text-small">指令 / 寄存器 / 寻址 / 异常</text><path d="M320 82 v30 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="112" width="616" height="70" rx="3" class="node"></rect><text x="320" y="140" text-anchor="middle" class="">微架构 · 硬件实现</text><text x="320" y="165" text-anchor="middle" class="text-small">流水线 / 运算单元 / Cache</text><path d="M320 182 v30 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="212" width="616" height="70" rx="3" class="node"></rect><text x="320" y="240" text-anchor="middle" class="">SoC / MCU · 芯片集成</text><text x="320" y="265" text-anchor="middle" class="text-small">真实存储器 / 外设 / 互连</text></svg><div aria-live="polite">读型号时先问：它是在说架构版本、内核，还是已经带存储器和外设的芯片？</div></div></div><figcaption><span class="figure-number">图 5-1</span>同一套软件规则可以有不同硬件实现；具体芯片还决定真实存储器、外设与中断配置。</figcaption></figure>
+
+
+
+<p>例如，同样一条加法指令，可以由简单流水线执行，也可以在更复杂的执行结构里完成。只要对程序表现满足对应 ISA，内部做法可以不同。于是，<strong>同一 ISA 不等于同一速度、功耗、面积和中断延迟</strong>。</p>
+<p>原书还按 ISA 设计风格区分 RISC（Reduced Instruction Set Computer，精简指令集计算机）与 CISC（Complex Instruction Set Computer，复杂指令集计算机）。这是另一条分类轴，不能把“RISC=哈佛、CISC=冯·诺依曼”配成一对一。RISC 中常见加载/存储分工、寄存器间运算及便于流水实现的编码等设计思路；现代产品并非只靠指令条数就能分类或比较性能。</p>
+<p>再向外看：Arm 授权内核设计，芯片厂商把内核与 Flash、SRAM、定时器、通信接口等集成为 SoC/MCU。Cortex-M4 是内核；某个具体 MCU 才决定实际有多少 SRAM、哪些外设、实现几位中断优先级。内核手册不能代替芯片数据手册。</p>
+<h3>做题时怎样组织答案</h3>
+<p>按“定义 → 举例 → 联系”写三步：ISA 是软件可见规则；微架构是硬件实现；不同微架构可实现兼容的 ISA。接着补上条件：二进制兼容还要求实际使用的扩展指令、ABI、运行环境和外设地址等匹配。<strong>不能从“都叫 Arm”推出任意程序直接互换。</strong></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s02"><p class="eyebrow">第五章 · 第 02 节</p><h2>哈佛结构、TCM 与 Cache：为什么分路，为什么有两种快存储器</h2><p class="section-context">5.1.1，第 1—3 页；习题 5.2、5.3</p><div class="part-goal"><p><strong>掌握要求：</strong>会分析指令/数据并行访问的好处与冲突，会按管理方式和时延确定性比较 TCM 与 Cache。</p><p><strong>背景为什么要讲：</strong>这些内容解释 Cortex-M 的多条总线，也解释为什么“把代码放 SRAM”不一定总更快。</p></div><p>冯·诺依曼式共享通路中，取指令和读写数据可能争同一条路。<strong>哈佛结构把指令通路和数据通路分开</strong>，便于同一时段取指与访数，增加可用带宽。代价是连接、控制和一致性处理更复杂，资源也可能分配不均。</p>
+<p>现代处理器经常是改进的哈佛结构：内核有分开的 I/D 接口，但软件仍使用统一地址空间，底层也可能访问同一片存储器。所以“有两条线”只说明具备并行的条件；两条线最后都挤到单端口 Flash，仍要仲裁。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>比较项</th>
+<th>TCM（Tightly Coupled Memory，紧耦合存储器）</th>
+<th>Cache（高速缓存）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据怎么进入</td>
+<td>软件、链接布局或装载过程安排到指定地址</td>
+<td>硬件按访问自动装入、替换</td>
+</tr>
+<tr>
+<td>是否存其他地址的副本</td>
+<td>通常就是该段地址对应的专用存储</td>
+<td>通常保存后级存储内容的副本</td>
+</tr>
+<tr>
+<td>访问判断</td>
+<td>访问 TCM 映射范围</td>
+<td>查标记，分命中与未命中</td>
+</tr>
+<tr>
+<td>时延</td>
+<td>通常更容易预测，适合实时关键代码/数据</td>
+<td>命中快，未命中较慢，时延波动较大</td>
+</tr>
+<tr>
+<td>软件需要关心什么</td>
+<td>放哪些内容、容量、初始化</td>
+<td>属性、一致性、必要的维护操作</td>
+</tr>
+</tbody></table></div>
+<p>一个很短却必须准时完成的控制中断，适合放在可预测的存储路径；一个访问热点随任务变化的复杂程序，能从 Cache 的自动管理获益。<strong>TCM 不是“永远命中的 Cache”</strong>：二者管理模型不同。</p>
+<p>本章只要求能解释取舍。Cache 的命中率计算已在第三章学习，这里不重算；TCM、I-Cache、D-Cache 是否实际存在，要查具体内核及芯片实现，不能把高端 Cortex-M7 的配置照搬给 M3。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s03"><p class="eyebrow">第五章 · 第 03 节</p><h2>ARM、Thumb、Thumb-2：指令长度不等于处理器位数</h2><p class="section-context">5.1.2，第 3—9 页；习题 5.5</p><div class="part-goal"><p><strong>掌握要求：</strong>准确区分 A32、T32、A64，知道 M3/M4 执行 Thumb 指令，能解释 Thumb-2 的含义。</p><p><strong>背景为什么要讲：</strong>旧名称在历史产品和汇编资料里很常见；学它是为了读懂术语，不要求逐年背诵版本发布时间。</p></div><p>先把三个“位数”分开：<strong>寄存器/主要数据运算宽度、地址宽度、单条指令的编码长度</strong>。32 位处理器可以执行 16 位编码的指令；16 位编码不意味着只能处理 16 位整数。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>名称</th>
+<th>主要编码长度</th>
+<th>理解重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>传统 ARM 指令集，现常称 A32</td>
+<td>32 位</td>
+<td>经典 Arm 处理器的一种执行状态和指令集</td>
+</tr>
+<tr>
+<td>早期 Thumb</td>
+<td>主要是 16 位紧凑编码</td>
+<td>减小程序体积，常用操作方便，但表达能力受编码空间限制</td>
+</tr>
+<tr>
+<td>Thumb-2，属于 T32 指令集的发展</td>
+<td>16 位与 32 位 Thumb 编码并用</td>
+<td>同时追求代码密度和较完整的功能</td>
+</tr>
+<tr>
+<td>A64</td>
+<td>32 位定长编码</td>
+<td>AArch64 执行状态的指令集，使用 64 位通用寄存器体系</td>
+</tr>
+</tbody></table></div>
+<p><strong>Thumb-2 不是把“16 位 Thumb 指令”和“32 位 ARM/A32 指令”随意混在一起。</strong>其中 32 位长指令仍是 Thumb 编码。Cortex-M3/M4 只有 Thumb 执行状态，不存在切换到 A32 执行程序的用法；也不要推论每一种 T32 扩展都被 M3/M4 支持。</p>
+<h3>架构版本只沿主线记</h3>
+<p>ARMv1、v2 是早期起点，v2 增加乘法等能力；v3 发展了 32 位地址及 CPSR/SPSR 等经典模型；v4/v4T 扩充半字访问、Thumb；v5 的不同扩展引入改进 DSP、饱和、BLX、CLZ、BKPT 等；v6 及其扩展发展 SIMD、端配置、非对齐访问、TrustZone 和 Thumb-2（v6T2）。<strong>同一大版本的扩展不保证每个产品都同时具备。</strong></p>
+<p>ARMv7 分出 A、R、M 应用方向。Cortex-M3 对应 Armv7-M，Cortex-M4 对应带 DSP 扩展的 Armv7E-M。Armv8-A 发展 AArch64；Armv8-M 仍面向 32 位微控制器，并发展安全扩展等。<strong>“v8 一律是 64 位”是错的。</strong></p>
+<p>原书的年代和扩展列表用于理解演进，不要求默写全部年份。经典 Arm 断点指令这里应写 <strong>BKPT</strong>；不要把 A64 的 BRK 名字直接挪过来。</p>
+<p>起源部分也要知道：原书回顾 Acorn 团队开发 Arm，分别用 Sophie Wilson 的指令集设计与 Steve Furber 的硬件实现说明 ISA/微架构的分工；从 Acorn RISC Machine 到后续授权内核的商业模式，低功耗、低成本、性能之间的取舍贯穿产品发展。这些是理解产业分工的背景，人物轶事、具体年表和某个年代的市场占比不用于本章计算，也不应当作今天的产品结论。</p>
+<p>安全扩展把安全与非安全世界隔开，虚拟化支持让多个软件环境受控运行；AArch64 的异常等级又是另一套权限组织。<strong>不要把这些背景直接塞入 M3/M4 的 Thread/Handler 两模式表</strong>。原书的 Armv8-R 描述针对其当时的 32 位实现背景，不能借此断言后续所有 R 产品都永久只支持 32 位。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s04"><p class="eyebrow">第五章 · 第 04 节</p><h2>饱和运算：超过上限时为什么不绕回负数</h2><p class="section-context">5.1.2 中增强指令相关内容；习题 5.4</p><div class="part-goal"><p><strong>掌握要求：</strong>会计算有符号/无符号饱和值，能用具体数据说明饱和与截断回绕的区别。</p><p><strong>背景为什么要讲：</strong>这是 M4 的 DSP 能力为什么有用的基础；只背“增强信号处理”不足以解释题目。</p></div><p>假设用 8 位有符号整数表示音频采样，范围是 −128 到 127。计算 100+60，数学结果为 160，已经超出范围。若仅留下二进制结果的低 8 位，得到 0xA0，按有符号解释为 −96：本应是很大的正信号，却突然变成负值。</p>
+<p><strong>饱和运算把超界结果夹到合法范围端点</strong>，所以这里得到 127。对控制量、声音幅度、像素亮度，削顶通常比突然反向更符合含义。但饱和仍然丢失幅度信息，不等于算得精确。</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>sat</mo><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo>min</mo><mo stretchy="true" fence="true" minsize="1.2em" maxsize="1.2em">(</mo><mi>U</mi><mo>&#x0002C;</mo><mo>max</mo><mo stretchy="false">&#x00028;</mo><mi>L</mi><mo>&#x0002C;</mo><mi>x</mi><mo stretchy="false">&#x00029;</mo><mo stretchy="true" fence="true" minsize="1.2em" maxsize="1.2em">)</mo></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>有符号&#x000A0;</mtext><mi>n</mi><mtext>&#x000A0;位：</mtext><mspace width="1em" /><mi>L</mi><mo>&#x0003D;</mo><mo>&#x02212;</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msup><mo>&#x0002C;</mo><mtext>&#x000A0;</mtext><mi>U</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msup><mo>&#x02212;</mo><mn>1</mn><mspace width="2em" /><mtext>无符号&#x000A0;</mtext><mi>n</mi><mtext>&#x000A0;位：</mtext><mspace width="1em" /><mi>L</mi><mo>&#x0003D;</mo><mn>0</mn><mo>&#x0002C;</mo><mtext>&#x000A0;</mtext><mi>U</mi><mo>&#x0003D;</mo><msup><mn>2</mn><mi>n</mi></msup><mo>&#x02212;</mo><mn>1</mn></mrow></math></div>
+
+
+
+
+
+<figure class="diagram" id="fig-saturation" data-figure="saturation"><div class="diagram-live"><div id="c5-saturation"><div class="viz-controls"><label class="form-label">数值类型<select class="form-select" data-kind><option value="signed">有符号 8 位</option><option value="unsigned">无符号 8 位</option></select></label><label class="form-label">左操作数<input class="form-control short" type="number" data-a value="100" min="-10000" max="10000" step="1"></label><label class="form-label">右操作数<input class="form-control short" type="number" data-b value="60" min="-10000" max="10000" step="1"></label></div><svg class="drawing" role="img" aria-label="8 位饱和与回绕对照"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-saturation"><svg class="drawing" role="img" aria-label="8 位饱和与回绕对照" viewBox="0 0 640 298"><title>固定8位时数学结果、回绕与饱和对照</title><text x="12" y="26" text-anchor="start" class="text-small">数学结果：100 + 60 = 160</text><rect x="12" y="46" width="616" height="59" rx="3" class="node"></rect><text x="24" y="69" text-anchor="start" class="text-small">表示范围</text><text x="616" y="92" text-anchor="end" class="">-128 ～ 127</text><rect x="12" y="124" width="616" height="59" rx="3" class="waiting"></rect><text x="24" y="147" text-anchor="start" class="text-small">保留低 8 位再解释</text><text x="616" y="170" text-anchor="end" class="">-96 · 原始 0xA0</text><rect x="12" y="202" width="616" height="59" rx="3" class="active"></rect><text x="24" y="225" text-anchor="start" class="text-small">饱和：夹在上下限</text><text x="616" y="248" text-anchor="end" class="">127</text></svg><div aria-live="polite">数学值 160；回绕值 -96；饱和值 127。数学结果已超表示范围。</div></div></div><figcaption><span class="figure-number">图 5-2</span>观察数学值、低 8 位解释与饱和值的差别。输入表示参与相加的整数，图的位宽固定为 8 位。</figcaption></figure>
+
+
+
+<p>再算两个例子：有符号 8 位 −100−60 饱和为 −128；无符号 8 位 250+20 饱和为 255，普通截断则为 14。做题先写<strong>位宽与有无符号</strong>，再算数学结果，最后判断是否夹到端点。</p>
+<p>SSAT/USAT 表示有符号/无符号饱和处理，Q 标志可以记录饱和事件。M3 也具有部分饱和和乘法指令；M4 的 DSP 扩展还增加成组小数据运算、更多乘加等。<strong>不能把所有饱和功能都算成 M4 独有。</strong></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s05"><p class="eyebrow">第五章 · 第 05 节</p><h2>经典 ARM 型号和后缀：看到名字时能判断什么</h2><p class="section-context">5.1.2—5.1.3，经典 ARM 产品部分</p><div class="part-goal"><p><strong>掌握要求：</strong>认识经典产品的演进方向；常见后缀能查读，型号、级数、频率和发布日期不要求整表硬背。</p><p><strong>背景为什么要讲：</strong>原书用较长篇幅介绍老内核。这部分保留完整定位，避免以后读旧芯片资料时误认型号数字就是架构版本。</p></div><p>早期产品常用 ARM7、ARM9、ARM10、ARM11 命名，后来转向 Cortex-A/R/M。<strong>ARM7 产品名不等于 ARMv7 架构</strong>，ARM11 也不意味着“ARMv11”。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>原书涉及的产品组</th>
+<th>需要知道的意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ARM7、ARM700/710、ARM720T/740T、ARM7TDMI、ARM7EJ-S</td>
+<td>早期嵌入式内核；Thumb、调试、乘法及后续增强逐步出现</td>
+</tr>
+<tr>
+<td>ARM9TDMI、ARM920T/922T、ARM926EJ-S、ARM940T、ARM946E-S、ARM966E-S、ARM968E-S、ARM9E/9EJ</td>
+<td>更强的流水线和 I/D 通路；型号在 MMU/MPU、Cache/TCM、DSP 等配置上分化</td>
+</tr>
+<tr>
+<td>ARM10、ARM1020E/1022E/1026EJ-S</td>
+<td>向更高性能演进，扩展执行和存储系统能力</td>
+</tr>
+<tr>
+<td>ARM11、ARM1136J、ARM1156T2、ARM1176JZ、ARM11 MPCore</td>
+<td>v6 时代的代表，涉及媒体、安全、Thumb-2、多核等方向</td>
+</tr>
+</tbody></table></div>
+<p>这里不是暗示同组每一项都具有所有特性。看到具体型号，才去查该型号的手册。原书每个小型号的缓存容量、流水级数、功耗/频率数字都属于<strong>查表层</strong>：知道有差异即可，不必用记忆替代资料。</p>
+<p>后缀也分语境。T 常关联 Thumb，E 关联增强 DSP，J 关联 Jazelle/Java，T2 关联 Thumb-2，Z 关联安全扩展，K 常关联多处理器扩展。<strong>产品名末尾的“-S”常指可综合实现，而架构扩展里的 S 可指 SIMD，不能见 S 就译成同一个意思。</strong> ARM7TDMI 中 D、M、I 还分别关联调试、硬件乘法器、EmbeddedICE 等历史特性。</p>
+<p>原书还列 F（浮点扩展）以及 v6-M 的 M（微控制器 profile）。E 的增强例子除乘加/饱和，还涉及 LDRD/STRD 双字传输、MCRR/MRRC 协处理器传输、PLD 预取等，<strong>只需认识扩展覆盖运算与传输，不要求此刻写出每条语法</strong>。字母必须连同具体架构和产品读，不能单字母通译。</p>
+<p>Arm 特点表中的多寄存器、地址自动增减、ALU 与移位器配合、多寄存器加载/存储、条件执行和紧凑编码，分别服务于减少访存、简化循环和减小程序。原书“固定长度”“所有指令都能条件执行”等概括带有经典 A32 语境：T32 本来就有两种长度，各指令的条件执行还有具体限制，不能推广到所有架构和编码。下一章再逐项练写法，本章认识这些设计选择的目的即可。</p>
+<p>二进制兼容要核对实际架构及扩展。一个增加了新指令的程序放到旧核，可能触发未定义指令；即使指令兼容，外设和启动代码仍常需移植。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s06"><p class="eyebrow">第五章 · 第 06 节</p><h2>Cortex-A、R、M：按任务理解产品，纠正“多核就是异构”</h2><p class="section-context">5.1.3，第 9—22 页；习题 5.7</p><div class="part-goal"><p><strong>掌握要求：</strong>按应用处理、实时处理、微控制器区分三类；能解释锁步的故障检测目的和局限。</p><p><strong>背景为什么要讲：</strong>型号目录用于建立地图，属于全部要认识但多数不必背参数的内容；它也说明本章为何聚焦 M3/M4。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>产品方向</th>
+<th>关注的任务</th>
+<th>原书代表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cortex-A（Application）</td>
+<td>复杂操作系统、应用吞吐、虚拟内存</td>
+<td>A5/A7/A8/A9/A15/A17；A32、A34/A35、A53/A55、A65、A72/A73/A75/A76/A77 等</td>
+</tr>
+<tr>
+<td>Cortex-R（Real-time）</td>
+<td>确定性响应、可靠控制、实时吞吐</td>
+<td>R4、R5、R7、R8、R52</td>
+</tr>
+<tr>
+<td>Cortex-M（Microcontroller）</td>
+<td>较低成本功耗、紧凑代码、快速异常响应</td>
+<td>M0、M0+、M1、M3、M4、M7、M23、M33、M35P、M55</td>
+</tr>
+</tbody></table></div>
+<p>原书还列出汽车安全方向 A65AE/A76AE、M55 的 Helium/MVE、Ethos-U55 及 Ethos-N37/N57/N77 神经网络加速器。理解这些分别服务安全、向量计算、机器学习即可；NPU 不是给 M3 增加的一条普通指令。M1 面向 FPGA，M0/M0+ 追求精简，M7 提升吞吐与存储能力，M23/M33 引入较新的 M 架构特性，M35P 强调防护，M55 引入更强向量能力。<strong>这是原书时代的产品地图，不是完整现售目录。</strong></p>
+<p>原表中的“A58”以及汽车型号前后不一致之处不宜当作背诵点。架构表里的“支持 A64/A32/T32”也须逐产品、逐执行等级核对，例如 A32 本身就是重要的仅 32 位实例。</p>
+<h3>锁步为什么不是两个人各干一份工作</h3>
+<p>两个冗余核执行相同工作并比较结果，出现不一致时向系统报告故障，这叫双核锁步（DCLS）。主要目的为<strong>检测故障、提高系统的可靠性/功能安全能力</strong>，不是让应用速度翻倍。检测后如何进入安全状态或恢复，由系统设计决定；仅凭两份不同结果也不能判定哪份一定正确。</p>
+<p>要纠正习题 5.7 的前提：<strong>多核、异构、锁步是不同概念</strong>；相同内核也可以锁步。Arm 的 Cortex-R 对照资料列 R5、R52 支持 DCLS，而 R7、R8 并非都具备该功能，不能把题中四个型号一概写成“异构多核锁步”。若按题意答，先写冗余比较与安全目的，再说明型号前提需要限定。<a href="https://developer.arm.com/-/media/Arm%20Developer%20Community/PDF/Cortex-A%20R%20M%20datasheets/Arm%20Cortex-R%20Comparison%20Table.pdf?hash=FD7C3BA51CC77120C6E8AE9F4F522E762BF32334&la=en&revision=74d60ed8-f68b-48c4-a888-9a8b128a2cbe">Arm Cortex-R 对照表</a></p>
+<p>ECC/奇偶校验用于检测或在特定编码下纠正存储错误；不是所有编码都能“纠正任意两位错”。原书性能提升倍数和跑分是指定配置/负载下的比较，不是所有程序的保证。理解测量条件即可，无需背数字。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s07"><p class="eyebrow">第五章 · 第 07 节</p><h2>M3 与 M4：哪些能力共有，哪些是扩展</h2><p class="section-context">5.2.1—5.2.2，第 23—29 页；习题 5.8</p><div class="part-goal"><p><strong>掌握要求：</strong>能说明 M4 的 DSP 增强与可选 FPU，准确区分 SIMD、乘加、整数和浮点。</p><p><strong>背景为什么要讲：</strong>决定编译器允许生成哪些指令，也解释为什么程序不能只按“都是 Cortex-M”来迁移。</p></div><p>M3/M4 都是 32 位 Cortex-M 内核，都使用 Thumb/T32 的相关指令，具有寄存器组、流水执行、NVIC、存储器接口和调试支持等。M3 不是“只会最基础整数运算”，它已有硬件乘法、除法、部分饱和等能力。</p>
+<p><strong>M4 增加面向 DSP 的扩展</strong>：把一个 32 位寄存器拆成若干个 8/16 位数据并行处理（packed SIMD），增加双 16 位乘法/乘加、更多有符号和饱和运算等。比如一次同时对两个 16 位采样做乘法并累加，减少循环中的指令数。SIMD 是 Single Instruction Multiple Data，关键是“一条指令处理多份数据”，不是多核的同义词。</p>
+<h3>FPU 要知道到什么程度</h3>
+<p>FPU（Floating-Point Unit，浮点运算单元）是 M4 可选配置，常见带 FPU 的实现称 M4F。它主要支持单精度浮点运算，使用 S0—S31 等浮点寄存器；D0—D15 可表示重叠的 64 位寄存器视图，<strong>不意味着提供双精度算术</strong>。支持某些半精度格式转换，也不等于任意半精度运算都能直接完成。</p>
+<p>启用访问权限涉及 SCB 的 CPACR：CP10、CP11 各是 <strong>2 位字段</strong>，不是两个单独的开关位；常见全访问配置对应位 [23:20] 置为 0xF，并按规定同步。这里只要求认识作用，不要求现在背完整初始化程序。</p>
+<p>原书还介绍融合乘加：计算乘法加法的组合时按相应指令语义减少中间舍入；浮点/整数/定点格式转换和浮点寄存器与内存、整数寄存器间传输也有对应指令。M4 的 FPv4-SP-D16 不因此支持任意双精度算术、浮点余数或十进制转换；需要的额外功能可能由软件提供。浮点指令常以 V 开头是历史命名，不能由此认定在执行 Neon 向量运算。M3/M4 也不是可让用户任意扩接传统协处理器的通用接口平台。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>问法</th>
+<th>可靠答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M4 比 M3 多什么</td>
+<td>DSP 扩展；FPU 可选，须看实际实现</td>
+</tr>
+<tr>
+<td>M4 都能硬件执行浮点吗</td>
+<td>不能由型号一概推断，必须核对是否集成并启用 FPU</td>
+</tr>
+<tr>
+<td>M4 有 SIMD，是否等于 Neon</td>
+<td>不是；这是 M profile 中相应的 DSP 指令能力</td>
+</tr>
+<tr>
+<td>M3 执行不支持的 M4 指令</td>
+<td>可触发 UsageFault；若未启用对应错误处理，可能升级为 HardFault</td>
+</tr>
+</tbody></table></div>
+<p>“三级流水线”一类结构参数了解含义即可：取指、译码、执行可以重叠；分支、等待和多周期操作会改变吞吐。<strong>不能把理想每拍推进当成任何指令都只花一拍。</strong></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s08"><p class="eyebrow">第五章 · 第 08 节</p><h2>内核结构图：每个缩写究竟负责哪件事</h2><p class="section-context">5.2.2，第 25—30 页；习题 5.18</p><div class="part-goal"><p><strong>掌握要求：</strong>能按执行、异常控制、存储保护、调试追踪四类解释组件；重点缩写能写出中英文全称。</p><p><strong>背景为什么要讲：</strong>这一节是原书框图和调试模块表的完整导读，避免缩写堆积；调试组件内部实现不要求现在掌握。</p></div><p>处理器不是只有 ALU。执行部分负责译码、整数/DSP/FPU 运算；寄存器保存临时状态；总线接口连接存储器；NVIC 接收异常并判优；SCB 配置系统行为；可选 MPU 限定访问；调试组件帮助观察运行。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>英文全称</th>
+<th>中文与用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NVIC</td>
+<td>Nested Vectored Interrupt Controller</td>
+<td>嵌套向量中断控制器；使能、挂起、优先级与异常响应</td>
+</tr>
+<tr>
+<td>WIC</td>
+<td>Wake-up Interrupt Controller</td>
+<td>唤醒中断控制器；配合低功耗系统检测唤醒请求，可能为选配</td>
+</tr>
+<tr>
+<td>SCB</td>
+<td>System Control Block</td>
+<td>系统控制块；异常、向量表、休眠与错误状态等</td>
+</tr>
+<tr>
+<td>FPU</td>
+<td>Floating-Point Unit</td>
+<td>浮点运算单元</td>
+</tr>
+<tr>
+<td>DWT</td>
+<td>Data Watchpoint and Trace</td>
+<td>数据观察点与跟踪；观察数据访问、事件与计数等</td>
+</tr>
+<tr>
+<td>ETM</td>
+<td>Embedded Trace Macrocell</td>
+<td>嵌入式跟踪宏单元；用于指令执行跟踪等</td>
+</tr>
+</tbody></table></div>
+<p>SysTick 是常用于系统节拍的 <strong>24 位递减计数器</strong>，有控制、重装载、当前值、校准寄存器；不等于操作系统本身。NVIC 与内核紧密配合完成自动保存现场和取向量，比“只给 CPU 拉一个中断线”的模型丰富。</p>
+<p>原书用经典 Arm 的 Reset、Data Abort、FIQ、IRQ、Prefetch Abort、Undefined、SWI 七类异常作对比：那种模型常配外部 VIC，负责多个外部来源的排队、屏蔽和向量；M3/M4 改用与 CPU 紧耦合的 NVIC，异常类型号和处理模型也变了。这张旧优先级图只需知道用途，<strong>不要把它的 FIQ/IRQ 层次与本章 M profile 的表混用</strong>。</p>
+<p>调试相关还要认识：FPB 是 Flash Patch and Breakpoint，支持断点及相关重映射能力；ITM 是 <strong>Instrumentation Trace Macrocell，仪器化跟踪宏单元</strong>，可输出软件事件，不能误展开为 Instruction；TPIU 是 Trace Port Interface Unit，组织跟踪输出；DAP 是 Debug Access Port，连接外部调试访问；SWD/JTAG 是调试连接方式；ROM table 可帮助发现 CoreSight 组件。</p>
+<p>原图中的断点数量、观察点数量和追踪端口是实现参数。<strong>认识能干什么即可，暂不需要逐位配置 DWT/ETM。</strong>调试停机也不是和 Thread、Handler 并列的第三种普通软件运行模式。</p>
+<p>WIC、休眠、深度休眠与芯片电源管理单元协作，目的为降低不必要的时钟或供电消耗。是否能关闭某时钟、由哪些请求唤醒，取决于芯片集成；不能从内核示意图推出整颗 MCU 在所有深睡眠模式中都能接受任意中断。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s09"><p class="eyebrow">第五章 · 第 09 节</p><h2>MMU 与 MPU：地址转换和访问保护要分开</h2><p class="section-context">5.2.3，第 30—31 页；习题 5.6</p><div class="part-goal"><p><strong>掌握要求：</strong>能比较二者的功能，说明 Cortex-M3/M4 为什么不靠 MMU 也能做权限保护。</p><p><strong>背景为什么要讲：</strong>第二、三章的地址概念在此落实到内核；MPU 为任务隔离、栈保护和存储属性提供基础。</p></div><p><strong>MMU（Memory Management Unit，存储器管理单元）通常负责虚拟地址到物理地址的转换，并参与权限和属性管理。</strong>复杂操作系统借此让不同进程使用各自虚拟地址空间。它需要地址转换结构及相关管理，增加硬件和软件复杂度。</p>
+<p><strong>MPU（Memory Protection Unit，存储器保护单元）主要对地址区域配置权限和属性，不承担分页式虚拟地址转换。</strong>“这段只允许特权访问”“这段禁止执行”就是典型用途。它可以阻止错误任务乱写内核数据，但不会凭空增加 RAM。</p>
+<p>M3/M4 使用固定的基本存储器地图，可选 MPU 通常提供 8 个可配置区域。区域的基址、大小、子区域、读写许可、执行禁止及属性需按限制设置；区域可以重叠，通常较高编号区域覆盖较低编号区域的设置。存在未覆盖区时，还要看背景映射和特权配置。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>比较</th>
+<th>MMU</th>
+<th>MPU</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>典型地址转换</td>
+<td>支持虚拟内存映射</td>
+<td>不做分页式地址转换</td>
+</tr>
+<tr>
+<td>保护</td>
+<td>可提供</td>
+<td>可提供</td>
+</tr>
+<tr>
+<td>属性配置</td>
+<td>可提供</td>
+<td>可提供</td>
+</tr>
+<tr>
+<td>管理粒度和灵活性</td>
+<td>通常较丰富</td>
+<td>以有限数量区域为主</td>
+</tr>
+<tr>
+<td>常见取舍</td>
+<td>能力强，开销较大</td>
+<td>简单、可预测，映射灵活性有限</td>
+</tr>
+</tbody></table></div>
+<p>做习题 5.6 时，先写“都有保护/属性管理作用”，再写“MMU 还做地址转换，MPU 不提供这种虚拟内存机制”。不要写成 MPU 只有保护、完全不管属性；也不要把 MPU 的可选性省略。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s10"><p class="eyebrow">第五章 · 第 10 节</p><h2>I-Code、D-Code、System、PPB：代码和数据究竟走哪条路</h2><p class="section-context">5.2.4，第 31—34 页；习题 5.11—5.15</p><div class="part-goal"><p><strong>掌握要求：</strong>根据地址和访问类型判路径，会分析同一目标的争用及矩阵/复用器差别。</p><p><strong>背景为什么要讲：</strong>这些路径解释性能，接口位宽和原书芯片连接细节以认识和查表为主。</p></div><p>M3/M4 内核常见三个面向存储器的 AHB-Lite 接口：<strong>I-Code 负责 CODE 区取指，D-Code 负责 CODE 区数据访问，System 负责其他常规区域的相应取指/数据访问。</strong>访问核心控制区域则涉及 PPB。AHB-Lite 单条接口的主从约束，不代表整颗 SoC 不能还有 DMA 等其他主设备。</p>
+<p>这些主要接口为 32 位通路，按字取回的指令数据可能包含两个 16 位编码；<strong>一次取回两条不等于每拍执行两条</strong>。I/D 访问同一 CODE 目标时需要仲裁，原书的典型连接让 D-Code 优先，以免数据访问卡住执行；具体集成还需看仲裁与存储器实现。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>情况</th>
+<th>典型路径</th>
+<th>可能的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>从 Flash 的 CODE 区取指</td>
+<td>I-Code</td>
+<td>受 Flash 等待与目标端口能力影响</td>
+</tr>
+<tr>
+<td>从同片 Flash 读常量</td>
+<td>D-Code</td>
+<td>与 I-Code 最终访问同目标时可能争用</td>
+</tr>
+<tr>
+<td>Flash 取指，同时 SRAM 区读写变量</td>
+<td>I-Code + System</td>
+<td>不同目标与通路具备并行条件</td>
+</tr>
+<tr>
+<td>在 SRAM 区执行，同时读写 SRAM 区数据</td>
+<td>System</td>
+<td>取指与访数可能共用接口/目标而争用</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-buses" data-figure="buses"><div class="diagram-live"><div id="c5-buses"><div class="viz-controls"><label class="form-label">访问组合<select class="form-select" data-case><option value="split">Flash 取指 + SRAM 数据</option><option value="flash">同片 Flash 取指 + 常量</option><option value="sram">SRAM 区取指 + 数据</option></select></label><label class="form-label">互连模型<select class="form-select" data-fabric><option value="matrix">矩阵：独立目标可并行</option><option value="mux">复用：共享一路</option></select></label></div><svg class="drawing" role="img" aria-label="I-Code、D-Code 与 System 访问路径"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-buses"><svg class="drawing" role="img" aria-label="I-Code、D-Code 与 System 访问路径" viewBox="0 0 640 312"><title>内核多接口与目标端口共同决定并行条件</title><text x="12" y="25" text-anchor="start" class="text-small">先判断访问地址，再看请求路径。</text><rect x="10" y="48" width="192" height="48" rx="3" class="node"></rect><text x="106" y="77" text-anchor="middle" class="text-small">取指</text><path d="M202 72 h22 m-6 -4 l6 4 l-6 4" class="wire"></path><rect x="224" y="48" width="192" height="48" rx="3" class="node"></rect><text x="320" y="77" text-anchor="middle" class="text-small">I-Code</text><path d="M416 72 h22 m-6 -4 l6 4 l-6 4" class="wire"></path><rect x="438" y="48" width="192" height="48" rx="3" class="node"></rect><text x="534" y="77" text-anchor="middle" class="text-small">Flash</text><rect x="10" y="131" width="192" height="48" rx="3" class="node"></rect><text x="106" y="160" text-anchor="middle" class="text-small">变量数据</text><path d="M202 155 h22 m-6 -4 l6 4 l-6 4" class="wire"></path><rect x="224" y="131" width="192" height="48" rx="3" class="node"></rect><text x="320" y="160" text-anchor="middle" class="text-small">System</text><path d="M416 155 h22 m-6 -4 l6 4 l-6 4" class="wire"></path><rect x="438" y="131" width="192" height="48" rx="3" class="node"></rect><text x="534" y="160" text-anchor="middle" class="text-small">SRAM</text><rect x="12" y="228" width="616" height="62" rx="3" class="active"></rect><text x="320" y="253" text-anchor="middle" class="">独立接口 + 独立目标</text><text x="320" y="278" text-anchor="middle" class="text-small">具备并行条件</text></svg><div aria-live="polite">矩阵可让两笔不同目标访问并行；具体速度仍取决于端口、控制器与等待。</div></div></div><figcaption><span class="figure-number">图 5-3</span>只展示与本节有关的访问。不同端口并不保证目标多端口；SRAM 例子假定取指/数据均经 System。实际等待与并行还取决于芯片实现。</figcaption></figure>
+
+
+
+<p><strong>复用器把多路请求汇到一条路，通常需要选一路通过；矩阵允许不同主端口同时访问不同从端口。</strong>但是，矩阵不能让一个只支持单次访问的目标凭空变成多端口：同片 Flash 仍可能是瓶颈。题目必须把“接口有几路”和“存储器实际能接受几路”分开。</p>
+<p>把数据集中在 SRAM 区，便于管理、读写，也有机会让 Flash 取指与 SRAM 访数并行；代价是 SRAM 容量成本、初始化搬运、System 通路争用等。在 SRAM 执行代码可避开 Flash 的较长等待，但也可能与 SRAM 数据共路，<strong>“必然更慢”或“必然更快”都缺少条件</strong>。</p>
+<p>PPB（Private Peripheral Bus，私有外设总线）连接内核系统控制、NVIC、调试等区域；原书外部 PPB 接口采用 APB 风格、32 位访问等集成规则。它不是 UART 那类普通外设 APB 地址区，也不是让软件随意接外设的接口。内核私有区的访问权限更严格，见第 26 节。原图中调试访问指示、地址线组合等是集成细节，了解“核心控制与调试有专门路径”即可。</p>
+<p>原图的外部 PPB 位于 E0040000—E00FFFFF 一带，包含 TPIU/ETM 等，普通扩展还要避开组件与 ROM 表。其 PADDR31 在该集成接口中用来识别软件请求（0）或调试硬件请求（1），<strong>不是教软件把普通目标地址最高位当作通用 APB 读写位</strong>。DAP 中 DP 面向 SWD/JTAG 等调试连接，AP（如 AHB-AP）把访问引到内部系统，解释了为何调试器也能观察存储器。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s11"><p class="eyebrow">第五章 · 第 11 节</p><h2>异常总览：先认清“为什么离开当前程序”</h2><p class="section-context">5.2.5，第 34—38 页；联系 5.5.1；习题 5.16、5.21、5.26</p><div class="part-goal"><p><strong>掌握要求：</strong>能区分常见异常来源，记住类型号与固定优先级不是同一组数字。</p><p><strong>背景为什么要讲：</strong>先有全景，后面寄存器、堆栈和 NVIC 才有对象；复杂错误状态位到最后查表学习。</p></div><p><strong>异常（exception）是处理器转去运行某个处理程序的机制。</strong>外设请求的中断是其中一类，程序主动发出的 SVC、错误触发的 Fault 也是异常。第四章把中断当作外部通知，本章把处理器内部的统一管理补全。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>异常类型号</th>
+<th>名称</th>
+<th>主要来源/用途</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Reset</td>
+<td>上电/复位，进入启动过程</td>
+<td>固定 −3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>NMI</td>
+<td>非屏蔽中断请求</td>
+<td>固定 −2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>HardFault</td>
+<td>严重错误或其他错误升级</td>
+<td>固定 −1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>MemManage</td>
+<td>MPU 等存储访问管理错误</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>5</td>
+<td>BusFault</td>
+<td>总线访问错误等</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>6</td>
+<td>UsageFault</td>
+<td>未定义指令、非法状态、特定非对齐等</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>7—10、13</td>
+<td>保留</td>
+<td>不自行填成普通中断</td>
+<td>—</td>
+</tr>
+<tr>
+<td>11</td>
+<td>SVCall</td>
+<td>SVC 指令请求系统服务</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>12</td>
+<td>DebugMonitor</td>
+<td>调试监控事件</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>14</td>
+<td>PendSV</td>
+<td>可挂起的系统服务，常用于任务切换</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>15</td>
+<td>SysTick</td>
+<td>系统节拍计时器事件</td>
+<td>可配置</td>
+</tr>
+<tr>
+<td>16 起</td>
+<td>外部 IRQ0 起</td>
+<td>外设中断请求</td>
+<td>可配置</td>
+</tr>
+</tbody></table></div>
+<p><strong>类型号用于识别和查向量表，优先级用于决定先处理谁。</strong>比如 NMI 类型号是 2，固定优先级是 −2；它们不能互换。可配置优先级中，数值越小越紧急；Reset、NMI、HardFault 排在这些可配置异常之前。</p>
+<p>M3/M4 可集成至多 240 个外部 IRQ，但实际数量由芯片确定。所谓“外部”是相对处理器内核，片上 UART 的中断也属于外部 IRQ，不是一定来自芯片引脚。</p>
+<h3>两个常见错误怎样答</h3>
+<p>非特权代码访问受限的核心私有区域，通常产生 BusFault；若是 MPU 权限规则拒绝访问，可体现为 MemManage。M3 执行不支持的 SIMD 指令，可触发 UsageFault。<strong>对应可配置错误处理若未使能，错误可能升级成 HardFault</strong>，因此实机只看到 HardFault 不代表最初原因就是某个笼统“硬件坏了”。</p>
+<p>具体 Fault 的精确原因要读 CFSR 等状态寄存器；这也是原书保留错误处理背景的价值。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s12"><p class="eyebrow">第五章 · 第 12 节</p><h2>状态、模式、特权：三个问题要分别回答</h2><p class="section-context">5.3.1，第 38—40 页；联系 5.3.4</p><div class="part-goal"><p><strong>掌握要求：</strong>任何场景都能分别说出执行状态、Thread/Handler 模式、访问等级和所用 SP。</p><p><strong>背景为什么要讲：</strong>原书模式图和堆栈表存在容易误导的组合限制；用独立维度讲清楚才能分析中断。</p></div><p>第一个问题是“用哪种指令状态执行”：M3/M4 正常执行 Thumb；第二个是“正在运行普通程序还是异常处理程序”：<strong>Thread（线程模式）或 Handler（处理模式）</strong>；第三个是“能否执行受限操作”：特权或非特权。</p>
+<p>复位后通常从<strong>特权 Thread、使用 MSP</strong>开始。进入普通异常处理程序后，处于 <strong>Handler、特权、使用 MSP</strong>。Thread 的特权等级和 SP 选择由 CONTROL 的相应位决定，二者是独立选择。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>模式</th>
+<th>nPRIV</th>
+<th>SPSEL</th>
+<th>实际访问等级与当前 SP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Thread</td>
+<td>0</td>
+<td>0</td>
+<td>特权，MSP</td>
+</tr>
+<tr>
+<td>Thread</td>
+<td>0</td>
+<td>1</td>
+<td>特权，PSP</td>
+</tr>
+<tr>
+<td>Thread</td>
+<td>1</td>
+<td>0</td>
+<td>非特权，MSP</td>
+</tr>
+<tr>
+<td>Thread</td>
+<td>1</td>
+<td>1</td>
+<td>非特权，PSP</td>
+</tr>
+<tr>
+<td>Handler</td>
+<td>不按它选择当前等级</td>
+<td>不按它选择当前 SP</td>
+<td>始终特权，MSP</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-modes" data-figure="modes"><div class="diagram-live"><div id="c5-modes"><div class="viz-controls"><label class="form-label">模式<select class="form-select" data-mode><option value="thread">Thread</option><option value="handler">Handler</option></select></label><label class="form-label">CONTROL.nPRIV<select class="form-select" data-priv><option value="0">0</option><option value="1">1</option></select></label><label class="form-label">CONTROL.SPSEL<select class="form-select" data-sp><option value="0">0 · MSP</option><option value="1" selected>1 · PSP</option></select></label></div><svg class="drawing" role="img" aria-label="模式、特权与当前栈指针"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-modes"><svg class="drawing" role="img" aria-label="模式、特权与当前栈指针" viewBox="0 0 640 322"><title>模式、访问等级与栈指针分别判断</title><rect x="12" y="10" width="616" height="49" rx="3" class="node"></rect><text x="24" y="39" text-anchor="start" class="text-small">执行状态</text><text x="616" y="39" text-anchor="end" class="">Thumb</text><rect x="12" y="76" width="616" height="49" rx="3" class="node"></rect><text x="24" y="105" text-anchor="start" class="text-small">当前模式</text><text x="616" y="105" text-anchor="end" class="">Thread</text><rect x="12" y="142" width="616" height="49" rx="3" class="active"></rect><text x="24" y="171" text-anchor="start" class="text-small">当前访问等级</text><text x="616" y="171" text-anchor="end" class="">特权</text><rect x="12" y="208" width="616" height="49" rx="3" class="active"></rect><text x="24" y="237" text-anchor="start" class="text-small">R13 当前对应</text><text x="616" y="237" text-anchor="end" class="">PSP</text><text x="12" y="300" text-anchor="start" class="text-small">Thread 的权限和选栈相互独立</text></svg><div aria-live="polite">nPRIV=0、SPSEL=1：特权 Thread 使用 PSP。这是组合观察，不是提权操作。</div></div></div><figcaption><span class="figure-number">图 5-4</span>切换独立维度。Handler 的当前特权等级与当前 SP 不由这两个 Thread 选择位决定；下拉框是观察模型，不表示非特权代码能自行改权限。</figcaption></figure>
+
+
+
+<p><strong>必须纠正原书表 5.15：非特权 Thread 使用 MSP 的组合并非架构禁止；“非特权 Handler”也不是普通异常处理的工作模式。</strong>工程上常把 PSP 给用户任务、MSP 给异常/内核，是有价值的组织方式，但不能把常见安排改写成所有组合的硬件限制。</p>
+<p>特权代码可配置许多系统控制功能；非特权代码受限，例如不能自行修改核心权限配置来给自己提权。若配置 MPU，还能对普通存储器进一步限制。这里的“线程”是处理器模式名，不意味着一定已经运行一个带多线程的操作系统。</p>
+<p>原书的两种操作状态是 <strong>Thumb 执行与调试停机</strong>：调试请求或断点等可使处理器暂停，调试器可按能力检查/修改寄存器与存储器。另有睡眠/深睡眠及锁死（lockup）等工作情形，用来说明等待、低功耗或严重故障；<strong>不能把所有“状态”一词都当成与 Thread/Handler 同一层的模式编号</strong>。低功耗和锁死的具体退出条件须看内核与芯片，正常程序不要靠屏蔽错误来掩盖故障。</p>
+<p>答场景题的模板是：“当前处于 Thumb 状态、Thread/Handler 模式、特权/非特权等级，R13 当前映射 MSP/PSP。”四项分别填，基本就不会串。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s13"><p class="eyebrow">第五章 · 第 13 节</p><h2>R0—R15：寄存器怎么分工，PC 的奇偶规则怎么用</h2><p class="section-context">5.3.2，第 40—43 页；习题 5.17、5.19</p><div class="part-goal"><p><strong>掌握要求：</strong>记住 SP/LR/PC，理解低寄存器编码与调用约定；按具体分支指令判断 bit0。</p><p><strong>背景为什么要讲：</strong>这一节只解释编程模型，不提前灌输整章汇编语法；为下一章读指令做准备。</p></div><p>M3/M4 的 R0—R15 是 32 位可见寄存器，其中 R0—R12 一般用于数据，R13=SP（栈指针），R14=LR（链接寄存器），R15=PC（程序计数器）。一般数据寄存器也不是在任何指令编码里都可以互换使用。</p>
+<figure class="diagram" id="fig-registers" data-figure="registers"><div class="diagram-live"><div id="c5-registers"><div class="viz-controls"></div><svg class="drawing" role="img" aria-label="通用寄存器及 SP、LR、PC 分工"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-registers"><svg class="drawing" role="img" aria-label="通用寄存器及 SP、LR、PC 分工" viewBox="0 0 640 433"><title>32位寄存器按编码约束和调用职责使用</title><rect x="12" y="10" width="616" height="47" rx="3" class="node"></rect><text x="22" y="31" text-anchor="start" class="">R0—R3</text><text x="618" y="49" text-anchor="end" class="text-small">参数 / 结果 / 临时量</text><rect x="12" y="69" width="616" height="47" rx="3" class="node"></rect><text x="22" y="90" text-anchor="start" class="">R4—R7</text><text x="618" y="108" text-anchor="end" class="text-small">低寄存器 · 常需保留</text><rect x="12" y="128" width="616" height="47" rx="3" class="node"></rect><text x="22" y="149" text-anchor="start" class="">R8—R11</text><text x="618" y="167" text-anchor="end" class="text-small">高寄存器 · 按调用约定</text><rect x="12" y="187" width="616" height="47" rx="3" class="node"></rect><text x="22" y="208" text-anchor="start" class="">R12</text><text x="618" y="226" text-anchor="end" class="text-small">调用临时量</text><rect x="12" y="246" width="616" height="47" rx="3" class="active"></rect><text x="22" y="267" text-anchor="start" class="">R13 / SP</text><text x="618" y="285" text-anchor="end" class="text-small">当前 MSP 或 PSP</text><rect x="12" y="305" width="616" height="47" rx="3" class="active"></rect><text x="22" y="326" text-anchor="start" class="">R14 / LR</text><text x="618" y="344" text-anchor="end" class="text-small">链接信息 / EXC_RETURN</text><rect x="12" y="364" width="616" height="47" rx="3" class="active"></rect><text x="22" y="385" text-anchor="start" class="">R15 / PC</text><text x="618" y="403" text-anchor="end" class="text-small">程序计数器</text></svg><div aria-live="polite">R9 的具体软件职责可由平台约定；不能仅凭这张归纳表覆盖所有 ABI。</div></div></div><figcaption><span class="figure-number">图 5-5</span>按寄存器编号阅读。调用约定给寄存器分配软件职责，低/高寄存器差别还影响可选 Thumb 编码。</figcaption></figure>
+
+
+
+<p>R0—R7 称低寄存器，很多 16 位 Thumb 编码容易直接使用；R8—R12 是高寄存器，某些操作需要更长编码或有额外限制。因此若在一个没有其他约束的短汇编片段中选临时寄存器，常优先考虑低寄存器，可能减小代码体积。<strong>不能把它理解成低寄存器算术更快、位宽更大。</strong></p>
+<p>调用约定还带来另一套分工：R0—R3 常用于参数、结果或调用者保存的临时量，R12 为调用临时量；R4—R8、R10—R11 等通常由被调用者保存，R9 按平台约定。跨函数调用要遵守约定，不能因为“现在空闲”就不保护。<a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst">AAPCS32 调用规范</a></p>
+<p>LR 在普通调用中保存返回信息；异常入口则获得 EXC_RETURN 编码，二者语境不同。读取 PC 的可见值还涉及 Thumb 的当前指令地址加偏移，常见为当前指令地址 +4；某些取字面量操作还要做对齐。PC 不能像一般变量那样随意参与所有运算。</p>
+<h3>习题 5.19：不能对所有写 PC 的指令套同一条规则</h3>
+<p>原题写 <code>MOV R0,#0x01000000</code>，再 <code>MOV R15,R0</code>。关键是：<strong>寄存器 MOV 写 PC 时，目标 bit0 被忽略并按半字地址转移；BX/BLX 的状态交换规则则要求目标 bit0 表示合法的 Thumb 状态。</strong>不能仅因 MOV 的目标是偶数，就断言一定发生 INVSTATE。常量 0x01000000 也不能武断说成 Thumb-2 永远编码不了。</p>
+<p>更清晰的通用分支写法可用：</p>
+<pre><code class="language-asm">LDR R0, =0x01000001    ; 代码真实地址为 0x01000000，bit0 标识 Thumb
+BX  R0
+</code></pre>
+<p>这仍要求该位置实际有可执行代码、权限允许、当前上下文与目标程序相容。把数值写入 PC <strong>不等于完成另一独立程序所需的栈和系统初始化</strong>。本题要区分指令语义与工程前提，不要用“所有 PC 值必须是奇数”代替分析。<a href="https://documentation-service.arm.com/static/5f2ac76d60a93e65927bbdc5">Arm M4 指令手册：MOV 与分支规则</a></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s14"><p class="eyebrow">第五章 · 第 14 节</p><h2>xPSR 与 MRS/MSR：状态寄存器不是普通内存</h2><p class="section-context">5.3.3，第 43—46 页</p><div class="part-goal"><p><strong>掌握要求：</strong>知道 APSR/IPSR/EPSR 各回答什么，能区分特殊寄存器访问与内存映射寄存器访问。</p><p><strong>背景为什么要讲：</strong>原书大量位表主要是供查阅；掌握解释状态的主线即可，不必一次背下保留位。</p></div><p>经典 A/R 模型中常见 CPSR、SPSR；M3/M4 使用适合其异常模型的 xPSR 视图。<strong>不能把 M profile 的变化说成所有 Armv7 产品都删除 CPSR/SPSR。</strong></p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>视图</th>
+<th>含义</th>
+<th>本章要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>APSR</td>
+<td>Application Program Status Register，应用状态</td>
+<td>N 负、Z 零、C 进位/无借位相关、V 有符号溢出、Q 饱和；M4 还有 GE 等 DSP 状态</td>
+</tr>
+<tr>
+<td>IPSR</td>
+<td>Interrupt Program Status Register，中断状态</td>
+<td>当前正在执行的异常类型号，Thread 时为 0；不是优先级数值</td>
+</tr>
+<tr>
+<td>EPSR</td>
+<td>Execution Program Status Register，执行状态</td>
+<td>Thumb 状态 T、IT/可中断指令连续性等状态</td>
+</tr>
+<tr>
+<td>xPSR</td>
+<td>合并表示</td>
+<td>描述上述状态组合，异常现场会保存相应状态</td>
+</tr>
+</tbody></table></div>
+<p>N/Z/C/V 要联系运算解释。例如两个正数相加得到负数提示有符号溢出；C 与无符号进位关系紧密；二者不能互换。Q 常是“黏性”状态：发生相关饱和后置位，需要按规定清除，不能把它当每条普通指令都自动重算的 Z。</p>
+<p>特殊 CPU 寄存器用 <strong>MRS（读到通用寄存器）/MSR（从通用寄存器写入）</strong>：</p>
+<pre><code class="language-asm">MRS R0, CONTROL       ; 读特殊寄存器
+MRS R1, PRIMASK
+MSR PRIMASK, R1       ; 写特殊寄存器，权限须允许
+</code></pre>
+<p>而 NVIC、SCB 的许多寄存器位于内存映射地址，使用 LDR/STR 或 CMSIS 提供的结构体访问。<strong>“都叫寄存器”不表示都用 MOV，也不表示都能解引用一个地址。</strong></p>
+<p>不是 xPSR 中每一位都能通过普通 MRS/MSR 任意读写。IPSR 不能被普通写操作随意改成“假装进入异常”；EPSR 在这些访问中也存在读零/忽略写等限制。异常硬件与特定指令管理相关执行状态。学到这里会按字段解释现场就足够，IT 详细编码留给指令章节。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s15"><p class="eyebrow">第五章 · 第 15 节</p><h2>PRIMASK、FAULTMASK、BASEPRI：屏蔽的是响应资格</h2><p class="section-context">5.3.3，第 46—48 页；习题 5.20</p><div class="part-goal"><p><strong>掌握要求：</strong>会比较三种屏蔽手段，明确屏蔽不等于清除外设请求或删除 Pending。</p><p><strong>背景为什么要讲：</strong>临界区要暂时限制干扰，但屏蔽范围错误会使系统无法及时处理重要事件。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>特殊寄存器</th>
+<th>有效意义</th>
+<th>屏蔽效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PRIMASK</td>
+<td>bit0</td>
+<td>置 1 阻止可配置优先级异常被激活，NMI、HardFault 等不在此列</td>
+</tr>
+<tr>
+<td>FAULTMASK</td>
+<td>bit0</td>
+<td>置 1 连 HardFault 也不能正常激活；NMI、复位仍有特殊地位</td>
+</tr>
+<tr>
+<td>BASEPRI</td>
+<td>与优先级编码对应的有效高位</td>
+<td>非零时设置优先级门槛，只限制相应较不紧急异常；0 表示不用这道门槛</td>
+</tr>
+</tbody></table></div>
+<p>PRIMASK 与 FAULTMASK 都是特殊寄存器，通常需要特权修改，复位时屏蔽位清零；PRIMASK 范围较小，FAULTMASK 范围更大。FAULTMASK 在异常返回时通常自动清除，但从 NMI 返回是例外；PRIMASK 不应假定享有同样规则。屏蔽故障处理也不表示故障就消失，某些状态下可导致升级或锁死。</p>
+<p><strong>中断有请求、被记为挂起、允许激活、当前正在服务，是几件不同的事。</strong>暂时屏蔽期间，外设还可能继续产生请求，NVIC 也可能保留挂起，恢复后再处理。若需要清外设状态位，必须按外设手册操作。</p>
+<p>临界区应保存并恢复原来的屏蔽状态，而不是结束时无条件“开中断”。例如原来已经被屏蔽，你无条件清零就破坏了上层调用者的约定：</p>
+<pre><code class="language-c">uint32_t saved = __get_PRIMASK();
+__disable_irq();
+/* 很短的临界操作 */
+__set_PRIMASK(saved);
+</code></pre>
+<p>这是 CMSIS 命名示例，实际工程还需满足共享对象、编译器及设备访问的同步要求。此处重点是<strong>恢复原状态</strong>，不是把这段代码当作所有并发问题的统一解法。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s16"><p class="eyebrow">第五章 · 第 16 节</p><h2>BASEPRI 完整算例：逻辑等级先左移，再写寄存器</h2><p class="section-context">5.3.3、例 5.4；习题 5.22</p><div class="part-goal"><p><strong>掌握要求：</strong>独立算出实现位数、左对齐编码与严格大于的门槛；解释 BASEPRI=0 的特殊含义。</p><p><strong>背景为什么要讲：</strong>这是本章最容易因省略“编码”而整题算错的地方，必须完整推导。</p></div><p>设实现 B 个优先级位，逻辑等级 r 从 0 到 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mi>B</mi></msup><mo>&#x02212;</mo><mn>1</mn></mrow></math></span>。这些位放在优先级字节的高 B 位，低位未实现，写入通常被忽略。逻辑等级与原始字节编码的关系是：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>P</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">w</mi></mrow></mrow></msub><mo>&#x0003D;</mo><mi>r</mi><mo>&#x000D7;</mo><msup><mn>2</mn><mrow><mn>8</mn><mo>&#x02212;</mo><mi>B</mi></mrow></msup><mo>&#x0003D;</mo><mi>r</mi><mo>&#x0226A;</mo><mo stretchy="false">&#x00028;</mo><mn>8</mn><mo>&#x02212;</mo><mi>B</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<p>因此有 16 个等级时 B=4，逻辑 5 的编码是 0x50，<strong>不是 0x05</strong>。原书例 5.4 若直接把 5 写入 BASEPRI，会把数值放到未实现低位，不能得到期望屏蔽效果。</p>
+<figure class="diagram" id="fig-basepri" data-figure="basepri"><div class="diagram-live"><div id="c5-basepri"><div class="viz-controls"><label class="form-label">实现优先级位 B<select class="form-select" data-bits><option>3</option><option>4</option><option>5</option><option selected>6</option><option>7</option></select></label><label class="form-label">门槛逻辑数值<input class="form-control short" data-threshold type="number" value="17" min="0" max="63" step="1"></label></div><svg class="drawing" role="img" aria-label="BASEPRI 的有效位和屏蔽门槛"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-basepri"><svg class="drawing" role="img" aria-label="BASEPRI 的有效位和屏蔽门槛" viewBox="0 0 640 304"><title>BASEPRI逻辑门槛编码与屏蔽区间</title><text x="12" y="23" text-anchor="start" class="text-small">B=6：高位实现，低位写入无效</text><text x="50.5" y="48" text-anchor="middle" class="text-small">b7</text><rect x="13" y="58" width="75" height="38" rx="3" class="active"></rect><text x="50.5" y="83" text-anchor="middle" class="">0</text><text x="127.5" y="48" text-anchor="middle" class="text-small">b6</text><rect x="90" y="58" width="75" height="38" rx="3" class="active"></rect><text x="127.5" y="83" text-anchor="middle" class="">1</text><text x="204.5" y="48" text-anchor="middle" class="text-small">b5</text><rect x="167" y="58" width="75" height="38" rx="3" class="active"></rect><text x="204.5" y="83" text-anchor="middle" class="">0</text><text x="281.5" y="48" text-anchor="middle" class="text-small">b4</text><rect x="244" y="58" width="75" height="38" rx="3" class="active"></rect><text x="281.5" y="83" text-anchor="middle" class="">0</text><text x="358.5" y="48" text-anchor="middle" class="text-small">b3</text><rect x="321" y="58" width="75" height="38" rx="3" class="active"></rect><text x="358.5" y="83" text-anchor="middle" class="">0</text><text x="435.5" y="48" text-anchor="middle" class="text-small">b2</text><rect x="398" y="58" width="75" height="38" rx="3" class="active"></rect><text x="435.5" y="83" text-anchor="middle" class="">1</text><text x="512.5" y="48" text-anchor="middle" class="text-small">b1</text><rect x="475" y="58" width="75" height="38" rx="3" class="node"></rect><text x="512.5" y="83" text-anchor="middle" class="">0</text><text x="589.5" y="48" text-anchor="middle" class="text-small">b0</text><rect x="552" y="58" width="75" height="38" rx="3" class="node"></rect><text x="589.5" y="83" text-anchor="middle" class="">0</text><text x="12" y="125" text-anchor="start" class="text-small">原始编码：17 &lt;&lt; 2 = 0x44</text><rect x="12" y="148" width="616" height="56" rx="3" class="active"></rect><text x="24" y="171" text-anchor="start" class="text-small">逻辑 0—16</text><text x="616" y="193" text-anchor="end" class="text-small">不被此门槛屏蔽</text><rect x="12" y="218" width="616" height="56" rx="3" class="waiting"></rect><text x="24" y="241" text-anchor="start" class="text-small">逻辑 17—63</text><text x="616" y="263" text-anchor="end" class="text-small">受此门槛屏蔽</text></svg><div aria-live="polite">逻辑门槛 17，原始编码 0x44。在本图分组假设下，逻辑数值 17—63 受门槛限制，0 不受此门槛屏蔽。</div></div></div><figcaption><span class="figure-number">图 5-6</span>本图选 B=3—7，并假定没有已实现子优先级（可取 G=0），展示 BASEPRI 原始编码及门槛。B=8 时需结合实际分组分析。门槛 0 特别表示关闭这道屏蔽，而不是屏蔽全部。</figcaption></figure>
+
+
+
+<h3>习题 5.22：把所有条件写齐</h3>
+<p>题中的“64 级外部中断”若表示 <strong>64 个可配置优先级等级</strong>，则 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>B</mi><mo>&#x0003D;</mo><msub><mi>log</mi><mn>2</mn></msub><mn>64</mn><mo>&#x0003D;</mo><mn>6</mn></mrow></math></span>。BASEPRI 作为特殊寄存器的访问宽度是 32 位；架构优先级字段在低字节，这个实现其中有效的是 [7:2] 六位。<strong>32 位访问宽度、8 位字段、6 位实现位数是三个答案层次。</strong></p>
+<p>下面假定没有把已实现位分成子优先级（例如 PRIGROUP=0），且“大于”指<strong>逻辑数值严格大于</strong>：</p>
+<ol>
+<li>屏蔽 r&gt;16，即屏蔽 17—63。门槛取 17，编码 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>17</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><mn>68</mn><mo>&#x0003D;</mo><mn>0</mn><mi>x</mi><mn>44</mn></mrow></math></span>。</li>
+<li>屏蔽 r&gt;0，即屏蔽 1—63。门槛取 1，编码 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><mn>0</mn><mi>x</mi><mn>04</mn></mrow></math></span>。</li>
+</ol>
+<pre><code class="language-asm">MOVS R0, #0x44       ; 屏蔽逻辑数值 17—63
+MSR  BASEPRI, R0
+
+MOVS R0, #0x04       ; 另一种要求：屏蔽逻辑数值 1—63
+MSR  BASEPRI, R0
+</code></pre>
+<p>如果题意是“大于等于 16”，则写 0x40。<strong>BASEPRI=0 取消门槛，不能用它来屏蔽所有正等级；优先级 0 也不能通过 BASEPRI 门槛屏蔽。</strong>如果“高于 16”指紧急程度更高，方向又相反，要先把题目翻译成明确的 r 范围。</p>
+<p>如果题目实际只给“64 个 IRQ 来源”，则无法推出 B：来源数量与优先级等级数独立。存在子优先级时还要按抢占优先级规则考虑，不能把本例不加条件照抄。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s17"><p class="eyebrow">第五章 · 第 17 节</p><h2>CONTROL：降权、选栈和 PSP 初始化</h2><p class="section-context">5.3.3—5.3.4、例 5.5—5.6；习题 5.23、5.25</p><div class="part-goal"><p><strong>掌握要求：</strong>记住 nPRIV/SPSEL，能找出原题 PSP 赋值的多种问题，并解释非特权代码为何不能自行提权。</p><p><strong>背景为什么要讲：</strong>代码只展示启动/系统切换中的顺序；详细汇编与 RTOS 上下文切换后续再学。</p></div><p>CONTROL 的 bit0=nPRIV：0 为特权 Thread，1 为非特权 Thread；bit1=SPSEL：Thread 选择 MSP 或 PSP；带相关浮点功能时还有 FPCA 等状态。Handler 的当前特权和当前 SP 不随这两个选择变成非特权/PSP。</p>
+<p>特权 Thread 可以设置 nPRIV=1 降权。<strong>非特权 Thread 不能靠自己清 nPRIV 给自己提权</strong>；它需请求 SVC 等异常服务，由可信 Handler 按系统规则处理。否则所谓权限边界毫无意义。修改 CONTROL 后按规定执行 ISB，使后续执行与新上下文一致。</p>
+<h3>先找习题 5.23 的问题</h3>
+<p><code>MOV PSP,R0</code> 访问方式错，PSP 应用 <code>MSR PSP,R0</code>。0x87654321 的低位也不符合栈对齐要求；硬件不会把 SP 低位当普通数据任意保留。该地址属于体系结构的外部 RAM 区，但<strong>不代表具体 MCU 真有这块可写 RAM</strong>。还必须预留容量、检查读写权限、与其他对象不重叠。</p>
+<p>最后，<strong>写 PSP 的初值不等于当前 Thread 已经选用 PSP</strong>；还需要在合适上下文设置 SPSEL。Handler 依然使用 MSP。</p>
+<p>以下只是假定 <strong>0x20002000 是已实际实现、已规划栈区的上边界</strong>的启动/系统汇编示意，不能直接塞进普通 C 函数中途改栈：</p>
+<pre><code class="language-asm">LDR R0, =0x20002000
+MSR PSP, R0
+MRS R1, CONTROL
+ORR R1, R1, #2        ; 保留其他位，令 Thread 选 PSP
+MSR CONTROL, R1
+ISB
+</code></pre>
+<p>若还需降为非特权，在已配置好用户区/栈等前提下再设置 nPRIV。原书例 5.6 用整个 SRAM 区末端附近数值作说明；实际 MCU 不能照抄那个宏观地址边界，必须用链接布局给出的真实栈顶。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s18"><p class="eyebrow">第五章 · 第 18 节</p><h2>堆栈的四种名字：M3/M4 采用满递减</h2><p class="section-context">5.3.4，第 49—51 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会按“增长方向 + SP 指向什么”解释四种类型，能手算 PUSH/POP 后的地址和值。</p><p><strong>背景为什么要讲：</strong>调用、局部变量、异常现场都依赖栈；这比单独背 FD 两个字母重要。</p></div><p>栈是后进先出（LIFO）：最后放进去的先取出。它用于保存返回信息、寄存器现场、传参和局部变量等。<strong>栈不是内核里无限大的特殊仓库，它占用真实 RAM，容量有限。</strong></p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>类型</th>
+<th>增长方向</th>
+<th>SP 表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FA，满递增</td>
+<td>向高地址</td>
+<td>最后一个已用位置</td>
+</tr>
+<tr>
+<td>FD，满递减</td>
+<td>向低地址</td>
+<td>最后一个已用位置</td>
+</tr>
+<tr>
+<td>EA，空递增</td>
+<td>向高地址</td>
+<td>下一个可用位置</td>
+</tr>
+<tr>
+<td>ED，空递减</td>
+<td>向低地址</td>
+<td>下一个可用位置</td>
+</tr>
+</tbody></table></div>
+<p>M3/M4 的正常栈机制采用 <strong>FD</strong>。按每字 4 字节举例，原 SP=0x20001000：</p>
+<ol>
+<li>压一个字：先 SP−4=0x20000FFC，再把字写到这个地址。</li>
+<li>再压一个字：SP=0x20000FF8，把第二个字写在那里。</li>
+<li>弹一个字：从当前 SP 取第二个字，然后 SP+4=0x20000FFC。</li>
+</ol>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>压入&#x000A0;</mtext><mi>n</mi><mtext>&#x000A0;个&#x000A0;32&#x000A0;位字：</mtext><mspace width="1em" /><mi>S</mi><msub><mi>P</mi><mrow><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">w</mi></mrow></mrow></msub><mo>&#x0003D;</mo><mi>S</mi><msub><mi>P</mi><mrow><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">d</mi></mrow></mrow></msub><mo>&#x02212;</mo><mn>4</mn><mi>n</mi></mrow></math></div>
+
+
+
+<p>多寄存器 PUSH 的地址布局按指令规定，不能把列表想成任意顺序的逐条单寄存器 PUSH。下一章再学习其具体编码；本章先把“地址下降、出栈恢复”掌握。</p>
+<p>POP 后 RAM 中的旧比特通常仍在，只是那一段不再属于当前有效栈内容。栈初值常是<strong>所分配区域末尾的后一地址（上边界）</strong>，第一压栈才落入区域；不能一概设置为最后一个字节地址。</p>
+<p>软件必须预留足够空间，考虑函数深度、局部对象、嵌套异常及 FPU 现场。MPU 可帮助保护边界，但不能代替容量规划；没有 MPU 时也必须避免两个栈或栈与数据重叠。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s19"><p class="eyebrow">第五章 · 第 19 节</p><h2>双堆栈和异常基本帧：现场先放到被打断者的栈</h2><p class="section-context">5.2.5、5.3.4；习题 5.10、5.36</p><div class="part-goal"><p><strong>掌握要求：</strong>能画出 Thread 使用 PSP 时异常进入和返回过程，背出并定位基本帧 8 个字。</p><p><strong>背景为什么要讲：</strong>双堆栈把任务与异常工作区分开，提升组织和隔离能力；这是 RTOS 的重要基础。</p></div><p>MSP 是 Main Stack Pointer，主栈指针；PSP 是 Process Stack Pointer，进程栈指针。常见安排是任务在 Thread 使用 PSP，异常处理在 Handler 使用 MSP，避免任务本身的栈占用直接挤掉异常处理工作区。<strong>硬件提供两个 SP，不会自动给每个任务分配一块独立 RAM。</strong>RTOS 还需保存/恢复各任务的 PSP 等现场。</p>
+<p>假设当前 Thread 使用 PSP，异常被接受时：</p>
+<ol>
+<li>硬件把被打断的基本现场压入<strong>当时使用的 PSP 栈</strong>。</li>
+<li>建立异常上下文，LR 获得 EXC_RETURN，取出处理程序入口。</li>
+<li>进入 Handler，用 MSP 执行处理程序；它自己调用函数、额外 PUSH 使用 MSP。</li>
+<li>正常异常返回时，按 EXC_RETURN 找回原现场，恢复 Thread 的 PSP 上下文。</li>
+</ol>
+<figure class="diagram" id="fig-dualstack" data-figure="dualstack"><div class="diagram-live"><div id="c5-dualstack"><div class="viz-controls"><label class="form-label">被打断 Thread 用栈<select class="form-select" data-oldsp><option value="PSP">PSP</option><option value="MSP">MSP</option></select></label><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① Thread 运行</option><option value="1">② 硬件保存基本帧</option><option value="2" selected>③ Handler 执行</option><option value="3">④ 异常返回</option></select></label></div><svg class="drawing" role="img" aria-label="异常入口先用旧栈、Handler 再用 MSP"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-dualstack"><svg class="drawing" role="img" aria-label="异常入口先用旧栈、Handler 再用 MSP" viewBox="0 0 640 332"><title>异常前现场在原活动栈，Handler工作栈为MSP</title><text x="12" y="25" text-anchor="start" class="text-small">Handler：当前使用 MSP</text><rect x="12" y="48" width="298" height="205" rx="3" class="active"></rect><text x="161" y="76" text-anchor="middle" class="">PSP</text><rect x="20" y="92" width="282" height="56" rx="3" class="waiting"></rect><text x="161" y="115" text-anchor="middle" class="text-small">基本异常帧</text><text x="161" y="137" text-anchor="middle" class="text-small">PC / xPSR 等</text><rect x="20" y="171" width="282" height="60" rx="3" class="node"></rect><text x="161" y="196" text-anchor="middle" class="text-small">其他栈内容</text><text x="161" y="219" text-anchor="middle" class="text-small">按软件布局</text><rect x="330" y="48" width="298" height="205" rx="3" class="active"></rect><text x="479" y="76" text-anchor="middle" class="">MSP</text><rect x="338" y="92" width="282" height="56" rx="3" class="node"></rect><text x="479" y="115" text-anchor="middle" class="text-small">预留栈空间</text><text x="479" y="137" text-anchor="middle" class="text-small">不代表空 RAM</text><rect x="338" y="171" width="282" height="60" rx="3" class="active"></rect><text x="479" y="196" text-anchor="middle" class="text-small">Handler 工作区</text><text x="479" y="219" text-anchor="middle" class="text-small">额外压栈 / 调用</text><text x="12" y="283" text-anchor="start" class="text-small">异常前当前栈：PSP</text><text x="12" y="310" text-anchor="start" class="text-small">当前 R13：MSP</text></svg><div aria-live="polite">当前 Handler 使用 MSP；被打断 Thread 的基本帧仍保存在 PSP。</div></div></div><figcaption><span class="figure-number">图 5-7</span>基本帧保存到异常前正在使用的栈，Handler 的额外栈活动使用 MSP。图是逻辑过程，不规定压栈与取向量的逐周期重叠。</figcaption></figure>
+
+
+
+<p>如果被打断 Thread 原本使用 MSP，则基本帧就在 MSP；若是 Handler 被嵌套打断，也在 MSP。<strong>“异常 Handler 使用 MSP”不等于“所有异常初始现场都压 MSP”。</strong></p>
+<p>基本异常帧从新的 SP 向高地址依次为：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>相对新 SP</th>
+<th>保存内容</th>
+<th>为什么要保存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+0x00、+0x04、+0x08、+0x0C</td>
+<td>R0、R1、R2、R3</td>
+<td>常用参数/临时寄存器</td>
+</tr>
+<tr>
+<td>+0x10</td>
+<td>R12</td>
+<td>调用临时寄存器</td>
+</tr>
+<tr>
+<td>+0x14</td>
+<td>原 LR</td>
+<td>被打断程序的链接信息</td>
+</tr>
+<tr>
+<td>+0x18</td>
+<td>返回 PC</td>
+<td>异常返回应恢复的执行地址</td>
+</tr>
+<tr>
+<td>+0x1C</td>
+<td>xPSR</td>
+<td>运算和执行等状态</td>
+</tr>
+</tbody></table></div>
+<p>8 个字共 32 字节，不计对齐填充。R4—R11 等如果需要修改，编译器/软件还要遵守约定另行保存；浮点扩展见下一节。返回 PC 对具体异常有架构规定，不要机械说所有错误都保存“错误指令的下一条”。</p>
+<p>原书有关“LR 保存 PSR”的说法需纠正：<strong>状态保存在帧里的 xPSR 项，异常处理中 LR 主要携带 EXC_RETURN</strong>；帧内另有被打断时的 LR 值，两者也不是一个位置。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s20"><p class="eyebrow">第五章 · 第 20 节</p><h2>栈对齐、浮点扩展帧与 EXC_RETURN</h2><p class="section-context">5.3.4、5.2.5 异常进入/退出相关内容；习题 5.24</p><div class="part-goal"><p><strong>掌握要求：</strong>会计算 8 字节对齐后的 SP，知道填充标记和基本异常返回编码；浮点扩展认识边界即可。</p><p><strong>背景为什么要讲：</strong>这些细节直接影响异常现场解析；不要求现在实现完整的带浮点 RTOS 切换。</p></div><p>一个字 4 字节，一个双字 8 字节。SP 至少需满足相应字对齐；AAPCS 在公共调用接口要求 8 字节对齐。异常对齐行为还由 CCR.STKALIGN 等规定。<strong>不是一看到压栈“奇数个字”，就不看原 SP 而机械补字。</strong>判断依据是最终边界是否符合要求。</p>
+<figure class="diagram" id="fig-stackframe" data-figure="stackframe"><div class="diagram-live"><div id="c5-stackframe"><div class="viz-controls"><label class="form-label">异常前 SP<select class="form-select" data-old><option value="0">0x20001000 · 已对齐 8 字节</option><option value="4" selected>0x20001004 · 偏 4 字节</option></select></label></div><svg class="drawing" role="img" aria-label="基本异常帧与 8 字节对齐填充"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-stackframe"><svg class="drawing" role="img" aria-label="基本异常帧与 8 字节对齐填充" viewBox="0 0 640 482"><title>基本异常帧按新SP递增排列并标注对齐填充</title><text x="12" y="24" text-anchor="start" class="text-small">旧 SP = 0x20001004</text><text x="12" y="51" text-anchor="start" class="text-small">新 SP = 0x20000FE0</text><text x="12" y="82" text-anchor="start" class="text-small">地址（低 → 高）</text><text x="622" y="82" text-anchor="end" class="text-small">保存内容</text><rect x="12" y="96" width="616" height="32" rx="3" class="node"></rect><text x="22" y="118" text-anchor="start" class="text-small">0x20000FE0</text><text x="618" y="118" text-anchor="end" class="text-small">R0</text><rect x="12" y="130" width="616" height="32" rx="3" class="node"></rect><text x="22" y="152" text-anchor="start" class="text-small">0x20000FE4</text><text x="618" y="152" text-anchor="end" class="text-small">R1</text><rect x="12" y="164" width="616" height="32" rx="3" class="node"></rect><text x="22" y="186" text-anchor="start" class="text-small">0x20000FE8</text><text x="618" y="186" text-anchor="end" class="text-small">R2</text><rect x="12" y="198" width="616" height="32" rx="3" class="node"></rect><text x="22" y="220" text-anchor="start" class="text-small">0x20000FEC</text><text x="618" y="220" text-anchor="end" class="text-small">R3</text><rect x="12" y="232" width="616" height="32" rx="3" class="node"></rect><text x="22" y="254" text-anchor="start" class="text-small">0x20000FF0</text><text x="618" y="254" text-anchor="end" class="text-small">R12</text><rect x="12" y="266" width="616" height="32" rx="3" class="node"></rect><text x="22" y="288" text-anchor="start" class="text-small">0x20000FF4</text><text x="618" y="288" text-anchor="end" class="text-small">原 LR</text><rect x="12" y="300" width="616" height="32" rx="3" class="active"></rect><text x="22" y="322" text-anchor="start" class="text-small">0x20000FF8</text><text x="618" y="322" text-anchor="end" class="text-small">返回 PC</text><rect x="12" y="334" width="616" height="32" rx="3" class="active"></rect><text x="22" y="356" text-anchor="start" class="text-small">0x20000FFC</text><text x="618" y="356" text-anchor="end" class="text-small">xPSR</text><rect x="12" y="368" width="616" height="34" rx="3" class="waiting"></rect><text x="22" y="391" text-anchor="start" class="text-small">0x20001000</text><text x="618" y="391" text-anchor="end" class="text-small">对齐填充</text><text x="12" y="434" text-anchor="start" class="text-small">帧占 32 字节 + 4 字节填充</text><text x="12" y="462" text-anchor="start" class="text-small">保存的 xPSR.bit9 = 1</text></svg><div aria-live="polite">入口前 偏 4 字节，需填充；PC 位于 0x20000FF8，xPSR 位于 0x20000FFC。</div></div></div><figcaption><span class="figure-number">图 5-8</span>假定启用入口 8 字节对齐，无浮点扩展，仅展示基本帧。低地址在上，帧顺序从新 SP 向高地址排列；填充在高地址端。</figcaption></figure>
+
+
+
+<p>假设启用异常入口 8 字节对齐，基本帧为 32 字节：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>入口前 SP</th>
+<th>只减 32 字节</th>
+<th>最终新 SP</th>
+<th>是否另占 4 字节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x20001000</td>
+<td>0x20000FE0</td>
+<td>0x20000FE0</td>
+<td>否</td>
+</tr>
+<tr>
+<td>0x20001004</td>
+<td>0x20000FE4</td>
+<td>0x20000FE0</td>
+<td>是</td>
+</tr>
+</tbody></table></div>
+<p>第二例的填充位置在 0x20001000，基本帧仍从新 SP 连续排 8 个字，xPSR 在 0x20000FFC。<strong>已保存 xPSR 的 bit9 记录对齐填充</strong>，异常返回时硬件据此调整 SP。这个位不是要求你把活动 APSR 的普通标志随意改一下。</p>
+<p>习题 5.24 中若原 SP 已经双字对齐，而确实需要保存奇数个字，则多占一个字，使总占用为偶数个字；同时记录调整并在恢复时跳过。真正的 M3/M4 基本硬件帧本身是偶数个字，仍可能因入口前 SP 的状态需要填充。</p>
+<h3>异常返回不是普通函数返回的同义词</h3>
+<p>基本帧常见 EXC_RETURN：0xFFFFFFF1 返回 Handler/MSP，0xFFFFFFF9 返回 Thread/MSP，0xFFFFFFFD 返回 Thread/PSP。处理器在合法异常返回过程中解释这个编码，恢复现场和模式；它不是要从 0xFFFFFFFD 那里取指令。</p>
+<p>带 FPU 的 M4 在相关条件下还可能使用扩展帧：基本 8 字加 S0—S15、FPSCR、保留位置等共 26 字（104 字节），另看对齐。可有惰性保存（lazy stacking），不能说“只要启用 FPU，每次中断立即压 26 字”。S16—S31 的保存责任也要看调用/任务规则。扩展帧对应的返回编码可见 E1/E9/ED 结尾，先认识其表示浮点上下文即可。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s21"><p class="eyebrow">第五章 · 第 21 节</p><h2>4 GiB 地址地图：有地址范围不等于装有存储器</h2><p class="section-context">5.4.1，第 52—53 页；习题 5.9</p><div class="part-goal"><p><strong>掌握要求：</strong>记住主要区域边界，会根据地址归类；能说明固定地图的利弊和实际实现的边界。</p><p><strong>背景为什么要讲：</strong>地图把第三章地址、第四章互连与本章权限放到同一张表中，后续写寄存器代码都会用到。</p></div><p>32 位字节地址提供 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>32</mn></mrow></msup></mrow></math></span> 字节，即 4 GiB 的地址空间，范围 0x00000000—0xFFFFFFFF。M3/M4 规定主要区域的功能，芯片厂商在其中实现实际资源。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>大小</th>
+<th>主要用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00000000—0x1FFFFFFF</td>
+<td>512 MiB</td>
+<td>CODE：程序代码，也可以有只读常量/其他映射</td>
+</tr>
+<tr>
+<td>0x20000000—0x3FFFFFFF</td>
+<td>512 MiB</td>
+<td>SRAM 区，常规数据，也可执行代码</td>
+</tr>
+<tr>
+<td>0x40000000—0x5FFFFFFF</td>
+<td>512 MiB</td>
+<td>外设区</td>
+</tr>
+<tr>
+<td>0x60000000—0x9FFFFFFF</td>
+<td>1 GiB</td>
+<td>外部 RAM 区</td>
+</tr>
+<tr>
+<td>0xA0000000—0xDFFFFFFF</td>
+<td>1 GiB</td>
+<td>外部设备区</td>
+</tr>
+<tr>
+<td>0xE0000000—0xFFFFFFFF</td>
+<td>512 MiB</td>
+<td>系统区域，含 PPB 与供应商定义部分</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-memorymap" data-figure="memorymap"><div class="diagram-live"><div id="c5-memorymap"><div class="viz-controls"><label class="form-label">32 位地址（十六进制）<input class="form-control" data-address value="0x20001000" maxlength="10" spellcheck="false"></label></div><svg class="drawing" role="img" aria-label="4 GiB 地址区域查询"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-memorymap"><svg class="drawing" role="img" aria-label="4 GiB 地址区域查询" viewBox="0 0 640 439"><title>32位地址区域查询不代表物理容量</title><text x="12" y="24" text-anchor="start" class="text-small">区域示意：每行不按容量比例</text><rect x="12" y="45" width="616" height="49" rx="3" class="node"></rect><text x="22" y="65" text-anchor="start" class="text-small">CODE</text><text x="618" y="85" text-anchor="end" class="text-small">00000000—1FFFFFFF</text><rect x="12" y="108" width="616" height="49" rx="3" class="active"></rect><text x="22" y="128" text-anchor="start" class="text-small">SRAM</text><text x="618" y="148" text-anchor="end" class="text-small">20000000—3FFFFFFF</text><rect x="12" y="171" width="616" height="49" rx="3" class="node"></rect><text x="22" y="191" text-anchor="start" class="text-small">外设</text><text x="618" y="211" text-anchor="end" class="text-small">40000000—5FFFFFFF</text><rect x="12" y="234" width="616" height="49" rx="3" class="node"></rect><text x="22" y="254" text-anchor="start" class="text-small">外部 RAM</text><text x="618" y="274" text-anchor="end" class="text-small">60000000—9FFFFFFF</text><rect x="12" y="297" width="616" height="49" rx="3" class="node"></rect><text x="22" y="317" text-anchor="start" class="text-small">外部设备</text><text x="618" y="337" text-anchor="end" class="text-small">A0000000—DFFFFFFF</text><rect x="12" y="360" width="616" height="49" rx="3" class="node"></rect><text x="22" y="380" text-anchor="start" class="text-small">系统</text><text x="618" y="400" text-anchor="end" class="text-small">E0000000—FFFFFFFF</text></svg><div aria-live="polite">0x20001000 属于 SRAM 区。这只判架构区域，真实资源、属性和权限仍查芯片。</div></div></div><figcaption><span class="figure-number">图 5-9</span>各条示意图高度相同，右侧标注真实地址边界，未按容量比例绘制。只归类架构区域，不据此断言芯片装有那块存储器。</figcaption></figure>
+
+
+
+<p><strong>一颗只有几十 KiB SRAM 的 MCU，仍可使用这张 4 GiB 地图。</strong>地图给区域分工，不承诺区域全部有物理资源。未实现地址可能发生总线错误，也可能有芯片规定的特殊响应，必须查实现；不能拿宏观上边界初始化真实栈。</p>
+<p>固定地图的好处是内核控制区稳定、工具和软件移植较容易、硬件译码与开发者认知更统一；代价是区域分配不完全自由，存在空洞，部分场景需重映射/别名机制。MPU 可调整部分属性和权限，不能把固定地理位置任意变成分页虚拟内存。</p>
+<p>注意“CODE 区”表示默认适合放代码，不意味着只有这里可执行；SRAM 及外部 RAM 的执行还要满足权限、XN 和真实存储器支持等条件。外设/PPB 一般不允许作为代码执行。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s22"><p class="eyebrow">第五章 · 第 22 节</p><h2>存储器连接：控制器、矩阵和 DMA 分别做什么</h2><p class="section-context">5.4.2，第 53—54 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能追踪内核访问经互连到实际存储器的过程，知道多主设备下还要考虑仲裁和一致性。</p><p><strong>背景为什么要讲：</strong>原书连接框图不是要求你现在设计完整 SoC，而是说明架构地址怎样落到硬件。</p></div><p>处理器给出地址、读写与大小等控制，互连译码选择目标。目标若是片内 SRAM，可由相应控制器响应；目标若是 Flash、外部 SDRAM 或静态存储器，还需要满足不同介质的时序、等待、刷新等要求。<strong>AHB 接口与存储芯片引脚协议不是同一层。</strong></p>
+<p>原图包括取指/数据通路、AHB 互连、外部存储器控制器、APB 桥以及片上外设等。APB 桥把高速主干访问转换成适合低速寄存器的协议；总线矩阵允许多条可独立完成的访问并行，不同主设备争同一资源时仍需仲裁。</p>
+<p>如果 DMA 也能访问 RAM，CPU 和 DMA 就是独立请求者。要考虑：</p>
+<ol>
+<li><strong>带宽与等待</strong>：CPU 不搬运，不代表 RAM 不承受带宽压力。</li>
+<li><strong>所有权与完成通知</strong>：谁写缓冲区，谁在何时读，DMA 结束后如何确认。</li>
+<li><strong>可见性与一致性</strong>：若系统有缓存或写缓冲，何时其他请求者能看到结果。</li>
+</ol>
+<p>TCM 的专用连接、Flash 加速器、Cache 和预取缓冲都是可能的实现优化，不能只从地址名推导延迟。计算性能题时必须给出时钟、等待、目标端口、争用等条件；本节没有要求记某一款芯片的完整引脚表。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s23"><p class="eyebrow">第五章 · 第 23 节</p><h2>大小端与 BE-8/BE-32：先画地址，再谈总线通道</h2><p class="section-context">5.4.3，第 54—56 页；习题 5.27、5.28</p><div class="part-goal"><p><strong>掌握要求：</strong>会展开多字节数值的内存顺序；能把数值字节序与单字节访问的总线 lane 分开。</p><p><strong>背景为什么要讲：</strong>跨网络、文件、协议和外设交换数据时必须统一格式，不能靠主机习惯猜。</p></div><p>把 32 位数 0x11223344 存到从 A 开始的四个字节位置：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>地址</th>
+<th>小端 Little-endian</th>
+<th>大端 Big-endian</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A+0</td>
+<td>44</td>
+<td>11</td>
+</tr>
+<tr>
+<td>A+1</td>
+<td>33</td>
+<td>22</td>
+</tr>
+<tr>
+<td>A+2</td>
+<td>22</td>
+<td>33</td>
+</tr>
+<tr>
+<td>A+3</td>
+<td>11</td>
+<td>44</td>
+</tr>
+</tbody></table></div>
+<p><strong>小端：低有效字节在低地址；大端：高有效字节在低地址。</strong>CPU 正常按本机字节序读回同一个字时，数值不变；不同之处体现在按字节观察、与外部格式交换时。</p>
+<figure class="diagram" id="fig-endian" data-figure="endian"><div class="diagram-live"><div id="c5-endian"><div class="viz-controls"><label class="form-label">数值内存布局<select class="form-select" data-order><option value="little">小端</option><option value="big">大端（BE-8）</option></select></label><label class="form-label">32 位数值（十六进制）<input class="form-control" data-value value="11223344" maxlength="8" spellcheck="false"></label></div><svg class="drawing" role="img" aria-label="数值的字节序与单字节数据通道"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-endian"><svg class="drawing" role="img" aria-label="数值的字节序与单字节数据通道" viewBox="0 0 640 391"><title>字节序和单字节lane映射分开显示</title><text x="12" y="23" text-anchor="start" class="text-small">32 位数值：0x11223344</text><text x="12" y="50" text-anchor="start" class="text-small">① 多字节数在内存中的布局</text><text x="89" y="77" text-anchor="middle" class="text-small">A+0</text><rect x="14" y="88" width="150" height="42" rx="3" class="active"></rect><text x="89" y="115" text-anchor="middle" class="">44</text><text x="243" y="77" text-anchor="middle" class="text-small">A+1</text><rect x="168" y="88" width="150" height="42" rx="3" class="active"></rect><text x="243" y="115" text-anchor="middle" class="">33</text><text x="397" y="77" text-anchor="middle" class="text-small">A+2</text><rect x="322" y="88" width="150" height="42" rx="3" class="active"></rect><text x="397" y="115" text-anchor="middle" class="">22</text><text x="551" y="77" text-anchor="middle" class="text-small">A+3</text><rect x="476" y="88" width="150" height="42" rx="3" class="active"></rect><text x="551" y="115" text-anchor="middle" class="">11</text><text x="12" y="159" text-anchor="start" class="text-small">低有效字节在低地址</text><text x="12" y="199" text-anchor="start" class="text-small">② 单字节访问所用总线通道</text><text x="12" y="229" text-anchor="start" class="text-small">地址</text><text x="307.68" y="229" text-anchor="middle" class="text-small">BE-8 / LE</text><text x="628" y="229" text-anchor="end" class="text-small">BE-32</text><path d="M12 274 H628" class="grid"></path><text x="12" y="263" text-anchor="start" class="text-small">A+0</text><text x="307.68" y="263" text-anchor="middle" class="text-small">D[7:0]</text><text x="628" y="263" text-anchor="end" class="text-small">D[31:24]</text><path d="M12 308 H628" class="grid"></path><text x="12" y="297" text-anchor="start" class="text-small">A+1</text><text x="307.68" y="297" text-anchor="middle" class="text-small">D[15:8]</text><text x="628" y="297" text-anchor="end" class="text-small">D[23:16]</text><path d="M12 342 H628" class="grid"></path><text x="12" y="331" text-anchor="start" class="text-small">A+2</text><text x="307.68" y="331" text-anchor="middle" class="text-small">D[23:16]</text><text x="628" y="331" text-anchor="end" class="text-small">D[15:8]</text><path d="M12 376 H628" class="grid"></path><text x="12" y="365" text-anchor="start" class="text-small">A+3</text><text x="307.68" y="365" text-anchor="middle" class="text-small">D[31:24]</text><text x="628" y="365" text-anchor="end" class="text-small">D[7:0]</text></svg><div aria-live="polite">小端地址 A+0 起的字节为 44、33、22、11。下表比较的是单字节总线 lane，不是把上面数值再次翻转。</div></div></div><figcaption><span class="figure-number">图 5-10</span>上半图为数值在递增字节地址的布局；下半图单独比较单字节访问的物理 lane。两者不能混为同一个“反转”。BE-32 只作历史对照。</figcaption></figure>
+
+
+
+<p>BE-8 是字节不变（byte-invariant）大端，BE-32 是字不变（word-invariant）大端，区别还涉及总线数据通道的映射。在同一个 32 位对齐组内，单字节访问 A+0、A+1、A+2、A+3：BE-8 与小端的 byte lane 对应关系相同，分别用 D[7:0]、D[15:8]、D[23:16]、D[31:24]；BE-32 则反向对应。<strong>这不表示 BE-8 的多字节数值布局也变成小端。</strong>原书图 5.21 一类图要分清是在画数据值、地址字节还是物理 lane。</p>
+<p>M3/M4 的数据端配置通常由集成/复位配置确定，常见 MCU 为小端；不使用经典 BE-32。取指和 PPB 访问还有小端规则，不能推成所有路径随一个数据设置一起反转。</p>
+<h3>什么情况需要自己转换</h3>
+<p>协议规定大端而内存使用小端、读取固定格式文件、与异构处理器交换二进制字段时，需要在边界明确转换或逐字节组装。例如网络字节 12、34 应解释为 0x1234，可以写 <code>(b[0]&lt;&lt;8)|b[1]</code> 并使用合适无符号类型。<strong>单字节本身没有需要反转的字节顺序；不能把字符串也按 32 位数随意翻转。</strong></p>
+<p>REV 反转一个字的四字节，REV16 在每个半字内部交换字节，REVSH 交换低半字字节后按有符号半字扩展到 32 位。例：低半字 0x0180 经 REVSH 得到 0xFFFF8001，不是 0x00008001。详细指令用法下一章再练。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s24"><p class="eyebrow">第五章 · 第 24 节</p><h2>非对齐访问：支持某些情况，不代表任意指令都行</h2><p class="section-context">5.4.4，第 56—57 页</p><div class="part-goal"><p><strong>掌握要求：</strong>按访问大小判断对齐，知道非对齐的性能、故障和原子性边界。</p><p><strong>背景为什么要讲：</strong>看结构体、字节缓冲区和外设代码时常遇到；原书保留它是为避免“运行没报错所以写法都正确”的误判。</p></div><p>字节可在任意地址，半字自然对齐到 2 的倍数，32 位字自然对齐到 4 的倍数，双字常需按相应要求对齐。判断只看地址余数，例如 0x20000002 对半字已对齐，对 32 位字未自然对齐。</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>自然对齐条件：</mtext><mspace width="1em" /><mi>A</mi><mo>mod</mo><mi>s</mi><mo>&#x0003D;</mo><mn>0</mn><mspace width="1em" /><mo stretchy="false">&#x00028;</mo><mi>s</mi><mtext>&#x000A0;为访问字节数</mtext><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<p>M3/M4 对 Normal 存储器的一部分单寄存器加载/存储支持非对齐，硬件可能拆成多个对齐传输；这可能增加周期，也不能自动获得一次不可分割的访问。CCR.UNALIGN_TRP 可以使某些非对齐情况触发 UsageFault。</p>
+<p><strong>多寄存器访问、双字访问、排他访问等有额外对齐限制；Device/Strongly-ordered 等区域也不能照搬普通 RAM 的宽容规则。</strong>不应因为普通 <code>LDR</code> 在 RAM 某次成功，就去用未对齐字访问外设。</p>
+<p>C 语言还有独立约束：从字节指针强制转换成未对齐的 <code>uint32_t*</code> 后解引用，可能违背类型/对齐要求。处理协议缓冲区，优先显式逐字节组装，或使用合适的 <code>memcpy</code> 等方式，让编译器按目标平台处理。此处不要求死背所有指令表，但要学会在不确定时查具体指令与存储类型。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s25"><p class="eyebrow">第五章 · 第 25 节</p><h2>位段 bit-band：从一个 bit 算到一个别名字地址</h2><p class="section-context">5.4.5，第 57—61 页；习题 5.29—5.31</p><div class="part-goal"><p><strong>掌握要求：</strong>会画两组范围，独立推导和计算别名地址，会说明位访问的原子性及实现条件。</p><p><strong>背景为什么要讲：</strong>位操作连接 GPIO 与共享变量，原书的 C 宏也在这里解释；别名不是额外物理存储容量。</p></div><p>普通 RAM 以字节编址，但设置其中一个 bit 常需要读整个字、修改、写回。位段把一个实际 bit 映射为别名区的一个 32 位字位置：读取通常得到 0 或 1，写入按规定的最低位更新目标 bit。<strong>这是地址映射硬件，不是 C 语言 bit-field 自动提供的能力。</strong></p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>实际位段区域</th>
+<th>对应别名区域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SRAM 0x20000000—0x200FFFFF，1 MiB</td>
+<td>0x22000000—0x23FFFFFF，32 MiB</td>
+</tr>
+<tr>
+<td>外设 0x40000000—0x400FFFFF，1 MiB</td>
+<td>0x42000000—0x43FFFFFF，32 MiB</td>
+</tr>
+</tbody></table></div>
+<p>设 A 是<strong>目标字节地址</strong>，b=0—7 是该字节内的 bit 序号，则：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>A</mi><mrow><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi></mrow></mrow></msub><mo>&#x0003D;</mo><msub><mi>A</mi><mrow><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi></mrow></mrow></msub><mo>&#x0002B;</mo><mo stretchy="false">&#x00028;</mo><mi>A</mi><mo>&#x02212;</mo><msub><mi>A</mi><mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi></mrow></mrow></msub><mo stretchy="false">&#x00029;</mo><mo>&#x000D7;</mo><mn>32</mn><mo>&#x0002B;</mo><mi>b</mi><mo>&#x000D7;</mo><mn>4</mn></mrow></math></div>
+
+
+
+<p>为什么乘 32？一个字节有 8 bit，每个 bit 占 4 字节别名位置，故一字节对应 32 字节别名空间。若题目给一个字中的第 k 位（0—31），先变成字节地址 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>A</mi><mo>&#x0002B;</mo><mi>&#x0230A;</mi><mi>k</mi><mo>&#x0002F;</mo><mn>8</mn><mi>&#x0230B;</mi></mrow></math></span>、字节内序号 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi><mo>mod</mo><mn>8</mn></mrow></math></span>；适用条件下也可等价写成基于该字地址偏移再加 4k。</p>
+<figure class="diagram" id="fig-bitband" data-figure="bitband"><div class="diagram-live"><div id="c5-bitband"><div class="viz-controls"><label class="form-label">区域<select class="form-select" data-region><option value="periph">外设</option><option value="sram">SRAM</option></select></label><label class="form-label">目标字节地址<input class="form-control" data-address value="0x40001000" maxlength="10" spellcheck="false"></label><label class="form-label">字节内 bit<select class="form-select" data-bit><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select></label></div><svg class="drawing" role="img" aria-label="位段别名地址计算器"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-bitband"><svg class="drawing" role="img" aria-label="位段别名地址计算器" viewBox="0 0 640 356"><title>目标字节偏移乘32再加位偏移乘4</title><rect x="12" y="10" width="616" height="51" rx="3" class="node"></rect><text x="24" y="31" text-anchor="start" class="text-small">目标字节 / bit</text><text x="616" y="53" text-anchor="end" class="text-small">0x40001000 / 3</text><rect x="12" y="78" width="616" height="51" rx="3" class="node"></rect><text x="24" y="99" text-anchor="start" class="text-small">区域内字节偏移</text><text x="616" y="121" text-anchor="end" class="text-small">0x00001000</text><rect x="12" y="146" width="616" height="51" rx="3" class="node"></rect><text x="24" y="167" text-anchor="start" class="text-small">字节偏移 × 32</text><text x="616" y="189" text-anchor="end" class="text-small">0x00020000</text><rect x="12" y="214" width="616" height="51" rx="3" class="node"></rect><text x="24" y="235" text-anchor="start" class="text-small">bit 偏移 × 4</text><text x="616" y="257" text-anchor="end" class="text-small">0x0000000C</text><rect x="12" y="282" width="616" height="51" rx="3" class="active"></rect><text x="24" y="303" text-anchor="start" class="text-small">加别名基址得到</text><text x="616" y="325" text-anchor="end" class="text-small">0x4202000C</text></svg><div aria-live="polite">结果 0x4202000C。读取该别名字位置通常得到目标位 0/1；必须实际支持位段且目标访问合法。</div></div></div><figcaption><span class="figure-number">图 5-11</span>限 1 MiB 实际位段区域和字节内 bit0—7，假定芯片支持对应映射。选择区域后示例地址会切换；别名是同一目标位的另一寻址方式。</figcaption></figure>
+
+
+
+<h3>习题 5.31 逐步算</h3>
+<p>读取 0x40001000 的 bit3：字节偏移是 0x1000，乘 32 得 0x20000；bit3 再加 12=0xC。因此：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0</mn><mi>x</mi><mn>42000000</mn><mo>&#x0002B;</mo><mn>0</mn><mi>x</mi><mn>20000</mn><mo>&#x0002B;</mo><mn>0</mn><mi>x</mi><mi>C</mi><mo>&#x0003D;</mo><menclose notation="box"><mrow><mn>0</mn><mi>x</mi><mn>4202000</mn><mi>C</mi></mrow></menclose></mrow></math></div>
+
+
+
+<pre><code class="language-asm">LDR R0, =0x4202000C
+LDR R1, [R0]           ; 在支持该位段映射的实现中，读得 0 或 1
+</code></pre>
+<p>C 示例可用固定宽度类型表达一次别名访问：</p>
+<pre><code class="language-c">#include &lt;stdint.h&gt;
+#define PERIPH_BIT3 (*(volatile uint32_t *)(uintptr_t)0x4202000Cu)
+uint32_t value = PERIPH_BIT3;
+/* 若该目标允许位段写，PERIPH_BIT3 = 1u / 0u 可设置/清除目标位。 */
+</code></pre>
+<h3>它解决什么问题，又没有解决什么</h3>
+<p>主程序先读得 0，中断把 bit0 置 1，主程序再按旧值把 bit1 置 1 并写回 2，会丢掉中断写的 bit0。对受支持的普通位存储分别进行硬件原子位更新，可避免这种软件 RMW 丢更新；多个布尔量也可紧凑放在同一个字中。</p>
+<p>要查 MCU 是否真的实现 bit-band，不能推广到所有 Cortex-M。外设若有写 1 清除、读即清除等副作用，还要核对能否这样访问；硬件 SET/CLEAR 寄存器常是另一种方案。<code>volatile</code> 用来表达必须发生的访问，<strong>不替代原子性和同步规则</strong>。别名 32 MiB 只是同一批 bit 的另一种寻址方式，没有多出 32 MiB RAM。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s26"><p class="eyebrow">第五章 · 第 26 节</p><h2>存储权限与 Fault：先问访问是否被允许</h2><p class="section-context">5.4.6，第 61—62 页；联系 5.2.3；习题 5.16</p><div class="part-goal"><p><strong>掌握要求：</strong>能区分特权限制、MPU 权限和真实总线错误，解释可配置错误升级。</p><p><strong>背景为什么要讲：</strong>默认权限表用于定位，不要求不加语境背成“整个高地址都禁止用户”。</p></div><p>基本地图之外还有权限。普通代码、SRAM、外设、外部 RAM/设备等区域的非特权访问，仍需结合 MPU、实际实现和设备规则判断。<strong>非特权不等于只能访问 PSP 附近，也不等于整个普通地址空间都禁止。</strong></p>
+<p>PPB/系统控制区通常要求特权：例如 NVIC 的使能和优先级配置不能交给普通用户随意改。ITM 的部分刺激端口、配置允许后的 STIR 等存在特殊访问规则，不要把一张默认表简化成“E 开头地址任何情况下都一样”。</p>
+<p>原书表中需认识的分区是 ITM（E0000000 附近）、DWT（E0001000 附近）、FPB（E0002000 附近）、SCS/NVIC（E000E000 附近）、TPIU（E0040000 附近）、ETM（E0041000 附近）、外部 PPB 和 ROM table（E00FF000 附近）。<strong>详细边界、读写许可与组件是否实现查芯片/内核手册</strong>；原表中“TPU”等缩写不宜照抄。</p>
+<p>分析一次失败访问，可以依次问：</p>
+<ol>
+<li>地址是否映射到真实硬件？没有响应或传输出错可形成 BusFault。</li>
+<li>当前权限是否允许访问核心控制区？非特权的受限 PPB 访问通常产生 BusFault。</li>
+<li>MPU 是否拒绝该区域的读、写或执行？可形成 MemManage。</li>
+<li>对应 Fault 是否使能、当前是否允许响应？可能升级 HardFault。</li>
+</ol>
+<p>错误处理程序通常结合 CFSR、HFSR、有效地址标志及异常帧里的 PC 找原因。不要把“打开 Fault”理解成制造错误；它是使诊断更具体的方式。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s27"><p class="eyebrow">第五章 · 第 27 节</p><h2>存储属性与写缓冲：发出写请求不等于写已经完成</h2><p class="section-context">5.4.7，第 62—64 页；习题 5.32、5.33</p><div class="part-goal"><p><strong>掌握要求：</strong>解释可缓冲、可缓存、可执行、可共享；说明写缓冲收益与顺序问题。</p><p><strong>背景为什么要讲：</strong>这节把第三章缓存与本章同步连起来；属性配置表要求能查读，不能只靠两个位猜全部行为。</p></div><p><strong>权限回答“谁能做”，属性回答“访问怎样被处理”。</strong>四个关键属性如下：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>属性</th>
+<th>意义</th>
+<th>不应作出的推论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bufferable，可缓冲</td>
+<td>允许相应写访问经缓冲向后完成</td>
+<td>指令已推进不代表目标外设已收到/完成</td>
+</tr>
+<tr>
+<td>Cacheable，可缓存</td>
+<td>允许使用适当缓存策略</td>
+<td>设置属性不会让没装缓存的内核长出缓存</td>
+</tr>
+<tr>
+<td>Executable，可执行</td>
+<td>可作为指令来源；XN 表示执行禁止</td>
+<td>地址有数据不代表可以取指执行</td>
+</tr>
+<tr>
+<td>Shareable，可共享</td>
+<td>定义共享与相关顺序/一致性处理要求</td>
+<td>一个属性位不会自动解决所有 CPU/DMA 缓存一致性</td>
+</tr>
+</tbody></table></div>
+<p>Normal、Device、Strongly-ordered 是存储器类型。普通 RAM/代码通常为 Normal，具有优化访问的空间；外设为 Device，要保留设备访问语义；PPB 通常采用 Strongly-ordered 等严格规则。详细编码还涉及 TEX、C、B、S 等，不应把原书简化的 C/B 二位表当所有配置的完整真值表。</p>
+<p>写缓冲的好处是：STR 把写请求交出去后，内核可能继续执行后面的算术，而外部较慢的传输仍在进行，<strong>把计算与等待重叠</strong>。缓冲满、依赖或顺序规则等仍可使内核等待；不保证每个 STR 都只花一拍。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>默认区域</th>
+<th>类型/常见缓存策略定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CODE</td>
+<td>Normal，WT 相关默认属性</td>
+</tr>
+<tr>
+<td>SRAM、外部 RAM 的 60000000—7FFFFFFF</td>
+<td>Normal，WB/WA 相关默认属性</td>
+</tr>
+<tr>
+<td>外部 RAM 的 80000000—9FFFFFFF</td>
+<td>Normal，WT 相关默认属性</td>
+</tr>
+<tr>
+<td>外设和外部设备区</td>
+<td>Device，通常 XN</td>
+</tr>
+<tr>
+<td>PPB（E0000000—E00FFFFF）</td>
+<td>Strongly-ordered，XN</td>
+</tr>
+<tr>
+<td>供应商定义系统区（E0100000 起）</td>
+<td>按默认与芯片规则，通常 Device/XN</td>
+</tr>
+</tbody></table></div>
+<p>WT 是写通，WB 是写回，WA 是写分配，第三章已解释。M3/M4 内核没有因此内建一套通用数据 Cache；芯片外部/厂商加速机制仍可能使用相关属性。MPU 可在架构允许的范围覆盖部分默认设置。</p>
+<p>原书还给出访问顺序对照：Normal 与其他访问之间不应随意假定完全有序；Device 同类和 Strongly-ordered 有更强约束，但不能把“某些顺序保证”扩大成所有操作都完成后才执行下一条。跨类型、跨设备有严格依赖时，用下一节之后介绍的屏障和器件同步规则。</p>
+<p>下表概括原书的顺序关系，行是程序中在前的 A1，列是在后的 A2；“保序”表示相关访问有表述范围内的顺序约束，“—”表示不能仅据此保证。<strong>“—”并不是说每次一定颠倒。</strong></p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>A1 → A2</th>
+<th>Normal</th>
+<th>Device 不可共享</th>
+<th>Device 可共享</th>
+<th>Strongly-ordered</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Normal</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Device 不可共享</td>
+<td>—</td>
+<td>保序</td>
+<td>—</td>
+<td>保序</td>
+</tr>
+<tr>
+<td>Device 可共享</td>
+<td>—</td>
+<td>—</td>
+<td>保序</td>
+<td>保序</td>
+</tr>
+<tr>
+<td>Strongly-ordered</td>
+<td>—</td>
+<td>保序</td>
+<td>保序</td>
+<td>保序</td>
+</tr>
+</tbody></table></div>
+<p>Strongly-ordered 本身按可共享处理。实际共享数据还要遵循完整同步协议；这个表不是跨所有设备、缓存和软件观察者的万能完成时间表，做题说明原书模型即可。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s28"><p class="eyebrow">第五章 · 第 28 节</p><h2>LDREX/STREX：先建立保留，再尝试条件写入</h2><p class="section-context">5.4.8，第 64—65 页；习题 5.34</p><div class="part-goal"><p><strong>掌握要求：</strong>能说明为何普通读改写不原子，读懂失败重试循环；把软件锁值与硬件独占监视分开。</p><p><strong>背景为什么要讲：</strong>互斥体、信号量和并发更新都依赖不可分割的状态修改，不需要现在实现完整操作系统锁。</p></div><p>共享计数器 <code>count++</code> 通常包含读、加、写。若主程序与中断都读到 7，各自写回 8，两次增量只留下一个。<strong>一条 C 语句不自动等于硬件原子操作。</strong></p>
+<p>LDREX 读取指定地址并建立独占保留（reservation）；STREX 尝试条件存储，成功返回状态 0，失败返回 1，失败时不完成该次写入。保留失效有多种原因，包括相关异常/竞争等，软件必须准备重试。它不会把整块 RAM 永久锁住，LDREX 也不是“只有锁值为 0 才允许读”。</p>
+<figure class="diagram" id="fig-exclusive" data-figure="exclusive"><div class="diagram-live"><div id="c5-exclusive"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① 普通读改写冲突</option><option value="1">② LDREX 建立保留</option><option value="2">③ 保留失效，STREX 失败</option><option value="3" selected>④ 重试后 STREX 成功</option></select></label></div><svg class="drawing" role="img" aria-label="独占保留与条件存储的成功/失败"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-exclusive"><svg class="drawing" role="img" aria-label="独占保留与条件存储的成功/失败" viewBox="0 0 640 291"><title>普通读改写丢更新与独占条件写重试对照</title><rect x="12" y="15" width="616" height="61" rx="3" class="node"></rect><text x="320" y="51" text-anchor="middle" class="text-small">重试 LDREX 读取 8</text><path d="M320 76 v31 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="107" width="616" height="61" rx="3" class="node"></rect><text x="320" y="143" text-anchor="middle" class="text-small">本次保留有效，再尝试写 9</text><path d="M320 168 v31 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="199" width="616" height="61" rx="3" class="active"></rect><text x="320" y="235" text-anchor="middle" class="text-small">STREX 状态 0，最终得到 9</text></svg><div aria-live="polite">成功路径必须检查 STREX 状态，失败时重新读和重试；这里不是完整锁协议。</div></div></div><figcaption><span class="figure-number">图 5-12</span>共享计数器初始为 7。竞争者先完成一次加一，另一方需重新读 8 再写 9；硬件保留与软件锁值是不同概念。</figcaption></figure>
+
+
+
+<p>单字对齐的普通 RAM 计数器示意：</p>
+<pre><code class="language-asm">retry:
+    LDREX R1, [R0]      ; R0 指向适用的对齐共享 RAM
+    ADD   R1, R1, #1
+    STREX R2, R1, [R0]  ; R2=0 才表示写成功
+    CMP   R2, #0
+    BNE   retry
+</code></pre>
+<p>这是原子更新的核心模式，不是完整锁实现。若作为互斥锁，还需要检查软件定义的锁值、退出/失败路径、必要的 CLREX 及 acquire/release 顺序等；不能忽略屏障而直接当成任意线程库。</p>
+<p><strong>软件信号量中的 0/1 是程序约定的空闲/占用，硬件监视器中的保留状态是另一个机制。</strong>原书把二者混为“先检查已锁定才排他读”容易误导，应按这两层理解。</p>
+<p>多核或 DMA 并发还依赖芯片互连、全局独占监视与存储器支持；不能只看 CPU 会 LDREX/STREX 就宣称与所有总线主设备之间都安全。原书提到 SWP 是历史背景，重点是认识新版采用条件存储与重试；不要把 SWP 的演进归结成“只要哈佛结构就无法实现任何原子访问”。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s29"><p class="eyebrow">第五章 · 第 29 节</p><h2>DMB、DSB、ISB：顺序、完成和执行上下文</h2><p class="section-context">5.4.9，第 65 页；习题 5.35</p><div class="part-goal"><p><strong>掌握要求：</strong>用一句话准确区分三种屏障，能反驳“顺序执行就不需要屏障”。</p><p><strong>背景为什么要讲：</strong>这里只建立正确选择的依据；具体外设/系统操作序列仍须按对应手册实现。</p></div><p>按程序顺序执行指令，不代表每一次存储器访问都已按同样顺序对其他观察者可见，也不代表写缓冲已经排空。<strong>内核执行、总线传输、目标设备完成，是不同时间点。</strong></p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>指令</th>
+<th>核心作用</th>
+<th>可以这样理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DMB，Data Memory Barrier</td>
+<td>约束相关显式存储器访问的顺序</td>
+<td>需要有序的先前访问不能被后面的越过去</td>
+</tr>
+<tr>
+<td>DSB，Data Synchronization Barrier</td>
+<td>等待规定范围内先前操作完成，再继续后续指令</td>
+<td>此处不仅排顺序，还要等完成</td>
+</tr>
+<tr>
+<td>ISB，Instruction Synchronization Barrier</td>
+<td>刷新/同步取指执行上下文，使后续指令按更新后的上下文执行</td>
+<td>改变某些控制状态后，让后续执行采用新环境</td>
+</tr>
+</tbody></table></div>
+<p>例如先写共享数据再发“数据就绪”的通知，消费者必须在同步协议下看到一致关系；修改 CONTROL 等执行上下文后要按架构要求同步；准备休眠或完成某些设备控制操作时，可能要确保先前写操作真正完成。<strong>有时还须读取外设状态确认设备内部动作结束，DSB 不等于等待任何电机、ADC 或串口事务都做完。</strong></p>
+<p>习题 5.35 的观点不对：M3/M4 即使不乱序执行指令，仍有写缓冲、互连和目标响应导致的可见性/完成问题。屏障解决的是规定范围的顺序与同步，<code>volatile</code> 主要约束编译器对该访问的处理，二者不能互相替代。</p>
+<p>不要见到并发就连续堆三种屏障，也不要完全省略。正确方法是先写明要建立的关系：“先前数据写在通知之前可见”“先前系统写完成后才休眠”“后续指令使用新权限”，再按架构、编译器与器件规则选择。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s30"><p class="eyebrow">第五章 · 第 30 节</p><h2>Pending 与 Active：被打断的处理程序仍然激活</h2><p class="section-context">5.5.1，第 66 页；联系 5.5.3</p><div class="part-goal"><p><strong>掌握要求：</strong>准确解释四个状态，能追踪一次普通中断和嵌套中断的状态变化。</p><p><strong>背景为什么要讲：</strong>清使能、清挂起、清外设状态如果混在一起，会造成重复进入或漏处理。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>状态</th>
+<th>Pending</th>
+<th>Active</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Inactive</td>
+<td>0</td>
+<td>0</td>
+<td>没有待服务请求，也没有未完成的服务</td>
+</tr>
+<tr>
+<td>Pending</td>
+<td>1</td>
+<td>0</td>
+<td>已记录请求，等待被接受</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>0</td>
+<td>1</td>
+<td>这次异常服务已开始且尚未异常返回</td>
+</tr>
+<tr>
+<td>Active and Pending</td>
+<td>1</td>
+<td>1</td>
+<td>服务未结束，同时又有该来源的新待处理请求</td>
+</tr>
+</tbody></table></div>
+<p>典型过程：外设发请求 → Pending=1 → 处理器接受，取向量、压栈 → Pending 清除、Active 置位 → 完成服务并异常返回 → Active 清除。</p>
+<figure class="diagram" id="fig-nvic" data-figure="nvic"><div class="diagram-live"><div id="c5-nvic"><div class="viz-controls"><label class="form-label">观察情景<select class="form-select" data-state><option value="0">① 没有请求</option><option value="1">② 来请求，等服务</option><option value="2">③ 已进入 ISR</option><option value="3">④ ISR 被更高者打断</option><option value="4">⑤ 同来源又来请求</option><option value="5">⑥ 禁止 IRQ，仍有挂起</option><option value="6">⑦ 服务完成且无新请求</option></select></label></div><svg class="drawing" role="img" aria-label="单一 IRQ 的使能、Pending 和 Active"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-nvic"><svg class="drawing" role="img" aria-label="单一 IRQ 的使能、Pending 和 Active" viewBox="0 0 640 248"><title>使能、挂起、激活相互独立</title><text x="12" y="25" text-anchor="start" class="text-small">三个状态分别判断</text><rect x="12" y="48" width="200" height="86" rx="3" class="active"></rect><text x="112" y="77" text-anchor="middle" class="text-small">Enable</text><text x="112" y="111" text-anchor="middle" class="">1</text><rect x="220" y="48" width="200" height="86" rx="3" class="node"></rect><text x="320" y="77" text-anchor="middle" class="text-small">Pending</text><text x="320" y="111" text-anchor="middle" class="">0</text><rect x="428" y="48" width="200" height="86" rx="3" class="node"></rect><text x="528" y="77" text-anchor="middle" class="text-small">Active</text><text x="528" y="111" text-anchor="middle" class="">0</text><rect x="12" y="164" width="616" height="61" rx="3" class="node"></rect><text x="320" y="199" text-anchor="middle" class="text-small">没有本次服务</text></svg><div aria-live="polite">没有本次服务。外设源是否仍有效需要另查。</div></div></div><figcaption><span class="figure-number">图 5-13</span>选择独立情景，不是操作真实硬件。Enable、Pending、Active 三列分别回答允许、等待和已开始未完成；禁止不自动清挂起。</figcaption></figure>
+
+
+
+<p>若 ISR-A 被更紧急的 ISR-B 抢占，A 还没返回，<strong>A 仍是 Active，只是当前没有执行</strong>。B 也 Active；B 返回后继续 A。不能把暂停的 A 自动改叫 Pending。A 自己的来源再次提出请求时，才可能出现 Active+Pending。</p>
+<p>ISR、Fault handler、System handler 是按处理来源的分类，不是三种额外处理器模式；它们的异常服务都涉及 Handler 模式的规则。</p>
+<p>图中是单一来源的教学状态模型，不能模拟所有硬件时钟细节。特别是 Pending 位不是无穷事件队列：在已经 Pending 的期间再次来多个脉冲，往往仍只保留一个待处理状态。要计数每一次事件，需借助外设计数/FIFO/软件协议。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s31"><p class="eyebrow">第五章 · 第 31 节</p><h2>向量表与复位：表项放入口地址，不是跳转指令</h2><p class="section-context">5.2.5、5.5.1，第 34—38、66—67 页；习题 5.26、5.37</p><div class="part-goal"><p><strong>掌握要求：</strong>会根据 IRQ 编号计算异常号与向量项地址，知道第 0 项和第 1 项的特殊用途。</p><p><strong>背景为什么要讲：</strong>启动文件和中断函数如何接上，是这张表决定的；不需要现在背一块芯片全部外设向量名。</p></div><p>向量表是按编号排列的一组 <strong>32 位字</strong>。第 0 项保存初始 MSP，不是普通异常入口；第 1 项是 Reset_Handler 入口；第 2 项 NMI，第 3 项 HardFault，之后按架构安排保留或使用。</p>
+<p>外部 IRQ 从 0 编号，但它的异常类型号从 16 开始，因为前 16 个<strong>表位置</strong>用于初始栈值、系统异常和保留项。不能说前面有 16 个都可以响应的系统中断。</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>e</mi><mo>&#x0003D;</mo><mn>16</mn><mo>&#x0002B;</mo><mi>i</mi><mo>&#x0002C;</mo><mspace width="2em" /><msub><mi>A</mi><mrow><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">y</mi></mrow></mrow></msub><mo>&#x0003D;</mo><mi>V</mi><mi>T</mi><mi>O</mi><mi>R</mi><mo>&#x0002B;</mo><mn>4</mn><mi>e</mi><mo>&#x0003D;</mo><mi>V</mi><mi>T</mi><mi>O</mi><mi>R</mi><mo>&#x0002B;</mo><mn>4</mn><mo stretchy="false">&#x00028;</mo><mn>16</mn><mo>&#x0002B;</mo><mi>i</mi><mo stretchy="false">&#x00029;</mo></mrow></math></div>
+
+
+
+<p>这里 i 是外部 IRQ 号，e 是异常类型号，entry 是<strong>存放入口指针的单元地址</strong>。读出该单元，才得到处理函数的入口编码。</p>
+<p>例如 VTOR=0x08000000，IRQ5 对应 e=21，向量项位置是 0x08000054。若里面存 0x08001235，真实代码从 0x08001234 的 Thumb 指令开始。<strong>表项地址、表项内容、实际取指地址是三件事。</strong></p>
+<p>复位时硬件从规定的启动映射读取初始 MSP 和复位入口，进入启动代码；芯片可将 Flash 等映射到启动地址。原书写“初始化程序再去取 MSP”容易让人误会，最早的 MSP 装载属于复位启动硬件行为。后面的启动程序再做数据搬运、清零、时钟等初始化。</p>
+<p>向量为 32 位，是因为它是适配本模型地址表示的 32 位入口字，不是因为“所有指令都是 32 位”。异常入口编码 bit0 应标识 Thumb；第 0 项作为 SP 不用入口奇偶规则。向量表每项不是经典向量区那样必须写一条跳转指令。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s32"><p class="eyebrow">第五章 · 第 32 节</p><h2>优先级的三套数字：来源数、逻辑等级、原始编码</h2><p class="section-context">5.5.1，第 67—70 页</p><div class="part-goal"><p><strong>掌握要求：</strong>根据实现位数算等级和编码，理解小数值更紧急以及同优先级的限制。</p><p><strong>背景为什么要讲：</strong>这节把第 16 节门槛计算推广到整个 NVIC，避免拿 IRQ 个数推优先级位数。</p></div><p>一颗芯片可以有 32 个 IRQ，却只提供 8 个优先级等级；也可以有 16 个 IRQ，提供 16 或更多等级。<strong>“有多少来源”和“可分多少等级”没有一一对应关系。</strong></p>
+<p>M3/M4 的优先级字节最多实现 8 位，至少实现 3 位；已实现的是高位。设实现 B 位，则有 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mi>B</mi></msup></mrow></math></span> 个逻辑等级，编码步长为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>8</mn><mo>&#x02212;</mo><mi>B</mi></mrow></msup></mrow></math></span>。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>B</th>
+<th>等级数</th>
+<th>原始字节的合法步长</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td>8</td>
+<td>0x20</td>
+<td>00、20、40、60、80、A0、C0、E0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16</td>
+<td>0x10</td>
+<td>00、10、20、…、F0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>64</td>
+<td>0x04</td>
+<td>00、04、08、…、FC</td>
+</tr>
+<tr>
+<td>8</td>
+<td>256</td>
+<td>0x01</td>
+<td>00—FF</td>
+</tr>
+</tbody></table></div>
+<p>读未实现低位得到 0，写它们不产生期望等级。CMSIS <code>NVIC_SetPriority(IRQn, priority)</code> 一般接收未移位的逻辑数值，内部按实现位数处理；<strong>直接写 IPR/BASEPRI 与调用该接口的参数格式不能混用</strong>。<a href="https://arm-software.github.io/CMSIS_6/main/Core/group__NVIC__gr.html">CMSIS 的优先级接口说明</a></p>
+<p>可配置优先级逻辑 0 最紧急，较大的数较不紧急。复位后的可配置优先级通常为 0，若需要嵌套层次应显式配置。是否能抢占还取决于分组、当前执行优先级与屏蔽状态，不能只拿完整字节做一句笼统比较。</p>
+<p>同一抢占等级的异常不能因为子优先级更小就打断彼此；多个可服务的 Pending 候选，则进一步比较子优先级等。完全相同优先级时，较小异常类型号可用于决胜，但<strong>这不等于 IRQ 编号天然决定主优先级</strong>。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s33"><p class="eyebrow">第五章 · 第 33 节</p><h2>PRIGROUP：哪些位决定抢占，哪些位只排队</h2><p class="section-context">5.5.1，第 69—71 页；习题 5.38、5.41</p><div class="part-goal"><p><strong>掌握要求：</strong>会画 8 位优先级字节的切分，独立求抢占等级数与子优先级数。</p><p><strong>背景为什么要讲：</strong>本节必须算明白；厂商库的“第几组”命名未必等于 AIRCR 里的数值，切勿跨库套编号。</p></div><p>AIRCR.PRIGROUP 是位 [10:8]，设其值为 G（0—7）。优先级分为<strong>抢占优先级（又称组优先级）</strong>与<strong>子优先级</strong>。抢占部分决定能否打断当前处理；子优先级主要决定同组的多个待服务者先选谁。</p>
+<p>设实际实现 B 位：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>p</mi><mo>&#x0003D;</mo><mo>min</mo><mo stretchy="false">&#x00028;</mo><mi>B</mi><mo>&#x0002C;</mo><mn>7</mn><mo>&#x02212;</mo><mi>G</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002C;</mo><mspace width="2em" /><mi>s</mi><mo>&#x0003D;</mo><mi>B</mi><mo>&#x02212;</mo><mi>p</mi></mrow></math></div>
+
+
+
+
+
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mtext>抢占等级数</mtext><mo>&#x0003D;</mo><msup><mn>2</mn><mi>p</mi></msup><mo>&#x0002C;</mo><mspace width="2em" /><mtext>每组子等级数</mtext><mo>&#x0003D;</mo><msup><mn>2</mn><mi>s</mi></msup></mrow></math></div>
+
+
+
+<p>这些位在已实现的高位中切分，<strong>未实现低位不能拿来凭空增加子优先级</strong>。把抢占数 g、子数 t 合成逻辑值可写为 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>r</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>g</mi><mo>&#x0226A;</mo><mi>s</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0002B;</mo><mi>t</mi></mrow></math></span>，再按 B 左移到原始字节位置。</p>
+<figure class="diagram" id="fig-prigroup" data-figure="prigroup"><div class="diagram-live"><div id="c5-prigroup"><div class="viz-controls"><label class="form-label">实现位 B<select class="form-select" data-bits><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label><label class="form-label">AIRCR.PRIGROUP<select class="form-select" data-group><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option></select></label></div><svg class="drawing" role="img" aria-label="PRIGROUP 划分实际实现的高位"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-prigroup"><svg class="drawing" role="img" aria-label="PRIGROUP 划分实际实现的高位" viewBox="0 0 640 331"><title>优先级高位按实际实现与PRIGROUP切分</title><text x="12" y="25" text-anchor="start" class="text-small">实现 B=4 位，PRIGROUP=4</text><text x="50.5" y="53" text-anchor="middle" class="text-small">b7</text><rect x="13" y="64" width="75" height="41" rx="3" class="active"></rect><text x="50.5" y="91" text-anchor="middle" class="text-small">抢</text><text x="127.5" y="53" text-anchor="middle" class="text-small">b6</text><rect x="90" y="64" width="75" height="41" rx="3" class="active"></rect><text x="127.5" y="91" text-anchor="middle" class="text-small">抢</text><text x="204.5" y="53" text-anchor="middle" class="text-small">b5</text><rect x="167" y="64" width="75" height="41" rx="3" class="active"></rect><text x="204.5" y="91" text-anchor="middle" class="text-small">抢</text><text x="281.5" y="53" text-anchor="middle" class="text-small">b4</text><rect x="244" y="64" width="75" height="41" rx="3" class="waiting"></rect><text x="281.5" y="91" text-anchor="middle" class="text-small">子</text><text x="358.5" y="53" text-anchor="middle" class="text-small">b3</text><rect x="321" y="64" width="75" height="41" rx="3" class="node"></rect><text x="358.5" y="91" text-anchor="middle" class="text-small">—</text><text x="435.5" y="53" text-anchor="middle" class="text-small">b2</text><rect x="398" y="64" width="75" height="41" rx="3" class="node"></rect><text x="435.5" y="91" text-anchor="middle" class="text-small">—</text><text x="512.5" y="53" text-anchor="middle" class="text-small">b1</text><rect x="475" y="64" width="75" height="41" rx="3" class="node"></rect><text x="512.5" y="91" text-anchor="middle" class="text-small">—</text><text x="589.5" y="53" text-anchor="middle" class="text-small">b0</text><rect x="552" y="64" width="75" height="41" rx="3" class="node"></rect><text x="589.5" y="91" text-anchor="middle" class="text-small">—</text><text x="12" y="136" text-anchor="start" class="text-small">蓝：抢占；橙：子；灰：未实现</text><rect x="12" y="158" width="616" height="63" rx="3" class="active"></rect><text x="24" y="182" text-anchor="start" class="text-small">抢占位：3</text><text x="616" y="207" text-anchor="end" class="text-small">抢占等级：8</text><rect x="12" y="237" width="616" height="63" rx="3" class="waiting"></rect><text x="24" y="261" text-anchor="start" class="text-small">子优先级位：1</text><text x="616" y="286" text-anchor="end" class="text-small">每组子等级：2</text></svg><div aria-live="polite">p=min(4,7−4)=3，s=1；8 个抢占等级，每组 2 个子等级。同组子优先级不能用于抢占。</div></div></div><figcaption><span class="figure-number">图 5-14</span>8 格固定对应字节 bit7—0，先看实际实现 B 位，再按 G 分抢占与子优先级。没有实现的位不参与排序。</figcaption></figure>
+
+
+
+<h3>习题 5.41：先指出缺失条件，再给条件解</h3>
+<p>原题只说 16 个外部中断，不能独立确定 B。下面补充常见题意：<strong>实现 4 位优先级，即 16 个可配置等级</strong>。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>G=PRIGROUP</th>
+<th>抢占位 p</th>
+<th>子位 s</th>
+<th>抢占等级数</th>
+<th>每组子等级数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td>4</td>
+<td>0</td>
+<td>16</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+<td>8</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+</tr>
+</tbody></table></div>
+<p>例如 B=4、G=5，A=(组1,子3)，B=(组2,子0)，A 比 B 更紧急；C=(组1,子0) 虽然完整编码比 A 小，但<strong>不能抢占正在运行的 A</strong>。若 A 和 C 都在等待被选择，C 可先服务。这里不要求两次请求恰好同时产生。</p>
+<p>原题“分组优先级和抢占优先级数量”很可能想比较抢占与子优先级，因为“组优先级”和“抢占优先级”本来指同一部分。答题时明确术语和 B，不能只写三组数字而不交代前提。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s34"><p class="eyebrow">第五章 · 第 34 节</p><h2>异常进入、嵌套、返回：硬件替你做了哪些工作</h2><p class="section-context">5.2.5、5.5.1，第 34—38、70—71 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能按顺序解释保存、取向量、执行、返回；知道尾链和迟到抢占如何减少重复工作。</p><p><strong>背景为什么要讲：</strong>原书强调低延迟，这里说明性能来自什么机制，不要求把理想周期数背成无条件保证。</p></div><p>一次异常响应至少涉及：识别可服务请求、按优先级选择、保存上下文、获得入口、建立 Handler 状态，再运行处理程序。基本帧、SP 和 EXC_RETURN 见第 19—20 节。取向量与部分压栈活动可以重叠，这些机制减少软件开销。</p>
+<p><strong>嵌套</strong>：处理 A 时，更高抢占优先级 B 成为可服务者，保存 A 的必要上下文，进入 B；B 正常返回后继续 A。A 的 Active 在其完成前保留。</p>
+<p><strong>尾链（tail-chaining）</strong>：A 即将返回时，另一个符合条件的 Pending 异常 C 应当接着服务，硬件可保留底层被打断程序的现场，直接接入 C，避免先完整弹回 Thread 又立即再压一次。它不表示 C 与 A 的寄存器局部状态可以随便混用。</p>
+<p><strong>迟到（late arrival）</strong>：较低优先级请求开始异常进入后，压栈过程里出现更高优先级请求，硬件可能改为先进入更紧急的处理程序，而不必先把较低者完整运行一遍。较低请求保留待服务资格。</p>
+<p>原书/手册中常见的理想异常入口约 12 周期、尾链约 6 周期等，依赖特定内核及零等待等条件；Flash/RAM 等待、总线竞争、浮点现场、当前指令和芯片实现都会影响实际延迟。<strong>做题给了理想条件才用理想值，测量实机则看真实路径。</strong></p>
+<p>返回时必须完成正确的服务收尾、恢复软件额外保护的现场，再经合法异常返回恢复原模式/现场。对中断源的确认、状态位清除和寄存器保存各有责任，硬件自动基本压栈并不会代替外设服务逻辑。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s35"><p class="eyebrow">第五章 · 第 35 节</p><h2>VTOR 重定位：向量表大小先算字节，再向上取二次幂</h2><p class="section-context">5.5.2，第 71—72 页；习题 5.39、5.42</p><div class="part-goal"><p><strong>掌握要求：</strong>能求向量项位置、表大小与对齐边界，解释改 VTOR 与跳转程序的区别。</p><p><strong>背景为什么要讲：</strong>Bootloader、多应用和 RAM 向量表会用到；本节不提供缺少芯片条件的通用跳转模板。</p></div><p>VTOR（Vector Table Offset Register）指定向量表基址。异常查询使用 <code>VTOR + 4×异常号</code>，因此把一份有效向量表放到另一合法位置，再更新 VTOR，就能让后续异常从新表查入口。</p>
+<p>设实际 IRQ 连续编号 0—N−1，保留 16 个核心表位置，则：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>V</mi><mo>&#x0003D;</mo><mn>16</mn><mo>&#x0002B;</mo><mi>N</mi><mo>&#x0002C;</mo><mspace width="1em" /><mi>S</mi><mo>&#x0003D;</mo><mn>4</mn><mi>V</mi><mo>&#x0002C;</mo><mspace width="1em" /><mi>A</mi><mo>&#x0003D;</mo><mo>max</mo><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><mn>128</mn><mo>&#x0002C;</mo><msup><mn>2</mn><mrow><mi>&#x02308;</mi><msub><mi>log</mi><mn>2</mn></msub><mi>S</mi><mi>&#x02309;</mi></mrow></msup><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow></mrow></math></div>
+
+
+
+<p>S 是最少占用字节，A 是本模型所需的对齐边界。至少满足 128 字节以及足够覆盖表规模的二次幂对齐。若 IRQ 编号稀疏，应按<strong>最高使用的编号所需表范围</strong>计算，而不是只数几个已命名来源。</p>
+<figure class="diagram" id="fig-vectors" data-figure="vectors"><div class="diagram-live"><div id="c5-vectors"><div class="viz-controls"><label class="form-label">连续实现 IRQ 数 N<input class="form-control short" data-count type="number" value="32" min="1" max="240" step="1"></label><label class="form-label">拟用 VTOR 基址<input class="form-control" data-base value="0x08000100" maxlength="10" spellcheck="false"></label><label class="form-label">查看 IRQ i<input class="form-control short" data-irq type="number" value="5" min="0" max="31" step="1"></label></div><svg class="drawing" role="img" aria-label="向量项位置与重定位边界"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c5-vectors"><svg class="drawing" role="img" aria-label="向量项位置与重定位边界" viewBox="0 0 640 387"><title>向量表大小对齐和所查表项地址</title><rect x="12" y="12" width="616" height="57" rx="3" class="node"></rect><text x="24" y="34" text-anchor="start" class="text-small">核心表位置 + 外部 IRQ</text><text x="616" y="58" text-anchor="end" class="text-small">16 + 32 = 48 项</text><rect x="12" y="85" width="616" height="57" rx="3" class="node"></rect><text x="24" y="107" text-anchor="start" class="text-small">最低表字节数</text><text x="616" y="131" text-anchor="end" class="text-small">48 × 4 = 192 字节</text><rect x="12" y="158" width="616" height="57" rx="3" class="node"></rect><text x="24" y="180" text-anchor="start" class="text-small">所需二次幂对齐</text><text x="616" y="204" text-anchor="end" class="text-small">256 字节 · 0x100</text><rect x="12" y="231" width="616" height="57" rx="3" class="active"></rect><text x="24" y="253" text-anchor="start" class="text-small">拟用基址的数值条件</text><text x="616" y="277" text-anchor="end" class="text-small">通过，仍需核对实现</text><rect x="12" y="304" width="616" height="57" rx="3" class="node"></rect><text x="24" y="326" text-anchor="start" class="text-small">IRQ5 → 异常号 21</text><text x="616" y="350" text-anchor="end" class="text-small">表项位置 0x08000154</text></svg><div aria-live="polite">48 项，192 字节，需 256 字节对齐。基址数值通过；不表示芯片必有该存储。 IRQ5 的异常号 21，向量项位置 0x08000154。</div></div></div><figcaption><span class="figure-number">图 5-15</span>假定 IRQ0—N−1 连续占表位置。计算大小、对齐和查表地址；绿/蓝色只表示数值条件通过，仍须验证实际存储、VTOR 版本和有效表项。</figcaption></figure>
+
+
+
+<h3>习题 5.42：32 个 IRQ</h3>
+<p>N=32，V=48，S=192 字节。128 太小，256 足够，故需要 <strong>256 字节对齐</strong>；合法数值基址应满足 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>B</mi><mo>mod</mo><mn>0</mn><mi>x</mi><mn>100</mn><mo>&#x0003D;</mo><mn>0</mn></mrow></math></span>。0x08000000、0x08000100、0x20000100 在数值上满足，0x20000080 不满足。</p>
+<p>还必须加上<strong>实际可用性</strong>：该地址属于芯片实现的可读存储、完整表范围存在、VTOR 对应版本支持相关高地址位、表项有效、权限允许等。所以不能回答“整个 4 GiB 中任何 0x100 倍数都能直接使用”。原书不同 VTOR 位图涉及版本限制，不能省略实现差别。</p>
+<p>21 个 IRQ 时是 37 项、148 字节，也要向上到 256；不是把 148 当作对齐边界。若表恰好 128 或 256 字节，不需要因为一句“必须大于”再翻倍，应取满足要求的最小边界。</p>
+<p><strong>写 VTOR 不会立即跳到新 Reset_Handler，也不会自动把当前 MSP 改成新表第 0 项。</strong>Bootloader 真正转交程序还需协调中断/外设、目标栈、入口和执行上下文等，并按平台要求同步。这里学的是异常查表位置变化，不能把它当完整应用切换。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s36"><p class="eyebrow">第五章 · 第 36 节</p><h2>请求、使能、挂起：为什么关掉以后还可能再进中断</h2><p class="section-context">5.5.3，第 72—73 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能分别说明清外设源、禁止 IRQ、清 Pending 的作用，解释电平与脉冲以及事件合并。</p><p><strong>背景为什么要讲：</strong>这是实际调试中最常见的问题之一；只记 NVIC 的“开关位”不足以解释现象。</p></div><p>把一次请求想成三层：<strong>外设状态/请求线 → NVIC 的 Pending 记录 → 处理器能否激活</strong>。外设中断允许位、NVIC 使能、PRIMASK/BASEPRI、当前执行优先级等都可能影响最终响应，作用位置不同。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>操作</th>
+<th>改变什么</th>
+<th>不自动做到什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>禁止某 IRQ</td>
+<td>暂不允许它正常激活</td>
+<td>不保证删除 Pending，不自动清外设状态</td>
+</tr>
+<tr>
+<td>清 NVIC Pending</td>
+<td>清该层待服务记录</td>
+<td>不保证仍有效的电平请求不会再置位</td>
+</tr>
+<tr>
+<td>清外设中断标志</td>
+<td>按外设规定撤销/确认源事件</td>
+<td>不等于任何情况下都已清所有 NVIC 记录</td>
+</tr>
+<tr>
+<td>异常返回</td>
+<td>完成当前服务、清相应 Active</td>
+<td>不阻止一个新的请求随后被服务</td>
+</tr>
+</tbody></table></div>
+<p>电平请求若在 ISR 返回时仍保持有效，可能再次挂起并再次进入。脉冲请求则可以先被记成 Pending，稍后满足条件再服务。已经 Pending 时的多个脉冲往往合并，<strong>NVIC 不是逐事件计数器</strong>。</p>
+<p>同一个 IRQ 的 ISR 尚未完成时，又来了新请求，可成 Active+Pending；它通常不会用同一异常无限递归抢占自己，而在允许时再次服务。被其他异常抢占也不清掉它的 Active。</p>
+<p>实际收尾顺序要看外设：有的读数据自动清标志，有的写 1 清除，有的要读状态再读数据，不能统统写 0。必要时还要确保清请求的写访问已经到达目标。正确做法是按外设手册确认源，再判断 NVIC 状态和同步要求。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s37"><p class="eyebrow">第五章 · 第 37 节</p><h2>NVIC 寄存器：两个写 1 接口为什么更方便</h2><p class="section-context">5.5.4，第 73—76 页；习题 5.40</p><div class="part-goal"><p><strong>掌握要求：</strong>会按 IRQ 号定位 bank 与 bit，分清 W1S/W1C；能解释 IPR 字节视图与字视图。</p><p><strong>背景为什么要讲：</strong>地址表供写程序时查询，但写入语义必须懂；原表地址和编号有笔误，下面按一致模型整理。</p></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>寄存器组</th>
+<th>起始地址</th>
+<th>语义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ISER</td>
+<td>0xE000E100</td>
+<td>写 1 使能该 IRQ，写 0 无影响</td>
+</tr>
+<tr>
+<td>ICER</td>
+<td>0xE000E180</td>
+<td>写 1 清除该 IRQ 的使能，写 0 无影响</td>
+</tr>
+<tr>
+<td>ISPR</td>
+<td>0xE000E200</td>
+<td>写 1 设置 Pending</td>
+</tr>
+<tr>
+<td>ICPR</td>
+<td>0xE000E280</td>
+<td>写 1 清 Pending</td>
+</tr>
+<tr>
+<td>IABR</td>
+<td>0xE000E300</td>
+<td>读取 Active 状态，不能当普通开关写</td>
+</tr>
+<tr>
+<td>IPR</td>
+<td>0xE000E400</td>
+<td>每个 IRQ 一个优先级字节，也可按允许方式成组访问</td>
+</tr>
+<tr>
+<td>STIR</td>
+<td>0xE000EF00</td>
+<td>写 IRQ 编号，软件触发对应挂起</td>
+</tr>
+</tbody></table></div>
+<p>对于 IRQ i：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mo>bank</mo><mo>&#x0003D;</mo><mi>&#x0230A;</mi><mi>i</mi><mo>&#x0002F;</mo><mn>32</mn><mi>&#x0230B;</mi><mo>&#x0002C;</mo><mspace width="1em" /><mi>b</mi><mo>&#x0003D;</mo><mi>i</mi><mo>mod</mo><mn>32</mn><mo>&#x0002C;</mo><mspace width="1em" /><mi>M</mi><mo>&#x0003D;</mo><mn>1</mn><mo>&#x0226A;</mo><mi>b</mi></mrow></math></div>
+
+
+
+<p>ISER/ICER 等的 bank 地址为起始地址加 <code>4×bank</code>。例如 IRQ37，bank=1、bit5：使能写地址 0xE000E104 的值 0x20；禁止则往 0xE000E184 写 0x20。<strong>无需先读出整组位再改一位</strong>，也不会因写 0 误清其他 IRQ。这就是习题 5.40 的设计好处。</p>
+<p>软件可用 CMSIS <code>NVIC_EnableIRQ</code>、<code>NVIC_DisableIRQ</code>、<code>NVIC_SetPendingIRQ</code>、<code>NVIC_ClearPendingIRQ</code>、<code>NVIC_GetActive</code> 等表达意图；仍须提供该芯片合法 IRQ。</p>
+<h3>IPR 的两个视图不能混写</h3>
+<p>第 i 个 IRQ 的优先级字节在 <code>0xE000E400+i</code>。若按 32 位 IPR 字寄存器看，第 j 个字在 <code>0xE000E400+4j</code>，包含 IRQ4j—4j+3 的四个字节。原书表 5.37 把地址加 1 却仍按每字四个 IRQ 命名，混淆了视图；不能照表连续抄错。</p>
+<p>M3/M4 最大 240 个外部 IRQ 对应 8 组位图寄存器（末组仅部分位有效）和 240 个优先级字节/60 个字；实际只实现芯片需要的部分，不去操作保留位。</p>
+<p>STIR 的 INTID 字段 [8:0] 是 <strong>9 位</strong>，不是文字所说 8 位；写的是外部 <strong>IRQ 编号</strong>，不是加 16 后的异常类型号，且必须在实现范围内。默认需特权；CCR.USERSETMPEND 可按规定允许非特权软件触发。软件触发只是在 NVIC 层挂起，不会伪造某个 UART 的真实接收数据。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s38"><p class="eyebrow">第五章 · 第 38 节</p><h2>SCB 寄存器：系统异常和系统状态集中在哪里</h2><p class="section-context">5.5.5，第 76—78 页</p><div class="part-goal"><p><strong>掌握要求：</strong>知道 ICSR、AIRCR、SHPR、SHCSR 的用途和关键字段，其余诊断寄存器会按问题查找。</p><p><strong>背景为什么要讲：</strong>原书最后的密集位表不是让你一次背完地址；学会“遇到什么问题查哪个寄存器”才可用于做题和调试。</p></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>地址</th>
+<th>名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0xE000ED00</td>
+<td>CPUID</td>
+<td>识别内核类型/版本等</td>
+</tr>
+<tr>
+<td>0xE000ED04</td>
+<td>ICSR</td>
+<td>当前/挂起异常状态，PendSV/SysTick/NMI 的相关挂起控制</td>
+</tr>
+<tr>
+<td>0xE000ED08</td>
+<td>VTOR</td>
+<td>向量表基址</td>
+</tr>
+<tr>
+<td>0xE000ED0C</td>
+<td>AIRCR</td>
+<td>优先级分组、系统复位请求等；端配置为状态信息</td>
+</tr>
+<tr>
+<td>0xE000ED10</td>
+<td>SCR</td>
+<td>休眠、深度休眠等控制</td>
+</tr>
+<tr>
+<td>0xE000ED14</td>
+<td>CCR</td>
+<td>栈对齐、非对齐陷阱及其他配置</td>
+</tr>
+<tr>
+<td>0xE000ED18/1C/20</td>
+<td>SHPR1/2/3</td>
+<td>系统异常的可配置优先级</td>
+</tr>
+<tr>
+<td>0xE000ED24</td>
+<td>SHCSR</td>
+<td>可配置 Fault 使能及相关挂起/激活状态</td>
+</tr>
+<tr>
+<td>0xE000ED28</td>
+<td>CFSR</td>
+<td>可配置 Fault 的原因状态</td>
+</tr>
+<tr>
+<td>0xE000ED2C</td>
+<td>HFSR</td>
+<td>HardFault 状态</td>
+</tr>
+<tr>
+<td>0xE000ED30</td>
+<td>DFSR</td>
+<td>调试 Fault 状态</td>
+</tr>
+<tr>
+<td>0xE000ED34/38</td>
+<td>MMFAR/BFAR</td>
+<td>满足有效标志时的错误地址</td>
+</tr>
+<tr>
+<td>0xE000ED3C</td>
+<td>AFSR</td>
+<td>辅助错误状态，含实现相关内容</td>
+</tr>
+<tr>
+<td>0xE000ED88</td>
+<td>CPACR</td>
+<td>协处理器访问权限，涉及 FPU 配置</td>
+</tr>
+</tbody></table></div>
+<h3>ICSR：现在谁在跑，谁在等</h3>
+<p>VECTACTIVE[8:0] 给当前异常号；VECTPENDING[20:12] 给相应最高待处理异常号；ISRPENDING 表示有外部请求挂起；RETTOBASE 用于判断活动异常层级（1 表示没有其他被抢占的活动异常，0 表示存在其他活动层）。ISRPREEMPT 与调试状态相关，不应当作普通程序里无条件的抢占预测器。</p>
+<p>NMIPENDSET[31]、PENDSVSET[28]/PENDSVCLR[27]、PENDSTSET[26]/PENDSTCLR[25] 用于对应挂起设置/清除。涉及写 1 操作的字段按字段规定写，<strong>不要对所有 SCB 控制位一律套普通读改写</strong>。</p>
+<h3>AIRCR：分组与复位，写入需要钥匙</h3>
+<p>写 AIRCR 相关配置需在 VECTKEY[31:16] 提供 <strong>0x05FA</strong>；PRIGROUP[10:8] 的计算已在第 33 节完成；SYSRESETREQ[2] 请求系统复位。ENDIANNESS[15] 是读取的端状态，不是让应用任意切换大小端的写开关。VECTCLRACTIVE/VECTRESET 等涉及调试限制、版本或保留规则，不能当普通应用复位工具随意操作。</p>
+<h3>SHPR 与 SHCSR：系统异常的对应表</h3>
+<p>SHPR <strong>共三个</strong>，不是“四个 SHPR1—SHPR3”。SHPR1 的前三个字节分别对应 MemManage、BusFault、UsageFault；SHPR2 的最高字节对应 SVCall；SHPR3 的 byte0/2/3 分别对应 DebugMonitor/PendSV/SysTick，其余位置按规定保留。每个优先级字节的实现高位规则与 IPR 一致；Reset/NMI/HardFault 的固定优先级不在这里改。</p>
+<p>SHCSR（原表还出现 SHCRS 字母颠倒）[18:16] 分别使能 UsageFault、BusFault、MemManage；[15:12] 涉及 SVC、BusFault、MemManage、UsageFault 的挂起；活动状态包括 [11]SysTick、[10]PendSV、[8]DebugMonitor、[7]SVCall、[3]UsageFault、[1]BusFault、[0]MemManage。<strong>认识字段用途，操作时查权限和保留位，不能把所有状态位都当应用可随意修改。</strong></p>
+<p>到这里原书全部小节已讲完。实际排错按“看当前/待处理者 → 检查屏蔽和优先级 → 查 Fault 原因 → 查帧里的 PC 与地址”的顺序，不需要一开始默写整页位表。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section id="coverage"><p class="eyebrow">原书每个小节都能回查</p><h2>完整覆盖表与背景边界</h2><div class="table-wrap"><table class="coverage-table"><thead><tr><th>原书小节</th><th>内容</th><th>本文件讲解</th></tr></thead><tbody>
+<tr><td>5.1.1</td><td>ISA、微架构、分类、哈佛、TCM/Cache</td><td><a href="#s01">01</a>、<a href="#s02">02</a></td></tr>
+<tr><td>5.1.2</td><td>起源、版本、指令集、增强扩展、饱和</td><td><a href="#s03">03</a>、<a href="#s04">04</a>、<a href="#s05">05</a></td></tr>
+<tr><td>5.1.3</td><td>特点、经典 ARM、Cortex-A/R/M 产品</td><td><a href="#s05">05</a>、<a href="#s06">06</a>、<a href="#s07">07</a></td></tr>
+<tr><td>5.2.1</td><td>M3/M4 概述、指令差异、FPU</td><td><a href="#s07">07</a></td></tr>
+<tr><td>5.2.2</td><td>内部组成、NVIC、调试、低功耗</td><td><a href="#s07">07</a>、<a href="#s08">08</a></td></tr>
+<tr><td>5.2.3</td><td>存储器管理、MMU/MPU</td><td><a href="#s09">09</a></td></tr>
+<tr><td>5.2.4</td><td>总线与互连结构</td><td><a href="#s10">10</a></td></tr>
+<tr><td>5.2.5</td><td>异常来源、自动现场和响应机制</td><td><a href="#s11">11</a>、<a href="#s19">19</a>、<a href="#s20">20</a>、<a href="#s31">31</a>、<a href="#s34">34</a></td></tr>
+<tr><td>5.3.1</td><td>状态、模式、访问等级</td><td><a href="#s12">12</a></td></tr>
+<tr><td>5.3.2</td><td>R0—R15、SP/LR/PC</td><td><a href="#s13">13</a></td></tr>
+<tr><td>5.3.3</td><td>xPSR、屏蔽寄存器、CONTROL</td><td><a href="#s14">14</a>、<a href="#s15">15</a>、<a href="#s16">16</a>、<a href="#s17">17</a></td></tr>
+<tr><td>5.3.4</td><td>栈类型、对齐、双栈与初始化</td><td><a href="#s17">17</a>、<a href="#s18">18</a>、<a href="#s19">19</a>、<a href="#s20">20</a></td></tr>
+<tr><td>5.4.1</td><td>固定地址地图</td><td><a href="#s21">21</a></td></tr>
+<tr><td>5.4.2</td><td>存储器连接和互连</td><td><a href="#s22">22</a></td></tr>
+<tr><td>5.4.3</td><td>大小端、BE-8/BE-32、REV</td><td><a href="#s23">23</a></td></tr>
+<tr><td>5.4.4</td><td>非对齐访问</td><td><a href="#s24">24</a></td></tr>
+<tr><td>5.4.5</td><td>位段、原子更新、C 访问</td><td><a href="#s25">25</a></td></tr>
+<tr><td>5.4.6</td><td>访问权限和错误</td><td><a href="#s26">26</a></td></tr>
+<tr><td>5.4.7</td><td>属性、类型、写缓冲、一致性</td><td><a href="#s27">27</a></td></tr>
+<tr><td>5.4.8</td><td>排他访问、共享资源</td><td><a href="#s28">28</a></td></tr>
+<tr><td>5.4.9</td><td>DMB/DSB/ISB</td><td><a href="#s29">29</a></td></tr>
+<tr><td>5.5.1</td><td>模型、状态、向量、优先级及分组</td><td><a href="#s30">30</a>、<a href="#s31">31</a>、<a href="#s32">32</a>、<a href="#s33">33</a>、<a href="#s34">34</a></td></tr>
+<tr><td>5.5.2</td><td>向量表重定位</td><td><a href="#s35">35</a></td></tr>
+<tr><td>5.5.3</td><td>挂起、激活与请求行为</td><td><a href="#s30">30</a>、<a href="#s36">36</a></td></tr>
+<tr><td>5.5.4</td><td>NVIC 寄存器</td><td><a href="#s37">37</a></td></tr>
+<tr><td>5.5.5</td><td>SCB 寄存器</td><td><a href="#s38">38</a></td></tr>
+<tr><td>5.6</td><td>42 道习题</td><td><a href="#exercises">逐题答题卡 →</a></td></tr></tbody></table></div><p>历史部分保留起源、版本、型号组、命名后缀、DSP/Java/安全/向量等扩展的定位；产品参数、发布时间、性能倍数、调试数量等归入查表层。系统表保留主要地址与字段用途，保留位和实现参数须回查对应手册。正文没有照搬原扫描页，而是按理解与解题重新组织。</p><p>这章还不要求你独立实现完整 MPU 配置、Bootloader、带 FPU 的 RTOS 或调试器。认识这些机制的用途和边界，是后续编程的准备；本章涉及的计算、状态判断和原题仍需自己会做。</p></section>
+<section id="selftest"><p class="eyebrow">先闭卷，再核对</p><h2>十道综合短自测</h2><ol>
+<li>ISA 相同、Cache 不同的两个内核，程序速度是否必须相同？为什么？</li>
+<li>8 位有符号 −110−40，饱和结果和低 8 位回绕结果各是多少？</li>
+<li>Thread 为非特权、SPSEL=0，能否存在？进入普通异常后是什么等级和 SP？</li>
+<li>Thread 的 PSP=0x20001004，启用异常 8 字节对齐，只保存基本帧。新 PSP、填充位置、保存 PC 的位置分别是多少？</li>
+<li>实现 B=3，逻辑等级 5 的原始编码是多少？把 5 直接写 BASEPRI 有什么问题？</li>
+<li>B=4、G=5，抢占组 2、子优先级 1，对应逻辑等级和原始字节是什么？同组子优先级更小能打断它吗？</li>
+<li>SRAM 字节 0x20000002 的 bit7，对应哪一个位段别名地址？假设 MCU 支持此功能。</li>
+<li>VTOR=0x08000100，IRQ37 的异常号和向量项地址是什么？若连续实现 48 个 IRQ，表需多大、按多大对齐？</li>
+<li>ISR-A 被 ISR-B 抢占时，A 是 Pending 还是 Active？同一 A 来源又请求一次后怎样？</li>
+<li>IRQ37 应向哪个 ICER bank/bit 写什么值来禁止？禁止后外设请求和 Pending 会自动全清吗？</li>
+</ol>
+<details class="answer"><summary>展开答案与过关要求</summary><div class="answer-content"><ol>
+<li>不必须。规则兼容不等于硬件时延相同，命中率、等待、流水线等都可影响性能。</li>
+<li>数学值 −150，饱和为 <strong>−128</strong>；保留低 8 位得到 0x6A，按有符号仍为 <strong>106</strong>。</li>
+<li>可以，非特权 Thread 用 MSP 是合法组合；Handler 则特权并使用 MSP。</li>
+<li>新 PSP=<strong>0x20000FE0</strong>；填充在 <strong>0x20001000</strong>；PC 在新 SP+0x18=<strong>0x20000FF8</strong>；保存 xPSR 的 bit9 记录填充。</li>
+<li><span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>5</mn><mo>&#x0226A;</mo><mn>5</mn><mo>&#x0003D;</mo><mn>0</mn><mi>x</mi><mi>A</mi><mn>0</mn></mrow></math></span>。直接写 0x05 只落在未实现低位，不能建立所需门槛。</li>
+<li>p=2、s=2；逻辑 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>2</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0002B;</mo><mn>1</mn><mo>&#x0003D;</mo><mn>9</mn></mrow></math></span>，原始 <strong>0x90</strong>。同组不能靠子优先级抢占。</li>
+<li>别名地址计算如下：</li>
+</ol>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0</mn><mi>x</mi><mn>22000000</mn><mo>&#x0002B;</mo><mn>2</mn><mo>&#x000D7;</mo><mn>32</mn><mo>&#x0002B;</mo><mn>7</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><menclose notation="box"><mrow><mn>0</mn><mi>x</mi><mn>2200005</mn><mi>C</mi></mrow></menclose></mrow></math></div>
+
+
+
+<ol start="8">
+<li>异常号 <strong>53</strong>，向量项位置计算如下；48 IRQ 共 64 项、256 字节，需 256 字节对齐。</li>
+</ol>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mn>0</mn><mi>x</mi><mn>08000100</mn><mo>&#x0002B;</mo><mn>53</mn><mo>&#x000D7;</mo><mn>4</mn><mo>&#x0003D;</mo><menclose notation="box"><mrow><mn>0</mn><mi>x</mi><mn>080001</mn><mi>D</mi><mn>4</mn></mrow></menclose></mrow></math></div>
+
+
+<ol start="9">
+<li>A 仍 Active；若它自己的来源又有新待处理请求，可为 Active+Pending。</li>
+<li>bank1 的 bit5，向 <strong>0xE000E184 写 0x20</strong>。这只清使能，不自动清外设源和 Pending。</li>
+</ol>
+<p>过关要求：计算题至少能不看示范写出中间过程；模式、帧和状态题要说明原因。错哪一题就按对应正文回补，不需要把整章从头重读。</p>
+</div></details></section>
+<section id="exercises"><p class="eyebrow">原章习题全部覆盖</p><h2>42 道习题的答题卡</h2><p>按原题号归纳题意。先自行作答，再展开核对；答案中的条件限定也是答题内容，完整解释可沿链接回正文。第 5.7、5.19、5.22、5.41 等题不能靠未经核对的题目前提机械作答。</p><div class="question-links"><a href="#q5-1">5.1</a><a href="#q5-2">5.2</a><a href="#q5-3">5.3</a><a href="#q5-4">5.4</a><a href="#q5-5">5.5</a><a href="#q5-6">5.6</a><a href="#q5-7">5.7</a><a href="#q5-8">5.8</a><a href="#q5-9">5.9</a><a href="#q5-10">5.10</a><a href="#q5-11">5.11</a><a href="#q5-12">5.12</a><a href="#q5-13">5.13</a><a href="#q5-14">5.14</a><a href="#q5-15">5.15</a><a href="#q5-16">5.16</a><a href="#q5-17">5.17</a><a href="#q5-18">5.18</a><a href="#q5-19">5.19</a><a href="#q5-20">5.20</a><a href="#q5-21">5.21</a><a href="#q5-22">5.22</a><a href="#q5-23">5.23</a><a href="#q5-24">5.24</a><a href="#q5-25">5.25</a><a href="#q5-26">5.26</a><a href="#q5-27">5.27</a><a href="#q5-28">5.28</a><a href="#q5-29">5.29</a><a href="#q5-30">5.30</a><a href="#q5-31">5.31</a><a href="#q5-32">5.32</a><a href="#q5-33">5.33</a><a href="#q5-34">5.34</a><a href="#q5-35">5.35</a><a href="#q5-36">5.36</a><a href="#q5-37">5.37</a><a href="#q5-38">5.38</a><a href="#q5-39">5.39</a><a href="#q5-40">5.40</a><a href="#q5-41">5.41</a><a href="#q5-42">5.42</a></div>
+<article class="exercise" id="q5-1"><h3>习题 5.1 / ISA 与微架构</h3><p>解释 ISA、µarch 的含义及联系。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>ISA 是软件可见的指令、寄存器、寻址、异常等规则；微架构是实现规则的流水线、运算单元和存储等硬件组织。不同实现可满足同一 ISA，但性能、功耗不同；程序兼容还需扩展、ABI 和环境条件匹配。</p>
+<p><a href="#s01">回到第 01 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-2"><h3>习题 5.2 / 哈佛结构</h3><p>简述哈佛结构的主要优缺点。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>指令与数据通路分开，具备并行取指/访数、减轻争用的条件；代价是连线、控制和资源管理更复杂，底层仍可能共享单端口目标。改进哈佛不要求软件有两个完全隔离的地址空间。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-3"><h3>习题 5.3 / TCM 与 Cache</h3><p>比较 TCM 与 Cache。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>TCM 通常由软件/布局明确安排内容、按指定地址访问，时延较可预测；Cache 自动装入替换后级数据副本，有命中/未命中差异。前者适合确定性关键任务，后者适合自动利用局部性；都需核对实际实现。</p>
+<p><a href="#s02">回到第 02 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-4"><h3>习题 5.4 / 饱和运算</h3><p>定义饱和运算，举例说明必要性。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>结果超范围时夹在上下限。有符号 8 位 100+60，数学值 160；截断回绕为 −96，饱和为 127。音频/控制信号削顶通常比突然变成反向值更符合含义，但仍有精度损失。必须说明位宽和有无符号。</p>
+<p><a href="#s04">回到第 04 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-5"><h3>习题 5.5 / 三种指令集名称</h3><p>区分 ARM、Thumb 和 Thumb-2 指令集。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>传统 ARM/A32 主要是 32 位编码；早期 Thumb 主要采用 16 位紧凑编码；Thumb-2 发展 16/32 位 Thumb 编码，兼顾密度与功能。32 位长 Thumb 指令不是 A32。M3/M4 执行 Thumb，不切到 A32。</p>
+<p><a href="#s03">回到第 03 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-6"><h3>习题 5.6 / MMU 与 MPU</h3><p>MMU 和 MPU 功能有何异同？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>都可参与保护及属性管理。MMU 通常还做虚拟到物理地址转换，支持复杂虚拟内存；MPU 主要对有限地址区域设权限/属性，不提供分页式地址转换。M3/M4 可选 MPU，不靠它增加物理容量。</p>
+<p><a href="#s09">回到第 09 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-7"><h3>习题 5.7 / 冗余多核的目的与题目前提</h3><p>原题称 R5、R7、R8、R52 采用“异构双核/多核”，问其主要目的。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>若题意是冗余锁步，目的是比较冗余执行结果、检测故障并支持功能安全，不是吞吐翻倍。需纠正前提：异构、多核、锁步不同；R5/R52 有 DCLS 支持，R7/R8 不能一概说有。检测错误后的恢复/安全状态由系统安排。</p>
+<p><a href="#s06">回到第 06 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-8"><h3>习题 5.8 / M4 的非 FPU 增强</h3><p>除了可选 FPU，M4 相对 M3 有哪些指令增强？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>主要为 DSP 扩展：成组 8/16 位 SIMD 数据处理、双 16 位乘法/乘加、更多饱和和信号处理相关运算。M3 已有部分饱和、乘除等，不能把所有这些功能都说成 M4 独有；也不能把 M4 DSP 等同 Neon。</p>
+<p><a href="#s07">回到第 07 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-9"><h3>习题 5.9 / 固定存储器地图</h3><p>固定映射关系有什么利弊？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>统一代码、SRAM、外设和系统区位置，便于工具、硬件译码和软件移植；代价是布局灵活性有限、可能存在空洞，需要按实现处理别名/重映射。4 GiB 地址空间不等于有 4 GiB 物理存储。</p>
+<p><a href="#s21">回到第 21 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-10"><h3>习题 5.10 / 双堆栈和初始压栈位置</h3><p>为什么用 MSP/PSP？中断断点和状态保存在哪个栈？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>常把任务与异常工作区分开，便于隔离和 RTOS 管理。基本现场压到异常前正在使用的栈：Thread 用 PSP 则压 PSP；Thread 用 MSP 或 Handler 被打断则压 MSP。Handler 随后使用 MSP。PC、xPSR 是基本帧中的独立项。</p>
+<p><a href="#s19">回到第 19 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-11"><h3>习题 5.11 / 矩阵与复用器</h3><p>CODE 区采用总线矩阵与总线复用器有什么区别？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>复用器把请求汇到共享路径，通常要选一路；矩阵可让不同主接口同时访问不同目标。但同一单端口 Flash 仍需仲裁，矩阵不能凭空增加目标端口数。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-12"><h3>习题 5.12 / 数据集中在 SRAM</h3><p>数据集中存放在 SRAM 区有什么利弊？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>便于可写数据组织，并有机会用 System 访 SRAM 与 I-Code 从 Flash 取指并行；代价是占 SRAM、需初始化搬运，以及 System/目标争用。实际性能取决于存储器和互连，不是无条件提高。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-13"><h3>习题 5.13 / SRAM 执行代码</h3><p>从 SRAM 区取指执行有什么缺点？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>取指与该区数据访问可能共用 System 通路及同一 SRAM 目标，造成争用；还需占用/装载 RAM。另一方面可避开 Flash 等待，故不能只凭这个缺点推出执行必然比 Flash 慢。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-14"><h3>习题 5.14 / I/D 同接 Flash</h3><p>I-Code、D-Code 都接同一片 Flash 会怎样？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>取指与常量等数据访问最终可能竞争同一 Flash 端口，分别有内核接口并不意味着目标可并发；需仲裁、预取/缓冲或更强目标实现来缓解。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-15"><h3>习题 5.15 / PPB</h3><p>PPB 基于什么协议，有何特点？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>原书的外部 PPB 接口采用 APB 风格，连接核心私有系统控制/调试空间，按相应位宽、权限与集成规则访问。它不是普通 UART 等外设 APB 地址区，也不能把内部所有访问细节都当作任意片外 APB。</p>
+<p><a href="#s10">回到第 10 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-16"><h3>习题 5.16 / 非法访问与未定义指令</h3><p>非特权 Thread 访问受限内核私有区会怎样？M3 执行不支持的 SIMD 指令呢？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>受限 PPB 访问通常为 BusFault；若是 MPU 权限违例可为 MemManage。M3 的不支持指令可为 UsageFault。可配置 Fault 未使能或相关条件不允许正常处理时，可能升级为 HardFault。</p>
+<p><a href="#s11">回到第 11 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-17"><h3>习题 5.17 / R0—R12 的使用</h3><p>这些寄存器有何异同？都空闲时先用哪些？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>都是 32 位一般数据寄存器，但 R0—R7 适用更多紧凑 Thumb 编码，通常优先考虑低寄存器可节省代码。还要遵循调用约定：参数/临时量与被调用者保存寄存器责任不同，不能只看空闲。高寄存器并非算术更慢或位宽更小。</p>
+<p><a href="#s13">回到第 13 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-18"><h3>习题 5.18 / 六个缩写</h3><p>写出 NVIC、WIC、SCB、FPU、DWT、ETM 的中英文全称。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>NVIC：Nested Vectored Interrupt Controller，嵌套向量中断控制器；WIC：Wake-up Interrupt Controller，唤醒中断控制器；SCB：System Control Block，系统控制块；FPU：Floating-Point Unit，浮点运算单元；DWT：Data Watchpoint and Trace，数据观察点与跟踪；ETM：Embedded Trace Macrocell，嵌入式跟踪宏单元。</p>
+<p><a href="#s08">回到第 08 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-19"><h3>习题 5.19 / MOV 写 PC 的分支语义</h3><p>原题用 MOV R0,#0x01000000；MOV R15,R0 转移到目标，分析问题。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>不能仅因目标偶数就判断 MOV 写 PC 必定 INVSTATE：该 MOV 的 bit0 会被忽略，和 BX/BLX 的状态规则有区别。需核对具体合法编码、目标是否真实映射且可执行，以及上下文。用 LDR R0,=0x01000001；BX R0 可明确 Thumb 分支，但不自动完成另一程序的栈/系统初始化。原题前提不能靠一句“所有 PC 都须奇数”解决。</p>
+<p><a href="#s13">回到第 13 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-20"><h3>习题 5.20 / PRIMASK 与 FAULTMASK</h3><p>比较两者。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>二者有效屏蔽位均为 bit0，通常特权修改。PRIMASK 屏蔽可配置异常；FAULTMASK 范围更大，连 HardFault 也限制，NMI/复位仍特殊。FAULTMASK 通常在异常返回时自动清除，NMI 返回例外。屏蔽不清源、不保证清 Pending，也不使错误消失。</p>
+<p><a href="#s15">回到第 15 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-21"><h3>习题 5.21 / 固定最高优先级</h3><p>哪些系统异常优先级固定，分别是什么？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>Reset 为 −3，NMI 为 −2，HardFault 为 −1，数字越小越紧急。这是优先级，不是它们的异常类型号 1、2、3。</p>
+<p><a href="#s11">回到第 11 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-22"><h3>习题 5.22 / 64 级下的 BASEPRI</h3><p>有 64 个优先级等级。BASEPRI 多宽？如何屏蔽逻辑数值 &gt;16、&gt;0 的中断？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>B=6，32 位访问的 BASEPRI 中低字节高六位 [7:2] 有效。假定无已实现子优先级，严格 &gt;16 的门槛是逻辑 17，写 0x44：MOVS R0,#0x44；MSR BASEPRI,R0。&gt;0 写 0x04。≥16 才写 0x40。写 0 取消门槛。若题目只指 64 个 IRQ 来源则不能推 B，需补条件。</p>
+<p><a href="#s16">回到第 16 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-23"><h3>习题 5.23 / 错误的 PSP 初始化</h3><p>PSP 初值 0x87654321，使用 MOV PSP,R0，有哪些问题？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>访问特殊寄存器应 MSR PSP,R0；地址未按字/推荐双字对齐；虽属外部 RAM 大区域，但需核对 MCU 是否真的实现可写存储、权限、容量与布局。初始化 PSP 后 Thread 还要在适当系统上下文选 SPSEL；Handler 仍用 MSP。不能在普通函数中无配套切栈。</p>
+<p><a href="#s17">回到第 17 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-24"><h3>习题 5.24 / 异常栈的双字对齐</h3><p>启用双字对齐，压栈字数为奇数时如何处理？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>按原 SP 和帧大小判断最终对齐；若需要，额外占一个 4 字节填充，使新 SP 对齐 8 字节，并在已保存 xPSR bit9 标记，返回时据此调整。不能只看奇偶而忽略原 SP；基本硬件帧本身为 8 字，入口 SP 若偏 4 字节仍需填充。</p>
+<p><a href="#s20">回到第 20 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-25"><h3>习题 5.25 / 降权与提权</h3><p>特权 Thread 怎样转非特权？能反向同样做吗？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>在特权 Thread 设置 CONTROL.nPRIV=1，并按规定同步即可降权；非特权 Thread 不能自行清该位提权，应经 SVC 等进入可信特权 Handler，由系统决定，否则无法建立权限隔离。SPSEL 与 nPRIV 是独立选择。</p>
+<p><a href="#s17">回到第 17 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-26"><h3>习题 5.26 / 外部异常号从 16 开始</h3><p>为什么外部 IRQ 不从异常类型号 0 开始？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>前 16 个向量表位置供初始 MSP、系统异常及保留项；IRQ0 的异常号为 16，IRQ i 为 16+i。前 16 个位置并非 16 个都可用的中断。</p>
+<p><a href="#s31">回到第 31 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-27"><h3>习题 5.27 / BE-8 与 BE-32</h3><p>解释字节不变和字不变大端。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>二者为大端相关的总线映射模型。对同一对齐字中的单字节访问，BE-8 保留与小端相同的字节地址到 lane 关系；BE-32 反转该关系以保持字通道布局。不能把 BE-8 的单字节 lane 性质说成多字节数值布局为小端；M3/M4 不使用 BE-32。</p>
+<p><a href="#s23">回到第 23 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-28"><h3>习题 5.28 / 何时转换字节序</h3><p>什么时候需要程序员做大端/小端转换？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>当协议、文件、外设或另一处理器规定的多字节格式与本机格式不同，且没有其他层代做转换时，在接口边界显式组装/交换。单字节无字节序反转问题，字符序列也不能随意按字翻转。</p>
+<p><a href="#s23">回到第 23 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-29"><h3>习题 5.29 / 位段区域</h3><p>Cortex-M3 哪些空间可提供 bit-band？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>在支持该功能的实现中：SRAM 的 20000000—200FFFFF 对应 22000000—23FFFFFF；外设的 40000000—400FFFFF 对应 42000000—43FFFFFF。每组 1 MiB 实际区域映射 32 MiB 别名，须核对具体 MCU。</p>
+<p><a href="#s25">回到第 25 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-30"><h3>习题 5.30 / 位段的好处</h3><p>举例说明位段访问优点。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>对受支持目标可直接读单 bit 为 0/1，或做硬件原子位更新，避免主程序与中断各自软件读改写而丢掉对方改动；也便于压缩布尔量。目标寄存器副作用、MCU 支持仍须核对，别名不增加真实 RAM。</p>
+<p><a href="#s25">回到第 25 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-31"><h3>习题 5.31 / 读取 40001000 的 bit3</h3><p>用 bit-band 读取该位，写计算和汇编。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>别名=0x42000000+(0x40001000−0x40000000)×32+3×4=0x4202000C。LDR R0,=0x4202000C；LDR R1,[R0]，在支持该映射且目标可访问时 R1 得 0/1。</p>
+<p><a href="#s25">回到第 25 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-32"><h3>习题 5.32 / 访问属性</h3><p>列出并解释存储器访问属性。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>可缓冲：相关写可以经缓冲后完成；可缓存：允许相应缓存策略；可执行：能作为指令源，XN 则禁止；可共享：定义共享相关处理/顺序要求。权限与属性不同；还应认识 Normal、Device、Strongly-ordered 类型。属性位不自动创造硬件缓存/一致性。</p>
+<p><a href="#s27">回到第 27 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-33"><h3>习题 5.33 / 写缓冲的收益</h3><p>写缓冲何时有好处？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>目标写传输较慢、属性和依赖允许时，内核交出写请求后可继续计算，把执行与外部传输重叠。缓冲满或遇到依赖/顺序要求仍会等；发出请求不等于设备已完成。</p>
+<p><a href="#s27">回到第 27 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-34"><h3>习题 5.34 / 排他访问的用途</h3><p>何时需要 LDREX/STREX 等排他访问？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>共享 RAM 的计数更新、锁状态竞争等需要不可分割的读改写时可使用。LDREX 建保留，STREX 条件写并返回 0 成功/1 失败，失败须重试；完整互斥协议还需顺序、退出路径和硬件支持。软件锁值与保留状态不是同一件事。</p>
+<p><a href="#s28">回到第 28 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-35"><h3>习题 5.35 / 顺序执行仍需屏障</h3><p>“Cortex-M 不改变执行顺序，所以不需要屏障”对吗？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>不对。写缓冲、互连和目标响应使指令顺序不等于访问可见/完成顺序。DMB 约束相关访问顺序，DSB 等待规定操作完成，ISB 同步后续取指执行上下文；volatile 不能替代。</p>
+<p><a href="#s29">回到第 29 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-36"><h3>习题 5.36 / 异常自动保护现场</h3><p>进入异常处理前需要保护哪些寄存器？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>基本自动帧为 R0、R1、R2、R3、R12、LR、PC、xPSR，共 8 字；按情况有对齐填充和 FPU 扩展。R4—R11 等的额外保存由软件/编译器按约定负责。帧在异常前正在用的栈，Handler 随后用 MSP。</p>
+<p><a href="#s19">回到第 19 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-37"><h3>习题 5.37 / 向量为何 32 位</h3><p>为什么异常向量是 32 bit？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>向量项保存本编程模型的 32 位处理程序入口地址编码，每项 4 字节；不是因为每条指令均为 32 位。向量表第 0 项是初始 MSP，其余已用异常入口需满足 Thumb 标识等规则。</p>
+<p><a href="#s31">回到第 31 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-38"><h3>习题 5.38 / 优先级分组</h3><p>解释抢占优先级与子优先级。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>PRIGROUP 将已实现优先级高位切分成抢占和子优先级。抢占部分判断能否打断当前异常，同组不能靠子优先级抢占；同组待服务者按子优先级等排序。B 位实现、G 分组时 p=min(B,7−G)，s=B−p。</p>
+<p><a href="#s33">回到第 33 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-39"><h3>习题 5.39 / 向量表重定位</h3><p>解释 VTOR 重定位机制。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>在合法可读且对齐的位置准备有效向量表，更新 VTOR，后续异常按新基址+4×异常号查入口。必须满足实现支持和同步要求；VTOR 写入不自动跳转、不自动更新当前 MSP。</p>
+<p><a href="#s35">回到第 35 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-40"><h3>习题 5.40 / 独立使能/禁止接口</h3><p>使能和禁止分两个寄存器有什么好处？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>ISER 写 1 设置指定使能位，ICER 写 1 清指定使能位，写 0 无影响；无需软件先读改写整组状态，减少对其他位的误改和此类竞争窗口。禁止本身不等于清 Pending 或清外设源。</p>
+<p><a href="#s37">回到第 37 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-41"><h3>习题 5.41 / PRIGROUP=3/4/5</h3><p>原题仅给 16 个外部 IRQ，求三种分组的抢占/子等级数。</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>来源数量不足以确定实现优先级位数。补充 B=4（16 个等级）后：G=3 为 4+0 位，16×1；G=4 为 3+1 位，8×2；G=5 为 2+2 位，4×4。组优先级就是抢占优先级，题中另一项应按子优先级理解并注明。</p>
+<p><a href="#s33">回到第 33 节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q5-42"><h3>习题 5.42 / 32 IRQ 的向量表对齐</h3><p>32 个外部 IRQ 重定位向量表，需要什么合法起始边界？</p>
+<details class="answer"><summary>展开答题要点</summary><div class="answer-content"><p>含 16 个核心位置共 48 项，4×48=192 字节；满足至少 128 且容纳表范围的二次幂边界为 256 字节。数值基址必须是 0x100 整数倍，还需实际存储、权限、VTOR 版本/地址位与表项有效。不是任意 4 GiB 内该倍数都实际能用。</p>
+<p><a href="#s35">回到第 35 节完整讲解 →</a></p></div></details></article>
+</section><section id="corrections"><p class="eyebrow">容易被原书表述带偏的地方</p><h2>把条件补全，再记结论</h2><div class="table-wrap"><table><thead><tr><th>容易误记</th><th>应怎样理解</th><th>定位</th></tr></thead><tbody>
+<tr><td>ARM7 就是 ARMv7；v8 都是 64 位</td><td>产品名与架构版本分开，A/R/M 各自核对</td><td>03、05、06</td></tr><tr><td>Thumb-2 混合 Thumb 与 A32</td><td>16/32 位均为相应 Thumb 编码</td><td>03</td></tr><tr><td>R 系列多核都叫异构锁步</td><td>区分冗余、锁步、多核与具体型号</td><td>06</td></tr><tr><td>非特权 Thread 不能用 MSP</td><td>Thread 的 nPRIV/SPSEL 可独立组合；Handler 固定特权/MSP</td><td>12</td></tr><tr><td>所有写 PC 都套 BX 奇偶规则</td><td>MOV 写 PC 与 BX/BLX 的指令语义不同</td><td>13</td></tr><tr><td>直接把逻辑 5 写 BASEPRI</td><td>实现 4 位时，逻辑 5 原始编码为 0x50</td><td>16</td></tr><tr><td>64 个 IRQ 就一定 6 位优先级</td><td>来源数与等级数独立，先明确 B</td><td>16、32、33</td></tr><tr><td>异常所有现场都压 MSP，LR 保存 PSR</td><td>初始帧在旧活动栈，帧内 xPSR 保存状态，Handler LR 携带 EXC_RETURN</td><td>19、20</td></tr><tr><td>仅凭奇数字数决定是否补字</td><td>结合旧 SP、帧大小和对齐配置判断</td><td>20</td></tr><tr><td>BE-8 的 byte lane 等于小端数值布局</td><td>总线单字节映射与多字节数值字节序分开</td><td>23</td></tr><tr><td>LDREX 就是自动拿到软件锁</td><td>它读取并建保留，软件锁协议另有值与顺序规则</td><td>28</td></tr><tr><td>被抢占的 ISR 变 Pending</td><td>未返回仍 Active；新同源请求才可再 Pending</td><td>30</td></tr><tr><td>IPR 地址每加 1 却都当一个 32 位寄存器</td><td>逐字节 IRQ 视图与逐字四 IRQ 视图分开</td><td>37</td></tr><tr><td>STIR 是 8 位并写异常号；SHPR 有四个</td><td>STIR INTID 为 9 位 IRQ 编号；SHPR1—3 共三个</td><td>37、38</td></tr></tbody></table></div></section>
+<section id="finish"><p class="eyebrow">这一章学到这里应能独立完成</p><h2>用五条主线检查自己</h2><ol><li><strong>说清层次：</strong>ISA/微架构/芯片，地址空间/真实容量，指令长度/数据宽度。</li><li><strong>画清现场：</strong>Thread/Handler、权限、MSP/PSP、基本帧、对齐与返回。</li><li><strong>算清地址：</strong>字节序、位段别名、向量项、表大小与边界。</li><li><strong>选清优先级：</strong>实现位数、原始编码、PRIGROUP、BASEPRI、Pending/Active。</li><li><strong>解释同步：</strong>权限与属性、写缓冲、独占条件写、DMB/DSB/ISB，以及清源/清挂起/禁止的区别。</li></ol><p>算错时保留中间步骤，判断是单位、左移、边界还是题目条件问题；概念混时回到“这个对象回答什么问题”。原书位表和产品参数可以查，以上五条主线应能自己解释。下一章学习具体指令时，这些寄存器、地址和状态会成为真正的操作对象。</p></section>
+<footer id="sources"><h2>整理依据与核对资料</h2><p>依据用户提供的《计算机原理与嵌入式系统讲义》第五章《ARM 处理器体系结构和编程模型》及全部 42 道习题重新讲解，沿用项目内前四章与其他教材整理版的离线 HTML 体例。讲义中的说明作为学习材料处理。</p><p>经典产品、版本和性能数字按原书历史背景解释；“可选”“通常”“假定”的条件不能省略。针对题面缺失或原表笔误，在正文保留判断过程。相应位置链接 Arm 原始技术资料、Cortex-R 对照表、CMSIS 和 AAPCS；具体芯片还须核对数据手册、参考手册和内核版本。</p><p><a href="https://support.arm.com/documentation/ddi0337/e/CIHGEFHJ">Cortex-M3 技术参考手册</a> · <a href="https://documentation-service.arm.com/static/5f2ac76d60a93e65927bbdc5">Cortex-M4 Devices Generic User Guide（DUI 0553B）</a> · <a href="https://arm-software.github.io/CMSIS_6/main/Core/group__NVIC__gr.html">CMSIS NVIC 接口</a> · <a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst">AAPCS32 调用规范</a></p><p>15 幅 SVG 和全部公式保存在本文件内，外部链接无需打开即可完成学习。打印使用默认图例并显示答案；想再次尝试题目，可在屏幕中收起答案。</p><p class="top-link"><a href="#start">返回封面 ↑</a></p></footer></main></div>
+<script>(()=>{
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const txt=(x,y,s,a='start',c='')=>`<text x="${x}" y="${y}" text-anchor="${a}" class="${c}">${esc(s)}</text>`;
+ const box=(x,y,w,h,c='node')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="${c}"/>`;
+ const path=(d,c='wire')=>`<path d="${d}" class="${c}"/>`;
+ const down=(x,y,h=22)=>path(`M${x} ${y} v${h} m-4 -6 l4 6 l4 -6`);
+ const right=(x,y,len)=>path(`M${x} ${y} h${len} m-6 -4 l6 4 l-6 4`);
+ const hex=(n,d=8)=>'0x'+n.toString(16).toUpperCase().padStart(d,'0');
+ const parse=s=>/^(?:0x)?[0-9a-f]{1,8}$/i.test(s.trim())?parseInt(s.trim().replace(/^0x/i,''),16):NaN;
+ const render=(r,h,title,body,info)=>{const w=r.clientWidth;if(w<200)return;const s=r.querySelector('svg');s.setAttribute('viewBox',`0 0 ${w} ${h}`);s.innerHTML='<title>'+esc(title)+'</title>'+body;r.querySelector('[aria-live]').textContent=info;};
+ const error=(r,s)=>render(r,55,'输入需要修正',txt(12,29,'请按下方提示修正输入。'),'输入提示：'+s);
+ const setup=(id,f)=>{const r=document.getElementById('c5-'+id),draw=()=>{if(r.clientWidth>=200)f(r,r.clientWidth)};r.querySelectorAll('input,select').forEach(c=>c.addEventListener(c.tagName==='SELECT'?'change':'input',draw));new ResizeObserver(draw).observe(r);draw();};
+ setup('isa',(r,w)=>{let b='';const rows=[['ISA · 软件规则','指令 / 寄存器 / 寻址 / 异常'],['微架构 · 硬件实现','流水线 / 运算单元 / Cache'],['SoC / MCU · 芯片集成','真实存储器 / 外设 / 互连']];rows.forEach(([a,c],i)=>{const y=12+i*100;b+=box(12,y,w-24,70,i===0?'active':'node')+txt(w/2,y+28,a,'middle')+txt(w/2,y+53,c,'middle','text-small');if(i<2)b+=down(w/2,y+70,30)});render(r,310,'软件规则、实现内核与集成芯片分层',b,'读型号时先问：它是在说架构版本、内核，还是已经带存储器和外设的芯片？');});
+ setup('saturation',(r,w)=>{const signed=r.querySelector('[data-kind]').value==='signed',a=r.querySelector('[data-a]').valueAsNumber,c=r.querySelector('[data-b]').valueAsNumber;if(!Number.isInteger(a)||!Number.isInteger(c)||Math.abs(a)>10000||Math.abs(c)>10000)return error(r,'两个操作数应为 −10000—10000 的整数。');const sum=a+c,L=signed?-128:0,U=signed?127:255,sat=Math.min(U,Math.max(L,sum)),raw=((sum%256)+256)%256,wrap=signed&&raw>=128?raw-256:raw;let b=txt(12,26,`数学结果：${a} + ${c} = ${sum}`,'start','text-small');[['表示范围',`${L} ～ ${U}`,'node'],['保留低 8 位再解释',`${wrap} · 原始 ${hex(raw,2)}`,'waiting'],['饱和：夹在上下限',String(sat),'active']].forEach(([a,v,cls],i)=>{const y=46+i*78;b+=box(12,y,w-24,59,cls)+txt(24,y+23,a,'start','text-small')+txt(w-24,y+46,v,'end')});render(r,298,'固定8位时数学结果、回绕与饱和对照',b,`数学值 ${sum}；回绕值 ${wrap}；饱和值 ${sat}。`+(sum<L||sum>U?'数学结果已超表示范围。':'本例没有超界。'));});
+ setup('buses',(r,w)=>{const mode=r.querySelector('[data-case]').value,fabric=r.querySelector('[data-fabric]').value,concurrent=mode==='split'&&fabric==='matrix',rows=mode==='split'?[['取指','I-Code','Flash'],['变量数据','System','SRAM']]:mode==='flash'?[['取指','I-Code','同片 Flash'],['读常量','D-Code','同片 Flash']]:[['SRAM 取指','System','同片 SRAM'],['SRAM 数据','System','同片 SRAM']];let b=txt(12,25,'先判断访问地址，再看请求路径。','start','text-small');const cw=(w-64)/3;rows.forEach((row,i)=>{const y=48+i*83;row.forEach((v,j)=>{const x=10+j*(cw+22);b+=box(x,y,cw,48,j===2&&!concurrent?'waiting':'node')+txt(x+cw/2,y+29,v,'middle','text-small');if(j<2)b+=right(x+cw,y+24,22);});});b+=box(12,228,w-24,62,concurrent?'active':'waiting')+txt(w/2,253,concurrent?'独立接口 + 独立目标':'共享路径或同一目标','middle')+txt(w/2,278,concurrent?'具备并行条件':'仍需仲裁 / 分时访问','middle','text-small');render(r,312,'内核多接口与目标端口共同决定并行条件',b,concurrent?'矩阵可让两笔不同目标访问并行；具体速度仍取决于端口、控制器与等待。':mode==='flash'?'I-Code 与 D-Code 都指向同片单端口 Flash，矩阵也不能消除目标冲突。':mode==='sram'?'本模型 SRAM 区取指与数据共用 System，不能仅凭矩阵就认定无冲突。':'复用器模型把不同请求也汇到共享路径。');});
+ setup('modes',(r,w)=>{const handler=r.querySelector('[data-mode]').value==='handler',priv=+r.querySelector('[data-priv]').value,sp=+r.querySelector('[data-sp]').value;let b='';const rows=[['执行状态','Thumb'],['当前模式',handler?'Handler':'Thread'],['当前访问等级',handler||priv===0?'特权':'非特权'],['R13 当前对应',handler||sp===0?'MSP':'PSP']];rows.forEach(([a,v],i)=>{const y=10+i*66;b+=box(12,y,w-24,49,i>1?'active':'node')+txt(24,y+29,a,'start','text-small')+txt(w-24,y+29,v,'end')});b+=txt(12,300,handler?'Handler 固定：特权 + MSP':'Thread 的权限和选栈相互独立','start','text-small');render(r,322,'模式、访问等级与栈指针分别判断',b,handler?'已进入普通异常处理：Thread 的选择位不把当前 Handler 变成非特权或 PSP。':`nPRIV=${priv}、SPSEL=${sp}：${priv?'非特权':'特权'} Thread 使用 ${sp?'PSP':'MSP'}。这是组合观察，不是提权操作。`);});
+ setup('registers',(r,w)=>{let b='';const data=[['R0—R3','参数 / 结果 / 临时量'],['R4—R7','低寄存器 · 常需保留'],['R8—R11','高寄存器 · 按调用约定'],['R12','调用临时量'],['R13 / SP','当前 MSP 或 PSP'],['R14 / LR','链接信息 / EXC_RETURN'],['R15 / PC','程序计数器']];data.forEach(([a,v],i)=>{const y=10+i*59;b+=box(12,y,w-24,47,i>=4?'active':'node')+txt(22,y+21,a,'start')+txt(w-22,y+39,v,'end','text-small')});render(r,433,'32位寄存器按编码约束和调用职责使用',b,'R9 的具体软件职责可由平台约定；不能仅凭这张归纳表覆盖所有 ABI。');});
+ setup('basepri',(r,w)=>{const B=+r.querySelector('[data-bits]').value,max=2**B-1,inp=r.querySelector('[data-threshold]'),t=inp.valueAsNumber;inp.max=max;if(!Number.isInteger(t)||t<0||t>max)return error(r,`当前 B=${B}，门槛逻辑数值应为 0—${max} 的整数。`);const raw=t*2**(8-B),cw=(w-24)/8;let b=txt(12,23,`B=${B}：高位实现，低位写入无效`,'start','text-small');for(let j=0;j<8;j++){const bit=7-j,x=12+j*cw;b+=txt(x+cw/2,48,'b'+bit,'middle','text-small')+box(x+1,58,cw-2,38,j<B?'active':'node')+txt(x+cw/2,83,(raw>>bit)&1,'middle');}b+=txt(12,125,`原始编码：${t} << ${8-B} = ${hex(raw,2)}`,'start','text-small');const rows=t===0?[['逻辑 0—'+max,'不使用 BASEPRI 门槛','active']]:[['逻辑 0—'+(t-1),'不被此门槛屏蔽','active'],['逻辑 '+t+'—'+max,'受此门槛屏蔽','waiting']];rows.forEach(([a,v,c],i)=>{const y=148+i*70;b+=box(12,y,w-24,56,c)+txt(24,y+23,a,'start','text-small')+txt(w-24,y+45,v,'end','text-small')});render(r,t?304:240,'BASEPRI逻辑门槛编码与屏蔽区间',b,`逻辑门槛 ${t}，原始编码 ${hex(raw,2)}。`+(t===0?'BASEPRI=0 取消屏蔽。':`在本图分组假设下，逻辑数值 ${t}—${max} 受门槛限制，0 不受此门槛屏蔽。`));});
+ setup('dualstack',(r,w)=>{const old=r.querySelector('[data-oldsp]').value,k=+r.querySelector('[data-step]').value;let b=txt(12,25,['Thread 正在运行','入口：先保存被打断现场','Handler：当前使用 MSP','返回：恢复 Thread 现场'][k],'start','text-small');const cw=(w-44)/2;['PSP','MSP'].forEach((s,i)=>{const x=12+i*(cw+20),frame=s===old&&(k===1||k===2),work=s==='MSP'&&k===2;b+=box(x,48,cw,205,(frame||work)?'active':'node')+txt(x+cw/2,76,s,'middle');b+=box(x+8,92,cw-16,56,frame?'waiting':'node')+txt(x+cw/2,115,frame?'基本异常帧':'预留栈空间','middle','text-small')+txt(x+cw/2,137,frame?'PC / xPSR 等':'不代表空 RAM','middle','text-small');b+=box(x+8,171,cw-16,60,work?'active':'node')+txt(x+cw/2,196,work?'Handler 工作区':'其他栈内容','middle','text-small')+txt(x+cw/2,219,work?'额外压栈 / 调用':'按软件布局','middle','text-small')});b+=txt(12,283,'异常前当前栈：'+old,'start','text-small')+txt(12,310,'当前 R13：'+((k===2)?'MSP':old),'start','text-small');render(r,332,'异常前现场在原活动栈，Handler工作栈为MSP',b,k===1?`基本帧压到 ${old}；这是异常前活动栈。`:k===2?`当前 Handler 使用 MSP；被打断 Thread 的基本帧仍保存在 ${old}。`:k===3?`恢复 ${old} 中的基本现场，返回原 Thread。`:`Thread 当前选择 ${old}，未建立本次异常帧。`);});
+ setup('stackframe',(r,w)=>{const pad=+r.querySelector('[data-old]').value===4,newSP=0x20000FE0,values=['R0','R1','R2','R3','R12','原 LR','返回 PC','xPSR'];let b=txt(12,24,`旧 SP = ${hex(0x20001000+(pad?4:0))}`,'start','text-small')+txt(12,51,`新 SP = ${hex(newSP)}`,'start','text-small');b+=txt(12,82,'地址（低 → 高）','start','text-small')+txt(w-18,82,'保存内容','end','text-small');values.forEach((v,i)=>{const y=96+i*34;b+=box(12,y,w-24,32,i>=6?'active':'node')+txt(22,y+22,hex(newSP+4*i),'start','text-small')+txt(w-22,y+22,v,'end','text-small')});if(pad)b+=box(12,368,w-24,34,'waiting')+txt(22,391,'0x20001000','start','text-small')+txt(w-22,391,'对齐填充','end','text-small');const y=pad?434:398;b+=txt(12,y,`帧占 32 字节${pad?' + 4 字节填充':''}`,'start','text-small')+txt(12,y+28,'保存的 xPSR.bit9 = '+(pad?1:0),'start','text-small');render(r,y+48,'基本异常帧按新SP递增排列并标注对齐填充',b,`入口前 ${pad?'偏 4 字节，需':'已双字对齐，无需'}填充；PC 位于 ${hex(newSP+0x18)}，xPSR 位于 ${hex(newSP+0x1C)}。`);});
+ setup('memorymap',(r,w)=>{const a=parse(r.querySelector('[data-address]').value);if(!Number.isFinite(a))return error(r,'请输入 1—8 位十六进制，可带 0x。');const regions=[['CODE',0,0x1fffffff],['SRAM',0x20000000,0x3fffffff],['外设',0x40000000,0x5fffffff],['外部 RAM',0x60000000,0x9fffffff],['外部设备',0xa0000000,0xdfffffff],['系统',0xe0000000,0xffffffff]],i=regions.findIndex(([,lo,hi])=>a>=lo&&a<=hi);let b=txt(12,24,'区域示意：每行不按容量比例','start','text-small');regions.forEach(([n,lo,hi],j)=>{const y=45+j*63;b+=box(12,y,w-24,49,i===j?'active':'node')+txt(22,y+20,n,'start','text-small')+txt(w-22,y+40,hex(lo).slice(2)+'—'+hex(hi).slice(2),'end','text-small')});render(r,439,'32位地址区域查询不代表物理容量',b,`${hex(a)} 属于 ${regions[i][0]} 区。`+(i===5&&a<0xe0100000?'此处属于 PPB 范围，访问权限较严格。':'')+'这只判架构区域，真实资源、属性和权限仍查芯片。');});
+ setup('endian',(r,w)=>{const inp=r.querySelector('[data-value]').value;if(!/^[0-9a-f]{1,8}$/i.test(inp))return error(r,'数值应为 1—8 位十六进制，不加 0x。');const v=parseInt(inp,16),be=r.querySelector('[data-order]').value==='big',bytes=[0,1,2,3].map(i=>(v>>>(8*(be?3-i:i)))&255),cw=(w-24)/4;let b=txt(12,23,`32 位数值：${hex(v)}`,'start','text-small')+txt(12,50,'① 多字节数在内存中的布局','start','text-small');bytes.forEach((val,i)=>{const x=12+i*cw;b+=txt(x+cw/2,77,'A+'+i,'middle','text-small')+box(x+2,88,cw-4,42,'active')+txt(x+cw/2,115,hex(val,2).slice(2),'middle')});b+=txt(12,159,(be?'高':'低')+'有效字节在低地址','start','text-small')+txt(12,199,'② 单字节访问所用总线通道','start','text-small');const xs=[12,(w-24)*.48+12,w-12];b+=txt(xs[0],229,'地址','start','text-small')+txt(xs[1],229,'BE-8 / LE','middle','text-small')+txt(xs[2],229,'BE-32','end','text-small');for(let i=0;i<4;i++){const y=263+i*34;b+=path(`M12 ${y+11} H${w-12}`,'grid')+txt(xs[0],y,'A+'+i,'start','text-small')+txt(xs[1],y,`D[${8*i+7}:${8*i}]`,'middle','text-small')+txt(xs[2],y,`D[${31-8*i}:${24-8*i}]`,'end','text-small')};render(r,391,'字节序和单字节lane映射分开显示',b,(be?'大端':'小端')+'地址 A+0 起的字节为 '+bytes.map(x=>hex(x,2).slice(2)).join('、')+'。下表比较的是单字节总线 lane，不是把上面数值再次翻转。');});
+ {let prior='periph';setup('bitband',(r,w)=>{const region=r.querySelector('[data-region]').value,inp=r.querySelector('[data-address]');if(region!==prior){inp.value=region==='sram'?'0x20000002':'0x40001000';prior=region;}const a=parse(inp.value),bit=+r.querySelector('[data-bit]').value,base=region==='sram'?0x20000000:0x40000000,alias=base+0x02000000;if(!Number.isFinite(a)||a<base||a>=base+0x100000)return error(r,`字节地址须在 ${hex(base)}—${hex(base+0xFFFFF)} 内。`);const offset=a-base,out=alias+offset*32+bit*4;let b='';const rows=[['目标字节 / bit',`${hex(a)} / ${bit}`],['区域内字节偏移',hex(offset)],['字节偏移 × 32',hex(offset*32)],['bit 偏移 × 4',hex(bit*4)],['加别名基址得到',hex(out)]];rows.forEach(([a,v],i)=>{const y=10+i*68;b+=box(12,y,w-24,51,i===4?'active':'node')+txt(24,y+21,a,'start','text-small')+txt(w-24,y+43,v,'end','text-small')});render(r,356,'目标字节偏移乘32再加位偏移乘4',b,`结果 ${hex(out)}。读取该别名字位置通常得到目标位 0/1；必须实际支持位段且目标访问合法。`);});}
+ setup('exclusive',(r,w)=>{const k=+r.querySelector('[data-step]').value,rows=[['普通读改写','双方都读 7，各写 8','最终只有 8，丢一次增量'],['LDREX 读取 7','建立独占保留','不是把软件锁值自动设 1'],['竞争者先把 7 改为 8','假设监视器使保留失效','STREX 状态 1，不执行该写'],['重试 LDREX 读取 8','本次保留有效，再尝试写 9','STREX 状态 0，最终得到 9']][k];let b='';rows.forEach((s,i)=>{const y=15+i*92;b+=box(12,y,w-24,61,i===2?(k===0||k===2?'waiting':'active'):'node')+txt(w/2,y+36,s,'middle','text-small');if(i<2)b+=down(w/2,y+61,31)});render(r,291,'普通读改写丢更新与独占条件写重试对照',b,k===2?'本情景明确假定相关竞争使保留失效；实际跨 DMA/多核监控能力要查 SoC。':'成功路径必须检查 STREX 状态，失败时重新读和重试；这里不是完整锁协议。');});
+ setup('nvic',(r,w)=>{const k=+r.querySelector('[data-state]').value,rows=[[1,0,0,'没有本次服务'],[1,1,0,'等待响应资格'],[1,0,1,'当前 ISR 正在执行'],[1,0,1,'ISR 暂停，但尚未返回'],[1,1,1,'当前服务未完，又有待处理'],[0,1,0,'禁止激活，不自动清挂起'],[1,0,0,'异常返回，且没有新请求']][k];let b=txt(12,25,'三个状态分别判断','start','text-small'),cw=(w-40)/3;['Enable','Pending','Active'].forEach((s,i)=>{const x=12+i*(cw+8);b+=box(x,48,cw,86,rows[i]?'active':'node')+txt(x+cw/2,77,s,'middle','text-small')+txt(x+cw/2,111,rows[i],'middle')});b+=box(12,164,w-24,61,k===5?'waiting':'node')+txt(w/2,199,rows[3],'middle','text-small');render(r,248,'使能、挂起、激活相互独立',b,rows[3]+'。'+(k===3?'被更高异常抢占不会把本异常自动改成 Pending。':k===4?'这才是 Active+Pending。':k===5?'重新使能后，仍可能服务原来保留的请求。':'外设源是否仍有效需要另查。'));});
+ setup('prigroup',(r,w)=>{const B=+r.querySelector('[data-bits]').value,G=+r.querySelector('[data-group]').value,p=Math.min(B,7-G),s=B-p,cw=(w-24)/8;let b=txt(12,25,`实现 B=${B} 位，PRIGROUP=${G}`,'start','text-small');for(let j=0;j<8;j++){const bit=7-j,x=12+j*cw,c=j>=B?'node':j<p?'active':'waiting',v=j>=B?'—':j<p?'抢':'子';b+=txt(x+cw/2,53,'b'+bit,'middle','text-small')+box(x+1,64,cw-2,41,c)+txt(x+cw/2,91,v,'middle','text-small')}b+=txt(12,136,'蓝：抢占；橙：子；灰：未实现','start','text-small');const data=[['抢占位',p,'抢占等级',2**p],['子优先级位',s,'每组子等级',2**s]];data.forEach(([a,v,c,n],i)=>{const y=158+i*79;b+=box(12,y,w-24,63,i?'waiting':'active')+txt(24,y+24,`${a}：${v}`,'start','text-small')+txt(w-24,y+49,`${c}：${n}`,'end','text-small')});render(r,331,'优先级高位按实际实现与PRIGROUP切分',b,`p=min(${B},7−${G})=${p}，s=${s}；${2**p} 个抢占等级，每组 ${2**s} 个子等级。同组子优先级不能用于抢占。`);});
+ setup('vectors',(r,w)=>{const n=r.querySelector('[data-count]').valueAsNumber,base=parse(r.querySelector('[data-base]').value),irq=r.querySelector('[data-irq]').valueAsNumber;r.querySelector('[data-irq]').max=Number.isInteger(n)?n-1:239;if(!Number.isInteger(n)||n<1||n>240||!Number.isFinite(base)||!Number.isInteger(irq)||irq<0||irq>=n)return error(r,'N 应为 1—240 的整数；IRQ 应在 0—N−1 内；基址为 32 位十六进制。');const count=16+n,bytes=4*count,align=Math.max(128,2**Math.ceil(Math.log2(bytes))),e=16+irq,entry=base+4*e,pass=base%align===0,extent=base+bytes-1<=0xffffffff;let b='';const rows=[['核心表位置 + 外部 IRQ',`16 + ${n} = ${count} 项`],['最低表字节数',`${count} × 4 = ${bytes} 字节`],['所需二次幂对齐',`${align} 字节 · ${hex(align,3)}`],['拟用基址的数值条件',pass&&extent?'通过，仍需核对实现':'未通过对齐或地址范围'],[`IRQ${irq} → 异常号 ${e}`,entry<=0xffffffff?`表项位置 ${hex(entry)}`:'表项位置超出 32 位范围']];rows.forEach(([a,v],i)=>{const y=12+i*73;b+=box(12,y,w-24,57,i===3?(pass&&extent?'active':'waiting'):'node')+txt(24,y+22,a,'start','text-small')+txt(w-24,y+46,v,'end','text-small')});render(r,387,'向量表大小对齐和所查表项地址',b,`${count} 项，${bytes} 字节，需 ${align} 字节对齐。`+(pass&&extent?'基址数值通过；不表示芯片必有该存储。':'基址未满足当前数值要求。')+` IRQ${irq} 的异常号 ${e}，向量项位置 ${entry<=0xffffffff?hex(entry):'越界'}。`);});
+})();
+</script>
+<script>(()=>{const d=document.getElementById('directory');if(matchMedia('(min-width:1000px)').matches)d.open=true;const ans=()=>[...document.querySelectorAll('details.answer')];document.querySelectorAll('[data-answers]').forEach(b=>b.onclick=()=>ans().forEach(x=>x.open=b.dataset.answers==='open'));document.getElementById('print-book').onclick=()=>window.print();let saved=[];addEventListener('beforeprint',()=>{saved=ans().map(x=>x.open);ans().forEach(x=>x.open=true)});addEventListener('afterprint',()=>ans().forEach((x,i)=>x.open=saved[i]||false));})();</script></body></html>

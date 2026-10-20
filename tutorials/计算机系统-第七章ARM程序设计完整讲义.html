@@ -1,0 +1,1812 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="第七章ARM程序设计完整讲义，36节、20幅交互SVG、11道原题、12道自测，覆盖原章全部小节，内含完整练习源码。"><title>第七章 · ARM程序设计完整讲义</title><style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+body{overflow-x:clip}
+body{overflow-x:visible}html{scroll-padding-top:28px}.layout{gap:42px}main{width:100%}.book-cover .edition{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted-foreground)}.book-cover .edition:before{content:'';width:42px;height:3px;background:var(--primary)}.book-cover h1{max-width:850px}.cover-subtitle{display:block;font-size:.58em;margin-top:14px;line-height:1.65}.book-cover .lead{max-width:750px}.cover-facts{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:var(--muted-foreground);margin-top:32px}.book-cover .route{margin-bottom:0}.reader-tools{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.reader-tools button,.btn{appearance:none;border:1px solid #9eafb0;border-radius:3px;background:var(--card);color:#244f61;font:inherit;line-height:1.5;padding:8px 14px;cursor:pointer}.reader-tools button{font-size:14px}.reader-tools button:hover,.btn:hover{background:var(--accent)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--primary);outline-offset:3px}nav .chapter-nav{color:#243f4b;font-weight:700;padding-top:22px}.chapter-front{padding-top:78px;border-top:3px solid var(--primary);border-bottom:0;margin-top:40px}.chapter-front h2{font-size:2.5rem;line-height:1.45;margin-bottom:28px}.chapter-number{display:block;font-size:14px;font-family:'Microsoft YaHei',sans-serif;letter-spacing:.1em;color:var(--primary);margin-bottom:15px}.chapter-front .lead{max-width:none;font-size:19px}.chapter-front blockquote{font-size:19px}.part-head{border-top:1px solid var(--border)}.part-goal{font-size:15px;color:#354a54;border-left:3px solid #417562;padding:2px 0 2px 18px;margin-bottom:32px}.part-goal p{margin:0 0 8px}.part-goal p:last-child{margin:0}.unit{margin:35px 0 0;scroll-margin-top:25px}.unit h3{margin-top:0;font-size:1.14rem;line-height:1.65;position:relative}.unit-index{display:block;font-size:12px;font-weight:400;letter-spacing:.08em;color:#607778;margin:0 0 4px}.unit+.unit{padding-top:28px;border-top:1px dashed #d7ddd9}.unit h4{font-size:1rem;margin:26px 0 12px}.unit hr{display:none}blockquote{margin:24px 0;padding:12px 0 12px 22px;border-left:3px solid var(--primary);color:#284c5b}blockquote p:last-child{margin-bottom:0}pre{overflow-x:auto;background:#ecf0ed;padding:18px 20px;font-size:14px;line-height:1.85;border-left:3px solid #83999c;tab-size:4;margin:22px 0 26px}code{font-family:'Cascadia Mono',Consolas,'Microsoft YaHei',monospace;font-size:.9em;font-variant-ligatures:none}p code,li code,td code{background:#e8ece8;padding:1px 4px;border-radius:2px;overflow-wrap:anywhere}pre code{font-size:inherit;background:none;padding:0}.eq{white-space:normal;text-align:center;font-size:18px;line-height:1.9;overflow-x:auto;padding:18px 20px}.eq math{display:block;width:max-content;min-width:0;max-width:none;margin:0 auto}math{font-family:'Cambria Math','STIX Two Math',math;font-size:1.08em}.math-inline{white-space:nowrap}mtext{font-family:'Microsoft YaHei','SimSun',sans-serif;font-size:.85em}.diagram{margin:35px auto;max-width:680px;padding:22px 20px 18px;background:#fafaf4;border-top:1px solid #c9d6d6;border-bottom:1px solid #c9d6d6;break-inside:avoid}.diagram .diagram-live{font-size:14px;line-height:1.8}.diagram .text-small{font-size:12px}.diagram .drawing{overflow:visible}.diagram svg{height:auto}.viz-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 18px;margin-bottom:16px}.form-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:#354e5a;max-width:100%;min-width:0}.form-select,.form-control{font:14px/1.4 'Microsoft YaHei',sans-serif;color:var(--foreground);background:var(--card);border:1px solid #a9b7b5;border-radius:3px;padding:8px 9px;max-width:100%;min-height:38px}.form-control{width:170px}.viz-row{display:flex;flex-wrap:wrap;gap:7px 17px;margin:10px 0}.diagram [aria-live]{font-size:13px;line-height:1.9;margin-top:12px;color:#355260}.diagram figcaption{font-size:13px;line-height:1.9;color:#526269;margin-top:16px}.figure-number{font-weight:700;color:#355768;margin-right:8px}.tabular-nums{font-variant-numeric:tabular-nums}.diagram-print{display:none}.exercise{padding:22px 0;border-top:1px solid var(--border);scroll-margin-top:20px}.exercise h3{margin:0 0 12px;font-size:18px}.exercise>p{margin-bottom:8px}.exercise details{margin-bottom:8px}.answer-content{padding-top:15px;font-size:16px}.answer-content p{font-size:inherit;margin:0 0 14px}.answer-content p:last-child{margin-bottom:0}.answer-content pre{font-size:13px}.answer-content ul,.answer-content ol{padding-left:25px}.question-links{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px}.question-links a{border:1px solid var(--border);padding:4px 9px;text-decoration:none;font-size:14px;background:var(--card)}.source-note{font-size:14px;color:var(--muted-foreground)}.topic-tag{display:inline-block;font-size:12px;font-weight:400;color:var(--primary);border:1px solid #b1c5cb;padding:1px 8px;margin-bottom:12px}.correction-note{border-left:3px solid #ad512d;padding-left:16px;font-size:15px}.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.finish-grid h3{margin-top:0}.answer-tools-note{font-size:13px;color:var(--muted-foreground)}
+@media(max-width:999px){.chapter-front{margin-top:28px}.chapter-front h2{font-size:2.1rem}.layout{max-width:900px}.book-cover{padding-bottom:42px}aside summary{font-size:14px}nav .chapter-nav{grid-column:1/-1}nav a{padding:7px 0}.part-head h2{font-size:1.65rem}}
+@media(max-width:540px){.chapter-front{padding-top:45px}.chapter-front h2{font-size:1.85rem}.book-cover h1{font-size:2.1rem}.cover-subtitle{font-size:.66em}.chapter-front .lead{font-size:17px}.finish-grid{grid-template-columns:1fr}.diagram{padding:18px 12px 14px}.unit h3{font-size:17px}.eq{font-size:16px;padding:14px 10px}.reader-tools{gap:8px}.reader-tools button{font-size:13px;padding:7px 9px}.cover-facts{gap:5px 20px}.part-goal{font-size:14px;padding-left:12px}pre{font-size:13px;padding:14px 12px}.unit+.unit{padding-top:22px}.book-cover .route{font-size:16px}.exercise h3{font-size:17px}}
+@media(max-width:380px){.diagram{margin-left:-16px;margin-right:-16px;padding:18px 1px 14px;width:calc(100% + 32px);max-width:none}.diagram .viz-controls,.diagram .viz-row,.diagram [aria-live],.diagram figcaption{margin-left:15px;margin-right:15px}.diagram .form-select{font-size:13px}.chapter-front h2{font-size:1.7rem}.eq{padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:18mm 17mm 19mm}
+@media print{html{scroll-padding-top:0}body{font-size:10.5pt;line-height:1.75;background:#fff}.layout{display:block;max-width:none;padding:0}.book-cover{padding:20px 0 30px;break-after:page}.book-cover h1{font-size:30pt}.book-cover .lead{font-size:13pt}.chapter-front{break-before:page;margin:0;padding-top:18px;border-top:2px solid #286a88}.chapter-front h2{font-size:23pt}.chapter-front .lead{font-size:12pt}section{break-before:auto;padding:28px 0 10px}.unit{margin-top:22px}.unit+.unit{padding-top:15px}.unit h3{font-size:12pt}.part-head h2{font-size:17pt}.reader-tools,.answer-tools-note,.top-link{display:none!important}h2,h3,h4,summary{break-after:avoid}p,li{orphans:3;widows:3}table{min-width:0;font-size:9pt;line-height:1.7;break-inside:auto}tr{break-inside:avoid}thead{display:table-header-group}.table-wrap{overflow:visible;margin:14px 0}th,td{padding:7px 8px}td:first-child{min-width:0}.eq{font-size:12pt;padding:10px;overflow:visible;break-inside:avoid}pre{font-size:9pt;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid;padding:10px 13px}details{break-inside:auto;padding:8px 0}details::details-content{content-visibility:visible;display:block}details:not([open])>:not(summary){display:block!important}.answer-content,.answer-content p{font-size:10pt}.diagram{max-width:155mm;width:100%;margin:20px auto;padding:12px 10px;background:#fff}.diagram-live{display:none}.diagram-print{display:block;font-size:14px;line-height:1.8}.diagram-print svg{display:block;width:100%;height:auto;overflow:visible}.diagram-print .text-small{font-size:12px}.diagram-print text{fill:var(--foreground);font-family:'Microsoft YaHei',sans-serif}.diagram figcaption{font-size:9pt;margin-top:8px}.part-goal{font-size:10pt;margin-bottom:20px}.cover-facts,.scope,.source-note{font-size:9pt}.question-links{display:none}.exercise{padding:14px 0;break-inside:auto}.exercise h3{font-size:11pt}.finish-grid{display:block}footer{padding:25px 0}.chapter-front .eyebrow{font-size:9pt}strong{-webkit-print-color-adjust:exact}*{print-color-adjust:exact}}
+.diagram svg{display:block;width:100%;height:auto}.diagram svg text{font-family:'Microsoft YaHei',sans-serif;fill:var(--foreground)}.diagram svg .node{fill:#edf0e8;stroke:#b8c7c2}.diagram svg .active{fill:#deebe9;stroke:#82a9ac}.diagram svg .waiting{fill:#f6e8d7;stroke:#c3a284}.diagram svg .wire{stroke:#395864;stroke-width:1.3;fill:none}.diagram svg .grid{stroke:#c8d3d0;stroke-width:1;fill:none}.diagram [aria-live]{overflow-wrap:anywhere}.diagram .form-control.short{width:116px}.diagram-print{font-size:14px;line-height:1.8}.section-context{font-size:14px;color:var(--muted-foreground)}.nav-group{font-weight:700;color:#294c5b!important;padding-top:22px!important}.question-links a{min-width:44px;text-align:center}.coverage-table{min-width:520px}.book-cover .lead{max-width:830px}.diagram .viz-controls:empty{display:none}.book-cover .scope{max-width:850px}
+@media(max-width:540px){.book-cover h1{font-size:2.05rem}.cover-subtitle{font-size:.63em}.diagram .form-select{font-size:13px}}
+@media print{.diagram-print svg{height:auto!important}.coverage-table{min-width:0}.lesson h2{font-size:17pt}.book-cover h1{font-size:30pt}.diagram-print svg{font-size:14px}.diagram-print .text-small{font-size:12px}table.compact-table{break-inside:avoid}}
+.source-download{display:inline-block;padding:8px 12px;border:1px solid #b8c7c2;border-radius:4px;font-size:14px;text-decoration:none;background:#edf0e8;color:#294c5b}.source-download:hover{background:#deebe9}@media print{.source-download{display:none}}
+</style><noscript><style>.diagram-live{display:none}.diagram-print{display:block}</style></noscript></head><body><div class="layout"><aside aria-label="第七章目录"><p class="brand">计算机系统 / 第七章</p><details id="directory"><summary>展开目录 · ARM程序设计</summary><nav><a href="#how">学习路线与掌握要求</a><a class="nav-group" href="#s01">开发链与工具背景</a><a href="#s01">01 / 这一章到底要把你教会什么</a><a href="#s02">02 / 编辑、编译、汇编、链接、下载、调试各管哪一步</a><a href="#s03">03 / 旧工具一口气认识完，MDK 学会怎么用</a><a class="nav-group" href="#s04">伪指令、数据与源文件</a><a href="#s04">04 / 机器指令、汇编伪指令、伪操作不要混成一类</a><a href="#s05">05 / EQU、GBL/LCL、SET、RN、RLIST：名字究竟代表什么</a><a href="#s06">06 / DCB、DCW、DCD：定义数组时先问每项多宽</a><a href="#s07">07 / DCQ、DCFS、DCFD、SPACE：数据格式与初始化分开看</a><a href="#s08">08 / MAP/FIELD：只画户型，不替你分配房间</a><a href="#s09">09 / 汇编期 IF/WHILE 与运行时 BEQ/BNE 是两回事</a><a href="#s10">10 / 宏展开、MEXIT 与子程序：文字复用和运行复用</a><a href="#s11">11 / AREA 是段的说明，链接器才决定放到哪里</a><a href="#s12">12 / ALIGN 4 与 ALIGN=2，看着相似，参数意义不同</a><a href="#s13">13 / THUMB、CODE16/CODE32、ENTRY、END：谁也不会自动让 CPU 停机</a><a href="#s14">14 / EXPORT/IMPORT、包含文件、弱符号和局部标号</a><a href="#s15">15 / 所有表达式和符号都过一遍：算出常量，不是执行算法</a><a class="nav-group" href="#s16">把指令组织成程序</a><a href="#s16">16 / “完整程序”还差什么：复位、栈和初始数据</a><a href="#s17">17 / 顺序程序：先取地址，再读值，最后写结果</a><a href="#s18">18 / 64 位加法：低字先算，存储顺序另行约定</a><a href="#s19">19 / 分支：先决定比较类型，再画两条会合的路径</a><a href="#s20">20 / for、while、do-while：初始化、测试、更新一个都不能少</a><a href="#s21">21 / 求和、统计偶数、统计正数：同一个遍历骨架</a><a href="#s22">22 / 冒泡排序：每轮到底把谁送到右端</a><a class="nav-group" href="#s23">子程序与现场保护</a><a href="#s23">23 / 子程序最小接口：参数进来，结果出去，链接保住</a><a href="#s24">24 / 嵌套调用与幂函数：别把计算结果也恢复掉</a><a href="#s25">25 / 阶乘：先把0!、1!、上限和返回值说清</a><a class="nav-group" href="#s26">ABI与C/汇编协作</a><a href="#s26">26 / ATPCS/AAPCS：寄存器并不是谁想改就改</a><a href="#s27">27 / 第五个参数与8字节对齐：先画入口SP，再算偏移</a><a href="#s28">28 / 不止“前四个进寄存器”：类型、返回值和C++名字</a><a href="#s29">29 / C调用汇编：字符串复制与求长度完整走一遍</a><a href="#s30">30 / 汇编调用C：先把自己变成合格的调用者</a><a href="#s31">31 / 内联汇编、嵌入式汇编函数与独立.s文件</a><a href="#s32">32 / 汇编访问C全局变量：先拿地址，再访问内容</a><a class="nav-group" href="#s33">CMSIS与特殊寄存器</a><a href="#s33">33 / CMSIS到底统一什么：核接口、RTOS接口、DSP库</a><a href="#s34">34 / 内在函数、内联汇编、习语识别：C怎样产生特殊指令</a><a href="#s35">35 / 特殊寄存器：临界区恢复旧状态，Q清除读懂即可</a><a href="#s36">36 / 做题和调试都用同一张检查单</a><a href="#coverage">原书小节与例题覆盖</a><a href="#selftest">十二道综合短自测</a><a href="#exercises">11道原题与完整程序</a><a href="#corrections">原书易错点核对</a><a href="#finish">学完标准与安排</a></nav></details></aside><main>
+<header class="book-cover" id="start"><p class="edition">计算机系统 · 第七章配套讲义</p><h1>把指令写成<br>能说清楚的程序<span class="cover-subtitle">第七章 · ARM程序设计</span></h1><p class="lead">从数据放在哪里，到循环何时结束；从一层BL，到C与汇编互相调用。把每个寄存器、每个分支、每一格栈空间的责任讲清楚，再独立写出习题程序。</p><p class="scope">覆盖原讲义7.1—7.4全部小节、例7.1—7.51及第48页全部11道习题。页码对应独立第七章PDF：第1页目录，正文第2—47页。沿用项目内既有教材整理版样式。</p><div class="cover-facts"><span>36节完整讲解</span><span>20幅交互SVG</span><span>11道原题详解</span><span>12道综合自测</span></div><p class="route">开发链 → 伪指令与数据 → 顺序、分支、循环 → 子程序与ABI → C混合编程与CMSIS</p><div class="reader-tools"><button type="button" id="print-book">打印 / 保存为PDF</button><button type="button" data-answers="open">展开全部答案</button><button type="button" data-answers="close">收起全部答案</button><a class="source-download" download="计算机系统-第七章配套练习源码.zip" href="data:application/zip;base64,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">下载完整练习源码包</a></div><a class="continue" href="#s01">从“程序怎样合作”开始 →</a><p class="source-note"><a href="计算机系统-第六章ARM指令系统完整讲义.html">回到第六章：寻址、条件标志和指令 →</a></p></header>
+<section id="how"><p class="eyebrow">先分清要求，再开始学</p><h2>会独立写基础程序；工具与冷门语法知道何时查</h2><p>本章没有跳过开发环境、伪指令目录、历史工具和特殊寄存器。每节标出掌握要求，再说明背景为什么要讲。重点按原章习题安排，实际考试范围结合老师要求。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>要学成什么样</th>
+<th>对应讲解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开发链、交叉编译、IDE、探针</td>
+<td>理解职责，会判断错误阶段；旧产品名认识即可</td>
+<td>01—03</td>
+</tr>
+<tr>
+<td>伪指令、数据、段、符号、表达式</td>
+<td><strong>常用的会写，其余会读会查；分清汇编期与运行期</strong></td>
+<td>04—15</td>
+</tr>
+<tr>
+<td>启动、顺序、分支、循环、数组、排序</td>
+<td><strong>会分配寄存器、写代码、检查边界并手算</strong></td>
+<td>16—22</td>
+</tr>
+<tr>
+<td>子程序、嵌套、幂与阶乘</td>
+<td><strong>保护LR和保存寄存器，不覆盖输出，0/1输入正确</strong></td>
+<td>23—25</td>
+</tr>
+<tr>
+<td>ABI、栈参数、C与汇编互调</td>
+<td><strong>简单整数/指针接口能独立写；复杂类型知道查ABI</strong></td>
+<td>26—32</td>
+</tr>
+<tr>
+<td>CMSIS、特殊指令/寄存器</td>
+<td>说清用途、工具依赖、权限与恢复；冷门名称认识即可</td>
+<td>33—35</td>
+</tr>
+</tbody></table></div>
+<p>先看默认SVG，再换参数检查预测；接着做十二道短题，再完成全部原题。完整程序题由<strong>共同启动文件 + 各题全部应用文件</strong>组成，源码包也嵌在本HTML里，下载不依赖网络。</p>
+<p>所有正文、MathML公式、脚本、默认打印SVG与源码均在本文件内；打印自动显示全部答案与默认图例，关闭脚本仍能读静态图。图是教学模型，不操作真实处理器。配套ArmASM工程有明确启动前提；核心算法和Thumb指令流经过核对，未在此环境实际运行MDK或连接实板。</p>
+</section>
+<section class="part-head lesson" id="s01"><p class="eyebrow">第七章 · 第01节</p><h2>这一章到底要把你教会什么</h2><p class="section-context">7.1、7.3、7.4；第 2、24—48 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能把题目翻译为变量分工、控制流、访存与函数接口，再独立写出程序。</p><p><strong>背景为什么要讲：</strong>开发工具也讲，因为一段正确的计算代码还需要被汇编、链接、放入正确地址，才能运行。</p></div><p>上一章解决的是“一条指令干什么”，这一章解决的是“几十条指令怎样合作完成一件事”。先不要同时背几十个伪指令。你真正要抓牢的是下面四件事。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>问题</th>
+<th>写程序时对应的动作</th>
+<th>原章习题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据在哪里？</td>
+<td>常量、数组、寄存器、结果地址分别安排</td>
+<td>3—6、8—10</td>
+</tr>
+<tr>
+<td>什么时候做、做多少次？</td>
+<td>比较、分支、循环、边界</td>
+<td>3—6、8</td>
+</tr>
+<tr>
+<td>函数怎样进出？</td>
+<td>参数、返回值、LR、寄存器保护、SP</td>
+<td>7—10</td>
+</tr>
+<tr>
+<td>源程序怎样成为可执行程序？</td>
+<td>伪指令、段、符号、链接、启动</td>
+<td>所有“完整程序”题</td>
+</tr>
+</tbody></table></div>
+<p><strong>最重要的学习成果：能在纸上写出正确程序，并解释每个寄存器为何存在。</strong> 不要求第一次就记住 IDE 的每个按钮、旧工具所有版本号、全部冷门字符串运算符；这些内容本章都介绍，并标清查读边界。</p>
+<p>一段程序有三种不同的“状态”：源文件里的文字；汇编、链接之后的代码与数据；运行时寄存器与内存里的值。比如 <code>N EQU 10</code> 只建立汇编期名称，<code>MOVS R1,#10</code> 才在运行时修改 R1。把这两个层次混在一起，后面的宏、循环、变量就会越看越乱。</p>
+<p>本章以 <strong>Cortex-M3/M4 的 Thumb/Thumb-2</strong> 为运行范围；书中的 <code>AREA/DCB/EXPORT</code> 等属于 <strong>ArmASM 语法</strong>。为和原书对得上，主要程序沿用这一语法。GCC、armclang 集成汇编器的 <code>.section/.byte/.global</code> 是另一套写法，不能直接混贴；编译器差异在第 31 节集中说明。</p>
+<p><strong>重点依据是原章 11 道题及后续学习依赖，不是对你实际考试范围的预测。</strong> 背景会讲到，但不会把“认识工具名称”和“能独立写循环”安排成相同的背诵负担。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s02"><p class="eyebrow">第七章 · 第02节</p><h2>编辑、编译、汇编、链接、下载、调试各管哪一步</h2><p class="section-context">7.1.1—7.1.2；第 2—8 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能解释交叉编译；能按报错阶段判断该找语法、符号、地址还是运行逻辑。</p><p><strong>背景为什么要讲：</strong>工具名称经常换，开发链的职责相对稳定；理解职责比背界面截图更有用。</p></div><p>从“我写了一句 C”到“板子真的执行”，大致经过下面这些步骤。</p>
+<figure class="diagram" id="fig-pipeline" data-figure="pipeline"><div class="diagram-live"><div id="c7-pipeline"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① 编辑源文件</option><option value="1">② 编译 / 汇编</option><option value="2" selected>③ 链接定位</option><option value="3">④ 下载或装载</option><option value="4">⑤ 调试执行</option></select></label></div><svg class="drawing" role="img" aria-label="源代码到运行状态的开发链"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-pipeline"><svg class="drawing" role="img" aria-label="源代码到运行状态的开发链" viewBox="0 0 640 440"><title>开发链</title><rect x="12" y="12" width="616" height="60" rx="3" class="node"></rect><text x="24" y="34" text-anchor="start" class="text-small">源文件</text><text x="616" y="58" text-anchor="end" class="text-small">main.c / app.s</text><path d="M320 72 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="98" width="616" height="60" rx="3" class="node"></rect><text x="24" y="120" text-anchor="start" class="text-small">目标文件</text><text x="616" y="144" text-anchor="end" class="text-small">main.o + app.o</text><path d="M320 158 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="184" width="616" height="60" rx="3" class="active"></rect><text x="24" y="206" text-anchor="start" class="text-small">可执行映像</text><text x="616" y="230" text-anchor="end" class="text-small">地址、符号、段已统一</text><path d="M320 244 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="270" width="616" height="60" rx="3" class="node"></rect><text x="24" y="292" text-anchor="start" class="text-small">目标内存</text><text x="616" y="316" text-anchor="end" class="text-small">Flash / RAM</text><path d="M320 330 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="356" width="616" height="60" rx="3" class="node"></rect><text x="24" y="378" text-anchor="start" class="text-small">运行状态</text><text x="616" y="402" text-anchor="end" class="text-small">寄存器、内存、控制流</text></svg><div aria-live="polite">当前阶段：链接定位，解析符号与重定位</div></div></div><figcaption><span class="figure-number">图7-1</span>选中阶段为蓝色；C/汇编先分别成为目标文件，链接器再统一符号与地址。</figcaption></figure>
+
+
+
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>输入 → 输出</th>
+<th>常见问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编辑器 / 工程管理</td>
+<td>人的想法 → <code>.c/.cpp/.s/.h</code></td>
+<td>文件没加入工程、选错目标</td>
+</tr>
+<tr>
+<td>C/C++ 编译器</td>
+<td>高级语言 → 目标代码；内部常经过汇编</td>
+<td>类型、声明、编译选项不一致</td>
+</tr>
+<tr>
+<td>汇编器</td>
+<td>指令与伪指令 → <code>.o/.obj</code>、符号与重定位信息</td>
+<td>指令不支持、立即数非法、伪指令方言不对</td>
+</tr>
+<tr>
+<td>链接器 / 定位器</td>
+<td>多个目标文件、库与地址布局 → ELF/AXF 映像</td>
+<td>未定义符号、重复定义、段放不下</td>
+</tr>
+<tr>
+<td>格式转换与下载</td>
+<td>映像 → 可烧写的 HEX/BIN 等</td>
+<td>地址丢失或下载算法、区域选择错误</td>
+</tr>
+<tr>
+<td>调试器</td>
+<td>可执行映像、符号、目标状态 → 可观察的执行过程</td>
+<td>算法错误、越界、现场被破坏</td>
+</tr>
+</tbody></table></div>
+<p>ELF/AXF 往往带段、地址、符号与调试信息。HEX 记录地址和数据，裸 BIN 通常不自带完整的地址语义，下载时要指定装载位置。<strong>“编译成功”不等于“程序已被正确烧写并正确执行”。</strong></p>
+<p><strong>交叉编译</strong>是：编译器运行在一种主机平台，却为另一种目标平台生成代码。Windows/x86 电脑生成 Cortex-M4 的 Thumb 代码就是一个例子；主机系统不是判断交叉编译的唯一条件，还要看目标体系结构和运行环境。</p>
+<p>RTOS、函数库、评估板和调试探针不都属于“编译器”。RTOS 提供调度等运行服务；库提供可链接的功能；板子提供目标硬件；探针帮助下载和观察目标。IDE 把很多工具组合起来，但不改变各自的职责。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s03"><p class="eyebrow">第七章 · 第03节</p><h2>旧工具一口气认识完，MDK 学会怎么用</h2><p class="section-context">7.1.1 全部工具介绍、表 7.1；7.1.2；第 2—8 页</p><div class="part-goal"><p><strong>掌握要求：</strong>认识原书所有工具；会按目标芯片、工具链、存储区、启动文件和调试连接建立工程。</p><p><strong>背景为什么要讲：</strong>版本与产品定位是历史背景，不要求背旧版本号；认识它们是为了看懂原书和旧工程。</p></div><p>书中的“最新”“支持所有”“最强”等表述有写作年代，不能当作今天的软件选型结论。这里保留它们在原章中的位置与作用。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>原章里的位置与要点</th>
+<th>本阶段要记什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SDT</td>
+<td>早期 Arm 软件开发工具，后被 ADS 接替</td>
+<td>历史名称，认识即可</td>
+</tr>
+<tr>
+<td>ADS</td>
+<td>集成编译、调试、模拟与库的旧工具套件</td>
+<td>旧工程可能出现，认识即可</td>
+</tr>
+<tr>
+<td>RVDS</td>
+<td>Eclipse 工程环境、RVCT 编译、RVD 调试、RVISS 指令模拟</td>
+<td>四类职责能对应，不背缩写清单</td>
+</tr>
+<tr>
+<td>DS-5</td>
+<td>原书用于较复杂 SoC、Linux/Android、跟踪与性能分析的套件</td>
+<td>认识 Eclipse、Streamline、RTSM/FVP、DSTREAM 各自作用</td>
+</tr>
+<tr>
+<td>MDK / Keil MDK</td>
+<td>原章主要面向 MCU；μVision 集成工程、编译、调试、下载与模拟</td>
+<td>本章 ArmASM 例子来自这一工具背景</td>
+</tr>
+<tr>
+<td>Arm 目标 GCC</td>
+<td>交叉工具链，不限于某一个主机系统</td>
+<td>区分 Linux 用户程序目标与裸机 MCU 目标</td>
+</tr>
+</tbody></table></div>
+<p><code>arm-linux-gnueabi...</code> 一类工具链面对 Linux 环境；<code>arm-none-eabi...</code> 一类常用于裸机/嵌入式环境。它们的运行库、启动和链接要求不同。不能因为名字里都有 Arm，就把 Linux 程序直接烧到 Cortex-M 上。</p>
+<p>原表 7.1 还比较了编译器、IDE、内核支持、RTX/RTOS、中间件、调试器、模拟器、调试硬件、多核、GDB Server、逻辑分析仪等。<strong>这些是功能维度，具体支持要查所用版本、许可证、设备包和探针。</strong> 原表中“不支持多核”等结论属于当年的产品组合，不作为永久结论背诵。</p>
+<h3>一个工程至少核对六项</h3>
+<ol>
+<li>选对芯片/内核，例如本章原书使用 STM32F407ZG，不能把 M0 当 M4。</li>
+<li>选对编译器与汇编语法；<code>AREA</code> 文件交给 ArmASM，不能误交给 GNU 方言汇编器。</li>
+<li>配好 Flash/RAM 起始地址与容量；本章教学布局使用 Flash <code>0x08000000</code>、RAM <code>0x20000000</code>。</li>
+<li>加入启动文件和所有源文件；<strong>不要同时加入两个启动文件、两个同名入口。</strong></li>
+<li>设好链接布局和入口；对 C 工程还要有相应运行库初始化。</li>
+<li>选择模拟器或目标探针，核对芯片下载算法，构建后再进入调试。</li>
+</ol>
+<p>μVision 的工程窗口管文件与分组；代码窗口编辑；输出窗口看构建错误。进入调试后，寄存器窗口看 R0/SP/LR/PC，内存窗口看数组，反汇编窗口核对实际指令，观察/调用栈窗口看变量和调用关系。优化后“一行 C 对一条指令”通常不成立；单步汇编更适合核对本章算例。</p>
+<h3>“仿真器”这个词要分开理解</h3>
+<p>软件模拟器在主机上模拟目标；JTAG/SWD 调试探针通常连接并控制<strong>实际芯片</strong>；早期在线仿真设备又有别的硬件形式。原书列到 ULINK 系列、J-Link、DSTREAM、RVI/RVT 等名称，记住它们属于调试连接/跟踪工具即可。</p>
+<p>探针并不是一律“替代 MCU”，也不保证完全不占片上资源。断点比较器、跟踪资源、调试引脚是有限的；某些内存观察可能影响实时性。SWD 与 JTAG 是不同调试接口，支持情况看目标和设备。品牌、版本号、营销评价不属于本章做题重点。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s04"><p class="eyebrow">第七章 · 第04节</p><h2>机器指令、汇编伪指令、伪操作不要混成一类</h2><p class="section-context">7.2 总述；7.3.1；第 8、24—25 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能判断一行是在生成指令、定义数据，还是控制汇编；会按 ArmASM 四栏格式写语句。</p><p><strong>背景为什么要讲：</strong>同叫“伪指令”的东西有不同用法，分清层次可以消除后面大半的困惑。</p></div><p><code>ADD</code> 有架构定义的机器编码，运行时由 CPU 执行。<code>AREA</code>、<code>DCD</code>、<code>EQU</code> 等由汇编器处理：有的建立段，有的生成数据，有的只建立符号。它们本身不作为一条 CPU 指令执行。</p>
+<p>另外，上一章的 <code>LDR R0,=0x12345678</code> 常称<strong>伪指令</strong>：汇编器可能用 MOV/MVN 等指令，也可能生成从文字池加载的 LDR。它和“完全不生成执行指令的 EQU”又不一样。做题时把“这行最终产生了什么”说清就行。</p>
+<figure class="diagram" id="fig-phases" data-figure="phases"><div class="diagram-live"><div id="c7-phases"><div class="viz-controls"><label class="form-label">选择一行<select class="form-select" data-line><option value="0">N EQU 3</option><option value="1" selected>Bytes DCB 1,2,3</option><option value="2">MOVS R0,#3</option><option value="3">ADDS R0,R0,#1</option></select></label></div><svg class="drawing" role="img" aria-label="同一段源文件的汇编期与运行期"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-phases"><svg class="drawing" role="img" aria-label="同一段源文件的汇编期与运行期" viewBox="0 0 640 276"><title>处理阶段</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">汇编期</text><text x="616" y="57" text-anchor="end" class="text-small">N → 常量3</text><rect x="12" y="77" width="616" height="55" rx="3" class="active"></rect><text x="24" y="98" text-anchor="start" class="text-small">映像数据</text><text x="616" y="122" text-anchor="end" class="text-small">01 02 03，占3字节</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">运行时第1步</text><text x="616" y="187" text-anchor="end" class="text-small">R0 ← 3</text><rect x="12" y="207" width="616" height="55" rx="3" class="node"></rect><text x="24" y="228" text-anchor="start" class="text-small">运行时第2步</text><text x="616" y="252" text-anchor="end" class="text-small">R0 ← 4，更新标志</text></svg><div aria-live="polite">选中：DCB生成数据，不是一条CPU指令</div></div></div><figcaption><span class="figure-number">图7-2</span>图中区分符号、映像数据与CPU执行；伪操作本身不作为一条CPU指令执行。</figcaption></figure>
+
+
+
+<p>ArmASM 采用下面的传统列式写法：</p>
+<pre><code class="language-armasm">; 标号顶格；操作助记符前留空白；分号以后是注释
+Start   MOVS    R0, #0       ; R0 清零
+Loop    ADDS    R0, R0, #1
+        CMP     R0, #10
+        BNE     Loop
+</code></pre>
+<p>四栏是 <code>标号 操作助记符 操作数 ;注释</code>。助记符与操作数之间是空白，操作数之间是英文逗号。标号区分大小写，<code>Result</code> 与 <code>RESULT</code> 不能随意混写；使用统一的大写助记符最省心。原书“标号不能加冒号、必须顶格”的要求针对这类 <strong>ArmASM 源文件格式</strong>，不是所有汇编器的统一规定。GNU 写法常用 <code>Loop:</code>，普通指令也不要求同样的首列规则。</p>
+<p><strong>把代码里的中文逗号、弯引号、全角等号替换为合法源代码字符。</strong> 书里的排版文字和能直接编译的源文件不是一回事。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s05"><p class="eyebrow">第七章 · 第05节</p><h2>EQU、GBL/LCL、SET、RN、RLIST：名字究竟代表什么</h2><p class="section-context">7.2.1、7.2.4 的 EQU/RN；7.2.5；例 7.1—7.4、7.22、7.28—7.31；第 8—10、17—21 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能区分汇编期变量、常量、寄存器别名和真正的 RAM 变量；会读每一种定义。</p><p><strong>背景为什么要讲：</strong>GBL/LCL 和字符串代换主要服务宏与可配置源文件，基础习题以会读为主。</p></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>写法</th>
+<th>含义</th>
+<th>会不会因此占一格 RAM？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>N EQU 10</code></td>
+<td>给固定数值/地址表达式起名</td>
+<td>不会</td>
+</tr>
+<tr>
+<td><code>GBLA Count</code>、<code>Count SETA 3</code></td>
+<td>汇编期数字变量，声明初值 0，再赋值</td>
+<td>不会</td>
+</tr>
+<tr>
+<td><code>GBLL Flag</code>、<code>Flag SETL {TRUE}</code></td>
+<td>汇编期逻辑变量，声明初值假</td>
+<td>不会</td>
+</tr>
+<tr>
+<td><code>GBLS Name</code>、<code>Name SETS &quot;abc&quot;</code></td>
+<td>汇编期字符串变量，声明初值空串</td>
+<td>不会</td>
+</tr>
+<tr>
+<td><code>LCLA/LCLL/LCLS</code></td>
+<td>相应的局部汇编期变量，常用于宏的局部环境</td>
+<td>不会</td>
+</tr>
+<tr>
+<td><code>Temp RN 0</code></td>
+<td>Temp 是 R0 的别名</td>
+<td>不会，也没有新增寄存器</td>
+</tr>
+<tr>
+<td><code>Saved RLIST {R4-R7,LR}</code></td>
+<td>给一个寄存器列表起名</td>
+<td>不会</td>
+</tr>
+<tr>
+<td><code>Value DCD 10</code></td>
+<td>定义一个有初始值的 32 位存储对象</td>
+<td>会生成数据/存储安排</td>
+</tr>
+</tbody></table></div>
+<p>GBL 中的“全局”指汇编器处理的命名环境，<strong>不等于 C 语言的可链接全局变量</strong>。如果另一个目标文件要引用一个地址符号，要用 EXPORT/IMPORT 和链接；不是写一个 GBLA 就行。</p>
+<pre><code class="language-armasm">N       EQU     10
+        GBLA    BuildCount
+BuildCount SETA 3
+        GBLL    UseFast
+UseFast SETL    {TRUE}
+        GBLS    Greeting
+Greeting SETS   &quot;Hello&quot;
+Temp    RN      0
+Saved   RLIST   {R4-R7,LR}
+</code></pre>
+<p><code>SETA/SETL/SETS</code> 必须与声明类型一致；可以在汇编过程中更新。<code>EQU</code> 符号不能像 SETA 变量那样反复改值。同名普通符号不能重复定义。原书例 7.2 的 Test3/Test4/Test5 名称错配要改成声明哪个就赋给哪个。</p>
+<p><code>$</code> 做<strong>汇编时代换</strong>。例如宏中 <code>$dst</code> 替换为实参寄存器名；字符串变量 <code>S1=&quot;Test!&quot;</code> 时，字符串中的 <code>$S1</code> 可展开为该文本。数字代换按该汇编器规则转成十六进制文字，逻辑变量代换为真/假表示；它不是运行时去 RAM 读值。</p>
+<p>RLIST 不改变存储顺序。无论列表文字怎样排列，多寄存器传输仍按架构的寄存器编号映射地址。RN 也不改变寄存器保护义务：把 R4 改名为 Temp 后，仍要按调用约定保存 R4。</p>
+<p>原书混入的“EQU 能代表任意指令串，等号可给同名数值重新赋值”等说法不能跨汇编器套用。<strong>本章 ArmASM 中：常量用 EQU，汇编期可变值用 SETA/SETL/SETS；<code>=</code> 在相应数据定义语境可作为 DCB 别名，<code>LDR Rd,=expr</code> 又是另一种语法。</strong> 不把其他汇编器的规则混进来。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s06"><p class="eyebrow">第七章 · 第06节</p><h2>DCB、DCW、DCD：定义数组时先问每项多宽</h2><p class="section-context">7.2.2；例 7.5—7.7；第 10—11 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会算字节数、数组元素地址、小端字节布局；能区分地址和该地址里的值。</p><p><strong>背景为什么要讲：</strong>数据定义直接决定访存步长，是数组题最常见的失分来源。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>定义</th>
+<th>每项大小</th>
+<th>常用读取</th>
+<th>i 项地址（i 从 0 起）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>A DCB 1,2,3</code></td>
+<td>1 字节</td>
+<td>LDRB / LDRSB</td>
+<td>A+i</td>
+</tr>
+<tr>
+<td><code>H DCW 1,2,3</code></td>
+<td>2 字节</td>
+<td>LDRH / LDRSH</td>
+<td>H+2i</td>
+</tr>
+<tr>
+<td><code>W DCD 1,2,3</code></td>
+<td>4 字节</td>
+<td>LDR</td>
+<td>W+4i</td>
+</tr>
+</tbody></table></div>
+<p>DCB 可定义字节或字符串；<strong>不会自动给字符串补 <code>\0</code></strong>。C 风格字符串必须明确写 <code>Text DCB &quot;ARM&quot;,0</code>。数值 0 和字符 <code>&#39;0&#39;</code> 的编码 0x30 不是同一个字节。</p>
+<pre><code class="language-armasm">        AREA    ConstData, DATA, READONLY, ALIGN=2
+Bytes   DCB     0x11,0x22,0x33,0x44
+Words   DCD     0x11223344,0x55667788
+Text    DCB     &quot;ARM&quot;,0
+</code></pre>
+<p>小端存储时，DCD <code>0x11223344</code> 的低地址到高地址依次为 <code>44 33 22 11</code>。反过来，对 <code>11 22 33 44</code> 四个连续字节执行 LDR，得到 <code>0x44332211</code>。<strong>定义成 DCB，不妨碍用 LDR 一次读取四字节；但你必须检查对齐、可访问范围和题目想表达的类型。</strong></p>
+<figure class="diagram" id="fig-data" data-figure="data"><div class="diagram-live"><div id="c7-data"><div class="viz-controls"><label class="form-label">定义形式<select class="form-select" data-kind><option value="DCB">DCB</option><option value="DCW">DCW</option><option value="DCD" selected>DCD</option></select></label><label class="form-label">读取下标 i<select class="form-select" data-index><option value="0">0</option><option value="1" selected>1</option><option value="2">2</option></select></label></div><svg class="drawing" role="img" aria-label="数据定义、元素宽度和小端字节"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-data"><svg class="drawing" role="img" aria-label="数据定义、元素宽度和小端字节" viewBox="0 0 640 352"><title>元素与字节</title><text x="12" y="24" text-anchor="start" class="text-small">DCD 定义3项，每项4字节</text><rect x="12" y="42" width="616" height="88" rx="3" class="node"></rect><text x="24" y="65" text-anchor="start" class="text-small">i=0 · 0x20000100</text><text x="24" y="90" text-anchor="start" class="text-small">值 0x11223344</text><text x="24" y="115" text-anchor="start" class="text-small">44  33  22  11  ← 字节由低地址到高地址</text><rect x="12" y="142" width="616" height="88" rx="3" class="active"></rect><text x="24" y="165" text-anchor="start" class="text-small">i=1 · 0x20000104</text><text x="24" y="190" text-anchor="start" class="text-small">值 0x55667788</text><text x="24" y="215" text-anchor="start" class="text-small">88  77  66  55  ← 字节由低地址到高地址</text><rect x="12" y="242" width="616" height="88" rx="3" class="node"></rect><text x="24" y="265" text-anchor="start" class="text-small">i=2 · 0x20000108</text><text x="24" y="290" text-anchor="start" class="text-small">值 0x99AABBCC</text><text x="24" y="315" text-anchor="start" class="text-small">CC  BB  AA  99  ← 字节由低地址到高地址</text></svg><div aria-live="polite">总长12字节；第1项地址=0x20000104，内容=0x55667788</div></div></div><figcaption><span class="figure-number">图7-3</span>固定首址0x20000100，展示三项的低地址到高地址字节；地址按项宽推进。</figcaption></figure>
+
+
+
+<p>DCW/DCD 会按该指令规则对首项做半字/字对齐，可能插入填充；DCWU/DCDU 不主动保证这种对齐。U 不表示“无符号”，表示不作相应对齐要求。<strong>不对齐的数据定义不等于任何指令都能合法访问它。</strong> 多寄存器、双字等访问还有各自限制。</p>
+<p><code>LDR R0,=Words</code> 通常是取地址；<code>LDR R1,[R0]</code> 才是读内容。习题需要“把结果放入 R0”就让 R0 保存数值；如果要“存入 Result 单元”，还要取 Result 地址并 STR。不要把结果地址误当作结果。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s07"><p class="eyebrow">第七章 · 第07节</p><h2>DCQ、DCFS、DCFD、SPACE：数据格式与初始化分开看</h2><p class="section-context">7.2.2；例 7.8—7.11；第 11—12 页</p><div class="part-goal"><p><strong>掌握要求：</strong>知道所有数据定义的宽度和含义；明确 SPACE、NOINIT 与 C 启动初始化的关系。</p><p><strong>背景为什么要讲：</strong>浮点定义并不等于处理器具备相应浮点运算能力；这些是读程序和估算布局所需的背景。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>伪指令</th>
+<th>每个元素</th>
+<th>存的是什么</th>
+<th>ArmASM 这一类定义的对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DCFS / DCFSU</td>
+<td>4 字节</td>
+<td>单精度浮点表示</td>
+<td>非 U 版为字对齐</td>
+</tr>
+<tr>
+<td>DCFD / DCFDU</td>
+<td>8 字节</td>
+<td>双精度浮点表示</td>
+<td>非 U 版为字对齐</td>
+</tr>
+<tr>
+<td>DCQ / DCQU</td>
+<td>8 字节</td>
+<td>64 位整数位串</td>
+<td>非 U 版为字对齐</td>
+</tr>
+<tr>
+<td>SPACE n</td>
+<td>n 字节</td>
+<td>预留空间；是否有映像初值受段属性等约束</td>
+<td>自身不替代所需 ALIGN</td>
+</tr>
+</tbody></table></div>
+<p><strong>每项 8 字节，不代表这个伪指令自动做到 8 字节对齐。</strong> ArmASM 的 DCQ/DCFD 常规形式按 4 字节边界安排；若接口或访问需要 8 字节对齐，再明确 <code>ALIGN 8</code> 或相应的段对齐。</p>
+<pre><code class="language-armasm">        AREA    Tables, DATA, READONLY, ALIGN=3
+        ALIGN   8
+Big     DCQ     100,101,102
+F32     DCFS    0.5,-1.0
+F64     DCFD    0.5,-1.0
+</code></pre>
+<p>十进制 100 就是 100，写成十六进制是 0x64；原书 DCQ 例子把十进制说明和十六进制文字混在一起，不能据此改变数值。<code>DCD 1</code> 是整数位串 0x00000001；<code>DCFS 1.0</code> 是浮点 1.0 的表示 0x3F800000；LDR 只搬位串，不会自动把一种转换为另一种。</p>
+<p>M4 的可选 FPU 主要支持单精度算术；你依然可以在内存里保存双精度数据，必要时由软件运算。<strong>能定义 DCFD 不证明有硬件双精度加法。</strong></p>
+<p>普通初始化数据区域中，SPACE 通常形成零填充；在 NOINIT 等区域，它用来预留不带初始化要求的空间。<code>AREA ...,DATA,READWRITE,NOINIT</code> 下的栈空间不应该假定上电全为零。链接映像给 RAM 数据规定了初始内容，也需要启动代码负责拷贝/清零，不能认为写了 DCD 或 SPACE，芯片上电就自动执行这些“初始化语句”。</p>
+<p>本章习题工程把输入常量放在只读数据段，结果区先写后读，避免依赖尚未讲清的 C 运行库初始化。通用 C 工程的 <code>.data/.bss</code> 初始化交给匹配的启动文件和运行库；第 16 节说明。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s08"><p class="eyebrow">第七章 · 第08节</p><h2>MAP/FIELD：只画户型，不替你分配房间</h2><p class="section-context">7.2.2；例 7.12—7.13；第 12 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会累计字段偏移；能明确说明 MAP/FIELD 不分配实际存储。</p><p><strong>背景为什么要讲：</strong>这是结构化地址描述的方法，基础习题不要求熟练写复杂映射，但读外设与结构定义会遇到。</p></div><pre><code class="language-armasm">        MAP     0x100
+A       FIELD   16
+B       FIELD   32
+S       FIELD   256
+</code></pre>
+<p>起点是 0x100，A 占用的<strong>描述长度</strong>为16，所以 B 的符号值为 0x110；B 再描述32字节，所以 S 为0x130；结束位置为0x230。A 范围是0x100—0x10F，不是连0x110也算进去。</p>
+<figure class="diagram" id="fig-map" data-figure="map"><div class="diagram-live"><div id="c7-map"><div class="viz-controls"><label class="form-label">A 长度<input class="form-control" data-a type="number" value="16" min="0" max="256"></label><label class="form-label">B 长度<input class="form-control" data-b type="number" value="32" min="0" max="256"></label></div><svg class="drawing" role="img" aria-label="结构映射的字段偏移"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-map"><svg class="drawing" role="img" aria-label="结构映射的字段偏移" viewBox="0 0 640 284"><title>结构字段</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">A · 16字节</text><text x="616" y="57" text-anchor="end" class="text-small">0x0100</text><rect x="12" y="77" width="616" height="55" rx="3" class="node"></rect><text x="24" y="98" text-anchor="start" class="text-small">B · 32字节</text><text x="616" y="122" text-anchor="end" class="text-small">0x0110</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">S · 256字节</text><text x="616" y="187" text-anchor="end" class="text-small">0x0130</text><rect x="12" y="207" width="616" height="55" rx="3" class="waiting"></rect><text x="24" y="228" text-anchor="start" class="text-small">结束位置 · 不在S内部</text><text x="616" y="252" text-anchor="end" class="text-small">0x0230</text></svg><div aria-live="polite">B=0x0110，S=0x0130，总描述长度=304字节；实际分配=0字节。</div></div></div><figcaption><span class="figure-number">图7-4</span>起点0x100，S长度固定256。框宽不按字节长度比例；只描述地址，不分配存储。</figcaption></figure>
+
+
+
+<p>这些符号只是结构的偏移/地址约定。<strong>没有因此生成 304 字节 RAM 或 Flash 数据。</strong> 真要一块存储空间，另用 SPACE 或数据定义，或使用真实的内存映射硬件区域。</p>
+<p>带基址的 <code>MAP 0x100,R0</code> 描述的是“R0+0x100 起的一组寄存器相对地址”；不把当前运行时的 R0 数值在汇编时算出来。若 A 从该位置开始，<code>:BASE:A</code> 可描述其基址寄存器编号，<code>:INDEX:A</code> 可取其中的偏移部分。可以理解成“基址寄存器 + 字节偏移”的两部分说明。</p>
+<p>FIELD 通常按指定长度推进，<strong>不会替你模拟 C 编译器所有结构体填充规则</strong>。和 C 的结构共享时，要核对字段偏移、对齐、总长、打包选项，而不是只看字段名字一样。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s09"><p class="eyebrow">第七章 · 第09节</p><h2>汇编期 IF/WHILE 与运行时 BEQ/BNE 是两回事</h2><p class="section-context">7.2.3；例 7.14—7.15；第 13—14 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能写出条件汇编后实际保留下来的代码；理解汇编期循环必须推进自己的计数变量。</p><p><strong>背景为什么要讲：</strong>用于编译配置与重复生成，通常不是统计数组元素时使用的运行时循环。</p></div><pre><code class="language-armasm">        GBLL    Fast
+Fast    SETL    {TRUE}
+        IF      Fast
+        MOVS    R0,#1
+        ELSE
+        MOVS    R0,#2
+        ENDIF
+</code></pre>
+<p>汇编器看到 Fast 为真，就只保留对应分支产生的代码；程序运行时不再做一次“Fast 是否为真”的判断。反过来，<code>CMP R1,#0 / BEQ ZeroPath</code> 是运行时比较寄存器，代码里会同时有两条可能路径。</p>
+<pre><code class="language-armasm">        GBLA    K
+K       SETA    0
+        WHILE   K &lt; 3
+        DCB     K
+K       SETA    K+1
+        WEND
+</code></pre>
+<p>生成三个字节 <code>00 01 02</code>。CPU 不执行 WHILE、SETA 或 WEND；汇编器把数据先生成好了。原书 Counter&lt;10 的 WHILE 例子省略了 Counter 的更新，<strong>照抄可能让汇编过程无法终止</strong>。生成代码/数据的循环也需要退出条件。</p>
+<p>IF/ELSE/ENDIF、WHILE/WEND 可以嵌套，但层次要配对。真值可以来自逻辑变量、表达式或 <code>:DEF:Feature</code>。不要用运行时寄存器的内容来控制普通汇编期 IF；汇编器并不知道程序未来执行时 R0 是多少。</p>
+<p><strong>题目统计 10 个数据时，应该写 LDR/TST/CMP 与 Bxx 的运行时循环。</strong> 用汇编期 WHILE 重复写十段代码不是本题“运行时遍历”的通常学习目的。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s10"><p class="eyebrow">第七章 · 第10节</p><h2>宏展开、MEXIT 与子程序：文字复用和运行复用</h2><p class="section-context">7.2.3；例 7.16；第 14—15 页</p><div class="part-goal"><p><strong>掌握要求：</strong>看懂宏参数、标号代换、展开结果；解释宏与 BL 子程序在代码大小和现场管理上的差别。</p><p><strong>背景为什么要讲：</strong>宏能减少源文件重复，但不自动减少机器代码，也不自动保证更快。</p></div><pre><code class="language-armasm">        MACRO
+$label  UMax    $a,$b,$out
+        CMP     $a,$b
+        BHI     $label.take_a
+        MOV     $out,$b
+        B       $label.done
+$label.take_a
+        MOV     $out,$a
+$label.done
+        MEND
+
+One     UMax    R0,R1,R2
+Two     UMax    R4,R5,R6
+</code></pre>
+<p>汇编器将 One、Two 各自展开为一段代码；<code>$label</code> 让内部标号分别成为 <code>One.take_a</code> 与 <code>Two.take_a</code> 等，避免撞名。参数是文本实参，例如 R0，不是 C 风格自动建立的参数栈。这里按<strong>无符号</strong>比较取大值；若改成有符号需要改条件码。</p>
+<figure class="diagram" id="fig-expand" data-figure="expand"><div class="diagram-live"><div id="c7-expand"><div class="viz-controls"><label class="form-label">使用点个数<select class="form-select" data-count><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option></select></label></div><svg class="drawing" role="img" aria-label="宏展开与函数调用的代码份数"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-expand"><svg class="drawing" role="img" aria-label="宏展开与函数调用的代码份数" viewBox="0 0 640 272"><title>展开与调用</title><text x="12" y="24" text-anchor="start" class="text-small">宏：每个使用点有一份主体</text><rect x="14" y="40" width="149" height="47" rx="3" class="active"></rect><text x="89" y="69" text-anchor="middle" class="text-small">主体1</text><rect x="168" y="40" width="149" height="47" rx="3" class="active"></rect><text x="243" y="69" text-anchor="middle" class="text-small">主体2</text><rect x="322" y="40" width="149" height="47" rx="3" class="active"></rect><text x="397" y="69" text-anchor="middle" class="text-small">主体3</text><text x="12" y="112" text-anchor="start" class="text-small">函数：多处调用，共用一份主体</text><rect x="14" y="128" width="149" height="47" rx="3" class="node"></rect><text x="89" y="157" text-anchor="middle" class="text-small">BL 1</text><rect x="168" y="128" width="149" height="47" rx="3" class="node"></rect><text x="243" y="157" text-anchor="middle" class="text-small">BL 2</text><rect x="322" y="128" width="149" height="47" rx="3" class="node"></rect><text x="397" y="157" text-anchor="middle" class="text-small">BL 3</text><path d="M320 188 v20 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="212" width="616" height="48" rx="3" class="active"></rect><text x="320" y="242" text-anchor="middle" class="text-small">共用主体 + 返回</text></svg><div aria-live="polite">按简化模型：宏主体3份，共36字节；函数主体1份12字节，另有调用/返回及可能的保存开销。MEXIT终止展开，不是函数返回。</div></div></div><figcaption><span class="figure-number">图7-5</span>假定主体6条、每条按2字节估算，只比较教学模型的份数；真实编码、返回与保存成本另算。</figcaption></figure>
+
+
+
+<p><code>MACRO/MEND</code> 包围定义；宏原型可以有可选标号、参数和默认值。<code>MEXIT</code> 提前结束<strong>当前宏展开</strong>，不是 CPU 从函数返回。它常与汇编期 IF 配合，按参数/配置选择是否继续生成。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>宏</th>
+<th>子程序</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>每个使用点展开一份代码</td>
+<td>通常只有一份主体，多处 BL 过去</td>
+</tr>
+<tr>
+<td>没有 BL/返回这套固定调用开销</td>
+<td>需要返回链接、约定和可能的保存恢复</td>
+</tr>
+<tr>
+<td>多次使用可能变大</td>
+<td>适合复用较大功能</td>
+</tr>
+<tr>
+<td>仍可能破坏寄存器与标志</td>
+<td>按接口约定管理现场</td>
+</tr>
+</tbody></table></div>
+<p>不能简单说“宏一定快”或“子程序一定提高运行速度”。要看展开大小、分支、缓存/流水线与编译优化。做题先保证逻辑正确、标签唯一、所用寄存器有约定；性能结论属于进一步测量。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s11"><p class="eyebrow">第七章 · 第11节</p><h2>AREA 是段的说明，链接器才决定放到哪里</h2><p class="section-context">7.2.4 的 AREA；7.3.2；例 7.17；第 16、25—26 页</p><div class="part-goal"><p><strong>掌握要求：</strong>读懂 CODE/DATA、只读/读写、NOINIT 和段对齐；不把“数据段”等同于“RAM 已有初值”。</p><p><strong>背景为什么要讲：</strong>完整程序必须既有代码和数据的身份，又有实际内存位置。</p></div><pre><code class="language-armasm">        AREA    AppCode,CODE,READONLY,ALIGN=2
+        AREA    Inputs,DATA,READONLY,ALIGN=2
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+</code></pre>
+<p>第一行声明代码；第二行是只读数据，适合放 Flash 常量；第三行是可写但不承诺启动初始化的结果区，适合放 RAM。<strong>DATA 不意味着一定可写，更不意味着自动放到 0x20000000。</strong> 具体执行/装载地址由链接布局决定。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>AREA 属性</th>
+<th>应怎样理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CODE / DATA</td>
+<td>段内容类别</td>
+</tr>
+<tr>
+<td>READONLY / READWRITE</td>
+<td>说明段读写属性；最终保护还取决于实际存储器和 MPU 等</td>
+</tr>
+<tr>
+<td>ALIGN=n</td>
+<td>段起点要求按 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow></math></span> 字节对齐</td>
+</tr>
+<tr>
+<td>NOINIT</td>
+<td>不要求普通启动初始化；不能依赖随机上电内容</td>
+</tr>
+<tr>
+<td>COMMON</td>
+<td>按链接规则合并的同名公共数据区域，不是普通代码共享开关</td>
+</tr>
+</tbody></table></div>
+<p>多个源文件都可以有段；段名与链接后地址不是一一固定关系。以数字开头或含特殊字符的名称可能要用 <code>|...|</code> 形式。一般保持清晰字母名称即可。</p>
+<p>代码段里也能夹常量数据，例如文字池、查找表；但 CPU 不能顺序跌落去执行这些数据。可写数组应放真实可写区域；不要把 Flash 中的 <code>DCD</code> 数组当 RAM 去交换排序。</p>
+<p>原书第 25 页 Num=0x11、Nums=0x22 的更新例子，最终是 Num=0xAB、Nums=0xCD。这个结论依赖<strong>初值已在 RAM 就位</strong>。本章第 17 节改成显式建立初值，避免把调试器帮忙装载 RAM 的效果误认为上电必然发生。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s12"><p class="eyebrow">第七章 · 第12节</p><h2>ALIGN 4 与 ALIGN=2，看着相似，参数意义不同</h2><p class="section-context">7.2.4 的 ALIGN、AREA ALIGN；例 7.18；第 16 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会计算下一个满足边界的位置和填充字节；区分段对齐指数与 ALIGN 的字节边界。</p><p><strong>背景为什么要讲：</strong>对齐会改变标号地址，直接影响数组、结构、文字池与栈。</p></div><p><strong>在 ArmASM 中，<code>AREA ...,ALIGN=3</code> 表示段起点按 8 字节对齐；独立的 <code>ALIGN 8</code> 表示当前位置按 8 字节边界对齐。</strong> 一个参数是指数，一个是边界字节数。</p>
+<p>设当前位置 a，对齐边界 b 是 2 的幂、不使用额外偏移：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>a</mi><mrow><mi>n</mi><mi>e</mi><mi>w</mi></mrow></msub><mo>&#x0003D;</mo><mi>b</mi><mrow><mo stretchy="true" fence="true" form="prefix">&#x02308;</mo><mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">&#x02309;</mo></mrow><mo>&#x0002C;</mo><mspace width="2em" /><mi>p</mi><mo>&#x0003D;</mo><msub><mi>a</mi><mrow><mi>n</mi><mi>e</mi><mi>w</mi></mrow></msub><mo>&#x02212;</mo><mi>a</mi></mrow></math></div>
+
+
+
+<p>若当前为0x1003，ALIGN 4 后变为0x1004，补1字节；若当前已为0x1004，就不需要再跳到0x1008。</p>
+<figure class="diagram" id="fig-align" data-figure="align"><div class="diagram-live"><div id="c7-align"><div class="viz-controls"><label class="form-label">当前位置（十六进制）<input class="form-control" data-address type="text" value="1003" maxlength="8"></label><label class="form-label">边界 b<select class="form-select" data-bound><option value="2">2</option><option value="4">4</option><option value="8" selected>8</option><option value="16">16</option></select></label><label class="form-label">偏移 o<select class="form-select" data-offset><option value="0" selected>0</option><option value="1">1</option></select></label></div><svg class="drawing" role="img" aria-label="当前位置到对齐边界的填充"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-align"><svg class="drawing" role="img" aria-label="当前位置到对齐边界的填充" viewBox="0 0 640 270"><title>对齐填充</title><rect x="12" y="12" width="616" height="60" rx="3" class="node"></rect><text x="24" y="34" text-anchor="start" class="text-small">当前位置</text><text x="616" y="58" text-anchor="end" class="text-small">0x00001003</text><path d="M320 72 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="98" width="616" height="60" rx="3" class="waiting"></rect><text x="24" y="120" text-anchor="start" class="text-small">填充 5 字节</text><text x="616" y="144" text-anchor="end" class="text-small">寻找 offset + k × boundary</text><path d="M320 158 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="184" width="616" height="60" rx="3" class="active"></rect><text x="24" y="206" text-anchor="start" class="text-small">下一位置</text><text x="616" y="230" text-anchor="end" class="text-small">0x00001008</text></svg><div aria-live="polite">新位置=0x00001008；填充=5字节；新位置模8=0。</div></div></div><figcaption><span class="figure-number">图7-6</span>找不小于当前位置、形如o+k×b的最小位置；AREA的ALIGN=n使用指数，参数意义不同。</figcaption></figure>
+
+
+
+<p><code>ALIGN b,o</code> 要找<strong>不小于当前位置</strong>、形如 <code>o+k*b</code> 的位置，k为整数，不是固定只算 <code>2b+o</code>。默认 <code>ALIGN</code> 常用于4字节边界。填充的内容与代码/数据、选项有关；基础地址题主要算填充长度，不机械认定任何情形都同一字节值。</p>
+<p>原书例 7.18 的 <code>ALIEN=3</code> 是排版错误，应为 <code>ALIGN=3</code>；它约束的是段起点，不是承诺“以后每一条指令都相隔8字节”。Thumb 指令本来可为2或4字节，不能因一条段对齐属性而改变所有指令长度。</p>
+<p><strong>做数据布局题的固定顺序：先看当前偏移 → 按定义规则补对齐 → 给该标号地址 → 加上数据长度。</strong> 碰到 U 版数据定义，要重新判断是否自动补齐。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s13"><p class="eyebrow">第七章 · 第13节</p><h2>THUMB、CODE16/CODE32、ENTRY、END：谁也不会自动让 CPU 停机</h2><p class="section-context">7.2.4；例 7.19—7.21；第 16—17 页</p><div class="part-goal"><p><strong>掌握要求：</strong>知道这些是汇编/链接说明；Cortex-M 使用 Thumb；区分文件结束、入口元数据与硬件复位向量。</p><p><strong>背景为什么要讲：</strong>书里混用了经典 A32 和 M 系列模型，先限定架构才能写出可执行程序。</p></div><p><code>ARM/CODE32</code> 指示后续按 A32 汇编；传统 <code>CODE16</code> 对应旧 Thumb 语法环境。现代统一语法的 M3/M4 程序使用 <strong>THUMB</strong>，其中仍然可能生成16位或32位编码。不要把“Thumb”翻译为“所有指令都是16位”。</p>
+<p>这些指示<strong>不会在运行时切换处理器状态</strong>。经典能执行 A32/T32 的内核可以借助 BX 等完成状态交换；Cortex-M3/M4 只有 Thumb 执行状态，不能按原书 CODE32/BX 的演示切去 A32。函数指针/复位入口的最低位需要正确表示 Thumb 入口，实际指令地址仍是对齐地址。</p>
+<p><code>ENTRY</code> 给工具链入口信息；最终 ELF 入口可以由链接选项等指定。普通被调用的汇编函数不需要自己声明为主入口。<strong>ENTRY 不是 Cortex-M 的向量表，也不能替代复位时的初始 MSP 和 Reset_Handler。</strong></p>
+<p><code>END</code> 告诉 ArmASM：这个源文件到此结束。它不生成一条“CPU 退出程序”的指令，也不是每个 AREA 后都写一次。多个段仍可以属于同一个源文件，通常在文件末尾写 END。函数由 <code>BX LR</code> 等返回；裸机程序需要自己安排持续运行或安全停留。</p>
+<pre><code class="language-armasm">        THUMB
+        AREA    AppCode,CODE,READONLY
+Stop
+        B       Stop           ; CPU 在这里继续执行分支
+        END                    ; 汇编器到这里结束读源文件
+</code></pre>
+<p><strong>不能让执行流越过最后一条指令，指望 END 拦住 CPU。</strong> 后面可能是文字池、数据、空白或别的函数。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s14"><p class="eyebrow">第七章 · 第14节</p><h2>EXPORT/IMPORT、包含文件、弱符号和局部标号</h2><p class="section-context">7.2.4；例 7.23—7.28；第 17—19 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会把两个源文件接起来，分清文本包含、二进制嵌入与真正的目标文件链接。</p><p><strong>背景为什么要讲：</strong>弱符号与 ROUT 主要用于启动文件、库和宏；基础题认识用途与边界即可。</p></div><div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>需求</th>
+<th>ArmASM 做法</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本文件定义函数，供外部调用</td>
+<td><code>EXPORT func</code>，GLOBAL 可作相应别名</td>
+<td>名称、大小写一致</td>
+</tr>
+<tr>
+<td>函数/变量由别的文件定义</td>
+<td><code>IMPORT func</code> 或 EXTERN</td>
+<td>由链接器找到定义</td>
+</tr>
+<tr>
+<td>把宏/常量定义文本引进来</td>
+<td><code>GET file.inc</code>，或 INCLUDE</td>
+<td>文本在此处继续被汇编</td>
+</tr>
+<tr>
+<td>原样嵌入资源字节</td>
+<td><code>INCBIN image.bin</code></td>
+<td>不解析内部符号，不等于链接 <code>.o</code></td>
+</tr>
+<tr>
+<td>限定数字局部标号搜索范围</td>
+<td><code>ROUT</code></td>
+<td>不是给普通 RAM 变量划定作用域</td>
+</tr>
+</tbody></table></div>
+<p>IMPORT 与 EXTERN 都用于外部符号引用；传统 ArmASM 中有“是否在未实际引用时也留下符号项”等细节，实际以版本说明为准。当前重点是：<strong>声明外部引用不等于提供实现，链接时仍需加入定义它的目标文件。</strong></p>
+<p><code>[WEAK]</code> 用于弱定义/弱引用等链接语义：强实现可覆盖默认处理函数，某些未解析弱引用允许按工具链规则处理。不要把“没定义就自动当 NOP”当成所有弱调用的安全保证；实际链接、目标和调用形式会影响结果。关键函数应有确定实现。</p>
+<p>原书说 INCBIN 可包含目标文件，容易误导：<strong>即使把一个 ELF <code>.o</code> 原样嵌进去，也只是嵌入那些文件字节，不会自动完成重定位、符号解析和库搜索。</strong> 真正的目标文件必须交给链接器。</p>
+<p><code>ROUT</code> 管的是<strong>数字局部标号</strong>的搜索范围，例如局部循环目标，配合该汇编器的前/后向引用语法使用。它不替代 C 的局部变量、栈帧或宏局部变量声明。基础程序使用清晰且不重名的普通标签已足够；读启动文件时知道 ROUT 的职责就行。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s15"><p class="eyebrow">第七章 · 第15节</p><h2>所有表达式和符号都过一遍：算出常量，不是执行算法</h2><p class="section-context">7.2.5—7.2.6；例 7.29—7.35；第 20—24 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能求常见数字表达式；认识全部逻辑、字符串和寄存器相关运算符；区分编译期字符串长度与运行时 strlen。</p><p><strong>背景为什么要讲：</strong>完整运算符目录不需要死背；保留是为了读宏和查阅旧源文件时不会漏掉概念。</p></div><p>表达式由常量、变量、运算符和括号构成，在汇编时求值。<code>MOVS R3,#(3+4)</code> 的执行效果是“装入7”，CPU 不再额外做一条加法。结果还必须满足该机器指令的立即数编码规则。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>原书涉及的运算符</th>
+<th>例子/结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>算术</td>
+<td><code>+ - * / :MOD:</code></td>
+<td><code>9:MOD:4</code> 得1；整数除法不是浮点除法</td>
+</tr>
+<tr>
+<td>位移/循环移位</td>
+<td><code>:SHL: :SHR: :ROL: :ROR:</code></td>
+<td><code>9:SHL:1</code> 得18</td>
+</tr>
+<tr>
+<td>按位逻辑</td>
+<td><code>:AND: :OR: :EOR: :NOT:</code></td>
+<td><code>9:EOR:1</code> 得8</td>
+</tr>
+<tr>
+<td>比较</td>
+<td><code>= &gt; &lt; &gt;= &lt;= /= &lt;&gt;</code></td>
+<td>不等比较产生逻辑真假</td>
+</tr>
+<tr>
+<td>逻辑运算</td>
+<td><code>:LAND: :LOR: :LEOR: :LNOT:</code></td>
+<td>对真假值运算，不是对每个数据位运算</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td><code>:LEN: :CHR: :STR: :LEFT: :RIGHT: :CC:</code></td>
+<td>长度、字符、数值转串、左右子串、拼接</td>
+</tr>
+<tr>
+<td>地址描述</td>
+<td><code>:BASE: :INDEX:</code></td>
+<td>从寄存器相对表达式取基址编号与偏移</td>
+</tr>
+<tr>
+<td>符号/代码信息</td>
+<td><code>:DEF:</code>、<code>?label</code></td>
+<td>是否定义、标号所在定义行所生成的字节数</td>
+</tr>
+</tbody></table></div>
+<p>字符串例子：<code>:LEN:&quot;ARM&quot;</code> 得3；<code>:CHR:65</code> 得字符 A；<code>&quot;Hello&quot;:LEFT:2</code> 得 He；<code>&quot;Hello&quot;:RIGHT:2</code> 得 lo；<code>&quot;A&quot;:CC:&quot;RM&quot;</code> 得 ARM。<code>:STR:</code> 将数字按该汇编器格式变为十六进制字符串，将逻辑值变为对应的真/假文本。源书提到512字节字符串上限，作为旧工具的实现边界认识即可，不是 Cortex-M 的硬件字符串限制。</p>
+<p><code>:LEN:&quot;ARM&quot;</code> 在汇编期就知道答案；第10题的字符串指针指向运行时内存，要用 LDRB 循环数到0，不能用 :LEN: 代替。</p>
+<p>符号必须在相关作用域内唯一，区分大小写，不与保留字/寄存器/助记符撞名。数字常量注意进制：10、0x10分别是十进制10、16；32位寄存器位串既可解释为无符号，也可解释为补码有符号，不能仅凭外观决定。</p>
+<p>原书 <code>LA MOV R2,#1</code> 后 <code>?LA</code> 得4，是特定编码条件下的结果；在 Thumb 中指令可能为2字节，不能总写4。并且立即数写法要使用相应 <code>#</code>。<code>?label</code> 可涉及数据定义行长度，也不能概括成“任何标签对应一个固定4字节机器指令”。</p>
+<p>求值时先算括号，单目运算优先级高，同级双目通常从左到右；<strong>实际编程主动加括号</strong>。<code>:NOT:3</code> 这样的全宽位取反要注意工具表达式宽度，若目的是固定32位常量，可直接用 <code>LDR R0,=0xFFFFFFFC</code> 清楚表达，不混同运行时 MVN。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s16"><p class="eyebrow">第七章 · 第16节</p><h2>“完整程序”还差什么：复位、栈和初始数据</h2><p class="section-context">7.3.2；7.3.3；7.4.1；第 25—26、34、40—42 页</p><div class="part-goal"><p><strong>掌握要求：</strong>分清完整函数、完整汇编模块、完整可启动工程；会解释本章练习的启动文件、段和链接条件。</p><p><strong>背景为什么要讲：</strong>原书有的例子依靠调试环境直接进入 ENTRY；补启动过程是为了不把“调试器能跑”误认为“上电一定能跑”。</p></div><p>本章的基础题先学算法，不让芯片时钟和外设初始化淹没重点。但凡称“完整程序”，至少要交代<strong>从哪里进入、SP怎样有效、输入在哪里、结果在哪里、结束后去哪里</strong>。</p>
+<figure class="diagram" id="fig-boot" data-figure="boot"><div class="diagram-live"><div id="c7-boot"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① 取初始MSP</option><option value="1" selected>② 取复位入口</option><option value="2">③ Reset_Handler</option><option value="3">④ 应用函数</option><option value="4">⑤ 返回后停留</option></select></label></div><svg class="drawing" role="img" aria-label="M系列复位从向量表走到应用"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-boot"><svg class="drawing" role="img" aria-label="M系列复位从向量表走到应用" viewBox="0 0 640 440"><title>复位路线</title><rect x="12" y="12" width="616" height="60" rx="3" class="node"></rect><text x="24" y="34" text-anchor="start" class="text-small">向量[0] · 地址0x08000000</text><text x="616" y="58" text-anchor="end" class="text-small">读出初始MSP，例如0x20000400</text><path d="M320 72 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="98" width="616" height="60" rx="3" class="active"></rect><text x="24" y="120" text-anchor="start" class="text-small">向量[1] · 地址0x08000004</text><text x="616" y="144" text-anchor="end" class="text-small">入口值示例0x08000101</text><path d="M320 158 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="184" width="616" height="60" rx="3" class="node"></rect><text x="24" y="206" text-anchor="start" class="text-small">真正指令地址0x08000100</text><text x="616" y="230" text-anchor="end" class="text-small">Reset_Handler：初始化 / 转入应用</text><path d="M320 244 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="270" width="616" height="60" rx="3" class="node"></rect><text x="24" y="292" text-anchor="start" class="text-small">exercise_main</text><text x="616" y="316" text-anchor="end" class="text-small">执行算法，依接口返回</text><path d="M320 330 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="356" width="616" height="60" rx="3" class="node"></rect><text x="24" y="378" text-anchor="start" class="text-small">Halt</text><text x="616" y="402" text-anchor="end" class="text-small">B Halt，不能靠END停机</text></svg><div aria-live="polite">当前：向量[1] · 地址0x08000004。入口最低位是Thumb标识，实际指令位于偶地址；ENTRY不是硬件复位向量。</div></div></div><figcaption><span class="figure-number">图7-7</span>示意向量字与真正指令地址，入口最低位为Thumb标识；初始化策略由启动代码负责。</figcaption></figure>
+
+
+
+<p>对 M3/M4，硬件复位读取向量表：第0个字是初始 MSP，第1个字是 Reset_Handler 的 Thumb 入口。CPU不是通过执行 ENTRY 开始。Reset_Handler随后转到应用；有普通 C 全局初值时，还要完成数据拷贝、零区初始化及相应运行库启动。</p>
+<h3>本章附带的最小练习工程</h3>
+<p>每题由 <code>startup.s + 该题 app.s</code> 组成；调用 C 的题再加入对应 <code>.c</code>。下列启动文件在各题共用，全文与源码包均提供。练习假定 STM32F407ZG 类布局：Flash从0x08000000开始，所用RAM从0x20000000开始；<strong>实际芯片须核对容量和启动映射</strong>。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+Stack_Size EQU  0x400
+        AREA    STACK,NOINIT,READWRITE,ALIGN=3
+Stack_Mem SPACE Stack_Size
+__initial_sp
+        AREA    RESET,DATA,READONLY,ALIGN=7
+        EXPORT  __Vectors
+__Vectors
+        DCD     __initial_sp
+        DCD     Reset_Handler
+        DCD     Default_Handler     ; NMI
+        DCD     Default_Handler     ; HardFault
+        DCD     Default_Handler     ; MemManage
+        DCD     Default_Handler     ; BusFault
+        DCD     Default_Handler     ; UsageFault
+        DCD     0,0,0,0
+        DCD     Default_Handler     ; SVC
+        DCD     Default_Handler     ; DebugMon
+        DCD     0
+        DCD     Default_Handler     ; PendSV
+        DCD     Default_Handler     ; SysTick
+        AREA    StartupCode,CODE,READONLY
+        IMPORT  exercise_main
+        EXPORT  Reset_Handler
+Reset_Handler PROC
+        CPSID   I
+        BL      exercise_main
+Halt
+        B       Halt
+        ENDP
+Default_Handler PROC
+        B       Default_Handler
+        ENDP
+        END
+</code></pre>
+<p>这个启动文件不调用 C 运行库：只读输入放 Flash，NOINIT 结果先写后读；C算例不读未初始化全局变量、不使用标准库。它有16个系统向量入口，练习期间屏蔽可配置中断，不包含具体芯片完整的外部中断向量和外设初始化。<strong>这是针对本章无外设练习的最小程序，不是任意产品工程的通用启动文件。</strong> NMI等仍可能进入默认处理函数。</p>
+<p>链接布局必须让 RESET 先放到 Flash 起点，把 STACK 和可写数据放进RAM。源码包的 <code>layout.sct</code> 给出了这两块区域及“RESET在最前”的规则。启动文件里的 STACK预留1024字节，顶端标签作为初始MSP，按8字节对齐；不是从随手写的地址借一块可能被其他变量占用的空间。</p>
+<p>结果标号如 <code>Result</code> 在调试器内存窗口查地址；相应题若要求R0/R3，也保留该寄存器结果。应用返回后启动文件停在 <code>Halt</code>；不要通过重置或继续执行未知字节“查看答案”。</p>
+<p>若使用厂商完整启动/C模板，应该保留其运行库初始化，让你的函数作为 main 或 main调用的函数接入；<strong>不能同时加入本章 startup.s 和厂商另一个启动文件</strong>。GNU/armclang工程还需换用对应汇编指示和链接脚本，不能只改扩展名。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s17"><p class="eyebrow">第七章 · 第17节</p><h2>顺序程序：先取地址，再读值，最后写结果</h2><p class="section-context">7.3.2；7.3.3 顺序结构；例 7.36；第 25—26 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能追踪每一次 LDR/STR 的地址与值；会解释按字节定义的数据为何能读出一个字。</p><p><strong>背景为什么要讲：</strong>顺序结构是分支循环内部的基本积木，必须算熟。</p></div><p>先修正原书Num/Nums例子的初始化前提。下面在 RAM 里显式写初值，再计算：</p>
+<pre><code class="language-armasm">        LDR     R0,=Num
+        MOVS    R1,#0x11
+        STR     R1,[R0]         ; 明确建立初值
+        ADDS    R1,R1,#0x9A
+        STR     R1,[R0]         ; Num = 0xAB
+        LDR     R0,=Nums
+        MOVS    R2,#0x22
+        STR     R2,[R0]
+        ADDS    R2,R2,#0xAB
+        STR     R2,[R0]         ; Nums = 0xCD
+</code></pre>
+<p>Num/Nums必须在可写区域并有空间。上面是应用内部的算法片段，不是带向量表的独立工程。</p>
+<p>原例7.36的字节数组低地址依次是：</p>
+<pre><code class="language-armasm">        ALIGN   4
+Arr     DCB     0x11,0x22,0x33,0x44
+        DCB     0x55,0x66,0x77,0x88
+        DCB     0,0,0,0
+</code></pre>
+<p>若 <code>R0=Arr</code>，则 <code>LDR R2,[R0]</code> 得0x44332211；<code>R1=1</code> 时，<code>LDR R3,[R0,R1,LSL #2]</code> 读取 Arr+4 处四字节，得0x88776655。不是读取“第1个字节”，而是<strong>从首字节的地址开始，读一个32位字</strong>。</p>
+<p>按数组元素访问时，步长由元素宽度决定，且下标必须落在范围内。若数组共12字节，LDR从Arr+9读取4字节会越过数组结尾，即使那个地址仍在RAM中，也不再是这个数组的合法访问。</p>
+<p>做顺序程序题可以画三列：指令、访存地址、执行后寄存器/内存。遇到 <code>LDR =label</code> 单独写“地址”，遇到 <code>[Rn]</code> 才填“内容”。这是最省脑子的检查法。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s18"><p class="eyebrow">第七章 · 第18节</p><h2>64 位加法：低字先算，存储顺序另行约定</h2><p class="section-context">例 7.37；第 27 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会按 ADDS→ADC 连续传递进位；能分清数组的“高字在前”约定与通常的小端 uint64_t 布局。</p><p><strong>背景为什么要讲：</strong>多字运算把上一章的 C 标志用到程序中，也是后面长整数算法的基础。</p></div><p>原书明确把数组首字解释为高32位，第二字为低32位：</p>
+<pre><code class="language-armasm">Arr1    DCD     0x11223344,0xFFDDCCBB
+Arr2    DCD     0x11223344,0xFFDDCCBB
+</code></pre>
+<p>这是程序自定的<strong>高字在前</strong>格式，不是通常小端 C <code>uint64_t</code> 的低字在低地址格式。每个DCD内部仍然按小端排列字节；“字内部字节顺序”和“程序指定两个字谁是高部”是两层问题。</p>
+<pre><code class="language-armasm">        LDR     R0,=Arr1
+        LDR     R1,[R0]         ; 高字
+        LDR     R2,[R0,#4]      ; 低字
+        LDR     R0,=Arr2
+        LDR     R3,[R0]
+        LDR     R4,[R0,#4]
+        ADDS    R6,R2,R4        ; 低部，产生 C
+        ADC     R5,R1,R3        ; 高部，加上传来的 C
+        LDR     R0,=Result
+        STR     R5,[R0]         ; 结果仍按高字在前
+        STR     R6,[R0,#4]
+</code></pre>
+<p>低字相加：0xFFDDCCBB+0xFFDDCCBB=0x1FFBB9976，留下0xFFBB9976、C=1。高字相加：0x11223344×2+1=0x22446689。结果为 <strong>0x22446689FFBB9976</strong>。</p>
+<figure class="diagram" id="fig-carry" data-figure="carry"><div class="diagram-live"><div id="c7-carry"><div class="viz-controls"><label class="form-label">算例<select class="form-select" data-case><option value="0" selected>低字产生进位</option><option value="1">低字不产生进位</option></select></label></div><svg class="drawing" role="img" aria-label="两个32位字组成的64位加法"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-carry"><svg class="drawing" role="img" aria-label="两个32位字组成的64位加法" viewBox="0 0 640 310"><title>多字加法</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">低字：ADDS</text><text x="616" y="57" text-anchor="end" class="text-small">0xFFDDCCBB + 0xFFDDCCBB</text><rect x="12" y="77" width="616" height="55" rx="3" class="active"></rect><text x="24" y="98" text-anchor="start" class="text-small">低部结果 / 送往高部的进位</text><text x="616" y="122" text-anchor="end" class="text-small">0xFFBB9976 / C=1</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">高字：ADC</text><text x="616" y="187" text-anchor="end" class="text-small">0x11223344 × 2 + 1</text><rect x="12" y="207" width="616" height="55" rx="3" class="active"></rect><text x="24" y="228" text-anchor="start" class="text-small">高部结果</text><text x="616" y="252" text-anchor="end" class="text-small">0x22446689</text><text x="12" y="295" text-anchor="start" class="text-small">高部与低部分别存回，保持约定格式。</text></svg><div aria-live="polite">低字=0xFFBB9976，C=1；高字=0x22446689；64位结果=0x22446689FFBB9976</div></div></div><figcaption><span class="figure-number">图7-8</span>按原例“高字在前”的数组约定标注；低部ADDS产生C，高部ADC使用C。</figcaption></figure>
+
+
+
+<p>ADDS和ADC之间不能插入会覆盖C的指令，比如一次不相关CMP。装载/存储本身通常不更新算术标志，但写代码时仍要按实际指令看。</p>
+<p>上面是主程序片段，使用R4—R6没有对外接口；若把它改成供C调用的函数，就需要按ABI保护所修改的callee-saved寄存器。若要把结果当作标准小端uint64_t，存储时通常低字先放低地址，再放高字，不能只改类型名不改布局。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s19"><p class="eyebrow">第七章 · 第19节</p><h2>分支：先决定比较类型，再画两条会合的路径</h2><p class="section-context">7.3.3 分支结构；例 7.38—7.43；第 27—30 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会写 if/else、最大值与三路符号判断；明确执行比较时使用的是修改前的数据。</p><p><strong>背景为什么要讲：</strong>原章混用A32条件执行和Thumb，统一为M3/M4可读的显式分支，必要时说明IT。</p></div><p><code>CMP R0,R1</code> 相当于只更新标志的R0−R1。有符号“大于”用GT，无符号“大于”用HI；相等都用EQ。<strong>题目没有说明符号时先声明假设</strong>，不要让同一段程序前后换解释。</p>
+<p>以原书 <code>x=76,y=88; if(x&gt;y) z=100; else z=50;</code> 为例，若x/y是有符号int：</p>
+<pre><code class="language-armasm">        CMP     R0,R1
+        BGT     Greater
+        MOVS    R2,#50
+        B       Join
+Greater
+        MOVS    R2,#100
+Join
+</code></pre>
+<p>R2统一装z。原书把else写到R1、注释却说R2，是寄存器笔误；源例用HI则是无符号条件，对76/88恰好结果相同，对负数就未必。</p>
+<figure class="diagram" id="fig-branch" data-figure="branch"><div class="diagram-live"><div id="c7-branch"><div class="viz-controls"><label class="form-label">R2（十进制有符号）<input class="form-control" data-r2 type="number" value="5" min="-1000" max="1000"></label><label class="form-label">原R3<input class="form-control" data-r3 type="number" value="8" min="-1000" max="1000"></label><label class="form-label">比较解释<select class="form-select" data-kind><option value="signed" selected>有符号 GT</option><option value="unsigned">无符号 HI</option></select></label></div><svg class="drawing" role="img" aria-label="比较原值，再选择第3题的赋值路径"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-branch"><svg class="drawing" role="img" aria-label="比较原值，再选择第3题的赋值路径" viewBox="0 0 640 280"><title>分支选路</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">先CMP原R3,R2</text><text x="616" y="57" text-anchor="end" class="text-small">原R3=8；R2=5</text><rect x="12" y="77" width="616" height="55" rx="3" class="active"></rect><text x="24" y="98" text-anchor="start" class="text-small">条件：原R3 &gt; R2</text><text x="616" y="122" text-anchor="end" class="text-small">成立</text><rect x="12" y="142" width="616" height="55" rx="3" class="active"></rect><text x="24" y="163" text-anchor="start" class="text-small">若成立：R3 = R2 + 10</text><text x="616" y="187" text-anchor="end" class="text-small">执行 → 15</text><rect x="12" y="207" width="616" height="55" rx="3" class="node"></rect><text x="24" y="228" text-anchor="start" class="text-small">否则：R3 = R2 + 100</text><text x="616" y="252" text-anchor="end" class="text-small">跳过</text></svg><div aria-live="polite">有符号比较成立；最终R3=15，位串0x0000000F。</div></div></div><figcaption><span class="figure-number">图7-9</span>输入限制在−1000到1000以便教学，比较类型只影响选路；赋值结果按32位解释。</figcaption></figure>
+
+
+
+<p>例7.38—7.40分别是无条件分支、比较后相等分支、直接目标分支。真实B仍有编码范围与目标对齐要求，不能认为任意绝对地址都能直接编码。例7.41可写：</p>
+<pre><code class="language-armasm">        CMP     R5,#10
+        BEQ     Eq10
+        MOV     R0,R5
+        B       Done10
+Eq10
+        MOV     R1,R5
+Done10
+</code></pre>
+<p>这里不被赋值的那个寄存器保留旧值，不能擅自说另一边也清零。</p>
+<p>例7.42取两个无符号数最大值，下面为应用内片段，Arr1/Arr2为已定义的32位输入，Result是可写结果单元：</p>
+<pre><code class="language-armasm">        LDR     R2,=Arr1
+        LDR     R0,[R2]
+        LDR     R2,=Arr2
+        LDR     R1,[R2]
+        CMP     R0,R1
+        BHS     SaveMax
+        MOV     R0,R1
+SaveMax
+        LDR     R2,=Result
+        STR     R0,[R2]
+</code></pre>
+<p>原书直接用标签访存的简写在PC相对范围/合法寻址方面有额外条件。这里显式取地址，更容易同时处理Flash输入和RAM结果。例7.43的有符号符号函数，输入X已在R2，输出Y到R0：</p>
+<pre><code class="language-armasm">        CMP     R2,#0
+        BEQ     IsZero
+        BGT     IsPositive
+        MOVS    R0,#0
+        MVN     R0,R0          ; -1 = 0xFFFFFFFF
+        B       SignDone
+IsPositive
+        MOVS    R0,#1
+        B       SignDone
+IsZero
+        MOVS    R0,#0
+SignDone
+</code></pre>
+<p>若将结果写回输入单元，相当于覆盖X；若要保留X，则另设Result。这里给的是算法片段，需接在明确的入口与结束路径中。</p>
+<p>原书的MOVLT/MOVHI等条件数据处理，在M3/M4统一语法中要用相应IT块或由工具明确生成；本章使用显式Bxx，避免靠自动IT行为。BL负责建立返回链接；BX寄存器目标和A32/T32历史切换的边界见第13、23节，不把普通跳转和函数调用混用。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s20"><p class="eyebrow">第七章 · 第20节</p><h2>for、while、do-while：初始化、测试、更新一个都不能少</h2><p class="section-context">7.3.3 循环结构；第 30—31 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能说明循环体执行多少次；会处理0次情况，识别更新或比较顺序导致的死循环。</p><p><strong>背景为什么要讲：</strong>汇编没有替你打包好的for语法，循环的每一项责任都要显式写出。</p></div><p>原书 <code>for(i=0;i&lt;10;i++) x++;</code> 的基本转换：</p>
+<pre><code class="language-armasm">        MOVS    R0,#0          ; x
+        MOVS    R2,#0          ; i
+ForTest
+        CMP     R2,#10
+        BHS     ForEnd         ; unsigned i&gt;=10
+        ADDS    R0,R0,#1
+        ADDS    R2,R2,#1
+        B       ForTest
+ForEnd
+</code></pre>
+<p>循环体恰好执行10次。测试放入口允许0次：若初始i已经不小于10，直接退出。<code>SUBS count,#1; BNE</code> 是常见倒计数结构，但<strong>若count初值为0而直接进入循环，先减后会下溢为0xFFFFFFFF</strong>。</p>
+<p>while(x&lt;=y) x*=2，x=1、y=20，可用每次重做CMP的形式：</p>
+<pre><code class="language-armasm">WhileTest
+        CMP     R0,R1
+        BHI     WhileEnd
+        LSLS    R0,R0,#1
+        B       WhileTest
+WhileEnd
+</code></pre>
+<p>检查序列1→2→4→8→16→32，结果32。若范围允许32位溢出，翻倍可能绕回0而无法退出；题目必须限定数据范围或增加溢出处理。</p>
+<p>原书 <code>MOVLS ...; BLS ...</code> 依靠同一次CMP标志；若中间实际生成的移位指令更新了标志，BLS看到的就可能不是原比较结果。上面把出口放在CMP之后，并在下一轮重新比较，更便于验证。</p>
+<p>for与while先测试再执行，可能0次；do-while先执行再测试，至少1次。<strong>写循环之前，先用N=0、1、2在纸上跑一遍。</strong> 这是发现差一、漏更新和多读取一个元素的有效办法。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s21"><p class="eyebrow">第七章 · 第21节</p><h2>求和、统计偶数、统计正数：同一个遍历骨架</h2><p class="section-context">例 7.44；习题4—6；第 31、48 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能写计数遍历；统计的是值满足条件的元素数量；有符号正数严格大于0。</p><p><strong>背景为什么要讲：</strong>这三道题共享循环结构，学会骨架比背三份答案更稳。</p></div><p>遍历数组的角色可以固定成：R1指针、R2剩余元素数、R3当前值、R0计数结果。32位数组每轮指针前进4字节，剩余数减少1。</p>
+<pre><code class="language-armasm">        MOVS    R0,#0
+        LDR     R1,=Values
+        MOVS    R2,#10
+CountLoop
+        LDR     R3,[R1],#4
+        TST     R3,#1
+        BNE     NotEven
+        ADDS    R0,R0,#1
+NotEven
+        SUBS    R2,R2,#1
+        BNE     CountLoop
+</code></pre>
+<p>偶数的最低位为0，包括0和负偶数。题目问“偶数的个数”，不是“偶数下标的元素个数”，不是“把偶数相加”，也不是“每隔一个取一个”。数组[-4,-3,0,1,2,3,4,5,6,7]有5个偶数。</p>
+<p>若统计有符号正数，改成 <code>CMP R3,#0; BLE NotPositive; ADDS R0,#1</code>。0不算正数，0xFFFFFFFF代表−1，也不算正数；不能用无符号BHI代替BGT。上述数组有7个正数。</p>
+<figure class="diagram" id="fig-count" data-figure="count"><div class="diagram-live"><div id="c7-count"><div class="viz-controls"><label class="form-label">统计条件<select class="form-select" data-kind><option value="even" selected>偶数</option><option value="positive">有符号正数</option></select></label><label class="form-label">已处理项数<select class="form-select" data-step><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></label></div><svg class="drawing" role="img" aria-label="逐项统计的循环状态"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-count"><svg class="drawing" role="img" aria-label="逐项统计的循环状态" viewBox="0 0 640 375"><title>数组计数</title><text x="12" y="24" text-anchor="start" class="text-small">蓝色：已计入；淡橙：已读但不计</text><rect x="14" y="40" width="118.2" height="47" rx="3" class="active"></rect><text x="73.6" y="69" text-anchor="middle" class="text-small">-4</text><rect x="137.2" y="40" width="118.2" height="47" rx="3" class="waiting"></rect><text x="196.79999999999998" y="69" text-anchor="middle" class="text-small">-3</text><rect x="260.4" y="40" width="118.2" height="47" rx="3" class="active"></rect><text x="320" y="69" text-anchor="middle" class="text-small">0</text><rect x="383.6" y="40" width="118.2" height="47" rx="3" class="waiting"></rect><text x="443.20000000000005" y="69" text-anchor="middle" class="text-small">1</text><rect x="506.8" y="40" width="118.2" height="47" rx="3" class="active"></rect><text x="566.4" y="69" text-anchor="middle" class="text-small">2</text><rect x="14" y="100" width="118.2" height="47" rx="3" class="node"></rect><text x="73.6" y="129" text-anchor="middle" class="text-small">3</text><rect x="137.2" y="100" width="118.2" height="47" rx="3" class="node"></rect><text x="196.79999999999998" y="129" text-anchor="middle" class="text-small">4</text><rect x="260.4" y="100" width="118.2" height="47" rx="3" class="node"></rect><text x="320" y="129" text-anchor="middle" class="text-small">5</text><rect x="383.6" y="100" width="118.2" height="47" rx="3" class="node"></rect><text x="443.20000000000005" y="129" text-anchor="middle" class="text-small">6</text><rect x="506.8" y="100" width="118.2" height="47" rx="3" class="node"></rect><text x="566.4" y="129" text-anchor="middle" class="text-small">7</text><rect x="12" y="170" width="616" height="55" rx="3" class="active"></rect><text x="24" y="191" text-anchor="start" class="text-small">R0 · 已计入个数</text><text x="616" y="215" text-anchor="end" class="text-small">3</text><rect x="12" y="235" width="616" height="55" rx="3" class="node"></rect><text x="24" y="256" text-anchor="start" class="text-small">R1 · 下一读取位置</text><text x="616" y="280" text-anchor="end" class="text-small">0x20000114</text><rect x="12" y="300" width="616" height="55" rx="3" class="node"></rect><text x="24" y="321" text-anchor="start" class="text-small">R2 · 剩余项数</text><text x="616" y="345" text-anchor="end" class="text-small">5</text></svg><div aria-live="polite">已处理5项；R0=3；剩余5；下一指针=0x20000114。</div></div></div><figcaption><span class="figure-number">图7-10</span>固定数组[-4,-3,0,1,2,3,4,5,6,7]，高亮已计入的项；指针始终以4字节步进。</figcaption></figure>
+
+
+
+<p>求1到100之和可以递增相加，也可倒计数相加。推荐先理解：每轮把当前k加进sum，再k减1；k从100到1，恰好100轮，结果5050。公式 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>N</mi><mo stretchy="false">&#x00028;</mo><mi>N</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>2</mn></mrow></math></span> 用于核对结果，不替代题目要求的循环。</p>
+<p>对一般N，先判断N是否为0；32位累加还要限制范围或处理溢出。本章100固定值不会溢出。第4、5、6题给出带数据、结果区、入口与共用启动文件的完整应用模块。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s22"><p class="eyebrow">第七章 · 第22节</p><h2>冒泡排序：每轮到底把谁送到右端</h2><p class="section-context">例 7.45；第 31—32 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会写从大到小排序；知道外层n−1轮、内层逐轮缩短；相邻访问不越界。</p><p><strong>背景为什么要讲：</strong>原例有方向、边界和注释冲突，必须用一个自洽版本重新建立直觉。</p></div><p>目标是把[12,7,19,8,24]排成 <strong>[24,19,12,8,7]</strong>。从左向右比较相邻项，若左&lt;右就交换，让较小值向右移动。每轮结束，当前区间的<strong>最小值</strong>固定到右端。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>状态</th>
+<th>数组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始</td>
+<td>12, 7, 19, 8, 24</td>
+</tr>
+<tr>
+<td>第1轮后</td>
+<td>12, 19, 8, 24, 7</td>
+</tr>
+<tr>
+<td>第2轮后</td>
+<td>19, 12, 24, 8, 7</td>
+</tr>
+<tr>
+<td>第3轮后</td>
+<td>19, 24, 12, 8, 7</td>
+</tr>
+<tr>
+<td>第4轮后</td>
+<td>24, 19, 12, 8, 7</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-bubble" data-figure="bubble"><div class="diagram-live"><div id="c7-bubble"><div class="viz-controls"><label class="form-label">已完成比较次数<select class="form-select" data-step><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></label></div><svg class="drawing" role="img" aria-label="降序冒泡的每一次相邻比较"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-bubble"><svg class="drawing" role="img" aria-label="降序冒泡的每一次相邻比较" viewBox="0 0 640 205"><title>冒泡过程</title><text x="12" y="24" text-anchor="start" class="text-small">蓝色：下一对；淡橙：右侧已固定</text><rect x="14" y="42" width="118.2" height="47" rx="3" class="active"></rect><text x="73.6" y="71" text-anchor="middle" class="text-small">12</text><rect x="137.2" y="42" width="118.2" height="47" rx="3" class="active"></rect><text x="196.79999999999998" y="71" text-anchor="middle" class="text-small">19</text><rect x="260.4" y="42" width="118.2" height="47" rx="3" class="node"></rect><text x="320" y="71" text-anchor="middle" class="text-small">8</text><rect x="383.6" y="42" width="118.2" height="47" rx="3" class="node"></rect><text x="443.20000000000005" y="71" text-anchor="middle" class="text-small">24</text><rect x="506.8" y="42" width="118.2" height="47" rx="3" class="waiting"></rect><text x="566.4" y="71" text-anchor="middle" class="text-small">7</text><text x="12" y="125" text-anchor="start" class="text-small">已完成 4 / 10 次比较</text><text x="12" y="151" text-anchor="start" class="text-small">下一轮继续在未固定区间比较</text></svg><div aria-live="polite">数组=[12,19,8,24,7]；第1轮，比较下标3/4，交换。下一次下标0和1。</div></div></div><figcaption><span class="figure-number">图7-11</span>蓝色是下一次比较的一对，淡橙色是已固定的右侧后缀；每轮把最小剩余值推向右。</figcaption></figure>
+
+
+
+<p>下面是明确按剩余比较次数控制的程序片段。SRC必须是<strong>已初始化的可写数组</strong>；本章最小启动工程若要运行它，应先把只读初值拷到RAM，再排序。</p>
+<pre><code class="language-armasm">        MOVS    R4,#4          ; 本轮相邻比较次数 n-1
+Outer
+        LDR     R1,=SRC
+        MOV     R5,R4
+Inner
+        LDR     R2,[R1]
+        LDR     R3,[R1,#4]
+        CMP     R2,R3
+        BHS     NoSwap         ; unsigned 左&gt;=右，已是降序
+        STR     R3,[R1]
+        STR     R2,[R1,#4]
+NoSwap
+        ADDS    R1,R1,#4
+        SUBS    R5,R5,#1
+        BNE     Inner
+        SUBS    R4,R4,#1
+        BNE     Outer
+</code></pre>
+<p>第一轮4次，最后一次读下标3和4；不会读下标5。之后3、2、1次，总共 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>n</mi><mo stretchy="false">&#x00028;</mo><mi>n</mi><mo>&#x02212;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo>&#x0002F;</mo><mn>2</mn><mo>&#x0003D;</mo><mn>10</mn></mrow></math></span> 次比较。一般化到n=0或1时，必须在做n−1之前/进入循环之前处理，不然会下溢。</p>
+<p>原书代码用STRHI在左&gt;右时交换，倾向升序；却给了降序结果。又把SRC+LEN（尾后地址）当成最后元素地址，可能多读一个元素；“最大的数到数组尾”也与降序过程不符。<strong>记住比较方向、最后一对下标和每轮固定的元素，别背那份冲突代码。</strong></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s23"><p class="eyebrow">第七章 · 第23节</p><h2>子程序最小接口：参数进来，结果出去，链接保住</h2><p class="section-context">7.3.3 子程序；例 7.47；第 32—36 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会定义标签/PROC、用BL调用、用BX LR返回；返回值优先按约定放R0。</p><p><strong>背景为什么要讲：</strong>原例把最大值放R2是自定接口，可以用，但必须和C常见接口分清。</p></div><pre><code class="language-armasm">        MOVS    R0,#19
+        MOVS    R1,#20
+        BL      UMax32
+        ; 此处 R0=20
+
+UMax32 PROC
+        CMP     R0,R1
+        BHS     MaxDone
+        MOV     R0,R1
+MaxDone
+        BX      LR
+        ENDP
+</code></pre>
+<p>这是无符号最大值函数：输入R0/R1，输出R0，可能修改条件标志。<code>PROC/ENDP</code> 为工具提供函数边界信息，本身不会替你保存寄存器或产生返回指令。若从其他文件调用，还需要EXPORT/IMPORT。</p>
+<p>BL把<strong>调用后的返回位置</strong>编码到LR，并跳到目标；不是简单把某个未解释的“当前PC读值”原样保存。M系列的返回链接带Thumb标识。BX LR按返回链接返回；普通返回不应写成BLX LR，因为后者再次建立链接、修改LR，语义不是普通返回。</p>
+<p>叶函数是不再调用别的函数的函数。如果它不需要借用LR作别的用途，通常可以直接BX LR，不必无条件先压栈。<strong>调用别人的非叶函数则要在下一次BL覆盖LR之前保存自己原来的返回链接。</strong></p>
+<p>原例7.47约定R2为最大值结果，可以解释为作者自定的汇编接口；若要让C按 <code>unsigned max(unsigned,unsigned)</code> 调用，应改成R0返回。调用者、被调者只要各自猜不同接口，程序就会出错。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s24"><p class="eyebrow">第七章 · 第24节</p><h2>嵌套调用与幂函数：别把计算结果也恢复掉</h2><p class="section-context">例 7.46、栈图 7.5—7.11；第 33—36 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能追踪主程序→Pow→Mul→返回；保护LR与需保留寄存器，但不误恢复输出R0。</p><p><strong>背景为什么要讲：</strong>这是本章最值得认真改正的例子，单纯把所有寄存器压栈并不能保证程序正确。</p></div><p>原书Pow把R0—R7、LR共9个字压栈，末尾又把R0—R7恢复：<strong>即使R0中算出了幂，也被旧R0覆盖</strong>。同时9个字=36字节，会把原来8对齐的SP变成4模8；再BL到公开接口不合适。指数=1的路径若不先退出，还可能把计数减到−1继续循环。</p>
+<p>下面使用清晰接口：R0=底数，R1=非负指数；返回R0=低32位结果。指数0返回1，包括按本例约定的0的0次方；溢出按模 <span class="math-inline"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>2</mn><mrow><mn>32</mn></mrow></msup></mrow></math></span> 保留低部。</p>
+<pre><code class="language-armasm">Pow32   PROC
+        PUSH    {R4-R6,LR}     ; 16字节，保护原链接并维持8对齐
+        MOV     R4,R0          ; 底数跨调用保留
+        MOV     R5,R1          ; 剩余次数跨调用保留
+        MOVS    R0,#1          ; 累乘器也是返回值
+PowTest
+        CMP     R5,#0
+        BEQ     PowDone
+        MOV     R1,R4
+        BL      Mul32          ; R0 &lt;- R0 * R1，可改R0-R3/R12
+        SUBS    R5,R5,#1
+        B       PowTest
+PowDone
+        POP     {R4-R6,PC}     ; 不恢复R0，返回计算结果
+        ENDP
+Mul32   PROC
+        MUL     R0,R0,R1
+        BX      LR
+        ENDP
+</code></pre>
+<p>R6在本函数未承载算法数据，这里与R4/R5/LR一起保存是为了让帧为16字节并保持对齐；也可以用明确的栈填充来实现。栈空间不是无限的，实际工程要确保帧和嵌套深度不会越界。</p>
+<figure class="diagram" id="fig-call" data-figure="call"><div class="diagram-live"><div id="c7-call"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">① caller执行BL Pow</option><option value="1">② Pow保存R4-R6/LR</option><option value="2" selected>③ Pow执行BL Mul</option><option value="3">④ Mul执行BX LR</option><option value="4">⑤ Pow恢复并返回</option></select></label></div><svg class="drawing" role="img" aria-label="Pow调用Mul时的LR与活动栈帧"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-call"><svg class="drawing" role="img" aria-label="Pow调用Mul时的LR与活动栈帧" viewBox="0 0 640 320"><title>嵌套调用</title><rect x="12" y="12" width="616" height="55" rx="3" class="active"></rect><text x="24" y="33" text-anchor="start" class="text-small">当前PC / 当前层</text><text x="616" y="57" text-anchor="end" class="text-small">0x08000300 / Mul</text><rect x="12" y="77" width="616" height="55" rx="3" class="node"></rect><text x="24" y="98" text-anchor="start" class="text-small">当前SP</text><text x="616" y="122" text-anchor="end" class="text-small">0x20000FF0</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">LR / 原caller链接</text><text x="616" y="187" text-anchor="end" class="text-small">0x08000221</text><rect x="12" y="207" width="616" height="55" rx="3" class="node"></rect><text x="24" y="228" text-anchor="start" class="text-small">栈里保存的原LR</text><text x="616" y="252" text-anchor="end" class="text-small">0x08000105，未被内层BL改写</text><text x="12" y="300" text-anchor="start" class="text-small">Pow帧：低地址 R4 → R5 → R6 → 保存LR 高地址</text></svg><div aria-live="polite">阶段3：Mul的BL覆盖当前LR，旧链接在栈内</div></div></div><figcaption><span class="figure-number">图7-12</span>地址为固定教学例子；Pow保存16字节，返回时恢复PC，R0作为结果保留。</figcaption></figure>
+
+
+
+<p>对于原书 <code>STMFD SP!,{R0-R7,LR}</code>，地址布局可用上一章规则核对：若旧SP=0x20000460，新SP=0x2000043C；最低地址保存R0，最高的0x2000045C保存LR。不需要臆测“CPU内部哪一个先写”，<strong>编号到地址的映射</strong>才是可依赖的结果。</p>
+<p>主程序需要跨调用保留的R0—R3临时值，由主程序自己先挪到安全位置或压栈；被调函数借用的R4—R11等，按ABI恢复。不要一律恢复所有寄存器，否则连返回值都没了。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s25"><p class="eyebrow">第七章 · 第25节</p><h2>阶乘：先把0!、1!、上限和返回值说清</h2><p class="section-context">习题8—9；第 48 页；承接7.3.3</p><div class="part-goal"><p><strong>掌握要求：</strong>能独立写0≤N≤10的迭代阶乘函数，说明不变量和边界；读懂递归的额外栈代价。</p><p><strong>背景为什么要讲：</strong>原章练习直接要求阶乘，正文没有完整展开，这里补足写题所需算法。</p></div><p>定义：0!=1，N!=1×2×…×N。题目“N≤10”还应补上<strong>N为非负整数</strong>，否则负数阶乘没有这里的整数乘积含义。本章使用无符号参数，超出10返回0作为约定的错误标记，正常结果从1开始不会与它冲突。</p>
+<pre><code class="language-armasm">Fact10  PROC
+        CMP     R0,#10
+        BHI     FactBad
+        MOV     R1,R0          ; n
+        MOVS    R0,#1          ; acc
+FactTest
+        CMP     R1,#1
+        BLS     FactDone
+        MUL     R0,R0,R1
+        SUBS    R1,R1,#1
+        B       FactTest
+FactDone
+        BX      LR
+FactBad
+        MOVS    R0,#0
+        BX      LR
+        ENDP
+</code></pre>
+<p>不变量可理解为：每轮acc保存已经乘过的高端因子，R1指向下一项；R1≤1时剩余因子不会改变结果。N=0或1一开始就返回1；N=5依次得到1→5→20→60→120；10!=3628800=0x00375F00，放得进32位有符号整数。</p>
+<figure class="diagram" id="fig-factorial" data-figure="factorial"><div class="diagram-live"><div id="c7-factorial"><div class="viz-controls"><label class="form-label">N<select class="form-select" data-n><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5" selected>5</option><option value="10">10</option></select></label><label class="form-label">已完成乘法次数<select class="form-select" data-step><option value="0">0</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></label></div><svg class="drawing" role="img" aria-label="阶乘累乘器的中间结果"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-factorial"><svg class="drawing" role="img" aria-label="阶乘累乘器的中间结果" viewBox="0 0 640 282"><title>阶乘过程</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">输入N</text><text x="616" y="57" text-anchor="end" class="text-small">5</text><rect x="12" y="77" width="616" height="55" rx="3" class="node"></rect><text x="24" y="98" text-anchor="start" class="text-small">已经乘过的因子</text><text x="616" y="122" text-anchor="end" class="text-small">5 × 4</text><rect x="12" y="142" width="616" height="55" rx="3" class="active"></rect><text x="24" y="163" text-anchor="start" class="text-small">R0 · acc</text><text x="616" y="187" text-anchor="end" class="text-small">20</text><rect x="12" y="207" width="616" height="55" rx="3" class="node"></rect><text x="24" y="228" text-anchor="start" class="text-small">R1 · 下一因子</text><text x="616" y="252" text-anchor="end" class="text-small">3 · 继续</text></svg><div aria-live="polite">N=5，已做2次乘法，R0=20，R1=3。尚需继续。</div></div></div><figcaption><span class="figure-number">图7-13</span>按从N乘到2的迭代；超过所需次数时停在最终状态，0与1不做乘法。</figcaption></figure>
+
+
+
+<p>12!=479001600还放得进有符号32位，但13!已经超过无符号32位；这些背景只用来理解“为什么要说结果宽度”。原题限定N≤10，按这个范围写对就够，不要求自行实现任意精度。</p>
+<p>递归可以写成n×fact(n−1)，但每一层都要保存自己的n和返回链接。例如在合法输入前提下：先判断n≤1，再PUSH {R4,LR}，把n存R4，R0减1后BL自身，返回后MUL R0,R0,R4，POP {R4,PC}。R4/LR每层8字节，n=5到基本情形需要4个非基本帧。<strong>迭代没有递归深度负担，基础题优先掌握迭代，不必为了“像数学定义”强行用递归。</strong></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s26"><p class="eyebrow">第七章 · 第26节</p><h2>ATPCS/AAPCS：寄存器并不是谁想改就改</h2><p class="section-context">7.4.1；第 37—38 页；习题2、7—10</p><div class="part-goal"><p><strong>掌握要求：</strong>会分caller-saved/callee-saved、参数/返回值/临时寄存器；不会依赖调用后仍保留的R0—R3或标志。</p><p><strong>背景为什么要讲：</strong>ATPCS是原书使用的历史标准名；本章实际按兼容的AAPCS32基本整数接口解释，不能把不同ABI随便混链。</p></div><p>ATPCS（Arm-Thumb Procedure Call Standard）规定子程序间如何使用寄存器、栈和参数。AAPCS（Procedure Call Standard for the Arm Architecture）属于Arm ABI的一部分，对这些接口作了标准化发展。读原书认识ATPCS；写工程则让编译器、汇编模块和库采用<strong>同一套目标ABI及选项</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>基础接口角色</th>
+<th>调用后可以假定仍保持原值吗？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R0—R3</td>
+<td>前几个简单整数/指针参数、返回值与临时量</td>
+<td>不可以</td>
+</tr>
+<tr>
+<td>R12/IP</td>
+<td>临时量，链接跳板等也可能使用</td>
+<td>不可以</td>
+</tr>
+<tr>
+<td>R4—R8、R10—R11</td>
+<td>被调函数保存的变量寄存器</td>
+<td>被调函数修改就要恢复</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>平台指定角色；某些约定中也是保存寄存器</td>
+<td>按目标平台ABI，基础练习不借用</td>
+</tr>
+<tr>
+<td>SP/R13</td>
+<td>栈指针</td>
+<td>函数返回时恢复进入值</td>
+</tr>
+<tr>
+<td>LR/R14</td>
+<td>返回链接；再次BL会覆盖</td>
+<td>需要继续返回的函数自行保护</td>
+</tr>
+<tr>
+<td>PC/R15</td>
+<td>控制执行位置</td>
+<td>不当作通用数据临时量</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-registers" data-figure="registers"><div class="diagram-live"><div id="c7-registers"><div class="viz-controls"><label class="form-label">调用后想继续使用的寄存器<select class="form-select" data-reg><option value="R0">R0</option><option value="R3">R3</option><option value="R4" selected>R4</option><option value="R9">R9</option><option value="R12">R12</option><option value="SP">SP</option><option value="LR">LR</option></select></label></div><svg class="drawing" role="img" aria-label="跨调用能留下什么"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-registers"><svg class="drawing" role="img" aria-label="跨调用能留下什么" viewBox="0 0 640 280"><title>寄存器责任</title><rect x="12" y="12" width="616" height="55" rx="3" class="active"></rect><text x="24" y="33" text-anchor="start" class="text-small">R4 的角色</text><text x="616" y="57" text-anchor="end" class="text-small">保存寄存器</text><rect x="12" y="77" width="616" height="55" rx="3" class="node"></rect><text x="24" y="98" text-anchor="start" class="text-small">保存责任</text><text x="616" y="122" text-anchor="end" class="text-small">被调函数若修改，返回前恢复</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">接口结论</text><text x="616" y="187" text-anchor="end" class="text-small">保证按约定恢复</text><rect x="12" y="207" width="616" height="55" rx="3" class="waiting"></rect><text x="24" y="228" text-anchor="start" class="text-small">输出例外</text><text x="616" y="252" text-anchor="end" class="text-small">不要恢复R0把返回值抹掉</text></svg><div aria-live="polite">R4：保存寄存器；被调函数若修改，返回前恢复；保证按约定恢复。</div></div></div><figcaption><span class="figure-number">图7-14</span>选择寄存器查看保存责任；R9按平台角色处理，LR在嵌套调用前需保护。</figcaption></figure>
+
+
+
+<p>“caller-saved”并不是说每次BL前都把R0—R3无脑压栈，而是<strong>调用者若还要那些旧值，自己负责保住</strong>。“callee-saved”也不是每个函数都压R4—R11，而是被调者用了其中哪个就恢复哪个。原书a0—a3等别名不作为必背项，不同文档别名有差别，寄存器编号与职责最可靠。</p>
+<p>条件标志通常不跨普通函数调用保持；不要 <code>CMP R0,#0; BL Other; BEQ Label</code>，期待BEQ仍用调用前CMP结果。链接器产生的长跳转/互操作跳板可能借用R12，也不该把重要值跨调用放R12。</p>
+<p>M3/M4的Thumb-2可以操作高寄存器；原书“Thumb通常只能使用R4—R7”是早期编码便利性的背景，不是M4永远不能用R8—R11。使用高寄存器仍受具体指令编码与ABI约束。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s27"><p class="eyebrow">第七章 · 第27节</p><h2>第五个参数与8字节对齐：先画入口SP，再算偏移</h2><p class="section-context">7.4.1 参数与栈；例 7.50；第 38、41—42 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会布置5个简单32位参数，计算被调函数压栈后参数的新偏移；知道PRESERVE8不自动调整SP。</p><p><strong>背景为什么要讲：</strong>原例只压一个参数字后直接BL，破坏了8字节接口对齐，需要修正。</p></div><p>限定参数全是普通32位整数：前4个依次放R0—R3；第5个在<strong>被调函数入口SP所指的栈位置</strong>。更多字参数继续按ABI放在更高地址，不应把C参数列表简单当作任意push顺序口诀。</p>
+<pre><code class="language-armasm">        MOVS    R0,#1
+        MOVS    R1,#2
+        MOVS    R2,#3
+        MOVS    R3,#4
+        MOVS    R4,#5
+        SUB     SP,SP,#8       ; 4字节参数 + 4字节对齐空位
+        STR     R4,[SP]        ; 第5个参数位于入口[SP]
+        BL      Sum5
+        ADD     SP,SP,#8       ; 调用者回收参数区
+</code></pre>
+<p>假设调用前SP已经8对齐，这样BL时仍对齐。如果这段属于可返回的函数，还要保护其原LR及修改的R4，代码片段之外也得遵守接口。不能因为只展示参数区就漏掉外层帧。</p>
+<figure class="diagram" id="fig-stackargs" data-figure="stackargs"><div class="diagram-live"><div id="c7-stackargs"><div class="viz-controls"><label class="form-label">被调函数已保存的字节数<select class="form-select" data-saved><option value="0">0 · 尚未压栈</option><option value="8" selected>8 · PUSH {R4,LR}</option><option value="12">12 · 三个字</option><option value="16">16 · 四个字</option></select></label></div><svg class="drawing" role="img" aria-label="第五参数与被调函数压栈后的偏移"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-stackargs"><svg class="drawing" role="img" aria-label="第五参数与被调函数压栈后的偏移" viewBox="0 0 640 356"><title>第五参数的地址</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">R0—R3</text><text x="616" y="57" text-anchor="end" class="text-small">a=1，b=2，c=3，d=4</text><rect x="12" y="77" width="616" height="55" rx="3" class="active"></rect><text x="24" y="98" text-anchor="start" class="text-small">调用者出参区：0x20001000</text><text x="616" y="122" text-anchor="end" class="text-small">e=5，第5个参数</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">调用者出参区：0x20001004</text><text x="616" y="187" text-anchor="end" class="text-small">4字节对齐空位</text><rect x="12" y="207" width="616" height="55" rx="3" class="node"></rect><text x="24" y="228" text-anchor="start" class="text-small">被调函数当前SP</text><text x="616" y="252" text-anchor="end" class="text-small">0x20000FF8</text><rect x="12" y="272" width="616" height="55" rx="3" class="active"></rect><text x="24" y="293" text-anchor="start" class="text-small">读取e所需偏移</text><text x="616" y="317" text-anchor="end" class="text-small">[SP,#8] → 5</text><text x="12" y="350" text-anchor="start" class="text-small">当前SP保持8字节对齐。</text></svg><div aria-live="polite">入口SP=0x20001000，保存8字节后SP=0x20000FF8；第5参数在[SP,#8]，值5。</div></div></div><figcaption><span class="figure-number">图7-15</span>入口SP固定0x20001000，第五参数e=5始终在该地址；额外4字节是调用者的对齐空位。</figcaption></figure>
+
+
+
+<p>若Sum5一进入就 <code>PUSH {R4,LR}</code>，新SP=入口SP−8，第5个参数现在位于 <code>[新SP,#8]</code>；若压3个字，偏移是12。<strong>永远从实际保存字节数推偏移，不背某个编译器截图里的固定#12。</strong></p>
+<p>AAPCS32的通用栈约束要求至少4字节对齐；公开调用接口还要求8字节对齐。初学时可用更容易执行的纪律：所有向外BL前都维持8对齐，返回时SP回到进入值。满递减栈向低地址增长，SP指活动栈顶；FD/ED/FA/EA四种模型在上一章已讲，原章这里认识FD为采用的模型即可。</p>
+<p><code>PRESERVE8</code> 是对工具声明本模块保持相应约束，不是会在CPU上执行的对齐操作。原书SP=0x20000460，再STR一个字到[SP,#−4]!后SP=0x2000045C，已经不是8对齐；只写PRESERVE8无法修复它。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s28"><p class="eyebrow">第七章 · 第28节</p><h2>不止“前四个进寄存器”：类型、返回值和C++名字</h2><p class="section-context">7.4.1 参数/结果规则；7.4 C/C++；第 36—38 页</p><div class="part-goal"><p><strong>掌握要求：</strong>简单整数接口能独立实现；遇到64位、浮点或结构体知道必须先核对ABI，不能套“4个参数”的口号。</p><p><strong>背景为什么要讲：</strong>这些扩展在基础习题不必写复杂实现，但要知道简化规则的适用边界。</p></div><p>本章题目的unsigned/int/指针通常是32位，一个参数用一个核心寄存器，所以“前四个”成立。若参数是64位数，可能需要对齐的寄存器对；结构体可能拆分或通过地址间接传递，不能再按“第几个人类参数”机械分配。</p>
+<p>例如基础AAPCS32下 <code>f(int a, long long b, int c)</code>：a用R0，b要求偶数编号寄存器对，使用R2/R3，R1可能空出，c因此走栈。<strong>不是a→R0、b→R1、c→R2。</strong> 这个例子只用于提示类型影响分配。</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>返回类型/配置</th>
+<th>需要认识的规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>简单32位整数、指针</td>
+<td>R0</td>
+</tr>
+<tr>
+<td>64位整数</td>
+<td>核心寄存器对R0/R1，字序按ABI</td>
+</tr>
+<tr>
+<td>更复杂的结构/大结果</td>
+<td>常需要调用者提供结果区及隐藏地址参数，依具体类型</td>
+</tr>
+<tr>
+<td>浮点，基本/softfp接口</td>
+<td>通常按基本核心寄存器规则传参/返回</td>
+</tr>
+<tr>
+<td>符合VFP参数变体的hard-float接口</td>
+<td>合格浮点类型使用相应S/D寄存器，具体类型仍要匹配</td>
+</tr>
+</tbody></table></div>
+<p>M4有FPU不等于所有浮点参数自然走S0；<code>-mfloat-abi</code>等选项和库的接口必须匹配。原书f0/d0/s0混列包含旧浮点模型，不把它作为M4统一规则。</p>
+<p>C编译后的外部符号通常与函数名对应；C++为了重载可能修饰名字。让C++调用普通汇编函数可声明：</p>
+<pre><code class="language-cpp">extern &quot;C&quot; unsigned asm_strlen(const char *s);
+</code></pre>
+<p>普通C文件写 <code>extern unsigned asm_strlen(const char *s);</code>；函数声明里的extern通常可以省略，它不替代汇编端的EXPORT。<code>extern &quot;C&quot;</code>改变语言链接约定，不会自动修复错误的参数/返回值类型、栈布局或寄存器保护。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s29"><p class="eyebrow">第七章 · 第29节</p><h2>C调用汇编：字符串复制与求长度完整走一遍</h2><p class="section-context">例 7.48；习题10；第 38—40、48 页</p><div class="part-goal"><p><strong>掌握要求：</strong>从C原型确定R0/R1，按字节读到零；复制包含终止符，长度不包含终止符。</p><p><strong>背景为什么要讲：</strong>指针就是地址，C与汇编共享同一块内存，不需要神秘的“语言转换”。</p></div><p>原例 <code>strcopy(dst,src)</code> 的第1参数dst在R0，第2参数src在R1。源串必须可读且有终止符，目标必须有足够可写空间，两个区域不能按此算法随意重叠。</p>
+<pre><code class="language-armasm">        EXPORT  strcopy
+strcopy PROC
+CopyLoop
+        LDRB    R2,[R1],#1
+        STRB    R2,[R0],#1
+        CMP     R2,#0
+        BNE     CopyLoop
+        BX      LR
+        ENDP
+</code></pre>
+<p>注意“先写再判断”：把0也复制过去，否则目的区可能不是合法C字符串。这个自定义函数返回void；它推进R0，不按标准strcpy的“返回原dst”接口承诺。若要改成标准风格，必须保存原dst并在R0返回。</p>
+<figure class="diagram" id="fig-string" data-figure="string"><div class="diagram-live"><div id="c7-string"><div class="viz-controls"><label class="form-label">字符串<select class="form-select" data-text><option value="ARM" selected>ARM</option><option value="">空字符串</option><option value="A">A</option></select></label><label class="form-label">已读取字节数<select class="form-select" data-step><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option></select></label></div><svg class="drawing" role="img" aria-label="复制终止符与长度不计终止符"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-string"><svg class="drawing" role="img" aria-label="复制终止符与长度不计终止符" viewBox="0 0 640 272"><title>复制与计长</title><text x="12" y="24" text-anchor="start" class="text-small">源串：读取到终止符后停止</text><rect x="14" y="42" width="149" height="47" rx="3" class="active"></rect><text x="89" y="71" text-anchor="middle" class="text-small">A</text><rect x="168" y="42" width="149" height="47" rx="3" class="active"></rect><text x="243" y="71" text-anchor="middle" class="text-small">R</text><rect x="322" y="42" width="149" height="47" rx="3" class="active"></rect><text x="397" y="71" text-anchor="middle" class="text-small">M</text><rect x="476" y="42" width="149" height="47" rx="3" class="node"></rect><text x="551" y="71" text-anchor="middle" class="text-small">\0</text><text x="12" y="140" text-anchor="start" class="text-small">目的串：复制包括终止符</text><rect x="14" y="156" width="149" height="47" rx="3" class="node"></rect><text x="89" y="185" text-anchor="middle" class="text-small">A</text><rect x="168" y="156" width="149" height="47" rx="3" class="node"></rect><text x="243" y="185" text-anchor="middle" class="text-small">R</text><rect x="322" y="156" width="149" height="47" rx="3" class="node"></rect><text x="397" y="185" text-anchor="middle" class="text-small">M</text><rect x="476" y="156" width="149" height="47" rx="3" class="node"></rect><text x="551" y="185" text-anchor="middle" class="text-small">?</text><text x="12" y="245" text-anchor="start" class="text-small">当前长度计数 = 3，不计终止符</text></svg><div aria-live="polite">已读3字节；长度计数=3；尚未读到终止符。</div></div></div><figcaption><span class="figure-number">图7-16</span>用ASCII示例，已读到0时停止；目的区显示复制到的字节，长度只累计非零字节。</figcaption></figure>
+
+
+
+<p>求长度不同：遇到0就退出，不把0计入。空字符串第一个字节就是0，长度为0；不能先加1再无条件当作结果。</p>
+<pre><code class="language-armasm">        EXPORT  asm_strlen
+asm_strlen PROC
+        MOV     R1,R0          ; 指针工作副本
+        MOVS    R0,#0          ; 长度，也作为返回值
+LenLoop
+        LDRB    R2,[R1],#1
+        CMP     R2,#0
+        BEQ     LenDone
+        ADDS    R0,R0,#1
+        B       LenLoop
+LenDone
+        BX      LR
+        ENDP
+</code></pre>
+<p>本章32位长度实现要求长度可表示且指针有效、有可达终止符；不是通用的坏指针检测函数。中文UTF-8里一个汉字可能占多字节，此函数数的是字节，不是汉字个数。原例英文字母字符串的字节数与字符数恰好相同。</p>
+<p>C端类型、实参顺序与汇编出口要一起检查。<code>const char *src</code>表示不通过该指针写源串；目的数组如 <code>char dst[20]</code> 必须真的有20个字节。第10题给出C调用模块、汇编实现、启动与结果观察点。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s30"><p class="eyebrow">第七章 · 第30节</p><h2>汇编调用C：先把自己变成合格的调用者</h2><p class="section-context">例 7.49—7.50；习题9；第 40—42、48 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会IMPORT函数、建立参数、保持栈与LR，BL后从R0取值；调用后不依赖易变寄存器旧内容。</p><p><strong>背景为什么要讲：</strong>C函数的内部寄存器分配会随优化改变，不能把某张反汇编截图当固定实现。</p></div><pre><code class="language-c">unsigned sum2(unsigned a, unsigned b) { return a + b; }
+unsigned sum5(unsigned a, unsigned b, unsigned c,
+              unsigned d, unsigned e) { return a+b+c+d+e; }
+</code></pre>
+<p>sum2调用前R0=1、R1=2，BL后R0=3。它可能被编译成一条加法再返回，也可能有更多移动与栈操作；只要遵守接口，调用者不应该关心它究竟借了R2还是R3。</p>
+<p>sum5调用前R0—R3=1、2、3、4，[入口SP]=5，结果R0=15。第27节的8字节参数区布置才是修正后的调用。调用者回收自己的出参区，函数恢复自己的保存帧，各自责任不要混。</p>
+<figure class="diagram" id="fig-mixed" data-figure="mixed"><div class="diagram-live"><div id="c7-mixed"><div class="viz-controls"><label class="form-label">调用方向<select class="form-select" data-kind><option value="c2a">C → 汇编strlen</option><option value="a2c" selected>汇编 → C阶乘</option></select></label></div><svg class="drawing" role="img" aria-label="汇编与C由同一个链接器接起来"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-mixed"><svg class="drawing" role="img" aria-label="汇编与C由同一个链接器接起来" viewBox="0 0 640 354"><title>混合调用</title><rect x="12" y="12" width="616" height="60" rx="3" class="node"></rect><text x="24" y="34" text-anchor="start" class="text-small">汇编IMPORT/调用</text><text x="616" y="58" text-anchor="end" class="text-small">factorial_c</text><path d="M320 72 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="98" width="616" height="60" rx="3" class="active"></rect><text x="24" y="120" text-anchor="start" class="text-small">参数按接口到C</text><text x="616" y="144" text-anchor="end" class="text-small">R0=5，SP在BL时8对齐</text><path d="M320 158 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="184" width="616" height="60" rx="3" class="node"></rect><text x="24" y="206" text-anchor="start" class="text-small">C实现编译为机器代码</text><text x="616" y="230" text-anchor="end" class="text-small">累乘，遵守寄存器约定</text><path d="M320 244 v24 m-4 -6 l4 6 l4 -6" class="wire"></path><rect x="12" y="270" width="616" height="60" rx="3" class="active"></rect><text x="24" y="292" text-anchor="start" class="text-small">返回汇编</text><text x="616" y="316" text-anchor="end" class="text-small">R0=120，调用者存Result</text></svg><div aria-live="polite">方向：汇编调用C阶乘，返回120；链接器解析同名符号，ABI约定数据接口。</div></div></div><figcaption><span class="figure-number">图7-17</span>语言不同，但参数、返回值、符号和栈仍必须使用同一接口。</figcaption></figure>
+
+
+
+<p>第9题C阶乘函数只用参数和局部变量，没有标准库依赖：</p>
+<pre><code class="language-c">unsigned factorial_c(unsigned n)
+{
+    unsigned acc = 1;
+    if (n &gt; 10u) return 0u;
+    while (n &gt; 1u) {
+        acc *= n;
+        --n;
+    }
+    return acc;
+}
+</code></pre>
+<p>汇编端用 <code>IMPORT factorial_c</code>，令R0=N，BL后取R0。若是在一个可返回的汇编函数中，先PUSH {R4,LR}，调用后POP {R4,PC}，不恢复R0覆盖结果。</p>
+<p>原书先随意把SP设成RAM某地址，教学上能够演示，但完整工程应从实际预留的栈得到SP。对C函数还需核对：是否访问需初始化的全局数据、是否调用运行库、浮点接口是否一致。<strong>“C函数能编译”不表示不需要任何运行环境。</strong> 本章最小工程只使用已明确满足这些条件的简单C函数；一般程序接厂商启动和运行库更合适。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s31"><p class="eyebrow">第七章 · 第31节</p><h2>内联汇编、嵌入式汇编函数与独立.s文件</h2><p class="section-context">7.4.2；7.4.3；例 7.51；第 42—47 页；习题11</p><div class="part-goal"><p><strong>掌握要求：</strong>认识原书两种嵌入形式；知道支持情况取决于编译器与版本；能读一个正确约束的GNU风格小例子。</p><p><strong>背景为什么要讲：</strong>本节必须讲，因为原书“M4只能用第二种”的绝对化说法会让你误判工具错误。</p></div><p>原书的分类建立在旧Arm Compiler/armcc语境：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>形式</th>
+<th>典型外形</th>
+<th>谁管理接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内联汇编块</td>
+<td>C函数内部 <code>__asm { ... }</code></td>
+<td>编译器把局部变量与汇编结合，按该工具的限制分配</td>
+</tr>
+<tr>
+<td>嵌入式汇编函数</td>
+<td><code>__asm unsigned func(...) { ... }</code></td>
+<td>函数体由汇编实现，作者遵守参数、保存、返回规则</td>
+</tr>
+<tr>
+<td>独立汇编源文件</td>
+<td><code>.s</code>加EXPORT/IMPORT</td>
+<td>通过链接与ABI接到C</td>
+</tr>
+</tbody></table></div>
+<p>旧armcc的两种 <code>__asm</code> 写法和GCC/armclang的GNU扩展汇编不是同一语言。Arm Compiler6的armclang采用GNU风格内联汇编，不能把armcc的花括号示例原样粘过去。<a href="https://developer.arm.com/community/arm-community-blogs/b/tools-software-ides-blog/posts/migration-of-assembly-code-to-arm-compiler-6">Arm官方迁移说明</a>解释了这一差别。</p>
+<p>GNU风格的一个小函数（GCC/armclang目标为M3/M4）如下：</p>
+<pre><code class="language-c">static unsigned add1(unsigned x)
+{
+    unsigned y;
+    __asm__ volatile (&quot;adds %0, %1, #1&quot;
+                      : &quot;=r&quot;(y)
+                      : &quot;r&quot;(x)
+                      : &quot;cc&quot;);
+    return y;
+}
+</code></pre>
+<p><code>%0/%1</code>是编译器安排的输出/输入操作数；<code>=r</code>表示寄存器输出，<code>r</code>表示寄存器输入；<code>cc</code>声明条件标志被修改。这个单指令例子允许输出与输入同寄存器。多指令序列若过早写输出、之后还要读输入，可能需要early-clobber等约束，不能照搬这个最小模板。</p>
+<p>访问C未显式列出的内存可能需要<code>memory</code> clobber或精确的内存操作数；<code>volatile</code>不等于自动告诉编译器所有内存都变了，也不等于处理器内存屏障。长循环和函数调用优先放独立.s函数，更容易把接口审清楚。不要在普通C内联块里随意改SP、埋BX LR或假定R0正好对应某个局部变量。</p>
+<p>原例7.51用内联汇编实现复制：其算法仍是读一个字节、写一个字节、指针推进、直到0。第29节已经给出了同一算法的独立汇编版，便于逐步验证。原书那些“不得直接写PC”“避免物理寄存器冲突”等限制应放在<strong>相应编译器内联汇编模式</strong>下理解，不是对所有独立.s函数的统一禁令。</p>
+<p>关于第11题：早期armcc在Thumb下的内联汇编支持受限，故M3/M4常使用嵌入式汇编函数；原书第47页又说明armcc5.01/MDK4.60起支持相应Thumb内联形式。<strong>因此M4硬件本身并没有禁止内联汇编，能用哪种由工具链版本与语法决定。</strong> 回答时给出旧教材条件，同时补上这个限定，不把过时条件背成架构定律。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s32"><p class="eyebrow">第七章 · 第32节</p><h2>汇编访问C全局变量：先拿地址，再访问内容</h2><p class="section-context">7.4.2 第2部分；第 44 页</p><div class="part-goal"><p><strong>掌握要求：</strong>会IMPORT一个外部对象并用LDR/STR访问；理解共享变量的可见性与并发问题。</p><p><strong>背景为什么要讲：</strong>原书这里只提了一句话，补上地址和值的连接，混合编程才完整。</p></div><p>C端定义：</p>
+<pre><code class="language-c">volatile unsigned ticks;       /* 真正定义对象，有存储 */
+</code></pre>
+<p>汇编端引用：</p>
+<pre><code class="language-armasm">        IMPORT  ticks
+        LDR     R1,=ticks       ; R1是地址
+        LDR     R0,[R1]         ; R0才是ticks的值
+        ADDS    R0,R0,#1
+        STR     R0,[R1]
+</code></pre>
+<p>若写成 <code>extern volatile unsigned ticks;</code> 是声明外部对象，仍需某处唯一真正定义它。C端若用static把对象限制在文件内部，其他目标文件不能简单靠同名IMPORT访问。C++还要考虑语言链接名字。</p>
+<p>volatile让相应C访问具有所需的可观察性，但<strong>不把“读—加—写”三条指令合成原子操作</strong>。若中断也更新ticks，两边可能覆盖；用适当临界区、原子机制或平台提供的同步方法。这里提并发是为了不把示例误当万能计数器，不要求现阶段实现完整OS同步。</p>
+<p>全局对象的初始值要靠启动运行环境建立。最小启动练习中的Result会先写后读，不依赖RAM随机值；一般C工程则按编译器/启动库规则处理.data和.bss。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s33"><p class="eyebrow">第七章 · 第33节</p><h2>CMSIS到底统一什么：核接口、RTOS接口、DSP库</h2><p class="section-context">7.4.3 第1部分；图 7.19；第 45 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能解释CMSIS层次与三个原章组件；知道它不自动统一各厂商所有外设寄存器。</p><p><strong>背景为什么要讲：</strong>它让特殊指令与核寄存器访问不必处处写工具专用汇编，是后续C开发的基础。</p></div><p>CMSIS全称Cortex Microcontroller Software Interface Standard。原章重点的三块内容：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>组件</th>
+<th>作用</th>
+<th>不要误解成什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMSIS-Core</td>
+<td>核寄存器定义、核外设与处理器访问函数、异常名/启动约定等</td>
+<td>不是所有厂商GPIO/UART完全一样</td>
+</tr>
+<tr>
+<td>CMSIS-RTOS接口</td>
+<td>给RTOS服务定义共同API，便于组件对接</td>
+<td>接口标准本身不是一个唯一RTOS实现</td>
+</tr>
+<tr>
+<td>CMSIS-DSP</td>
+<td>常用信号处理算法与数据类型支持</td>
+<td>不因包含头文件就自动替你设计滤波算法</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-cmsis" data-figure="cmsis"><div class="diagram-live"><div id="c7-cmsis"><div class="viz-controls"><label class="form-label">观察路径<select class="form-select" data-path><option value="core" selected>访问核寄存器</option><option value="vendor">访问芯片GPIO</option><option value="rtos">调用RTOS服务</option><option value="dsp">调用DSP算法</option></select></label></div><svg class="drawing" role="img" aria-label="应用、CMSIS与具体硬件的分层"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-cmsis"><svg class="drawing" role="img" aria-label="应用、CMSIS与具体硬件的分层" viewBox="0 0 640 350"><title>CMSIS层次</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">应用程序</text><text x="616" y="57" text-anchor="end" class="text-small">C / C++ / 汇编</text><rect x="12" y="77" width="616" height="55" rx="3" class="active"></rect><text x="24" y="98" text-anchor="start" class="text-small">核访问路径</text><text x="616" y="122" text-anchor="end" class="text-small">CMSIS-Core → 核寄存器</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">芯片外设路径</text><text x="616" y="187" text-anchor="end" class="text-small">厂商设备定义 / 驱动 → GPIO</text><rect x="12" y="207" width="616" height="55" rx="3" class="node"></rect><text x="24" y="228" text-anchor="start" class="text-small">操作系统路径</text><text x="616" y="252" text-anchor="end" class="text-small">CMSIS-RTOS接口 → RTOS实现</text><rect x="12" y="272" width="616" height="55" rx="3" class="node"></rect><text x="24" y="293" text-anchor="start" class="text-small">算法路径</text><text x="616" y="317" text-anchor="end" class="text-small">CMSIS-DSP → 运算与数据</text></svg><div aria-live="polite">当前观察：Core统一核接口，未统一所有厂商外设。</div></div></div><figcaption><span class="figure-number">图7-18</span>蓝色标出典型路径；CMSIS-RTOS是接口，CMSIS-Core不使所有厂商外设完全相同。</figcaption></figure>
+
+
+
+<p>芯片厂商设备头文件通常描述具体芯片及其外设，配合CMSIS-Core。应用既可以通过厂商驱动，也可以按设备寄存器定义控制硬件。系统若使用RTOS，应用还通过其API获得线程、同步等服务。</p>
+<p>原书“超过60个DSP函数”与列出的旧头文件名是当时库版本的背景；不要背成永久数量或唯一文件组织。实作时通常包含<strong>目标设备头文件</strong>，由设备包接入合适的CMSIS头与编译器适配；不要凭书里的拼写猜 <code>core_c4_simd.h</code> 然后生造文件。</p>
+<p>本章做题只需能说明层次，并在特殊寄存器访问时选用规范接口；暂时不要求移植RTOS或完成DSP项目。这些内容保留是为了让你理解“C里能调用__WFI/读取PRIMASK”背后是谁提供了接口。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s34"><p class="eyebrow">第七章 · 第34节</p><h2>内在函数、内联汇编、习语识别：C怎样产生特殊指令</h2><p class="section-context">7.4.3 第2部分；第 46—47 页</p><div class="part-goal"><p><strong>掌握要求：</strong>认识原章全部四类途径；会选CMSIS接口并区分WFI/WFE、屏障、编译器重排。</p><p><strong>背景为什么要讲：</strong>普通ISO C表达式没有“读PRIMASK”“执行WFI”的统一语法，需要目标相关接口。</p></div><p>原章提到的途径全部保留：CMSIS访问/内在函数、编译器内建函数、内联或嵌入汇编、编译器关键字/属性与习语识别。它们有的表现为C函数调用，有的由编译器直接替换成指令；<strong>看到函数样子不等于真的一定产生BL函数调用。</strong></p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>常见CMSIS接口</th>
+<th>含义</th>
+<th>学习深度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>__NOP()</code></td>
+<td>无操作提示</td>
+<td>认识，不用它随意构造精确延时</td>
+</tr>
+<tr>
+<td><code>__WFI()</code>、<code>__WFE()</code>、<code>__SEV()</code></td>
+<td>等中断、等事件、发事件</td>
+<td>了解唤醒条件与具体系统配置有关</td>
+</tr>
+<tr>
+<td><code>__DMB()</code>、<code>__DSB()</code>、<code>__ISB()</code></td>
+<td>内存访问顺序、完成、指令同步</td>
+<td>沿用第六章区分，不混作普通延时</td>
+</tr>
+<tr>
+<td><code>__get_PRIMASK()</code>等</td>
+<td>读核特殊寄存器</td>
+<td>看寄存器作用与权限</td>
+</tr>
+<tr>
+<td>编译器builtin、旧armcc的<code>__svc</code>等</td>
+<td>目标工具提供的特殊功能</td>
+<td>查对应编译器文档，不作为通用C语法</td>
+</tr>
+</tbody></table></div>
+<p>GCC/armclang可用 <code>__asm__ volatile(&quot;svc #0&quot; ::: &quot;memory&quot;);</code> 表达一个特定工具语境下的SVC，但仅有这一行并没有实现系统服务；还要配置并实现异常处理。一般优先使用已有平台接口，避免把服务号和权限模型藏在不明汇编里。</p>
+<p>“习语识别”是编译器识别某种C计算模式，生成合适的机器指令；不保证任何写法、优化级别或版本都生成同一条指令。对性能/同步有要求时查看实际反汇编，并按工具保证选择内建接口。</p>
+<p><code>volatile</code>、编译器内存屏障、CPU的DMB/DSB/ISB分属不同语义，不能互相无条件替代。CMSIS对不同编译器提供适配，但也要看目标支持和版本；“内建函数永远最优、CMSIS永远较慢”不是可靠定律。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s35"><p class="eyebrow">第七章 · 第35节</p><h2>特殊寄存器：临界区恢复旧状态，Q清除读懂即可</h2><p class="section-context">7.4.3；表 7.2；第 46—47 页</p><div class="part-goal"><p><strong>掌握要求：</strong>能解释PRIMASK临界区为何恢复旧值；认识所有列出的寄存器组及读写限制；知道命名寄存器变量是工具特性。</p><p><strong>背景为什么要讲：</strong>这些寄存器影响权限、栈与异常，提供用途和边界，避免把字符串寄存器名当作任意可写变量。</p></div><p>CMSIS常见写法：</p>
+<pre><code class="language-c">#include &quot;目标设备头文件.h&quot;     /* 用实际设备包提供的文件名 */
+void update_shared(void)
+{
+    unsigned old = __get_PRIMASK();
+    __disable_irq();
+    /* 在特权、合适上下文中执行短小的共享数据更新 */
+    __set_PRIMASK(old);
+}
+</code></pre>
+<p>头文件行是说明性占位，实际源码必须改成例如设备包要求的对应设备头文件。这个片段强调<strong>恢复进入前状态</strong>；是否还需特定屏障等同步由真实系统操作决定，不能把它当所有设备的万能模板。</p>
+<p>如果进入前PRIMASK已为1，结尾直接 <code>__enable_irq()</code> 会擅自打开原来被关闭的可配置中断；恢复old才支持这种嵌套使用。PRIMASK也不屏蔽NMI和HardFault，不能由此声称“所有异常都不可能发生”。</p>
+<figure class="diagram" id="fig-critical" data-figure="critical"><div class="diagram-live"><div id="c7-critical"><div class="viz-controls"><label class="form-label">进入前PRIMASK<select class="form-select" data-old><option value="0">0</option><option value="1" selected>1</option></select></label><label class="form-label">退出方式<select class="form-select" data-mode><option value="restore" selected>恢复old</option><option value="enable">无条件enable_irq</option></select></label></div><svg class="drawing" role="img" aria-label="临界区退出为什么恢复旧PRIMASK"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-critical"><svg class="drawing" role="img" aria-label="临界区退出为什么恢复旧PRIMASK" viewBox="0 0 640 282"><title>临界区状态</title><rect x="12" y="12" width="616" height="55" rx="3" class="node"></rect><text x="24" y="33" text-anchor="start" class="text-small">进入前PRIMASK</text><text x="616" y="57" text-anchor="end" class="text-small">1</text><rect x="12" y="77" width="616" height="55" rx="3" class="active"></rect><text x="24" y="98" text-anchor="start" class="text-small">执行disable_irq后</text><text x="616" y="122" text-anchor="end" class="text-small">1 · 屏蔽可配置中断</text><rect x="12" y="142" width="616" height="55" rx="3" class="node"></rect><text x="24" y="163" text-anchor="start" class="text-small">执行共享更新</text><text x="616" y="187" text-anchor="end" class="text-small">NMI/HardFault仍非由它屏蔽</text><rect x="12" y="207" width="616" height="55" rx="3" class="active"></rect><text x="24" y="228" text-anchor="start" class="text-small">退出后PRIMASK</text><text x="616" y="252" text-anchor="end" class="text-small">1 · 与进入前一致</text></svg><div aria-live="polite">原值=1；退出=1；恢复了原屏蔽状态。</div></div></div><figcaption><span class="figure-number">图7-19</span>仅示意可配置中断屏蔽状态，不代表屏蔽NMI/HardFault，也不模拟真实并发时序。</figcaption></figure>
+
+
+
+<p>原表7.2的全部名称可以按组记：</p>
+<div class="table-wrap"><table class="compact-table">
+<thead>
+<tr>
+<th>组</th>
+<th>原表所列</th>
+<th>怎么理解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>运算状态</td>
+<td>APSR</td>
+<td>NZCVQ等，按支持字段访问</td>
+</tr>
+<tr>
+<td>异常/执行状态及组合视图</td>
+<td>IPSR、EPSR、IAPSR、EAPSR、IEPSR、PSR/XPSR</td>
+<td>不是一堆彼此独立的普通可写寄存器；IPSR只读，EPSR经普通MRS不可读出其执行字段、MSR不能随意改执行状态</td>
+</tr>
+<tr>
+<td>优先级/异常屏蔽</td>
+<td>PRIMASK、BASEPRI、BASEPRI_MAX、FAULTMASK</td>
+<td>写入有权限与目标限制；BASEPRI_MAX用于只增强相应屏蔽效果</td>
+</tr>
+<tr>
+<td>栈与控制</td>
+<td>MSP、PSP、CONTROL</td>
+<td>栈切换与权限，不能在普通C函数随意改SP后继续假定原栈仍有效</td>
+</tr>
+<tr>
+<td>通用/特殊用途编号</td>
+<td>R0—R12、R13/SP、R14/LR、R15/PC</td>
+<td>受ABI及编译器分配约束，不是随便绑定后就安全</td>
+</tr>
+</tbody></table></div>
+<p>BASEPRI里的优先级数值越小通常表示优先级越高；“MAX”并不表示简单取无符号数值最大值，而是只增强屏蔽。BASEPRI=0表示不施加这个阈值屏蔽。其编码还涉及芯片实际实现的优先级位，本章不要求写一套中断管理器。</p>
+<p>旧armcc的命名寄存器变量示意为：<code>register unsigned reg_apsr __asm(&quot;apsr&quot;);</code>，原书漏失的下划线与关键字不能照抄。此特性不是标准C；GCC中把变量绑定寄存器的机制也不能当作等价的特殊寄存器访问保证。普通应用优先用CMSIS/Core访问接口。<a href="https://arm-software.github.io/CMSIS_6/main/Core/group__Core__Register__gr.html">CMSIS寄存器访问说明</a>可核对名称与权限。</p>
+<p>Q是黏性饱和标志，位27。<code>0xF7FFFFFF</code>就是清bit27的掩码。若在独立汇编中要清Q、保留同次读到的NZCV，可以按目标支持使用：</p>
+<pre><code class="language-armasm">        MRS     R0,APSR
+        BIC     R0,R0,#0x08000000
+        MSR     APSR_nzcvq,R0
+</code></pre>
+<figure class="diagram" id="fig-qflag" data-figure="qflag"><div class="diagram-live"><div id="c7-qflag"><div class="viz-controls"><label class="form-label">原Q<select class="form-select" data-q><option value="0">0</option><option value="1" selected>1</option></select></label><label class="form-label">原NZCV<select class="form-select" data-flags><option value="0000">0000</option><option value="1001" selected>1001</option><option value="0110">0110</option><option value="1111">1111</option></select></label></div><svg class="drawing" role="img" aria-label="掩码只清APSR的Q位"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-c7-qflag"><svg class="drawing" role="img" aria-label="掩码只清APSR的Q位" viewBox="0 0 640 273"><title>清除Q</title><text x="12" y="24" text-anchor="start" class="text-small">只看NZCVQ五个字段</text><text x="12" y="44" text-anchor="start" class="text-small">原值</text><rect x="13" y="56" width="120.2" height="66" rx="3" class="node"></rect><text x="73.6" y="80" text-anchor="middle" class="text-small">N</text><text x="73.6" y="106" text-anchor="middle" class="text-small">1</text><rect x="136.2" y="56" width="120.2" height="66" rx="3" class="node"></rect><text x="196.79999999999998" y="80" text-anchor="middle" class="text-small">Z</text><text x="196.79999999999998" y="106" text-anchor="middle" class="text-small">0</text><rect x="259.4" y="56" width="120.2" height="66" rx="3" class="node"></rect><text x="320" y="80" text-anchor="middle" class="text-small">C</text><text x="320" y="106" text-anchor="middle" class="text-small">0</text><rect x="382.6" y="56" width="120.2" height="66" rx="3" class="node"></rect><text x="443.20000000000005" y="80" text-anchor="middle" class="text-small">V</text><text x="443.20000000000005" y="106" text-anchor="middle" class="text-small">1</text><rect x="505.8" y="56" width="120.2" height="66" rx="3" class="active"></rect><text x="566.4" y="80" text-anchor="middle" class="text-small">Q</text><text x="566.4" y="106" text-anchor="middle" class="text-small">1</text><text x="12" y="159" text-anchor="start" class="text-small">清Q后</text><rect x="13" y="171" width="120.2" height="66" rx="3" class="node"></rect><text x="73.6" y="195" text-anchor="middle" class="text-small">N</text><text x="73.6" y="221" text-anchor="middle" class="text-small">1</text><rect x="136.2" y="171" width="120.2" height="66" rx="3" class="node"></rect><text x="196.79999999999998" y="195" text-anchor="middle" class="text-small">Z</text><text x="196.79999999999998" y="221" text-anchor="middle" class="text-small">0</text><rect x="259.4" y="171" width="120.2" height="66" rx="3" class="node"></rect><text x="320" y="195" text-anchor="middle" class="text-small">C</text><text x="320" y="221" text-anchor="middle" class="text-small">0</text><rect x="382.6" y="171" width="120.2" height="66" rx="3" class="node"></rect><text x="443.20000000000005" y="195" text-anchor="middle" class="text-small">V</text><text x="443.20000000000005" y="221" text-anchor="middle" class="text-small">1</text><rect x="505.8" y="171" width="120.2" height="66" rx="3" class="active"></rect><text x="566.4" y="195" text-anchor="middle" class="text-small">Q</text><text x="566.4" y="221" text-anchor="middle" class="text-small">0</text></svg><div aria-live="polite">原NZCV=1001，Q=1；BIC掩码0x08000000后，NZCV=1001，Q=0。MSR只写指定字段。</div></div></div><figcaption><span class="figure-number">图7-20</span>Q为bit27；清Q后NZCV按本次读到的值写回；图省略其他状态字段。</figcaption></figure>
+
+
+
+<p>这同时写回相应标志字段，不是能随意写完整xPSR。若从C调用，普通C运算/函数调用本来就可能改变算术标志，不能把这个片段当作跨任意C代码“保存所有标志”的承诺。基础习题只需要理解清哪一位、为何要用MRS/MSR或相应工具接口，命名寄存器变量的完整限制以查读为主。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="part-head lesson" id="s36"><p class="eyebrow">第七章 · 第36节</p><h2>做题和调试都用同一张检查单</h2><p class="section-context">7.1.2、7.3—7.4；原章11道习题；第 5—8、24—48 页</p><div class="part-goal"><p><strong>掌握要求：</strong>从需求写到可核对结果，发现错误时能定位到数据、条件、循环、调用或启动层。</p><p><strong>背景为什么要讲：</strong>把工具与算法接回同一条学习路线，防止“看懂答案”被误当成“能够自己写”。</p></div><p>拿到题先写一行规格，例如：<strong>“输入是10个有符号32位数；输出R0；只统计严格大于0；不改数组。”</strong> 这一行会替你决定LDR宽度、步长、比较条件与返回位置。</p>
+<p>然后做六步：</p>
+<ol>
+<li>列寄存器职责：输入/指针、计数、当前值、累加/输出，不让同一寄存器同时承担冲突角色。</li>
+<li>用C式伪代码或流程图明确路径，特别是0次、1次、最后一项。</li>
+<li>选指令与条件：有无符号、是否需要更新标志、哪一次比较决定哪次跳转。</li>
+<li>补数据与工程：段、EXPORT/IMPORT、函数/程序入口、栈、结果空间、执行结束路径。</li>
+<li>手算一个小样本，再用边界样本检查：0、1、相等、负数、空串、数组最后一项。</li>
+<li>调试核对R0/R3、指针、剩余数、SP/LR、结果内存；若出错只缩小到一轮/一次调用，不盲目重写全部。</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>先查什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>汇编器不认识AREA、EXPORT</td>
+<td>汇编方言与工具选择</td>
+</tr>
+<tr>
+<td>链接说找不到函数</td>
+<td>是否加入定义文件、名字/大小写、EXPORT/IMPORT、C++修饰</td>
+</tr>
+<tr>
+<td>一运行就异常</td>
+<td>向量、Thumb入口、SP、真实存储区、非法指令/地址</td>
+</tr>
+<tr>
+<td>循环多一次或死循环</td>
+<td>初值、入口0次判断、更新、比较方向、计数下溢</td>
+</tr>
+<tr>
+<td>函数里算对，返回后值又错</td>
+<td>输出被POP覆盖、LR未保护、caller-saved值被改</td>
+</tr>
+<tr>
+<td>第5参数总不对</td>
+<td>BL时SP对齐、入口SP与压栈后SP的偏移</td>
+</tr>
+<tr>
+<td>内存值对，R0却是地址</td>
+<td>少了一次LDR，或把Result地址当返回值</td>
+</tr>
+</tbody></table></div>
+<p>下面的11张原题卡完整保留题意和解题要求，带完整应用模块的题都配好共同启动文件和源码。<strong>先独立写，再展开答案；若只会沿着注释阅读，还没有达到本章过关标准。</strong> 本章背景已经全部交代：旧开发工具、冷门伪指令、表达式、浮点ABI、CMSIS和工具特性都能在目录中找到；不要求你把它们全部默写成产品工程。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section id="coverage"><p class="eyebrow">原书内容逐项对照</p><h2>全部小节与51个例子的去处</h2><div class="table-wrap"><table class="coverage-table"><thead><tr><th>原书</th><th>覆盖内容</th><th>讲解</th></tr></thead><tbody>
+<tr><td>7.1.1</td><td>SDT、ADS、RVDS、MDK、GCC、DS-5、表7.1</td><td><a href="#s02">02</a>、<a href="#s03">03</a></td></tr>
+<tr><td>7.1.2</td><td>开发周期、μVision、模拟器与调试探针</td><td><a href="#s02">02</a>、<a href="#s03">03</a>、<a href="#s36">36</a></td></tr>
+<tr><td>7.2.1</td><td>GBL/LCL、SET、RLIST；例7.1—7.4</td><td><a href="#s05">05</a></td></tr>
+<tr><td>7.2.2</td><td>全部数据定义、U变体、SPACE、MAP/FIELD；例7.5—7.13</td><td><a href="#s06">06</a>、<a href="#s07">07</a>、<a href="#s08">08</a></td></tr>
+<tr><td>7.2.3</td><td>IF、WHILE、MACRO、MEXIT；例7.14—7.16</td><td><a href="#s09">09</a>、<a href="#s10">10</a></td></tr>
+<tr><td>7.2.4</td><td>全部13类其他伪指令；例7.17—7.28</td><td><a href="#s05">05</a>、<a href="#s11">11</a>、<a href="#s12">12</a>、<a href="#s13">13</a>、<a href="#s14">14</a></td></tr>
+<tr><td>7.2.5</td><td>变量/常量、命名、代换与EQU；例7.29—7.31</td><td><a href="#s05">05</a>、<a href="#s15">15</a></td></tr>
+<tr><td>7.2.6</td><td>全部数字/逻辑/字符串/寄存器表达式；例7.32—7.35</td><td><a href="#s15">15</a></td></tr>
+<tr><td>7.3.1</td><td>语句格式、标号、大小写</td><td><a href="#s04">04</a></td></tr>
+<tr><td>7.3.2</td><td>代码/数据段、Num/Nums与程序启动</td><td><a href="#s11">11</a>、<a href="#s16">16</a>、<a href="#s17">17</a></td></tr>
+<tr><td>7.3.3 顺序</td><td>例7.36寻址、7.37双字加法</td><td><a href="#s17">17</a>、<a href="#s18">18</a></td></tr>
+<tr><td>7.3.3 分支</td><td>例7.38—7.43、B/BL/BX、条件与状态</td><td><a href="#s13">13</a>、<a href="#s19">19</a>、<a href="#s23">23</a></td></tr>
+<tr><td>7.3.3 循环</td><td>for/while、7.44求和、7.45冒泡</td><td><a href="#s20">20</a>、<a href="#s21">21</a>、<a href="#s22">22</a></td></tr>
+<tr><td>7.3.3 子程序</td><td>栈图7.5—7.11、7.46幂与嵌套、7.47最大值</td><td><a href="#s23">23</a>、<a href="#s24">24</a>、<a href="#s25">25</a></td></tr>
+<tr><td>7.4.1</td><td>ATPCS/AAPCS、栈/参数/结果、例7.48—7.50</td><td><a href="#s26">26</a>、<a href="#s27">27</a>、<a href="#s28">28</a>、<a href="#s29">29</a>、<a href="#s30">30</a></td></tr>
+<tr><td>7.4.2</td><td>内联/嵌入汇编、7.51复制、共享全局变量</td><td><a href="#s29">29</a>、<a href="#s31">31</a>、<a href="#s32">32</a></td></tr>
+<tr><td>7.4.3</td><td>CMSIS、四类途径、命名寄存器、表7.2、清Q</td><td><a href="#s33">33</a>、<a href="#s34">34</a>、<a href="#s35">35</a></td></tr>
+<tr><td>习题1—11</td><td>全部题意、答题规则、完整应用文件与边界样本</td><td><a href="#exercises">逐题 →</a></td></tr></tbody></table></div><p>例1—35按伪指令与表达式主题合并解释，36—51的算法及混合调用分别展开。旧IDE截图改为窗口职责，栈图改为可变阶段SVG；修正笔误并保留用途与掌握边界。</p></section>
+<section id="selftest"><p class="eyebrow">先算，再展开</p><h2>十二道综合短自测</h2><ol>
+<li><code>N EQU 10</code>、<code>N SETA N+1</code>、<code>ADDS R0,#1</code>分别在哪个阶段起作用？N能在未声明为可变汇编变量时用SETA改吗？</li>
+<li>地址0x1001先DCB一个字节，再DCD一个字，DCD标号是多少？改DCDU怎样？</li>
+<li>MAP 0x100；A FIELD 16；B FIELD 32；S FIELD 256。B/S值和总描述长度是多少？有分配空间吗？</li>
+<li>当前0x1003，ALIGN 8后多少？AREA的ALIGN=3是否代表每条指令8字节？</li>
+<li>R2=−2、原R3=−1，第3题的有符号答案是多少？若用BHI会走哪条路？</li>
+<li>倒计数循环初值为0却直接进循环，会发生什么？十个32位元素最后一次正确LDR从首址加多少？</li>
+<li>降序冒泡从左向右一轮后固定到右端的是最大还是最小？五元素要比较几轮、几次？</li>
+<li>函数PUSH {R0-R7,LR}，算出R0，最后POP {R0-R7,PC}。两个主要问题是什么？</li>
+<li>入参SP=0x20001000；被调函数PUSH {R4,LR}后，第5个简单32位参数在什么地址/新SP偏移？</li>
+<li><code>strcopy(dst,src)</code>的R0/R1是谁？&quot;ARM&quot;复制几字节、长度函数返回多少？</li>
+<li>进入临界区前PRIMASK=1，退出时直接enable_irq有什么问题？</li>
+<li>“M4不支持内联汇编”“PRESERVE8会帮CPU调整SP”“INCBIN一个.o就是链接”分别哪里错？</li>
+</ol>
+<details class="answer"><summary>展开答案与过关要求</summary><div class="answer-content"><ol>
+<li>EQU/SETA在汇编时处理；ADDS运行时修改寄存器与标志。普通EQU常量不能用作反复修改的SETA变量，应先GBLA/LCLA声明相应可变类型。</li>
+<li>DCB占0x1001，接下来当前位置0x1002。DCD先补到0x1004，标号0x1004；DCDU则从0x1002开始，但访问合法性要另查。</li>
+<li>B=0x110，S=0x130；描述长度16+32+256=304=0x130字节，结束0x230；不实际分配。</li>
+<li>0x1008，填5字节。AREA ALIGN=3仅约束段起点按8对齐。</li>
+<li>−1&gt;−2，结果8。按无符号位串，0xFFFFFFFF&gt;0xFFFFFFFE也为真，因此这一个样本BHI恰好同路；要区分符号规则，可用原R3=1、R2=−2，此时有符号为大于、无符号为不大于。<strong>测试不能只选恰好一致的数据。</strong></li>
+<li>0减1下溢为0xFFFFFFFF，可能跑极多轮/越界；第10项下标9，LDR地址首址+36，读取到+39。</li>
+<li>最小；4轮，比较4+3+2+1=10次。</li>
+<li>R0计算结果被旧R0恢复覆盖；36字节帧使原8对齐SP在进一步公开调用时不再8对齐。还要检查是否需保护这些寄存器，以及算法自身边界。</li>
+<li>参数仍在原入口SP=0x20001000；新SP=0x20000FF8，因此是[新SP,#8]。</li>
+<li>R0=dst地址，R1=src地址；复制A/R/M/0共4字节，长度返回3。</li>
+<li>会把本来关闭的可配置中断打开，破坏外层状态；保存并恢复old更合适。</li>
+<li>内联支持由编译器/版本决定；PRESERVE8是声明，不执行调整；INCBIN只是原样嵌字节，不解析目标文件符号与重定位。</li>
+</ol>
+<p>过关要求：第2、4—10题应能独立手算或写出核心代码；第1、3、11—12题要能解释层次和限制。随后独立完成11张原题卡，不能只在展开答案后觉得“看懂了”。</p>
+</div></details></section>
+<section id="exercises"><p class="eyebrow">第48页全部11题</p><h2>原题答题卡与完整程序</h2><p>程序题使用第16节共用启动文件与各题全部应用文件，组成完整学习工程；源码包包含同样内容及链接布局、配置说明。每题分开构建。</p><div class="question-links"><a href="#q7-1">7.1</a><a href="#q7-2">7.2</a><a href="#q7-3">7.3</a><a href="#q7-4">7.4</a><a href="#q7-5">7.5</a><a href="#q7-6">7.6</a><a href="#q7-7">7.7</a><a href="#q7-8">7.8</a><a href="#q7-9">7.9</a><a href="#q7-10">7.10</a><a href="#q7-11">7.11</a></div>
+<article class="exercise" id="q7-1"><h3>习题7.1 / 汇编与C各有什么特点</h3><p>汇编语言和C语言相比，各有什么特点？</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p>汇编接近指令与寄存器，便于精确控制特殊操作、启动与局部关键代码；但可读性、维护和跨架构移植通常较差，写对现场/接口需要更多人工工作。C的结构、类型、库和工具支持较好，通常更易维护与移植；涉及特殊指令/寄存器时仍需要平台接口、内建函数或汇编。</p>
+<p><strong>不要答成“汇编一定更快，C一定不能访问硬件”。</strong> C可以通过volatile映射寄存器、CMSIS和厂商库访问硬件；优化编译器也常能生成很好的代码。选择应看功能、可验证性和实际测量。</p>
+<p><a href="#s01">回到第01节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-2"><h3>习题7.2 / ATPCS规定了什么</h3><p>什么是ATPCS标准？</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p>ATPCS是Arm-Thumb Procedure Call Standard，规定Arm/Thumb子程序调用接口，包括寄存器使用、数据栈、参数传递等基本规则，使单独编译和不同语言编写的函数能正确配合。</p>
+<p>答题至少写出：简单参数通常经R0—R3，简单32位结果经R0；易变寄存器由调用者按需保护；被调者修改需保留寄存器则恢复；SP和返回链接正确，栈遵守所选ABI约束。补充：实际工程还要核对AAPCS32及平台/浮点等变体，不能把ATPCS与不同ABI的目标文件任意混合。</p>
+<p><a href="#s26">回到第26节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-3"><h3>习题7.3 / 按原R3与R2比较后赋值</h3><p>编写完整程序：若R3&gt;R2，将R2+10放R3，否则将R2+100放R3。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。
+<strong>此解按有符号比较，输入通过开头两条MOVS设置；运算结果按32位保留。</strong> 如果题目规定无符号，把BGT改为BHI。比较必须发生在改写R3之前。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    AppCode,CODE,READONLY,ALIGN=2
+        EXPORT  exercise_main
+exercise_main PROC
+        MOVS    R2,#5          ; test input
+        MOVS    R3,#8          ; original R3
+        CMP     R3,R2          ; signed comparison of original values
+        BGT     Greater
+        ADD     R3,R2,#100
+        B       StoreResult
+Greater
+        ADD     R3,R2,#10
+StoreResult
+        LDR     R1,=Result
+        STR     R3,[R1]
+        BX      LR
+        ENDP
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+        EXPORT  Result
+Result  SPACE   4
+        END
+</code></pre>
+<p>默认5、8得到15；原R3=5与R2相等时走else，得到105；R2=−2、原R3=−1时走大于路径，得到8。相等不能误走“&gt;”。Result另存一份R3便于观察，R3本身仍保留答案。若需数学意义上无溢出的有符号和，还要限定R2范围。</p>
+<p><a href="#s19">回到第19节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-4"><h3>习题7.4 / 统计十个数里的偶数</h3><p>将数据段10个数据中的偶数个数统计到R0。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。
+本解每项是32位整数，最低位为0即为偶数。0和负偶数也计入，数组不改写。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    AppCode,CODE,READONLY,ALIGN=2
+        EXPORT  exercise_main
+exercise_main PROC
+        MOVS    R0,#0
+        LDR     R1,=Values
+        MOVS    R2,#10
+CountLoop
+        LDR     R3,[R1],#4
+        TST     R3,#1
+        BNE     NotEven
+        ADDS    R0,R0,#1
+NotEven
+        SUBS    R2,R2,#1
+        BNE     CountLoop
+        LDR     R1,=Result
+        STR     R0,[R1]
+        BX      LR
+        ENDP
+        AREA    Inputs,DATA,READONLY,ALIGN=2
+Values  DCD     -4,-3,0,1,2,3,4,5,6,7
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+        EXPORT  Result
+Result  SPACE   4
+        END
+</code></pre>
+<p>默认数据的偶数是−4、0、2、4、6，所以R0=5。R1每轮加4，R2从10减到0；只有偶数分支加计数，但两条分支都必须推进循环。结果还写到Result，不能把R0改成Result地址。</p>
+<p><a href="#s21">回到第21节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-5"><h3>习题7.5 / 统计十个有符号正数</h3><p>将数据段10个有符号数中的正数个数统计到R0。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。
+<strong>严格大于0才是正数</strong>；用有符号条件，不能把负数当成大无符号值。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    AppCode,CODE,READONLY,ALIGN=2
+        EXPORT  exercise_main
+exercise_main PROC
+        MOVS    R0,#0
+        LDR     R1,=Values
+        MOVS    R2,#10
+CountLoop
+        LDR     R3,[R1],#4
+        CMP     R3,#0
+        BLE     NotPositive
+        ADDS    R0,R0,#1
+NotPositive
+        SUBS    R2,R2,#1
+        BNE     CountLoop
+        LDR     R1,=Result
+        STR     R0,[R1]
+        BX      LR
+        ENDP
+        AREA    Inputs,DATA,READONLY,ALIGN=2
+Values  DCD     -4,-3,0,1,2,3,4,5,6,7
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+        EXPORT  Result
+Result  SPACE   4
+        END
+</code></pre>
+<p>默认数据中1—7共7个正数，所以R0=7。−4、−3和0不计。CMP后BLE跳过，余下才加计数；若用BHI/LS等无符号条件，会在负数上出错。</p>
+<p><a href="#s21">回到第21节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-6"><h3>习题7.6 / 循环计算1至100的和</h3><p>编写循环程序，实现1至100累加。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    AppCode,CODE,READONLY,ALIGN=2
+        EXPORT  exercise_main
+exercise_main PROC
+        MOVS    R0,#0          ; sum
+        MOVS    R1,#100        ; next addend
+SumLoop
+        ADDS    R0,R0,R1
+        SUBS    R1,R1,#1
+        BNE     SumLoop
+        LDR     R2,=Result
+        STR     R0,[R2]
+        BX      LR
+        ENDP
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+        EXPORT  Result
+Result  SPACE   4
+        END
+</code></pre>
+<p>R0为sum，R1为下一项；100、99、…、1各加一次。最后R0=5050=0x000013BA，R1=0，SP保持。固定N=100可直接进入；推广到允许N=0时，要在入口先检查0，避免先减到0xFFFFFFFF。公式100×101/2仅用于核对。</p>
+<p><a href="#s21">回到第21节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-7"><h3>习题7.7 / 定义、调用和返回子程序</h3><p>汇编程序怎样定义子程序？怎样调用？</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p>给入口取标签，可配PROC/ENDP提供函数边界；按接口安排参数和结果；通过BL调用；正常叶函数用BX LR返回；非叶函数在嵌套BL前保护自己的LR，返回前恢复所需现场。</p>
+<pre><code class="language-armasm">        MOVS R0,#3
+        MOVS R1,#4
+        BL   Add32             ; 返回R0=7
+        ; 调用者继续执行
+
+Add32   PROC
+        ADD  R0,R0,R1
+        BX   LR
+        ENDP
+</code></pre>
+<p>上面是调用片段和完整函数，不是独立上电工程；须放在有正确入口与结束路径的应用中。跨文件时定义端EXPORT、调用端IMPORT；同文件内部调用可以不导出。PROC不自动保存现场，ENDP也不自动产生BX。</p>
+<p><a href="#s23">回到第23节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-8"><h3>习题7.8 / 汇编子程序计算N!</h3><p>编写完整程序，用汇编子程序计算N!，N≤10。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。
+补充前提：N为非负整数。此版本接受unsigned N，N&gt;10返回0作为约定错误标记；0!和1!都返回1。主程序设置N=5。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    AppCode,CODE,READONLY,ALIGN=2
+        EXPORT  exercise_main
+exercise_main PROC
+        PUSH    {R4,LR}
+        MOVS    R0,#5
+        BL      Fact10
+        LDR     R1,=Result
+        STR     R0,[R1]
+        POP     {R4,PC}
+        ENDP
+Fact10  PROC
+        CMP     R0,#10
+        BHI     FactBad
+        MOV     R1,R0
+        MOVS    R0,#1
+FactTest
+        CMP     R1,#1
+        BLS     FactDone
+        MUL     R0,R0,R1
+        SUBS    R1,R1,#1
+        B       FactTest
+FactDone
+        BX      LR
+FactBad
+        MOVS    R0,#0
+        BX      LR
+        ENDP
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+        EXPORT  Result
+Result  SPACE   4
+        END
+</code></pre>
+<p>Result与R0=120。PUSH {R4,LR}使外层原链接得到保护，帧为8字节；返回时POP {R4,PC}不覆盖R0。Fact10是叶函数，只改R0/R1和标志，无须额外保存R4等。自测N=0、1、2、10、11，期望1、1、2、3628800、0。</p>
+<p><a href="#s25">回到第25节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-9"><h3>习题7.9 / 汇编调用C计算N!</h3><p>编写完整汇编程序，调用C函数计算N!，N≤10。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。
+工程还必须包含factorial.c，不是只写IMPORT就有函数。范围、0!与超范围标记同第8题。</p>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    AppCode,CODE,READONLY,ALIGN=2
+        EXPORT  exercise_main
+        IMPORT  factorial_c
+exercise_main PROC
+        PUSH    {R4,LR}
+        MOVS    R0,#5
+        BL      factorial_c
+        LDR     R1,=Result
+        STR     R0,[R1]
+        POP     {R4,PC}
+        ENDP
+        AREA    Results,DATA,READWRITE,NOINIT,ALIGN=2
+        EXPORT  Result
+Result  SPACE   4
+        END
+</code></pre>
+<pre><code class="language-c">unsigned factorial_c(unsigned n)
+{
+    unsigned acc = 1;
+    if (n &gt; 10u) return 0u;
+    while (n &gt; 1u) {
+        acc *= n;
+        --n;
+    }
+    return acc;
+}
+</code></pre>
+<p>调用前R0=5，BL后R0=120。C可能改R0—R3/R12及标志，所以返回后重新取得Result地址。外层保存LR，SP在调用处8对齐；编译C和汇编时目标/ABI一致。这里C不访问需要启动初值的全局变量，不用库；一般C程序仍需完整运行库初始化。</p>
+<p><a href="#s30">回到第30节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-10"><h3>习题7.10 / C调用汇编求字符串长度</h3><p>C程序调用汇编函数计算字符串长度，并返回长度。</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p><strong>工程组成：共用第16节的 startup.s 和 layout.sct，加上下面列出的全部源文件。</strong> 本题与其他题分开构建，不能把多个exercise_main/Result同时链接。输入常量在只读数据段，结果在RAM先写后读；完整源文件也可从本讲义封面下载源码包。
+本题加入main.c和strlen.s。函数接口为unsigned asm_strlen(const char*)；输入R0指向有效、以0结尾的字符串，返回R0为不含终止符的字节数。</p>
+<pre><code class="language-c">extern unsigned asm_strlen(const char *s);
+volatile unsigned Result;
+
+void exercise_main(void)
+{
+    Result = asm_strlen(&quot;Hello ARM!&quot;);
+    /* Result = 10; initialization is not assumed before this write. */
+    for (;;) { }
+}
+</code></pre>
+<pre><code class="language-armasm">        PRESERVE8
+        THUMB
+        AREA    StringCode,CODE,READONLY,ALIGN=2
+        EXPORT  asm_strlen
+asm_strlen PROC
+        MOV     R1,R0
+        MOVS    R0,#0
+LenLoop
+        LDRB    R2,[R1],#1
+        CMP     R2,#0
+        BEQ     LenDone
+        ADDS    R0,R0,#1
+        B       LenLoop
+LenDone
+        BX      LR
+        ENDP
+        END
+</code></pre>
+<p>默认&quot;Hello ARM!&quot;有10个字节，Result=10。空串返回0，&quot;A&quot;返回1。R1工作指针、R2读字节、R0累加；仅用caller-saved寄存器，因此叶函数直接BX LR。C调用后的R0可能随后被编译器重用，<strong>观测C程序最终值以volatile Result为准</strong>。本自定义启动调用exercise_main而非标准main，是为了明确最小运行前提；在厂商C模板里，可把函数内容接入main。</p>
+<p><a href="#s29">回到第29节完整讲解 →</a></p></div></details></article>
+<article class="exercise" id="q7-11"><h3>习题7.11 / M4能用哪一种嵌入汇编</h3><p>C中嵌入汇编有哪两种方式？Cortex-M4能用哪种，为什么？</p>
+<details class="answer"><summary>展开解题过程与代码</summary><div class="answer-content"><p>按旧教材术语：一种是C函数内的<strong>内联汇编块</strong>，一种是以__asm定义的<strong>嵌入式汇编函数</strong>。早期armcc不支持在Thumb下使用相应内联模式，而M4只执行Thumb，故该历史环境中使用嵌入式汇编函数。</p>
+<p><strong>完整限定必须补上：这不是M4硬件永久禁止内联汇编。</strong> 原书第47页已说明armcc5.01/MDK4.60起的相应Thumb内联支持；GCC/armclang又有GNU风格内联汇编。工具版本、语法和约束不同，不能把两种__asm花括号写法与GNU asm字符串直接互换。实际编程先查当前工具说明；独立.s加正确ABI也是清晰方式。</p>
+<p>原书嵌入式复制例末尾应使用普通返回BX LR；BLX LR会重新写LR，不应作为这里的标准返回写法。</p>
+<p><a href="#s31">回到第31节完整讲解 →</a></p></div></details></article>
+</section><section id="corrections"><p class="eyebrow">把原书的坑明确标出来</p><h2>需要修正或加条件的表述</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原书易误读处</th>
+<th>修正后的理解</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>旧工具“最新/最强”、固定支持表</td>
+<td>原章历史背景；具体支持查版本、设备包与许可证</td>
+<td>03</td>
+</tr>
+<tr>
+<td>探针替代MCU、不占任何资源</td>
+<td>常见探针控制真实芯片；调试/跟踪资源有限</td>
+<td>03</td>
+</tr>
+<tr>
+<td>GBL/LCL定义运行时RAM变量</td>
+<td>它们是汇编期变量，不分配运行时RAM</td>
+<td>05</td>
+</tr>
+<tr>
+<td>例7.2变量名称错配；EQU与等号混用</td>
+<td>声明、赋值名与类型对应；按本工具语法使用EQU/SET</td>
+<td>05、15</td>
+</tr>
+<tr>
+<td>DCQ每项8字节就自动8对齐；进制说明错乱</td>
+<td>相应ArmASM定义通常字对齐；宽度、进制分开</td>
+<td>07</td>
+</tr>
+<tr>
+<td>DCD/SPACE保证上电RAM已有初值</td>
+<td>还看段属性、映像与实际启动初始化</td>
+<td>07、16</td>
+</tr>
+<tr>
+<td>IF/WHILE当CPU分支；Counter不更新</td>
+<td>它们控制汇编生成，汇编期循环也必须推进</td>
+<td>09</td>
+</tr>
+<tr>
+<td>ALIGN=3 / ALIGN 3混同；ALIEN拼写；偏移公式</td>
+<td>AREA用指数，独立ALIGN用边界，位置形如o+k×b</td>
+<td>12</td>
+</tr>
+<tr>
+<td>CODE16表示所有Thumb都是2字节；M4能切A32</td>
+<td>M3/M4用THUMB，含2/4字节编码，不执行A32</td>
+<td>13</td>
+</tr>
+<tr>
+<td>ENTRY就是复位；END让CPU停止</td>
+<td>工具元数据/源文件结束不同于向量/运行路径</td>
+<td>13、16</td>
+</tr>
+<tr>
+<td>INCBIN一个.o就是链接；ROUT限定RAM变量</td>
+<td>嵌字节不解析目标符号；ROUT管数字局部标号</td>
+<td>14</td>
+</tr>
+<tr>
+<td>?LA恒为4</td>
+<td>看生成长度，Thumb可为2字节</td>
+<td>15</td>
+</tr>
+<tr>
+<td>7.37高字在前等同普通小端uint64_t</td>
+<td>程序自定字序；每个字内部仍小端</td>
+<td>18</td>
+</tr>
+<tr>
+<td>if/else写到不同寄存器；int与HI条件混用</td>
+<td>统一输出，按类型选有/无符号条件</td>
+<td>19</td>
+</tr>
+<tr>
+<td>条件移位后无条件依赖旧CMP</td>
+<td>检查实际指令标志；明确入口测试、每轮重比</td>
+<td>20</td>
+</tr>
+<tr>
+<td>7.45降序目标、升序交换、尾后地址冲突</td>
+<td>降序左&lt;右才交换；首轮只比较n−1对</td>
+<td>22</td>
+</tr>
+<tr>
+<td>7.46保存所有寄存器就正确；指数1路径</td>
+<td>恢复R0会抹掉结果；36字节影响对齐；先查边界</td>
+<td>24</td>
+</tr>
+<tr>
+<td>PRESERVE8会调SP；第5参数只压一个字即可</td>
+<td>声明不产生CPU调整；BL前实际8对齐并回收出参区</td>
+<td>27</td>
+</tr>
+<tr>
+<td>前4个人类参数各占一个寄存器；有FPU就用S0</td>
+<td>类型、对齐、浮点ABI决定实际接口</td>
+<td>28</td>
+</tr>
+<tr>
+<td>M4永远只能嵌入函数；BLX LR用作普通返回</td>
+<td>工具版本决定内联支持；普通返回用BX LR等</td>
+<td>31</td>
+</tr>
+<tr>
+<td>CMSIS-RTOS就是一个RTOS；旧头文件/单下划线</td>
+<td>区分接口与实现，使用设备包的规范访问名</td>
+<td>33、34</td>
+</tr>
+<tr>
+<td>寄存器变量漏关键字；列出名字就都可任意写</td>
+<td>工具专用语法，受权限、字段与ABI限制</td>
+<td>35</td>
+</tr>
+</tbody></table></div>
+<p>这些修正都与“写出的程序是否真的符合自己的说明”有关。对照原书时优先按规格、地址、条件、边界与接口核对，而不是按错误注释推测处理器会迁就它。</p>
+</section>
+<section id="finish"><p class="eyebrow">本章学完应能做到</p><h2>不看答案，把程序从规格写到结果</h2><ol>
+<li><strong>基本写题：</strong> 独立完成分支、十元素遍历、1—100求和、0—10阶乘与字符串长度。</li>
+<li><strong>现场与接口：</strong> 指出参数和结果位置，保护LR与需保留寄存器，算SP和第5参数偏移。</li>
+<li><strong>工程完整：</strong> 说明代码/数据、符号链接、向量、栈、初始化与结束路径，区分片段与完整工程。</li>
+<li><strong>边界检查：</strong> 会用相等、0、1、负数、空串与末元素测试，解释下溢、错误条件码和输出被恢复。</li>
+<li><strong>背景查读：</strong> 认识全部伪指令/运算符、历史工具、CMSIS与特殊寄存器，复杂ABI与工具方言会查。</li>
+</ol>
+<p>建议分四次学：01—15建立层次；16—22练控制流；23—30练调用；31—36补工具接口并做全部习题。按“能自己写对一题”看进度，不按翻过多少页看进度。</p>
+</section>
+<footer id="sources"><h2>整理依据与核对范围</h2><p>依据用户提供《计算机原理与嵌入式系统讲义》第七章《ARM程序设计》（独立PDF共48页）重新组织。原文件说明作为学习材料处理。所有小节和例题主题均保留，笔误、历史条件与M3/M4适用边界已注明。</p><p>核对参考：<a href="https://www.keil.com/support/man/docs/ARMASM/default.htm">ArmASM v5汇编器说明</a>、<a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst">Arm AAPCS32</a>、<a href="https://developer.arm.com/community/arm-community-blogs/b/tools-software-ides-blog/posts/migration-of-assembly-code-to-arm-compiler-6">Arm Compiler6汇编迁移</a>、<a href="https://arm-software.github.io/CMSIS_6/main/Core/group__Core__Register__gr.html">CMSIS核寄存器访问</a>。这些链接供查证，离线阅读不依赖网络。</p><p>核心算法与等效Thumb指令流通过独立汇编/模拟和边界样例核对。源码包提供ArmASM完整模块、最小启动、链接布局和构建条件；此环境未实际执行MDK/ArmASM工程构建或实板测试，模拟也不验证芯片启动映射、实际工具版本、外设时序与功耗。</p><p>20幅SVG、全部代码和MathML公式内嵌；源码ZIP也内嵌于下载按钮。打印显示默认图例和全部答案。完整程序最终以所用芯片、ABI及工具说明为准。</p><p class="top-link"><a href="#start">返回封面 ↑</a></p></footer></main></div>
+<script>(()=>{
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const txt=(x,y,s,a='start',c='')=>`<text x="${x}" y="${y}" text-anchor="${a}" class="${c}">${esc(s)}</text>`,box=(x,y,w,h,c='node')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="${c}"/>`,path=d=>`<path d="${d}" class="wire"/>`;
+const down=(x,y,h=20)=>path(`M${x} ${y} v${h} m-4 -6 l4 6 l4 -6`),hx=(n,d=8)=>'0x'+BigInt(n).toString(16).toUpperCase().padStart(d,'0');
+const get=(r,q)=>r.querySelector(q),val=(r,q)=>get(r,q).value,num=(r,q)=>get(r,q).valueAsNumber;
+const render=(r,h,title,b,info)=>{if(r.clientWidth<180)return;get(r,'svg').setAttribute('viewBox',`0 0 ${r.clientWidth} ${h}`);get(r,'svg').innerHTML='<title>'+esc(title)+'</title>'+b;get(r,'[aria-live]').textContent=info;};
+const setup=(id,f)=>{const r=document.getElementById('c7-'+id),draw=()=>{if(r.clientWidth>=180)f(r,r.clientWidth)};r.querySelectorAll('input,select').forEach(c=>c.addEventListener(c.tagName==='SELECT'?'change':'input',draw));new ResizeObserver(draw).observe(r);draw()};
+const rows=(w,data,y=12,h=65)=>data.map(([a,b,c],i)=>{let yy=y+i*h;return box(12,yy,w-24,h-10,c||'node')+txt(24,yy+21,a,'start','text-small')+txt(w-24,yy+h-20,b,'end','text-small')}).join('');
+const arrowrows=(w,data)=>data.map(([a,b,c],i)=>{let yy=12+i*86;return box(12,yy,w-24,60,c||'node')+txt(24,yy+22,a,'start','text-small')+txt(w-24,yy+46,b,'end','text-small')+(i<data.length-1?down(w/2,yy+60,24):'')}).join('');
+const cells=(w,arr,y,cls=()=>'',columns=5)=>{const cols=w<440?Math.min(columns,3):columns,cw=(w-24)/cols;let s='';arr.forEach((v,i)=>{const x=12+i%cols*cw,yy=y+Math.floor(i/cols)*60;s+=box(x+2,yy,cw-5,47,cls(i)||'node')+txt(x+cw/2,yy+29,v,'middle','text-small')});return {s,height:Math.ceil(arr.length/cols)*60}};
+const error=(r,s)=>render(r,54,'输入提示',txt(12,28,'请按下方说明修正输入。','start','text-small'),'输入提示：'+s);
+setup('pipeline',(r,w)=>{const n=+val(r,'[data-step]'),a=[['源文件','main.c / app.s'],['目标文件','main.o + app.o'],['可执行映像','地址、符号、段已统一'],['目标内存','Flash / RAM'],['运行状态','寄存器、内存、控制流']];render(r,440,'开发链',arrowrows(w,a.map((x,i)=>[...x,i===n?'active':'node'])),'当前阶段：'+['编辑源文件','编译/汇编生成目标文件','链接定位，解析符号与重定位','下载或装载到目标','调试执行，核对真实状态'][n])});
+setup('phases',(r,w)=>{const n=+val(r,'[data-line]'),a=[['汇编期','N → 常量3',0],['映像数据','01 02 03，占3字节',1],['运行时第1步','R0 ← 3',2],['运行时第2步','R0 ← 4，更新标志',3]];render(r,276,'处理阶段',rows(w,a.map(([a,b,i])=>[a,b,i===n?'active':'node'])),'选中：'+['EQU只定义符号，不占数据存储','DCB生成数据，不是一条CPU指令','MOVS生成机器指令，在运行时装入3','ADDS在运行时加1；与SETA不是一回事'][n])});
+setup('data',(r,w)=>{const k=val(r,'[data-kind]'),n=+val(r,'[data-index]'),size={DCB:1,DCW:2,DCD:4}[k],a={DCB:[0x11,0x22,0x33],DCW:[0x1122,0x3344,0x5566],DCD:[0x11223344,0x55667788,0x99AABBCC]}[k];let b=txt(12,24,k+' 定义3项，每项'+size+'字节','start','text-small');for(let i=0;i<3;i++){let yy=42+i*100;b+=box(12,yy,w-24,88,i===n?'active':'node')+txt(24,yy+23,'i='+i+' · '+hx(0x20000100+i*size),'start','text-small')+txt(24,yy+48,'值 '+hx(a[i],size*2),'start','text-small')+txt(24,yy+73,Array.from({length:size},(_,j)=>((a[i]>>>(8*j))&255).toString(16).toUpperCase().padStart(2,'0')).join('  ')+'  ← 字节由低地址到高地址','start','text-small')}render(r,352,'元素与字节',b,'总长'+size*3+'字节；第'+n+'项地址='+hx(0x20000100+n*size)+'，内容='+hx(a[n],size*2))});
+setup('map',(r,w)=>{const a=num(r,'[data-a]'),b=num(r,'[data-b]');if(![a,b].every(n=>Number.isInteger(n)&&n>=0&&n<=256))return error(r,'字段长度须是0—256的整数。');render(r,284,'结构字段',rows(w,[['A · '+a+'字节',hx(0x100,4)],['B · '+b+'字节',hx(0x100+a,4)],['S · 256字节',hx(0x100+a+b,4)],['结束位置 · 不在S内部',hx(0x200+a+b,4),'waiting']]),'B='+hx(0x100+a,4)+'，S='+hx(0x100+a+b,4)+'，总描述长度='+String(a+b+256)+'字节；实际分配=0字节。')});
+setup('expand',(r,w)=>{const n=+val(r,'[data-count]');let b=txt(12,24,'宏：每个使用点有一份主体','start','text-small'),a=cells(w,Array.from({length:n},(_,i)=>'主体'+(i+1)),40,()=> 'active',4);b+=a.s;let y=52+a.height;b+=txt(12,y,'函数：多处调用，共用一份主体','start','text-small');let v=cells(w,Array.from({length:n},(_,i)=>'BL '+(i+1)),y+16,()=>'',4);b+=v.s+down(w/2,y+16+v.height,20)+box(12,y+40+v.height,w-24,48,'active')+txt(w/2,y+70+v.height,'共用主体 + 返回','middle','text-small');render(r,y+100+v.height,'展开与调用',b,'按简化模型：宏主体'+n+'份，共'+n*12+'字节；函数主体1份12字节，另有调用/返回及可能的保存开销。MEXIT终止展开，不是函数返回。')});
+setup('align',(r,w)=>{const raw=val(r,'[data-address]').trim(),b=+val(r,'[data-bound]'),o=+val(r,'[data-offset]');if(!/^(?:0x)?[0-9a-f]{1,8}$/i.test(raw))return error(r,'地址为1—8位十六进制，可带0x。');const a=Number.parseInt(raw.replace(/^0x/i,''),16),next=Math.ceil((a-o)/b)*b+o;render(r,270,'对齐填充',arrowrows(w,[['当前位置',hx(a)],['填充 '+(next-a)+' 字节','寻找 offset + k × boundary','waiting'],['下一位置',hx(next),'active']]),'新位置='+hx(next)+'；填充='+String(next-a)+'字节；新位置模'+b+'='+o+'。')});
+setup('boot',(r,w)=>{const n=+val(r,'[data-step]'),a=[['向量[0] · 地址0x08000000','读出初始MSP，例如0x20000400'],['向量[1] · 地址0x08000004','入口值示例0x08000101'],['真正指令地址0x08000100','Reset_Handler：初始化 / 转入应用'],['exercise_main','执行算法，依接口返回'],['Halt','B Halt，不能靠END停机']];render(r,440,'复位路线',arrowrows(w,a.map((x,i)=>[...x,i===n?'active':'node'])),'当前：'+a[n][0]+'。入口最低位是Thumb标识，实际指令位于偶地址；ENTRY不是硬件复位向量。')});
+setup('carry',(r,w)=>{const n=+val(r,'[data-case]'),lo=n?0x10n:0xFFDDCCBBn,hi=0x11223344n,sum=lo*2n,c=sum>>32n,l=sum&0xFFFFFFFFn,h=hi*2n+c;render(r,310,'多字加法',rows(w,[['低字：ADDS',hx(lo)+' + '+hx(lo)],['低部结果 / 送往高部的进位',hx(l)+' / C='+c,'active'],['高字：ADC',hx(hi)+' × 2 + '+c],['高部结果',hx(h),'active']])+txt(12,295,'高部与低部分别存回，保持约定格式。','start','text-small'),'低字='+hx(l)+'，C='+c+'；高字='+hx(h)+'；64位结果='+hx((h<<32n)|l,16))});
+setup('branch',(r,w)=>{const a=num(r,'[data-r2]'),b=num(r,'[data-r3]'),k=val(r,'[data-kind]');if(![a,b].every(n=>Number.isInteger(n)&&n>=-1000&&n<=1000))return error(r,'两个输入须为−1000—1000的整数。');const yes=k==='signed'?b>a:(b>>>0)>(a>>>0),res=a+(yes?10:100);let s=rows(w,[['先CMP原R3,R2','原R3='+b+'；R2='+a],['条件：原R3 > R2',yes?'成立':'不成立','active'],['若成立：R3 = R2 + 10',yes?'执行 → '+res:'跳过',yes?'active':'node'],['否则：R3 = R2 + 100',yes?'跳过':'执行 → '+res,yes?'node':'active']]);render(r,280,'分支选路',s,(k==='signed'?'有符号':'无符号')+'比较'+(yes?'成立':'不成立')+'；最终R3='+res+'，位串'+hx(res>>>0)+'。')});
+const nums=[-4,-3,0,1,2,3,4,5,6,7];
+setup('count',(r,w)=>{const k=val(r,'[data-kind]'),n=+val(r,'[data-step]'),match=x=>k==='even'?x%2===0:x>0,c=nums.slice(0,n).filter(match).length,a=cells(w,nums,40,i=>i<n?(match(nums[i])?'active':'waiting'):'node');let b=txt(12,24,'蓝色：已计入；淡橙：已读但不计','start','text-small')+a.s;const y=50+a.height;b+=rows(w,[['R0 · 已计入个数',String(c),'active'],['R1 · 下一读取位置',hx(0x20000100+4*n)],['R2 · 剩余项数',String(10-n)]],y);render(r,y+205,'数组计数',b,'已处理'+n+'项；R0='+c+'；剩余'+(10-n)+'；下一指针='+hx(0x20000100+4*n)+(n===10?'（尾后地址，不再读取）':'。'))});
+setup('bubble',(r,w)=>{const n=+val(r,'[data-step]');let a=[12,7,19,8,24],done=0,round=0,next=-1,last='尚未比较';outer:for(let pass=0;pass<4;pass++){for(let i=0;i<4-pass;i++){if(done===n){round=pass;next=i;break outer;}const swap=a[i]<a[i+1];if(swap)[a[i],a[i+1]]=[a[i+1],a[i]];done++;last='第'+(pass+1)+'轮，比较下标'+i+'/'+(i+1)+(swap?'，交换':'，不换');if(i===3-pass)round=pass+1;}}const fixed=n===10?5:round,b=cells(w,a,42,i=>i>=5-fixed?'waiting':(i===next||i===next+1?'active':'node'));render(r,145+b.height,'冒泡过程',txt(12,24,'蓝色：下一对；淡橙：右侧已固定','start','text-small')+b.s+txt(12,65+b.height,'已完成 '+n+' / 10 次比较','start','text-small')+txt(12,91+b.height,n===10?'排序完成':'下一轮继续在未固定区间比较','start','text-small'),'数组=['+a.join(',')+']；'+last+'。'+(n===10?'降序完成。':'下一次下标'+next+'和'+(next+1)+'。'))});
+setup('call',(r,w)=>{const n=+val(r,'[data-step]'),pc=['0x08000100','0x08000200','0x08000300','0x08000220','0x08000104'][n],lr=n<2?'0x08000105':'0x08000221',sp=n===0||n===4?'0x20001000':'0x20000FF0';let b=rows(w,[['当前PC / 当前层',pc+' / '+['caller','Pow','Mul','Pow','caller'][n],'active'],['当前SP',sp],['LR / 原caller链接',n===4?'已由POP送入PC':lr],['栈里保存的原LR',n>=1&&n<=3?'0x08000105，未被内层BL改写':'无活动Pow帧']]);if(w>=500)b+=txt(12,300,'Pow帧：低地址 R4 → R5 → R6 → 保存LR 高地址','start','text-small');else b+=txt(12,300,'帧由低到高：R4 / R5 / R6 / LR','start','text-small');render(r,320,'嵌套调用',b,'阶段'+(n+1)+'：'+['BL建立caller返回链接','PUSH保存16字节，SP保持8对齐','Mul的BL覆盖当前LR，旧链接在栈内','Mul用BX LR回到Pow','POP到PC，回caller；R0输出不被恢复覆盖'][n])});
+setup('factorial',(r,w)=>{const n=+val(r,'[data-n]'),requested=+val(r,'[data-step]'),steps=Math.min(requested,Math.max(0,n-1));let acc=1,parts=[];for(let i=0;i<steps;i++){acc*=n-i;parts.push(n-i)}const left=n-steps;render(r,282,'阶乘过程',rows(w,[['输入N',String(n)],['已经乘过的因子',parts.length?parts.join(' × '):'无；累乘器初值1'],['R0 · acc',String(acc),'active'],['R1 · 下一因子',String(left)+(left<=1?' · 返回':' · 继续')]]),'N='+n+'，已做'+steps+'次乘法，R0='+acc+'，R1='+left+'。'+(left<=1?'满足基本出口。':'尚需继续。'))});
+setup('registers',(r,w)=>{const reg=val(r,'[data-reg]'),d={R0:['参数 / 返回 / 临时','调用者若需要旧值，自行保护','不保证旧值'],R3:['参数 / 临时','调用者若需要旧值，自行保护','不保证旧值'],R4:['保存寄存器','被调函数若修改，返回前恢复','保证按约定恢复'],R9:['平台指定寄存器','先查平台ABI，本章避免借用','不能只凭编号猜'],R12:['临时 / 链接跳板可用','调用者不能跨调用依赖旧值','不保证旧值'],SP:['活动栈顶','返回时恢复进入值，遵守对齐','必须配平'],LR:['当前返回链接','下一次BL前保存仍需使用的旧链接','嵌套BL会覆盖']}[reg];render(r,280,'寄存器责任',rows(w,[[reg+' 的角色',d[0],'active'],['保存责任',d[1]],['接口结论',d[2]],['输出例外','不要恢复R0把返回值抹掉','waiting']]),reg+'：'+d.join('；')+'。')});
+setup('stackargs',(r,w)=>{const saved=+val(r,'[data-saved]'),entry=0x20001000,sp=entry-saved;render(r,356,'第五参数的地址',rows(w,[['R0—R3','a=1，b=2，c=3，d=4'],['调用者出参区：'+hx(entry),'e=5，第5个参数','active'],['调用者出参区：'+hx(entry+4),'4字节对齐空位'],['被调函数当前SP',hx(sp)],['读取e所需偏移','[SP,#'+saved+'] → 5','active']])+txt(12,350,saved%8?'此时若再向外BL，要先恢复8对齐。':'当前SP保持8字节对齐。','start','text-small'),'入口SP='+hx(entry)+'，保存'+saved+'字节后SP='+hx(sp)+'；第5参数在[SP,#'+saved+']，值5。')});
+setup('string',(r,w)=>{const s=val(r,'[data-text]'),n=Math.min(+val(r,'[data-step]'),s.length+1),a=[...s,'\\0'],c=Math.min(n,s.length),source=cells(w,a,42,i=>i<n?'active':'node',4),y=80+source.height,dst=cells(w,a.map((v,i)=>i<n?v:'?'),y+16,()=>'',4);let b=txt(12,24,'源串：读取到终止符后停止','start','text-small')+source.s+txt(12,y,'目的串：复制包括终止符','start','text-small')+dst.s;b+=txt(12,y+dst.height+45,'当前长度计数 = '+c+'，不计终止符','start','text-small');render(r,y+dst.height+72,'复制与计长',b,'已读'+n+'字节；长度计数='+c+'；'+(n>s.length?'已读终止符，复制完成。':'尚未读到终止符。'))});
+setup('mixed',(r,w)=>{const c=val(r,'[data-kind]')==='c2a',a=c?[['C声明/调用','asm_strlen("ARM")'],['参数按接口到汇编','R0 = 字符串地址'],['汇编EXPORT实现','逐字节数到0'],['返回C','R0=3，再存入C变量']]:[['汇编IMPORT/调用','factorial_c'],['参数按接口到C','R0=5，SP在BL时8对齐'],['C实现编译为机器代码','累乘，遵守寄存器约定'],['返回汇编','R0=120，调用者存Result']];render(r,354,'混合调用',arrowrows(w,a.map((x,i)=>[...x,i===1||i===3?'active':'node'])),'方向：'+(c?'C调用汇编strlen，返回3':'汇编调用C阶乘，返回120')+'；链接器解析同名符号，ABI约定数据接口。')});
+setup('cmsis',(r,w)=>{const p=val(r,'[data-path]'),a=[['应用程序','C / C++ / 汇编'],['核访问路径','CMSIS-Core → 核寄存器',p==='core'?'active':'node'],['芯片外设路径','厂商设备定义 / 驱动 → GPIO',p==='vendor'?'active':'node'],['操作系统路径','CMSIS-RTOS接口 → RTOS实现',p==='rtos'?'active':'node'],['算法路径','CMSIS-DSP → 运算与数据',p==='dsp'?'active':'node']];render(r,350,'CMSIS层次',rows(w,a),'当前观察：'+{core:'Core统一核接口，未统一所有厂商外设',vendor:'具体GPIO仍由芯片设备定义和驱动描述',rtos:'标准接口与RTOS实现有区别',dsp:'DSP提供算法库，不是操作系统'}[p]+'。')});
+setup('critical',(r,w)=>{const old=+val(r,'[data-old]'),mode=val(r,'[data-mode]'),end=mode==='restore'?old:0;render(r,282,'临界区状态',rows(w,[['进入前PRIMASK',String(old)],['执行disable_irq后','1 · 屏蔽可配置中断','active'],['执行共享更新','NMI/HardFault仍非由它屏蔽'],['退出后PRIMASK',String(end)+(end===old?' · 与进入前一致':' · 改变了外层状态'),end===old?'active':'waiting']]),'原值='+old+'；退出='+end+'；'+(end===old?'恢复了原屏蔽状态。':'错误地打开了原本关闭的可配置中断。'))});
+setup('qflag',(r,w)=>{const q=+val(r,'[data-q]'),f=val(r,'[data-flags]');let b=txt(12,24,'只看NZCVQ五个字段','start','text-small');['原值','清Q后'].forEach((a,j)=>{const y=44+j*115;b+=txt(12,y,a,'start','text-small');let data=[...f,j?'0':String(q)],cw=(w-24)/5;data.forEach((v,i)=>{let x=12+i*cw;b+=box(x+1,y+12,cw-3,66,i===4?'active':'node')+txt(x+cw/2,y+36,'NZCVQ'[i],'middle','text-small')+txt(x+cw/2,y+62,v,'middle','text-small')})});render(r,273,'清除Q',b,'原NZCV='+f+'，Q='+q+'；BIC掩码0x08000000后，NZCV='+f+'，Q=0。MSR只写指定字段。')});
+})();
+
+</script>
+<script>(()=>{const d=document.getElementById('directory');if(matchMedia('(min-width:1000px)').matches)d.open=true;const ans=()=>[...document.querySelectorAll('details.answer')];document.querySelectorAll('[data-answers]').forEach(b=>b.onclick=()=>ans().forEach(x=>x.open=b.dataset.answers==='open'));document.getElementById('print-book').onclick=()=>window.print();let saved=[];addEventListener('beforeprint',()=>{saved=ans().map(x=>x.open);ans().forEach(x=>x.open=true)});addEventListener('afterprint',()=>ans().forEach((x,i)=>x.open=saved[i]||false));})();</script></body></html>

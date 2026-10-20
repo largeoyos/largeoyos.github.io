@@ -1,0 +1,377 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>全书复习第一讲 · 从程序到外设</title><meta name="description" content="计算机系统八章串讲第一讲：从源码、启动、存储、指令和总线到GPIO、定时与中断，13节、7幅交互SVG与12道复习题。"><style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+body{overflow-x:clip}
+body{overflow-x:visible}html{scroll-padding-top:28px}.layout{gap:42px}main{width:100%}.book-cover .edition{display:flex;gap:18px;align-items:center;font-size:13px;color:var(--muted-foreground)}.book-cover .edition:before{content:'';width:42px;height:3px;background:var(--primary)}.book-cover h1{max-width:850px}.cover-subtitle{display:block;font-size:.58em;margin-top:14px;line-height:1.65}.book-cover .lead{max-width:750px}.cover-facts{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:var(--muted-foreground);margin-top:32px}.book-cover .route{margin-bottom:0}.reader-tools{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}.reader-tools button,.btn{appearance:none;border:1px solid #9eafb0;border-radius:3px;background:var(--card);color:#244f61;font:inherit;line-height:1.5;padding:8px 14px;cursor:pointer}.reader-tools button{font-size:14px}.reader-tools button:hover,.btn:hover{background:var(--accent)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--primary);outline-offset:3px}nav .chapter-nav{color:#243f4b;font-weight:700;padding-top:22px}.chapter-front{padding-top:78px;border-top:3px solid var(--primary);border-bottom:0;margin-top:40px}.chapter-front h2{font-size:2.5rem;line-height:1.45;margin-bottom:28px}.chapter-number{display:block;font-size:14px;font-family:'Microsoft YaHei',sans-serif;letter-spacing:.1em;color:var(--primary);margin-bottom:15px}.chapter-front .lead{max-width:none;font-size:19px}.chapter-front blockquote{font-size:19px}.part-head{border-top:1px solid var(--border)}.part-goal{font-size:15px;color:#354a54;border-left:3px solid #417562;padding:2px 0 2px 18px;margin-bottom:32px}.part-goal p{margin:0 0 8px}.part-goal p:last-child{margin:0}.unit{margin:35px 0 0;scroll-margin-top:25px}.unit h3{margin-top:0;font-size:1.14rem;line-height:1.65;position:relative}.unit-index{display:block;font-size:12px;font-weight:400;letter-spacing:.08em;color:#607778;margin:0 0 4px}.unit+.unit{padding-top:28px;border-top:1px dashed #d7ddd9}.unit h4{font-size:1rem;margin:26px 0 12px}.unit hr{display:none}blockquote{margin:24px 0;padding:12px 0 12px 22px;border-left:3px solid var(--primary);color:#284c5b}blockquote p:last-child{margin-bottom:0}pre{overflow-x:auto;background:#ecf0ed;padding:18px 20px;font-size:14px;line-height:1.85;border-left:3px solid #83999c;tab-size:4;margin:22px 0 26px}code{font-family:'Cascadia Mono',Consolas,'Microsoft YaHei',monospace;font-size:.9em;font-variant-ligatures:none}p code,li code,td code{background:#e8ece8;padding:1px 4px;border-radius:2px;overflow-wrap:anywhere}pre code{font-size:inherit;background:none;padding:0}.eq{white-space:normal;text-align:center;font-size:18px;line-height:1.9;overflow-x:auto;padding:18px 20px}.eq math{display:block;width:max-content;min-width:0;max-width:none;margin:0 auto}math{font-family:'Cambria Math','STIX Two Math',math;font-size:1.08em}.math-inline{white-space:nowrap}mtext{font-family:'Microsoft YaHei','SimSun',sans-serif;font-size:.85em}.diagram{margin:35px auto;max-width:680px;padding:22px 20px 18px;background:#fafaf4;border-top:1px solid #c9d6d6;border-bottom:1px solid #c9d6d6;break-inside:avoid}.diagram .diagram-live{font-size:14px;line-height:1.8}.diagram .text-small{font-size:12px}.diagram .drawing{overflow:visible}.diagram svg{height:auto}.viz-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 18px;margin-bottom:16px}.form-label{display:flex;flex-direction:column;gap:5px;font-size:13px;color:#354e5a;max-width:100%;min-width:0}.form-select,.form-control{font:14px/1.4 'Microsoft YaHei',sans-serif;color:var(--foreground);background:var(--card);border:1px solid #a9b7b5;border-radius:3px;padding:8px 9px;max-width:100%;min-height:38px}.form-control{width:170px}.viz-row{display:flex;flex-wrap:wrap;gap:7px 17px;margin:10px 0}.diagram [aria-live]{font-size:13px;line-height:1.9;margin-top:12px;color:#355260}.diagram figcaption{font-size:13px;line-height:1.9;color:#526269;margin-top:16px}.figure-number{font-weight:700;color:#355768;margin-right:8px}.tabular-nums{font-variant-numeric:tabular-nums}.diagram-print{display:none}.exercise{padding:22px 0;border-top:1px solid var(--border);scroll-margin-top:20px}.exercise h3{margin:0 0 12px;font-size:18px}.exercise>p{margin-bottom:8px}.exercise details{margin-bottom:8px}.answer-content{padding-top:15px;font-size:16px}.answer-content p{font-size:inherit;margin:0 0 14px}.answer-content p:last-child{margin-bottom:0}.answer-content pre{font-size:13px}.answer-content ul,.answer-content ol{padding-left:25px}.question-links{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px}.question-links a{border:1px solid var(--border);padding:4px 9px;text-decoration:none;font-size:14px;background:var(--card)}.source-note{font-size:14px;color:var(--muted-foreground)}.topic-tag{display:inline-block;font-size:12px;font-weight:400;color:var(--primary);border:1px solid #b1c5cb;padding:1px 8px;margin-bottom:12px}.correction-note{border-left:3px solid #ad512d;padding-left:16px;font-size:15px}.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.finish-grid h3{margin-top:0}.answer-tools-note{font-size:13px;color:var(--muted-foreground)}
+@media(max-width:999px){.chapter-front{margin-top:28px}.chapter-front h2{font-size:2.1rem}.layout{max-width:900px}.book-cover{padding-bottom:42px}aside summary{font-size:14px}nav .chapter-nav{grid-column:1/-1}nav a{padding:7px 0}.part-head h2{font-size:1.65rem}}
+@media(max-width:540px){.chapter-front{padding-top:45px}.chapter-front h2{font-size:1.85rem}.book-cover h1{font-size:2.1rem}.cover-subtitle{font-size:.66em}.chapter-front .lead{font-size:17px}.finish-grid{grid-template-columns:1fr}.diagram{padding:18px 12px 14px}.unit h3{font-size:17px}.eq{font-size:16px;padding:14px 10px}.reader-tools{gap:8px}.reader-tools button{font-size:13px;padding:7px 9px}.cover-facts{gap:5px 20px}.part-goal{font-size:14px;padding-left:12px}pre{font-size:13px;padding:14px 12px}.unit+.unit{padding-top:22px}.book-cover .route{font-size:16px}.exercise h3{font-size:17px}}
+@media(max-width:380px){.diagram{margin-left:-16px;margin-right:-16px;padding:18px 1px 14px;width:calc(100% + 32px);max-width:none}.diagram .viz-controls,.diagram .viz-row,.diagram [aria-live],.diagram figcaption{margin-left:15px;margin-right:15px}.diagram .form-select{font-size:13px}.chapter-front h2{font-size:1.7rem}.eq{padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:18mm 17mm 19mm}
+@media print{html{scroll-padding-top:0}body{font-size:10.5pt;line-height:1.75;background:#fff}.layout{display:block;max-width:none;padding:0}.book-cover{padding:20px 0 30px;break-after:page}.book-cover h1{font-size:30pt}.book-cover .lead{font-size:13pt}.chapter-front{break-before:page;margin:0;padding-top:18px;border-top:2px solid #286a88}.chapter-front h2{font-size:23pt}.chapter-front .lead{font-size:12pt}section{break-before:auto;padding:28px 0 10px}.unit{margin-top:22px}.unit+.unit{padding-top:15px}.unit h3{font-size:12pt}.part-head h2{font-size:17pt}.reader-tools,.answer-tools-note,.top-link{display:none!important}h2,h3,h4,summary{break-after:avoid}p,li{orphans:3;widows:3}table{min-width:0;font-size:9pt;line-height:1.7;break-inside:auto}tr{break-inside:avoid}thead{display:table-header-group}.table-wrap{overflow:visible;margin:14px 0}th,td{padding:7px 8px}td:first-child{min-width:0}.eq{font-size:12pt;padding:10px;overflow:visible;break-inside:avoid}pre{font-size:9pt;line-height:1.6;white-space:pre-wrap;overflow:visible;break-inside:avoid;padding:10px 13px}details{break-inside:auto;padding:8px 0}details::details-content{content-visibility:visible;display:block}details:not([open])>:not(summary){display:block!important}.answer-content,.answer-content p{font-size:10pt}.diagram{max-width:155mm;width:100%;margin:20px auto;padding:12px 10px;background:#fff}.diagram-live{display:none}.diagram-print{display:block;font-size:14px;line-height:1.8}.diagram-print svg{display:block;width:100%;height:auto;overflow:visible}.diagram-print .text-small{font-size:12px}.diagram-print text{fill:var(--foreground);font-family:'Microsoft YaHei',sans-serif}.diagram figcaption{font-size:9pt;margin-top:8px}.part-goal{font-size:10pt;margin-bottom:20px}.cover-facts,.scope,.source-note{font-size:9pt}.question-links{display:none}.exercise{padding:14px 0;break-inside:auto}.exercise h3{font-size:11pt}.finish-grid{display:block}footer{padding:25px 0}.chapter-front .eyebrow{font-size:9pt}strong{-webkit-print-color-adjust:exact}*{print-color-adjust:exact}}
+.diagram svg{display:block;width:100%;height:auto}.diagram svg text{font-family:'Microsoft YaHei',sans-serif;fill:var(--foreground)}.diagram svg .node{fill:#edf0e8;stroke:#b8c7c2}.diagram svg .active{fill:#deebe9;stroke:#82a9ac}.diagram svg .waiting{fill:#f6e8d7;stroke:#c3a284}.diagram svg .wire{stroke:#395864;stroke-width:1.3;fill:none}.diagram svg .grid{stroke:#c8d3d0;stroke-width:1;fill:none}.diagram [aria-live]{overflow-wrap:anywhere}.diagram .form-control.short{width:116px}.diagram-print{font-size:14px;line-height:1.8}.section-context{font-size:14px;color:var(--muted-foreground)}.nav-group{font-weight:700;color:#294c5b!important;padding-top:22px!important}.question-links a{min-width:44px;text-align:center}.coverage-table{min-width:520px}.book-cover .lead{max-width:830px}.diagram .viz-controls:empty{display:none}.book-cover .scope{max-width:850px}
+@media(max-width:540px){.book-cover h1{font-size:2.05rem}.cover-subtitle{font-size:.63em}.diagram .form-select{font-size:13px}}
+@media print{.diagram-print svg{height:auto!important}.coverage-table{min-width:0}.lesson h2{font-size:17pt}.book-cover h1{font-size:30pt}.diagram-print svg{font-size:14px}.diagram-print .text-small{font-size:12px}table.compact-table{break-inside:avoid}}
+.source-download{display:inline-block;padding:8px 12px;border:1px solid #b8c7c2;border-radius:4px;font-size:14px;text-decoration:none;background:#edf0e8;color:#294c5b}.source-download:hover{background:#deebe9}@media print{.source-download{display:none}}
+@media print{pre{break-inside:auto}.answer-content pre{font-size:8pt}#sourcecode pre{font-size:8pt}}
+</style><noscript><style>.diagram-live{display:none}.diagram-print{display:block}</style></noscript></head><body><div class="layout"><aside><p class="brand">计算机系统 / 全书复习</p><details id="directory"><summary>展开目录 · 第一讲</summary><nav><a href="#start">学习路线与目标</a><a href="#s01">01 / 先把八章放到同一张图上</a><a href="#s02">02 / 先纠正对象：CPU寄存器、RAM变量和外设寄存器</a><a href="#s03">03 / 从C源文件到Flash：编译、链接各负责什么</a><a href="#s04">04 / 从复位到main：第一条入口不是凭空出现的</a><a href="#s05">05 / 一次写GPIO，如何落到指令与总线事务</a><a href="#s06">06 / 位操作要写成规则，别背一个神秘十六进制数</a><a href="#s07">07 / 从引脚电平到LED亮灭：电路补上最后一步</a><a href="#s08">08 / 定时器先算时钟，再算寄存器</a><a href="#s09">09 / 中断负责报时，主循环负责决定动作</a><a href="#s10">10 / 完整应用源码：先说清构建条件，再看main</a><a href="#s11">11 / 出题人换条件时，你该改哪一层</a><a href="#s12">12 / 先做这十二题，再看答案</a><a href="#s13">13 / 这一讲过关后，下一轮怎么学</a></nav></details></aside><main><header class="book-cover" id="start"><p class="edition">计算机系统 · 全书复习 · 第一讲</p><h1>把八章知识<br>接成一条完整的线<span class="cover-subtitle">从一条程序，到一盏LED</span></h1><p class="lead">知道每章讲过什么，还要知道它们怎样合作。跟着“每500ms翻转一次LED”，把变量、指令、存储、总线、寄存器与电路逐个接起来。</p><p class="scope">前八章整理完成后的第一轮跨章复习。集中解决对象混淆、访问链路、计时与中断，不增加原书章节编号。原书全部内容与习题仍在各章讲义中。</p><div class="cover-facts"><span>13节串讲</span><span>7幅交互SVG</span><span>12道原创复习题</span><span>完整应用源码</span></div><p class="route">C源文件 → 链接映像 → 复位启动 → 指令与总线 → GPIO → 电路与时间</p><div class="reader-tools"><button id="print-book" type="button">打印 / 保存为PDF</button><button data-answers="open" type="button">展开全部答案</button><button data-answers="close" type="button">收起全部答案</button><a class="source-download" href="data:text/plain;charset=utf-8;base64,LyogU1RNMzJGMTAzUkM7IG9mZmljaWFsIENNU0lTL2RldmljZSBzdGFydHVwIGVudmlyb25tZW50IHJlcXVpcmVkLiAqLwojaW5jbHVkZSAic3RtMzJmMTB4LmgiCiNpbmNsdWRlIDxzdGRpbnQuaD4KCnN0YXRpYyB2b2xhdGlsZSB1aW50MzJfdCB0aWNrczsKCnN0YXRpYyBpbnQgY2xvY2tfaHNpXzhtaHoodm9pZCkKewogICAgdWludDMyX3QgZ3VhcmQgPSAxMDAwMDAwdTsKICAgIFJDQy0+Q1IgfD0gMXU7ICAgICAgICAgICAgICAgICAgICAgICAvKiBIU0lPTiAqLwogICAgd2hpbGUgKCEoUkNDLT5DUiAmIDJ1KSAmJiAtLWd1YXJkKSB7IH0KICAgIGlmICghZ3VhcmQpIHJldHVybiAwOwogICAgUkNDLT5DRkdSICY9IH4zdTsgICAgICAgICAgICAgICAgICAgIC8qIFNXID0gSFNJICovCiAgICBndWFyZCA9IDEwMDAwMDB1OwogICAgd2hpbGUgKChSQ0MtPkNGR1IgJiAxMnUpICYmIC0tZ3VhcmQpIHsgfQogICAgaWYgKCFndWFyZCkgcmV0dXJuIDA7ICAgICAgICAgICAgICAgIC8qIHdhaXQgZm9yIFNXUyA9IEhTSSAqLwogICAgUkNDLT5DRkdSICY9IH4oKDE1dSA8PCA0KSB8ICg3dSA8PCA4KSB8ICg3dSA8PCAxMSkpOwogICAgUkNDLT5DUiAmPSB+KDF1IDw8IDI0KTsgICAgICAgICAgICAgIC8qIFBMTCBubyBsb25nZXIgdGhlIHNvdXJjZSAqLwogICAgU3lzdGVtQ29yZUNsb2NrID0gODAwMDAwMHU7CiAgICByZXR1cm4gMTsKfQoKc3RhdGljIHZvaWQgbGVkX2luaXQodm9pZCkKewogICAgUkNDLT5BUEIyRU5SIHw9IDF1IDw8IDI7ICAgICAgICAgICAgIC8qIEdQSU9BIGNsb2NrICovCiAgICAodm9pZClSQ0MtPkFQQjJFTlI7ICAgICAgICAgICAgICAgICAgLyogYWxsb3cgY2xvY2sgZW5hYmxlIHRvIHByb3BhZ2F0ZSAqLwogICAgR1BJT0EtPkJTUlIgPSAxdSA8PCA4OyAgICAgICAgICAgICAgIC8qIGluYWN0aXZlIGhpZ2ggYmVmb3JlIG91dHB1dCAqLwogICAgR1BJT0EtPkNSSCA9IChHUElPQS0+Q1JIICYgfjE1dSkgfCAydTsgLyogUEE4OiBQUCwgMk1IeiAqLwp9CgpzdGF0aWMgdm9pZCB0aWNrX2luaXQodm9pZCkKewogICAgUkNDLT5BUEIxRU5SIHw9IDF1OyAgICAgICAgICAgICAgICAgIC8qIFRJTTIgY2xvY2sgKi8KICAgICh2b2lkKVJDQy0+QVBCMUVOUjsKICAgIFRJTTItPkNSMSA9IDA7CiAgICBUSU0yLT5ESUVSID0gMDsKICAgIFRJTTItPlBTQyA9IDc7CiAgICBUSU0yLT5BUlIgPSA5OTk7ICAgICAgICAgICAgICAgICAgICAgLyogOE1IeiAvIDggLyAxMDAwID0gMWtIeiAqLwogICAgVElNMi0+RUdSID0gMTsgICAgICAgICAgICAgICAgICAgICAgIC8qIFVHIGxvYWRzIHRoZSBwcmVzY2FsZXIgKi8KICAgIFRJTTItPlNSID0gMDsgICAgICAgICAgICAgICAgICAgICAgICAvKiBkaXNjYXJkIGluaXRpYWxpemF0aW9uIFVJRiAqLwogICAgVElNMi0+Q05UID0gMDsKICAgIHRpY2tzID0gMDsKICAgIE5WSUNfU2V0UHJpb3JpdHlHcm91cGluZygzKTsKICAgIE5WSUNfU2V0UHJpb3JpdHkoVElNMl9JUlFuLCAyKTsKICAgIE5WSUNfQ2xlYXJQZW5kaW5nSVJRKFRJTTJfSVJRbik7CiAgICBOVklDX0VuYWJsZUlSUShUSU0yX0lSUW4pOwogICAgVElNMi0+RElFUiA9IDE7ICAgICAgICAgICAgICAgICAgICAgIC8qIFVJRSAqLwogICAgVElNMi0+Q1IxID0gMTsgICAgICAgICAgICAgICAgICAgICAgIC8qIENFTiAqLwp9Cgp2b2lkIFRJTTJfSVJRSGFuZGxlcih2b2lkKQp7CiAgICBpZiAoVElNMi0+U1IgJiAxdSkgewogICAgICAgIFRJTTItPlNSID0gKHVpbnQxNl90KX4xdTsgICAgICAgIC8qIHdyaXRlIDAgdG8gY2xlYXIgVUlGIG9ubHkgKi8KICAgICAgICArK3RpY2tzOwogICAgfQp9CgppbnQgbWFpbih2b2lkKQp7CiAgICB1aW50MzJfdCBzaW5jZSwgbm93OwogICAgdW5zaWduZWQgb24gPSAwOwogICAgaWYgKCFjbG9ja19oc2lfOG1oeigpKSBmb3IgKDs7KSB7IH0gIC8qIGJvdW5kZWQgc3RhcnR1cCBmYWlsZWQgKi8KICAgIGxlZF9pbml0KCk7CiAgICB0aWNrX2luaXQoKTsKICAgIHNpbmNlID0gdGlja3M7CiAgICBmb3IgKDs7KSB7CiAgICAgICAgbm93ID0gdGlja3M7CiAgICAgICAgaWYgKCh1aW50MzJfdCkobm93IC0gc2luY2UpID49IDUwMHUpIHsKICAgICAgICAgICAgc2luY2UgPSBub3c7CiAgICAgICAgICAgIG9uIF49IDF1OwogICAgICAgICAgICBHUElPQS0+QlNSUiA9IG9uID8gKDF1IDw8IDI0KSA6ICgxdSA8PCA4KTsKICAgICAgICB9CiAgICB9Cn0K" download="计算机系统-复习第一讲LED闪烁源码.c">下载本讲源码</a></div><p class="source-note"><a href="教程合集.html#computer">返回计算机系统全书目录 →</a>　<a href="计算机系统-第八章ARM硬件与软件系统设计开发完整讲义.html">回到第八章 →</a></p><a class="continue" href="#s01">先从八章的分工开始 →</a></header>
+<section class="lesson part-head" id="s01"><p class="eyebrow">全书复习 · 第一讲 · 第01节</p><h2>先把八章放到同一张图上</h2><div class="part-goal"><p><strong>掌握要求：</strong>能说清每一章解决什么问题，再判断题目需要哪些章一起用。</p></div><p>前八章已经讲完。这一讲开始做跨章复习：<strong>跟着一条“让LED闪烁”的程序，把源码、存储、指令、总线、时钟、GPIO和中断接起来。</strong> 先把这条线讲通，后面再集中做存储、寻址与通信综合题。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原章</th>
+<th>它解决什么问题</th>
+<th>做题必须留下的能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一、二章</td>
+<td>计算机由什么组成，信息怎样表示，指令怎样执行</td>
+<td>认清CPU、存储、I/O；会算编码、容量、地址和基本执行过程</td>
+</tr>
+<tr>
+<td>第三章</td>
+<td>数据放在哪里，容量/速度怎样兼顾，怎样找到它</td>
+<td>容量与地址范围、片选、存储层次；理解Cache和虚拟存储各自作用</td>
+</tr>
+<tr>
+<td>第四章</td>
+<td>CPU与外设怎样交换数据，谁在何时占用通路</td>
+<td>总线事务、地址译码、轮询/中断/DMA的区别</td>
+</tr>
+<tr>
+<td>第五章</td>
+<td>ARM程序能看到哪些寄存器、状态和异常机制</td>
+<td>区分通用寄存器、SP/LR/PC、状态寄存器与外设寄存器</td>
+</tr>
+<tr>
+<td>第六章</td>
+<td>每条ARM指令具体做了什么</td>
+<td>寻址、数据宽度、条件、移位、算术与访存效果</td>
+</tr>
+<tr>
+<td>第七章</td>
+<td>怎样把指令组织成能正确合作的程序</td>
+<td>分支/循环、子程序、栈、接口约定、C与汇编协作</td>
+</tr>
+<tr>
+<td>第八章</td>
+<td>怎样让这些能力控制实际芯片与电路</td>
+<td>型号、引脚、时钟、配置顺序、状态/中断及边界条件</td>
+</tr>
+</tbody></table></div>
+<figure class="diagram" id="fig-chain" data-figure="chain"><div class="diagram-live"><div id="r1-chain"><div class="viz-controls"><label class="form-label">观察哪一步<select class="form-select" data-step><option value="0">源文件</option><option value="1">构建下载</option><option value="2">启动</option><option value="3">指令与地址</option><option value="4" selected>总线事务</option><option value="5">GPIO与电路</option></select></label></div><svg class="drawing" role="img" aria-label="八章串联的程序执行链"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-chain"><svg class="drawing" role="img" aria-label="八章串联的程序执行链" viewBox="0 0 640 474"><title>从程序到电路</title><rect x="12" y="12" width="616" height="58" rx="3" class="node"></rect><text x="24" y="35" text-anchor="start" class="text-small">写源文件</text><text x="24" y="55" text-anchor="start" class="text-small">第七章：业务、循环与接口</text><path d="M320 70 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="90" width="616" height="58" rx="3" class="node"></rect><text x="24" y="113" text-anchor="start" class="text-small">构建与下载</text><text x="24" y="133" text-anchor="start" class="text-small">第七章：编译、链接和映像</text><path d="M320 148 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="168" width="616" height="58" rx="3" class="node"></rect><text x="24" y="191" text-anchor="start" class="text-small">复位进入程序</text><text x="24" y="211" text-anchor="start" class="text-small">第五/八章：向量、启动与时钟</text><path d="M320 226 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="246" width="616" height="58" rx="3" class="node"></rect><text x="24" y="269" text-anchor="start" class="text-small">指令访问目标地址</text><text x="24" y="289" text-anchor="start" class="text-small">第二/三/六章：取指、数据与寻址</text><path d="M320 304 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="324" width="616" height="58" rx="3" class="active"></rect><text x="24" y="347" text-anchor="start" class="text-small">总线把访问送到GPIO</text><text x="24" y="367" text-anchor="start" class="text-small">第四章：地址、数据与控制</text><path d="M320 382 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="402" width="616" height="58" rx="3" class="node"></rect><text x="24" y="425" text-anchor="start" class="text-small">引脚改变电平</text><text x="24" y="445" text-anchor="start" class="text-small">第八章：模式与外部电路</text></svg><div aria-live="polite">当前：总线把访问送到GPIO；第四章：地址、数据与控制。用这一层的规则解释，别跳过中间环节。</div></div></div><figcaption><span class="figure-number">复习图1-1</span>蓝色为选中阶段；箭头表示主要因果路径，不能省略时钟、模式和接线前提。</figcaption></figure>
+
+
+
+<p><strong>重要程度分三层。</strong> 第一层要能独立计算和写出来：位操作、地址/宽度、时钟/定时、分支/循环、栈和外设配置。第二层要能解释因果：为何中断能打断、为何需要启动初始化、为何DMA仍需CPU配置。第三层认识用途再查表：旧工具名、冷门模式、特定芯片的完整外设清单。</p>
+<p>这里再讲背景，是为了让你能判断题目用了哪个模型。比如“有Cache的通用计算机”和“本讲的F103裸机”条件不同，不能把一种平台的假设强行放进另一种平台。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s02"><p class="eyebrow">全书复习 · 第一讲 · 第02节</p><h2>先纠正对象：CPU寄存器、RAM变量和外设寄存器</h2><div class="part-goal"><p><strong>掌握要求：</strong>看到R0、一个C变量、GPIOA->BSRR时，能分别说出它们是什么。</p></div><p><strong>CPU里的R0与GPIO外设里的ODR/BSRR都叫寄存器，但属于不同位置、不同访问方式。</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>在哪里</th>
+<th>怎样使用</th>
+<th>典型题目</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R0—R12、SP、LR、PC</td>
+<td>处理器可见寄存器组</td>
+<td>指令直接指定寄存器操作数</td>
+<td>执行结果、参数传递、栈和返回</td>
+</tr>
+<tr>
+<td><code>volatile uint32_t ticks</code></td>
+<td>通常位于SRAM，具体取决于存储布局</td>
+<td>地址加读写指令；volatile限制相关优化</td>
+<td>中断共享、变量初值、内存布局</td>
+</tr>
+<tr>
+<td>GPIO配置/数据寄存器</td>
+<td>MCU片上外设模块，映射到地址空间</td>
+<td>对指定地址发起访问，硬件解释读写</td>
+<td>配置引脚、读按键、控制输出</td>
+</tr>
+</tbody></table></div>
+<p>普通C变量也可能被优化到CPU寄存器、被常量折叠甚至消失，所以“写了一个变量就必然有一个固定RAM格子”并不成立。本讲的中断共享计数器明确用volatile，并依赖其32位对齐与目标平台访问特性。</p>
+<figure class="diagram" id="fig-mmio" data-figure="mmio"><div class="diagram-live"><div id="r1-mmio"><div class="viz-controls"><label class="form-label">这次写到哪里<select class="form-select" data-target><option value="ram">SRAM普通字</option><option value="gpio" selected>GPIOA_BSRR</option></select></label></div><svg class="drawing" role="img" aria-label="STR访问不同的地址目标"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-mmio"><svg class="drawing" role="img" aria-label="STR访问不同的地址目标" viewBox="0 0 640 318"><title>同一条STR的不同目标</title><rect x="12" y="12" width="616" height="58" rx="3" class="node"></rect><text x="24" y="35" text-anchor="start" class="text-small">R1：待写的32位值</text><text x="24" y="55" text-anchor="start" class="text-small">0x01000000</text><path d="M320 70 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="90" width="616" height="58" rx="3" class="active"></rect><text x="24" y="113" text-anchor="start" class="text-small">R0：目标地址</text><text x="24" y="133" text-anchor="start" class="text-small">0x40010810 · GPIOA_BSRR</text><path d="M320 148 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="168" width="616" height="58" rx="3" class="node"></rect><text x="24" y="191" text-anchor="start" class="text-small">STR R1,[R0]</text><text x="24" y="211" text-anchor="start" class="text-small">按地址发出字写访问</text><path d="M320 226 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="246" width="616" height="58" rx="3" class="active"></rect><text x="24" y="269" text-anchor="start" class="text-small">目标模块的解释</text><text x="24" y="289" text-anchor="start" class="text-small">命令：将PA8输出锁存清为0</text></svg><div aria-live="polite">同一条STR；GPIO按BSRR命令语义解释；其他引脚不因本次写0而改变。</div></div></div><figcaption><span class="figure-number">复习图1-2</span>数值和指令相同，目标地址及硬件解释不同。GPIOA时钟和相应模式假定已配置。</figcaption></figure>
+
+
+
+<p><strong>做题先问：我在改哪个对象？</strong> <code>MOVS R0,#1</code>改R0；对SRAM地址做STR改相应内存；对BSRR地址做STR则向GPIO发出置位/复位命令。写指令同为STR，不代表目标的硬件语义相同。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s03"><p class="eyebrow">全书复习 · 第一讲 · 第03节</p><h2>从C源文件到Flash：编译、链接各负责什么</h2><div class="part-goal"><p><strong>掌握要求：</strong>区分源文件、目标文件、链接映像、运行地址；知道初始化数据为什么可能有两份位置。</p></div><p>源文件先被编译/汇编成目标文件，再由链接器组合代码、常量、数据和符号，最后生成可下载映像。链接器结合存储布局决定各段和符号地址，下载工具把相应内容写进Flash等目标存储。</p>
+<p>在典型MCU布局中：程序与常量主要在Flash；需要修改的数据主要在SRAM；有初值的可写数据可以在Flash保存初值副本，启动时复制到SRAM；零初始化数据按运行库规则清零。栈用于活动调用与局部存储，堆是否使用由程序和运行库决定。</p>
+<pre><code class="language-c">uint32_t count = 7;
+uint32_t total;
+</code></pre>
+<p>在常见链接布局中，count有Flash中的初值与SRAM中的运行位置；total的静态零初值由启动过程建立。<strong>Flash里存着初值，不等于CPU以后修改count也在改Flash。</strong> 不同工具和布局可能改变细节，题目给了段表就按段表判断。</p>
+<p>编译器不会自动知道你的LED接哪一脚、哪个电平亮。它按代码和目标规则生成程序；引脚、时钟和电气仍由系统设计与初始化保证。这就是为什么第七章之后还必须学第八章。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s04"><p class="eyebrow">全书复习 · 第一讲 · 第04节</p><h2>从复位到main：第一条入口不是凭空出现的</h2><div class="part-goal"><p><strong>掌握要求：</strong>能解释启动来源、向量表前两个字和Reset_Handler的职责。</p></div><p>F103硬件复位先使用HSI。BOOT引脚选择用户Flash、系统存储器或SRAM作为启动来源；启动代码随后可以按配置切换时钟。<strong>硬件默认时钟与main开始时的时钟，可能不同。</strong></p>
+<p>在Cortex-M的复位模型中，向量表首字用于初始MSP，第二字提供复位入口指针。以用户Flash映像位于0x08000000的典型布局为例，映像前两个字分别在0x08000000和0x08000004；复位时的启动映射还要结合BOOT理解。</p>
+<p>例如第二字存0x08000101，表示Thumb入口，实际指令地址为0x08000100。最低位的状态标记与真正的指令地址要分清。不能把M系列向量表概括成“一排B指令”。</p>
+<p>Reset_Handler和运行库建立必要环境，例如数据初始化、栈与系统初始化，然后进入main。具体执行顺序以匹配的启动模板为准。<strong>ENTRY、END、C的main与硬件复位向量，分属不同层次。</strong></p>
+<p>这一段考试常考过程与地址；实际调试时则用来区分“根本没进main”与“进了main但外设没配好”。不要求你无提示重写完整C运行库。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s05"><p class="eyebrow">全书复习 · 第一讲 · 第05节</p><h2>一次写GPIO，如何落到指令与总线事务</h2><div class="part-goal"><p><strong>掌握要求：</strong>把C表达式拆成值、地址、访问宽度与硬件作用。</p></div><p>对本讲F103而言，GPIOA的BSRR地址为0x40010810。下面的语句向它写入bit24：</p>
+<pre><code class="language-c">GPIOA-&gt;BSRR = 1u &lt;&lt; (8u + 16u);
+</code></pre>
+<p>BSRR低16位写1对应置高，高16位写1对应复位到低；所以这次作用于PA8，将输出锁存值清为0。写入值为0x01000000。</p>
+<p>用第六、七章的汇编表示，可以写成这样的教学示意：</p>
+<pre><code class="language-armasm">    LDR R0, =0x40010810   ; 地址：GPIOA_BSRR
+    LDR R1, =0x01000000   ; 命令：复位PA8
+    STR R1, [R0]         ; 对该地址执行字写
+</code></pre>
+<p>这里LDR带等号是装载常量的伪指令写法；确切机器指令和常量池由汇编器处理。<strong>这不是承诺编译器必然把上面的C编成这三行。</strong> 它只把地址和值的职责展开给你看。</p>
+<p>处理器发出地址与数据访问，片上总线互连/桥接/译码将它送到GPIO模块。地址决定选哪个目标，数据决定写什么，访问类型与宽度决定这次事务怎样进行。此处不需要操作系统系统调用。</p>
+<p>本讲按F103裸机地址分析，不经过操作系统页表转换。第三章的Cache与虚拟存储仍要学：它们解释其他系统怎样处理速度与地址映射；其存在与细节由具体平台决定。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s06"><p class="eyebrow">全书复习 · 第一讲 · 第06节</p><h2>位操作要写成规则，别背一个神秘十六进制数</h2><div class="part-goal"><p><strong>掌握要求：</strong>会计算BSRR命令、配置字段掩码，区分普通存储与命令寄存器。</p></div><p>对第p脚，BSRR置高写<code>1u &lt;&lt; p</code>；复位到低写<code>1u &lt;&lt; (p + 16u)</code>。它们是写命令，不是把一个变量原值读出来改一改。</p>
+<figure class="diagram" id="fig-bsrr" data-figure="bsrr"><div class="diagram-live"><div id="r1-bsrr"><div class="viz-controls"><label class="form-label">引脚编号<select class="form-select" data-pin><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected>8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option></select></label><label class="form-label">动作<select class="form-select" data-action><option value="set">置高</option><option value="reset" selected>复位到低</option></select></label></div><svg class="drawing" role="img" aria-label="GPIO置位和复位的命令位置"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-bsrr"><svg class="drawing" role="img" aria-label="GPIO置位和复位的命令位置" viewBox="0 0 640 151"><title>BSRR位命令</title><text x="12" y="24" text-anchor="start" class="text-small">BSRR：从bit31到bit0</text><rect x="13" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="31.25" y="54" text-anchor="middle" class="text-small">31</text><text x="31.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="69.75" y="54" text-anchor="middle" class="text-small">30</text><text x="69.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="90" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="108.25" y="54" text-anchor="middle" class="text-small">29</text><text x="108.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="146.75" y="54" text-anchor="middle" class="text-small">28</text><text x="146.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="167" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="185.25" y="54" text-anchor="middle" class="text-small">27</text><text x="185.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="223.75" y="54" text-anchor="middle" class="text-small">26</text><text x="223.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="244" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="262.25" y="54" text-anchor="middle" class="text-small">25</text><text x="262.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="38" width="35.5" height="42" rx="3" class="active"></rect><text x="300.75" y="54" text-anchor="middle" class="text-small">24</text><text x="300.75" y="72" text-anchor="middle" class="text-small">1</text><rect x="321" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="339.25" y="54" text-anchor="middle" class="text-small">23</text><text x="339.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="377.75" y="54" text-anchor="middle" class="text-small">22</text><text x="377.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="398" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="416.25" y="54" text-anchor="middle" class="text-small">21</text><text x="416.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="454.75" y="54" text-anchor="middle" class="text-small">20</text><text x="454.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="475" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="493.25" y="54" text-anchor="middle" class="text-small">19</text><text x="493.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="531.75" y="54" text-anchor="middle" class="text-small">18</text><text x="531.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="552" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="570.25" y="54" text-anchor="middle" class="text-small">17</text><text x="570.25" y="72" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="38" width="35.5" height="42" rx="3" class="node"></rect><text x="608.75" y="54" text-anchor="middle" class="text-small">16</text><text x="608.75" y="72" text-anchor="middle" class="text-small">0</text><rect x="13" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="31.25" y="105" text-anchor="middle" class="text-small">15</text><text x="31.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="51.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="69.75" y="105" text-anchor="middle" class="text-small">14</text><text x="69.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="90" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="108.25" y="105" text-anchor="middle" class="text-small">13</text><text x="108.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="128.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="146.75" y="105" text-anchor="middle" class="text-small">12</text><text x="146.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="167" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="185.25" y="105" text-anchor="middle" class="text-small">11</text><text x="185.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="205.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="223.75" y="105" text-anchor="middle" class="text-small">10</text><text x="223.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="244" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="262.25" y="105" text-anchor="middle" class="text-small">9</text><text x="262.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="282.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="300.75" y="105" text-anchor="middle" class="text-small">8</text><text x="300.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="321" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="339.25" y="105" text-anchor="middle" class="text-small">7</text><text x="339.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="359.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="377.75" y="105" text-anchor="middle" class="text-small">6</text><text x="377.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="398" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="416.25" y="105" text-anchor="middle" class="text-small">5</text><text x="416.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="436.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="454.75" y="105" text-anchor="middle" class="text-small">4</text><text x="454.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="475" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="493.25" y="105" text-anchor="middle" class="text-small">3</text><text x="493.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="513.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="531.75" y="105" text-anchor="middle" class="text-small">2</text><text x="531.75" y="123" text-anchor="middle" class="text-small">0</text><rect x="552" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="570.25" y="105" text-anchor="middle" class="text-small">1</text><text x="570.25" y="123" text-anchor="middle" class="text-small">0</text><rect x="590.5" y="89" width="35.5" height="42" rx="3" class="node"></rect><text x="608.75" y="105" text-anchor="middle" class="text-small">0</text><text x="608.75" y="123" text-anchor="middle" class="text-small">0</text></svg><div aria-live="polite">第8脚复位到低：写bit24，值=0x01000000。其余命令位写0表示本次不动作。</div></div></div><figcaption><span class="figure-number">复习图1-3</span>上半区写1复位、下半区写1置位；0表示本次不动作，不表示把对应脚写低。</figcaption></figure>
+
+
+
+<p>如果目标是PA8的配置字段，PA8在CRH，字段为bit3:0。普通推挽、2MHz输出的4位编码为0010，可写成：</p>
+<pre><code class="language-c">GPIOA-&gt;CRH = (GPIOA-&gt;CRH &amp; ~0xFu) | 0x2u;
+</code></pre>
+<p>这是“清目标字段，再写新字段”，其他引脚配置保留。若题目改成PC6，则字段在CRL bit27:24；50MHz普通推挽编码0011，写入字段值为0x03000000，清位掩码为0x0F000000。</p>
+<p><strong>三种寄存器不能混成一个模板：</strong> 普通配置字段常用读改写；BSRR用直接命令写；EXTI_PR是写1清对应挂起位，也直接写目标掩码。对PR使用<code>|=</code>会把读到的其他1一并写回，从而可能误清别的来源。</p>
+<p>原子地设置/复位GPIO目标位，不能自动证明整个算法并发正确；别处若仍然整字重写ODR，也需要统一访问约定。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s07"><p class="eyebrow">全书复习 · 第一讲 · 第07节</p><h2>从引脚电平到LED亮灭：电路补上最后一步</h2><div class="part-goal"><p><strong>掌握要求：</strong>能根据接线判断有效电平；不把高电平与“亮”画等号。</p></div><p>本讲LED接法：<strong>3.3V → 510Ω限流电阻 → LED → PA8</strong>。GPIO输出低，电流从电源经电阻、LED流入PA8，LED亮；GPIO输出高时，通常没有足够正向压差，LED灭。</p>
+<figure class="diagram" id="fig-led" data-figure="led"><div class="diagram-live"><div id="r1-led"><div class="viz-controls"><label class="form-label">PA8电平<select class="form-select" data-level><option value="0" selected>0：输出低</option><option value="1">1：输出高</option></select></label></div><svg class="drawing" role="img" aria-label="低有效LED电路"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-led"><svg class="drawing" role="img" aria-label="低有效LED电路" viewBox="0 0 640 264"><title>低有效LED连接</title><text x="320" y="22" text-anchor="middle" class="text-small">3.3V</text><path d="M320 30 V49" class="wire"></path><rect x="276" y="49" width="88" height="35" rx="3" class="node"></rect><text x="320" y="72" text-anchor="middle" class="text-small">510Ω</text><path d="M320 84 V108" class="wire"></path><polygon points="304,108 336,108 320,135" class="waiting"></polygon><path d="M301 137 H339 M320 137 V169" class="wire"></path><path d="M342 115 l15 -15 m-6 0 h6 v6 M347 131 l15 -15 m-6 0 h6 v6" class="wire"></path><text x="292" y="123" text-anchor="end" class="text-small">A</text><text x="292" y="151" text-anchor="end" class="text-small">K</text><rect x="259" y="169" width="122" height="45" rx="3" class="active"></rect><text x="320" y="196" text-anchor="middle" class="text-small">PA8 = 0</text><text x="320" y="244" text-anchor="middle" class="text-small">LED亮</text></svg><div aria-live="polite">PA8低：电流由3.3V经电阻、LED流入PA8，LED亮。</div></div></div><figcaption><span class="figure-number">复习图1-4</span>A为阳极、K为阴极，右侧箭头表示发光。连接为3.3V、电阻、LED、PA8；示意省略供电去耦等电路。</figcaption></figure>
+
+
+
+<p>如果换成“PA8→电阻→LED→地”，有效电平会变成高。题目中的亮灭结果必须按电路判断，不能只看函数名SetBits。</p>
+<p>推挽输出可以主动拉高或拉低；开漏写1表示释放引脚，需要外部上拉等条件才能建立高电平，输入读值还能被外部拉低。输入模式、输出模式、普通GPIO、复用功能也必须分清。</p>
+<p>2MHz/10MHz/50MHz输出档描述相应驱动/边沿能力设置，不表示GPIO会自己周期输出该频率。周期波形需要程序翻转或定时器等硬件功能。限流电阻保证实际电流受控；MCU脚不能直接承担任意功率负载。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s08"><p class="eyebrow">全书复习 · 第一讲 · 第08节</p><h2>定时器先算时钟，再算寄存器</h2><div class="part-goal"><p><strong>掌握要求：</strong>独立算出更新周期，并分清一次翻转与一次完整闪烁周期。</p></div><p>向上计数、边沿对齐、标准更新模型下：</p>
+<div class="eq"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>T</mi><mrow><mi>u</mi><mi>p</mi><mi>d</mi><mi>a</mi><mi>t</mi><mi>e</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mo stretchy="false">&#x00028;</mo><mi>P</mi><mi>S</mi><mi>C</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo><mo stretchy="false">&#x00028;</mo><mi>A</mi><mi>R</mi><mi>R</mi><mo>&#x0002B;</mo><mn>1</mn><mo stretchy="false">&#x00029;</mo></mrow><mrow><msub><mi>f</mi><mrow><mi>T</mi><mi>I</mi><mi>M</mi></mrow></msub></mrow></mfrac></mrow></math></div>
+
+
+
+<p><strong>fTIM是该定时器真正的输入时钟，不必等于SYSCLK，也不总等于PCLK。</strong> F103在APB预分频为1时，相关TIM通常取PCLK；分频不为1时取2×PCLK。USART2不会因此也自动倍频。</p>
+<p>例如SYSCLK=HCLK=72MHz，APB1除2：PCLK1=36MHz，TIM2=72MHz。若PSC=35999、ARR=999，则更新周期0.5秒。若每次更新翻转LED，亮0.5秒、灭0.5秒，完整周期1秒，频率1Hz。</p>
+<figure class="diagram" id="fig-timer" data-figure="timer"><div class="diagram-live"><div id="r1-timer"><div class="viz-controls"><label class="form-label">TIM输入 MHz<select class="form-select" data-mhz><option value="8" selected>8MHz</option><option value="72">72MHz</option></select></label><label class="form-label">PSC<input class="form-control" type="number" data-psc value="7" min="0" max="65535" step="1"></label><label class="form-label">ARR<input class="form-control" type="number" data-arr value="999" min="0" max="65535" step="1"></label><label class="form-label">几次更新翻转<input class="form-control" type="number" data-events value="500" min="1" max="1000" step="1"></label></div><svg class="drawing" role="img" aria-label="定时器更新周期与LED完整周期"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-timer"><svg class="drawing" role="img" aria-label="定时器更新周期与LED完整周期" viewBox="0 0 640 318"><title>更新与闪烁周期</title><rect x="12" y="12" width="616" height="58" rx="3" class="node"></rect><text x="24" y="35" text-anchor="start" class="text-small">TIM输入时钟</text><text x="24" y="55" text-anchor="start" class="text-small">8MHz</text><path d="M320 70 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="90" width="616" height="58" rx="3" class="active"></rect><text x="24" y="113" text-anchor="start" class="text-small">每次更新周期</text><text x="24" y="133" text-anchor="start" class="text-small">1.000000ms</text><path d="M320 148 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="168" width="616" height="58" rx="3" class="node"></rect><text x="24" y="191" text-anchor="start" class="text-small">每次翻转累计更新次数</text><text x="24" y="211" text-anchor="start" class="text-small">500次 → 间隔0.5000000s</text><path d="M320 226 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="246" width="616" height="58" rx="3" class="active"></rect><text x="24" y="269" text-anchor="start" class="text-small">完整亮灭周期</text><text x="24" y="289" text-anchor="start" class="text-small">1s</text></svg><div aria-live="polite">更新周期=1ms；翻转间隔=0.5s；完整周期=1s，闪烁频率=1Hz。</div></div></div><figcaption><span class="figure-number">复习图1-5</span>向上计数模型。一次翻转只完成高低电平切换，两次翻转才形成一个完整周期。</figcaption></figure>
+
+
+
+<p>本讲完整程序沿用第八章源码策略，主动切换HSI 8MHz，并设AHB/APB无分频。TIM2设PSC=7、ARR=999，得到1ms更新；主循环累计到500ms翻灯。因此程序里的PSC与上面72MHz直算例不同，结果仍一致。</p>
+<p>PSC通常有缓冲，写入后还要按规则使新参数生效。初始化可以生成UG，再清掉初始化产生的UIF，最后使能中断和计数。不要刚开NVIC就把一次初始化更新误认成已经过了完整周期。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s09"><p class="eyebrow">全书复习 · 第一讲 · 第09节</p><h2>中断负责报时，主循环负责决定动作</h2><div class="part-goal"><p><strong>掌握要求：</strong>能从一个时间轴解释ISR、共享计数与业务逻辑；知道volatile的边界。</p></div><p>定时器每1ms更新一次，置UIF；外设UIE和NVIC允许，且内核屏蔽/优先级条件满足时，进入TIM2_IRQHandler。ISR清本次源并给ticks加1，然后尽快返回。</p>
+<figure class="diagram" id="fig-irq" data-figure="irq"><div class="diagram-live"><div id="r1-irq"><div class="viz-controls"><label class="form-label">观察阶段<select class="form-select" data-step><option value="0">TIM更新</option><option value="1">异常进入</option><option value="2" selected>ISR报时</option><option value="3">异常返回</option><option value="4">主循环判断</option><option value="5">GPIO输出</option></select></label></div><svg class="drawing" role="img" aria-label="从更新事件到主循环动作"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-irq"><svg class="drawing" role="img" aria-label="从更新事件到主循环动作" viewBox="0 0 640 474"><title>1ms节拍如何触发500ms业务</title><rect x="12" y="12" width="616" height="58" rx="3" class="node"></rect><text x="24" y="35" text-anchor="start" class="text-small">TIM2更新</text><text x="24" y="55" text-anchor="start" class="text-small">UIF置1，且UIE/NVIC允许</text><path d="M320 70 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="90" width="616" height="58" rx="3" class="node"></rect><text x="24" y="113" text-anchor="start" class="text-small">进入异常</text><text x="24" y="133" text-anchor="start" class="text-small">基本帧R0—R3/R12/LR/PC/xPSR</text><path d="M320 148 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="168" width="616" height="58" rx="3" class="active"></rect><text x="24" y="191" text-anchor="start" class="text-small">执行短ISR</text><text x="24" y="211" text-anchor="start" class="text-small">清UIF；ticks由499增到500</text><path d="M320 226 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="246" width="616" height="58" rx="3" class="node"></rect><text x="24" y="269" text-anchor="start" class="text-small">异常返回</text><text x="24" y="289" text-anchor="start" class="text-small">恢复现场，回到原执行位置</text><path d="M320 304 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="324" width="616" height="58" rx="3" class="node"></rect><text x="24" y="347" text-anchor="start" class="text-small">主循环检查</text><text x="24" y="367" text-anchor="start" class="text-small">500 - 0 ≥ 500，条件成立</text><path d="M320 382 v18 m-4 -5 l4 5 l4 -5" class="wire"></path><rect x="12" y="402" width="616" height="58" rx="3" class="node"></rect><text x="24" y="425" text-anchor="start" class="text-small">主循环输出</text><text x="24" y="445" text-anchor="start" class="text-small">低有效LED翻转，重设起点</text></svg><div aria-live="polite">当前：执行短ISR；清UIF；ticks由499增到500。计时器硬件、内核异常机制与软件状态机各有责任。</div></div></div><figcaption><span class="figure-number">复习图1-6</span>以ticks从499增至500为例，假定主循环上次起点0。硬件基本帧之外可能有对齐与软件栈消耗。</figcaption></figure>
+
+
+
+<p>从普通线程进入一个基本IRQ时，Cortex-M硬件基本帧保存R0—R3、R12、LR、PC、xPSR，共8个字；栈对齐可能另有填充，编译器也会根据ISR用到的寄存器生成必要的软件保护。<strong>不能把基本帧32字节当作所有ISR实际只消耗32字节栈。</strong></p>
+<p>主循环不断读取ticks，计算无符号差值是否达到500。它不用在ISR里等待500ms，也不用靠“执行若干条空指令”猜时间。</p>
+<pre><code class="language-c">now = ticks;
+if ((uint32_t)(now - since) &gt;= 500u) {
+    since = now;
+    on ^= 1u;
+    GPIOA-&gt;BSRR = on ? (1u &lt;&lt; 24) : (1u &lt;&lt; 8);
+}
+</code></pre>
+<figure class="diagram" id="fig-timeline" data-figure="timeline"><div class="diagram-live"><div id="r1-timeline"><div class="viz-controls"><label class="form-label">当前时刻 ms<select class="form-select" data-time><option value="0">0</option><option value="499">499</option><option value="500">500</option><option value="999">999</option><option value="1000" selected>1000</option><option value="1499">1499</option><option value="1500">1500</option></select></label></div><svg class="drawing" role="img" aria-label="每500ms翻转的电平时间轴"></svg><div aria-live="polite"></div></div></div><div class="diagram-print" aria-hidden="true"><div id="print-r1-timeline"><svg class="drawing" role="img" aria-label="每500ms翻转的电平时间轴" viewBox="0 0 640 197"><title>LED时间轴</title><text x="16" y="24" text-anchor="start" class="text-small">PA8：高灭，低亮</text><path d="M16 60 H218.66666666666666 V100 H421.3333333333333 V60 H624 V100" class="wire"></path><path d="M16 110 v8" class="wire"></path><text x="16" y="140" text-anchor="start" class="text-small">0</text><path d="M218.66666666666666 110 v8" class="wire"></path><text x="218.66666666666666" y="140" text-anchor="middle" class="text-small">500</text><path d="M421.3333333333333 110 v8" class="wire"></path><text x="421.3333333333333" y="140" text-anchor="middle" class="text-small">1000</text><path d="M624 110 v8" class="wire"></path><text x="624" y="140" text-anchor="end" class="text-small">1500</text><path d="M421.3333333333333 40 V110" stroke="#b45f36" stroke-dasharray="4 4"></path><text x="16" y="173" text-anchor="start" class="text-small">已翻转2次；LED灭</text></svg><div aria-live="polite">t=1000ms；已翻转2次；PA8=1，LED灭。示意忽略主循环与中断的响应延迟。</div></div></div><figcaption><span class="figure-number">复习图1-7</span>初始灭：0—500ms灭，500—1000ms亮，再循环；标注值为翻转完成后的理想状态，忽略响应延迟。</figcaption></figure>
+
+
+
+<p>无符号减法可在合理检查周期内处理计数回绕。例如since=0xFFFFFF00、now=0x000000F4，差值正好500。前提是仍能区分要测的时间间隔，不能隔了完整2³²ms甚至多圈后再猜经过了多久。</p>
+<p>volatile使相关访问按目标语言/实现规则保留，<strong>不等于互斥锁，也不自动让<code>count++</code>成为不可打断的读改写。</strong> 本例只有ISR更新32位对齐ticks，主循环只做32位读取；若两边都更新复合状态，就要重新分析临界区。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s10"><p class="eyebrow">全书复习 · 第一讲 · 第10节</p><h2>完整应用源码：先说清构建条件，再看main</h2><div class="part-goal"><p><strong>掌握要求：</strong>能按文件和时钟条件构建，修改周期，并解释每段代码服务于哪个环节。</p></div><p>下面给出一个完整应用源文件。目标固定STM32F103RCT6，采用匹配的官方CMSIS设备头、system文件和高密度启动模板，向量中TIM2入口需指向本文件的TIM2_IRQHandler；避免模板另有同名ISR。文件不捆绑厂商设备包。官方模板在进入main之前可能配置过时钟，本文件随后显式切回HSI 8MHz。</p>
+<p>连接使用第07节低有效LED，仅PA8。应用采用HSI 8MHz、AHB/APB无分频，TIM2产生1ms节拍。HSI有容差，程序用于解释原理与练习配置，不承诺晶体级计时精度。</p>
+<pre><code class="language-c">/* STM32F103RC; official CMSIS/device startup environment required. */
+#include &quot;stm32f10x.h&quot;
+#include &lt;stdint.h&gt;
+
+static volatile uint32_t ticks;
+
+static int clock_hsi_8mhz(void)
+{
+    uint32_t guard = 1000000u;
+    RCC-&gt;CR |= 1u;                       /* HSION */
+    while (!(RCC-&gt;CR &amp; 2u) &amp;&amp; --guard) { }
+    if (!guard) return 0;
+    RCC-&gt;CFGR &amp;= ~3u;                    /* SW = HSI */
+    guard = 1000000u;
+    while ((RCC-&gt;CFGR &amp; 12u) &amp;&amp; --guard) { }
+    if (!guard) return 0;                /* wait for SWS = HSI */
+    RCC-&gt;CFGR &amp;= ~((15u &lt;&lt; 4) | (7u &lt;&lt; 8) | (7u &lt;&lt; 11));
+    RCC-&gt;CR &amp;= ~(1u &lt;&lt; 24);              /* PLL no longer the source */
+    SystemCoreClock = 8000000u;
+    return 1;
+}
+
+static void led_init(void)
+{
+    RCC-&gt;APB2ENR |= 1u &lt;&lt; 2;             /* GPIOA clock */
+    (void)RCC-&gt;APB2ENR;                  /* allow clock enable to propagate */
+    GPIOA-&gt;BSRR = 1u &lt;&lt; 8;               /* inactive high before output */
+    GPIOA-&gt;CRH = (GPIOA-&gt;CRH &amp; ~15u) | 2u; /* PA8: PP, 2MHz */
+}
+
+static void tick_init(void)
+{
+    RCC-&gt;APB1ENR |= 1u;                  /* TIM2 clock */
+    (void)RCC-&gt;APB1ENR;
+    TIM2-&gt;CR1 = 0;
+    TIM2-&gt;DIER = 0;
+    TIM2-&gt;PSC = 7;
+    TIM2-&gt;ARR = 999;                     /* 8MHz / 8 / 1000 = 1kHz */
+    TIM2-&gt;EGR = 1;                       /* UG loads the prescaler */
+    TIM2-&gt;SR = 0;                        /* discard initialization UIF */
+    TIM2-&gt;CNT = 0;
+    ticks = 0;
+    NVIC_SetPriorityGrouping(3);
+    NVIC_SetPriority(TIM2_IRQn, 2);
+    NVIC_ClearPendingIRQ(TIM2_IRQn);
+    NVIC_EnableIRQ(TIM2_IRQn);
+    TIM2-&gt;DIER = 1;                      /* UIE */
+    TIM2-&gt;CR1 = 1;                       /* CEN */
+}
+
+void TIM2_IRQHandler(void)
+{
+    if (TIM2-&gt;SR &amp; 1u) {
+        TIM2-&gt;SR = (uint16_t)~1u;        /* write 0 to clear UIF only */
+        ++ticks;
+    }
+}
+
+int main(void)
+{
+    uint32_t since, now;
+    unsigned on = 0;
+    if (!clock_hsi_8mhz()) for (;;) { }  /* bounded startup failed */
+    led_init();
+    tick_init();
+    since = ticks;
+    for (;;) {
+        now = ticks;
+        if ((uint32_t)(now - since) &gt;= 500u) {
+            since = now;
+            on ^= 1u;
+            GPIOA-&gt;BSRR = on ? (1u &lt;&lt; 24) : (1u &lt;&lt; 8);
+        }
+    }
+}
+</code></pre>
+<p><strong>改成亮1秒、灭1秒：</strong> 在保持1ms节拍的前提下，把主循环阈值500改1000，整周期变2秒、频率0.5Hz。<strong>改成1kHz PWM：</strong> 需要重新选择定时器输出通道、复用引脚、PSC/ARR/CCR和输出使能；仅把这个阈值改小，不能声称已经配置了硬件PWM。</p>
+<p>程序用主循环观察节拍，因此实际翻转时刻还包括服务与主循环响应延迟。若主循环停顿很久，本例只翻转一次并从当前时刻重新计时；它不会追赶过去漏掉的所有翻转。严格边沿时序应考虑定时器硬件输出和相应误差分析。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s11"><p class="eyebrow">全书复习 · 第一讲 · 第11节</p><h2>出题人换条件时，你该改哪一层</h2><div class="part-goal"><p><strong>掌握要求：</strong>面对变式先定位条件，不把前一题答案整段照搬。</p></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>题目变动</th>
+<th>应先修改/重算的层</th>
+<th>最常见的错法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LED改成高有效</td>
+<td>接线与输出逻辑</td>
+<td>仍把BSRR复位当作灭</td>
+</tr>
+<tr>
+<td>PA8改PC6</td>
+<td>端口时钟、CRL字段、输出掩码、接线</td>
+<td>只换GPIOA为GPIOC，仍写第8位</td>
+</tr>
+<tr>
+<td>8MHz改成72MHz</td>
+<td>Flash/PLL/总线设置、fTIM与PSC/ARR</td>
+<td>只改SystemCoreClock变量</td>
+</tr>
+<tr>
+<td>每500ms翻转改为500ms完整周期</td>
+<td>事件与波形周期的关系</td>
+<td>仍每500ms只翻转一次</td>
+</tr>
+<tr>
+<td>按键能立即改变状态</td>
+<td>输入上/下拉、EXTI来源、消抖、事件传递与状态机</td>
+<td>在长延时后才读按键</td>
+</tr>
+<tr>
+<td>ISR和主循环共同改计数</td>
+<td>并发约定、临界区与恢复旧屏蔽状态</td>
+<td>只加volatile就认为没有竞争</td>
+</tr>
+<tr>
+<td>改成DMA搬数据</td>
+<td>外设/DMA配置、存储区、计数、触发与完成/错误处理</td>
+<td>认为CPU从此完全不参与</td>
+</tr>
+<tr>
+<td>给出带Cache/虚拟地址的另一平台</td>
+<td>该平台存储与地址模型</td>
+<td>直接套F103裸机地址结论</td>
+</tr>
+</tbody></table></div>
+<p><strong>排错也按链路切开：</strong> 能否稳定复位和进main；时钟源/分频是否真生效；GPIO时钟和模式是否正确；BSRR值是否作用于正确脚；TIM的CNT是否推进、UIF是否出现；NVIC是否允许且向量正确；ticks是否变化；主循环是否满足条件；最后查实际引脚与LED接线。</p>
+<p>这些检查能区分程序层、外设层与电路层，不需要先背几十个不相关函数名。观察寄存器时还要记住：有些状态通过读/写特定寄存器会被清除，调试器观察也可能产生影响，应查清语义。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s12"><p class="eyebrow">全书复习 · 第一讲 · 第12节</p><h2>先做这十二题，再看答案</h2><div class="part-goal"><p><strong>掌握要求：</strong>能把本讲主线变成独立判断，而不是看到答案才觉得熟悉。</p></div><p>下面是本讲原创复习题，原书题仍在对应八章讲义中。建议先写下计算过程，再展开答案。</p>
+<p><article class="exercise" id="review-q1"><h3>复习1.1 / 三个“寄存器”</h3><p>R0、SRAM中的ticks、GPIOA_BSRR分别属于哪里？都能用MOVS R0,#1直接修改吗？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>R0属于处理器寄存器组；ticks是按本例布局分配的SRAM对象；BSRR属于地址映射的GPIO外设。MOVS只改所指定的CPU寄存器，后两者需按地址访问，且外设另有语义。</p>
+</div></details></article><article class="exercise" id="review-q2"><h3>复习1.2 / 初值放哪里</h3><p>典型MCU布局中count=7的初值在Flash，运行时把count改成8，是改Flash还是SRAM？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>修改运行位置，通常是SRAM。Flash可保存下载映像中的初值副本，启动时复制到SRAM；具体按链接布局判断。</p>
+</div></details></article><article class="exercise" id="review-q3"><h3>复习1.3 / 复位向量</h3><p>向量第二字为0x08000101，真正指令地址是什么？第一字有什么用途？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>实际指令地址0x08000100，最低位指示Thumb入口；首字用于建立初始MSP。向量位置存入口值，与入口处的指令区分。</p>
+</div></details></article><article class="exercise" id="review-q4"><h3>复习1.4 / BSRR命令</h3><p>PA8低有效LED，向BSRR写0x01000000，LED亮还是灭？若改成高有效接法呢？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>bit24复位PA8到低。按本讲低有效接法亮；高有效接法低则灭。结果必须结合电路，不能从“复位”一词猜。</p>
+</div></details></article><article class="exercise" id="review-q5"><h3>复习1.5 / 字段掩码</h3><p>PC6设50MHz普通推挽，要修改CRL还是CRH？清位掩码、写入值各是多少？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>CRL bit27:24；清字段用~0x0F000000，字段新值0x03000000。最终(old &amp; ~0x0F000000) | 0x03000000；另需GPIOC时钟和合适锁存初值。</p>
+</div></details></article><article class="exercise" id="review-q6"><h3>复习1.6 / 总线与硬件语义</h3><p>同样STR一字到SRAM地址与BSRR地址，为什么结果不能都理解成“保存一个变量”？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>地址译码选中了不同目标。SRAM保存数据；BSRR写入由GPIO解释为置位/复位命令。访问宽度、权限、时钟与寄存器读写语义仍需符合目标规则。</p>
+</div></details></article><article class="exercise" id="review-q7"><h3>复习1.7 / APB与TIM</h3><p>HCLK72MHz，APB1除2，TIM2和USART2各是多少MHz？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>PCLK1=36MHz；相关TIM在APB分频不为1时取2×PCLK，故TIM2=72MHz；USART2仍36MHz。</p>
+</div></details></article><article class="exercise" id="review-q8"><h3>复习1.8 / 闪烁的二倍关系</h3><p>TIM2时钟72MHz，PSC35999、ARR999，每更新翻转一次LED，更新周期、闪烁完整周期和频率是多少？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>更新周期(36000×1000)/72000000=0.5s；两次翻转形成完整亮灭周期1s；闪烁频率1Hz。</p>
+</div></details></article><article class="exercise" id="review-q9"><h3>复习1.9 / 1ms节拍</h3><p>本讲8MHz程序为什么使用PSC7、ARR999？若不改其他条件，把500改成1000会怎样？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>8MHz/(7+1)/(999+1)=1000Hz，节拍1ms。阈值1000表示每1s翻转，完整周期2s，频率0.5Hz。</p>
+</div></details></article><article class="exercise" id="review-q10"><h3>复习1.10 / 回绕</h3><p>since=0xFFFFFF00，now=0x000000F4，32位无符号差是多少？是否到500ms？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>0x1F4=500；按本讲1ms计数且检查间隔满足范围条件，已经达到阈值。不能只做有符号比较或因now小于since就判错误。</p>
+</div></details></article><article class="exercise" id="review-q11"><h3>复习1.11 / 中断与volatile</h3><p>volatile能保证ISR与主循环同时执行count++时不丢更新吗？基本硬件异常帧32字节，是否代表ISR只用32字节栈？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>都不能。count++是复合读改写，需要分析临界区/所有权；硬件基本帧之外还可能有对齐填充、软件保存、局部变量和嵌套等栈消耗。</p>
+</div></details></article><article class="exercise" id="review-q12"><h3>复习1.12 / 定位故障</h3><p>ticks不断增加、主循环每500ms写BSRR，但LED一直不亮，最先核对哪些条件？</p>
+<details class="answer"><summary>展开答案与判断理由</summary><div class="answer-content"><p>核对写入作用于哪一脚/哪一电平，GPIO时钟与CRH模式、复用冲突、实际引脚电平、LED极性与接线/限流/供电。既然ticks已变化，不应先认定“中断根本没进”；仍需结合实际观测定位。</p>
+</div></details></article></p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<section class="lesson part-head" id="s13"><p class="eyebrow">全书复习 · 第一讲 · 第13节</p><h2>这一讲过关后，下一轮怎么学</h2><div class="part-goal"><p><strong>掌握要求：</strong>知道已经掌握什么，知道下一轮该集中补什么。</p></div><p>本讲过关标准：能从“每500ms翻灯”追到时钟、寄存器、指令、总线和接线；给你换芯片时钟、引脚、有效电平或周期定义，知道该改哪里；看见SRAM变量、CPU寄存器、外设寄存器时不再混在一起。</p>
+<p><strong>下一轮集中做第三、六、七章的连接：容量与地址范围 → 小端字节 → LDR/STR宽度 → 基址/偏移/数组 → 栈与参数。</strong> 它们是算错地址、读错数、写错程序的共同来源。本讲先把系统主线跑通，不在同一讲再塞进所有Cache映射与页表计算。</p>
+<p>需要回看的章节：第一、二章补信息表示和执行过程；第三章补存储；第四章补总线/中断/DMA；第五章补寄存器与异常；第六章补指令/寻址；第七章补程序/ABI；第八章补型号、时钟和外设。正文每一节都有相应的掌握要求，按错题返回即可。</p>
+<p class="top-link"><a href="#start">返回目录 ↑</a></p></section>
+<footer><h2>学习依据与验证范围</h2><p>按本项目计算机系统第一至第八章讲义重新组织跨章复习。本讲习题为原创复习题；原书习题和全部内容覆盖表保留在各章讲义中。</p><p>具体芯片采用STM32F103RCT6；核与外设定义可核对<a href="https://github.com/STMicroelectronics/cmsis-device-f1/blob/master/Include/stm32f103xe.h">ST官方CMSIS设备头</a>和<a href="https://www.st.com/resource/en/reference_manual/cd00171190-stm32f101-103-105-107-stm32f100-series-armbased-32bit-mcus-stmicroelectronics.pdf">RM0008参考手册</a>。应用代码依赖匹配的官方启动/设备环境，未声称完成目标工程构建或实板验证。主机逻辑与网页交互检查不验证电气和外设真实时序。</p><p>交互SVG、默认静态图、公式、答案和源码下载均内嵌；离线阅读不依赖外部网络。打印展开所有答案。</p></footer></main></div>
+<script>(()=>{
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const text=(x,y,s,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}" class="text-small">${esc(s)}</text>`;
+const box=(x,y,w,h,c='node')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" class="${c}"/>`,path=d=>`<path d="${d}" class="wire"/>`;
+const wrap=(s,w)=>{let a=[],line='',size=0;for(const c of String(s)){const z=/[\u0000-\u007f]/.test(c)?7:12;if(size+z>w&&line){a.push(line);line='';size=0}line+=c;size+=z}if(line)a.push(line);return a};
+const cards=(w,a,arrows=false)=>{let y=12,b='';for(let i=0;i<a.length;i++){let [title,body,cls]=a[i],ls=[...wrap(title,w-48),...wrap(body,w-48)],h=18+ls.length*20;b+=box(12,y,w-24,h,cls||'node');ls.forEach((s,j)=>b+=text(24,y+23+20*j,s));y+=h;if(arrows&&i<a.length-1){b+=path(`M${w/2} ${y} v18 m-4 -5 l4 5 l4 -5`);y+=20}else y+=10}return{b,h:y+4}};
+const render=(r,h,title,b,info)=>{r.querySelector('svg').setAttribute('viewBox',`0 0 ${r.clientWidth} ${h}`);r.querySelector('svg').innerHTML='<title>'+esc(title)+'</title>'+b;r.querySelector('[aria-live]').textContent=info};
+const show=(r,w,title,a,info,arrows=false)=>{let c=cards(w,a,arrows);render(r,c.h,title,c.b,info)};
+const val=(r,a)=>r.querySelector('[data-'+a+']').value,num=(r,a)=>Number(val(r,a)),hx=x=>'0x'+x.toString(16).toUpperCase().padStart(8,'0');
+const setup=(name,fn)=>{let r=document.getElementById('r1-'+name),draw=()=>{if(r.clientWidth>=180)fn(r,r.clientWidth)};r.querySelectorAll('input,select').forEach(x=>x.addEventListener(x.tagName==='SELECT'?'change':'input',draw));new ResizeObserver(draw).observe(r);draw()};
+setup('chain',(r,w)=>{let n=num(r,'step'),data=[['写源文件','第七章：业务、循环与接口'],['构建与下载','第七章：编译、链接和映像'],['复位进入程序','第五/八章：向量、启动与时钟'],['指令访问目标地址','第二/三/六章：取指、数据与寻址'],['总线把访问送到GPIO','第四章：地址、数据与控制'],['引脚改变电平','第八章：模式与外部电路']];show(r,w,'从程序到电路',data.map((x,i)=>[...x,n===i?'active':'node']),'当前：'+data[n].join('；')+'。用这一层的规则解释，别跳过中间环节。',true)});
+setup('mmio',(r,w)=>{let ram=val(r,'target')==='ram';show(r,w,'同一条STR的不同目标',[['R1：待写的32位值','0x01000000'],['R0：目标地址',ram?'0x20000010 · SRAM':'0x40010810 · GPIOA_BSRR','active'],['STR R1,[R0]','按地址发出字写访问'],['目标模块的解释',ram?'对应RAM字保存0x01000000':'命令：将PA8输出锁存清为0','active']],'同一条STR；'+(ram?'SRAM按普通数据保存。':'GPIO按BSRR命令语义解释；其他引脚不因本次写0而改变。'),true)});
+setup('bsrr',(r,w)=>{let p=num(r,'pin'),reset=val(r,'action')==='reset',bit=p+(reset?16:0),cols=w<420?8:16,cw=(w-24)/cols,b=text(12,24,'BSRR：从bit31到bit0');for(let i=0;i<32;i++){let q=31-i,x=12+(i%cols)*cw,y=38+Math.floor(i/cols)*51;b+=box(x+1,y,cw-3,42,q===bit?'active':'node')+text(x+cw/2,y+16,q,'middle')+text(x+cw/2,y+34,q===bit?1:0,'middle')}let h=49+Math.ceil(32/cols)*51;render(r,h,'BSRR位命令',b,'第'+p+'脚'+(reset?'复位到低':'置为高')+'：写bit'+bit+'，值='+hx(2**bit)+'。其余命令位写0表示本次不动作。')});
+setup('led',(r,w)=>{let q=num(r,'level'),x=w/2,b=text(x,22,'3.3V','middle')+path(`M${x} 30 V49`)+box(x-44,49,88,35)+text(x,72,'510Ω','middle')+path(`M${x} 84 V108`)+`<polygon points="${x-16},108 ${x+16},108 ${x},135" class="${q?'node':'waiting'}"/>`+path(`M${x-19} 137 H${x+19} M${x} 137 V169`)+path(`M${x+22} 115 l15 -15 m-6 0 h6 v6 M${x+27} 131 l15 -15 m-6 0 h6 v6`)+text(x-28,123,'A','end')+text(x-28,151,'K','end')+box(x-61,169,122,45,'active')+text(x,196,'PA8 = '+q,'middle')+text(x,244,q?'LED灭':'LED亮','middle');render(r,264,'低有效LED连接',b,q?'PA8高：本接法通常缺少正向压差，LED灭。':'PA8低：电流由3.3V经电阻、LED流入PA8，LED亮。')});
+setup('timer',(r,w)=>{for(const a of ['psc','arr','events']){let e=r.querySelector('[data-'+a+']');if(e.value===''||!e.checkValidity()||!Number.isInteger(Number(e.value)))return render(r,48,'输入提示',text(12,26,'请按下方说明修正输入。'),'PSC/ARR为0—65535整数；每次翻转累计1—1000次更新。')}let mhz=num(r,'mhz'),p=num(r,'psc'),a=num(r,'arr'),n=num(r,'events'),t=(p+1)*(a+1)/(mhz*1e6),flip=t*n;show(r,w,'更新与闪烁周期',[['TIM输入时钟',mhz+'MHz'],['每次更新周期',(t*1000).toPrecision(7)+'ms','active'],['每次翻转累计更新次数',n+'次 → 间隔'+flip.toPrecision(7)+'s'],['完整亮灭周期',Number((2*flip).toPrecision(7))+'s','active']],'更新周期='+Number((t*1000).toPrecision(7))+'ms；翻转间隔='+Number(flip.toPrecision(7))+'s；完整周期='+Number((2*flip).toPrecision(7))+'s，闪烁频率='+Number((1/(2*flip)).toPrecision(7))+'Hz。',true)});
+setup('irq',(r,w)=>{let n=num(r,'step'),a=[['TIM2更新','UIF置1，且UIE/NVIC允许'],['进入异常','基本帧R0—R3/R12/LR/PC/xPSR'],['执行短ISR','清UIF；ticks由499增到500'],['异常返回','恢复现场，回到原执行位置'],['主循环检查','500 - 0 ≥ 500，条件成立'],['主循环输出','低有效LED翻转，重设起点']];show(r,w,'1ms节拍如何触发500ms业务',a.map((x,i)=>[...x,i===n?'active':'node']),'当前：'+a[n].join('；')+'。计时器硬件、内核异常机制与软件状态机各有责任。',true)});
+setup('timeline',(r,w)=>{let t=num(r,'time'),flips=Math.floor(t/500),on=flips%2,x=16,c=(w-32)/1500,b=text(16,24,'PA8：高灭，低亮');b+=path(`M${x} 60 H${x+500*c} V100 H${x+1000*c} V60 H${x+1500*c} V100`);for(let i=0;i<=3;i++){let xx=x+i*500*c;b+=path(`M${xx} 110 v8`)+text(xx,140,i*500,i===0?'start':i===3?'end':'middle')}let at=x+t*c;b+=`<path d="M${at} 40 V110" stroke="#b45f36" stroke-dasharray="4 4"/>`;b+=text(16,173,'已翻转'+flips+'次；LED'+(on?'亮':'灭'));render(r,197,'LED时间轴',b,'t='+t+'ms；已翻转'+flips+'次；PA8='+(on?0:1)+'，LED'+(on?'亮':'灭')+'。示意忽略主循环与中断的响应延迟。')});
+})();
+</script>
+<script>(()=>{const d=document.getElementById('directory');if(matchMedia('(min-width:1000px)').matches)d.open=true;const ans=()=>[...document.querySelectorAll('details.answer')];document.querySelectorAll('[data-answers]').forEach(b=>b.onclick=()=>ans().forEach(x=>x.open=b.dataset.answers==='open'));document.getElementById('print-book').onclick=()=>window.print();let saved=[];addEventListener('beforeprint',()=>{saved=ans().map(x=>x.open);ans().forEach(x=>x.open=true)});addEventListener('afterprint',()=>ans().forEach((x,i)=>x.open=saved[i]||false));})();</script></body></html>

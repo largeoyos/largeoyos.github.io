@@ -1,0 +1,3687 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="模拟电子技术基础第六版第四章详细讲解：高低通、波特图、混合π模型、密勒效应、截止频率、多级频响、阶跃响应，附SVG电路图与自测。">
+<title>模拟电子技术基础 · 第四章学习讲义</title><style>
+:root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
+@media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
+@media(max-width:999px){.layout{display:block;padding:0 32px;max-width:900px}aside{position:static;max-height:none;padding:20px 0;border-bottom:1px solid #d7ddd9}aside .brand{display:none}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.book-cover{padding-top:48px}body{font-size:17px}}
+@media(max-width:540px){.layout{padding:0 16px}h1{font-size:2.12rem}h2{font-size:1.54rem}body{font-size:16px}.lead{font-size:18px}h3{font-size:17px}.eyebrow{font-size:12px}section{padding-top:38px}.eq{font-size:16px;padding:12px;line-height:2.2}nav{display:block}.book-cover{padding-top:35px}.circuit-pair .diagrams{gap:20px}.circuit-pair figure{flex-basis:288px!important}.course-plot{max-width:370px}th,td{padding:10px}.scope{font-size:14px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;padding:0}aside{display:none}main{max-width:none}.book-cover{padding:20px 0}section{break-before:page;border:0}.course-plot,.circuit-pair,.new-circuit,.eq,table{break-inside:avoid}details>p{display:block}details{break-inside:avoid}a{color:inherit;text-decoration:none}html{scroll-behavior:auto}}
+
+
+.lesson-diagram{margin:30px 0;--font-size-base:14px}
+.lesson-diagram .panels{align-items:start}
+.reading-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:18px}
+.reading-links a{font-size:14px}
+.new-circuit{max-width:288px}
+.chapter-circuit{width:100%;max-width:360px;margin:32px auto;color:var(--foreground)}
+.chapter-circuit svg{display:block;width:100%;height:auto}
+.eq{max-width:100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.chapter-figure{width:100%;max-width:360px;margin:32px auto;color:var(--foreground)}
+.chapter-figure svg{display:block;width:100%;height:auto}
+.chapter-figure.plot{max-width:410px}
+details.answer{margin:20px 0}
+@media(max-width:600px){.chapter-figure{margin:25px auto}}
+</style></head><body>
+<div class="layout"><aside><div class="brand">模拟电子技术基础<br>第四章 · 放大电路的频率响应</div>
+<div class="reading-links"><a class="collection-link" href="../../index.html#analog">教程合集</a><a href="模拟电子技术基础_第三章学习讲义.html">第三章</a></div>
+<details id="course-contents" open><summary>第四章目录 · 正文与例题</summary><nav aria-label="第四章目录"><a href="#c4-map">学完这一章，你要能交出什么答案</a><a href="#c411">4.1.1 为什么原来算出的增益突然不够用了</a><a href="#c412hp">4.1.2 高通：输出取电阻两端，低频被挡住</a><a href="#c412lp">4.1.2 低通：输出取电容两端，高频被分走</a><a href="#c413">4.1.3 波特图：把乘法变成加法，把宽频率范围压进一张图</a><a href="#c421">4.2.1 混合 π 模型：把高频时分走的电流画出来</a><a href="#c421miller">4.2.1 密勒等效：几皮法为什么也能拖慢放大器</a><a href="#c422">4.2.2 fβ、fT、fα：先看谁下降，再谈截止</a><a href="#c43">4.3 场效应管高频模型：不取直流栅流，不代表不取交流电流</a><a href="#c441bands">4.4.1 同一张共射图，为什么要画三次等效电路</a><a href="#c441mid">4.4.1 中频：沿信号路线，把三次电压变化乘起来</a><a href="#c441low">4.4.1 低频：耦合电容看到的是两侧电阻相加</a><a href="#c441high">4.4.1 高频：从内部基极看出去，求的是哪一个电阻</a><a href="#c441example">例 4.4.1：从 Q 点到频率表达式，一次算完整</a><a href="#c442">4.4.2 共源频响：换了管子，解题骨架不换</a><a href="#c443">4.4.3 怎样展宽频带，以及为什么增益不能白拿</a><a href="#c451">4.5.1 多级级联：放大倍数相乘，衰减也会相乘</a><a href="#c452">4.5.2 总截止频率：先看能否由一个环节主导</a><a href="#c452caps">例 4.5.2：三个大电容，为什么旁路电容常常最难伺候</a><a href="#c46">4.6 扩展：频率响应怎样变成“上升得快不快”</a><a href="#c47">4.7 仿真与实验：怎样证实你算出的两个截止频率</a><a href="#c4-checkpoint">正文阶段自测：用六个问题检查有没有真正接起来</a></nav></details></aside>
+<main><header class="book-cover" id="start">
+<p class="eyebrow">模拟电子技术基础 · 第六版 · 第四章</p>
+<h1>频率响应<br/>从电容到截止频率</h1>
+<p class="lead">前面算“放大多少倍”，这一章再加一个条件：输入变化得有多快。先看清电容让电流走到了哪里，再把它变成时间常数和波特图。</p>
+<p class="scope">按教材 4.1—4.7 的顺序展开。三极管是主线，场效应管对应部分标注选学。纸面正文与三个例题已讲解；章末习题另接在后面。4.6、4.7 在所提供书页中为配套数字资源入口，本页给出基础补充与实验方法，不把未读取的数字资源当成已逐段讲完。</p>
+<a class="continue" href="#c411">从“为什么增益会变化”开始 →</a>
+</header>
+<section id="c4-map">
+<h2>学完这一章，你要能交出什么答案</h2>
+<p>本章的主任务不是背下十几种放大倍数，而是完成一条固定路线：<strong>选频段 → 画等效电路 → 找电容两端的等效电阻 → 求截止频率 → 写频率表达式或画图。</strong>“哪个电容起作用”“从哪里看电阻”比最后按计算器更重要。</p>
+<div class="table-wrap"><table><thead><tr><th>课本位置</th><th>做题必须掌握</th><th>学到什么程度</th></tr></thead><tbody>
+<tr><td>4.1 概念与波特图</td><td>高通、低通；幅值和相位；−3 dB；斜率</td><td>会从 RC 分压写出表达式，会把表达式画成折线</td></tr>
+<tr><td>4.2 高频模型</td><td>r<sub>bb′</sub>、r<sub>b′e</sub>、g<sub>m</sub>、C<sub>π</sub>、C<sub>μ</sub>，密勒等效</td><td>会由 Q 点求参数，会算输入等效电容</td></tr>
+<tr><td>4.3、4.4.2 场效应管</td><td>把三极管的计算方法迁移到共源电路</td><td>老师跳过时先选学；不能把栅极高输入电阻误当成高频无电流</td></tr>
+<tr><td>4.4 单管</td><td>A<sub>um</sub>、f<sub>L</sub>、f<sub>H</sub>、频率表达式</td><td>独立做出例 4.4.1；解释参数变化方向</td></tr>
+<tr><td>4.5 多级</td><td>乘增益、加分贝和相位；总带宽变窄</td><td>区别各级拐点与整机 −3 dB 点</td></tr>
+<tr><td>4.6—4.7 扩展与实验</td><td>带宽与响应速度的关系；怎样测频响</td><td>会解释现象。未经老师要求，不必先耗在软件菜单和完整瞬态推导上</td></tr>
+</tbody></table></div>
+<p class="level"><strong>本章约定：</strong>小写 u、i 表示随时间变化的量；带相位的 A(f)、U、I 表示正弦稳态下的复数比值或相量。为阅读方便，部分公式省去相量符号。频率 f 用 Hz，角频率 ω=2πf 用 rad/s，两者不能直接互换。</p>
+</section>
+<section id="c411">
+<h2>4.1.1 为什么原来算出的增益突然不够用了</h2>
+<p>第二、三章的计算常把耦合、旁路电容当成短路，把管内很小的电容当成开路。两种处理看似矛盾，其实都在比较容抗与周围电阻。电容的容抗大小为：</p>
+<div class="eq">|Z<sub>C</sub>| = 1/(2πfC)</div>
+<p>同一只电容，f 越低，容抗越大；f 越高，容抗越小。外接耦合电容往往较大，中频时已经很容易通过交流；管内结电容很小，中频时几乎不分流。因此存在一个频段，两类电容都可以作刚才的简化，这才叫<strong>中频段</strong>。它不是固定的“音频”或某个通用频率范围。</p>
+<p>到了低频，耦合电容容抗变大，信号在它上面分掉的电压变多；到了高频，结电容容抗变小，原本能控制管子的信号电流被分走。前者让信号不容易传到下一级，后者让控制电压难以建立，两者都可能使增益下降。</p>
+<p>这还会引起相位变化。比如输入正弦波正在过零，输出可能已经过零，也可能尚未过零。频率响应同时回答“放大几倍”和“提前或落后多少角度”，所以必须分成幅频特性与相频特性。</p>
+<p><strong>它为什么与做题有关：</strong>复合波形包含不同频率的分量。如果各分量得到的幅度比例或相对时序改变，输出形状就会变。即使晶体管一直在放大区，也可能出现频率失真。这与第二章大信号导致的截止、饱和削顶是两种原因，不能用同一个办法处理。</p>
+<details class="answer"><summary>自测：把输入幅度减小，频率失真一定消失吗？</summary><p>不一定。减小幅度可避免大信号非线性失真，但线性电路的频率响应仍然存在。要使所需波形得到近似无失真放大，需要其主要频率分量落在合适的幅频、相频范围内。严格说，相位不必全为零；与频率成正比的相位对应共同的时间延迟，也不改变波形形状。</p></details>
+</section>
+<section id="c412hp">
+<h2>4.1.2 高通：输出取电阻两端，低频被挡住</h2>
+<p>先把三极管拿开，只分析教材图 4.1.1 的 RC 网络。图上电流箭头规定从输入流向 R；电压上正下负。<strong>箭头的用途是帮你写出同一条回路的分压式，不是要求你想象电子怎样绕圈。</strong></p>
+<figure class="chapter-figure svg"><svg data-figure="c4-highpass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 310" role="img" aria-labelledby="c4-highpass-c4-highpass-title">
+<title id="c4-highpass-c4-highpass-title">高通输出取电阻两端</title>
+<defs><marker id="c4-highpass-c4-highpass-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<circle cx="20" cy="90" r="3.2" class="port"/><circle cx="20" cy="250" r="3.2" class="port"/><circle cx="295" cy="90" r="3.2" class="port"/><circle cx="295" cy="250" r="3.2" class="port"/><text x="20" y="65" text-anchor="start" font-size="15">＋ui</text><text x="257" y="65" text-anchor="start" font-size="15">＋uo</text><path class="wire" d="M20 90H120.0M120.0 76V104M130.0 76V104M130.0 90H230"/><text x="125.0" y="65" text-anchor="middle" font-size="15">C</text><path class="wire" d="M230 90V152.0M223 152.0H237V188.0H223ZM230 188.0V250"/><text x="244" y="175.0" text-anchor="start" font-size="15">R</text><path class="wire" d="M230 90H295M20 250H295"/><circle cx="230" cy="90" r="3.2" fill="currentColor"/><circle cx="230" cy="250" r="3.2" fill="currentColor"/><path class="wire" d="M68 125L110 125" marker-end="url(#c4-highpass-c4-highpass-arrow)"/><text x="90" y="150" text-anchor="middle" font-size="15">i</text><text x="20" y="278" text-anchor="start" font-size="15">−</text><text x="285" y="278" text-anchor="start" font-size="15">−</text></svg></figure>
+<p>输入电压等于电容压降与电阻压降之和；输出恰好就是电阻上的压降。串联电流相同，所以用阻抗分压：</p>
+<div class="eq">H<sub>HP</sub>(f) = U<sub>o</sub>/U<sub>i</sub> = R/[R+1/(jωC)]<br/>= jωRC/(1+jωRC)<br/>f<sub>L</sub> = 1/(2πRC)<br/>H<sub>HP</sub>(f) = j(f/f<sub>L</sub>)/[1+j(f/f<sub>L</sub>)]</div>
+<p>别急着记。先代两种极端：f→0，电容近似断开，R 中几乎无电流，输出趋于零；f 很高，电容近似导线，输出接近输入。由电路就能检查公式有没有写反。</p>
+<p>复数公式怎样变成幅值？复数 1+jx 的模是 √(1+x²)，相角是 arctan x；分子 jx 的模是 x、相角是 +90°。相除时模相除、角相减，因此：</p>
+<div class="eq">|H<sub>HP</sub>| = (f/f<sub>L</sub>)/√[1+(f/f<sub>L</sub>)²]<br/>φ<sub>HP</sub> = 90°−arctan(f/f<sub>L</sub>) = arctan(f<sub>L</sub>/f)</div>
+<div class="table-wrap"><table><thead><tr><th>频率</th><th>输出/输入幅值</th><th>输出相位</th><th>应怎样理解</th></tr></thead><tbody>
+<tr><td>0.1f<sub>L</sub></td><td>约 0.0995</td><td>约 +84.3°</td><td>严重衰减，近似 +90°</td></tr>
+<tr><td>f<sub>L</sub></td><td>1/√2≈0.707</td><td>+45°</td><td>一阶高通的截止点</td></tr>
+<tr><td>10f<sub>L</sub></td><td>约 0.995</td><td>约 +5.7°</td><td>近似通过，仍非严格零相移</td></tr>
+</tbody></table></div>
+<p>“截止”不表示信号变成零，也不表示管子进入截止区。它只是选定的性能边界：幅度降到通带参考值的 0.707。R=10 kΩ、C=0.1 μF 时，RC=1 ms，f<sub>L</sub>≈159 Hz；不是 1 kHz，后者漏掉了 2π。</p>
+<p class="level"><strong>最低要求：</strong>给出 R、C 会求 f<sub>L</sub>；给出 f 会算幅值和相位；知道增大 C 会降低下限，让更低频率通过。</p>
+</section>
+<section id="c412lp">
+<h2>4.1.2 低通：输出取电容两端，高频被分走</h2>
+<p>元件仍然是 R 和 C，但输出改取 C 两端，结论就反过来了。<strong>高通还是低通由连接和取样位置决定，不由“电路里有一个电容”决定。</strong></p>
+<figure class="chapter-figure svg"><svg data-figure="c4-lowpass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 310" role="img" aria-labelledby="c4-lowpass-c4-lowpass-title">
+<title id="c4-lowpass-c4-lowpass-title">低通输出取电容两端</title>
+<defs><marker id="c4-lowpass-c4-lowpass-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<circle cx="20" cy="90" r="3.2" class="port"/><circle cx="20" cy="250" r="3.2" class="port"/><circle cx="295" cy="90" r="3.2" class="port"/><circle cx="295" cy="250" r="3.2" class="port"/><text x="20" y="65" text-anchor="start" font-size="15">＋ui</text><text x="257" y="65" text-anchor="start" font-size="15">＋uo</text><path class="wire" d="M20 90H107.0M107.0 83H143.0V97H107.0ZM143.0 90H230"/><text x="125.0" y="75" text-anchor="middle" font-size="15">R</text><path class="wire" d="M230 90V165.0M216 165.0H244M216 175.0H244M230 175.0V250"/><text x="252" y="175.0" text-anchor="start" font-size="15">C</text><path class="wire" d="M230 90H295M20 250H295"/><circle cx="230" cy="90" r="3.2" fill="currentColor"/><circle cx="230" cy="250" r="3.2" fill="currentColor"/><path class="wire" d="M68 125L110 125" marker-end="url(#c4-lowpass-c4-lowpass-arrow)"/><text x="90" y="150" text-anchor="middle" font-size="15">i</text><path class="wire" d="M205 185L205 220" marker-end="url(#c4-lowpass-c4-lowpass-arrow)"/><text x="190" y="209" text-anchor="end" font-size="15">iC</text><text x="20" y="278" text-anchor="start" font-size="15">−</text><text x="285" y="278" text-anchor="start" font-size="15">−</text></svg></figure>
+<div class="eq">H<sub>LP</sub>(f) = [1/(jωC)]/[R+1/(jωC)] = 1/(1+jωRC)<br/>f<sub>H</sub> = 1/(2πRC)<br/>H<sub>LP</sub>(f) = 1/[1+j(f/f<sub>H</sub>)]<br/>|H<sub>LP</sub>| = 1/√[1+(f/f<sub>H</sub>)²]<br/>φ<sub>LP</sub> = −arctan(f/f<sub>H</sub>)</div>
+<p>低频时电容电流很小，R 上压降小，输出接近输入；高频时电容容易把电流引向参考地，输出节点难以建立电压。图中向下的 i<sub>C</sub> 表示输出节点流向电容的参考电流，方程就是 i<sub>C</sub>=jωCU<sub>o</sub>。频率越高，相同输出电压需要越大的电流，信号源经过 R 供不上，输出便下降。</p>
+<p>在 f=f<sub>H</sub> 时，幅值为通带的 0.707，相位为 −45°；在 10f<sub>H</sub> 时，幅值约 0.0995，相位约 −84.3°。这一对“高通 +45°、低通 −45°”是<strong>一阶单个环节的截止点性质</strong>，不要推广成任何多级电路在截止处都恰好 ±45°。</p>
+<p>一个普通带通型放大器有下限 f<sub>L</sub> 和上限 f<sub>H</sub>，通频带宽度 f<sub>bw</sub>=f<sub>H</sub>−f<sub>L</sub>。只有 f<sub>H</sub>远大于 f<sub>L</sub> 时，才可写 f<sub>bw</sub>≈f<sub>H</sub>。直接耦合放大器可以把直流放大，通常取 f<sub>L</sub>=0。</p>
+<details class="answer"><summary>自测：R=2 kΩ、C=1 nF，求上限；频率为上限两倍时，幅度和相位是多少？</summary><p>RC=2 μs，f<sub>H</sub>≈79.6 kHz。f/f<sub>H</sub>=2，故 |H|=1/√5≈0.447，φ=−arctan 2≈−63.4°。幅度已经低于 0.707；不要仍按“过了拐点就固定为 −45°”处理。</p></details>
+</section>
+<section id="c413">
+<h2>4.1.3 波特图：把乘法变成加法，把宽频率范围压进一张图</h2>
+<p>如果横轴等距画 1 Hz、2 Hz、3 Hz，就几乎没法同时放下 1 MHz。波特图改为每乘 10 占同样的横向距离，所以 1→10 和 10→100 的图上距离相同。纵轴的电压增益写成：</p>
+<div class="eq">G<sub>dB</sub> = 20 log<sub>10</sub>|A|<br/>|A| = 10<sup>GdB/20</sup></div>
+<p>常用对应关系：1 倍是 0 dB，10 倍是 20 dB，100 倍是 40 dB，1000 倍是 60 dB，10⁵ 倍是 100 dB。<strong>−100 倍也是 40 dB</strong>，反相信息去相频图里表达。分贝公式中的绝对值不能漏。</p>
+<p>幅度下降为原来的 1/√2，对应变化 20lg(1/√2)≈−3.01 dB。因此中频增益为 40 dB 的放大器，截止处约是 37 dB，而不是纵坐标 −3 dB。只有把通带归一化为 0 dB，截止点才画在 −3 dB。</p>
+<figure class="chapter-figure plot"><svg data-figure="c4-rc-bode" xmlns:xlink="http://www.w3.org/1999/xlink" width="263.27952pt" height="443.27952pt" viewBox="0 0 263.27952 443.27952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T15:40:45.296040</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c4-rc-bode-figure_1">
+  <g id="c4-rc-bode-patch_1">
+   <path d="M -0 443.27952 
+L 263.27952 443.27952 
+L 263.27952 0 
+L -0 0 
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c4-rc-bode-axes_1">
+   <g id="c4-rc-bode-patch_2">
+    <path d="M 46.174375 186.680145 
+L 254.63952 186.680145 
+L 254.63952 24.2325 
+L 46.174375 24.2325 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-rc-bode-matplotlib.axis_1">
+    <g id="c4-rc-bode-xtick_1">
+     <g id="c4-rc-bode-line2d_1">
+      <path d="M 55.650063 186.680145 
+L 55.650063 24.2325 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_2">
+      <defs>
+       <path id="c4-rc-bode-mb4dfb01ed0" d="M 0 0 
+L 0 3.5 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="55.650063" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_1">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #202e35" transform="translate(44.950063 201.673895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_2">
+     <g id="c4-rc-bode-line2d_3">
+      <path d="M 103.028505 186.680145 
+L 103.028505 24.2325 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_4">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="103.028505" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_2">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(92.328505 201.673895)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_3">
+     <g id="c4-rc-bode-line2d_5">
+      <path d="M 150.406948 186.680145 
+L 150.406948 24.2325 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_6">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="150.406948" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_3">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(142.306948 201.673895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_4">
+     <g id="c4-rc-bode-line2d_7">
+      <path d="M 197.78539 186.680145 
+L 197.78539 24.2325 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_8">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="197.78539" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_4">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(189.68539 201.673895)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_5">
+     <g id="c4-rc-bode-line2d_9">
+      <path d="M 245.163832 186.680145 
+L 245.163832 24.2325 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_10">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="245.163832" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_5">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(237.063832 201.673895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_6">
+     <g id="c4-rc-bode-line2d_11">
+      <defs>
+       <path id="c4-rc-bode-m1166175c8f" d="M 0 0 
+L 0 2 
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="48.31105" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_7">
+     <g id="c4-rc-bode-line2d_12">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="51.058618" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_8">
+     <g id="c4-rc-bode-line2d_13">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="53.482145" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_9">
+     <g id="c4-rc-bode-line2d_14">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="69.912396" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_10">
+     <g id="c4-rc-bode-line2d_15">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="78.255325" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_11">
+     <g id="c4-rc-bode-line2d_16">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="84.174728" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_12">
+     <g id="c4-rc-bode-line2d_17">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="88.766173" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_13">
+     <g id="c4-rc-bode-line2d_18">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="92.517657" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_14">
+     <g id="c4-rc-bode-line2d_19">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="95.689492" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_15">
+     <g id="c4-rc-bode-line2d_20">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="98.43706" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_16">
+     <g id="c4-rc-bode-line2d_21">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="100.860587" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_17">
+     <g id="c4-rc-bode-line2d_22">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="117.290838" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_18">
+     <g id="c4-rc-bode-line2d_23">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="125.633767" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_19">
+     <g id="c4-rc-bode-line2d_24">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="131.55317" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_20">
+     <g id="c4-rc-bode-line2d_25">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="136.144615" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_21">
+     <g id="c4-rc-bode-line2d_26">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="139.896099" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_22">
+     <g id="c4-rc-bode-line2d_27">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="143.067934" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_23">
+     <g id="c4-rc-bode-line2d_28">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="145.815502" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_24">
+     <g id="c4-rc-bode-line2d_29">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="148.239029" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_25">
+     <g id="c4-rc-bode-line2d_30">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="164.66928" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_26">
+     <g id="c4-rc-bode-line2d_31">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="173.012209" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_27">
+     <g id="c4-rc-bode-line2d_32">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="178.931612" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_28">
+     <g id="c4-rc-bode-line2d_33">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="183.523057" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_29">
+     <g id="c4-rc-bode-line2d_34">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="187.274541" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_30">
+     <g id="c4-rc-bode-line2d_35">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="190.446376" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_31">
+     <g id="c4-rc-bode-line2d_36">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="193.193944" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_32">
+     <g id="c4-rc-bode-line2d_37">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="195.617471" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_33">
+     <g id="c4-rc-bode-line2d_38">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="212.047722" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_34">
+     <g id="c4-rc-bode-line2d_39">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="220.390651" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_35">
+     <g id="c4-rc-bode-line2d_40">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="226.310054" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_36">
+     <g id="c4-rc-bode-line2d_41">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="230.901499" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_37">
+     <g id="c4-rc-bode-line2d_42">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="234.652983" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_38">
+     <g id="c4-rc-bode-line2d_43">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="237.824818" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_39">
+     <g id="c4-rc-bode-line2d_44">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="240.572386" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_40">
+     <g id="c4-rc-bode-line2d_45">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="242.995913" y="186.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-text_6">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.406948" y="216.153583" transform="rotate(-0 150.406948 216.153583)">f / 截止频率</text>
+    </g>
+   </g>
+   <g id="c4-rc-bode-matplotlib.axis_2">
+    <g id="c4-rc-bode-ytick_1">
+     <g id="c4-rc-bode-line2d_46">
+      <path d="M 46.174375 179.617204 
+L 254.63952 179.617204 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_47">
+      <defs>
+       <path id="c4-rc-bode-mbd8b8f9d22" d="M 0 0 
+L -3.5 0 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="179.617204" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_7">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="183.614079" transform="rotate(-0 39.174375 183.614079)">-40</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_2">
+     <g id="c4-rc-bode-line2d_48">
+      <path d="M 46.174375 144.302498 
+L 254.63952 144.302498 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_49">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="144.302498" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_8">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="148.299373" transform="rotate(-0 39.174375 148.299373)">-30</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_3">
+     <g id="c4-rc-bode-line2d_50">
+      <path d="M 46.174375 108.987793 
+L 254.63952 108.987793 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_51">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="108.987793" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_9">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="112.984668" transform="rotate(-0 39.174375 112.984668)">-20</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_4">
+     <g id="c4-rc-bode-line2d_52">
+      <path d="M 46.174375 73.673088 
+L 254.63952 73.673088 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_53">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="73.673088" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_10">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="77.669963" transform="rotate(-0 39.174375 77.669963)">-10</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_5">
+     <g id="c4-rc-bode-line2d_54">
+      <path d="M 46.174375 38.358382 
+L 254.63952 38.358382 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_55">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="38.358382" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_11">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="42.355257" transform="rotate(-0 39.174375 42.355257)">0</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-text_12">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="16.63375" y="105.456323" transform="rotate(-90 16.63375 105.456323)">幅值 / dB</text>
+    </g>
+   </g>
+   <g id="c4-rc-bode-line2d_56">
+    <path d="M 55.650063 179.618738 
+L 106.060726 104.67208 
+L 117.810579 87.58348 
+L 125.012103 77.463017 
+L 130.697516 69.846773 
+L 135.245846 64.123375 
+L 139.036121 59.696263 
+L 142.447369 56.04203 
+L 145.47959 53.09751 
+L 148.51181 50.466716 
+L 151.165003 48.434538 
+L 153.818195 46.656319 
+L 156.471388 45.125592 
+L 159.124581 43.828453 
+L 162.156801 42.60658 
+L 165.189021 41.62887 
+L 168.600269 40.774317 
+L 172.390545 40.06953 
+L 176.559848 39.520325 
+L 181.866233 39.062638 
+L 188.688729 38.725271 
+L 198.164417 38.505497 
+L 214.462601 38.388673 
+L 245.163832 38.359916 
+L 245.163832 38.359916 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-rc-bode-line2d_57">
+    <path d="M 55.650063 179.617204 
+L 150.406948 38.358382 
+L 245.163832 38.358382 
+L 245.163832 38.358382 
+" clip-path="url(#c4-rc-bode-p9858d7a07b)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-rc-bode-line2d_58">
+    <defs>
+     <path id="c4-rc-bode-mad6bfd4a5a" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #286a88"/>
+    </defs>
+    <g clip-path="url(#c4-rc-bode-p9858d7a07b)">
+     <use xlink:href="#c4-rc-bode-mad6bfd4a5a" x="150.406948" y="48.989168" style="fill: #286a88; stroke: #286a88"/>
+    </g>
+   </g>
+   <g id="c4-rc-bode-patch_3">
+    <path d="M 46.174375 186.680145 
+L 46.174375 24.2325 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-rc-bode-patch_4">
+    <path d="M 46.174375 186.680145 
+L 254.63952 186.680145 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-rc-bode-text_13">
+    <text style="font-size: 12px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.406948" y="18.2325" transform="rotate(-0 150.406948 18.2325)">高通：低端 +20 dB/十倍频</text>
+   </g>
+   <g id="c4-rc-bode-legend_1">
+    <g id="c4-rc-bode-patch_5">
+     <path d="M 191.43952 182.680145 
+L 249.03952 182.680145 
+Q 250.63952 182.680145 250.63952 181.080145 
+L 250.63952 157.112645 
+Q 250.63952 155.512645 249.03952 155.512645 
+L 191.43952 155.512645 
+Q 189.83952 155.512645 189.83952 157.112645 
+L 189.83952 181.080145 
+Q 189.83952 182.680145 191.43952 182.680145 
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c4-rc-bode-line2d_59">
+     <path d="M 193.03952 162.307645 
+L 201.03952 162.307645 
+L 209.03952 162.307645 
+" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c4-rc-bode-text_14">
+     <text style="font-size: 8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="215.43952" y="165.107645" transform="rotate(-0 215.43952 165.107645)">真实幅值</text>
+    </g>
+    <g id="c4-rc-bode-line2d_60">
+     <path d="M 193.03952 174.691395 
+L 201.03952 174.691395 
+L 209.03952 174.691395 
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+    </g>
+    <g id="c4-rc-bode-text_15">
+     <text style="font-size: 8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="215.43952" y="177.491395" transform="rotate(-0 215.43952 177.491395)">折线近似</text>
+    </g>
+   </g>
+  </g>
+  <g id="c4-rc-bode-axes_2">
+   <g id="c4-rc-bode-patch_6">
+    <path d="M 46.174375 402.680145 
+L 254.63952 402.680145 
+L 254.63952 240.2325 
+L 46.174375 240.2325 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-rc-bode-matplotlib.axis_3">
+    <g id="c4-rc-bode-xtick_41">
+     <g id="c4-rc-bode-line2d_61">
+      <path d="M 55.650063 402.680145 
+L 55.650063 240.2325 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_62">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="55.650063" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_16">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #202e35" transform="translate(44.950063 417.673895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_42">
+     <g id="c4-rc-bode-line2d_63">
+      <path d="M 103.028505 402.680145 
+L 103.028505 240.2325 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_64">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="103.028505" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_17">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(92.328505 417.673895)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_43">
+     <g id="c4-rc-bode-line2d_65">
+      <path d="M 150.406948 402.680145 
+L 150.406948 240.2325 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_66">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="150.406948" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_18">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(142.306948 417.673895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_44">
+     <g id="c4-rc-bode-line2d_67">
+      <path d="M 197.78539 402.680145 
+L 197.78539 240.2325 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_68">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="197.78539" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_19">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(189.68539 417.673895)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_45">
+     <g id="c4-rc-bode-line2d_69">
+      <path d="M 245.163832 402.680145 
+L 245.163832 240.2325 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_70">
+      <g>
+       <use xlink:href="#c4-rc-bode-mb4dfb01ed0" x="245.163832" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_20">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(237.063832 417.673895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_46">
+     <g id="c4-rc-bode-line2d_71">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="48.31105" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_47">
+     <g id="c4-rc-bode-line2d_72">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="51.058618" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_48">
+     <g id="c4-rc-bode-line2d_73">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="53.482145" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_49">
+     <g id="c4-rc-bode-line2d_74">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="69.912396" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_50">
+     <g id="c4-rc-bode-line2d_75">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="78.255325" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_51">
+     <g id="c4-rc-bode-line2d_76">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="84.174728" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_52">
+     <g id="c4-rc-bode-line2d_77">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="88.766173" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_53">
+     <g id="c4-rc-bode-line2d_78">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="92.517657" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_54">
+     <g id="c4-rc-bode-line2d_79">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="95.689492" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_55">
+     <g id="c4-rc-bode-line2d_80">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="98.43706" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_56">
+     <g id="c4-rc-bode-line2d_81">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="100.860587" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_57">
+     <g id="c4-rc-bode-line2d_82">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="117.290838" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_58">
+     <g id="c4-rc-bode-line2d_83">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="125.633767" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_59">
+     <g id="c4-rc-bode-line2d_84">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="131.55317" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_60">
+     <g id="c4-rc-bode-line2d_85">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="136.144615" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_61">
+     <g id="c4-rc-bode-line2d_86">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="139.896099" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_62">
+     <g id="c4-rc-bode-line2d_87">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="143.067934" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_63">
+     <g id="c4-rc-bode-line2d_88">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="145.815502" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_64">
+     <g id="c4-rc-bode-line2d_89">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="148.239029" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_65">
+     <g id="c4-rc-bode-line2d_90">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="164.66928" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_66">
+     <g id="c4-rc-bode-line2d_91">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="173.012209" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_67">
+     <g id="c4-rc-bode-line2d_92">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="178.931612" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_68">
+     <g id="c4-rc-bode-line2d_93">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="183.523057" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_69">
+     <g id="c4-rc-bode-line2d_94">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="187.274541" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_70">
+     <g id="c4-rc-bode-line2d_95">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="190.446376" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_71">
+     <g id="c4-rc-bode-line2d_96">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="193.193944" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_72">
+     <g id="c4-rc-bode-line2d_97">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="195.617471" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_73">
+     <g id="c4-rc-bode-line2d_98">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="212.047722" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_74">
+     <g id="c4-rc-bode-line2d_99">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="220.390651" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_75">
+     <g id="c4-rc-bode-line2d_100">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="226.310054" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_76">
+     <g id="c4-rc-bode-line2d_101">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="230.901499" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_77">
+     <g id="c4-rc-bode-line2d_102">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="234.652983" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_78">
+     <g id="c4-rc-bode-line2d_103">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="237.824818" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_79">
+     <g id="c4-rc-bode-line2d_104">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="240.572386" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-xtick_80">
+     <g id="c4-rc-bode-line2d_105">
+      <g>
+       <use xlink:href="#c4-rc-bode-m1166175c8f" x="242.995913" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-rc-bode-text_21">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.406948" y="432.153583" transform="rotate(-0 150.406948 432.153583)">f / 截止频率</text>
+    </g>
+   </g>
+   <g id="c4-rc-bode-matplotlib.axis_4">
+    <g id="c4-rc-bode-ytick_6">
+     <g id="c4-rc-bode-line2d_106">
+      <path d="M 46.174375 395.617204 
+L 254.63952 395.617204 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_107">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="395.617204" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_22">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="399.614079" transform="rotate(-0 39.174375 399.614079)">-40</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_7">
+     <g id="c4-rc-bode-line2d_108">
+      <path d="M 46.174375 360.302498 
+L 254.63952 360.302498 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_109">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="360.302498" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_23">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="364.299373" transform="rotate(-0 39.174375 364.299373)">-30</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_8">
+     <g id="c4-rc-bode-line2d_110">
+      <path d="M 46.174375 324.987793 
+L 254.63952 324.987793 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_111">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="324.987793" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_24">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="328.984668" transform="rotate(-0 39.174375 328.984668)">-20</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_9">
+     <g id="c4-rc-bode-line2d_112">
+      <path d="M 46.174375 289.673088 
+L 254.63952 289.673088 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_113">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="289.673088" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_25">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="293.669963" transform="rotate(-0 39.174375 293.669963)">-10</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-ytick_10">
+     <g id="c4-rc-bode-line2d_114">
+      <path d="M 46.174375 254.358382 
+L 254.63952 254.358382 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-rc-bode-line2d_115">
+      <g>
+       <use xlink:href="#c4-rc-bode-mbd8b8f9d22" x="46.174375" y="254.358382" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-rc-bode-text_26">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="258.355257" transform="rotate(-0 39.174375 258.355257)">0</text>
+     </g>
+    </g>
+    <g id="c4-rc-bode-text_27">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="16.63375" y="321.456323" transform="rotate(-90 16.63375 321.456323)">幅值 / dB</text>
+    </g>
+   </g>
+   <g id="c4-rc-bode-line2d_116">
+    <path d="M 55.650063 254.359916 
+L 100.375313 254.476433 
+L 111.746139 254.712153 
+L 118.947662 255.062638 
+L 124.254047 255.520325 
+L 128.802378 256.130174 
+L 132.592653 256.857974 
+L 136.003901 257.739006 
+L 139.036121 258.745204 
+L 142.068342 260.000154 
+L 144.721534 261.32957 
+L 147.374727 262.894961 
+L 150.02792 264.709252 
+L 152.681113 266.777759 
+L 155.713333 269.448868 
+L 158.745553 272.43093 
+L 162.156801 276.122674 
+L 165.947076 280.584661 
+L 170.116379 285.846773 
+L 175.043737 292.424272 
+L 181.487205 301.421342 
+L 190.204839 314.004221 
+L 204.607885 335.237246 
+L 240.994529 389.404116 
+L 245.163832 395.618738 
+L 245.163832 395.618738 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-rc-bode-line2d_117">
+    <path d="M 55.650063 254.358382 
+L 150.406948 254.358382 
+L 245.163832 395.617204 
+L 245.163832 395.617204 
+" clip-path="url(#c4-rc-bode-p1ac77f1a12)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-rc-bode-line2d_118">
+    <g clip-path="url(#c4-rc-bode-p1ac77f1a12)">
+     <use xlink:href="#c4-rc-bode-mad6bfd4a5a" x="150.406948" y="264.989168" style="fill: #286a88; stroke: #286a88"/>
+    </g>
+   </g>
+   <g id="c4-rc-bode-patch_7">
+    <path d="M 46.174375 402.680145 
+L 46.174375 240.2325 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-rc-bode-patch_8">
+    <path d="M 46.174375 402.680145 
+L 254.63952 402.680145 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-rc-bode-text_28">
+    <text style="font-size: 12px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.406948" y="234.2325" transform="rotate(-0 150.406948 234.2325)">低通：高端 −20 dB/十倍频</text>
+   </g>
+   <g id="c4-rc-bode-legend_2">
+    <g id="c4-rc-bode-patch_9">
+     <path d="M 51.774375 398.680145 
+L 109.374375 398.680145 
+Q 110.974375 398.680145 110.974375 397.080145 
+L 110.974375 373.112645 
+Q 110.974375 371.512645 109.374375 371.512645 
+L 51.774375 371.512645 
+Q 50.174375 371.512645 50.174375 373.112645 
+L 50.174375 397.080145 
+Q 50.174375 398.680145 51.774375 398.680145 
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c4-rc-bode-line2d_119">
+     <path d="M 53.374375 378.307645 
+L 61.374375 378.307645 
+L 69.374375 378.307645 
+" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c4-rc-bode-text_29">
+     <text style="font-size: 8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="75.774375" y="381.107645" transform="rotate(-0 75.774375 381.107645)">真实幅值</text>
+    </g>
+    <g id="c4-rc-bode-line2d_120">
+     <path d="M 53.374375 390.691395 
+L 61.374375 390.691395 
+L 69.374375 390.691395 
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+    </g>
+    <g id="c4-rc-bode-text_30">
+     <text style="font-size: 8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="75.774375" y="393.491395" transform="rotate(-0 75.774375 393.491395)">折线近似</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c4-rc-bode-p9858d7a07b">
+   <rect x="46.174375" y="24.2325" width="208.465145" height="162.447645"/>
+  </clipPath>
+  <clipPath id="c4-rc-bode-p1ac77f1a12">
+   <rect x="46.174375" y="240.2325" width="208.465145" height="162.447645"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>蓝线由复数表达式计算，虚线是做题常画的折线。高通在 f&lt;f<sub>L</sub> 的低频一侧，|H|≈f/f<sub>L</sub>：频率乘 10，幅值乘 10，增益加 20 dB，所以斜率为 +20 dB/十倍频。低通在 f&gt;f<sub>H</sub> 一侧，|H|≈f<sub>H</sub>/f，斜率为 −20 dB/十倍频。</p>
+<p>折线在拐点相交时并没有下降 3 dB，真正曲线才比通带下降约 3 dB。题目说“近似波特图”，画折线并标拐点；题目要该频率的准确增益，就代幅值公式。不要拿折线去否定截止定义。</p>
+<p>相频折线可以这样记：变化主要发生在 0.1f<sub>c</sub> 到 10f<sub>c</sub> 的两个十倍频程中，中心 f<sub>c</sub> 走到一半。低通从 0°走向 −90°；高通从 +90°走向 0°。端点以外取常数是画图近似，实际曲线是渐近的。</p>
+<p class="level"><strong>做题优先级：</strong>必须会分贝换算、找拐点、按每个一阶因子累加 ±20 dB 斜率；相频要会确定方向和几个关键点。Bode 的人名历史只需知道名称，对计算没有额外要求。</p>
+</section>
+<section id="c421">
+<h2>4.2.1 混合 π 模型：把高频时分走的电流画出来</h2>
+<p>第二章用 i<sub>c</sub>=βi<sub>b</sub>。高频时，一部分外部基极电流流过结电容，已经不能全用来建立控制电压，所以 β 变成了与频率有关的复数量。教材改用内部发射结电压 u<sub>b′e</sub> 控制集电极电流，写作 i<sub>c</sub>=g<sub>m</sub>u<sub>b′e</sub>。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-hybrid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 410" role="img" aria-labelledby="c4-hybrid-c4-hybrid-title">
+<title id="c4-hybrid-c4-hybrid-title">简化混合π模型，Cπ跨接内部基极与发射极，Cμ跨接内部基极与集电极</title>
+<defs><marker id="c4-hybrid-c4-hybrid-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<path class="wire" d="M15 100H44.5M44.5 93H80.5V107H44.5ZM80.5 100H110"/><text x="62.5" y="85" text-anchor="middle" font-size="15">rbb′</text><circle cx="15" cy="100" r="3.2" class="port"/><text x="15" y="133" text-anchor="start" font-size="15">b</text><path class="wire" d="M110 100H180"/><circle cx="110" cy="100" r="3.2" fill="currentColor"/><circle cx="180" cy="100" r="3.2" fill="currentColor"/><text x="106" y="79" text-anchor="end" font-size="15">b′</text><path class="wire" d="M180 100H225.0M225.0 86V114M235.0 86V114M235.0 100H280"/><text x="230.0" y="75" text-anchor="middle" font-size="15">Cμ</text><path class="wire" d="M280 100H305M280 100V202M280 248V320H110"/><circle cx="305" cy="100" r="3.2" class="port"/><text x="300" y="133" text-anchor="start" font-size="15">c</text><path class="wire" d="M110 100V192.0M103 192.0H117V228.0H103ZM110 228.0V320"/><text x="96" y="215.0" text-anchor="end" font-size="15">rb′e</text><path class="wire" d="M180 100V205.0M166 205.0H194M166 215.0H194M180 215.0V320"/><text x="202" y="215.0" text-anchor="start" font-size="15">Cπ</text><path class="wire" d="M280 202L298 225L280 248L262 225Z"/><path class="wire" d="M280 216L280 234" marker-end="url(#c4-hybrid-c4-hybrid-arrow)"/><circle cx="180" cy="320" r="3.2" fill="currentColor"/><path class="wire" d="M180 320V330M168 330H192M172 336H188M177 342H183"/><text x="255" y="281" text-anchor="end" font-size="14">gmub′e</text><text x="160" y="389" text-anchor="middle" font-size="15">e 为公共交流参考端</text></svg></figure>
+<p>b 是外部基极，b′ 是模型中的内部基区节点，并非多了一根可接线的引脚。r<sub>bb′</sub> 表示基区体电阻，r<sub>b′e</sub> 表示发射结的小信号电阻。它们串起来才是第二章用的 r<sub>be</sub>：</p>
+<div class="eq">r<sub>be</sub> = r<sub>bb′</sub> + r<sub>b′e</sub><br/>r<sub>b′e</sub> = (β<sub>0</sub>+1)U<sub>T</sub>/I<sub>EQ</sub> = β<sub>0</sub>U<sub>T</sub>/I<sub>CQ</sub><br/>g<sub>m</sub> = β<sub>0</sub>/r<sub>b′e</sub> = I<sub>CQ</sub>/U<sub>T</sub> ≈ I<sub>EQ</sub>/U<sub>T</sub></div>
+<p>室温近似取 U<sub>T</sub>=26 mV。若 I<sub>CQ</sub>=1 mA、β<sub>0</sub>=100，则 g<sub>m</sub>≈38.5 mS，r<sub>b′e</sub>≈2.6 kΩ。若另给 r<sub>bb′</sub>=100 Ω，r<sub>be</sub> 才是 2.7 kΩ。<strong>不能把两种电阻混成一个再到处代。</strong></p>
+<p>C<sub>π</sub> 是发射结等效电容，跨 b′、e；C<sub>μ</sub> 是集电结电容，跨 b′、c。图中从 b′ 流向 C<sub>π</sub> 的支路电流不直接穿过 r<sub>b′e</sub>；外部输入电流要按节点方程分配。箭头的用处到这里十分具体：告诉你哪一项是输入，哪几项是分流，才能列 i<sub>b</sub>=i<sub>r</sub>+i<sub>Cπ</sub>+i<sub>Cμ</sub>。</p>
+<p>完整物理模型还有一些很大的结电阻及输出电阻。教材在它们远大于相应外接电阻或电抗时将其略去。学习时要分两层：知道它们为什么存在；做基础计算会画并使用这里的简化模型。无需为每道入门题重新推导半导体内部物理，但也不能在题目明确给出有限输出电阻时擅自删去。</p>
+<details class="answer"><summary>自测：r<sub>be</sub>=2.1 kΩ、r<sub>bb′</sub>=100 Ω、β<sub>0</sub>=80，g<sub>m</sub> 是多少？</summary><p>先减出 r<sub>b′e</sub>=2 kΩ，再算 g<sub>m</sub>=80/2000=0.04 S=40 mS。直接用 80/2100 会把体电阻也放进控制关系。</p></details>
+</section>
+<section id="c421miller">
+<h2>4.2.1 密勒等效：几皮法为什么也能拖慢放大器</h2>
+<p>C<sub>μ</sub> 麻烦在于它跨在输入、输出之间；输出一动，也会通过它影响输入电流。先看一个数字：内部输入 u<sub>b′e</sub> 增加 1 mV，反相增益 K=−100，输出便变化 −100 mV。电容两端变化量不是 1 mV，而是 1−(−100)=101 mV。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-miller" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 370" role="img" aria-labelledby="c4-miller-c4-miller-title">
+<title id="c4-miller-c4-miller-title">密勒效应示意：输入加1毫伏、输出减100毫伏，跨接电容承受101毫伏变化</title>
+<defs><marker id="c4-miller-c4-miller-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<path class="wire" d="M30 95H155.0M155.0 81V109M165.0 81V109M165.0 95H290"/><text x="160.0" y="70" text-anchor="middle" font-size="15">Cμ = 3 pF</text><circle cx="30" cy="95" r="3.2" class="port"/><circle cx="290" cy="95" r="3.2" class="port"/><text x="30" y="155" text-anchor="start" font-size="15">Δui = +1 mV</text><text x="290" y="183" text-anchor="end" font-size="15">Δuo = −100 mV</text><path class="wire" d="M95 125L145 125" marker-end="url(#c4-miller-c4-miller-arrow)"/><text x="160" y="204" text-anchor="middle" font-size="14">ΔuC = 1−(−100) = 101 mV</text><rect x="25" y="245" width="270" height="85" class="block"/><text x="160.0" y="280.5" text-anchor="middle" font-size="15">输入侧等效电容</text><text x="160.0" y="304.5" text-anchor="middle" font-size="15">C′μ = 101 × 3 = 303 pF</text></svg></figure>
+<p>写成公式，就是电容两端的电压差。规定电容电流从输入流向输出：</p>
+<div class="eq">K = U<sub>ce</sub>/U<sub>b′e</sub><br/>I<sub>Cμ</sub> = jωC<sub>μ</sub>(U<sub>b′e</sub>−U<sub>ce</sub>)<br/>= jω[(1−K)C<sub>μ</sub>]U<sub>b′e</sub></div>
+<p>从输入端看，它取走的电流等于一个接地电容 C′<sub>μ</sub>=(1−K)C<sub>μ</sub> 取走的电流。这就是等效的依据。并不是元件实际变大了，而是输出反向运动，增大了跨接电容两端的电压变化。</p>
+<div class="eq">C′<sub>π</sub> = C<sub>π</sub> + (1−K)C<sub>μ</sub><br/>共射、发射极交流接地时：K ≈ −g<sub>m</sub>R′<sub>L</sub><br/>C′<sub>π</sub> ≈ C<sub>π</sub> + (1+g<sub>m</sub>R′<sub>L</sub>)C<sub>μ</sub></div>
+<p>若 C<sub>π</sub>=30 pF、C<sub>μ</sub>=3 pF、K=−100，则输入总电容为 30+101×3=333 pF。3 pF 小，但它对应的输入负担已经是 303 pF。这正是高增益共射电路高频容易下降的原因之一。</p>
+<p>输出侧的等效电容是 C″<sub>μ</sub>=(1−1/K)C<sub>μ</sub>。当 K=−100 时，它仅为 1.01C<sub>μ</sub>。教材常在输出侧时间常数明显较小时忽略它，把问题约化成一个输入端低通。<strong>输入电容大，不是忽略输出电容的充分理由；还要比较各自与等效电阻相乘得到的时间常数。</strong></p>
+<p class="level"><strong>三个易错点：</strong>K 取电容两端之间的电压增益，通常不是从信号源 u<sub>s</sub> 到输出的总增益；反相时 1−K=1+|K|；用中频 K 做密勒单向化是这里的近似方法，极高频、多极点或强反馈情况下不保证仍精确。</p>
+</section>
+<section id="c422">
+<h2>4.2.2 fβ、fT、fα：先看谁下降，再谈截止</h2>
+<p>这三个是<strong>管子的电流传输参数</strong>；整台电压放大电路的上限频率另记 f<sub>H</sub>。概念最容易混在这里：f<sub>β</sub> 是 β 降到低频 β<sub>0</sub> 的 0.707 时的频率，f<sub>T</sub> 是 |β|降到 1 时的频率，二者不是同一个“不能放大了”的点。</p>
+<p>测短路电流增益时，集电极与发射极之间的交流电压为零，模型中的 K=0，输入结电容取 C<sub>π</sub>+C<sub>μ</sub>，不带上普通共射电压放大时的大密勒系数。由输入电流分配可得：</p>
+<div class="eq">β(f) = β<sub>0</sub>/[1+j(f/f<sub>β</sub>)]<br/>f<sub>β</sub> = 1/[2πr<sub>b′e</sub>(C<sub>π</sub>+C<sub>μ</sub>)]<br/>|β(f)| = β<sub>0</sub>/√[1+(f/f<sub>β</sub>)²]</div>
+<p>令 |β(f<sub>T</sub>)|=1，得 f<sub>T</sub>=f<sub>β</sub>√(β<sub>0</sub>²−1)。β<sub>0</sub> 足够大时，教材用 f<sub>T</sub>≈β<sub>0</sub>f<sub>β</sub>。如果 β<sub>0</sub>=100、f<sub>β</sub>=1 MHz，那么 f<sub>T</sub>≈100 MHz；在 1 MHz，β 仍约 70.7，不是 1。</p>
+<figure class="chapter-figure plot"><svg data-figure="c4-beta" xmlns:xlink="http://www.w3.org/1999/xlink" width="263.27952pt" height="284.87952pt" viewBox="0 0 263.27952 284.87952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T15:40:45.512932</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c4-beta-figure_1">
+  <g id="c4-beta-patch_1">
+   <path d="M -0 284.87952 
+L 263.27952 284.87952 
+L 263.27952 0 
+L -0 0 
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c4-beta-axes_1">
+   <g id="c4-beta-patch_2">
+    <path d="M 46.494688 244.119207 
+L 254.63952 244.119207 
+L 254.63952 24.70125 
+L 46.494688 24.70125 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-beta-matplotlib.axis_1">
+    <g id="c4-beta-xtick_1">
+     <g id="c4-beta-line2d_1">
+      <path d="M 55.955816 244.119207 
+L 55.955816 24.70125 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_2">
+      <defs>
+       <path id="c4-beta-m882219297b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-beta-m882219297b" x="55.955816" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_1">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #202e35" transform="translate(45.255816 259.112957)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_2">
+     <g id="c4-beta-line2d_3">
+      <path d="M 93.800331 244.119207 
+L 93.800331 24.70125 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_4">
+      <g>
+       <use xlink:href="#c4-beta-m882219297b" x="93.800331" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_2">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(83.100331 259.112957)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_3">
+     <g id="c4-beta-line2d_5">
+      <path d="M 131.644846 244.119207 
+L 131.644846 24.70125 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_6">
+      <g>
+       <use xlink:href="#c4-beta-m882219297b" x="131.644846" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_3">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(123.544846 259.112957)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_4">
+     <g id="c4-beta-line2d_7">
+      <path d="M 169.489361 244.119207 
+L 169.489361 24.70125 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_8">
+      <g>
+       <use xlink:href="#c4-beta-m882219297b" x="169.489361" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_4">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(161.389361 259.112957)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_5">
+     <g id="c4-beta-line2d_9">
+      <path d="M 207.333876 244.119207 
+L 207.333876 24.70125 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_10">
+      <g>
+       <use xlink:href="#c4-beta-m882219297b" x="207.333876" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_5">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(199.233876 259.112957)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_6">
+     <g id="c4-beta-line2d_11">
+      <path d="M 245.178391 244.119207 
+L 245.178391 24.70125 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_12">
+      <g>
+       <use xlink:href="#c4-beta-m882219297b" x="245.178391" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_6">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #202e35" transform="translate(237.078391 259.112957)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_7">
+     <g id="c4-beta-line2d_13">
+      <defs>
+       <path id="c4-beta-m944b769cdf" d="M 0 0 
+L 0 2 
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="47.560058" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_8">
+     <g id="c4-beta-line2d_14">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="50.093627" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_9">
+     <g id="c4-beta-line2d_15">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="52.288304" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_10">
+     <g id="c4-beta-line2d_16">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="54.224146" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_11">
+     <g id="c4-beta-line2d_17">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="67.34815" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_12">
+     <g id="c4-beta-line2d_18">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="74.012239" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_13">
+     <g id="c4-beta-line2d_19">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="78.740485" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_14">
+     <g id="c4-beta-line2d_20">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="82.407997" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_15">
+     <g id="c4-beta-line2d_21">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="85.404573" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_16">
+     <g id="c4-beta-line2d_22">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="87.938142" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_17">
+     <g id="c4-beta-line2d_23">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="90.132819" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_18">
+     <g id="c4-beta-line2d_24">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="92.068661" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_19">
+     <g id="c4-beta-line2d_25">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="105.192665" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_20">
+     <g id="c4-beta-line2d_26">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="111.856754" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_21">
+     <g id="c4-beta-line2d_27">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="116.585" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_22">
+     <g id="c4-beta-line2d_28">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="120.252512" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_23">
+     <g id="c4-beta-line2d_29">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="123.249088" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_24">
+     <g id="c4-beta-line2d_30">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="125.782657" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_25">
+     <g id="c4-beta-line2d_31">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="127.977334" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_26">
+     <g id="c4-beta-line2d_32">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="129.913176" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_27">
+     <g id="c4-beta-line2d_33">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="143.03718" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_28">
+     <g id="c4-beta-line2d_34">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="149.701269" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_29">
+     <g id="c4-beta-line2d_35">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="154.429515" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_30">
+     <g id="c4-beta-line2d_36">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="158.097027" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_31">
+     <g id="c4-beta-line2d_37">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="161.093603" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_32">
+     <g id="c4-beta-line2d_38">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="163.627172" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_33">
+     <g id="c4-beta-line2d_39">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="165.821849" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_34">
+     <g id="c4-beta-line2d_40">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="167.757691" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_35">
+     <g id="c4-beta-line2d_41">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="180.881695" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_36">
+     <g id="c4-beta-line2d_42">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="187.545784" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_37">
+     <g id="c4-beta-line2d_43">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="192.27403" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_38">
+     <g id="c4-beta-line2d_44">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="195.941542" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_39">
+     <g id="c4-beta-line2d_45">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="198.938118" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_40">
+     <g id="c4-beta-line2d_46">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="201.471687" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_41">
+     <g id="c4-beta-line2d_47">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="203.666364" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_42">
+     <g id="c4-beta-line2d_48">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="205.602206" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_43">
+     <g id="c4-beta-line2d_49">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="218.72621" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_44">
+     <g id="c4-beta-line2d_50">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="225.390299" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_45">
+     <g id="c4-beta-line2d_51">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="230.118545" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_46">
+     <g id="c4-beta-line2d_52">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="233.786057" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_47">
+     <g id="c4-beta-line2d_53">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="236.782633" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_48">
+     <g id="c4-beta-line2d_54">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="239.316202" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_49">
+     <g id="c4-beta-line2d_55">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="241.510879" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-xtick_50">
+     <g id="c4-beta-line2d_56">
+      <g>
+       <use xlink:href="#c4-beta-m944b769cdf" x="243.446721" y="244.119207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-beta-text_7">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.567104" y="273.709832" transform="rotate(-0 150.567104 273.709832)">f / fβ</text>
+    </g>
+   </g>
+   <g id="c4-beta-matplotlib.axis_2">
+    <g id="c4-beta-ytick_1">
+     <g id="c4-beta-line2d_57">
+      <path d="M 46.494688 231.399326 
+L 254.63952 231.399326 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_58">
+      <defs>
+       <path id="c4-beta-m50d181d9b0" d="M 0 0 
+L -3.5 0 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="231.399326" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_8">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="235.396201" transform="rotate(-0 39.494688 235.396201)">-20</text>
+     </g>
+    </g>
+    <g id="c4-beta-ytick_2">
+     <g id="c4-beta-line2d_59">
+      <path d="M 46.494688 199.599622 
+L 254.63952 199.599622 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_60">
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="199.599622" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_9">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="203.596497" transform="rotate(-0 39.494688 203.596497)">-10</text>
+     </g>
+    </g>
+    <g id="c4-beta-ytick_3">
+     <g id="c4-beta-line2d_61">
+      <path d="M 46.494688 167.799918 
+L 254.63952 167.799918 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_62">
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="167.799918" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_10">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="171.796793" transform="rotate(-0 39.494688 171.796793)">0</text>
+     </g>
+    </g>
+    <g id="c4-beta-ytick_4">
+     <g id="c4-beta-line2d_63">
+      <path d="M 46.494688 136.000214 
+L 254.63952 136.000214 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_64">
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="136.000214" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_11">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="139.997089" transform="rotate(-0 39.494688 139.997089)">10</text>
+     </g>
+    </g>
+    <g id="c4-beta-ytick_5">
+     <g id="c4-beta-line2d_65">
+      <path d="M 46.494688 104.20051 
+L 254.63952 104.20051 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_66">
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="104.20051" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_12">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="108.197385" transform="rotate(-0 39.494688 108.197385)">20</text>
+     </g>
+    </g>
+    <g id="c4-beta-ytick_6">
+     <g id="c4-beta-line2d_67">
+      <path d="M 46.494688 72.400806 
+L 254.63952 72.400806 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_68">
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="72.400806" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_13">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="76.397681" transform="rotate(-0 39.494688 76.397681)">30</text>
+     </g>
+    </g>
+    <g id="c4-beta-ytick_7">
+     <g id="c4-beta-line2d_69">
+      <path d="M 46.494688 40.601102 
+L 254.63952 40.601102 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-beta-line2d_70">
+      <g>
+       <use xlink:href="#c4-beta-m50d181d9b0" x="46.494688" y="40.601102" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-beta-text_14">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.494688" y="44.597977" transform="rotate(-0 39.494688 44.597977)">40</text>
+     </g>
+    </g>
+    <g id="c4-beta-text_15">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="16.89625" y="134.410229" transform="rotate(-90 16.89625 134.410229)">20 lg |β| / dB</text>
+    </g>
+   </g>
+   <g id="c4-beta-line2d_71">
+    <path d="M 55.955816 40.602483 
+L 92.538847 40.719048 
+L 101.684605 40.956952 
+L 107.676653 41.328959 
+L 112.091847 41.824307 
+L 115.560927 42.42584 
+L 118.714637 43.203169 
+L 121.552976 44.148454 
+L 124.075943 45.229246 
+L 126.598911 46.57469 
+L 128.806508 47.993709 
+L 131.014104 49.653939 
+L 133.537072 51.855077 
+L 136.06004 54.376165 
+L 138.583007 57.199342 
+L 141.421346 60.700152 
+L 144.575056 64.932967 
+L 148.359507 70.38871 
+L 153.090071 77.621089 
+L 159.397491 87.70436 
+L 169.17399 103.813282 
+L 189.357732 137.602502 
+L 245.178391 231.39934 
+L 245.178391 231.39934 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-beta-line2d_72">
+    <path d="M 46.494688 167.799918 
+L 254.63952 167.799918 
+" clip-path="url(#c4-beta-p92185df2de)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-beta-line2d_73">
+    <defs>
+     <path id="c4-beta-m0773fd3de5" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #b66647"/>
+    </defs>
+    <g clip-path="url(#c4-beta-p92185df2de)">
+     <use xlink:href="#c4-beta-m0773fd3de5" x="131.644846" y="50.173767" style="fill: #b66647; stroke: #b66647"/>
+     <use xlink:href="#c4-beta-m0773fd3de5" x="207.333876" y="167.799918" style="fill: #b66647; stroke: #b66647"/>
+    </g>
+   </g>
+   <g id="c4-beta-patch_3">
+    <path d="M 46.494688 244.119207 
+L 46.494688 24.70125 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-beta-patch_4">
+    <path d="M 46.494687 244.119207 
+L 254.63952 244.119207 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-beta-text_16">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="96.796907" y="91.480628" transform="rotate(-0 96.796907 91.480628)">fβ：约 70.7 倍</text>
+   </g>
+   <g id="c4-beta-text_17">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="176.15345" y="209.139533" transform="rotate(-0 176.15345 209.139533)">fT≈100fβ</text>
+   </g>
+   <g id="c4-beta-text_18">
+    <text style="font-size: 12px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.567104" y="18.70125" transform="rotate(-0 150.567104 18.70125)">β0 = 100 的单极点模型</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c4-beta-p92185df2de">
+   <rect x="46.494688" y="24.70125" width="208.144833" height="219.417957"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>共基电流增益 α=β/(1+β)，代入上述单极点表达式，得到：</p>
+<div class="eq">α(f) = α<sub>0</sub>/[1+j(f/f<sub>α</sub>)]<br/>α<sub>0</sub>=β<sub>0</sub>/(1+β<sub>0</sub>)<br/>f<sub>α</sub>=(1+β<sub>0</sub>)f<sub>β</sub>≈f<sub>T</sub></div>
+<p>所以共基电流增益的截止频率远高于共射电流增益的截止频率。这有助于理解为什么共基、共射—共基结构常用于较宽频带。具体电路的 f<sub>H</sub> 仍然还要考虑信号源电阻、负载、寄生电容等，不能直接宣布 f<sub>H</sub>=f<sub>α</sub>。</p>
+<p>考试还常反过来给频率参数，让你求模型电容。方法很短：先由 Q 点求 r<sub>b′e</sub>，由 f<sub>T</sub>/β<sub>0</sub> 得 f<sub>β</sub>，再算 C<sub>π</sub>+C<sub>μ</sub>=1/(2πr<sub>b′e</sub>f<sub>β</sub>)，最后减掉 C<sub>μ</sub>。如果算出 C<sub>π</sub> 为负，先检查 Hz、MHz、pF 是否统一，以及是否误用了 r<sub>be</sub>。</p>
+</section>
+<section id="c43">
+<h2>4.3 场效应管高频模型：不取直流栅流，不代表不取交流电流</h2>
+<p class="level"><strong>选学：</strong>老师暂时跳过场效应管，可以先接 4.4.1。但“高输入电阻也会有高频电流”这句话值得保留。</p>
+<p>栅极没有明显直流导电通路，仍有栅源电容 C<sub>gs</sub>、栅漏电容 C<sub>gd</sub>，以及漏源电容 C<sub>ds</sub>。交流时电容电流由 i=C·du/dt 决定，变化越快，对前级取流越明显。MOS 的“栅极绝缘”与高频电容电流完全不冲突。</p>
+<p>共源级由 g<sub>m</sub>u<sub>gs</sub> 控制漏极电流。跨在栅漏间的 C<sub>gd</sub> 也能作密勒等效：</p>
+<div class="eq">K≈−g<sub>m</sub>R′<sub>L</sub><br/>C′<sub>gs</sub>=C<sub>gs</sub>+(1−K)C<sub>gd</sub><br/>C′<sub>ds</sub>=C<sub>ds</sub>+(1−1/K)C<sub>gd</sub></div>
+<p>输出侧时间常数远小时忽略 C′<sub>ds</sub>，输入就只剩一个等效电容 C′<sub>gs</sub>。计算逻辑与三极管相同，不过理想绝缘栅输入端没有 r<sub>b′e</sub> 那样的低阻分流支路。</p>
+<p>课本思考“等效栅源电容是不是常量”，答案要分清原始器件电容和等效结果：即便把器件电容看作给定常量，C′<sub>gs</sub> 仍会随 K 改变，K 又取决于 g<sub>m</sub>、Q 点和实际负载。<strong>等效参数属于“器件装进这个电路之后”的结果。</strong></p>
+</section>
+<section id="c441bands">
+<h2>4.4.1 同一张共射图，为什么要画三次等效电路</h2>
+<p>这里跟教材图 4.4.1：输入信号源经过 R<sub>s</sub> 接基极，基极经 R<sub>b</sub> 接电源，发射极接地，集电极经 R<sub>C</sub> 接电源，输出通过 C 接负载 R<sub>L</sub>。<strong>输入端没有隔直电容</strong>，这会影响后面的静态计算。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-ce-original" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 460" role="img" aria-labelledby="c4-ce-original-c4-ce-original-title">
+<title id="c4-ce-original-c4-ce-original-title">教材例4.4.1共射电路重绘，输入无耦合电容，源内阻也参与静态偏置</title>
+<defs><marker id="c4-ce-original-c4-ce-original-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="170" y="24" text-anchor="middle" font-size="15">+VCC</text><path class="wire" d="M90 45H170V55M90 45V55"/><path class="wire" d="M170 55V92.0M163 92.0H177V128.0H163ZM170 128.0V165"/><text x="184" y="115.0" text-anchor="start" font-size="15">RC</text><path class="wire" d="M90 55V114.5M83 114.5H97V150.5H83ZM90 150.5V210"/><text x="76" y="137.5" text-anchor="end" font-size="15">Rb</text><path class="wire" d="M140 190V230M120 210H140M140 200L170 175V165M140 220L170 245V255"/><path class="wire" d="M150 228L165 241" marker-end="url(#c4-ce-original-c4-ce-original-arrow)"/><text x="183" y="215" text-anchor="start" font-size="15">T</text><path class="wire" d="M30 210H120M170 255V390M170 140H185"/><circle cx="90" cy="210" r="3.2" fill="currentColor"/><circle cx="170" cy="140" r="3.2" fill="currentColor"/><path class="wire" d="M185 140H227.5M227.5 126V154M237.5 126V154M237.5 140H280"/><text x="232.5" y="115" text-anchor="middle" font-size="15">C</text><path class="wire" d="M280 140V247.0M273 247.0H287V283.0H273ZM280 283.0V390"/><text x="294" y="270.0" text-anchor="start" font-size="15">RL</text><path class="wire" d="M280 140L305 140"/><circle cx="305" cy="140" r="3.2" class="port"/><text x="290" y="184" text-anchor="start" font-size="15">uo</text><path class="wire" d="M30 210V232.0M23 232.0H37V268.0H23ZM30 268.0V290"/><text x="44" y="255.0" text-anchor="start" font-size="15">Rs</text><circle cx="30" cy="320" r="20" class="wire"/><text x="30" y="318" text-anchor="middle" font-size="15">+</text><text x="30" y="336" text-anchor="middle" font-size="15">−</text><text x="59" y="325" text-anchor="start" font-size="15">us</text><path class="wire" d="M30 290V300M30 340V390H280"/><circle cx="170" cy="390" r="3.2" fill="currentColor"/><path class="wire" d="M170 390V400M158 400H182M162 406H178M167 412H173"/><text x="160" y="448" text-anchor="middle" font-size="14">输出 uo 相对地；输入无隔直电容</text></svg></figure>
+<div class="table-wrap"><table><thead><tr><th>正在算什么</th><th>输出耦合 C</th><th>管内等效 C′<sub>π</sub></th><th>要留下的影响</th></tr></thead><tbody>
+<tr><td>中频</td><td>短路</td><td>开路</td><td>电阻分压和管子的放大</td></tr>
+<tr><td>低频</td><td>保留阻抗 1/(jωC)</td><td>开路</td><td>耦合不充分引起的衰减与超前相移</td></tr>
+<tr><td>高频</td><td>短路</td><td>保留阻抗 1/(jωC′<sub>π</sub>)</td><td>输入分流引起的衰减与滞后相移</td></tr>
+</tbody></table></div>
+<p>三张图不改变原电路；只在不同频段保留主要因素。直流电源在三张交流图里都接交流地，受控源保留。做题时先把这张表落实到图，再列方程，比从十个公式里猜一个可靠。</p>
+<p>下面分别求中频放大倍数 A<sub>usm</sub>、低频 A<sub>usl</sub>、高频 A<sub>ush</sub>。下标 s 提醒你：本节教材研究的是 U<sub>o</sub>/U<sub>s</sub>，包含信号源内阻造成的输入分压。若题目另问 U<sub>o</sub>/U<sub>i</sub>，就应去掉源端分压那一项。</p>
+</section>
+<section id="c441mid">
+<h2>4.4.1 中频：沿信号路线，把三次电压变化乘起来</h2>
+<p>中频时 C 短路，R<sub>L</sub> 接到了集电极，所以实际集电极负载 R′<sub>L</sub>=R<sub>C</sub>∥R<sub>L</sub>。C′<sub>π</sub> 开路，输入电阻 R<sub>i</sub>=R<sub>b</sub>∥(r<sub>bb′</sub>+r<sub>b′e</sub>)=R<sub>b</sub>∥r<sub>be</sub>。</p>
+<p>从信号源到输出，依次发生三件事：R<sub>s</sub> 与 R<sub>i</sub> 分压得到 u<sub>i</sub>；内部 r<sub>bb′</sub> 与 r<sub>b′e</sub> 再分压得到真正控制电压 u<sub>b′e</sub>；受控电流在集电极负载上形成反相输出。</p>
+<div class="eq">U<sub>i</sub>/U<sub>s</sub> = R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)<br/>U<sub>b′e</sub>/U<sub>i</sub> = r<sub>b′e</sub>/r<sub>be</sub><br/>U<sub>o</sub>/U<sub>b′e</sub> = −g<sub>m</sub>R′<sub>L</sub><br/>A<sub>usm</sub> = [R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)]·[r<sub>b′e</sub>/r<sub>be</sub>]·(−g<sub>m</sub>R′<sub>L</sub>)</div>
+<p>利用 g<sub>m</sub>r<sub>b′e</sub>=β<sub>0</sub>，式子变成 [R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)]·(−β<sub>0</sub>R′<sub>L</sub>/r<sub>be</sub>)，正好回到第二章。这一步是重要的检查：<strong>高频模型把电容拿掉后，应该给出熟悉的中频结果。</strong></p>
+<p>如果算出的增益比内部 K=−g<sub>m</sub>R′<sub>L</sub> 的幅值还大，先检查有没有把小于 1 的分压系数倒着写。电阻分压不会凭空增加电压。</p>
+</section>
+<section id="c441low">
+<h2>4.4.1 低频：耦合电容看到的是两侧电阻相加</h2>
+<p>只把输出回路取出来，受控电流源与 R<sub>C</sub> 可以等效为一个空载电压源 U′<sub>o</sub> 串联 R<sub>C</sub>。于是 U′<sub>o</sub> 要经过 R<sub>C</sub>、C 和 R<sub>L</sub> 才得到负载电压。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-coupling" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" role="img" aria-labelledby="c4-coupling-c4-coupling-title">
+<title id="c4-coupling-c4-coupling-title">输出耦合电容回路，等效空载输出源串联RC、C、RL，电容看到RC加RL</title>
+<defs><marker id="c4-coupling-c4-coupling-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<path class="wire" d="M65 100V142.0M58 142.0H72V178.0H58ZM65 178.0V220"/><text x="51" y="165.0" text-anchor="end" font-size="15">RC</text><circle cx="65" cy="260" r="20" class="wire"/><text x="65" y="258" text-anchor="middle" font-size="15">+</text><text x="65" y="276" text-anchor="middle" font-size="15">−</text><text x="94" y="265" text-anchor="start" font-size="15">u′o</text><path class="wire" d="M65 220V240M65 280V320H265M65 100H90"/><path class="wire" d="M90 100H172.5M172.5 86V114M182.5 86V114M182.5 100H265"/><text x="177.5" y="75" text-anchor="middle" font-size="15">C</text><path class="wire" d="M265 100V192.0M258 192.0H272V228.0H258ZM265 228.0V320"/><text x="279" y="215.0" text-anchor="start" font-size="15">RL</text><circle cx="265" cy="100" r="3.2" fill="currentColor"/><path class="wire" d="M265 100L303 100"/><circle cx="303" cy="100" r="3.2" class="port"/><text x="286" y="130" text-anchor="start" font-size="15">uo</text><path class="wire" d="M170 320V330M158 330H182M162 336H178M167 342H173"/><text x="160" y="385" text-anchor="middle" font-size="14">去掉 C 后，两端经 RC、RL 相连</text></svg></figure>
+<div class="eq">U<sub>o</sub>/U′<sub>o</sub> = R<sub>L</sub>/[R<sub>C</sub>+1/(jωC)+R<sub>L</sub>]<br/>= [R<sub>L</sub>/(R<sub>C</sub>+R<sub>L</sub>)]·jω(R<sub>C</sub>+R<sub>L</sub>)C/[1+jω(R<sub>C</sub>+R<sub>L</sub>)C]</div>
+<p>前面的电阻分压本来就包含在中频带载增益中。剩下的是一个高通因子：</p>
+<div class="eq">f<sub>L</sub> = 1/[2π(R<sub>C</sub>+R<sub>L</sub>)C]<br/>A<sub>usl</sub>(f) = A<sub>usm</sub>·j(f/f<sub>L</sub>)/[1+j(f/f<sub>L</sub>)]</div>
+<p>为什么不是 R<sub>C</sub>∥R<sub>L</sub>？先把独立激励置零，再把 C 拿开，从它的两只端子看过去：左端经 R<sub>C</sub> 到地，右端经 R<sub>L</sub> 到地，端子之间只有一条经过两只电阻的通路，因此相加。中频算集电极负载时，C 被短路，两只电阻上端才合成同一个节点，此时才并联。<strong>看的是不同端口，不能搬同一个并联结果。</strong></p>
+<p>因为共射中频已经反相，以连续相位 −180°为基准，低频相位是 −180°+arctan(f<sub>L</sub>/f)。在下限附近约 −135°，向更低频走近 −90°。说“低频附加相移 +45°”，不是说该共射电路总相位为 +45°。</p>
+</section>
+<section id="c441high">
+<h2>4.4.1 高频：从内部基极看出去，求的是哪一个电阻</h2>
+<p>高频时输出 C 已短路，主要影响集中在输入电容 C′<sub>π</sub>。把信号源 U<sub>s</sub> 置零，理想电压源短路，R<sub>s</sub> 上端因此经它接地；R<sub>b</sub> 的电源端本来也是交流地。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-high-r" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" role="img" aria-labelledby="c4-high-r-c4-high-r-title">
+<title id="c4-high-r-c4-high-r-title">Cπ单向化后，内部基极到地有rb′e与rbb′加Rs并Rb两条通路</title>
+<defs><marker id="c4-high-r-c4-high-r-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="15">独立信号源已置零</text><circle cx="275" cy="95" r="3.2" class="port"/><text x="277" y="72" text-anchor="start" font-size="15">b′</text><path class="wire" d="M70 95H117.0M117.0 88H153.0V102H117.0ZM153.0 95H200"/><text x="135.0" y="80" text-anchor="middle" font-size="15">rbb′</text><path class="wire" d="M200 95H275M70 95V165H30M70 165H110"/><circle cx="70" cy="165" r="3.2" fill="currentColor"/><circle cx="210" cy="95" r="3.2" fill="currentColor"/><path class="wire" d="M30 165V234.5M23 234.5H37V270.5H23ZM30 270.5V340"/><text x="44" y="257.5" text-anchor="start" font-size="15">Rs</text><path class="wire" d="M110 165V234.5M103 234.5H117V270.5H103ZM110 270.5V340"/><text x="124" y="257.5" text-anchor="start" font-size="15">Rb</text><path class="wire" d="M210 95V199.5M203 199.5H217V235.5H203ZM210 235.5V340"/><text x="196" y="222.5" text-anchor="end" font-size="15">rb′e</text><path class="wire" d="M30 340H275"/><circle cx="275" cy="340" r="3.2" class="port"/><text x="280" y="365" text-anchor="start" font-size="15">e</text><path d="M275 107V190M275 237V329" stroke="#b66647" stroke-dasharray="5 4" fill="none"/><path class="wire" d="M275 190V208.5M261 208.5H289M261 218.5H289M275 218.5V237"/><text x="297" y="218.5" text-anchor="start" font-size="15"></text><text x="276" y="267" text-anchor="middle" font-size="15">C′π</text><path class="wire" d="M110 340V350M98 350H122M102 356H118M107 362H113"/><text x="160" y="414" text-anchor="middle" font-size="14">RH = rb′e ∥ [rbb′ + (Rs ∥ Rb)]</text></svg></figure>
+<p>从 b′ 到 e 有两条并行通路：一条直接经过 r<sub>b′e</sub>；另一条先经过 r<sub>bb′</sub> 到外部基极，再经过 R<sub>s</sub>∥R<sub>b</sub> 到地。所以：</p>
+<div class="eq">R<sub>H</sub> = r<sub>b′e</sub> ∥ [r<sub>bb′</sub>+(R<sub>s</sub>∥R<sub>b</sub>)]<br/>f<sub>H</sub> = 1/(2πR<sub>H</sub>C′<sub>π</sub>)<br/>A<sub>ush</sub>(f) = A<sub>usm</sub>/[1+j(f/f<sub>H</sub>)]</div>
+<p>这一步的电阻既不是输入电阻 R<sub>i</sub>，也不是随意选一个 r<sub>be</sub>。<strong>决定你从哪里看的，是电容实际接在哪两个节点。</strong>题目让你求输出电阻时才从输出端看；这里从内部 b′、e 看。</p>
+<p>若 R<sub>b</sub> 远大于 R<sub>s</sub>，可以将 R<sub>s</sub>∥R<sub>b</sub> 近似为 R<sub>s</sub>，但 r<sub>bb′</sub> 仍要按题目精度保留。减小 R<sub>s</sub> 通常降低 R<sub>H</sub>，更容易给输入电容充放电，从而提高上限。这里也解释了为什么前一级加一个低输出电阻的射极跟随器，会改善后级的高频驱动。</p>
+<p>共射总相位是 −180°−arctan(f/f<sub>H</sub>)，上限处约 −225°，高频渐近 −270°。−225°与 +135°只差一整圈，正弦稳态等价；画连续相频曲线时统一用同一分支，不要中途突然跳 360°。</p>
+</section>
+<section id="c441example">
+<h2>例 4.4.1：从 Q 点到频率表达式，一次算完整</h2>
+<p>沿用上面的共射原图。教材给定 V<sub>CC</sub>=15 V，R<sub>s</sub>=1 kΩ，R<sub>b</sub>=20 kΩ，R<sub>C</sub>=R<sub>L</sub>=5 kΩ，C=5 μF；U<sub>BEQ</sub>=0.7 V，r<sub>bb′</sub>=100 Ω，β<sub>0</sub>=100，f<sub>β</sub>=0.5 MHz，C<sub>μ</sub>≈C<sub>ob</sub>=5 pF。</p>
+<h3>第一步：静态先算对，特别留意输入没有隔直电容</h3>
+<p>信号源的直流分量为零，因此静态时源端接地，但 R<sub>s</sub> 还连着基极。R<sub>b</sub> 提供的电流要分给 R<sub>s</sub> 和基极。沿基极节点列 KCL：</p>
+<div class="eq">I<sub>BQ</sub> = (15−0.7)/20 kΩ − 0.7/1 kΩ<br/>= 0.715 mA−0.700 mA = 0.015 mA<br/>I<sub>CQ</sub> = 100×0.015 mA = 1.5 mA<br/>U<sub>CEQ</sub> = 15−1.5 mA×5 kΩ = 7.5 V</div>
+<p>如果按固定偏置直接把 (15−0.7)/20 kΩ 当作基极电流，会大错，因为你遗漏了流向 R<sub>s</sub> 的支路。此时那些电流箭头正是为了提醒你<strong>节点电流要相减</strong>。管压降结果表明 Q 点适合小信号放大。</p>
+<h3>第二步：先模型参数，再密勒电容</h3>
+<div class="eq">r<sub>b′e</sub> = U<sub>T</sub>/I<sub>BQ</sub> ≈ 26 mV/0.015 mA = 1.733 kΩ<br/>g<sub>m</sub> = β<sub>0</sub>/r<sub>b′e</sub> ≈ 57.7 mS<br/>C<sub>π</sub> = 1/(2πr<sub>b′e</sub>f<sub>β</sub>)−C<sub>μ</sub> ≈ 178.6 pF<br/>R′<sub>L</sub> = 5 kΩ∥5 kΩ = 2.5 kΩ<br/>K = −g<sub>m</sub>R′<sub>L</sub> ≈ −144.2</div>
+<p>完整保留 1−K，C′<sub>π</sub>≈178.6+(1+144.2)×5=904.8 pF。教材把 1+|K|近似为 |K|，并取整，得到约 898 pF。两种结果差不到 1%，属于已说明的近似。做题中不要一边提前近似、一边又拿末位小数判断谁错。</p>
+<h3>第三步：算中频源电压增益</h3>
+<div class="eq">r<sub>be</sub> = 0.100+1.733 = 1.833 kΩ<br/>R<sub>i</sub> = 20∥1.833 ≈ 1.679 kΩ<br/>A<sub>usm</sub> ≈ [1.679/(1+1.679)]·(1.733/1.833)·(−144.2)<br/>≈ −85.5，教材取约 −85<br/>20lg|A<sub>usm</sub>| ≈ 38.6 dB</div>
+<h3>第四步：上下限分别找各自的电容回路</h3>
+<div class="eq">f<sub>L</sub> = 1/[2π(5 kΩ+5 kΩ)×5 μF] ≈ 3.18 Hz<br/>R<sub>H</sub> = 1.733 kΩ ∥ [0.100 kΩ+(1 kΩ∥20 kΩ)] ≈ 0.655 kΩ<br/>f<sub>H</sub> ≈ 1/(2π×0.655 kΩ×904.8 pF) ≈ 269 kHz</div>
+<p>教材进一步把 R<sub>s</sub>∥R<sub>b</sub> 近似为 R<sub>s</sub>，并使用 898 pF，得到约 263 kHz。遵循课本估算口径，可交出 f<sub>L</sub>≈3.2 Hz、f<sub>H</sub>≈263 kHz；保留较多参数算到约 269 kHz，也应把所用表达式写清楚。</p>
+<h3>第五步：写全表达式，再画幅频和相频图</h3>
+<div class="eq">A<sub>us</sub>(f) ≈ −85·[j(f/3.2)]/{[1+j(f/3.2)][1+j(f/263000)]}</div>
+<figure class="chapter-figure plot"><svg data-figure="c4-ce-bode" xmlns:xlink="http://www.w3.org/1999/xlink" width="263.27952pt" height="443.27952pt" viewBox="0 0 263.27952 443.27952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T15:40:45.650253</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c4-ce-bode-figure_1">
+  <g id="c4-ce-bode-patch_1">
+   <path d="M -0 443.27952 
+L 263.27952 443.27952 
+L 263.27952 0 
+L -0 0 
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c4-ce-bode-axes_1">
+   <g id="c4-ce-bode-patch_2">
+    <path d="M 52.038438 201.716239 
+L 254.63952 201.716239 
+L 254.63952 24.2325 
+L 52.038438 24.2325 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-ce-bode-matplotlib.axis_1">
+    <g id="c4-ce-bode-xtick_1">
+     <g id="c4-ce-bode-line2d_1">
+      <path d="M 84.270428 201.716239 
+L 84.270428 24.2325 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_2">
+      <defs>
+       <path id="c4-ce-bode-m9a36ca0d7c" d="M 0 0 
+L 0 3.5 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="84.270428" y="201.716239" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_1">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="84.270428" y="216.709989" transform="rotate(-0 84.270428 216.709989)">1</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-xtick_2">
+     <g id="c4-ce-bode-line2d_3">
+      <path d="M 130.316128 201.716239 
+L 130.316128 24.2325 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_4">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="130.316128" y="201.716239" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_2">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="130.316128" y="216.709989" transform="rotate(-0 130.316128 216.709989)">100</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-xtick_3">
+     <g id="c4-ce-bode-line2d_5">
+      <path d="M 176.361829 201.716239 
+L 176.361829 24.2325 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_6">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="176.361829" y="201.716239" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_3">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="176.361829" y="216.709989" transform="rotate(-0 176.361829 216.709989)">10k</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-xtick_4">
+     <g id="c4-ce-bode-line2d_7">
+      <path d="M 222.40753 201.716239 
+L 222.40753 24.2325 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_8">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="222.40753" y="201.716239" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_4">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="222.40753" y="216.709989" transform="rotate(-0 222.40753 216.709989)">1M</text>
+     </g>
+    </g>
+   </g>
+   <g id="c4-ce-bode-matplotlib.axis_2">
+    <g id="c4-ce-bode-ytick_1">
+     <g id="c4-ce-bode-line2d_9">
+      <path d="M 52.038438 178.253519 
+L 254.63952 178.253519 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_10">
+      <defs>
+       <path id="c4-ce-bode-m9a8ac8b924" d="M 0 0 
+L -3.5 0 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="178.253519" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_5">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="182.250394" transform="rotate(-0 45.038438 182.250394)">10</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_2">
+     <g id="c4-ce-bode-line2d_11">
+      <path d="M 52.038438 152.726692 
+L 254.63952 152.726692 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_12">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="152.726692" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_6">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="156.723567" transform="rotate(-0 45.038438 156.723567)">15</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_3">
+     <g id="c4-ce-bode-line2d_13">
+      <path d="M 52.038438 127.199866 
+L 254.63952 127.199866 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_14">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="127.199866" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_7">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="131.196741" transform="rotate(-0 45.038438 131.196741)">20</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_4">
+     <g id="c4-ce-bode-line2d_15">
+      <path d="M 52.038438 101.673039 
+L 254.63952 101.673039 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_16">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="101.673039" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_8">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="105.669914" transform="rotate(-0 45.038438 105.669914)">25</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_5">
+     <g id="c4-ce-bode-line2d_17">
+      <path d="M 52.038438 76.146213 
+L 254.63952 76.146213 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_18">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="76.146213" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_9">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="80.143088" transform="rotate(-0 45.038438 80.143088)">30</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_6">
+     <g id="c4-ce-bode-line2d_19">
+      <path d="M 52.038438 50.619386 
+L 254.63952 50.619386 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_20">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="50.619386" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_10">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="54.616261" transform="rotate(-0 45.038438 54.616261)">35</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_7">
+     <g id="c4-ce-bode-line2d_21">
+      <path d="M 52.038438 25.09256 
+L 254.63952 25.09256 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_22">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="25.09256" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_11">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="29.089435" transform="rotate(-0 45.038438 29.089435)">40</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-text_12">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="26.824375" y="112.974369" transform="rotate(-90 26.824375 112.974369)">源电压增益 / dB</text>
+    </g>
+   </g>
+   <g id="c4-ce-bode-line2d_23">
+    <path d="M 61.247578 186.007855 
+L 77.840623 112.985776 
+L 83.371638 89.604043 
+L 86.874614 75.704166 
+L 89.455755 66.277458 
+L 91.668161 58.982857 
+L 93.511832 53.59157 
+L 95.171137 49.344211 
+L 96.830441 45.701518 
+L 98.305379 42.970319 
+L 99.780316 40.69335 
+L 101.255253 38.83203 
+L 102.730191 37.337146 
+L 104.205128 36.154841 
+L 105.864433 35.132084 
+L 107.523737 34.367994 
+L 109.367409 33.750324 
+L 111.579815 33.242316 
+L 114.345322 32.846581 
+L 118.032666 32.562791 
+L 123.563681 32.38687 
+L 134.441344 32.309357 
+L 177.03016 32.336015 
+L 185.695417 32.505793 
+L 190.120229 32.796247 
+L 193.254471 33.22052 
+L 195.651244 33.768689 
+L 197.679283 34.468767 
+L 199.338588 35.267659 
+L 200.813525 36.201086 
+L 202.288462 37.396019 
+L 203.7634 38.905925 
+L 205.238337 40.784576 
+L 206.713274 43.080842 
+L 208.188212 45.832703 
+L 209.663149 49.061753 
+L 211.322454 53.266241 
+L 213.166125 58.613615 
+L 215.194164 65.228282 
+L 217.590937 73.858091 
+L 220.540812 85.370081 
+L 224.59689 102.204374 
+L 230.865374 129.317747 
+L 244.692911 190.380527 
+L 245.43038 193.648796 
+L 245.43038 193.648796 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-ce-bode-line2d_24">
+    <path d="M 95.90042 201.716239 
+L 95.90042 24.2325 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-ce-bode-line2d_25">
+    <path d="M 209.053258 201.716239 
+L 209.053258 24.2325 
+" clip-path="url(#c4-ce-bode-p36022e5f41)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-ce-bode-patch_3">
+    <path d="M 52.038438 201.716239 
+L 52.038438 24.2325 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-ce-bode-patch_4">
+    <path d="M 52.038438 201.716239 
+L 254.63952 201.716239 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-ce-bode-text_13">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="109.116256" y="116.989135" transform="rotate(-0 109.116256 116.989135)">fL≈3.2 Hz</text>
+   </g>
+   <g id="c4-ce-bode-text_14">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="160.269547" y="198.67498" transform="rotate(-0 160.269547 198.67498)">fH≈263 kHz</text>
+   </g>
+   <g id="c4-ce-bode-text_15">
+    <text style="font-size: 12px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="153.338979" y="18.2325" transform="rotate(-0 153.338979 18.2325)">例 4.4.1 · 教材估算参数</text>
+   </g>
+  </g>
+  <g id="c4-ce-bode-axes_2">
+   <g id="c4-ce-bode-patch_5">
+    <path d="M 52.038438 402.680145 
+L 254.63952 402.680145 
+L 254.63952 225.196406 
+L 52.038438 225.196406 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-ce-bode-matplotlib.axis_3">
+    <g id="c4-ce-bode-xtick_5">
+     <g id="c4-ce-bode-line2d_26">
+      <path d="M 84.270428 402.680145 
+L 84.270428 225.196406 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_27">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="84.270428" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_16">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="84.270428" y="417.673895" transform="rotate(-0 84.270428 417.673895)">1</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-xtick_6">
+     <g id="c4-ce-bode-line2d_28">
+      <path d="M 130.316128 402.680145 
+L 130.316128 225.196406 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_29">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="130.316128" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_17">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="130.316128" y="417.673895" transform="rotate(-0 130.316128 417.673895)">100</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-xtick_7">
+     <g id="c4-ce-bode-line2d_30">
+      <path d="M 176.361829 402.680145 
+L 176.361829 225.196406 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_31">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="176.361829" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_18">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="176.361829" y="417.673895" transform="rotate(-0 176.361829 417.673895)">10k</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-xtick_8">
+     <g id="c4-ce-bode-line2d_32">
+      <path d="M 222.40753 402.680145 
+L 222.40753 225.196406 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_33">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a36ca0d7c" x="222.40753" y="402.680145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_19">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="222.40753" y="417.673895" transform="rotate(-0 222.40753 417.673895)">1M</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-text_20">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="153.338979" y="432.153583" transform="rotate(-0 153.338979 432.153583)">f / Hz</text>
+    </g>
+   </g>
+   <g id="c4-ce-bode-matplotlib.axis_4">
+    <g id="c4-ce-bode-ytick_8">
+     <g id="c4-ce-bode-line2d_34">
+      <path d="M 52.038438 231.629453 
+L 254.63952 231.629453 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_35">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="231.629453" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_21">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="235.626328" transform="rotate(-0 45.038438 235.626328)">-90</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_9">
+     <g id="c4-ce-bode-line2d_36">
+      <path d="M 52.038438 272.719175 
+L 254.63952 272.719175 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_37">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="272.719175" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_22">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="276.71605" transform="rotate(-0 45.038438 276.71605)">-135</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_10">
+     <g id="c4-ce-bode-line2d_38">
+      <path d="M 52.038438 313.808897 
+L 254.63952 313.808897 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_39">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="313.808897" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_23">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="317.805772" transform="rotate(-0 45.038438 317.805772)">-180</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_11">
+     <g id="c4-ce-bode-line2d_40">
+      <path d="M 52.038438 354.898619 
+L 254.63952 354.898619 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_41">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="354.898619" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_24">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="358.895494" transform="rotate(-0 45.038438 358.895494)">-225</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-ytick_12">
+     <g id="c4-ce-bode-line2d_42">
+      <path d="M 52.038438 395.988341 
+L 254.63952 395.988341 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-ce-bode-line2d_43">
+      <g>
+       <use xlink:href="#c4-ce-bode-m9a8ac8b924" x="52.038438" y="395.988341" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-ce-bode-text_25">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="45.038438" y="399.985216" transform="rotate(-0 45.038438 399.985216)">-270</text>
+     </g>
+    </g>
+    <g id="c4-ce-bode-text_26">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="16.63375" y="313.938276" transform="rotate(-90 16.63375 313.938276)">总相位 / °</text>
+    </g>
+   </g>
+   <g id="c4-ce-bode-line2d_44">
+    <path d="M 61.247578 233.263849 
+L 64.750554 233.948802 
+L 67.700429 234.743074 
+L 70.281569 235.656919 
+L 72.678342 236.741676 
+L 74.890748 237.996524 
+L 76.918787 239.409132 
+L 78.762459 240.953974 
+L 80.60613 242.789887 
+L 82.449802 244.960826 
+L 84.293474 247.51006 
+L 86.137145 250.474885 
+L 87.980817 253.878649 
+L 90.008856 258.127593 
+L 92.221262 263.304358 
+L 95.355504 271.294876 
+L 100.14905 283.515251 
+L 102.545824 288.951534 
+L 104.573862 293.006876 
+L 106.417534 296.229912 
+L 108.261206 299.021317 
+L 110.104878 301.411291 
+L 111.948549 303.440392 
+L 113.792221 305.152687 
+L 115.82026 306.721846 
+L 117.848299 308.012991 
+L 120.060705 309.159207 
+L 122.457478 310.150021 
+L 125.222985 311.037265 
+L 128.357227 311.789806 
+L 131.860204 312.397886 
+L 136.100648 312.905741 
+L 141.631663 313.330715 
+L 149.743819 313.707888 
+L 164.861927 314.385765 
+L 170.392942 314.87336 
+L 174.633387 315.461875 
+L 178.136363 316.1688 
+L 181.086238 316.985262 
+L 183.667378 317.922805 
+L 186.064151 319.034434 
+L 188.276557 320.31937 
+L 190.304596 321.764938 
+L 192.148268 323.344876 
+L 193.99194 325.221232 
+L 195.835611 327.438102 
+L 197.679283 330.038361 
+L 199.522955 333.058051 
+L 201.366626 336.518069 
+L 203.394665 340.825834 
+L 205.607071 346.055208 
+L 208.92568 354.564216 
+L 213.166125 365.367057 
+L 215.562898 370.839298 
+L 217.590937 374.929706 
+L 219.434609 378.184988 
+L 221.278281 381.007002 
+L 223.121952 383.424826 
+L 224.965624 385.47851 
+L 226.809296 387.212019 
+L 228.837335 388.800793 
+L 230.865374 390.107996 
+L 233.07778 391.268142 
+L 235.474553 392.27038 
+L 238.055693 393.114336 
+L 241.005568 393.847649 
+L 244.508544 394.479915 
+L 245.43038 394.612702 
+L 245.43038 394.612702 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-ce-bode-line2d_45">
+    <path d="M 95.90042 402.680145 
+L 95.90042 225.196406 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-ce-bode-line2d_46">
+    <path d="M 209.053258 402.680145 
+L 209.053258 225.196406 
+" clip-path="url(#c4-ce-bode-pcfcb6e262c)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-ce-bode-patch_6">
+    <path d="M 52.038438 402.680145 
+L 52.038438 225.196406 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-ce-bode-patch_7">
+    <path d="M 52.038438 402.680145 
+L 254.63952 402.680145 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c4-ce-bode-p36022e5f41">
+   <rect x="52.038438" y="24.2325" width="202.601083" height="177.483739"/>
+  </clipPath>
+  <clipPath id="c4-ce-bode-pcfcb6e262c">
+   <rect x="52.038438" y="225.196406" width="202.601083" height="177.483739"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>在这个单主导低频环节、单主导高频环节且上下限相隔很远的模型里，幅频图中间约 38.6 dB，左侧斜率 +20 dB/十倍频，右侧 −20 dB/十倍频。下限与上限处各自约下降 3 dB，相位分别约 −135°、−225°。</p>
+<p class="level"><strong>你真正要学会的是五步顺序：</strong>Q 点决定模型参数，参数与实际负载决定密勒电容，两个电容各自决定一个时间常数，最后组装频率表达式。单背 −85、3.2 Hz、263 kHz 对换一组参数的题没有用。</p>
+</section>
+<section id="c442">
+<h2>4.4.2 共源频响：换了管子，解题骨架不换</h2>
+<p class="level"><strong>选学。</strong>本节按教材图 4.4.7 的条件：源极交流接地，输入信号经串联电阻 R<sub>g</sub> 驱动栅极，输出经 C 接负载。这里 R<sub>g</sub> 是输入串联电阻，不要自动当成栅极对地偏置电阻。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-cs-model" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 395" role="img" aria-labelledby="c4-cs-model-c4-cs-model-title">
+<title id="c4-cs-model-c4-cs-model-title">共源电路的单向化小信号模型：Rg串输入等效电容，受控源流向源极，漏极经耦合电容接负载</title>
+<defs><marker id="c4-cs-model-c4-cs-model-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<circle cx="15" cy="90" r="3.2" class="port"/><text x="15" y="65" text-anchor="start" font-size="15">ui</text><path class="wire" d="M15 90H39.5M39.5 83H75.5V97H39.5ZM75.5 90H100"/><text x="57.5" y="75" text-anchor="middle" font-size="15">Rg</text><path class="wire" d="M100 90V190.0M86 190.0H114M86 200.0H114M100 200.0V300"/><text x="78" y="200.0" text-anchor="end" font-size="15">C′gs</text><circle cx="100" cy="90" r="3.2" class="port"/><text x="107" y="75" text-anchor="start" font-size="15">g</text><path class="wire" d="M185 90V192M185 238V300H100M185 90H220"/><path class="wire" d="M185 192L203 215L185 238L167 215Z"/><path class="wire" d="M185 206L185 224" marker-end="url(#c4-cs-model-c4-cs-model-arrow)"/><text x="170" y="270" text-anchor="end" font-size="14">gmugs</text><path class="wire" d="M220 90V177.0M213 177.0H227V213.0H213ZM220 213.0V300"/><text x="234" y="200.0" text-anchor="start" font-size="15">RD</text><path class="wire" d="M220 90H252.5M252.5 76V104M262.5 76V104M262.5 90H295"/><text x="257.5" y="65" text-anchor="middle" font-size="15">C</text><path class="wire" d="M295 90V177.0M288 177.0H302V213.0H288ZM295 213.0V300"/><text x="281" y="200.0" text-anchor="end" font-size="15">RL</text><path class="wire" d="M185 300H295"/><circle cx="295" cy="90" r="3.2" fill="currentColor"/><text x="270" y="132" text-anchor="end" font-size="15">uo</text><path class="wire" d="M185 300V310M173 310H197M177 316H193M182 322H188"/><text x="160" y="370" text-anchor="middle" font-size="14">源极交流接地，忽略输出电容</text></svg></figure>
+<p>忽略栅极漏电和有限漏源输出电阻，中频栅极近似不取流，输入串联电阻上没有明显压降，u<sub>gs</sub>≈u<sub>i</sub>。因此：</p>
+<div class="eq">R′<sub>L</sub>=R<sub>D</sub>∥R<sub>L</sub><br/>A<sub>um</sub>=−g<sub>m</sub>R′<sub>L</sub><br/>C′<sub>gs</sub>=C<sub>gs</sub>+(1+g<sub>m</sub>R′<sub>L</sub>)C<sub>gd</sub><br/>f<sub>H</sub>=1/(2πR<sub>g</sub>C′<sub>gs</sub>)<br/>f<sub>L</sub>=1/[2π(R<sub>D</sub>+R<sub>L</sub>)C]</div>
+<p>高频时情况变了：输入电流会流入 C′<sub>gs</sub>，使 R<sub>g</sub> 上出现交流压降。它与电容形成低通。低频输出耦合则与共射完全一样，两侧电阻相加。</p>
+<p>举一个迁移练习：g<sub>m</sub>=2 mS、R′<sub>L</sub>=5 kΩ，C<sub>gs</sub>=10 pF、C<sub>gd</sub>=2 pF，R<sub>g</sub>=10 kΩ。那么 A<sub>um</sub>=−10，C′<sub>gs</sub>=32 pF，f<sub>H</sub>≈497 kHz。不能因输入电阻很高，就说 R<sub>g</sub> 对高频无影响。</p>
+<p>若另有栅极对地偏置电阻、有限信号源内阻或未旁路源极电阻，要重新从输入电容两端求等效电阻和电压增益。上述几个简式依赖本节电路，不是所有 MOS 放大器的统一答案。</p>
+</section>
+<section id="c443">
+<h2>4.4.3 怎样展宽频带，以及为什么增益不能白拿</h2>
+<p>改善低频响应是让 f<sub>L</sub> 降低。由 f<sub>L</sub>=1/(2πRC)，要增大相应时间常数，常见办法是增大耦合、旁路电容。改变回路电阻也能改变 f<sub>L</sub>，但电阻同时影响偏置、分压和增益，不能随意增大。需要传递直流或极慢变化信号时，直接耦合才是更根本的选择。</p>
+<p>改善高频响应是让 f<sub>H</sub> 提高。它也写成 1/(2πRC)，这次要<strong>减小</strong>时间常数：减小器件及布线电容、减小驱动电阻、减弱密勒效应，或改变接法。你可以用一个统一公式判断方向，却要清楚低频希望下限向左，高频希望上限向右。</p>
+<p>为什么课本突然讲“增益带宽积”？因为共射增益与 g<sub>m</sub>R′<sub>L</sub> 有关，输入密勒电容也随它增加。想提高增益，会让输入电容负担变大，从而降低上限。这解释了一类设计上的权衡，也常用于参数变化题。</p>
+<div class="eq">在 R<sub>b</sub> 足够大、|K|≫1 且密勒项主导等条件下：<br/>|A<sub>usm</sub>|f<sub>bw</sub> ≈ |A<sub>usm</sub>|f<sub>H</sub> ≈ 1/[2π(r<sub>bb′</sub>+R<sub>s</sub>)C<sub>μ</sub>]</div>
+<p>这不是任何放大器、任意改参数都成立的定律。它是在前述近似下得到的估算关系；改了信号源内阻、器件、偏置或主要极点，乘积也可能变化。做题看到“增益加倍、带宽减半”前，应先确认题目确实采用近似恒定的增益带宽积。</p>
+<p>例如一类近似恒增益带宽积电路，原来 100 倍、上限 100 kHz，乘积为 10 MHz。若同样条件下改为 50 倍，可估上限约 200 kHz。这里用的是“倍数×Hz”，不是“40 dB×100 kHz”。</p>
+<p>频带也不是越宽越好。信号只需要一个范围时，过宽的带宽会放过更多范围外的干扰，可能还牺牲增益。设计任务是覆盖所需信号，并满足失真、噪声和稳定性条件。这个解释服务于简答与设计判断；不要求你现在就完成低噪声放大器设计。</p>
+</section>
+<section id="c451">
+<h2>4.5.1 多级级联：放大倍数相乘，衰减也会相乘</h2>
+<p>第三章说总增益等于各级增益之积；现在各级增益都随频率变化，所以每一个频率都要做同样的乘法。各级参数应包含实际级间负载，不能拿几个互不连接时的空载数据拼起来。</p>
+<div class="eq">A(f)=A<sub>1</sub>(f)A<sub>2</sub>(f)···A<sub>N</sub>(f)<br/>20lg|A(f)|=Σ20lg|A<sub>k</sub>(f)|<br/>φ(f)=Σφ<sub>k</sub>(f)</div>
+<p>两级都有同样的上限 f<sub>H1</sub>。在那个频率，每级剩下自身中频幅值的 0.707，总共剩 0.707²=0.5，即总增益已下降 6 dB。整机定义的上限只允许下降 3 dB，所以整机上限必然比 f<sub>H1</sub> 更低。</p>
+<figure class="chapter-figure plot"><svg data-figure="c4-cascade" xmlns:xlink="http://www.w3.org/1999/xlink" width="263.27952pt" height="284.87952pt" viewBox="0 0 263.27952 284.87952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T15:40:45.767408</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c4-cascade-figure_1">
+  <g id="c4-cascade-patch_1">
+   <path d="M -0 284.87952 
+L 263.27952 284.87952 
+L 263.27952 0 
+L -0 0 
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c4-cascade-axes_1">
+   <g id="c4-cascade-patch_2">
+    <path d="M 46.174375 244.280145 
+L 254.63952 244.280145 
+L 254.63952 24.2325 
+L 46.174375 24.2325 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-cascade-matplotlib.axis_1">
+    <g id="c4-cascade-xtick_1">
+     <g id="c4-cascade-line2d_1">
+      <path d="M 100.675372 244.280145 
+L 100.675372 24.2325 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_2">
+      <defs>
+       <path id="c4-cascade-m548a7ce5e0" d="M 0 0 
+L 0 3.5 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-cascade-m548a7ce5e0" x="100.675372" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_1">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(89.975372 259.273895)">
+       <text>
+        <tspan x="0" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.801562" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="17.01502" y="-4.585937" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_2">
+     <g id="c4-cascade-line2d_3">
+      <path d="M 204.907944 244.280145 
+L 204.907944 24.2325 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_4">
+      <g>
+       <use xlink:href="#c4-cascade-m548a7ce5e0" x="204.907944" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_2">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(196.807944 259.273895)">
+       <text>
+        <tspan x="0" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="5.864258" y="-0.834375" style="font-size: 10px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="11.823125" y="-4.61875" style="font-size: 7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_3">
+     <g id="c4-cascade-line2d_5">
+      <defs>
+       <path id="c4-cascade-m4689565517" d="M 0 0 
+L 0 2 
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="46.174375" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_4">
+     <g id="c4-cascade-line2d_6">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="59.197061" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_5">
+     <g id="c4-cascade-line2d_7">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="69.298241" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_6">
+     <g id="c4-cascade-line2d_8">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="77.551506" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_7">
+     <g id="c4-cascade-line2d_9">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="84.529542" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_8">
+     <g id="c4-cascade-line2d_10">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="90.574192" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_9">
+     <g id="c4-cascade-line2d_11">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="95.905951" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_10">
+     <g id="c4-cascade-line2d_12">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="132.052503" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_11">
+     <g id="c4-cascade-line2d_13">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="150.406948" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_12">
+     <g id="c4-cascade-line2d_14">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="163.429633" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_13">
+     <g id="c4-cascade-line2d_15">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="173.530813" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_14">
+     <g id="c4-cascade-line2d_16">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="181.784078" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_15">
+     <g id="c4-cascade-line2d_17">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="188.762114" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_16">
+     <g id="c4-cascade-line2d_18">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="194.806764" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_17">
+     <g id="c4-cascade-line2d_19">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="200.138523" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_18">
+     <g id="c4-cascade-line2d_20">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="236.285075" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-xtick_19">
+     <g id="c4-cascade-line2d_21">
+      <g>
+       <use xlink:href="#c4-cascade-m4689565517" x="254.63952" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c4-cascade-text_3">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.406948" y="273.753582" transform="rotate(-0 150.406948 273.753582)">f / 单级上限</text>
+    </g>
+   </g>
+   <g id="c4-cascade-matplotlib.axis_2">
+    <g id="c4-cascade-ytick_1">
+     <g id="c4-cascade-line2d_22">
+      <path d="M 46.174375 244.280145 
+L 254.63952 244.280145 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_23">
+      <defs>
+       <path id="c4-cascade-m06e062e528" d="M 0 0 
+L -3.5 0 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_4">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="248.27702" transform="rotate(-0 39.174375 248.27702)">-16</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_2">
+     <g id="c4-cascade-line2d_24">
+      <path d="M 46.174375 218.392187 
+L 254.63952 218.392187 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_25">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="218.392187" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_5">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="222.389062" transform="rotate(-0 39.174375 222.389062)">-14</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_3">
+     <g id="c4-cascade-line2d_26">
+      <path d="M 46.174375 192.504229 
+L 254.63952 192.504229 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_27">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="192.504229" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_6">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="196.501104" transform="rotate(-0 39.174375 196.501104)">-12</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_4">
+     <g id="c4-cascade-line2d_28">
+      <path d="M 46.174375 166.61627 
+L 254.63952 166.61627 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_29">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="166.61627" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_7">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="170.613145" transform="rotate(-0 39.174375 170.613145)">-10</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_5">
+     <g id="c4-cascade-line2d_30">
+      <path d="M 46.174375 140.728312 
+L 254.63952 140.728312 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_31">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="140.728312" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_8">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="144.725187" transform="rotate(-0 39.174375 144.725187)">-8</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_6">
+     <g id="c4-cascade-line2d_32">
+      <path d="M 46.174375 114.840354 
+L 254.63952 114.840354 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_33">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="114.840354" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_9">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="118.837229" transform="rotate(-0 39.174375 118.837229)">-6</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_7">
+     <g id="c4-cascade-line2d_34">
+      <path d="M 46.174375 88.952396 
+L 254.63952 88.952396 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_35">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="88.952396" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_10">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="92.949271" transform="rotate(-0 39.174375 92.949271)">-4</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_8">
+     <g id="c4-cascade-line2d_36">
+      <path d="M 46.174375 63.064437 
+L 254.63952 63.064437 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_37">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="63.064437" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_11">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="67.061312" transform="rotate(-0 39.174375 67.061312)">-2</text>
+     </g>
+    </g>
+    <g id="c4-cascade-ytick_9">
+     <g id="c4-cascade-line2d_38">
+      <path d="M 46.174375 37.176479 
+L 254.63952 37.176479 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-cascade-line2d_39">
+      <g>
+       <use xlink:href="#c4-cascade-m06e062e528" x="46.174375" y="37.176479" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-cascade-text_12">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="39.174375" y="41.173354" transform="rotate(-0 39.174375 41.173354)">0</text>
+     </g>
+    </g>
+    <g id="c4-cascade-text_13">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="16.63375" y="134.256322" transform="rotate(-90 16.63375 134.256322)">相对中频增益 / dB</text>
+    </g>
+   </g>
+   <g id="c4-cascade-line2d_40">
+    <path d="M -1 37.182773 
+L 68.363274 37.311168 
+L 92.336766 37.564053 
+L 107.450489 37.929729 
+L 118.916072 38.421096 
+L 127.775841 39.007777 
+L 135.593284 39.746212 
+L 142.368401 40.616002 
+L 148.101192 41.569587 
+L 153.312821 42.653252 
+L 158.003287 43.842233 
+L 162.693752 45.271318 
+L 166.863055 46.775878 
+L 171.032358 48.533014 
+L 174.680498 50.3033 
+L 178.328638 52.314391 
+L 181.976778 54.588814 
+L 185.624918 57.148519 
+L 189.273058 60.014171 
+L 192.921198 63.204383 
+L 196.569338 66.734958 
+L 200.217478 70.618182 
+L 203.865619 74.862242 
+L 207.513759 79.470822 
+L 211.161899 84.442911 
+L 214.810039 89.772861 
+L 218.979342 96.289412 
+L 223.148644 103.239126 
+L 227.317947 110.595631 
+L 232.008413 119.320184 
+L 237.220042 129.516342 
+L 242.952833 141.266925 
+L 249.206788 154.627844 
+L 255.981905 169.625669 
+L 264.27952 188.574649 
+L 264.27952 188.574649 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-cascade-line2d_41">
+    <defs>
+     <path id="c4-cascade-mb94207039e" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #286a88"/>
+    </defs>
+    <g clip-path="url(#c4-cascade-pe7bf765f1c)">
+     <use xlink:href="#c4-cascade-mb94207039e" x="204.907944" y="76.141739" style="fill: #286a88; stroke: #286a88"/>
+    </g>
+   </g>
+   <g id="c4-cascade-line2d_42">
+    <path d="M -1 37.189066 
+L 55.334203 37.328041 
+L 78.265369 37.593422 
+L 92.857929 37.969618 
+L 103.802349 38.459994 
+L 112.662118 39.069783 
+L 119.958398 39.781677 
+L 126.212352 40.598294 
+L 131.945143 41.565598 
+L 137.156772 42.674668 
+L 141.847238 43.90353 
+L 146.016541 45.21657 
+L 150.185844 46.775155 
+L 153.833984 48.372868 
+L 157.482124 50.22146 
+L 160.609101 52.031564 
+L 163.736078 54.074527 
+L 166.863055 56.375276 
+L 169.990032 58.960103 
+L 173.11701 61.856397 
+L 176.243987 65.092304 
+L 179.370964 68.696279 
+L 182.497941 72.696562 
+L 185.624918 77.120559 
+L 188.751895 81.994177 
+L 191.878873 87.341108 
+L 195.00585 93.182123 
+L 198.132827 99.534397 
+L 201.259804 106.410925 
+L 204.386781 113.820052 
+L 207.513759 121.765164 
+L 211.161899 131.709344 
+L 214.810039 142.369244 
+L 218.458179 153.724853 
+L 222.627482 167.518683 
+L 226.796784 182.133172 
+L 231.48725 199.48089 
+L 236.177716 217.699113 
+L 241.389345 238.846198 
+L 247.122136 263.058619 
+L 252.351296 285.87952 
+L 252.351296 285.87952 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #b66647; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-cascade-line2d_43">
+    <defs>
+     <path id="c4-cascade-mba623d732f" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #b66647"/>
+    </defs>
+    <g clip-path="url(#c4-cascade-pe7bf765f1c)">
+     <use xlink:href="#c4-cascade-mba623d732f" x="184.959097" y="76.141739" style="fill: #b66647; stroke: #b66647"/>
+    </g>
+   </g>
+   <g id="c4-cascade-line2d_44">
+    <path d="M -1 37.19536 
+L 48.559085 37.34504 
+L 70.447926 37.619478 
+L 84.519323 38.00045 
+L 95.463743 38.510781 
+L 104.323512 39.146335 
+L 111.619792 39.889638 
+L 117.873746 40.744042 
+L 123.606538 41.758533 
+L 128.297003 42.796233 
+L 132.987469 44.064185 
+L 137.156772 45.423762 
+L 140.804912 46.825647 
+L 144.453052 48.457966 
+L 148.101192 50.355804 
+L 151.228169 52.223641 
+L 154.355147 54.343 
+L 157.482124 56.743951 
+L 160.609101 59.459107 
+L 163.736078 62.52355 
+L 166.341892 65.370984 
+L 168.947707 68.509648 
+L 171.553521 71.963116 
+L 174.159335 75.755602 
+L 176.76515 79.911717 
+L 179.370964 84.456179 
+L 181.976778 89.413483 
+L 184.582593 94.807525 
+L 187.188407 100.661197 
+L 189.794221 106.995968 
+L 192.400036 113.831442 
+L 195.527013 122.719149 
+L 198.65399 132.377451 
+L 201.780967 142.82472 
+L 204.907944 154.072258 
+L 208.034921 166.123882 
+L 211.161899 178.975776 
+L 214.810039 194.965626 
+L 218.458179 211.99904 
+L 222.106319 230.0344 
+L 226.275622 251.80695 
+L 230.444924 274.732672 
+L 232.404358 285.87952 
+L 232.404358 285.87952 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke: #617c54; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-cascade-line2d_45">
+    <defs>
+     <path id="c4-cascade-mdbb3701be7" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #617c54"/>
+    </defs>
+    <g clip-path="url(#c4-cascade-pe7bf765f1c)">
+     <use xlink:href="#c4-cascade-mdbb3701be7" x="174.411654" y="76.141739" style="fill: #617c54; stroke: #617c54"/>
+    </g>
+   </g>
+   <g id="c4-cascade-line2d_46">
+    <path d="M 46.174375 76.141739 
+L 254.63952 76.141739 
+" clip-path="url(#c4-cascade-pe7bf765f1c)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #777777; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-cascade-patch_3">
+    <path d="M 46.174375 244.280145 
+L 46.174375 24.2325 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-cascade-patch_4">
+    <path d="M 46.174375 244.280145 
+L 254.63952 244.280145 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-cascade-text_14">
+    <text style="font-size: 12px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="150.406948" y="18.2325" transform="rotate(-0 150.406948 18.2325)">级联后，总上限向低频移动</text>
+   </g>
+   <g id="c4-cascade-legend_1">
+    <g id="c4-cascade-patch_5">
+     <path d="M 53.174375 239.280145 
+L 103.997813 239.280145 
+Q 105.997813 239.280145 105.997813 237.280145 
+L 105.997813 191.841082 
+Q 105.997813 189.841082 103.997813 189.841082 
+L 53.174375 189.841082 
+Q 51.174375 189.841082 51.174375 191.841082 
+L 51.174375 237.280145 
+Q 51.174375 239.280145 53.174375 239.280145 
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c4-cascade-line2d_47">
+     <path d="M 55.174375 198.334832 
+L 65.174375 198.334832 
+L 75.174375 198.334832 
+" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c4-cascade-text_15">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="83.174375" y="201.834832" transform="rotate(-0 83.174375 201.834832)">1 级</text>
+    </g>
+    <g id="c4-cascade-line2d_48">
+     <path d="M 55.174375 213.81452 
+L 65.174375 213.81452 
+L 75.174375 213.81452 
+" style="fill: none; stroke: #b66647; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c4-cascade-text_16">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="83.174375" y="217.31452" transform="rotate(-0 83.174375 217.31452)">2 级</text>
+    </g>
+    <g id="c4-cascade-line2d_49">
+     <path d="M 55.174375 229.294207 
+L 65.174375 229.294207 
+L 75.174375 229.294207 
+" style="fill: none; stroke: #617c54; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c4-cascade-text_17">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="83.174375" y="232.794207" transform="rotate(-0 83.174375 232.794207)">3 级</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c4-cascade-pe7bf765f1c">
+   <rect x="46.174375" y="24.2325" width="208.465145" height="220.047645"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>同理，两级相同的高通环节，在原来单级的下限处总共也下降 6 dB。要恢复到总共只降 3 dB，必须把频率提高，因此整机下限升高。普通单调高通、低通级联的结果是：<strong>低端向右挤，高端向左挤，通频带变窄。</strong></p>
+<p>这解释了第三章的一个现象：集成运放内部级数多、开环增益很高，但开环通频带可以很窄。第五章会看到，负反馈在稳定性条件满足时可牺牲部分增益来换取更宽的闭环带宽。</p>
+<p class="level"><strong>必须会判断：</strong>两级每级在某频率下降 3 dB，总共下降 6 dB；三极点高频最终斜率为 −60 dB/十倍频。一个拐点处突然出现 −60 的斜率，可能代表三个相同或接近的极点，不能因为只看到一个拐点就断言只有一个极点。</p>
+</section>
+<section id="c452">
+<h2>4.5.2 总截止频率：先看能否由一个环节主导</h2>
+<p>若各级上限是 10 kHz、1 MHz、10 MHz，那么接近 10 kHz 时，后二级几乎不衰减，总上限接近 10 kHz。若各级下限是 1 Hz、2 Hz、100 Hz，则总下限接近 100 Hz。这是<strong>主导环节近似</strong>：高频抓最小的上限，低频抓最大的下限。</p>
+<p>若多个截止频率相近，不能只取最差的一个。对于各级可视作一阶高通、低通且上下限相隔较远的情形，按整机下降 3 dB 定义，可分别列：</p>
+<div class="eq">求总 f<sub>H</sub>：∏[1+(f<sub>H</sub>/f<sub>Hk</sub>)²]=2<br/>求总 f<sub>L</sub>：∏[1+(f<sub>Lk</sub>/f<sub>L</sub>)²]=2</div>
+<p>为什么右边是 2？总幅值比为各级平方根因子的倒数，要等于 1/√2；两边平方并取倒数，就得到 2。这样推一次，你便知道它不是随意增加的修正项。</p>
+<p>教材用忽略高次项并加入经验修正的方式估算：</p>
+<div class="eq">f<sub>L</sub> ≈ 1.1√(f<sub>L1</sub>²+f<sub>L2</sub>²+···)<br/>1/f<sub>H</sub> ≈ 1.1√(1/f<sub>H1</sub>²+1/f<sub>H2</sub>²+···)</div>
+<p>这两式适用于若干截止频率相近时的估算。单级无需加 1.1；一个环节明显主导时，也应优先用主导环节近似。注意高频公式的左边是 1/f<sub>H</sub>，不能误把上限频率直接平方相加。</p>
+<p>如果 N 级完全相同，可以直接解定义式，不必用修正系数：</p>
+<div class="eq">f<sub>H</sub> = f<sub>H1</sub>√(2<sup>1/N</sup>−1)<br/>f<sub>L</sub> = f<sub>L1</sub>/√(2<sup>1/N</sup>−1)</div>
+<div class="table-wrap"><table><thead><tr><th>相同级数</th><th>单极点模型的精确比例</th><th>教材估算比例</th></tr></thead><tbody>
+<tr><td>2</td><td>f<sub>H</sub>≈0.644f<sub>H1</sub>；f<sub>L</sub>≈1.554f<sub>L1</sub></td><td>约 0.643 与 1.56</td></tr>
+<tr><td>3</td><td>f<sub>H</sub>≈0.510f<sub>H1</sub>；f<sub>L</sub>≈1.961f<sub>L1</sub></td><td>约 0.52 与 1.91</td></tr>
+</tbody></table></div>
+<p>这里把两套结果并列，是为了避免你拿精确式做完后被辅导答案的小差异困住。考试要求“估算”且按教材时，使用教材系数并说明；需要精确求该模型的 −3 dB 点时，就解定义方程。</p>
+<h3>例 4.5.1：从折线反推表达式</h3>
+<p>教材图给出中频 80 dB、低频 10 Hz 处一个 +20 dB/十倍频环节、高频 200 kHz 处开始 −60 dB/十倍频，且各级均为共射。对应中频幅值 10⁴，一个低频高通因子，三个同拐点的高频低通因子；三次共射反相给出负号：</p>
+<div class="eq">A(f)≈−10⁴·j(f/10)/{[1+j(f/10)]·[1+j(f/200000)]³}</div>
+<p>下限约 10 Hz；教材估上限为 0.52×200 kHz≈104 kHz。按三个完全相同的一阶极点精确计算约为 102 kHz。<strong>200 kHz 是每个高频因子的拐点，不是整机 −3 dB 上限。</strong>这道题最重要的考点就是把这两者分开。</p>
+</section>
+<section id="c452caps">
+<h2>例 4.5.2：三个大电容，为什么旁路电容常常最难伺候</h2>
+<p>回到第二章分压偏置共射电路：输入耦合 C<sub>1</sub>、输出耦合 C<sub>2</sub>，发射极 R<sub>E</sub> 并联旁路 C<sub>E</sub>。按教材估算，研究其中一个低频电容时，先把其余低频大电容短路，管内结电容仍开路。电源接交流地，独立信号源置零，从研究对象的两端看电阻。</p>
+<figure class="chapter-figure svg"><svg data-figure="c4-threecaps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 760" role="img" aria-labelledby="c4-threecaps-c4-threecaps-title">
+<title id="c4-threecaps-c4-threecaps-title">求低频电容回路电阻的三个简图，C1两侧为Rs和Ri，C2两侧为RC和RL，CE并联RE与发射极看入电阻</title>
+<defs><marker id="c4-threecaps-c4-threecaps-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<path class="wire" d="M65 85H155.0M155.0 71V99M165.0 71V99M165.0 85H255"/><text x="160.0" y="60" text-anchor="middle" font-size="15">C1</text><path class="wire" d="M65 85V124.5M58 124.5H72V160.5H58ZM65 160.5V200"/><text x="51" y="147.5" text-anchor="end" font-size="15">Rs</text><path class="wire" d="M255 85V124.5M248 124.5H262V160.5H248ZM255 160.5V200"/><text x="269" y="147.5" text-anchor="start" font-size="15">Ri</text><path class="wire" d="M65 200H255"/><path class="wire" d="M160 200V210M148 210H172M152 216H168M157 222H163"/><text x="160" y="255" text-anchor="middle" font-size="15">RC1 = Rs + Ri</text><path class="wire" d="M65 310H155.0M155.0 296V324M165.0 296V324M165.0 310H255"/><text x="160.0" y="285" text-anchor="middle" font-size="15">C2</text><path class="wire" d="M65 310V349.5M58 349.5H72V385.5H58ZM65 385.5V425"/><text x="51" y="372.5" text-anchor="end" font-size="15">RC</text><path class="wire" d="M255 310V349.5M248 349.5H262V385.5H248ZM255 385.5V425"/><text x="269" y="372.5" text-anchor="start" font-size="15">RL</text><path class="wire" d="M65 425H255"/><path class="wire" d="M160 425V435M148 435H172M152 441H168M157 447H163"/><text x="160" y="480" text-anchor="middle" font-size="15">RC2 = RC + RL</text><text x="160" y="515" text-anchor="middle" font-size="15">CE 两端：发射极与地</text><path class="wire" d="M55 545V602.5M41 602.5H69M41 612.5H69M55 612.5V670"/><text x="33" y="612.5" text-anchor="end" font-size="15">CE</text><path class="wire" d="M155 545V589.5M148 589.5H162V625.5H148ZM155 625.5V670"/><text x="169" y="612.5" text-anchor="start" font-size="15">RE</text><path class="wire" d="M270 545V589.5M263 589.5H277V625.5H263ZM270 625.5V670"/><path class="wire" d="M55 545H270M55 670H270"/><circle cx="155" cy="545" r="3.2" fill="currentColor"/><text x="248" y="613" text-anchor="end" font-size="15">r入</text><path class="wire" d="M155 670V680M143 680H167M147 686H163M152 692H158"/><text x="160" y="721" text-anchor="middle" font-size="15">r入 = (rbe + RB)/(β+1)</text><text x="160" y="746" text-anchor="middle" font-size="14">RB = Rs ∥ RB1 ∥ RB2</text></svg></figure>
+<p>对于输入耦合 C<sub>1</sub>，左边是源内阻 R<sub>s</sub>，右边是 R<sub>B1</sub>∥R<sub>B2</sub>∥r<sub>be</sub>，所以两边相加。对于输出 C<sub>2</sub>，是 R<sub>C</sub>+R<sub>L</sub>。旁路 C<sub>E</sub> 的两端却是发射极与地，它所看到的包含<strong>从发射极看入管子的低电阻</strong>。</p>
+<div class="eq">R<sub>C1</sub> = R<sub>s</sub>+(R<sub>B1</sub>∥R<sub>B2</sub>∥r<sub>be</sub>)<br/>R<sub>C2</sub> = R<sub>C</sub>+R<sub>L</sub><br/>R<sub>CE</sub> = R<sub>E</sub> ∥ {[r<sub>be</sub>+(R<sub>s</sub>∥R<sub>B1</sub>∥R<sub>B2</sub>)]/(β+1)}</div>
+<p>那个“除以 β+1”从哪里来？从发射极往管子送一个试探电流 i<sub>e</sub>，基极支路只流约 i<sub>e</sub>/(β+1)。r<sub>be</sub> 与基极外接电阻上的压降相加，除以试探 i<sub>e</sub>，就得到它们的总电阻除以 β+1。这其实就是第二章射极跟随器输出电阻的方法。</p>
+<p>假设 r<sub>be</sub>=2 kΩ、β=100、R<sub>s</sub>∥R<sub>B1</sub>∥R<sub>B2</sub>=1 kΩ、R<sub>E</sub>=1 kΩ，则管内这一支约 3000/101≈29.7 Ω，再与 1 kΩ 并联仅约 28.8 Ω。若 C<sub>E</sub>=10 μF，对应转折频率约 552 Hz。把它错算成 1/(2πR<sub>E</sub>C<sub>E</sub>)，会得到约 15.9 Hz，差得非常大。</p>
+<p>所以当三个电容容量相等，C<sub>E</sub> 所在回路电阻常常最小、时间常数最小、对应频率最高，成为低频瓶颈。要把它的对应频率降到 10 Hz 左右，按刚才的参数需约 C<sub>E</sub>≥1/(2π×28.8 Ω×10 Hz)≈553 μF。这解释了电路中旁路电容为什么经常明显大于耦合电容。</p>
+<p class="level"><strong>估算边界：</strong>发射极旁路环节严格说有极点也有零点：C<sub>E</sub> 失效后，共射仍可能保留未旁路 R<sub>E</sub> 下的较小增益，并非单靠它就使直流增益变成零。教材在旁路前后增益差较大时用其主要转折来估下限。若要求完整精确传递式，或两个增益平台相差不大，应保留 C<sub>E</sub> 与 R<sub>E</sub> 的完整阻抗列方程。</p>
+<details class="answer"><summary>进一层：只考虑 C<sub>E</sub> 时，完整的极点和零点从哪里出现？</summary><p>将基极侧化为串联等效 R<sub>B</sub> 的信号源。忽略 r<sub>o</sub>，令 D=r<sub>be</sub>+R<sub>B</sub>，Z<sub>E</sub>=R<sub>E</sub>/(1+sR<sub>E</sub>C<sub>E</sub>)。放大分母含 D+(β+1)Z<sub>E</sub>。相对充分旁路的增益，其因子为 (1+sR<sub>E</sub>C<sub>E</sub>)/[1+(β+1)R<sub>E</sub>/D+sR<sub>E</sub>C<sub>E</sub>]，有零点 1/(R<sub>E</sub>C<sub>E</sub>) 和极点 1/{[R<sub>E</sub>∥D/(β+1)]C<sub>E</sub>}。这与前面的等效电阻结果一致。初学先会正确找电阻，精确传递式在题目要求时再展开。</p></details>
+</section>
+<section id="c46">
+<h2>4.6 扩展：频率响应怎样变成“上升得快不快”</h2>
+<p>所提供教材第 194 页列出阶跃响应的指标、频率与阶跃响应关系两个数字资源入口，没有附上正文。这里用一阶低通作基础补充，让你知道这段为什么出现；不把它当作对外部资源的逐句转述。</p>
+<p>给一阶低通突然加一个电压阶跃，电容电压不能瞬间跃变，归一化输出为 y(t)=1−e<sup>−t/τ</sup>，其中 τ=RC=1/(2πf<sub>H</sub>)。t=τ 时到最终值约 63.2%，并不是已完全稳定。</p>
+<figure class="chapter-figure plot"><svg data-figure="c4-step" xmlns:xlink="http://www.w3.org/1999/xlink" width="263.27952pt" height="284.87952pt" viewBox="0 0 263.27952 284.87952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T15:40:45.850083</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c4-step-figure_1">
+  <g id="c4-step-patch_1">
+   <path d="M -0 284.87952 
+L 263.27952 284.87952 
+L 263.27952 0 
+L -0 0 
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c4-step-axes_1">
+   <g id="c4-step-patch_2">
+    <path d="M 44.255625 244.280145 
+L 251.707489 244.280145 
+L 251.707489 24.2325 
+L 44.255625 24.2325 
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c4-step-matplotlib.axis_1">
+    <g id="c4-step-xtick_1">
+     <g id="c4-step-line2d_1">
+      <path d="M 44.255625 244.280145 
+L 44.255625 24.2325 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_2">
+      <defs>
+       <path id="c4-step-mc32d128138" d="M 0 0 
+L 0 3.5 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-step-mc32d128138" x="44.255625" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_1">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="44.255625" y="259.273895" transform="rotate(-0 44.255625 259.273895)">0</text>
+     </g>
+    </g>
+    <g id="c4-step-xtick_2">
+     <g id="c4-step-line2d_3">
+      <path d="M 85.745998 244.280145 
+L 85.745998 24.2325 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_4">
+      <g>
+       <use xlink:href="#c4-step-mc32d128138" x="85.745998" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_2">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="85.745998" y="259.273895" transform="rotate(-0 85.745998 259.273895)">1</text>
+     </g>
+    </g>
+    <g id="c4-step-xtick_3">
+     <g id="c4-step-line2d_5">
+      <path d="M 127.236371 244.280145 
+L 127.236371 24.2325 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_6">
+      <g>
+       <use xlink:href="#c4-step-mc32d128138" x="127.236371" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_3">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="127.236371" y="259.273895" transform="rotate(-0 127.236371 259.273895)">2</text>
+     </g>
+    </g>
+    <g id="c4-step-xtick_4">
+     <g id="c4-step-line2d_7">
+      <path d="M 168.726743 244.280145 
+L 168.726743 24.2325 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_8">
+      <g>
+       <use xlink:href="#c4-step-mc32d128138" x="168.726743" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_4">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="168.726743" y="259.273895" transform="rotate(-0 168.726743 259.273895)">3</text>
+     </g>
+    </g>
+    <g id="c4-step-xtick_5">
+     <g id="c4-step-line2d_9">
+      <path d="M 210.217116 244.280145 
+L 210.217116 24.2325 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_10">
+      <g>
+       <use xlink:href="#c4-step-mc32d128138" x="210.217116" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_5">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="210.217116" y="259.273895" transform="rotate(-0 210.217116 259.273895)">4</text>
+     </g>
+    </g>
+    <g id="c4-step-xtick_6">
+     <g id="c4-step-line2d_11">
+      <path d="M 251.707489 244.280145 
+L 251.707489 24.2325 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_12">
+      <g>
+       <use xlink:href="#c4-step-mc32d128138" x="251.707489" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_6">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="251.707489" y="259.273895" transform="rotate(-0 251.707489 259.273895)">5</text>
+     </g>
+    </g>
+    <g id="c4-step-text_7">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="147.981557" y="273.753582" transform="rotate(-0 147.981557 273.753582)">t / τ</text>
+    </g>
+   </g>
+   <g id="c4-step-matplotlib.axis_2">
+    <g id="c4-step-ytick_1">
+     <g id="c4-step-line2d_13">
+      <path d="M 44.255625 244.280145 
+L 251.707489 244.280145 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_14">
+      <defs>
+       <path id="c4-step-maa516306f0" d="M 0 0 
+L -3.5 0 
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c4-step-maa516306f0" x="44.255625" y="244.280145" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_8">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="37.255625" y="248.27702" transform="rotate(-0 37.255625 248.27702)">0.0</text>
+     </g>
+    </g>
+    <g id="c4-step-ytick_2">
+     <g id="c4-step-line2d_15">
+      <path d="M 44.255625 203.530581 
+L 251.707489 203.530581 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_16">
+      <g>
+       <use xlink:href="#c4-step-maa516306f0" x="44.255625" y="203.530581" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_9">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="37.255625" y="207.527456" transform="rotate(-0 37.255625 207.527456)">0.2</text>
+     </g>
+    </g>
+    <g id="c4-step-ytick_3">
+     <g id="c4-step-line2d_17">
+      <path d="M 44.255625 162.781017 
+L 251.707489 162.781017 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_18">
+      <g>
+       <use xlink:href="#c4-step-maa516306f0" x="44.255625" y="162.781017" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_10">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="37.255625" y="166.777892" transform="rotate(-0 37.255625 166.777892)">0.4</text>
+     </g>
+    </g>
+    <g id="c4-step-ytick_4">
+     <g id="c4-step-line2d_19">
+      <path d="M 44.255625 122.031453 
+L 251.707489 122.031453 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_20">
+      <g>
+       <use xlink:href="#c4-step-maa516306f0" x="44.255625" y="122.031453" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_11">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="37.255625" y="126.028328" transform="rotate(-0 37.255625 126.028328)">0.6</text>
+     </g>
+    </g>
+    <g id="c4-step-ytick_5">
+     <g id="c4-step-line2d_21">
+      <path d="M 44.255625 81.281889 
+L 251.707489 81.281889 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_22">
+      <g>
+       <use xlink:href="#c4-step-maa516306f0" x="44.255625" y="81.281889" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_12">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="37.255625" y="85.278764" transform="rotate(-0 37.255625 85.278764)">0.8</text>
+     </g>
+    </g>
+    <g id="c4-step-ytick_6">
+     <g id="c4-step-line2d_23">
+      <path d="M 44.255625 40.532326 
+L 251.707489 40.532326 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.2; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c4-step-line2d_24">
+      <g>
+       <use xlink:href="#c4-step-maa516306f0" x="44.255625" y="40.532326" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c4-step-text_13">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="37.255625" y="44.529201" transform="rotate(-0 37.255625 44.529201)">1.0</text>
+     </g>
+    </g>
+    <g id="c4-step-text_14">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="16.63375" y="134.256322" transform="rotate(-90 16.63375 134.256322)">归一化输出</text>
+    </g>
+   </g>
+   <g id="c4-step-line2d_25">
+    <path d="M 44.255625 244.280145 
+L 47.165771 230.478886 
+L 50.075918 217.612482 
+L 53.401799 203.971707 
+L 56.727681 191.381704 
+L 60.053563 179.76153 
+L 63.379444 169.036476 
+L 66.705326 159.137591 
+L 70.031207 150.001234 
+L 73.357089 141.568665 
+L 76.68297 133.78567 
+L 80.008852 126.602212 
+L 83.334734 119.972108 
+L 86.660615 113.852732 
+L 89.986497 108.204741 
+L 93.312378 102.991824 
+L 96.63826 98.180467 
+L 99.964142 93.739736 
+L 103.290023 89.641082 
+L 106.615905 85.858154 
+L 110.357521 81.949543 
+L 114.099138 78.377986 
+L 117.840755 75.114417 
+L 121.582372 72.132277 
+L 125.739724 69.119415 
+L 129.897076 66.39381 
+L 134.054428 63.928076 
+L 138.627515 61.486418 
+L 143.200602 59.299579 
+L 148.189424 57.173384 
+L 153.178247 55.288071 
+L 158.582804 53.485903 
+L 164.403097 51.790466 
+L 170.639125 50.219385 
+L 177.290888 48.784446 
+L 184.358387 47.491978 
+L 192.257355 46.285483 
+L 200.572059 45.240725 
+L 210.133969 44.271583 
+L 220.527349 43.443004 
+L 232.58367 42.709015 
+L 246.718666 42.080573 
+L 251.707489 41.905168 
+L 251.707489 41.905168 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke: #286a88; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c4-step-line2d_26">
+    <defs>
+     <path id="c4-step-me78baa4892" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #b66647"/>
+    </defs>
+    <g clip-path="url(#c4-step-p8f666372cf)">
+     <use xlink:href="#c4-step-me78baa4892" x="48.627072" y="223.905363" style="fill: #b66647; stroke: #b66647"/>
+     <use xlink:href="#c4-step-me78baa4892" x="139.790739" y="60.907107" style="fill: #b66647; stroke: #b66647"/>
+    </g>
+   </g>
+   <g id="c4-step-LineCollection_1">
+    <path d="M 44.255625 223.905363 
+L 48.627072 223.905363 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+    <path d="M 44.255625 60.907107 
+L 139.790739 60.907107 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-step-LineCollection_2">
+    <path d="M 48.627072 244.280145 
+L 48.627072 223.905363 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+    <path d="M 139.790739 244.280145 
+L 139.790739 60.907107 
+" clip-path="url(#c4-step-p8f666372cf)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #b66647; stroke-width: 1.5"/>
+   </g>
+   <g id="c4-step-patch_3">
+    <path d="M 44.255625 244.280145 
+L 44.255625 24.2325 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-step-patch_4">
+    <path d="M 44.255625 244.280145 
+L 251.707489 244.280145 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c4-step-patch_5">
+    <path d="M 136.672379 142.406235 
+Q 94.208728 142.406235 51.745077 142.406235 
+" style="fill: none; stroke: #b66647; stroke-linecap: round"/>
+    <path d="M 132.672379 140.406235 
+L 136.672379 142.406235 
+L 132.672379 144.406235 
+" style="fill: none; stroke: #b66647; stroke-linecap: round"/>
+    <path d="M 55.745077 144.406235 
+L 51.745077 142.406235 
+L 55.745077 140.406235 
+" style="fill: none; stroke: #b66647; stroke-linecap: round"/>
+   </g>
+   <g id="c4-step-text_15">
+    <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="60.851774" y="166.855974" transform="rotate(-0 60.851774 166.855974)">tr ≈ 2.20τ</text>
+   </g>
+   <g id="c4-step-text_16">
+    <text style="font-size: 12px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="147.981557" y="18.2325" transform="rotate(-0 147.981557 18.2325)">一阶低通的阶跃响应</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c4-step-p8f666372cf">
+   <rect x="44.255625" y="24.2325" width="207.451864" height="220.047645"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>常用上升时间 t<sub>r</sub> 取 10% 到 90% 之间的时间。将 y=0.1、0.9 分别代入，得到 t<sub>10</sub>=−τln0.9≈0.105τ、t<sub>90</sub>=−τln0.1≈2.303τ，所以：</p>
+<div class="eq">t<sub>r</sub>≈2.197τ≈0.35/f<sub>H</sub></div>
+<p>上限 1 MHz 的单极点系统，上升时间约 0.35 μs。这是“频带越宽，响应越快”的定量版本。但 0.35 依赖一阶低通模型，不适用于所有多级、振铃或复杂补偿系统。</p>
+<p>还要和第三章转换速率 SR 分开：小信号带宽来自线性频响；SR 限制大信号最大变化斜率。正弦输出幅值 U<sub>om</sub> 时，最大斜率为 2πfU<sub>om</sub>，应不超过 SR。一个电路可能小信号带宽足够，却在大幅输出时受 SR 限制。看题干问“频响”还是“大信号速度”，决定用哪条条件。</p>
+<p class="level"><strong>学习优先级：</strong>掌握带宽与响应速度的联系、上升时间的定义；0.35/f<sub>H</sub> 要带上单极点条件。若老师不考这部分，无须先把多阶阶跃响应推导啃完再做前面的主线题。</p>
+</section>
+<section id="c47">
+<h2>4.7 仿真与实验：怎样证实你算出的两个截止频率</h2>
+<p>纸面只列出了仿真方法和静态工作点稳定电路频响研究的数字资源入口。这里给出不依赖某个软件版本菜单的操作目标：<strong>先验证 Q 点，再扫频，最后按相对中频增益下降 3 dB 找边界。</strong></p>
+<ol>
+<li>搭建电路并先测静态。检查基极、发射极、集电极电位，确认管子在放大区。偏置不正常时，后续频响与按放大区模型算出的结果没有可比性。</li>
+<li>做小信号交流扫频，横轴选对数频率，范围覆盖预计 f<sub>L</sub> 的十分之一以下和 f<sub>H</sub> 的十倍以上。记录增益比 U<sub>o</sub>/U<sub>s</sub> 或 U<sub>o</sub>/U<sub>i</sub>，与手算端口保持一致。</li>
+<li>先找中间平坦区域的增益 G<sub>m</sub>，再找 G<sub>m</sub>−3 dB 的两处交点。不要在整个图上盲找纵坐标 −3 dB。</li>
+<li>每次只改一个量：增大输出耦合电容，观察低端左移；改变信号源内阻，观察高端及中频增益；改变负载，观察增益与密勒电容造成的联合变化。</li>
+<li>再以小幅正弦作时域验证，取通带中间、下限、上限三个频率测幅值比和时间差。相位由 Δφ=360°fΔt 换算，并判清输出超前还是滞后。</li>
+</ol>
+<p>交流小信号分析中的“AC 幅度 1”是方便读传递函数的归一化设置，不表示真实电路允许 1 V 的大幅瞬时输入。时域验证必须选择不会使管子削顶或进入转换速率限制的幅度。</p>
+<p>仿真与手算不同，先逐项检查：器件模型是否含更多寄生参数，Q 点是否相同，是否漏算负载，信号源内阻是否一致，取的是源端还是放大器输入端增益。不要看到曲线差一点就盲目改元件“凑答案”。</p>
+</section>
+<section id="c4-checkpoint">
+<h2>正文阶段自测：用六个问题检查有没有真正接起来</h2>
+<details class="answer"><summary>1．某放大器中频为 −200 倍，截止处的幅值和分贝分别是多少？</summary><p>中频幅值 200，约 46.02 dB；截止处幅值约 200/√2≈141.4，约 43.01 dB。负号对应中频反相，不进入幅值对数。</p></details>
+<details class="answer"><summary>2．C<sub>π</sub>=20 pF、C<sub>μ</sub>=4 pF、内部 K=−50，输入等效电容是多少？</summary><p>C′<sub>π</sub>=20+(1+50)×4=224 pF。使用 1−K，不能算成 20−50×4；也不能使用另一个端口的源电压总增益代替 K。</p></details>
+<details class="answer"><summary>3．输出耦合电容 1 μF，左侧输出电阻 2 kΩ，负载 8 kΩ，下限是多少？</summary><p>从电容两端看是 2+8=10 kΩ，f<sub>L</sub>≈15.9 Hz。不是拿 2∥8=1.6 kΩ 计算。</p></details>
+<details class="answer"><summary>4．两个相同的一阶低通各自上限 100 kHz，整机上限约多少？</summary><p>约 64.4 kHz，教材修正估算约 64.3 kHz。在 100 kHz 处总增益已下降约 6 dB，因此整机上限一定更低。</p></details>
+<details class="answer"><summary>5．β<sub>0</sub>=100、f<sub>T</sub>=50 MHz，是否可以说共射电路上限就是 50 MHz？</summary><p>不可以。先得到管子的 f<sub>β</sub>≈0.5 MHz。整机 f<sub>H</sub> 还取决于源内阻、负载、密勒等效电容等，需要另算。</p></details>
+<details class="answer"><summary>6．三只低频电容容量相等，为什么不能说三个截止频率相同？</summary><p>各自两端看到的等效电阻不同，RC 不同。旁路电容常看到较低的发射极输入电阻，所以同容量下对应频率可能远高于两个耦合电容。</p></details>
+<p class="level"><strong>进入章末题前的标准：</strong>你应能不看答案重做例 4.4.1，并在纸上写清 C<sub>1</sub>、C<sub>2</sub>、C<sub>E</sub> 三个回路的电阻。若这两项还卡住，先回看相应等效图；继续堆公式不会解决端口没看清的问题。</p>
+</section>
+<footer id="sources"><h2>资料与阅读边界</h2><p>按《模拟电子技术基础》第六版第四章印刷第 171—194 页的结构、图 4.1.1—4.5.3 与例 4.4.1、4.5.1、4.5.2 编写。讲解为重新组织的教学说明，电路与曲线为原创 SVG 重绘；页码采用书内印刷页码。保留教材估算口径，并在相关位置说明更精确的模型计算与适用条件。</p><p>配套学习辅导与习题解答用于后续章末题核对。本页未复制教材扫描页，也未声称读取二维码链接内的资源。当前正文学习部分覆盖到 4.7，章末习题接续补充。</p></footer>
+</main></div>
+<script>(()=>{const menu=document.getElementById('course-contents'),wide=matchMedia('(min-width:1000px)');const fit=()=>menu.open=wide.matches;fit();wide.addEventListener('change',fit)})();</script>
+</body></html>

@@ -60,4 +60,10 @@
 <p>读取用户提供的 ChatGPT 分享对话，确认其中的用户终端记录为 A100-SXM4-80GB、驱动 580.173.02、Apptainer 与持久 Home；对话建议从学校公共 <code>py312</code> 克隆专用环境。现有 <code>py311</code> 保留。</p>
 <p>调整 <code>apptainer/setup_dcvc_rt.sh</code>：克隆公共 Python 3.12 到个人 <code>dcvc-rt</code> 环境，再安装 PyTorch 2.6/cu126、CUDA Toolkit 12.6.3 和 GCC/G++ 12。新增 <code>build_dcvc_rt.sh</code> 获取或复用官方代码、编译两份扩展并验证导入。<code>check_environment.py</code> 增加严格检查、扩展检查及非零失败状态。</p>
 <p>本地验证：两个 Bash 脚本分别通过 <code>bash -n</code>；Python 编译检查与帮助入口通过；严格检查在本机 Windows + RTX 3060 上按预期返回失败，并列出非 Linux、GPU/版本不符、缺少 Toolkit 和扩展等原因。此检查不安装或修改依赖。上传 ZIP 完整性检查通过，Shell 文件使用 LF 换行。</p>
-<p>这些是本地交付与验证结果。本次未在学校远端执行环境安装、扩展编译或模型编解码，尚不能声称 A100 环境已就绪。</p></main><script src="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>
+<p>这些是本地交付与验证结果。本次未在学校远端执行环境安装、扩展编译或模型编解码，尚不能声称 A100 环境已就绪。</p>
+<h2 id="2026-10-17">2026-10-17：集群复现与自主研究第一轮</h2>
+<p>已核查并复用学校 A100 上跑通的 DCVC-RT 环境。新增 libx264/libx265 各七个真实码流点，统一对 8 位重建评分；新增 240 自然帧、基本 QP 21/42、刷新关闭/32/64 的六组 RT 运行。独立远端流程于北京时间 20:56:12 完成。</p>
+<p>报告、原始小型指标、逐帧记录、图表及核查范围在 <code>dcvc_rt_study/experiments/round1_20261017/</code>。本轮发现旧 48 帧输出匹配 reset=64 的前缀，而不是当前 parser 的默认 32，已更正导读。更多研究入口在 <code>dcvc_rt_study/RESEARCH_PLAN.md</code>。</p>
+<h2 id="2026-10-17_1">2026-10-17 晚：自动科研第二轮完成</h2>
+<p>新增 24 个实际编码点，复用第一轮 6 点，共分析 30 点。Life 补齐 reset0/32/64 四档 RD；Ducks/Station2 各 240 自然帧，完成 RT 四档和 x265 medium+tune psnr 五档真实码流。Life reset64 相对关闭刷新 PSNR-Y BD-rate 为 -52.05%；两段新视频 RT 相对本次 x265 配置分别为 -48.23%/-68.70%，限于对应重叠质量区间与小样本设置。单 GPU 工作进程已完成，结束于 21:46:17。</p>
+<p>完整方法、边界、指标、逐帧数据和图见 <span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">第二轮报告</span>。审计通过内置浏览器读取并与本地固定源码对照；完整记录包导出及新视频同步视觉观察仍待补齐。用户已明确要求后续只用内置浏览器，不用 Edge。新增 UF 实现核查、FM 附录和 UIIC 精读，未冒称复现这些模型。</p></main><script src="../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

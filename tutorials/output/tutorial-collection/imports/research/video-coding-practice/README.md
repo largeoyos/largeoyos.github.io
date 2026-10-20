@@ -1,5 +1,7 @@
 # 从 DCT 到深度学习视频编码：实践指南
 
+2026-10-17 更新：DCVC-RT 已在学校 A100 上完成两轮新增实验。最新见 [第二轮：刷新 RD 与跨内容验证](dcvc_rt_study/experiments/round2_20261017/研究报告.md)，自主续研入口见 [研究工作台](dcvc_rt_study/RESEARCH_PLAN.md)，第一轮见 [统一评价与特征刷新报告](dcvc_rt_study/experiments/round1_20261017/研究报告.md)。下文保留早期学习路线与环境准备过程，历史“未执行”状态以各节日期为准。
+
 核查日期：2026-10-08。建议顺序是 **JPEG/DCT → DVC → DCVC → 单卡预训练编解码 → 小规模训练**。第一轮目标：压缩一张图、解释两篇论文的框图、把一段短视频编码成文件并解码回来。
 
 你现有目录已有 `learned-image-compression-study` 的教学模型，以及 `pytorch-learning-plan/content/research/R26.md` 的视频压缩教案。本目录作为新的实践入口，不需要重做之前的图像压缩基础实验。

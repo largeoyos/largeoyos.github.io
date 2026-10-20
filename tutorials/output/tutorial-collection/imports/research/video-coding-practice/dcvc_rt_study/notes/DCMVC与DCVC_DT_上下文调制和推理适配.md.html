@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从上下文调制到推理期适配：两种不同的研究路线</title><link rel="stylesheet" href="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/DCMVC与DCVC_DT_上下文调制和推理适配.md · <a href="DCMVC%E4%B8%8EDCVC_DT_%E4%B8%8A%E4%B8%8B%E6%96%87%E8%B0%83%E5%88%B6%E5%92%8C%E6%8E%A8%E7%90%86%E9%80%82%E9%85%8D.md">原始 Markdown</a></p><h1 id="_1">从上下文调制到推理期适配：两种不同的研究路线</h1>
+<p>2026-10-19。阅读对象为作者公开论文和固定提交源码；本轮没有运行这两个模型。页码按 PDF 文件顺序，DCMVC 正文还印有会议连续页码。</p>
+<h2 id="dcmvc">DCMVC：参考不必只有“继续传播”和“清空”两种用法</h2>
+<p>来源：<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Tang_Neural_Video_Compression_with_Context_Modulation_CVPR_2025_paper.pdf">CVPR 2025 官方论文</a>、<a href="https://github.com/Austin4USTC/DCMVC">作者仓库</a>。本地 <a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Tang_Neural_Video_Compression_with_Context_Modulation_CVPR_2025_paper.pdf">PDF</a>，源码提交 <code>4aa95ef4b0176b6076b1ba0396d2cd178258d506</code>，15 个文件的下载来源和指纹见 <span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">清单</span>。</p>
+<p><strong>论文方法，§3、PDF 第 3–5 页、Fig.3。</strong>DCVC-DC 的运动补偿和特征传播分支仍然存在。作者认为，传播特征提供的信息与参考重建像素提供的信息不同，压缩过的运动也可能丢失有用的帧间关联。方法先用已解码运动扭曲上一重建帧得到预测，再在预测帧与上一重建帧之间估计另一份方向流，从参考像素提取另一种上下文。全局、局部提取与融合网络把它和传播上下文结合起来，并通过解耦损失鼓励互补。</p>
+<p>这里的第二次运动估计只依赖解码端也有的预测和参考，因此不需要另传这份方向流。<strong>不新增这份运动的传输比特，仍然要付出推理计算、显存访问和训练代价。</strong>它也没有让参考像素变成无失真的原图，更没有保证跨场景的旧参考一定有用。</p>
+<p><strong>源码事实。</strong><a href="../reference/DCMVC-4aa95ef4b0176b6076b1ba0396d2cd178258d506/src/models/DCMVC_model.py">DCMVC_model.py</a> 第 369–373 行实现第二次流估计与扭曲；375–382 行实现融合/解耦；384–397 行把它接入运动补偿。编码和解码分别在第 475、535 行调用同一段上下文构建。共享可用输入解释了为何无需传方向流；仅凭这些代码不能证明所有设备上的数值一致性。</p>
+<p><strong>作者消融，PDF 第 7 页 Table 3。</strong>相对作者复现的 DCVC-DC，方向流单独为 −1.9% BD-rate，上下文补偿单独为 −3.5%，组合结构为 −4.4%，加解耦为 −5.4%；单独长训练为 −4.3%，结构与长训练组合为 −10.3%。这是作者的 HEVC、intra-period 32 条件；不能把几个百分数直接相加，也不能把完整收益都归给新模块。方法比较需要同时控制训练时长、训练序列长度和数据。</p>
+<p><strong>复杂度代价，PDF 第 8 页 Table 4。</strong>作者在 RTX 3090、1080p 下报告 DCVC-DC / DCMVC 为 2764 / 4131 GMAC，编码 663 / 932 ms、解码 557 / 810 ms。论文测试 RGB PSNR、96 帧、不同 I 帧周期，与我们的官方浮点 YUV、240 帧实验不在同一评价配置。这些数字不是本轮测速，不能接到我们的 RT RD 图上。</p>
+<p><strong>对当前研究的启发（推测）。</strong>如果传播特征随着历史长度失配，可以研究参考的可信程度及其选择性使用，而非只搜索清空周期。但 DCMVC 已研究像素/传播上下文融合，FM 已讨论内容相关的刷新周期，UI²C 也针对参考退化与新内容处理。笼统的“自适应刷新/融合”没有建立新颖性。先证明明确失败类型，再决定是否值得训练新模块。</p>
+<h2 id="dcvc-dt">DCVC-DT：修改编码端搜索，保持原解码器</h2>
+<p>来源：<a href="https://arxiv.org/abs/2605.13476">arXiv v1</a>、<a href="https://github.com/SunnyMass/DCVC-DT">作者仓库</a>。本地 <a href="https://arxiv.org/pdf/2605.13476v1">PDF</a>，版本为 2026-05-13 v1，作者标注 ISCAS 2026 oral；源码固定为 <code>e3deeda1cd99566498504231f6853fd554ec00e9</code>，本轮只取得 README 与测试程序，见 <span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">清单</span>。</p>
+<p><strong>论文方法，PDF 第 2–3 页。</strong>沿用 DCVC-DC，在推理时优化内容潜变量 <code>y</code>，以软量化近似支持梯度，再硬量化并进行实际熵编码。作者不更新网络参数，解码器接收的仍是原来可解码的潜变量码流。它把部分内容适配工作放到了编码端搜索；无需发送一套新网络参数，不代表搜索免费。</p>
+<p>损失写为 <code>L = βR + wλD</code>。作者用相邻帧质量差选择 β，并使用四帧层级权重。实验测试 HEVC C/D、前 96 帧、I 周期 32。引言提到屏幕、动画、医学等域偏移，这些动机不能替代表 I 的具体测试内容。</p>
+<p><strong>源码事实及复现注意。</strong><a href="../reference/DCVC-DT-e3deeda1cd99566498504231f6853fd554ec00e9/test_video_y_latent_optimized.py">测试程序</a>：</p>
+<ul>
+<li>326–335 行得到初始潜变量，Adam 参数列表仅包含 <code>y</code>。这是优化器更新对象的证据，不能据此声称所有网络张量都关闭了梯度。</li>
+<li>343–361 行设置 λ 与四帧权重；381–387 行只在第一次迭代选择 β。390–406 行中，RGB 损失采用 <code>bpp * bppweight</code>，YUV 分支直接加 <code>bpp</code>，没有乘这个动态系数。因此不能把 README 的 YUV 扩展视为完整复现同一个动态 RD 组件。</li>
+<li>565–584 行先调用 1000 次迭代优化，再进入实际写流/读流。285–307 行的 <code>encoding_time</code> 计时从优化后才开始；591 行累加的这个字段不包括潜变量搜索。另有整段 <code>test_time</code>。若复现，必须单列搜索时间与包含搜索的端到端编码时间，不能直接把打印的平均 encoding time 当作全流程速度。</li>
+</ul>
+<p><strong>需要核实的解释方向。</strong>论文 Eq.4 在当前帧 PSNR 较低时使 β 变大，文字把它解释为允许更多比特。按 Eq.3 中 β 乘在 R 上，在 λ 和 w 固定时增大 β 会降低等效失真权重 <code>wλ/β</code>，倾向更重地惩罚码率。RGB 代码与 β 的选择方向一致。这里记录为公式、文字解释之间的疑点；没有运行对应消融，不能据此宣布整套方法无效，也不能静默改成另一条规则后声称复现原文。</p>
+<p><strong>作者消融和成本，PDF 第 4 页。</strong>Table II 是 BasketballPass 前 32 帧、500 次迭代：潜变量优化 −2.35%，再加动态 RD 为 −3.61%，并非完整八片段上的逐项消融。复杂度段称在 A100 40GB 上，500 次迭代、单个 HEVC D 序列、单档约需 25 分钟。解码器不改和实时编码是两个不同约束。本轮不执行这种高成本优化。</p>
+<h2 id="_2">形成研究问题时要控制什么</h2>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>真正改变的对象</th>
+<th>比较时至少要控制</th>
+<th>当前可做的低成本验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RT / UF 的执行设计</td>
+<td>网络计算与熵解码调度</td>
+<td>精度、批量、输入等待、端到端时间口径</td>
+<td>用相同硬件与输入分别测组成时间；不能用阶段数替代测速</td>
+</tr>
+<tr>
+<td>FM / DCMVC 的上下文设计</td>
+<td>参考表示、传播及其融合</td>
+<td>训练数据/长度、I 周期、额外推理代价</td>
+<td>先找参考失效类型；有有效权重后再隔离复现</td>
+</tr>
+<tr>
+<td>长序列训练 / UI²C</td>
+<td>训练分布和帧内外信息使用</td>
+<td>训练预算、推理链长、真实码率或估计熵</td>
+<td>相同目标帧、不同历史与切换条件的诊断</td>
+</tr>
+<tr>
+<td>DT 的推理期适配</td>
+<td>编码端潜变量搜索</td>
+<td>总搜索预算、实际比特、相同解码器</td>
+<td>先核对 RGB/YUV 目标及计时；再考虑极短片段预算曲线</td>
+</tr>
+</tbody>
+</table>
+<p>研究主线因此改为“失败类型 → 区分解释的干预 → 方法与成本”。精度/哈希检查继续作为复现条件，不再自动产生下一轮同类微小消融。</p></main><script src="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

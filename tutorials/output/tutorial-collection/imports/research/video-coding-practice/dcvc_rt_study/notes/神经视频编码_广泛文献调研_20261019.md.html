@@ -1,0 +1,237 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>神经视频编码：从模型谱系到研究问题</title><link rel="stylesheet" href="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/神经视频编码_广泛文献调研_20261019.md · <a href="%E7%A5%9E%E7%BB%8F%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81_%E5%B9%BF%E6%B3%9B%E6%96%87%E7%8C%AE%E8%B0%83%E7%A0%94_20261019.md">原始 Markdown</a></p><h1 id="_1">神经视频编码：从模型谱系到研究问题</h1>
+<p>调研日期：2026-10-19。研究对象从 DCVC 系列扩展为视频压缩的表示、概率建模、时序结构、内容适配、硬件系统和评价。<strong>这轮整理 41 篇独立论文：32 篇视频编码研究、3 篇图像熵模型基础、5 篇评价/理论研究和 1 篇综述。新增下载 32 份 PDF，复用 9 份已有主论文。</strong>旧 FM 附录仍保留，但不重复计作一篇独立论文。</p>
+<p>阅读深度有区别：新增论文全部进行了摘要/引言初筛，其中 <strong>11 篇进一步阅读方法或实验关键章节</strong>；另 21 篇仍处于初筛层。9 篇已有论文承接之前的学习笔记。本报告不声称已逐页精读全部 41 篇，也不是穷尽式系统综述。没有运行这些新增模型，没有把作者曲线混进本地实测 RD。</p>
+<p>入口：<a href="../experiments/literature_survey_20261019/%E6%96%87%E7%8C%AE%E7%B4%A2%E5%BC%95.md.html">41 篇逐篇索引</a>、<a href="../experiments/literature_survey_20261019/%E9%87%8D%E7%82%B9%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%8D%A1.md.html">11 篇重点阅读卡</a>、<a href="../experiments/literature_survey_20261019/catalog.csv">可筛选 CSV</a>、<a href="../experiments/literature_survey_20261019/catalog.json">版本与阅读范围 JSON</a>。全部 PDF 在 <a href="../reference/papers/library_manifest.json">本地论文目录</a>，每篇保留来源、版本、页数和 SHA-256。</p>
+<p><img alt="研究路线与主要取舍" src="../experiments/literature_survey_20261019/research_map.png"/></p>
+<h2 id="_2">先看问题，不把所有方法排成一条“升级路线”</h2>
+<table>
+<thead>
+<tr>
+<th>要解决的问题</th>
+<th>代表论文</th>
+<th>核心改变</th>
+<th>必须一起看的代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>怎样把潜变量真正压成更少比特</td>
+<td>Scale Hyperprior、Joint AR+Hyperprior、ELIC、HEM、CGT</td>
+<td>从超先验、空间/通道依赖到时间先验与自适应解码顺序</td>
+<td>先验自己的比特、串行步骤、概率计算与实际熵解码时间</td>
+</tr>
+<tr>
+<td>怎样把过去的信息用得更有效</td>
+<td>DVC、Rippel、SSF、FVC、DCVC、TCM、DC、FM、DCMVC</td>
+<td>像素残差、特征残差、条件变换、多尺度和传播参考</td>
+<td>运动比特、特征缓存、错误参考和训练链长</td>
+</tr>
+<tr>
+<td>不显式传运动，还能怎样用时间信息</td>
+<td>VCT、RT</td>
+<td>VCT 主要把时间依赖放入潜变量概率模型；RT 将参考条件用于变换和重建</td>
+<td>去掉光流模块后仍有注意力、状态、串行熵解码和访存成本</td>
+</tr>
+<tr>
+<td>预测不可靠的区域应如何编码</td>
+<td>MaskCRT、BiECVC、UI²C</td>
+<td>混合编码、参考门控、帧内与帧间信息使用</td>
+<td>信号在解码端是否可得、训练是否支持、附加网络和额外比特</td>
+</tr>
+<tr>
+<td>允许等待未来帧时能否更省码率</td>
+<td>DCVC-B、BiECVC、两层 CANF B 编码</td>
+<td>双向参考、分层质量、运动差分或无显式运动码流</td>
+<td>等待未来输入、重排、缓存和随机访问结构</td>
+</tr>
+<tr>
+<td>一个模型能否适应当前视频</td>
+<td>光流在线增强、参数高效适配、DCVC-DT</td>
+<td>分别搜索运动潜变量、适配解码器参数、内容潜变量</td>
+<td>编码搜索总时间；更新解码器时还要传参数</td>
+</tr>
+<tr>
+<td>能否用小网络表示单个视频</td>
+<td>NeRV、HNeRV、HiNeRV、C3、GIViC</td>
+<td>将内容写入参数、嵌入或潜变量；逐实例优化与共享先验结合</td>
+<td>拟合时间、参数码率、不同粒度的可访问性和解码串行性</td>
+</tr>
+<tr>
+<td>极低码率下怎样保持合理细节与时序一致</td>
+<td>DiffVC、DiffVC-OSD、GNVC-VD、S²VC</td>
+<td>使用预训练生成先验、时序引导、单步或序列细化</td>
+<td>感知与原像素的目标差异、采样成本、窗口等待和时序状态</td>
+</tr>
+<tr>
+<td>什么证据才能说明“更好”</td>
+<td>BD Bible、LPIPS、DISTS、FVD、Perception-Distortion</td>
+<td>分清失真、感知、时间分布和积分误差</td>
+<td>指标范围、样本数量、共同质量区间及测试配置</td>
+</tr>
+</tbody>
+</table>
+<p>这些维度会交叉。例如 C3 同时涉及逐实例表示、熵模型和低解码复杂度；GIViC 同时使用共享模型、潜变量适配、层次上下文和扩散过程。模型名不是互斥分类标签。</p>
+<h2 id="dvc-dcvc">表示与参考：从 DVC 到 DCVC，并不是只把模块换大</h2>
+<p>DVC 把运动估计、运动压缩、补偿、残差压缩连接成可学习流程。Rippel 的 2019 工作已把长期状态和空间码率分配作为问题。SSF 在扭曲中加入尺度，以表达运动/遮挡处的不确定性；FVC 把主要运算移到特征域，并压缩特征残差。这几条路线都说明：运动最准确不一定意味着整个码流最省，表示和预测需要与码率目标共同优化。<a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Agustsson_Scale-Space_Flow_for_End-to-End_Optimized_Video_Compression_CVPR_2020_paper.pdf">SSF 官方论文</a>、<a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Hu_FVC_A_New_Framework_Towards_Deep_Video_Compression_in_Feature_CVPR_2021_paper.pdf">FVC 官方论文</a>。</p>
+<p>DCVC 的关键转向是条件编码：参考不只用来相减，还参与潜变量变换、重建和概率预测。TCM、DC、FM 进一步增加传播特征、多尺度或多样上下文、量化与调制能力。这里有一个实际矛盾：携带更多历史可能提高表达能力，也会让推理状态更依赖训练时见过的参考分布。既有实验看到了 RT 关闭刷新后的退化，但没有证明这个矛盾就是其根因。</p>
+<p>VCT 提供了很不一样的参照。它先独立编码每帧，再用前两帧潜变量预测当前潜变量的分布。没有显式光流，并不意味着没有时域建模；本论文用块内 16 次自回归步骤换取概率建模能力，各块并行。最终 LRP 又利用 Transformer 特征改善重建，所以也不能把完整模型简写成“只有熵模型看历史”。它避免以重建帧递归驱动当前分析变换，提供了研究长链退化的另一种结构性思路。<a href="https://papers.nips.cc/paper_files/paper/2022/file/54dcf25318f9de5a7a01f0a4125c541e-Paper-Conference.pdf">VCT 官方论文</a>，PDF 第 3–8 页。</p>
+<h2 id="_3">“不可靠参考要少用”已经有明确先行研究</h2>
+<p>MaskCRT 指出，参考预测不可靠时，直接编码残差未必比编码原信号更划算；有损提取的条件还可能产生信息瓶颈。它编码 <code>x − m·x_c</code>，以软掩码在条件编码和条件残差编码之间混合。掩码由已解码运动和预测帧生成，不额外传一张像素掩码。这不是说任何条件模型必然受益，也不是仅凭理想条件熵不等式就能推出实际网络排序。<a href="https://arxiv.org/pdf/2312.15829v1">MaskCRT v1</a>，PDF 第 3–5 页。</p>
+<p>BiECVC 则已经在双向编码中结合局部、非局部参考与条件编码感知门控，压制不适合当前内容的上下文。其编码端和解码端分别使用各自可用的内容特征，不能把编码端原始特征直接拿到解码端。UI²C 也直接研究帧内/帧间统一处理。<strong>因此，“给 RT 加门控”“按内容刷新”还不是已建立的新颖性。</strong>需要先找到这些方法尚未覆盖的条件、明确约束与对照。<a href="https://arxiv.org/pdf/2505.09193v1">BiECVC v1</a>，PDF 第 3、5–6 页；<a href="UIIC_%E7%BB%9F%E4%B8%80%E5%B8%A7%E5%86%85%E5%B8%A7%E9%97%B4%E4%B8%8E%E5%88%B7%E6%96%B0%E9%97%AE%E9%A2%98.md.html">既有 UI²C 笔记</a>。</p>
+<p>对当前项目最有用的下一步仍是区分失败类型：连续历史中的状态退化、新内容/遮挡、运动补偿失配、概率模型失配，不应全部归成“参考有问题”。已有 <span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">场景切换协议</span>能开始区分其中一部分，但只能提供诊断；它不是新算法或完整创新论证。</p>
+<h2 id="_4">熵模型：更好的概率预测与更少的等待经常冲突</h2>
+<p>超先验把预测分布需要的信息作为侧信息传输；联合自回归先验进一步利用已解码邻域，代价是依赖链。ELIC 的不均匀通道分组说明，串行顺序和各组承载的信息量本身就是设计对象。HEM 将时间潜变量先验、双空间先验、内容自适应量化结合起来。它们是理解 DC/FM/RT 的概率模块与量化设计的基础，而不只是图像压缩的旁支。<a href="https://arxiv.org/pdf/1802.01436v1">超先验</a>、<a href="https://papers.nips.cc/paper_files/paper/2018/file/53edebc543333dfbf7c5933af792c9c4-Paper.pdf">联合先验</a>、<a href="https://openaccess.thecvf.com/content/CVPR2022/papers/He_ELIC_Efficient_Learned_Image_Compression_With_Unevenly_Grouped_Space-Channel_Contextual_CVPR_2022_paper.pdf">ELIC</a>、<a href="https://arxiv.org/pdf/2207.05894v1">HEM</a>。这四篇本轮为摘要/引言初筛，HEM 另读结论，不据此声称完整消融复核。</p>
+<p>CGT 更直接研究“哪些上下文、先解哪些位置”。它用可学习查询压缩时间上下文，并用教师/学生机制训练依赖与确定性驱动的顺序，在推理时执行 8 步调度。一个值得保留的具体消融是：加入 TCR 后，作者在 A800 上的 CGT 概率建模时间从 1305 ms 降至 488 ms，完整解码从 1576 ms 降至 984 ms，同时 BD-rate 代价为 +1.8%。<strong>概率建模约 63% 的时间降低，不等于端到端提速 63%，也不是无损改善。</strong>本轮看过原表，数字属于作者条件，不是本机测速。<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Tong_Context_Guided_Transformer_Entropy_Modeling_for_Video_Compression_ICCV_2025_paper.pdf">CGT 官方论文</a>，PDF 第 4–6 页。</p>
+<h2 id="_5">双向结构与硬件：先确定应用允许什么</h2>
+<p>DCVC-B、BiECVC 需要未来参考和分层解码。RA 配置通常具有更强参考条件，同时增加等待与缓存；不能直接与当前 RT 的连续 P 帧实验做“模型优劣”归因。两层 CANF B 编码不传运动信息，但仍然计算扭曲图像并传低分辨率基础层。“没有运动码流”和“没有运动计算”要分开。<a href="https://arxiv.org/pdf/2408.08604v1">DCVC-B</a>、<a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Alexandre_Hierarchical_B-Frame_Video_Coding_Using_Two-Layer_CANF_Without_Motion_Coding_CVPR_2023_paper.pdf">两层 CANF 官方论文</a>。这两篇本轮主要处于摘要/引言初筛，尚未核对完整实现。</p>
+<p>MobileNVC 提供另一种工程目标。它利用手机硬件支持的重叠块扭曲、整数推理和多处理单元流水线。作者在 Snapdragon 8 Gen 2、HEVC-B 上报告接收端约 38.9 FPS，但发送端约 3 FPS；重点是手机实时解码。8-bit 版本的率失真也有明显成本，并不全面优于 x265。RT 在 GPU 上选用的算子路线因此不能简单移植成手机端最优方案。<a href="https://openaccess.thecvf.com/content/WACV2024/papers/van_Rozendaal_MobileNVC_Real-Time_1080p_Neural_Video_Compression_on_a_Mobile_Device_WACV_2024_paper.pdf">MobileNVC 官方论文</a>，PDF 第 3–5、7 页。</p>
+<p>流水线 FPS、单帧处理延迟、等待未来输入和首帧响应是不同量。评价实际系统时还要包含熵编码、并行流头、状态搬运和 I/O。论文只给 MAC 数或单模块耗时，不足以证明完整系统实时。</p>
+<h2 id="_6">内容适配与隐式表示：编码端可以做更多搜索</h2>
+<table>
+<thead>
+<tr>
+<th>适配对象</th>
+<th>代表方法</th>
+<th>解码端需要什么</th>
+<th>应计入的额外成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运动潜变量</td>
+<td>Offline/Online Optical Flow Enhancement</td>
+<td>正常已编码运动</td>
+<td>编码端梯度搜索；离线增强训练另计</td>
+</tr>
+<tr>
+<td>内容潜变量</td>
+<td>DCVC-DT、GIViC 的逐 GOP 适配</td>
+<td>原共享模型与最终量化潜变量</td>
+<td>搜索总时间，不能只计最后一次压缩</td>
+</tr>
+<tr>
+<td>解码器适配参数</td>
+<td>Parameter-Efficient Instance-Adaptive NVC</td>
+<td>原模型、解码后的适配参数与内容流</td>
+<td>参数压缩比特及其按序列摊销；更新/合并时间</td>
+</tr>
+<tr>
+<td>内容网络与表示</td>
+<td>NeRV/HiNeRV、C3</td>
+<td>压缩网络参数，部分方法还需嵌入、潜变量与熵模型</td>
+<td>每视频/每块拟合时间、参数与潜变量总比特</td>
+</tr>
+</tbody>
+</table>
+<p>参数高效适配论文把卷积核的低秩更新量化、熵编码后传给接收端，合并后结构不变。它与 DT 的“只优化 y、不传新解码器参数”不同；只比较适配后 PSNR，漏掉参数码率，会改变研究问题。<a href="https://openaccess.thecvf.com/content/ACCV2024/papers/Oh_Parameter-Efficient_Instance-Adaptive_Neural_Video_Compression_ACCV_2024_paper.pdf">参数高效适配官方论文</a>，PDF 第 4–8 页；<a href="https://ojs.aaai.org/index.php/AAAI/article/download/28317/28623">光流适配官方论文</a>。</p>
+<p>NeRV 从帧索引生成图像，HNeRV 加入内容自适应嵌入，HiNeRV 使用层次编码和帧/块表示。C3 则把很小的合成网络、熵网络与多分辨率潜变量一起拟合到视频块，传输的不只有网络权重。它以较低解码复杂度换取昂贵编码；作者报告最大视频块每 1000 次迭代约 457 秒，最多训练 110k 次，不能看到“4.4k MAC/pixel”就推断适合实时编码。<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Kim_C3_High-Performance_and_Low-Complexity_Neural_Compression_from_a_Single_Image_CVPR_2024_paper.pdf">C3 官方论文</a>，PDF 第 2–5、7–8 页。前三篇本轮仍为摘要/引言初筛，C3 进一步读了方法与限制。</p>
+<p>GIViC 是一个交叉案例：共享编码器初始化分层潜变量，编码时固定其他模块并迭代优化潜变量；隐式扩散和门控线性注意力负责重建及上下文。原文还用后验引导把模型优化到 MSE，因此不能仅因名称含 Generative/Diffusion，就归为只追求感知质量。其 RA、GOP32、YUV 配置与当前 RT 实验不同。表格编码 FPS 对逐实例方法只计一次前后向；正文另报 1080p、32 帧 GOP 平均约 1.78 小时的拟合成本。表格与正文对 DC/FM 的一个收益标签也有差异，本报告不抄该处数字作为模型排名。<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Gao_GIViC_Generative_Implicit_Video_Compression_ICCV_2025_paper.pdf">GIViC 官方论文</a>，PDF 第 3–7 页。</p>
+<h2 id="psnr">生成式编码：除了 PSNR，还多了哪些目标</h2>
+<p>DiffVC 用图像扩散先验和时间信息复用；DiffVC-OSD 改为单步扩散。这两篇本轮只进行了摘要/引言初筛，其速度和节码率数字尚未完成实验口径复核。<a href="https://arxiv.org/pdf/2501.13528v1">DiffVC v1</a>、<a href="https://arxiv.org/pdf/2508.07682v1">DiffVC-OSD v1</a>。</p>
+<p>进一步阅读的两篇 2026 方法走向不同：</p>
+<ul>
+<li><strong>GNVC-VD</strong>：使用 Wan2.1 的 3D VAE 与 VideoDiT，在压缩的时空潜变量序列上作细化，主要面向 &lt;0.03 bpp 的感知质量。条件压缩链参考 RT，但序列细化的窗口、等待与总时延仍需单独验证，不能仅凭论文“low-delay prediction”标签断言逐帧端到端实时。<a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Mao_Generative_Neural_Video_Compression_via_Video_Diffusion_Prior_CVPR_2026_paper.pdf">官方论文</a>，PDF 第 3–7 页。</li>
+<li><strong>S²VC</strong>：保持逐帧因果条件编码，从已解码特征中提取语义引导，并传播扩散网络的中间特征来稳定时间纹理。DINOv3 教师和辅助预测器只在训练时使用，推理时无需原帧教师特征；单步扩散也不等于自动达到实时。<a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Xue_Single-step_Diffusion-based_Video_Coding_with_Semantic-Temporal_Guidance_CVPR_2026_paper.pdf">官方论文</a>，PDF 第 4–7 页。</li>
+</ul>
+<p>感知指标好，未必代表原始细节恢复得更准确。需要同时观察保真、感知自然度和时间行为。GNVC-VD 的原表也展示了取舍：完整模型的 FVD 优于其选定生成基线，但 warp error 并非优于所有传统/失真导向方法，部分消融的 FVD 也低于完整模型。不能用一句“时域全面更好”概括所有指标。</p>
+<h2 id="_7">评价方法要对应研究问题</h2>
+<table>
+<thead>
+<tr>
+<th>指标/材料</th>
+<th>它能回答什么</th>
+<th>它单独不能证明什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PSNR-Y、YUV 6:1:1、RGB PSNR</td>
+<td>指定像素/颜色定义下的保真度</td>
+<td>真实感、纹理自然度、连续观看质量</td>
+</tr>
+<tr>
+<td>LPIPS、DISTS</td>
+<td>特征/结构纹理相似性，常用于感知编码</td>
+<td>原始细节逐像素正确、时序稳定</td>
+</tr>
+<tr>
+<td>FVD</td>
+<td>一组视频特征分布的接近程度</td>
+<td>单帧保真、单片段可靠的闪烁分数；小样本的稳健排序</td>
+</tr>
+<tr>
+<td>对齐的时间误差、FloLPIPS、连续观看</td>
+<td>指定对齐和运动定义下的时间行为</td>
+<td>在不控制光流、纹理、内容难度时的唯一质量排名</td>
+</tr>
+<tr>
+<td>RD 与 BD-rate</td>
+<td>共同质量范围内的平均码率差</td>
+<td>区间外表现、极小差额的稳定性、统一端到端速度</td>
+</tr>
+<tr>
+<td>FPS、单帧时间、MAC、显存、能耗</td>
+<td>分别刻画吞吐、处理、计算量和资源</td>
+<td>用其中一个量替代全部系统成本</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Zhang_The_Unreasonable_Effectiveness_CVPR_2018_paper.pdf">LPIPS</a>、<a href="https://arxiv.org/pdf/2004.07728v1">DISTS</a>、<a href="https://arxiv.org/pdf/1812.01717v1">FVD</a>、<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Blau_The_Perception-Distortion_Tradeoff_CVPR_2018_paper.pdf">Perception-Distortion</a>本轮先读摘要与引言，表内“不能证明”的内容是结合指标定义所做的研究设计判断。感知-失真边界不意味着任意两个实际模型都不能同时改善两项指标，实际模型可能都离边界很远。</p>
+<p><a href="https://arxiv.org/pdf/2304.12852v1">BD Bible v1</a>进一步读了积分定义和建议，强调交叠区间、支持点、插值方法及相对差异曲线，并建议 Akima。作者数据集上的误差数值不是我们实验的置信区间。现有工作已做四/七点和 PCHIP/log 线性敏感性；后续必要时补 Akima，但无需把它变成反复验证旧结果的主线。</p>
+<h2 id="_8">当前可复现性与值得投入的方向</h2>
+<p>本轮下载的是论文，不是模型权重。GitHub API 读取均返回 403，随后对部分作者网页做了只读核对；访问失败不等于仓库不存在。观察见 <span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">代码入口记录</span>。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>本轮核实到的范围</th>
+<th>复现判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C3</td>
+<td>官方仓库有实现与 JAX/JAXline 运行说明</td>
+<td>可研究逐实例拟合；编码昂贵，先定极小预算，不直接跑完整 UVG</td>
+</tr>
+<tr>
+<td>参数高效适配</td>
+<td>作者仓库有模型与运行入口</td>
+<td>值得比较参数侧信息；还要验证基线权重、真实参数流和总耗时</td>
+</tr>
+<tr>
+<td>GIViC</td>
+<td>仓库有模型、熵模块和脚本目录</td>
+<td>未验证权重、实现与论文一致性；目录存在不等于复现就绪</td>
+</tr>
+<tr>
+<td>GNVC-VD</td>
+<td>论文称代码公开，但当前仓库页面写 Coming Soon、仅列 README</td>
+<td>当前不安排整模型复现</td>
+</tr>
+<tr>
+<td>BiECVC</td>
+<td>给出的 ECVC 仓库页面列出 assets/README 和论文引用</td>
+<td>当前入口未看到 BiECVC 可运行实现；不外推所有入口都没有代码</td>
+</tr>
+<tr>
+<td>VCT / CGT</td>
+<td>有论文给出的/检索定位的入口，本轮读取受限</td>
+<td>代码与检查点可用性待查，不声称已准备运行</td>
+</tr>
+<tr>
+<td>S²VC</td>
+<td>官方项目页可读，代码链接尚未完成可用性验证</td>
+<td>可继续方法和评价研究，不先假定模型可运行</td>
+</tr>
+</tbody>
+</table>
+<p>下一步优先推进三个问题，并随证据改变顺序：</p>
+<ol>
+<li><strong>参考在什么条件下失效。</strong>运行已有受控场景切换诊断；之后按遮挡、历史长度、运动难度区分失效类型。目标是明确现象的适用条件，暂不把门控本身当创新。</li>
+<li><strong>选一种不同范式作有界对照。</strong>先核实 VCT 的可用检查点与运行路径，或为 C3 设计明确搜索预算的极小实验。问题分别是“时间依赖放在概率域会改变什么”和“每增加一单位编码时间能换来什么”，不把两者混成同一个排行榜。FM 隔离环境保留，权重可用后仍能作条件编码对照。</li>
+<li><strong>把感知与时间目标补到研究设计中。</strong>未来有可运行生成式模型时，保留原像素指标，同时加入感知指标、匹配时刻裁剪和时间评价。不得用单片段 FVD 或一张好看的图替代完整证据。</li>
+</ol>
+<p>本轮的增量是建立方法全景、阅读依据与研究取舍。上述模型性能与时间均为论文作者报告；当前项目实测仍以各轮原始报告为准。</p></main><script src="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

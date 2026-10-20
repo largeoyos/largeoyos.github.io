@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>DCVC-RT · 从码流到模型</title>
+<style>
+:root{--paper:#f5f2e9;--ink:#223b34;--muted:#606962;--accent:#a54e30;--line:#d8d9cd;--white:#fffcf5}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 'Segoe UI','Microsoft YaHei',sans-serif}
+a{color:var(--accent);text-underline-offset:4px}a:hover{color:#6a2b17}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible{outline:3px solid #197a72;outline-offset:4px}
+.mast{border-top:8px solid var(--ink);border-bottom:1px solid var(--line);padding:50px max(5vw,24px) 40px}.eyebrow{font:12px/1.7 Consolas,monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.mast h1{font:clamp(34px,4.2vw,62px)/1.2 'Noto Serif SC','SimSun',serif;font-weight:700;margin:18px 0;color:var(--ink);letter-spacing:-.03em}.mast p{max-width:760px;color:var(--muted);margin:16px 0}.mast .meta{font-size:13px;letter-spacing:.03em}
+.layout{display:grid;grid-template-columns:238px minmax(0,1fr);max-width:1430px;margin:auto;padding:38px 36px;gap:52px}.rail{align-self:start;position:sticky;top:24px;font-size:13px}.rail strong{display:block;color:var(--accent);font-size:11px;letter-spacing:.15em;margin:8px 0 14px}.rail a{display:block;text-decoration:none;color:var(--muted);padding:6px 12px;border-left:1px solid var(--line);line-height:1.6}.rail a:hover{border-color:var(--accent);color:var(--accent);background:#eee8da}.rail .remote{border-top:1px solid var(--line);padding-top:18px;margin-top:22px}
+main{min-width:0;max-width:1030px}.orientation{border:1px solid var(--line);background:var(--white);padding:24px;margin-bottom:28px}.orientation p{margin:4px 0;color:var(--muted)}.orientation b{color:var(--ink)}.flow{display:grid;grid-template-columns:repeat(4,1fr);margin:24px 0 32px;gap:1px;border:1px solid var(--ink);background:var(--ink)}.step{background:var(--white);padding:18px}.step span{font:12px Consolas,monospace;color:var(--accent)}.step h3{font:20px/1.4 'SimSun',serif;margin:8px 0}.step p{color:var(--muted);font-size:13px;line-height:1.7;margin:0}
+.rate{background:var(--ink);color:#fffdf3;padding:26px 28px;margin-bottom:42px}.rate .label{font:11px Consolas,monospace;letter-spacing:.12em;opacity:.75}.rate h2{margin:4px 0 14px;font:24px/1.4 'SimSun',serif}.rate button{font:14px/1.5 Consolas,monospace;cursor:pointer;border:1px solid #81978a;color:#fcf9ee;background:transparent;padding:8px 20px;margin:0 8px 10px 0}.rate button[aria-pressed=true]{background:#f4ead3;color:var(--ink);border-color:#f4ead3}.values{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0}.values strong{font:clamp(23px,3vw,36px)/1.35 Consolas,monospace;display:block}.values small{font-size:12px;opacity:.8}.rate p{font-size:12px;line-height:1.8;opacity:.8;margin:12px 0 0}
+article{font-size:16px}article>h1{font:30px/1.4 'SimSun',serif;margin:38px 0 20px}article>h1+p{font-size:14px;color:var(--muted)}article h2{font:29px/1.4 'SimSun',serif;padding-top:30px;border-top:1px solid var(--line);margin:48px 0 22px;letter-spacing:-.02em}article h3{font-size:19px;line-height:1.6;margin:30px 0 12px}article p{margin:14px 0}article strong{font-weight:650}article img{width:100%;height:auto;background:white;margin:18px 0}article ul,article ol{padding-left:24px}article li{padding-left:3px;margin:8px 0}article pre{white-space:pre-wrap;overflow-wrap:anywhere;border-left:3px solid #b47855;padding:18px 22px;background:#eae7dd;line-height:1.7;font-size:13px}article code{font-family:Consolas,'Microsoft YaHei',monospace;font-size:.9em}article p code,article td code{background:#eae7dd;padding:2px 4px}article table{border-collapse:collapse;display:block;overflow-x:auto;font-size:13px;line-height:1.7;margin:22px 0;width:100%}article th{text-align:left;background:#e5e6da;color:var(--ink);font-weight:650}article td,article th{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;min-width:75px}article td:first-child{font-weight:600}article tbody tr:nth-child(even){background:#f9f6ed}.footer{font-size:12px;color:var(--muted);padding:24px 0;border-top:1px solid var(--line);margin-top:50px}
+@media(max-width:1000px){.layout{grid-template-columns:180px minmax(0,1fr);gap:28px;padding:28px 24px}.flow{grid-template-columns:repeat(2,1fr)}article h2{font-size:26px}}
+@media(max-width:720px){.mast{padding:30px 22px}.layout{display:block;padding:24px 18px}.rail{position:static;margin-bottom:28px}.rail nav{display:flex;gap:4px;overflow:auto;padding-bottom:10px}.rail nav a{min-width:150px;border-left:0;border-bottom:1px solid var(--line)}.rail .remote{display:none}.values{grid-template-columns:1fr;gap:10px}.values>div{display:flex;align-items:baseline;justify-content:space-between}.values strong{font-size:29px}.rate{padding:24px 18px}.step{padding:14px}.flow{margin-bottom:24px}article{font-size:15px}article h2{font-size:25px}article table{font-size:12px}}
+@media print{.rail,.rate button{display:none}.layout{display:block;padding:0}.mast{padding:20px 0}.flow,.rate,.orientation{break-inside:avoid}body{background:white;color:black}a{color:black}article h2{break-after:avoid}article table{font-size:11px}article img{max-height:180mm;object-fit:contain}.rate{background:white;color:black;border:1px solid #ccc}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<header class="mast"><a class="collection-return" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><div class="eyebrow">VIDEO CODING FIELD NOTES / 01</div><h1>编码的一帧，留下了什么</h1><p>从已经跑通的 DCVC-RT 出发，把变换、量化、概率模型和时域参考连成一条完整的编解码链。用现有真实码流理解质量与码率的交换。</p><div class="meta">2026.10.17   ·   LIFE / 1080P / 48 FRAMES   ·   论文 × 固定版本源码 × 已有实验</div></header>
+<div class="layout"><aside class="rail"><strong>阅读路线</strong><nav><a href="#_1">先明确已经有什么</a><a href="#1">1. 先抓住四个模块的分工</a><a href="#2-p">2. 一帧 P 帧如何编码</a><a href="#3">3. 解码端按什么顺序运行</a><a href="#4">4. 参考、刷新与长序列</a><a href="#5">5. 已有四档实验怎样读</a><a href="#6">6. 重建效果怎样看</a><a href="#7-dvcdcvcdcfmrt">7. 为什么 DVC、DCVC、DC、FM、RT 走不同路线</a><a href="#8">8. 对照源码的阅读顺序</a><a href="#9">9. 下一轮真正有信息增量的小实验</a><a href="#_3">参考材料</a></nav><div class="remote"><strong>材料与证据</strong><a href="DCVC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.md.html">可编辑学习笔记</a><a href="rd_points.csv">四档数据 CSV</a><a href="rd_review.svg">矢量 RD 图</a><a href="https://107.ustc.edu.cn/files/training/home/scc/pb25151789/results/dcvc_rt_study_20261017">学校平台上的结果</a></div></aside>
+<main><div class="orientation"><b>材料留在集群，分析可以继续。</b><p>已有结果包括四档真实码流、重建视频、RD 图和初步基线。这里整理的是这些已有证据；无需下载视频，也没有重复运行同一轮测试。</p></div>
+<div aria-label="编码模块分工" class="flow"><div class="step"><span>01 / TRANSFORM</span><h3>变换</h3><p>把当前帧与参考变成更容易编码的潜变量。</p></div><div class="step"><span>02 / QUANTIZE</span><h3>量化</h3><p>用有限精度换码率，决定不可逆的信息损失。</p></div><div class="step"><span>03 / ENTROPY</span><h3>概率与比特</h3><p>预测离散符号，再将它们写进真实码流。</p></div><div class="step"><span>04 / REFERENCE</span><h3>重建与参考</h3><p>从解码结果保存特征，让下一帧继续利用。</p></div></div>
+<section aria-labelledby="rate-title" class="rate"><div class="label">FOUR RECORDED OPERATING POINTS</div><h2 id="rate-title">同一个片段，四档取舍</h2><div aria-label="选择已有的码率点" role="group"><button aria-pressed="false" data-rate="0">q0</button><button aria-pressed="false" data-rate="1">q21</button><button aria-pressed="false" data-rate="2">q42</button><button aria-pressed="false" data-rate="3">q63</button></div><div aria-live="polite" class="values"><div><strong id="bpp"></strong><small>bpp / 完整 .bin</small></div><div><strong id="psnr"></strong><small>dB / PSNR-Y</small></div><div><strong id="kbps"></strong><small>kbps / 30 fps</small></div></div><p>基本 qp 越大，本实现通常质量和码率越高。数值来自已有 48 帧测试，PSNR 为官方浮点输出的逐帧平均；这里切换的是记录，不是实时测量。</p></section>
+<article><h1 id="dcvc-rt">从已经跑通的 DCVC-RT 理解神经视频编码</h1>
+<p>整理日期：2026-10-17。本文接续学校集群上已经完成的实验，不要求把视频下载到本地。实验数字来自已有日志与码流核对；下面的图是对已有数据的重新整理，不是新跑的一轮 benchmark。</p>
+<p>新增研究另见：<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">第一轮统一评分与长链刷新</span>、<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">第二轮四档刷新 RD 与跨内容验证</span>。本文主体保留原 48 帧实验的流程复盘；后续的 240 帧新实验、UF 实现分支和 UI²C 相关工作以各报告与精读笔记为准。</p>
+<p>2026-10-18 补充：<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">帧大小与缓冲需求</span>、<a href="notes/FM_%E6%96%B9%E6%B3%95%E4%B8%8E%E6%B6%88%E8%9E%8D%E7%B2%BE%E8%AF%BB.md.html">FM 参考状态与读流校验</a>、<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">自然视频刷新与 FM 下一阶段协议</span>。</p>
+<h2 id="_1">先明确已经有什么</h2>
+<p>原实验使用 Xiph 的 <code>life_1080p30.y4m</code> 前 48 帧：1920×1080、30 fps、8 位 YUV420，总时长 1.6 秒。四个 DCVC-RT 码率点都包含 1 个 I 帧和 47 个 P 帧，并实际生成了 <code>.bin</code> 码流和重建 YUV。分享记录里还已有 RD 图，以及 libx264/libx265 的初步单点对照。</p>
+<p><a href="https://107.ustc.edu.cn/files/training/home/scc/pb25151789/video-code-lab/DCVC-main/DCVC-family/DCVC-RT/real_outputs">原始结果目录（需学校平台登录）</a> · <a href="https://107.ustc.edu.cn/files/training/home/scc/pb25151789/results/dcvc_rt_study_20261017">整理后的指标、帧图和预览目录</a> · <a href="https://chatgpt.com/share/6ad23cd7-09b8-83e9-9fbb-80d22baa09d1">分享记录</a></p>
+<p>文件留在服务器即可。读论文、核对源码、统计指标、画图和查看重建效果，都可以在那里继续。下载只是制作离线副本的一种选择，不是分析的前置条件。首页的打包文件显示约 140 MB；此前“约 14 MB”的说法有误。</p>
+<h2 id="1">1. 先抓住四个模块的分工</h2>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>它解决的问题</th>
+<th>为什么需要它</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>变换</td>
+<td>把图像变成适合压缩的潜变量 <code>y</code></td>
+<td>像素相关性强；学到的表示可以把重要结构集中到较少、较易预测的符号中</td>
+</tr>
+<tr>
+<td>量化</td>
+<td>把连续潜变量变成有限精度符号</td>
+<td>真正丢弃一部分信息，换取更低码率；它决定不可逆失真</td>
+</tr>
+<tr>
+<td>熵模型与熵编码</td>
+<td>预测符号概率，并把符号写成可解码的比特串</td>
+<td>越容易预测的符号越少占比特；概率模型本身不会恢复量化丢失的信息</td>
+</tr>
+<tr>
+<td>时域参考</td>
+<td>利用之前已经解码的内容</td>
+<td>连续视频有大量重复信息；参考必须是解码器也能得到的重建内容</td>
+</tr>
+</tbody>
+</table>
+<p>训练时常用的目标是 <code>L = R + λD</code>：<code>R</code> 是码率代价，<code>D</code> 是重建失真，<code>λ</code> 决定更愿意花比特还是容忍误差。训练中的概率估计码率与最终 <code>.bin</code> 文件大小要区分。本文的 RD 图使用真实码流文件大小。</p>
+<p>理解它们时可以问四个问题：<strong>表示里装了什么？哪里丢了信息？这些符号为什么省比特？下一帧能继承什么？</strong></p>
+<h2 id="2-p">2. 一帧 P 帧如何编码</h2>
+<p>源码分析固定在官方仓库版本 <code>cbdae87a5445114cdc7f48816da63ea80bdeac40</code>，主要入口是 <code>DCVC-family/DCVC-RT/src/models/video_model.py</code> 的 <code>DMC.compress()</code> 和 <code>DMC.decompress()</code>。本地保留了该版本源码与三篇论文；不要用“最新 main”替代固定版本解释已有实验。</p>
+<h3 id="21">2.1 从上一帧恢复上下文</h3>
+<p><code>apply_feature_adaptor()</code> 从参考缓冲区取得信息。上一帧为 I 帧或发生特征刷新时，从重建图像经过 <code>pixel_unshuffle(8)</code> 和适配网络开始；普通 P 帧直接适配上一帧解码特征。</p>
+<p><code>FeatureExtractor</code> 产生两条分支：<code>ctx</code> 给条件编码器和条件解码器使用；<code>ctx_t</code> 进入时域熵先验。源码中的 <code>q_feature</code> 乘在 <code>ctx_t</code> 分支上，不能笼统理解成它缩放了所有上下文。</p>
+<p>RT 的关键变化是：<strong>不再单独估计、压缩和传输光流，也没有传统显式光流 warping 链路。</strong>网络用参考特征和当前帧共同学习时间关联，称为隐式时域建模。它省去运动分支的运行、存储和传输代价，但仍然利用运动带来的可预测性；这不等于逐帧独立压缩。</p>
+<h3 id="22-y">2.2 条件变换得到主潜变量 y</h3>
+<p>当前帧先做 <code>pixel_unshuffle(8)</code>。这一步把空间位置搬到通道维，元素总数不变，本身没有压缩或丢弃信息。随后卷积网络把它与 <code>ctx</code> 拼接、变换，施加码率相关的通道增益，再下采样得到 <code>y</code>。</p>
+<p>这不是先做一个固定的像素预测再编码 <code>x−prediction</code>。网络决定当前内容怎样依赖参考、哪些信息需要进入 <code>y</code>，解码网络也直接受相同上下文约束。因此这里的“条件编码”比固定像素残差更灵活。</p>
+<p>对 1080p 实验，实际张量尺度如下（batch=1，通道在前）：</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>形状</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原输入</td>
+<td><code>3 × 1080 × 1920</code></td>
+<td>从 YUV420 将 UV 上采样后形成三通道输入</td>
+</tr>
+<tr>
+<td>补边输入</td>
+<td><code>3 × 1088 × 1920</code></td>
+<td>高度补 8 行，满足主网络的 16 倍数要求</td>
+</tr>
+<tr>
+<td>主上下文/参考特征</td>
+<td><code>256 × 136 × 240</code></td>
+<td>大部分处理在 1/8 空间尺度进行</td>
+</tr>
+<tr>
+<td>主潜变量 y</td>
+<td><code>128 × 68 × 120</code></td>
+<td>真正需要量化和熵编码的主表示，空间尺度为 1/16</td>
+</tr>
+<tr>
+<td>超潜变量 z</td>
+<td><code>128 × 17 × 30</code></td>
+<td>用于描述 y 的分布，空间尺度约为 1/64</td>
+</tr>
+</tbody>
+</table>
+<p>“在 1/8 尺度工作”指主要特征处理，不能把它误写成码流中 <code>y</code> 的尺度。降低大尺寸特征的处理次数，有利于减少访存和中间张量开销。</p>
+<h3 id="23-z">2.3 超先验：先发送描述分布的 z</h3>
+<p><code>hyper_encoder(y)</code> 产生 <code>z</code>，量化后得到 <code>z_hat</code>。它的比特也要付费。解码器先从码流恢复 <code>z_hat</code>，再运行 <code>hyper_decoder</code>，得到描述当前 <code>y</code> 分布的信息。</p>
+<p>为什么发送额外信息反而能省码率？因为一张图内不同区域的统计特征不同。如果少量 <code>z</code> 能让很多主符号的概率预测更准确，就可能使 <code>R_z + R_y</code> 小于不用超先验时的主码率。是否划算由训练中的联合码率代价决定。</p>
+<p>RT 的 <code>z</code> 使用按码率参数选择的因子化概率模型；它不能免费访问尚未解码的 <code>y</code>。这个解码顺序约束是整个设计成立的基础。</p>
+<h3 id="24">2.4 时域、超先验、空间先验共同预测概率</h3>
+<p><code>res_prior_param_decoder(z_hat, ctx_t)</code> 融合超先验和时域先验，生成局部量化尺度、Gaussian 的尺度与均值。时域先验来自过去的重建参考，双方可以自行计算，不需要重新传一份完整上下文。</p>
+<p>P 帧的空间先验采用两阶段、空间与通道联合分组：两半通道使用互补棋盘格。先解码第一组；再利用第一组已经恢复的值更新第二组的均值和尺度；最后解码第二组。</p>
+<p>这样可以利用同帧相关性，同时把依赖深度压到两阶段。相比逐位置自回归，它减少串行等待；相比完全独立编码，它保留一部分空间预测能力。这里的“两组”指潜变量符号分组，不是两半视频帧。</p>
+<h3 id="25">2.5 量化究竟发生在哪里</h3>
+<p>对一个 P 帧符号，可以用下面的简化公式理解源码（实际按上述分组执行）：</p>
+<pre><code>u = y / q_local
+r = round(u − μ)
+u_hat = r + μ
+y_hat = q_local × u_hat
+</code></pre>
+<p><code>q_local</code> 来自融合先验，源码限制它不小于 0.5。<code>μ</code> 与分组相应的概率模型一致。离散残差还会限制到 int8 的表示范围。超潜变量 <code>z</code> 也要取整和限制范围。</p>
+<p>运行参数 <code>force_zero_thres=0.12</code> 还会对预测尺度很小的符号使用零残差规则。这有助于跳过几乎确定的零符号，降低处理开销，但属于实际编码规则，不能在复现实验时随意改变。</p>
+<p>除了局部量化尺度，模型还有 <code>q_encoder / q_decoder / q_feature / q_recon</code> 等按码率选择的学习参数，分别调制不同模块。它们不是一个通用标量步长，也不能一律当成互为倒数。</p>
+<p><strong>本实现的基本 qp 从 0 到 63，数值越大通常质量和码率越高。</strong>这与常见 H.264/H.265 的 QP 方向不同。P 帧还会按层级使用 <code>[0,8,4]</code> 的偏移，所以码流中出现大于 63 的实际 qp 可以是正常现象。</p>
+<h3 id="26">2.6 从概率到真正的码流</h3>
+<p>量化后的残差用离散 Gaussian 概率建模。连续密度需要在整数符号对应的单位区间积分，形成离散概率，再转换成有限精度的 CDF 表。官方扩展使用 rANS 编解码器；解码端必须使用一致的 CDF、符号次序和分组规则。</p>
+<p>程序按依赖先处理 <code>z</code>，再处理两组主符号。最终 <code>.bin</code> 还包含图像尺寸、帧类型、qp、SPS 与负载长度等信息。不能只统计主潜变量的理论熵，也不能把预览 MP4 的大小当作 DCVC-RT 码率。</p>
+<p>概率越尖锐，模型越确信某个符号会出现，理想码长越短。但如果预测错了，实际出现的符号反而可能更费比特。因此“更复杂的熵模型”是否值得，要同时看预测收益与串行、访存、调用成本。</p>
+<h3 id="27">2.7 编码端也要恢复参考</h3>
+<p>编码器用 <code>y_hat</code> 和相同 <code>ctx</code> 运行条件解码器，恢复下一帧要用的特征。这样编码端不会拿原始帧特征作为解码端根本无法获得的参考。</p>
+<p>RT 普通 P 帧编码主要保留重建特征，可以跳过最终的图像生成网络；特征刷新等情况再生成必要的重建图像。这也是编码端与解码端耗时不能只按“对称网络”推测的原因。</p>
+<h2 id="3">3. 解码端按什么顺序运行</h2>
+<ol>
+<li>读帧头、qp 和必要的 SPS，从码流恢复 <code>z_hat</code>。</li>
+<li>从上一帧的解码参考重建 <code>ctx_t</code> 等上下文。</li>
+<li>融合超先验和时域先验，得到第一组概率与局部量化尺度。</li>
+<li>解码第一组符号；用它更新第二组概率；解码第二组。</li>
+<li>恢复 <code>y_hat</code>，运行条件解码器和图像生成网络，输出当前重建帧。</li>
+<li>保存当前重建特征/图像，供下一帧使用；输出与评价时裁去补边。</li>
+</ol>
+<p>解码器没有当前原始帧，也不能先知道尚未解码的符号。检查任何先验是否合理，都可以问：<strong>它的输入在解码到这一步时是否已知？</strong></p>
+<p>首个 I 帧由独立 <code>DMCI</code> 图像模型编码，没有时域参考；它使用四阶段空间先验。不要把 P 帧两阶段结构套用到所有帧。</p>
+<h2 id="4">4. 参考、刷新与长序列</h2>
+<p>RT 的 DPB 最多保存一个参考项，但这个特征通过递归可以包含更早的历史；“一个参考项”不等于“只利用一帧的全部历史信息”。</p>
+<p>持续传播特征能保留有用信息，也可能积累误差、偏离训练分布。特征刷新时，网络从上一帧重建图像重新提取参考特征，缩短特征传播链。它仍然依赖之前解码的图像，<strong>不是插入新 I 帧，也不提供独立随机访问点</strong>。</p>
+<p><code>test_video.py</code> 的 <code>reset_interval</code> 默认是 32；README 示例显式设置为 64。不能仅凭默认值或不完整的命令记录倒推旧实验配置。2026-10-17 的新增对照表明：本轮 <code>reset_interval=64</code> 的前 48 帧，在基本 qp=21/42 下同时复现了旧实验的浮点 PSNR 与完整码流 bpp；默认 32 的结果则不同。旧短片段的实际行为与 64 设置吻合，最终刷新位置仍应读取原码流的 <code>use_ada_i</code>。仅有 48 帧也不足以唯一确定所有大于片段长度的刷新周期。</p>
+<p>源码条件是 <code>frame_idx % reset_interval == 1</code>：周期 32 的刷新位置为零起始索引 1、33、65……；周期 64 为 1、65、129……。首次刷新与从 I 帧初始化特征的路径等价，因此本轮关闭刷新与周期 64 在第 65 帧之前的逐帧 PSNR 完全一致。先前按默认值推断旧短实验为周期 32 的表述已更正。</p>
+<p>真正研究长期误差累积需要更长序列。现在这段 48 帧视频不足以证明长序列稳定性。</p>
+<h2 id="5">5. 已有四档实验怎样读</h2>
+<p>下表的 bpp 根据完整 <code>.bin</code> 文件字节数重新计算，包含码流头。PSNR 来自原官方测试日志，先逐帧算，再求 48 帧平均。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">基本 qp</th>
+<th style="text-align: right;">文件字节数</th>
+<th style="text-align: right;">bpp</th>
+<th style="text-align: right;">kbps（30 fps）</th>
+<th style="text-align: right;">PSNR-Y / dB</th>
+<th style="text-align: right;">PSNR-(6Y+U+V)/8 / dB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">27,139</td>
+<td style="text-align: right;">0.00218131</td>
+<td style="text-align: right;">135.695</td>
+<td style="text-align: right;">29.1540</td>
+<td style="text-align: right;">31.3987</td>
+</tr>
+<tr>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">80,051</td>
+<td style="text-align: right;">0.00643414</td>
+<td style="text-align: right;">400.255</td>
+<td style="text-align: right;">32.7216</td>
+<td style="text-align: right;">34.9920</td>
+</tr>
+<tr>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">318,442</td>
+<td style="text-align: right;">0.02559494</td>
+<td style="text-align: right;">1,592.210</td>
+<td style="text-align: right;">36.0538</td>
+<td style="text-align: right;">38.0786</td>
+</tr>
+<tr>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">1,087,507</td>
+<td style="text-align: right;">0.08740893</td>
+<td style="text-align: right;">5,437.535</td>
+<td style="text-align: right;">39.1663</td>
+<td style="text-align: right;">40.7282</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="重新整理的真实码流 RD 曲线" src="rd_review.png"/></p>
+<p>原服务器 <code>rd_curve.png</code> 的纵轴数值对应 6:1:1 加权 PSNR。这里另外单列亮度 PSNR，并同时提供线性与对数码率轴，便于观察低码率区间。线段只是连接测得的四个点，不代表中间任意码率都已经测过。</p>
+<p>最低到最高档，码率增加约 40 倍，亮度 PSNR 提升约 10 dB。后者表示几何平均意义下的逐帧亮度 MSE 约缩小一个数量级；由于原指标是平均帧 PSNR，不能直接把它当成全序列总 MSE 的精确比值。越往高质量走，继续提升通常需要更多比特；具体斜率仍取决于内容和模型。</p>
+<h3 id="bpp">bpp、码率与压缩比</h3>
+<pre><code>bpp = 8 × 完整码流字节数 / (宽 × 高 × 帧数)
+kbps = 8 × 完整码流字节数 × fps / 帧数 / 1000
+</code></pre>
+<p>YUV420 每个亮度位置平均有 1.5 个 8 位样本，未压缩约 12 bit/pixel，但 bpp 的分母仍是 <code>W×H×N</code>，不是 <code>1.5×W×H×N</code>。补边不应扩大分母。预览视频是方便播放的二次封装/转换结果，不能用它的文件大小替代原 <code>.bin</code>。</p>
+<h3 id="psnr">PSNR 口径为什么会不一致</h3>
+<p>对 8 位样本，<code>PSNR = 10 log10(255²/MSE)</code>。至少要明确五件事：评价 Y 还是 RGB/YUV？怎样加权通道？先平均 MSE 还是先平均帧 PSNR？按浮点输出还是保存后的 8 位文件？有没有裁去补边？</p>
+<p>官方 YUV 路径先在浮点重建上算各通道 PSNR，再作 <code>(6Y+U+V)/8</code>。这不是按 YUV420 样本数 4:1:1 合并 MSE 后求 PSNR。两个量可以各有用途，但不能混用。</p>
+<p>官方存文件发生在评价之后：Y 会四舍五入到 uint8，UV 的保存路径会直接转换为 uint8。因此对保存后的文件重算，数值会与官方浮点结果有小差别。例如基本 qp=63，官方 PSNR-Y 为 39.1663 dB，保存后重算约 39.1203 dB；不能据此直接判断码流损坏或解码错误。</p>
+<p>整理目录另有按保存后 YUV 计算的结果。与传统编码器比较时，应对所有方法的实际解码输出使用同一个评价脚本与同一聚合口径。</p>
+<h2 id="6">6. 重建效果怎样看</h2>
+<p><a href="https://107.ustc.edu.cn/files/training/home/scc/pb25151789/results/dcvc_rt_study_20261017/frames">在线帧图目录</a> 包含原视频和四档重建的第 0、23、47 帧。<a href="https://107.ustc.edu.cn/files/training/home/scc/pb25151789/results/dcvc_rt_study_20261017/previews">预览目录</a> 保留了原图和四档的播放版本。直接在学校平台查看即可。</p>
+<p>已在线对照第 23 帧的最低和最高码率重建：最低档动画人物的面部、柜台后的瓶架等细节明显平滑，但柜台、人物、地板等大结构仍然可辨；最高档的蓝色背景纹理、瓶架和人物细节更丰富。该判断来自浏览器缩放预览，不能当作像素级误差测量，也不能证明时间稳定性。</p>
+<p>观看时建议固定同一帧、同一裁剪位置、相同缩放和色彩转换，重点看人物轮廓、细线、瓶架、地板边缘等区域。播放时再看细节是否闪烁、运动边缘是否拖尾；静态截图不能证明时间稳定性。不要仅凭“看起来更锐”判断更忠实，锐化也可能生成与原图不同的细节。</p>
+<p>这次预览使用与官方变换一致的 full-range BT.709 约定；评价仍在 YUV 域完成。对照不同播放器时，先排除 limited/full range、色彩矩阵和缩放方式的影响。</p>
+<h3 id="_2">已有传统编码器对照的边界</h3>
+<p>分享记录中已有 libx264、libx265 的 <code>medium, CRF=26</code>，关闭 B 帧、长 GOP 的初步测试。每种只有一个码率点；相同 CRF 不代表相同质量或相同码率，不能直接据此得出模型优劣排序。</p>
+<p>旧 <code>compare_psnr.py</code> 的通道和帧聚合口径需要与官方日志分别核对；在完成统一评分之前，这些数值不合并进上面的官方 RD 曲线。正式比较还要补齐各方法多个质量点、使用相同源帧和评价脚本。不要把 x264/x265 的 CPU 时间与 A100 上神经模型的 GPU 时间直接称为公平速度比较。</p>
+<p>本次没有计算 BD-rate。它需要两条在质量区间内充分重叠的多点曲线，约定插值和积分方法；仅有一个基线点不够。48 帧、单个动画片段也不能支撑论文数据集层面的结论。</p>
+<h2 id="7-dvcdcvcdcfmrt">7. 为什么 DVC、DCVC、DC、FM、RT 走不同路线</h2>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>时域利用方式</th>
+<th>表示/概率模型的关键变化</th>
+<th>主要设计取向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DVC（2019）</td>
+<td>显式光流编码、运动补偿</td>
+<td>编码运动与像素预测残差，联合训练</td>
+<td>把传统运动补偿框架中的关键模块换成可学习网络</td>
+</tr>
+<tr>
+<td>DCVC（2021）</td>
+<td>仍有显式运动，用重建参考构造高维上下文</td>
+<td>条件编码/解码与条件熵模型，超越固定像素相减</td>
+<td>提高表示能力与率失真性能</td>
+</tr>
+<tr>
+<td>DCVC-DC（2023）</td>
+<td>显式运动、传播特征、多样化上下文</td>
+<td>分组偏移/融合，四阶段时空通道相关的潜变量概率建模</td>
+<td>更充分地利用上下文，减少预测与概率估计误差</td>
+</tr>
+<tr>
+<td>DCVC-FM（2024）</td>
+<td>保留运动分支与特征传播，加入周期性刷新</td>
+<td>按质量调制特征与量化，扩大单模型可用质量范围</td>
+<td>让一个模型覆盖更宽码率，并改善长链预测的适用性</td>
+</tr>
+<tr>
+<td>DCVC-RT（2025）</td>
+<td>去掉显式运动分支，以参考特征隐式建模</td>
+<td>单一低分辨率主特征处理、P 帧两阶段概率模型、码率相关模块参数、系统级实现优化</td>
+<td>把率失真收益与真实运行延迟、访存开销一起优化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dvc-dcvc">DVC → DCVC：为什么不只编码像素残差</h3>
+<p>像素差固定了表示形式：即使预测只出现一点位移误差，也可能产生复杂残差。DCVC 让编码器和解码器同时看到高维上下文，学习怎样表达“参考已经解释了什么、还缺什么”。但 DCVC 2021 仍然有显式运动，不能把 RT 的“无显式光流”归给最早的 DCVC。</p>
+<h3 id="dcvc-dc">DCVC → DC：为什么要多样化上下文</h3>
+<p>运动遮挡、局部运动、对齐误差会让单一上下文不可靠。DC 通过更丰富的对齐和融合提升参考质量，也利用更多潜变量之间的相关性来估计概率。多个偏移并不意味着每个偏移都作为独立运动码流发送；一部分是由已解码运动和特征推导得到的。</p>
+<p>增加上下文能省比特，也会增加特征存储、模块调用和依赖步骤。因此它适合在率失真优先的目标下权衡，不能只从网络 FLOPs 推算实际速度。</p>
+<h3 id="dc-fm">DC → FM：为什么一个模型要支持宽码率</h3>
+<p>每个质量点训练一套模型会增加存储与部署成本；只调整输出量化步长又可能使内部特征分布失配。FM 用质量相关的特征调制，让各模块随目标质量一起适配，并结合更长序列训练与参考特征刷新处理实际视频中的长预测链。</p>
+<p>全局调制与局部量化控制互补：前者调整模型工作的质量范围，后者适应当前内容不同位置和通道。不能把 FM 简化成“只把一个量化参数改了”。</p>
+<h3 id="fmdc-rt">FM/DC → RT：为什么可以舍弃显式运动</h3>
+<p>显式运动对齐能提升预测，尤其对大位移可能有价值；代价是运动估计、运动编解码、warping 和中间特征的完整链路。RT 把这部分代价换成隐式条件网络，在端到端时延目标下取得不同平衡。</p>
+<p>同样，RT 把 P 帧的复杂空间概率依赖压到两阶段，使 GPU 计算、CPU 熵编码和数据传输更容易安排。它还使用算子融合和流/事件调度，降低访存及调用开销。实时化依赖架构与系统实现共同配合，不只是减少参数量。</p>
+<p>论文还讨论了整数化部署。当前实验代码使用 <code>.half()</code> 的浮点推理；潜变量以 int8 表示，不等于整网都已经整数化，也不能据此宣称已经验证跨硬件逐比特一致。</p>
+<p>这些模型不是沿同一目标的单调升级：DVC 建立可学习混合编码框架，DCVC/DC 提高条件表示与上下文能力，FM 强化单模型宽码率及长序列适用性，RT 面向真实端到端速度重新取舍模块。</p>
+<h2 id="8">8. 对照源码的阅读顺序</h2>
+<p>以下链接固定到所分析的官方提交，行号以该版本为准。</p>
+<table>
+<thead>
+<tr>
+<th>先看什么</th>
+<th>入口</th>
+<th>阅读时要追的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整体数据和码流循环</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/test_video.py#L128">test_video.py</a></td>
+<td>I/P 如何切换、实际 qp 如何选择、何时刷新、指标在保存之前还是之后计算？</td>
+</tr>
+<tr>
+<td>P 帧编码/解码</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/src/models/video_model.py#L226">video_model.py: DMC</a></td>
+<td>编解码双方参考是否一致、哪些数据必须发送、哪些网络可以并行？</td>
+</tr>
+<tr>
+<td>条件变换与参考分支</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/src/models/video_model.py#L25">video_model.py: FeatureExtractor</a></td>
+<td><code>ctx</code> 与 <code>ctx_t</code> 去哪了，1/8 与 1/16 分别指什么？</td>
+</tr>
+<tr>
+<td>两阶段空间模型</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/src/models/common_model.py#L143">common_model.py: compress_prior_2x</a></td>
+<td>第二组为什么必须等第一组、掩码如何跨通道交错？</td>
+</tr>
+<tr>
+<td>概率模型与 rANS 接口</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/src/models/entropy_models.py">entropy_models.py</a></td>
+<td>Gaussian 怎样变成离散 CDF、极小尺度符号怎样跳过？</td>
+</tr>
+<tr>
+<td>I 帧差异</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/src/models/image_model.py#L102">image_model.py</a></td>
+<td>为什么这里是四阶段，并且没有时域先验？</td>
+</tr>
+<tr>
+<td>文件大小与帧头</td>
+<td><a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT/src/utils/stream_helper.py">stream_helper.py</a></td>
+<td>统计中有没有包含 SPS、帧头和长度字段？</td>
+</tr>
+</tbody>
+</table>
+<p>阅读论文时先对应 RT Fig.4 和第 3 节，再读 DC Fig.2、FM Fig.2/3；比对同一职责的模块，比逐年记网络名字更有效。</p>
+<h2 id="9">9. 下一轮真正有信息增量的小实验</h2>
+<p>现有四档测试无需重跑。若继续做实验，优先选择能回答明确问题的变化：</p>
+<ol>
+<li><strong>评价口径实验</strong>：固定同一码流，分别用官方浮点结果和保存后的 YUV 评价；统一对 x264/x265 解码输出评分，解释差异来自哪里。</li>
+<li><strong>特征刷新实验</strong>：使用足够长的相同片段，比较禁用刷新、32、64 间隔；画逐帧 PSNR/bpp，观察刷新附近和序列后段，而不只看平均值。</li>
+<li><strong>内容实验</strong>：分别选静态、平移/大运动、场景切换片段，固定模型参数与帧数；考察隐式时域建模在哪些情况下更划算。</li>
+<li><strong>完整对照 RD</strong>：为每个基线补多个码率点，统一 I/P 结构和保存后评分，再考虑重叠区间内的 BD-rate。</li>
+</ol>
+<p>本轮已完成的证据与仍需补充的证据分开：四档真实码流与平均指标已存在；在线静帧能确认空间细节变化；时间稳定性、长序列误差、跨内容平均性能与公平速度结论仍需相应实验，不能从这 48 帧外推。</p>
+<h2 id="_3">参考材料</h2>
+<ul>
+<li>Li et al., <a href="https://arxiv.org/abs/2502.20762">Towards Practical Real-Time Neural Video Compression（DCVC-RT, CVPR 2025）</a>，本地保留 arXiv v2。</li>
+<li>Li et al., <a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Li_Neural_Video_Compression_With_Diverse_Contexts_CVPR_2023_paper.pdf">Neural Video Compression With Diverse Contexts（DCVC-DC, CVPR 2023）</a>。</li>
+<li>Li et al., <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Li_Neural_Video_Compression_with_Feature_Modulation_CVPR_2024_paper.pdf">Neural Video Compression with Feature Modulation（DCVC-FM, CVPR 2024）</a>。</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2109.15047">Deep Contextual Video Compression（DCVC, NeurIPS 2021）</a>。</li>
+<li>Lu et al., <a href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Lu_DVC_An_End-to-End_Deep_Video_Compression_Framework_CVPR_2019_paper.pdf">DVC: An End-to-End Deep Video Compression Framework（CVPR 2019）</a>。</li>
+<li><a href="https://github.com/microsoft/DCVC/tree/cbdae87a5445114cdc7f48816da63ea80bdeac40">微软官方源码固定版本</a>；<a href="https://media.xiph.org/video/derf/">Xiph 视频源目录</a>。</li>
+</ul></article><div class="footer">证据来源与实验局限已列于正文。视频与帧图仍位于学校持久目录；本页不自动加载远程媒体。</div></main></div>
+<script>const points=[{"base_qp": 0, "bytes": 27139, "psnr_y": 29.154045, "psnr_611": 31.398735, "saved_uint8_psnr_y": 29.149346596446165, "bpp": 0.0021813110853909465, "kbps": 135.695}, {"base_qp": 21, "bytes": 80051, "psnr_y": 32.721555, "psnr_611": 34.991954, "saved_uint8_psnr_y": 32.71098712640409, "bpp": 0.006434140303497943, "kbps": 400.255}, {"base_qp": 42, "bytes": 318442, "psnr_y": 36.053831, "psnr_611": 38.078559, "saved_uint8_psnr_y": 36.03089988111651, "bpp": 0.025594939557613168, "kbps": 1592.21}, {"base_qp": 63, "bytes": 1087507, "psnr_y": 39.166291, "psnr_611": 40.728244, "saved_uint8_psnr_y": 39.120303150004574, "bpp": 0.08740893454218107, "kbps": 5437.535}];function choose(i){const p=points[i];document.getElementById('bpp').textContent=p.bpp.toFixed(6);document.getElementById('psnr').textContent=p.psnr_y.toFixed(3);document.getElementById('kbps').textContent=p.kbps.toFixed(2);document.querySelectorAll('[data-rate]').forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));}document.querySelectorAll('[data-rate]').forEach((b,i)=>b.addEventListener('click',()=>choose(i)));choose(0);</script></html>

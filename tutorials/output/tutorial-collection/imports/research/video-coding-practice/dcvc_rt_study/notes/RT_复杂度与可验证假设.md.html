@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DCVC-RT：从“算多少”追到“为什么耗时”</title><link rel="stylesheet" href="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/RT_复杂度与可验证假设.md · <a href="RT_%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%B8%8E%E5%8F%AF%E9%AA%8C%E8%AF%81%E5%81%87%E8%AE%BE.md">原始 Markdown</a></p><h1 id="dcvc-rt">DCVC-RT：从“算多少”追到“为什么耗时”</h1>
+<p>依据：会议版 <code>DCVC-RT-CVPR2025.pdf</code> 的 §3、§4.2–4.5 与 Fig.3/4；固定版本 RT 编解码源码。相关流程另见总导读，本文集中分析设计动机与实验边界。</p>
+<h2 id="flops">FLOPs 和端到端时间之间有一段必须测量的距离</h2>
+<p>卷积计算量常随通道数近似平方变化；特征元素数则通常线性变化。若减少通道后，耗时没有按计算量比例下降，就说明存在其他瓶颈，不能仅靠 MACs 推断速度。</p>
+<p>RT 区分计算成本、特征存取规模和模块调用数量。大的中间张量造成访存压力；很碎的计算增加启动、调度和同步开销。随着计算量降低，固定的调用成本可能变得更显著。因此它选择在低空间尺度保留较强处理能力，同时压缩高开销链路。</p>
+<p><code>pixel_unshuffle(8)</code> 先进行可逆重排，使主要特征网络在 1/8 尺度工作；主潜变量最终仍在 1/16。这个区别应从张量形状确认，而不是把论文中的 latent 一词在不同位置都当成同一张量。</p>
+<h2 id="_1">隐式参考节省了一整条运动链路</h2>
+<p>RT 去掉显式光流估计、运动编解码和运动补偿分支，通过参考特征与当前内容的联合处理学习依赖。少一条链路意味着不只是少算卷积，还减少中间存储、调用与同步。</p>
+<p>收益并非没有条件：大位移或遮挡可能更依赖明确对齐，场景切换则可能使显式运动失效。作者的分类消融提供这种取舍的证据；本轮只测试 Life，尚不能重复其分类结论。</p>
+<h2 id="_2">概率模型与流水调度也属于架构设计</h2>
+<p>P 帧两阶段符号分组降低依赖深度，超先验、参考特征提取和 CPU rANS 的部分计算可通过流和事件安排重叠。融合算子则减少中间张量落地和重复调用。</p>
+<p>因此单模块计时、GPU kernel 时间、真实包含熵编码的帧时延，以及包括读盘/评价的总任务时间，必须分别命名。多个任务并行后的吞吐也不是单帧延迟。后续性能实验应固定设备、线程、预热和同步范围，并明确是否包含码流写入。</p>
+<h2 id="_3">不要把论文的部署选项自动当成当前环境事实</h2>
+<p>本轮 RT 脚本使用浮点 half 路径。离散符号用 int8 存储，不说明整网已经整数化。跨设备一致性需要在对应部署路径上独立核验，不能从一台 A100 的成功解码推出。</p>
+<h2 id="_4">当前证据支持到哪里</h2>
+<p>这轮确实完成了六个 240 帧 RT 设置，检查了实际 QP、刷新标志、码流 bpp 和逐帧 PSNR。在首次有效刷新之前，对照轨迹完全相同；刷新之后差异逐渐扩大。这是状态传播对重建产生影响的直接实验线索。</p>
+<p>但目前没有比较有/无光流的同训练消融，没有系统 profiler，也没有跨设备整数化验证。这些应保留为后续问题。下一项优先实验是不同刷新周期的完整 RD 与跨内容测试，先确认当前发现是否稳健，再讨论自适应策略。</p>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Jia_Towards_Practical_Real-Time_Neural_Video_Compression_CVPR_2025_paper.pdf">论文原文</a> · <a href="https://github.com/microsoft/DCVC/tree/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC-RT">固定源码</a></p></main><script src="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

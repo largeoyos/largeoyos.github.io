@@ -1,8 +1,8 @@
 {
   "subjects": 11,
-  "entries": 195,
+  "entries": 204,
   "pdfs": 15,
-  "chapters": 44,
+  "chapters": 45,
   "courses": [
     {
       "id": "math",
@@ -37,7 +37,7 @@
     {
       "id": "compression",
       "title": "图像与视频压缩",
-      "entries": 25
+      "entries": 34
     },
     {
       "id": "pytorch",
@@ -60,6 +60,6 @@
       "entries": 13
     }
   ],
-  "version": "4.10.0",
+  "version": "4.11.0",
   "published": "2026-10-20"
 }

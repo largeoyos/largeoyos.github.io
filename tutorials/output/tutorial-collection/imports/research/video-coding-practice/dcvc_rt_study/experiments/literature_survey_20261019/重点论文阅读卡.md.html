@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>11 篇重点章节阅读卡</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/experiments/literature_survey_20261019/重点论文阅读卡.md · <a href="%E9%87%8D%E7%82%B9%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%8D%A1.md">原始 Markdown</a></p><h1 id="11">11 篇重点章节阅读卡</h1>
+<p>2026-10-19。页码均按本地 PDF 顺序。这里的“重点”指阅读了所列方法/实验章节，不代表逐页精读全文或已复现实验。其余新增论文的摘要初筛和既有论文笔记范围见 <a href="%E6%96%87%E7%8C%AE%E7%B4%A2%E5%BC%95.md.html">逐篇索引</a>。作者结果、阅读判断与本项目实测分开。</p>
+<h2 id="vct">VCT：把时序依赖主要放在概率域</h2>
+<p><a href="https://papers.nips.cc/paper_files/paper/2022/file/54dcf25318f9de5a7a01f0a4125c541e-Paper-Conference.pdf">本地 PDF</a>；阅读第 1、3–8 页，方法 §3、实验 §4。</p>
+<p>问题是去掉显式运动模块后怎样利用时间冗余。每帧先独立变换、量化；Transformer 依据前两帧潜变量和当前块已知 token 预测 PMF，再实际熵编解码。当前块为 4×4 个 token，块内 16 次顺序步骤，各块并行。它不通过随机采样潜变量来“猜出”实际码流。Stage III 加入的 LRP 又用 Transformer 特征改善重建，因此完整重建仍依赖一个有限历史窗口。</p>
+<p>本轮最值得保留的设计是有限历史依赖，以及与重建帧反馈不同的结构。作者训练使用一百万互联网短片，不能把它与另一模型在不同训练数据下的差异全归因于 Transformer。其 RGB 指标、UVG 版本和传统基线配置也要核对。没有显式运动不意味着无串行或无大模型成本。</p>
+<p>尚未读取完整补充材料或核算实际运行时间；本轮代码目录读取受限，检查点没有验证。下一步可先确认原版可用性，再做短片段真实流对照。</p>
+<h2 id="maskcrt">MaskCRT：条件编码与条件残差编码的混合</h2>
+<p><a href="https://arxiv.org/pdf/2312.15829v1">本地 PDF</a>；阅读第 1、3–5 页；第 4 页 Fig.3 另作视觉核对。版本为 2023 arXiv v1，网页 v2 标注 2024 TCSVT 接收，未逐版比较。</p>
+<p>作者讨论有损条件提取的信息瓶颈，以及残差熵不总比原图熵小的情形。方法输入是 <code>x − m·x_c</code>；m=0 与 m=1 对应两种端点，空间软掩码形成混合。m 只依赖已解码运动和预测帧，可在两端生成。Swin 条件变换和通道去相关模块是另一部分贡献，不能只抽出掩码并沿用完整收益。</p>
+<p>对当前课题的意义是：遮挡/错误运动下的参考选择已有明确先行工作。论文中的熵比较也有其假设，不应升级成有限网络上的普遍优势定理。第 4 页文字写成解码端加回 <code>m·x_t</code>，但 Fig.3 的连线为 <code>m·x_c</code>，后者才是解码端可得信号；记录为 v1 的文字疑点，不静默照搬。</p>
+<p>本轮未细读第 6 页以后的全部实验、未取得固定源码/权重，不能宣称复现或确认完整 RD 结论。</p>
+<h2 id="cgt">CGT：概率预测应该先花计算在哪里</h2>
+<p><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Tong_Context_Guided_Transformer_Entropy_Modeling_for_Video_Compression_ICCV_2025_paper.pdf">本地 PDF</a>；阅读第 1、4–6 页，另视觉核对第 6 页 Tables 1–2。</p>
+<p>TCR 使用可学习查询压缩时间上下文；DWSCA 用教师/学生训练位置的重要性与确定性，再按 top-k 顺序分阶段解码。测试时采用 8 步调度，不是在推理时再运行一个看过真实未知 token 的教师。主要研究对象是熵模型和解码顺序。</p>
+<p>Table 1 在 A800 上的 CGT 消融：PMF 计算 1305→488 ms、编码 1682→1073 ms、解码 1576→984 ms，同时 BD-rate +1.8%。这体现时间与码率的交换。Table 2 的空间顺序消融还有自己的最小熵基线，不能把不同表的数字加减成“全部收益”。测试图像中心裁剪到 1792×1024，指标为 RGB；与当前原生 1080p YUV 流不直接拼表。</p>
+<p>值得后续验证的是紧凑上下文和信息顺序；步骤、额外侧信息及跨设备确定性仍需实际实现证据。当前仓库入口本轮未成功读取，不推断它不存在。</p>
+<h2 id="mobilenvc">MobileNVC：真实手机硬件上的目标函数</h2>
+<p><a href="https://openaccess.thecvf.com/content/WACV2024/papers/van_Rozendaal_MobileNVC_Real-Time_1080p_Neural_Video_Compression_on_a_Mobile_Device_WACV_2024_paper.pdf">本地 PDF</a>；阅读第 1、3–5、7 页；第 7 页速度、码率表已视觉核对。</p>
+<p>方法保留运动/残差结构，但用硬件支持的重叠块运动补偿，降低运动张量分辨率；使用 PTQ/QAT，将权重和激活量化，并让 NPU、GPU、CPU、扭曲核心构成流水线。概率尺度、均值和量化符号网格的对应关系是码流实现的一部分。</p>
+<p>作者在 Snapdragon 8 Gen 2、HEVC-B 上报告约 38.9 FPS 接收端推理，未优化的发送端约 3 FPS。512 GPU 熵线程的表格配置有 11 ms 解码与约 3.9% 朴素头部开销；线程增加不是完全免费的。int8 的率失真明显低于浮点版本，并没有全面胜过 x265。这里的“实时”范围是部署条件下的接收端。</p>
+<p>对当前项目有用的不是直接换成 int8，而是以真实硬件可运行的算子和完整吞吐目标共同设计。训练链长、后段损失加权也在作者方案里，不能把所有变化都归给块扭曲。</p>
+<h2 id="_1">参数高效实例适配：更新解码器就要传更新</h2>
+<p><a href="https://openaccess.thecvf.com/content/ACCV2024/papers/Oh_Parameter-Efficient_Instance-Adaptive_Neural_Video_Compression_ACCV_2024_paper.pdf">本地 PDF</a>；阅读第 1、4–8 页，§3。</p>
+<p>作者以 SSF 等基线为对象，将卷积解码器的更新写成低秩因子，保持原参数冻结，只训练适配项。量化、熵编码后把适配参数和潜变量一起传输，在接收端合并到原核。合并后结构不变，不代表适配参数传输和准备过程为零成本。</p>
+<p>第 8 页明确讨论更新值落入零量化桶的问题，并把参数熵纳入适配目标。这个问题与“优化 y、不更新解码器”的 DT 不同；二者可能在不同码率、序列长度和搜索预算下各有优势。短序列中参数成本难摊销，是需要实测的问题。</p>
+<p>没有细读完 §4 的所有数据与消融，也未运行作者仓库。后续复现应报告参数流、内容流、搜索总时间和合并时间，不能只给适配前后 PSNR。</p>
+<h2 id="c3">C3：少量解码计算可以由更多编码搜索换来</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Kim_C3_High-Performance_and_Low-Complexity_Neural_Compression_from_a_Single_Image_CVPR_2024_paper.pdf">本地 PDF</a>；阅读第 1–5、7–8 页；第 8 页复杂度/限制已视觉核对。</p>
+<p>继承 Cool-chic 的小合成网络、熵网络和多分辨率潜变量，逐实例联合优化；网络参数和潜变量最终都量化、熵编码。视频扩展使用 3D 网格、视频块和因果邻域。软舍入、噪声与优化日程是重要组成部分，并非只靠更深网络。</p>
+<p>作者在 UVG-1k、RGB 下报告与 VCT 接近的 RD 和约 4.4k MAC/pixel 解码复杂度。该值不能替代完整运行时间；其图像 CPU 时钟还明确不包含 range-decoding。视频编码在 V100 上最大块每 1000 迭代约 457 秒，最多 110k 次，完整编码成本很高。它适合讨论一次编码、多次观看的预算分配，而非自动作为实时 RT 替代。</p>
+<p>源码有 JAX/JAXline 运行说明，但本轮未导入或训练。若做试验，先规定视频块、迭代上限、墙钟和实际完整码流记账，区分训练优化的代理 rate 与最终文件。</p>
+<h2 id="givic">GIViC：扩散、共享模型和潜变量适配的交叉</h2>
+<p><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Gao_GIViC_Generative_Implicit_Video_Compression_ICCV_2025_paper.pdf">本地 PDF</a>；阅读第 1、3–7 页；第 6–7 页表格与耗时另作视觉核对。</p>
+<p>共享时空编码器初始化分层潜变量，编码时迭代优化这些潜变量，其他模块固定；HGLA 负责跨尺度、跨序列上下文。其隐式扩散过程通过坐标和潜变量引导；§3.4 明确为 MSE 评价加入后验引导。因此“Generative/扩散”不是“只评感知质量”的充分条件，也不能把它简写成仅发送单个 NeRV 网络的方案。</p>
+<p>实验采用 YUV、RA、GOP32/IP32。Table 1 的编码 FPS 对逐实例方案只计一次完整前后向，正文又报单 A100、1080p、32 帧 GOP 平均拟合约 1.78 小时；后者才显示完整搜索成本。另有 Table 1 与正文对 DC/FM 一个收益标签不一致，本调查不拿该数作统一模型排名。</p>
+<p>仓库有实现目录，但未核对权重与论文流程对应关系，不执行其安装脚本。其强先验、长训练和逐实例搜索分别贡献多少，需要预算匹配的对照。</p>
+<h2 id="gnvc-vd">GNVC-VD：从逐帧先验转向视频原生先验</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Mao_Generative_Neural_Video_Compression_via_Video_Diffusion_Prior_CVPR_2026_paper.pdf">本地 PDF</a>；阅读第 1、3–7 页；第 4 页方法图、第 7 页时间指标表已视觉核对。文本抽取的部分数学字体不完整，以原图为准。</p>
+<p>Wan2.1 的 3D VAE 先提取时空潜变量，条件压缩模块压缩这些潜变量，再以 VideoDiT 与适配器细化整个序列。方法面向极低码率，损失包含像素/潜变量一致性、感知项与 rate。预测链与整段细化的依赖不同，需要核对实际窗口等待，不能把其中一段因果就当作全流程逐帧即时。</p>
+<p>主文给出 96 帧、HEVC-B/UVG/MCL-JCV 的感知与时间指标。Table 2 中完整模型 FVD 为 68.1，GLC-Video 为 103.9，但完整模型 warp error 66.6 并非低于所有失真导向方法，去掉 Stage I 的 FVD 61.9 也低于完整模型。不同指标反映不同取舍，不能提炼成“所有时间指标都最好”。</p>
+<p>论文称代码公开，但本轮作者仓库实际写 Coming Soon、文件列表只有 README。当前不把它列为可直接运行的模型，网页状态有日期边界。</p>
+<h2 id="s2vc">S²VC：单步图像生成器如何处理视频</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Xue_Single-step_Diffusion-based_Video_Coding_with_Semantic-Temporal_Guidance_CVPR_2026_paper.pdf">本地 PDF</a>；阅读第 1、4–7 页；第 4 页方法图已视觉核对。</p>
+<p>条件编码部分去掉显式运动压缩，已解码特征驱动内容适配器与语义适配器；后者取当前/上一帧缓冲，替代固定文本或字幕。TCG 把扩散 U-Net 中间特征沿时间传播，并用跨帧梯度训练。DINOv3 教师及辅助映射仅用于训练，推理时不需编码端原图的教师特征。</p>
+<p>作者用 DMD2 SD1.5 初始化单步生成器、OneDC 作 I 帧，训练使用 OpenVid-HD。测试为 96 帧、1I 后接 P 帧，评价 LPIPS、DISTS、FloLPIPS 与帧补丁 FID。文中的 51.62% 为相对 PLVC 的 DISTS BD-rate，不能直接当作 PSNR 节码率。DiffVC 比较数据来自原报告，不是所有基线都在同一代码中重跑。</p>
+<p>本轮未验证测试 bpp 是否逐文件核算，也未核对完整速度表与可用权重；方法描述 AE/AD 不等于我们已验证真实码流。单步只说明采样次数，不自动说明实时。</p>
+<h2 id="biecvc">BiECVC：门控已进入双向上下文编码</h2>
+<p><a href="https://arxiv.org/pdf/2505.09193v1">本地 PDF</a>；阅读第 1、3、5–6 页。</p>
+<p>方法在 B 帧层级结构中使用局部、非局部上下文。额外参考的局部运动可由已解码流组合，非局部部分用线性注意力；条件编码感知门控抑制不可靠上下文。编码/解码两侧以各自可得的当前特征计算门控，不是解码端访问原始帧。特征缓存减少重复计算，但不能以缓存命中率代替整体编解码速度。</p>
+<p>作者还使用长序列训练和分层质量权重。相对低延迟 P 帧方法，未来参考与训练预算都是变化项。当前仅可作为门控、参考选择与双向路线的先行研究，不能把整套结果套在 RT 单向配置上。</p>
+<p>给出的 ECVC 仓库当前列出 assets/README，尚未在该入口验证可运行的 BiECVC 实现。状态不代表所有其他入口或将来版本。</p>
+<h2 id="bd-bible">BD Bible：一项平均数如何掩盖曲线差异</h2>
+<p><a href="https://arxiv.org/pdf/2304.12852v1">本地 PDF</a>；阅读第 1、3 页，补读第 10–11 页的相关片段，第 11 页建议/结论已完整视觉核对；不是逐页读完 18 页。</p>
+<p>核心不是创造新的编码模块，而是验证 BD 积分对插值、支持点、指标饱和和交叠范围的敏感性。建议报告插值法、检查单调性与相对差异曲线，并对微小收益增加支持点。作者推荐 Akima，提供对 PCHIP 等的实验比较。</p>
+<p>第 11 页四点/六点的误差统计来自其指定数据与指标；不能把某个最大值直接作为当前三段 RT 实验的误差条。两点可以粗略估计，也不意味着两点足以支持正式细微收益结论。现有工作已经做过采样密度敏感性，本轮不重复算旧 RD，不把评价审计替代方法研究。</p>
+<h2 id="_2">本轮没有做到的部分</h2>
+<p>没有独立核算新增模型的实际码流、复现主表、重训或连续主观评分。未阅读的附录、实现与最新版本不会由论文题名或代码链接补齐。后续需按明确问题选择复现对象，而不是把 41 篇全部启动一遍。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

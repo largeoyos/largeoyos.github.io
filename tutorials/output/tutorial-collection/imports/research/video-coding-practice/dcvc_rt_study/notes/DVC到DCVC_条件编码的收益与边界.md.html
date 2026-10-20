@@ -1,0 +1,88 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从 DVC 到 DCVC 理解条件编码的收益</title><link rel="stylesheet" href="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/DVC到DCVC_条件编码的收益与边界.md · <a href="DVC%E5%88%B0DCVC_%E6%9D%A1%E4%BB%B6%E7%BC%96%E7%A0%81%E7%9A%84%E6%94%B6%E7%9B%8A%E4%B8%8E%E8%BE%B9%E7%95%8C.md">原始 Markdown</a></p><h1 id="dvc-dcvc">从 DVC 到 DCVC 理解条件编码的收益</h1>
+<p>DCVC 2021 把条件同时引入编码变换、解码重建和熵模型。理解这条路线的关键，是辨清减去预测图后还剩下哪些相关性，以及模型是否继续利用这些信息。本文依据 DCVC 原文第 1 节、第 3.1 节与第 4.3 节，以及固定提交中的默认真实码流路径。</p>
+<h2 id="_1">残差没有必然丢掉预测信息</h2>
+<p>令当前离散符号为 X，双方已知的预测为 P，残差 R=X−P。给定 P 后，X 与 R 一一对应，所以 H(X|P)=H(R|P)。再由条件熵不大于边缘熵，得到论文引言中的 H(R)≥H(X|P)。两边的差正是 I(R;P)，即残差里仍与预测相关的信息。</p>
+<p>这个比较的右侧继续使用预测作为条件，而左侧只看残差的边缘分布。它没有证明“只要计算减法，最优码率就一定严格变差”。若残差编码器也保留同样的条件，理想离散无损熵界可以相同；若残差与预测独立，不等式直接取等号。对有损神经编码，还要考虑变换、量化、概率近似、模型容量和训练，不能把这个熵关系直接变成固定 PSNR 下的码率保证。<a href="https://papers.neurips.cc/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Paper.pdf#page=1">论文原文</a></p>
+<h2 id="_2">两个可以精确检查的小例子</h2>
+<p>令上下文标签 C 为 0 或 1，两种情况各占一半；预测 P=16C，当前符号 X=P+R。下表每一行定义一个独立的有限分布：</p>
+<p>| 构造 | C=0 的残差 | C=1 的残差 | H(R) | H(R|P) 与 H(X|P) | 条件带来的熵差 |
+|---|---|---|---:|---:|---:|
+| 残差尺度依赖上下文 | −1 或 +1，各半 | −4 或 +4，各半 | 2 bit | 1 bit | 1 bit |
+| 残差分布与上下文无关 | −1 或 +1，各半 | −1 或 +1，各半 | 1 bit | 1 bit | 0 bit |</p>
+<p>第一种情况下，预测已经准确去掉条件均值，但残差幅度仍与上下文相关。仅完成减法，没有消除这种相关性。第二种情况下，减法已经把预测与残差的统计依赖去掉，继续条件化没有理想熵收益。</p>
+<p>这些数字是精确分布计算，不是 DVC 或 DCVC 的实测 bpp。预测被假定为双方已知；真实视频里若需要先传运动信息，应把运动和超先验等全部码率计入。<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">计算记录</span></p>
+<h2 id="dcvc">DCVC 在源码里怎样使用条件</h2>
+<table>
+<thead>
+<tr>
+<th>使用位置</th>
+<th>固定源码中的动作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编码变换</td>
+<td>当前图与 context 拼接后进入 contextualEncoder</td>
+<td>让表示随参考信息改变，不只处理预先相减的输入</td>
+</tr>
+<tr>
+<td>概率预测</td>
+<td>temporalPriorEncoder(context) 与超先验参数一起进入概率融合</td>
+<td>调整潜变量的条件分布，而不只去掉像素均值</td>
+</tr>
+<tr>
+<td>解码重建</td>
+<td>解码特征与同一 context 拼接后进入重建网络</td>
+<td>把接收方已有的信息用于恢复当前图</td>
+</tr>
+</tbody>
+</table>
+<p>编码端先把运动潜变量真正编码，再从已解码的运动与上一帧重建生成 context；解码端按同样顺序恢复。这个顺序保证条件来自双方可获得的信息。网络从当前原图估出的运动仍要编码发送，不能把编码端独有的信息当作免费上下文。</p>
+<p>高维特征也不会凭空创造上一帧所没有的信息。它们提供不同的表示方式，使有限容量的网络更容易选择和利用有关的结构；“通道更多”本身不是信息论收益保证。<a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/DCVC_net.py#L330-L410">编码与解码路径</a></p>
+<h2 id="_3">作者消融分别支持了什么</h2>
+<p>原文第 9 页 Table 2 以“时域先验加特征拼接”的最终模型为基准，报告各方案的码率增加。已按 PDF 页面核对勾选位置，避免文字抽取把列错配。</p>
+<table>
+<thead>
+<tr>
+<th>作者设置</th>
+<th style="text-align: right;">相对最终模型的码率增加</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>时域先验加特征拼接</td>
+<td style="text-align: right;">0.0%</td>
+</tr>
+<tr>
+<td>时域先验加 RGB 预测图拼接</td>
+<td style="text-align: right;">5.4%</td>
+</tr>
+<tr>
+<td>无时域先验，特征拼接</td>
+<td style="text-align: right;">4.6%</td>
+</tr>
+<tr>
+<td>无时域先验，RGB 预测图拼接</td>
+<td style="text-align: right;">8.7%</td>
+</tr>
+<tr>
+<td>时域先验加残差编码</td>
+<td style="text-align: right;">11.2%</td>
+</tr>
+<tr>
+<td>无时域先验，残差编码</td>
+<td style="text-align: right;">12.9%</td>
+</tr>
+</tbody>
+</table>
+<p>这组消融把条件变换与时域概率先验分别控制，支持二者都有贡献，也说明不能把最终收益全部归给“去掉减法”。百分数共用作者的最终模型作为基准，不能直接相减后声称得到另一个共同质量区间上的 BD-rate。<a href="https://papers.neurips.cc/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Paper.pdf#page=9">Table 2 页面</a></p>
+<p>Table 3 还报告：只保留超先验，相对完整模型增加 60.9% 码率；保留超先验和时域先验、去掉空间先验，则增加 3.8%。这是作者相应配置中的消融，并非本项目测量。其意义在于时域信息也进入概率模型，而空间自回归依赖有实际串行成本。</p>
+<p>固定源码的 compress_ar 对潜变量高、宽逐位置循环，已恢复符号参与后续概率预测。这为 DC、FM 的分组先验以及 RT 的两阶段设计提供了具体的比较对象，但不能仅由阶段数推算实际加速倍数。<a href="https://github.com/microsoft/DCVC/blob/cbdae87a5445114cdc7f48816da63ea80bdeac40/DCVC-family/DCVC/src/models/DCVC_net.py#L257-L291">自回归写流源码</a></p>
+<h2 id="_4">后续整模型比较要保持的条件</h2>
+<p>DCVC 原文使用 HEVC 序列 GOP10、其他序列 GOP12，并重新测试 DVC 与 DVCPro，使它们使用相同帧内模型。本项目 RT 的 240 帧单 I 长预测链与这个协议不同，因此不能把当前结果与原文的百分数直接拼接。长预测链可以作为共同的新测试，但应明确报告其与作者配置的区别。</p>
+<p>固定 DCVC 的 compress 返回四条运动和内容潜变量载荷的长度之和。未来复现时仍要检查最外层文件封装的真实字节，避免把载荷 bpp 与 RT 完整文件 bpp 直接混用。</p>
+<p>比较 DVC、DCVC、DC、FM、RT 时，应分别回答表示如何条件化、概率模型看到了什么、参考状态怎样传播、真实执行有哪些串行点。论文的整模型结果包含训练和实现差异；未经重新训练的删分支测试只能说明修改后的模型行为，不能直接充当原方法的干净消融。</p>
+<p><a href="https://papers.neurips.cc/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Paper.pdf">DCVC 官方论文</a> · <span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">离散例子计算程序</span> · <a href="DC_%E4%B8%8A%E4%B8%8B%E6%96%87%E4%B8%8E%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E7%B2%BE%E8%AF%BB.md.html">DC 多样上下文笔记</a> · <a href="FM_%E6%96%B9%E6%B3%95%E4%B8%8E%E6%B6%88%E8%9E%8D%E7%B2%BE%E8%AF%BB.md.html">FM 参考与调制笔记</a></p></main><script src="../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

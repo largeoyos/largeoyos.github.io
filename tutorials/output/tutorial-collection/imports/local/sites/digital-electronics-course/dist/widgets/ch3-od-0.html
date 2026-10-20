@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-od-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-od-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-open-drain">
+<div class="viz-controls">
+<button aria-pressed="false" class="btn" data-switch="0" type="button">OD₁：释放</button>
+<button aria-pressed="false" class="btn" data-switch="1" type="button">OD₂：释放</button>
+<label class="form-check"><input checked="" class="form-check-input" data-pullup="" type="checkbox"/><span class="form-check-label">接上拉电阻 R</span></label>
+</div>
+<svg aria-label="两个漏极开路输出通过上拉电阻实现线与" class="de-circuit" role="img" viewbox="0 0 708 336"><title>OD 输出的线与连接</title><desc>两只输出管只能把公共输出拉到地，释放时由外接上拉电阻决定高电平。</desc><text text-anchor="middle" x="346.92" y="25">VDD = 5 V</text><path class="wire" d="M 346.92 36 V 66"></path><rect fill="none" height="43" stroke="currentColor" stroke-width="1.8" width="16" x="338.92" y="66"></rect><path class="wire active" d="M 346.92 109 V 146"></path><text text-anchor="start" x="363.92" y="95">R</text><path class="wire active" d="M 205.32 146 H 690"></path><text text-anchor="end" x="690" y="131">Y ≈ 5 V</text><circle cx="205.32" cy="146" fill="currentColor" r="3"></circle><path class="wire" d="M 205.32 146 V 208 M 205.32 244 V 306"></path><path class="wire" d="M 205.32 244 L 228.32 208"></path><circle cx="205.32" cy="208" fill="var(--background)" r="3" stroke="currentColor"></circle><circle cx="205.32" cy="244" fill="var(--background)" r="3" stroke="currentColor"></circle><text text-anchor="start" x="220.32" y="190">OD₁ 输出管</text><text text-anchor="start" x="220.32" y="281">断开：释放</text><path class="wire" d="M 189.32 306 H 221.32 M 195.32 313 H 215.32 M 201.32 320 H 209.32"></path><circle cx="467.28000000000003" cy="146" fill="currentColor" r="3"></circle><path class="wire" d="M 467.28000000000003 146 V 208 M 467.28000000000003 244 V 306"></path><path class="wire" d="M 467.28000000000003 244 L 490.28000000000003 208"></path><circle cx="467.28000000000003" cy="208" fill="var(--background)" r="3" stroke="currentColor"></circle><circle cx="467.28000000000003" cy="244" fill="var(--background)" r="3" stroke="currentColor"></circle><text text-anchor="start" x="482.28000000000003" y="190">OD₂ 输出管</text><text text-anchor="start" x="482.28000000000003" y="281">断开：释放</text><path class="wire" d="M 451.28000000000003 306 H 483.28000000000003 M 457.28000000000003 313 H 477.28000000000003 M 463.28000000000003 320 H 471.28000000000003"></path></svg>
+<div aria-live="polite" class="text-small" data-status="">两只输出管都释放，上拉电阻把公共输出拉高。</div>
+<style>
+    #de-open-drain .de-circuit{width:100%;display:block;color:var(--foreground)}
+    #de-open-drain .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base)}
+    #de-open-drain .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-open-drain .de-circuit .active{stroke:var(--viz-series-1)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("open-drain");
+
+  (function(){
+    const root=document.getElementById('de-open-drain'),svg=root.querySelector('svg'),low=[false,false];
+    const text=(x,y,t,a='start')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+a+'">'+t+'</text>';
+    const path=(d,on=false)=>'<path class="wire '+(on?'active':'')+'" d="'+d+'"/>';
+    function draw(){
+      const w=root.clientWidth,c=w*.49,l=w*.29,r=w*.66,pull=root.querySelector('[data-pullup]').checked,any=low.some(Boolean);
+      let out='<title>OD 输出的线与连接</title><desc>两只输出管只能把公共输出拉到地，释放时由外接上拉电阻决定高电平。</desc>';
+      out+=text(c,25,'VDD = 5 V','middle');
+      out+=path('M '+c+' 36 V 66');
+      if(pull){out+='<rect x="'+(c-8)+'" y="66" width="16" height="43" fill="none" stroke="currentColor" stroke-width="1.8"/>';out+=path('M '+c+' 109 V 146',!any);out+=text(c+17,95,'R');}
+      else{out+=path('M '+c+' 109 V 146');out+=text(c+17,93,'未连接');}
+      out+=path('M '+l+' 146 H '+(w-18),any||pull)+text(w-18,131,any?'Y ≈ 0 V':pull?'Y ≈ 5 V':'Y：悬空','end');
+      [l,r].forEach((x,i)=>{
+        out+='<circle cx="'+x+'" cy="146" r="3" fill="currentColor"/>';
+        out+=path('M '+x+' 146 V 208 M '+x+' 244 V 306',low[i]);
+        out+=path('M '+x+' 244 L '+(low[i]?x:x+23)+' 208',low[i]);
+        out+='<circle cx="'+x+'" cy="208" r="3" fill="var(--background)" stroke="currentColor"/><circle cx="'+x+'" cy="244" r="3" fill="var(--background)" stroke="currentColor"/>';
+        out+=text(x+15,190,i===0?'OD₁ 输出管':'OD₂ 输出管');
+        out+=text(x+15,281,low[i]?'接通：拉低':'断开：释放');
+        out+=path('M '+(x-16)+' 306 H '+(x+16)+' M '+(x-10)+' 313 H '+(x+10)+' M '+(x-4)+' 320 H '+(x+4),low[i]);
+      });
+      svg.setAttribute('viewBox','0 0 '+w+' 336');svg.innerHTML=out;
+      root.querySelector('[data-status]').textContent=any?'任意一个输出管接通，公共输出就被拉低。':pull?'两只输出管都释放，上拉电阻把公共输出拉高。':'两只输出管都释放，又无上拉：公共输出电压不确定。';
+    }
+    root.querySelectorAll('[data-switch]').forEach(btn=>btn.addEventListener('click',()=>{const i=+btn.dataset.switch;low[i]=!low[i];btn.textContent=(i===0?'OD₁':'OD₂')+'：'+(low[i]?'拉低':'释放');btn.setAttribute('aria-pressed',low[i]);draw();}));
+    root.querySelector('[data-pullup]').addEventListener('change',draw);new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

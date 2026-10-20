@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-mos-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-mos-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-mos-switch">
+<div class="viz-controls">
+<label class="form-label">器件
+      <select class="form-select" data-kind="">
+<option value="n">N 沟道增强型</option>
+<option value="p">P 沟道增强型</option>
+</select>
+</label>
+<label class="form-label">栅极 G
+      <select class="form-select" data-g="">
+<option value="5">5 V</option>
+<option value="0">0 V</option>
+</select>
+</label>
+<label class="form-label">源极 S
+      <select class="form-select" data-s="">
+<option value="0">0 V</option>
+<option value="4">4 V</option>
+<option value="5">5 V</option>
+</select>
+</label>
+</div>
+<svg aria-label="MOS 管的三个端子与漏源之间的等效开关" class="de-circuit" role="img" viewbox="0 0 708 265"><title>MOS 管：栅极控制漏源通路</title><desc>栅极不与漏源电流通路相连，右侧为漏源之间的开关等效图。教学阈值为一伏。</desc><text text-anchor="middle" x="177" y="25">NMOS 简化符号</text><path class="wire active" d="M 205.32 52 V 83 H 181.32 V 137 H 205.32 V 175"></path><path class="wire" d="M 168.32 84 V 137"></path><path class="wire" d="M 103.32 110 H 168.32"></path><text text-anchor="start" x="217.32" y="62">D</text><text text-anchor="start" x="217.32" y="175">S · 0 V</text><text text-anchor="start" x="95.32" y="94">G · 5 V</text><text text-anchor="middle" x="177" y="211">G 与通道之间有绝缘层</text><text text-anchor="middle" x="177" y="236">栅源电压：5 V</text><g transform="translate(354 0)"><text text-anchor="middle" x="177" y="25">D-S 的开关等效图</text><path class="wire active" d="M 177 52 V 91 M 177 133 V 175"></path><circle cx="177" cy="91" fill="var(--background)" r="3" stroke="currentColor"></circle><circle cx="177" cy="133" fill="var(--background)" r="3" stroke="currentColor"></circle><path class="wire active" d="M 177 133 L 177 91"></path><text text-anchor="start" x="191" y="62">D</text><text text-anchor="start" x="191" y="175">S</text><text text-anchor="middle" x="177" y="211">通道形成 · 接通</text><text text-anchor="middle" x="177" y="236">教学阈值大小：1 V</text></g></svg>
+<div aria-live="polite" class="text-small" data-status="">通道已形成；有电流还需要 D-S 间存在电压差。</div>
+<style>
+    #de-mos-switch .de-circuit{width:100%;display:block;color:var(--foreground)}
+    #de-mos-switch .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base)}
+    #de-mos-switch .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-mos-switch .de-circuit .active{stroke:var(--viz-series-1)}
+    #de-mos-switch .de-circuit .muted{stroke:var(--border)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("mos-switch");
+
+  (function(){
+    const root=document.getElementById('de-mos-switch');
+    const svg=root.querySelector('svg'), kind=root.querySelector('[data-kind]'), gate=root.querySelector('[data-g]'), source=root.querySelector('[data-s]');
+    const label=(x,y,t,anchor='start')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'">'+t+'</text>';
+    const line=(d,c='')=>'<path class="wire '+c+'" d="'+d+'"/>';
+    const dot=(x,y)=>'<circle cx="'+x+'" cy="'+y+'" r="3" fill="currentColor"/>';
+    function draw(){
+      const w=root.clientWidth, stacked=w<520, half=stacked?w:w/2, h=stacked?490:265;
+      const p=kind.value==='p', vg=+gate.value, vs=+source.value, diff=vg-vs, drive=p?-diff:diff, on=drive>1;
+      const x=half*.58,y=110;
+      const top=p?'S':'D',bottom=p?'D':'S';
+      let out='<title>MOS 管：栅极控制漏源通路</title><desc>栅极不与漏源电流通路相连，右侧为漏源之间的开关等效图。教学阈值为一伏。</desc>';
+      out+=label(half/2,25,p?'PMOS 简化符号':'NMOS 简化符号','middle');
+      out+=line('M '+x+' 52 V 83 H '+(x-24)+' V 137 H '+x+' V 175',on?'active':'');
+      out+=line('M '+(x-37)+' 84 V 137');
+      out+=line('M '+(x-102)+' '+y+' H '+(x-37-(p?10:0)));
+      if(p)out+='<circle cx="'+(x-42)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>';
+      out+=label(x+12,62,top+(p?' · '+vs+' V':''));
+      out+=label(x+12,175,bottom+(!p?' · '+vs+' V':''));
+      out+=label(x-110,y-16,'G · '+vg+' V');
+      out+=label(half/2,211,'G 与通道之间有绝缘层','middle');
+      out+=label(half/2,236,'栅源电压：'+diff+' V','middle');
+      const dx=stacked?0:half,dy=stacked?245:0, sx=half/2;
+      out+='<g transform="translate('+dx+' '+dy+')">';
+      out+=label(sx,25,'D-S 的开关等效图','middle');
+      out+=line('M '+sx+' 52 V 91 M '+sx+' 133 V 175',on?'active':'');
+      out+='<circle cx="'+sx+'" cy="91" r="3" fill="var(--background)" stroke="currentColor"/><circle cx="'+sx+'" cy="133" r="3" fill="var(--background)" stroke="currentColor"/>';
+      out+=line('M '+sx+' 133 L '+(on?sx:sx+29)+' '+(on?91:96),on?'active':'');
+      out+=label(sx+14,62,top)+label(sx+14,175,bottom);
+      out+=label(sx,211,on?'通道形成 · 接通':'通道未形成 · 断开','middle');
+      out+=label(sx,236,'教学阈值大小：1 V','middle')+'</g>';
+      svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.innerHTML=out;
+      root.querySelector('[data-status]').textContent=drive===1?'刚到阈值边界：还不能当作充分接通。':on?'通道已形成；有电流还需要 D-S 间存在电压差。':'忽略漏电流时，D-S 间没有导电通路。';
+    }
+    root.querySelectorAll('select').forEach(el=>el.addEventListener('change',draw));
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

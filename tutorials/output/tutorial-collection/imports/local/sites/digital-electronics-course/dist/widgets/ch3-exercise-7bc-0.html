@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-exercise-7bc-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-exercise-7bc-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-cmos-exercise-seven-bc">
+<div class="viz-controls">
+<label class="form-label">习题 3.7 · 门级等效图
+      <select class="form-select" data-exercise=""><option value="b">(b) · 五个反相器与或非门</option><option value="c">(c) · 含 INH 的复合电路</option></select>
+</label>
+<button aria-pressed="true" class="btn" data-bit="a" type="button">A = 1</button>
+<button aria-pressed="true" class="btn" data-bit="b" type="button">B = 1</button>
+<button aria-pressed="true" class="btn" data-bit="c" type="button">C = 1</button>
+<span data-extra="" hidden=""><button aria-pressed="false" class="btn" data-bit="d" type="button">D = 0</button></span>
+<span data-extra="" hidden=""><button aria-pressed="false" class="btn" data-bit="inh" type="button">INH = 0</button></span>
+</div>
+<svg aria-label="习题 3.7(b)、(c) 的门级等效电路" class="de-circuit" data-mode="b" data-output="1" role="img" viewbox="0 0 708 347"><title>习题 3.7 的门级等效图</title><desc>根据辅导书原晶体管电路改画成门级等效图。三角形加输出圆圈表示反相器；方框内与符号加输出圆圈表示与非门；大于等于一加输出圆圈表示或非门。沿线标注各节点当前逻辑值。忽略传播延迟。</desc><text text-anchor="start" x="12" y="56">A = 1</text><path class="wire signal-high" d="M 12 68 H 168.08"></path><path class="wire" d="M 168.08 54 L 200.08 68 L 168.08 82 Z"></path><circle cx="205.08" cy="68" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire" d="M 210.08 68 H 425.28000000000003 V 108 H 443.28000000000003"></path><text class="small" text-anchor="start" x="216.08" y="56">A′ = 0</text><text text-anchor="start" x="12" y="114">B = 1</text><path class="wire signal-high" d="M 12 126 H 168.08"></path><path class="wire" d="M 168.08 112 L 200.08 126 L 168.08 140 Z"></path><circle cx="205.08" cy="126" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire" d="M 210.08 126 H 425.28000000000003 V 126 H 443.28000000000003"></path><text class="small" text-anchor="start" x="216.08" y="114">B′ = 0</text><text text-anchor="start" x="12" y="172">C = 1</text><path class="wire signal-high" d="M 12 184 H 168.08"></path><path class="wire" d="M 168.08 170 L 200.08 184 L 168.08 198 Z"></path><circle cx="205.08" cy="184" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire" d="M 210.08 184 H 425.28000000000003 V 144 H 443.28000000000003"></path><text class="small" text-anchor="start" x="216.08" y="172">C′ = 0</text><rect fill="none" height="64" stroke="currentColor" stroke-width="1.8" width="48" x="443.28000000000003" y="94"></rect><text text-anchor="middle" x="467.28000000000003" y="131">≥1</text><circle cx="496.28000000000003" cy="126" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text class="small" text-anchor="middle" x="467.28000000000003" y="174">或非门</text><path class="wire signal-high" d="M 501.28000000000003 126 H 690 V 224 H 20 V 276 H 168.08"></path><text text-anchor="end" x="686" y="207">M = 1</text><path class="wire" d="M 168.08 262 L 200.08 276 L 168.08 290 Z"></path><circle cx="205.08" cy="276" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire" d="M 210.08 276 H 451.28000000000003"></path><path class="wire" d="M 451.28000000000003 262 L 483.28000000000003 276 L 451.28000000000003 290 Z"></path><circle cx="488.28000000000003" cy="276" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text class="small" text-anchor="middle" x="325.68" y="260">N = 0</text><path class="wire signal-high" d="M 493.28000000000003 276 H 696"></path><text text-anchor="end" x="692" y="304">Y = 1</text><text class="small" text-anchor="start" x="12" y="336">门级等效图 · 忽略传播延迟</text></svg>
+<div aria-live="polite" class="text-small" data-status="">Y = 1 · 输出端连续两级反相器</div>
+<style>
+    #de-cmos-exercise-seven-bc .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-cmos-exercise-seven-bc .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-cmos-exercise-seven-bc .de-circuit .small{font-size:12px}
+    #de-cmos-exercise-seven-bc .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-cmos-exercise-seven-bc .de-circuit .signal-high{stroke:var(--viz-series-1)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("cmos-exercise-seven-bc");
+
+  (function(){
+    const root=document.getElementById('de-cmos-exercise-seven-bc'),svg=root.querySelector('svg'),exercise=root.querySelector('[data-exercise]');
+    let bits={a:1,b:1,c:1,d:0,inh:0};
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s){for(const k of Object.keys(bits))if(s[k]===0||s[k]===1)bits[k]=s[k];if(['b','c'].includes(s.exercise))exercise.value=s.exercise;}}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s=Object.assign({exercise:exercise.value},bits);lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,a,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,high){return '<path class="wire '+(high?'signal-high':'')+'" d="'+d+'"/>';};
+    function inv(x,y){return '<path class="wire" d="M '+(x-16)+' '+(y-14)+' L '+(x+16)+' '+y+' L '+(x-16)+' '+(y+14)+' Z"/><circle cx="'+(x+21)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';}
+    function gate(x,y,nand,three){
+      const h=three?64:54;
+      return '<rect x="'+(x-24)+'" y="'+(y-h/2)+'" width="48" height="'+h+'" fill="none" stroke="currentColor" stroke-width="1.8"/>'+text(x,y+5,nand?'&amp;':'≥1','middle')+'<circle cx="'+(x+29)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+    }
+    function draw(){
+      const w=svg.getBoundingClientRect().width||root.clientWidth,mode=exercise.value;
+      let out='<title>习题 3.7 的门级等效图</title><desc>根据辅导书原晶体管电路改画成门级等效图。三角形加输出圆圈表示反相器；方框内与符号加输出圆圈表示与非门；大于等于一加输出圆圈表示或非门。沿线标注各节点当前逻辑值。忽略传播延迟。</desc>',y;
+      if(mode==='b'){
+        const x1=w*0.26,x2=w*0.66,z=bits.a&bits.b&bits.c;
+        for(const pair of [['a',68],['b',126],['c',184]]){
+          const k=pair[0],yy=pair[1],v=1-bits[k],port=126+(yy-126)/58*18,bend=x2-42;
+          out+=text(12,yy-12,k.toUpperCase()+' = '+bits[k])+path('M 12 '+yy+' H '+(x1-16),bits[k])+inv(x1,yy);
+          out+=path('M '+(x1+26)+' '+yy+' H '+bend+' V '+port+' H '+(x2-24),v);
+          out+=text(x1+32,yy-12,k.toUpperCase()+'′ = '+v,undefined,true);
+        }
+        out+=gate(x2,126,false,true)+text(x2,174,'或非门','middle',true);
+        out+=path('M '+(x2+34)+' 126 H '+(w-18)+' V 224 H 20 V 276 H '+(x1-16),z);
+        out+=text(w-22,207,'M = '+z,'end');
+        out+=inv(x1,276)+path('M '+(x1+26)+' 276 H '+(x2-16),1-z)+inv(x2,276);
+        out+=text((x1+x2)/2,260,'N = '+(1-z),'middle',true);
+        out+=path('M '+(x2+26)+' 276 H '+(w-12),z)+text(w-16,304,'Y = '+z,'end');
+        out+=text(12,336,'门级等效图 · 忽略传播延迟',undefined,true);y=z;
+        svg.setAttribute('viewBox','0 0 '+w+' 347');
+      }else{
+        const x1=Math.max(w*0.23,90),x2=w*0.62,x3=w*0.27,x4=w*0.55,x5=w*0.80;
+        const u=1-(bits.a&bits.b),v=1-(bits.c&bits.d),p=1-(u&v),q=1-(p|bits.inh),rr=1-q;
+        for(const row of [['a','b',83,u,'U'],['c','d',190,v,'V']]){
+          const yy=row[2];
+          out+=text(12,yy-27,row[0].toUpperCase()+' = '+bits[row[0]])+text(12,yy+33,row[1].toUpperCase()+' = '+bits[row[1]]);
+          out+=path('M 12 '+(yy-12)+' H '+(x1-24),bits[row[0]])+path('M 12 '+(yy+12)+' H '+(x1-24),bits[row[1]])+gate(x1,yy,true,false);
+          const port=yy===83?124:148,bend=x2-43;
+          out+=path('M '+(x1+34)+' '+yy+' H '+bend+' V '+port+' H '+(x2-24),row[3]);
+          out+=text(x1,yy+45,row[4]+' = '+row[3],'middle',true);
+        }
+        out+=gate(x2,136,true,false)+text(x2,183,'P = '+p,'middle');
+        out+=path('M '+(x2+34)+' 136 H '+(w-18)+' V 255 H '+(x3-50)+' V 318 H '+(x3-24),p);
+        out+=text(12,358,'INH = '+bits.inh,undefined,true)+path('M 12 342 H '+(x3-24),bits.inh)+gate(x3,330,false,false);
+        out+=path('M '+(x3+34)+' 330 H '+(x4-16),q)+inv(x4,330)+path('M '+(x4+26)+' 330 H '+(x5-16),rr)+inv(x5,330);
+        out+=text((x3+x4)/2,309,'Q = '+q,'middle',true)+text((x4+x5)/2,357,'R = '+rr,'middle',true);
+        out+=path('M '+(x5+26)+' 330 H '+(w-12),q)+text(w-16,308,'Y = '+q,'end');
+        out+=text(12,390,'门级等效图 · INH 是逻辑输入',undefined,true);y=q;
+        svg.setAttribute('viewBox','0 0 '+w+' 402');
+      }
+      svg.innerHTML=out;svg.setAttribute('data-output',String(y));svg.setAttribute('data-mode',mode);
+      root.querySelectorAll('[data-bit]').forEach(function(b){const k=b.dataset.bit;b.textContent=k.toUpperCase()+' = '+bits[k];b.setAttribute('aria-pressed',String(!!bits[k]));});
+      root.querySelectorAll('[data-extra]').forEach(function(el){el.hidden=mode==='b';});
+      root.querySelector('[data-status]').textContent=mode==='b'?'Y = '+y+' · 输出端连续两级反相器':bits.inh?'INH = 1 · Y 被强制为 0':'INH = 0 · Y = '+y;
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    root.querySelectorAll('[data-bit]').forEach(function(b){b.addEventListener('click',function(){bits[b.dataset.bit]=1-bits[b.dataset.bit];draw();save();});});
+    exercise.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

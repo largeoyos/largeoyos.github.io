@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-od-1")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-od-1",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="od-pullup-exercises">
+<style>
+    #od-pullup-exercises .de-circuit { display:block; width:100%; }
+    #od-pullup-exercises .de-circuit text { fill:var(--foreground); font-size:var(--font-size-base); font-weight:400; }
+    #od-pullup-exercises .de-circuit .small { font-size:calc(var(--font-size-base) * .86); }
+    #od-pullup-exercises .wire { fill:none; stroke:var(--foreground); stroke-width:1.5; stroke-linejoin:round; }
+    #od-pullup-exercises .gate { fill:var(--background); stroke:var(--foreground); stroke-width:1.5; }
+    #od-pullup-exercises .junction { fill:var(--foreground); }
+    #od-pullup-exercises .current { fill:none; stroke:var(--viz-series-1); stroke-width:2; }
+    #od-pullup-exercises .arrow { fill:var(--viz-series-1); }
+  </style>
+<div class="viz-controls">
+<label class="form-label">电路
+      <select aria-label="选择习题电路" class="form-select" data-exercise="">
+<option value="9">习题3.9</option><option value="10">习题3.10</option>
+</select>
+</label>
+<label class="form-label">输出状态
+      <select aria-label="选择OD输出状态" class="form-select" data-state="">
+<option value="high">全部OD管截止</option><option value="low">仅G₁的OD管导通</option>
+</select>
+</label>
+<label class="form-label">上拉电阻 R_L
+      <select aria-label="选择上拉电阻" class="form-select" data-resistance="">
+<option value="0.5">0.5 kΩ</option><option value="1">1 kΩ</option>
+<option selected="" value="10">10 kΩ</option><option value="50">50 kΩ</option>
+</select>
+</label>
+</div>
+<svg aria-label="OD线与电路、负载输入端计数和上拉电阻电流" class="de-circuit" data-m="9" data-n="2" data-pass="true" role="img" style="height: 380px;" viewbox="0 0 708 380"><title>习题3.9的OD线与电路</title><desc>2个OD与非门输出相连，公共节点连接9个负载输入端。当前全部输出MOS管截止，计算最坏高电平。</desc><text class="" text-anchor="middle" x="361.08" y="20">V_DD = 5 V</text><line class="wire" x1="361.08" x2="361.08" y1="29" y2="50"></line><path class="wire" d="M 361.08 50 L 355.08 55 L 367.08 63 L 355.08 71 L 367.08 79 L 355.08 87 L 361.08 92"></path><line class="wire" x1="361.08" x2="361.08" y1="92" y2="205"></line><text class="small" text-anchor="start" x="375.08" y="72">R_L = 10 kΩ</text><text class="small" text-anchor="start" x="375.08" y="113">I_R = 19 μA</text><line class="current" x1="349.08" x2="349.08" y1="127" y2="168"></line><path class="arrow" d="M 345.08 164 L 349.08 172 L 353.08 164 Z"></path><line class="wire" x1="304.44" x2="304.44" y1="150" y2="250"></line><line class="wire" x1="304.44" x2="481.44000000000005" y1="205" y2="205"></line><circle class="junction" cx="361.08" cy="205" r="2.5"></circle><circle class="junction" cx="304.44" cy="205" r="2.5"></circle><text class="" text-anchor="start" x="378.08" y="195">vₒ</text><text class="small" text-anchor="start" x="5" y="144">A=0</text><line class="wire" x1="54" x2="127.44" y1="140" y2="140"></line><text class="small" text-anchor="start" x="5" y="164">B=0</text><line class="wire" x1="54" x2="127.44" y1="160" y2="160"></line><path class="gate" d="M 127.44 127 H 149.44 C 178.44 127 178.44 173 149.44 173 H 127.44 Z"></path><circle class="gate" cx="176.44" cy="150" r="5"></circle><line class="wire" x1="181.44" x2="304.44" y1="150" y2="150"></line><circle class="junction" cx="304.44" cy="150" r="2.5"></circle><text class="small" text-anchor="middle" x="149.44" y="191">G₁ · OD</text><line class="current" x1="299.44" x2="189.44" y1="150" y2="150"></line><path class="arrow" d="M 192.44 146 L 184.44 150 L 192.44 154 Z"></path><text class="small" text-anchor="start" x="5" y="244">C=0</text><line class="wire" x1="54" x2="127.44" y1="240" y2="240"></line><text class="small" text-anchor="start" x="5" y="264">D=0</text><line class="wire" x1="54" x2="127.44" y1="260" y2="260"></line><path class="gate" d="M 127.44 227 H 149.44 C 178.44 227 178.44 273 149.44 273 H 127.44 Z"></path><circle class="gate" cx="176.44" cy="250" r="5"></circle><line class="wire" x1="181.44" x2="304.44" y1="250" y2="250"></line><circle class="junction" cx="304.44" cy="250" r="2.5"></circle><text class="small" text-anchor="middle" x="149.44" y="291">G₂ · OD</text><line class="current" x1="299.44" x2="189.44" y1="250" y2="250"></line><path class="arrow" d="M 192.44 246 L 184.44 250 L 192.44 254 Z"></path><line class="wire" x1="481.44000000000005" x2="481.44000000000005" y1="135" y2="305"></line><line class="wire" x1="481.44000000000005" x2="547.08" y1="135" y2="135"></line><circle class="junction" cx="481.44000000000005" cy="135" r="2.5"></circle><line class="wire" x1="481.44000000000005" x2="547.08" y1="145" y2="145"></line><circle class="junction" cx="481.44000000000005" cy="145" r="2.5"></circle><line class="wire" x1="481.44000000000005" x2="547.08" y1="155" y2="155"></line><circle class="junction" cx="481.44000000000005" cy="155" r="2.5"></circle><path class="gate" d="M 538.08 122 Q 566.08 122 582.08 145 Q 566.08 168 538.08 168 Q 552.08 145 538.08 122 Z"></path><circle class="gate" cx="587.08" cy="145" r="5"></circle><line class="wire" x1="592.08" x2="700" y1="145" y2="145"></line><line class="current" x1="485.44000000000005" x2="530.08" y1="135" y2="135"></line><path class="arrow" d="M 529.08 132 L 536.08 135 L 529.08 138 Z"></path><text class="small" text-anchor="middle" x="560.08" y="186">G₃ · 3输入</text><line class="wire" x1="481.44000000000005" x2="547.08" y1="210" y2="210"></line><circle class="junction" cx="481.44000000000005" cy="210" r="2.5"></circle><line class="wire" x1="481.44000000000005" x2="547.08" y1="220" y2="220"></line><circle class="junction" cx="481.44000000000005" cy="220" r="2.5"></circle><line class="wire" x1="481.44000000000005" x2="547.08" y1="230" y2="230"></line><circle class="junction" cx="481.44000000000005" cy="230" r="2.5"></circle><path class="gate" d="M 538.08 197 Q 566.08 197 582.08 220 Q 566.08 243 538.08 243 Q 552.08 220 538.08 197 Z"></path><circle class="gate" cx="587.08" cy="220" r="5"></circle><line class="wire" x1="592.08" x2="700" y1="220" y2="220"></line><line class="current" x1="485.44000000000005" x2="530.08" y1="210" y2="210"></line><path class="arrow" d="M 529.08 207 L 536.08 210 L 529.08 213 Z"></path><text class="small" text-anchor="middle" x="560.08" y="261">G₄ · 3输入</text><line class="wire" x1="481.44000000000005" x2="547.08" y1="285" y2="285"></line><circle class="junction" cx="481.44000000000005" cy="285" r="2.5"></circle><line class="wire" x1="481.44000000000005" x2="547.08" y1="295" y2="295"></line><circle class="junction" cx="481.44000000000005" cy="295" r="2.5"></circle><line class="wire" x1="481.44000000000005" x2="547.08" y1="305" y2="305"></line><circle class="junction" cx="481.44000000000005" cy="305" r="2.5"></circle><path class="gate" d="M 538.08 272 Q 566.08 272 582.08 295 Q 566.08 318 538.08 318 Q 552.08 295 538.08 272 Z"></path><circle class="gate" cx="587.08" cy="295" r="5"></circle><line class="wire" x1="592.08" x2="700" y1="295" y2="295"></line><line class="current" x1="485.44000000000005" x2="530.08" y1="285" y2="285"></line><path class="arrow" d="M 529.08 282 L 536.08 285 L 529.08 288 Z"></path><text class="small" text-anchor="middle" x="560.08" y="336">G₅ · 3输入</text><text class="small" text-anchor="middle" x="149.44" y="370">OD输出：2个</text><text class="small" text-anchor="middle" x="558.08" y="370">负载输入：9个</text></svg>
+<div aria-live="polite" class="text-small tabular-nums" data-status="">按最大电流估算：vₒ = 4.810 V，满足 ≥ 4.4 V 的要求。</div>
+<script>(()=>{const lessonHost=window.courseState("od-pullup-exercises");
+
+  (()=>{
+    const root=document.getElementById('od-pullup-exercises');
+    const svg=root.querySelector('svg');
+    const fields={exercise:root.querySelector('[data-exercise]'),state:root.querySelector('[data-state]'),resistance:root.querySelector('[data-resistance]')};
+    let exercise=9, state='high', resistance=10;
+    const sub=['₁','₂','₃','₄','₅','₆','₇','₈'];
+    const escape=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    const text=(x,y,s,anchor='start',cls='')=>`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}">${escape(s)}</text>`;
+    const line=(x1,y1,x2,y2,cls='wire')=>`<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    const dot=(x,y)=>`<circle class="junction" cx="${x}" cy="${y}" r="2.5"/>`;
+    function restore(saved){
+      const p=saved?.privateContent;
+      if(p?.exercise===9||p?.exercise===10)exercise=p.exercise;
+      if(p?.state==='high'||p?.state==='low')state=p.state;
+      if([.5,1,10,50].includes(p?.resistance))resistance=p.resistance;
+    }
+    function draw(){
+      const w=Math.max(280,root.clientWidth), narrow=w<450;
+      const n=exercise===9?2:4, m=exercise===9?9:10, node=exercise===9?'vₒ':'Y';
+      const ys=exercise===9?[150,250]:[150,225,300,375];
+      const loads=exercise===9?[{y:145,k:3,type:'nor'},{y:220,k:3,type:'nor'},{y:295,k:3,type:'nor'}]:[{y:145,k:4,type:'nand'},{y:220,k:4,type:'nand'},{y:295,k:1,type:'inv'},{y:370,k:1,type:'inv'}];
+      const height=exercise===9?380:455;
+      const gl=w*.18, sourceBus=w*.43, rx=w*.51, loadBus=w*.68, ll=w*.76, nodeY=exercise===9?205:240;
+      const ir=state==='high'?(n*5+m)/1000:4.67/resistance;
+      const sink=4.67/resistance+m*.001;
+      const voh=5-(n*5+m)*.001*resistance;
+      const pass=state==='high'?voh>=4.4:sink<=5.2;
+      svg.dataset.pass=String(pass);svg.dataset.n=String(n);svg.dataset.m=String(m);
+      let s=`<title>习题3.${exercise}的OD线与电路</title><desc>${n}个OD与非门输出相连，公共节点连接${m}个负载输入端。当前${state==='high'?'全部输出MOS管截止，计算最坏高电平':'仅第一个输出MOS管导通，在目标低电平0.33伏时检查灌电流'}。</desc>`;
+      function gate(x,y,type){
+        if(type==='inv')return `<path class="gate" d="M ${x} ${y-20} L ${x+35} ${y} L ${x} ${y+20} Z"/><circle class="gate" cx="${x+40}" cy="${y}" r="5"/>`;
+        const path=type==='nand'?`M ${x} ${y-23} H ${x+22} C ${x+51} ${y-23} ${x+51} ${y+23} ${x+22} ${y+23} H ${x} Z`:`M ${x} ${y-23} Q ${x+28} ${y-23} ${x+44} ${y} Q ${x+28} ${y+23} ${x} ${y+23} Q ${x+14} ${y} ${x} ${y-23} Z`;
+        return `<path class="gate" d="${path}"/><circle class="gate" cx="${x+49}" cy="${y}" r="5"/>`;
+      }
+      s+=text(rx,20,'V_DD = 5 V','middle')+line(rx,29,rx,50);
+      s+=`<path class="wire" d="M ${rx} 50 L ${rx-6} 55 L ${rx+6} 63 L ${rx-6} 71 L ${rx+6} 79 L ${rx-6} 87 L ${rx} 92"/>`;
+      s+=line(rx,92,rx,nodeY)+text(rx+14,72,'R_L = '+resistance+' kΩ','start','small');
+      s+=text(rx+14,113,'I_R = '+(state==='high'?Math.round(ir*1000)+' μA':ir.toFixed(3)+' mA'),'start','small');
+      s+=line(rx-12,127,rx-12,168,'current')+`<path class="arrow" d="M ${rx-16} 164 L ${rx-12} 172 L ${rx-8} 164 Z"/>`;
+      s+=line(sourceBus,ys[0],sourceBus,ys[ys.length-1])+line(sourceBus,nodeY,loadBus,nodeY)+dot(rx,nodeY)+dot(sourceBus,nodeY)+text(rx+17,nodeY-10,node);
+      const names=exercise===9?[['A','B'],['C','D']]:[['A₁','A₂'],['B₁','B₂'],['C₁','C₂'],['D₁','D₂']];
+      ys.forEach((y,i)=>{
+        const bit=state==='low'&&i===0?1:0;
+        for(let j=0;j<2;j++){
+          const yy=y+(j===0?-10:10);
+          s+=text(5,yy+4,names[i][j]+'='+bit,'start','small')+line(narrow?40:54,yy,gl,yy);
+        }
+        s+=gate(gl,y,'nand')+line(gl+54,y,sourceBus,y)+dot(sourceBus,y);
+        s+=text(gl+22,y+41,'G'+sub[i]+' · OD','middle','small');
+        if(state==='high'||i===0){
+          s+=line(sourceBus-5,y,gl+62,y,'current')+`<path class="arrow" d="M ${gl+65} ${y-4} L ${gl+57} ${y} L ${gl+65} ${y+4} Z"/>`;
+        }
+      });
+      const firstPort=loads[0].y-(loads[0].k-1)*5;
+      const last=loads[loads.length-1], lastPort=last.y+(last.k-1)*5;
+      s+=line(loadBus,firstPort,loadBus,lastPort);
+      loads.forEach((load,i)=>{
+        for(let j=0;j<load.k;j++){
+          const py=load.y+(j-(load.k-1)/2)*10;
+          s+=line(loadBus,py,ll+(load.type==='nor'?9:0),py)+dot(loadBus,py);
+        }
+        s+=gate(ll,load.y,load.type)+line(ll+(load.type==='inv'?45:54),load.y,w-8,load.y);
+        const currentY=load.y-(load.k-1)*5;
+        if(state==='high'){
+          s+=line(loadBus+4,currentY,ll-8,currentY,'current')+`<path class="arrow" d="M ${ll-9} ${currentY-3} L ${ll-2} ${currentY} L ${ll-9} ${currentY+3} Z"/>`;
+        }else{
+          s+=line(ll-6,currentY,loadBus+8,currentY,'current')+`<path class="arrow" d="M ${loadBus+9} ${currentY-3} L ${loadBus+2} ${currentY} L ${loadBus+9} ${currentY+3} Z"/>`;
+        }
+        s+=text(ll+22,load.y+41,'G'+sub[n+i]+' · '+load.k+'输入','middle','small');
+      });
+      s+=text(gl+22,height-10,'OD输出：'+n+'个','middle','small');
+      s+=text(ll+20,height-10,'负载输入：'+m+'个','middle','small');
+      svg.setAttribute('viewBox',`0 0 ${w} ${height}`);svg.style.height=height+'px';svg.innerHTML=s;
+      fields.exercise.value=String(exercise);fields.state.value=state;fields.resistance.value=String(resistance);
+      root.querySelector('[data-status]').textContent=state==='high'?`按最大电流估算：${node} = ${voh.toFixed(3)} V，${pass?'满足':'不满足'} ≥ 4.4 V 的要求。`:`按${node} = 0.33 V检查：G₁需灌入 ${sink.toFixed(3)} mA，${pass?'不超过':'超过'}允许的5.2 mA。`;
+    }
+    restore(lessonHost?.widgetState);
+    Object.values(fields).forEach(field=>field.addEventListener('change',()=>{
+      exercise=Number(fields.exercise.value);state=fields.state.value;resistance=Number(fields.resistance.value);draw();
+      lessonHost?.setWidgetState?.({modelContent:{exercise:'3.'+exercise,state,resistanceKohms:resistance},privateContent:{exercise,state,resistance}})?.catch(()=>{});
+    }));
+    window.addEventListener('openai:set_globals',e=>{restore(e.detail?.globals?.widgetState);draw();});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

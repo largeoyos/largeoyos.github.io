@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-transparent-d-circuits")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-transparent-d-circuits",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-transparent-d-circuits">
+<div class="viz-controls">
+<label class="form-label">电路实现<select class="form-select" data-circuit=""><option value="nand">与非门实现</option><option value="tg">CMOS 传输门实现</option></select></label>
+<label class="form-label">初始状态<select class="form-select" data-initial=""><option value="0">Q=0</option><option value="1">Q=1</option><option value="unknown">未给出</option></select></label>
+</div>
+<div class="viz-row"><button class="btn" data-clk="" type="button">CLK=0</button><button class="btn" data-d="" type="button">D=0</button></div>
+<svg aria-label="透明D锁存器的门电路和CMOS传输门电路" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-transparent-d-circuits svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-transparent-d-circuits svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch5-transparent-d-circuits svg .small{font-size:12px}
+    #ch5-transparent-d-circuits .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch5-transparent-d-circuits .high{stroke:var(--viz-series-1);stroke-width:2.2}
+    #ch5-transparent-d-circuits .unknown{stroke-dasharray:4 3}
+    #ch5-transparent-d-circuits .active{stroke:var(--viz-series-1);stroke-width:2.4;fill:var(--viz-series-1);fill-opacity:0.07}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-transparent-d-circuits'),svg=root.querySelector('svg');
+    let s={circuit:'nand',initial:0,clk:0,d:0,q:0};
+    const val=v=>v===null?'?':v;
+    const text=(x,y,t,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${t}</text>`;
+    const wire=(d,v)=>`<path class="wire${v===1?' high':v===null?' unknown':''}" d="${d}"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    const dot=(x,y)=>`<circle cx="${x}" cy="${y}" r="2.8" fill="currentColor"/>`;
+    const box=(x,y,w,h,active=false)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"${active?' class="active"':''}/>`;
+    function nand(x,y){return box(x,y,44,50)+text(x+22,y+30,'&amp;','middle')+bubble(x+48,y+25);}
+    function invert(x,y,vertical=false){return vertical?`<path d="M ${x-14} ${y} H ${x+14} L ${x} ${y+28} Z" fill="none" stroke="currentColor" stroke-width="1.5"/>`+bubble(x,y+32):`<path d="M ${x} ${y-15} V ${y+15} L ${x+30} ${y} Z" fill="none" stroke="currentColor" stroke-width="1.5"/>`+bubble(x+34,y);}
+    function settle(){if(s.clk)s.q=s.d;s.qb=s.q===null?null:1-s.q;s.a=1-(s.d&s.clk);s.b=1-((1-s.d)&s.clk);}
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;if(['nand','tg'].includes(v.circuit))s.circuit=v.circuit;for(const k of ['clk','d'])if(v[k]===0||v[k]===1)s[k]=v[k];for(const k of ['q','initial'])if(v[k]===0||v[k]===1||v[k]===null)s[k]=v[k];}
+    function drawNand(w){
+      const gx=106,sx=w-108,sw=64;
+      let o='<title>与非门实现的透明 D 锁存器</title><desc>D分成两路，一路直接进入上方与非门，另一路经反相后进入下方与非门。CLK共同控制两个门，它们的输出送入低有效SR锁存器。D和它的反相分别充当高有效S和R，因此理想稳定逻辑下避免S和R同时有效。</desc>';
+      o+=text(w/2,20,'D 与 D′ 分别控制置位、复位','middle');
+      o+=nand(gx,65)+nand(gx,275)+box(sx,65,sw,260)+text(sx+sw/2,185,'SR','middle')+text(sx+sw/2,206,'锁存器','middle',true);
+      o+=text(5,70,'D='+s.d,'start',true)+wire(`M 5 80 H ${gx}`,s.d)+dot(24,80)+wire('M 24 80 V 188 M 24 207 V 240',s.d)+invert(24,240,true)+wire(`M 24 276 V 310 H ${gx}`,1-s.d)+text(8,300,'D′','start',true);
+      o+=text(78,202,'CLK='+s.clk,'start',true)+wire(`M 5 198 H 16 Q 24 184 32 198 H 70 M 70 100 V 290 M 70 100 H ${gx} M 70 290 H ${gx}`,s.clk)+dot(70,198);
+      o+=wire(`M ${gx+52} 90 H ${sx-8}`,s.a)+bubble(sx-4,90)+text(sx+8,94,'S','start',true)+text((gx+52+sx)/2,73,'a='+s.a,'middle',true);
+      o+=wire(`M ${gx+52} 300 H ${sx-8}`,s.b)+bubble(sx-4,300)+text(sx+8,304,'R','start',true)+text((gx+52+sx)/2,283,'b='+s.b,'middle',true);
+      o+=wire(`M ${sx+sw} 120 H ${w-6}`,s.q)+text(w-6,108,'Q='+val(s.q),'end',true);
+      o+=bubble(sx+sw+4,270)+wire(`M ${sx+sw+8} 270 H ${w-6}`,s.qb)+text(w-6,258,'Q′='+val(s.qb),'end',true);
+      o+=text(w/2,365,'右侧 SR 输入端的小圆圈：低电平有效','middle',true);
+      return {o,h:389};
+    }
+    function drawTG(w){
+      const ax=138,ix=w-140,qx=w-50,c=s.clk,cv=1-c;
+      let o='<title>CMOS 传输门实现的透明 D 锁存器</title><desc>TG1位于D到内部节点A的通路，TG2位于Q到A的反馈通路。两个反相器依次将A反相成Q撇，再反相成Q。CLK为1时TG1导通TG2截止，Q跟随D。CLK为0时TG1截止TG2导通，A与两级反相器形成反馈环，保持数据。控制信号按逻辑互补，忽略切换延迟。</desc>';
+      o+=text(w/2,20,'传输门：数据通路与反馈通路交替导通','middle',true);
+      o+=text(5,85,'D='+s.d,'start',true)+wire('M 5 100 H 64',s.d)+box(64,78,50,44,!!c)+text(89,104,'TG₁','middle',true);
+      o+=wire(`M 114 100 H ${ix}`,s.q)+dot(ax,100)+text(ax,88,'A='+val(s.q),'middle',true)+invert(ix,100)+wire(`M ${ix+38} 100 H ${w-6}`,s.qb)+text(w-6,86,'Q′='+val(s.qb),'end',true);
+      o+=dot(qx,100)+wire(`M ${qx} 100 V 172`,s.qb)+invert(qx,172,true)+wire(`M ${qx} 208 V 275 H ${w-6}`,s.q)+text(w-6,261,'Q='+val(s.q),'end',true)+text(qx+20,190,'G₂','start',true)+text(ix+15,69,'G₁','middle',true);
+      o+=wire(`M ${qx} 275 H 134`,s.q)+dot(qx,275)+box(84,253,50,44,!c)+text(109,280,'TG₂','middle',true)+wire(`M 84 275 H 50 V 210 H ${ax} V 100`,s.q);
+      o+=text(89,53,'C='+c,'middle',true)+wire('M 89 59 V 78',c)+bubble(89,126)+wire('M 89 130 V 142',cv)+text(89,160,'C′='+cv,'middle',true);
+      o+=text(109,237,'C′='+cv,'middle',true)+wire('M 109 242 V 253',cv)+bubble(109,301)+wire('M 109 305 V 320',c)+text(109,338,'C='+c,'middle',true);
+      o+=text(w/2,376,'TG₁ '+(c?'导通':'截止')+' · TG₂ '+(c?'截止':'导通'),'middle');
+      return {o,h:399};
+    }
+    function draw(){
+      const w=svg.clientWidth||320,{o,h}=s.circuit==='nand'?drawNand(w):drawTG(w);svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=o;
+      Object.assign(svg.dataset,{q:val(s.q),qb:val(s.qb),a:s.a,b:s.b,tg1:s.clk,tg2:1-s.clk});
+      root.querySelector('[data-circuit]').value=s.circuit;root.querySelector('[data-initial]').value=s.initial===null?'unknown':String(s.initial);
+      for(const [k,label]of [['clk','CLK'],['d','D']]){const e=root.querySelector('[data-'+k+']');e.textContent=label+'='+s[k];e.setAttribute('aria-pressed',s[k]===1);}
+      root.querySelector('[data-status]').textContent=(s.clk?'CLK=1：透明，Q 跟随 D':'CLK=0：保持原状态')+' · Q='+val(s.q)+'，Q′='+val(s.qb);
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,topic:'5.3.1 透明D锁存器'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);settle();
+    root.querySelector('[data-circuit]').onchange=e=>{s.circuit=e.target.value;draw();save();};
+    for(const k of ['clk','d'])root.querySelector('[data-'+k+']').onclick=()=>{s[k]^=1;settle();draw();save();};
+    root.querySelector('[data-initial]').onchange=e=>{s.initial=e.target.value==='unknown'?null:+e.target.value;s.clk=s.d=0;s.q=s.initial;settle();draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);settle();draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

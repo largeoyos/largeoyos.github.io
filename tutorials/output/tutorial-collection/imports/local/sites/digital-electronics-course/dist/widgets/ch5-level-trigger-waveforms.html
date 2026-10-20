@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-level-trigger-waveforms")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-level-trigger-waveforms",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-level-trigger-waveforms">
+<div class="viz-controls"><label class="form-label">课本例题<select class="form-select" data-example=""><option value="sr">例 5.3.1：门控 SR</option><option value="d">例 5.3.2：透明 D 锁存器</option></select></label></div>
+<label class="form-label">观察位置 <span data-position=""></span><input class="form-range" data-step="" max="9" min="0" step="1" type="range" value="0"/></label>
+<svg aria-label="电平触发SR和D锁存器的输入输出波形" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-level-trigger-waveforms svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-level-trigger-waveforms svg text{fill:var(--foreground);font-size:12px;font-weight:400}
+    #ch5-level-trigger-waveforms .wave{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+    #ch5-level-trigger-waveforms .output{stroke:var(--viz-series-1);stroke-width:2.2}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-level-trigger-waveforms'),svg=root.querySelector('svg');
+    const cases={
+      sr:{title:'例 5.3.1 · 门控 SR',t:[0,2,2.8,3.25,4,5.5,6,7.4,7.65,8,9.5],clk:[0,1,1,1,0,0,1,1,1,0],s:[1,1,0,0,0,0,0,1,0,0],r:[0,0,0,1,1,0,0,0,0,0],ticks:[1,4,6,9]},
+      d:{title:'例 5.3.2 · 透明 D 锁存器',t:[0,2,2.8,4.2,6,6.4,7.1,7.6,8.2,9,10],clk:[0,1,1,0,1,1,1,1,0,0],d:[1,1,0,0,0,1,0,1,1,0],ticks:[1,3,4,8]}
+    };
+    let state={example:'sr',step:0};
+    const text=(x,y,v,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${v}</text>`;
+    function compute(c){let q=0;const out=[];for(let i=0;i<c.clk.length;i++){if(c.clk[i])q=state.example==='d'?c.d[i]:c.s[i]?1:c.r[i]?0:q;out.push(q);}return out;}
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;if(cases[v.example])state.example=v.example;if(Number.isInteger(v.step))state.step=Math.max(0,Math.min(9,v.step));}
+    function draw(){
+      const c=cases[state.example],q=compute(c),qb=q.map(v=>1-v),w=svg.clientWidth||320,left=62,right=w-12,x=t=>left+(right-left)*t/c.t.at(-1);
+      const lanes=state.example==='sr'?[['CLK',c.clk],['S',c.s],['R',c.r],['Q',q],['Q′',qb]]:[['CLK',c.clk],['D',c.d],['Q',q],['Q′',qb]];
+      const top=47,gap=70,bottom=top+lanes.length*gap-14;
+      let o='<title>'+c.title+'</title><desc>根据课本例题重绘的理想逻辑波形，忽略传播延迟。浅色带是CLK为1的整段透明时间，竖线标记当前观察区间。t标记为讲解补加，脉宽不代表精确数值。</desc>'+text(w/2,21,c.title,'middle');
+      for(let i=0;i<c.clk.length;i++)if(c.clk[i])o+=`<rect x="${x(c.t[i])}" y="34" width="${x(c.t[i+1])-x(c.t[i])}" height="${bottom-24}" fill="var(--viz-series-1)" opacity="0.07"/>`;
+      for(const i of c.ticks)o+=`<path d="M ${x(c.t[i])} 35 V ${bottom}" fill="none" stroke="var(--border)" stroke-width="1"/>`+text(x(c.t[i]),bottom+17,'t'+i,'middle');
+      o+=`<path d="M ${x(c.t[state.step])} 35 V ${bottom}" fill="none" stroke="var(--foreground)" stroke-width="1.3" stroke-dasharray="3 3"/>`;
+      for(let row=0;row<lanes.length;row++){
+        const [label,a]=lanes[row],hi=top+row*gap,lo=hi+34;
+        o+=text(5,hi+21,label)+text(48,hi+4,'1','end')+text(48,lo+4,'0','end');
+        let d=`M ${x(c.t[0])} ${a[0]?hi:lo}`;
+        for(let i=0;i<a.length;i++){d+=` H ${x(c.t[i+1])}`;if(i+1<a.length&&a[i+1]!==a[i])d+=` V ${a[i+1]?hi:lo}`;}
+        o+=`<path class="wave${label.startsWith('Q')?' output':''}" d="${d}"/>`;
+      }
+      o+=text(w-10,bottom+39,'t','end');svg.setAttribute('viewBox',`0 0 ${w} ${bottom+52}`);svg.innerHTML=o;
+      svg.dataset.qs=JSON.stringify(q);svg.dataset.qbs=JSON.stringify(qb);
+      const i=state.step,act=c.clk[i]===0?'CLK=0，保持':state.example==='d'?'CLK=1，Q 跟随 D':c.s[i]?'CLK=1，置位':c.r[i]?'CLK=1，复位':'CLK=1，S=R=0，保持';
+      root.querySelector('[data-example]').value=state.example;root.querySelector('[data-step]').value=i;root.querySelector('[data-position]').textContent=i===0?'初始区间':'t'+i+' 之后';
+      root.querySelector('[data-status]').textContent=act+' · Q='+q[i]+'，Q′='+qb[i];
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...state,topic:'5.3.1 例题波形'},privateContent:state}).catch(()=>{});}
+    restore(window.openai?.widgetState);
+    root.querySelector('[data-example]').onchange=e=>{state.example=e.target.value;state.step=0;draw();save();};root.querySelector('[data-step]').oninput=e=>{state.step=+e.target.value;draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

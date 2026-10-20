@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-tg-xnor-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-tg-xnor-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-transmission-exercise-seven">
+<div class="viz-controls">
+<button aria-pressed="true" class="btn" data-bit="a" type="button">A = 1</button>
+<button aria-pressed="true" class="btn" data-bit="b" type="button">B = 1</button>
+<label class="form-label">信号连接
+      <select class="form-select" data-mode="">
+<option value="original">习题 3.7(d)</option>
+<option value="swapped">练习：调换两路信号</option>
+</select>
+</label>
+</div>
+<svg aria-label="两个反相器和两个互补使能的传输门组成的逻辑电路" class="de-circuit" role="img" viewbox="0 0 708 390"><title>习题 3.7(d)：传输门选择信号</title><desc>A 经反相器得到 A 的反相。TG1 的无圈控制端接 A，带圈端接 A 的反相；TG2 的控制相反。原题 TG1 传送 B，TG2 传送 B 的反相。圆点表示导线连接，跨线弧表示不连接。忽略传输延迟和切换瞬态。</desc><path class="wire" d="M 20 40 H 65"></path><path d="M 65 25 L 95 40 L 65 55 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><circle cx="100" cy="40" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire" d="M 105 40 H 140 V 214 H 467.28000000000003 V 199"></path><path class="wire" d="M 40 40 V 12 H 690 V 370 H 467.28000000000003 V 349"></path><path class="wire" d="M 467.28000000000003 12 V 142"></path><circle class="junction" cx="40" cy="40" r="3"></circle><circle class="junction" cx="467.28000000000003" cy="12" r="3"></circle><path class="wire" d="M 140 214 V 260 H 467.28000000000003 V 292"></path><circle class="junction" cx="140" cy="214" r="3"></circle><text text-anchor="start" x="20" y="79">A = 1</text><text text-anchor="start" x="108" y="29">A′ = 0</text><path class="wire active" d="M 20 165 H 135 M 145 165 H 437.28000000000003"></path><path class="wire active" d="M 135 165 Q 140 153 145 165"></path><path class="wire" d="M 40 165 V 315 H 65"></path><path d="M 65 300 L 95 315 L 65 330 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><circle cx="100" cy="315" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire" d="M 105 315 H 437.28000000000003"></path><circle class="junction" cx="40" cy="165" r="3"></circle><text text-anchor="start" x="20" y="149">B = 1</text><text text-anchor="start" x="108" y="299">B′ = 0</text><path class="wire active" d="M 497.28000000000003 165 H 643 V 240"></path><path class="wire" d="M 497.28000000000003 315 H 643 V 240"></path><path class="wire active" d="M 643 240 H 678"></path><circle class="junction" cx="643" cy="240" r="3"></circle><text text-anchor="end" x="678" y="225">Y = 1</text><rect fill="var(--background)" height="46" stroke="var(--viz-series-1)" stroke-width="1.8" width="60" x="437.28000000000003" y="142"></rect><text text-anchor="middle" x="467.28000000000003" y="170">TG1</text><circle cx="467.28000000000003" cy="194" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><text text-anchor="end" x="456.28000000000003" y="130">A = 1</text><text text-anchor="end" x="456.28000000000003" y="202">A′ = 0</text><rect fill="var(--background)" height="46" stroke="currentColor" stroke-width="1.8" width="60" x="437.28000000000003" y="292"></rect><text text-anchor="middle" x="467.28000000000003" y="320">TG2</text><circle cx="467.28000000000003" cy="344" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><text text-anchor="end" x="456.28000000000003" y="280">A′ = 0</text><text text-anchor="end" x="456.28000000000003" y="352">A = 1</text></svg>
+<div aria-live="polite" class="text-small" data-status="">TG1 接通，TG2 断开 · Y 跟随 B = 1</div>
+<style>
+    #de-transmission-exercise-seven .de-circuit{width:100%;display:block;color:var(--foreground)}
+    #de-transmission-exercise-seven .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base)}
+    #de-transmission-exercise-seven .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-transmission-exercise-seven .de-circuit .active{stroke:var(--viz-series-1)}
+    #de-transmission-exercise-seven .de-circuit .junction{fill:currentColor}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("transmission-exercise-seven");
+
+  (function(){
+    const root=document.getElementById('de-transmission-exercise-seven'),svg=root.querySelector('svg');let a=1,b=1;
+    const label=(x,y,t,anchor='start')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'">'+t+'</text>';
+    const line=(d,active=false)=>'<path class="wire '+(active?'active':'')+'" d="'+d+'"/>';
+    const dot=(x,y)=>'<circle class="junction" cx="'+x+'" cy="'+y+'" r="3"/>';
+    function inverter(x,y){
+      return '<path d="M '+x+' '+(y-15)+' L '+(x+30)+' '+y+' L '+x+' '+(y+15)+' Z" fill="none" stroke="currentColor" stroke-width="1.8"/>'+
+      '<circle cx="'+(x+35)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>';
+    }
+    function tg(cx,y,i,on,n,p){
+      return '<rect x="'+(cx-30)+'" y="'+(y-23)+'" width="60" height="46" fill="var(--background)" stroke="'+(on?'var(--viz-series-1)':'currentColor')+'" stroke-width="1.8"/>'+
+      label(cx,y+5,'TG'+i,'middle')+
+      '<circle cx="'+cx+'" cy="'+(y+29)+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>'+
+      label(cx-11,y-35,n,'end')+label(cx-11,y+37,p,'end');
+    }
+    function draw(){
+      const w=root.clientWidth,cx=w*.66,join=w-65,arail=w-18,swapped=root.querySelector('[data-mode]').value==='swapped';
+      const first=swapped?1-b:b,second=swapped?b:1-b,y=a?first:second;
+      let out='<title>习题 3.7(d)：传输门选择信号</title><desc>A 经反相器得到 A 的反相。TG1 的无圈控制端接 A，带圈端接 A 的反相；TG2 的控制相反。原题 TG1 传送 B，TG2 传送 B 的反相。圆点表示导线连接，跨线弧表示不连接。忽略传输延迟和切换瞬态。</desc>';
+      out+=line('M 20 40 H 65')+inverter(65,40)+line('M 105 40 H 140 V 214 H '+cx+' V 199');
+      out+=line('M 40 40 V 12 H '+arail+' V 370 H '+cx+' V 349');
+      out+=line('M '+cx+' 12 V 142')+dot(40,40)+dot(cx,12);
+      out+=line('M 140 214 V 260 H '+cx+' V 292')+dot(140,214);
+      out+=label(20,79,'A = '+a)+label(108,29,'A′ = '+(1-a));
+      if(!swapped){
+        out+=line('M 20 165 H 135 M 145 165 H '+(cx-30),!!a);
+        out+=line('M 135 165 Q 140 153 145 165',!!a);
+        out+=line('M 40 165 V 315 H 65',!a)+inverter(65,315)+line('M 105 315 H '+(cx-30),!a);
+        out+=dot(40,165)+label(20,149,'B = '+b)+label(108,299,'B′ = '+(1-b));
+      }else{
+        out+=line('M 20 315 H '+(cx-30),!a)+dot(40,315);
+        out+=line('M 40 315 V 165 H 65',!!a)+inverter(65,165);
+        out+=line('M 105 165 H 135 M 145 165 H '+(cx-30),!!a)+line('M 135 165 Q 140 153 145 165',!!a);
+        out+=label(20,344,'B = '+b)+label(108,149,'B′ = '+(1-b));
+      }
+      out+=line('M '+(cx+30)+' 165 H '+join+' V 240',!!a);
+      out+=line('M '+(cx+30)+' 315 H '+join+' V 240',!a);
+      out+=line('M '+join+' 240 H '+(w-30),true)+dot(join,240)+label(w-30,225,'Y = '+y,'end');
+      out+=tg(cx,165,1,!!a,'A = '+a,'A′ = '+(1-a));
+      out+=tg(cx,315,2,!a,'A′ = '+(1-a),'A = '+a);
+      svg.setAttribute('viewBox','0 0 '+w+' 390');svg.innerHTML=out;
+      root.querySelector('[data-status]').textContent='TG'+(a?1:2)+' 接通，TG'+(a?2:1)+' 断开 · Y 跟随 '+((a?!swapped:swapped)?'B':'B′')+' = '+y;
+    }
+    root.querySelectorAll('[data-bit]').forEach(btn=>btn.addEventListener('click',()=>{
+      if(btn.dataset.bit==='a')a=1-a;else b=1-b;
+      const val=btn.dataset.bit==='a'?a:b;btn.textContent=btn.dataset.bit.toUpperCase()+' = '+val;btn.setAttribute('aria-pressed',!!val);draw();
+    }));
+    root.querySelector('[data-mode]').addEventListener('change',draw);new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-pass-loss-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-pass-loss-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-mos-pass-levels">
+<div class="viz-controls">
+<label class="form-label">数据通路
+      <select class="form-select" data-device="">
+<option value="n">单只 NMOS</option>
+<option value="p">单只 PMOS</option>
+<option value="tg">CMOS 传输门</option>
+</select>
+</label>
+<label class="form-label">传递的电平
+      <select class="form-select" data-input="">
+<option value="5">高电平 · 5 V</option>
+<option value="0">低电平 · 0 V</option>
+</select>
+</label>
+<label class="form-label">输出电容的变化
+      <select class="form-select" data-stage="">
+<option value="0">起点</option>
+<option value="1">中途</option>
+<option selected="" value="2">最终近似值</option>
+</select>
+</label>
+</div>
+<svg aria-label="单个 MOS 管与 CMOS 传输门的电平传递对比" class="de-circuit" data-final="4" data-ngs="1" data-output="4" data-psg="5" role="img" viewbox="0 0 708 365"><title>MOS 电平传递</title><desc>电源五伏，NMOS 栅极五伏，PMOS 栅极零伏，固定阈值大小一伏。输出只接电容，无直流负载，忽略体效应和漏电流。传高电平时输出从零伏开始，传低电平时输出从五伏开始。起点和中途只是过程示意，不代表实际时间。S 和 D 按本例电位关系标注，衬底连接省略。</desc><path class="wire" d="M 309 150 H 331 V 127 M 377 127 V 150 H 399"></path><path class="wire channel-edge" d="M 331 127 H 377"></path><path class="wire" d="M 331 111 H 377"></path><path class="wire" d="M 354 72 V 111"></path><text text-anchor="middle" x="354" y="58">Gₙ = 5 V</text><text class="small" text-anchor="middle" x="315" y="142">D</text><text class="small" text-anchor="middle" x="393" y="142">S</text><text text-anchor="middle" x="354" y="181">NMOS · 阈值边界</text><text text-anchor="middle" x="354" y="203">VGS = 1 V</text><path class="wire" d="M 34 150 H 309 M 399 150 H 674"></path><path class="wire" d="M 10 150 H 34 M 674 150 H 698"></path><circle cx="34" cy="150" fill="currentColor" r="3"></circle><circle cx="674" cy="150" fill="currentColor" r="3"></circle><text text-anchor="start" x="37" y="133">X = 5 V</text><text text-anchor="end" x="671" y="133">Y = 4 V</text><path class="wire" d="M 674 150 V 280 M 659 280 H 689 M 659 291 H 689 M 674 291 V 321"></path><text text-anchor="end" x="651" y="290">C_L</text><path class="wire" d="M 658 321 H 690 M 664 328 H 684 M 670 335 H 678"></path><text class="small" text-anchor="start" x="10" y="357">VDD = 5 V · |VT| = 1 V</text></svg>
+<div aria-live="polite" class="text-small" data-status="">接近截止 · 固定阈值近似 · 无直流负载 · 衬底连接省略</div>
+<style>
+    #de-mos-pass-levels .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-mos-pass-levels .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-mos-pass-levels .de-circuit .small{font-size:12px}
+    #de-mos-pass-levels .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #de-mos-pass-levels .de-circuit .channel-on{stroke:var(--viz-series-1);stroke-width:2.5}
+    #de-mos-pass-levels .de-circuit .channel-off{stroke:var(--border)}
+    #de-mos-pass-levels .de-circuit .channel-edge{stroke:currentColor;stroke-dasharray:3 3}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("mos-pass-levels");
+
+  (function(){
+    const root=document.getElementById('de-mos-pass-levels');
+    const svg=root.querySelector('svg');
+    const inputs={device:root.querySelector('[data-device]'),input:root.querySelector('[data-input]'),stage:root.querySelector('[data-stage]')};
+    const options={device:['n','p','tg'],input:['0','5'],stage:['0','1','2']};
+    function restore(saved){
+      const s=saved&&(saved.privateContent||saved.modelContent);
+      if(!s)return;
+      for(const k of Object.keys(inputs))if(options[k].includes(String(s[k])))inputs[k].value=String(s[k]);
+    }
+    function state(){return Object.fromEntries(Object.entries(inputs).map(function(pair){return [pair[0],pair[1].value];}));}
+    function save(){
+      if(lessonHost&&lessonHost.setWidgetState){
+        const s=state();lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});
+      }
+    }
+    const text=function(x,y,t,anchor,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,cls){return '<path class="wire '+(cls||'')+'" d="'+d+'"/>';};
+    const voltage=function(v){return Number.isInteger(v)?String(v):v.toFixed(1);};
+    function regime(v){return v>1.00001?'导通':v<0.99999?'截止':'阈值边界';}
+    function mos(x,y,p,v,xv,yv){
+      const mode=regime(v),cls=mode==='导通'?'channel-on':mode==='截止'?'channel-off':'channel-edge';
+      const leftIsSource=p?xv>=yv:xv<=yv;
+      let out=path('M '+(x-45)+' '+y+' H '+(x-23)+' V '+(y-23)+' M '+(x+23)+' '+(y-23)+' V '+y+' H '+(x+45));
+      out+=path('M '+(x-23)+' '+(y-23)+' H '+(x+23),cls);
+      out+=path('M '+(x-23)+' '+(y-39)+' H '+(x+23));
+      out+=path('M '+x+' '+(y-78)+' V '+(y-39-(p?10:0)));
+      if(p)out+='<circle cx="'+x+'" cy="'+(y-44)+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+      out+=text(x,y-92,(p?'Gₚ = 0 V':'Gₙ = 5 V'),'middle');
+      out+=text(x-39,y-8,leftIsSource?'S':'D','middle',true)+text(x+39,y-8,leftIsSource?'D':'S','middle',true);
+      out+=text(x,y+31,(p?'PMOS':'NMOS')+' · '+mode,'middle');
+      out+=text(x,y+53,(p?'VSG':'VGS')+' = '+voltage(v)+' V','middle');
+      return out;
+    }
+    function draw(){
+      const s=state(),xv=+s.input,stage=+s.stage,pair=s.device==='tg';
+      const start=xv===5?0:5;
+      const end=s.device==='n'&&xv===5?4:s.device==='p'&&xv===0?1:xv;
+      const yv=stage===0?start:stage===1?(start+end)/2:end;
+      const ngs=5-Math.min(xv,yv),psg=Math.max(xv,yv);
+      const w=svg.getBoundingClientRect().width||root.clientWidth;
+      const x=w/2,left=34,right=w-34;
+      const top=pair?132:150,bottom=pair?310:150,nodeY=pair?229:150;
+      let out='<title>MOS 电平传递</title><desc>电源五伏，NMOS 栅极五伏，PMOS 栅极零伏，固定阈值大小一伏。输出只接电容，无直流负载，忽略体效应和漏电流。传高电平时输出从零伏开始，传低电平时输出从五伏开始。起点和中途只是过程示意，不代表实际时间。S 和 D 按本例电位关系标注，衬底连接省略。</desc>';
+      if(pair){out+=mos(x,top,true,psg,xv,yv)+mos(x,bottom,false,ngs,xv,yv);}
+      else out+=mos(x,top,s.device==='p',s.device==='p'?psg:ngs,xv,yv);
+      for(const y of pair?[top,bottom]:[top]){
+        out+=path('M '+left+' '+y+' H '+(x-45)+' M '+(x+45)+' '+y+' H '+right);
+      }
+      if(pair)out+=path('M '+left+' '+top+' V '+bottom+' M '+right+' '+top+' V '+bottom);
+      out+=path('M 10 '+nodeY+' H '+left+' M '+right+' '+nodeY+' H '+(w-10));
+      out+='<circle cx="'+left+'" cy="'+nodeY+'" r="3" fill="currentColor"/><circle cx="'+right+'" cy="'+nodeY+'" r="3" fill="currentColor"/>';
+      out+=text(left+3,nodeY-17,'X = '+xv+' V')+text(right-3,nodeY-17,'Y = '+voltage(yv)+' V','end');
+      const capTop=pair?382:280;
+      out+=path('M '+right+' '+bottom+' V '+capTop+' M '+(right-15)+' '+capTop+' H '+(right+15)+' M '+(right-15)+' '+(capTop+11)+' H '+(right+15)+' M '+right+' '+(capTop+11)+' V '+(capTop+41));
+      out+=text(right-23,capTop+10,'C_L','end');
+      out+=path('M '+(right-16)+' '+(capTop+41)+' H '+(right+16)+' M '+(right-10)+' '+(capTop+48)+' H '+(right+10)+' M '+(right-4)+' '+(capTop+55)+' H '+(right+4));
+      const h=capTop+85;
+      out+=text(10,h-8,'VDD = 5 V · |VT| = 1 V',undefined,true);
+      svg.setAttribute('viewBox','0 0 '+w+' '+h);
+      svg.setAttribute('data-output',String(yv));svg.setAttribute('data-final',String(end));
+      svg.setAttribute('data-ngs',String(ngs));svg.setAttribute('data-psg',String(psg));
+      svg.innerHTML=out;
+      const activity=stage<2?(xv===5?'电容充电':'电容放电'):(end===xv?'电位相等':'接近截止');
+      root.querySelector('[data-status]').textContent=activity+' · 固定阈值近似 · 无直流负载 · 衬底连接省略';
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    for(const el of Object.values(inputs))el.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-timing-window")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-timing-window",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-timing-window">
+<div class="viz-controls"><label class="form-label">输入时序<select class="form-select" data-case=""><option value="valid">满足建立与保持要求</option><option value="setup">建立时间不足</option><option value="hold">保持时间不足</option></select></label></div>
+<div class="text-small">要求：t_su=3 ns · t_h=2 ns · 正常 CLK→Q 延迟=4 ns</div>
+<svg aria-label="D触发器的建立时间、保持时间和时钟到输出延迟" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-timing-window svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-timing-window svg text{fill:var(--foreground);font-size:12px;font-weight:400}
+    #ch5-timing-window .wave{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch5-timing-window .output{stroke:var(--viz-series-1);stroke-width:2.2}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-timing-window'),svg=root.querySelector('svg');let state={case:'valid'};
+    const text=(x,y,v,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${v}</text>`;
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(v&&['valid','setup','hold'].includes(v.case))state.case=v.case;}
+    function draw(){
+      const w=svg.clientWidth||320,left=62,right=w-12,x=t=>left+(right-left)*t/22,up=state.case==='setup'?9:4,down=state.case==='hold'?11:18,valid=state.case==='valid';
+      let o='<title>建立、保持与输出延迟</title><desc>示意参数：上升沿在10纳秒，建立要求3纳秒，保持要求2纳秒，D在7至12纳秒必须稳定。合法输入在4纳秒变1，18纳秒变0，Q在14纳秒变1。建立不足情形D在9纳秒才变1，保持不足情形D在11纳秒便变0。违反要求只表示不能保证输出，不代表必定出错；图中问号区域表示没有确定保证。</desc>';
+      o+='<defs><pattern id="ch5-timing-hatch" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M -1 1 L 1 -1 M 0 7 L 7 0 M 6 8 L 8 6" stroke="var(--border)" stroke-width="1"/></pattern></defs>';
+      o+=`<rect x="${x(7)}" y="62" width="${x(12)-x(7)}" height="145" fill="var(--viz-series-1)" opacity=".09"/>`;
+      const bracket=(a,b,y)=>`<path d="M ${x(a)} ${y+5} V ${y} H ${x(b)} V ${y+5}" fill="none" stroke="currentColor" stroke-width="1.3"/>`;
+      o+=bracket(7,10,28)+text((x(7)+x(10))/2,20,'t_su','middle')+bracket(10,12,48)+text((x(10)+x(12))/2,40,'t_h','middle');
+      const lane=(label,top,changes,output=false)=>{let z=text(5,top+20,label)+text(49,top+4,'1','end')+text(49,top+36,'0','end'),d=`M ${x(0)} ${top+(changes[0][1]?0:32)}`;for(let i=0;i<changes.length;i++){d+=` H ${x(changes[i+1]?.[0]??22)}`;if(changes[i+1])d+=` V ${top+(changes[i+1][1]?0:32)}`;}return z+`<path class="wave${output?' output':''}" d="${d}"/>`;};
+      o+=lane('CLK',76,[[0,0],[10,1],[17,0]])+lane('D',155,[[0,0],[up,1],[down,0]]);
+      if(valid)o+=lane('Q',238,[[0,0],[14,1]],true)+bracket(10,14,225)+text((x(10)+x(14))/2,216,'t_pd','middle');
+      else{o+=text(5,258,'Q')+text(49,242,'1','end')+text(49,274,'0','end')+`<path class="wave output" d="M ${x(0)} 270 H ${x(10)}"/><rect x="${x(10)}" y="238" width="${x(22)-x(10)}" height="32" fill="url(#ch5-timing-hatch)"/>`+text((x(10)+x(22))/2,259,'?','middle');}
+      o+=`<path d="M ${x(10)} 57 V 289" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+      for(const t of [0,10,22])o+=text(x(t),304,String(t),t===0?'start':t===22?'end':'middle');o+=text(w-12,329,'t / ns','end');
+      svg.setAttribute('viewBox',`0 0 ${w} 345`);svg.innerHTML=o;Object.assign(svg.dataset,{setup:10-up,hold:down-10,valid:valid?'yes':'no'});root.querySelector('[data-case]').value=state.case;
+      root.querySelector('[data-status]').textContent=valid?'D 在 7—12 ns 内稳定 · Q 在作用沿后 4 ns 改变':state.case==='setup'?'建立仅 1 ns，小于要求 3 ns · 输出不能保证':'保持仅 1 ns，小于要求 2 ns · 输出不能保证';
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...state,topic:'5.3.5 建立保持时间'},privateContent:state}).catch(()=>{});}
+    restore(window.openai?.widgetState);root.querySelector('[data-case]').onchange=e=>{state.case=e.target.value;draw();save();};window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

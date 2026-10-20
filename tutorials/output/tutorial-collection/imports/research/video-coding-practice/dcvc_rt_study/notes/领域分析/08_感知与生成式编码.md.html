@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>08 感知与生成式编码：怎样生成合理细节，并保持内容与时间一致</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/08_感知与生成式编码.md · <a href="08_%E6%84%9F%E7%9F%A5%E4%B8%8E%E7%94%9F%E6%88%90%E5%BC%8F%E7%BC%96%E7%A0%81.md">原始 Markdown</a></p><h1 id="08">08 感知与生成式编码：怎样生成合理细节，并保持内容与时间一致</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。本轮补读 DiffVC/OSD 方法、成本以及感知失真理论；没有新生成视频或主观实验。</p>
+<h2 id="_1">为什么低码率下会出现模糊与“看起来更清楚”的分歧</h2>
+<p>当有限比特无法唯一决定原始细节时，解码器面对多个可能答案。对平方误差而言，条件均值最优，但不同纹理或边缘位置的平均可能变模糊。生成先验可以选择一个自然的答案，细节看起来合理，却未必是原视频真实细节。</p>
+<p><a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Blau_The_Perception-Distortion_Tradeoff_CVPR_2018_paper.pdf">Perception-Distortion</a>第 3–5 页区分平均配对失真 <code>E[Δ(X,X̂)]</code> 与输出分布差异 <code>d(p_X,p_X̂)</code>，在固定观测退化 <code>p(Y|X)</code> 下定义：</p>
+<p><code>P(D)=min_{p(X̂|Y)} d(p_X,p_X̂)，s.t. E[Δ]≤D</code>。</p>
+<p>若 d 对第二个分布凸，前沿单调不增且凸。它不证明任意两个实际模型必有此消彼长：两者可能都远离最优前沿；联合改变压缩编码器又改变了观测通道。LPIPS/DISTS 是配对特征差异，也不直接等于该理论中的分布距离。</p>
+<p>对视频还多一个要求：每帧单独自然不代表连续播放自然。同一纹理在各帧被独立猜成不同样子，会产生不稳定；但把旧纹理长期锁住，也可能造成拖影或错误内容持续。</p>
+<h2 id="_2">四种生成路径的区别</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>生成器的条件与时间处理</th>
+<th>为什么这样做</th>
+<th>主要边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DiffVC</td>
+<td>条件压缩潜变量、参考上下文；复用前帧扩散的无噪潜变量预测</td>
+<td>减少重复 U-Net 计算，并保留时间联系</td>
+<td>多步采样仍存在，缓存也会依赖旧内容</td>
+</tr>
+<tr>
+<td>DiffVC-OSD</td>
+<td>不加噪的已解码潜变量，一次 U-Net，时间条件适配器</td>
+<td>保留结构并降低迭代成本，便于端到端训练</td>
+<td>一步不代表小网络或实时；仍使用显式运动链</td>
+</tr>
+<tr>
+<td>GNVC-VD</td>
+<td>时空 VAE 潜变量压缩，再用视频扩散先验细化</td>
+<td>利用预训练的序列先验处理时间一致性</td>
+<td>序列窗口与等待要核实；指标并非全面同向</td>
+</tr>
+<tr>
+<td>S²VC</td>
+<td>因果条件编码，语义适配和扩散中间特征传播</td>
+<td>让单步生成同时理解内容和历史</td>
+<td>训练教师与推理条件必须区分；仍有状态与计算成本</td>
+</tr>
+</tbody>
+</table>
+<h2 id="diffvc">DiffVC 的加速没有取消所有采样步骤</h2>
+<p><a href="https://arxiv.org/pdf/2501.13528v1">DiffVC v1</a>第 4–6 页将运动、条件压缩与 Stable Diffusion 2.1 连接。其 TDIR 在部分步骤直接复用前帧预测的无噪潜变量，以此做后验采样，跳过这些步骤的 U-Net；后面仍有当前帧的独立预测。首个 P 帧采用完整独立过程。</p>
+<p>因此应分别数采样步骤、昂贵 U-Net 调用和完整解码时间。复用的合理性来自邻帧相似，硬切换可能使该前提变弱，这是待测试假设。码率相关提示由量化参数构造，也说明一个生成器面对不同失真强度时需要条件化，而非认为所有码率潜变量分布相同。</p>
+<h2 id="osd">OSD 给出了可核对的速度边界</h2>
+<p><a href="https://arxiv.org/pdf/2508.07682v1">DiffVC-OSD v1</a>第 2–4 页直接把重建潜变量送入单步 U-Net，并用时间条件适配器、LoRA 和最终联合损失训练。它不是简单把未训练的多步采样器截成一步。</p>
+<p>第 4 页 Table 2 在 HEVC-C 上报告：50 步变体 P 帧解码时间 8.14 s，完整 OSD 为 0.40 s；第 3 页说明实验使用 RTX 3090。这个约二十倍相对加速成立于论文设置，0.40 s/帧仍不满足 30 fps，也不是 1080p 测速。实际熵解码和 I/O 的计时实现边界尚未核查。</p>
+<p>第 3 页还明确将无共同区间的 BD-rate 写为 N/A。其感知收益伴随 PSNR 代价；不得把 LPIPS BD-rate 百分数讲成同 PSNR 下的节码率，更不能对没有重叠的曲线外推百分数。</p>
+<h2 id="2026">2026 两条路线值得继续追的点</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Mao_Generative_Neural_Video_Compression_via_Video_Diffusion_Prior_CVPR_2026_paper.pdf">GNVC-VD</a>使用 Wan2.1 时空 VAE 和 VideoDiT，压缩链的低延迟预测标签不自动保证序列细化也逐帧可输出。论文低码率感知结果、FVD、warp error 之间存在不同方向，应分别解释。当前项目没有验证其代码执行与窗口等待。</p>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Xue_Single-step_Diffusion-based_Video_Coding_with_Semantic-Temporal_Guidance_CVPR_2026_paper.pdf">S²VC</a>将已解码特征用于内容与语义条件，并传播生成网络中间特征。DINOv3 教师在训练提供监督，推理使用已解码信息，不能把教师原帧特征当作无需发送的条件。见<a href="../../experiments/literature_survey_20261019/%E9%87%8D%E7%82%B9%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%8D%A1.md.html">上一轮阅读卡</a>。</p>
+<p>生成输出如果进入下一帧参考链，两端需要一致的随机种子、采样规则和数值路径；否则不仅影响观感，还可能破坏后续解码依赖。这是应检查的系统要求，不是对这些论文已经发生不一致的指控。</p>
+<h2 id="_3">可以怎样研究，而不是只选好看的裁剪</h2>
+<p>首先区分三项目标：原内容保真、自然纹理、时间稳定。相同比特下同时保存像素指标、LPIPS/DISTS、匹配时刻裁剪和连续视频；文字、小物体边界等区域单独观察，但预先定义取样规则。若随机采样，应报告固定和多种子的行为，不能只挑最好的输出。</p>
+<p>可将“生成结果参与参考”与“仅显示增强、参考仍用确定性重建”作为结构问题；这需要模型/训练支持和真实闭环，推理时随意替换会改变后续分布。另一个有价值问题是场景切换时复用生成缓存是否带来旧纹理残留。必须与自然切换、输入本身变化区分，配合时间窗口观察。</p>
+<p>目前更合适的是补齐评价协议及最小可运行模型的代码核查，再做短片段实验；不直接训练大扩散模型，也不将生成式路线宣布为失真编码的普遍替代品。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

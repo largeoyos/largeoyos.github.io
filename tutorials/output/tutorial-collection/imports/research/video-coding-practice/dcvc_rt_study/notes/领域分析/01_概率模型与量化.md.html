@@ -1,0 +1,71 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01 概率模型与量化：决定丢什么，以及剩下的信息怎样写成比特</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/01_概率模型与量化.md · <a href="01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md">原始 Markdown</a></p><h1 id="01">01 概率模型与量化：决定丢什么，以及剩下的信息怎样写成比特</h1>
+<p>2026-10-19。本文是方法推导与原论文核读。论文数字均为作者结果；未运行新模型。页码指本地 PDF 页码。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。</p>
+<h2 id="_1">两个模块解决不同问题</h2>
+<p>变换把图像变成适合压缩的潜变量，量化选择哪些差异可以舍弃，熵编码再无损地传输量化后的离散符号。即使概率模型错误，正确配对的熵编解码器也应恢复相同的符号；通常损失的是码率。若两端使用不同 CDF，则会破坏解码正确性，是另一类问题。</p>
+<p>用一个统一的示意记法，令步长为 Δ、中心为 μ：</p>
+<p><code>k = round((y−μ)/Δ)</code>，<code>ŷ = μ+Δk</code>。</p>
+<p>这不是说所有实现都按这个顺序执行。部分模型把缩放放进特征网络，部分采用均值中心化，部分先量化再预测分布。必须核实具体计算图。离散概率来自密度在量化区间上的积分，例如：</p>
+<p><code>P(k|μ,σ,Δ) = Φ((μ+(k+½)Δ−m)/σ) − Φ((μ+(k−½)Δ−m)/σ)</code>，</p>
+<p>其中 m 是原连续变量的高斯均值；若以 μ=m 为中心编码残差，可化为零中心形式。直接将高斯密度值当概率质量会计错码率。</p>
+<p>训练常用均匀噪声近似量化，或用实际取整前向加替代梯度。噪声解决可微性，不能证明最终整数码流达到同样 RD。SSF 还区分了用于熵估计的噪声与用于向后续网络传播的直通量化。<a href="https://arxiv.org/pdf/1802.01436v1">Hyperprior</a>第 3–5 页；<a href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Agustsson_Scale-Space_Flow_for_End-to-End_Optimized_Video_Compression_CVPR_2020_paper.pdf">SSF</a>第 5 页。</p>
+<h2 id="_2">更好概率的收益从哪里来</h2>
+<p>对于离散真实分布 p 和模型 q，理论平均码长满足：</p>
+<p><code>E_p[−log₂q] = H(p) + D_KL(p||q)</code>。</p>
+<p>第一项是表示本身的不确定性，第二项是预测失配。增大网络可能降低第二项，也可能通过联合训练改变第一项；因此换模型后的总比特差不能全部解释成“概率估计更准确”。真实文件还包含有限精度 CDF、码流终止和头信息。</p>
+<p>超先验把描述当前内容的 <code>ẑ</code> 先传过去，再预测 <code>ŷ</code> 的分布。正确目标是 <code>R_z+R_y</code>。在其他条件固定时，只有主潜变量节省超过侧信息开销，新增先验才在码率上合算。时域先验由已解码历史生成，不需要重复发送同一历史，但仍付出缓存、运算和依赖成本。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解码时可用条件</th>
+<th>为什么这样设计</th>
+<th>主要代价/边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scale hyperprior</td>
+<td>先解码的 ẑ</td>
+<td>描述局部尺度变化，缓解纹理/边缘处的统计依赖</td>
+<td>ẑ 也占比特；原版预测零均值高斯尺度</td>
+</tr>
+<tr>
+<td>Joint AR+Hyperprior</td>
+<td>ẑ、已解码空间邻域</td>
+<td>预测均值和尺度，利用邻域的剩余相关性</td>
+<td>掩码保证因果性；空间逐位置依赖限制并行</td>
+</tr>
+<tr>
+<td>ELIC</td>
+<td>ẑ、前面通道组、组内棋盘锚点</td>
+<td>少量早期通道承载有用信息，后面大组并行</td>
+<td>五通道组结合两步棋盘后是十组依赖</td>
+</tr>
+<tr>
+<td>HEM</td>
+<td>ẑ、时间上下文、前帧潜变量、当前已解码组</td>
+<td>特征域与潜变量域的时间先验互补</td>
+<td>维护额外潜变量历史；量化也与先验耦合</td>
+</tr>
+<tr>
+<td>CGT</td>
+<td>压缩后的时间上下文、已解码位置</td>
+<td>把有限注意力与解码顺序用在有价值的位置</td>
+<td>顺序选择和注意力本身耗时；并非免费改善</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://papers.nips.cc/paper_files/paper/2018/file/53edebc543333dfbf7c5933af792c9c4-Paper.pdf">联合先验</a>第 3–4 页明确要求上下文只能访问已解码符号，参数融合用逐位置操作避免偷看后续位置。训练时能并行计算掩码卷积，不代表推理解码也能同时获得所有输入。</p>
+<h2 id="_3">分组和量化是联合设计</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2022/papers/He_ELIC_Efficient_Learned_Image_Compression_With_Unevenly_Grouped_Space-Channel_Contextual_CVPR_2022_paper.pdf">ELIC</a>第 3–4 页把通道划为 <code>16、16、32、64、M−128</code>。作者观察到较早组承载较多信息，因此前面细分、后面合并，减少不必要的跨组串行。<strong>这是一种训练后的信息组织现象，不是通道天然按频率排序的数学定律。</strong>其完整 SCCTX 在默认棋盘结构下有十组；“五次”只描述通道划分这一层。</p>
+<p><a href="https://arxiv.org/pdf/2207.05894v1">HEM</a>第 4–5 页把通道分两半：第一步分别编码第一半偶位置、第二半奇位置；第二步编码互补位置。这样后续位置可同时利用空间与通道信息。它的量化步长有三部分：全局值用于用户选择工作点，通道值调配特征容量，空间通道值随内容变化。预测的细粒度步长必须在相应符号解码前可得，不能只在编码端查看原图。</p>
+<p>“支持可变码率”还不等于“能准确控制每秒目标比特”。量化索引到实际码率受内容影响；严格码率控制还需要预算分配、缓冲模型与反馈。不要将固定 QP 的 RD 实验称为恒定码率测试。</p>
+<h2 id="rtuf">和 RT、UF 的联系</h2>
+<p>RT 的 P 帧先验使用两阶段结构，重点减少交替执行。UF 的某些配置进一步把尺度与均值的依赖拆开：先获得尺度并熵解码零中心整数残差，之后逐组补均值。均值仍影响编码端残差、后续上下文和重建。</p>
+<p>在已核查的固定源码中，UF HT-S/LD 可集中处理主潜变量熵解码；HT-L 仍有逐组尺度更新与四次主潜变量交互。不能把论文的简化示意图套给全部配置，详见<a href="../UF_%E5%88%86%E5%9D%97%E5%90%9E%E5%90%90%E4%B8%8E%E7%86%B5%E8%A7%A3%E7%A0%81%E7%B2%BE%E8%AF%BB.md.html">源码分支笔记</a>。</p>
+<h2 id="_4">可证伪的问题与实验</h2>
+<p><strong>问题：参考变差时，增加的比特主要来自表示变复杂，还是概率失配？</strong>可先记录各组符号、尺度、估计码长与实际载荷，按稳定段/切换段比较。符号直方图和大尺度比例只给描述性证据，不能直接测得高维条件 KL。若要隔离概率模型，应固定同一组符号和解码可用条件再比较不同 PMF；若改变 μ 导致量化符号变化，就不再是纯 PMF 对照。</p>
+<p><strong>问题：更多依赖步骤是否值得？</strong>同硬件、同训练预算比较分组方案，联合报告 RD、PMF 时间、熵解码时间、同步等待与完整帧时延。现成 ELIC/RT/CGT 的论文速度不能当这一消融，因为网络、设备和任务都不同。</p>
+<p>本项目优先做只读符号统计，再决定是否值得重训概率模型。既有几何与依赖核查见<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">熵调度报告</span>；当前没有新概率模型性能结论。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-rewire-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-rewire-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-gates-as-inverters">
+<div class="viz-controls">
+<label class="form-label">习题 3.3 · 原来的门
+      <select class="form-select" data-kind=""><option value="nand">与非门</option><option value="nor">或非门</option><option value="xor">异或门</option></select>
+</label>
+<label class="form-label">第二个输入端
+      <select class="form-select" data-wiring=""><option value="1">接逻辑 1</option><option value="0">接逻辑 0</option><option value="a">与 A 并接</option></select>
+</label>
+<button aria-pressed="false" class="btn" data-a="" type="button">A = 0</button>
+</div>
+<svg aria-label="与非、或非、异或门改接反相器的电路" class="de-circuit" data-inverter="true" data-output="1" role="img" viewbox="0 0 708 222"><title>门改接反相器</title><desc>采用标准矩形逻辑符号，与符号加输出圆圈表示与非门，大于等于一加输出圆圈表示或非门，等于一表示二输入异或门。第二个输入可以接固定逻辑电平，或者与第一个输入并接。逐个检查 A 为零和一时的输出，判断能否得到 A 的反相。</desc><path class="wire" d="M 12 85 H 320"></path><text text-anchor="start" x="12" y="69">A = 0</text><path class="wire high" d="M 12 131 H 320"></path><text text-anchor="start" x="12" y="157">逻辑 1</text><rect fill="none" height="80" stroke="currentColor" stroke-width="1.8" width="68" x="320" y="68"></rect><text text-anchor="middle" x="354" y="113">&amp;</text><circle cx="393" cy="108" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire high" d="M 398 108 H 696"></path><text text-anchor="end" x="692" y="92">Y = 1</text><text class="small" text-anchor="start" x="12" y="207">反相器接法</text></svg>
+<div aria-live="polite" class="text-small" data-status="">两个输入取值都满足：Y 为 A 的反相</div>
+<style>
+    #de-gates-as-inverters .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-gates-as-inverters .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-gates-as-inverters .de-circuit .small{font-size:12px}
+    #de-gates-as-inverters .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-gates-as-inverters .de-circuit .high{stroke:var(--viz-series-1)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("gates-as-inverters");
+
+  (function(){
+    const root=document.getElementById('de-gates-as-inverters'),svg=root.querySelector('svg'),kind=root.querySelector('[data-kind]'),wiring=root.querySelector('[data-wiring]'),button=root.querySelector('[data-a]');let a=0;
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s){if(['nand','nor','xor'].includes(s.kind))kind.value=s.kind;if(['1','0','a'].includes(s.wiring))wiring.value=s.wiring;if(s.a===0||s.a===1)a=s.a;}}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s={kind:kind.value,wiring:wiring.value,a:a};lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,anchor,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,high){return '<path class="wire '+(high?'high':'')+'" d="'+d+'"/>';};
+    function draw(){
+      const k=kind.value,b=wiring.value==='a'?a:+wiring.value,y=k==='nand'?1-(a&b):k==='nor'?1-(a|b):a^b;
+      const works=k==='nand'?(wiring.value==='1'||wiring.value==='a'):k==='nor'?(wiring.value==='0'||wiring.value==='a'):wiring.value==='1';
+      const w=svg.getBoundingClientRect().width||root.clientWidth,x=w/2,left=x-34,right=x+34,cy=108;
+      let out='<title>门改接反相器</title><desc>采用标准矩形逻辑符号，与符号加输出圆圈表示与非门，大于等于一加输出圆圈表示或非门，等于一表示二输入异或门。第二个输入可以接固定逻辑电平，或者与第一个输入并接。逐个检查 A 为零和一时的输出，判断能否得到 A 的反相。</desc>';
+      out+=path('M 12 85 H '+left,a)+text(12,69,'A = '+a);
+      if(wiring.value==='a'){
+        const branch=left-46;out+=path('M '+branch+' 85 V 131 H '+left,a)+'<circle cx="'+branch+'" cy="85" r="3" fill="currentColor"/>';
+        out+=text(12,157,'A = '+a);
+      }else out+=path('M 12 131 H '+left,b)+text(12,157,'逻辑 '+b);
+      out+='<rect x="'+left+'" y="68" width="68" height="80" fill="none" stroke="currentColor" stroke-width="1.8"/>'+text(x,113,k==='nand'?'&amp;':k==='nor'?'≥1':'=1','middle');
+      if(k!=='xor')out+='<circle cx="'+(right+5)+'" cy="'+cy+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+      out+=path('M '+(right+(k==='xor'?0:10))+' '+cy+' H '+(w-12),y)+text(w-16,92,'Y = '+y,'end');
+      out+=text(12,207,works?'反相器接法':'当前接法未实现反相',undefined,true);
+      svg.setAttribute('viewBox','0 0 '+w+' 222');svg.setAttribute('data-output',String(y));svg.setAttribute('data-inverter',String(works));svg.innerHTML=out;
+      button.textContent='A = '+a;button.setAttribute('aria-pressed',String(!!a));
+      root.querySelector('[data-status]').textContent=works?'两个输入取值都满足：Y 为 A 的反相':'需要分别检查 A = 0、A = 1';
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    button.addEventListener('click',function(){a=1-a;draw();save();});
+    for(const el of [kind,wiring])el.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

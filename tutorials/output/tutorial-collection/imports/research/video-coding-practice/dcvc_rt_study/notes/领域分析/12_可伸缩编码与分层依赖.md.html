@@ -1,0 +1,61 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>12｜可伸缩编码与分层依赖：一个码流怎样服务多个接收条件</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/12_可伸缩编码与分层依赖.md · <a href="12_%E5%8F%AF%E4%BC%B8%E7%BC%A9%E7%BC%96%E7%A0%81%E4%B8%8E%E5%88%86%E5%B1%82%E4%BE%9D%E8%B5%96.md">原始 Markdown</a></p><h1 id="12">12｜可伸缩编码与分层依赖：一个码流怎样服务多个接收条件</h1>
+<p>2026-10-19。精读范围主要是 CVPR 2025 的 HDR/LBSVC 方法与实验；LSSVC 仅核查官方仓库入口，尚未获取并细读其论文，不将两者视作同等证据。</p>
+<h2 id="1">1. 多个质量点不等于一个可截断码流</h2>
+<p>可变码率通常指重新编码时可以选择不同工作点。可伸缩编码则要求同一个编码结果具有可解码的子集：基础层独立提供服务，收到某些增强层后获得更高质量、分辨率、帧率或位深。子集必须满足依赖闭包；不能随意删除熵编码字节或任意潜变量就认为形成了可用层。</p>
+<p>设基础层 B、增强层 E。基础服务需 <code>decode(B)</code>；完整服务需 <code>decode(B,E)</code>。收到 E 却缺失其依赖的 B，通常不构成完整服务。分层不一定节省单个最高质量用户的比特，收益可能来自多类用户共享 B，以及避免为每种需求独立传输完整视频。</p>
+<table>
+<thead>
+<tr>
+<th>可伸缩维度</th>
+<th>基础服务</th>
+<th>增强服务</th>
+<th>关键问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>质量</td>
+<td>较粗重建</td>
+<td>更细纹理/更小失真</td>
+<td>增强符号是否依赖缺失层</td>
+</tr>
+<tr>
+<td>空间</td>
+<td>小分辨率</td>
+<td>大分辨率</td>
+<td>上采样、对齐和跨尺度参考</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>较低帧率</td>
+<td>补充中间帧</td>
+<td>时间层是否可安全丢弃、是否需未来帧</td>
+</tr>
+<tr>
+<td>位深/动态范围</td>
+<td>SDR 等基础显示</td>
+<td>HDR 显示</td>
+<td>色彩变换、显示条件、动态范围信息</td>
+</tr>
+</tbody>
+</table>
+<p>随机接入、从低层切到高层、长期只收基础层后重新加入增强层，又是独立要求。若增强层依赖上一帧增强状态，升级可能需要等待刷新或补发状态。</p>
+<h2 id="2-lbsvc">2. LBSVC 的设计理由</h2>
+<p>论文让基础层编码 tone-mapped SDR，使用 DCVC-HEM 类编码；增强层利用已解码基础层的运动、特征和潜变量，以及自身过去的 HDR 状态。这使两层能共享场景结构，而无需各自完全独立描述同一运动。增强层仍需要补足 SDR 映射损失的亮度范围与细节。<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Tian_High_Dynamic_Range_Video_Compression_A_Large-Scale_Benchmark_Dataset_and_CVPR_2025_paper.pdf">HDR/LBSVC，第 5–6 页</a></p>
+<p>其 BEM 模块使用由原始 HDR 统计得到的动态范围先验。因为解码端不能从丢失高动态信息的 SDR 中自动恢复全部统计，该信息需要传输。论文说明 256 个 float32 直方图值被无损编码。<strong>256×32=8192 bit 只是未压缩序列化大小</strong>；实际无损编码字节数和发送频次必须读流或查实现，不能直接当作每帧固定开销，更不能视为免费侧信息。</p>
+<p>这可推广成设计检查：凡是条件来自原图、编码端搜索结果或接收端不持有的模型状态，都要回答“如何让解码端得到”。来自双方已解码基础层的特征可以重算，但代价转为解码计算、存储和依赖，而不是无成本。</p>
+<h2 id="3">3. “位深可伸缩”的边界</h2>
+<p>论文数据保存为 16-bit 浮点 EXR，但增强层实验预处理为 12-bit PQ 域。容器位深、训练域、编码域和原始采集精度是不同概念；不能因此称为 16-bit 无损 HDR 压缩。基础层输出 SDR，也不代表其神经码流能被现有 HEVC/AV1 硬件直接解码。</p>
+<p>实验使用 96 帧、I 周期 32，并在 JVET、HDM 等 HDR 测试内容上评价。PQ 域误差、PU-PSNR/SSIM、HDR-VDP 指标分别侧重不同性质，不能与普通 8-bit Y-PSNR 合并成一个榜单。作者训练约 240 小时、单 RTX 4090 的成本也应视作模型获得的成本之一；本项目没有执行这段训练。<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Tian_High_Dynamic_Range_Video_Compression_A_Large-Scale_Benchmark_Dataset_and_CVPR_2025_paper.pdf">HDR/LBSVC，第 7–8 页</a></p>
+<h2 id="4-rd">4. 怎样做公平的 RD</h2>
+<p>基础层报告 <code>(R_B,D_SDR)</code>；完整 HDR 服务报告 <code>(R_B+R_E+R_side,D_HDR)</code>，其中 R_side 只在尚未包含于 R_B/R_E 时相加，避免重复计数。若参考实现将附加信息写入某层，直接使用最终全部文件大小即可。</p>
+<p>比较两条独立编码链时，应匹配“两种服务都提供”的任务，而不是把分层总码率与仅提供 HDR 的单条码流比较，然后把所有差值解释成分层技术优劣。基础层质量约束也要相同，否则可以牺牲 SDR 端质量来换取看似更好的总体数字。</p>
+<p>还应报告：每层可独立解析性、实际丢弃增强层后的输出、切换到高层的恢复等待、各层解码时间和内存。若采用 BD-rate，先保证每种服务内部指标一致、质量区间相交；不能跨 SDR/HDR 失真空间直接积分。</p>
+<h2 id="5">5. 复现入口与当前限制</h2>
+<p><a href="https://github.com/sdkinda/HDR-Learned-Video-Coding">HDR 官方仓库</a>在本次网页观察中仅见 LICENSE/README，算法实现说明仍指向后续公开。论文中的算法和数据描述已可研究，但“公开项目页面”尚不足以证明可运行 LBSVC。数据规模在论文与网页出现不同快照，见<a href="15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html">领域 15</a>。</p>
+<p><a href="https://github.com/EsakaK/LSSVC">LSSVC 官方仓库</a>有源码、测试入口、权重链接与实际码流选项，依赖说明是较旧的 Python/PyTorch/CUDA 组合。这里确认的是入口存在，未验证权重二进制、编译、论文版本或运行结果。它适合作为空间可伸缩分支的下一项隔离预检候选，不能覆盖已有 RT 环境。</p>
+<h2 id="6">6. 最小可检验问题</h2>
+<p>先定义一个两服务场景，再选择模型：相同短片段、基础层固定质量、四个增强工作点，完整保存各层字节和两类重建。对照独立双流，观察共享结构是否减少<strong>总发送量</strong>。如果代码成熟度不足，暂不训练替代实现来冒称复现。</p>
+<p>与 RT 的交叉问题是“参考刷新和层依赖怎样协同”：接收者只收到基础层后，增强层能否不依赖缺失历史恢复？这需要新的码流协议和状态图，不能仅修改刷新间隔。当前保留为研究问题，尚无本项目实验结果。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

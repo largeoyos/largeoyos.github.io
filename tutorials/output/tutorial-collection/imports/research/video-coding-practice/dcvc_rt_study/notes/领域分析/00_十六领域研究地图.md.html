@@ -1,0 +1,230 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>神经视频编码：十六个领域的研究地图与深入分析</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/00_十六领域研究地图.md · <a href="00_%E5%8D%81%E5%85%AD%E9%A2%86%E5%9F%9F%E7%A0%94%E7%A9%B6%E5%9C%B0%E5%9B%BE.md">原始 Markdown</a></p><h1 id="_1">神经视频编码：十六个领域的研究地图与深入分析</h1>
+<p>2026-10-19，本轮回应“继续扩大范围，深化细致程度”。在<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">原九领域分析</a>上新增七篇专题，补入 13 篇原论文，并把论述推进到目标函数、依赖关系、实际传输内容、计算与等待成本、复现条件和可证伪问题。原九篇保留，新专题通过交叉问题与其连接。</p>
+<p>目前本地库有 <strong>54 篇独立论文，另存 FM 补充材料</strong>。本轮对 13 篇新增论文与 1 篇已有综述选读了 58 个方法/实验/专题文字页，另看过 13 张关键 PDF 页图；不是将下载和全文提取算成全文精读。还核对了 NVC360 固定提交的 10 份源码，并完成四个 CPU 数学示例。没有新增模型训练、真实视频编解码或集群操作。<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">阶段报告</span>与<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">逐篇证据</span>保存了边界。</p>
+<h2 id="1">1. 十六个方向分别研究什么</h2>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th>核心问题</th>
+<th>代表路线与本轮连接</th>
+<th>详细笔记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01 概率模型与量化</td>
+<td>如何减少符号码长与串行依赖</td>
+<td>Hyperprior、AR、ELIC、HEM；连接 UQ 与整数 CDF</td>
+<td><a href="01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html">概率与量化</a></td>
+</tr>
+<tr>
+<td>02 表示与时域参考</td>
+<td>历史信息放在变换、概率还是重建</td>
+<td>DVC/FVC/DCVC/VCT/RT；连接球面位置与任务参考</td>
+<td><a href="02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html">表示与参考</a></td>
+</tr>
+<tr>
+<td>03 实时执行与硬件</td>
+<td>真正的关键路径是什么</td>
+<td>RT/UF/MobileNVC；补入前分析、包装与传输恢复成本</td>
+<td><a href="03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html">执行与硬件</a></td>
+</tr>
+<tr>
+<td>04 参考失效与混合</td>
+<td>什么内容或状态使参考失去帮助</td>
+<td>MaskCRT/UI²C/门控；连接缺包、屏幕更新与长训练</td>
+<td><a href="04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html">参考失效</a></td>
+</tr>
+<tr>
+<td>05 双向与调度</td>
+<td>未来参考收益是否值得等待</td>
+<td>DCVC-B/BiECVC/CANF；连接 NRC 前瞻与无线层级结构</td>
+<td><a href="05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md.html">双向与调度</a></td>
+</tr>
+<tr>
+<td>06 编码端适配</td>
+<td>多花编码时间能买到多少 RD</td>
+<td>DT/OFENH/参数更新；连接 EPA/BAO 的在线优化</td>
+<td><a href="06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html">内容适配</a></td>
+</tr>
+<tr>
+<td>07 隐式表示</td>
+<td>信息存于网络、嵌入还是网格</td>
+<td>NeRV/HiNeRV/C3；补入屏幕先验、跳帧和完整表示计率</td>
+<td><a href="07_%E9%9A%90%E5%BC%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E9%80%90%E5%AE%9E%E4%BE%8B%E5%8E%8B%E7%BC%A9.md.html">隐式表示</a></td>
+</tr>
+<tr>
+<td>08 感知与生成</td>
+<td>自然度、真实性和时间稳定如何权衡</td>
+<td>DiffVC/GNVC/S²VC；连接神经包装与任务正确性</td>
+<td><a href="08_%E6%84%9F%E7%9F%A5%E4%B8%8E%E7%94%9F%E6%88%90%E5%BC%8F%E7%BC%96%E7%A0%81.md.html">感知与生成</a></td>
+</tr>
+<tr>
+<td>09 评价方法</td>
+<td>指标是否真的对应服务目标</td>
+<td>PSNR/BD/LPIPS/FVD；扩展任务、球面、HDR、网络</td>
+<td><a href="09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html">评价边界</a></td>
+</tr>
+<tr>
+<td><strong>10 训练与量化一致性</strong></td>
+<td>训练看见的链和噪声是否对应推理</td>
+<td>EPA、UQ、ELF-VC</td>
+<td><a href="10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html">训练机制</a></td>
+</tr>
+<tr>
+<td><strong>11 目标码率与分配</strong></td>
+<td>能否达到预算，并把比特花对地方</td>
+<td>NRC、BAO、ELF-VC</td>
+<td><a href="11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html">控制与分配</a></td>
+</tr>
+<tr>
+<td><strong>12 可伸缩与分层</strong></td>
+<td>同一码流怎样服务多种需求</td>
+<td>HDR/LBSVC；LSSVC 目前仅代码入口</td>
+<td><a href="12_%E5%8F%AF%E4%BC%B8%E7%BC%A9%E7%BC%96%E7%A0%81%E4%B8%8E%E5%88%86%E5%B1%82%E4%BE%9D%E8%B5%96.md.html">分层依赖</a></td>
+</tr>
+<tr>
+<td><strong>13 网络与联合编码</strong></td>
+<td>数据不完整或带噪时如何按时重建</td>
+<td>GRACE、DeepWiVe v1</td>
+<td><a href="13_%E4%B8%A2%E5%8C%85%E6%81%A2%E5%A4%8D%E4%B8%8E%E8%81%94%E5%90%88%E4%BF%A1%E6%BA%90%E4%BF%A1%E9%81%93%E7%BC%96%E7%A0%81.md.html">网络传输</a></td>
+</tr>
+<tr>
+<td><strong>14 机器视觉</strong></td>
+<td>任务需要的信息与观看需要的信息有何差别</td>
+<td>Task-Aware Encoder Control</td>
+<td><a href="14_%E9%9D%A2%E5%90%91%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E7%9A%84%E7%BC%96%E7%A0%81.md.html">机器任务</a></td>
+</tr>
+<tr>
+<td><strong>15 内容域迁移</strong></td>
+<td>自然视频假设在哪里失效</td>
+<td>HDR、NVC360、LSCD、NeR-SC</td>
+<td><a href="15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html">HDR/屏幕/全景</a></td>
+</tr>
+<tr>
+<td><strong>16 部署与互操作</strong></td>
+<td>码流、数值与服务如何兼容</td>
+<td>Neural Wrapping、NVC360；INTNET 仅官方摘要</td>
+<td><a href="16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md.html">兼容与包装</a></td>
+</tr>
+</tbody>
+</table>
+<p>这是研究问题地图，不是互斥模型分类，也不是整个视频压缩领域的穷尽综述。点云/自由视点、事件相机、医学、分布式编码、隐私安全、能耗与完整标准化测试仍未系统覆盖。机器视觉、可伸缩等新分支目前选读的代表方法也较少，应在选定问题后继续扩展。</p>
+<h2 id="2">2. 从“结构更先进”转向五个明确的设计选择</h2>
+<p><strong>优化什么。</strong>像素保真、感知自然度、任务准确率和按时显示，不是同一个 D。总目标即使都写作 <code>R+λD</code>，R 也可能指估计熵、实际文件 bit 或物理信道使用量。名称相似不保证问题相同。</p>
+<p><strong>信息在哪里。</strong>一帧的内容可能存在当前主潜变量、超潜变量、运动、历史状态、模型参数、增强层或额外统计中。凡是接收端不能从已有条件重算的内容，就需传输或预先约定。计算上可重算的信息仍然要付运行与依赖成本。</p>
+<p><strong>什么时候可用。</strong>双向参考、GoP 分配、任务预分析都可能读取未来帧。基础网络是 P 帧结构，不足以证明整套系统无前瞻。输入等待、网络等待和模型计算必须分列。</p>
+<p><strong>为谁服务。</strong>单个最高质量接收器与同时提供 SDR/HDR 两种服务，比较基线不同；检测器输入与人眼观看，评价不同；球面像素面积与平面像素计数也不同。</p>
+<p><strong>怎样落地。</strong>论文训练代理、浮点前向与实际字节流之间有多层接口。需要最终离散编码、匹配解码、完整计率和固定版本，才能把结构上的推断变成实验事实。</p>
+<h2 id="3">3. 本轮最有价值的认识</h2>
+<p><strong>训练推理一致不是更好 RD 的充分条件。</strong>UQ 将共享抖动量化与均匀加噪联系起来，但其实验也显示去掉差距不一定提高 PSNR。训练优化性质、熵模型和最终失真仍然重要。<a href="https://papers.neurips.cc/paper_files/paper/2020/file/92049debbe566ca5782a3045cf300a3c-Paper.pdf">UQ，第 3–4、7 页</a></p>
+<p><strong>多码率、目标控制和可伸缩是三种能力。</strong>一个模型有多个质量档，不保证达到目标 Mbps；达到整段预算，不保证没有突发队列；重新编码得到多个质量，不等于已有流可以截断成可用层。NRC 的分配还会读取后续帧，控制器本身就有等待条件。<a href="https://proceedings.iclr.cc/paper_files/paper/2024/file/8c1d92835eb4e601f396c97ec60439fe-Paper-Conference.pdf">NRC，第 3–6 页</a></p>
+<p><strong>网络容错需要从潜变量一直做到参考协议。</strong>GRACE 把丢失训练、包独立熵编码和参考重同步结合；只在 RT 字节流里删包，并不能复现这种机制。DeepWiVe 又使用物理信道符号，其带宽比不能和 bpp 直接比较。<a href="https://www.usenix.org/system/files/nsdi24-cheng.pdf">GRACE，第 5–8 页</a>，<a href="https://arxiv.org/pdf/2111.13034v1">DeepWiVe v1，第 3–7 页</a></p>
+<p><strong>域先验往往包含可免费重算的条件，也包含必须付费传输的信息。</strong>NVC360 位置图可由投影与坐标生成，固定实现把它送入超先验和熵模型；HDR 的原始动态范围统计却不能从 SDR 自动得到，论文明确传输相应信息。两者不能都笼统叫“额外条件”。<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">源码审读</span>，<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Tian_High_Dynamic_Range_Video_Compression_A_Large-Scale_Benchmark_Dataset_and_CVPR_2025_paper.pdf">HDR/LBSVC，第 6 页</a></p>
+<p><strong>任务足够好与参考足够好可以分开。</strong>Task-Aware Encoder Control 用 P/Pm 区分两种责任，提醒我们应研究依赖图，而不只统计当前帧清晰度。它仍需任务预分析、特定控制器训练与对应评价。<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Ge_Task-Aware_Encoder_Control_for_Deep_Video_Compression_CVPR_2024_paper.pdf">Task-Aware Encoder Control，第 3–6 页</a></p>
+<p><strong>近似值不能替代机制保证。</strong>本轮四个数学例子分别检查共享抖动、潜变量跳过、代理梯度和离散 CDF。尤其是“潜变量近”不自动保证“重建近”，“代理输出近”不自动保证“梯度近”。这些是逻辑与数值示例，没有冒充模型消融。<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">示例、图和数据</span></p>
+<h2 id="4">4. 比较任何两篇论文前，先对齐这一张表</h2>
+<table>
+<thead>
+<tr>
+<th>轴</th>
+<th>至少写清的条件</th>
+<th>常见错误归因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容与源</td>
+<td>原始文件、帧段、分辨率、色彩、位深、投影</td>
+<td>把色度转换损失算成神经模型问题</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>像素/感知/任务/服务指标；失真域</td>
+<td>用 mAP 或 SSIM-dB 替代 PSNR结论</td>
+</tr>
+<tr>
+<td>码率</td>
+<td>完整流、层、模型更新、头、保护信息</td>
+<td>把估计熵或复数信道符号当文件 bpp</td>
+</tr>
+<tr>
+<td>依赖</td>
+<td>过去/未来/GoP、基础增强、反馈状态</td>
+<td>忽略控制器前瞻，只说 codec 因果</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>训练、在线搜索、预分析、两端运行、等待</td>
+<td>用一次前向 FPS 代表完整编码</td>
+</tr>
+<tr>
+<td>基线</td>
+<td>原版或改版、训练域、编码器搜索与低延迟配置</td>
+<td>把多个同时变化因素归因于一个模块</td>
+</tr>
+<tr>
+<td>统计</td>
+<td>内容留出、原始点、重叠区间、失败/超时</td>
+<td>平均值隐藏不可解码帧或局部文字错误</td>
+</tr>
+</tbody>
+</table>
+<p>这样对齐后仍可能没有“统一第一名”；不同服务约束下存在不同可取方案，这本身就是有用结论。</p>
+<h2 id="5">5. 下一步按信息增量推进</h2>
+<table>
+<thead>
+<tr>
+<th>次序</th>
+<th>有边界的工作</th>
+<th>为什么先做</th>
+<th>当前前置条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>用旧真实流做按内容留出的目标码率校准</td>
+<td>低成本检验固定 QP 映射的泛化，避免先训练控制器</td>
+<td>只读已有数据；方案 Q6，尚未执行</td>
+</tr>
+<tr>
+<td>2</td>
+<td>准备小面积文字/游标/滚动的公开合成屏幕协议</td>
+<td>从自然视频扩到新的失败机制，可利用现有 RT</td>
+<td>需生成并固定源像素；Q8，尚无新流</td>
+</tr>
+<tr>
+<td>3</td>
+<td>保留已有匹配目标帧的场景切换实验</td>
+<td>已有对照和明确因果干预，不必丢弃此前积累</td>
+<td>Q1 两条129帧协议就绪，worker未提交</td>
+</tr>
+<tr>
+<td>4</td>
+<td>NVC360 隔离预检</td>
+<td>新域+固定源码入口，能提供另一条具体系统路线</td>
+<td>I/P权重和运行未验证；不覆盖RT环境</td>
+</tr>
+<tr>
+<td>5</td>
+<td>机器任务、缺包或训练策略分支择一深化</td>
+<td>需要额外模型、标签、收发协议或训练预算</td>
+<td>先完成对应最小前置检查，避免同时启动多个重任务</td>
+</tr>
+</tbody>
+</table>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">新问题 Q6–Q13</span>写明假设、对照、产出与前置条件；<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">原 Q1–Q5</span>保留。协议或候选的存在不等于任务已经运行。进入集群前仍用内置浏览器的 VSCode 集成终端核查现有会话、进程和有效结果，默认单 GPU worker、少量 CPU、超时与可续跑。</p>
+<h2 id="6">6. 证据入口</h2>
+<ul>
+<li><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">本轮研究报告</span>：完成项、未完成项、数字与状态。</li>
+<li><a href="../../experiments/scope_expansion_20261019/%E6%96%87%E7%8C%AE%E7%B4%A2%E5%BC%95.md.html">13篇新增文献索引</a>：原文、本地 PDF、版本和 SHA256。</li>
+<li><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">阅读依据</span>：所读页、视觉检查与原文疑点。</li>
+<li><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">固定源码审读</span>：实际调用链、位置条件、流头与模型标识。</li>
+<li><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">四个数学机制例子</span>：可复算数据与独立图形。</li>
+<li><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">54篇累计清单</span>：44篇方法/实验/专题选读、9篇承接旧深入笔记、1篇初筛；不声称54篇全文精读。</li>
+</ul>
+<p>本轮扩大了研究对象，也明确了哪些差异来自目标、预算和协议。后续通过一个个有匹配对照的小实验，把这些解释变成可检验的模型证据。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

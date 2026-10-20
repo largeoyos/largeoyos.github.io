@@ -1,0 +1,64 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>14｜面向机器视觉的编码：画面清晰和任务正确不是同一个目标</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/14_面向机器视觉的编码.md · <a href="14_%E9%9D%A2%E5%90%91%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89%E7%9A%84%E7%BC%96%E7%A0%81.md">原始 Markdown</a></p><h1 id="14">14｜面向机器视觉的编码：画面清晰和任务正确不是同一个目标</h1>
+<p>2026-10-19。本轮主要分析 CVPR 2024 的 Task-Aware Encoder Control（第 3–6 页），作为该方向的一条具体技术路线；不把一篇论文当作领域全貌。更广的特征传输、分割、三维任务等尚需后续一手文献。</p>
+<h2 id="1">1. 从像素误差到任务损失，优化目标变了什么</h2>
+<p>普通保真压缩常用 <code>R+λD(x,x̂)</code>；机器视觉可采用 <code>R+λL_task(F(x̂),label)</code>，F 是检测、跟踪或分类器。少量高对比边缘可能对识别很重要，大块背景纹理却未必影响任务。相同 PSNR 下，两幅重建的任务准确性可以不同；任务准确性相同，也不保证它们对人同样自然。</p>
+<p>必须先区分两类系统：传输仍可供人观看的重建图像，或者直接传输某个任务网络的特征。后者可能更贴合任务，却改变接收接口、复用能力和模型绑定。Task-Aware Encoder Control 属于调控视频编码的一类，其证据不能覆盖所有 feature coding 方案。</p>
+<h2 id="2">2. 为什么要区分任务展示帧与参考锚帧</h2>
+<p>论文设计常规 P 帧和改动后的 Pm 帧。Pm 可以更激进地节约任务不敏感的信息；后续 P 帧仍参考前一个高质量 P，而不让 Pm 自由污染参考链。这样把“当前帧足以完成任务”和“作为后续预测基础足够可靠”拆开处理。<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Ge_Task-Aware_Encoder_Control_for_Deep_Video_Compression_CVPR_2024_paper.pdf">Task-Aware Encoder Control，第 3–4 页</a></p>
+<p>设计的实质是改变依赖图：被显示/处理的帧可以更多，但承担后续参考责任的帧较少。代价可能是锚帧间隔拉大后运动更难、锚帧本身需要更多比特，以及接收端要识别帧模式。参考质量如何分配因此成为任务优化的一部分。</p>
+<p>论文固定基础解码器的学习参数，并不能仅凭这句话就证明旧版本可执行文件无需改变流语法便能解码。模式识别、参考选择和潜变量还原规则仍要匹配；本轮未做跨版本二进制兼容实验。</p>
+<h2 id="3">3. 潜变量掩码并非所有骨干都采用同一种操作</h2>
+<p>作者利用超先验预测的均值、方差等信息来控制表示，避免只依据原图主观圈定区域。其 TCM 路线会处理运动和内容表示；选读正文对 DCVC/FVC 的 Pm 则描述为掩码运动、并省去整个残差/上下文表示。不能把所有变体概括成“只删一点不重要的背景细节”。<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Ge_Task-Aware_Encoder_Control_for_Deep_Video_Compression_CVPR_2024_paper.pdf">论文，第 4、6 页</a></p>
+<p>自回归概率模型还有额外约束：若一个符号是否发送依赖尚未解码的符号，必须调整编码顺序或提供可解码的控制信息。论文将部分相应结构细节放在补充材料，本轮尚未读其补充，因此不推断完整流格式。</p>
+<p>推理端决策必须只依赖实际可获得的信息。训练用任务标签计算损失可以接受，但上线时不能读取真实检测框或分类答案再选择最优编码，除非它们本来就是约定输入。标签驱动的穷举上限只能作为分析工具。</p>
+<h2 id="4-gop">4. GoP 选择还带来前分析与等待</h2>
+<p>论文先利用检测、RAFT 运动及统计形成 GoP 条件，再通过选择器确定 P/Pm 配置；训练采用 Gumbel-softmax 等可优化机制，推理按预测比例形成分配。不能把它描述成没有前瞻和额外计算的单帧阈值器。<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Ge_Task-Aware_Encoder_Control_for_Deep_Video_Compression_CVPR_2024_paper.pdf">论文，第 5–6 页</a></p>
+<p>这会产生完整成本：编码预分析、任务模型/光流运行、基础编码、模式和流头、解码与任务推理。若基础 codec 的编码 FPS 没有包含选择器，就不能作为整套系统 FPS。GoP 必须先积累多少帧也要计入输入到决策延迟。</p>
+<h2 id="5">5. 正确评价需要两套轴</h2>
+<p>论文在 MOT17、ImageNet VID 和 UCF101 等任务上采用固定任务模型，并有具体缩放与训练/测试分辨率。任务模型冻结有助于减少混杂，但控制器仍可能针对某种任务和数据训练。不能据此声称对任意检测器、类别和分辨率通用。<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Ge_Task-Aware_Encoder_Control_for_Deep_Video_Compression_CVPR_2024_paper.pdf">论文，第 6 页</a></p>
+<table>
+<thead>
+<tr>
+<th>评价轴</th>
+<th>应保存什么</th>
+<th>主要陷阱</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>码率—任务</td>
+<td>实际 bpp 与 MOTA/mAP/Top-1 等对应任务指标</td>
+<td>用 PSNR 改善代替任务改善；混用不同任务定义</td>
+</tr>
+<tr>
+<td>码率—观看</td>
+<td>PSNR/感知指标、局部文本边缘、时间稳定</td>
+<td>任务准确却误导人或损坏可读性</td>
+</tr>
+<tr>
+<td>任务迁移</td>
+<td>未参与控制器训练的检测器/类别/内容</td>
+<td>对一个模型有效就称“语义保留”</td>
+</tr>
+<tr>
+<td>系统成本</td>
+<td>编码控制、任务预分析、两端计算和等待</td>
+<td>漏算编码端已运行的一套视觉模型</td>
+</tr>
+<tr>
+<td>失败分布</td>
+<td>小目标、遮挡、快速运动、低照度分别统计</td>
+<td>平均准确率掩盖关键子组失败</td>
+</tr>
+</tbody>
+</table>
+<p>RD 积分也需要先确认指标有合理的单调重叠区间。分类准确率常平台化，跟踪指标可能非单调；盲目套用四点 PSNR 式 BD-rate 会掩盖曲线形状。先给原始点和误差范围，再决定是否积分。</p>
+<h2 id="6">6. 接到本项目时怎样避免一开始就做大工程</h2>
+<p>第一步可以是评价扩展，而非立刻训练任务感知 codec。选一个有明确授权、公开标注的小型片段，固定一个任务模型和预处理，把原图与已有多个码率的重建送入同一模型，比较任务退化和像素退化是否同步。原始视频必须同样运行模型；标注、时间索引、缩放与解码帧对应关系要一致。</p>
+<p>这一实验只能回答“现有压缩如何影响固定任务”，不能证明已有 RT 优化了机器任务。若没有可用标注，OCR 文本正确率等也须先明确真值；不能拿模型自己的输出当唯一真值，再将其一致性叫准确率。</p>
+<p>第二步才是控制改造：在相同真实发送预算下，比较固定参考结构与任务感知的 P/Pm 分配，记录锚帧成本及跨检测器迁移。若收益只出现在参与训练的视觉模型，应将其解释成模型特定适配，而非通用语义压缩。</p>
+<h2 id="7">7. 可研究的联系</h2>
+<p>与领域 04 的参考失效相连：被任务掩码后的参考是否在未关注目标出现时失效？与领域 11 的预算分配相连：比特应分给当前可见对象，还是分给后续需要的锚帧？与领域 08 的生成式重建相连：更自然的幻觉纹理会改善或损害检测、跟踪和内容真实性？</p>
+<p>这些问题有现有先行方法，当前工作是明确实验条件和可证伪预期，尚不主张算法新颖性。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

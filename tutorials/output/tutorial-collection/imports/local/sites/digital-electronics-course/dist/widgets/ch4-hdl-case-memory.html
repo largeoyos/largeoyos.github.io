@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch4-hdl-case-memory")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch4-hdl-case-memory",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch4-hdl-case-memory">
+<div class="viz-controls">
+<label class="form-label">sel[1:0]<select class="form-select" data-sel=""><option value="0">00</option><option value="1">01</option><option value="2">10</option><option value="3">11</option></select></label>
+<label class="form-check"><input class="form-check-input" data-missing="" type="checkbox"/><span class="form-check-label">漏写 11 分支，且没有默认赋值</span></label>
+</div>
+<div class="viz-row" data-inputs=""></div>
+<svg aria-label="完整四选一选择器与漏写分支后推断锁存器的对比" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch4-hdl-case-memory svg{display:block;width:100%;color:var(--foreground)}
+    #ch4-hdl-case-memory svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch4-hdl-case-memory svg .small{font-size:12px}
+    #ch4-hdl-case-memory .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch4-hdl-case-memory .active{stroke:var(--viz-series-1);stroke-width:2.4}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch4-hdl-case-memory'),svg=root.querySelector('svg');let s={data:10,sel:0,missing:false,held:0};
+    const text=(x,y,v,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${v}</text>`;
+    const wire=(d,on=false)=>`<path class="wire${on?' active':''}" d="${d}"/>`;
+    const box=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    root.querySelector('[data-inputs]').innerHTML=Array.from({length:4},(_,i)=>`<button class="btn" type="button" data-bit="${i}">D${i}</button>`).join('');
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;if(Number.isInteger(v.data)&&v.data>=0&&v.data<16)s.data=v.data;if(Number.isInteger(v.sel)&&v.sel>=0&&v.sel<4)s.sel=v.sel;if(typeof v.missing==='boolean')s.missing=v.missing;if(v.held===0||v.held===1)s.held=v.held;}
+    function settle(){if(!s.missing||s.sel!==3)s.held=s.data>>s.sel&1;}
+    function draw(){
+      const w=svg.clientWidth||320,left=110,right=w-110,top=47,bottom=231,oy=132,enabled=!(s.missing&&s.sel===3),latchX=w-68;
+      let o='<title>case 分支与组合逻辑</title><desc>完整 case 的四个地址都赋值，形成普通四选一组合电路。漏写地址十一且无默认赋值时，输出在该地址保持之前的值，对应带使能锁存器的行为。图中使用功能框图表达综合得到的存储行为。</desc>';
+      o+=text(w/2,20,s.missing?'漏分支：需要保存旧值':'完整分支：组合选择','middle')+box(left,top,right-left,bottom-top);
+      for(let i=0;i<4;i++){
+        const y=72+i*42,value=s.data>>i&1;
+        o+=text(8,y-9,'D'+i+'='+value,'start',true);
+        if(s.missing&&i===3)o+=text(8,y+12,'未使用','start',true);
+        else o+=wire(`M 8 ${y} H ${left}`,enabled&&s.sel===i)+text(left+7,y-9,i.toString(2).padStart(2,'0'),'start',true);
+      }
+      if(enabled)o+=wire(`M ${left} ${72+s.sel*42} H ${right-16} V ${oy} H ${right}`,true);
+      o+=text((left+right)/2,bottom+33,'sel='+s.sel.toString(2).padStart(2,'0'),'middle',true)+wire(`M ${(left+right)/2} ${bottom} V ${bottom+17}`);
+      if(s.missing){
+        o+=wire(`M ${right} ${oy} H ${latchX}`,enabled)+box(latchX,107,54,50)+text(latchX+27,126,'锁存','middle',true)+text(latchX+27,146,'D / Q','middle',true)+wire(`M ${latchX+54} ${oy} H ${w-8}`)+wire(`M ${latchX+27} 157 V 205`)+text(latchX+27,226,'EN='+ +enabled,'middle',true);
+      }else o+=wire(`M ${right} ${oy} H ${w-8}`,true);
+      o+=text(w-8,oy-(s.missing?35:12),'Y='+s.held,'end',true);
+      svg.setAttribute('viewBox',`0 0 ${w} 290`);svg.innerHTML=o;svg.dataset.output=s.held;svg.dataset.holding=+!enabled;
+      root.querySelector('[data-sel]').value=s.sel;root.querySelector('[data-missing]').checked=s.missing;
+      root.querySelectorAll('[data-bit]').forEach(b=>{const i=+b.dataset.bit,v=s.data>>i&1;b.textContent='D'+i+' = '+v;b.setAttribute('aria-pressed',!!v);});
+      root.querySelector('[data-status]').textContent=!enabled?'sel=11：没有赋新值，Y 保持为 '+s.held:'sel='+s.sel.toString(2).padStart(2,'0')+'：Y 取 D'+s.sel+'，当前为 '+s.held;
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,example:'完整case与漏分支'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);settle();
+    root.querySelector('[data-sel]').onchange=e=>{s.sel=+e.target.value;settle();draw();save();};root.querySelector('[data-missing]').onchange=e=>{s.missing=e.target.checked;settle();draw();save();};
+    root.querySelectorAll('[data-bit]').forEach(b=>b.onclick=()=>{s.data^=1<<+b.dataset.bit;settle();draw();save();});
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);settle();draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

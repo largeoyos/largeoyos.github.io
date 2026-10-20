@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch4-comparator-two-stage")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch4-comparator-two-stage",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch4-comparator-two-stage">
+<div class="viz-controls">
+<label class="form-label">M（0～16777215）<input class="form-control" data-m="" max="16777215" min="0" type="number" value="524288"/></label>
+<label class="form-label">N（0～16777215）<input class="form-control" data-n="" max="16777215" min="0" type="number" value="0"/></label>
+<label class="form-label">接线视图<select class="form-select" data-view=""><option value="overview">六片组成两级</option><option value="detail">第①片：第 5 位怎样接入</option></select></label>
+</div>
+<svg aria-label="题4.30六片74LS85组成两级24位比较器" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch4-comparator-two-stage svg{display:block;width:100%;color:var(--foreground)}
+    #ch4-comparator-two-stage svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch4-comparator-two-stage svg .small{font-size:12px}
+    #ch4-comparator-two-stage .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch4-comparator-two-stage .active{stroke:var(--viz-series-1);stroke-width:2.4}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch4-comparator-two-stage'),svg=root.querySelector('svg'),MAX=16777215;
+    let s={m:524288,n:0,view:'overview'};
+    const esc=v=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    const text=(x,y,v,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${esc(v)}</text>`;
+    const wire=(d,active=false)=>`<path class="wire${active?' active':''}" d="${d}"/>`;
+    const box=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    const bin=(n,k=4)=>n.toString(2).padStart(k,'0');
+    function cmp85(a,b,ig,ie,il){
+      if(a>b)return [1,0,0];if(a<b)return [0,0,1];
+      if(ie)return [0,1,0];return [1-il,0,1-ig];
+    }
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;
+      for(const k of ['m','n'])if(Number.isInteger(v[k])&&v[k]>=0&&v[k]<=MAX)s[k]=v[k];
+      if(['overview','detail'].includes(v.view))s.view=v.view;
+    }
+    function model(){
+      const g=[];let a=0,b=0;
+      for(let i=0;i<4;i++){
+        const low=19-i*5,ma=s.m>>low&31,nb=s.n>>low&31;
+        const out=cmp85(ma>>1,nb>>1,ma&1,0,nb&1);
+        g.push({low,ma,nb,out});a|=out[0]<<(3-i);b|=out[2]<<(3-i);
+      }
+      const low=cmp85(s.m&15,s.n&15,0,1,0);g.push({low:0,ma:s.m&15,nb:s.n&15,out:low});
+      const out=cmp85(a,b,low[0],low[1],low[2]);
+      return {g,a,b,out,relation:out[0]?'>':out[2]?'<':'=',deciding:g.findIndex(q=>q.ma!==q.nb)};
+    }
+    function draw(){
+      const w=svg.clientWidth||320,m=w/2,z=model();let o='<title>两级24位比较器</title><desc>第一级五片同时工作，分别处理最高五位、接下来三组五位以及最低四位。前四片的大于和小于输出分别接最后一片的四对数值输入，最低组的三个结果接最后一片的三个级联输入。第一级的相等输出不用于前四组。</desc>',h;
+      if(s.view==='overview'){
+        h=680;const bw=w>=500?240:134,fw=w>=500?190:106,x=8,fx=w-8-fw;
+        o+=text(x+bw/2,20,'第 1 级 · 五片并行','middle',true)+text(fx+fw/2,20,'第 2 级','middle',true)+box(fx,40,fw,515);
+        for(let i=0;i<5;i++){
+          const y=40+i*105,q=z.g[i],range=i<4?`${q.low+4}:${q.low}`:'3:0',mid=(x+bw+fx)/2;
+          o+=box(x,y,bw,80)+text(x+bw/2,y+20,`第${i+1}片 · M,N[${range}]`,'middle',true)+text(x+bw/2,y+47,'74LS85','middle')+text(x+bw/2,y+69,i<4?'5 位组':'4 位组','middle',true);
+          if(i<4){
+            for(const [k,dy,pin,v]of [['G',30,'A'+(3-i),q.out[0]],['L',61,'B'+(3-i),q.out[2]]])
+              o+=wire(`M ${x+bw} ${y+dy} H ${fx}`,i===z.deciding)+text(mid,y+dy-8,k+'='+v,'middle',true)+text(fx+7,y+dy+4,pin,'start',true);
+          }else{
+            for(const [j,k,dy]of [[0,'>',18],[1,'=',44],[2,'<',70]])
+              o+=wire(`M ${x+bw} ${y+dy} H ${fx}`,i===z.deciding)+text(mid,y+dy-8,'Y'+k+'='+q.out[j],'middle',true)+text(fx+7,y+dy+4,'I'+k,'start',true);
+          }
+        }
+        o+=text(fx+fw/2,450,'第⑥片 74LS85','middle',true);
+        for(let i=0;i<3;i++){const xx=fx+fw*(i+0.5)/3;o+=wire(`M ${xx} 555 V 580`)+text(xx,601,['G','E','L'][i]+'='+z.out[i],'middle',true);}
+        o+=text(m,632,'M '+z.relation+' N','middle')+text(m,659,'2 级 · 题设延迟上界 90 ns','middle',true);
+      }else{
+        h=421;const x=m-50,r=x+120,q=z.g[0],ma=q.ma>>1,nb=q.nb>>1;
+        o+=text(m,20,'第①片 · 最高 5 位','middle')+box(x,40,120,272)+text(x+60,145,'74LS85','middle');
+        const inputs=[['M高4位='+bin(ma),70,'A'],['N高4位='+bin(nb),107,'B'],['n₁₉='+ (q.nb&1),190,'I<'],['0',230,'I='],['m₁₉='+ (q.ma&1),270,'I>']];
+        for(const [name,y,pin]of inputs)o+=text(8,y-12,name,'start',true)+wire(`M 8 ${y} H ${x}`)+text(x+6,y+4,pin,'start',true);
+        for(const [j,y,name]of [[0,100,'G'],[1,180,'E'],[2,260,'L']])
+          o+=text(r-6,y+4,'Y'+['>','=','<'][j],'end',true)+wire(`M ${r} ${y} H ${w-8}`)+text(w-8,y-12,name+'='+q.out[j],'end',true);
+        o+=text(m,343,'送往⑥：A₃=G='+q.out[0]+' · B₃=L='+q.out[2],'middle',true)+text(m,371,q.ma===q.nb?'本组相等：送出的两位相等':`本组比较：${bin(q.ma,5)} ${q.ma>q.nb?'>':'<'} ${bin(q.nb,5)}`,'middle',true)+text(m,399,'E 不接入第⑥片','middle',true);
+      }
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=o;
+      svg.dataset.relation=z.relation;svg.dataset.groups=JSON.stringify(z.g);svg.dataset.encodedA=z.a;svg.dataset.encodedB=z.b;
+      root.querySelector('[data-status]').textContent=z.deciding<0?'所有组都相等 · 最终 E=1':`从最高组起，第 ${z.deciding+1} 组决定大小 · M ${z.relation} N`;
+      root.querySelector('[data-m]').value=s.m;root.querySelector('[data-n]').value=s.n;root.querySelector('[data-view]').value=s.view;
+    }
+    function save(){const z=model();window.openai?.setWidgetState({modelContent:{...s,exercise:'4.30',relation:z.relation},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);
+    for(const k of ['m','n'])root.querySelector('[data-'+k+']').onchange=e=>{const n=Number(e.target.value);if(Number.isFinite(n))s[k]=Math.max(0,Math.min(MAX,Math.trunc(n)));draw();save();};
+    root.querySelector('[data-view]').onchange=e=>{s.view=e.target.value;draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

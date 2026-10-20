@@ -1,0 +1,68 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>07 隐式表示与逐实例压缩：信息可以存进网络，也可以存进网格</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/07_隐式表示与逐实例压缩.md · <a href="07_%E9%9A%90%E5%BC%8F%E8%A1%A8%E7%A4%BA%E4%B8%8E%E9%80%90%E5%AE%9E%E4%BE%8B%E5%8E%8B%E7%BC%A9.md">原始 Markdown</a></p><h1 id="07">07 隐式表示与逐实例压缩：信息可以存进网络，也可以存进网格</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。本轮补读 NeRV、HNeRV、HiNeRV 方法和压缩流程，C3/GIViC 承接上一轮关键章节阅读。</p>
+<h2 id="_1">从共享模型到内容本身的表示</h2>
+<p>普通共享编解码器把视频写进潜变量，模型对许多视频复用；逐实例表示则允许把当前视频的一部分信息写入网络参数。解码器不再只回答“怎样还原一般视频”，它自身也成为当前视频的数据。</p>
+<p>最简单的 NeRV 形式是 <code>x̂_t=f_θ(PE(t))</code>：输入时间位置，输出整帧。编码是拟合 θ，解码是用量化后 θ 做前向。时间坐标是已知索引，不是免费携带视频内容的信号；内容主要来自发送的参数。</p>
+<p>因此可以建立统一账本：</p>
+<p><code>B_total = B_参数 + B_嵌入/网格 + B_内容潜变量 + B_熵模型参数 + B_格式元数据</code>。</p>
+<p>各项是否为零取决于方法。不能把所有 INR 都叫作“只传一个小网络”，也不能漏记压缩网格、稀疏索引或量化参数。</p>
+<h2 id="_2">各种表示如何分配容量</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>主要内容载体</th>
+<th>设计动机</th>
+<th>解码/访问约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NeRV</td>
+<td>视频专属网络参数</td>
+<td>从逐像素 MLP 改为整帧卷积生成，提高并行性</td>
+<td>参数先恢复；整帧输出未必适合只请求小区域</td>
+</tr>
+<tr>
+<td>HNeRV</td>
+<td>网络参数 + 每帧小嵌入</td>
+<td>让内容自适应输入减轻纯坐标映射的拟合压力</td>
+<td>两类信息都计码率</td>
+</tr>
+<tr>
+<td>HiNeRV</td>
+<td>网络 + 多尺度时空/局部网格</td>
+<td>用廉价插值与层次编码改善参数效率</td>
+<td>patch 边界要有足够重叠；访问能力仍受文件组织影响</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>小合成网络、熵网络、多尺度潜变量</td>
+<td>将模型和潜变量共同优化到当前块</td>
+<td>潜变量有熵解码依赖；每块都需拟合</td>
+</tr>
+<tr>
+<td>GIViC</td>
+<td>共享网络 + 分层潜变量适配</td>
+<td>结合共享先验和逐 GOP 优化，使用隐式扩散结构</td>
+<td>RA/GOP 依赖与拟合时间；不能视为纯权重表示</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nerv-hnerv">NeRV 到 HNeRV：输入、参数分布和码率口径一起变化</h2>
+<p><a href="https://papers.nips.cc/paper_files/paper/2021/file/b44182379bf9fae976e6ae5996e13cd8-Paper.pdf">NeRV</a>第 4–5 页用位置编码、MLP 和带 PixelShuffle 的卷积块从时间索引生成图像；拟合后进行剪枝、微调、后量化和 Huffman 编码。主结果训练到 1500 epochs，这已经说明“解码只有一次前向”没有覆盖完整编码成本。</p>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Chen_HNeRV_A_Hybrid_Neural_Representation_for_Videos_CVPR_2023_paper.pdf">HNeRV</a>第 3–4 页用编码器生成很小的逐帧嵌入，同时让较后层拥有更多参数，减轻原 NeRV 参数过于集中在早期低分辨率层的问题。本文明确写出总大小等于嵌入大小加解码器大小。</p>
+<p>HNeRV 第 4 页还指出其认为 NeRV 原比较遗漏稀疏权重位置映射。这里记录为<strong>后续论文对前作码率核算的质疑</strong>；本轮未审计原 NeRV 实际码流，不能直接断言所有实现均有此缺陷。对我们自己的实验，解决办法是实际保存并重新加载完整表示，统计所有必要字节，而非用非零参数数乘位宽代替文件大小。</p>
+<h2 id="hinerv">HiNeRV 为什么使用插值和层次网格</h2>
+<p><a href="https://papers.nips.cc/paper_files/paper/2023/file/e5dc475c370ff42f2f96dddf8191a40c-Paper-Conference.pdf">HiNeRV</a>第 4–6 页认为子像素卷积的权重随上采样倍率平方增长。改用双线性插值省下参数，再注入局部位置与多时间分辨率网格，补偿插值的平滑。这样把预算用于更有表达力的变换和内容表示。</p>
+<p>局部网格使用相对上采样位置，避免为高分辨率的每个全局位置都存同样大的编码。它不是完全没有可学习的位置内容，而是通过结构共享控制大小。</p>
+<p>为了让按块训练/解码与整帧方式一致，HiNeRV 使用带重叠的中间 patch，最后裁出有效区。重叠长度与卷积、插值感受野有关；随意分块会产生边界缺失和接缝。第 6–7 页还引入分层加权剪枝、量化感知训练。表示架构与压缩流程都发生变化，不能把全部 RD 收益只归为网格。</p>
+<h2 id="c3-givic">C3 与 GIViC 把“隐式”和“显式”重新组合</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Kim_C3_High-Performance_and_Low-Complexity_Neural_Compression_from_a_Single_Image_CVPR_2024_paper.pdf">C3</a>第 2–5、7–8 页在每个内容块上拟合小合成网络、概率网络和多分辨率潜变量，并量化、编码这些对象。其视频潜变量采用三维因果上下文，低网络 MAC 之外仍有范围解码和串行依赖。论文列出最大视频块每 1000 次迭代约 457 秒、最多 110k 次迭代；这决定了应先做极小预算实验，而非直接启动完整 UVG 拟合。</p>
+<p><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Gao_GIViC_Generative_Implicit_Video_Compression_ICCV_2025_paper.pdf">GIViC</a>第 3–7 页则由共享编码器初始化潜变量，逐 GOP 优化潜变量，其余模型固定。它含扩散和 MSE 后验引导，不能因标题含 Generative 就归为只重感知的模型。作者 RA/GOP32 的设置与低延迟 RT 不同；表中逐实例方法编码 FPS 只计一次前后向，而正文 1080p/32 帧 GOP 拟合约 1.78 小时，必须一起阅读。</p>
+<h2 id="_3">什么时候这条路线值得做</h2>
+<p>如果视频被观看很多次，昂贵编码可以被许多次低成本解码摊销；对于直播或新视频快速上传，拟合时间可能直接不合适。但“适合归档”仍需验证大视频分段、随机访问、模型载入时间、峰值内存和设备兼容。</p>
+<p>若模型前向不递归依赖前帧，参数解码完成后某帧可能独立生成；这不自动保证码流随机访问，也不适用于含因果潜变量熵模型或分层 GOP 的全部 INR 方法。表示依赖、熵依赖、文件索引是三层问题。</p>
+<p>最小实验应固定小视频块和总墙钟预算，记录拟合过程、量化前后质量、最终完整文件大小、独立重载解码和端到端时间。改变块长时同时观察参数摊销与运动复杂度，不能在不同训练时长下只比最终 PSNR。当前没有运行新 INR，也没有验证所有作者检查点。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

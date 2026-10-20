@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-sr-latch-feedback")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-sr-latch-feedback",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-sr-latch-feedback">
+<div class="viz-controls">
+<label class="form-label">电路<select class="form-select" data-type=""><option value="nor">或非门：高电平有效</option><option value="nand">与非门：低电平有效</option></select></label>
+<label class="form-label">初始存储状态<select class="form-select" data-initial=""><option value="0">已知 Q=0</option><option value="1">已知 Q=1</option><option value="unknown">初态未给出</option></select></label>
+</div>
+<div class="viz-row"><button class="btn" data-s="" type="button">S</button><button class="btn" data-r="" type="button">R</button><button class="btn" data-hold="" type="button">两输入同时回到保持电平</button></div>
+<svg aria-label="SR锁存器交叉反馈接线与逻辑符号" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-sr-latch-feedback svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-sr-latch-feedback svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch5-sr-latch-feedback svg .small{font-size:12px}
+    #ch5-sr-latch-feedback .wire{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round}
+    #ch5-sr-latch-feedback .high{stroke:var(--viz-series-1);stroke-width:2.4}
+    #ch5-sr-latch-feedback .unknown{stroke-dasharray:4 3}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-sr-latch-feedback'),svg=root.querySelector('svg');
+    let s={type:'nor',initial:0,sp:0,rp:0,q:0,qb:1,action:'保持'};
+    const text=(x,y,v,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${v}</text>`;
+    const wire=(d,v)=>`<path class="wire${v===1?' high':v===null?' unknown':''}" d="${d}"/>`;
+    const box=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    const val=v=>v===null?'?':v;
+    function settle(){
+      const set=s.type==='nor'?s.sp===1:s.sp===0,reset=s.type==='nor'?s.rp===1:s.rp===0;
+      if(set&&reset){s.q=s.qb=s.type==='nor'?0:1;s.action='禁态';}
+      else if(set){s.q=1;s.qb=0;s.action='置 1';}
+      else if(reset){s.q=0;s.qb=1;s.action='置 0';}
+      else if(s.q!==null&&s.qb!==null&&s.q!==s.qb)s.action='保持';
+      else{s.q=s.qb=null;s.action='状态不能确定';}
+    }
+    function initialize(){s.sp=s.rp=s.type==='nor'?0:1;s.q=s.initial;s.qb=s.initial===null?null:1-s.initial;settle();}
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;
+      if(['nor','nand'].includes(v.type))s.type=v.type;
+      for(const k of ['initial','q','qb'])if(v[k]===0||v[k]===1||v[k]===null)s[k]=v[k];
+      for(const k of ['sp','rp'])if(v[k]===0||v[k]===1)s[k]=v[k];
+    }
+    function draw(){
+      const w=svg.clientWidth||320,m=w/2,x=116,gw=70,edge=x+gw,qa=w-40,qba=w-65,back=70,back2=88;
+      const nand=s.type==='nand',sn=nand?'S_D′':'S_D',rn=nand?'R_D′':'R_D',top=nand?sn:rn,btm=nand?rn:sn,topv=nand?s.sp:s.rp,btmv=nand?s.rp:s.sp;
+      let o='<title>SR 锁存器交叉反馈</title><desc>上门输出为Q，下门输出端命名为Q撇。或非门电路的上方外部输入是复位R，下方是置位S；与非门电路上方为低有效置位S撇，下方为低有效复位R撇。每个输出回接另一门的输入，圆点表示连接，反馈交叉处用跨线表示不相连。显示每次输入操作后的稳定结果，问号表示无法确定存储状态。</desc>';
+      o+=text(m,23,nand?'与非门 SR · 低有效':'或非门 SR · 高有效','middle');
+      for(const y of [65,255])o+=box(x,y,gw,70)+text(x+gw/2,y+41,nand?'&amp;':'≥1','middle')+bubble(edge+4,y+35);
+      o+=text(8,73,top+'='+topv,'start',true)+wire(`M 8 85 H ${x}`,topv)+text(8,324,btm+'='+btmv,'start',true)+wire(`M 8 305 H ${x}`,btmv);
+      o+=wire(`M ${edge+8} 100 H ${w-8}`,s.q)+wire(`M ${edge+8} 290 H ${w-8}`,s.qb)+text(w-8,88,'Q='+val(s.q),'end')+text(w-8,278,'Q′='+val(s.qb),'end');
+      o+=`<circle cx="${qa}" cy="100" r="3" fill="currentColor"/><circle cx="${qba}" cy="290" r="3" fill="currentColor"/>`;
+      o+=wire(`M ${qa} 100 V 198 H ${qba+8} Q ${qba} 184 ${qba-8} 198 H ${back} V 275 H ${x}`,s.q);
+      o+=wire(`M ${qba} 290 V 207 M ${qba} 189 V 170 H ${back2} V 115 H ${x}`,s.qb);
+      o+=text(m,229,'交叉处不相连','middle',true)+text(m,365,'等效逻辑符号','middle',true);
+      const sx=m-50,sr=m+50;o+=box(sx,385,100,100);
+      for(const [pin,y,v]of [[sn,410,s.sp],[rn,460,s.rp]]){
+        o+=text(8,y-10,pin+'='+v,'start',true)+wire(`M 8 ${y} H ${sx-(nand?8:0)}`,v)+text(sx+10,y+4,pin.startsWith('S')?'S':'R','start',true);
+        if(nand)o+=bubble(sx-4,y);
+      }
+      o+=wire(`M ${sr} 410 H ${w-8}`,s.q)+bubble(sr+4,460)+wire(`M ${sr+8} 460 H ${w-8}`,s.qb)+text(w-8,398,'Q='+val(s.q),'end',true)+text(w-8,448,'Q′='+val(s.qb),'end',true);
+      svg.setAttribute('viewBox',`0 0 ${w} 508`);svg.innerHTML=o;
+      svg.dataset.q=val(s.q);svg.dataset.qb=val(s.qb);svg.dataset.action=s.action;
+      root.querySelector('[data-type]').value=s.type;root.querySelector('[data-initial]').value=s.initial===null?'unknown':String(s.initial);
+      root.querySelector('[data-s]').textContent=sn+' = '+s.sp;root.querySelector('[data-r]').textContent=rn+' = '+s.rp;
+      root.querySelector('[data-s]').setAttribute('aria-pressed',!!s.sp);root.querySelector('[data-r]').setAttribute('aria-pressed',!!s.rp);
+      root.querySelector('[data-status]').textContent=s.action+' · Q='+val(s.q)+'，Q′='+val(s.qb);
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,topic:'5.2 SR锁存器'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);settle();
+    root.querySelector('[data-type]').onchange=e=>{s.type=e.target.value;initialize();draw();save();};
+    root.querySelector('[data-initial]').onchange=e=>{s.initial=e.target.value==='unknown'?null:+e.target.value;initialize();draw();save();};
+    for(const [key,selector]of [['sp','[data-s]'],['rp','[data-r]']])root.querySelector(selector).onclick=()=>{s[key]^=1;settle();draw();save();};
+    root.querySelector('[data-hold]').onclick=()=>{s.sp=s.rp=s.type==='nor'?0:1;settle();draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);settle();draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-clocked-sr-gates")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-clocked-sr-gates",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-clocked-sr-gates">
+<div class="viz-controls">
+<label class="form-label">初始状态<select class="form-select" data-initial=""><option value="0">Q=0</option><option value="1">Q=1</option><option value="unknown">未给出</option></select></label>
+<label class="form-check"><input class="form-check-input" data-async="" type="checkbox"/><span class="form-check-label">显示直接置位、复位端</span></label>
+</div>
+<div class="viz-row"><button class="btn" data-pin="clk" type="button">CLK=0</button><button class="btn" data-pin="s" type="button">S=0</button><button class="btn" data-pin="r" type="button">R=0</button><span data-direct="" hidden=""><button class="btn" data-pin="sd" type="button">S_D′=1</button> <button class="btn" data-pin="rd" type="button">R_D′=1</button></span></div>
+<svg aria-label="门控SR锁存器的输入控制门与反馈存储门" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-clocked-sr-gates svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-clocked-sr-gates svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch5-clocked-sr-gates svg .small{font-size:12px}
+    #ch5-clocked-sr-gates .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch5-clocked-sr-gates .high{stroke:var(--viz-series-1);stroke-width:2.2}
+    #ch5-clocked-sr-gates .unknown{stroke-dasharray:4 3}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-clocked-sr-gates'),svg=root.querySelector('svg');
+    let s={clk:0,s:0,r:0,sd:1,rd:1,async:false,initial:0,q:0,qb:1};
+    const value=v=>v===null?'?':v;
+    const text=(x,y,t,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${t}</text>`;
+    const wire=(d,v)=>`<path class="wire${v===1?' high':v===null?' unknown':''}" d="${d}"/>`;
+    const dot=(x,y)=>`<circle cx="${x}" cy="${y}" r="2.8" fill="currentColor"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    function gate(x,y,w,h){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`+text(x+w/2,y+h/2+5,'&amp;','middle')+bubble(x+w+4,y+h/2);}
+    function settle(){
+      s.a=1-(s.s&s.clk);s.b=1-(s.r&s.clk);
+      const sd=s.async?s.sd:1,rd=s.async?s.rd:1,solutions=[];
+      for(let q=0;q<2;q++)for(let qb=0;qb<2;qb++)if(q===1-(s.a&qb&sd)&&qb===1-(s.b&q&rd))solutions.push([q,qb]);
+      const p=solutions.length===1?solutions[0]:solutions.find(([q,qb])=>q===s.q&&qb===s.qb);
+      [s.q,s.qb]=p||[null,null];
+      s.action=s.q===null?'状态不能确定':s.q===s.qb?'禁态 / 输入冲突':s.async&&(s.sd===0||s.rd===0)?'直接输入作用':s.clk===0?'CLK=0：保持':s.s?'置 1':s.r?'置 0':'S=R=0：保持';
+    }
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;for(const k of ['clk','s','r','sd','rd'])if(v[k]===0||v[k]===1)s[k]=v[k];for(const k of ['q','qb','initial'])if(v[k]===null||v[k]===0||v[k]===1)s[k]=v[k];if(typeof v.async==='boolean')s.async=v.async;}
+    function draw(){
+      const w=svg.clientWidth||320,lx=80,rx=w-118,rw=52,qa=w-18,qba=w-36;
+      let o='<title>电平触发 SR 触发器</title><desc>左侧两个与非门受CLK控制，输出a和b送入右侧交叉反馈的与非门锁存器。CLK为0时a和b均为1，存储门保持。CLK为1时S和R有效。可选显示课本图5.3.2的直接低有效输入；冲突输入按实际门方程显示，两个输出不一定互补。显示稳定结果，忽略传播延迟。</desc>';
+      o+=text(w/2,20,'门控 SR · CLK 高电平有效','middle');
+      o+=gate(lx,70,44,50)+gate(lx,280,44,50)+gate(rx,65,rw,70)+gate(rx,265,rw,70);
+      o+=text(8,77,'S='+s.s,'start',true)+wire(`M 8 85 H ${lx}`,s.s);
+      o+=text(8,330,'R='+s.r,'start',true)+wire(`M 8 315 H ${lx}`,s.r);
+      o+=text(8,200,'CLK='+s.clk,'start',true)+wire(`M 8 210 H 51 M 51 105 V 295 M 51 105 H ${lx} M 51 295 H ${lx}`,s.clk)+dot(51,210);
+      const mid=(132+rx)/2;
+      o+=wire(`M 132 95 H ${rx-18} V 85 H ${rx}`,s.a)+text(mid,76,'a='+s.a,'middle',true);
+      o+=wire(`M 132 305 H ${rx-18} V 315 H ${rx}`,s.b)+text(mid,296,'b='+s.b,'middle',true);
+      o+=wire(`M ${rx+rw+8} 100 H ${w-8}`,s.q)+text(w-8,84,'Q='+value(s.q),'end',true);
+      o+=wire(`M ${rx+rw+8} 300 H ${w-8}`,s.qb)+text(w-8,284,'Q′='+value(s.qb),'end',true);
+      o+=dot(qa,100)+dot(qba,300);
+      o+=wire(`M ${qa} 100 V 200 H ${qba+8} Q ${qba} 186 ${qba-8} 200 H ${rx-12} V 285 H ${rx}`,s.q);
+      o+=wire(`M ${qba} 300 V 209 M ${qba} 191 V 170 H ${rx-4} V 115 H ${rx}`,s.qb);
+      const noteX=Math.min(w/2,rx-75);o+=text(noteX,220,'反馈线交叉处','middle',true)+text(noteX,240,'不相连','middle',true);
+      if(s.async){o+=text(rx+rw/2,48,'S_D′='+s.sd,'middle',true)+wire(`M ${rx+rw/2} 53 V 65`,s.sd);o+=wire(`M ${rx+rw/2} 335 V 357`,s.rd)+text(rx+rw/2,374,'R_D′='+s.rd,'middle',true);}
+      o+=text(lx+22,365,'输入控制','middle',true)+text(rx+rw/2,s.async?400:365,'反馈存储','middle',true);
+      svg.setAttribute('viewBox',`0 0 ${w} ${s.async?420:389}`);svg.innerHTML=o;
+      Object.assign(svg.dataset,{q:value(s.q),qb:value(s.qb),a:s.a,b:s.b});
+      root.querySelector('[data-initial]').value=s.initial===null?'unknown':String(s.initial);root.querySelector('[data-async]').checked=s.async;root.querySelector('[data-direct]').hidden=!s.async;
+      for(const [k,label]of [['clk','CLK'],['s','S'],['r','R'],['sd','S_D′'],['rd','R_D′']]){const e=root.querySelector(`[data-pin="${k}"]`);e.textContent=label+'='+s[k];e.setAttribute('aria-pressed',s[k]===1);}
+      root.querySelector('[data-status]').textContent=s.action+' · Q='+value(s.q)+'，Q′='+value(s.qb);
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,topic:'5.3.1 门控SR'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);settle();
+    root.querySelectorAll('[data-pin]').forEach(e=>e.onclick=()=>{s[e.dataset.pin]^=1;settle();draw();save();});
+    root.querySelector('[data-async]').onchange=e=>{s.async=e.target.checked;s.sd=s.rd=1;settle();draw();save();};
+    root.querySelector('[data-initial]').onchange=e=>{s.initial=e.target.value==='unknown'?null:+e.target.value;s.clk=s.s=s.r=0;s.sd=s.rd=1;s.q=s.initial;s.qb=s.q===null?null:1-s.q;settle();draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);settle();draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

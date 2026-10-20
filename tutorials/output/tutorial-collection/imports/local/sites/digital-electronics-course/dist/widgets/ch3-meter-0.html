@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-meter-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-meter-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ttl-meter-lesson">
+<div class="viz-controls">
+<label class="form-label">门电路<select class="form-select" data-kind=""><option value="nand">74 TTL 与非门</option><option value="nor">74 TTL 或非门</option><option value="cmos">CMOS 与非门</option></select></label>
+<label class="form-label">另一个输入 v₁<select class="form-select" data-v=""><option value="float">悬空</option><option value="low">接 0.2 V</option><option value="high">接 3.2 V</option><option value="small">51 Ω 接地</option><option value="large">10 kΩ 接地</option></select></label>
+</div>
+<svg aria-label="习题 3.13 至 3.15，电压表内阻对输入电压的影响" class="de-circuit" data-vm="1.4" height="330" role="img" viewbox="0 0 708 330"><title>电压表测量 TTL 或 CMOS 输入端</title><desc>v₂ 通过电压表的十万欧姆内阻接地；改变另一个输入，观察不同内部结构的测量结果。</desc><path class="wire" d="M 620 90 H 646 A 30 30 0 0 1 646 150 H 620 Z"></path><circle cx="680" cy="120" fill="var(--background)" r="4" stroke="var(--foreground)"></circle><path class="wire" d="M 684 120 H 700 M 15 104 H 623 M 276.12 138 H 623 M 276.12 138 V 185 M 276.12 235 V 269 M 261.12 269 H 291.12 M 266.12 275 H 286.12 M 271.12 281 H 281.12"></path><circle cx="276.12" cy="210" fill="var(--background)" r="25" stroke="var(--foreground)" stroke-width="1.5"></circle><text class="" x="271.12" y="215">V</text><text class="" x="15" y="86">v₁</text><text class="" x="248.12" y="163">v₂</text><text class="small" x="311.12" y="205">Rᵥ = 100 kΩ</text><text class="" x="12" y="40">多发射极输入</text><text class="" x="12" y="317">电表读数：1.4 V</text></svg>
+<div aria-live="polite" data-result="">按本书 74 系列多发射极模型计算。</div>
+<style>
+    #ttl-meter-lesson .de-circuit{display:block;width:100%}
+    #ttl-meter-lesson .wire{fill:none;stroke:var(--foreground);stroke-width:1.5}
+    #ttl-meter-lesson svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ttl-meter-lesson svg .small{font-size:calc(var(--font-size-base)*.857)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("ttl-input-voltmeter");
+
+  (()=>{const root=document.getElementById('ttl-meter-lesson'),svg=root.querySelector('svg');let s={kind:'nand',v:'float'};function draw(){const w=root.clientWidth,g=w-88,x=w*.39,vm=s.kind==='cmos'?0:s.kind==='nor'?1.4:s.v==='low'?.2:s.v==='small'?0:1.4;const p=d=>`<path class="wire" d="${d}"/>`,t=(a,y,z,c='')=>`<text x="${a}" y="${y}" class="${c}">${z}</text>`;root.querySelector('[data-kind]').value=s.kind;root.querySelector('[data-v]').value=s.v;svg.setAttribute('viewBox',`0 0 ${w} 330`);svg.setAttribute('height','330');svg.dataset.vm=vm;
+      const gate=s.kind==='nor'?`M ${g} 90 Q ${g+14} 120 ${g} 150 Q ${g+35} 152 ${g+56} 120 Q ${g+35} 88 ${g} 90`:`M ${g} 90 H ${g+26} A 30 30 0 0 1 ${g+26} 150 H ${g} Z`;
+      svg.innerHTML=`<title>电压表测量 TTL 或 CMOS 输入端</title><desc>v₂ 通过电压表的十万欧姆内阻接地；改变另一个输入，观察不同内部结构的测量结果。</desc>${p(gate)}<circle cx="${g+60}" cy="120" r="4" fill="var(--background)" stroke="var(--foreground)"/>${p(`M ${g+64} 120 H ${w-8} M 15 104 H ${g+3} M ${x} 138 H ${g+3} M ${x} 138 V 185 M ${x} 235 V 269 M ${x-15} 269 H ${x+15} M ${x-10} 275 H ${x+10} M ${x-5} 281 H ${x+5}`)}<circle cx="${x}" cy="210" r="25" fill="var(--background)" stroke="var(--foreground)" stroke-width="1.5"/>${t(x-5,215,'V')}${t(15,86,'v₁')}${t(x-28,163,'v₂')}${t(x+35,205,'Rᵥ = 100 kΩ','small')}${t(12,40,s.kind==='nand'?'多发射极输入':s.kind==='nor'?'两个独立输入支路':'两个独立 MOS 输入')}${t(12,317,'电表读数：'+(vm===0?'约 0':vm)+' V')}`;
+      root.querySelector('[data-result]').textContent=s.kind==='nand'?'按本书 74 系列多发射极模型计算。':s.kind==='nor'?'另一个输入不改变被测输入支路的电位。':'输入漏电忽略时，电表内阻把 v₂ 拉至地电位。';}
+    function save(){lessonHost?.setWidgetState({modelContent:s,privateContent:s}).catch(()=>{});}function restore(v){const q=v?.privateContent;if(q&&['nand','nor','cmos'].includes(q.kind)&&['float','low','high','small','large'].includes(q.v))s=q;draw();}for(const k of ['kind','v'])root.querySelector('[data-'+k+']').addEventListener('change',e=>{s[k]=e.target.value;draw();save();});new ResizeObserver(draw).observe(root);restore(lessonHost?.widgetState);window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState);});})();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

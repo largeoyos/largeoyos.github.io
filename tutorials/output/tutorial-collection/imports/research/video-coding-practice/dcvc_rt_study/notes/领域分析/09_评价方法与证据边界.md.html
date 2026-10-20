@@ -1,0 +1,63 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>09 评价方法与证据边界：先定义“更好”具体指什么</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/09_评价方法与证据边界.md · <a href="09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md">原始 Markdown</a></p><h1 id="09">09 评价方法与证据边界：先定义“更好”具体指什么</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。本轮补读 LPIPS、DISTS、FVD 的定义与感知失真定理。下述评价方案尚未对全部 41 篇模型执行。</p>
+<h2 id="_1">比特与失真必须在同一口径下成对出现</h2>
+<p>对于 N 帧、宽 W、高 H，常用码率为 <code>bpp=8B/(NWH)</code>，B 是完成解码所需的实际字节，包括首帧、运动、内容、超先验、参数更新及必要头信息。不同分辨率或帧数时应按总像素数计算。共享预训练模型是否作为系统预装资源也要约定，不能对某方法计入模型、对另一个忽略。</p>
+<p>YUV420 常用 bpp 仍以亮度像素数 NWH 为分母，不是乘 1.5 的样本数。比特率 <code>bit/s=bpp×W×H×fps</code> 仅适用于对应均匀时间定义；同 bpp 的 25 fps 与 50 fps 视频并非相同带宽。</p>
+<p><code>PSNR=10log₁₀(MAX²/MSE)</code>。颜色转换、范围、裁剪、位深与保存量化决定被比较的像素。浮点重建和保存后的 uint8 可以都评价，但两条曲线必须采用同一种口径。</p>
+<p>由于 log 非线性，平均逐帧 PSNR 不等于把全部像素 SSE 汇总后计算 PSNR；均匀帧大小也不能让二者相等。项目使用的 <code>(6PSNR_Y+PSNR_U+PSNR_V)/8</code> 又不等于先以 6:1:1 合并 MSE 后取 log。报告应给公式，不能只写“YUV PSNR”。本项目已有实际输出精度诊断，导读提供原始报告入口。</p>
+<h2 id="_2">感知指标在计算什么</h2>
+<p><a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Zhang_The_Unreasonable_Effectiveness_CVPR_2018_paper.pdf">LPIPS</a>第 5–6 页先提取多层特征，在通道维做单位归一化，计算带通道权重的平方差，空间平均后跨层求和：</p>
+<p><code>d(x,x′)=Σ_l (1/H_lW_l) Σ_hw ||w_l⊙(f̂_l(x)−f̂_l(x′))||²</code>。</p>
+<p>其校准依靠图像 patch 的人类相似性判断。骨干、权重版本、输入范围和缩放规则都应固定。LPIPS 不是“越小就一定像素越正确”，逐帧平均 LPIPS 也不测时间依赖。</p>
+<p><a href="https://arxiv.org/pdf/2004.07728v1">DISTS</a>第 3–5 页使用经过池化调整的 VGG 特征并纳入原图层，分别比较特征全局均值与空间相关性，以可学习权重融合纹理和结构相似性。它希望对某些纹理重采样更宽容，同时保留结构判断。纹理位置有变化时，PSNR 与 DISTS 可能合理地给出不同结论；不能只保留对自己有利的一项。</p>
+<p>它们都是配对参考指标，与 GAN 判别器或自然图像分布距离不等价。使用某指标训练再仅用该指标评价，也容易忽略未被优化的维度；应增加独立指标和视觉证据。</p>
+<h2 id="fvd">FVD 为什么不能替代单个视频的闪烁检查</h2>
+<p><a href="https://arxiv.org/pdf/1812.01717v1">FVD</a>第 2–3 页将视频映射到 I3D 特征，再比较两组特征均值与协方差的高斯近似：</p>
+<p><code>FVD=||μ_r−μ_g||²+Tr(Σ_r+Σ_g−2(Σ_rΣ_g)^(1/2))</code>。</p>
+<p>其核心对象是<strong>视频样本集合的特征分布</strong>。第 6 页明确讨论样本数影响，要求比较时使用相同样本数。因此必须固定特征网络、输入长度、时间采样、缩放和集合大小；有大量重叠窗口也不等于有同样多独立视频。</p>
+<p>一个配对反例：把整个重建视频集合在视频之间重新分配，对集合分布统计可能完全不变，但每个用户拿到的内容都错了。这说明分布好不能保证配对保真。它不是说 FVD 无用，而是应与配对失真和时间检查联合使用。</p>
+<p>warp error 需要光流和遮挡处理，会把真实运动、估计误差和重建问题混在一起。应明确光流由原视频还是重建视频估计、在哪些像素有效、怎样归一化。连续观看还需要固定播放器速度、尺寸和裁剪；静态截图无法证明没有闪烁。</p>
+<h2 id="rdbd-rate">RD、BD-rate 与统计结论</h2>
+<p>对共同质量范围 <code>[q_L,q_H]</code>，用自然对数表示的 BD-rate 为：</p>
+<p><code>100×{exp[(1/(q_H−q_L))∫(ln R_test(q)−ln R_anchor(q))dq]−1}</code>。</p>
+<p>只在曲线重叠范围积分，记录插值方法和支持点。对于 LPIPS 等越低越好指标，可以统一令 q=−LPIPS；任意非线性重标质量轴会改变积分权重，不能把变换后的百分数当作同一个指标。若无交叠，返回 N/A，不靠外推硬算。</p>
+<p><a href="https://arxiv.org/pdf/2304.12852v1">BD Bible v1</a>建议关注插值误差、曲线形状及相对差异。四点不是自动可靠的保证；必要时增加点并比较方法。本项目已有 PCHIP/log 线性、四/七点敏感性，不应为极小旧差额无限重测而忽略更大的研究问题。</p>
+<p>平均 BD-rate 应说明按序列等权、像素加权还是先聚合曲线；这些回答不同问题。若做置信区间，应按相对独立的序列/场景重采样，并说明训练随机性；不能把数千个强相关帧当数千个独立实验。只有几个视频时，区间解释也很有限。</p>
+<h2 id="_3">证据分层与最低可复核结果</h2>
+<table>
+<thead>
+<tr>
+<th>声明</th>
+<th>至少需要的证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当前设置能解码</td>
+<td>实际码流、匹配模型/版本、独立解码与帧数检查</td>
+</tr>
+<tr>
+<td>同质量更省码率</td>
+<td>匹配评价口径、多工作点、共同范围与完整字节</td>
+</tr>
+<tr>
+<td>某模块导致收益</td>
+<td>有控制的消融，区分训练、参数量与结构变化</td>
+</tr>
+<tr>
+<td>更实时</td>
+<td>完整计时范围、设备、输入等待、吞吐与尾部延迟</td>
+</tr>
+<tr>
+<td>感知更好且稳定</td>
+<td>多内容、多指标、连续视觉评价，必要的人类研究</td>
+</tr>
+<tr>
+<td>有研究新颖性</td>
+<td>具体问题与已有方法差异、文献覆盖、可验证新增结果</td>
+</tr>
+</tbody>
+</table>
+<p>本项目当前真正拥有的是若干固定配置的 RT 码流、逐帧与内部观察，以及论文/部分代码核查。新增领域分析并未产生其他模型的 RD 点。后续结果应继续标记“作者报告、代码事实、本地实测、推导、待验证假设”，使每一种结论都能回到对应证据。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

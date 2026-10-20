@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-primer-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-primer-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="diode-gates-primer">
+<svg aria-label="二极管与门和或门的实际连接" class="de-circuit diode-drawing" role="img" viewbox="0 0 320 540">
+<title>二极管与门、或门</title><desc>上图与门由电源经电阻上拉公共阳极节点，二极管阴极接输入。下图或门的阳极接输入，公共阴极节点经电阻下拉。例子输入为零伏和三伏。</desc>
+<g fill="none" stroke="var(--foreground)" stroke-width="1.6">
+<path d="M180 45V64M180 102V131H115M85 131H28M180 131V201H115M85 201H28M180 165H286"></path>
+<rect height="38" width="12" x="174" y="64"></rect>
+<path d="M115 120V142L90 131ZM85 118V144M115 190V212L90 201ZM85 188V214"></path>
+<path d="M28 369H85M115 369H180V439H115M85 439H28M180 406H286M180 439V460M180 498V514M168 514H192M172 520H188M177 526H183"></path>
+<rect height="38" width="12" x="174" y="460"></rect>
+<path d="M85 358V380L110 369ZM115 356V382M85 428V450L110 439ZM115 426V452"></path>
+</g>
+<g fill="var(--foreground)" font-size="14">
+<text x="16" y="23">与门：有低输入就钳低输出</text><text x="156" y="41">+5 V</text><text x="194" y="89">R</text>
+<text x="28" y="113">A = 0 V</text><text x="28" y="183">B = 3 V</text><text x="193" y="155">Y ≈ 0.7 V</text><text x="16" y="245">两个输入都为 3 V 时，Y ≈ 3.7 V</text>
+<text x="16" y="317">或门：有高输入就抬高输出</text><text x="28" y="351">A = 0 V</text><text x="28" y="421">B = 3 V</text><text x="193" y="395">Y ≈ 2.3 V</text><text x="194" y="486">R</text>
+</g><g fill="var(--foreground)"><circle cx="180" cy="165" r="3"></circle><circle cx="180" cy="406" r="3"></circle></g>
+</svg>
+<style>#diode-gates-primer .diode-drawing{display:block;width:100%;max-width:360px;height:auto;margin:auto}</style>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

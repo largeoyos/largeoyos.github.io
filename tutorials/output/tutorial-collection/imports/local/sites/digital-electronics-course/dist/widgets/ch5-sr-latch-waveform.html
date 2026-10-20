@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-sr-latch-waveform")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-sr-latch-waveform",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-sr-latch-waveform">
+<div class="viz-controls">
+<label class="form-label">波形情形<select class="form-select" data-case=""><option value="book">课本例 5.2.1：先后撤销</option><option value="release">对比：禁态后同时撤销</option><option value="initial">对比：初态未知时先保持</option></select></label>
+<label class="form-label">观察区间 <span data-step-label=""></span><input class="form-range" data-step="" max="8" min="0" type="range" value="0"/></label>
+</div>
+<svg aria-label="SR锁存器四路波形与禁态释放后的状态" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-sr-latch-waveform svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-sr-latch-waveform svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch5-sr-latch-waveform svg .small{font-size:12px}
+    #ch5-sr-latch-waveform .wave{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round}
+    #ch5-sr-latch-waveform .qwave{stroke:var(--viz-series-1);stroke-width:2.2}
+    #ch5-sr-latch-waveform .guide{stroke:var(--border);stroke-width:1}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-sr-latch-waveform'),svg=root.querySelector('svg');let s={example:'book',step:0};
+    const text=(x,y,v,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${v}</text>`;
+    const cases={
+      book:{sp:[1,1,0,0,1,1,0,0,1],rp:[0,1,1,0,0,1,1,0,0],q:null,qb:null},
+      release:{sp:[1,0,0,1,1,1,0,1,1],rp:[0,1,0,1,1,0,1,1,1],q:null,qb:null},
+      initial:{sp:[1,1,1,0,1,1,1,1,1],rp:[1,1,1,1,1,0,1,1,1],q:null,qb:null}
+    };
+    const val=v=>v===null?'?':v;
+    function model(){
+      const c=cases[s.example];let q=c.q,qb=c.qb;const qs=[],qbs=[],actions=[];
+      for(let i=0;i<9;i++){
+        const sp=c.sp[i],rp=c.rp[i];let action;
+        if(sp===0&&rp===0){q=qb=1;action='禁态：两输出均为 1';}
+        else if(sp===0){q=1;qb=0;action='置 1';}
+        else if(rp===0){q=0;qb=1;action='置 0';}
+        else if(q!==null&&qb!==null&&q!==qb)action='保持';
+        else{q=qb=null;action=i===0?'初态未知，保持后仍未知':'不能确定，需再置位或复位';}
+        qs.push(q);qbs.push(qb);actions.push(action);
+      }
+      return {...c,qs,qbs,actions};
+    }
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(v){if(Object.hasOwn(cases,v.example))s.example=v.example;if(Number.isInteger(v.step)&&v.step>=0&&v.step<=8)s.step=v.step;}}
+    function draw(){
+      const w=svg.clientWidth||320,left=64,right=w-14,dx=(right-left)/9,z=model(),x=i=>left+dx*i;
+      let o='<title>SR 锁存器波形</title><desc>低有效与非门SR锁存器。课本例题在第三和第七区间出现两个低有效输入同时为零，因此两个输出均为一；随后先撤销置位输入，复位仍有效，输出回到零。另两个情形分别演示禁态同时撤销后的未知状态，以及初态未给出时保持无法确定。问号不是第三种逻辑电平。按课本例题忽略传播延迟。</desc>';
+      o+=`<defs><pattern id="ch5-sr-unknown-hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M -2 8 L 8 -2 M 4 12 L 12 4" stroke="var(--border)" stroke-width="1"/></pattern></defs>`;
+      o+=text(w/2,20,'与非门 SR · 忽略门延迟','middle',true)+`<rect x="${x(s.step)}" y="38" width="${dx}" height="270" fill="var(--accent)" opacity=".6"/>`;
+      for(let i=0;i<=9;i++)o+=`<path class="guide" d="M ${x(i)} 38 V 308"/>`;
+      const rows=[['S_D′',z.sp,80],['R_D′',z.rp,150],['Q',z.qs,220],['Q′',z.qbs,290]];
+      for(const [name,values,base]of rows){
+        o+=text(6,base-9,name,'start',true)+text(left-7,base+4,'0','end',true)+text(left-7,base-19,'1','end',true);
+        let i=0;
+        while(i<9){
+          if(values[i]===null){let j=i+1;while(j<9&&values[j]===null)j++;o+=`<rect x="${x(i)}" y="${base-23}" width="${(j-i)*dx}" height="23" fill="url(#ch5-sr-unknown-hatch)"/>`+text((x(i)+x(j))/2,base-6,'?','middle');i=j;}
+          else{let d=`M ${x(i)} ${base-23*values[i]}`,j=i;while(j<9&&values[j]!==null){if(j>i)d+=` V ${base-23*values[j]}`;d+=` H ${x(j+1)}`;j++;}o+=`<path class="wave${name==='Q'||name==='Q′'?' qwave':''}" d="${d}"/>`;i=j;}
+        }
+      }
+      o+=text(left,329,'0','middle',true);for(let i=1;i<=8;i++)o+=text(x(i),329,'t'+i,'middle',true);o+=text(w-4,351,'t →','end',true);
+      svg.setAttribute('viewBox',`0 0 ${w} 366`);svg.innerHTML=o;svg.dataset.qs=JSON.stringify(z.qs);svg.dataset.qbs=JSON.stringify(z.qbs);svg.dataset.sp=z.sp.join('');svg.dataset.rp=z.rp.join('');
+      const interval=s.step===0?'0～t1':s.step===8?'t8 以后':`t${s.step}～t${s.step+1}`;
+      root.querySelector('[data-step-label]').textContent=interval;root.querySelector('[data-case]').value=s.example;root.querySelector('[data-step]').value=s.step;
+      root.querySelector('[data-status]').textContent=`${interval}：S_D′=${z.sp[s.step]}，R_D′=${z.rp[s.step]}；Q=${val(z.qs[s.step])}，Q′=${val(z.qbs[s.step])} · ${z.actions[s.step]}`;
+    }
+    function save(){const z=model();window.openai?.setWidgetState({modelContent:{...s,topic:'例5.2.1',q:z.qs[s.step],qb:z.qbs[s.step]},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);root.querySelector('[data-case]').onchange=e=>{s.example=e.target.value;s.step=0;draw();save();};root.querySelector('[data-step]').oninput=e=>{s.step=+e.target.value;draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

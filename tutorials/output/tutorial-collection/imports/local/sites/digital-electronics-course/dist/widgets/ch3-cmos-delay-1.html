@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-cmos-delay-1")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-cmos-delay-1",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="gate-delay-exercise-four">
+<style>
+    #gate-delay-exercise-four .de-circuit { display:block; width:100%; }
+    #gate-delay-exercise-four .de-circuit text { fill:var(--foreground); font-size:var(--font-size-base); font-weight:400; }
+    #gate-delay-exercise-four .de-circuit .small { font-size:calc(var(--font-size-base) * .86); }
+    #gate-delay-exercise-four .wire { fill:none; stroke:var(--foreground); stroke-width:1.6; stroke-linejoin:round; }
+    #gate-delay-exercise-four .gate { fill:var(--background); stroke:var(--foreground); stroke-width:1.6; }
+    #gate-delay-exercise-four .trace { fill:none; stroke:var(--foreground); stroke-width:2; stroke-linejoin:round; }
+    #gate-delay-exercise-four .output { stroke:var(--viz-series-1); stroke-width:2.5; }
+    #gate-delay-exercise-four .grid { stroke:var(--border); stroke-width:1; }
+    #gate-delay-exercise-four .guide { stroke:var(--muted-foreground); stroke-width:1; stroke-dasharray:3 4; }
+    #gate-delay-exercise-four .span { fill:none; stroke:var(--foreground); stroke-width:1; }
+  </style>
+<svg aria-label="习题3.4电路：A经过两个反相器，与B一起接入与非门" class="de-circuit" data-circuit="" role="img" style="height: 145px;" viewbox="0 0 708 145"><title>习题3.4电路</title><desc>A经过两个反相器到达节点X2；X2和直接接入的B驱动与非门，输出为Y。</desc><line class="wire" x1="17" x2="86.56" y1="51" y2="51"></line><text class="" text-anchor="start" x="5" y="44">A</text><path class="gate" d="M 86.56 34 L 114.56 51 L 86.56 68 Z"></path><circle class="gate" cx="119.56" cy="51" r="5"></circle><text class="small" text-anchor="middle" x="100.56" y="22">反相器1</text><path class="gate" d="M 218.64 34 L 246.64 51 L 218.64 68 Z"></path><circle class="gate" cx="251.64" cy="51" r="5"></circle><text class="small" text-anchor="middle" x="232.64" y="22">反相器2</text><line class="wire" x1="124.56" x2="218.64" y1="51" y2="51"></line><text class="" text-anchor="middle" x="171.6" y="82">X₁</text><path class="wire" d="M 256.64 51 H 574 V 68 H 590"></path><text class="" text-anchor="middle" x="574" y="41">X₂</text><path class="gate" d="M 590 53 H 617 C 654 53 654 113 617 113 H 590 Z"></path><circle class="gate" cx="649.75" cy="83" r="5"></circle><line class="wire" x1="654.75" x2="683" y1="83" y2="83"></line><text class="" text-anchor="start" x="686" y="73">Y</text><line class="wire" x1="17" x2="590" y1="98" y2="98"></line><text class="" text-anchor="start" x="5" y="104">B</text><text class="small" text-anchor="middle" x="617" y="133">与非门</text></svg>
+<div class="viz-controls">
+<button aria-pressed="false" class="btn" data-mode="0" type="button">忽略延迟</button>
+<button aria-pressed="true" class="btn" data-mode="1" type="button">每门延迟 t_pd</button>
+</div>
+<svg aria-label="习题3.4输入、中间节点和输出波形" class="de-circuit" data-wave="" role="img" style="height: 378px;" viewbox="0 0 708 378"><title>习题3.4波形</title><desc>横轴每个单位代表一个门的传输延迟。忽略延迟时输出始终为一；考虑延迟时，A下降而B上升后，输出出现两个宽度为两倍门延迟的低电平脉冲。</desc><line class="grid" x1="61" x2="61" y1="19" y2="308"></line><line class="grid" x1="124.3" x2="124.3" y1="19" y2="308"></line><line class="grid" x1="187.6" x2="187.6" y1="19" y2="308"></line><line class="grid" x1="250.9" x2="250.9" y1="19" y2="308"></line><line class="grid" x1="314.2" x2="314.2" y1="19" y2="308"></line><line class="grid" x1="377.5" x2="377.5" y1="19" y2="308"></line><line class="grid" x1="440.8" x2="440.8" y1="19" y2="308"></line><line class="grid" x1="504.1" x2="504.1" y1="19" y2="308"></line><line class="grid" x1="567.4" x2="567.4" y1="19" y2="308"></line><line class="grid" x1="630.7" x2="630.7" y1="19" y2="308"></line><line class="grid" x1="694" x2="694" y1="19" y2="308"></line><line class="guide" x1="250.9" x2="250.9" y1="16" y2="306"></line><line class="guide" x1="504.1" x2="504.1" y1="16" y2="306"></line><text class="" text-anchor="start" x="5" y="50">A</text><text class="small" text-anchor="end" x="44" y="35">1</text><text class="small" text-anchor="end" x="44" y="63">0</text><path class="trace" d="M 61 59 H 124.3 V 31 H 250.9 V 59 H 377.5 V 31 H 504.1 V 59 H 694" data-changes="2:1,6:0,10:1,14:0" data-signal="A"></path><text class="" text-anchor="start" x="5" y="118">X₂</text><text class="small" text-anchor="end" x="44" y="103">1</text><text class="small" text-anchor="end" x="44" y="131">0</text><path class="trace" d="M 61 127 H 187.6 V 99 H 314.2 V 127 H 440.8 V 99 H 567.4 V 127 H 694" data-changes="4:1,8:0,12:1,16:0" data-signal="X₂"></path><text class="" text-anchor="start" x="5" y="186">B</text><text class="small" text-anchor="end" x="44" y="171">1</text><text class="small" text-anchor="end" x="44" y="199">0</text><path class="trace" d="M 61 195 H 250.9 V 167 H 377.5 V 195 H 504.1 V 167 H 630.7 V 195 H 694" data-changes="6:1,10:0,14:1,18:0" data-signal="B"></path><text class="" text-anchor="start" x="5" y="254">Y</text><text class="small" text-anchor="end" x="44" y="239">1</text><text class="small" text-anchor="end" x="44" y="267">0</text><path class="trace output" d="M 61 235 H 282.55 V 263 H 345.85 V 235 H 535.75 V 263 H 599.05 V 235 H 694" data-changes="7:0,9:1,15:0,17:1" data-signal="Y"></path><path class="span" d="M 282.55 277 V 284 H 345.85 V 277"></path><text class="small" text-anchor="middle" x="314.2" y="303">2t_pd</text><path class="span" d="M 535.75 277 V 284 H 599.05 V 277"></path><text class="small" text-anchor="middle" x="567.4" y="303">2t_pd</text><line class="grid" x1="61" x2="694" y1="318" y2="318"></line><line class="grid" x1="61" x2="61" y1="318" y2="322"></line><text class="small" text-anchor="start" x="61" y="338">0</text><line class="grid" x1="124.3" x2="124.3" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="124.3" y="338">2</text><line class="grid" x1="187.6" x2="187.6" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="187.6" y="338">4</text><line class="grid" x1="250.9" x2="250.9" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="250.9" y="338">6</text><line class="grid" x1="314.2" x2="314.2" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="314.2" y="338">8</text><line class="grid" x1="377.5" x2="377.5" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="377.5" y="338">10</text><line class="grid" x1="440.8" x2="440.8" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="440.8" y="338">12</text><line class="grid" x1="504.1" x2="504.1" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="504.1" y="338">14</text><line class="grid" x1="567.4" x2="567.4" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="567.4" y="338">16</text><line class="grid" x1="630.7" x2="630.7" y1="318" y2="322"></line><text class="small" text-anchor="middle" x="630.7" y="338">18</text><line class="grid" x1="694" x2="694" y1="318" y2="322"></line><text class="small" text-anchor="end" x="694" y="338">20</text><text class="small" text-anchor="end" x="694" y="363">时间 / t_pd</text></svg>
+<div aria-live="polite" class="text-small" data-status="">考虑延迟：X₂比A晚2t_pd；Y出现两个低脉冲。</div>
+<script>(()=>{const lessonHost=window.courseState("gate-delay-exercise-four");
+
+  (() => {
+    const root=document.getElementById('gate-delay-exercise-four');
+    const circuit=root.querySelector('[data-circuit]'), wave=root.querySelector('[data-wave]');
+    let delayed=true;
+    const escape=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    const text=(x,y,s,anchor='start',cls='')=>`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}">${escape(s)}</text>`;
+    const line=(x1,y1,x2,y2,cls='wire')=>`<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    function drawCircuit(w){
+      const first=40+(w-320)*.12, second=first+70+(w-320)*.16;
+      const left=w-118, out=w-44, center=83;
+      let s='<title>习题3.4电路</title><desc>A经过两个反相器到达节点X2；X2和直接接入的B驱动与非门，输出为Y。</desc>';
+      s+=line(17,51,first,51)+text(5,44,'A');
+      function inverter(x,label){
+        s+=`<path class="gate" d="M ${x} 34 L ${x+28} 51 L ${x} 68 Z"/><circle class="gate" cx="${x+33}" cy="51" r="5"/>`;
+        s+=text(x+14,22,label,'middle','small');
+      }
+      inverter(first,'反相器1');inverter(second,'反相器2');
+      s+=line(first+38,51,second,51)+text((first+38+second)/2,82,'X₁','middle');
+      s+=`<path class="wire" d="M ${second+38} 51 H ${left-16} V ${center-15} H ${left}"/>`;
+      s+=text(left-16,41,'X₂','middle');
+      s+=`<path class="gate" d="M ${left} ${center-30} H ${left+27} C ${left+64} ${center-30} ${left+64} ${center+30} ${left+27} ${center+30} H ${left} Z"/>`;
+      s+=`<circle class="gate" cx="${left+59.75}" cy="${center}" r="5"/>`;
+      s+=line(left+64.75,center,out+19,center)+text(out+22,center-10,'Y');
+      s+=line(17,center+15,left,center+15)+text(5,center+21,'B');
+      s+=text(left+27,133,'与非门','middle','small');
+      circuit.setAttribute('viewBox',`0 0 ${w} 145`);circuit.style.height='145px';circuit.innerHTML=s;
+    }
+    function drawWave(w){
+      const left=61, right=w-14, x=t=>left+(right-left)*t/20;
+      const shift=delayed?2:0;
+      const rows=[{name:'A',initial:0,changes:[[2,1],[6,0],[10,1],[14,0]]},
+        {name:'X₂',initial:0,changes:[[2+shift,1],[6+shift,0],[10+shift,1],[14+shift,0]]},
+        {name:'B',initial:0,changes:[[6,1],[10,0],[14,1],[18,0]]},
+        {name:'Y',initial:1,changes:delayed?[[7,0],[9,1],[15,0],[17,1]]:[]}];
+      let s='<title>习题3.4波形</title><desc>横轴每个单位代表一个门的传输延迟。忽略延迟时输出始终为一；考虑延迟时，A下降而B上升后，输出出现两个宽度为两倍门延迟的低电平脉冲。</desc>';
+      const ticks=w<450?[0,6,14,20]:[0,2,4,6,8,10,12,14,16,18,20];
+      for(const t of ticks)s+=line(x(t),19,x(t),308,'grid');
+      for(const t of [6,14])s+=line(x(t),16,x(t),306,'guide');
+      rows.forEach((row,i)=>{
+        const high=31+i*68, low=high+28, yy=bit=>bit?high:low;
+        s+=text(5,(high+low)/2+5,row.name)+text(44,high+4,'1','end','small')+text(44,low+4,'0','end','small');
+        let d=`M ${x(0)} ${yy(row.initial)}`;
+        for(const [t,bit] of row.changes)d+=` H ${x(t)} V ${yy(bit)}`;
+        d+=` H ${x(20)}`;
+        s+=`<path class="trace ${i===3?'output':''}" data-signal="${row.name}" data-changes="${row.changes.map(p=>p.join(':')).join(',')}" d="${d}"/>`;
+      });
+      if(delayed){
+        for(const [start,end] of [[7,9],[15,17]]){
+          s+=`<path class="span" d="M ${x(start)} 277 V 284 H ${x(end)} V 277"/>`;
+          s+=text(x((start+end)/2),303,'2t_pd','middle','small');
+        }
+      }
+      s+=line(left,318,right,318,'grid');
+      for(const t of ticks){
+        s+=line(x(t),318,x(t),322,'grid');
+        s+=text(x(t),338,t,t===0?'start':t===20?'end':'middle','small');
+      }
+      s+=text(right,363,'时间 / t_pd','end','small');
+      wave.setAttribute('viewBox',`0 0 ${w} 378`);wave.style.height='378px';wave.innerHTML=s;
+    }
+    function draw(){
+      const w=Math.max(280,root.clientWidth);drawCircuit(w);drawWave(w);
+      root.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.mode==='1')===delayed)));
+      root.querySelector('[data-status]').textContent=delayed?'考虑延迟：X₂比A晚2t_pd；Y出现两个低脉冲。':'忽略延迟：X₂与A同时变化；Y一直为1。';
+    }
+    function restore(state){const d=state?.privateContent?.delayed;if(typeof d==='boolean')delayed=d;}
+    restore(lessonHost?.widgetState);
+    root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{
+      delayed=b.dataset.mode==='1';draw();
+      lessonHost?.setWidgetState?.({modelContent:{exercise:'3.4',delayed,output:delayed?'两个宽度为2t_pd的低脉冲':'恒为1'},privateContent:{delayed}})?.catch(()=>{});
+    }));
+    window.addEventListener('openai:set_globals',e=>{restore(e.detail?.globals?.widgetState);draw();});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

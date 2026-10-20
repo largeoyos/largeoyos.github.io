@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-flipflop-functions")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-flipflop-functions",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-flipflop-functions">
+<div class="viz-controls"><label class="form-label">逻辑功能<select class="form-select" data-kind=""><option value="sr">SR</option><option value="jk">JK</option><option value="d">D</option><option value="t">T</option></select></label><label class="form-label">设定现态<select class="form-select" data-q=""><option value="0">Q=0</option><option value="1">Q=1</option><option value="unknown">状态未定</option></select></label></div>
+<div class="viz-row"><button class="btn" data-a="" type="button">S=0</button><span data-second=""><button class="btn" data-b="" type="button">R=0</button></span><button class="btn btn-primary" data-edge="" type="button">来一个上升沿</button></div>
+<svg aria-label="SR、JK、D、T触发器的功能与JK替代接线" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-flipflop-functions svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-flipflop-functions svg text{fill:var(--foreground);font-size:12px;font-weight:400}
+    #ch5-flipflop-functions .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch5-flipflop-functions .high{stroke:var(--viz-series-1);stroke-width:2.2}
+    #ch5-flipflop-functions .unknown{stroke-dasharray:4 3}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-flipflop-functions'),svg=root.querySelector('svg');let s={kind:'sr',q:0,a:0,b:0};
+    const val=v=>v===null?'?':v;
+    const text=(x,y,v,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${v}</text>`;
+    const wire=(d,v)=>`<path class="wire${v===1?' high':v===null?' unknown':''}" d="${d}"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    const box=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    const tri=(x,y)=>`<path d="M ${x} ${y-7} L ${x+10} ${y} L ${x} ${y+7}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    function next(){
+      if(s.kind==='sr'&&s.a&&s.b)return null;if(s.kind==='d')return s.a;
+      const qs=s.q===null?[0,1]:[s.q],out=qs.map(q=>s.kind==='sr'?(s.a?1:s.b?0:q):s.kind==='jk'?((s.a&(1-q))|((1-s.b)&q)):(s.a^q));
+      return out.every(v=>v===out[0])?out[0]:null;
+    }
+    function action(){if(s.kind==='d')return s.a?'置 1':'置 0';if(s.kind==='t')return s.a?'翻转':'保持';if(s.a&&s.b)return s.kind==='sr'?'禁态输入':'翻转';return s.a?'置 1':s.b?'置 0':'保持';}
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;if(['sr','jk','d','t'].includes(v.kind))s.kind=v.kind;if(v.q===0||v.q===1||v.q===null)s.q=v.q;for(const k of ['a','b'])if(v[k]===0||v[k]===1)s[k]=v[k];}
+    function draw(){
+      const w=svg.clientWidth||320,x=w/2-52,r=x+104,pair=['sr','jk'].includes(s.kind),names=s.kind==='sr'?['S','R']:s.kind==='jk'?['J','K']:[s.kind.toUpperCase()];
+      let o='<title>'+s.kind.toUpperCase()+'触发器逻辑功能</title><desc>本图统一使用上升沿触发符号。改变输入只改变下一作用沿的结果，点击上升沿按钮才更新现态。SR和T页面下方给出用JK触发器实现该功能的接线；SR等效仅在S与R不同时为1的合法范围内成立。</desc>';
+      o+=text(w/2,20,s.kind.toUpperCase()+' · 上升沿触发','middle')+box(x,45,104,150);
+      o+=text(5,70,names[0]+'='+s.a)+wire(`M 5 82 H ${x}`,s.a)+text(x+8,86,'1'+names[0]);
+      o+=text(5,116,'CLK')+wire(`M 5 128 H ${x}`,0)+tri(x,128)+text(x+17,132,'C1');
+      if(pair)o+=text(5,176,names[1]+'='+s.b)+wire(`M 5 164 H ${x}`,s.b)+text(x+8,168,'1'+names[1]);
+      o+=wire(`M ${r} 82 H ${w-5}`,s.q)+text(w-5,70,'Q='+val(s.q),'end')+bubble(r+4,164)+wire(`M ${r+8} 164 H ${w-5}`,s.q===null?null:1-s.q)+text(w-5,152,'Q′='+val(s.q===null?null:1-s.q),'end');
+      let h=218;
+      if(s.kind==='sr'||s.kind==='t'){
+        const isT=s.kind==='t';o+=text(w/2,245,'用 JK 实现'+(isT?' T':'合法 SR')+'功能','middle')+box(x,267,104,140);
+        o+=text(5,289,(isT?'T':'S')+'='+s.a)+wire(`M 5 300 H ${x}`,s.a)+text(x+8,304,'1J');
+        if(isT){o+=`<circle cx="55" cy="300" r="2.8" fill="currentColor"/>`+wire(`M 55 300 V 327 M 55 344 V 377 H ${x}`,s.a);}
+        else o+=text(5,395,'R='+s.b)+wire(`M 5 377 H ${x}`,s.b);
+        o+=text(x+8,381,'1K');
+        o+=text(5,325,'CLK')+wire(isT?`M 5 335 H 47 Q 55 321 63 335 H ${x}`:`M 5 335 H ${x}`,0)+tri(x,335)+text(x+17,339,'C1');
+        o+=wire(`M ${r} 300 H ${w-5}`,s.q)+text(w-5,288,'Q='+val(s.q),'end')+bubble(r+4,377)+wire(`M ${r+8} 377 H ${w-5}`,s.q===null?null:1-s.q)+text(w-5,365,'Q′='+val(s.q===null?null:1-s.q),'end');h=429;
+      }
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.innerHTML=o;Object.assign(svg.dataset,{q:val(s.q),next:val(next()),action:action()});
+      root.querySelector('[data-kind]').value=s.kind;root.querySelector('[data-q]').value=s.q===null?'unknown':String(s.q);root.querySelector('[data-second]').hidden=!pair;
+      for(const [k,label]of [['a',names[0]],['b',names[1]||'R']]){const e=root.querySelector('[data-'+k+']');e.textContent=label+'='+s[k];e.setAttribute('aria-pressed',s[k]===1);}
+      root.querySelector('[data-status]').textContent=action()+' · 现态 Q='+val(s.q)+' · 下一上升沿后 Q='+val(next());
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,topic:'5.3.4 逻辑功能'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);root.querySelector('[data-kind]').onchange=e=>{s={kind:e.target.value,q:0,a:0,b:0};draw();save();};root.querySelector('[data-q]').onchange=e=>{s.q=e.target.value==='unknown'?null:+e.target.value;draw();save();};
+    for(const k of ['a','b'])root.querySelector('[data-'+k+']').onclick=()=>{s[k]^=1;draw();save();};root.querySelector('[data-edge]').onclick=()=>{s.q=next();draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

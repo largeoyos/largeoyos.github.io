@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>05 双向结构与时间调度：未来参考能省比特，也需要等待</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/05_双向结构与时间调度.md · <a href="05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md">原始 Markdown</a></p><h1 id="05">05 双向结构与时间调度：未来参考能省比特，也需要等待</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。本篇补读 DCVC-B 与两层 CANF 的方法；没有复现其 RD。</p>
+<h2 id="b">B 帧的价值首先来自信息条件</h2>
+<p>对处于两个已解码锚点之间的当前帧，可以同时利用前后参考。前一帧被遮挡的区域，可能在后一帧出现；单向预测难判断的轨迹，在两端约束下更容易估计。这是增加了可用信息，并不只是“网络多一条分支”。</p>
+<p>解码顺序因此不同于显示顺序。以下是简化 GOP8 的一个合法顺序示例，不是对某源码顺序的抄录：</p>
+<pre><code class="language-text">显示索引：0 1 2 3 4 5 6 7 8
+解码顺序：0 8 4 2 6 1 3 5 7
+参考示例：4←(0,8)，2←(0,4)，6←(4,8)，1←(0,2)
+</code></pre>
+<p>网络必须先收到索引 8 的源帧才能编码这个未来锚点。在线 30 fps 输入中，索引 1 相对自身到达至少等待 <code>(8−1)/30≈233 ms</code>，之后仍有计算和传输。离线文件没有同样的采集等待，却仍有解码重排和随机访问代价。</p>
+<p>层次质量分配也有动机：靠近根节点的参考被很多后代使用，提高它的质量可能降低多帧总成本。目标应是 <code>Σ_t(R_t+λ_tD_t)</code> 及后续状态影响，而不是逐帧独立选最便宜的参数。不同 λ_t 或 QP 层级属于算法设置的一部分。</p>
+<h2 id="dcvc-b-dcvc">DCVC-B 不只是两次调用 DCVC</h2>
+<p><a href="https://arxiv.org/pdf/2408.08604v1">DCVC-B v1</a>第 4–6 页包含三种双向信息：</p>
+<ol>
+<li><strong>运动差分上下文。</strong>从两参考之间的运动预测当前到两侧的运动，再压缩差分；同时传播参考帧的运动差分特征。不同 I/B 参考组合采用相应适配器。</li>
+<li><strong>双向多尺度特征。</strong>两侧的传播特征分别对齐、生成多个尺度，并注入条件变换，避免过早合成单一预测图像而丢掉互补信息。</li>
+<li><strong>双向时间先验。</strong>两侧上下文和已解码潜变量共同参与当前符号的均值/尺度预测。</li>
+</ol>
+<p>其图 2 使用 IP/GOP32、六层时间结构，参考图像、参考特征、运动上下文和潜变量都需要管理。压缩收益伴随双向运动开销，所以作者专门处理运动差分，而不是默认“增加参考一定净省码率”。</p>
+<h2 id="_1">不发送运动，还能怎样形成条件</h2>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Alexandre_Hierarchical_B-Frame_Video_Coding_Using_Two-Layer_CANF_Without_Motion_Coding_CVPR_2023_paper.pdf">两层 CANF B 编码</a>第 3–5 页先用两参考插帧得到预测，再把当前帧下采样到宽高各四分之一，编码一个低分辨率基础层。解码基础层上采样后，与两侧扭曲参考融合，成为全分辨率增强层的条件。</p>
+<p>当前帧中新出现的内容可以通过基础层传入，避免只靠两参考猜测。增强层再补充分辨率和细节。这相当于把部分比特从显式运动描述转移到低分辨率内容描述；仍然计算插帧、运动与扭曲，也仍有两层内容码率。</p>
+<p>其跳过掩码由两端已知的运动、合成预测和超先验输出决定。跳过位置用预测均值重建，不传该符号。掩码不占独立逐像素码流的条件是两端能一致生成它；基础层和超先验并非免费信息。不要把“without motion coding”简写为“无运动计算”或“无需侧信息”。</p>
+<p>BiECVC 进一步引入非局部参考和门控，见<a href="04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html">参考失效分析</a>。这些方法共享未来信息条件，但具体对齐和码率组织不同。</p>
+<h2 id="_2">怎么进行公平比较</h2>
+<p>至少匹配或明确报告：允许的前看帧数、I 帧间隔、参考数量、帧类型质量分配、编码帧数和尾部 GOP 处理、色彩格式、实际流头、随机访问点。RA 与连续 P 结果可以描述两种使用场景，不能直接归因为某网络模块先进。</p>
+<p>固定 GOP 不自动保证相同延迟：八帧联合变换与分层 B 帧都使用未来输入，但每帧何时能输出、需要先解哪些帧、是否具备中途访问入口并不一样。应报告依赖图、到达时间和输出时间，而不只一个 GOP 数字。</p>
+<p>“帧可以独立执行前向”也不保证可直接定位文件中的对应比特。需要另外核实熵流分片、索引、先验状态以及随机访问后首帧恢复。</p>
+<h2 id="_3">可检验的问题</h2>
+<p>可在同一双向模型中比较参考融合与分开输入，或改变时间层质量分配；需同训练/微调条件，记录每层的比特与后代质量。跨模型 RT/DCVC-B 对比只能回答系统在两类约束下的表现。</p>
+<p>一个有信息增量的低成本步骤是先枚举依赖和活跃缓存，计算不同 GOP 的输入等待与参考峰值；这是调度分析，不是速度实测。后续有真实模型后再测缓存、吞吐和首帧延迟，避免用理论并行性直接宣称硬件提速。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

@@ -1,0 +1,97 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>04 参考失效与混合编码：先判断哪里失效，再讨论门控</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/04_参考失效与混合编码.md · <a href="04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md">原始 Markdown</a></p><h1 id="04">04 参考失效与混合编码：先判断哪里失效，再讨论门控</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。本篇中的实验方案尚未执行；不把门控视为已确认的新颖方法。</p>
+<h2 id="_1">“参考不好”至少有四种含义</h2>
+<table>
+<thead>
+<tr>
+<th>失效类型</th>
+<th>例子</th>
+<th>可能观察到的现象</th>
+<th>不能直接得出的结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对齐失败</td>
+<td>快速位移、形变、遮挡</td>
+<td>局部预测误差和残差变大</td>
+<td>所有时间信息都无用</td>
+</tr>
+<tr>
+<td>内容不可预测</td>
+<td>场景切换、新出现的区域</td>
+<td>过去与当前关联弱，当前信息需求增加</td>
+<td>光流网络本身一定有错</td>
+</tr>
+<tr>
+<td>递归状态不适配</td>
+<td>长链推理超出训练分布</td>
+<td>后段质量或状态统计逐渐变化</td>
+<td>已证明数值溢出或某层是根因</td>
+</tr>
+<tr>
+<td>概率失配</td>
+<td>历史先验对新符号过度自信</td>
+<td>码长增加，概率尾部事件多</td>
+<td>重建必然失真；固定符号时熵编码应无损</td>
+</tr>
+</tbody>
+</table>
+<p>这四类可以同时出现，但控制变量不同。把它们统称为“误差积累”，容易直接走向增加刷新频率，却不知道损失来自哪里。</p>
+<h2 id="_2">条件编码为什么不总比残差更好</h2>
+<p>理想离散无损设置中，已知预测 C 时，<code>(X,C)</code> 与 <code>(X−C,C)</code> 可以互相转换，因此 <code>H(X−C|C)=H(X|C)</code>；同时 <code>H(X|C)≤H(X)</code>。这些结论不等于有限容量、有损条件提取、量化后的神经网络具有同样排序。</p>
+<p>例如只编码残差却不用 C 预测残差分布时，目标是另一种概率模型；而使用压缩后的条件 φ(C) 又可能丢失有用信息。变换容量、量化误差和训练目标也都不同。条件编码的优势是给模型更多使用参考的自由，收益需要实验而非一个条件熵不等式保证。</p>
+<h2 id="maskcrt">MaskCRT 实际混合了什么</h2>
+<p><a href="https://arxiv.org/pdf/2312.15829v1">MaskCRT v1</a>第 3–7 页的输入为：</p>
+<p><code>u_t = (1−m)⊙x_t + m⊙(x_t−x_c) = x_t−m⊙x_c</code>。</p>
+<p>m=0 时走条件编码，m=1 时走条件残差编码；中间值让网络分担当前信号与预测信号。解码时把 <code>m⊙x_c</code> 加回。原文第 4 页一处正文写作 <code>m⊙x_t</code>，与图 3 和解码端信息可得性不符；已有视觉核查采用图中的 <code>x_c</code>，保留该文字疑点。</p>
+<p>掩码来自已解码运动和预测图像，因此无需单独传输整张掩码。但它仍有预测开销，也不是光流置信概率。第 7 页说明预测信号的幅值分布可使 m 整体偏小，所以不能把 m=0.2 解释成“20% 相信参考”。</p>
+<p>新增核读得到一个重要边界：第 6 页测试首 96 帧、IP32、裁剪到 128 的倍数，MCL-JCV 排除屏幕内容并在场景切换处使用帧内编码。这支持其指定自然视频条件下的混合编码结果，<strong>没有直接检验禁止切换处 I 帧时对旧场景参考的耐受性</strong>。该边界来自原文设置，不是对作者实验的否定。</p>
+<h2 id="biecvc-ui2c">BiECVC 与 UI²C 改变了不同环节</h2>
+<p><a href="https://arxiv.org/pdf/2505.09193v1">BiECVC</a>第 3、5–6 页结合局部运动参考与非局部注意力，利用条件编码感知门控筛选信息。它处于双向分层结构，未来参考、训练链和质量分配都与 RT 不同，不能将全部收益归为一个门控模块。</p>
+<p><a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Xiang_Real-Time_Neural_Video_Compression_with_Unified_Intra_and_Inter_Coding_CVPR_2026_paper.pdf">UI²C</a>通过参考条件训练和统一帧内/帧间模型，提高模型在参考缺失或扰动时的能力；其两帧联合编码又改变等待与码率组织。详见<a href="../UIIC_%E7%BB%9F%E4%B8%80%E5%B8%A7%E5%86%85%E5%B8%A7%E9%97%B4%E4%B8%8E%E5%88%B7%E6%96%B0%E9%97%AE%E9%A2%98.md.html">已有方法和评价笔记</a>。仅在推理时把 RT 特征清零没有这些训练条件，不能冒充 UI²C 复现。</p>
+<h2 id="_3">一个门控能否真正解码</h2>
+<table>
+<thead>
+<tr>
+<th>门控依据</th>
+<th>编码端可得</th>
+<th>解码端可得</th>
+<th>合法实现要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始当前帧与预测之差</td>
+<td>是</td>
+<td>通常否</td>
+<td>传模式/掩码，或让已解码潜变量充分决定它</td>
+</tr>
+<tr>
+<td>已解码运动与参考</td>
+<td>是</td>
+<td>是</td>
+<td>两端确定性一致，仍计计算量</td>
+</tr>
+<tr>
+<td>当前已解码部分潜变量</td>
+<td>是</td>
+<td>按顺序可得</td>
+<td>只能作用于其后依赖的符号或重建</td>
+</tr>
+<tr>
+<td>未来原帧</td>
+<td>有前看时可得</td>
+<td>未必</td>
+<td>说明未来帧如何先解码及等待时间</td>
+</tr>
+</tbody>
+</table>
+<p>利用原图挑选“最佳参考”的离线 oracle 可以诊断潜力，不能直接成为无侧信息解码策略。隐式学习到的开关也需要真实码流闭环验证。</p>
+<h2 id="_4">当前最值得做的控制</h2>
+<p>已准备的<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">场景切换协议</span>使用相同 Station 目标帧和相同时间/QP 相位，分别接自然历史与 Ducks 历史，再比较 reset0/64。它观察：</p>
+<p><code>交互 = (切换历史下刷新−不刷新) − (自然历史下刷新−不刷新)</code>。</p>
+<p>质量、字节分别计算，单码率不算 BD-rate。刷新仍从上一张重建图像提取特征，不是换成新场景 I 帧；因此结果只能说明这个刷新机制对历史变化的作用，不能单独隔离“帧内编码能力”。两源帧率不同，实验定义为帧索引干预，不解释为真实物理运动。</p>
+<p>下一层诊断可把硬切换、逐步混合、遮挡和纯平移分开，以相同目标视频、多个预定切换位置和多个序列复核。训练改动之前，应先知道哪一种干预会稳定触发失败。通用参考门控已有先行研究；可研究的增量应落在明确的新约束、可验证机制或完整成本上。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

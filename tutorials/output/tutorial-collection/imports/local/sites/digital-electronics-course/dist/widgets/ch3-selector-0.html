@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-selector-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-selector-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-transmission-selector-waveform">
+<div class="viz-controls">
+<label class="form-label">自编波形练习 · 相对时间区间
+      <select class="form-select" data-interval="">
+<option value="0">0～1</option><option value="1">1～2</option><option selected="" value="2">2～3</option><option value="3">3～4</option><option value="4">4～5</option><option value="5">5～6</option><option value="6">6～7</option><option value="7">7～8</option>
+</select>
+</label>
+</div>
+<svg aria-label="两个传输门组成的二选一数据选择电路" class="de-circuit" data-circuit="" data-output="1" data-selected="0" role="img" viewbox="0 0 708 350"><title>传输门二选一电路</title><desc>上路传输门的 NMOS 控制为 S 的反相，PMOS 控制为 S；下路传输门的 NMOS 控制为 S，PMOS 控制为 S 的反相。S 的反相信号由反相器产生，图中省略该反相器。S 为零时上路接通，S 为一时下路接通。只讨论输入稳定时的理想逻辑状态，忽略传播延迟。</desc><path class="wire active" d="M 12 90 H 326"></path><path class="wire active" d="M 382 90 H 674"></path><rect fill="none" height="48" stroke="currentColor" stroke-width="1.8" width="56" x="326" y="66"></rect><text text-anchor="middle" x="354" y="88">TG₀</text><text class="small" text-anchor="middle" x="354" y="106">接通</text><circle cx="354" cy="61" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire" d="M 354 42 V 56 M 354 114 V 136"></path><text class="small" text-anchor="middle" x="354" y="34">S = 0 · PMOS</text><text class="small" text-anchor="middle" x="354" y="152">S′ = 1 · NMOS</text><text text-anchor="start" x="18" y="74">D₀ = 1</text><path class="wire inactive" d="M 12 254 H 326"></path><path class="wire inactive" d="M 382 254 H 674"></path><rect fill="none" height="48" stroke="currentColor" stroke-width="1.8" width="56" x="326" y="230"></rect><text text-anchor="middle" x="354" y="252">TG₁</text><text class="small" text-anchor="middle" x="354" y="270">断开</text><circle cx="354" cy="225" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire" d="M 354 206 V 220 M 354 278 V 300"></path><text class="small" text-anchor="middle" x="354" y="198">S′ = 1 · PMOS</text><text class="small" text-anchor="middle" x="354" y="316">S = 0 · NMOS</text><text text-anchor="start" x="18" y="238">D₁ = 0</text><path class="wire" d="M 674 90 V 254 M 674 172 H 698"></path><circle cx="674" cy="172" fill="currentColor" r="3"></circle><text text-anchor="end" x="671" y="156">Y = 1</text><text class="small" text-anchor="start" x="12" y="340">互补控制 · 理想逻辑 · 忽略传播延迟</text></svg>
+<svg aria-label="选择信号、两个数据信号和输出的理想逻辑波形" class="de-circuit" data-values="0,1,1,0,0,1,0,1" data-wave="" role="img" viewbox="0 0 708 305"><title>二选一电路的波形</title><desc>自编练习，时间单位为一个等长间隔。所有输入的跳变时刻划分成八个区间，按每个区间内 S 选择的数据信号求输出。不计传播延迟。</desc><rect class="grid" height="226" width="628" x="64" y="26"></rect><rect class="selected" height="226" width="78.5" x="221" y="26"></rect><path class="grid" d="M 64 26 V 252"></path><text class="small" text-anchor="start" x="64" y="272">0</text><path class="grid" d="M 221 26 V 252"></path><text class="small" text-anchor="middle" x="221" y="272">2</text><path class="grid" d="M 378 26 V 252"></path><text class="small" text-anchor="middle" x="378" y="272">4</text><path class="grid" d="M 535 26 V 252"></path><text class="small" text-anchor="middle" x="535" y="272">6</text><path class="grid" d="M 692 26 V 252"></path><text class="small" text-anchor="end" x="692" y="272">8</text><text text-anchor="start" x="12" y="60.5">S</text><text class="small" text-anchor="end" x="52" y="46">1</text><text class="small" text-anchor="end" x="52" y="73">0</text><path class="wire" d="M 64 69 H 142.5 H 221 H 299.5 V 42 H 378 H 456.5 H 535 V 69 H 613.5 H 692"></path><text text-anchor="start" x="12" y="114.5">D₀</text><text class="small" text-anchor="end" x="52" y="100">1</text><text class="small" text-anchor="end" x="52" y="127">0</text><path class="wire" d="M 64 123 H 142.5 V 96 H 221 H 299.5 H 378 V 123 H 456.5 H 535 H 613.5 V 96 H 692"></path><text text-anchor="start" x="12" y="168.5">D₁</text><text class="small" text-anchor="end" x="52" y="154">1</text><text class="small" text-anchor="end" x="52" y="181">0</text><path class="wire" d="M 64 150 H 142.5 H 221 V 177 H 299.5 H 378 H 456.5 V 150 H 535 H 613.5 V 177 H 692"></path><text text-anchor="start" x="12" y="222.5">Y</text><text class="small" text-anchor="end" x="52" y="208">1</text><text class="small" text-anchor="end" x="52" y="235">0</text><path class="wire active" d="M 64 231 H 142.5 V 204 H 221 H 299.5 V 231 H 378 H 456.5 V 204 H 535 V 231 H 613.5 V 204 H 692"></path><text class="small" text-anchor="middle" x="378" y="295">相对时间（单位间隔）</text></svg>
+<div aria-live="polite" class="text-small" data-status="">S = 0 · 选中 D₀ · Y = 1</div>
+<style>
+    #de-transmission-selector-waveform .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-transmission-selector-waveform .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-transmission-selector-waveform .de-circuit .small{font-size:12px}
+    #de-transmission-selector-waveform .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-transmission-selector-waveform .de-circuit .active{stroke:var(--viz-series-1);stroke-width:2.5}
+    #de-transmission-selector-waveform .de-circuit .inactive{stroke:var(--border)}
+    #de-transmission-selector-waveform .de-circuit .grid{fill:none;stroke:var(--border);stroke-width:1}
+    #de-transmission-selector-waveform .de-circuit .selected{fill:var(--viz-series-1);opacity:0.08}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("transmission-selector-waveform");
+
+  (function(){
+    const root=document.getElementById('de-transmission-selector-waveform'),circuit=root.querySelector('[data-circuit]'),wave=root.querySelector('[data-wave]'),input=root.querySelector('[data-interval]');
+    const data={s:[0,0,0,1,1,1,0,0],d0:[0,1,1,1,0,0,0,1],d1:[1,1,0,0,0,1,1,0]};
+    data.y=data.s.map(function(s,i){return s?data.d1[i]:data.d0[i];});
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s&&Number.isInteger(s.interval)&&s.interval>=0&&s.interval<8)input.value=String(s.interval);}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s={interval:+input.value};lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,a,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,cls){return '<path class="wire '+(cls||'')+'" d="'+d+'"/>';};
+    function drawCircuit(){
+      const index=+input.value,s=data.s[index],d0=data.d0[index],d1=data.d1[index],y=data.y[index];
+      const w=circuit.getBoundingClientRect().width||root.clientWidth,x=w/2,bus=w-34;
+      let out='<title>传输门二选一电路</title><desc>上路传输门的 NMOS 控制为 S 的反相，PMOS 控制为 S；下路传输门的 NMOS 控制为 S，PMOS 控制为 S 的反相。S 的反相信号由反相器产生，图中省略该反相器。S 为零时上路接通，S 为一时下路接通。只讨论输入稳定时的理想逻辑状态，忽略传播延迟。</desc>';
+      for(const row of [{cy:90,k:0,on:!s,n:1-s,p:s,v:d0},{cy:254,k:1,on:!!s,n:s,p:1-s,v:d1}]){
+        const top=row.cy-24,bottom=row.cy+24,cls=row.on?'active':'inactive';
+        out+=path('M 12 '+row.cy+' H '+(x-28),cls)+path('M '+(x+28)+' '+row.cy+' H '+bus,cls);
+        out+='<rect x="'+(x-28)+'" y="'+top+'" width="56" height="48" fill="none" stroke="currentColor" stroke-width="1.8"/>';
+        out+=text(x,row.cy-2,'TG'+(row.k===0?'₀':'₁'),'middle')+text(x,row.cy+16,row.on?'接通':'断开','middle',true);
+        out+='<circle cx="'+x+'" cy="'+(top-5)+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+        out+=path('M '+x+' '+(top-24)+' V '+(top-10)+' M '+x+' '+bottom+' V '+(bottom+22));
+        out+=text(x,top-32,(row.k===0?'S':'S′')+' = '+row.p+' · PMOS','middle',true);
+        out+=text(x,bottom+38,(row.k===0?'S′':'S')+' = '+row.n+' · NMOS','middle',true);
+        out+=text(18,row.cy-16,(row.k===0?'D₀':'D₁')+' = '+row.v);
+      }
+      out+=path('M '+bus+' 90 V 254 M '+bus+' 172 H '+(w-10));
+      out+='<circle cx="'+bus+'" cy="172" r="3" fill="currentColor"/>'+text(bus-3,156,'Y = '+y,'end');
+      out+=text(12,340,'互补控制 · 理想逻辑 · 忽略传播延迟',undefined,true);
+      circuit.setAttribute('viewBox','0 0 '+w+' 350');circuit.setAttribute('data-output',String(y));circuit.setAttribute('data-selected',String(s));circuit.innerHTML=out;
+    }
+    function drawWave(){
+      const w=wave.getBoundingClientRect().width||root.clientWidth,left=64,right=w-16,top=26,height=226,index=+input.value;
+      const xx=function(t){return left+(right-left)*t/8;};
+      let out='<title>二选一电路的波形</title><desc>自编练习，时间单位为一个等长间隔。所有输入的跳变时刻划分成八个区间，按每个区间内 S 选择的数据信号求输出。不计传播延迟。</desc>';
+      out+='<rect x="'+left+'" y="'+top+'" width="'+(right-left)+'" height="'+height+'" class="grid"/>';
+      out+='<rect x="'+xx(index)+'" y="'+top+'" width="'+(xx(index+1)-xx(index))+'" height="'+height+'" class="selected"/>';
+      const ticks=w<400?[0,3,6,8]:[0,2,4,6,8];
+      for(const t of ticks){out+='<path class="grid" d="M '+xx(t)+' '+top+' V '+(top+height)+'"/>';out+=text(xx(t),top+height+20,String(t),t===0?'start':t===8?'end':'middle',true);}
+      for(const row of [['s','S'],['d0','D₀'],['d1','D₁'],['y','Y']].entries()){
+        const i=row[0],k=row[1][0],label=row[1][1],high=top+16+i*54,low=high+27;
+        const yy=function(v){return v?high:low;};
+        out+=text(12,(high+low)/2+5,label)+text(52,high+4,'1','end',true)+text(52,low+4,'0','end',true);
+        let d='M '+xx(0)+' '+yy(data[k][0]);
+        for(let j=0;j<8;j++){d+=' H '+xx(j+1);if(j<7&&data[k][j+1]!==data[k][j])d+=' V '+yy(data[k][j+1]);}
+        out+=path(d,k==='y'?'active':'');
+      }
+      out+=text((left+right)/2,top+height+43,'相对时间（单位间隔）','middle',true);
+      wave.setAttribute('viewBox','0 0 '+w+' '+(top+height+53));wave.setAttribute('data-values',data.y.join(','));wave.innerHTML=out;
+    }
+    function draw(){drawCircuit();drawWave();const i=+input.value;root.querySelector('[data-status]').textContent='S = '+data.s[i]+' · 选中 D'+(data.s[i]?'₁':'₀')+' · Y = '+data.y[i];}
+    restore(lessonHost&&lessonHost.widgetState);
+    input.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

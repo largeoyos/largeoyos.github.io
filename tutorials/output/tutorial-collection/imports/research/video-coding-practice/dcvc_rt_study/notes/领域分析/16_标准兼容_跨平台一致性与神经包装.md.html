@@ -1,0 +1,82 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>16｜标准兼容、跨平台一致性与神经包装</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/16_标准兼容_跨平台一致性与神经包装.md · <a href="16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md">原始 Markdown</a></p><h1 id="16">16｜标准兼容、跨平台一致性与神经包装</h1>
+<p>2026-10-19。依据 Neural Wrapping 的选定正文、INTNET 的官方摘要及 NVC360 固定源码。INTNET 的全文下载受 403/验证页阻碍，<strong>只讨论摘要明确支持的问题，不把它记为已读全文</strong>。</p>
+<h2 id="1">1. 三种兼容需要分别验证</h2>
+<table>
+<thead>
+<tr>
+<th>兼容性质</th>
+<th>实际问题</th>
+<th>不充分的证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语法兼容</td>
+<td>既有解码器能否解析这个字节流</td>
+<td>网络结构长得类似、解码器权重固定</td>
+</tr>
+<tr>
+<td>数值一致</td>
+<td>不同设备是否生成相同离散概率和参考状态</td>
+<td>相同随机种子、单机器 deterministic 标志</td>
+</tr>
+<tr>
+<td>服务兼容</td>
+<td>原有接收器能否达到预期画面和延迟</td>
+<td>码流解析成功或能显示一幅图</td>
+</tr>
+</tbody>
+</table>
+<p>一个标准 codec 外加神经后处理，可以保留标准流语法，却要求新接收器计算后处理才能达到优化质量。一个纯神经 codec 在同一 GPU 上闭环成功，也不说明不同硬件一定一致。</p>
+<h2 id="2">2. 为什么概率的微小差别可能比像素差别更危险</h2>
+<p>熵解码通过离散累积概率区间确定符号。若两端的整数 CDF 边界相差一个单位，某些码值就可能落入不同符号区间；此后上下文更新又会放大差异。不能用“浮点差只有很小误差”直接证明码流仍可解。</p>
+<p>本轮构造的单区间例子：总频数 65536，编码端 A/B 边界为 32768，解码端为 32767，码值为 32767.5/65536。同一码值在编码端对应 A，在解码端对应 B。它只演示区间归属，不是完整算术编码器或实际 RT 跨设备失败测试。见<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">机制小实验</span>。</p>
+<p>INTNET 官方摘要明确讨论了浮点推理不一致对基于潜变量熵编码的影响，并提出整数网络路线。其官方出版页为 ICLR 2019；本轮没有获得论文全文，不进一步声称其整数范围、舍入、溢出和实现开销细节。<a href="https://research.google/pubs/integer-networks-for-data-compression-with-latent-variable-models/">Google Research 官方摘要</a></p>
+<p><strong>工程推导：</strong>真正的协议需要说明权重版本、输入颜色和尺寸、量化舍入、概率到整数 CDF 的映射、状态初始化、熵流分段及字节序。整数化也必须定义饱和、位宽和运算顺序，不能只把张量类型改成整数就称为标准化。</p>
+<h2 id="3-nvc360">3. 固定源码观察：NVC360 如何携带上下文</h2>
+<p>本轮审读固定提交 <code>d5591e2c9ad67e30a0c80fe89749a4aa1450fc96</code> 的 10 份文件。流头写入帧数、宽高、位深、投影、质量、GOP、模型 ID 和模型文件的截断 SHA256 标识。解码器按流头寻找本地对应权重；<strong>头中是标识，不是完整权重本身</strong>。这降低误用不同模型的风险，但仍依赖接收端已持有可用模型。</p>
+<p>编码控制器实际调用匹配解码，得到后续参考。该观察比仅看模型 <code>compress</code> 返回值更完整：不能发现返回图像某处未截断，就不看控制器而断言真正参考链不一致。确定性标志和种子设置也只是实现措施，不构成跨设备通过证明。<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">固定源码与行号记录</span></p>
+<p>如果未来做跨设备实验，应区分：符号完全一致、熵解码成功、参考逐位一致、最终像素一致四级结果。还要交换码流方向（A 编码/B 解码和 B 编码/A 解码），避免只测各设备自行闭环。</p>
+<h2 id="4-neural-wrapping-codec">4. Neural Wrapping：把神经网络放到传统 codec 两侧</h2>
+<p>作者使用神经预处理 P、标准编解码器 C 和神经后处理 O，形成 <code>x→P(x)→C→O→x̂</code>。标准 codec 提供成熟流语法，神经网络试图把内容变成更有利于给定感知目标和编码器的输入，再改善重建。它与直接替换熵编码、运动或变换的全神经路线具有不同部署约束。<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Khan_Perceptual_Video_Compression_with_Neural_Wrapping_CVPR_2025_paper.pdf">Neural Wrapping，第 4–5 页</a></p>
+<p>难点是 C 通常不可直接反向传播。论文训练可微代理 M 来模仿真实 codec 的输出及码率，并随预处理分布变化继续更新。其一处关键形式可写成 <code>I_O=stopgrad(I_C−I_M)+I_M</code>：前向数值采用真实 codec 的结果，梯度则来自代理。这样减少“训练前向看到假重建”的问题，却不会自动使代理梯度准确。</p>
+<p><strong>为什么输出接近还不够？</strong>令 <code>C(x)=x</code>、<code>M(x)=x+0.001 sin(1000x)</code>，输出误差始终不超过 0.001，但导数误差可达 1。这个平滑函数反例证明两种准确性不等价；实际标准 codec 常为离散、分段行为，更不能凭输出误差直接给出梯度一致性保证。示例不代表论文代理实际达到或未达到这种误差。<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">数学例子及数值</span></p>
+<h2 id="5">5. 训练代理要和真实编码条件相连</h2>
+<p>论文分阶段拟合解码输出、建立概率/码率代理，并对码率做校准。预处理网络变化后，代理需要追踪新输入分布，否则优化可能利用代理的漏洞：预测上很省，实际编码却不省。可靠验证是定期使用真实 codec 编解码并计实际字节，同时比较代理预测误差，尤其检查被预处理改变最多的片段。</p>
+<p>选读设置中，训练含小 GOP、低延迟的代理配置，而最终标准 codec 测试不统一限于低延迟，使用 96 帧、1080p、YUV420 8-bit 等条件，并比较 SVT-AV1/VVenC。不能把它与严格因果 DCVC 的所有差值都解释为网络结构优势；未来帧和标准编码器搜索预算需要另列。<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Khan_Perceptual_Video_Compression_with_Neural_Wrapping_CVPR_2025_paper.pdf">Neural Wrapping，第 5–6、8 页</a></p>
+<p>其优化关注感知指标，并承认 PSNR 可能退步。因此应联合报告原始像素保真、感知、时间稳定和总计算，不用感知 RD 的一个改进数字概括所有质量维度。视频后处理还需检查时间不一致；逐帧更自然不必然减少闪烁。</p>
+<h2 id="6">6. 哪些问题值得实际验证</h2>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>小规模验证方式</th>
+<th>成功标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>现有 RT 的跨执行路径一致性</td>
+<td>固定短流，核对符号/CDF/参考/像素，各级分列</td>
+<td>精确说明通过哪一级，不用 PSNR 相近代替符号一致</td>
+</tr>
+<tr>
+<td>头信息是否足以发现错模型</td>
+<td>独立解析、缺失模型/错误标识的明确失败</td>
+<td>不悄悄用另一权重继续解码</td>
+</tr>
+<tr>
+<td>包装代理是否可信</td>
+<td>留出片段上比较实际 codec 和代理的率/重建误差</td>
+<td>不用训练内误差证明部署泛化</td>
+</tr>
+<tr>
+<td>包装方案是否值得部署</td>
+<td>同标准配置与等待下比较 P+C+O 总时间和真实 RD</td>
+<td>后处理成本与新增模型一起报告</td>
+</tr>
+</tbody>
+</table>
+<p>现有 RT 的精度诊断已经提供部分同机执行路径证据；它不是跨设备兼容实验。本轮仅完成源码与理论分析，不将新数学例子写进真实码流结果表。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

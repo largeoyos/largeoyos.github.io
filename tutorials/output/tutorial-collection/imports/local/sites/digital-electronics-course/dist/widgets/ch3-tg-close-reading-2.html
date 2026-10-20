@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-tg-close-reading-2")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-tg-close-reading-2",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-textbook-analog-switch">
+<div class="viz-controls">
+<button aria-pressed="true" class="btn" data-c="" type="button">C = 1 · 接通</button>
+<label class="form-label">图 3.3.39、3.3.40
+      <select class="form-select" data-view=""><option value="equivalent">含导通电阻的等效图</option><option value="structure">单控制端的传输门接法</option></select>
+</label>
+<label class="form-label">输入电压
+      <select class="form-select" data-input=""><option value="1">1 V</option><option value="2.5">2.5 V</option><option selected="" value="5">5 V</option></select>
+</label>
+<label class="form-label">导通电阻 R_TG
+      <select class="form-select" data-ron=""><option value="0.1">0.1 kΩ</option><option selected="" value="1">1 kΩ</option><option value="10">10 kΩ</option></select>
+</label>
+<label class="form-label">负载电阻 R_L
+      <select class="form-select" data-load=""><option value="0.1">0.1 kΩ</option><option value="1">1 kΩ</option><option selected="" value="10">10 kΩ</option><option value="100">100 kΩ</option></select>
+</label>
+</div>
+<svg aria-label="模拟开关接对地负载电阻时的接法和分压" class="de-circuit" data-k="0.9090909090909091" data-output="4.545454545454545" role="img" viewbox="0 0 708 324"><title>模拟开关与电压传输系数</title><desc>由教材图三点三点三十九和四十改画。结构图中一个反相器从 C 产生互补控制，传输门的输出接负载电阻到地。等效图把实际开关拆为理想开关和给定导通电阻，二者再与负载电阻串联。导通时按分压计算输出，断开时输出由负载电阻拉到零。此图将导通电阻作为给定常数，未模拟其随输入电压的变化。</desc><rect fill="none" height="50" stroke="currentColor" stroke-width="1.8" width="48" x="209.64000000000001" y="117"></rect><text text-anchor="middle" x="233.64000000000001" y="139">SW</text><text class="small" text-anchor="middle" x="233.64000000000001" y="158">接通</text><path class="wire" d="M 233.64000000000001 68 V 117"></path><text text-anchor="middle" x="233.64000000000001" y="54">C = 1</text><path class="wire active" d="M 12 142 H 209.64000000000001 M 257.64 142 H 436.2 M 484.2 142 H 674"></path><rect fill="none" height="16" stroke="currentColor" stroke-width="1.8" width="48" x="436.2" y="134"></rect><text class="small" text-anchor="middle" x="460.2" y="113">R_TG = 1 kΩ</text><text text-anchor="start" x="12" y="184">vᵢ = 5 V</text><text class="small" text-anchor="end" x="670" y="184">vₒ = 4.545 V</text><path class="wire" d="M 674 142 H 696 M 674 142 V 207"></path><circle cx="674" cy="142" fill="currentColor" r="3"></circle><rect fill="none" height="42" stroke="currentColor" stroke-width="1.8" width="14" x="667" y="207"></rect><text class="small" text-anchor="end" x="656" y="232">R_L = 10 kΩ</text><path class="wire" d="M 674 249 V 276 M 659 276 H 689 M 665 283 H 683 M 670 290 H 678"></path><text class="small" text-anchor="start" x="12" y="311">R_TG 取给定常数 · 对地负载</text></svg>
+<div aria-live="polite" class="text-small" data-status="">接通 · K_TG = 0.9091</div>
+<style>
+    #de-textbook-analog-switch .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-textbook-analog-switch .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-textbook-analog-switch .de-circuit .small{font-size:12px}
+    #de-textbook-analog-switch .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #de-textbook-analog-switch .de-circuit .active{stroke:var(--viz-series-1);stroke-width:2.5}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("textbook-analog-switch");
+
+  (function(){
+    const root=document.getElementById('de-textbook-analog-switch'),svg=root.querySelector('svg'),button=root.querySelector('[data-c]');let c=1;
+    const fields={view:root.querySelector('[data-view]'),input:root.querySelector('[data-input]'),ron:root.querySelector('[data-ron]'),load:root.querySelector('[data-load]')};
+    const allowed={view:['equivalent','structure'],input:['1','2.5','5'],ron:['0.1','1','10'],load:['0.1','1','10','100']};
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s){if(s.c===0||s.c===1)c=s.c;for(const k of Object.keys(fields))if(allowed[k].includes(String(s[k])))fields[k].value=String(s[k]);}}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s={c:c};for(const k of Object.keys(fields))s[k]=fields[k].value;lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,a,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,on){return '<path class="wire '+(on?'active':'')+'" d="'+d+'"/>';};
+    function inv(x,y){return '<path class="wire" d="M '+x+' '+(y-15)+' L '+(x+30)+' '+y+' L '+x+' '+(y+15)+' Z"/><circle cx="'+(x+35)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';}
+    function draw(){
+      const vi=+fields.input.value,ron=+fields.ron.value,rl=+fields.load.value,k=rl/(rl+ron),vo=c?vi*k:0;
+      const w=svg.getBoundingClientRect().width||root.clientWidth,bus=w-34,isStructure=fields.view.value==='structure',cy=isStructure?184:142;
+      let out='<title>模拟开关与电压传输系数</title><desc>由教材图三点三点三十九和四十改画。结构图中一个反相器从 C 产生互补控制，传输门的输出接负载电阻到地。等效图把实际开关拆为理想开关和给定导通电阻，二者再与负载电阻串联。导通时按分压计算输出，断开时输出由负载电阻拉到零。此图将导通电阻作为给定常数，未模拟其随输入电压的变化。</desc>';
+      if(isStructure){
+        const x=w/2;
+        out+=path('M 20 35 H 62')+inv(62,35)+path('M 102 35 H '+x+' V 148 M 20 35 V 283 H '+x+' V 211');
+        out+='<circle cx="20" cy="35" r="3" fill="currentColor"/>'+text(12,17,'C = '+c)+text(x-12,142,'C′ = '+(1-c),'end',true);
+        out+='<rect x="'+(x-28)+'" y="158" width="56" height="53" fill="none" stroke="currentColor" stroke-width="1.8"/>'+text(x,190,'TG','middle');
+        out+='<circle cx="'+x+'" cy="153" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+        out+=path('M 34 '+cy+' H '+(x-28)+' M '+(x+28)+' '+cy+' H '+bus,!!c);
+        out+=text(34,cy-17,'vᵢ = '+vi+' V')+text(bus-4,cy-17,'vₒ = '+vo.toFixed(3)+' V','end',true);
+      }else{
+        const sx=w*0.33,rx=w*0.65,swLeft=sx-24,swRight=sx+24;
+        out+='<rect x="'+swLeft+'" y="117" width="48" height="50" fill="none" stroke="currentColor" stroke-width="1.8"/>'+text(sx,139,'SW','middle')+text(sx,158,c?'接通':'断开','middle',true);
+        out+=path('M '+sx+' 68 V 117')+text(sx,54,'C = '+c,'middle');
+        out+=path('M 12 '+cy+' H '+swLeft+' M '+swRight+' '+cy+' H '+(rx-24)+' M '+(rx+24)+' '+cy+' H '+bus,!!c);
+        out+='<rect x="'+(rx-24)+'" y="134" width="48" height="16" fill="none" stroke="currentColor" stroke-width="1.8"/>';
+        out+=text(rx,113,'R_TG = '+ron+' kΩ','middle',true)+text(12,184,'vᵢ = '+vi+' V')+text(bus-4,184,'vₒ = '+vo.toFixed(3)+' V','end',true);
+      }
+      out+=path('M '+bus+' '+cy+' H '+(w-12)+' M '+bus+' '+cy+' V '+(cy+65));
+      out+='<circle cx="'+bus+'" cy="'+cy+'" r="3" fill="currentColor"/><rect x="'+(bus-7)+'" y="'+(cy+65)+'" width="14" height="42" fill="none" stroke="currentColor" stroke-width="1.8"/>';
+      out+=text(bus-18,cy+90,'R_L = '+rl+' kΩ','end',true);
+      out+=path('M '+bus+' '+(cy+107)+' V '+(cy+134)+' M '+(bus-15)+' '+(cy+134)+' H '+(bus+15)+' M '+(bus-9)+' '+(cy+141)+' H '+(bus+9)+' M '+(bus-4)+' '+(cy+148)+' H '+(bus+4));
+      const h=cy+182;out+=text(12,h-13,'R_TG 取给定常数 · 对地负载',undefined,true);
+      svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.setAttribute('data-output',String(vo));svg.setAttribute('data-k',String(k));svg.innerHTML=out;
+      button.textContent='C = '+c+' · '+(c?'接通':'断开');button.setAttribute('aria-pressed',String(!!c));
+      root.querySelector('[data-status]').textContent=c?'接通 · K_TG = '+k.toFixed(4):'断开 · R_L 将输出拉到 0 V';
+    }
+    restore(lessonHost&&lessonHost.widgetState);button.addEventListener('click',function(){c=1-c;draw();save();});
+    for(const el of Object.values(fields))el.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

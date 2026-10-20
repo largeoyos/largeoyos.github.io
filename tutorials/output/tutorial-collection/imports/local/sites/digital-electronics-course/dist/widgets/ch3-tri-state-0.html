@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-tri-state-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-tri-state-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-tri-state-output-and-bus">
+<div class="viz-controls">
+<label class="form-label">三态反相器
+      <select class="form-select" data-view=""><option value="stage">输出级示意</option><option value="bus">两路共用总线</option></select>
+</label>
+<label class="form-label">使能端有效电平
+      <select class="form-select" data-polarity=""><option value="low">低电平有效 · 有圆圈</option><option value="high">高电平有效 · 无圆圈</option></select>
+</label>
+<button aria-pressed="true" class="btn" data-bit="a1" type="button">A = 1</button>
+<button aria-pressed="false" class="btn" data-bit="e1" type="button">EN′ = 0</button>
+<span data-bus-only="" hidden=""><button aria-pressed="false" class="btn" data-bit="a2" type="button">A₂ = 0</button></span>
+<span data-bus-only="" hidden=""><button aria-pressed="true" class="btn" data-bit="e2" type="button">EN′ = 1</button></span>
+<div data-bus-only="" hidden="">
+<label class="form-label">总线的外接电阻
+        <select class="form-select" data-load=""><option value="none">无</option><option value="down">下拉到地</option><option value="up">上拉到电源</option></select>
+</label>
+</div>
+</div>
+<svg aria-label="三态反相器的输出级和总线连接" class="de-circuit" data-drive="0" data-output="0" data-y1="0" data-y2="Z" role="img" viewbox="0 0 708 395"><title>三态反相器</title><desc>基于教材三态反相器绘制。输出级图省略内部使能控制逻辑，直接标出其产生的两个栅极信号。正常反相时上拉或下拉导通，禁止输出时两只管都截止。总线图由两个三态反相器共用输出线，输出圆圈表示数据反相，控制端圆圈表示低电平有效，内部小三角表示三态输出结构。只讨论稳定的理想逻辑状态。外接电阻足够大，正常驱动时其负载影响忽略。</desc><text class="small" text-anchor="start" x="12" y="22">A = 1 · EN′ = 0</text><text text-anchor="start" x="364" y="43">VDD</text><path class="wire" d="M 354 48 V 74"></path><path class="wire" d="M 354 74 V 88 H 344 M 344 132 H 354 V 146"></path><path class="wire off" d="M 344 88 V 132"></path><path class="wire" d="M 330 88 V 132 M 304 110 H 319"></path><circle cx="324" cy="110" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text text-anchor="end" x="301" y="115">Gₚ = 1</text><text class="small" text-anchor="start" x="364" y="115">PMOS · 截止</text><path class="wire" d="M 354 146 V 237 M 354 193 H 696"></path><circle cx="354" cy="193" fill="currentColor" r="3"></circle><text text-anchor="end" x="692" y="181">Y：0</text><path class="wire" d="M 354 237 V 251 H 344 M 344 295 H 354 V 309"></path><path class="wire active" d="M 344 251 V 295"></path><path class="wire" d="M 330 251 V 295 M 304 273 H 330"></path><text text-anchor="end" x="301" y="278">Gₙ = 1</text><text class="small" text-anchor="start" x="364" y="278">NMOS · 导通</text><path class="wire" d="M 354 309 V 339 M 338 339 H 370 M 344 346 H 364 M 350 353 H 358"></path><text class="small" text-anchor="start" x="12" y="382">输出级示意 · 控制电路省略</text></svg>
+<div aria-live="polite" class="text-small" data-status="">正常反相 · 输出由 NMOS 下拉</div>
+<style>
+    #de-tri-state-output-and-bus .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-tri-state-output-and-bus .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-tri-state-output-and-bus .de-circuit .small{font-size:12px}
+    #de-tri-state-output-and-bus .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-tri-state-output-and-bus .de-circuit .active{stroke:var(--viz-series-1);stroke-width:2.5}
+    #de-tri-state-output-and-bus .de-circuit .off{stroke:var(--border)}
+    #de-tri-state-output-and-bus .de-circuit .conflict{stroke:var(--viz-series-2);stroke-width:2.5}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("tri-state-output-and-bus");
+
+  (function(){
+    const root=document.getElementById('de-tri-state-output-and-bus'),svg=root.querySelector('svg'),view=root.querySelector('[data-view]'),polarity=root.querySelector('[data-polarity]'),load=root.querySelector('[data-load]');
+    let bits={a1:1,e1:0,a2:0,e2:1};
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s){for(const k of Object.keys(bits))if(s[k]===0||s[k]===1)bits[k]=s[k];for(const pair of [[view,'view',['stage','bus']],[polarity,'polarity',['low','high']],[load,'load',['none','down','up']]])if(pair[2].includes(s[pair[1]]))pair[0].value=s[pair[1]];}}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s=Object.assign({view:view.value,polarity:polarity.value,load:load.value},bits);lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,a,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,cls){return '<path class="wire '+(cls||'')+'" d="'+d+'"/>';};
+    const dot=function(x,y){return '<circle cx="'+x+'" cy="'+y+'" r="3" fill="currentColor"/>';};
+    function enabled(e){return polarity.value==='low'?e===0:e===1;}
+    function enName(i){return 'EN'+(i===undefined?'':i===1?'₁':'₂')+(polarity.value==='low'?'′':'');}
+    function mos(x,y,p,g){
+      const on=p?g===0:g===1;
+      let out=path('M '+x+' '+(y-36)+' V '+(y-22)+' H '+(x-10)+' M '+(x-10)+' '+(y+22)+' H '+x+' V '+(y+36));
+      out+=path('M '+(x-10)+' '+(y-22)+' V '+(y+22),on?'active':'off');
+      out+=path('M '+(x-24)+' '+(y-22)+' V '+(y+22)+' M '+(x-50)+' '+y+' H '+(x-24-(p?11:0)));
+      if(p)out+='<circle cx="'+(x-30)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+      out+=text(x-53,y+5,(p?'Gₚ':'Gₙ')+' = '+g,'end')+text(x+10,y+5,(p?'PMOS':'NMOS')+' · '+(on?'导通':'截止'),undefined,true);
+      return out;
+    }
+    function draw(){
+      const w=svg.getBoundingClientRect().width||root.clientWidth,x=w/2,isBus=view.value==='bus';
+      const on1=enabled(bits.e1),on2=enabled(bits.e2),d1=on1?1-bits.a1:'Z',d2=on2?1-bits.a2:'Z';
+      let output,drive,detail,out='<title>三态反相器</title><desc>基于教材三态反相器绘制。输出级图省略内部使能控制逻辑，直接标出其产生的两个栅极信号。正常反相时上拉或下拉导通，禁止输出时两只管都截止。总线图由两个三态反相器共用输出线，输出圆圈表示数据反相，控制端圆圈表示低电平有效，内部小三角表示三态输出结构。只讨论稳定的理想逻辑状态。外接电阻足够大，正常驱动时其负载影响忽略。</desc>';
+      if(!isBus){
+        const gp=on1?bits.a1:1,gn=on1?bits.a1:0;output=d1;drive=d1;
+        out+=text(12,22,'A = '+bits.a1+' · '+enName()+' = '+bits.e1,undefined,true)+text(x+10,43,'VDD');
+        out+=path('M '+x+' 48 V 74')+mos(x,110,true,gp)+path('M '+x+' 146 V 237 M '+x+' 193 H '+(w-12));
+        out+=dot(x,193)+text(w-16,181,'Y：'+output,'end')+mos(x,273,false,gn);
+        out+=path('M '+x+' 309 V 339 M '+(x-16)+' 339 H '+(x+16)+' M '+(x-10)+' 346 H '+(x+10)+' M '+(x-4)+' 353 H '+(x+4));
+        out+=text(12,382,'输出级示意 · 控制电路省略',undefined,true);
+        svg.setAttribute('viewBox','0 0 '+w+' 395');
+        detail=on1?'正常反相 · 输出由 '+(output===1?'PMOS 上拉':'NMOS 下拉'):'禁止输出 · 两只管都截止 · 输出电压未规定';
+      }else{
+        const bus=w-40,active=[d1,d2].filter(function(d){return d!=='Z';});
+        if(active.length===0){drive='Z';output=load.value==='none'?'Z':load.value==='up'?1:0;detail=load.value==='none'?'无人驱动 · 总线电压未规定':'无人驱动 · 外接电阻决定总线电平';}
+        else if(active.length===1){drive=active[0];output=drive;detail=on1?'第一路驱动总线':'第二路驱动总线';}
+        else if(active[0]===active[1]){drive=active[0];output=drive;detail='两路同时使能 · 当前输出同电平';}
+        else{drive='冲突';output='冲突';detail='两路同时使能 · 一路拉高、一路拉低';}
+        for(const row of [{cy:128,i:1,a:bits.a1,e:bits.e1,on:on1,d:d1},{cy:310,i:2,a:bits.a2,e:bits.e2,on:on2,d:d2}]){
+          const cy=row.cy,cx=x-3,edge=cy-14.5,cls=row.on?'active':'off';
+          out+=path('M 12 '+cy+' H '+(x-22),row.a?'active':'')+text(12,cy-18,'A'+(row.i===1?'₁':'₂')+' = '+row.a);
+          out+='<path class="wire" d="M '+(x-22)+' '+(cy-24)+' L '+(x+26)+' '+cy+' L '+(x-22)+' '+(cy+24)+' Z"/>';
+          out+='<path class="wire" d="M '+(x-10)+' '+(cy-4)+' H '+(x+4)+' L '+(x-3)+' '+(cy+7)+' Z"/>';
+          out+='<circle cx="'+(x+31)+'" cy="'+cy+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+          out+=path('M '+(x+36)+' '+cy+' H '+bus,cls)+text(x+42,cy+29,'Y'+(row.i===1?'₁':'₂')+'：'+row.d,undefined,true);
+          if(polarity.value==='low'){
+            out+='<circle cx="'+cx+'" cy="'+(edge-5)+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+            out+=path('M '+cx+' '+(cy-54)+' V '+(edge-10));
+          }else out+=path('M '+cx+' '+(cy-54)+' V '+edge);
+          out+=text(cx,cy-64,enName(row.i)+' = '+row.e,'middle');
+        }
+        out+=path('M '+bus+' 128 V 310 M '+bus+' 219 H '+(w-12),drive==='冲突'?'conflict':'');
+        out+=dot(bus,219)+text(bus-10,207,'Y：'+output,'end');
+        if(load.value!=='none'){
+          out+=path('M '+bus+' 310 V 365')+'<rect x="'+(bus-7)+'" y="365" width="14" height="40" fill="none" stroke="currentColor" stroke-width="1.8"/>';
+          out+=text(bus-20,390,'R','end')+path('M '+bus+' 405 V 429');
+          if(load.value==='down')out+=path('M '+(bus-16)+' 429 H '+(bus+16)+' M '+(bus-10)+' 436 H '+(bus+10)+' M '+(bus-4)+' 443 H '+(bus+4));
+          else out+=path('M '+(bus-12)+' 429 H '+(bus+12))+text(bus-20,434,'VDD','end');
+        }
+        const h=load.value==='none'?385:477;
+        out+=text(12,h-13,'三态反相器 · 静态理想模型',undefined,true);svg.setAttribute('viewBox','0 0 '+w+' '+h);
+      }
+      svg.innerHTML=out;svg.setAttribute('data-output',String(output));svg.setAttribute('data-drive',String(drive));svg.setAttribute('data-y1',String(d1));svg.setAttribute('data-y2',String(d2));
+      root.querySelectorAll('[data-bus-only]').forEach(function(el){el.hidden=!isBus;});
+      root.querySelectorAll('[data-bit]').forEach(function(b){const k=b.dataset.bit,n=k==='a1'?(isBus?'A₁':'A'):k==='a2'?'A₂':enName(isBus?(k==='e1'?1:2):undefined);b.textContent=n+' = '+bits[k];b.setAttribute('aria-pressed',String(!!bits[k]));});
+      root.querySelector('[data-status]').textContent=detail;
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    root.querySelectorAll('[data-bit]').forEach(function(b){b.addEventListener('click',function(){bits[b.dataset.bit]=1-bits[b.dataset.bit];draw();save();});});
+    for(const el of [view,polarity,load])el.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

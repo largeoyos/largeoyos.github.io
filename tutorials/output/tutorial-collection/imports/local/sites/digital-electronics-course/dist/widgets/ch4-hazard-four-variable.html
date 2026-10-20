@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch4-hazard-four-variable")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch4-hazard-four-variable",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch4-hazard-four-variable">
+<div class="viz-controls">
+<label class="form-label">单独变化的变量<select class="form-select" data-variable=""><option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option></select></label>
+<label class="form-label">变化方向<select class="form-select" data-direction=""><option value="fall">1 → 0</option><option value="rise">0 → 1</option></select></label>
+</div>
+<div class="viz-row" data-bits=""></div>
+<svg aria-label="题4.32与非门电路及单变量变化波形" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch4-hazard-four-variable [hidden]{display:none!important}
+    #ch4-hazard-four-variable svg{display:block;width:100%;color:var(--foreground)}
+    #ch4-hazard-four-variable svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch4-hazard-four-variable svg .small{font-size:12px}
+    #ch4-hazard-four-variable .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch4-hazard-four-variable .wave-y{stroke:var(--viz-series-1);stroke-width:2.2}
+    #ch4-hazard-four-variable .guide{stroke:var(--border);stroke-width:1}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch4-hazard-four-variable'),svg=root.querySelector('svg');
+    let s={variable:'a',direction:'fall',a:0,b:0,c:1,d:1};
+    const terms=[[['a',0],['c',1],['d',1]],[['a',1],['b',0],['d',1]],[['b',1],['c',0]],[['c',1],['d',0]]];
+    const esc=v=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    const text=(x,y,v,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${esc(v)}</text>`;
+    const wire=(d,cls='')=>`<path class="wire ${cls}" d="${d}"/>`;
+    const box=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    root.querySelector('[data-bits]').innerHTML=['a','b','c','d'].map(k=>`<button class="btn" type="button" data-bit="${k}">${k.toUpperCase()}</button>`).join('');
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;
+      if(['a','b','c','d'].includes(v.variable))s.variable=v.variable;if(['fall','rise'].includes(v.direction))s.direction=v.direction;
+      for(const k of ['a','b','c','d'])if(v[k]===0||v[k]===1)s[k]=v[k];
+    }
+    function model(){
+      const value=(term,v)=>+term.every(([k,pos])=>((k===s.variable?v:s[k])===pos));
+      const p0=terms.map(t=>value(t,0)),p1=terms.map(t=>value(t,1)),f0=+p0.some(Boolean),f1=+p1.some(Boolean);
+      const steady=terms.map((t,i)=>!t.some(([k])=>k===s.variable)&&p0[i]===1?i+1:0).filter(Boolean);
+      const before=s.direction==='fall'?1:0,after=1-before;
+      const raw=(k,t)=>k===s.variable?(t<2?before:after):s[k];
+      const literal=(k,pos,t)=>pos?raw(k,t):1-raw(k,t-1);
+      const nand=(term,t)=>1- +term.every(([k,pos])=>literal(k,pos,t-1));
+      const output=t=>1- +terms.every(term=>nand(term,t-1));
+      const wave=Array.from({length:9},(_,i)=>output(i)),hazard=f0===1&&f1===1&&steady.length===0;
+      return {p0,p1,f0,f1,steady,before,after,raw,literal,wave,hazard,glitch:hazard&&wave.some(v=>v===0)};
+    }
+    function draw(){
+      const w=svg.clientWidth||320,z=model(),gx=93,gw=74,fx=w-88,fy=266;
+      let o='<title>题4.32 单变量冒险检查</title><desc>同名信号表示相连，撇号信号由反相器产生。四个第一级与非门的乘积项依次为 A撇CD、AB撇D、BC撇、CD撇，最后一级与非门汇总。波形示例令每个反相器和与非门延迟均为一个单位，采用传输延迟模型。</desc>';
+      const name=s.variable.toUpperCase();
+      o+=text(8,25,name)+wire('M 28 21 H 70')+`<circle cx="44" cy="21" r="3" fill="currentColor"/><path d="M 70 9 V 33 L 92 21 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>`+bubble(96,21)+wire('M 100 21 H 143 M 44 21 V 49 H 143')+text(150,25,name+'′')+text(150,53,name);
+      for(let i=0;i<4;i++){
+        const y=88+i*95,cy=y+35,term=terms[i],old=(z.before?z.p1:z.p0)[i],next=(z.after?z.p1:z.p0)[i];
+        o+=box(gx,y,gw,70)+text(gx+gw/2,y+20,'P'+(i+1)+'′','middle',true)+text(gx+gw/2,y+49,'&','middle');
+        term.forEach(([k,pos],j)=>{const yy=y+(term.length===3?15+j*20:24+j*25);o+=text(8,yy+4,k.toUpperCase()+(pos?'':'′'),'start',true)+wire(`M 34 ${yy} H ${gx}`);});
+        o+=bubble(gx+gw+4,cy)+wire(`M ${gx+gw+8} ${cy} H ${fx}`)+text((gx+gw+8+fx)/2,cy-9,`${1-old}→${1-next}`,'middle',true);
+      }
+      o+=box(fx,88,60,355)+text(fx+30,fy+5,'&','middle')+bubble(fx+64,fy)+wire(`M ${fx+68} ${fy} H ${w-8}`)+text(w-8,fy-12,'Y','end')+text(w-8,fy-33,(z.before?z.f1:z.f0)+'→'+(z.after?z.f1:z.f0),'end',true);
+      const left=56,right=w-12,xx=t=>left+(right-left)*t/8;
+      for(const t of [0,2,4,6,8])o+=`<path class="guide" d="M ${xx(t)} 478 V 632"/>`+text(xx(t),650,t,'middle',true);
+      const rows=[[512,name,Array.from({length:9},(_,i)=>z.raw(s.variable,i))],[564,name+'′',Array.from({length:9},(_,i)=>z.literal(s.variable,0,i))],[616,'Y',z.wave]];
+      for(const [base,label,values]of rows){let d=`M ${left} ${base-18*values[0]}`;for(let i=1;i<9;i++)d+=` H ${xx(i)} V ${base-18*values[i]}`;o+=text(8,base-5,label,'start',true)+wire(d,label==='Y'?'wave-y':'');}
+      o+=text(w-8,675,'t / 门延迟单位','end',true);
+      svg.setAttribute('viewBox',`0 0 ${w} 690`);svg.innerHTML=o;svg.dataset.hazard=+z.hazard;svg.dataset.glitch=+z.glitch;svg.dataset.f0=z.f0;svg.dataset.f1=z.f1;svg.dataset.steady=z.steady.join(',');svg.dataset.wave=JSON.stringify(z.wave);
+      root.querySelector('[data-variable]').value=s.variable;root.querySelector('[data-direction]').value=s.direction;
+      root.querySelectorAll('[data-bit]').forEach(b=>{const k=b.dataset.bit;b.hidden=k===s.variable;b.textContent=k.toUpperCase()+' = '+s[k];b.setAttribute('aria-pressed',!!s[k]);});
+      root.querySelector('[data-status]').textContent=z.hazard?(z.glitch?'具备静态 1 冒险条件；当前延迟示例出现低脉冲':'具备静态 1 冒险条件；当前方向和延迟示例没有出现尖峰'):z.steady.length?'P'+z.steady.join('、P')+' 始终为 1，稳住输出；无静态 1 冒险':'输出在两端并非恒为 1；无静态 1 冒险';
+    }
+    function save(){const z=model();window.openai?.setWidgetState({modelContent:{...s,exercise:'4.32',hazard:z.hazard,glitch:z.glitch},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);
+    root.querySelector('[data-variable]').onchange=e=>{s.variable=e.target.value;draw();save();};root.querySelector('[data-direction]').onchange=e=>{s.direction=e.target.value;draw();save();};
+    root.querySelectorAll('[data-bit]').forEach(b=>b.onclick=()=>{s[b.dataset.bit]^=1;draw();save();});
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

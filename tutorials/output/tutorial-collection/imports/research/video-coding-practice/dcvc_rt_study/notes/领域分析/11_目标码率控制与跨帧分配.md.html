@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>11｜目标码率控制与跨帧分配：有 QP 旋钮，还缺什么</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/11_目标码率控制与跨帧分配.md · <a href="11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md">原始 Markdown</a></p><h1 id="11-qp">11｜目标码率控制与跨帧分配：有 QP 旋钮，还缺什么</h1>
+<p>2026-10-19。主要依据 NRC、BAO、ELF-VC。作者报告、数学解释和本项目建议分列；本轮未运行这些模型。</p>
+<h2 id="1">1. 三个容易混在一起的问题</h2>
+<p><strong>可变码率</strong>要求一个系统能产生多个率失真工作点；<strong>码率控制</strong>要求在内容未知或变化时接近指定预算；<strong>跨帧分配</strong>要求把有限预算花在对全段最有价值的位置。一个 QP 可以调出不同码率，并不表示固定 QP 能稳定达到某个 Mbps，更不表示满足网络队列与显示截止时间。</p>
+<p>设实际完整码流为 B bit，T 秒视频的平均码率为 <code>B/T</code>。目标误差可记录 <code>|B−B_target|/B_target</code>，但还需保留带符号误差，以区分长期超发和欠发。逐帧误差、整段误差和窗口峰值回答的问题不同。若把传输抽象为每帧服务 C_t bit，则队列递推 <code>Q_(t+1)=max(0,Q_t+B_t−C_t)</code>；很小的整段误差仍可伴随较大的 Q_t 和迟到帧。</p>
+<p>总预算至少包括 I/P 载荷、超先验、运动/内容流、SPS/帧头/模式标记；网络研究还需要另外计包头、纠错和重传。不能以训练熵估计替代最终 B。</p>
+<h2 id="2-nrc">2. NRC：先分配，再把目标映射成编码强度</h2>
+<p>NRC 使用已经能够变码率的神经编解码器，增加两级分配与 rate implementation。先根据剩余预算和历史统计分配 mini-GOP 预算，再由权重网络分配帧预算。对于剩余帧，可概念性写成 <code>b_t=B_remaining·w_t/Σ_remaining w</code>，随后预测能实现 b_t 的 λ。它的 DVC/FVC/DCVC/AlphaVC 基础实现包含相应变码率改造，不能直接等同当前已跑通的发布版 DCVC-RT。<a href="https://proceedings.iclr.cc/paper_files/paper/2024/file/8c1d92835eb4e601f396c97ec60439fe-Paper-Conference.pdf">NRC，第 3–6 页</a></p>
+<p>它为什么要有两个网络？分配网络解决“哪一帧值得花比特”，实现网络解决“这个画面和历史状态下用什么编码参数才能花到这些比特”。把两个问题都压进一个固定 QP 表，往往难以覆盖内容和参考质量变化。</p>
+<p>训练也分阶段：先获得基础 codec，再训练预算到参数的实现模块，之后训练跨帧分配。推理输入包含当前帧、前一重建及已观测的码率/失真/参数统计。这样的反馈可校正先前预测误差，但并不能保证任意目标都可达：若预算低于最低质量模式或高于最大可用编码强度的工作区间，控制器必须承认饱和。</p>
+<p><strong>容易忽略的等待：</strong>其分配模块读取当前 mini-GOP，还使用前一帧和 mini-GOP 后的下一帧。即使基础 codec 是 P 帧结构，控制器仍引入前瞻。若一个包含 N_m 帧的 mini-GOP 从第一帧开始直播采集，等待其后一帧到达需要约 <code>N_m/f</code> 秒，f 为帧率；具体端到端延迟还取决于调度。这里不猜论文未在本次选读中确定的 N_m 数值。<a href="https://proceedings.iclr.cc/paper_files/paper/2024/file/8c1d92835eb4e601f396c97ec60439fe-Paper-Conference.pdf">NRC，第 5 页</a></p>
+<p>论文实验以相应基础编码器的实际码率作为目标，报告了较小的平均控制误差及部分 RD 收益。应保留其 GOP、基线改造、目标生成方法和前瞻条件，不将作者误差直接写成 RT 的现有效果。论文中的预算缓冲量也不自动构成真实网络无溢出的证明。</p>
+<h2 id="3-bao">3. BAO：为什么本帧最优分配可能损害后续</h2>
+<p>传统逐帧搜索可优化 <code>R_t+λD_t</code>；BAO 考虑当前潜变量对后续帧率失真的导数影响，并将 GoP 级分配问题与潜变量优化联系起来。理论联系帮助解释“为什么应考虑未来”，不等于有限步非凸优化器已经求出全局最优真实码流。<a href="https://proceedings.mlr.press/v202/xu23c/xu23c.pdf">BAO，第 3、5–6 页</a></p>
+<p>计算瓶颈在依赖图：上游潜变量一改变，下游原有最优点就可能失效。完整嵌套优化随 K 次迭代和 N 个节点出现 <code>Θ(K^N)</code> 级代价。论文用重新初始化下游等近似降为 <code>Θ(KN)</code>，再限制未来梯度范围获得可扩展方法。截断范围让计算可承受，也意味着没有完整保留任意远的传播影响。</p>
+<p>本次核读的实验设置使用 K=2000、Adam 学习率 1e−3，可扩展版本截断 C=2。第 8 页表 3 的 DVC/HEVC Class D 每帧编码时间，在 A100 与 EPYC 7742 环境中，原始编码不超过 1 秒，OEU 为 15.2 秒、近似 BAO 为 528.3 秒、可扩展 BAO 为 74.6 秒。<strong>这些是作者条件下的每帧时间，不是我们测得的速度，也不能转称实时方案。</strong><a href="https://proceedings.mlr.press/v202/xu23c/xu23c.pdf">BAO，第 7–8 页</a></p>
+<p>研究上还要分开三种来源：更好的预算分配、缩小摊销推断差距、减轻连续代理与离散编码差距。若一个方法同时改变它们，仅相减两组 BD-rate 百分数并不能完成严格的因果分解。</p>
+<h2 id="4-rt">4. 把它接到 RT 上，应该先做什么</h2>
+<p>已有 48 个真实 RT 点可以用于理解质量参数与内容的关系，却不足以直接训练可靠的逐帧控制器。它们主要是整段、固定设置结果；随机拼接这些点的逐帧字节会忽略策略改变后产生的新参考状态。离线预言式选择只能作为信息上限或候选筛选，不能冒充可部署控制策略。</p>
+<p>建议分成两个有边界的步骤：</p>
+<ol>
+<li><strong>无新编码的基线校准。</strong>在固定像素口径、相同帧集下，按内容留出：用若干片段拟合 QP→整段 bpp 的单调映射，在留出片段上预测。输出带符号码率误差、是否超出工作区间，不使用测试片段真实目标点再反推并宣称泛化。现有样本很少，此步仅用于判断固定映射是否明显不足。</li>
+<li><strong>有反馈的真实流。</strong>确认 RT 的逐帧质量参数、层级偏移和流内信令后，才实现只读取过去的控制器。对照固定参数、仅预算反馈和有前瞻分配；逐项计实际码流、编码时间、等待、队列峰值。真正的控制实验必须重新编码形成自洽参考链。</li>
+</ol>
+<p>若做 BAO/DT 式搜索，预算轴用 0、短、中等的总编码墙钟时间，而不只迭代次数；每一点都回到离散符号、实际熵编码与匹配解码。阶段停止条件可以是预算耗尽、质量约束失守或搜索代理改善但真实码率不改善。</p>
+<h2 id="5">5. 值得研究的交叉问题</h2>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>可证伪预期</th>
+<th>必须控制的混杂</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>参考刷新是否影响码率控制稳定性</td>
+<td>相同控制器在刷新后误差分布不同</td>
+<td>层级 QP、帧类型、帧头、内容切换</td>
+</tr>
+<tr>
+<td>前瞻的收益是否值得等待</td>
+<td>同等待上限下，分配质量优于无前瞻</td>
+<td>目标码率、解码结构、计算时间</td>
+</tr>
+<tr>
+<td>潜变量搜索更适合哪些帧</td>
+<td>参考锚帧的收益可传播给后续</td>
+<td>搜索时间、优化窗口、参数流</td>
+</tr>
+<tr>
+<td>基础模型的 rate knob 是否好控制</td>
+<td>相近参数改动对应平稳、可预测的实际码率变化</td>
+<td>画面变化与已解码状态</td>
+</tr>
+</tbody>
+</table>
+<p>ELF-VC 的多等级条件是这类控制器可能利用的基础；它本身不替代控制器。跨模型比较时还要核对目标写作 <code>R+λD</code> 还是 <code>D+λR</code>，两者的 λ 方向相反。<a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Rippel_ELF-VC_Efficient_Learned_Flexible-Rate_Video_Coding_ICCV_2021_paper.pdf">ELF-VC，第 4 页</a></p>
+<h2 id="2026-10-20q6">2026-10-20：Q6基础校准的实际证据</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">48点离线分析</span>已完成：同1080p、240帧、reset64下，用Station的四点映射预测Ducks，实际/预测为6.74–15.71；同片段未参与拟合的3个q点，log线性最大预算误差约7.06%。本例内容转移误差远大于插值误差，但两片段互换比值并非独立重复，不能据此推断总体。训练数据生成目标及q后才检索旧整流；该检验没有运行反馈控制器。下一步需内容信号/过去反馈及新编码的自洽参考链，不拼接旧逐帧率。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

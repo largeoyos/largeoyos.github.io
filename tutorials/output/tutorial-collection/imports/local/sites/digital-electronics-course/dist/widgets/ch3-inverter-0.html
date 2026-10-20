@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-inverter-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-inverter-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-cmos-inverter">
+<div class="viz-controls">
+<button aria-pressed="true" class="btn" data-a="0" type="button">输入 A = 0</button>
+<button aria-pressed="false" class="btn" data-a="1" type="button">输入 A = 1</button>
+<label class="form-check"><input class="form-check-input" data-equivalent="" type="checkbox"/><span class="form-check-label">显示开关等效图</span></label>
+</div>
+<svg aria-label="CMOS 反相器中 PMOS 上拉和 NMOS 下拉的状态" class="de-circuit" role="img" viewbox="0 0 708 380"><title>CMOS 反相器</title><desc>两个栅极接同一输入。PMOS 连接输出与五伏电源，NMOS 连接输出与地。实线为电连接，等效图的虚线为控制关系。</desc><text text-anchor="middle" x="403.55999999999995" y="22">VDD = 5 V</text><path class="wire active" d="M 403.55999999999995 32 V 60"></path><path class="wire active" d="M 403.55999999999995 60 V 82 H 382.55999999999995 V 128 H 403.55999999999995 V 150"></path><path class="wire" d="M 369.55999999999995 82 V 128"></path><path class="wire" d="M 333.55999999999995 105 H 359.55999999999995"></path><circle cx="364.55999999999995" cy="105" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire idle" d="M 403.55999999999995 220 V 242 H 382.55999999999995 V 288 H 403.55999999999995 V 310"></path><path class="wire" d="M 369.55999999999995 242 V 288"></path><path class="wire" d="M 333.55999999999995 265 H 369.55999999999995"></path><path class="wire" d="M 403.55999999999995 150 V 220"></path><path class="wire active" d="M 403.55999999999995 185 H 684"></path><circle cx="403.55999999999995" cy="185" fill="currentColor" r="3"></circle><path class="wire" d="M 333.55999999999995 105 H 305.55999999999995 V 265 H 333.55999999999995"></path><path class="wire" d="M 22 185 H 305.55999999999995"></path><text text-anchor="start" x="22" y="168">A = 0</text><text text-anchor="start" x="22" y="211">0 V</text><circle cx="305.55999999999995" cy="185" fill="currentColor" r="3"></circle><text text-anchor="end" x="684" y="169">Y = 1</text><text text-anchor="start" x="417.55999999999995" y="90">PMOS</text><text text-anchor="start" x="417.55999999999995" y="113">接通</text><text text-anchor="start" x="417.55999999999995" y="250">NMOS</text><text text-anchor="start" x="417.55999999999995" y="273">断开</text><path class="wire idle" d="M 403.55999999999995 310 V 325 M 385.55999999999995 325 H 421.55999999999995 M 391.55999999999995 332 H 415.55999999999995 M 398.55999999999995 339 H 408.55999999999995"></path><text text-anchor="middle" x="403.55999999999995" y="365">GND = 0 V</text></svg>
+<div aria-live="polite" class="text-small" data-status="">上面接通、下面断开：输出被拉到约 5 V。</div>
+<style>
+    #de-cmos-inverter .de-circuit{width:100%;display:block;color:var(--foreground)}
+    #de-cmos-inverter .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base)}
+    #de-cmos-inverter .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-cmos-inverter .de-circuit .active{stroke:var(--viz-series-1)}
+    #de-cmos-inverter .de-circuit .idle{stroke:var(--border)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("cmos-inverter");
+
+  (function(){
+    const root=document.getElementById('de-cmos-inverter'),svg=root.querySelector('svg');let a=0;
+    const text=(x,y,t,anchor='start')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'">'+t+'</text>';
+    const path=(d,c='')=>'<path class="wire '+c+'" d="'+d+'"/>';
+    function device(x,y,p,on,equiv){
+      let out='';
+      if(equiv){
+        out+=path('M '+x+' '+(y-45)+' V '+(y-18)+' M '+x+' '+(y+18)+' V '+(y+45),on?'active':'idle');
+        out+=path('M '+x+' '+(y+18)+' L '+(on?x:x+22)+' '+(y-18),on?'active':'');
+        out+='<circle cx="'+x+'" cy="'+(y-18)+'" r="3" fill="var(--background)" stroke="currentColor"/><circle cx="'+x+'" cy="'+(y+18)+'" r="3" fill="var(--background)" stroke="currentColor"/>';
+        out+=path('M '+(x-70)+' '+y+' H '+(x-25))+'<path d="M '+(x-25)+' '+y+' H '+(x-6)+'" fill="none" stroke="currentColor" stroke-dasharray="3 3"/>';
+      }else{
+        out+=path('M '+x+' '+(y-45)+' V '+(y-23)+' H '+(x-21)+' V '+(y+23)+' H '+x+' V '+(y+45),on?'active':'idle');
+        out+=path('M '+(x-34)+' '+(y-23)+' V '+(y+23));
+        out+=path('M '+(x-70)+' '+y+' H '+(x-34-(p?10:0)));
+        if(p)out+='<circle cx="'+(x-39)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>';
+      }return out;
+    }
+    function draw(){
+      const w=root.clientWidth,x=w*.57,eq=root.querySelector('[data-equivalent]').checked;
+      let out='<title>CMOS 反相器</title><desc>两个栅极接同一输入。PMOS 连接输出与五伏电源，NMOS 连接输出与地。实线为电连接，等效图的虚线为控制关系。</desc>';
+      out+=text(x,22,'VDD = 5 V','middle')+path('M '+x+' 32 V 60',a===0?'active':'idle');
+      out+=device(x,105,true,a===0,eq)+device(x,265,false,a===1,eq);
+      out+=path('M '+x+' 150 V 220')+path('M '+x+' 185 H '+(w-24),'active');
+      out+='<circle cx="'+x+'" cy="185" r="3" fill="currentColor"/>';
+      out+=path('M '+(x-70)+' 105 H '+(x-98)+' V 265 H '+(x-70));
+      out+=path('M 22 185 H '+(x-98));
+      out+=text(22,168,'A = '+a)+text(22,211,(a?5:0)+' V');
+      out+='<circle cx="'+(x-98)+'" cy="185" r="3" fill="currentColor"/>';
+      out+=text(w-24,169,'Y = '+(1-a),'end');
+      out+=text(x+14,90,'PMOS')+text(x+14,113,a===0?'接通':'断开');
+      out+=text(x+14,250,'NMOS')+text(x+14,273,a===1?'接通':'断开');
+      out+=path('M '+x+' 310 V 325 M '+(x-18)+' 325 H '+(x+18)+' M '+(x-12)+' 332 H '+(x+12)+' M '+(x-5)+' 339 H '+(x+5),a===1?'active':'idle');
+      out+=text(x,365,'GND = 0 V','middle');
+      svg.setAttribute('viewBox','0 0 '+w+' 380');svg.innerHTML=out;
+      root.querySelector('[data-status]').textContent=a===0?'上面接通、下面断开：输出被拉到约 5 V。':'上面断开、下面接通：输出被拉到约 0 V。';
+    }
+    root.querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>{a=+b.dataset.a;root.querySelectorAll('[data-a]').forEach(t=>t.setAttribute('aria-pressed',t===b));draw();}));
+    root.querySelector('[data-equivalent]').addEventListener('change',draw);new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

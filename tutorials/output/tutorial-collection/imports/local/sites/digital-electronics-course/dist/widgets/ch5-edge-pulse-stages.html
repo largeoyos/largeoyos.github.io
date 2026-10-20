@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-edge-pulse-stages")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-edge-pulse-stages",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-edge-pulse-stages">
+<div class="viz-controls"><label class="form-label">结构<select class="form-select" data-mode=""><option value="rise">上升沿 D：两级 D 锁存器</option><option value="fall">下降沿 D：两级 D 锁存器</option><option value="pulse">正脉冲 SR：两级 SR 锁存器</option></select></label></div>
+<div class="viz-row"><button class="btn" data-clk="" type="button">CLK=0</button><button class="btn" data-a="" type="button">D=0</button><span data-reset="" hidden=""><button class="btn" data-b="" type="button">R=0</button></span></div>
+<svg aria-label="两级锁存器的互补控制与等效触发器符号" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-edge-pulse-stages svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-edge-pulse-stages svg text{fill:var(--foreground);font-size:12px;font-weight:400}
+    #ch5-edge-pulse-stages .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch5-edge-pulse-stages .one{stroke:var(--viz-series-1);stroke-width:2.2}
+    #ch5-edge-pulse-stages .unknown{stroke-dasharray:4 3}
+    #ch5-edge-pulse-stages .open{stroke:var(--viz-series-1);fill:var(--viz-series-1);fill-opacity:.06}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-edge-pulse-stages'),svg=root.querySelector('svg');
+    let s={mode:'rise',clk:0,a:0,b:0,m:0,mb:1,q:0,qb:1};
+    const val=x=>x===null?'?':x;
+    const txt=(x,y,t,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${t}</text>`;
+    const wire=(d,v)=>`<path class="wire${v===1?' one':v===null?' unknown':''}" d="${d}"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    const box=(x,y,w,h,on)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"${on?' class="open"':''}/>`;
+    function settle(){
+      const e1=s.mode==='rise'?1-s.clk:s.clk,e2=1-e1;
+      if(e1){
+        if(s.mode!=='pulse'){s.m=s.a;s.mb=1-s.a;}
+        else if(s.a&&s.b){s.m=s.mb=1;}
+        else if(s.a){s.m=1;s.mb=0;}else if(s.b){s.m=0;s.mb=1;}
+        else if(s.m===s.mb){s.m=s.mb=null;}
+      }
+      if(e2){if(s.m===s.mb||s.m===null){s.q=s.qb=null;s.m=s.mb=null;}else{s.q=s.m;s.qb=s.mb;}}
+      s.e1=e1;s.e2=e2;
+    }
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;if(['rise','fall','pulse'].includes(v.mode))s.mode=v.mode;for(const k of ['clk','a','b'])if(v[k]===0||v[k]===1)s[k]=v[k];for(const k of ['m','mb','q','qb'])if(v[k]===null||v[k]===0||v[k]===1)s[k]=v[k];}
+    function draw(){
+      const w=svg.clientWidth||320,l=65,r=w-103,bw=65,p=s.mode==='pulse',c1=s.mode==='rise'?'CLK′':'CLK',c2=s.mode==='rise'?'CLK':'CLK′';
+      let o='<title>互补控制的两级锁存器</title><desc>上升沿D的主级在CLK为0时透明，从级在CLK为1时透明；下降沿D相反。正脉冲SR的主级在CLK为1时接收S和R，从级在CLK为0时复制主级。下方为等效图形符号：CLK内侧三角标记边沿触发，输入小圆圈表示反相时钟，输出旁折角表示脉冲触发。显示忽略延迟的稳定结果。</desc>';
+      o+=txt(l+bw/2,24,'主级 '+(p?'SR':'D'),'middle')+txt(r+bw/2,24,'从级 '+(p?'SR':'D'),'middle');
+      o+=box(l,45,bw,125,s.e1)+box(r,45,bw,125,s.e2);
+      o+=txt(5,70,(p?'S':'D')+'='+s.a)+wire(`M 5 82 H ${l}`,s.a)+txt(l+7,86,p?'1S':'1D');
+      o+=txt(5,108,c1+'='+s.e1)+wire(`M 5 120 H ${l}`,s.e1)+txt(l+7,124,'C1');
+      o+=wire(`M ${l+bw} 82 H ${r}`,s.m)+txt((l+bw+r)/2,70,'Q₁='+val(s.m),'middle')+txt(r+7,86,p?'1S':'1D');
+      o+=txt(r-8,108,c2+'='+s.e2,'end')+wire(`M ${r-48} 120 H ${r}`,s.e2)+txt(r+7,124,'C1');
+      if(p){o+=txt(5,162,'R='+s.b)+wire(`M 5 148 H ${l}`,s.b)+txt(l+7,152,'1R')+bubble(l+bw+4,148)+wire(`M ${l+bw+8} 148 H ${r}`,s.mb)+txt((l+bw+r)/2,164,'Q₁′='+val(s.mb),'middle')+txt(r+7,152,'1R');}
+      o+=wire(`M ${r+bw} 82 H ${w-5}`,s.q)+txt(w-5,70,'Q='+val(s.q),'end')+bubble(r+bw+4,148)+wire(`M ${r+bw+8} 148 H ${w-5}`,s.qb)+txt(w-5,136,'Q′='+val(s.qb),'end');
+      o+=txt(w/2,210,'等效逻辑符号','middle');
+      const x=w/2-52,y=232,er=x+104;
+      o+=box(x,y,104,130,false);
+      for(const [label,inner,yy,v]of p?[['S','1S',255,s.a],['CLK','C1',297,s.clk],['R','1R',339,s.b]]:[['D','1D',255,s.a],['CLK','C1',297,s.clk]]){
+        o+=txt(5,yy-10,label+'='+v)+wire(`M 5 ${yy} H ${x-(label==='CLK'&&s.mode==='fall'?8:0)}`,v);
+        if(label==='CLK'&&s.mode==='fall')o+=bubble(x-4,yy);
+        if(label==='CLK'&&!p)o+=`<path d="M ${x} ${yy-7} L ${x+10} ${yy} L ${x} ${yy+7}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+        o+=txt(x+(label==='CLK'&&!p?16:8),yy+4,inner);
+      }
+      o+=wire(`M ${er} 255 H ${w-5}`,s.q)+txt(w-5,245,'Q='+val(s.q),'end')+bubble(er+4,339)+wire(`M ${er+8} 339 H ${w-5}`,s.qb)+txt(w-5,329,'Q′='+val(s.qb),'end');
+      if(p)for(const yy of [255,339])o+=`<path d="M ${er-22} ${yy-10} H ${er-11} V ${yy+1}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+      svg.setAttribute('viewBox',`0 0 ${w} 383`);svg.innerHTML=o;Object.assign(svg.dataset,{m:val(s.m),q:val(s.q),e1:s.e1,e2:s.e2});
+      root.querySelector('[data-mode]').value=s.mode;root.querySelector('[data-reset]').hidden=!p;
+      for(const [k,label]of [['clk','CLK'],['a',p?'S':'D'],['b','R']]){const e=root.querySelector('[data-'+k+']');e.textContent=label+'='+s[k];e.setAttribute('aria-pressed',s[k]===1);}
+      root.querySelector('[data-status]').textContent='主级'+(s.e1?'开放':'保持')+' · 从级'+(s.e2?'开放':'保持')+' · Q₁='+val(s.m)+'，Q='+val(s.q);
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,topic:'5.3.2-5.3.3 两级结构'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);settle();
+    root.querySelector('[data-mode]').onchange=e=>{s={mode:e.target.value,clk:0,a:0,b:0,m:0,mb:1,q:0,qb:1};settle();draw();save();};
+    for(const k of ['clk','a','b'])root.querySelector('[data-'+k+']').onclick=()=>{s[k]^=1;settle();draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);settle();draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

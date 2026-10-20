@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-compound-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-compound-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-cmos-compound-paths">
+<div class="viz-controls">
+<button aria-pressed="true" class="btn" data-bit="a" type="button">A = 1</button>
+<button aria-pressed="false" class="btn" data-bit="b" type="button">B = 0</button>
+<button aria-pressed="false" class="btn" data-bit="c" type="button">C = 0</button>
+</div>
+<svg aria-label="下拉网络为 A、B 串联后与 C 并联的互补 CMOS 电路" class="de-circuit" data-output="1" role="img" viewbox="0 0 708 543"><title>CMOS 复合门通路</title><desc>自编练习。采用静态互补 CMOS 的理想开关模型，衬底连接省略。上拉网络的 A、B 两只 PMOS 并联，再与 C 控制的 PMOS 串联。下拉网络的 A、B 两只 NMOS 串联，再与 C 控制的 NMOS 并联。ON 和 OFF 表示理想开关状态，不用于计算内部节点的精确电压。</desc><text class="small" text-anchor="start" x="10" y="18">上拉网络 · PMOS</text><text text-anchor="start" x="364" y="28">VDD</text><path class="wire" d="M 354 30 V 36 M 290 36 H 418 M 290 36 V 52 M 418 36 V 52"></path><path class="wire" d="M 290 52 V 66 H 280 M 280 110 H 290 V 124"></path><path class="wire off" d="M 280 66 V 110"></path><path class="wire" d="M 266 66 V 110 M 240 88 H 255"></path><circle cx="260" cy="88" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text text-anchor="end" x="238" y="93">A</text><text class="small" text-anchor="start" x="300" y="93">OFF</text><path class="wire" d="M 418 52 V 66 H 408 M 408 110 H 418 V 124"></path><path class="wire active" d="M 408 66 V 110"></path><path class="wire" d="M 394 66 V 110 M 368 88 H 383"></path><circle cx="388" cy="88" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text text-anchor="end" x="366" y="93">B</text><text class="small" text-anchor="start" x="428" y="93">ON</text><path class="wire" d="M 290 124 V 140 H 418 V 124 M 354 140 V 152"></path><path class="wire" d="M 354 152 V 166 H 344 M 344 210 H 354 V 224"></path><path class="wire active" d="M 344 166 V 210"></path><path class="wire" d="M 330 166 V 210 M 304 188 H 319"></path><circle cx="324" cy="188" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text text-anchor="end" x="302" y="193">C</text><text class="small" text-anchor="start" x="364" y="193">ON</text><path class="wire" d="M 354 224 V 286 M 354 270 H 696"></path><circle cx="354" cy="140" fill="currentColor" r="3"></circle><circle cx="354" cy="270" fill="currentColor" r="3"></circle><text text-anchor="end" x="692" y="259">Y = 1</text><text class="small" text-anchor="start" x="10" y="257">下拉网络 · NMOS</text><path class="wire" d="M 290 286 H 418 M 290 286 V 300 M 418 286 V 342"></path><path class="wire" d="M 290 300 V 314 H 280 M 280 358 H 290 V 372"></path><path class="wire active" d="M 280 314 V 358"></path><path class="wire" d="M 266 314 V 358 M 240 336 H 266"></path><text text-anchor="end" x="238" y="341">A</text><text class="small" text-anchor="start" x="300" y="341">ON</text><path class="wire" d="M 290 384 V 398 H 280 M 280 442 H 290 V 456"></path><path class="wire off" d="M 280 398 V 442"></path><path class="wire" d="M 266 398 V 442 M 240 420 H 266"></path><text text-anchor="end" x="238" y="425">B</text><text class="small" text-anchor="start" x="300" y="425">OFF</text><path class="wire" d="M 418 342 V 356 H 408 M 408 400 H 418 V 414"></path><path class="wire off" d="M 408 356 V 400"></path><path class="wire" d="M 394 356 V 400 M 368 378 H 394"></path><text text-anchor="end" x="366" y="383">C</text><text class="small" text-anchor="start" x="428" y="383">OFF</text><path class="wire" d="M 290 372 V 384 M 290 456 V 480 H 418 V 414 M 354 480 V 496 M 338 496 H 370 M 344 503 H 364 M 350 510 H 358"></path><text class="small" text-anchor="start" x="10" y="532">理想开关模型 · 衬底连接省略</text></svg>
+<div aria-live="polite" class="text-small" data-status="">下拉网络：所有支路断开 · Y = 1</div>
+<style>
+    #de-cmos-compound-paths .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-cmos-compound-paths .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-cmos-compound-paths .de-circuit .small{font-size:12px}
+    #de-cmos-compound-paths .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-cmos-compound-paths .de-circuit .active{stroke:var(--viz-series-1);stroke-width:2.5}
+    #de-cmos-compound-paths .de-circuit .off{stroke:var(--border)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("cmos-compound-paths");
+
+  (function(){
+    const root=document.getElementById('de-cmos-compound-paths'),svg=root.querySelector('svg');
+    let bits={a:1,b:0,c:0};
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s)for(const k of ['a','b','c'])if(s[k]===0||s[k]===1)bits[k]=s[k];}
+    function save(){if(lessonHost&&lessonHost.setWidgetState)lessonHost.setWidgetState({modelContent:bits,privateContent:bits}).catch(function(){});}
+    const text=function(x,y,t,anchor,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,cls){return '<path class="wire '+(cls||'')+'" d="'+d+'"/>';};
+    const dot=function(x,y){return '<circle cx="'+x+'" cy="'+y+'" r="3" fill="currentColor"/>';};
+    function mos(x,y,p,k){
+      const on=p?!bits[k]:!!bits[k];
+      let out=path('M '+x+' '+(y-36)+' V '+(y-22)+' H '+(x-10)+' M '+(x-10)+' '+(y+22)+' H '+x+' V '+(y+36));
+      out+=path('M '+(x-10)+' '+(y-22)+' V '+(y+22),on?'active':'off');
+      out+=path('M '+(x-24)+' '+(y-22)+' V '+(y+22)+' M '+(x-50)+' '+y+' H '+(x-24-(p?11:0)));
+      if(p)out+='<circle cx="'+(x-30)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+      out+=text(x-52,y+5,k.toUpperCase(),'end');
+      out+=text(x+10,y+5,on?'ON':'OFF',undefined,true);
+      return out;
+    }
+    function draw(){
+      const w=svg.getBoundingClientRect().width||root.clientWidth,m=w/2,l=m-64,r=m+64;
+      const ab=!!(bits.a&&bits.b),cc=!!bits.c,y=+( !(ab||cc) );
+      let out='<title>CMOS 复合门通路</title><desc>自编练习。采用静态互补 CMOS 的理想开关模型，衬底连接省略。上拉网络的 A、B 两只 PMOS 并联，再与 C 控制的 PMOS 串联。下拉网络的 A、B 两只 NMOS 串联，再与 C 控制的 NMOS 并联。ON 和 OFF 表示理想开关状态，不用于计算内部节点的精确电压。</desc>';
+      out+=text(10,18,'上拉网络 · PMOS',undefined,true)+text(m+10,28,'VDD');
+      out+=path('M '+m+' 30 V 36 M '+l+' 36 H '+r+' M '+l+' 36 V 52 M '+r+' 36 V 52');
+      out+=mos(l,88,true,'a')+mos(r,88,true,'b');
+      out+=path('M '+l+' 124 V 140 H '+r+' V 124 M '+m+' 140 V 152');
+      out+=mos(m,188,true,'c')+path('M '+m+' 224 V 286 M '+m+' 270 H '+(w-12));
+      out+=dot(m,140)+dot(m,270)+text(w-16,259,'Y = '+y,'end');
+      out+=text(10,257,'下拉网络 · NMOS',undefined,true);
+      out+=path('M '+l+' 286 H '+r+' M '+l+' 286 V 300 M '+r+' 286 V 342');
+      out+=mos(l,336,false,'a')+mos(l,420,false,'b')+mos(r,378,false,'c');
+      out+=path('M '+l+' 372 V 384 M '+l+' 456 V 480 H '+r+' V 414 M '+m+' 480 V 496 M '+(m-16)+' 496 H '+(m+16)+' M '+(m-10)+' 503 H '+(m+10)+' M '+(m-4)+' 510 H '+(m+4));
+      out+=text(10,532,'理想开关模型 · 衬底连接省略',undefined,true);
+      svg.setAttribute('viewBox','0 0 '+w+' 543');svg.setAttribute('data-output',String(y));svg.innerHTML=out;
+      root.querySelectorAll('[data-bit]').forEach(function(b){b.textContent=b.dataset.bit.toUpperCase()+' = '+bits[b.dataset.bit];b.setAttribute('aria-pressed',String(!!bits[b.dataset.bit]));});
+      const branches=ab&&cc?'AB、C 两条支路接通':ab?'AB 支路接通':cc?'C 支路接通':'所有支路断开';
+      root.querySelector('[data-status]').textContent='下拉网络：'+branches+' · Y = '+y;
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    root.querySelectorAll('[data-bit]').forEach(function(b){b.addEventListener('click',function(){bits[b.dataset.bit]=1-bits[b.dataset.bit];draw();save();});});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

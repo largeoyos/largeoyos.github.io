@@ -1,8 +1,8 @@
 {
-  "subjects": 11,
-  "entries": 205,
-  "pdfs": 15,
-  "chapters": 45,
+  "subjects": 12,
+  "entries": 288,
+  "pdfs": 21,
+  "chapters": 51,
   "courses": [
     {
       "id": "math",
@@ -12,12 +12,12 @@
     {
       "id": "analog",
       "title": "模拟电子技术基础",
-      "entries": 4
+      "entries": 5
     },
     {
       "id": "digital",
       "title": "数字电子技术基础",
-      "entries": 1
+      "entries": 60
     },
     {
       "id": "computer",
@@ -37,7 +37,7 @@
     {
       "id": "compression",
       "title": "图像与视频压缩",
-      "entries": 34
+      "entries": 51
     },
     {
       "id": "pytorch",
@@ -58,8 +58,13 @@
       "id": "practice",
       "title": "编码实验与科研环境",
       "entries": 13
+    },
+    {
+      "id": "exercises",
+      "title": "课程习题与勘误",
+      "entries": 6
     }
   ],
-  "version": "4.12.0",
+  "version": "4.13.0",
   "published": "2026-10-20"
 }

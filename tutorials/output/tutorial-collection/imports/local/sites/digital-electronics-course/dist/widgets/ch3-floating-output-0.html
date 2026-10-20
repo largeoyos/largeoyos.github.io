@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-floating-output-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-floating-output-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="tg-disconnected-output">
+<style>
+    #tg-disconnected-output .de-circuit { display:block; width:100%; }
+    #tg-disconnected-output .de-circuit text { fill:var(--foreground); font-size:var(--font-size-base); font-weight:400; }
+    #tg-disconnected-output .de-circuit .small { font-size:calc(var(--font-size-base) * .86); }
+    #tg-disconnected-output .wire { fill:none; stroke:var(--foreground); stroke-width:1.5; stroke-linejoin:round; }
+    #tg-disconnected-output .gate { fill:var(--background); stroke:var(--foreground); stroke-width:1.5; }
+    #tg-disconnected-output .junction { fill:var(--foreground); }
+    #tg-disconnected-output .active { stroke:var(--viz-series-1); stroke-width:2.2; }
+  </style>
+<div class="viz-controls">
+<button aria-pressed="false" class="btn" data-c="" type="button">C = 0</button>
+<button aria-pressed="true" class="btn" data-x="" type="button">输入 X = 1</button>
+<label class="form-label">输出端连接
+      <select aria-label="选择输出端连接" class="form-select" data-load="">
+<option selected="" value="down">电阻接地</option><option value="up">电阻接电源</option><option value="none">没有其他支路</option>
+</select>
+</label>
+</div>
+<svg aria-label="传输门通路与输出端上拉、下拉或悬空的区别" class="de-circuit" data-output="0" data-path="Z" role="img" style="height: 216px;" viewbox="0 0 708 216"><title>传输门断开后的输出</title><desc>控制信号C为0，输入为1，输出端经电阻接地。传输门断开，输出电位由外接电阻决定。</desc><text class="" text-anchor="start" x="8" y="84">X = 1</text><line class="wire" x1="8" x2="272.36" y1="100" y2="100"></line><rect class="gate" height="48" width="50" x="272.36" y="76"></rect><text class="" text-anchor="middle" x="297.36" y="105">TG</text><circle class="gate" cx="297.36" cy="71" r="5"></circle><line class="wire" x1="297.36" x2="297.36" y1="66" y2="43"></line><text class="" text-anchor="middle" x="297.36" y="31">C′ = 1</text><line class="wire" x1="297.36" x2="297.36" y1="124" y2="155"></line><text class="" text-anchor="middle" x="297.36" y="173">C = 0</text><line class="wire" x1="322.36" x2="696" y1="100" y2="100"></line><circle class="junction" cx="516.84" cy="100" r="2.5"></circle><text class="" text-anchor="end" x="696" y="84">Y ≈ 0</text><line class="wire" x1="516.84" x2="516.84" y1="100" y2="124"></line><path class="wire" d="M 516.84 124 L 511.84000000000003 129 L 521.84 137 L 511.84000000000003 145 L 521.84 153 L 511.84000000000003 161 L 516.84 166"></path><text class="small" text-anchor="start" x="530.84" y="149">R_L</text><path class="wire" d="M 516.84 166 V 190 M 505.84000000000003 190 H 527.84 M 509.84000000000003 195 H 523.84 M 513.84 200 H 519.84"></path></svg>
+<div aria-live="polite" class="text-small" data-status="">TG通路为高阻；Y节点由下拉电阻确定为0。</div>
+<script>(()=>{const lessonHost=window.courseState("tg-disconnected-output");
+
+  (()=>{
+    const root=document.getElementById('tg-disconnected-output');
+    const svg=root.querySelector('svg'), loadField=root.querySelector('[data-load]');
+    let c=0,x=1,load='down';
+    const text=(xx,y,s,anchor='start',cls='')=>`<text x="${xx}" y="${y}" text-anchor="${anchor}" class="${cls}">${s}</text>`;
+    const line=(x1,y1,x2,y2,cls='wire')=>`<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    const path=d=>`<path class="wire" d="${d}"/>`;
+    function draw(){
+      const w=Math.max(280,root.clientWidth), gx=w*.42, node=w*.73, y=100;
+      const value=c?String(x):load==='none'?'未规定':load==='up'?'1':'0';
+      svg.dataset.output=value;svg.dataset.path=c?'on':'Z';
+      let s=`<title>传输门断开后的输出</title><desc>控制信号C为${c}，输入为${x}，输出端${load==='down'?'经电阻接地':load==='up'?'经电阻接电源':'无其他外接支路'}。${c?'传输门导通，按导通电阻远小于负载电阻的近似，输出跟随输入。':load==='none'?'传输门断开，输出电平不能确定。':'传输门断开，输出电位由外接电阻决定。'}</desc>`;
+      s+=text(8,y-16,'X = '+x)+line(8,y,gx-25,y,c?'wire active':'wire');
+      s+=`<rect class="gate" x="${gx-25}" y="${y-24}" width="50" height="48"/>`+text(gx,y+5,'TG','middle');
+      s+=`<circle class="gate" cx="${gx}" cy="${y-29}" r="5"/>`+line(gx,y-34,gx,43)+text(gx,31,'C′ = '+(1-c),'middle');
+      s+=line(gx,y+24,gx,155)+text(gx,173,'C = '+c,'middle');
+      s+=line(gx+25,y,w-12,y,c?'wire active':'wire')+`<circle class="junction" cx="${node}" cy="${y}" r="2.5"/>`;
+      s+=text(w-12,y-16,'Y'+(value==='未规定'?'：未规定':' ≈ '+value),'end');
+      if(load==='down'){
+        s+=line(node,y,node,124)+path(`M ${node} 124 L ${node-5} 129 L ${node+5} 137 L ${node-5} 145 L ${node+5} 153 L ${node-5} 161 L ${node} 166`)+text(node+14,149,'R_L','start','small');
+        s+=path(`M ${node} 166 V 190 M ${node-11} 190 H ${node+11} M ${node-7} 195 H ${node+7} M ${node-3} 200 H ${node+3}`);
+      }else if(load==='up'){
+        s+=text(node,17,'V_DD','middle')+line(node,25,node,36)+path(`M ${node} 36 L ${node-5} 41 L ${node+5} 49 L ${node-5} 57 L ${node+5} 65 L ${node-5} 73 L ${node} 78`)+line(node,78,node,y)+text(node+14,61,'R_L','start','small');
+      }
+      svg.setAttribute('viewBox',`0 0 ${w} 216`);svg.style.height='216px';svg.innerHTML=s;
+      root.querySelector('[data-c]').textContent='C = '+c;root.querySelector('[data-c]').setAttribute('aria-pressed',String(!!c));
+      root.querySelector('[data-x]').textContent='输入 X = '+x;root.querySelector('[data-x]').setAttribute('aria-pressed',String(!!x));loadField.value=load;
+      root.querySelector('[data-status]').textContent=c?'TG通路导通；Y跟随X（采用导通电阻远小于负载电阻的近似）。':load==='none'?'TG通路为高阻；Y节点电平未规定。':`TG通路为高阻；Y节点由${load==='down'?'下拉':'上拉'}电阻确定为${value}。`;
+    }
+    function restore(saved){const p=saved?.privateContent;if(p?.c===0||p?.c===1)c=p.c;if(p?.x===0||p?.x===1)x=p.x;if(['down','up','none'].includes(p?.load))load=p.load;}
+    function save(){lessonHost?.setWidgetState?.({modelContent:{example:'传输门断开后输出',c,x,load},privateContent:{c,x,load}})?.catch(()=>{});}
+    root.querySelector('[data-c]').addEventListener('click',()=>{c=1-c;draw();save();});
+    root.querySelector('[data-x]').addEventListener('click',()=>{x=1-x;draw();save();});
+    loadField.addEventListener('change',()=>{load=loadField.value;draw();save();});
+    restore(lessonHost?.widgetState);window.addEventListener('openai:set_globals',e=>{restore(e.detail?.globals?.widgetState);draw();});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:dram-cell")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:dram-cell",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><svg aria-labelledby="dram-title dram-desc" role="img" style="display:block;width:100%;height:auto" viewbox="0 0 360 430" xmlns="http://www.w3.org/2000/svg">
+<title id="dram-title">单管DRAM与位线电容的电荷共享</title><desc id="dram-desc">字线控制一个访问MOS管，位线通过它接入存储电容。位线本身也有电容。读出接通时电荷共享，得到小电压，之后需要放大恢复。访问MOS在图中用受控开关表示。</desc>
+<g fill="none" stroke="var(--foreground)" stroke-linejoin="round" stroke-width="1.7">
+<path d="M53 67 V207 M53 142 H142 M172 142 H275 V212"></path>
+<circle cx="142" cy="142" r="3"></circle><circle cx="172" cy="142" r="3"></circle><path d="M145 140 L168 123 M157 103 V79 H275" stroke="var(--primary)"></path>
+<path d="M30 207 H76 M30 219 H76 M53 219 V259 M38 259 H68 M43 265 H63 M48 271 H58"></path>
+<path d="M251 212 H299 M251 224 H299 M275 224 V259 M260 259 H290 M265 265 H285 M270 271 H280"></path>
+<circle cx="53" cy="142" fill="var(--foreground)" r="3"></circle>
+</g><g font-size="14" text-anchor="middle">
+<text x="180" y="24">1个访问MOS + 1个存储电容</text><text x="53" y="53">位线 BL</text><text x="263" y="68">字线 WL</text><text x="157" y="174">访问管</text><text x="90" y="240">C_B</text><text x="310" y="244">C_S</text>
+<text x="180" y="309">位线初始0，存储电容原为5 V</text><text x="180" y="339">若 C_B=50C_S，接通后：</text><text fill="var(--primary)" x="180" y="370">v_B = 5 / 51 ≈ 0.098 V</text><text x="180" y="403">读出微小信号 → 放大 → 恢复写回</text>
+</g></svg>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

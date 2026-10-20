@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-nand-nor-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-nand-nor-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-cmos-gate-networks">
+<div class="viz-controls">
+<label class="form-label">电路
+      <select class="form-select" data-kind=""><option value="nand">与非门：上并下串</option><option value="nor">或非门：上串下并</option></select>
+</label>
+<button aria-pressed="true" class="btn" data-bit="a" type="button">A = 1</button>
+<button aria-pressed="true" class="btn" data-bit="b" type="button">B = 1</button>
+</div>
+<svg aria-label="与非门和或非门的 MOS 开关等效网络" class="de-circuit" role="img" viewbox="0 0 708 420"><title>MOS 开关等效网络</title><desc>PMOS 在对应输入为零时接通，NMOS 在对应输入为一时接通。根据上下两部分通路确定输出。</desc><text text-anchor="middle" x="304.44" y="23">VDD</text><path class="wire" d="M 304.44 32 V 50"></path><path class="wire" d="M 249.44 50 H 359.44 M 249.44 50 V 90 M 359.44 50 V 90"></path><path class="wire" d="M 249.44 90 V 107 M 249.44 133 V 150"></path><path class="wire" d="M 249.44 133 L 269.44 107"></path><circle cx="249.44" cy="107" fill="var(--background)" r="2.5" stroke="currentColor"></circle><circle cx="249.44" cy="133" fill="var(--background)" r="2.5" stroke="currentColor"></circle><text text-anchor="start" x="274.44" y="115">P_A</text><text text-anchor="start" x="274.44" y="136">断开</text><path class="wire" d="M 359.44 90 V 107 M 359.44 133 V 150"></path><path class="wire" d="M 359.44 133 L 379.44 107"></path><circle cx="359.44" cy="107" fill="var(--background)" r="2.5" stroke="currentColor"></circle><circle cx="359.44" cy="133" fill="var(--background)" r="2.5" stroke="currentColor"></circle><text text-anchor="start" x="384.44" y="115">P_B</text><text text-anchor="start" x="384.44" y="136">断开</text><path class="wire" d="M 249.44 150 V 182 H 359.44 V 150 M 304.44 182 V 205"></path><circle cx="304.44" cy="205" fill="currentColor" r="3"></circle><path class="wire active" d="M 304.44 205 H 686"></path><text text-anchor="end" x="686" y="197">Y = 0</text><path class="wire" d="M 304.44 205 V 220"></path><path class="wire active" d="M 304.44 220 V 237 M 304.44 263 V 280"></path><path class="wire active" d="M 304.44 263 L 304.44 237"></path><circle cx="304.44" cy="237" fill="var(--background)" r="2.5" stroke="currentColor"></circle><circle cx="304.44" cy="263" fill="var(--background)" r="2.5" stroke="currentColor"></circle><text text-anchor="start" x="329.44" y="245">N_A</text><text text-anchor="start" x="329.44" y="266">接通</text><path class="wire" d="M 304.44 280 V 285"></path><path class="wire active" d="M 304.44 285 V 302 M 304.44 328 V 345"></path><path class="wire active" d="M 304.44 328 L 304.44 302"></path><circle cx="304.44" cy="302" fill="var(--background)" r="2.5" stroke="currentColor"></circle><circle cx="304.44" cy="328" fill="var(--background)" r="2.5" stroke="currentColor"></circle><text text-anchor="start" x="329.44" y="310">N_B</text><text text-anchor="start" x="329.44" y="331">接通</text><path class="wire active" d="M 304.44 345 V 365"></path><path class="wire active" d="M 288.44 365 H 320.44 M 294.44 372 H 314.44 M 300.44 379 H 308.44"></path><text text-anchor="middle" x="304.44" y="402">GND</text></svg>
+<div aria-live="polite" class="text-small" data-status="">与非门 · 下拉通路接通，上拉通路断开。</div>
+<style>
+    #de-cmos-gate-networks .de-circuit{width:100%;display:block;color:var(--foreground)}
+    #de-cmos-gate-networks .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base)}
+    #de-cmos-gate-networks .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-cmos-gate-networks .de-circuit .active{stroke:var(--viz-series-1)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("cmos-gate-networks");
+
+  (function(){
+    const root=document.getElementById('de-cmos-gate-networks'),svg=root.querySelector('svg');let a=1,b=1;
+    const text=(x,y,t,anc='start')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anc+'">'+t+'</text>';
+    const path=(d,on=false)=>'<path class="wire '+(on?'active':'')+'" d="'+d+'"/>';
+    function sw(x,y,on,label){
+      return path('M '+x+' '+(y-30)+' V '+(y-13)+' M '+x+' '+(y+13)+' V '+(y+30),on)+
+      path('M '+x+' '+(y+13)+' L '+(on?x:x+20)+' '+(y-13),on)+
+      '<circle cx="'+x+'" cy="'+(y-13)+'" r="2.5" fill="var(--background)" stroke="currentColor"/><circle cx="'+x+'" cy="'+(y+13)+'" r="2.5" fill="var(--background)" stroke="currentColor"/>'+
+      text(x+25,y-5,label)+text(x+25,y+16,on?'接通':'断开');
+    }
+    function draw(){
+      const w=root.clientWidth,c=w*.43,left=c-55,right=c+55,nand=root.querySelector('[data-kind]').value==='nand';
+      const y=nand?1-(a&b):1-(a|b);let out='<title>MOS 开关等效网络</title><desc>PMOS 在对应输入为零时接通，NMOS 在对应输入为一时接通。根据上下两部分通路确定输出。</desc>';
+      out+=text(c,23,'VDD','middle')+path('M '+c+' 32 V 50',!!y);
+      if(nand){
+        out+=path('M '+left+' 50 H '+right+' M '+left+' 50 V 90 M '+right+' 50 V 90');
+        out+=sw(left,120,!a,'P_A')+sw(right,120,!b,'P_B');
+        out+=path('M '+left+' 150 V 182 H '+right+' V 150 M '+c+' 182 V 205');
+      }else{
+        out+=path('M '+c+' 50 V 65')+sw(c,95,!a,'P_A')+path('M '+c+' 125 V 130')+sw(c,160,!b,'P_B')+path('M '+c+' 190 V 205');
+      }
+      out+='<circle cx="'+c+'" cy="205" r="3" fill="currentColor"/>'+path('M '+c+' 205 H '+(w-22),true)+text(w-22,197,'Y = '+y,'end');
+      if(nand){
+        out+=path('M '+c+' 205 V 220')+sw(c,250,!!a,'N_A')+path('M '+c+' 280 V 285')+sw(c,315,!!b,'N_B')+path('M '+c+' 345 V 365',!y);
+      }else{
+        out+=path('M '+c+' 205 V 228 H '+left+' V 270 M '+c+' 228 H '+right+' V 270');
+        out+=sw(left,300,!!a,'N_A')+sw(right,300,!!b,'N_B');
+        out+=path('M '+left+' 330 V 350 H '+right+' V 330 M '+c+' 350 V 365');
+      }
+      out+=path('M '+(c-16)+' 365 H '+(c+16)+' M '+(c-10)+' 372 H '+(c+10)+' M '+(c-4)+' 379 H '+(c+4),!y)+text(c,402,'GND','middle');
+      svg.setAttribute('viewBox','0 0 '+w+' 420');svg.innerHTML=out;
+      root.querySelector('[data-status]').textContent=(nand?'与非门':'或非门')+' · '+(y?'上拉通路接通，下拉通路断开。':'下拉通路接通，上拉通路断开。');
+    }
+    root.querySelector('[data-kind]').addEventListener('change',draw);
+    root.querySelectorAll('[data-bit]').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.bit==='a')a=1-a;else b=1-b;const v=btn.dataset.bit==='a'?a:b;btn.textContent=btn.dataset.bit.toUpperCase()+' = '+v;btn.setAttribute('aria-pressed',!!v);draw();}));
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

@@ -1,0 +1,126 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>10｜训练策略与量化一致性：训练究竟替推理解决了什么</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/10_训练策略与量化一致性.md · <a href="10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md">原始 Markdown</a></p><h1 id="10">10｜训练策略与量化一致性：训练究竟替推理解决了什么</h1>
+<p>2026-10-19。依据 EPA、Universally Quantized Neural Compression（UQ）和 ELF-VC 的选定方法/实验页；具体范围见<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">阅读依据</span>。下文分开作者方法、推导解释和待检验问题；没有训练这些模型。</p>
+<h2 id="1">1. 单帧失真为什么不足以衡量一个参考帧</h2>
+<p>设历史状态为 <code>s_t = F(s_(t−1), x_t, ŷ_t)</code>，后续帧的码率和失真也依赖 <code>s_t</code>。联合目标可以写成 <code>L = Σ_t (R_t + λ_t D_t)</code>。改变第 t 帧的编码决策，影响的不仅是这一帧的 <code>R_t、D_t</code>，还可能改变以后帧的条件分布、预测误差和量化结果。</p>
+<p><strong>推导解释：</strong>在可微训练代理下，对早期决策的梯度可分成本帧项和未来项。若训练每帧后就切断状态梯度，未来项消失；此时模型学到的是在给定历史条件下把本帧做好，而不一定学到如何为后续留下更有用的状态。未来作用也未必单调：更清晰的参考可能降低后续残差，但使用更多本帧比特，且失真指标未必刻画特征参考的全部价值。</p>
+<p><strong>作者方法：</strong>EPA 将重建参考放入多帧展开的训练链，以联合率失真训练处理误差传播；正文设置默认展开长度 T=5。它还提出测试时只更新编码端参数，解码器固定，迭代上限 10 次，并使用损失变化停止条件。<a href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123470443.pdf">EPA，PDF 第 6–8、13 页</a></p>
+<p>这里有三个不同操作，不能混称“适配”：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>更新的对象</th>
+<th>何时付成本</th>
+<th>解码端需要什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多帧展开训练</td>
+<td>共享模型参数</td>
+<td>离线训练</td>
+<td>已约定的训练后模型</td>
+</tr>
+<tr>
+<td>编码端在线更新</td>
+<td>测试片段的编码器参数</td>
+<td>每个测试实例</td>
+<td>固定解码器及最终符号；不因编码器更新自动增加参数流</td>
+</tr>
+<tr>
+<td>解码器/共享参数更新</td>
+<td>接收端参与使用的参数</td>
+<td>离线或在线</td>
+<td>新模型约定或被计入码流的更新</td>
+</tr>
+</tbody>
+</table>
+<p>EPA 的在线步骤有额外编码工作；固定解码器并不能消除编码迭代成本。有限迭代、非凸代理和离散实际码流也不足以证明找到全局最优编码。</p>
+<h2 id="2">2. 长训练链与长测试链之间仍有距离</h2>
+<p>T=5 的训练可以看到若干步传播，但不能直接证明 240 帧无刷新的稳定性。应同时记录：训练展开长度、反向梯度是否截断、状态是否 detach、I 帧或刷新周期、训练片段采样、精度和量化代理。仅增加 T 还会改变显存、批量、每次更新可见像素数与训练墙钟时间。</p>
+<p><strong>可检验设计：</strong>若以后训练 RT 变体，比较 T=短/长时至少做两种预算口径：相同训练像素量与相同训练时间。两者回答的问题不同。用独立长序列测试，并同时报告开头、中段、末段的质量和码率；不能只用全段平均值判断传播已解决。现有 RT 长链退化还不能归因于“训练太短”，因为本项目没有完成上述控制实验。</p>
+<p>ELF-VC 提供另一种训练侧处理：用动态失真权重加强相对 I 帧质量落后的 P 帧，并让模型学习多个码率等级。其 scale-space flow、残差和状态构成的信息流，与 RT 的隐式时域路线不同。它把码率等级编码成网络可用的条件，也允许等级间插值；这解决的是一个模型能否覆盖多个工作点，不等于已经实现目标码率控制。<a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Rippel_ELF-VC_Efficient_Learned_Flexible-Rate_Video_Coding_ICCV_2021_paper.pdf">ELF-VC，第 3–4 页</a></p>
+<h2 id="3">3. 量化为什么让训练困难</h2>
+<p>真实取整对大多数输入的导数为零，在阈值处又不连续。常见选择各自改动了不同东西：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>前向时看到什么</th>
+<th>反向时采用什么</th>
+<th>需要检验的误差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>加均匀噪声</td>
+<td>连续、带噪的潜变量</td>
+<td>连续代理的梯度</td>
+<td>与最终取整和离散概率的差距</td>
+</tr>
+<tr>
+<td>STE</td>
+<td>可采用真实取整</td>
+<td>人为指定的替代梯度</td>
+<td>梯度偏差及训练稳定性</td>
+</tr>
+<tr>
+<td>软取整/退火</td>
+<td>平滑近似，逐渐接近取整</td>
+<td>平滑函数梯度</td>
+<td>接近硬取整时的梯度尺度、方差和优化困难</td>
+</tr>
+<tr>
+<td>共享抖动量化</td>
+<td>取整加可复现的共享抖动</td>
+<td>与噪声训练更一致的分布</td>
+<td>协议一致性、实际熵编码和最终 RD</td>
+</tr>
+</tbody>
+</table>
+<p>这些是方法属性，不是优劣排行榜。优化方便、训练推理一致、最终率失真好，是三条需要分别验证的命题。</p>
+<h2 id="4-uq">4. UQ 的一致性结论到底是什么</h2>
+<p>单个潜变量采用 <code>U ~ Uniform[−1/2,1/2)</code>，编码符号 <code>K=round(Y−U)</code>，重建 <code>Ŷ=K+U</code>。每个潜变量使用独立的 U，并让两端共享同一实现。对给定 Y，量化误差服从同样的单位宽均匀分布，因此与训练时的加均匀噪声具有<strong>分布上的一致性</strong>，不是每个噪声样本或每次重建逐值相等。UQ 还讨论条件熵与噪声信息瓶颈的关系；在单位宽、独立共享抖动及相应连续密度条件下，可写成 <code>H(K|U)=I(Y;Y+U)=h(Y+U)</code>，统一使用 bit 单位。<a href="https://papers.neurips.cc/paper_files/paper/2020/file/92049debbe566ca5782a3045cf300a3c-Paper.pdf">UQ，第 3–4 页</a></p>
+<p>实现时仍要解决：共享随机数生成和计数顺序、符号条件概率的区间、模型版本、异常中断后的状态恢复。给所有潜变量共用一个随机偏移也不等价于逐元素独立噪声。不能给已训练的 RT 随手添加抖动，就宣称获得论文机制或收益。</p>
+<p><strong>论文中的反例值得保留：</strong>其第 7 页实验里，消除训练推理差距的 UN+UQ 并不自动优于 UN+Q；软取整的训练选择又会改变结果。它说明一致性是有价值的设计条件，但并非最终 PSNR/码率的充分条件。实验也包含 hyperprior 情况，不能把某一种熵模型的收益直接外推到所有视频网络。<a href="https://papers.neurips.cc/paper_files/paper/2020/file/92049debbe566ca5782a3045cf300a3c-Paper.pdf">UQ，第 7 页</a></p>
+<h2 id="5-dcvc">5. 对现有 DCVC 研究最有信息量的切入点</h2>
+<p>先把训练与执行问题分开：当前可以在固定权重、固定执行路径下记录主潜变量/超潜变量的符号、估计概率和实际字节，找出估计与真实编码偏差；这不需要立即重训。多帧训练、量化代理替换则必须建立单独模型和可重复训练预算。</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>最小对照</th>
+<th>可以得出的结论</th>
+<th>不能得出的结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长链代价来自哪里</td>
+<td>相同目标帧，改变已解码历史</td>
+<td>历史条件改变后的系统响应</td>
+<td>单凭它定位训练梯度原因</td>
+</tr>
+<tr>
+<td>概率代理是否可信</td>
+<td>同一组符号的估计 bit 与真实 payload</td>
+<td>估计、封装或数值路径的差距</td>
+<td>自动等于潜变量表示差</td>
+</tr>
+<tr>
+<td>UQ 是否改善 RT</td>
+<td>原训练与 UQ 训练，预算和码流一致</td>
+<td>特定实现/数据的效果</td>
+<td>不训练直接加噪的普遍收益</td>
+</tr>
+<tr>
+<td>更长训练是否值得</td>
+<td>固定像素预算与固定时间预算各一组</td>
+<td>精度、稳定性和成本的折中</td>
+<td>长度越大必定越好</td>
+</tr>
+</tbody>
+</table>
+<p>本轮附带<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">共享抖动的数值积分示例</span>，只是验证一个数学性质，没有产生新的模型 RD。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-cmos-input-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-cmos-input-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="cmos-input-exercise-twelve">
+<style>
+    #cmos-input-exercise-twelve .de-panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:16px; }
+    #cmos-input-exercise-twelve .de-circuit { display:block; width:100%; }
+    #cmos-input-exercise-twelve .de-circuit text { fill:var(--foreground); font-size:var(--font-size-base); font-weight:400; }
+    #cmos-input-exercise-twelve .de-circuit .small { font-size:calc(var(--font-size-base) * .86); }
+    #cmos-input-exercise-twelve .wire { fill:none; stroke:var(--foreground); stroke-width:1.5; stroke-linejoin:round; }
+    #cmos-input-exercise-twelve .gate { fill:var(--background); stroke:var(--foreground); stroke-width:1.5; }
+    #cmos-input-exercise-twelve .junction { fill:var(--foreground); }
+    #cmos-input-exercise-twelve .active { stroke:var(--viz-series-1); stroke-width:2.2; }
+  </style>
+<label class="form-check">
+<input checked="" class="form-check-input" data-reveal="" type="checkbox"/>
+<span class="form-check-label">标出节点逻辑值</span>
+</label>
+<div class="de-panels">
+<svg aria-label="习题3.12第一图：或非门，一个输入为低电平，另一个经10千欧电阻接地" class="de-circuit" data-case="a" data-result="1" role="img" style="height: 230px;" viewbox="0 0 346 230"><title>习题3.12第一图</title><desc>上方输入为0，下方输入通过电阻接地，为零。输出为一。</desc><text class="" text-anchor="start" x="8" y="20">(a) Y₁</text><text class="" text-anchor="start" x="8" y="74">V_IL</text><line class="wire" x1="58" x2="240" y1="70" y2="70"></line><line class="wire" x1="168" x2="240" y1="90" y2="90"></line><circle class="junction" cx="168" cy="90" r="2.5"></circle><line class="wire" x1="168" x2="168" y1="90" y2="118"></line><path class="wire" d="M 168 118 L 163 123 L 173 131 L 163 139 L 173 147 L 163 155 L 168 160"></path><text class="small" text-anchor="start" x="182" y="145">10 kΩ</text><line class="wire" x1="168" x2="168" y1="160" y2="172"></line><path class="wire" d="M 168 172 V 184 M 157 184 H 179 M 161 189 H 175 M 165 194 H 171"></path><path class="gate" d="M 231 55 Q 259 55 275 80 Q 259 105 231 105 Q 245 80 231 55 Z"></path><circle class="gate" cx="280" cy="80" r="5"></circle><line class="wire active" x1="285" x2="333" y1="80" y2="80"></line><text class="" text-anchor="end" x="333" y="66">Y₁ = 1</text><text class="" text-anchor="end" x="216" y="59">0</text><text class="" text-anchor="end" x="216" y="79">0</text></svg>
+<svg aria-label="习题3.12第二图：与非门，一个输入为高电平，另一个经51千欧电阻接地" class="de-circuit" data-case="b" data-result="1" role="img" style="height: 230px;" viewbox="0 0 346 230"><title>习题3.12第二图</title><desc>上方输入为1，下方输入通过电阻接地，为零。输出为一。</desc><text class="" text-anchor="start" x="8" y="20">(b) Y₂</text><text class="" text-anchor="start" x="8" y="74">V_IH</text><line class="wire" x1="58" x2="240" y1="70" y2="70"></line><line class="wire" x1="168" x2="240" y1="90" y2="90"></line><circle class="junction" cx="168" cy="90" r="2.5"></circle><line class="wire" x1="168" x2="168" y1="90" y2="118"></line><path class="wire" d="M 168 118 L 163 123 L 173 131 L 163 139 L 173 147 L 163 155 L 168 160"></path><text class="small" text-anchor="start" x="182" y="145">51 kΩ</text><line class="wire" x1="168" x2="168" y1="160" y2="172"></line><path class="wire" d="M 168 172 V 184 M 157 184 H 179 M 161 189 H 175 M 165 194 H 171"></path><path class="gate" d="M 231 55 H 253 C 282 55 282 105 253 105 H 231 Z"></path><circle class="gate" cx="280" cy="80" r="5"></circle><line class="wire active" x1="285" x2="333" y1="80" y2="80"></line><text class="" text-anchor="end" x="333" y="66">Y₂ = 1</text><text class="" text-anchor="end" x="216" y="59">1</text><text class="" text-anchor="end" x="216" y="79">0</text></svg>
+<svg aria-label="习题3.12第三图：两个与门的输出接入或非门，第一与门的输入经51千欧电阻接高电平，第二与门的输入接地" class="de-circuit" data-case="c" data-result="0" role="img" style="height: 230px;" viewbox="0 0 346 230"><title>习题3.12第三图</title><desc>上方与门的两个输入均为一，输出P为一；下方与门的两个输入均为零，输出Q为零；或非门输出Y3为零。</desc><text class="" text-anchor="start" x="8" y="20">(c) Y₃</text><text class="" text-anchor="start" x="8" y="74">V_IH</text><line class="wire" x1="53" x2="68.4" y1="70" y2="70"></line><path class="wire" d="M 68.4 70 L 73.4 65 L 81.4 75 L 89.4 65 L 97.4 75 L 105.4 65 L 110.4 70"></path><text class="small" text-anchor="middle" x="89.4" y="53">51 kΩ</text><line class="wire" x1="110.4" x2="116.4" y1="70" y2="70"></line><circle class="junction" cx="116.4" cy="70" r="2.5"></circle><path class="wire" d="M 116.4 70 V 60 H 138.4 M 116.4 70 V 80 H 138.4"></path><path class="wire" d="M 116.4 150 V 140 H 138.4 M 116.4 150 V 160 H 138.4"></path><circle class="junction" cx="116.4" cy="150" r="2.5"></circle><line class="wire" x1="116.4" x2="116.4" y1="150" y2="184"></line><path class="wire" d="M 116.4 184 V 196 M 105.4 196 H 127.4 M 109.4 201 H 123.4 M 113.4 206 H 119.4"></path><path class="gate" d="M 138.4 45 H 160.4 C 189.4 45 189.4 95 160.4 95 H 138.4 Z"></path><path class="gate" d="M 138.4 125 H 160.4 C 189.4 125 189.4 175 160.4 175 H 138.4 Z"></path><path class="wire" d="M 182.15 70 H 231 V 100 H 265 M 182.15 150 H 231 V 120 H 265"></path><path class="gate" d="M 256 85 Q 284 85 300 110 Q 284 135 256 135 Q 270 110 256 85 Z"></path><circle class="gate" cx="305" cy="110" r="5"></circle><line class="wire active" x1="310" x2="333" y1="110" y2="110"></line><text class="" text-anchor="end" x="333" y="74">Y₃ = 0</text><text class="small" text-anchor="start" x="192.15" y="56">P = 1</text><text class="small" text-anchor="start" x="192.15" y="179">Q = 0</text></svg>
+<svg aria-label="习题3.12第四图：两个OD与非门输出并联，上门输入均接电源，下门输入均接低电平，公共输出有上拉电阻" class="de-circuit" data-case="d" data-result="0" role="img" style="height: 250px;" viewbox="0 0 346 250"><title>习题3.12第四图</title><desc>上方OD与非门的两个输入为一，输出管导通拉低；下方两个输入为零，输出管截止。公共输出Y4为零。</desc><text class="" text-anchor="start" x="8" y="20">(d) Y₄ · OD线与</text><text class="" text-anchor="middle" x="269" y="28">V_DD</text><line class="wire" x1="269" x2="269" y1="34" y2="44"></line><path class="wire" d="M 269 44 L 264 49 L 274 57 L 264 65 L 274 73 L 264 81 L 269 86"></path><text class="small" text-anchor="end" x="254" y="68">R_L</text><line class="wire" x1="269" x2="269" y1="86" y2="190"></line><line class="wire active" x1="269" x2="333" y1="150" y2="150"></line><circle class="junction" cx="269" cy="150" r="2.5"></circle><text class="" text-anchor="start" x="8" y="114">V_DD</text><line class="wire" x1="57" x2="93.1" y1="110" y2="110"></line><circle class="junction" cx="93.1" cy="110" r="2.5"></circle><path class="wire" d="M 93.1 110 V 100 H 121.1 M 93.1 110 V 120 H 121.1"></path><path class="gate" d="M 121.1 85 H 143.1 C 172.1 85 172.1 135 143.1 135 H 121.1 Z"></path><circle class="gate" cx="170.1" cy="110" r="5"></circle><text class="small" text-anchor="middle" x="141.1" y="114">OD</text><line class="wire active" x1="175.1" x2="269" y1="110" y2="110"></line><circle class="junction" cx="269" cy="110" r="2.5"></circle><text class="small" text-anchor="end" x="111.1" y="94">1</text><text class="small" text-anchor="middle" x="144.1" y="151">输出管导通</text><text class="" text-anchor="start" x="8" y="194">V_IL</text><line class="wire" x1="57" x2="93.1" y1="190" y2="190"></line><circle class="junction" cx="93.1" cy="190" r="2.5"></circle><path class="wire" d="M 93.1 190 V 180 H 121.1 M 93.1 190 V 200 H 121.1"></path><path class="gate" d="M 121.1 165 H 143.1 C 172.1 165 172.1 215 143.1 215 H 121.1 Z"></path><circle class="gate" cx="170.1" cy="190" r="5"></circle><text class="small" text-anchor="middle" x="141.1" y="194">OD</text><line class="wire" x1="175.1" x2="269" y1="190" y2="190"></line><circle class="junction" cx="269" cy="190" r="2.5"></circle><text class="small" text-anchor="end" x="111.1" y="174">0</text><text class="small" text-anchor="middle" x="144.1" y="231">输出管截止</text><text class="" text-anchor="end" x="333" y="136">Y₄ = 0</text></svg>
+</div>
+<div aria-live="polite" class="text-small" data-status="">稳态逻辑值已标出。</div>
+<script>(()=>{const lessonHost=window.courseState("cmos-input-exercise-twelve");
+
+  (()=>{
+    const root=document.getElementById('cmos-input-exercise-twelve');
+    const checkbox=root.querySelector('[data-reveal]');
+    let reveal=true;
+    const text=(x,y,s,anchor='start',cls='')=>`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}">${s}</text>`;
+    const line=(x1,y1,x2,y2,cls='wire')=>`<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    const path=d=>`<path class="wire" d="${d}"/>`;
+    const dot=(x,y)=>`<circle class="junction" cx="${x}" cy="${y}" r="2.5"/>`;
+    const ground=(x,y)=>path(`M ${x} ${y-12} V ${y} M ${x-11} ${y} H ${x+11} M ${x-7} ${y+5} H ${x+7} M ${x-3} ${y+10} H ${x+3}`);
+    function resistor(x,y,vertical,label){
+      if(vertical)return path(`M ${x} ${y} L ${x-5} ${y+5} L ${x+5} ${y+13} L ${x-5} ${y+21} L ${x+5} ${y+29} L ${x-5} ${y+37} L ${x} ${y+42}`)+text(x+14,y+27,label,'start','small');
+      return path(`M ${x} ${y} L ${x+5} ${y-5} L ${x+13} ${y+5} L ${x+21} ${y-5} L ${x+29} ${y+5} L ${x+37} ${y-5} L ${x+42} ${y}`)+text(x+21,y-17,label,'middle','small');
+    }
+    function gate(x,y,type){
+      const body=type==='nor'?`M ${x} ${y-25} Q ${x+28} ${y-25} ${x+44} ${y} Q ${x+28} ${y+25} ${x} ${y+25} Q ${x+14} ${y} ${x} ${y-25} Z`:`M ${x} ${y-25} H ${x+22} C ${x+51} ${y-25} ${x+51} ${y+25} ${x+22} ${y+25} H ${x} Z`;
+      return `<path class="gate" d="${body}"/>`+(type==='and'?'':`<circle class="gate" cx="${x+49}" cy="${y}" r="5"/>`);
+    }
+    function drawPanel(svg){
+      const w=Math.max(280,svg.clientWidth), kind=svg.dataset.case;
+      let s='',height=230;
+      if(kind==='a'||kind==='b'){
+        const gl=w-115, y=80, rx=gl-63, first=kind==='a'?0:1;
+        const label=kind==='a'?'Y₁':'Y₂';
+        s+=`<title>习题3.12${kind==='a'?'第一图':'第二图'}</title><desc>上方输入为${first}，下方输入通过电阻接地，为零。输出为一。</desc>`;
+        s+=text(8,20,'('+kind+') '+label);
+        s+=text(8,y-6,kind==='a'?'V_IL':'V_IH')+line(58,y-10,gl+9,y-10);
+        s+=line(rx,y+10,gl+9,y+10)+dot(rx,y+10)+line(rx,y+10,rx,118);
+        s+=resistor(rx,118,true,kind==='a'?'10 kΩ':'51 kΩ')+line(rx,160,rx,172)+ground(rx,184);
+        s+=gate(gl,y,kind==='a'?'nor':'nand')+line(gl+54,y,w-13,y,reveal?'wire active':'wire');
+        s+=text(w-13,y-14,label+(reveal?' = 1':''),'end');
+        if(reveal)s+=text(gl-15,y-21,String(first),'end')+text(gl-15,y-1,'0','end');
+        svg.dataset.result='1';
+      }else if(kind==='c'){
+        const gl=w*.40, branch=gl-22, end=gl+43.75, nl=w-90, bend=nl-25;
+        s+='<title>习题3.12第三图</title><desc>上方与门的两个输入均为一，输出P为一；下方与门的两个输入均为零，输出Q为零；或非门输出Y3为零。</desc>';
+        s+=text(8,20,'(c) Y₃');
+        s+=text(8,74,'V_IH')+line(53,70,gl-70,70)+resistor(gl-70,70,false,'51 kΩ')+line(gl-28,70,branch,70)+dot(branch,70);
+        s+=path(`M ${branch} 70 V 60 H ${gl} M ${branch} 70 V 80 H ${gl}`);
+        s+=path(`M ${branch} 150 V 140 H ${gl} M ${branch} 150 V 160 H ${gl}`)+dot(branch,150)+line(branch,150,branch,184)+ground(branch,196);
+        s+=gate(gl,70,'and')+gate(gl,150,'and');
+        s+=path(`M ${end} 70 H ${bend} V 100 H ${nl+9} M ${end} 150 H ${bend} V 120 H ${nl+9}`);
+        s+=gate(nl,110,'nor')+line(nl+54,110,w-13,110,reveal?'wire active':'wire');
+        s+=text(w-13,74,'Y₃'+(reveal?' = 0':''),'end');
+        if(reveal)s+=text(end+10,56,'P = 1','start','small')+text(end+10,179,'Q = 0','start','small');
+        svg.dataset.result='0';
+      }else{
+        const gl=w*.35, branch=gl-28, bus=w-77;
+        height=250;
+        s+='<title>习题3.12第四图</title><desc>上方OD与非门的两个输入为一，输出管导通拉低；下方两个输入为零，输出管截止。公共输出Y4为零。</desc>';
+        s+=text(8,20,'(d) Y₄ · OD线与');
+        s+=text(bus,28,'V_DD','middle')+line(bus,34,bus,44);
+        s+=path(`M ${bus} 44 L ${bus-5} 49 L ${bus+5} 57 L ${bus-5} 65 L ${bus+5} 73 L ${bus-5} 81 L ${bus} 86`)+text(bus-15,68,'R_L','end','small');
+        s+=line(bus,86,bus,190)+line(bus,150,w-13,150,reveal?'wire active':'wire')+dot(bus,150);
+        for(const [i,y] of [110,190].entries()){
+          s+=text(8,y+4,i===0?'V_DD':'V_IL')+line(57,y,branch,y)+dot(branch,y);
+          s+=path(`M ${branch} ${y} V ${y-10} H ${gl} M ${branch} ${y} V ${y+10} H ${gl}`);
+          s+=gate(gl,y,'nand')+text(gl+20,y+4,'OD','middle','small')+line(gl+54,y,bus,y,reveal&&i===0?'wire active':'wire')+dot(bus,y);
+          if(reveal){
+            s+=text(gl-10,y-16,i===0?'1':'0','end','small');
+            s+=text(gl+23,y+41,i===0?'输出管导通':'输出管截止','middle','small');
+          }
+        }
+        s+=text(w-13,136,'Y₄'+(reveal?' = 0':''),'end');
+        svg.dataset.result='0';
+      }
+      svg.setAttribute('viewBox',`0 0 ${w} ${height}`);svg.style.height=height+'px';svg.innerHTML=s;
+    }
+    function draw(){
+      checkbox.checked=reveal;root.querySelectorAll('svg.de-circuit').forEach(drawPanel);
+      root.querySelector('[data-status]').textContent=reveal?'稳态逻辑值已标出。':'节点逻辑值已隐藏。';
+    }
+    function restore(saved){if(typeof saved?.privateContent?.reveal==='boolean')reveal=saved.privateContent.reveal;}
+    restore(lessonHost?.widgetState);
+    checkbox.addEventListener('change',()=>{
+      reveal=checkbox.checked;draw();
+      lessonHost?.setWidgetState?.({modelContent:{exercise:'3.12',showLogicValues:reveal},privateContent:{reveal}})?.catch(()=>{});
+    });
+    window.addEventListener('openai:set_globals',e=>{restore(e.detail?.globals?.widgetState);draw();});
+    const observer=new ResizeObserver(draw);root.querySelectorAll('svg.de-circuit').forEach(svg=>observer.observe(svg));draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

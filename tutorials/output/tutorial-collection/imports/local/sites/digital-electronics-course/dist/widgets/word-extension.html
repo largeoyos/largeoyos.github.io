@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:word-extension")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:word-extension",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><svg aria-labelledby="ext-title ext-desc" role="img" style="display:block;width:100%;height:auto" viewbox="0 0 360 670" xmlns="http://www.w3.org/2000/svg">
+<title id="ext-title">四片256乘8存储器构成1024乘8的接线</title><desc id="ext-desc">低八位地址接全部四片。高两位进入二四译码器，其四个低有效输出分别接四片的低有效片选。八位数据端按位接公共总线，读写控制接全部四片。一次只选一片。</desc>
+<g fill="none" stroke="var(--foreground)" stroke-linejoin="round" stroke-width="1.6">
+<path d="M168 53 V103 M161 73 L175 61"></path>
+<rect height="65" width="187" x="66" y="103"></rect>
+<path d="M278 65 H336 V584 M18 215 V584 M90 215 V584"></path>
+<path d="M105 168 V197 H60 V249 H135 M143 168 V201 H70 V341 H135 M181 168 V205 H80 V433 H135 M219 168 V209 H100 V525 H135"></path>
+<rect height="70" width="158" x="143" y="226"></rect>
+<rect height="70" width="158" x="143" y="318"></rect>
+<rect height="70" width="158" x="143" y="410"></rect>
+<rect height="70" width="158" x="143" y="502"></rect>
+<path d="M18 276 H143 M18 368 H143 M18 460 H143 M18 552 H143 M90 286 H143 M90 378 H143 M90 470 H143 M90 562 H143 M301 263 H336 M301 355 H336 M301 447 H336 M301 539 H336"></path>
+<g fill="var(--background)"><circle cx="139" cy="249" r="4"></circle><circle cx="139" cy="341" r="4"></circle><circle cx="139" cy="433" r="4"></circle><circle cx="139" cy="525" r="4"></circle></g>
+<g fill="var(--foreground)" stroke="none"><circle cx="18" cy="276" r="2.5"></circle><circle cx="18" cy="368" r="2.5"></circle><circle cx="18" cy="460" r="2.5"></circle><circle cx="18" cy="552" r="2.5"></circle><circle cx="90" cy="286" r="2.5"></circle><circle cx="90" cy="378" r="2.5"></circle><circle cx="90" cy="470" r="2.5"></circle><circle cx="90" cy="562" r="2.5"></circle><circle cx="336" cy="263" r="2.5"></circle><circle cx="336" cy="355" r="2.5"></circle><circle cx="336" cy="447" r="2.5"></circle><circle cx="336" cy="539" r="2.5"></circle></g>
+<path d="M12 230 L24 218 M323 78 L335 66"></path>
+</g><g font-size="13" text-anchor="middle">
+<text x="180" y="24">1024×8 = 4片256×8（字扩展）</text><text x="168" y="47">高位 A₉、A₈</text><text x="161" y="126">2—4译码器</text><text x="161" y="150">四路低有效输出</text><text x="106" y="188">0</text><text x="144" y="188">1</text><text x="182" y="188">2</text><text x="220" y="188">3</text>
+<text font-size="12" x="25" y="186">A₇…A₀</text><text font-size="12" x="25" y="203">8根</text><text x="90" y="610">公共读写控制</text><text x="300" y="48">D₇…D₀ / 8根</text>
+<text x="222" y="247">芯片0：256×8</text><text x="222" y="270">000H—0FFH</text><text x="222" y="339">芯片1：256×8</text><text x="222" y="362">100H—1FFH</text><text x="222" y="431">芯片2：256×8</text><text x="222" y="454">200H—2FFH</text><text x="222" y="523">芯片3：256×8</text><text x="222" y="546">300H—3FFH</text>
+<text x="180" y="641">圆点为连接；线交叉无点则不相连</text><text x="180" y="664">地址同接；同名数据位并接；片选互斥</text>
+</g></svg>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

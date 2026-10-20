@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:sram-cell")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:sram-cell",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><svg aria-labelledby="sram-title sram-desc" role="img" style="display:block;width:100%;height:auto" viewbox="0 0 360 390" xmlns="http://www.w3.org/2000/svg">
+<title id="sram-title">六管SRAM的反馈与访问通路</title><desc id="sram-desc">两个各含两管的CMOS反相器首尾反馈。Q和反Q分别通过一个访问MOS管接到互补位线。两个访问管的栅极共同接字线。本图把访问MOS用受控开关表示，不表示当前开关状态。</desc>
+<g fill="none" stroke="var(--foreground)" stroke-linejoin="round" stroke-width="1.7">
+<path d="M18 48 H303 M63 48 V113 M297 48 V113" stroke="var(--primary)"></path>
+<path d="M25 90 V328 M335 90 V328 M25 160 H48 M78 160 H111 M249 160 H282 M312 160 H335"></path>
+<circle cx="48" cy="160" r="3"></circle><circle cx="78" cy="160" r="3"></circle><path d="M51 158 L74 143 M63 113 V130"></path>
+<circle cx="282" cy="160" r="3"></circle><circle cx="312" cy="160" r="3"></circle><path d="M285 158 L308 143 M297 113 V130"></path>
+<path d="M111 160 H150 M150 140 V180 L194 160 Z"></path><circle cx="200" cy="160" r="5"></circle><path d="M205 160 H249 V280 H210 M210 260 V300 L166 280 Z"></path><circle cx="160" cy="280" r="5"></circle><path d="M155 280 H111 V160"></path>
+<circle cx="111" cy="160" fill="var(--foreground)" r="3"></circle><circle cx="249" cy="160" fill="var(--foreground)" r="3"></circle>
+</g><g font-size="14" text-anchor="middle">
+<text x="180" y="23">6T = 2个CMOS反相器 + 2个访问管</text><text x="178" y="43">字线 WL（共同控制访问）</text>
+<text x="25" y="80">BL</text><text x="335" y="80">BL′</text><text x="63" y="188">访问管</text><text x="297" y="188">访问管</text><text x="111" y="148">Q</text><text x="249" y="148">Q′</text>
+<text x="180" y="216">每个反相器：2管</text><text x="180" y="349">WL=0：断开外部，反馈保持</text><text x="180" y="374">WL=1：接入位线，按读写电路操作</text>
+</g></svg>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

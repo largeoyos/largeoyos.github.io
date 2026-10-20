@@ -1,0 +1,55 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>03 实时执行与硬件：优化的是整条关键路径</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/03_实时执行与硬件.md · <a href="03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md">原始 Markdown</a></p><h1 id="03">03 实时执行与硬件：优化的是整条关键路径</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。RT/UF 的代码结论来自已有固定快照核查，手机结果来自论文，均与本机实际测量分开。</p>
+<h2 id="mac">为什么 MAC 少，程序仍可能很慢</h2>
+<p>一次真实解码包括读取头与超先验、生成 PMF/CDF 索引、熵解码、反量化、上下文与图像重建、状态更新，以及必要的数据传输。它们构成带依赖的计算图。有的计算可重叠，有的必须等待。</p>
+<p>粗略的硬件分析可写为 <code>T_kernel ≳ max(FLOPs/有效算力, bytes/有效带宽)</code>，再加调度、同步与不重叠的数据传输。它是解释性下界，不能替代 profiler。算子融合通常减少中间结果读写和调用次数；低分辨率计算减少元素数；减少模块则可缩短依赖链。反过来，增加很小的网络也可能多引入一次昂贵的 CPU/GPU 往返。</p>
+<p>若原总时间中占比 f 的部分加速 s 倍，其他不变且无重叠重排，则 Amdahl 公式为 <code>S=1/((1−f)+f/s)</code>。例如仅占 20% 的模块即使快十倍，整体也只有约 1.22 倍。这是数学示例，不是某模型测速。</p>
+<h2 id="_1">三条硬件路线的目标不同</h2>
+<table>
+<thead>
+<tr>
+<th>方法/配置</th>
+<th>主要改变</th>
+<th>约束或代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RT</td>
+<td>隐式时域建模，低空间尺度主网络，减少分组交互与算子开销</td>
+<td>适合其 GPU 执行路径；不保证所有处理器上的同样收益</td>
+</tr>
+<tr>
+<td>UF HT</td>
+<td>多帧联合变换与重建，摊薄重复执行成本</td>
+<td>等未来输入、块内工作集、跨块状态依赖</td>
+</tr>
+<tr>
+<td>UF LD</td>
+<td>单帧路径和更简化的网络/概率结构</td>
+<td>不具有 HT 的同等块内并行条件，RD 也不同</td>
+</tr>
+<tr>
+<td>MobileNVC</td>
+<td>手机支持的块运动、整数网络和处理单元流水</td>
+<td>编码端、解码端能力不对称；量化影响 RD</td>
+</tr>
+</tbody>
+</table>
+<p>RT 的 <code>pixel_unshuffle(8)</code> 是可逆的空间通道重排，不能把它本身当作丢失图像信息的八倍下采样；后面的可学习降维和量化才逐步丢弃信息。主网络尺度与最终熵编码潜变量尺度也不能混淆。详见<a href="../RT_%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%B8%8E%E5%8F%AF%E9%AA%8C%E8%AF%81%E5%81%87%E8%AE%BE.md.html">RT 固定版本笔记</a>。</p>
+<h2 id="uf">UF 改变了处理粒度，也改变了等待</h2>
+<p>HT 的八帧 chunk 联合编码，不是八张独立图片的 batch。每个时间位置有相应重建头，块间传播记忆。位置头是已训练参数，不是每视频再拟合的专家。</p>
+<p>连续输入帧率为 f、块长为 K 时，块首帧至少等 <code>(K−1)/f</code> 才收齐输入。30 fps 下两帧块约等 33.3 ms，八帧块约等 233.3 ms；这里都没算处理、发送和播放。这项等待不会因为 GPU 吞吐很高而消失。</p>
+<p>UF 还把概率参数依赖拆分以减少熵解码交互。但是固定版本 HT-L 与 HT-S 的实现不同，前者保留四组尺度更新；详见<a href="../UF_%E5%88%86%E5%9D%97%E5%90%9E%E5%90%90%E4%B8%8E%E7%86%B5%E8%A7%A3%E7%A0%81%E7%B2%BE%E8%AF%BB.md.html">UF 源码与论文对照</a>。在同一份论文中看到 SEM 设计，不能因此声称每个公开配置都只调用一次主潜变量熵解码。</p>
+<h2 id="_2">手机结果说明了什么</h2>
+<p><a href="https://openaccess.thecvf.com/content/WACV2024/papers/van_Rozendaal_MobileNVC_Real-Time_1080p_Neural_Video_Compression_on_a_Mobile_Device_WACV_2024_paper.pdf">MobileNVC</a>第 3–5、7 页利用硬件支持的重叠块扭曲，替换执行成本高的像素级操作，并进行量化感知训练。权重和激活的量化粒度不同，瓶颈符号、均值和概率参数还要对齐；“int8 模型”不代表所有中间变量都采用同一种八位整数规则。</p>
+<p>作者在 Snapdragon 8 Gen 2、HEVC-B 上报告接收端约 38.9 FPS，而未充分优化的发送端约 3 FPS。它支持手机实时解码这一特定结论，不能据此声称手机双向实时编解码。论文也展示了整数化后的 RD 成本。</p>
+<p>更多并行熵流能减少串行时间，却会增加流头开销，降低每流可利用的依赖。论文给出 512/1024 线程下不同解码时间和头部占比；因此优化线程数是在比特与时延间选择，而非无限增加即可获益。</p>
+<h2 id="_3">应当怎样测</h2>
+<p>分别保存三种时间：①同步定义明确的神经网络时间；②包括真实熵编解码的 codec 时间；③包括输入等待、I/O 与排队的应用时间。预热、GPU 型号、功耗/频率环境、精度、分辨率、码率、CPU 线程和 batch/chunk 都应固定并记录。流水线阶段时间相加不等于实际墙钟，阶段重叠需要时间线解释。</p>
+<p>工程指标至少包括稳态 FPS、首帧时间、p50/p95 帧或块时间、显存峰值、实际输出字节。对于实时流，再记录输入到对应显示帧的延迟和缓冲积压。不同设置的平均 FPS 相同，尾部卡顿可能很不一样。</p>
+<h2 id="_4">可检验的研究问题</h2>
+<p>在 RT 中，码率上升是否主要增加熵处理而非神经网络时间？在 UF 中，块长增长的吞吐收益何时饱和？保持总码率约束时，并行熵流的头信息何时抵消收益？这些都应先通过同硬件、有界 profiler 测量定位，再选择修改模块。</p>
+<p>本轮只建立分析和测量定义，没有新的 GPU 速度数据，也没有将旧实验总运行时间换算成论文级 codec FPS。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

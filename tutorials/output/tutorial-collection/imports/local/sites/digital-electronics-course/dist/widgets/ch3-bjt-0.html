@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-bjt-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-bjt-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="bjt-loaded-lesson">
+<div class="viz-controls">
+<label class="form-label">电路<select class="form-select" data-case=""><option value="basic">基本 NPN 反相器</option><option value="exercise">习题 3.26 接口</option></select></label>
+<label class="form-label">输入电压<select class="form-select" data-vi=""><option value="0.2">0.2 V</option><option value="1">1 V</option><option value="3">3 V</option><option value="5">5 V</option></select></label>
+</div>
+<svg aria-label="NPN 反相器的电流和工作状态" class="de-circuit" data-ib="0.22999999999999998" data-state="饱和" data-vo="0.2" height="365" role="img" viewbox="0 0 708 365"><title>NPN 反相器</title><desc>输入通过基极电阻连接基极，集电极通过电阻连接五伏电源，发射极接地。</desc><path class="wire" d="M 389.40000000000003 32 V 62 M 389.40000000000003 108 V 172 M 389.40000000000003 172 L 367.40000000000003 190 M 367.40000000000003 180 V 224 M 367.40000000000003 214 L 389.40000000000003 238 V 282 M 367.40000000000003 202 H 117 M 73 202 H 12 M 389.40000000000003 138 H 692"></path><rect fill="var(--background)" height="46" stroke="var(--foreground)" stroke-width="1.5" width="14" x="382.40000000000003" y="62"></rect><rect fill="var(--background)" height="14" stroke="var(--foreground)" stroke-width="1.5" width="44" x="73" y="195"></rect><path class="wire" d="M 379.40000000000003 227 L 389.40000000000003 238 L 386.40000000000003 224 M 374.40000000000003 282 H 404.40000000000003 M 379.40000000000003 288 H 399.40000000000003 M 384.40000000000003 294 H 394.40000000000003"></path><circle cx="389.40000000000003" cy="138" fill="var(--foreground)" r="3"></circle><text class="" x="364.40000000000003" y="22">+5 V</text><text class="" x="402.40000000000003" y="84">1 kΩ</text><text class="" x="12" y="179">vᵢ = 3 V</text><text class="small" x="12" y="234">Rᵦ = 10 kΩ</text><text class="small" text-anchor="end" x="692" y="127">vₒ</text><text class="" x="402.40000000000003" y="208">T</text><text class="" x="12" y="324">状态：饱和</text><text class="" x="12" y="348">输出：0.20 V</text><path class="active" d="M 414.40000000000003 157 v 85 m -5 -8 l 5 8 l 5 -8"></path></svg>
+<div aria-live="polite" class="tabular-nums" data-result="">Iᵦ = 230.0 μA；临界饱和所需 Iᵦ ≈ 96.0 μA</div>
+<style>
+    #bjt-loaded-lesson .de-circuit{display:block;width:100%;overflow:visible}
+    #bjt-loaded-lesson .wire{fill:none;stroke:var(--foreground);stroke-width:1.5}
+    #bjt-loaded-lesson .active{fill:none;stroke:var(--viz-series-1);stroke-width:3}
+    #bjt-loaded-lesson svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #bjt-loaded-lesson svg .small{font-size:calc(var(--font-size-base)*.857)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("bjt-switch-and-loaded-interface");
+
+  (()=>{const root=document.getElementById('bjt-loaded-lesson'),svg=root.querySelector('svg'),kind=root.querySelector('[data-case]'),vi=root.querySelector('[data-vi]');let s={kind:'basic',vi:3};
+    function restore(v){const p=v?.privateContent;if(p&&['basic','exercise'].includes(p.kind))s={kind:p.kind,vi:Number(p.vi)};options();draw();}
+    function options(){kind.value=s.kind;const a=s.kind==='basic'?[.2,1,3,5]:[.05,4.95];if(!a.includes(s.vi))s.vi=a[a.length-1];vi.innerHTML=a.map(v=>`<option value="${v}">${v} V</option>`).join('');vi.value=String(s.vi);}
+    function draw(){const w=root.clientWidth,x=w*.55,b=x-22,out=w-16,H=365,ex=s.kind==='exercise';const rb=ex?33.2:10,rc=ex?2:1,beta=ex?40:50,v=s.vi,ib=Math.max(0,(v-.7)/rb),need=ex?(4.9/2.02+9.6)/40:4.8/50;const state=ib===0?'截止':ib>=need?'饱和':'放大';const vo=ex?(v<.7?4.52:1.4):(ib===0?5:ib>=need?.2:5-beta*ib);const label=ex&&v>.7?'约 1.4 V（转折区）':vo.toFixed(2)+' V';
+      svg.setAttribute('viewBox',`0 0 ${w} ${H}`);svg.setAttribute('height',H);svg.dataset.state=state;svg.dataset.ib=ib;svg.dataset.vo=vo;
+      const wire=d=>`<path class="wire" d="${d}"/>`,t=(a,y,z,cl='')=>`<text x="${a}" y="${y}" class="${cl}">${z}</text>`;
+      svg.innerHTML=`<title>NPN 反相器</title><desc>输入通过基极电阻连接基极，集电极通过电阻连接五伏电源，发射极接地。</desc>${wire(`M ${x} 32 V 62 M ${x} 108 V 172 M ${x} 172 L ${b} 190 M ${b} 180 V 224 M ${b} 214 L ${x} 238 V 282 M ${b} 202 H 117 M 73 202 H 12 M ${x} 138 H ${out}`)}<rect x="${x-7}" y="62" width="14" height="46" fill="var(--background)" stroke="var(--foreground)" stroke-width="1.5"/><rect x="73" y="195" width="44" height="14" fill="var(--background)" stroke="var(--foreground)" stroke-width="1.5"/>${wire(`M ${x-10} 227 L ${x} 238 L ${x-3} 224 M ${x-15} 282 H ${x+15} M ${x-10} 288 H ${x+10} M ${x-5} 294 H ${x+5}`)}<circle cx="${x}" cy="138" r="3" fill="var(--foreground)"/>${t(x-25,22,'+5 V')}${t(x+13,84,ex?'2 kΩ':'1 kΩ')}${t(12,179,'vᵢ = '+v+' V')}${t(64,234,ex?'33 kΩ + 0.2 kΩ':'Rᵦ = 10 kΩ','small')}${t(out,127,'vₒ','small').replace('<text ','<text text-anchor="end" ')}${t(x+13,208,'T')}${t(12,324,'状态：'+state)}${t(12,348,'输出：'+label)}${ib?`<path class="active" d="M ${x+25} 157 v 85 m -5 -8 l 5 8 l 5 -8"/>`:''}${ex?`${wire(`M ${out-10} 138 V 176`)}<rect x="${out-67}" y="176" width="67" height="66" fill="var(--background)" stroke="var(--border)"/>${t(out-61,199,'6 个 TTL','small')}${t(out-61,220,'输入端','small')}`:''}`;
+      for(const label of svg.querySelectorAll('text'))if(label.textContent.startsWith('33 kΩ')||label.textContent.startsWith('Rᵦ ='))label.setAttribute('x','12');
+      root.querySelector('[data-result]').textContent=`Iᵦ = ${(ib*1000).toFixed(1)} μA；临界饱和所需 Iᵦ ≈ ${(need*1000).toFixed(1)} μA`;
+    }
+    function save(){lessonHost?.setWidgetState({modelContent:{case:s.kind,inputV:s.vi},privateContent:s}).catch(()=>{});}
+    kind.addEventListener('change',()=>{s.kind=kind.value;options();draw();save();});vi.addEventListener('change',()=>{s.vi=Number(vi.value);draw();save();});new ResizeObserver(draw).observe(root);restore(lessonHost?.widgetState);window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState);});
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

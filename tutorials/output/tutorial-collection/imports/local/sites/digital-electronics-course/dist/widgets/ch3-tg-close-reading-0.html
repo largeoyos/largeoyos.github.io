@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-tg-close-reading-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-tg-close-reading-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-textbook-tg-structure">
+<div class="viz-controls">
+<button aria-pressed="true" class="btn" data-c="" type="button">C = 1 · 接通</button>
+<label class="form-label">信号电压
+      <select class="form-select" data-input=""><option value="0">0 V</option><option value="1">1 V</option><option selected="" value="2.5">2.5 V</option><option value="4">4 V</option><option value="5">5 V</option></select>
+</label>
+<label class="form-label">图 3.3.36、3.3.37
+      <select class="form-select" data-view=""><option value="mos">晶体管通路</option><option value="symbol">传输门符号</option></select>
+</label>
+<label class="form-check"><input class="form-check-input" data-reverse="" type="checkbox"/><span class="form-check-label">交换输入、输出端</span></label>
+</div>
+<svg aria-label="教材 CMOS 传输门的结构与两个 MOS 管的导通条件" class="de-circuit" data-ngs="2.5" data-output="2.5" data-psg="2.5" role="img" viewbox="0 0 708 499"><title>教材传输门结构与导通条件</title><desc>由图三点三点三十六和三十七改画。T1 为 NMOS，栅极接 C；T2 为 PMOS，栅极接 C 的反相。两只管的漏源通路并联。电源五伏，示例固定阈值大小一伏，负载电阻远大于导通电阻，接通时用输出近似等于输入进行导通判断。PMOS 衬底接电源，NMOS 衬底接地，图中省略衬底接线。交换输入与输出时，负载电阻也移到新的输出端，控制连接不变。源漏标签适用于本图正电压信号和对地下拉负载的分析约定，相等电位时标签不唯一。</desc><path class="wire" d="M 309 132 H 331 V 109 M 377 109 V 132 H 399"></path><path class="wire on" d="M 331 109 H 377"></path><path class="wire" d="M 331 93 H 377 M 354 54 V 83"></path><circle cx="354" cy="88" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><text text-anchor="middle" x="354" y="40">C′ = 0 · 0 V</text><text class="small" text-anchor="middle" x="314" y="124">S</text><text class="small" text-anchor="middle" x="394" y="124">D</text><text text-anchor="middle" x="354" y="163">T₂ · PMOS · 导通</text><text class="small" text-anchor="middle" x="354" y="185">VSG ≈ 2.5 V</text><path class="wire" d="M 309 310 H 331 V 287 M 377 287 V 310 H 399"></path><path class="wire on" d="M 331 287 H 377"></path><path class="wire" d="M 331 271 H 377 M 354 232 V 271"></path><text text-anchor="middle" x="354" y="218">C = 1 · 5 V</text><text class="small" text-anchor="middle" x="314" y="302">D</text><text class="small" text-anchor="middle" x="394" y="302">S</text><text text-anchor="middle" x="354" y="341">T₁ · NMOS · 导通</text><text class="small" text-anchor="middle" x="354" y="363">VGS ≈ 2.5 V</text><path class="wire" d="M 34 132 H 309 M 399 132 H 674 M 34 310 H 309 M 399 310 H 674 M 34 132 V 310 M 674 132 V 310"></path><path class="wire" d="M 12 229 H 34 M 674 229 H 696"></path><circle cx="34" cy="229" fill="currentColor" r="3"></circle><circle cx="674" cy="229" fill="currentColor" r="3"></circle><text text-anchor="start" x="37" y="212">vᵢ = 2.5 V</text><text text-anchor="end" x="671" y="212">vₒ ≈ 2.5 V</text><path class="wire" d="M 674 310 V 389"></path><rect fill="none" height="38" stroke="currentColor" stroke-width="1.8" width="14" x="667" y="389"></rect><text text-anchor="end" x="655" y="414">Rₗ</text><path class="wire" d="M 674 427 V 444 M 659 444 H 689 M 665 451 H 683 M 670 458 H 678"></path><text class="small" text-anchor="start" x="12" y="486">Rₗ ≫ R_TG · 衬底接线省略</text></svg>
+<div aria-live="polite" class="text-small" data-status="">VDD = 5 V · 示例阈值大小 1 V · 接通</div>
+<style>
+    #de-textbook-tg-structure .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-textbook-tg-structure .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-textbook-tg-structure .de-circuit .small{font-size:12px}
+    #de-textbook-tg-structure .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    #de-textbook-tg-structure .de-circuit .on{stroke:var(--viz-series-1);stroke-width:2.5}
+    #de-textbook-tg-structure .de-circuit .off{stroke:var(--border)}
+    #de-textbook-tg-structure .de-circuit .edge{stroke:currentColor;stroke-dasharray:3 3}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("textbook-tg-structure");
+
+  (function(){
+    const root=document.getElementById('de-textbook-tg-structure'),svg=root.querySelector('svg'),button=root.querySelector('[data-c]'),input=root.querySelector('[data-input]'),view=root.querySelector('[data-view]'),reverse=root.querySelector('[data-reverse]');let c=1;
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s){if(s.c===0||s.c===1)c=s.c;if(['0','1','2.5','4','5'].includes(String(s.input)))input.value=String(s.input);if(['mos','symbol'].includes(s.view))view.value=s.view;if(typeof s.reverse==='boolean')reverse.checked=s.reverse;}}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s={c:c,input:+input.value,view:view.value,reverse:reverse.checked};lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,a,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,cls){return '<path class="wire '+(cls||'')+'" d="'+d+'"/>';};
+    function state(v){return v>1?'导通':v===1?'阈值边界':'截止';}
+    function mos(x,y,p,v){
+      const mode=state(v),cls=mode==='导通'?'on':mode==='截止'?'off':'edge';
+      const leftS=p?!reverse.checked:reverse.checked;
+      let out=path('M '+(x-45)+' '+y+' H '+(x-23)+' V '+(y-23)+' M '+(x+23)+' '+(y-23)+' V '+y+' H '+(x+45));
+      out+=path('M '+(x-23)+' '+(y-23)+' H '+(x+23),cls)+path('M '+(x-23)+' '+(y-39)+' H '+(x+23)+' M '+x+' '+(y-78)+' V '+(y-39-(p?10:0)));
+      if(p)out+='<circle cx="'+x+'" cy="'+(y-44)+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+      out+=text(x,y-92,(p?'C′ = '+(1-c):'C = '+c)+' · '+(p?(1-c)*5:c*5)+' V','middle');
+      out+=text(x-40,y-8,leftS?'S':'D','middle',true)+text(x+40,y-8,leftS?'D':'S','middle',true);
+      out+=text(x,y+31,(p?'T₂ · PMOS':'T₁ · NMOS')+' · '+mode,'middle');
+      out+=text(x,y+53,(p?'VSG':'VGS')+' ≈ '+v+' V','middle',true);
+      return out;
+    }
+    function draw(){
+      const w=svg.getBoundingClientRect().width||root.clientWidth,x=w/2,left=34,right=w-34,vi=+input.value,vo=c?vi:0;
+      const n=c*5-vo,p=vi-(1-c)*5,isMos=view.value==='mos',top=isMos?132:133,bottom=isMos?310:133,node=isMos?229:133;
+      let out='<title>教材传输门结构与导通条件</title><desc>由图三点三点三十六和三十七改画。T1 为 NMOS，栅极接 C；T2 为 PMOS，栅极接 C 的反相。两只管的漏源通路并联。电源五伏，示例固定阈值大小一伏，负载电阻远大于导通电阻，接通时用输出近似等于输入进行导通判断。PMOS 衬底接电源，NMOS 衬底接地，图中省略衬底接线。交换输入与输出时，负载电阻也移到新的输出端，控制连接不变。源漏标签适用于本图正电压信号和对地下拉负载的分析约定，相等电位时标签不唯一。</desc>';
+      if(isMos){
+        out+=mos(x,132,true,p)+mos(x,310,false,n);
+        out+=path('M '+left+' 132 H '+(x-45)+' M '+(x+45)+' 132 H '+right+' M '+left+' 310 H '+(x-45)+' M '+(x+45)+' 310 H '+right+' M '+left+' 132 V 310 M '+right+' 132 V 310');
+      }else{
+        out+='<rect x="'+(x-28)+'" y="105" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.8"/>'+text(x,139,'TG','middle');
+        out+='<circle cx="'+x+'" cy="100" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>'+path('M '+x+' 62 V 95 M '+x+' 161 V 200');
+        out+=text(x,48,'C′ = '+(1-c),'middle')+text(x,220,'C = '+c,'middle');
+        out+=path('M '+left+' 133 H '+(x-28)+' M '+(x+28)+' 133 H '+right);
+      }
+      out+=path('M 12 '+node+' H '+left+' M '+right+' '+node+' H '+(w-12));
+      out+='<circle cx="'+left+'" cy="'+node+'" r="3" fill="currentColor"/><circle cx="'+right+'" cy="'+node+'" r="3" fill="currentColor"/>';
+      out+=text(left+3,node-17,reverse.checked?'vₒ ≈ '+vo+' V':'vᵢ = '+vi+' V')+text(right-3,node-17,reverse.checked?'vᵢ = '+vi+' V':'vₒ ≈ '+vo+' V','end');
+      const loadX=reverse.checked?left:right,ry=isMos?389:254;
+      out+=path('M '+loadX+' '+bottom+' V '+ry)+'<rect x="'+(loadX-7)+'" y="'+ry+'" width="14" height="38" fill="none" stroke="currentColor" stroke-width="1.8"/>';
+      out+=text(loadX+(reverse.checked?19:-19),ry+25,'Rₗ',reverse.checked?'start':'end');
+      out+=path('M '+loadX+' '+(ry+38)+' V '+(ry+55)+' M '+(loadX-15)+' '+(ry+55)+' H '+(loadX+15)+' M '+(loadX-9)+' '+(ry+62)+' H '+(loadX+9)+' M '+(loadX-4)+' '+(ry+69)+' H '+(loadX+4));
+      const h=ry+110;out+=text(12,h-13,'Rₗ ≫ R_TG · 衬底接线省略',undefined,true);
+      svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.setAttribute('data-output',String(vo));svg.setAttribute('data-ngs',String(n));svg.setAttribute('data-psg',String(p));svg.innerHTML=out;
+      button.textContent='C = '+c+' · '+(c?'接通':'断开');button.setAttribute('aria-pressed',String(!!c));
+      root.querySelector('[data-status]').textContent=c?'VDD = 5 V · 示例阈值大小 1 V · 接通':'两只管截止 · Rₗ 将输出拉到 0 V';
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    button.addEventListener('click',function(){c=1-c;draw();save();});for(const el of [input,view,reverse])el.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

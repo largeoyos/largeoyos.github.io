@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch4-hdl-nand-netlist")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch4-hdl-nand-netlist",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch4-hdl-nand-netlist">
+<div class="viz-row" data-inputs=""></div>
+<svg aria-label="题4.36由Verilog门级描述还原的两级与非电路" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch4-hdl-nand-netlist svg{display:block;width:100%;color:var(--foreground)}
+    #ch4-hdl-nand-netlist svg text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #ch4-hdl-nand-netlist svg .small{font-size:12px}
+    #ch4-hdl-nand-netlist .wire{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch4-hdl-nand-netlist .high{stroke:var(--viz-series-1);stroke-width:2.3}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch4-hdl-nand-netlist'),svg=root.querySelector('svg');let s={a:0,b:0,c:0,d:0};
+    const text=(x,y,v,a='start',small=false)=>`<text x="${x}" y="${y}" text-anchor="${a}"${small?' class="small"':''}>${v}</text>`;
+    const wire=(d,on=false)=>`<path class="wire${on?' high':''}" d="${d}"/>`;
+    const box=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1.5"/>`;
+    const bubble=(x,y)=>`<circle cx="${x}" cy="${y}" r="4" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>`;
+    root.querySelector('[data-inputs]').innerHTML=['a','b','c','d'].map(k=>`<button class="btn" type="button" data-bit="${k}">${k.toUpperCase()}</button>`).join('');
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(v)for(const k of ['a','b','c','d'])if(v[k]===0||v[k]===1)s[k]=v[k];}
+    function draw(){
+      const w=svg.clientWidth||320,gx=84,gw=70,fx=w-112,fy=274,nb=1-s.b,nd=1-s.d;
+      const names=[['C','D′'],['A','B'],['B′','D′'],['A','C']],ins=[[s.c,nd],[s.a,s.b],[nb,nd],[s.a,s.c]],ps=ins.map(([a,b])=>1-(a&b)),out=1- +(ps.every(Boolean));
+      let o='<title>题4.36 门级描述的电路</title><desc>同名信号表示相连。B与D先经过反相器得到B撇与D撇。g1到g4分别计算C和D撇、A和B、B撇和D撇、A和C的与非结果，g5对四个中间信号作与非运算。</desc>';
+      for(const [k,y,v,neg]of [['B',22,s.b,nb],['D',66,s.d,nd]])o+=text(8,y,k+'='+v,'start',true)+wire(`M 48 ${y-4} H 78`,!!v)+`<path d="M 78 ${y-16} V ${y+8} L 100 ${y-4} Z" fill="none" stroke="currentColor" stroke-width="1.5"/>`+bubble(104,y-4)+wire(`M 108 ${y-4} H 150`,!!neg)+text(160,y,k+'′='+neg,'start',true);
+      for(let i=0;i<4;i++){
+        const y=110+i*90,cy=y+29;
+        o+=box(gx,y,gw,58)+text(gx+gw/2,y+17,'g'+(i+1),'middle',true)+text(gx+gw/2,y+43,'&amp;','middle');
+        for(let j=0;j<2;j++){const yy=y+17+j*25;o+=text(8,yy+4,names[i][j]+'='+ins[i][j],'start',true)+wire(`M 50 ${yy} H ${gx}`,!!ins[i][j]);}
+        o+=bubble(gx+gw+4,cy)+wire(`M ${gx+gw+8} ${cy} H ${fx}`,!!ps[i])+text((gx+gw+8+fx)/2,cy-9,'p'+(i+1)+'='+ps[i],'middle',true);
+      }
+      o+=box(fx,110,54,328)+text(fx+27,fy-27,'g5','middle',true)+text(fx+27,fy+5,'&amp;','middle')+bubble(fx+58,fy)+wire(`M ${fx+62} ${fy} H ${w-8}`,!!out)+text(w-8,fy-12,'eSeg','end',true);
+      svg.setAttribute('viewBox',`0 0 ${w} 464`);svg.innerHTML=o;svg.dataset.output=out;svg.dataset.nodes=ps.join('');
+      root.querySelectorAll('[data-bit]').forEach(b=>{const k=b.dataset.bit;b.textContent=k.toUpperCase()+' = '+s[k];b.setAttribute('aria-pressed',!!s[k]);});
+      root.querySelector('[data-status]').textContent='p1 p2 p3 p4 = '+ps.join(' ')+'；eSeg = '+out;
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...s,exercise:'4.36'},privateContent:s}).catch(()=>{});}
+    restore(window.openai?.widgetState);root.querySelectorAll('[data-bit]').forEach(b=>b.onclick=()=>{s[b.dataset.bit]^=1;draw();save();});
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

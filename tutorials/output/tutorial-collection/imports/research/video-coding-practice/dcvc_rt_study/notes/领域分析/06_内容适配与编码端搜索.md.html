@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>06 内容适配与编码端搜索：把更多计算花在当前视频上</title><link rel="stylesheet" href="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：research/video-coding-practice/dcvc_rt_study/notes/领域分析/06_内容适配与编码端搜索.md · <a href="06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md">原始 Markdown</a></p><h1 id="06">06 内容适配与编码端搜索：把更多计算花在当前视频上</h1>
+<p>2026-10-19。返回<a href="00_%E4%B9%9D%E9%A2%86%E5%9F%9F%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90.md.html">九领域导读</a>。本轮补读光流增强、参数适配的算法与成本，承接 DT 源码核查。</p>
+<h2 id="_1">先问到底优化哪一类变量</h2>
+<p>离线训练得到的是面对训练分布的平均策略；某个测试视频可能还有未充分利用的规律。测试时优化不是自动过拟合违规：在压缩任务中编码器本来就看到待编码内容。关键是解码器能否从码流和共享模型重建所有必要信息，以及编码成本是否符合应用。</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>典型方法</th>
+<th>传输什么</th>
+<th>额外成本在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运动潜变量及其超先验</td>
+<td>Offline/Online Flow Enhancement</td>
+<td>最终运动符号与内容符号</td>
+<td>编码端反复生成参考/内容并评价 RD</td>
+</tr>
+<tr>
+<td>内容潜变量</td>
+<td>DCVC-DT，GIViC 的逐 GOP 适配</td>
+<td>最终量化潜变量</td>
+<td>编码端梯度搜索，可能需要多帧内存</td>
+</tr>
+<tr>
+<td>解码器更新</td>
+<td>PEIAVC</td>
+<td>内容符号 + 压缩适配参数</td>
+<td>搜索、参数码率、传输与初始化</td>
+</tr>
+<tr>
+<td>整个内容表示</td>
+<td>NeRV/C3 等</td>
+<td>参数、嵌入或潜变量的组合</td>
+<td>逐实例拟合与表示压缩，见下一领域</td>
+</tr>
+</tbody>
+</table>
+<p>冻结共享解码器并只优化最终符号，可保持解码计算图；修改解码器则必须同步更新。只修改编码器权重通常不需要把它发给解码端，但其输出和共享码流格式仍必须兼容。</p>
+<h2 id="_2">光流增强为何不以真实光流为唯一目标</h2>
+<p><a href="https://ojs.aaai.org/index.php/AAAI/article/download/28317/28623">Offline and Online Optical Flow Enhancement</a>第 3–5 页先用 VTM 搜索得到的运动向量微调 SPyNet，再把增强后的运动估计放回 DCVC/DCVC-DC 端到端训练。VTM 标签设置控制参考列表、QP 和相关工具；它是面向压缩的监督线索，不是物理运动真值。</p>
+<p>在线算法固定模型，更新运动潜变量 y 和超先验 z，目标同时包含运动码率、内容码率和重建失真。因此让运动本身更难压缩但显著减少内容成本，可能仍值得。仅最小化光流 EPE 或扭曲 MSE 会遗漏这部分权衡。</p>
+<p>算法每次用噪声松弛获取梯度，再用取整后的候选评价 RD，并保留当前最优候选。这里的 H 是模型码率估计，不能未经真实写流就称为“每次都检查文件字节数”。多帧搜索还可能影响未来参考质量，但会增加窗口内的反向传播成本。</p>
+<p>第 7 页 Table 3 中，HEVC-C 的编码时间列从 N=0 时 2.71 s 增至 N=1500 时 388.73 s；HEVC-D 从 0.70 s 增至 141.03 s，解码时间近似不变。表中时间统计单位的完整实现边界尚未源码复核，因此此处不把它换算成每帧 FPS。作者在线试验首 96 帧、IP12；不能把这些收益直接接到本项目连续 P 实验。</p>
+<h2 id="_3">参数高效适配为什么仍需要算参数比特</h2>
+<p><a href="https://openaccess.thecvf.com/content/ACCV2024/papers/Oh_Parameter-Efficient_Instance-Adaptive_Neural_Video_Compression_ACCV_2024_paper.pdf">PEIAVC</a>在冻结原卷积核后学习低秩更新，量化、熵编码并传给接收端，随后合并。第 9 页使用 spike-and-slab 先验，使小/零更新更易压缩；适配参数少既减轻优化，也减少同步信息。</p>
+<p>其训练每视频 15 epochs，训练 GOP4、测试 GOP12；1080p 数据因骨干要求裁成 1920×1024。第 12 页报告 600 帧视频的适配时间示例约 14 分钟，另列不同方案的参数开销。这是作者指定流程，不能称为实时编码，也不能与未经同样裁剪/配置的 RT 曲线直接比较。</p>
+<p>设适配参数额外 B_u 比特，内容每帧在同质量下节省 Δr 比特，忽略其他差异时净收益条件是：</p>
+<p><code>N·Δr &gt; B_u</code>，即 <code>N &gt; B_u/Δr</code>。</p>
+<p>较长视频容易摊薄一次更新，但分布变化可能使同一更新失效。缩短适配分段又增加更新频率。这形成“适配窗口—总码率—搜索时间—首帧等待”的联合选择，而不是参数越少越好。Δr 会随内容与段长改变，不能把这个简单公式当成实测收益预测。</p>
+<h2 id="dt">DT 的适配与时间字段边界</h2>
+<p>已有<a href="../DCMVC%E4%B8%8EDCVC_DT_%E4%B8%8A%E4%B8%8B%E6%96%87%E8%B0%83%E5%88%B6%E5%92%8C%E6%8E%A8%E7%90%86%E9%80%82%E9%85%8D.md.html">DCMVC/DT 论文源码对照</a>核到 DT 主要优化 y，且打印的某段 encoding_time 在搜索之后才开始计时。比较时必须另记从初始化到最终可发送码流的总时间。</p>
+<p>若损失写为 <code>βR+λD</code>，固定 λ 增大 β 等效于降低失真相对权重 λ/β。论文文字描述、不同色彩分支和真实代码需要对照，不能仅凭“动态质量控制”名称猜测方向。</p>
+<h2 id="_4">有边界的实验应怎样设计</h2>
+<p>先选固定共享解码器的搜索方式，设置 0/少量/较多迭代的时间预算，保留初始整数候选，最终以真实写流和独立解码验证；曲线横轴可用总编码秒数，纵轴同时报告 bpp 和失真。到时停止并返回此前最佳候选，不能把未完成拟合点混进结果。</p>
+<p>比较适配参数时，应分别保存内容、参数、超先验和头的字节数；比较在线搜索时，固定原模型、目标函数、量化及首帧条件。每段有多少提升、何处没有提升，比一个平均百分数更能回答“何时值得花搜索时间”。本轮没有新增适配训练或 GPU 作业。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

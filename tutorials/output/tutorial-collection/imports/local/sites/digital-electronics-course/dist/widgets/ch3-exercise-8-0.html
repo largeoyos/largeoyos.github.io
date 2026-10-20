@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-exercise-8-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-exercise-8-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="high-impedance-exercise-eight">
+<style>
+    #high-impedance-exercise-eight .de-panels { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:16px; }
+    #high-impedance-exercise-eight .de-circuit { display:block; width:100%; }
+    #high-impedance-exercise-eight .de-circuit text { fill:var(--foreground); font-size:var(--font-size-base); font-weight:400; }
+    #high-impedance-exercise-eight .de-circuit .small { font-size:calc(var(--font-size-base) * .86); }
+    #high-impedance-exercise-eight .wire { fill:none; stroke:var(--foreground); stroke-width:1.5; stroke-linejoin:round; }
+    #high-impedance-exercise-eight .gate { fill:var(--background); stroke:var(--foreground); stroke-width:1.5; }
+    #high-impedance-exercise-eight .junction { fill:var(--foreground); }
+    #high-impedance-exercise-eight .trace { fill:none; stroke:var(--foreground); stroke-width:2; stroke-linejoin:round; }
+    #high-impedance-exercise-eight .output { stroke:var(--viz-series-1); stroke-width:2.3; }
+    #high-impedance-exercise-eight .grid { stroke:var(--border); stroke-width:1; }
+    #high-impedance-exercise-eight .selection { fill:var(--viz-series-1); fill-opacity:.08; }
+    #high-impedance-exercise-eight .z-stroke { fill:none; stroke:var(--muted-foreground); stroke-width:1; stroke-opacity:.35; }
+  </style>
+<div class="viz-controls">
+<label class="form-label">所选时间段（相对时间）
+      <select aria-label="选择波形时间段" class="form-select" data-interval="">
+<option value="0">0 ～ 1</option><option selected="" value="1">1 ～ 1.5</option><option value="2">1.5 ～ 2</option>
+<option value="3">2 ～ 3</option><option value="4">3 ～ 4</option><option value="5">4 ～ 4.5</option>
+<option value="6">4.5 ～ 5</option><option value="7">5 ～ 6</option><option value="8">6 ～ 7</option>
+<option value="9">7 ～ 7.5</option><option value="10">7.5 ～ 8</option><option value="11">8 ～ 9</option>
+</select>
+</label>
+</div>
+<div class="de-panels">
+<svg aria-label="习题3.8a：两个OD与非门输出并联，有上拉电阻" class="de-circuit" data-circuit="a" role="img" style="height: 205px;" viewbox="0 0 346 205"><title>习题3.8a的当前状态</title><desc>输出是AB与CD的或非；上拉电阻存在且取值合适，公共输出有确定的逻辑电平。</desc><text class="" text-anchor="start" x="8" y="20">(a) OD线与</text><text class="" text-anchor="middle" x="270" y="20">V_DD</text><line class="wire" x1="270" x2="270" y1="28" y2="38"></line><path class="wire" d="M 270 38 L 265 43 L 275 51 L 265 59 L 275 67 L 270 72"></path><text class="small" text-anchor="end" x="256" y="55">R_L</text><line class="wire" x1="270" x2="270" y1="72" y2="165"></line><text class="" text-anchor="start" x="8" y="94">A = 1</text><line class="wire" x1="57" x2="86.5" y1="90" y2="90"></line><text class="" text-anchor="start" x="8" y="114">B = 1</text><line class="wire" x1="57" x2="86.5" y1="110" y2="110"></line><path class="gate" d="M 86.5 77 H 108.5 C 137.5 77 137.5 123 108.5 123 H 86.5 Z"></path><circle class="gate" cx="135.5" cy="100" r="5"></circle><text class="small" text-anchor="middle" x="106.5" y="104">OD</text><line class="wire" x1="140.5" x2="270" y1="100" y2="100"></line><circle class="junction" cx="270" cy="100" r="2.5"></circle><text class="" text-anchor="start" x="8" y="159">C = 0</text><line class="wire" x1="57" x2="86.5" y1="155" y2="155"></line><text class="" text-anchor="start" x="8" y="179">D = 0</text><line class="wire" x1="57" x2="86.5" y1="175" y2="175"></line><path class="gate" d="M 86.5 142 H 108.5 C 137.5 142 137.5 188 108.5 188 H 86.5 Z"></path><circle class="gate" cx="135.5" cy="165" r="5"></circle><text class="small" text-anchor="middle" x="106.5" y="169">OD</text><line class="wire" x1="140.5" x2="270" y1="165" y2="165"></line><circle class="junction" cx="270" cy="165" r="2.5"></circle><line class="trace output" x1="270" x2="334" y1="135" y2="135"></line><circle class="junction" cx="270" cy="135" r="2.5"></circle><text class="" text-anchor="end" x="334" y="121">Y₁ = 0</text></svg>
+<svg aria-label="习题3.8b：三输入与非门后接三态反相器，由D高电平使能" class="de-circuit" data-circuit="b" data-y2="Z" role="img" style="height: 205px;" viewbox="0 0 346 205"><title>习题3.8b的当前状态</title><desc>D为一时三态反相器工作，输出ABC；D为零时输出为高阻态Z。</desc><text class="" text-anchor="start" x="8" y="20">(b) 三态反相器</text><text class="" text-anchor="start" x="8" y="49">D = 0</text><path class="wire" d="M 57 45 H 269 V 98"></path><text class="" text-anchor="start" x="8" y="94">A = 1</text><line class="wire" x1="57" x2="121.1" y1="90" y2="90"></line><text class="" text-anchor="start" x="8" y="114">B = 1</text><line class="wire" x1="57" x2="121.1" y1="110" y2="110"></line><text class="" text-anchor="start" x="8" y="134">C = 0</text><line class="wire" x1="57" x2="121.1" y1="130" y2="130"></line><path class="gate" d="M 121.1 80 H 143.1 C 172.1 80 172.1 140 143.1 140 H 121.1 Z"></path><circle class="gate" cx="170.1" cy="110" r="5"></circle><line class="wire" x1="175.1" x2="255" y1="110" y2="110"></line><text class="small" text-anchor="middle" x="215.05" y="95">M = 1</text><path class="gate" d="M 255 90 L 290 110 L 255 130 Z"></path><circle class="gate" cx="295" cy="110" r="5"></circle><path class="wire" d="M 264 106 H 272 L 268 114 Z"></path><line class="wire" x1="300" x2="334" y1="110" y2="110"></line><text class="" text-anchor="end" x="334" y="95">Y₂ = Z</text></svg>
+</div>
+<svg aria-label="习题3.8的四路输入和两路输出波形，高阻段用Z标记" class="de-circuit" data-wave="" role="img" style="height: 440px;" viewbox="0 0 708 440"><title>习题3.8波形</title><desc>输入A、B、C、D保持原题的变化顺序。Y1等于AB加CD的或非。Y2在D为一时等于ABC，在D为零的两段区间内为高阻，用带交叉纹理的区域和字母Z标记；Z不对应某个确定电压。</desc><defs><pattern height="12" id="he8-z-pattern" patternunits="userSpaceOnUse" width="12"><path class="z-stroke" d="M 0 0 L 12 12 M 0 12 L 12 0"></path></pattern></defs><rect class="selection" height="352" width="35.388888888888914" x="128.77777777777777" y="16"></rect><line class="grid" x1="58" x2="58" y1="16" y2="368"></line><line class="grid" x1="128.77777777777777" x2="128.77777777777777" y1="16" y2="368"></line><line class="grid" x1="164.16666666666669" x2="164.16666666666669" y1="16" y2="368"></line><line class="grid" x1="199.55555555555554" x2="199.55555555555554" y1="16" y2="368"></line><line class="grid" x1="270.33333333333337" x2="270.33333333333337" y1="16" y2="368"></line><line class="grid" x1="341.1111111111111" x2="341.1111111111111" y1="16" y2="368"></line><line class="grid" x1="376.5" x2="376.5" y1="16" y2="368"></line><line class="grid" x1="411.8888888888889" x2="411.8888888888889" y1="16" y2="368"></line><line class="grid" x1="482.6666666666667" x2="482.6666666666667" y1="16" y2="368"></line><line class="grid" x1="553.4444444444445" x2="553.4444444444445" y1="16" y2="368"></line><line class="grid" x1="588.8333333333334" x2="588.8333333333334" y1="16" y2="368"></line><line class="grid" x1="624.2222222222222" x2="624.2222222222222" y1="16" y2="368"></line><line class="grid" x1="695" x2="695" y1="16" y2="368"></line><text class="" text-anchor="start" x="5" y="48">A</text><text class="small" text-anchor="end" x="43" y="34">1</text><text class="small" text-anchor="end" x="43" y="60">0</text><path class="trace" d="M 58 56 H 128.77777777777777 V 30 H 164.16666666666669 V 30 H 199.55555555555554 V 56 H 270.33333333333337 V 30 H 341.1111111111111 V 56 H 376.5 V 56 H 411.8888888888889 V 30 H 482.6666666666667 V 56 H 553.4444444444445 V 30 H 588.8333333333334 V 30 H 624.2222222222222 V 56 H 695" data-signal="A"></path><text class="" text-anchor="start" x="5" y="108">B</text><text class="small" text-anchor="end" x="43" y="94">1</text><text class="small" text-anchor="end" x="43" y="120">0</text><path class="trace" d="M 58 90 H 128.77777777777777 V 90 H 164.16666666666669 V 116 H 199.55555555555554 V 116 H 270.33333333333337 V 116 H 341.1111111111111 V 116 H 376.5 V 90 H 411.8888888888889 V 90 H 482.6666666666667 V 90 H 553.4444444444445 V 90 H 588.8333333333334 V 116 H 624.2222222222222 V 116 H 695" data-signal="B"></path><text class="" text-anchor="start" x="5" y="168">C</text><text class="small" text-anchor="end" x="43" y="154">1</text><text class="small" text-anchor="end" x="43" y="180">0</text><path class="trace" d="M 58 176 H 128.77777777777777 V 176 H 164.16666666666669 V 176 H 199.55555555555554 V 150 H 270.33333333333337 V 150 H 341.1111111111111 V 176 H 376.5 V 176 H 411.8888888888889 V 176 H 482.6666666666667 V 150 H 553.4444444444445 V 150 H 588.8333333333334 V 150 H 624.2222222222222 V 176 H 695" data-signal="C"></path><text class="" text-anchor="start" x="5" y="228">D</text><text class="small" text-anchor="end" x="43" y="214">1</text><text class="small" text-anchor="end" x="43" y="240">0</text><path class="trace" d="M 58 210 H 128.77777777777777 V 236 H 164.16666666666669 V 236 H 199.55555555555554 V 236 H 270.33333333333337 V 210 H 341.1111111111111 V 210 H 376.5 V 210 H 411.8888888888889 V 236 H 482.6666666666667 V 236 H 553.4444444444445 V 210 H 588.8333333333334 V 210 H 624.2222222222222 V 210 H 695" data-signal="D"></path><text class="" text-anchor="start" x="5" y="288">Y₁</text><text class="small" text-anchor="end" x="43" y="274">1</text><text class="small" text-anchor="end" x="43" y="300">0</text><path class="trace output" d="M 58 270 H 128.77777777777777 V 296 H 164.16666666666669 V 270 H 199.55555555555554 V 270 H 270.33333333333337 V 296 H 341.1111111111111 V 270 H 376.5 V 270 H 411.8888888888889 V 296 H 482.6666666666667 V 270 H 553.4444444444445 V 296 H 588.8333333333334 V 296 H 624.2222222222222 V 270 H 695" data-signal="Y1"></path><text class="" text-anchor="start" x="5" y="348">Y₂</text><text class="small" text-anchor="end" x="43" y="334">1</text><text class="small" text-anchor="end" x="43" y="360">0</text><path class="trace output" d="M 58 356 H 128.77777777777777" data-signal="Y2"></path><rect data-z-end="3" data-z-start="1" fill="url(#he8-z-pattern)" height="34" width="141.5555555555556" x="128.77777777777777" y="326"></rect><rect fill="var(--background)" height="18" width="16" x="191.55555555555557" y="335"></rect><text class="" text-anchor="middle" x="199.55555555555557" y="349">Z</text><path class="trace output" d="M 270.33333333333337 356 H 341.1111111111111 V 356 H 376.5 V 356 H 411.8888888888889" data-signal="Y2"></path><rect data-z-end="7" data-z-start="5" fill="url(#he8-z-pattern)" height="34" width="141.55555555555554" x="411.8888888888889" y="326"></rect><rect fill="var(--background)" height="18" width="16" x="474.6666666666667" y="335"></rect><text class="" text-anchor="middle" x="482.6666666666667" y="349">Z</text><path class="trace output" d="M 553.4444444444445 330 H 588.8333333333334 V 356 H 624.2222222222222 V 356 H 695" data-signal="Y2"></path><line class="grid" x1="58" x2="695" y1="382" y2="382"></line><line class="grid" x1="58" x2="58" y1="382" y2="386"></line><text class="small" text-anchor="start" x="58" y="402">0</text><line class="grid" x1="128.77777777777777" x2="128.77777777777777" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="128.77777777777777" y="402">1</text><line class="grid" x1="199.55555555555554" x2="199.55555555555554" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="199.55555555555554" y="402">2</text><line class="grid" x1="270.33333333333337" x2="270.33333333333337" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="270.33333333333337" y="402">3</text><line class="grid" x1="341.1111111111111" x2="341.1111111111111" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="341.1111111111111" y="402">4</text><line class="grid" x1="411.8888888888889" x2="411.8888888888889" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="411.8888888888889" y="402">5</text><line class="grid" x1="482.6666666666667" x2="482.6666666666667" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="482.6666666666667" y="402">6</text><line class="grid" x1="553.4444444444445" x2="553.4444444444445" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="553.4444444444445" y="402">7</text><line class="grid" x1="624.2222222222222" x2="624.2222222222222" y1="382" y2="386"></line><text class="small" text-anchor="middle" x="624.2222222222222" y="402">8</text><line class="grid" x1="695" x2="695" y1="382" y2="386"></line><text class="small" text-anchor="end" x="695" y="402">9</text><text class="small" text-anchor="end" x="695" y="424">相对时间</text></svg>
+<div aria-live="polite" class="text-small" data-status="">所选时段：Y₁ = 0；Y₂ = Z（禁用）</div>
+<script>(()=>{const lessonHost=window.courseState("high-impedance-exercise-eight");
+
+  (()=>{
+    const root=document.getElementById('high-impedance-exercise-eight'), select=root.querySelector('[data-interval]');
+    const bounds=[0,1,1.5,2,3,4,4.5,5,6,7,7.5,8,9];
+    let interval=1;
+    function inputs(t){return [+(t>=1&&t<2||t>=3&&t<4||t>=5&&t<6||t>=7&&t<8),+(t<1.5||t>=4.5&&t<7.5),+(t>=2&&t<4||t>=6&&t<8),+(t<1||t>=3&&t<5||t>=7)];}
+    const states=bounds.slice(0,-1).map((t,i)=>inputs((t+bounds[i+1])/2));
+    const y1=states.map(([a,b,c,d])=>+!(a&&b||c&&d));
+    const y2=states.map(([a,b,c,d])=>d?+(a&&b&&c):'Z');
+    const text=(x,y,s,anchor='start',cls='')=>`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}">${s}</text>`;
+    const line=(x1,y1,x2,y2,cls='wire')=>`<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    const path=d=>`<path class="wire" d="${d}"/>`;
+    const dot=(x,y)=>`<circle class="junction" cx="${x}" cy="${y}" r="2.5"/>`;
+    function nand(x,y,height=46){return `<path class="gate" d="M ${x} ${y-height/2} H ${x+22} C ${x+51} ${y-height/2} ${x+51} ${y+height/2} ${x+22} ${y+height/2} H ${x} Z"/><circle class="gate" cx="${x+49}" cy="${y}" r="5"/>`;}
+    function drawA(svg){
+      const w=Math.max(280,svg.clientWidth), gl=w*.25,bus=w-76,[a,b,c,d]=states[interval];
+      let s='<title>习题3.8a的当前状态</title><desc>输出是AB与CD的或非；上拉电阻存在且取值合适，公共输出有确定的逻辑电平。</desc>';
+      s+=text(8,20,'(a) OD线与')+text(bus,20,'V_DD','middle')+line(bus,28,bus,38);
+      s+=path(`M ${bus} 38 L ${bus-5} 43 L ${bus+5} 51 L ${bus-5} 59 L ${bus+5} 67 L ${bus} 72`)+text(bus-14,55,'R_L','end','small');
+      s+=line(bus,72,bus,165);
+      for(const [i,y] of [100,165].entries()){
+        const bits=i===0?[a,b]:[c,d],names=i===0?['A','B']:['C','D'];
+        for(let j=0;j<2;j++){const py=y+(j===0?-10:10);s+=text(8,py+4,names[j]+' = '+bits[j])+line(57,py,gl,py);}
+        s+=nand(gl,y)+text(gl+20,y+4,'OD','middle','small')+line(gl+54,y,bus,y)+dot(bus,y);
+      }
+      s+=line(bus,135,w-12,135,'trace output')+dot(bus,135)+text(w-12,121,'Y₁ = '+y1[interval],'end');
+      svg.setAttribute('viewBox',`0 0 ${w} 205`);svg.style.height='205px';svg.innerHTML=s;
+    }
+    function drawB(svg){
+      const w=Math.max(280,svg.clientWidth), gl=w*.35, inv=w-91, ctrl=inv+14,[a,b,c,d]=states[interval], yc=110;
+      let s='<title>习题3.8b的当前状态</title><desc>D为一时三态反相器工作，输出ABC；D为零时输出为高阻态Z。</desc>';
+      s+=text(8,20,'(b) 三态反相器')+text(8,49,'D = '+d)+path(`M 57 45 H ${ctrl} V ${yc-12}`);
+      for(const [i,bit] of [a,b,c].entries()){const py=yc+(i-1)*20;s+=text(8,py+4,['A','B','C'][i]+' = '+bit)+line(57,py,gl,py);}
+      s+=nand(gl,yc,60)+line(gl+54,yc,inv,yc)+text((gl+54+inv)/2,yc-15,'M = '+(+!(a&&b&&c)),'middle','small');
+      s+=`<path class="gate" d="M ${inv} ${yc-20} L ${inv+35} ${yc} L ${inv} ${yc+20} Z"/><circle class="gate" cx="${inv+40}" cy="${yc}" r="5"/>`;
+      s+=`<path class="wire" d="M ${inv+9} ${yc-4} H ${inv+17} L ${inv+13} ${yc+4} Z"/>`;
+      s+=line(inv+45,yc,w-12,yc,d?'trace output':'wire')+text(w-12,yc-15,'Y₂ = '+y2[interval],'end');
+      svg.dataset.y2=String(y2[interval]);svg.setAttribute('viewBox',`0 0 ${w} 205`);svg.style.height='205px';svg.innerHTML=s;
+    }
+    function drawWave(){
+      const svg=root.querySelector('[data-wave]'),w=Math.max(280,svg.clientWidth),left=58,right=w-13,x=t=>left+(right-left)*t/9;
+      let s='<title>习题3.8波形</title><desc>输入A、B、C、D保持原题的变化顺序。Y1等于AB加CD的或非。Y2在D为一时等于ABC，在D为零的两段区间内为高阻，用带交叉纹理的区域和字母Z标记；Z不对应某个确定电压。</desc>';
+      s+=`<defs><pattern id="he8-z-pattern" width="12" height="12" patternUnits="userSpaceOnUse"><path class="z-stroke" d="M 0 0 L 12 12 M 0 12 L 12 0"/></pattern></defs>`;
+      s+=`<rect class="selection" x="${x(bounds[interval])}" y="16" width="${x(bounds[interval+1])-x(bounds[interval])}" height="352"/>`;
+      for(const t of bounds)s+=line(x(t),16,x(t),368,'grid');
+      const rows=[0,1,2,3].map(i=>states.map(row=>row[i]));rows.push(y1,y2);
+      rows.forEach((row,i)=>{
+        const high=30+i*60,low=high+26,yy=bit=>bit?high:low;
+        s+=text(5,(high+low)/2+5,['A','B','C','D','Y₁','Y₂'][i])+text(43,high+4,'1','end','small')+text(43,low+4,'0','end','small');
+        let start=0;
+        while(start<row.length){
+          if(row[start]==='Z'){
+            let end=start+1;while(end<row.length&&row[end]==='Z')end++;
+            const mid=(x(bounds[start])+x(bounds[end]))/2;
+            s+=`<rect x="${x(bounds[start])}" y="${high-4}" width="${x(bounds[end])-x(bounds[start])}" height="34" fill="url(#he8-z-pattern)" data-z-start="${bounds[start]}" data-z-end="${bounds[end]}"/>`;
+            s+=`<rect x="${mid-8}" y="${high+5}" width="16" height="18" fill="var(--background)"/>`+text(mid,high+19,'Z','middle');
+            start=end;
+          }else{
+            let end=start+1,d=`M ${x(bounds[start])} ${yy(row[start])} H ${x(bounds[start+1])}`;
+            while(end<row.length&&row[end]!=='Z'){d+=` V ${yy(row[end])} H ${x(bounds[end+1])}`;end++;}
+            s+=`<path class="trace ${i>=4?'output':''}" data-signal="${['A','B','C','D','Y1','Y2'][i]}" d="${d}"/>`;start=end;
+          }
+        }
+      });
+      const ticks=w<450?[0,3,6,9]:[0,1,2,3,4,5,6,7,8,9];
+      s+=line(left,382,right,382,'grid');
+      for(const t of ticks)s+=line(x(t),382,x(t),386,'grid')+text(x(t),402,t,t===0?'start':t===9?'end':'middle','small');
+      s+=text(right,424,'相对时间','end','small');
+      svg.setAttribute('viewBox',`0 0 ${w} 440`);svg.style.height='440px';svg.innerHTML=s;
+    }
+    function draw(){select.value=String(interval);drawA(root.querySelector('[data-circuit="a"]'));drawB(root.querySelector('[data-circuit="b"]'));drawWave();root.querySelector('[data-status]').textContent='所选时段：Y₁ = '+y1[interval]+'；Y₂ = '+y2[interval]+(y2[interval]==='Z'?'（禁用）':'（工作）');}
+    function restore(saved){const i=saved?.privateContent?.interval;if(Number.isInteger(i)&&i>=0&&i<12)interval=i;}
+    restore(lessonHost?.widgetState);
+    select.addEventListener('change',()=>{interval=Number(select.value);draw();lessonHost?.setWidgetState?.({modelContent:{exercise:'3.8',relativeTimeInterval:[bounds[interval],bounds[interval+1]],A:states[interval][0],B:states[interval][1],C:states[interval][2],D:states[interval][3],Y1:y1[interval],Y2:y2[interval]},privateContent:{interval}})?.catch(()=>{});});
+    window.addEventListener('openai:set_globals',e=>{restore(e.detail?.globals?.widgetState);draw();});
+    const observer=new ResizeObserver(draw);root.querySelectorAll('svg.de-circuit').forEach(svg=>observer.observe(svg));draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

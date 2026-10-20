@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-unused-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-unused-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-unused-gate-inputs">
+<div class="viz-controls">
+<label class="form-label">三输入门
+      <select class="form-select" data-kind=""><option value="nand">与非门</option><option value="and">与门</option><option value="nor">或非门</option><option value="or">或门</option></select>
+</label>
+<label class="form-label">多余输入端 C
+      <select class="form-select" data-c=""><option value="1">接高电平 · 1</option><option value="0">接低电平 · 0</option></select>
+</label>
+<button aria-pressed="true" class="btn" data-bit="a" type="button">A = 1</button>
+<button aria-pressed="false" class="btn" data-bit="b" type="button">B = 0</button>
+</div>
+<svg aria-label="三输入门接成二输入门时，多余输入端的固定电平接法" class="de-circuit" data-output="1" data-preserves="true" role="img" viewbox="0 0 708 293"><title>多余输入端的处理</title><desc>自编练习。三输入门的 A、B 接数据信号，C 接电源或地，目标是保留 A、B 的二输入逻辑功能。固定 C 为一可消除它对与、与非运算的影响；固定 C 为零可消除它对或、或非运算的影响。采用理想逻辑模型。</desc><path class="wire high" d="M 12 87 H 320"></path><text text-anchor="start" x="12" y="70">A = 1</text><path class="wire" d="M 12 125 H 320"></path><text text-anchor="start" x="12" y="108">B = 0</text><path class="wire high" d="M 64 163 H 320 M 64 163 V 220"></path><text text-anchor="start" x="12" y="181">C = 1</text><path class="wire" d="M 52 220 H 76"></path><text text-anchor="middle" x="64" y="245">VDD</text><rect fill="none" height="114" stroke="currentColor" stroke-width="1.8" width="68" x="320" y="68"></rect><text text-anchor="middle" x="354" y="130">&amp;</text><circle cx="393" cy="125" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.8"></circle><path class="wire high" d="M 398 125 H 696"></path><text text-anchor="end" x="692" y="108">Y = 1</text><text class="small" text-anchor="start" x="12" y="278">保留 A、B 的二输入功能</text></svg>
+<div aria-live="polite" class="text-small" data-status="">多余端采用逻辑运算的中性值</div>
+<style>
+    #de-unused-gate-inputs .de-circuit{display:block;width:100%;color:var(--foreground)}
+    #de-unused-gate-inputs .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base);font-weight:400}
+    #de-unused-gate-inputs .de-circuit .small{font-size:12px}
+    #de-unused-gate-inputs .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-unused-gate-inputs .de-circuit .high{stroke:var(--viz-series-1)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("unused-gate-inputs");
+
+  (function(){
+    const root=document.getElementById('de-unused-gate-inputs'),svg=root.querySelector('svg'),kind=root.querySelector('[data-kind]'),input=root.querySelector('[data-c]');let bits={a:1,b:0};
+    function restore(saved){const s=saved&&(saved.privateContent||saved.modelContent);if(s){if(['nand','and','nor','or'].includes(s.kind))kind.value=s.kind;if(s.c===0||s.c===1)input.value=String(s.c);for(const k of ['a','b'])if(s[k]===0||s[k]===1)bits[k]=s[k];}}
+    function save(){if(lessonHost&&lessonHost.setWidgetState){const s={kind:kind.value,c:+input.value,a:bits.a,b:bits.b};lessonHost.setWidgetState({modelContent:s,privateContent:s}).catch(function(){});}}
+    const text=function(x,y,t,anchor,small){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anchor||'start')+'"'+(small?' class="small"':'')+'>'+t+'</text>';};
+    const path=function(d,high){return '<path class="wire '+(high?'high':'')+'" d="'+d+'"/>';};
+    function draw(){
+      const k=kind.value,c=+input.value,andLike=k==='nand'||k==='and',invert=k==='nand'||k==='nor';
+      const v=andLike?(bits.a&bits.b&c):(bits.a|bits.b|c),y=invert?1-v:v,works=c===(andLike?1:0);
+      const w=svg.getBoundingClientRect().width||root.clientWidth,x=w/2,left=x-34,right=x+34,cy=125,source=64;
+      let out='<title>多余输入端的处理</title><desc>自编练习。三输入门的 A、B 接数据信号，C 接电源或地，目标是保留 A、B 的二输入逻辑功能。固定 C 为一可消除它对与、与非运算的影响；固定 C 为零可消除它对或、或非运算的影响。采用理想逻辑模型。</desc>';
+      out+=path('M 12 87 H '+left,bits.a)+text(12,70,'A = '+bits.a);
+      out+=path('M 12 125 H '+left,bits.b)+text(12,108,'B = '+bits.b);
+      out+=path('M '+source+' 163 H '+left+' M '+source+' 163 V 220',c)+text(12,181,'C = '+c);
+      if(c){out+=path('M '+(source-12)+' 220 H '+(source+12))+text(source,245,'VDD','middle');}
+      else out+=path('M '+(source-16)+' 220 H '+(source+16)+' M '+(source-10)+' 227 H '+(source+10)+' M '+(source-4)+' 234 H '+(source+4));
+      out+='<rect x="'+left+'" y="68" width="68" height="114" fill="none" stroke="currentColor" stroke-width="1.8"/>'+text(x,130,andLike?'&amp;':'≥1','middle');
+      if(invert)out+='<circle cx="'+(right+5)+'" cy="'+cy+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.8"/>';
+      out+=path('M '+(right+(invert?10:0))+' '+cy+' H '+(w-12),y)+text(w-16,108,'Y = '+y,'end');
+      out+=text(12,278,works?'保留 A、B 的二输入功能':'C 强制了输出电平',undefined,true);
+      svg.setAttribute('viewBox','0 0 '+w+' 293');svg.setAttribute('data-output',String(y));svg.setAttribute('data-preserves',String(works));svg.innerHTML=out;
+      root.querySelectorAll('[data-bit]').forEach(function(b){b.textContent=b.dataset.bit.toUpperCase()+' = '+bits[b.dataset.bit];b.setAttribute('aria-pressed',String(!!bits[b.dataset.bit]));});
+      root.querySelector('[data-status]').textContent=works?'多余端采用逻辑运算的中性值':'当前固定电平使 Y 恒为 '+y;
+    }
+    restore(lessonHost&&lessonHost.widgetState);
+    root.querySelectorAll('[data-bit]').forEach(function(b){b.addEventListener('click',function(){bits[b.dataset.bit]=1-bits[b.dataset.bit];draw();save();});});
+    for(const el of [kind,input])el.addEventListener('change',function(){draw();save();});
+    window.addEventListener('openai:set_globals',function(e){if(e.detail&&e.detail.globals&&e.detail.globals.widgetState){restore(e.detail.globals.widgetState);draw();}});
+    new ResizeObserver(draw).observe(svg);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

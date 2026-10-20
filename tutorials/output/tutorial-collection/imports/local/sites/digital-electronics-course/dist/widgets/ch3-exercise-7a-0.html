@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-exercise-7a-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-exercise-7a-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="de-mos-exercise-seven-a">
+<div class="viz-controls">
+<button aria-pressed="false" class="btn" data-bit="0" type="button">A = 0</button>
+<button aria-pressed="false" class="btn" data-bit="1" type="button">B = 0</button>
+<button aria-pressed="false" class="btn" data-bit="2" type="button">C = 0</button>
+<label class="form-label">查看
+      <select class="form-select" data-view="">
+<option value="whole">3.7(a)：整题等效逻辑图</option>
+<option value="mos">中间与非门的 MOS 结构</option>
+</select>
+</label>
+</div>
+<svg aria-label="习题 3.7(a) 的等效逻辑图及中间三级输入与非门的 MOS 结构" class="de-circuit" role="img" viewbox="0 0 708 300"><title>习题 3.7(a)：逐级分析 CMOS 门电路</title><desc>三个输入先分别反相得到 X1、X2、X3，再进入三输入与非门得到 Z，最后反相得到 Y。中间与非门由三个并联 PMOS 和三个串联 NMOS 构成。忽略传输延迟。</desc><text text-anchor="start" x="20" y="68">A = 0</text><path class="wire" d="M 20 90 H 113.28"></path><path d="M 113.28 75 L 143.28 90 L 113.28 105 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><circle cx="148.28" cy="90" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire" d="M 153.28 90 H 311.52"></path><text text-anchor="middle" x="232.39999999999998" y="68">X1=1</text><text text-anchor="start" x="20" y="148">B = 0</text><path class="wire" d="M 20 170 H 113.28"></path><path d="M 113.28 155 L 143.28 170 L 113.28 185 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><circle cx="148.28" cy="170" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire" d="M 153.28 170 H 311.52"></path><text text-anchor="middle" x="232.39999999999998" y="148">X2=1</text><text text-anchor="start" x="20" y="228">C = 0</text><path class="wire" d="M 20 250 H 113.28"></path><path d="M 113.28 235 L 143.28 250 L 113.28 265 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><circle cx="148.28" cy="250" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire" d="M 153.28 250 H 311.52"></path><text text-anchor="middle" x="232.39999999999998" y="228">X3=1</text><path d="M 311.52 65 H 341.52 Q 381.52 65 381.52 170 Q 381.52 275 341.52 275 H 311.52 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><text text-anchor="middle" x="344.52" y="175">与非</text><circle cx="386.52" cy="170" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire" d="M 391.52 170 H 523.92"></path><text text-anchor="middle" x="457.71999999999997" y="157">Z</text><path d="M 523.92 155 L 553.92 170 L 523.92 185 Z" fill="none" stroke="currentColor" stroke-width="1.8"></path><circle cx="558.92" cy="170" fill="var(--background)" r="5" stroke="currentColor" stroke-width="1.5"></circle><path class="wire active" d="M 563.92 170 H 688"></path><text text-anchor="end" x="688" y="148">Y = 1</text></svg>
+<div aria-live="polite" class="text-small" data-status="">中间节点 Z = 0 · 末级反相后 Y = 1</div>
+<style>
+    #de-mos-exercise-seven-a .de-circuit{width:100%;display:block;color:var(--foreground)}
+    #de-mos-exercise-seven-a .de-circuit text{fill:var(--foreground);font-size:var(--font-size-base)}
+    #de-mos-exercise-seven-a .de-circuit .wire{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+    #de-mos-exercise-seven-a .de-circuit .active{stroke:var(--viz-series-1)}
+    #de-mos-exercise-seven-a .de-circuit .idle{stroke:var(--border)}
+  </style>
+<script>(()=>{const lessonHost=window.courseState("mos-exercise-seven-a");
+
+  (function(){
+    const root=document.getElementById('de-mos-exercise-seven-a'),svg=root.querySelector('svg'),bits=[0,0,0],names=['A','B','C'];
+    const label=(x,y,t,anchor='start')=>'<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'">'+t+'</text>';
+    const path=(d,cls='')=>'<path class="wire '+cls+'" d="'+d+'"/>';
+    function inverter(x,y){
+      return '<path d="M '+x+' '+(y-15)+' L '+(x+30)+' '+y+' L '+x+' '+(y+15)+' Z" fill="none" stroke="currentColor" stroke-width="1.8"/>'+
+      '<circle cx="'+(x+35)+'" cy="'+y+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>';
+    }
+    function mos(cx,cy,p,on,i,val,parallel){
+      let out=path('M '+cx+' '+(cy-45)+' V '+(cy-24)+' H '+(cx-21)+' V '+(cy+24)+' H '+cx+' V '+(cy+45),on?'active':'idle');
+      out+=path('M '+(cx-34)+' '+(cy-23)+' V '+(cy+23));
+      const start=cx-(parallel?56:100);
+      out+=path('M '+start+' '+cy+' H '+(cx-34-(p?10:0)));
+      if(p)out+='<circle cx="'+(cx-39)+'" cy="'+cy+'" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>';
+      out+=label(start,cy-(parallel?32:15),'X'+(i+1)+'='+val);
+      out+=label(cx+(parallel?8:16),cy+(parallel?55:-3),(p?'P':'N')+(i+1)+(parallel?(on?' 通':' 关'):''));
+      if(!parallel)out+=label(cx+16,cy+18,on?'接通':'截止');
+      return out;
+    }
+    function draw(){
+      const w=root.clientWidth,x=bits.map(v=>1-v),z=1-(x[0]&x[1]&x[2]),y=1-z;
+      let out='<title>习题 3.7(a)：逐级分析 CMOS 门电路</title><desc>三个输入先分别反相得到 X1、X2、X3，再进入三输入与非门得到 Z，最后反相得到 Y。中间与非门由三个并联 PMOS 和三个串联 NMOS 构成。忽略传输延迟。</desc>';
+      if(root.querySelector('[data-view]').value==='whole'){
+        const inv=w*.16,nl=w*.44,nr=nl+70,oi=w*.74;
+        [90,170,250].forEach((cy,i)=>{
+          out+=label(20,cy-22,names[i]+' = '+bits[i]);
+          out+=path('M 20 '+cy+' H '+inv)+inverter(inv,cy);
+          out+=path('M '+(inv+40)+' '+cy+' H '+nl);
+          out+=label((inv+40+nl)/2,cy-22,'X'+(i+1)+'='+x[i],'middle');
+        });
+        out+='<path d="M '+nl+' 65 H '+(nl+30)+' Q '+nr+' 65 '+nr+' 170 Q '+nr+' 275 '+(nl+30)+' 275 H '+nl+' Z" fill="none" stroke="currentColor" stroke-width="1.8"/>';
+        out+=label(nl+33,175,'与非','middle');
+        out+='<circle cx="'+(nr+5)+'" cy="170" r="5" fill="var(--background)" stroke="currentColor" stroke-width="1.5"/>';
+        out+=path('M '+(nr+10)+' 170 H '+oi)+label((nr+10+oi)/2,157,'Z','middle')+inverter(oi,170);
+        out+=path('M '+(oi+40)+' 170 H '+(w-20),'active')+label(w-20,148,'Y = '+y,'end');
+        svg.setAttribute('viewBox','0 0 '+w+' 300');
+      }else{
+        const c=w*.5,px=[w*.24,c,w*.76];
+        out+=label(c,25,'VDD','middle')+path('M '+c+' 35 V 55');
+        out+=path('M '+px[0]+' 55 H '+px[2]+' M '+px[0]+' 55 V 85 M '+c+' 55 V 85 M '+px[2]+' 55 V 85');
+        px.forEach((cx,i)=>{out+=mos(cx,130,true,x[i]===0,i,x[i],true);out+=path('M '+cx+' 175 V 205',x[i]===0?'active':'idle');});
+        out+=path('M '+px[0]+' 205 H '+px[2]+' M '+c+' 205 V 235');
+        out+='<circle cx="'+c+'" cy="235" r="3" fill="currentColor"/>';
+        out+=path('M '+c+' 235 H '+(w-25),'active')+label(w-25,220,'Z = '+z,'end');
+        out+=path('M '+c+' 235 V 255');
+        [300,405,510].forEach((cy,i)=>{out+=mos(c,cy,false,x[i]===1,i,x[i],false);if(i<2)out+=path('M '+c+' '+(cy+45)+' V '+(cy+60));});
+        out+=path('M '+c+' 555 V 577 M '+(c-16)+' 577 H '+(c+16)+' M '+(c-10)+' 584 H '+(c+10)+' M '+(c-4)+' 591 H '+(c+4));
+        out+=label(c,617,'GND','middle');svg.setAttribute('viewBox','0 0 '+w+' 632');
+      }
+      svg.innerHTML=out;
+      root.querySelector('[data-status]').textContent='中间节点 Z = '+z+' · 末级反相后 Y = '+y;
+    }
+    root.querySelectorAll('[data-bit]').forEach(btn=>btn.addEventListener('click',()=>{const i=+btn.dataset.bit;bits[i]=1-bits[i];btn.textContent=names[i]+' = '+bits[i];btn.setAttribute('aria-pressed',!!bits[i]);draw();}));
+    root.querySelector('[data-view]').addEventListener('change',draw);new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

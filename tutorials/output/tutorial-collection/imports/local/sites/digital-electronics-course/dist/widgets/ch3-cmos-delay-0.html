@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch3-cmos-delay-0")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch3-cmos-delay-0",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="nor-waveform-method">
+<style>
+    #nor-waveform-method .de-circuit { display:block; width:100%; overflow:visible; }
+    #nor-waveform-method .de-circuit text { fill:var(--foreground); font-size:var(--font-size-base); font-weight:400; }
+    #nor-waveform-method .de-circuit .small { font-size:calc(var(--font-size-base) * .86); }
+    #nor-waveform-method .trace { fill:none; stroke:var(--foreground); stroke-width:2; stroke-linejoin:round; }
+    #nor-waveform-method .output { stroke:var(--viz-series-1); stroke-width:2.5; }
+    #nor-waveform-method .grid { stroke:var(--border); stroke-width:1; }
+    #nor-waveform-method .selection { fill:var(--viz-series-1); fill-opacity:.08; }
+  </style>
+<div class="viz-controls">
+<label class="form-label">时间段
+      <select aria-label="选择时间段" class="form-select" data-interval="">
+<option value="0">①</option><option value="1">②</option><option value="2">③</option>
+<option value="3">④</option><option value="4">⑤</option><option value="5">⑥</option>
+</select>
+</label>
+</div>
+<svg aria-label="三输入或非门的示例波形" class="de-circuit" role="img" style="height: 320px;" viewbox="0 0 708 320"><title>或非门：按时间段代入输入</title><desc>六个时间段中，只有第一段和第五段的三个输入全为零，因此输出为一。</desc><rect class="selection" height="272" width="106.66666666666669" x="58" y="15"></rect><line class="grid" x1="58" x2="58" y1="15" y2="288"></line><line class="grid" x1="164.66666666666669" x2="164.66666666666669" y1="15" y2="288"></line><line class="grid" x1="271.33333333333337" x2="271.33333333333337" y1="15" y2="288"></line><line class="grid" x1="378" x2="378" y1="15" y2="288"></line><line class="grid" x1="484.6666666666667" x2="484.6666666666667" y1="15" y2="288"></line><line class="grid" x1="591.3333333333334" x2="591.3333333333334" y1="15" y2="288"></line><line class="grid" x1="698" x2="698" y1="15" y2="288"></line><text class="" text-anchor="middle" x="111.33333333333334" y="307">①</text><text class="" text-anchor="middle" x="218" y="307">②</text><text class="" text-anchor="middle" x="324.6666666666667" y="307">③</text><text class="" text-anchor="middle" x="431.3333333333333" y="307">④</text><text class="" text-anchor="middle" x="538" y="307">⑤</text><text class="" text-anchor="middle" x="644.6666666666666" y="307">⑥</text><text class="" text-anchor="start" x="5" y="46.5">A</text><text class="small" text-anchor="end" x="43" y="32">1</text><text class="small" text-anchor="end" x="43" y="59">0</text><path class="trace" d="M 58 55 H 164.66666666666669 V 55 H 271.33333333333337 V 28 H 378 V 55 H 484.6666666666667 V 55 H 591.3333333333334 V 55 H 698" data-signal="A"></path><text class="" text-anchor="start" x="5" y="113.5">B</text><text class="small" text-anchor="end" x="43" y="99">1</text><text class="small" text-anchor="end" x="43" y="126">0</text><path class="trace" d="M 58 122 H 164.66666666666669 V 95 H 271.33333333333337 V 122 H 378 V 122 H 484.6666666666667 V 122 H 591.3333333333334 V 95 H 698" data-signal="B"></path><text class="" text-anchor="start" x="5" y="180.5">C</text><text class="small" text-anchor="end" x="43" y="166">1</text><text class="small" text-anchor="end" x="43" y="193">0</text><path class="trace" d="M 58 189 H 164.66666666666669 V 189 H 271.33333333333337 V 189 H 378 V 162 H 484.6666666666667 V 189 H 591.3333333333334 V 189 H 698" data-signal="C"></path><text class="" text-anchor="start" x="5" y="247.5">Y</text><text class="small" text-anchor="end" x="43" y="233">1</text><text class="small" text-anchor="end" x="43" y="260">0</text><path class="trace output" d="M 58 229 H 164.66666666666669 V 256 H 271.33333333333337 V 256 H 378 V 256 H 484.6666666666667 V 229 H 591.3333333333334 V 256 H 698" data-signal="Y"></path></svg>
+<div aria-live="polite" class="text-small tabular-nums" data-status="">①：A = 0，B = 0，C = 0，Y = 1</div>
+<script>(()=>{const lessonHost=window.courseState("nor-waveform-method");
+
+  (() => {
+    const root=document.getElementById('nor-waveform-method');
+    const svg=root.querySelector('svg'), select=root.querySelector('[data-interval]');
+    const values=[[0,0,1,0,0,0],[0,1,0,0,0,1],[0,0,0,1,0,0]];
+    const outputs=values[0].map((_,i)=>+(values.every(row=>row[i]===0)));
+    let interval=0;
+    const escape=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    function draw(){
+      const w=Math.max(280,root.clientWidth), left=58, right=w-10, height=320;
+      const x=t=>left+(right-left)*t/6;
+      const text=(xx,yy,s,anchor='start',cls='')=>`<text x="${xx}" y="${yy}" text-anchor="${anchor}" class="${cls}">${escape(s)}</text>`;
+      let content='<title>或非门：按时间段代入输入</title><desc>六个时间段中，只有第一段和第五段的三个输入全为零，因此输出为一。</desc>';
+      content+=`<rect class="selection" x="${x(interval)}" y="15" width="${x(interval+1)-x(interval)}" height="272"/>`;
+      for(let i=0;i<=6;i++) content+=`<line class="grid" x1="${x(i)}" x2="${x(i)}" y1="15" y2="288"/>`;
+      for(let i=0;i<6;i++) content+=text(x(i+.5),307,['①','②','③','④','⑤','⑥'][i],'middle');
+      const rows=[...values,outputs];
+      rows.forEach((row,i)=>{
+        const high=28+i*67, low=high+27;
+        content+=text(5,(high+low)/2+5,['A','B','C','Y'][i]);
+        content+=text(43,high+4,'1','end','small')+text(43,low+4,'0','end','small');
+        const yy=b=>b?high:low;
+        let d=`M ${x(0)} ${yy(row[0])}`;
+        for(let j=0;j<6;j++){
+          d+=` H ${x(j+1)}`;
+          if(j<5)d+=` V ${yy(row[j+1])}`;
+        }
+        content+=`<path class="trace ${i===3?'output':''}" data-signal="${['A','B','C','Y'][i]}" d="${d}"/>`;
+      });
+      svg.setAttribute('viewBox',`0 0 ${w} ${height}`);
+      svg.style.height=height+'px';svg.innerHTML=content;
+      select.value=String(interval);
+      root.querySelector('[data-status]').textContent=`${['①','②','③','④','⑤','⑥'][interval]}：A = ${values[0][interval]}，B = ${values[1][interval]}，C = ${values[2][interval]}，Y = ${outputs[interval]}`;
+    }
+    function restore(state){const n=state?.privateContent?.interval;if(Number.isInteger(n)&&n>=0&&n<6)interval=n;}
+    restore(lessonHost?.widgetState);
+    select.addEventListener('change',()=>{
+      interval=Number(select.value);draw();
+      lessonHost?.setWidgetState?.({modelContent:{example:'三输入或非门波形',interval:interval+1,A:values[0][interval],B:values[1][interval],C:values[2][interval],Y:outputs[interval]},privateContent:{interval}})?.catch(()=>{});
+    });
+    window.addEventListener('openai:set_globals',e=>{restore(e.detail?.globals?.widgetState);draw();});
+    new ResizeObserver(draw).observe(root);draw();
+  })();
+  
+})();</script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

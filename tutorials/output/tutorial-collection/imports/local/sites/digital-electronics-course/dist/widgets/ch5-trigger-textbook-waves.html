@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>电路与波形图解</title><link href="../widget.css" rel="stylesheet"/><script>(()=>{let saved=null;try{saved=JSON.parse(localStorage.getItem("de-course-widget:ch5-trigger-textbook-waves")||'null')}catch{}const host={widgetState:saved,setWidgetState(v){host.widgetState=v;try{localStorage.setItem("de-course-widget:ch5-trigger-textbook-waves",JSON.stringify(v))}catch{}return Promise.resolve()}};window.openai=host;window.courseState=()=>host;})();</script></head><body><div id="ch5-trigger-textbook-waves">
+<div class="viz-controls"><label class="form-label">波形情形<select class="form-select" data-case=""><option value="edge">例 5.3.3：上升沿 D</option><option value="sr">例 5.3.4：正脉冲 SR</option><option value="jkstable">例 5.3.5：正脉冲 JK，输入稳定</option><option value="jkchange">例 5.3.6：正脉冲 JK，输入变化</option><option value="compare">补充：脉冲 SR 与下降沿 SR</option></select></label></div>
+<label class="form-label">观察位置 <span data-position=""></span><input class="form-range" data-time="" max="13" min="0" step="0.05" type="range" value="0"/></label>
+<svg aria-label="课本边沿触发及脉冲触发例题的输入、主级状态和输出波形" role="img"></svg>
+<div aria-live="polite" class="text-small" data-status=""></div>
+<style>
+    #ch5-trigger-textbook-waves svg{display:block;width:100%;color:var(--foreground)}
+    #ch5-trigger-textbook-waves svg text{fill:var(--foreground);font-size:12px;font-weight:400}
+    #ch5-trigger-textbook-waves .wave{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+    #ch5-trigger-textbook-waves .output{stroke:var(--viz-series-1);stroke-width:2.2}
+  </style>
+<script>
+  (()=>{
+    const root=document.getElementById('ch5-trigger-textbook-waves'),svg=root.querySelector('svg');
+    const defs={
+      edge:{title:'例 5.3.3 · 上升沿 D',type:'d',n:5,end:11,inputs:{d:[[0,0],[2.6,1],[3.6,0],[5.4,1],[6.3,0],[7.25,1],[7.8,0],[8.65,1]]}},
+      sr:{title:'例 5.3.4 · 正脉冲 SR',type:'sr',n:6,end:13,inputs:{s:[[0,0],[.5,1],[2.5,0],[4.5,1],[6.5,0],[10.5,1],[11.5,0]],r:[[0,0],[2.5,1],[4.5,0],[8.5,1],[10.5,0],[11.8,1]]}},
+      jkstable:{title:'例 5.3.5 · 正脉冲 JK',type:'jk',n:6,end:13,inputs:{j:[[0,0],[1,1],[3,0],[5,1],[7,0]],k:[[0,1],[1,0],[3,1],[7,0],[9,1]]}},
+      jkchange:{title:'例 5.3.6 · 正脉冲 JK',type:'jk',n:4,end:9,inputs:{j:[[0,0],[1,1],[3,0],[5,1],[5.65,0]],k:[[0,0],[3.35,1],[3.65,0],[5,1],[6.5,0]]}},
+      compare:{title:'相同的下降沿 · 不同的输入记忆',type:'compare',n:1,end:7,inputs:{s:[[0,0],[2,1],[3,0]],r:[[0,0]]},clocks:[[0,0],[1,1],[5,0]]}
+    };
+    let state={case:'edge',time:0};
+    const text=(x,y,v,a='start')=>`<text x="${x}" y="${y}" text-anchor="${a}">${v}</text>`;
+    function build(c){
+      const changes={clk:c.clocks||[[0,0],...Array.from({length:c.n},(_,i)=>[[2*i+1,1],[2*i+2,0]]).flat()],...c.inputs};
+      const times=[...new Set(Object.values(changes).flatMap(a=>a.map(p=>p[0])))].sort((a,b)=>a-b),sig={clk:0},rows=[];let m=0,q=0,qe=0,prev=0;
+      for(const t of times){
+        for(const [key,a]of Object.entries(changes))for(const [tt,v]of a)if(tt===t)sig[key]=v;
+        if(c.type==='d'){if(!sig.clk)m=sig.d;else q=m;}
+        else{
+          if(sig.clk){const ss=c.type==='jk'?sig.j*(1-q):sig.s,rr=c.type==='jk'?sig.k*q:sig.r;if(ss&&rr)throw Error('SR禁态输入');if(ss)m=1;else if(rr)m=0;}
+          else q=m;
+          if(c.type==='compare'&&prev===1&&sig.clk===0){if(sig.s)qe=1;else if(sig.r)qe=0;}
+        }
+        rows.push({t,...sig,m,q,qb:1-q,qe});prev=sig.clk;
+      }return rows;
+    }
+    function restore(v){v=v&&(v.privateContent||v.modelContent);if(!v)return;if(defs[v.case])state.case=v.case;if(Number.isFinite(v.time))state.time=Math.max(0,v.time);}
+    function draw(){
+      const c=defs[state.case],rows=build(c),w=svg.clientWidth||320,left=68,right=w-10,x=t=>left+(right-left)*t/c.end;
+      state.time=Math.min(state.time,c.end);
+      const lanes=c.type==='d'?[['CLK','clk'],['D','d'],['Q₁','m'],['Q','q'],['Q′','qb']]:c.type==='compare'?[['CLK','clk'],['S','s'],['R','r'],['Q₁','m'],['Q脉冲','q'],['Q边沿','qe']]:[['CLK','clk'],[c.type==='jk'?'J':'S',c.type==='jk'?'j':'s'],[c.type==='jk'?'K':'R',c.type==='jk'?'k':'r'],['Q₁','m'],['Q','q'],['Q′','qb']];
+      const top=48,gap=67,bottom=top+(lanes.length-1)*gap+45;
+      let o='<title>'+c.title+'</title><desc>按课本逻辑关系重绘并补画主级Q1，时间单位为示意单位，非精确比例。波形忽略传播延迟，初态Q与Q1均为0。浅色为CLK高电平。课本例5.3.3的输出在上升沿采样D；其余主从SR及JK在高电平期间接收输入，下降沿把主级结果送到输出。</desc>'+text(w/2,20,c.title,'middle');
+      for(let i=0;i<rows.length;i++){const a=rows[i],b=rows[i+1]?.t??c.end;if(a.clk)o+=`<rect x="${x(a.t)}" y="32" width="${x(b)-x(a.t)}" height="${bottom-25}" fill="var(--viz-series-1)" opacity=".06"/>`;}
+      const marks=rows.filter((r,i)=>i>0&&(c.type==='d'?r.clk===1&&rows[i-1].clk===0:r.clk===0&&rows[i-1].clk===1));
+      marks.forEach((r,i)=>{o+=`<path d="M ${x(r.t)} 33 V ${bottom}" fill="none" stroke="var(--border)" stroke-width="1"/>`;if(w>=480||i%2===0||i===marks.length-1)o+=text(x(r.t),bottom+18,String(i+1),'middle');});
+      for(let k=0;k<lanes.length;k++){
+        const [label,key]=lanes[k],hi=top+k*gap,lo=hi+31;o+=text(3,hi+19,label)+text(55,hi+4,'1','end')+text(55,lo+4,'0','end');
+        let d=`M ${x(0)} ${rows[0][key]?hi:lo}`;
+        for(let i=0;i<rows.length;i++){d+=` H ${x(rows[i+1]?.t??c.end)}`;if(rows[i+1]&&rows[i+1][key]!==rows[i][key])d+=` V ${rows[i+1][key]?hi:lo}`;}
+        o+=`<path class="wave${key==='q'||key==='qe'||key==='qb'?' output':''}" d="${d}"/>`;
+      }
+      o+=`<path d="M ${x(state.time)} 32 V ${bottom}" fill="none" stroke="var(--foreground)" stroke-dasharray="3 3" stroke-width="1.3"/>`+text(w-8,bottom+38,'t','end');
+      svg.setAttribute('viewBox',`0 0 ${w} ${bottom+50}`);svg.innerHTML=o;svg.dataset.rows=JSON.stringify(rows);svg.dataset.samples=JSON.stringify(marks.map(r=>r.q));
+      const cur=rows.findLast(r=>r.t<=state.time)||rows[0];root.querySelector('[data-case]').value=state.case;const slider=root.querySelector('[data-time]');slider.max=c.end;slider.value=state.time;
+      root.querySelector('[data-position]').textContent=state.time.toFixed(2);root.querySelector('[data-status]').textContent='CLK='+cur.clk+' · 主级 Q₁='+cur.m+' · 输出 Q='+cur.q+(c.type==='compare'?' · 下降沿 SR 的 Q='+cur.qe:'');
+    }
+    function save(){window.openai?.setWidgetState({modelContent:{...state,topic:'5.3 例5.3.3至5.3.6'},privateContent:state}).catch(()=>{});}
+    restore(window.openai?.widgetState);root.querySelector('[data-case]').onchange=e=>{state.case=e.target.value;state.time=0;draw();save();};root.querySelector('[data-time]').oninput=e=>{state.time=+e.target.value;draw();save();};
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){restore(e.detail.globals.widgetState);draw();}});new ResizeObserver(draw).observe(root);draw();
+  })();
+  </script>
+</div>
+<script>(()=>{let last=0;const report=()=>{const h=Math.ceil(document.body.getBoundingClientRect().height);if(h!==last){last=h;parent.postMessage({type:'de-course-height',height:h},'*')}};new ResizeObserver(report).observe(document.body);window.addEventListener('load',report);report();})();</script></body></html>

@@ -10,3 +10,5 @@
 .chapter-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:18px 0}.chapter-switch button:last-child{grid-column:span 2}.chapter-index{grid-template-columns:repeat(6,minmax(0,1fr))}.chapter-card{grid-column:span 2}.chapter-card:nth-child(-n+2){grid-column:span 3}
 @media(max-width:760px){.chapter-index{grid-template-columns:1fr}.chapter-card,.chapter-card:nth-child(-n+2){grid-column:1}}
 @media print{#sidebar,.mobile-menu,.topbar,#lesson-actions,.hero-actions{display:none!important}main{margin:0;padding:0}body{font-size:11pt;background:white}.lesson{padding-top:0}.widget{margin-inline:0}.widget iframe{break-inside:avoid}footer{font-size:9pt}.eq{font-size:12pt}details:not([open])>div{display:block}h1,h2,h3{break-after:avoid}@page{size:A4;margin:18mm}}
+
+.chapter-switch button:last-child{grid-column:auto}.chapter-card:nth-child(-n+2){grid-column:span 2}@media(max-width:760px){.chapter-card:nth-child(-n+2){grid-column:1}}

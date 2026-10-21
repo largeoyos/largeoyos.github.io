@@ -1,7 +1,7 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="模拟电子技术基础第六版第六章讲义，纸面正文已讲至6.3.3：基本运算、模拟乘法器、有源滤波；含截止频率与f0区别、二阶Q、低通高通带通带阻全通、辅导例6.3.10—6.3.13，附SVG电路与频率曲线。">
-<title>模拟电子技术基础 · 第六章 6.1—6.3 运算与有源滤波</title><style>
+<meta name="description" content="模拟电子技术基础第六版第六章讲义，纸面正文已讲至6.4.4：基本运算、模拟乘法器、有源滤波与传感器预处理；详解仪表、电荷、隔离放大器及信噪比、噪声系数，附SVG电路与曲线。">
+<title>模拟电子技术基础 · 第六章 6.1—6.4 运算、滤波与预处理</title><style>
 :root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
 @media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
@@ -26,16 +26,16 @@
 details.answer{margin:20px 0}
 @media(max-width:600px){.chapter-figure{margin:25px auto}}
 </style></head><body>
-<div class="layout"><aside><div class="brand">模拟电子技术基础<br>第六章 · 信号的运算和处理<br>基本运算 · 模拟乘法器 · 有源滤波</div>
+<div class="layout"><aside><div class="brand">模拟电子技术基础<br>第六章 · 信号的运算和处理<br>运算 · 滤波 · 传感器预处理</div>
 <div class="reading-links"><a class="collection-link" href="../../教程合集.html#analog">教程合集</a><a href="模拟电子技术基础_第五章学习讲义.html">第五章</a></div>
-<details id="course-contents" open><summary>第六章目录 · 正文至 6.3.3</summary><nav aria-label="第六章目录"><a href="#c6-map">先确定学成什么样：四类题，四个动作</a><a href="#c611">6.1.1 概述：先证明能用虚短，再用虚断列 KCL</a><a href="#c612inv">6.1.2 反相比例：负号从电阻两端的电位差得来</a><a href="#c612comp">补偿电阻 R′：理想题里不改增益，实际为什么还要放</a><a href="#c612t">T 形反馈：多一个节点，就多列一次 KCL</a><a href="#ex611">例 6.1.1：图换了方向，T 网络仍然是那三个电阻</a><a href="#c612non">同相比例：N 点等于输入，通常不等于零</a><a href="#c612follow">电压跟随器：1 倍增益的用途是隔开负载</a><a href="#ex612">例 6.1.2：两级分别求，再检查每一级有没有饱和</a><a href="#c613sum">6.1.3 反相求和：三路电流相加，再从反馈支路流走</a><a href="#c613pos">同相求和：先算加权平均，再乘同相增益</a><a href="#c613mix">一般加减运算：先写出不依赖电阻匹配的式子</a><a href="#c613diff">差分比例：两组电阻比相等，才会只剩两个输入的差</a><a href="#c613twodiff">高输入电阻差分：为什么教材又加了一只运放</a><a href="#ex613">例 6.1.3：设计 10u₁−5u₂−4u₃，不能只配三个倒数</a><a href="#c614int">6.1.4 积分：输出斜率由输入决定，输出值还由过去决定</a><a href="#c614waves">积分波形：先标拐点数值，再把相邻点连起来</a><a href="#c614leak">实用积分器：电容并电阻，是给直流留下反馈</a><a href="#c614diff">基本微分：输出看变化率，平坦输入对应零输出</a><a href="#c614practical">实用微分：限制高频增益，还要避免饱和与失稳</a><a href="#c614inverse">逆函数型微分：反馈通路里有积分器，接“＋”也能是负反馈</a><a href="#ex614">例 6.1.4：看见反馈电容，不一定是反相积分</a><a href="#ex615">例 6.1.5：PID 用阻抗相除，比追三段电流更清楚</a><a href="#c615log">6.1.5 对数：这一回不能把二极管固定成 0.7 V</a><a href="#c615bjt">晶体管对数：只留下“电流的对数决定发射结压降”</a><a href="#c615ic">集成对数与指数：匹配管消掉 Iₛ，但不会自动消掉 Uₜ</a><a href="#c615exp">基本指数：输入决定发射结电压，反馈电阻把电流变成输出</a><a href="#c616">6.1.6 对数加减再取指数：把乘除法拆成已会的模块</a><a href="#c617gain">6.1.7 有限开环增益：虚短不是精确到无限位</a><a href="#c617common">同相电路的共模误差：两脚一起抬高，实际输出也会受影响</a><a href="#c617offset">积分器的失调：输入为零，输出也可能慢慢跑到电源边上</a><a href="#c6-think">本节六道思考题：用它们检查有没有真的接起来</a><a href="#c6-check">这一部分的过关线：先会三张图，再补其他图</a><a href="#c62-start">6.2 模拟乘法器：这一节的题，抓住“乘积关系＋负反馈”</a><a href="#c621-model">6.2.1 理想模型：乘积系数 k 不能省，单位也不能省</a><a href="#c621-quadrant">一、二、四象限：看两个输入能取什么符号</a><a href="#c622-diff">6.2.2 先回到差分对：那些电流箭头，是为了算“分到哪边”</a><a href="#c622-small">小信号近似：不是“低于 52 mV 就完全线性”</a><a href="#c622-tail">让尾电流随 Y 改变：先得到一个二象限乘法器</a><a href="#c622-gilbert">双平衡结构：为什么多了四只管，就能做四象限乘法</a><a href="#c622-output">差分输出转单端：别让末级又多出一个负号</a><a href="#c622-spec">参数表为什么要讲：它告诉你理想算式在哪些地方会失效</a><a href="#c623-square">6.2.3 平方与二倍频：平方后还带着一个直流分量</a><a href="#c623-power">三次方、四次方：逐级写中间量，别数错 k</a><a href="#c623-logpower">对数—指数实现任意次幂：这段为什么出现，可以先掌握到哪里</a><a href="#c623-divide">除法的主电路：把乘法器放进反馈，方程里就会出现分母</a><a href="#c623-sign">除法最关键的条件：接 N 时要求 ku₂>0，接 P 时要求 ku₂<0</a><a href="#c623-range">分母非零还不够：很小的分母会把输出推到限幅</a><a href="#c623-sqrt">平方根：解出两个代数根，还得用反馈条件选一个</a><a href="#c623-lock">闭锁与二极管：为什么要防止电路跑到另一个分支</a><a href="#c623-root3">立方根：三次方反馈是单调的，正负输入都能处理</a><a href="#ex621">例 6.2.1：分子是两个输入的差，N 点也不是虚地</a><a href="#c62-guide">辅导例 6.3.5：看起来复杂，仍是每级写一条关系</a><a href="#c62-guide-sign">辅导例 6.3.6：先标对两个输入端，公式才能成立</a><a href="#c62-think">三道思考题：二倍频、逆运算、四种反馈接法</a><a href="#c62-check">6.2 过关线：会这六步，再去做题就不会被图绕住</a><a href="#c63-start">6.3 有源滤波：先看哪段频率能过，再算它能过多少</a><a href="#c631-types">6.3.1 五种滤波器：名字来自通带，不来自电容放在哪里</a><a href="#c631-cut">通带、截止与分贝：−3 dB 不是“输出剩三成”</a><a href="#c631-passive">为什么从无源 RC 讲起：负载会同时改变增益与截止频率</a><a href="#c631-transfer">传递函数与阶数：把电容换成 1/(sC)，仍然是列电流方程</a><a href="#c632-lp1">6.3.2 同相一阶低通：把选频和放大分开算</a><a href="#c632-simple">简单二阶低通：两段 RC 没有缓冲，不能直接把两个一阶相乘</a><a href="#c632-sk">把 C₁ 改接输出：为什么这里又有负反馈，又有正反馈</a><a href="#c632-q">Q 与稳定范围：Q 越大越尖，不能一直调到 K=3</a><a href="#c632-f0">什么时候 f₀ 才等于截止频率：二阶巴特沃斯是一个重要特例</a><a href="#c632-inv1">反相一阶低通：实用积分器换个观察角度，就是滤波器</a><a href="#c632-inv2">反相二阶：简单连接和多路反馈，先看反馈电阻接在哪个节点</a><a href="#c632-cascade">高阶级联：阶数相加，截止点却不能直接照搬</a><a href="#c632-family">三种响应怎么比较：平坦、选择性与波形保持有取舍</a><a href="#c633-hp1">6.3.3 高通：一阶先用“电容串入信号通路”理解</a><a href="#c633-hp2">二阶高通：会写标准式，也要防止把 f₀ 误当任意 Q 的截止频率</a><a href="#c633-bp">带通的两种做法：通带交集，以及直接构成一个二阶网络</a><a href="#c633-bw">带通最常考的三个量：中心、上下限、带宽与 Q</a><a href="#c633-notch">带阻：两路输出要经过求和，相位也要一起算</a><a href="#c633-twint">双 T 带阻：先把两条 T 支路和中点元件认对</a><a href="#c633-allpass">全通：幅值全过，相位可变，不能当作一根导线</a><a href="#c63-identify">识图的固定顺序：两个频率端点是起点，中间频段才完成判断</a><a href="#c63-limits">实际限制：有公式之后，还要检查是不是推得动、跟得上</a><a href="#c63-extension">6.3.4—6.3.5 星号扩展概念：为什么时钟能调电阻，积分能组成多种滤波</a><a href="#c63-guide10">辅导例 6.3.10：选择题别只背答案，先说出保留的频段</a><a href="#c63-guide11">辅导例 6.3.11：负载能力、功率能力与“逆滤波”要分清</a><a href="#c63-guide12">辅导例 6.3.12：三张图都为低通，第三张最能检验读图</a><a href="#c63-guide13">辅导例 6.3.13：乘法器控制截止频率，两路反馈千万别接混</a><a href="#c63-think">本节三道思考题：识别、定阶、积分模块还能做什么</a><a href="#c63-check">6.3 过关线：会四类动作，就可以开始独立做识图与参数题</a></nav></details></aside>
+<details id="course-contents" open><summary>第六章目录 · 正文至 6.4.4</summary><nav aria-label="第六章目录"><a href="#c6-map">先确定学成什么样：四类题，四个动作</a><a href="#c611">6.1.1 概述：先证明能用虚短，再用虚断列 KCL</a><a href="#c612inv">6.1.2 反相比例：负号从电阻两端的电位差得来</a><a href="#c612comp">补偿电阻 R′：理想题里不改增益，实际为什么还要放</a><a href="#c612t">T 形反馈：多一个节点，就多列一次 KCL</a><a href="#ex611">例 6.1.1：图换了方向，T 网络仍然是那三个电阻</a><a href="#c612non">同相比例：N 点等于输入，通常不等于零</a><a href="#c612follow">电压跟随器：1 倍增益的用途是隔开负载</a><a href="#ex612">例 6.1.2：两级分别求，再检查每一级有没有饱和</a><a href="#c613sum">6.1.3 反相求和：三路电流相加，再从反馈支路流走</a><a href="#c613pos">同相求和：先算加权平均，再乘同相增益</a><a href="#c613mix">一般加减运算：先写出不依赖电阻匹配的式子</a><a href="#c613diff">差分比例：两组电阻比相等，才会只剩两个输入的差</a><a href="#c613twodiff">高输入电阻差分：为什么教材又加了一只运放</a><a href="#ex613">例 6.1.3：设计 10u₁−5u₂−4u₃，不能只配三个倒数</a><a href="#c614int">6.1.4 积分：输出斜率由输入决定，输出值还由过去决定</a><a href="#c614waves">积分波形：先标拐点数值，再把相邻点连起来</a><a href="#c614leak">实用积分器：电容并电阻，是给直流留下反馈</a><a href="#c614diff">基本微分：输出看变化率，平坦输入对应零输出</a><a href="#c614practical">实用微分：限制高频增益，还要避免饱和与失稳</a><a href="#c614inverse">逆函数型微分：反馈通路里有积分器，接“＋”也能是负反馈</a><a href="#ex614">例 6.1.4：看见反馈电容，不一定是反相积分</a><a href="#ex615">例 6.1.5：PID 用阻抗相除，比追三段电流更清楚</a><a href="#c615log">6.1.5 对数：这一回不能把二极管固定成 0.7 V</a><a href="#c615bjt">晶体管对数：只留下“电流的对数决定发射结压降”</a><a href="#c615ic">集成对数与指数：匹配管消掉 Iₛ，但不会自动消掉 Uₜ</a><a href="#c615exp">基本指数：输入决定发射结电压，反馈电阻把电流变成输出</a><a href="#c616">6.1.6 对数加减再取指数：把乘除法拆成已会的模块</a><a href="#c617gain">6.1.7 有限开环增益：虚短不是精确到无限位</a><a href="#c617common">同相电路的共模误差：两脚一起抬高，实际输出也会受影响</a><a href="#c617offset">积分器的失调：输入为零，输出也可能慢慢跑到电源边上</a><a href="#c6-think">本节六道思考题：用它们检查有没有真的接起来</a><a href="#c6-check">这一部分的过关线：先会三张图，再补其他图</a><a href="#c62-start">6.2 模拟乘法器：这一节的题，抓住“乘积关系＋负反馈”</a><a href="#c621-model">6.2.1 理想模型：乘积系数 k 不能省，单位也不能省</a><a href="#c621-quadrant">一、二、四象限：看两个输入能取什么符号</a><a href="#c622-diff">6.2.2 先回到差分对：那些电流箭头，是为了算“分到哪边”</a><a href="#c622-small">小信号近似：不是“低于 52 mV 就完全线性”</a><a href="#c622-tail">让尾电流随 Y 改变：先得到一个二象限乘法器</a><a href="#c622-gilbert">双平衡结构：为什么多了四只管，就能做四象限乘法</a><a href="#c622-output">差分输出转单端：别让末级又多出一个负号</a><a href="#c622-spec">参数表为什么要讲：它告诉你理想算式在哪些地方会失效</a><a href="#c623-square">6.2.3 平方与二倍频：平方后还带着一个直流分量</a><a href="#c623-power">三次方、四次方：逐级写中间量，别数错 k</a><a href="#c623-logpower">对数—指数实现任意次幂：这段为什么出现，可以先掌握到哪里</a><a href="#c623-divide">除法的主电路：把乘法器放进反馈，方程里就会出现分母</a><a href="#c623-sign">除法最关键的条件：接 N 时要求 ku₂>0，接 P 时要求 ku₂<0</a><a href="#c623-range">分母非零还不够：很小的分母会把输出推到限幅</a><a href="#c623-sqrt">平方根：解出两个代数根，还得用反馈条件选一个</a><a href="#c623-lock">闭锁与二极管：为什么要防止电路跑到另一个分支</a><a href="#c623-root3">立方根：三次方反馈是单调的，正负输入都能处理</a><a href="#ex621">例 6.2.1：分子是两个输入的差，N 点也不是虚地</a><a href="#c62-guide">辅导例 6.3.5：看起来复杂，仍是每级写一条关系</a><a href="#c62-guide-sign">辅导例 6.3.6：先标对两个输入端，公式才能成立</a><a href="#c62-think">三道思考题：二倍频、逆运算、四种反馈接法</a><a href="#c62-check">6.2 过关线：会这六步，再去做题就不会被图绕住</a><a href="#c63-start">6.3 有源滤波：先看哪段频率能过，再算它能过多少</a><a href="#c631-types">6.3.1 五种滤波器：名字来自通带，不来自电容放在哪里</a><a href="#c631-cut">通带、截止与分贝：−3 dB 不是“输出剩三成”</a><a href="#c631-passive">为什么从无源 RC 讲起：负载会同时改变增益与截止频率</a><a href="#c631-transfer">传递函数与阶数：把电容换成 1/(sC)，仍然是列电流方程</a><a href="#c632-lp1">6.3.2 同相一阶低通：把选频和放大分开算</a><a href="#c632-simple">简单二阶低通：两段 RC 没有缓冲，不能直接把两个一阶相乘</a><a href="#c632-sk">把 C₁ 改接输出：为什么这里又有负反馈，又有正反馈</a><a href="#c632-q">Q 与稳定范围：Q 越大越尖，不能一直调到 K=3</a><a href="#c632-f0">什么时候 f₀ 才等于截止频率：二阶巴特沃斯是一个重要特例</a><a href="#c632-inv1">反相一阶低通：实用积分器换个观察角度，就是滤波器</a><a href="#c632-inv2">反相二阶：简单连接和多路反馈，先看反馈电阻接在哪个节点</a><a href="#c632-cascade">高阶级联：阶数相加，截止点却不能直接照搬</a><a href="#c632-family">三种响应怎么比较：平坦、选择性与波形保持有取舍</a><a href="#c633-hp1">6.3.3 高通：一阶先用“电容串入信号通路”理解</a><a href="#c633-hp2">二阶高通：会写标准式，也要防止把 f₀ 误当任意 Q 的截止频率</a><a href="#c633-bp">带通的两种做法：通带交集，以及直接构成一个二阶网络</a><a href="#c633-bw">带通最常考的三个量：中心、上下限、带宽与 Q</a><a href="#c633-notch">带阻：两路输出要经过求和，相位也要一起算</a><a href="#c633-twint">双 T 带阻：先把两条 T 支路和中点元件认对</a><a href="#c633-allpass">全通：幅值全过，相位可变，不能当作一根导线</a><a href="#c63-identify">识图的固定顺序：两个频率端点是起点，中间频段才完成判断</a><a href="#c63-limits">实际限制：有公式之后，还要检查是不是推得动、跟得上</a><a href="#c63-extension">6.3.4—6.3.5 星号扩展概念：为什么时钟能调电阻，积分能组成多种滤波</a><a href="#c63-guide10">辅导例 6.3.10：选择题别只背答案，先说出保留的频段</a><a href="#c63-guide11">辅导例 6.3.11：负载能力、功率能力与“逆滤波”要分清</a><a href="#c63-guide12">辅导例 6.3.12：三张图都为低通，第三张最能检验读图</a><a href="#c63-guide13">辅导例 6.3.13：乘法器控制截止频率，两路反馈千万别接混</a><a href="#c63-think">本节三道思考题：识别、定阶、积分模块还能做什么</a><a href="#c63-check">6.3 过关线：会四类动作，就可以开始独立做识图与参数题</a><a href="#c64-start">6.4 预处理放大：先把传感器的微弱信号可靠地取出来</a><a href="#c641-loading">6.4.1 为什么要求输入电阻高：先别让传感器在接线时就丢掉信号</a><a href="#c641-three">三运放结构先分工：前两只少取输入电流，第三只做差</a><a href="#c641-current">电流箭头的用途：中间那股 i，决定两个前级各偏移多少</a><a href="#c641-gain">再接第三级：输出的负号取决于哪一路接反相端</a><a href="#c641-cmrr">共模为什么被抑制：前级让它等量通过，末级把它相减</a><a href="#c641-range">范围检查：差值很小，也可能被很大的共同电平挤到饱和</a><a href="#c641-chip">集成仪表放大器：内部电容、去耦电容、增益端各负责什么</a><a href="#c641-temperature">数字温度计：调零与调量程分开，跟随器本身仍是 1 倍</a><a href="#c642-model">6.4.2 电荷放大器：先分清传感器的电荷与开路电压</a><a href="#c642-conversion">为什么 uo=−q/Cf：一个用阻抗推，一个用电荷积累推</a><a href="#c642-stray">杂散电容为什么不影响理想结果：不是拿导线真的把传感器短掉</a><a href="#c642-leak">反馈并联 Rf：防止长期漂移，同时失去对静态电荷的永久保持</a><a href="#c642-protect">保护与灵敏度：小 Cf 输出更大，但不是越小越好</a><a href="#c643-isolation">6.4.3 隔离放大器：缓冲隔开负载，隔离则断开两侧直接导电通路</a><a href="#c643-optical">光隔离内部为什么有两个光电二极管：一个反馈，一个把信息送出去</a><a href="#c643-gain">隔离比例题怎么算：先按两侧本地参考定义输入、输出</a><a href="#c644-interference">6.4.4 干扰从哪里进来：先找路径，再决定加什么</a><a href="#c644-decouple">为什么电源上并大、小电容：理想容值相加，实际高频还看寄生与布局</a><a href="#c644-noise">三类内部噪声：白噪声看带宽，1/f 噪声要留意低频</a><a href="#c644-snr">信噪比：有用量有多大，要与同一测点的噪声一起比较</a><a href="#c644-nf">噪声系数：衡量放大器把原来的信噪比变差了多少</a><a href="#c644-reduce">减噪措施怎样选：别把“增益更大、带宽更宽”误当作更清楚</a><a href="#c644-average">采样与平均：更多读数只有在合适条件下才带来更多信息</a><a href="#c64-practice">综合自设练习：把增益、范围、电荷与噪声各算一遍</a><a href="#c64-think">本节两道思考题：特点与用途要能一一对应</a><a href="#c64-check">6.4 过关线：先会三张核心图，再补芯片与噪声条件</a></nav></details></aside>
 <main><header class="book-cover" id="start">
-<p class="eyebrow">模拟电子技术基础 · 第六版 · 第六章 · 纸面正文至 6.3.3</p>
-<h1>从运算到有源滤波<br/>每个箭头，都要落到方程里</h1>
-<p class="lead">用虚短、虚断完成运算，再把电容的作用写成频率响应。读图、列式、求截止频率，并检查反馈、幅值与工作范围。</p>
-<p class="scope">已按顺序讲解教材 6.1、6.2 与 6.3.1—6.3.3 的纸面正文，覆盖六个教材例题、三节共十二道思考题，并结合辅导书对应例题。6.3.4、6.3.5 另附扩展概念，未将其在线全文计入完成范围。下一节从 6.4 预处理放大器接起，章末题随后补充。所有电路与曲线以 SVG 重绘。</p>
-<a class="continue" href="#c63-start">接着学 6.3 有源滤波 →</a>
-<p><a href="#c611">复习 6.1 基本运算</a> · <a href="#c62-start">复习 6.2 模拟乘法器</a></p>
+<p class="eyebrow">模拟电子技术基础 · 第六版 · 第六章 · 纸面正文至 6.4.4</p>
+<h1>从运算、滤波到传感器预处理<br/>每个箭头，都要落到方程里</h1>
+<p class="lead">用虚短、虚断完成运算与滤波，再可靠地取出微弱信号。读图、列式、算增益与噪声，并检查反馈、频率和各级工作范围。</p>
+<p class="scope">已按顺序讲解教材 6.1、6.2、6.3.1—6.3.3 与 6.4.1—6.4.4 的纸面正文，覆盖六个教材例题、四节共十四道思考题，并结合辅导书对应例题。6.3.4、6.3.5 另附扩展概念，未将其在线全文计入完成范围。6.5 在线仿真资料及章末习题尚未完成。所有电路与曲线以 SVG 重绘。</p>
+<a class="continue" href="#c64-start">接着学 6.4 预处理放大电路 →</a>
+<p><a href="#c611">复习 6.1 基本运算</a> · <a href="#c62-start">复习 6.2 模拟乘法器</a> · <a href="#c63-start">复习 6.3 有源滤波</a></p>
 </header>
 <section id="c6-map"><h2>先确定学成什么样：四类题，四个动作</h2>
 <div class="table-wrap"><table><thead><tr><th>题型</th><th>你要会做的事</th><th>优先级</th></tr></thead><tbody>
@@ -9368,10 +9368,3147 @@ L 297.658125 242.416094
 <details class="answer"><summary>自查 4：带通上下限为 800 Hz 与 1250 Hz，中心与 Q 分别是多少？</summary><p>对本节标准二阶带通，f₀=√(800×1250)=1000 Hz，BW=450 Hz，Q=1000/450≈2.22。</p></details>
 <details class="answer"><summary>自查 5：某电路在高、低频幅值都为 1，能立即判断它是带阻吗？</summary><p>不能，还要看中间段。全通也满足这两个端点；带阻需要存在中间衰减或陷波。</p></details>
 <details class="answer"><summary>自查 6：两级滤波分别在 1 kHz 下降 3 dB，总电路在 1 kHz 是多少？</summary><p>在允许传递函数直接相乘的条件下，合计约 −6 dB；总电路的 −3 dB 点必须重新求。</p></details>
-<p>当前第六章已补至 <strong>6.3.3 的全部纸面正文与本节三道思考题</strong>，并加入 6.3.4、6.3.5 的概念概览和辅导书例 6.3.10—6.3.13。下一次从 <strong>6.4 电子信息系统预处理中所用放大电路</strong>开始：仪表放大器、电荷放大器、隔离与干扰噪声。第六章章末习题尚未逐题讲解。</p>
+<p>到这里已讲完 <strong>6.3.3 的全部纸面正文与本节三道思考题</strong>，并加入 6.3.4、6.3.5 的概念概览和辅导书例 6.3.10—6.3.13。下面进入 <a href="#c64-start">6.4 电子信息系统预处理中所用放大电路</a>：仪表放大器、电荷放大器、隔离与干扰噪声。第六章章末习题尚未逐题讲解。</p>
+</section>
+<section id="c64-start"><h2>6.4 预处理放大：先把传感器的微弱信号可靠地取出来</h2>
+<p>前面讨论怎样运算、怎样选择频率。这一节再往信号链前端走：传感器送来的电压可能很小、内阻很大，或叠在很大的共同电位上；有时它给出的主要是电荷，远距离连接还可能带来地电位差。直接接一个“大倍数放大器”，未必能把问题解决。</p>
+<div class="table-wrap"><table><thead><tr><th>本节内容</th><th>主要解决的问题</th><th>做题掌握程度</th></tr></thead><tbody>
+<tr><td>6.4.1 仪表放大器</td><td>高输入电阻地提取差模小信号，抑制共模分量</td><td>会推三运放增益、会查各级范围</td></tr>
+<tr><td>6.4.2 电荷放大器</td><td>把传感器产生的电荷转成电压，减轻杂散电容影响</td><td>会推 −q/C<sub>f</sub>、会算单位与低频条件</td></tr>
+<tr><td>6.4.3 隔离放大器</td><td>两侧没有直接导电通路，仍传递测量信号</td><td>懂两套地与供电，能按给定比例算输出</td></tr>
+<tr><td>6.4.4 干扰与噪声</td><td>知道误差如何进入、怎样量化、怎样减轻</td><td>会算信噪比和噪声系数，理解措施的适用条件</td></tr>
+<tr><td>具体型号与内部补偿</td><td>说明集成实现、参数和应用</td><td>读图查表；不先背全部内部线与引脚</td></tr>
+</tbody></table></div>
+<p>这里继续沿用虚短、虚断和节点电流法；没有新增一套“仪表电路专用算法”。本文完整覆盖教材 6.4.1—6.4.4 及两道思考题；自设例题会标明。6.5 的在线仿真资料与章末习题尚未计入完成范围。</p>
+</section>
+<section id="c641-loading"><h2>6.4.1 为什么要求输入电阻高：先别让传感器在接线时就丢掉信号</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-loading" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" role="img" aria-labelledby="c64-loading-c64-loading-title">
+<title id="c64-loading-c64-loading-title">传感器等效电压源经内阻Rs驱动放大器输入电阻Ri，先发生分压再放大</title>
+<defs><marker id="c64-loading-c64-loading-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">先到输入端，再谈放大多少</text><circle cx="45" cy="190" r="24" class="wire"/><text x="45" y="185" text-anchor="middle" font-size="15">+</text><text x="45" y="208" text-anchor="middle" font-size="15">−</text><path class="wire" d="M45 166V100"/><path class="wire" d="M45 100H89.5M89.5 93H125.5V107H89.5ZM125.5 100H170"/><text x="107.5" y="85" text-anchor="middle" font-size="15">Rs</text><path class="wire" d="M170 100H285"/><circle cx="170" cy="100" r="3.2" fill="currentColor"/><circle cx="285" cy="100" r="3.2" class="port"/><path class="wire" d="M170 100V172.0M163 172.0H177V208.0H163ZM170 208.0V280"/><text x="184" y="195.0" text-anchor="start" font-size="15">Ri</text><path class="wire" d="M45 214V300H170V280"/><path class="wire" d="M170 300V310M158 310H182M162 316H178M167 322H173"/><text x="20" y="239" text-anchor="start" font-size="15">us</text><text x="285" y="80" text-anchor="end" font-size="15">ui</text><text x="160" y="377" text-anchor="middle" font-size="16">ui / us = Ri / (Rs + Ri)</text><text x="160" y="419" text-anchor="middle" font-size="13">Rs 变化，就可能改变真正送入的电压</text></svg></figure>
+<p>把传感器等效为电压源 u<sub>s</sub> 与内阻 R<sub>s</sub>。放大器输入电阻 R<sub>i</sub> 接上去以后，真正到达输入端的电压先经过分压：</p>
+<div class="eq">u<sub>i</sub>=[R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)]u<sub>s</sub><br/>若内部电压增益为 A<sub>u</sub>，则 u<sub>o</sub>/u<sub>s</sub>=A<sub>u</sub>R<sub>i</sub>/(R<sub>s</sub>+R<sub>i</sub>)</div>
+<p>源内阻若随温度、压力等被测量变化，这个分压系数也会变化，造成“放大电阻明明没动，整体比例却变了”。所以高输入电阻不是一个越大越好看的标签，而是要让 R<sub>i</sub>≫R<sub>s</sub>，减轻负载效应。</p>
+<p>自设例：R<sub>i</sub>=1 MΩ，R<sub>s</sub> 从 10 kΩ 变到 100 kΩ，输入分压比从约 0.990 变成 0.909，误差已不可忽略。若 R<sub>i</sub>=100 MΩ，相应比值约为 0.99990 和 0.99900，变化小得多。</p>
+<p>另一项要求是高共模抑制比：两根信号线都可能在约 1 V 的电位上，而真正有用的差值只有几毫伏。放大器应该主要响应差值，少响应它们一起升降的共同部分。</p>
+</section>
+<section id="c641-three"><h2>三运放结构先分工：前两只少取输入电流，第三只做差</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-instrument" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 1050" role="img" aria-labelledby="c64-instrument-c64-instrument-title">
+<title id="c64-instrument-c64-instrument-title">教材图6.4.1的三运放仪表放大器，前级共用R2设差模增益，第三级为匹配差分比例；为手机阅读分层绘制，同名端子相连</title>
+<defs><marker id="c64-instrument-c64-instrument-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">三运放：先放大差值，再相减</text><path class="wire" d="M100 90L210 140L100 190Z"/><text x="110" y="125" text-anchor="start" font-size="15">+</text><text x="110" y="165" text-anchor="start" font-size="15">−</text><text x="152" y="145" text-anchor="middle" font-size="15">A1</text><path class="wire" d="M100 430L210 480L100 530Z"/><text x="110" y="465" text-anchor="start" font-size="15">−</text><text x="110" y="505" text-anchor="start" font-size="15">+</text><text x="152" y="485" text-anchor="middle" font-size="15">A2</text><circle cx="15" cy="120" r="3.2" class="port"/><path class="wire" d="M15 120L100 120"/><text x="15" y="93" text-anchor="start" font-size="15">ui1</text><circle cx="15" cy="500" r="3.2" class="port"/><path class="wire" d="M15 500L100 500"/><text x="15" y="531" text-anchor="start" font-size="15">ui2</text><path class="wire" d="M210 140H285M100 160H70V240H250M100 460H70V380H250M210 480H285"/><path class="wire" d="M250 140V172.0M243 172.0H257V208.0H243ZM250 208.0V240"/><text x="236" y="195.0" text-anchor="end" font-size="15">R1</text><path class="wire" d="M250 240V292.0M243 292.0H257V328.0H243ZM250 328.0V380"/><text x="236" y="315.0" text-anchor="end" font-size="15">R2</text><path class="wire" d="M250 380V412.0M243 412.0H257V448.0H243ZM250 448.0V480"/><text x="236" y="435.0" text-anchor="end" font-size="15">R1</text><circle cx="250" cy="140" r="3.2" fill="currentColor"/><circle cx="250" cy="240" r="3.2" fill="currentColor"/><circle cx="250" cy="380" r="3.2" fill="currentColor"/><circle cx="250" cy="480" r="3.2" fill="currentColor"/><text x="265" y="244" text-anchor="start" font-size="15">A</text><text x="265" y="384" text-anchor="start" font-size="15">B</text><circle cx="285" cy="140" r="3.2" class="port"/><text x="285" y="112" text-anchor="end" font-size="15">uo1</text><circle cx="285" cy="480" r="3.2" class="port"/><text x="285" y="515" text-anchor="end" font-size="15">uo2</text><path class="wire" d="M280 273L280 345" marker-end="url(#c64-instrument-c64-instrument-arrow)"/><text x="295" y="315" text-anchor="start" font-size="15">i</text><text x="160" y="581" text-anchor="middle" font-size="13">下面为第三级；同名端子相连</text><path class="wire" d="M140 730L250 780L140 830Z"/><text x="150" y="765" text-anchor="start" font-size="15">−</text><text x="150" y="805" text-anchor="start" font-size="15">+</text><text x="192" y="785" text-anchor="middle" font-size="15">A3</text><circle cx="15" cy="760" r="3.2" class="port"/><path class="wire" d="M15 760H44.5M44.5 753H80.5V767H44.5ZM80.5 760H110"/><text x="62.5" y="745" text-anchor="middle" font-size="15">R</text><path class="wire" d="M110 760L140 760"/><text x="15" y="789" text-anchor="start" font-size="15">uo1</text><path class="wire" d="M110 760V650"/><path class="wire" d="M110 650H177.0M177.0 643H213.0V657H177.0ZM213.0 650H280"/><text x="195.0" y="635" text-anchor="middle" font-size="15">Rf</text><path class="wire" d="M280 650V780H250M280 780H305"/><circle cx="110" cy="760" r="3.2" fill="currentColor"/><circle cx="280" cy="780" r="3.2" fill="currentColor"/><circle cx="15" cy="800" r="3.2" class="port"/><path class="wire" d="M15 800H44.5M44.5 793H80.5V807H44.5ZM80.5 800H110"/><text x="62.5" y="785" text-anchor="middle" font-size="15">R</text><path class="wire" d="M110 800L140 800"/><text x="15" y="829" text-anchor="start" font-size="15">uo2</text><path class="wire" d="M110 800V839.5M103 839.5H117V875.5H103ZM110 875.5V915"/><text x="96" y="862.5" text-anchor="end" font-size="15">Rf</text><path class="wire" d="M110 915V925M98 925H122M102 931H118M107 937H113"/><circle cx="110" cy="800" r="3.2" fill="currentColor"/><circle cx="305" cy="780" r="3.2" class="port"/><text x="305" y="812" text-anchor="end" font-size="15">uo</text><text x="160" y="992" text-anchor="middle" font-size="13">ui1、ui2 接同相端，输入电阻高</text><text x="160" y="1026" text-anchor="middle" font-size="13">电流 i 沿 R1 → R2 → R1 流动</text></svg></figure>
+<p>图按教材图 6.4.1 重绘，为手机阅读把第三级放在下方；同名 u<sub>o1</sub> 端相连、同名 u<sub>o2</sub> 端相连。它仍是同一个三运放电路，没有多加一级。</p>
+<p>A<sub>1</sub>、A<sub>2</sub> 的信号都直接接同相端，理想输入电流为零，所以对传感器负载很轻。两只相等的 R<sub>1</sub> 以及中间 R<sub>2</sub> 构成前级反馈网络；第三级 A<sub>3</sub> 用匹配的两组电阻比，把两个前级输出相减。</p>
+<p>一个最容易误用的地方：A<sub>1</sub> 自己的两输入可以虚短，A<sub>2</sub> 自己的两输入也可以虚短，但 u<sub>i1</sub> 与 u<sub>i2</sub> 属于两只不同运放，<strong>不能把它们说成相等</strong>。外部仪表放大模块的“＋、−”端，也不能直接照搬成一个理想裸运放的虚短。</p>
+<p>先把负输入节点叫 A、B。有合适的负反馈且未饱和时，u<sub>A</sub>=u<sub>i1</sub>、u<sub>B</sub>=u<sub>i2</sub>。从这里开始，剩下全是欧姆定律和 KCL。</p>
+</section>
+<section id="c641-current"><h2>电流箭头的用途：中间那股 i，决定两个前级各偏移多少</h2>
+<p>按图把 i 的方向定为从 A 流向 B。中间电阻两端的电位已经由虚短确定：</p>
+<div class="eq">i=(u<sub>A</sub>−u<sub>B</sub>)/R<sub>2</sub>=(u<sub>i1</sub>−u<sub>i2</sub>)/R<sub>2</sub></div>
+<p>运放反相输入端不取电流，所以这股电流不能在 A、B 节点消失。上面的 R<sub>1</sub> 必须从 u<sub>o1</sub> 向 A 提供同一股 i，下面的 R<sub>1</sub> 则把同一股 i 从 B 送向 u<sub>o2</sub>：</p>
+<div class="eq">u<sub>o1</sub>−u<sub>A</sub>=iR<sub>1</sub><br/>u<sub>B</sub>−u<sub>o2</sub>=iR<sub>1</sub><br/>u<sub>o1</sub>=u<sub>i1</sub>+(R<sub>1</sub>/R<sub>2</sub>)(u<sub>i1</sub>−u<sub>i2</sub>)<br/>u<sub>o2</sub>=u<sub>i2</sub>−(R<sub>1</sub>/R<sub>2</sub>)(u<sub>i1</sub>−u<sub>i2</sub>)</div>
+<p>两式相减：</p>
+<div class="eq">u<sub>o1</sub>−u<sub>o2</sub>=(1+2R<sub>1</sub>/R<sub>2</sub>)(u<sub>i1</sub>−u<sub>i2</sub>)</div>
+<p>前级差模增益中的“2”来自两边都偏移了一次 iR<sub>1</sub>，不是莫名其妙多记一个系数。i 算成负数时，实际方向全部反过来，这些按电位差写出的式子仍成立。</p>
+<p class="level"><strong>做题记住这条链：</strong>虚短定 A、B 电位 → R<sub>2</sub> 定 i → 虚断让两只 R<sub>1</sub> 流过同一 i → 两个输出之差。能独立写出这四步，就不需要背每条导线的电流故事。</p>
+</section>
+<section id="c641-gain"><h2>再接第三级：输出的负号取决于哪一路接反相端</h2>
+<p>按本图，上路 u<sub>o1</sub> 经 R 接 A<sub>3</sub> 的反相端，下路 u<sub>o2</sub> 经 R 接同相分压网络，两组电阻比均为 R<sub>f</sub>/R。因此：</p>
+<div class="eq">u<sub>o</sub>=(R<sub>f</sub>/R)(u<sub>o2</sub>−u<sub>o1</sub>)<br/>定义 u<sub>d</sub>=u<sub>i1</sub>−u<sub>i2</sub>：<br/>u<sub>o</sub>=−(R<sub>f</sub>/R)(1+2R<sub>1</sub>/R<sub>2</sub>)u<sub>d</sub></div>
+<p>有些图书把 u<sub>d</sub> 定义成下输入减上输入，或把第三级两路交换，最后就写正号。做题以题图端口与差值定义为准，不要因书上见过“仪表放大器一般为正增益”，就把这一图的负号删掉。</p>
+<p>自设例：R<sub>1</sub>=50 kΩ、R<sub>2</sub>=1 kΩ，前级差模增益为 101；R=10 kΩ、R<sub>f</sub>=100 kΩ，第三级差分增益大小为 10。u<sub>i1</sub>=1.001 V、u<sub>i2</sub>=0.999 V 时：</p>
+<div class="eq">i=2 mV/1 kΩ=2 μA<br/>u<sub>o1</sub>=1.101 V，u<sub>o2</sub>=0.899 V<br/>u<sub>o</sub>=10(0.899−1.101) V=−2.02 V</div>
+<p>前级节点、单级输出、最终差值彼此能对上，才是可靠自检。若题目给输出摆幅，还要继续检查刚算的每一级。</p>
+</section>
+<section id="c641-cmrr"><h2>共模为什么被抑制：前级让它等量通过，末级把它相减</h2>
+<p>令两输入同时等于 u<sub>c</sub>，则 A、B 等电位，R<sub>2</sub> 没有电流，两只 R<sub>1</sub> 也没有电流，所以 u<sub>o1</sub>=u<sub>o2</sub>=u<sub>c</sub>；理想匹配的第三级相减后，输出为零。</p>
+<p>这不表示共模信号在第一级就消失。它实际上跟随到了两个前级输出，只是在末级相减。用差模、共模分解更清楚：</p>
+<div class="eq">u<sub>c</sub>=(u<sub>i1</sub>+u<sub>i2</sub>)/2，u<sub>d</sub>=u<sub>i1</sub>−u<sub>i2</sub><br/>G<sub>1</sub>=1+2R<sub>1</sub>/R<sub>2</sub><br/>u<sub>o1</sub>=u<sub>c</sub>+G<sub>1</sub>u<sub>d</sub>/2<br/>u<sub>o2</sub>=u<sub>c</sub>−G<sub>1</sub>u<sub>d</sub>/2</div>
+<p>实际电阻比失配、运放有限共模抑制等，会让相减不完全。若 u<sub>o</sub>=A<sub>d</sub>u<sub>d</sub>+A<sub>c</sub>u<sub>c</sub>，则：</p>
+<div class="eq">CMRR=|A<sub>d</sub>/A<sub>c</sub>|<br/>CMRR(dB)=20lg|A<sub>d</sub>/A<sub>c</sub>|</div>
+<p>例如 A<sub>d</sub>=1000、CMRR=100 dB，表示 |A<sub>c</sub>|=0.01；1 V 共模可造成约 10 mV 的输出误差，其等效输入差模误差为 10 μV。100 dB 对应的是电压增益比 10<sup>5</sup>，不是 10<sup>10</sup>。</p>
+<p class="level"><strong>“增益越大，CMRR 越高”的条件：</strong>若主要共模漏出由末级固定失配决定，提高前级差模增益能提高整体比值；不能据理想 A<sub>c</sub>=0 的推导，就断言任何真实器件在任意增益、任意频率下都如此。匹配误差、频率与摆幅仍要分别考虑。</p>
+</section>
+<section id="c641-range"><h2>范围检查：差值很小，也可能被很大的共同电平挤到饱和</h2>
+<figure class="chapter-figure plot"><svg data-figure="c64-headroom" xmlns:xlink="http://www.w3.org/1999/xlink" width="417.6pt" height="316.8pt" viewBox="0 0 417.6 316.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>末级输出还在范围内时，仪表放大器的前级可能已经饱和，虚线之外须检查假设的正负10V前级摆幅</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>末级输出还在范围内时，仪表放大器的前级可能已经饱和，虚线之外须检查假设的正负10V前级摆幅</dc:title>
+    <dc:date>2026-10-21T12:30:43.450859</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c64-headroom-figure_1">
+  <g id="c64-headroom-patch_1">
+   <path d="M 0 316.8
+L 417.6 316.8
+L 417.6 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c64-headroom-axes_1">
+   <g id="c64-headroom-patch_2">
+    <path d="M 51.95 270.88
+L 405.72 270.88
+L 405.72 27.96
+L 51.95 27.96
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c64-headroom-matplotlib.axis_1">
+    <g id="c64-headroom-xtick_1">
+     <g id="c64-headroom-line2d_1">
+      <path d="M 100.191364 270.88
+L 100.191364 27.96
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_2">
+      <defs>
+       <path id="c64-headroom-m423294ecef" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-headroom-m423294ecef" x="100.191364" y="270.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_1">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="100.191364" y="286.673125" transform="rotate(-0 100.191364 286.673125)">-20</text>
+     </g>
+    </g>
+    <g id="c64-headroom-xtick_2">
+     <g id="c64-headroom-line2d_3">
+      <path d="M 164.513182 270.88
+L 164.513182 27.96
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_4">
+      <g>
+       <use xlink:href="#c64-headroom-m423294ecef" x="164.513182" y="270.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_2">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="164.513182" y="286.673125" transform="rotate(-0 164.513182 286.673125)">-10</text>
+     </g>
+    </g>
+    <g id="c64-headroom-xtick_3">
+     <g id="c64-headroom-line2d_5">
+      <path d="M 228.835 270.88
+L 228.835 27.96
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_6">
+      <g>
+       <use xlink:href="#c64-headroom-m423294ecef" x="228.835" y="270.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_3">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="228.835" y="286.673125" transform="rotate(-0 228.835 286.673125)">0</text>
+     </g>
+    </g>
+    <g id="c64-headroom-xtick_4">
+     <g id="c64-headroom-line2d_7">
+      <path d="M 293.156818 270.88
+L 293.156818 27.96
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_8">
+      <g>
+       <use xlink:href="#c64-headroom-m423294ecef" x="293.156818" y="270.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_4">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="293.156818" y="286.673125" transform="rotate(-0 293.156818 286.673125)">10</text>
+     </g>
+    </g>
+    <g id="c64-headroom-xtick_5">
+     <g id="c64-headroom-line2d_9">
+      <path d="M 357.478636 270.88
+L 357.478636 27.96
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_10">
+      <g>
+       <use xlink:href="#c64-headroom-m423294ecef" x="357.478636" y="270.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_5">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="357.478636" y="286.673125" transform="rotate(-0 357.478636 286.673125)">20</text>
+     </g>
+    </g>
+    <g id="c64-headroom-text_6">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="228.835" y="302.200781" transform="rotate(-0 228.835 302.200781)">差模输入 ud / mV</text>
+    </g>
+   </g>
+   <g id="c64-headroom-matplotlib.axis_2">
+    <g id="c64-headroom-ytick_1">
+     <g id="c64-headroom-line2d_11">
+      <path d="M 51.95 264.140189
+L 405.72 264.140189
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_12">
+      <defs>
+       <path id="c64-headroom-m93efc051f6" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-headroom-m93efc051f6" x="51.95" y="264.140189" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_7">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="268.536751" transform="rotate(-0 44.95 268.536751)">-10</text>
+     </g>
+    </g>
+    <g id="c64-headroom-ytick_2">
+     <g id="c64-headroom-line2d_13">
+      <path d="M 51.95 220.017039
+L 405.72 220.017039
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_14">
+      <g>
+       <use xlink:href="#c64-headroom-m93efc051f6" x="51.95" y="220.017039" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_8">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="224.413602" transform="rotate(-0 44.95 224.413602)">-5</text>
+     </g>
+    </g>
+    <g id="c64-headroom-ytick_3">
+     <g id="c64-headroom-line2d_15">
+      <path d="M 51.95 175.89389
+L 405.72 175.89389
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_16">
+      <g>
+       <use xlink:href="#c64-headroom-m93efc051f6" x="51.95" y="175.89389" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_9">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="180.290452" transform="rotate(-0 44.95 180.290452)">0</text>
+     </g>
+    </g>
+    <g id="c64-headroom-ytick_4">
+     <g id="c64-headroom-line2d_17">
+      <path d="M 51.95 131.77074
+L 405.72 131.77074
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_18">
+      <g>
+       <use xlink:href="#c64-headroom-m93efc051f6" x="51.95" y="131.77074" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_10">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="136.167303" transform="rotate(-0 44.95 136.167303)">5</text>
+     </g>
+    </g>
+    <g id="c64-headroom-ytick_5">
+     <g id="c64-headroom-line2d_19">
+      <path d="M 51.95 87.647591
+L 405.72 87.647591
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_20">
+      <g>
+       <use xlink:href="#c64-headroom-m93efc051f6" x="51.95" y="87.647591" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="92.044153" transform="rotate(-0 44.95 92.044153)">10</text>
+     </g>
+    </g>
+    <g id="c64-headroom-ytick_6">
+     <g id="c64-headroom-line2d_21">
+      <path d="M 51.95 43.524441
+L 405.72 43.524441
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-headroom-line2d_22">
+      <g>
+       <use xlink:href="#c64-headroom-m93efc051f6" x="51.95" y="43.524441" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-headroom-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="47.921004" transform="rotate(-0 44.95 47.921004)">15</text>
+     </g>
+    </g>
+    <g id="c64-headroom-text_13">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.555312" y="149.42" transform="rotate(-90 20.555312 149.42)">输出电压 / V</text>
+    </g>
+   </g>
+   <g id="c64-headroom-line2d_23">
+    <path d="M 68.030455 259.838182
+L 389.639545 39.001818
+L 389.639545 39.001818
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-headroom-line2d_24">
+    <path d="M 68.030455 39.001818
+L 389.639545 259.838182
+L 389.639545 259.838182
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke: #af623f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-headroom-line2d_25">
+    <path d="M 68.030455 153.810253
+L 389.639545 197.977526
+L 389.639545 197.977526
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #54698a; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-headroom-line2d_26">
+    <path d="M 51.95 87.647591
+L 405.72 87.647591
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #9b7166; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-headroom-line2d_27">
+    <path d="M 51.95 264.140189
+L 405.72 264.140189
+" clip-path="url(#c64-headroom-p8d01790d73)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #9b7166; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-headroom-patch_3">
+    <path d="M 51.95 270.88
+L 51.95 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-headroom-patch_4">
+    <path d="M 405.72 270.88
+L 405.72 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-headroom-patch_5">
+    <path d="M 51.95 270.88
+L 405.72 270.88
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-headroom-patch_6">
+    <path d="M 51.95 27.96
+L 405.72 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-headroom-text_14">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="228.835" y="21.96" transform="rotate(-0 228.835 21.96)">uc = 3 V，G1 = 1001，G2 = 0.1</text>
+   </g>
+   <g id="c64-headroom-legend_1">
+    <g id="c64-headroom-patch_7">
+     <path d="M 148.969141 76.955156
+L 308.700859 76.955156
+Q 310.500859 76.955156 310.500859 75.155156
+L 310.500859 34.26
+Q 310.500859 32.46 308.700859 32.46
+L 148.969141 32.46
+Q 147.169141 32.46 147.169141 34.26
+L 147.169141 75.155156
+Q 147.169141 76.955156 148.969141 76.955156
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c64-headroom-line2d_28">
+     <path d="M 150.769141 40.104375
+L 159.769141 40.104375
+L 168.769141 40.104375
+" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c64-headroom-text_15">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="175.969141" y="43.254375" transform="rotate(-0 175.969141 43.254375)">前级 uo1</text>
+    </g>
+    <g id="c64-headroom-line2d_29">
+     <path d="M 150.769141 54.036094
+L 159.769141 54.036094
+L 168.769141 54.036094
+" style="fill: none; stroke: #af623f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c64-headroom-text_16">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="175.969141" y="57.186094" transform="rotate(-0 175.969141 57.186094)">前级 uo2</text>
+    </g>
+    <g id="c64-headroom-line2d_30">
+     <path d="M 150.769141 67.967813
+L 159.769141 67.967813
+L 168.769141 67.967813
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #54698a; stroke-width: 1.5"/>
+    </g>
+    <g id="c64-headroom-text_17">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="175.969141" y="71.117813" transform="rotate(-0 175.969141 71.117813)">末级公式 uo（需先验前级范围）</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c64-headroom-p8d01790d73">
+   <rect x="51.95" y="27.96" width="353.77" height="242.92"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>最后输出只含差值，不代表内部所有节点只含差值。前级仍带着 u<sub>c</sub>。若简化地假设两个前级都允许 −U<sub>M</sub> 到 +U<sub>M</sub>，则必须同时满足：</p>
+<div class="eq">|u<sub>c</sub>+G<sub>1</sub>u<sub>d</sub>/2|≤U<sub>M</sub><br/>|u<sub>c</sub>−G<sub>1</sub>u<sub>d</sub>/2|≤U<sub>M</sub><br/>对称边界下，可合写为 |u<sub>c</sub>|+G<sub>1</sub>|u<sub>d</sub>|/2≤U<sub>M</sub></div>
+<p>自设例：G<sub>1</sub>=1001，后级比例大小仅 0.1；u<sub>c</sub>=3 V、u<sub>d</sub>=20 mV。末级公式只要求约 −2.002 V，看似很小，但前级分别要求 13.01 V 与 −7.01 V。若前级最多 ±10 V，第一只已经饱和，最终理想式就失效。</p>
+<p>图中的两条实线是前级需求，虚线是末级的代数结果；超出假设范围后，曲线不代表真实电路还能线性延伸。实际器件还另有输入共模范围与增益、负载等条件，不能把同一条 ±10 V 边界当作所有仪表放大器的通用参数。</p>
+</section>
+<section id="c641-chip"><h2>集成仪表放大器：内部电容、去耦电容、增益端各负责什么</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-ina" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520" role="img" aria-labelledby="c64-ina-c64-ina-title">
+<title id="c64-ina-c64-ina-title">集成仪表放大器的功能端口，增益设定、失调调整、供电去耦与信号端用途不同，不代表具体芯片引脚位置</title>
+<defs><marker id="c64-ina-c64-ina-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">芯片图先按用途读，别先背所有线</text><rect x="75" y="160" width="170" height="170" class="block"/><text x="160.0" y="238.0" text-anchor="middle" font-size="15">仪表放大器</text><text x="160.0" y="262.0" text-anchor="middle" font-size="15">差模增益 G</text><circle cx="15" cy="205" r="3.2" class="port"/><path class="wire" d="M15 205L75 205"/><text x="15" y="183" text-anchor="start" font-size="15">ui−</text><text x="85" y="210" text-anchor="start" font-size="15">−</text><circle cx="15" cy="285" r="3.2" class="port"/><path class="wire" d="M15 285L75 285"/><text x="15" y="315" text-anchor="start" font-size="15">ui+</text><text x="85" y="290" text-anchor="start" font-size="15">+</text><path class="wire" d="M245 245L305 245"/><circle cx="305" cy="245" r="3.2" class="port"/><text x="305" y="225" text-anchor="end" font-size="15">uo</text><path class="wire" d="M115 160V90M200 160V90"/><circle cx="115" cy="90" r="3.2" class="port"/><circle cx="200" cy="90" r="3.2" class="port"/><text x="160" y="64" text-anchor="middle" font-size="14">增益设定端</text><path class="wire" d="M105 330V390M160 330V390M215 330V390"/><circle cx="105" cy="390" r="3.2" class="port"/><circle cx="160" cy="390" r="3.2" class="port"/><circle cx="215" cy="390" r="3.2" class="port"/><text x="105" y="422" text-anchor="middle" font-size="15">+Vs</text><text x="160" y="447" text-anchor="middle" font-size="13">公共端</text><text x="215" y="422" text-anchor="middle" font-size="15">−Vs</text><text x="160" y="490" text-anchor="middle" font-size="12">功能示意；无实际引脚编号与位置含义</text></svg></figure>
+<p>教材用 INA102 说明集成实现，内部主线仍可认成“两个输入放大级＋差分级”，不需要把所有细线重新背一遍。内部小电容主要用于相位补偿、保证闭环工作；外接电源处的 1 μF 电容用于去耦，不能一看到电容就把它们认成 6.3 的信号滤波选频网络。</p>
+<p>教材表 6.4.1 给出四挡接法，遇到以该型号为已知条件的查表题，可直接使用：</p>
+<div class="table-wrap"><table><thead><tr><th>增益</th><th>本书给定的端子连接</th></tr></thead><tbody>
+<tr><td>1</td><td>6 与 7 相连</td></tr>
+<tr><td>10</td><td>2、6、7 相连</td></tr>
+<tr><td>100</td><td>3、6、7 相连</td></tr>
+<tr><td>1000</td><td>4 与 7 相连；5 与 6 相连</td></tr>
+</tbody></table></div>
+<p>这些是特定内部网络的外部设定端，不要把端子 6、7 的短接，直接当成前面简化图里“R<sub>2</sub> 被短路”。两张图的节点与电阻编号并非一一同名。</p>
+<p>本书该例还列出 R<sub>i</sub> 可达 10<sup>4</sup> MΩ、CMRR 为 100 dB、输出电阻 0.1 Ω、小信号带宽 300 kHz，以及 ±15 V 供电时的共模输入范围。它们是教材示例参数与条件，不能理解成所有仪表放大器、所有增益档都共享的一组常数。</p>
+<p><strong>第一轮掌握要求：</strong>认出功能端、知道增益可设、能解释高输入电阻与高 CMRR。若题目没要求特定型号端子，不必先默写整套引脚图。上面的 SVG 也仅画功能分组，不画实际封装脚位。</p>
+</section>
+<section id="c641-temperature"><h2>数字温度计：调零与调量程分开，跟随器本身仍是 1 倍</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-bridge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 460" role="img" aria-labelledby="c64-bridge-c64-bridge-title">
+<title id="c64-bridge-c64-bridge-title">PN结温度传感器电桥，左支路为电阻与二极管，右支路为电阻与可调参考电阻</title>
+<defs><marker id="c64-bridge-c64-bridge-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">温度计：先生成 uD 与参考电压</text><path class="wire" d="M80 70H240"/><text x="160" y="54" text-anchor="middle" font-size="15">+VCC</text><path class="wire" d="M80 70V107.0M73 107.0H87V143.0H73ZM80 143.0V180"/><text x="66" y="130.0" text-anchor="end" font-size="15">R1</text><path class="wire" d="M240 70V107.0M233 107.0H247V143.0H233ZM240 143.0V180"/><text x="254" y="130.0" text-anchor="start" font-size="15">R2</text><path class="wire" d="M80 180L80 210"/><path class="wire" d="M80 210V223M70 223H90L80 245ZM68 245H92M80 245V260"/><text x="62" y="240" text-anchor="end" font-size="15">D</text><path class="wire" d="M80 260L80 300"/><path class="wire" d="M80 300V310M68 310H92M72 316H88M77 322H83"/><path class="wire" d="M240 180V222.0M233 222.0H247V258.0H233ZM240 258.0V300"/><text x="226" y="245.0" text-anchor="end" font-size="15">Rw1</text><path class="wire" d="M265 275L243 245" marker-end="url(#c64-bridge-c64-bridge-arrow)"/><path class="wire" d="M240 300V310M228 310H252M232 316H248M237 322H243"/><path class="wire" d="M80 180H25M240 180H300"/><circle cx="80" cy="180" r="3.2" fill="currentColor"/><circle cx="240" cy="180" r="3.2" fill="currentColor"/><circle cx="25" cy="180" r="3.2" class="port"/><circle cx="300" cy="180" r="3.2" class="port"/><text x="25" y="159" text-anchor="start" font-size="15">uD</text><text x="300" y="159" text-anchor="end" font-size="15">uRef</text><text x="160" y="381" text-anchor="middle" font-size="12">温度改变 D 的压降，Rw1 设置零点参考</text><text x="160" y="424" text-anchor="middle" font-size="13">下面用仪表放大器放大 uRef − uD</text></svg></figure>
+<p>教材图 6.4.4 的 PN 结 D 是温度敏感元件。左支路产生与温度有关的 u<sub>D</sub>，右支路通过 R<sub>w1</sub> 设置参考 u<sub>Ref</sub>，仪表放大器放大两者之差。把两路都当“对地电压很大”，并不妨碍提取其中很小的差值。</p>
+<figure class="chapter-figure svg"><svg data-figure="c64-thermo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 690" role="img" aria-labelledby="c64-thermo-c64-thermo-title">
+<title id="c64-thermo-c64-thermo-title">仪表放大器输出经可调分压，再用电压跟随器驱动数字电压表；分压比与跟随器增益必须区分</title>
+<defs><marker id="c64-thermo-c64-thermo-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">温度计：放大、分压、跟随各算一次</text><rect x="140" y="130" width="110" height="100" class="block"/><text x="195.0" y="173.0" text-anchor="middle" font-size="15">仪表放大</text><text x="195.0" y="197.0" text-anchor="middle" font-size="15">G = 10</text><text x="150" y="165" text-anchor="start" font-size="15">−</text><text x="150" y="205" text-anchor="start" font-size="15">+</text><circle cx="15" cy="160" r="3.2" class="port"/><path class="wire" d="M15 160L140 160"/><text x="15" y="133" text-anchor="start" font-size="15">uD</text><circle cx="15" cy="200" r="3.2" class="port"/><path class="wire" d="M15 200L140 200"/><text x="15" y="230" text-anchor="start" font-size="15">uRef</text><path class="wire" d="M250 180H280"/><circle cx="280" cy="180" r="3.2" fill="currentColor"/><text x="267" y="215" text-anchor="end" font-size="15">uo1</text><path class="wire" d="M280 180V222.0M273 222.0H287V258.0H273ZM280 258.0V300"/><text x="266" y="245.0" text-anchor="end" font-size="15">R4</text><path class="wire" d="M280 300V342.0M273 342.0H287V378.0H273ZM280 378.0V420"/><text x="266" y="365.0" text-anchor="end" font-size="15">R5</text><path class="wire" d="M280 420V430M268 430H292M272 436H288M277 442H283"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><path class="wire" d="M280 300H50V520H140"/><path class="wire" d="M140 450L250 500L140 550Z"/><text x="150" y="485" text-anchor="start" font-size="15">−</text><text x="150" y="525" text-anchor="start" font-size="15">+</text><text x="192" y="505" text-anchor="middle" font-size="15">A2</text><path class="wire" d="M140 480H110V400H270V500H250M270 500H305"/><circle cx="270" cy="500" r="3.2" fill="currentColor"/><circle cx="305" cy="500" r="3.2" class="port"/><text x="305" y="535" text-anchor="end" font-size="15">uo2</text><text x="160" y="592" text-anchor="middle" font-size="12">R4 + R5 = Rw2，分点相当于滑动端</text><text x="160" y="631" text-anchor="middle" font-size="14">uo2 = [R5 / (R4 + R5)] uo1</text><text x="160" y="671" text-anchor="middle" font-size="14">A2 自身仍为 1 倍跟随器</text></svg></figure>
+<p>按教材输入极性与所选增益 10：</p>
+<div class="eq">u<sub>o1</sub>=10(u<sub>Ref</sub>−u<sub>D</sub>)<br/>β=R<sub>5</sub>/(R<sub>4</sub>+R<sub>5</sub>)=R<sub>5</sub>/R<sub>w2</sub><br/>u<sub>o2</sub>=βu<sub>o1</sub>=10β(u<sub>Ref</sub>−u<sub>D</sub>)</div>
+<p>图中“仪表放大 G=10”是内部已有反馈的模块，其两个外部输入不作虚短。A<sub>2</sub> 才是后面的电压跟随器：它输入电流近似零，所以不加载滑动分压点，输出驱动电压表。调整 R<sub>w2</sub> 改的是 β 与整条信号链的标度，不是把跟随器自身的增益从 1 调成其他数。</p>
+<p>R<sub>w1</sub> 主要设置零点：让指定温度下 u<sub>Ref</sub>=u<sub>D</sub>。R<sub>w2</sub> 主要调整最终灵敏度或显示量程。零点与量程实际会有相互影响，计算题按题给简化模型处理。</p>
+<p>若最终显示端灵敏度为 10 mV/℃，且 0℃ 对应 0 V，温度 −50—150℃ 对应 u<sub>o2</sub>=−0.5—1.5 V；0.1℃ 的变化对应 1 mV。只有灵敏度而没有零点条件，不能独自推出绝对输出区间。</p>
+<p class="level"><strong>核对课本的两个电压范围：</strong>本书该段还列出仪表级 −5—15 V。按图中测点，若把它作为 u<sub>o1</sub>，要对应前述显示端范围，需 β=0.1。这个 β 是使两组范围相容所需的条件，并非图上已经给出的固定数值。读题时要明确“放大后”指 u<sub>o1</sub> 还是 u<sub>o2</sub>，不要把同一个 10 倍重复计算。</p>
+</section>
+<section id="c642-model"><h2>6.4.2 电荷放大器：先分清传感器的电荷与开路电压</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-charge" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520" role="img" aria-labelledby="c64-charge-c64-charge-title">
+<title id="c64-charge-c64-charge-title">理想电荷放大器：传感器用电压ut与电容Ct串联等效，杂散电容Cs接在虚地节点与地之间，反馈电容Cf完成电荷到电压转换</title>
+<defs><marker id="c64-charge-c64-charge-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">电荷放大：q 决定输出，Cf 决定比例</text><path class="wire" d="M140 210L250 260L140 310Z"/><text x="150" y="245" text-anchor="start" font-size="15">−</text><text x="150" y="285" text-anchor="start" font-size="15">+</text><text x="192" y="265" text-anchor="middle" font-size="15">A</text><path class="wire" d="M40 240H140M110 240V100"/><path class="wire" d="M110 100H190.0M190.0 88V112M200.0 88V112M200.0 100H280"/><text x="195.0" y="80" text-anchor="middle" font-size="15">Cf</text><path class="wire" d="M280 100V260H250M280 260H305"/><path class="wire" d="M40 240V270.0M28 270.0H52M28 280.0H52M40 280.0V310"/><text x="59" y="280.0" text-anchor="start" font-size="15">Ct</text><path class="wire" d="M40 310L40 330"/><circle cx="40" cy="350" r="20" class="wire"/><text x="40" y="346" text-anchor="middle" font-size="12">+</text><text x="40" y="366" text-anchor="middle" font-size="12">−</text><path class="wire" d="M40 370V410"/><path class="wire" d="M40 410V420M28 420H52M32 426H48M37 432H43"/><text x="65" y="356" text-anchor="start" font-size="15">ut</text><path class="wire" d="M110 240V290.0M98 290.0H122M98 300.0H122M110 300.0V350"/><text x="91" y="300.0" text-anchor="end" font-size="15">Cs</text><path class="wire" d="M110 350V360M98 360H122M102 366H118M107 372H113"/><circle cx="110" cy="240" r="3.2" fill="currentColor"/><path class="wire" d="M140 280H130V410"/><path class="wire" d="M130 410V420M118 420H142M122 426H138M127 432H133"/><path class="wire" d="M15 303L15 265" marker-end="url(#c64-charge-c64-charge-arrow)"/><text x="15" y="250" text-anchor="middle" font-size="12">is</text><path class="wire" d="M150 132L220 132" marker-end="url(#c64-charge-c64-charge-arrow)"/><text x="185" y="155" text-anchor="middle" font-size="12">if</text><circle cx="280" cy="260" r="3.2" fill="currentColor"/><circle cx="305" cy="260" r="3.2" class="port"/><text x="305" y="294" text-anchor="end" font-size="15">uo</text><text x="160" y="478" text-anchor="middle" font-size="13">q = Ct ut；零初始参考下 uo = −q / Cf</text></svg></figure>
+<p>压电等电容性传感器可用等效电压源 u<sub>t</sub> 与电容 C<sub>t</sub> 串联描述。按教材的模型，信号电荷 q 与开路电压满足：</p>
+<div class="eq">u<sub>t</sub>=q/C<sub>t</sub></div>
+<p>同样的电荷，若直接读电压，结果受电容大小影响；传感器与电缆的电容变化就可能改变读数。电荷放大器的目标是用反馈电容 C<sub>f</sub> 把电荷重新定标成输出电压。</p>
+<p>在合适负反馈下，P 接地、N 为虚地。输入不取电流，不表示传感器的电流没地方流；它沿反馈支路流入或流出 C<sub>f</sub>。这与 6.1 积分器的电流分析是同一个起点。</p>
+</section>
+<section id="c642-conversion"><h2>为什么 uo=−q/Cf：一个用阻抗推，一个用电荷积累推</h2>
+<p>先按反相阻抗关系。输入阻抗为 1/(sC<sub>t</sub>)，反馈阻抗为 1/(sC<sub>f</sub>)：</p>
+<div class="eq">U<sub>o</sub>/U<sub>t</sub>=−[1/(sC<sub>f</sub>)]/[1/(sC<sub>t</sub>)]=−C<sub>t</sub>/C<sub>f</sub><br/>代入 U<sub>t</sub>=Q/C<sub>t</sub>，得到 U<sub>o</sub>=−Q/C<sub>f</sub></div>
+<p>再按图中的电流参考方向。传感器向 N 提供 i<sub>s</sub>=dq/dt，反馈电流从 N 向输出为 i<sub>f</sub>=C<sub>f</sub>d(u<sub>N</sub>−u<sub>o</sub>)/dt。N 为虚地且不吸收电流，所以：</p>
+<div class="eq">dq/dt=−C<sub>f</sub>du<sub>o</sub>/dt<br/>u<sub>o</sub>(t)=u<sub>o</sub>(t₀)−[q(t)−q(t₀)]/C<sub>f</sub></div>
+<p>把零点与初始状态选为零，才简写成 u<sub>o</sub>=−q/C<sub>f</sub>。它没有推翻 6.1 的积分初值要求，而是把参考初值合并到了 q、u<sub>o</sub> 的零点中。</p>
+<p>自设例：q=100 pC、C<sub>f</sub>=1 nF，输出为 −0.1 V。单位上 C/F=V；pC/nF=10<sup>−3</sup> V，别把皮库仑与纳法的“皮、纳”当成同一倍率。</p>
+</section>
+<section id="c642-stray"><h2>杂散电容为什么不影响理想结果：不是拿导线真的把传感器短掉</h2>
+<p>图中 C<sub>s</sub> 从 N 接到地。理想虚地下，电容两端电压都为零，所以它不因信号变化而吸收电流：</p>
+<div class="eq">i<sub>Cs</sub>=C<sub>s</sub>d(u<sub>N</sub>−0)/dt≈0</div>
+<p>书上把这种效果描述为杂散电容被“短路”，应理解为它两端电位相同。N 依然不是一根真实地线，传感器的信号电流仍主要流向反馈支路；否则前面的电荷转换关系就无从成立。</p>
+<p>因此输出由 C<sub>f</sub> 定标，理想结果不显式含 C<sub>t</sub> 或这只对地 C<sub>s</sub>。但真实运放增益有限，N 的电位不可能永远严格为零；电缆还会带来噪声、漏电与寄生效应，所以“理想式中消去”不等于“实际电缆可以任意长”。</p>
+<p><strong>考解释题时说到这里就够：</strong>高输入阻抗、负反馈使输入节点接近地、减轻输入对地杂散电容影响、输出主要按 −q/C<sub>f</sub> 转换。题目未要求时，不必继续展开完整的噪声增益与补偿设计。</p>
+</section>
+<section id="c642-leak"><h2>反馈并联 Rf：防止长期漂移，同时失去对静态电荷的永久保持</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-charge-real" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 540" role="img" aria-labelledby="c64-charge-real-c64-charge-real-title">
+<title id="c64-charge-real-c64-charge-real-title">反馈电容并联Rf的电荷放大器，输入反并联二极管作过载保护，Rf设置泄漏恢复时间</title>
+<defs><marker id="c64-charge-real-c64-charge-real-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">实用接法：加 Rf，建立直流反馈</text><path class="wire" d="M140 210L250 260L140 310Z"/><text x="150" y="245" text-anchor="start" font-size="15">−</text><text x="150" y="285" text-anchor="start" font-size="15">+</text><text x="192" y="265" text-anchor="middle" font-size="15">A</text><circle cx="15" cy="240" r="3.2" class="port"/><path class="wire" d="M15 240L140 240"/><text x="15" y="213" text-anchor="start" font-size="15">传感器</text><path class="wire" d="M110 240V90"/><path class="wire" d="M110 90H190.0M190.0 78V102M200.0 78V102M200.0 90H280"/><text x="195.0" y="70" text-anchor="middle" font-size="15">Cf</text><path class="wire" d="M110 155H177.0M177.0 148H213.0V162H177.0ZM213.0 155H280"/><text x="195.0" y="140" text-anchor="middle" font-size="15">Rf</text><path class="wire" d="M110 155V240M280 90V260H250M280 260H305"/><path class="wire" d="M40 240V275M80 240V275"/><path class="wire" d="M40 275V288M30 288H50L40 310ZM28 310H52M40 310V325"/><path class="wire" d="M80 325V312M70 312H90L80 290ZM68 290H92M80 290V275"/><path class="wire" d="M40 325V350H130M80 325V350M140 280H130V350"/><path class="wire" d="M130 350V360M118 360H142M122 366H138M127 372H133"/><circle cx="40" cy="240" r="3.2" fill="currentColor"/><circle cx="40" cy="350" r="3.2" fill="currentColor"/><circle cx="80" cy="240" r="3.2" fill="currentColor"/><circle cx="80" cy="350" r="3.2" fill="currentColor"/><text x="25" y="304" text-anchor="end" font-size="12">D1</text><text x="98" y="304" text-anchor="start" font-size="12">D2</text><circle cx="110" cy="240" r="3.2" fill="currentColor"/><circle cx="280" cy="260" r="3.2" fill="currentColor"/><circle cx="305" cy="260" r="3.2" class="port"/><text x="305" y="291" text-anchor="end" font-size="15">uo</text><text x="160" y="421" text-anchor="middle" font-size="14">τ = Rf Cf；fL = 1 / (2π Rf Cf)</text><text x="160" y="464" text-anchor="middle" font-size="13">近似 −q/Cf 要求 f 明显高于 fL</text><text x="160" y="508" text-anchor="middle" font-size="12">二极管正常小信号时截止，过载时钳位</text></svg></figure>
+<p>只有 C<sub>f</sub> 作反馈时，微小偏置电流、漏电或失调都可能长期给它充电，把输出推到饱和。并联 R<sub>f</sub> 为直流提供反馈与泄放通路，但信号电荷对应的输出也会逐渐衰减。</p>
+<div class="eq">Z<sub>f</sub>=R<sub>f</sub>/(1+sR<sub>f</sub>C<sub>f</sub>)<br/>若输入电流 I<sub>s</sub>=sQ：<br/>U<sub>o</sub>/Q=−sR<sub>f</sub>/(1+sR<sub>f</sub>C<sub>f</sub>)<br/>=−(1/C<sub>f</sub>)·sτ/(1+sτ)，τ=R<sub>f</sub>C<sub>f</sub></div>
+<p>对输入“电荷”而言，这是一个高通形状，低频边界 f<sub>L</sub>=1/(2πR<sub>f</sub>C<sub>f</sub>)；对输入“电流”而言，跨阻 U<sub>o</sub>/I<sub>s</sub>=−Z<sub>f</sub> 却是低通形状。分类必须先说清输入量，不能只凭电路像积分器就把所有比值都称作低通。</p>
+<figure class="chapter-figure plot"><svg data-figure="c64-charge-response" xmlns:xlink="http://www.w3.org/1999/xlink" width="417.6pt" height="396pt" viewBox="0 0 417.6 396" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>电荷放大器加反馈电阻后，阶跃电荷的输出以RfCf时间常数衰减，电荷到电压传递函数具有低频衰减</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>电荷放大器加反馈电阻后，阶跃电荷的输出以RfCf时间常数衰减，电荷到电压传递函数具有低频衰减</dc:title>
+    <dc:date>2026-10-21T12:30:43.844673</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c64-charge-response-figure_1">
+  <g id="c64-charge-response-patch_1">
+   <path d="M 0 396
+L 417.6 396
+L 417.6 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c64-charge-response-axes_1">
+   <g id="c64-charge-response-patch_2">
+    <path d="M 60.95 157.63975
+L 405.72 157.63975
+L 405.72 28.5675
+L 60.95 28.5675
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c64-charge-response-matplotlib.axis_1">
+    <g id="c64-charge-response-xtick_1">
+     <g id="c64-charge-response-line2d_1">
+      <path d="M 76.621364 157.63975
+L 76.621364 28.5675
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_2">
+      <defs>
+       <path id="c64-charge-response-m192c110661" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="76.621364" y="157.63975" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_1">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="76.621364" y="173.432875" transform="rotate(-0 76.621364 173.432875)">0</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_2">
+     <g id="c64-charge-response-line2d_3">
+      <path d="M 139.306818 157.63975
+L 139.306818 28.5675
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_4">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="139.306818" y="157.63975" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_2">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="139.306818" y="173.432875" transform="rotate(-0 139.306818 173.432875)">100</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_3">
+     <g id="c64-charge-response-line2d_5">
+      <path d="M 201.992273 157.63975
+L 201.992273 28.5675
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_6">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="201.992273" y="157.63975" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_3">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="201.992273" y="173.432875" transform="rotate(-0 201.992273 173.432875)">200</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_4">
+     <g id="c64-charge-response-line2d_7">
+      <path d="M 264.677727 157.63975
+L 264.677727 28.5675
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_8">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="264.677727" y="157.63975" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_4">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="264.677727" y="173.432875" transform="rotate(-0 264.677727 173.432875)">300</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_5">
+     <g id="c64-charge-response-line2d_9">
+      <path d="M 327.363182 157.63975
+L 327.363182 28.5675
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_10">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="327.363182" y="157.63975" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_5">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="327.363182" y="173.432875" transform="rotate(-0 327.363182 173.432875)">400</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_6">
+     <g id="c64-charge-response-line2d_11">
+      <path d="M 390.048636 157.63975
+L 390.048636 28.5675
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_12">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="390.048636" y="157.63975" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_6">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="390.048636" y="173.432875" transform="rotate(-0 390.048636 173.432875)">500</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-text_7">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="233.335" y="188.960531" transform="rotate(-0 233.335 188.960531)">时间 / ms</text>
+    </g>
+   </g>
+   <g id="c64-charge-response-matplotlib.axis_2">
+    <g id="c64-charge-response-ytick_1">
+     <g id="c64-charge-response-line2d_13">
+      <path d="M 60.95 151.77283
+L 405.72 151.77283
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_14">
+      <defs>
+       <path id="c64-charge-response-mb5c1eadfbb" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="151.77283" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_8">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="156.169392" transform="rotate(-0 53.95 156.169392)">-0.100</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_2">
+     <g id="c64-charge-response-line2d_15">
+      <path d="M 60.95 122.239231
+L 405.72 122.239231
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_16">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="122.239231" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_9">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="126.635794" transform="rotate(-0 53.95 126.635794)">-0.075</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_3">
+     <g id="c64-charge-response-line2d_17">
+      <path d="M 60.95 92.705633
+L 405.72 92.705633
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_18">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="92.705633" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_10">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="97.102196" transform="rotate(-0 53.95 97.102196)">-0.050</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_4">
+     <g id="c64-charge-response-line2d_19">
+      <path d="M 60.95 63.172035
+L 405.72 63.172035
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_20">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="63.172035" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="67.568598" transform="rotate(-0 53.95 67.568598)">-0.025</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_5">
+     <g id="c64-charge-response-line2d_21">
+      <path d="M 60.95 33.638437
+L 405.72 33.638437
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_22">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="33.638437" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="38.035" transform="rotate(-0 53.95 38.035)">0.000</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-text_13">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="14.005781" y="93.103625" transform="rotate(-90 14.005781 93.103625)">输出 / V</text>
+    </g>
+   </g>
+   <g id="c64-charge-response-line2d_23">
+    <path d="M 76.621364 151.77283
+L 80.549024 144.598046
+L 84.476684 137.859017
+L 88.404344 131.529276
+L 92.332004 125.583966
+L 96.259664 119.99974
+L 100.187324 114.754666
+L 104.114984 109.828146
+L 108.042644 105.200835
+L 112.755836 100.017507
+L 117.469028 95.209612
+L 122.18222 90.749957
+L 126.895412 86.613319
+L 131.608604 82.776302
+L 136.321797 79.217203
+L 141.034989 75.915892
+L 145.748181 72.853699
+L 151.246905 69.560322
+L 156.745629 66.543529
+L 162.244353 63.780092
+L 167.743077 61.248735
+L 174.027333 58.615007
+L 180.311589 56.232509
+L 186.595845 54.077275
+L 193.665633 51.89738
+L 200.735422 49.94998
+L 208.590742 48.028814
+L 216.446062 46.333923
+L 225.086914 44.699177
+L 234.513298 43.154925
+L 244.725214 41.724312
+L 255.722662 40.423205
+L 267.505643 39.260564
+L 280.859687 38.181846
+L 294.999263 37.264377
+L 311.495435 36.425409
+L 330.348203 35.701525
+L 352.3431 35.090996
+L 379.051188 34.587065
+L 390.048636 34.43442
+L 390.048636 34.43442
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-line2d_24">
+    <path d="M 60.95 151.77283
+L 405.72 151.77283
+" clip-path="url(#c64-charge-response-pfbb769274d)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #af623f; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-charge-response-patch_3">
+    <path d="M 60.95 157.63975
+L 60.95 28.5675
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-patch_4">
+    <path d="M 405.72 157.63975
+L 405.72 28.5675
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-patch_5">
+    <path d="M 60.95 157.63975
+L 405.72 157.63975
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-patch_6">
+    <path d="M 60.95 28.5675
+L 405.72 28.5675
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-text_14">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="233.335" y="22.5675" transform="rotate(-0 233.335 22.5675)">阶跃电荷 100 pC，Cf = 1 nF，Rf = 100 MΩ</text>
+   </g>
+   <g id="c64-charge-response-legend_1">
+    <g id="c64-charge-response-patch_7">
+     <path d="M 67.25 49.699219
+L 168.05 49.699219
+Q 169.85 49.699219 169.85 47.899219
+L 169.85 34.8675
+Q 169.85 33.0675 168.05 33.0675
+L 67.25 33.0675
+Q 65.45 33.0675 65.45 34.8675
+L 65.45 47.899219
+Q 65.45 49.699219 67.25 49.699219
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c64-charge-response-line2d_25">
+     <path d="M 69.05 40.711875
+L 78.05 40.711875
+L 87.05 40.711875
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #af623f; stroke-width: 1.5"/>
+    </g>
+    <g id="c64-charge-response-text_15">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="94.25" y="43.861875" transform="rotate(-0 94.25 43.861875)">无泄漏理想保持值</text>
+    </g>
+   </g>
+  </g>
+  <g id="c64-charge-response-axes_2">
+   <g id="c64-charge-response-patch_8">
+    <path d="M 60.95 348.712
+L 405.72 348.712
+L 405.72 219.63975
+L 60.95 219.63975
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c64-charge-response-matplotlib.axis_3">
+    <g id="c64-charge-response-xtick_7">
+     <g id="c64-charge-response-line2d_26">
+      <path d="M 76.621364 348.712
+L 76.621364 219.63975
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_27">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="76.621364" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_16">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #202e35" transform="translate(64.851364 364.505125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_8">
+     <g id="c64-charge-response-line2d_28">
+      <path d="M 154.978182 348.712
+L 154.978182 219.63975
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_29">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="154.978182" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_17">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(143.208182 364.505125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_9">
+     <g id="c64-charge-response-line2d_30">
+      <path d="M 233.335 348.712
+L 233.335 219.63975
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_31">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="233.335" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_18">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(224.425 364.505125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_10">
+     <g id="c64-charge-response-line2d_32">
+      <path d="M 311.691818 348.712
+L 311.691818 219.63975
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_33">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="311.691818" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_19">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(302.781818 364.505125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_11">
+     <g id="c64-charge-response-line2d_34">
+      <path d="M 390.048636 348.712
+L 390.048636 219.63975
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_35">
+      <g>
+       <use xlink:href="#c64-charge-response-m192c110661" x="390.048636" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_20">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(381.138636 364.505125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_12">
+     <g id="c64-charge-response-line2d_36">
+      <defs>
+       <path id="c64-charge-response-m03595328f8" d="M 0 0
+L 0 2
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="64.483739" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_13">
+     <g id="c64-charge-response-line2d_37">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="69.027803" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_14">
+     <g id="c64-charge-response-line2d_38">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="73.035952" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_15">
+     <g id="c64-charge-response-line2d_39">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="100.209116" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_16">
+     <g id="c64-charge-response-line2d_40">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="114.007067" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_17">
+     <g id="c64-charge-response-line2d_41">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="123.796869" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_18">
+     <g id="c64-charge-response-line2d_42">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="131.390429" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_19">
+     <g id="c64-charge-response-line2d_43">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="137.59482" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_20">
+     <g id="c64-charge-response-line2d_44">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="142.840557" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_21">
+     <g id="c64-charge-response-line2d_45">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="147.384622" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_22">
+     <g id="c64-charge-response-line2d_46">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="151.39277" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_23">
+     <g id="c64-charge-response-line2d_47">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="178.565934" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_24">
+     <g id="c64-charge-response-line2d_48">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="192.363885" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_25">
+     <g id="c64-charge-response-line2d_49">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="202.153687" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_26">
+     <g id="c64-charge-response-line2d_50">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="209.747247" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_27">
+     <g id="c64-charge-response-line2d_51">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="215.951638" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_28">
+     <g id="c64-charge-response-line2d_52">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="221.197375" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_29">
+     <g id="c64-charge-response-line2d_53">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="225.74144" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_30">
+     <g id="c64-charge-response-line2d_54">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="229.749589" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_31">
+     <g id="c64-charge-response-line2d_55">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="256.922753" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_32">
+     <g id="c64-charge-response-line2d_56">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="270.720703" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_33">
+     <g id="c64-charge-response-line2d_57">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="280.510505" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_34">
+     <g id="c64-charge-response-line2d_58">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="288.104066" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_35">
+     <g id="c64-charge-response-line2d_59">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="294.308456" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_36">
+     <g id="c64-charge-response-line2d_60">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="299.554193" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_37">
+     <g id="c64-charge-response-line2d_61">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="304.098258" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_38">
+     <g id="c64-charge-response-line2d_62">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="308.106407" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_39">
+     <g id="c64-charge-response-line2d_63">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="335.279571" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_40">
+     <g id="c64-charge-response-line2d_64">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="349.077522" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_41">
+     <g id="c64-charge-response-line2d_65">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="358.867323" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_42">
+     <g id="c64-charge-response-line2d_66">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="366.460884" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_43">
+     <g id="c64-charge-response-line2d_67">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="372.665274" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_44">
+     <g id="c64-charge-response-line2d_68">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="377.911012" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_45">
+     <g id="c64-charge-response-line2d_69">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="382.455076" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-xtick_46">
+     <g id="c64-charge-response-line2d_70">
+      <g>
+       <use xlink:href="#c64-charge-response-m03595328f8" x="386.463225" y="348.712" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-charge-response-text_21">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="233.335" y="380.032781" transform="rotate(-0 233.335 380.032781)">频率比 f / fL</text>
+    </g>
+   </g>
+   <g id="c64-charge-response-matplotlib.axis_4">
+    <g id="c64-charge-response-ytick_6">
+     <g id="c64-charge-response-line2d_71">
+      <path d="M 60.95 344.030316
+L 405.72 344.030316
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_72">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="344.030316" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_22">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="348.426879" transform="rotate(-0 53.95 348.426879)">0.00</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_7">
+     <g id="c64-charge-response-line2d_73">
+      <path d="M 60.95 314.397923
+L 405.72 314.397923
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_74">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="314.397923" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_23">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="318.794486" transform="rotate(-0 53.95 318.794486)">0.25</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_8">
+     <g id="c64-charge-response-line2d_75">
+      <path d="M 60.95 284.76553
+L 405.72 284.76553
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_76">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="284.76553" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_24">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="289.162093" transform="rotate(-0 53.95 289.162093)">0.50</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_9">
+     <g id="c64-charge-response-line2d_77">
+      <path d="M 60.95 255.133137
+L 405.72 255.133137
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_78">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="255.133137" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_25">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="259.5297" transform="rotate(-0 53.95 259.5297)">0.75</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-ytick_10">
+     <g id="c64-charge-response-line2d_79">
+      <path d="M 60.95 225.500744
+L 405.72 225.500744
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-charge-response-line2d_80">
+      <g>
+       <use xlink:href="#c64-charge-response-mb5c1eadfbb" x="60.95" y="225.500744" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-charge-response-text_26">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="53.95" y="229.897307" transform="rotate(-0 53.95 229.897307)">1.00</text>
+     </g>
+    </g>
+    <g id="c64-charge-response-text_27">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="25.151875" y="284.175875" transform="rotate(-90 25.151875 284.175875)">|Uo/Q| / (1/Cf)</text>
+    </g>
+   </g>
+   <g id="c64-charge-response-line2d_81">
+    <path d="M 76.621364 342.84508
+L 89.975408 342.275607
+L 101.758388 341.549848
+L 111.184772 340.758688
+L 119.825624 339.814028
+L 127.680944 338.721231
+L 134.750733 337.498695
+L 141.034989 336.179278
+L 146.533713 334.810137
+L 152.032437 333.20566
+L 156.745629 331.614159
+L 161.458821 329.79463
+L 166.172013 327.717409
+L 170.099673 325.766508
+L 174.027333 323.594966
+L 177.954993 321.182858
+L 181.882653 318.510454
+L 185.810313 315.559129
+L 189.737973 312.312603
+L 193.665633 308.758575
+L 197.593293 304.890758
+L 201.520954 300.71128
+L 205.448614 296.2333
+L 210.161806 290.50443
+L 215.66053 283.430598
+L 233.727766 259.734985
+L 237.655426 255.082508
+L 241.583086 250.785127
+L 244.725214 247.636256
+L 247.867342 244.760489
+L 251.00947 242.163081
+L 254.151598 239.841112
+L 257.293726 237.784859
+L 260.435854 235.97939
+L 263.577982 234.406177
+L 266.720111 233.044582
+L 270.647771 231.607435
+L 274.575431 230.425902
+L 278.503091 229.460922
+L 283.216283 228.539247
+L 288.715007 227.723597
+L 294.999263 227.050555
+L 302.069051 226.530472
+L 310.709903 226.123654
+L 322.492883 225.81363
+L 339.774588 225.614345
+L 371.195868 225.518688
+L 390.048636 225.50667
+L 390.048636 225.50667
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-line2d_82">
+    <path d="M 233.335 348.712
+L 233.335 219.63975
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #859491; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-charge-response-line2d_83">
+    <path d="M 60.95 260.217252
+L 405.72 260.217252
+" clip-path="url(#c64-charge-response-p9368b83b35)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #859491; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-charge-response-patch_9">
+    <path d="M 60.95 348.712
+L 60.95 219.63975
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-patch_10">
+    <path d="M 405.72 348.712
+L 405.72 219.63975
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-patch_11">
+    <path d="M 60.95 348.712
+L 405.72 348.712
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-patch_12">
+    <path d="M 60.95 219.63975
+L 405.72 219.63975
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-charge-response-text_28">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="233.335" y="213.63975" transform="rotate(-0 233.335 213.63975)">相对于输入电荷，泄漏结构呈高通</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c64-charge-response-pfbb769274d">
+   <rect x="60.95" y="28.5675" width="344.77" height="129.07225"/>
+  </clipPath>
+  <clipPath id="c64-charge-response-p9368b83b35">
+   <rect x="60.95" y="219.63975" width="344.77" height="129.07225"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>自设例：C<sub>f</sub>=1 nF、R<sub>f</sub>=100 MΩ，τ=0.1 s、f<sub>L</sub>≈1.59 Hz。瞬间增加 100 pC 电荷，输出先变到 −0.1 V，随后以该时间常数回零；理想化表达为 −0.1exp(−t/0.1 s) V。</p>
+<p>要近似使用 −q/C<sub>f</sub>，需让 |1/(jωC<sub>f</sub>)|≪R<sub>f</sub>，即 f 明显高于 f<sub>L</sub>。在 f=f<sub>L</sub> 时幅值只达到理想比例的 0.707，显然不能算高精度近似；在 10f<sub>L</sub> 时幅值约为 0.995。</p>
+<p class="level"><strong>为什么教材先讲加 Rf，再说频率不能过低：</strong>这是同一个改动的两面。它能让电路恢复、减轻饱和，却也让很慢的电荷变化泄漏掉。做题把稳定工作与测量频段一起检查。</p>
+</section>
+<section id="c642-protect"><h2>保护与灵敏度：小 Cf 输出更大，但不是越小越好</h2>
+<p>图中的反并联二极管用于输入过载钳位。正常小信号时，两只管都应近似截止，保持电荷测量关系；异常电压较大时，一只导通限制差分输入电压。导通后电路已进入另一种工作状态，不能继续认定原来的电荷比例仍精确成立。</p>
+<p>教材还提到把电荷放大级靠近传感器布置，以减轻连接电缆的影响。这是在改善实际输入节点的寄生、漏电与干扰环境，不是宣布虚地分析无效。</p>
+<div class="eq">电荷灵敏度大小：|U<sub>o</sub>/Q|≈1/C<sub>f</sub><br/>若最大电荷为 Q<sub>max</sub>、允许输出幅值为 U<sub>om</sub>：<br/>C<sub>f</sub>≥|Q<sub>max</sub>|/U<sub>om</sub></div>
+<p>自设例：最大 500 pC，允许 2 V，理想幅值限制要求 C<sub>f</sub> 至少 250 pF；取 500 pF 时，500 pC 对应约 1 V。C<sub>f</sub> 减小会提高灵敏度，但也更容易碰到摆幅限制，实际噪声与稳定条件仍要考虑。</p>
+<p><strong>必会内容：</strong>电荷、电容、电压三者的单位换算，以及“幅值范围＋低频边界”两个条件。二极管内部的高频保护细节不属于这一基础比例题的必需推导。</p>
+</section>
+<section id="c643-isolation"><h2>6.4.3 隔离放大器：缓冲隔开负载，隔离则断开两侧直接导电通路</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-isolation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 660" role="img" aria-labelledby="c64-isolation-c64-isolation-title">
+<title id="c64-isolation-c64-isolation-title">隔离放大器两侧分别有本地电源和本地地，信号通过绝缘介质耦合；隔离并不等于普通缓冲</title>
+<defs><marker id="c64-isolation-c64-isolation-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">隔离：传信号，两套地各自独立</text><rect x="35" y="110" width="250" height="120" class="block"/><text x="160.0" y="163.0" text-anchor="middle" font-size="15">输入侧处理</text><text x="160.0" y="187.0" text-anchor="middle" font-size="15">本地电源 Vs1</text><circle cx="15" cy="150" r="3.2" class="port"/><path class="wire" d="M15 150L35 150"/><text x="15" y="89" text-anchor="start" font-size="15">ui</text><path class="wire" d="M160 230L160 305" marker-end="url(#c64-isolation-c64-isolation-arrow)"/><rect x="25" y="305" width="270" height="65" fill="#e5d8c8" stroke="none"/><text x="160" y="332" text-anchor="middle" font-size="14">光 / 磁场 / 电场耦合</text><text x="160" y="357" text-anchor="middle" font-size="12">绝缘屏障：无直流导电通路</text><path class="wire" d="M160 370L160 400" marker-end="url(#c64-isolation-c64-isolation-arrow)"/><rect x="35" y="400" width="250" height="120" class="block"/><text x="160.0" y="453.0" text-anchor="middle" font-size="15">输出侧恢复</text><text x="160.0" y="477.0" text-anchor="middle" font-size="15">本地电源 Vs2</text><path class="wire" d="M285 460L305 460"/><circle cx="305" cy="460" r="3.2" class="port"/><text x="305" y="435" text-anchor="end" font-size="15">uo</text><path class="wire" d="M60 230L60 255"/><path class="wire" d="M60 520L60 555"/><path class="wire" d="M60 255V265M48 265H72M52 271H68M57 277H63"/><text x="60" y="300" text-anchor="middle" font-size="13">GND1</text><path class="wire" d="M60 555V565M48 565H72M52 571H68M57 577H63"/><text x="60" y="600" text-anchor="middle" font-size="13">GND2</text><text x="160" y="630" text-anchor="middle" font-size="12">两种地符号在这里代表不同参考系统</text></svg></figure>
+<p>普通跟随器的输入电阻高、输出电阻低，但输入侧与输出侧通常仍共用电气参考和供电联系。隔离放大器则让信号跨过绝缘屏障传递，输入、输出两侧没有直接的直流导电通路。</p>
+<p>图中的 GND1、GND2 是两套参考，不是画了两次就必须相连的同一节点；两侧电源也需维持相应的独立性。输入 u<sub>i</sub> 是相对 GND1 测的，输出 u<sub>o</sub> 是相对 GND2 测的。</p>
+<p>远距离测量时，若两地电位不同，直接连接的返回路径可能让干扰电流混入测量。隔离能切断这类直接联系；教材列出光、电磁耦合与电容耦合等传递方式。电容耦合仍可传递变化的信息，同时阻断直流导电联系，两者并不矛盾。</p>
+<p><strong>容易混的三件事：</strong>高输入电阻减轻源加载，高 CMRR 抑制允许共模范围内的共同输入，隔离改变两侧的电气连接。这三种能力不能只凭其中一种就全部推出。</p>
+<p>隔离屏障也会有寄生耦合与有限工作指标，所以“不直接导通”并不等于所有频率、所有形式的干扰都绝对过不去。这里先按教材功能模型理解，不展开具体封装或绝缘等级的选型。</p>
+</section>
+<section id="c643-optical"><h2>光隔离内部为什么有两个光电二极管：一个反馈，一个把信息送出去</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-optical" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 720" role="img" aria-labelledby="c64-optical-c64-optical-title">
+<title id="c64-optical-c64-optical-title">线性光隔离功能示意：输入侧运放驱动LED并利用第一光电二极管反馈，第二光电二极管在隔离的输出侧形成比例电流；电流为偏置点附近的信号增量</title>
+<defs><marker id="c64-optical-c64-optical-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">光隔离：用反馈校正发光转换</text><rect x="55" y="80" width="210" height="80" class="block"/><text x="160.0" y="113.0" text-anchor="middle" font-size="15">输入侧误差放大与 LED</text><text x="160.0" y="137.0" text-anchor="middle" font-size="15">设定 Δi1 = ui / R</text><path class="wire" d="M160 160L160 215" marker-end="url(#c64-optical-c64-optical-arrow)"/><rect x="60" y="215" width="200" height="70" class="block"/><text x="160.0" y="255.0" text-anchor="middle" font-size="15">同一束光 Φ</text><path class="wire" d="M160 285L95 340" marker-end="url(#c64-optical-c64-optical-arrow)"/><path class="wire" d="M160 285L245 445" marker-end="url(#c64-optical-c64-optical-arrow)"/><rect x="25" y="340" width="140" height="80" class="block"/><text x="95.0" y="373.0" text-anchor="middle" font-size="15">光电二极管 D1</text><text x="95.0" y="397.0" text-anchor="middle" font-size="15">Δi1 = k1 ΔΦ</text><rect x="175" y="445" width="130" height="80" class="block"/><text x="240.0" y="478.0" text-anchor="middle" font-size="15">光电二极管 D2</text><text x="240.0" y="502.0" text-anchor="middle" font-size="15">Δi2 = k2 ΔΦ</text><path class="wire" d="M25 380H10V120H55" marker-end="url(#c64-optical-c64-optical-arrow)"/><path d="M170 285V610" class="wire" stroke-dasharray="5 5"/><text x="174" y="567" text-anchor="start" font-size="12">屏障</text><path class="wire" d="M240 525L240 565" marker-end="url(#c64-optical-c64-optical-arrow)"/><text x="240" y="601" text-anchor="middle" font-size="12">输出侧：uo = Rf Δi2</text><text x="160" y="646" text-anchor="middle" font-size="16">uo = (k2/k1)(Rf/R) ui</text><text x="160" y="696" text-anchor="middle" font-size="12">按偏置平衡点附近的信号增量理解</text></svg></figure>
+<p>教材 ISO100 示例含两个运放、两个恒流偏置源，以及一只 LED 配两只光电二极管 D<sub>1</sub>、D<sub>2</sub>。先不要追全部平衡调节线，抓住一条功能链：输入误差改变 LED 发光，D<sub>1</sub> 检测光并反馈给输入侧，D<sub>2</sub> 在输出侧恢复相应信号。</p>
+<p>LED 的电流—光强转换并非一个永远不变的完美比例。把 D<sub>1</sub> 放进反馈，可让输入侧按要求调节发光。若用平衡工作点附近的信号增量表示：</p>
+<div class="eq">Δi<sub>1</sub>=u<sub>i</sub>/R，Δi<sub>1</sub>=k<sub>1</sub>ΔΦ<br/>Δi<sub>2</sub>=k<sub>2</sub>ΔΦ=(k<sub>2</sub>/k<sub>1</sub>)Δi<sub>1</sub><br/>按图示输出极性：u<sub>o</sub>=R<sub>f</sub>Δi<sub>2</sub><br/>u<sub>o</sub>=(k<sub>2</sub>/k<sub>1</sub>)(R<sub>f</sub>/R)u<sub>i</sub></div>
+<p>在两只光电二极管照明及转换比例相匹配的理想假设下，k<sub>2</sub>/k<sub>1</sub>≈1，便回到教材的 u<sub>o</sub>=(R<sub>f</sub>/R)u<sub>i</sub>。残余匹配误差仍会影响精度。</p>
+<p class="level"><strong>负输入不代表负光强：</strong>这里的 Δi、ΔΦ 是恒流偏置与平衡状态附近的变化量，可以正负变化。实际总光强仍非负；教材内部的偏置与平衡电路正是让信号能围绕工作点传递。只用“光电流=uᵢ/R”的简化信号式时，不要忘了这个背景。</p>
+</section>
+<section id="c643-gain"><h2>隔离比例题怎么算：先按两侧本地参考定义输入、输出</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-iso-basic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520" role="img" aria-labelledby="c64-iso-basic-c64-iso-basic-title">
+<title id="c64-iso-basic-c64-iso-basic-title">按教材ISO100基本接法抽象成外接电阻R和反馈电阻Rf的隔离模块，输入公共端与输出公共端独立</title>
+<defs><marker id="c64-iso-basic-c64-iso-basic-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">教材 ISO100：外接 R 与 Rf 定比例</text><rect x="110" y="140" width="110" height="180" class="block"/><text x="165.0" y="223.0" text-anchor="middle" font-size="15">隔离模块</text><text x="165.0" y="247.0" text-anchor="middle" font-size="15">ISO100</text><circle cx="15" cy="180" r="3.2" class="port"/><path class="wire" d="M15 180H44.5M44.5 173H80.5V187H44.5ZM80.5 180H110"/><text x="62.5" y="165" text-anchor="middle" font-size="15">R</text><text x="15" y="152" text-anchor="start" font-size="15">ui</text><path class="wire" d="M220 180H270"/><path class="wire" d="M270 180V197.0M263 197.0H277V233.0H263ZM270 233.0V250"/><text x="256" y="220.0" text-anchor="end" font-size="15">Rf</text><path class="wire" d="M270 250H305M220 250H270"/><circle cx="305" cy="250" r="3.2" class="port"/><text x="305" y="280" text-anchor="end" font-size="15">uo</text><circle cx="270" cy="250" r="3.2" fill="currentColor"/><path class="wire" d="M110 280H50V350M220 290H270V350"/><path class="wire" d="M50 350V360M38 360H62M42 366H58M47 372H53"/><text x="50" y="395" text-anchor="middle" font-size="13">GND1</text><path class="wire" d="M270 350V360M258 360H282M262 366H278M267 372H273"/><text x="270" y="395" text-anchor="middle" font-size="13">GND2</text><text x="160" y="457" text-anchor="middle" font-size="12">等光电转换比例假设下：uo = (Rf/R) ui</text><text x="160" y="496" text-anchor="middle" font-size="12">功能接线示意，省略供电与平衡调节端</text></svg></figure>
+<p>对教材给定基本接法，采用其理想匹配与极性约定，有：</p>
+<div class="eq">u<sub>o</sub>=(R<sub>f</sub>/R)u<sub>i</sub></div>
+<p>自设例：R=10 kΩ、R<sub>f</sub>=100 kΩ，输入相对 GND1 为 +50 mV，则输出相对 GND2 为 +0.5 V。不能再把 GND1 与 GND2 的外部电位差直接加到这条理想增益公式里，仿佛它是模块要放大的差模输入。</p>
+<p>本图只保留了外接增益网络与公共端，省略偏置、平衡和供电端，不表示一个按图上位置排列的实际封装。遇到其他隔离结构，输出可能带负号或基准偏移，应按题目给定接法重列关系。</p>
+<p><strong>学习边界：</strong>会解释光耦与反馈两种作用、会分清两套地、会用给定电阻比求输出，就完成本节基础题的核心。没有具体型号端子题时，暂不必背 ISO100 全部内部引脚与恒流源接线。</p>
+</section>
+<section id="c644-interference"><h2>6.4.4 干扰从哪里进来：先找路径，再决定加什么</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-coupling" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 460" role="img" aria-labelledby="c64-coupling-c64-coupling-title">
+<title id="c64-coupling-c64-coupling-title">干扰源通过寄生电容Cm向弱信号节点注入电流，源阻抗和回路阻抗将其转换成误差电压</title>
+<defs><marker id="c64-coupling-c64-coupling-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">干扰路径：先找到从哪里耦合进来</text><rect x="30" y="70" width="260" height="60" class="block"/><text x="160.0" y="105.0" text-anchor="middle" font-size="15">干扰电压 vx</text><path class="wire" d="M160 130V155"/><path class="wire" d="M160 155V190.0M148 190.0H172M148 200.0H172M160 200.0V235"/><text x="179" y="200.0" text-anchor="start" font-size="15">Cm</text><path class="wire" d="M160 235V270H300"/><circle cx="160" cy="270" r="3.2" fill="currentColor"/><circle cx="300" cy="270" r="3.2" class="port"/><text x="300" y="300" text-anchor="end" font-size="13">弱信号节点</text><circle cx="15" cy="270" r="3.2" class="port"/><path class="wire" d="M15 270H69.5M69.5 263H105.5V277H69.5ZM105.5 270H160"/><text x="87.5" y="255" text-anchor="middle" font-size="15">Rs</text><text x="15" y="300" text-anchor="start" font-size="15">有用源</text><text x="160" y="361" text-anchor="middle" font-size="13">耦合电流 i = Cm · d(vx − vn)/dt</text><text x="160" y="407" text-anchor="middle" font-size="12">快边沿即使幅值不大，也可能注入明显电流</text></svg></figure>
+<p>教材列出电网、开关设备、无线发射、电焊机等外部干扰源。它们可以经电源线进入，也可由磁耦合、电容耦合进入信号路径。区分干扰和器件内部噪声，主要看来源与进入路径，不是简单看“随机还是周期”。</p>
+<p>图只抽出一个常见路径：干扰电压通过寄生电容 C<sub>m</sub> 向高阻输入节点注入电流。按所取参考方向：</p>
+<div class="eq">i<sub>耦合</sub>=C<sub>m</sub>d(v<sub>x</sub>−v<sub>n</sub>)/dt</div>
+<p>所以很快的边沿也可能产生明显干扰，即便平均电压不高。节点阻抗再把这股电流变成误差电压。对应措施包括减小不必要的耦合、缩短信号回路、合适屏蔽和接地、改善电源去耦，以及对已知带外干扰滤波。</p>
+<p>高 CMRR 只会抑制进入为共模的部分；若两根输入线耦合不对称，已经变成差模误差，就不能指望只靠 CMRR 消掉。后级滤波也不能恢复前级饱和时已经被削掉的信息，所以先检查干扰会不会在滤波之前就把放大级推到限幅。</p>
+</section>
+<section id="c644-decouple"><h2>为什么电源上并大、小电容：理想容值相加，实际高频还看寄生与布局</h2>
+<figure class="chapter-figure svg"><svg data-figure="c64-decouple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" role="img" aria-labelledby="c64-decouple-c64-decouple-title">
+<title id="c64-decouple-c64-decouple-title">教材电源入口并联大电容与小电容的去耦示意，实际高频效果还由寄生参数与布局决定</title>
+<defs><marker id="c64-decouple-c64-decouple-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">去耦：两只电容并在电源与本地地之间</text><circle cx="20" cy="100" r="3.2" class="port"/><path class="wire" d="M20 100H300"/><text x="20" y="75" text-anchor="start" font-size="15">电源</text><rect x="240" y="160" width="65" height="70" class="block"/><text x="272.5" y="200.0" text-anchor="middle" font-size="15">负载</text><path class="wire" d="M280 100V160M280 230V300H80"/><path class="wire" d="M80 100V195.0M68 195.0H92M68 205.0H92M80 205.0V300"/><path class="wire" d="M180 100V195.0M168 195.0H192M168 205.0H192M180 205.0V300"/><path class="wire" d="M80 300H180"/><path class="wire" d="M130 300V310M118 310H142M122 316H138M127 322H133"/><path class="wire" d="M130 300V310"/><circle cx="80" cy="100" r="3.2" fill="currentColor"/><circle cx="180" cy="100" r="3.2" fill="currentColor"/><circle cx="280" cy="100" r="3.2" fill="currentColor"/><circle cx="180" cy="300" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><text x="52" y="184" text-anchor="middle" font-size="13">大 C</text><text x="209" y="184" text-anchor="middle" font-size="13">小 C</text><text x="160" y="371" text-anchor="middle" font-size="12">教材示例：10～30 μF 与 0.01～0.1 μF</text><text x="160" y="415" text-anchor="middle" font-size="13">短回路与实际寄生参数决定高频效果</text></svg></figure>
+<p>教材给了电源入口并联较大电容与较小电容的例子。大电容有助于较慢的能量补充与电源波动，小电容的实际高频作用还取决于器件寄生与连接回路。它们都接在电源与相应本地参考之间。</p>
+<p>若只使用理想电容模型，并联就是 C<sub>总</sub>=C<sub>大</sub>+C<sub>小</sub>，无法凭这个模型解释“为什么小电容高频更有效”。实际要考虑等效串联电阻、引线与走线电感，长连接会使高频去耦效果变差。</p>
+<p>图中的 10—30 μF、0.01—0.1 μF 是书中示例，具体电路仍按供电、器件及频段设计，不能把这两组数值当作任何系统都适用的固定答案。</p>
+<p><strong>基础解释题答到哪里：</strong>说明电源干扰可进入信号链，去耦为相应频率的扰动提供较短的本地路径，并结合大、小电容的实际频率特性。不要只说“两个并联，所以滤波两次”。</p>
+</section>
+<section id="c644-noise"><h2>三类内部噪声：白噪声看带宽，1/f 噪声要留意低频</h2>
+<p>教材介绍三种典型来源：热噪声来自载流子的无规则热运动；散弹噪声来自通过结区的载流子数目波动；闪烁噪声又称 1/f 噪声，在低频更明显。理想无噪声运放只是分析模型，实际电路即使去掉外部干扰，仍有器件本身的噪声。</p>
+<figure class="chapter-figure plot"><svg data-figure="c64-noise-spectrum" xmlns:xlink="http://www.w3.org/1999/xlink" width="417.6pt" height="302.4pt" viewBox="0 0 417.6 302.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>白噪声与1/f噪声的功率谱密度示意，1/f指功率谱反比频率，电压谱密度对应1/sqrt(f)</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>白噪声与1/f噪声的功率谱密度示意，1/f指功率谱反比频率，电压谱密度对应1/sqrt(f)</dc:title>
+    <dc:date>2026-10-21T12:30:44.115339</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c64-noise-spectrum-figure_1">
+  <g id="c64-noise-spectrum-patch_1">
+   <path d="M 0 302.4
+L 417.6 302.4
+L 417.6 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c64-noise-spectrum-axes_1">
+   <g id="c64-noise-spectrum-patch_2">
+    <path d="M 58.59191 255.112
+L 405.72 255.112
+L 405.72 28.14
+L 58.59191 28.14
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c64-noise-spectrum-matplotlib.axis_1">
+    <g id="c64-noise-spectrum-xtick_1">
+     <g id="c64-noise-spectrum-line2d_1">
+      <path d="M 74.37046 255.112
+L 74.37046 28.14
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_2">
+      <defs>
+       <path id="c64-noise-spectrum-m0d7779ec31" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m0d7779ec31" x="74.37046" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_1">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(62.60046 270.905125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_2">
+     <g id="c64-noise-spectrum-line2d_3">
+      <path d="M 137.484658 255.112
+L 137.484658 28.14
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_4">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m0d7779ec31" x="137.484658" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_2">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(128.574658 270.905125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_3">
+     <g id="c64-noise-spectrum-line2d_5">
+      <path d="M 200.598856 255.112
+L 200.598856 28.14
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_6">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m0d7779ec31" x="200.598856" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_3">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(191.688856 270.905125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_4">
+     <g id="c64-noise-spectrum-line2d_7">
+      <path d="M 263.713054 255.112
+L 263.713054 28.14
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_8">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m0d7779ec31" x="263.713054" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_4">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(254.803054 270.905125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_5">
+     <g id="c64-noise-spectrum-line2d_9">
+      <path d="M 326.827252 255.112
+L 326.827252 28.14
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_10">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m0d7779ec31" x="326.827252" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_5">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #202e35" transform="translate(317.917252 270.905125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_6">
+     <g id="c64-noise-spectrum-line2d_11">
+      <path d="M 389.94145 255.112
+L 389.94145 28.14
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_12">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m0d7779ec31" x="389.94145" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_6">
+      <!-- $\mathdefault{10^{4}}$ -->
+      <g style="fill: #202e35" transform="translate(381.03145 270.905125)">
+       <text>
+        <tspan x="0" y="-0.025" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.025" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-4.18125" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">4</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_7">
+     <g id="c64-noise-spectrum-line2d_13">
+      <defs>
+       <path id="c64-noise-spectrum-mc86cbd3a11" d="M 0 0
+L 0 2
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="60.368654" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_8">
+     <g id="c64-noise-spectrum-line2d_14">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="64.593947" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_9">
+     <g id="c64-noise-spectrum-line2d_15">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="68.254062" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_10">
+     <g id="c64-noise-spectrum-line2d_16">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="71.482513" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_11">
+     <g id="c64-noise-spectrum-line2d_17">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="93.369727" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_12">
+     <g id="c64-noise-spectrum-line2d_18">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="104.483585" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_13">
+     <g id="c64-noise-spectrum-line2d_19">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="112.368993" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_14">
+     <g id="c64-noise-spectrum-line2d_20">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="118.485391" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_15">
+     <g id="c64-noise-spectrum-line2d_21">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="123.482852" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_16">
+     <g id="c64-noise-spectrum-line2d_22">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="127.708145" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_17">
+     <g id="c64-noise-spectrum-line2d_23">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="131.36826" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_18">
+     <g id="c64-noise-spectrum-line2d_24">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="134.596711" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_19">
+     <g id="c64-noise-spectrum-line2d_25">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="156.483925" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_20">
+     <g id="c64-noise-spectrum-line2d_26">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="167.597783" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_21">
+     <g id="c64-noise-spectrum-line2d_27">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="175.483192" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_22">
+     <g id="c64-noise-spectrum-line2d_28">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="181.599589" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_23">
+     <g id="c64-noise-spectrum-line2d_29">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="186.59705" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_24">
+     <g id="c64-noise-spectrum-line2d_30">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="190.822343" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_25">
+     <g id="c64-noise-spectrum-line2d_31">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="194.482458" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_26">
+     <g id="c64-noise-spectrum-line2d_32">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="197.710909" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_27">
+     <g id="c64-noise-spectrum-line2d_33">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="219.598123" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_28">
+     <g id="c64-noise-spectrum-line2d_34">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="230.711982" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_29">
+     <g id="c64-noise-spectrum-line2d_35">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="238.59739" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_30">
+     <g id="c64-noise-spectrum-line2d_36">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="244.713787" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_31">
+     <g id="c64-noise-spectrum-line2d_37">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="249.711248" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_32">
+     <g id="c64-noise-spectrum-line2d_38">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="253.936541" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_33">
+     <g id="c64-noise-spectrum-line2d_39">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="257.596656" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_34">
+     <g id="c64-noise-spectrum-line2d_40">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="260.825107" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_35">
+     <g id="c64-noise-spectrum-line2d_41">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="282.712321" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_36">
+     <g id="c64-noise-spectrum-line2d_42">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="293.82618" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_37">
+     <g id="c64-noise-spectrum-line2d_43">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="301.711588" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_38">
+     <g id="c64-noise-spectrum-line2d_44">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="307.827986" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_39">
+     <g id="c64-noise-spectrum-line2d_45">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="312.825446" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_40">
+     <g id="c64-noise-spectrum-line2d_46">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="317.050739" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_41">
+     <g id="c64-noise-spectrum-line2d_47">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="320.710855" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_42">
+     <g id="c64-noise-spectrum-line2d_48">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="323.939305" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_43">
+     <g id="c64-noise-spectrum-line2d_49">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="345.826519" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_44">
+     <g id="c64-noise-spectrum-line2d_50">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="356.940378" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_45">
+     <g id="c64-noise-spectrum-line2d_51">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="364.825786" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_46">
+     <g id="c64-noise-spectrum-line2d_52">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="370.942184" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_47">
+     <g id="c64-noise-spectrum-line2d_53">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="375.939645" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_48">
+     <g id="c64-noise-spectrum-line2d_54">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="380.164937" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_49">
+     <g id="c64-noise-spectrum-line2d_55">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="383.825053" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-xtick_50">
+     <g id="c64-noise-spectrum-line2d_56">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-mc86cbd3a11" x="387.053503" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-text_7">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="232.155955" y="286.432781" transform="rotate(-0 232.155955 286.432781)">频率 / Hz</text>
+    </g>
+   </g>
+   <g id="c64-noise-spectrum-matplotlib.axis_2">
+    <g id="c64-noise-spectrum-ytick_1">
+     <g id="c64-noise-spectrum-line2d_57">
+      <path d="M 58.59191 244.795091
+L 405.72 244.795091
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_58">
+      <defs>
+       <path id="c64-noise-spectrum-me5a8903c92" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-noise-spectrum-me5a8903c92" x="58.59191" y="244.795091" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_8">
+      <!-- $\mathdefault{10^{-3}}$ -->
+      <g style="fill: #202e35" transform="translate(28.05191 249.191653)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_2">
+     <g id="c64-noise-spectrum-line2d_59">
+      <path d="M 58.59191 203.56309
+L 405.72 203.56309
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_60">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-me5a8903c92" x="58.59191" y="203.56309" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_9">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #202e35" transform="translate(28.05191 207.959653)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_3">
+     <g id="c64-noise-spectrum-line2d_61">
+      <path d="M 58.59191 162.33109
+L 405.72 162.33109
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_62">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-me5a8903c92" x="58.59191" y="162.33109" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_10">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(28.05191 166.727652)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_4">
+     <g id="c64-noise-spectrum-line2d_63">
+      <path d="M 58.59191 121.099089
+L 405.72 121.099089
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_64">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-me5a8903c92" x="58.59191" y="121.099089" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_11">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(33.77191 125.495652)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_5">
+     <g id="c64-noise-spectrum-line2d_65">
+      <path d="M 58.59191 79.867089
+L 405.72 79.867089
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_66">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-me5a8903c92" x="58.59191" y="79.867089" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_12">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(33.77191 84.263651)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_6">
+     <g id="c64-noise-spectrum-line2d_67">
+      <path d="M 58.59191 38.635088
+L 405.72 38.635088
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-noise-spectrum-line2d_68">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-me5a8903c92" x="58.59191" y="38.635088" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-noise-spectrum-text_13">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(33.77191 43.03165)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_7">
+     <g id="c64-noise-spectrum-line2d_69">
+      <defs>
+       <path id="c64-noise-spectrum-m9ab812555f" d="M 0 0
+L -2 0
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="253.942359" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_8">
+     <g id="c64-noise-spectrum-line2d_70">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="251.182009" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_9">
+     <g id="c64-noise-spectrum-line2d_71">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="248.790885" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_10">
+     <g id="c64-noise-spectrum-line2d_72">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="246.681764" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_11">
+     <g id="c64-noise-spectrum-line2d_73">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="232.383022" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_12">
+     <g id="c64-noise-spectrum-line2d_74">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="225.122427" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_13">
+     <g id="c64-noise-spectrum-line2d_75">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="219.970953" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_14">
+     <g id="c64-noise-spectrum-line2d_76">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="215.975159" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_15">
+     <g id="c64-noise-spectrum-line2d_77">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="212.710358" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_16">
+     <g id="c64-noise-spectrum-line2d_78">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="209.950008" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_17">
+     <g id="c64-noise-spectrum-line2d_79">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="207.558884" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_18">
+     <g id="c64-noise-spectrum-line2d_80">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="205.449763" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_19">
+     <g id="c64-noise-spectrum-line2d_81">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="191.151021" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_20">
+     <g id="c64-noise-spectrum-line2d_82">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="183.890426" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_21">
+     <g id="c64-noise-spectrum-line2d_83">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="178.738952" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_22">
+     <g id="c64-noise-spectrum-line2d_84">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="174.743159" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_23">
+     <g id="c64-noise-spectrum-line2d_85">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="171.478358" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_24">
+     <g id="c64-noise-spectrum-line2d_86">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="168.718007" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_25">
+     <g id="c64-noise-spectrum-line2d_87">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="166.326883" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_26">
+     <g id="c64-noise-spectrum-line2d_88">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="164.217763" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_27">
+     <g id="c64-noise-spectrum-line2d_89">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="149.919021" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_28">
+     <g id="c64-noise-spectrum-line2d_90">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="142.658426" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_29">
+     <g id="c64-noise-spectrum-line2d_91">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="137.506952" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_30">
+     <g id="c64-noise-spectrum-line2d_92">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="133.511158" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_31">
+     <g id="c64-noise-spectrum-line2d_93">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="130.246357" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_32">
+     <g id="c64-noise-spectrum-line2d_94">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="127.486007" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_33">
+     <g id="c64-noise-spectrum-line2d_95">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="125.094883" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_34">
+     <g id="c64-noise-spectrum-line2d_96">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="122.985762" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_35">
+     <g id="c64-noise-spectrum-line2d_97">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="108.68702" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_36">
+     <g id="c64-noise-spectrum-line2d_98">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="101.426425" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_37">
+     <g id="c64-noise-spectrum-line2d_99">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="96.274951" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_38">
+     <g id="c64-noise-spectrum-line2d_100">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="92.279158" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_39">
+     <g id="c64-noise-spectrum-line2d_101">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="89.014356" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_40">
+     <g id="c64-noise-spectrum-line2d_102">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="86.254006" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_41">
+     <g id="c64-noise-spectrum-line2d_103">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="83.862882" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_42">
+     <g id="c64-noise-spectrum-line2d_104">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="81.753761" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_43">
+     <g id="c64-noise-spectrum-line2d_105">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="67.45502" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_44">
+     <g id="c64-noise-spectrum-line2d_106">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="60.194425" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_45">
+     <g id="c64-noise-spectrum-line2d_107">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="55.042951" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_46">
+     <g id="c64-noise-spectrum-line2d_108">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="51.047157" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_47">
+     <g id="c64-noise-spectrum-line2d_109">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="47.782356" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_48">
+     <g id="c64-noise-spectrum-line2d_110">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="45.022006" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_49">
+     <g id="c64-noise-spectrum-line2d_111">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="42.630882" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-ytick_50">
+     <g id="c64-noise-spectrum-line2d_112">
+      <g>
+       <use xlink:href="#c64-noise-spectrum-m9ab812555f" x="58.59191" y="40.521761" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-noise-spectrum-text_14">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="21.317379" y="141.626" transform="rotate(-90 21.317379 141.626)">归一化功率谱密度</text>
+    </g>
+   </g>
+   <g id="c64-noise-spectrum-line2d_113">
+    <path d="M 74.37046 121.099089
+L 389.94145 121.099089
+L 389.94145 121.099089
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-noise-spectrum-line2d_114">
+    <path d="M 74.37046 38.635088
+L 389.94145 244.795091
+L 389.94145 244.795091
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke: #af623f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-noise-spectrum-line2d_115">
+    <path d="M 74.37046 38.456909
+L 102.196359 56.326024
+L 120.536156 67.854968
+L 134.449105 76.348759
+L 145.832428 83.043543
+L 155.31853 88.377677
+L 164.172225 93.095921
+L 171.761106 96.896183
+L 178.717581 100.149497
+L 185.674056 103.156308
+L 191.998124 105.658141
+L 198.322192 107.927919
+L 204.64626 109.960328
+L 210.970328 111.756244
+L 217.294395 113.322642
+L 223.618463 114.671898
+L 230.574938 115.925191
+L 238.16382 117.046286
+L 245.752701 117.945636
+L 254.606396 118.762085
+L 264.724905 119.451482
+L 276.108227 119.994595
+L 290.021177 120.426115
+L 307.728567 120.743211
+L 333.024839 120.956825
+L 376.660908 121.070043
+L 389.94145 121.081191
+L 389.94145 121.081191
+" clip-path="url(#c64-noise-spectrum-pe97e7d9931)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #54698a; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-noise-spectrum-patch_3">
+    <path d="M 58.59191 255.112
+L 58.59191 28.14
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-noise-spectrum-patch_4">
+    <path d="M 405.72 255.112
+L 405.72 28.14
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-noise-spectrum-patch_5">
+    <path d="M 58.59191 255.112
+L 405.72 255.112
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-noise-spectrum-patch_6">
+    <path d="M 58.59191 28.14
+L 405.72 28.14
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-noise-spectrum-text_15">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="232.155955" y="22.14" transform="rotate(-0 232.155955 22.14)">本图纵轴为功率谱密度，不是电压幅度</text>
+   </g>
+   <g id="c64-noise-spectrum-legend_1">
+    <g id="c64-noise-spectrum-patch_7">
+     <path d="M 280.62 77.135156
+L 399.42 77.135156
+Q 401.22 77.135156 401.22 75.335156
+L 401.22 34.44
+Q 401.22 32.64 399.42 32.64
+L 280.62 32.64
+Q 278.82 32.64 278.82 34.44
+L 278.82 75.335156
+Q 278.82 77.135156 280.62 77.135156
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c64-noise-spectrum-line2d_116">
+     <path d="M 282.42 40.284375
+L 291.42 40.284375
+L 300.42 40.284375
+" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c64-noise-spectrum-text_16">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="307.62" y="43.434375" transform="rotate(-0 307.62 43.434375)">白噪声功率谱密度</text>
+    </g>
+    <g id="c64-noise-spectrum-line2d_117">
+     <path d="M 282.42 54.216094
+L 291.42 54.216094
+L 300.42 54.216094
+" style="fill: none; stroke: #af623f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c64-noise-spectrum-text_17">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="307.62" y="57.366094" transform="rotate(-0 307.62 57.366094)">1/f 功率谱密度</text>
+    </g>
+    <g id="c64-noise-spectrum-line2d_118">
+     <path d="M 282.42 68.147813
+L 291.42 68.147813
+L 300.42 68.147813
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #54698a; stroke-width: 1.5"/>
+    </g>
+    <g id="c64-noise-spectrum-text_18">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="307.62" y="71.297813" transform="rotate(-0 307.62 71.297813)">两项功率相加（示意）</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c64-noise-spectrum-pe97e7d9931">
+   <rect x="58.59191" y="28.14" width="347.12809" height="226.972"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>热噪声、散弹噪声在所讨论的一定频段内可近似为白噪声，即单位频带的功率谱密度近似恒定；不是“每个瞬间的电压一样”，也不是“所有频率无限延伸后总能量仍有限”。</p>
+<p>本图纵轴是功率谱密度。1/f 指功率谱密度与频率近似反比，对应电压或电流的幅度谱密度约按 1/√f 变化。两个纵轴的斜率不能混用。<a href="https://www.analog.com/en/resources/analog-dialogue/articles/understanding-and-eliminating-1-f-noise.html" rel="noopener" target="_blank">低频噪声与谱密度的补充核对：ADI</a>。</p>
+<details class="answer"><summary>选学：为什么大阻值与更宽带宽通常会增加电阻热噪声？</summary><p>理想电阻热噪声在等效矩形带宽 B 内的均方根电压为：</p><div class="eq">u<sub>n,rms</sub>=√(4k<sub>B</sub>TRB)</div><p>这里 T 用开尔文，k<sub>B</sub> 为玻尔兹曼常数。例取 T=300 K、R=1 kΩ、B=10 kHz，约得 0.407 μV RMS。阻值增到 100 kΩ，其余不变，噪声电压增至约 4.07 μV，即增大 10 倍而非 100 倍。基础题若未要求这条式子，先记“均方值随 R、T、B 增加”。<a href="https://www.analog.com/en/resources/analog-dialogue/articles/what-should-i-know-about-opamp-noise.html" rel="noopener" target="_blank">公式与噪声合成条件核对：ADI</a>。</p></details>
+</section>
+<section id="c644-snr"><h2>信噪比：有用量有多大，要与同一测点的噪声一起比较</h2>
+<p>教材用功率比定义信号噪声比。后续计算中的电压均使用 RMS 有效值：</p>
+<div class="eq">SNR=P<sub>s</sub>/P<sub>n</sub><br/>SNR(dB)=10lg(P<sub>s</sub>/P<sub>n</sub>)<br/>同一端口、同一阻抗下：SNR(dB)=20lg(U<sub>s,rms</sub>/U<sub>n,rms</sub>)</div>
+<p>输入信号 1 mV RMS，噪声 10 μV RMS，电压比为 100，功率比为 10000，SNR=40 dB。把电压比 100 直接代进 10lg，就会少算一半的 dB 数。</p>
+<p>理想 100 倍放大器若把两者同样放大，输出信号 100 mV、噪声 1 mV，电压比仍为 100，SNR 仍为 40 dB。信号变大，不等于信号相对于原有噪声更清楚。</p>
+<p>这不表示前置放大没用：它可以把微弱信号提高到后续处理所需水平，减轻后续新增噪声折算到输入的影响。但它不会凭空消除传感器上本来就与信号一起进入的同频噪声。</p>
+<p class="level"><strong>必查单位：</strong>信号与噪声的测点、带宽、RMS 或峰值约定必须一致。题目给正弦峰值而噪声给 RMS，要先把正弦峰值除以 √2；随机噪声的某次峰值则不能随手用正弦的 √2 去换算。</p>
+</section>
+<section id="c644-nf"><h2>噪声系数：衡量放大器把原来的信噪比变差了多少</h2>
+<p>按教材定义，用 F 表示噪声系数的线性值，避免与样本数 N 混淆：</p>
+<div class="eq">F=(SNR<sub>in</sub>)/(SNR<sub>out</sub>)<br/>NF=10lgF=SNR<sub>in,dB</sub>−SNR<sub>out,dB</sub></div>
+<p>若输入、输出各自在同一端口比较信号与噪声电压，可写成：</p>
+<div class="eq">F=[(U<sub>si</sub>/U<sub>ni</sub>)/(U<sub>so</sub>/U<sub>no</sub>)]²<br/>NF=20lg[(U<sub>si</sub>/U<sub>ni</sub>)/(U<sub>so</sub>/U<sub>no</sub>)]</div>
+<p>这里输入、输出端的阻抗不必彼此相等；是各端口自身的信号功率与噪声功率比中，阻抗分别相消。仍须保证各自用一致的测量定义和带宽。</p>
+<p>继续上一例：输入 SNR=40 dB，100 倍放大后，原噪声成为 1 mV；若放大器另增加一份不相关的 1 mV RMS 输出噪声，总噪声为 √(1²+1²)≈1.414 mV，而不是 2 mV。输出 SNR 约 36.99 dB，F=2，NF≈3.01 dB。</p>
+<p>对于信号与输入噪声同样放大、再增加独立噪声的模型，F≥1；无新增噪声的理想放大器才是 F=1、NF=0 dB。0 dB 的 NF 不是增益为零。若前后使用了不同带宽或滤掉带外噪声，不能直接把信噪比改善与这一同带宽放大模型混作一回事。</p>
+<details class="answer"><summary>为什么独立噪声要平方相加？</summary><p>零均值、不相关噪声 n₁、n₂ 满足平均交叉项为零，所以 E[(n₁+n₂)²]=E[n₁²]+E[n₂²]。由均方值开平方得到总 RMS。这是随机量方差相加，不是普通同相正弦电压的幅值相加；相关噪声需要保留交叉项。</p></details>
+</section>
+<section id="c644-reduce"><h2>减噪措施怎样选：别把“增益更大、带宽更宽”误当作更清楚</h2>
+<div class="table-wrap"><table><thead><tr><th>问题</th><th>对应措施</th><th>边界</th></tr></thead><tbody>
+<tr><td>带外噪声进入测量</td><td>按有用信号频段限制带宽</td><td>不能把要测的变化也一起滤掉</td></tr>
+<tr><td>前端自身增加明显噪声</td><td>降低前端相关噪声、合理设置阻抗与增益</td><td>不能只看单个“电压噪声低”的指标</td></tr>
+<tr><td>高阻节点把电流扰动转成误差电压</td><td>结合源阻抗检查电流噪声、漏电及耦合</td><td>高输入电阻不等于所有实际电阻都应很大</td></tr>
+<tr><td>电阻的额外噪声与漂移</td><td>选择合适阻值与低噪声、稳定元件</td><td>相同 R、T、B 下的理想热噪声底仍然存在</td></tr>
+<tr><td>同一稳定量的随机读数抖动</td><td>满足条件时作多次测量平均</td><td>固定偏差、漂移和相关干扰不能按独立噪声处理</td></tr>
+</tbody></table></div>
+<p>教材建议金属膜电阻、避免不必要的大阻值、选择低噪声放大器与合适滤波。把它们理解为针对不同噪声来源的措施，不是“换一种材料便没有热噪声”，也不是“所有电阻无条件越小越好”。阻值还影响源负载、电流与增益设计。</p>
+<p>对白噪声，带宽缩小到原来的 1/4，积分噪声功率约缩小到 1/4，RMS 电压约缩小到 1/2。这里的 B 是等效噪声带宽，不是把任何真实滤波器的 −3 dB 截止频率直接当成理想矩形边界。</p>
+<details class="answer"><summary>选学：一阶低通的噪声带宽为什么比截止频率大一点？</summary><div class="eq">B<sub>n</sub>=∫<sub>0</sub><sup>∞</sup>|H(j2πf)/H(0)|²df<br/>一阶低通：B<sub>n</sub>=∫<sub>0</sub><sup>∞</sup>df/[1+(f/f<sub>c</sub>)²]=(π/2)f<sub>c</sub></div><p>因为截止以后并不是零响应，还会通过一部分白噪声。这个积分是补充理解，普通定性题先说明“合理限制带宽”。<a href="https://www.analog.com/en/resources/analog-dialogue/articles/understanding-and-eliminating-1-f-noise.html" rel="noopener" target="_blank">等效噪声带宽的补充核对：ADI</a>。</p></details>
+</section>
+<section id="c644-average"><h2>采样与平均：更多读数只有在合适条件下才带来更多信息</h2>
+<figure class="chapter-figure plot"><svg data-figure="c64-averaging" xmlns:xlink="http://www.w3.org/1999/xlink" width="417.6pt" height="302.4pt" viewBox="0 0 417.6 302.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>对同一个稳定信号作独立样本平均可以降低随机误差标准差，固定偏差形成无法靠平均消除的误差下限</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>对同一个稳定信号作独立样本平均可以降低随机误差标准差，固定偏差形成无法靠平均消除的误差下限</dc:title>
+    <dc:date>2026-10-21T12:30:44.329378</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c64-averaging-figure_1">
+  <g id="c64-averaging-patch_1">
+   <path d="M 0 302.4
+L 417.6 302.4
+L 417.6 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c64-averaging-axes_1">
+   <g id="c64-averaging-patch_2">
+    <path d="M 57.42191 255.112
+L 405.72 255.112
+L 405.72 27.96
+L 57.42191 27.96
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c64-averaging-matplotlib.axis_1">
+    <g id="c64-averaging-xtick_1">
+     <g id="c64-averaging-line2d_1">
+      <path d="M 73.253642 255.112
+L 73.253642 27.96
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-averaging-line2d_2">
+      <defs>
+       <path id="c64-averaging-ma1f1ee4263" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-averaging-ma1f1ee4263" x="73.253642" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-averaging-text_1">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(64.343642 270.905125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_2">
+     <g id="c64-averaging-line2d_3">
+      <path d="M 178.798517 255.112
+L 178.798517 27.96
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-averaging-line2d_4">
+      <g>
+       <use xlink:href="#c64-averaging-ma1f1ee4263" x="178.798517" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-averaging-text_2">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(169.888517 270.905125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_3">
+     <g id="c64-averaging-line2d_5">
+      <path d="M 284.343393 255.112
+L 284.343393 27.96
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-averaging-line2d_6">
+      <g>
+       <use xlink:href="#c64-averaging-ma1f1ee4263" x="284.343393" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-averaging-text_3">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(275.433393 270.905125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_4">
+     <g id="c64-averaging-line2d_7">
+      <path d="M 389.888269 255.112
+L 389.888269 27.96
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-averaging-line2d_8">
+      <g>
+       <use xlink:href="#c64-averaging-ma1f1ee4263" x="389.888269" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-averaging-text_4">
+      <!-- $\mathdefault{10^{3}}$ -->
+      <g style="fill: #202e35" transform="translate(380.978269 270.905125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">3</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_5">
+     <g id="c64-averaging-line2d_9">
+      <defs>
+       <path id="c64-averaging-mcfba0c9c3e" d="M 0 0
+L 0 2
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="63.025286" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_6">
+     <g id="c64-averaging-line2d_10">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="68.424173" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_7">
+     <g id="c64-averaging-line2d_11">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="105.025815" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_8">
+     <g id="c64-averaging-line2d_12">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="123.611345" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_9">
+     <g id="c64-averaging-line2d_13">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="136.797989" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_10">
+     <g id="c64-averaging-line2d_14">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="147.026344" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_11">
+     <g id="c64-averaging-line2d_15">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="155.383519" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_12">
+     <g id="c64-averaging-line2d_16">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="162.449409" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_13">
+     <g id="c64-averaging-line2d_17">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="168.570162" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_14">
+     <g id="c64-averaging-line2d_18">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="173.969049" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_15">
+     <g id="c64-averaging-line2d_19">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="210.570691" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_16">
+     <g id="c64-averaging-line2d_20">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="229.156221" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_17">
+     <g id="c64-averaging-line2d_21">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="242.342864" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_18">
+     <g id="c64-averaging-line2d_22">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="252.57122" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_19">
+     <g id="c64-averaging-line2d_23">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="260.928394" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_20">
+     <g id="c64-averaging-line2d_24">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="267.994285" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_21">
+     <g id="c64-averaging-line2d_25">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="274.115038" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_22">
+     <g id="c64-averaging-line2d_26">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="279.513924" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_23">
+     <g id="c64-averaging-line2d_27">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="316.115566" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_24">
+     <g id="c64-averaging-line2d_28">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="334.701097" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_25">
+     <g id="c64-averaging-line2d_29">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="347.88774" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_26">
+     <g id="c64-averaging-line2d_30">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="358.116095" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_27">
+     <g id="c64-averaging-line2d_31">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="366.47327" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_28">
+     <g id="c64-averaging-line2d_32">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="373.539161" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_29">
+     <g id="c64-averaging-line2d_33">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="379.659913" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-xtick_30">
+     <g id="c64-averaging-line2d_34">
+      <g>
+       <use xlink:href="#c64-averaging-mcfba0c9c3e" x="385.0588" y="255.112" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-text_5">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="231.570955" y="286.432781" transform="rotate(-0 231.570955 286.432781)">独立样本数 N</text>
+    </g>
+   </g>
+   <g id="c64-averaging-matplotlib.axis_2">
+    <g id="c64-averaging-ytick_1">
+     <g id="c64-averaging-line2d_35">
+      <path d="M 57.42191 176.341587
+L 405.72 176.341587
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-averaging-line2d_36">
+      <defs>
+       <path id="c64-averaging-ma4e2ab2a2d" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-averaging-ma4e2ab2a2d" x="57.42191" y="176.341587" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-averaging-text_6">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(26.88191 180.73815)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_2">
+     <g id="c64-averaging-line2d_37">
+      <path d="M 57.42191 39.450943
+L 405.72 39.450943
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c64-averaging-line2d_38">
+      <g>
+       <use xlink:href="#c64-averaging-ma4e2ab2a2d" x="57.42191" y="39.450943" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c64-averaging-text_7">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(32.60191 43.847506)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_3">
+     <g id="c64-averaging-line2d_39">
+      <defs>
+       <path id="c64-averaging-m0467345a06" d="M 0 0
+L -2 0
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="247.918795" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_4">
+     <g id="c64-averaging-line2d_40">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="230.815851" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_5">
+     <g id="c64-averaging-line2d_41">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="217.549777" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_6">
+     <g id="c64-averaging-line2d_42">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="206.710605" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_7">
+     <g id="c64-averaging-line2d_43">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="197.546216" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_8">
+     <g id="c64-averaging-line2d_44">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="189.607661" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_9">
+     <g id="c64-averaging-line2d_45">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="182.60536" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_10">
+     <g id="c64-averaging-line2d_46">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="135.133397" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_11">
+     <g id="c64-averaging-line2d_47">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="111.028151" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_12">
+     <g id="c64-averaging-line2d_48">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="93.925207" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_13">
+     <g id="c64-averaging-line2d_49">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="80.659133" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_14">
+     <g id="c64-averaging-line2d_50">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="69.819961" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_15">
+     <g id="c64-averaging-line2d_51">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="60.655572" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_16">
+     <g id="c64-averaging-line2d_52">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="52.717017" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-ytick_17">
+     <g id="c64-averaging-line2d_53">
+      <g>
+       <use xlink:href="#c64-averaging-m0467345a06" x="57.42191" y="45.714716" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c64-averaging-text_8">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.147379" y="141.536" transform="rotate(-90 20.147379 141.536)">相对单次随机标准差 σ</text>
+    </g>
+   </g>
+   <g id="c64-averaging-line2d_54">
+    <path d="M 73.253642 39.450943
+L 389.888269 244.786909
+L 389.888269 244.786909
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-averaging-line2d_55">
+    <path d="M 73.253642 38.285091
+L 93.938316 51.054041
+L 111.440732 61.598451
+L 125.760891 69.980368
+L 138.489922 77.190727
+L 149.627823 83.271723
+L 160.765725 89.09951
+L 170.312497 93.862519
+L 179.85927 98.384207
+L 189.406043 102.64038
+L 197.361686 105.968766
+L 205.31733 109.087524
+L 213.272974 111.988936
+L 221.228618 114.668264
+L 229.184262 117.124017
+L 237.139906 119.358044
+L 245.09555 121.375422
+L 253.051194 123.184166
+L 261.006838 124.794785
+L 270.55361 126.483658
+L 280.100383 127.929292
+L 289.647156 129.15715
+L 300.785057 130.348565
+L 311.922958 131.317572
+L 324.651989 132.198825
+L 338.972148 132.958226
+L 354.883436 133.579837
+L 373.976981 134.100038
+L 389.888269 134.399399
+L 389.888269 134.399399
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke: #af623f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c64-averaging-line2d_56">
+    <path d="M 57.42191 135.133397
+L 405.72 135.133397
+" clip-path="url(#c64-averaging-p6333fd5ed1)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #859491; stroke-width: 1.5"/>
+   </g>
+   <g id="c64-averaging-patch_3">
+    <path d="M 57.42191 255.112
+L 57.42191 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-averaging-patch_4">
+    <path d="M 405.72 255.112
+L 405.72 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-averaging-patch_5">
+    <path d="M 57.42191 255.112
+L 405.72 255.112
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-averaging-patch_6">
+    <path d="M 57.42191 27.96
+L 405.72 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c64-averaging-text_9">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="231.570955" y="21.96" transform="rotate(-0 231.570955 21.96)">平均值估计同一个不变信号</text>
+   </g>
+   <g id="c64-averaging-legend_1">
+    <g id="c64-averaging-patch_7">
+     <path d="M 238.221625 75.866375
+L 399.56 75.866375
+Q 401.32 75.866375 401.32 74.106375
+L 401.32 34.12
+Q 401.32 32.36 399.56 32.36
+L 238.221625 32.36
+Q 236.461625 32.36 236.461625 34.12
+L 236.461625 74.106375
+Q 236.461625 75.866375 238.221625 75.866375
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c64-averaging-line2d_57">
+     <path d="M 239.981625 39.8345
+L 248.781625 39.8345
+L 257.581625 39.8345
+" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c64-averaging-text_10">
+     <text style="font-size: 8.8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="264.621625" y="42.9145" transform="rotate(-0 264.621625 42.9145)">独立随机误差：σ/√N</text>
+    </g>
+    <g id="c64-averaging-line2d_58">
+     <path d="M 239.981625 53.456625
+L 248.781625 53.456625
+L 257.581625 53.456625
+" style="fill: none; stroke: #af623f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c64-averaging-text_11">
+     <text style="font-size: 8.8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="264.621625" y="56.536625" transform="rotate(-0 264.621625 56.536625)">另含固定偏差 0.2σ：总 RMS 误差</text>
+    </g>
+    <g id="c64-averaging-line2d_59">
+     <path d="M 239.981625 67.07875
+L 248.781625 67.07875
+L 257.581625 67.07875
+" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #859491; stroke-width: 1.5"/>
+    </g>
+    <g id="c64-averaging-text_12">
+     <text style="font-size: 8.8px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="264.621625" y="70.15875" transform="rotate(-0 264.621625 70.15875)">固定偏差不会被平均消掉</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c64-averaging-p6333fd5ed1">
+   <rect x="57.42191" y="27.96" width="348.29809" height="227.152"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>教材最后提到提高采样频率、剔除异常数据与取平均。把它用对，需要先限定：在平均窗口内，被测量近似不变，随机误差为零均值，样本之间足够不相关。</p>
+<div class="eq">x<sub>k</sub>=x₀+n<sub>k</sub>，Var(n<sub>k</sub>)=σ²<br/>x̄=(1/N)Σx<sub>k</sub><br/>Var(x̄)=σ²/N，σ<sub>平均</sub>=σ/√N</div>
+<p>例如平均 16 个这样的样本，随机 RMS 误差降到原来的 1/4，稳定信号的 SNR 可提高约 12 dB。但需要更多采样与时间，输出更新和对快变化的响应也会受平均窗口影响。<a href="https://www.analog.com/en/resources/analog-dialogue/articles/adc-input-noise.html" rel="noopener" target="_blank">稳定输入的平均与分辨率条件：ADI</a>。</p>
+<p>若存在固定偏差 b，平均后的期望仍是 x₀+b，偏差不会因为 N 增大而消失。图中用 b=0.2σ 作示意，总均方根误差 √(σ²/N+b²) 最终被固定偏差限制。</p>
+<p>单纯把采样间隔缩得更短，不一定得到更多独立噪声样本；同一个慢漂移或相关干扰会在多个读数里重复出现。过采样、平均和真正增加信号带宽，也不是同一件事。</p>
+<p class="level"><strong>“异常值”也要有依据：</strong>真实信号的跳变不能因为不符合预期就被删掉。基础题记住“满足条件的随机误差可通过平均减轻”，不要背成“采得越快、删得越多，就一定越准确”。</p>
+</section>
+<section id="c64-practice"><h2>综合自设练习：把增益、范围、电荷与噪声各算一遍</h2>
+<details class="answer"><summary>练习 1：R₁=20 kΩ、R₂=2 kΩ、R=10 kΩ、Rf=20 kΩ，输入分别为 1.5025 V 和 1.4975 V，按本讲义三运放图求输出。</summary><div class="eq">u<sub>d</sub>=5 mV，i=5 mV/2 kΩ=2.5 μA<br/>u<sub>o1</sub>=1.5025+0.05=1.5525 V<br/>u<sub>o2</sub>=1.4975−0.05=1.4475 V<br/>u<sub>o</sub>=2(1.4475−1.5525)=−0.21 V</div><p>总差模增益为 −2(1+20)=−42。计算最后还要验三只运放的输出范围；未给供电数据时，不额外捏造具体允许摆幅。</p></details>
+<details class="answer"><summary>练习 2：差模增益大小 200，CMRR 为 80 dB，共模输入 2 V，共模造成的输出误差与等效输入误差有多大？</summary><p>80 dB 对应增益比 10000，所以 |A<sub>c</sub>|=200/10000=0.02。共模输出误差大小为 0.02×2=40 mV，等效输入差模误差为 40 mV/200=0.2 mV。若要测的差模只有 0.5 mV，这已经是明显误差。未给 A<sub>c</sub> 符号时，只能判断误差大小。</p></details>
+<details class="answer"><summary>练习 3：Cf=300 pF、Rf=500 MΩ，已复位后突然增加 −60 pC 的电荷，最初与一个时间常数后的输出是多少？</summary><p>最初按电荷变化得到 Δu<sub>o</sub>=−(−60 pC)/300 pF=+0.2 V。τ=R<sub>f</sub>C<sub>f</sub>=0.15 s，之后为 0.2exp(−t/0.15 s) V，一个时间常数后约为 +0.0736 V。低频边界约 1.06 Hz。不要把 +0.2 V 当成有泄漏电路会永久保持的值。</p></details>
+<details class="answer"><summary>练习 4：隔离增益电阻比为 10，光电转换比 k₂/k₁=0.98，输入为 20 mV，输出多少？</summary><p>u<sub>o</sub>=0.98×10×20 mV=196 mV。理想匹配时应为 200 mV；相同光照并不能在转换比例不匹配时自动保证完全相同的信号电流。</p></details>
+<details class="answer"><summary>练习 5：输入信号 2 mV RMS、噪声 20 μV RMS；输出信号 200 mV RMS、噪声 4 mV RMS，求 F 与 NF。</summary><p>输入电压信噪比 100，SNR<sub>in</sub>=40 dB；输出电压比 50，SNR<sub>out</sub>≈33.98 dB。F=(100/50)²=4，NF≈6.02 dB。电压比恶化两倍，对应的是噪声系数 4，不是 2。</p></details>
+</section>
+<section id="c64-think"><h2>本节两道思考题：特点与用途要能一一对应</h2>
+<details class="answer"><summary>6.4.1：仪表、电荷、隔离放大器分别适合什么任务？</summary><p>仪表放大器具有高输入电阻、较高差模增益和共模抑制能力，适于从传感器或电桥提取微弱差分电压。电荷放大器用反馈电容把电荷转换成电压，理想结果主要由 C<sub>f</sub> 定标，适于压电等电容性传感器的电荷信号。隔离放大器让输入、输出两侧没有直接导电通路而能传递信号，适于需要分开电气参考、减轻直接连接干扰的测量链。它们可以组合使用，三种名称不代表彼此排斥。</p></details>
+<details class="answer"><summary>6.4.2：干扰和噪声来自哪里，怎么减轻？</summary><p>外部干扰可经电源、磁耦合、电容耦合或返回路径进入，先识别路径，再采用合适的屏蔽、回路布置、去耦、隔离或选频措施。内部噪声包括热噪声、散弹噪声和低频 1/f 噪声，可结合源阻抗采用低噪声器件、合理电阻与带宽。稳定量测量在误差不相关等条件下可作多次平均。每项措施都要说明对象与条件，不能把高增益、平均或滤波当成万能消噪。</p></details>
+</section>
+<section id="c64-check"><h2>6.4 过关线：先会三张核心图，再补芯片与噪声条件</h2>
+<ol><li><strong>仪表图：</strong>从 R<sub>2</sub> 电流推到两个前级输出，再推到末级差分结果；能解释负号与“2”。</li><li><strong>范围图：</strong>记得前级输出还带共模电平，最终输出没超限不能代替内部检查。</li><li><strong>电荷图：</strong>会写 −Δq/C<sub>f</sub>，带上初始参考；会解释杂散电容、并联 R<sub>f</sub> 与低频限制。</li><li><strong>隔离图：</strong>知道两套地各自独立、光电反馈与信号耦合作用不同，按给定比例计算输出。</li><li><strong>噪声题：</strong>区分电压比与功率比，算 SNR、F、NF；独立噪声按均方值合成，平均有前提。</li></ol>
+<p>当前第六章已经讲到 <strong>6.4.4 与本节两道思考题</strong>。6.1—6.4 的纸面主干已经连起来，星号在线扩展仍按已标注的概念范围处理；<strong>6.5 仿真在线资料和章末习题尚未完成</strong>。接下来先说明仿真要验证什么，再进入本章小结、自测与习题，把“看懂”落实成能独立列式与检查条件。</p>
 </section>
 <footer id="sources"><h2>来源与本次范围</h2>
-<p>依据所提供《模拟电子技术基础》第六版教材印刷第 255—297 页的 6.1、6.2、6.3.1—6.3.3 正文与本节思考题，结合《学习辅导与习题解答》第六版印刷第 204—208 页难点说明、第 216—218 页例 6.3.5、6.3.6 和第 222—226 页例 6.3.10—6.3.13 校核。按节次重述，公式重新推导，电路与曲线重新绘制；自设练习及星号概念概览已说明范围。未读取二维码对应的在线扩展全文。</p>
+<p>依据所提供《模拟电子技术基础》第六版教材印刷第 255—302 页的 6.1、6.2、6.3.1—6.3.3、6.4.1—6.4.4 正文与对应思考题，结合《学习辅导与习题解答》第六版印刷第 204—208 页难点说明、第 216—218 页例 6.3.5、6.3.6 和第 222—226 页例 6.3.10—6.3.13 校核。按节次重述，公式重新推导，电路与曲线重新绘制；自设练习及星号概念概览已说明范围。噪声带宽与平均条件的补充材料另在相应段落附原始来源。未读取二维码对应的在线扩展全文。</p>
 <p>与课本图仅布局不同的电路沿用其编号；一般化或简化示意会说明用途。图中电源与部分偏置平衡电阻省略时，仍默认运放具有合适供电并处于所讨论的工作范围。反馈稳定性、实际摆幅和器件方向不能由“理想”二字一概省略。</p>
 <p><a href="模拟电子技术基础_第五章学习讲义.html">← 返回第五章</a> · <a href="../../教程合集.html#analog">教程合集</a> · <a href="#start">回到本页开头 ↑</a></p>
 </footer></main></div>

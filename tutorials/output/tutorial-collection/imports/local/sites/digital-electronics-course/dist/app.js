@@ -18,7 +18,8 @@
    const id=decodeURIComponent(location.hash.slice(1))||'overview',l=byId.get(id);actions.hidden=!l;
    if(l){
      chapter=l.chapter;last=id;try{localStorage.setItem('de-course-last',id);}catch{}
-     content.innerHTML=`<article class="lesson"><p class="eyebrow">第${l.chapter}章 / ${l.label||'按课本顺序学习'}</p><h1>${escape(l.title)}</h1><div class="reading-meta"><span>${escape(l.source||'阎石主编第六版配套讲解')}</span><span>先会判断，再独立做题</span></div>${l.html}</article>`;
+     const label=l.label||'按课本顺序学习',chapterLabel=/^第[一二三四五六七八九十\d]+章/.test(label)?label:`第${l.chapter}章 / ${label}`;
+     content.innerHTML=`<article class="lesson"><p class="eyebrow">${escape(chapterLabel)}</p><h1>${escape(l.title)}</h1><div class="reading-meta"><span>${escape(l.source||'阎石主编第六版配套讲解')}</span><span>先会判断，再独立做题</span></div>${l.html}</article>`;
      document.title=l.title+' · 数字电路学习手册';document.getElementById('location').textContent='第'+l.chapter+'章 · '+l.title;
      const i=lessons.indexOf(l),prev=document.getElementById('previous'),next=document.getElementById('next');prev.disabled=i===0;next.disabled=i===lessons.length-1;
      prev.onclick=()=>{if(i>0)location.hash=lessons[i-1].id;};next.onclick=()=>{if(i+1<lessons.length)location.hash=lessons[i+1].id;};

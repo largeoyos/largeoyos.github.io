@@ -1,5 +1,5 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="模拟电子技术基础第七章：7.1.1概述、7.1.2 RC文氏桥正弦波振荡电路；起振与稳幅、RC选频、调频例题及八道自测，配SVG电路图。"><title>模拟电子技术基础 · 第七章 7.1.1—7.1.2 正弦波振荡与文氏桥</title><style>
+<meta name="description" content="模拟电子技术基础第七章：7.1.1—7.1.4 RC、LC与石英晶体正弦波振荡；教材例7.1.1—7.1.3、四道思考题、十六道配套自测，SVG解释同名端、三点式、互感、加载与起振。"><title>模拟电子技术基础 · 第七章 7.1 正弦波振荡：RC、LC 与石英晶体</title><style>
 :root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
 @media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
@@ -24,8 +24,8 @@
 details.answer{margin:20px 0}
 @media(max-width:600px){.chapter-figure{margin:25px auto}}
 </style></head><body>
-<div class="layout"><aside><div class="brand">模拟电子技术基础<br>第七章 · 波形的发生和信号的转换<br>从起振、稳幅到 RC 调频</div><div class="reading-links"><a class="collection-link" href="../../教程合集.html#analog">教程合集</a><a href="模拟电子技术基础_第六章学习讲义.html">第六章</a></div>
-<details id="course-contents" open><summary>第七章目录 · 当前 7.1.1—7.1.2</summary><nav aria-label="第七章目录"><a href="#c71-start">第七章从哪里开始：这次要会四件事</a><a href="#c711-energy">7.1.1 起点：没有外加信号，不等于没有能量</a><a href="#c711-loop">从反馈框图写式子：反馈就是放大器的输入</a><a href="#c711-condition">三个条件分开记：相位、起振、稳定后的幅值</a><a href="#c711-growth">起振与稳幅的图像：不能把“等于 1”当作自动长大</a><a href="#c711-parts">四个组成部分：四种功能，不一定是四块独立电路</a><a href="#c711-judge">判断能否振荡：先查工作与相位，再算增益</a><a href="#c712-network">7.1.2 先认 RC 网络：输出端反过来当它的输入</a><a href="#c712-limits">课本先讲高低频：是在解释为什么能选出中间的频率</a><a href="#c712-derive">阻抗分压推一遍：3 从哪里冒出来</a><a href="#c712-response">频率特性：f₀ 处同相，而且反馈为输出的三分之一</a><a href="#c712-phasor">相位为零，不是电容没有电流，也不是电容都短路</a><a href="#c712-amplifier">放大部分为什么选同相比例：要 +3 倍，而不是 −3 倍</a><a href="#c712-whole">把两条反馈接回去：负反馈定增益，正反馈送回信号</a><a href="#c712-bridge">桥路这段讲什么：P、N 分别看两组分压</a><a href="#c712-gain">电阻比怎么选：平衡等于 2，起振略大于 2</a><a href="#c712-stability">稳幅不是稳压：让幅度偏大时少长一点</a><a href="#c712-thermal">热敏电阻稳幅：下臂选正温度系数，上臂选负温度系数</a><a href="#c712-diodes">二极管稳幅：反向并联的一对，串在上反馈支路中</a><a href="#c712-tuning">可调频率：为什么电阻、电容都要成对联动</a><a href="#ex711">教材例 7.1.1：调节范围先找两个极端组合</a><a href="#c712-highfreq">高频为什么不能一味减小 R、C：公式有适用条件</a><a href="#c712-general">进阶改图：两只 R、两只 C 不等时怎么办</a><a href="#c712-loading">进阶负载题：输入电阻不够高，会同时改频率和衰减</a><a href="#c712-design">自设完整例题：设计约 1 kHz 的文氏桥</a><a href="#c712-errors">做题最常见的八个错误：直接对照改</a><a href="#c712-practice">八道自测：能独立完成，才算本次学到了位</a><a href="#c712-check">本次收束：从 7.1.1 到 7.1.2，学成什么样就够</a></nav></details></aside><main><header id="start"><p class="eyebrow">模拟电子技术基础 · 第六版 · 第七章</p><h1>先让电路自己振起来</h1><p class="lead">波形的发生和信号的转换：从“没有外加输入”讲到文氏桥的起振、稳幅和调频。按课本顺序，把每个结论落到判断题与计算题。</p><p>本次范围：章引言、<strong>7.1.1 概述与 7.1.2 RC 正弦波振荡电路</strong>，包括教材例 7.1.1。更新于 2026 年 10 月 23 日。后面的 LC、石英晶体、比较器和非正弦波发生电路继续接在本页。</p><a class="continue" href="#c71-start">继续学习：7.1 正弦波振荡电路 →</a></header>
+<div class="layout"><aside><div class="brand">模拟电子技术基础<br>第七章 · 波形的发生和信号的转换<br>RC · LC · 石英晶体</div><div class="reading-links"><a class="collection-link" href="../../教程合集.html#analog">教程合集</a><a href="模拟电子技术基础_第六章学习讲义.html">第六章</a></div>
+<details id="course-contents" open><summary>第七章目录 · 当前 7.1.1—7.1.4</summary><nav aria-label="第七章目录"><a href="#c71-start">第七章从哪里开始：这次要会四件事</a><a href="#c711-energy">7.1.1 起点：没有外加信号，不等于没有能量</a><a href="#c711-loop">从反馈框图写式子：反馈就是放大器的输入</a><a href="#c711-condition">三个条件分开记：相位、起振、稳定后的幅值</a><a href="#c711-growth">起振与稳幅的图像：不能把“等于 1”当作自动长大</a><a href="#c711-parts">四个组成部分：四种功能，不一定是四块独立电路</a><a href="#c711-judge">判断能否振荡：先查工作与相位，再算增益</a><a href="#c712-network">7.1.2 先认 RC 网络：输出端反过来当它的输入</a><a href="#c712-limits">课本先讲高低频：是在解释为什么能选出中间的频率</a><a href="#c712-derive">阻抗分压推一遍：3 从哪里冒出来</a><a href="#c712-response">频率特性：f₀ 处同相，而且反馈为输出的三分之一</a><a href="#c712-phasor">相位为零，不是电容没有电流，也不是电容都短路</a><a href="#c712-amplifier">放大部分为什么选同相比例：要 +3 倍，而不是 −3 倍</a><a href="#c712-whole">把两条反馈接回去：负反馈定增益，正反馈送回信号</a><a href="#c712-bridge">桥路这段讲什么：P、N 分别看两组分压</a><a href="#c712-gain">电阻比怎么选：平衡等于 2，起振略大于 2</a><a href="#c712-stability">稳幅不是稳压：让幅度偏大时少长一点</a><a href="#c712-thermal">热敏电阻稳幅：下臂选正温度系数，上臂选负温度系数</a><a href="#c712-diodes">二极管稳幅：反向并联的一对，串在上反馈支路中</a><a href="#c712-tuning">可调频率：为什么电阻、电容都要成对联动</a><a href="#ex711">教材例 7.1.1：调节范围先找两个极端组合</a><a href="#c712-highfreq">高频为什么不能一味减小 R、C：公式有适用条件</a><a href="#c712-general">进阶改图：两只 R、两只 C 不等时怎么办</a><a href="#c712-loading">进阶负载题：输入电阻不够高，会同时改频率和衰减</a><a href="#c712-design">自设完整例题：设计约 1 kHz 的文氏桥</a><a href="#c712-errors">做题最常见的八个错误：直接对照改</a><a href="#c712-practice">八道自测：能独立完成，才算本次学到了位</a><a href="#c712-check">本次收束：从 7.1.1 到 7.1.2，学成什么样就够</a><a href="#c713-start">接着 7.1.3：先把本次要解决的问题排好</a><a href="#c713-ideal">并联 LC：电压相同，电流相加，谐振时端口电流抵消</a><a href="#c713-energy">电流在这里有什么用：用来说明能量怎样来回交换</a><a href="#c713-loss">实际并联回路：先看清 R 是串在哪里的</a><a href="#c713-q">Q 值：损耗越小，选频越尖，支路电流也可能很大</a><a href="#c713-selective">把 LC 接到共射级：谐振时增益大，但共射仍然反相</a><a href="#c713-transformer">变压器反馈式：先用共射的反相，推出一次绕组的两端</a><a href="#c713-dots">同名端不是“永远同时对地为正”：它比较的是绕组两端电压</a><a href="#c713-transformer-load">课本的互感长推导：是在说明输入电阻也会吃掉谐振能量</a><a href="#c713-transformer-start">变压器反馈的起振条件：最终仍在比较“返回多少”</a><a href="#c713-hartley">电感反馈式：三个端接三只极，关键是抽头接哪里</a><a href="#c713-mutual">电感三点式算频率：有互感时，L 不是简单相加</a><a href="#c713-hartley-gain">电感比与起振：反馈增大，加载也会增大</a><a href="#c713-colpitts">电容反馈式：换成电容分压，但中点接法仍须看清</a><a href="#c713-cap-ratio">为什么反馈比是 C₁/C₂：电容小，分到的交流电压大</a><a href="#c713-cap-gain">电容三点式的幅值条件：不能只把一只电容越减越小</a><a href="#c713-cap-tuning">优缺点与调频：分清“改总电容”和“改分压比”</a><a href="#c713-clapp">稳定频率的改进：用小电容主导频率，大电容主要负责分压</a><a href="#c713-cb-cap">共基型电容反馈：输入换到 E，反馈取的电容也变了</a><a href="#ex712">教材例 7.1.2：共基电路标同名端，不能套共射的点法</a><a href="#ex713">教材例 7.1.3：有 LC、有三极管，也可能根本不能正常放大</a><a href="#c714-start">7.1.4 为什么换成石英晶体：希望频率更难漂走</a><a href="#c714-model">晶体等效电路：一条动生支路，并联静态电容</a><a href="#c714-frequencies">两个谐振频率：fₛ 较低、阻抗小；fₚ 较高、阻抗大</a><a href="#c714-band">晶体不是永远呈感性：只有 fₛ 与 fₚ 之间那一小段</a><a href="#c714-parallel">并联型晶体振荡器：替代 L，但实际频率在感性窄带内</a><a href="#c714-series">串联型晶体振荡器：利用低阻抗，把反馈信号送回来</a><a href="#c71-compare">把三类振荡器放到一张表：选频率，也选稳定性</a><a href="#c71-think1">思考题 7.1.1：与负反馈放大器的自激振荡有什么异同</a><a href="#c71-think2">思考题 7.1.2：单管三种接法能否直接配 RC 串并联网络</a><a href="#c71-think3">思考题 7.1.3：根据应用要求怎样选择</a><a href="#c71-think4">思考题 7.1.4：判断可能振荡的完整顺序</a><a href="#c71-lc-practice">八道配套自测：从频率、反馈比练到改图与晶体</a><a href="#c71-lc-check">7.1 正文收束：做到这些，再进入比较器</a></nav></details></aside><main><header id="start"><p class="eyebrow">模拟电子技术基础 · 第六版 · 第七章</p><h1>先让电路自己振起来</h1><p class="lead">波形的发生和信号的转换：从起振、稳幅讲到 RC、LC 与石英晶体。按课本顺序，把反馈极性、谐振频率和电路检错落到具体题目。</p><p>当前范围：章引言、<strong>7.1.1—7.1.4 正弦波振荡电路</strong>，包括 RC、LC、石英晶体、教材例 7.1.1—7.1.3 与四道思考题。更新于 2026 年 10 月 23 日。下一批接 7.2 比较器，章末自测与习题另按进度补充。</p><a class="continue" href="#c713-start">继续学习：LC 与石英晶体 →</a></header>
 
 <section id="c71-start"><h2>第七章从哪里开始：这次要会四件事</h2>
 <p>第六章常常是“输入一个信号，电路按公式处理它”。第七章先换一个任务：<strong>只接直流电源，不从外面喂正弦波，电路怎样输出正弦波？</strong>后面再学比较、产生矩形波和三角波，以及信号形式之间的转换。</p>
@@ -3774,6 +3774,2661 @@ L 420.12 28.23
 <p>应用场景和“桥”名称知道用意即可；标准推导能读懂并独立重建分压式就够，不必背每一行化简。高低频近似用于检查相位，进阶不等值、加载分析留给改图题。</p>
 <p><strong>接下来按课本进入 7.1.3 LC 正弦波振荡电路：</strong>先讲并联谐振回路，再讲变压器反馈、电感反馈和电容反馈；重点会变成谐振频率、反馈极性与三点式电路的识图。本页本次没有把这些后续内容计为已讲。</p></section>
 
-<footer id="sources"><h2>来源与本次范围</h2><p>依据用户提供的《模拟电子技术基础》第六版教材印刷第 311—318 页中章引言、7.1.1、7.1.2 及例 7.1.1；参照《学习辅导与习题解答》第六版印刷第 243—244 页的相关概要核对组成与稳幅方向。按章节次序用自己的话展开讲解，电路重新绘为 SVG，未转载原页。第 318 页仅使用例 7.1.1 的续解，LC 正文将于下一次展开。</p><p>不等值网络、有限输入电阻、自设 1 kHz 例题与八道练习为独立推导补充。图中的包络、有效增益曲线为教学示意，未作实物或 Multisim 测试；理论调频范围与实际输出能力分开说明。运放电源在电路图中省略时，默认供电合适。本次不包含教材二维码对应的在线全文或微视频。</p><p><a href="模拟电子技术基础_第六章学习讲义.html">← 返回第六章</a> · <a href="../../教程合集.html#analog">教程合集</a> · <a href="#start">回到开头 ↑</a></p></footer>
+<section id="c713-start"><h2>接着 7.1.3：先把本次要解决的问题排好</h2>
+<p>上一批已经把文氏桥讲清：相位对得上、小信号增益有余量、稳定后有效环路增益回到 1。这一批继续按课本，讲<strong>7.1.3 LC 与 7.1.4 石英晶体</strong>，完成例 7.1.2、7.1.3，并回答本节四道思考题。7.2 比较器留到下一批。</p>
+<p>三极管部分不用重学一遍。你只需把旧知识拿回来：共射反相、共基电压同相、共集电压同相但增益小于 1；偏置是否合适要查直流，信号能不能变化要查交流。</p>
+<div class="table-wrap"><table><thead><tr><th>这次看到的内容</th><th>做题最低要求</th></tr></thead><tbody><tr><td>LC 并联谐振</td><td>会求等效 L、C 和 f₀，知道谐振时端口阻抗很大</td></tr><tr><td>变压器反馈</td><td>会按交流地、放大器相位和同名端判断正反馈</td></tr><tr><td>电感/电容三点式</td><td>认出抽头与三个极，按取样位置写反馈比</td></tr><tr><td>故障改图</td><td>先检查偏置有没有被电感短掉、输出有没有被电源钉死</td></tr><tr><td>石英晶体</td><td>认模型，分清 fₛ、fₚ 与感性区，识别串联型和并联型</td></tr></tbody></table></div>
+<p class="level"><strong>学习顺序：</strong>先把每幅电路的电压参考点认准，再算比值。磁耦合的长推导会讲用途和适用条件，不要求为了基础识图题把所有中间式背下来。</p></section>
+
+<section id="c713-ideal"><h2>并联 LC：电压相同，电流相加，谐振时端口电流抵消</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-ideal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 430" role="img" aria-labelledby="c7l-ideal-c7l-ideal-title">
+<title id="c7l-ideal-c7l-ideal-title">理想并联LC的端口电流等于电容电流和电感电流之和，二者在谐振处相量抵消</title>
+<defs><marker id="c7l-ideal-c7l-ideal-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">并联 LC：端口电流是两支路的和</text><circle cx="25" cy="90" r="3.2" class="port"/><text x="25" y="67" text-anchor="start" font-size="13">U</text><path class="wire" d="M25 90H240M25 320H240"/><circle cx="25" cy="320" r="3.2" class="port"/><text x="25" y="348" text-anchor="start" font-size="13">0</text><path class="wire" d="M95 90V200.0M83 200.0H107M83 210.0H107M95 210.0V320"/><text x="77" y="210.0" text-anchor="end" font-size="13">C</text><path class="wire" d="M240 90V173.0"/><path class="wire" d="M240 173.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 189.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 205.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 221.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 237.0V320"/><text x="260" y="210.0" text-anchor="start" font-size="13">L</text><path class="wire" d="M35 65L75 65" marker-end="url(#c7l-ideal-c7l-ideal-arrow)"/><text x="48" y="49" text-anchor="start" font-size="13">I</text><path class="wire" d="M60 165L60 220" marker-end="url(#c7l-ideal-c7l-ideal-arrow)"/><text x="47" y="190" text-anchor="end" font-size="13">Ic</text><path class="wire" d="M285 165L285 220" marker-end="url(#c7l-ideal-c7l-ideal-arrow)"/><text x="294" y="190" text-anchor="start" font-size="13">IL</text><text x="160" y="383" text-anchor="middle" font-size="13">I = Ic + IL；电压 U 两支路相同</text></svg></figure>
+<p>并联的 C、L 两端电压相同，都为 U。按图的参考方向，两支路电流为：</p><div class="eq">I<sub>C</sub>=jωCU<br>I<sub>L</sub>=U/(jωL)=−jU/(ωL)<br>I=I<sub>C</sub>+I<sub>L</sub>=j[ωC−1/(ωL)]U</div>
+<p>这里的箭头只负责规定方程中的正方向。正弦稳态下，电容电流超前电压 90°，电感电流滞后 90°，两者相差 180°。当它们大小相等，端口电流的相量和为零：</p><div class="eq">ω₀C=1/(ω₀L)<br>ω₀=1/√(LC)<br>f₀=1/[2π√(LC)]</div>
+<p><strong>并联谐振的端口导纳为零，理想端口阻抗趋于无穷大。</strong>这和串联 LC 谐振时阻抗趋零不同。不要一看到“谐振”就统一回答短路。</p>
+<p>“端口电流为零”不表示两支路都没有电流，也不表示任何条件下都能无源地产生持续输出。理想回路可以靠初始储能维持自由振荡；实际有损耗时，需要有源电路不断补能。</p></section>
+
+<section id="c713-energy"><h2>电流在这里有什么用：用来说明能量怎样来回交换</h2>
+<figure class="chapter-figure plot"><svg data-figure="c7l-energy" xmlns:xlink="http://www.w3.org/1999/xlink" width="432pt" height="352.8pt" viewBox="0 0 432 352.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c7l-energy-figure_1">
+  <g id="c7l-energy-patch_1">
+   <path d="M 0 352.8
+L 432 352.8
+L 432 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c7l-energy-axes_1">
+   <g id="c7l-energy-patch_2">
+    <path d="M 56.36 159.73
+L 420.12 159.73
+L 420.12 27.96
+L 56.36 27.96
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c7l-energy-matplotlib.axis_1">
+    <g id="c7l-energy-xtick_1">
+     <g id="c7l-energy-line2d_1">
+      <path d="M 72.894545 159.73
+L 72.894545 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_2">
+      <defs>
+       <path id="c7l-energy-md7fc46ff5c" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="72.894545" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_2">
+     <g id="c7l-energy-line2d_3">
+      <path d="M 114.230909 159.73
+L 114.230909 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_4">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="114.230909" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_3">
+     <g id="c7l-energy-line2d_5">
+      <path d="M 155.567273 159.73
+L 155.567273 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_6">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="155.567273" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_4">
+     <g id="c7l-energy-line2d_7">
+      <path d="M 196.903636 159.73
+L 196.903636 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_8">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="196.903636" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_5">
+     <g id="c7l-energy-line2d_9">
+      <path d="M 238.24 159.73
+L 238.24 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_10">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="238.24" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_6">
+     <g id="c7l-energy-line2d_11">
+      <path d="M 279.576364 159.73
+L 279.576364 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_12">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="279.576364" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_7">
+     <g id="c7l-energy-line2d_13">
+      <path d="M 320.912727 159.73
+L 320.912727 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_14">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="320.912727" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_8">
+     <g id="c7l-energy-line2d_15">
+      <path d="M 362.249091 159.73
+L 362.249091 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_16">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="362.249091" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_9">
+     <g id="c7l-energy-line2d_17">
+      <path d="M 403.585455 159.73
+L 403.585455 27.96
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_18">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="403.585455" y="159.73" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="c7l-energy-matplotlib.axis_2">
+    <g id="c7l-energy-ytick_1">
+     <g id="c7l-energy-line2d_19">
+      <path d="M 56.36 153.74057
+L 420.12 153.74057
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_20">
+      <defs>
+       <path id="c7l-energy-m8283584475" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="153.74057" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_1">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="158.137133" transform="rotate(-0 49.36 158.137133)">-1.0</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_2">
+     <g id="c7l-energy-line2d_21">
+      <path d="M 56.36 123.792814
+L 420.12 123.792814
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_22">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="123.792814" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_2">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="128.189377" transform="rotate(-0 49.36 128.189377)">-0.5</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_3">
+     <g id="c7l-energy-line2d_23">
+      <path d="M 56.36 93.845058
+L 420.12 93.845058
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_24">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="93.845058" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_3">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="98.24162" transform="rotate(-0 49.36 98.24162)">0.0</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_4">
+     <g id="c7l-energy-line2d_25">
+      <path d="M 56.36 63.897302
+L 420.12 63.897302
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_26">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="63.897302" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_4">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="68.293864" transform="rotate(-0 49.36 68.293864)">0.5</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_5">
+     <g id="c7l-energy-line2d_27">
+      <path d="M 56.36 33.949545
+L 420.12 33.949545
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_28">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="33.949545" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_5">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="38.346108" transform="rotate(-0 49.36 38.346108)">1.0</text>
+     </g>
+    </g>
+    <g id="c7l-energy-text_6">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="22.316719" y="93.845" transform="rotate(-90 22.316719 93.845)">归一化电压、电流</text>
+    </g>
+   </g>
+   <g id="c7l-energy-line2d_29">
+    <path d="M 72.894545 33.949545
+L 74.550069 34.068031
+L 76.205593 34.423021
+L 77.861117 35.013109
+L 79.516641 35.835961
+L 81.172165 36.888322
+L 82.827689 38.166028
+L 84.897094 40.072268
+L 86.966499 42.310864
+L 89.035904 44.867982
+L 91.51919 48.334584
+L 94.002476 52.206151
+L 96.899643 57.188664
+L 99.79681 62.615024
+L 103.107858 69.275563
+L 107.246667 78.134537
+L 113.041001 91.13769
+L 122.146383 111.590636
+L 126.285193 120.331765
+L 129.596241 126.863774
+L 132.493408 132.154391
+L 135.390575 136.981148
+L 137.873861 140.704703
+L 140.357146 144.011288
+L 142.426551 146.426911
+L 144.495956 148.517538
+L 146.565361 150.270247
+L 148.220885 151.421762
+L 149.876409 152.345479
+L 151.531933 153.037743
+L 153.187457 153.495816
+L 154.842981 153.717885
+L 156.498505 153.703072
+L 158.154029 153.451435
+L 159.809553 152.96397
+L 161.465077 152.242606
+L 163.120601 151.290196
+L 164.776125 150.110508
+L 166.84553 148.323485
+L 168.914935 146.199743
+L 170.98434 143.752409
+L 173.053744 140.996609
+L 175.53703 137.306585
+L 178.020316 133.229828
+L 180.917483 128.033396
+L 184.228531 121.591629
+L 187.95346 113.825641
+L 192.920032 102.877354
+L 206.991985 71.441775
+L 210.716914 63.829343
+L 214.027962 57.562291
+L 216.925129 52.546006
+L 219.408415 48.642199
+L 221.891701 45.14062
+L 223.961106 42.552488
+L 226.030511 40.281384
+L 228.099916 38.341344
+L 230.169321 36.74436
+L 231.824845 35.720478
+L 233.480369 34.926562
+L 235.135893 34.365752
+L 236.791417 34.040268
+L 238.44694 33.951397
+L 240.102464 34.099491
+L 241.757988 34.483964
+L 243.413512 35.103294
+L 245.069036 35.955032
+L 246.72456 37.035807
+L 248.380084 38.341344
+L 250.449489 40.281384
+L 252.518894 42.552488
+L 254.588299 45.14062
+L 257.071585 48.642199
+L 259.554871 52.546006
+L 262.452038 57.562291
+L 265.349205 63.017899
+L 268.660253 69.705873
+L 272.799062 78.589534
+L 279.007277 92.54989
+L 287.284897 111.140232
+L 291.423707 119.9085
+L 294.734755 126.469784
+L 297.631922 131.791145
+L 300.529089 136.653043
+L 303.012375 140.409899
+L 305.49566 143.752409
+L 307.565065 146.199743
+L 309.63447 148.323485
+L 311.703875 150.110508
+L 313.359399 151.290196
+L 315.014923 152.242606
+L 316.670447 152.96397
+L 318.325971 153.451435
+L 319.981495 153.703072
+L 321.637019 153.717885
+L 323.292543 153.495816
+L 324.948067 153.037743
+L 326.603591 152.345479
+L 328.259115 151.421762
+L 329.914639 150.270247
+L 331.984044 148.517538
+L 334.053449 146.426911
+L 336.122854 144.011288
+L 338.192259 141.285599
+L 340.675544 137.629334
+L 343.15883 133.583465
+L 346.055997 128.419074
+L 349.367045 122.008186
+L 353.091974 114.269045
+L 357.644665 104.271573
+L 372.958261 70.137676
+L 376.68319 62.615024
+L 379.994238 56.448233
+L 382.891405 51.534187
+L 385.374691 47.727815
+L 387.857977 44.331808
+L 389.927382 41.837192
+L 391.996787 39.664024
+L 394.066192 37.825737
+L 396.135597 36.333692
+L 397.791121 35.395622
+L 399.446645 34.688802
+L 401.102169 34.216029
+L 402.757693 33.979174
+L 403.585455 33.949545
+L 403.585455 33.949545
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-line2d_30">
+    <path d="M 72.894545 93.845058
+L 80.758284 76.211979
+L 84.897094 67.464014
+L 88.208142 60.924649
+L 91.105309 55.626315
+L 94.002476 50.790745
+L 96.485762 47.058843
+L 98.969048 43.743258
+L 101.038453 41.319693
+L 103.107858 39.220775
+L 105.177262 37.459477
+L 106.832786 36.300912
+L 108.48831 35.370016
+L 110.143834 34.670473
+L 111.799358 34.205049
+L 113.454882 33.975587
+L 115.110406 33.982993
+L 116.76593 34.22724
+L 118.421454 34.707359
+L 120.076978 35.421453
+L 121.732502 36.366695
+L 123.388026 37.539346
+L 125.457431 39.317801
+L 127.526836 41.433277
+L 129.596241 43.872697
+L 131.665646 46.620985
+L 134.148932 50.302591
+L 136.632218 54.37165
+L 139.529384 59.560101
+L 142.840432 65.994186
+L 146.565361 73.753507
+L 151.118052 83.766584
+L 166.017768 117.010627
+L 169.742697 124.571199
+L 173.053744 130.780186
+L 175.950911 135.737167
+L 178.434197 139.584397
+L 180.917483 143.024626
+L 182.986888 145.558379
+L 185.056293 147.772503
+L 187.125698 149.653315
+L 189.195103 151.189189
+L 190.850627 152.16308
+L 192.506151 152.906241
+L 194.161675 153.41573
+L 195.817199 153.689533
+L 197.472723 153.726565
+L 199.128247 153.526681
+L 200.783771 153.090671
+L 202.439295 152.42026
+L 204.094819 151.518101
+L 205.750342 150.387762
+L 207.819747 148.66086
+L 209.889152 146.595154
+L 211.958557 144.203412
+L 214.027962 141.500417
+L 216.511248 137.869621
+L 218.994534 133.847081
+L 221.891701 128.70693
+L 225.202749 122.319462
+L 228.927678 114.600771
+L 233.480369 104.619251
+L 249.207846 69.598155
+L 252.932775 62.114149
+L 256.243823 55.99015
+L 259.14099 51.119513
+L 261.624276 47.354368
+L 264.107562 44.00291
+L 266.176967 41.547672
+L 268.246372 39.415671
+L 270.315777 37.620086
+L 271.9713 36.433367
+L 273.626824 35.473793
+L 275.282348 34.74516
+L 276.937872 34.250352
+L 278.593396 33.991325
+L 280.24892 33.969106
+L 281.904444 34.183781
+L 283.559968 34.634501
+L 285.215492 35.319484
+L 286.871016 36.236018
+L 288.52654 37.380478
+L 290.595945 39.124592
+L 292.66535 41.20692
+L 294.734755 43.614592
+L 296.80416 46.332727
+L 299.287446 49.980516
+L 301.770732 54.018625
+L 304.667899 59.174956
+L 307.978946 65.578062
+L 311.703875 73.310416
+L 316.256566 83.302609
+L 331.570163 117.444259
+L 335.295092 124.974553
+L 338.606139 131.149831
+L 341.503306 136.072502
+L 343.986592 139.887075
+L 346.469878 143.291953
+L 348.539283 145.794416
+L 350.608688 147.975792
+L 352.678093 149.822598
+L 354.747498 151.323421
+L 356.403022 152.268663
+L 358.058546 152.982756
+L 359.71407 153.462876
+L 361.369594 153.707122
+L 363.025118 153.714529
+L 364.680642 153.485067
+L 366.336166 153.019643
+L 367.99169 152.320099
+L 369.647214 151.389204
+L 371.302738 150.230639
+L 373.372142 148.469341
+L 375.441547 146.370423
+L 377.510952 143.946858
+L 379.580357 141.213626
+L 382.063643 137.5489
+L 384.546929 133.495285
+L 387.444096 128.322854
+L 390.755144 121.904209
+L 394.480073 114.158311
+L 399.032764 104.155599
+L 403.585455 93.845058
+L 403.585455 93.845058
+" clip-path="url(#c7l-energy-p9120fd1228)" style="fill: none; stroke: #54698a; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_3">
+    <path d="M 56.36 159.73
+L 56.36 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_4">
+    <path d="M 420.12 159.73
+L 420.12 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_5">
+    <path d="M 56.36 159.73
+L 420.12 159.73
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_6">
+    <path d="M 56.36 27.96
+L 420.12 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-text_7">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="238.24" y="21.96" transform="rotate(-0 238.24 21.96)">理想 LC 自由振荡：u 与 iL 相差四分之一周期</text>
+   </g>
+   <g id="c7l-energy-legend_1">
+    <g id="c7l-energy-patch_7">
+     <path d="M 343.601719 63.023437
+L 413.82 63.023437
+Q 415.62 63.023437 415.62 61.223437
+L 415.62 34.26
+Q 415.62 32.46 413.82 32.46
+L 343.601719 32.46
+Q 341.801719 32.46 341.801719 34.26
+L 341.801719 61.223437
+Q 341.801719 63.023437 343.601719 63.023437
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c7l-energy-line2d_31">
+     <path d="M 345.401719 40.104375
+L 354.401719 40.104375
+L 363.401719 40.104375
+" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c7l-energy-text_8">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="370.601719" y="43.254375" transform="rotate(-0 370.601719 43.254375)">u / Umax</text>
+    </g>
+    <g id="c7l-energy-line2d_32">
+     <path d="M 345.401719 54.036094
+L 354.401719 54.036094
+L 363.401719 54.036094
+" style="fill: none; stroke: #54698a; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c7l-energy-text_9">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="370.601719" y="57.186094" transform="rotate(-0 370.601719 57.186094)">iL / ILmax</text>
+    </g>
+   </g>
+  </g>
+  <g id="c7l-energy-axes_2">
+   <g id="c7l-energy-patch_8">
+    <path d="M 56.36 306.88
+L 420.12 306.88
+L 420.12 175.11
+L 56.36 175.11
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c7l-energy-matplotlib.axis_3">
+    <g id="c7l-energy-xtick_10">
+     <g id="c7l-energy-line2d_33">
+      <path d="M 72.894545 306.88
+L 72.894545 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_34">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="72.894545" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_10">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="72.894545" y="322.673125" transform="rotate(-0 72.894545 322.673125)">0.00</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_11">
+     <g id="c7l-energy-line2d_35">
+      <path d="M 114.230909 306.88
+L 114.230909 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_36">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="114.230909" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="114.230909" y="322.673125" transform="rotate(-0 114.230909 322.673125)">0.25</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_12">
+     <g id="c7l-energy-line2d_37">
+      <path d="M 155.567273 306.88
+L 155.567273 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_38">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="155.567273" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="155.567273" y="322.673125" transform="rotate(-0 155.567273 322.673125)">0.50</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_13">
+     <g id="c7l-energy-line2d_39">
+      <path d="M 196.903636 306.88
+L 196.903636 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_40">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="196.903636" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_13">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="196.903636" y="322.673125" transform="rotate(-0 196.903636 322.673125)">0.75</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_14">
+     <g id="c7l-energy-line2d_41">
+      <path d="M 238.24 306.88
+L 238.24 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_42">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="238.24" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_14">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="238.24" y="322.673125" transform="rotate(-0 238.24 322.673125)">1.00</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_15">
+     <g id="c7l-energy-line2d_43">
+      <path d="M 279.576364 306.88
+L 279.576364 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_44">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="279.576364" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_15">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="279.576364" y="322.673125" transform="rotate(-0 279.576364 322.673125)">1.25</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_16">
+     <g id="c7l-energy-line2d_45">
+      <path d="M 320.912727 306.88
+L 320.912727 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_46">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="320.912727" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_16">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="320.912727" y="322.673125" transform="rotate(-0 320.912727 322.673125)">1.50</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_17">
+     <g id="c7l-energy-line2d_47">
+      <path d="M 362.249091 306.88
+L 362.249091 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_48">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="362.249091" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_17">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="362.249091" y="322.673125" transform="rotate(-0 362.249091 322.673125)">1.75</text>
+     </g>
+    </g>
+    <g id="c7l-energy-xtick_18">
+     <g id="c7l-energy-line2d_49">
+      <path d="M 403.585455 306.88
+L 403.585455 175.11
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_50">
+      <g>
+       <use xlink:href="#c7l-energy-md7fc46ff5c" x="403.585455" y="306.88" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_18">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="403.585455" y="322.673125" transform="rotate(-0 403.585455 322.673125)">2.00</text>
+     </g>
+    </g>
+    <g id="c7l-energy-text_19">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="238.24" y="338.200781" transform="rotate(-0 238.24 338.200781)">t / T</text>
+    </g>
+   </g>
+   <g id="c7l-energy-matplotlib.axis_4">
+    <g id="c7l-energy-ytick_6">
+     <g id="c7l-energy-line2d_51">
+      <path d="M 56.36 300.890455
+L 420.12 300.890455
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_52">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="300.890455" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_20">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="305.287017" transform="rotate(-0 49.36 305.287017)">0.00</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_7">
+     <g id="c7l-energy-line2d_53">
+      <path d="M 56.36 270.942727
+L 420.12 270.942727
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_54">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="270.942727" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_21">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="275.33929" transform="rotate(-0 49.36 275.33929)">0.25</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_8">
+     <g id="c7l-energy-line2d_55">
+      <path d="M 56.36 240.995
+L 420.12 240.995
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_56">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="240.995" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_22">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="245.391562" transform="rotate(-0 49.36 245.391562)">0.50</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_9">
+     <g id="c7l-energy-line2d_57">
+      <path d="M 56.36 211.047273
+L 420.12 211.047273
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_58">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="211.047273" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_23">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="215.443835" transform="rotate(-0 49.36 215.443835)">0.75</text>
+     </g>
+    </g>
+    <g id="c7l-energy-ytick_10">
+     <g id="c7l-energy-line2d_59">
+      <path d="M 56.36 181.099545
+L 420.12 181.099545
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-energy-line2d_60">
+      <g>
+       <use xlink:href="#c7l-energy-m8283584475" x="56.36" y="181.099545" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-energy-text_24">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="49.36" y="185.496108" transform="rotate(-0 49.36 185.496108)">1.00</text>
+     </g>
+    </g>
+    <g id="c7l-energy-text_25">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.625469" y="240.995" transform="rotate(-90 20.625469 240.995)">归一化能量</text>
+    </g>
+   </g>
+   <g id="c7l-energy-line2d_61">
+    <path d="M 72.894545 181.099545
+L 73.722307 181.218031
+L 74.550069 181.57302
+L 75.377831 182.163108
+L 76.205593 182.98596
+L 77.447236 184.649299
+L 78.688879 186.814019
+L 79.930522 189.460856
+L 81.172165 192.566259
+L 82.827689 197.371803
+L 84.483213 202.867032
+L 86.552618 210.572652
+L 89.035904 220.792579
+L 92.346952 235.468545
+L 98.555167 263.17968
+L 101.038453 273.223687
+L 103.107858 280.733369
+L 104.763381 286.042958
+L 106.418905 290.640337
+L 107.660548 293.576802
+L 108.902191 296.045379
+L 110.143834 298.024103
+L 111.385477 299.495364
+L 112.213239 300.187628
+L 113.041001 300.645701
+L 113.868763 300.86777
+L 114.696525 300.852956
+L 115.524287 300.60132
+L 116.352049 300.113855
+L 117.179811 299.392491
+L 118.007573 298.440082
+L 119.249216 296.586748
+L 120.490859 294.238742
+L 121.732502 291.416958
+L 123.388026 286.96157
+L 125.04355 281.779448
+L 127.112955 274.405632
+L 129.18236 266.207079
+L 132.079527 253.731925
+L 141.184908 213.45738
+L 143.254313 205.46623
+L 145.323718 198.352102
+L 146.979242 193.411109
+L 148.634766 189.222419
+L 149.876409 186.614917
+L 151.118052 184.491303
+L 152.359695 182.870476
+L 153.187457 182.076561
+L 154.015219 181.515752
+L 154.842981 181.190268
+L 155.670743 181.101397
+L 156.498505 181.249491
+L 157.326267 181.633963
+L 158.154029 182.253293
+L 158.981791 183.10503
+L 160.223434 184.810779
+L 161.465077 187.016471
+L 162.70672 189.70248
+L 163.948363 192.844904
+L 165.603887 197.695899
+L 167.259411 203.231454
+L 169.328816 210.979315
+L 171.812101 221.236604
+L 175.53703 237.817198
+L 180.917483 261.861108
+L 183.400769 272.023806
+L 185.470174 279.665174
+L 187.125698 285.099276
+L 188.781222 289.836087
+L 190.436746 293.800719
+L 191.678389 296.229255
+L 192.920032 298.166301
+L 194.161675 299.59462
+L 194.989437 300.257741
+L 195.817199 300.686393
+L 196.644961 300.87888
+L 197.472723 300.834442
+L 198.300485 300.553253
+L 199.128247 300.036426
+L 199.956009 299.286007
+L 200.783771 298.304963
+L 202.025414 296.409715
+L 203.267057 294.02137
+L 204.5087 291.161181
+L 206.164223 286.658183
+L 207.819747 281.433248
+L 209.889152 274.013684
+L 212.372438 264.051914
+L 215.269605 251.421505
+L 223.547225 214.719747
+L 226.030511 205.088139
+L 228.099916 198.022672
+L 229.75544 193.126527
+L 231.410964 188.987184
+L 232.652607 186.419177
+L 233.89425 184.336802
+L 235.135893 182.758587
+L 235.963655 181.993657
+L 236.791417 181.462162
+L 237.619179 181.166203
+L 238.44694 181.106953
+L 239.274702 181.284645
+L 240.102464 181.698577
+L 240.930226 182.347111
+L 241.757988 183.22768
+L 242.999631 184.975733
+L 244.241274 187.222262
+L 245.482917 189.947276
+L 247.138441 194.282441
+L 248.793965 199.356134
+L 250.86337 206.61359
+L 252.932775 214.719747
+L 255.829942 227.110027
+L 265.763086 270.806657
+L 267.832491 278.575458
+L 269.901896 285.41659
+L 271.55742 290.107213
+L 273.212943 294.02137
+L 274.454586 296.409715
+L 275.696229 298.304963
+L 276.937872 299.690252
+L 277.765634 300.324188
+L 278.593396 300.723393
+L 279.421158 300.886288
+L 280.24892 300.812227
+L 281.076682 300.501503
+L 281.904444 299.955347
+L 282.732206 299.175918
+L 283.559968 298.166301
+L 284.801611 296.229255
+L 286.043254 293.800719
+L 287.284897 290.902302
+L 288.940421 286.351973
+L 290.595945 281.084548
+L 292.66535 273.619694
+L 295.148636 263.616497
+L 298.459684 249.094968
+L 305.49566 217.72091
+L 307.978946 207.780085
+L 310.048351 200.383338
+L 311.703875 195.179769
+L 313.359399 190.700541
+L 314.601042 187.859533
+L 315.842685 185.49134
+L 317.084328 183.617034
+L 318.325971 182.253293
+L 319.153733 181.633963
+L 319.981495 181.249491
+L 320.809257 181.101397
+L 321.637019 181.190268
+L 322.464781 181.515752
+L 323.292543 182.076561
+L 324.120305 182.870476
+L 325.361948 184.491303
+L 326.603591 186.614917
+L 327.845234 189.222419
+L 329.086877 192.290609
+L 330.742401 197.050405
+L 332.397925 202.504967
+L 334.46733 210.167871
+L 336.950616 220.349803
+L 340.261663 234.999723
+L 346.469878 262.741492
+L 348.953164 272.825687
+L 351.022569 280.379732
+L 352.678093 285.731157
+L 354.333617 290.375302
+L 355.57526 293.349634
+L 356.816903 295.8581
+L 358.058546 297.878378
+L 359.300189 299.392491
+L 360.127951 300.113855
+L 360.955713 300.60132
+L 361.783475 300.852956
+L 362.611237 300.86777
+L 363.438999 300.645701
+L 364.266761 300.187628
+L 365.094523 299.495364
+L 365.922285 298.571649
+L 367.163928 296.760343
+L 368.405571 294.452821
+L 369.647214 291.669617
+L 371.302738 287.262114
+L 372.958261 282.123125
+L 375.027666 274.795514
+L 377.097071 266.633541
+L 379.994238 254.19176
+L 389.513501 212.210337
+L 391.582906 204.338642
+L 393.652311 197.371803
+L 395.307835 192.566259
+L 396.963359 188.526376
+L 398.205002 186.037836
+L 399.446645 184.03832
+L 400.688288 182.54562
+L 401.51605 181.838801
+L 402.343812 181.366029
+L 403.171574 181.129174
+L 403.585455 181.099545
+L 403.585455 181.099545
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-line2d_62">
+    <path d="M 72.894545 300.890455
+L 73.722307 300.771969
+L 74.550069 300.41698
+L 75.377831 299.826892
+L 76.205593 299.00404
+L 77.447236 297.340701
+L 78.688879 295.175981
+L 79.930522 292.529144
+L 81.172165 289.423741
+L 82.827689 284.618197
+L 84.483213 279.122968
+L 86.552618 271.417348
+L 89.035904 261.197421
+L 92.346952 246.521455
+L 98.555167 218.81032
+L 101.038453 208.766313
+L 103.107858 201.256631
+L 104.763381 195.947042
+L 106.418905 191.349663
+L 107.660548 188.413198
+L 108.902191 185.944621
+L 110.143834 183.965897
+L 111.385477 182.494636
+L 112.213239 181.802372
+L 113.041001 181.344299
+L 113.868763 181.12223
+L 114.696525 181.137044
+L 115.524287 181.38868
+L 116.352049 181.876145
+L 117.179811 182.597509
+L 118.007573 183.549918
+L 119.249216 185.403252
+L 120.490859 187.751258
+L 121.732502 190.573042
+L 123.388026 195.02843
+L 125.04355 200.210552
+L 127.112955 207.584368
+L 129.18236 215.782921
+L 132.079527 228.258075
+L 141.184908 268.53262
+L 143.254313 276.52377
+L 145.323718 283.637898
+L 146.979242 288.578891
+L 148.634766 292.767581
+L 149.876409 295.375083
+L 151.118052 297.498697
+L 152.359695 299.119524
+L 153.187457 299.913439
+L 154.015219 300.474248
+L 154.842981 300.799732
+L 155.670743 300.888603
+L 156.498505 300.740509
+L 157.326267 300.356037
+L 158.154029 299.736707
+L 158.981791 298.88497
+L 160.223434 297.179221
+L 161.465077 294.973529
+L 162.70672 292.28752
+L 163.948363 289.145096
+L 165.603887 284.294101
+L 167.259411 278.758546
+L 169.328816 271.010685
+L 171.812101 260.753396
+L 175.53703 244.172802
+L 180.917483 220.128892
+L 183.400769 209.966194
+L 185.470174 202.324826
+L 187.125698 196.890724
+L 188.781222 192.153913
+L 190.436746 188.189281
+L 191.678389 185.760745
+L 192.920032 183.823699
+L 194.161675 182.39538
+L 194.989437 181.732259
+L 195.817199 181.303607
+L 196.644961 181.11112
+L 197.472723 181.155558
+L 198.300485 181.436747
+L 199.128247 181.953574
+L 199.956009 182.703993
+L 200.783771 183.685037
+L 202.025414 185.580285
+L 203.267057 187.96863
+L 204.5087 190.828819
+L 206.164223 195.331817
+L 207.819747 200.556752
+L 209.889152 207.976316
+L 212.372438 217.938086
+L 215.269605 230.568495
+L 223.547225 267.270253
+L 226.030511 276.901861
+L 228.099916 283.967328
+L 229.75544 288.863473
+L 231.410964 293.002816
+L 232.652607 295.570823
+L 233.89425 297.653198
+L 235.135893 299.231413
+L 235.963655 299.996343
+L 236.791417 300.527838
+L 237.619179 300.823797
+L 238.44694 300.883047
+L 239.274702 300.705355
+L 240.102464 300.291423
+L 240.930226 299.642889
+L 241.757988 298.76232
+L 242.999631 297.014267
+L 244.241274 294.767738
+L 245.482917 292.042724
+L 247.138441 287.707559
+L 248.793965 282.633866
+L 250.86337 275.37641
+L 252.932775 267.270253
+L 255.829942 254.879973
+L 265.763086 211.183343
+L 267.832491 203.414542
+L 269.901896 196.57341
+L 271.55742 191.882787
+L 273.212943 187.96863
+L 274.454586 185.580285
+L 275.696229 183.685037
+L 276.937872 182.299748
+L 277.765634 181.665812
+L 278.593396 181.266607
+L 279.421158 181.103712
+L 280.24892 181.177773
+L 281.076682 181.488497
+L 281.904444 182.034653
+L 282.732206 182.814082
+L 283.559968 183.823699
+L 284.801611 185.760745
+L 286.043254 188.189281
+L 287.284897 191.087698
+L 288.940421 195.638027
+L 290.595945 200.905452
+L 292.66535 208.370306
+L 295.148636 218.373503
+L 298.459684 232.895032
+L 305.49566 264.26909
+L 307.978946 274.209915
+L 310.048351 281.606662
+L 311.703875 286.810231
+L 313.359399 291.289459
+L 314.601042 294.130467
+L 315.842685 296.49866
+L 317.084328 298.372966
+L 318.325971 299.736707
+L 319.153733 300.356037
+L 319.981495 300.740509
+L 320.809257 300.888603
+L 321.637019 300.799732
+L 322.464781 300.474248
+L 323.292543 299.913439
+L 324.120305 299.119524
+L 325.361948 297.498697
+L 326.603591 295.375083
+L 327.845234 292.767581
+L 329.086877 289.699391
+L 330.742401 284.939595
+L 332.397925 279.485033
+L 334.46733 271.822129
+L 336.950616 261.640197
+L 340.261663 246.990277
+L 346.469878 219.248508
+L 348.953164 209.164313
+L 351.022569 201.610268
+L 352.678093 196.258843
+L 354.333617 191.614698
+L 355.57526 188.640366
+L 356.816903 186.1319
+L 358.058546 184.111622
+L 359.300189 182.597509
+L 360.127951 181.876145
+L 360.955713 181.38868
+L 361.783475 181.137044
+L 362.611237 181.12223
+L 363.438999 181.344299
+L 364.266761 181.802372
+L 365.094523 182.494636
+L 365.922285 183.418351
+L 367.163928 185.229657
+L 368.405571 187.537179
+L 369.647214 190.320383
+L 371.302738 194.727886
+L 372.958261 199.866875
+L 375.027666 207.194486
+L 377.097071 215.356459
+L 379.994238 227.79824
+L 389.513501 269.779663
+L 391.582906 277.651358
+L 393.652311 284.618197
+L 395.307835 289.423741
+L 396.963359 293.463624
+L 398.205002 295.952164
+L 399.446645 297.95168
+L 400.688288 299.44438
+L 401.51605 300.151199
+L 402.343812 300.623971
+L 403.171574 300.860826
+L 403.585455 300.890455
+L 403.585455 300.890455
+" clip-path="url(#c7l-energy-p370232c3da)" style="fill: none; stroke: #af623f; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_9">
+    <path d="M 56.36 306.88
+L 56.36 175.11
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_10">
+    <path d="M 420.12 306.88
+L 420.12 175.11
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_11">
+    <path d="M 56.36 306.88
+L 420.12 306.88
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-patch_12">
+    <path d="M 56.36 175.11
+L 420.12 175.11
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-energy-legend_2">
+    <g id="c7l-energy-patch_13">
+     <path d="M 187.754219 256.276719
+L 288.725781 256.276719
+Q 290.525781 256.276719 290.525781 254.476719
+L 290.525781 227.513281
+Q 290.525781 225.713281 288.725781 225.713281
+L 187.754219 225.713281
+Q 185.954219 225.713281 185.954219 227.513281
+L 185.954219 254.476719
+Q 185.954219 256.276719 187.754219 256.276719
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c7l-energy-line2d_63">
+     <path d="M 189.554219 233.357656
+L 198.554219 233.357656
+L 207.554219 233.357656
+" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c7l-energy-text_26">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="214.754219" y="236.507656" transform="rotate(-0 214.754219 236.507656)">电场能量 / 总能量</text>
+    </g>
+    <g id="c7l-energy-line2d_64">
+     <path d="M 189.554219 247.289375
+L 198.554219 247.289375
+L 207.554219 247.289375
+" style="fill: none; stroke: #af623f; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c7l-energy-text_27">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="214.754219" y="250.439375" transform="rotate(-0 214.754219 250.439375)">磁场能量 / 总能量</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c7l-energy-p9120fd1228">
+   <rect x="56.36" y="27.96" width="363.76" height="131.77"/>
+  </clipPath>
+  <clipPath id="c7l-energy-p370232c3da">
+   <rect x="56.36" y="175.11" width="363.76" height="131.77"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>电容的储能 W<sub>C</sub>=Cu²/2，电感的储能 W<sub>L</sub>=Li²/2。电容电压达到最大时，电场储能最大；经过四分之一周期，电容电压过零，电感电流达到最大，主要储能变成磁场能。</p>
+<p>图中按前面的支路电流方向取 u=U<sub>max</sub>cosω₀t、i<sub>L</sub>=I<sub>Lmax</sub>sinω₀t，并令 I<sub>Lmax</sub>=U<sub>max</sub>√(C/L)。于是理想情况下两种储能的和恒定。</p>
+<p>这是教材讲“电场能和磁场能相互转换”的目的：解释 LC 为什么有固有振荡频率，以及为什么损耗会使振幅衰减。振荡器中的晶体管负责补充损耗，不是替 LC 重新发明一个周期。</p>
+<p class="level"><strong>基础题学到哪：</strong>会写 f₀，知道电压、电感电流错开四分之一周期，知道实际需要补能即可。一般识图、算频率不要求每题画能量曲线；储能题才使用 Cu²/2、Li²/2。</p></section>
+
+<section id="c713-loss"><h2>实际并联回路：先看清 R 是串在哪里的</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-loss" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 450" role="img" aria-labelledby="c7l-loss-c7l-loss-title">
+<title id="c7l-loss-c7l-loss-title">电容与电感线圈的串联损耗电阻并联，R是线圈支路串联损耗而非并联谐振电阻</title>
+<defs><marker id="c7l-loss-c7l-loss-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">实际线圈：L 的支路串入损耗 Rs</text><circle cx="25" cy="90" r="3.2" class="port"/><text x="25" y="67" text-anchor="start" font-size="13">U</text><path class="wire" d="M25 90H225M25 350H225"/><circle cx="25" cy="350" r="3.2" class="port"/><text x="25" y="378" text-anchor="start" font-size="13">0</text><path class="wire" d="M95 90V215.0M83 215.0H107M83 225.0H107M95 225.0V350"/><text x="77" y="225.0" text-anchor="end" font-size="13">C</text><path class="wire" d="M225 90V128.0"/><path class="wire" d="M225 128.0a9 8 0 0 1 0 16"/><path class="wire" d="M225 144.0a9 8 0 0 1 0 16"/><path class="wire" d="M225 160.0a9 8 0 0 1 0 16"/><path class="wire" d="M225 176.0a9 8 0 0 1 0 16"/><path class="wire" d="M225 192.0V230"/><text x="245" y="165.0" text-anchor="start" font-size="13">L</text><path class="wire" d="M225 230V272.0M218 272.0H232V308.0H218ZM225 308.0V350"/><text x="239" y="295.0" text-anchor="start" font-size="15">Rs</text><text x="160" y="405" text-anchor="middle" font-size="14">Rs 小 → 损耗小 → Q 较高</text></svg></figure>
+<p>教材把线圈与其他损耗等效为电感支路中的串联电阻。为与并联等效电阻区分，这里记作 R<sub>s</sub>；它对应课本图 7.1.9(b) 中的 R。</p>
+<div class="eq">Y=jωC+1/(R<sub>s</sub>+jωL)<br>=R<sub>s</sub>/[R<sub>s</sub>²+(ωL)²]<br>+j{ωC−ωL/[R<sub>s</sub>²+(ωL)²]}</div>
+<p>谐振时令导纳的虚部为零。这个串联损耗模型的精确零相位频率为：</p><div class="eq">ω<sub>r</sub>²=1/(LC)−(R<sub>s</sub>/L)²<br>损耗较小、Q≫1 时：f<sub>r</sub>≈1/[2π√(LC)]</div>
+<p>课本把它写成含 Q 的形式，含义相同。公式说明损耗较大时不能无条件用理想 f₀，更不能把任何一组 L、C、R 都说成具有尖锐的谐振峰。上式还需要右侧为正。</p>
+<p>在零相位谐振处，该模型端口的等效纯电阻为：</p><div class="eq">R<sub>p</sub>=Z(ω<sub>r</sub>)=L/(CR<sub>s</sub>)<br>=R<sub>s</sub>(1+Q<sub>r</sub>²)，Q<sub>r</sub>=ω<sub>r</sub>L/R<sub>s</sub></div>
+<p class="level"><strong>最容易考错：</strong>线圈的串联损耗越小，谐振时的并联等效电阻反而越大。题目中的 R<sub>s</sub> 与 R<sub>p</sub>不是同一个电阻，不能在 Q 公式里随意互换。</p></section>
+
+<section id="c713-q"><h2>Q 值：损耗越小，选频越尖，支路电流也可能很大</h2>
+<figure class="chapter-figure plot"><svg data-figure="c7l-q" xmlns:xlink="http://www.w3.org/1999/xlink" width="432pt" height="417.6pt" viewBox="0 0 432 417.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c7l-q-figure_1">
+  <g id="c7l-q-patch_1">
+   <path d="M 0 417.6
+L 432 417.6
+L 432 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c7l-q-axes_1">
+   <g id="c7l-q-patch_2">
+    <path d="M 51.95 192.032178
+L 420.12 192.032178
+L 420.12 27.96
+L 51.95 27.96
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c7l-q-matplotlib.axis_1">
+    <g id="c7l-q-xtick_1">
+     <g id="c7l-q-line2d_1">
+      <path d="M 102.155 192.032178
+L 102.155 27.96
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_2">
+      <defs>
+       <path id="c7l-q-md7fc46ff5c" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="102.155" y="192.032178" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_2">
+     <g id="c7l-q-line2d_3">
+      <path d="M 169.095 192.032178
+L 169.095 27.96
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_4">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="169.095" y="192.032178" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_3">
+     <g id="c7l-q-line2d_5">
+      <path d="M 236.035 192.032178
+L 236.035 27.96
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_6">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="236.035" y="192.032178" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_4">
+     <g id="c7l-q-line2d_7">
+      <path d="M 302.975 192.032178
+L 302.975 27.96
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_8">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="302.975" y="192.032178" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_5">
+     <g id="c7l-q-line2d_9">
+      <path d="M 369.915 192.032178
+L 369.915 27.96
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_10">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="369.915" y="192.032178" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="c7l-q-matplotlib.axis_2">
+    <g id="c7l-q-ytick_1">
+     <g id="c7l-q-line2d_11">
+      <path d="M 51.95 167.066708
+L 420.12 167.066708
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_12">
+      <defs>
+       <path id="c7l-q-m8283584475" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="167.066708" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_1">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="171.46327" transform="rotate(-0 44.95 171.46327)">5</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_2">
+     <g id="c7l-q-line2d_13">
+      <path d="M 51.95 140.72966
+L 420.12 140.72966
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_14">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="140.72966" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_2">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="145.126222" transform="rotate(-0 44.95 145.126222)">10</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_3">
+     <g id="c7l-q-line2d_15">
+      <path d="M 51.95 114.392611
+L 420.12 114.392611
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_16">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="114.392611" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_3">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="118.789174" transform="rotate(-0 44.95 118.789174)">15</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_4">
+     <g id="c7l-q-line2d_17">
+      <path d="M 51.95 88.055563
+L 420.12 88.055563
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_18">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="88.055563" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_4">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="92.452126" transform="rotate(-0 44.95 92.452126)">20</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_5">
+     <g id="c7l-q-line2d_19">
+      <path d="M 51.95 61.718515
+L 420.12 61.718515
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_20">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="61.718515" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_5">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="66.115078" transform="rotate(-0 44.95 66.115078)">25</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_6">
+     <g id="c7l-q-line2d_21">
+      <path d="M 51.95 35.381467
+L 420.12 35.381467
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_22">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="35.381467" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_6">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="39.77803" transform="rotate(-0 44.95 39.77803)">30</text>
+     </g>
+    </g>
+    <g id="c7l-q-text_7">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="25.250938" y="109.996089" transform="rotate(-90 25.250938 109.996089)">|Z| / √(L/C)</text>
+    </g>
+   </g>
+   <g id="c7l-q-line2d_23">
+    <path d="M 68.685 184.574351
+L 86.401595 183.398683
+L 101.724056 182.163714
+L 115.131209 180.864452
+L 127.101881 179.481326
+L 137.636073 178.043156
+L 147.212611 176.511801
+L 155.831495 174.910688
+L 163.971552 173.165978
+L 171.153956 171.407172
+L 178.336359 169.414413
+L 185.039936 167.323778
+L 191.743512 165.003575
+L 198.925916 162.283989
+L 219.515472 154.27633
+L 223.346087 153.111287
+L 226.697876 152.290105
+L 230.049664 151.692976
+L 233.401452 151.348045
+L 236.274413 151.265168
+L 239.147375 151.380065
+L 242.499163 151.753995
+L 245.850951 152.363091
+L 249.681567 153.303443
+L 253.991009 154.601852
+L 259.736931 156.587445
+L 281.762969 164.45869
+L 288.945372 166.668797
+L 296.127775 168.64428
+L 303.789006 170.507126
+L 311.450236 172.143526
+L 320.06912 173.749761
+L 329.166831 175.216796
+L 339.222196 176.61201
+L 350.235215 177.917749
+L 362.684714 179.16936
+L 377.049521 180.38049
+L 393.329635 181.51985
+L 403.385 182.125437
+L 403.385 182.125437
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #54698a; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-line2d_24">
+    <path d="M 68.685 184.388617
+L 84.965114 183.239087
+L 99.329921 182.003755
+L 111.779421 180.70799
+L 122.313612 179.395399
+L 131.89015 177.977358
+L 140.030207 176.555238
+L 147.212611 175.089807
+L 153.916187 173.497588
+L 159.66211 171.917552
+L 164.929206 170.252921
+L 169.717475 168.519384
+L 174.026917 166.740603
+L 178.336359 164.709654
+L 182.166974 162.647297
+L 185.518763 160.60285
+L 188.870551 158.289238
+L 191.743512 156.050562
+L 194.616474 153.53047
+L 197.489435 150.674819
+L 199.883569 147.990183
+L 202.277704 144.976734
+L 204.671838 141.57463
+L 207.065973 137.71022
+L 208.98128 134.225457
+L 210.896588 130.331065
+L 212.811896 125.961164
+L 214.727203 121.039085
+L 216.642511 115.47741
+L 218.557818 109.180291
+L 220.473126 102.050532
+L 222.388433 94.006033
+L 224.303741 85.01327
+L 226.697876 72.573851
+L 231.007318 49.426665
+L 232.443798 43.020311
+L 233.401452 39.6242
+L 234.359106 37.139023
+L 234.837933 36.284903
+L 235.31676 35.708263
+L 235.795587 35.417852
+L 236.274413 35.417826
+L 236.75324 35.707565
+L 237.232067 36.281705
+L 237.710894 37.13039
+L 238.668548 39.592265
+L 239.626202 42.944545
+L 241.062682 49.244
+L 242.97799 59.047468
+L 247.287432 81.678913
+L 249.20274 90.676254
+L 251.118047 98.758676
+L 253.033355 105.940175
+L 254.948662 112.292435
+L 256.86397 117.907474
+L 258.779278 122.878833
+L 260.694585 127.293125
+L 262.609893 131.226977
+L 264.5252 134.746575
+L 266.919335 138.648715
+L 269.313469 142.082962
+L 271.707604 145.12384
+L 274.101738 147.831958
+L 276.9747 150.711477
+L 279.847661 153.251584
+L 282.720622 155.507149
+L 286.072411 157.837266
+L 289.424199 159.895442
+L 293.254814 161.970778
+L 297.085429 163.800102
+L 301.394871 165.614367
+L 306.18314 167.380142
+L 311.450236 169.073478
+L 317.196159 170.678633
+L 323.420908 172.186563
+L 330.603312 173.686459
+L 338.264542 175.059664
+L 346.883426 176.382588
+L 356.938791 177.692353
+L 368.430637 178.950087
+L 381.358963 180.131382
+L 396.202597 181.256429
+L 403.385 181.730383
+L 403.385 181.730383
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-line2d_25">
+    <path d="M 236.035 192.032178
+L 236.035 27.96
+" clip-path="url(#c7l-q-p90df366716)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #af623f; stroke-opacity: 0.5; stroke-width: 1.5"/>
+   </g>
+   <g id="c7l-q-patch_3">
+    <path d="M 51.95 192.032178
+L 51.95 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-patch_4">
+    <path d="M 420.12 192.032178
+L 420.12 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-patch_5">
+    <path d="M 51.95 192.032178
+L 420.12 192.032178
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-patch_6">
+    <path d="M 51.95 27.96
+L 420.12 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-text_8">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="236.035" y="21.96" transform="rotate(-0 236.035 21.96)">并联谐振：Q 高，阻抗峰更高、更窄</text>
+   </g>
+   <g id="c7l-q-legend_1">
+    <g id="c7l-q-patch_7">
+     <path d="M 340.684531 70.815313
+L 412.42 70.815313
+Q 414.62 70.815313 414.62 68.615313
+L 414.62 35.66
+Q 414.62 33.46 412.42 33.46
+L 340.684531 33.46
+Q 338.484531 33.46 338.484531 35.66
+L 338.484531 68.615313
+Q 338.484531 70.815313 340.684531 70.815313
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c7l-q-line2d_26">
+     <path d="M 342.884531 42.803125
+L 353.884531 42.803125
+L 364.884531 42.803125
+" style="fill: none; stroke: #54698a; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c7l-q-text_9">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="373.684531" y="46.653125" transform="rotate(-0 373.684531 46.653125)">Q = 8</text>
+    </g>
+    <g id="c7l-q-line2d_27">
+     <path d="M 342.884531 59.830781
+L 353.884531 59.830781
+L 364.884531 59.830781
+" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+    </g>
+    <g id="c7l-q-text_10">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="373.684531" y="63.680781" transform="rotate(-0 373.684531 63.680781)">Q = 30</text>
+    </g>
+   </g>
+  </g>
+  <g id="c7l-q-axes_2">
+   <g id="c7l-q-patch_8">
+    <path d="M 51.95 371.68
+L 420.12 371.68
+L 420.12 207.607822
+L 51.95 207.607822
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c7l-q-matplotlib.axis_3">
+    <g id="c7l-q-xtick_6">
+     <g id="c7l-q-line2d_28">
+      <path d="M 102.155 371.68
+L 102.155 207.607822
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_29">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="102.155" y="371.68" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="102.155" y="387.473125" transform="rotate(-0 102.155 387.473125)">0.8</text>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_7">
+     <g id="c7l-q-line2d_30">
+      <path d="M 169.095 371.68
+L 169.095 207.607822
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_31">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="169.095" y="371.68" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="169.095" y="387.473125" transform="rotate(-0 169.095 387.473125)">0.9</text>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_8">
+     <g id="c7l-q-line2d_32">
+      <path d="M 236.035 371.68
+L 236.035 207.607822
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_33">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="236.035" y="371.68" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_13">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="236.035" y="387.473125" transform="rotate(-0 236.035 387.473125)">1.0</text>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_9">
+     <g id="c7l-q-line2d_34">
+      <path d="M 302.975 371.68
+L 302.975 207.607822
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_35">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="302.975" y="371.68" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_14">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="302.975" y="387.473125" transform="rotate(-0 302.975 387.473125)">1.1</text>
+     </g>
+    </g>
+    <g id="c7l-q-xtick_10">
+     <g id="c7l-q-line2d_36">
+      <path d="M 369.915 371.68
+L 369.915 207.607822
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_37">
+      <g>
+       <use xlink:href="#c7l-q-md7fc46ff5c" x="369.915" y="371.68" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_15">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="369.915" y="387.473125" transform="rotate(-0 369.915 387.473125)">1.2</text>
+     </g>
+    </g>
+    <g id="c7l-q-text_16">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="236.035" y="403.000781" transform="rotate(-0 236.035 403.000781)">f / f0</text>
+    </g>
+   </g>
+   <g id="c7l-q-matplotlib.axis_4">
+    <g id="c7l-q-ytick_7">
+     <g id="c7l-q-line2d_38">
+      <path d="M 51.95 367.885427
+L 420.12 367.885427
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_39">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="367.885427" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_17">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="372.281989" transform="rotate(-0 44.95 372.281989)">-90</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_8">
+     <g id="c7l-q-line2d_40">
+      <path d="M 51.95 328.973476
+L 420.12 328.973476
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_41">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="328.973476" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_18">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="333.370039" transform="rotate(-0 44.95 333.370039)">-45</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_9">
+     <g id="c7l-q-line2d_42">
+      <path d="M 51.95 290.061526
+L 420.12 290.061526
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_43">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="290.061526" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_19">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="294.458088" transform="rotate(-0 44.95 294.458088)">0</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_10">
+     <g id="c7l-q-line2d_44">
+      <path d="M 51.95 251.149575
+L 420.12 251.149575
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_45">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="251.149575" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_20">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="255.546138" transform="rotate(-0 44.95 255.546138)">45</text>
+     </g>
+    </g>
+    <g id="c7l-q-ytick_11">
+     <g id="c7l-q-line2d_46">
+      <path d="M 51.95 212.237625
+L 420.12 212.237625
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.15; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-q-line2d_47">
+      <g>
+       <use xlink:href="#c7l-q-m8283584475" x="51.95" y="212.237625" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-q-text_21">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="216.634187" transform="rotate(-0 44.95 216.634187)">90</text>
+     </g>
+    </g>
+    <g id="c7l-q-text_22">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.491719" y="289.643911" transform="rotate(-90 20.491719 289.643911)">arg Z / °</text>
+    </g>
+   </g>
+   <g id="c7l-q-line2d_48">
+    <path d="M 68.685 222.696082
+L 84.486288 223.946273
+L 98.372268 225.2606
+L 110.821767 226.66198
+L 121.834785 228.127421
+L 131.411323 229.619975
+L 140.030207 231.180066
+L 147.691438 232.779009
+L 154.873841 234.498975
+L 161.577418 236.337257
+L 167.802167 238.285786
+L 173.54809 240.329774
+L 178.815186 242.446539
+L 183.603455 244.604775
+L 188.391724 247.018386
+L 192.701166 249.437619
+L 197.010608 252.11847
+L 201.32005 255.087548
+L 205.150665 257.988467
+L 208.98128 261.149948
+L 212.811896 264.579594
+L 217.121338 268.756455
+L 221.43078 273.250579
+L 226.219049 278.561975
+L 232.922625 286.374048
+L 243.935644 299.255925
+L 249.20274 305.031584
+L 253.512182 309.44182
+L 257.821624 313.526998
+L 261.652239 316.873302
+L 265.482854 319.952931
+L 269.313469 322.775612
+L 273.622911 325.66259
+L 277.932353 328.268454
+L 282.241795 330.620007
+L 287.030064 332.966686
+L 291.818333 335.066023
+L 297.085429 337.126275
+L 302.831352 339.11718
+L 309.056102 341.01671
+L 315.759678 342.810375
+L 322.942082 344.490113
+L 330.603312 346.053011
+L 339.222196 347.579167
+L 348.798734 349.040301
+L 359.332926 350.417991
+L 371.303598 351.751229
+L 384.710751 353.01351
+L 400.033212 354.224029
+L 403.385 354.461573
+L 403.385 354.461573
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #54698a; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-line2d_49">
+    <path d="M 68.685 215.065649
+L 96.935787 215.744788
+L 118.482997 216.476801
+L 135.241938 217.257883
+L 148.649092 218.093872
+L 159.66211 218.995059
+L 168.759821 219.956089
+L 176.421052 220.985591
+L 182.645801 222.031211
+L 187.912897 223.117411
+L 192.701166 224.321102
+L 197.010608 225.639779
+L 200.841223 227.060743
+L 204.193011 228.556829
+L 207.065973 230.082379
+L 209.460107 231.571014
+L 211.854242 233.306933
+L 214.248376 235.351833
+L 216.163684 237.264078
+L 218.078991 239.479085
+L 219.994299 242.063627
+L 221.909607 245.10038
+L 223.824914 248.689501
+L 225.261395 251.813202
+L 226.697876 255.36489
+L 228.134356 259.394203
+L 230.049664 265.572713
+L 231.964971 272.681962
+L 234.359106 282.665357
+L 240.105029 307.344101
+L 242.020336 314.365785
+L 243.935644 320.453034
+L 245.850951 325.632463
+L 247.766259 330.002978
+L 249.681567 333.68644
+L 251.596874 336.800706
+L 253.512182 339.448585
+L 255.427489 341.715372
+L 257.342797 343.670115
+L 259.736931 345.757889
+L 262.131066 347.527897
+L 264.5252 349.043938
+L 267.398162 350.595709
+L 270.74995 352.115575
+L 274.101738 353.391592
+L 277.932353 354.618628
+L 282.241795 355.77118
+L 287.508891 356.931467
+L 293.254814 357.964169
+L 299.958391 358.942727
+L 308.098448 359.893393
+L 317.674986 360.774951
+L 329.166831 361.598259
+L 343.052811 362.361113
+L 360.290579 363.074322
+L 381.83779 363.731795
+L 403.385 364.222174
+L 403.385 364.222174
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke: #17645f; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-line2d_50">
+    <path d="M 236.035 371.68
+L 236.035 207.607822
+" clip-path="url(#c7l-q-p334f99c0e0)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #af623f; stroke-opacity: 0.5; stroke-width: 1.5"/>
+   </g>
+   <g id="c7l-q-patch_9">
+    <path d="M 51.95 371.68
+L 51.95 207.607822
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-patch_10">
+    <path d="M 420.12 371.68
+L 420.12 207.607822
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-patch_11">
+    <path d="M 51.95 371.68
+L 420.12 371.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-q-patch_12">
+    <path d="M 51.95 207.607822
+L 420.12 207.607822
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c7l-q-p90df366716">
+   <rect x="51.95" y="27.96" width="368.17" height="164.072178"/>
+  </clipPath>
+  <clipPath id="c7l-q-p334f99c0e0">
+   <rect x="51.95" y="207.607822" width="368.17" height="164.072178"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>高 Q 近似下，教材给出：</p><div class="eq">Q≈ω₀L/R<sub>s</sub>≈√(L/C)/R<sub>s</sub><br>R<sub>p</sub>≈Q²R<sub>s</sub>≈Qω₀L</div>
+<p>图用高 Q 附近的等效并联损耗模型比较曲线。相同 L、C 下，Q 高的回路阻抗峰更高、频带更窄；谐振附近还可近似用带宽 Δf≈f₀/Q。接入负载会降低<strong>有载 Q</strong>，不能用空载线圈的 Q 代替整机的 Q。</p>
+<p>例如 L=10 μH、C=100 pF、R<sub>s</sub>=2 Ω，理想 f₀≈5.033 MHz，Q≈158，谐振等效电阻约 50 kΩ。若又并联 10 kΩ 负载，等效电阻约 8.33 kΩ，有载 Q 约降到 26.4；频率的主要决定量仍是 LC，但选频能力明显下降。</p>
+<p>高 Q 谐振时，外部端口电流主要补损耗，而 L、C 内部的交流支路电流可约为端口电流的 Q 倍。因此箭头在这里还提醒你：<strong>外部电流小，不能推断线圈和电容里的交流电流也小。</strong></p>
+<p class="level"><strong>必须会：</strong>Q 的物理含义、串联损耗与并联等效的区别、负载会降低 Q。需要算 Q 或起振条件时才代具体公式；不要求从曲线形状背出整条阻抗函数。</p></section>
+
+<section id="c713-selective"><h2>把 LC 接到共射级：谐振时增益大，但共射仍然反相</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-tuned-ce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 530" role="img" aria-labelledby="c7l-tuned-ce-c7l-tuned-ce-title">
+<title id="c7l-tuned-ce-c7l-tuned-ce-title">共射级集电极的负载为并联LC选频网络，电源顶端为交流地，发射极被旁路接交流地</title>
+<defs><marker id="c7l-tuned-ce-c7l-tuned-ce-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">共射选频放大：LC 在集电极负载中</text><path class="wire" d="M130 305V345M110 325H130M130 315L160 290V280M130 335L160 360V370"/><path class="wire" d="M140 343L155 356" marker-end="url(#c7l-tuned-ce-c7l-tuned-ce-arrow)"/><text x="173" y="330" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 280V235H250M160 235V220"/><path class="wire" d="M160 90V123.0"/><path class="wire" d="M160 123.0a9 8 0 0 1 0 16"/><path class="wire" d="M160 139.0a9 8 0 0 1 0 16"/><path class="wire" d="M160 155.0a9 8 0 0 1 0 16"/><path class="wire" d="M160 171.0a9 8 0 0 1 0 16"/><path class="wire" d="M160 187.0V220"/><text x="140" y="160.0" text-anchor="end" font-size="13">L</text><path class="wire" d="M250 90V157.5M238 157.5H262M238 167.5H262M250 167.5V235"/><text x="232" y="167.5" text-anchor="end" font-size="13">C</text><path class="wire" d="M160 90H250"/><path class="wire" d="M205 90V80M193 80H217M197 74H213M202 68H208"/><circle cx="25" cy="325" r="3.2" class="port"/><text x="25" y="302" text-anchor="start" font-size="13">ui</text><path class="wire" d="M25 325L110 325"/><path class="wire" d="M160 370V410"/><path class="wire" d="M160 410V420M148 420H172M152 426H168M157 432H163"/><circle cx="305" cy="235" r="3.2" class="port"/><text x="305" y="263" text-anchor="end" font-size="13">uo</text><path class="wire" d="M250 235L305 235"/><circle cx="160" cy="235" r="3.2" fill="currentColor"/><text x="160" y="478" text-anchor="middle" font-size="12">交流骨架：偏置与线圈损耗省略</text><text x="160" y="507" text-anchor="middle" font-size="12">顶端来自 Vcc，因此是交流地</text></svg></figure>
+<p>这是教材图 7.1.11 的交流骨架：V<sub>CC</sub> 对交流为地，发射极经大旁路电容接交流地，LC 网络是集电极的负载。偏置电阻和损耗在图中省略，计算时需要时再加回。</p>
+<div class="eq">u<sub>o</sub>≈−βi<sub>b</sub>Z<br>i<sub>b</sub>≈u<sub>i</sub>/r<sub>be</sub><br>A<sub>u</sub>≈−βZ/r<sub>be</sub></div>
+<p>在谐振处 Z 近似为正实数，因而共射级的输出和基极输入反相。课本所说“无附加相移”，是说 LC 负载在该处<strong>不再额外引入相移</strong>，不是把共射本来的 180° 也取消。</p>
+<p>离开谐振，Z 的模减小且出现相角，放大倍数也随之变化。要构成振荡器，还需把合适的反馈电压送回输入，使完整环路总相角为 360° 的整数倍。</p>
+<p class="level"><strong>做题动作：</strong>先确定共射的负号，再考虑 LC 或变压器返回的极性。不要仅因“谐振、纯阻性”就把共射当成同相级。</p></section>
+
+<section id="c713-transformer"><h2>变压器反馈式：先用共射的反相，推出一次绕组的两端</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-transformer-ce" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 610" role="img" aria-labelledby="c7l-transformer-ce-c7l-transformer-ce-title">
+<title id="c7l-transformer-ce-c7l-transformer-ce-title">共射变压器反馈的交流骨架，一次和二次同名端在上端</title>
+<defs><marker id="c7l-transformer-ce-c7l-transformer-ce-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">共射变压器反馈：先认两端电压</text><path class="wire" d="M185 95V143.0"/><path class="wire" d="M185 143.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 159.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 175.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 191.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 207.0V255"/><text x="165" y="180.0" text-anchor="end" font-size="13">N1</text><path class="wire" d="M275 95V170.0M263 170.0H287M263 180.0H287M275 180.0V255"/><text x="257" y="180.0" text-anchor="end" font-size="13">C</text><path class="wire" d="M185 95H275M185 255H275M185 255V320H160V345"/><path class="wire" d="M230 95V85M218 85H242M222 79H238M227 73H233"/><circle cx="185" cy="255" r="3.2" fill="currentColor"/><path class="wire" d="M65 95V143.0"/><path class="wire" d="M65 143.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 159.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 175.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 191.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 207.0V255"/><text x="45" y="180.0" text-anchor="end" font-size="13">N2</text><path class="wire" d="M65 255V265M53 265H77M57 271H73M62 277H68"/><circle cx="65" cy="95" r="3.2" class="port"/><text x="65" y="72" text-anchor="start" font-size="13">uf</text><circle cx="51" cy="115" r="3.2" fill="currentColor"/><circle cx="171" cy="115" r="3.2" fill="currentColor"/><path class="wire" d="M130 370V410M110 390H130M130 380L160 355V345M130 400L160 425V435"/><path class="wire" d="M140 408L155 421" marker-end="url(#c7l-transformer-ce-c7l-transformer-ce-arrow)"/><text x="173" y="395" text-anchor="start" font-size="15">T</text><circle cx="305" cy="255" r="3.2" class="port"/><text x="305" y="283" text-anchor="end" font-size="13">uc</text><path class="wire" d="M275 255L305 255"/><circle cx="25" cy="390" r="3.2" class="port"/><text x="25" y="367" text-anchor="start" font-size="13">ub=uf</text><path class="wire" d="M25 390L110 390"/><path class="wire" d="M160 435V485"/><path class="wire" d="M160 485V495M148 495H172M152 501H168M157 507H163"/><text x="160" y="593" text-anchor="middle" font-size="11">同名 uf 端连接；偏置、耦合等已化简</text></svg></figure>
+<p>图把教材图 7.1.13 化成交流骨架，两个标为 uf 的端口相连；耦合、旁路电容已按题设频率化简，直流偏置没有画出。一次绕组 N1 与 C 组成谐振负载，二次 N2 把电压送回基极。</p>
+<p>在基极反馈处断开，假设小信号 u<sub>b</sub>对地为正。共射反相，所以集电极 u<sub>c</sub>为负。N1 上端接 V<sub>CC</sub>，交流为零；下端接集电极，为负。于是<strong>N1 从上端到下端的电压为正</strong>。</p>
+<p>若二次绕组上端与一次上端为同名端，N2 从上端到下端的感应电压也为正。N2 下端接地，所以 N2 上端 uf 对地为正，返回后加强刚才假定的基极正输入。</p>
+<p>因此这一点端配置满足相位条件；若只把二次绕组两端对调，反馈符号改变，就不再满足本连接的正反馈相位条件。完成相位判断后，仍要检查正常偏置与增益，不能把“点标对了”直接当成所有条件都已满足。</p></section>
+
+<section id="c713-dots"><h2>同名端不是“永远同时对地为正”：它比较的是绕组两端电压</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-dot-rule" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 455" role="img" aria-labelledby="c7l-dot-rule-c7l-dot-rule-title">
+<title id="c7l-dot-rule-c7l-dot-rule-title">同名端只表示两个绕组从点端到非点端的感应电压同相，不能仅凭点在图上的上下判断对地电位</title>
+<defs><marker id="c7l-dot-rule-c7l-dot-rule-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">同名端：点端到非点端的电压同相</text><path class="wire" d="M80 90V158.0"/><path class="wire" d="M80 158.0a9 8 0 0 1 0 16"/><path class="wire" d="M80 174.0a9 8 0 0 1 0 16"/><path class="wire" d="M80 190.0a9 8 0 0 1 0 16"/><path class="wire" d="M80 206.0a9 8 0 0 1 0 16"/><path class="wire" d="M80 222.0V290"/><text x="60" y="195.0" text-anchor="end" font-size="13">N1</text><path class="wire" d="M240 90V158.0"/><path class="wire" d="M240 158.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 174.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 190.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 206.0a9 8 0 0 1 0 16"/><path class="wire" d="M240 222.0V290"/><text x="260" y="195.0" text-anchor="start" font-size="13">N2</text><circle cx="66" cy="112" r="3.2" fill="currentColor"/><circle cx="226" cy="112" r="3.2" fill="currentColor"/><text x="110" y="103" text-anchor="start" font-size="15">+</text><text x="110" y="288" text-anchor="start" font-size="15">−</text><text x="270" y="103" text-anchor="start" font-size="15">+</text><text x="270" y="288" text-anchor="start" font-size="15">−</text><text x="160" y="349" text-anchor="middle" font-size="13">u1 = V(点1) − V(非点1)</text><text x="160" y="386" text-anchor="middle" font-size="13">u2 = V(点2) − V(非点2)</text><text x="160" y="428" text-anchor="middle" font-size="12">同相的是这两个“有参考方向的电压”</text></svg></figure>
+<p>点标记规定两个绕组感应电压的相对方向。最稳妥的写法是：分别定义从点端到非点端的电压，这两个电压同相。它并不规定每个端点相对电路地的电位。</p>
+<p>例如一次上端接交流地、下端瞬时为负，那么一次“上减下”为正。另一个电路可能恰好一次下端为正、上端仍是地，此时一次“上减下”就是负。点虽然画在相同位置，对地极性却会随接法改变。</p>
+<p>做标同名端题，固定四步：<strong>标交流地 → 假设输入为正 → 推集电极电位 → 要求返回输入同号，再确定点端。</strong>最后一步只能做在已经指定电压两端之后。</p>
+<p class="level"><strong>不要背“两个点都放上面”。</strong>下一道共基例题就会把这个记忆法推翻。同名端的规则不变，变的是放大器接法与电压参考方向。</p></section>
+
+<section id="c713-transformer-load"><h2>课本的互感长推导：是在说明输入电阻也会吃掉谐振能量</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-transformer-load" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 490" role="img" aria-labelledby="c7l-transformer-load-c7l-transformer-load-title">
+<title id="c7l-transformer-load-c7l-transformer-load-title">一次支路串联Rs与L1，二次L2带输入电阻Ri，二次电流反射到一次，增大等效损耗</title>
+<defs><marker id="c7l-transformer-load-c7l-transformer-load-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">输入电阻 Ri 也会加载谐振回路</text><circle cx="20" cy="85" r="3.2" class="port"/><text x="20" y="62" text-anchor="start" font-size="13">Uo</text><circle cx="20" cy="350" r="3.2" class="port"/><text x="20" y="378" text-anchor="start" font-size="13">0</text><path class="wire" d="M20 85H90M20 350H90"/><path class="wire" d="M90 85V114.5M83 114.5H97V150.5H83ZM90 150.5V180"/><text x="76" y="137.5" text-anchor="end" font-size="15">Rs</text><path class="wire" d="M90 180V233.0"/><path class="wire" d="M90 233.0a9 8 0 0 1 0 16"/><path class="wire" d="M90 249.0a9 8 0 0 1 0 16"/><path class="wire" d="M90 265.0a9 8 0 0 1 0 16"/><path class="wire" d="M90 281.0a9 8 0 0 1 0 16"/><path class="wire" d="M90 297.0V350"/><text x="70" y="270.0" text-anchor="end" font-size="13">L1</text><circle cx="76" cy="195" r="3.2" fill="currentColor"/><path class="wire" d="M215 85V185.5"/><path class="wire" d="M215 185.5a9 8 0 0 1 0 16"/><path class="wire" d="M215 201.5a9 8 0 0 1 0 16"/><path class="wire" d="M215 217.5a9 8 0 0 1 0 16"/><path class="wire" d="M215 233.5a9 8 0 0 1 0 16"/><path class="wire" d="M215 249.5V350"/><text x="195" y="222.5" text-anchor="end" font-size="13">L2</text><circle cx="201" cy="105" r="3.2" fill="currentColor"/><path class="wire" d="M215 85H285M215 350H285"/><path class="wire" d="M285 85V199.5M278 199.5H292V235.5H278ZM285 235.5V350"/><text x="271" y="222.5" text-anchor="end" font-size="15">Ri</text><path class="wire" d="M120 90L120 135" marker-end="url(#c7l-transformer-load-c7l-transformer-load-arrow)"/><text x="135" y="120" text-anchor="start" font-size="13">I1</text><path class="wire" d="M235 60L275 60" marker-end="url(#c7l-transformer-load-c7l-transformer-load-arrow)"/><text x="250" y="45" text-anchor="start" font-size="13">I2</text><text x="160" y="405" text-anchor="middle" font-size="11">两绕组间互感 M；电流方向按箭头定义</text><text x="160" y="449" text-anchor="middle" font-size="13">磁耦合不等于输入端不取能量</text></svg></figure>
+<p>这段对应教材式 7.1.16—7.1.21。二次绕组接入放大器后，并非开路，它受到 R<sub>i</sub>=R<sub>b1</sub>∥R<sub>b2</sub>∥r<sub>be</sub> 加载。磁耦合会把二次取走的能量反映到一次侧。</p>
+<p>按图规定一次电流 I₁进入一次线圈点端，二次电流 I₂从二次点端流向 R<sub>i</sub>。教材的关系可写为：</p><div class="eq">U<sub>o</sub>=(R+jωL₁)I₁−jωMI₂<br>I₂=jωMI₁/(R<sub>i</sub>+jωL₂)</div>
+<p>这里 R 对应一次支路的总串联损耗。把第二式代进第一式，得到一次侧等效串联 R′ 与 L₁′：</p><div class="eq">R′=R+[ω²M²/(R<sub>i</sub>²+ω²L₂²)]R<sub>i</sub><br>L₁′=L₁−[ω²M²/(R<sub>i</sub>²+ω²L₂²)]L₂</div>
+<p>结果的物理意义比中间化简更重要：<strong>带负载后等效损耗增大、等效电感减小，Q 与频率都会受影响。</strong>这些等效参数本身随频率变化，应在所考察频率附近使用。高 Q 时再写：</p><div class="eq">Q≈√(L₁′/C)/R′<br>f₀≈1/[2π√(L₁′C)]</div>
+<p class="level"><strong>掌握边界：</strong>普通标点端题不需要展开这些式子。题目给 M、R<sub>i</sub>并要求有载频率或起振条件时，它们才成为计算工具；不能一律将一次线圈的铭牌电感直接代入所有有载公式。</p></section>
+
+<section id="c713-transformer-start"><h2>变压器反馈的起振条件：最终仍在比较“返回多少”</h2>
+<p>在高 Q 近似下，一次线圈的谐振电流约为集电极电流的 Q 倍。用 i<sub>c</sub>≈βu<sub>i</sub>/r<sub>be</sub>，得到 |I₁|≈Qβ|U<sub>i</sub>|/r<sub>be</sub>。若另外满足 ω₀L₂≪R<sub>i</sub>，二次反馈电压约为 ω₀M|I₁|。</p>
+<div class="eq">|U<sub>f</sub>/U<sub>i</sub>|≈βQω₀M/r<sub>be</sub><br>起振：β&gt;r<sub>be</sub>/(ω₀MQ)<br>等价地：β&gt;r<sub>be</sub>R′C/M</div>
+<p>例如某高 Q 等效模型给 f₀=1 MHz、M=0.10 μH、Q=50、r<sub>be</sub>=1 kΩ，要求 β&gt;31.83。β=60 时，小信号返回比约 1.885；相位与工作点也正确时，具有起振余量。这里是在给定近似条件下演示计算，不是指定一套完整实物参数。</p>
+<p>若进一步用 r<sub>be</sub>≈βU<sub>T</sub>/I<sub>EQ</sub>，教材将条件写成 U<sub>T</sub>R′C/(I<sub>EQ</sub>M)&lt;1。它说明在这个模型及适当偏置范围内，增大静态电流通常有利于起振；不能据此把电流无限增大而忽略饱和、功耗和器件带宽。</p>
+<p class="level"><strong>必须记住的关系：</strong>相位正确后，反馈回来要比原小信号大；Q 高、损耗小通常有利。只有题目要求定量起振时，才使用上面的带条件公式。</p></section>
+
+<section id="c713-hartley"><h2>电感反馈式：三个端接三只极，关键是抽头接哪里</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-hartley" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 610" role="img" aria-labelledby="c7l-hartley-c7l-hartley-title">
+<title id="c7l-hartley-c7l-hartley-title">共射电感三点式交流骨架</title>
+<defs><marker id="c7l-hartley-c7l-hartley-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">电感三点式：E 接线圈抽头</text><path class="wire" d="M130 225V265M110 245H130M130 235L160 210V200M130 255L160 280V290"/><path class="wire" d="M140 263L155 276" marker-end="url(#c7l-hartley-c7l-hartley-arrow)"/><text x="173" y="250" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 200V80H290M110 245H65V470H290M160 290V300H220"/><path class="wire" d="M160 300V310M148 310H172M152 316H168M157 322H163"/><path class="wire" d="M220 80V158.0"/><path class="wire" d="M220 158.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 174.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 190.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 206.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 222.0V300"/><text x="200" y="195.0" text-anchor="end" font-size="13">L1</text><path class="wire" d="M220 300V353.0"/><path class="wire" d="M220 353.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 369.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 385.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 401.0a9 8 0 0 1 0 16"/><path class="wire" d="M220 417.0V470"/><text x="200" y="390.0" text-anchor="end" font-size="13">L2</text><path class="wire" d="M290 80V270.0M278 270.0H302M278 280.0H302M290 280.0V470"/><text x="308" y="280.0" text-anchor="start" font-size="13">C</text><circle cx="220" cy="300" r="3.2" fill="currentColor"/><circle cx="220" cy="80" r="3.2" fill="currentColor"/><circle cx="220" cy="470" r="3.2" fill="currentColor"/><text x="143" y="65" text-anchor="end" font-size="13">C</text><text x="47" y="231" text-anchor="end" font-size="13">B</text><text x="145" y="285" text-anchor="end" font-size="13">E</text><text x="160" y="525" text-anchor="middle" font-size="12">C、B 是节点名；偏置与负载未画</text><text x="160" y="561" text-anchor="middle" font-size="12">先认交流地 E，再认取样的两端</text></svg></figure>
+<p>把变压器的两段线圈合成带抽头的一组绕组，就得到课本的电感反馈式，常称电感三点式。图是共射交流骨架，<strong>C、B、E 是晶体管节点名</strong>；画在支路旁的 C 才是电容。</p>
+<p>本图上段 L₁跨 C—E，下段 L₂跨 E—B，抽头 E 为交流地；电容跨整个线圈的外端 C—B。假设 B 对 E 为正，共射使 C 对 E 为负，这正符合线圈两外端相对抽头的反向电压关系。</p>
+<p>从接法识别，而不是从图的外形识别：两段电感的公共点、另外两个外端分别接到三极管三个极，是三点式的核心。电源和偏置经交流化简后可能改变画面位置，但不会改变三个节点的连接。</p>
+<p>实际图中的偏置、耦合与旁路元件仍需查直流和交流条件；图中省略这些支路，只用于认反馈和算等效谐振，不代表把偏置全部拿掉也能工作。</p></section>
+
+<section id="c713-mutual"><h2>电感三点式算频率：有互感时，L 不是简单相加</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-mutual" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="c7l-mutual-c7l-mutual-title">
+<title id="c7l-mutual-c7l-mutual-title">同一个电流依次进入两个绕组同名端时为串联助磁，总电感L1加L2加2M，反之减2M</title>
+<defs><marker id="c7l-mutual-c7l-mutual-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">总电感要算互感，不能只数两段</text><path class="wire" d="M25 100H53.5"/><path class="wire" d="M53.5 100a8 9 0 0 1 16 0"/><path class="wire" d="M69.5 100a8 9 0 0 1 16 0"/><path class="wire" d="M85.5 100a8 9 0 0 1 16 0"/><path class="wire" d="M101.5 100H130"/><text x="77.5" y="78" text-anchor="middle" font-size="13">L1</text><path class="wire" d="M185 100H216.0"/><path class="wire" d="M216.0 100a8 9 0 0 1 16 0"/><path class="wire" d="M232.0 100a8 9 0 0 1 16 0"/><path class="wire" d="M248.0 100a8 9 0 0 1 16 0"/><path class="wire" d="M264.0 100H295"/><text x="240.0" y="78" text-anchor="middle" font-size="13">L2</text><path class="wire" d="M130 100L185 100"/><circle cx="36" cy="85" r="3.2" fill="currentColor"/><circle cx="196" cy="85" r="3.2" fill="currentColor"/><path class="wire" d="M85 140L235 140" marker-end="url(#c7l-mutual-c7l-mutual-arrow)"/><text x="160" y="164" text-anchor="middle" font-size="11">同一串联电流参考方向</text><text x="160" y="205" text-anchor="middle" font-size="14">助磁：L = L1+L2+2M</text><path class="wire" d="M25 290H53.5"/><path class="wire" d="M53.5 290a8 9 0 0 1 16 0"/><path class="wire" d="M69.5 290a8 9 0 0 1 16 0"/><path class="wire" d="M85.5 290a8 9 0 0 1 16 0"/><path class="wire" d="M101.5 290H130"/><text x="77.5" y="268" text-anchor="middle" font-size="13">L1</text><path class="wire" d="M185 290H216.0"/><path class="wire" d="M216.0 290a8 9 0 0 1 16 0"/><path class="wire" d="M232.0 290a8 9 0 0 1 16 0"/><path class="wire" d="M248.0 290a8 9 0 0 1 16 0"/><path class="wire" d="M264.0 290H295"/><text x="240.0" y="268" text-anchor="middle" font-size="13">L2</text><path class="wire" d="M130 290L185 290"/><circle cx="36" cy="275" r="3.2" fill="currentColor"/><circle cx="283" cy="275" r="3.2" fill="currentColor"/><path class="wire" d="M85 330L235 330" marker-end="url(#c7l-mutual-c7l-mutual-arrow)"/><text x="160" y="354" text-anchor="middle" font-size="11">同一串联电流参考方向</text><text x="160" y="395" text-anchor="middle" font-size="14">反磁：L = L1+L2−2M</text></svg></figure>
+<p>同一线圈的两段往往磁耦合很强。按教材图的助磁连接，总电感为 L<sub>总</sub>=L₁+L₂+2M，于是：</p><div class="eq">f₀≈1/[2π√((L₁+L₂+2M)C)]</div>
+<p>M 是互感，单位也是 H；可写 M=k√(L₁L₂)，0≤k≤1。若题目明确忽略互感，才取 M=0；若题目给的是整段线圈两外端的总电感，直接使用总值，不要再重复加一次 2M。</p>
+<p>图中助磁、反磁表示给定串联电流相对点端的关系。反磁时用 L₁+L₂−2M；但不要以为在振荡器里随便改成反磁，只改频率即可，反馈极性也需要重新判断。</p>
+<p>自设例：L₁=9 μH、L₂=1 μH、理想紧耦合 M=3 μH、C=100 pF。总电感为 16 μH，f₀≈3.979 MHz。若误把 M 忽略，会算成约 5.033 MHz，差别并不小。</p>
+<p class="level"><strong>题图变形时先问：</strong>给的是分段自感还是整段电感？有没有 M？绕组是助磁还是反磁？这三件事确定后再代 f₀。</p></section>
+
+<section id="c713-hartley-gain"><h2>电感比与起振：反馈增大，加载也会增大</h2>
+<p>按前图共射接法，输出 U<sub>o</sub>=V<sub>C</sub>−V<sub>E</sub>，反馈 U<sub>f</sub>=V<sub>B</sub>−V<sub>E</sub>。两者在所需模式下反相，因此教材先用反馈系数的模：</p><div class="eq">|F|≈(L₂+M)/(L₁+M)</div>
+<p>上例中 |F|=(1+3)/(9+3)=1/3。理想紧耦合时 L 与匝数的平方成正比、M≈√(L₁L₂)，因此该比值等于 N₂/N₁。<strong>匝数比一般不等于分段电感比</strong>；不能把 1/3、1/9 混为一谈。</p>
+<p>输入电阻 R<sub>i</sub>折合到输出侧为 R<sub>i</sub>′≈R<sub>i</sub>/|F|²。再与折合的外负载以及必要的回路损耗并联，得到集电极实际负载 R<sub>负载</sub>。起振近似要求：</p><div class="eq">|A|≈βR<sub>负载</sub>/r<sub>be</sub><br>βR<sub>负载</sub>|F|/r<sub>be</sub>&gt;1</div>
+<p>增大反馈比 |F|，一方面直接使返回比例变大，另一方面却使 R<sub>i</sub>′变小，把输出加载得更重，可能降低 |A|。所以“反馈越强越容易起振”不是可无限外推的结论。</p>
+<p class="level"><strong>普通题：</strong>认反馈来自哪段、算 f₀，并定性解释加载即可。给了输入电阻和负载的起振题，必须让 A 和 F 使用同一个有载模型，不能把空载 A 乘上有载 F。</p></section>
+
+<section id="c713-colpitts"><h2>电容反馈式：换成电容分压，但中点接法仍须看清</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-colpitts" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 610" role="img" aria-labelledby="c7l-colpitts-c7l-colpitts-title">
+<title id="c7l-colpitts-c7l-colpitts-title">共射电容三点式交流骨架，C1跨集电极发射极，C2跨基极发射极</title>
+<defs><marker id="c7l-colpitts-c7l-colpitts-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">电容三点式：E 接电容中点</text><path class="wire" d="M130 225V265M110 245H130M130 235L160 210V200M130 255L160 280V290"/><path class="wire" d="M140 263L155 276" marker-end="url(#c7l-colpitts-c7l-colpitts-arrow)"/><text x="173" y="250" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 200V80H290M110 245H65V470H290M160 290V300H220"/><path class="wire" d="M160 300V310M148 310H172M152 316H168M157 322H163"/><path class="wire" d="M220 80V185.0M208 185.0H232M208 195.0H232M220 195.0V300"/><text x="202" y="195.0" text-anchor="end" font-size="13">C1</text><path class="wire" d="M220 300V380.0M208 380.0H232M208 390.0H232M220 390.0V470"/><text x="202" y="390.0" text-anchor="end" font-size="13">C2</text><path class="wire" d="M290 80V243.0"/><path class="wire" d="M290 243.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 259.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 275.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 291.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 307.0V470"/><text x="310" y="280.0" text-anchor="start" font-size="13">L</text><circle cx="220" cy="300" r="3.2" fill="currentColor"/><circle cx="220" cy="80" r="3.2" fill="currentColor"/><circle cx="220" cy="470" r="3.2" fill="currentColor"/><text x="143" y="65" text-anchor="end" font-size="13">C</text><text x="47" y="231" text-anchor="end" font-size="13">B</text><text x="145" y="285" text-anchor="end" font-size="13">E</text><text x="160" y="525" text-anchor="middle" font-size="12">C、B 是节点名；偏置与负载未画</text><text x="160" y="561" text-anchor="middle" font-size="12">先认交流地 E，再认取样的两端</text></svg></figure>
+<p>本图对应教材图 7.1.19 的共射交流骨架。两只电容的三个端分别接 C、E、B，所以叫电容三点式。按此图命名，C₁是 C—E 的输出侧电容，C₂是 E—B 的反馈侧电容；电感 L 跨两外端 C—B。</p>
+<p>注意两只电容的公共点 E 接交流地，<strong>不能因为画面上它们一上一下，就说它们对地并联</strong>。从电感两端 C—B 看，电容路径要先经过 C₁再经过 C₂，总的串联等效值为：</p><div class="eq">C<sub>eq</sub>=C₁C₂/(C₁+C₂)<br>f₀≈1/[2π√(LC<sub>eq</sub>)]</div>
+<p>两只相等为 C 时，C<sub>eq</sub>=C/2。若直接把 C₁+C₂代进去，会把频率算错一倍。频率公式是在高 Q、器件加载与寄生影响可忽略的条件下使用。</p>
+<p class="level"><strong>识图优先级：</strong>先找共用的那个极，再看另外两端。C₁、C₂只是命名，考试换一张图可能调换编号，不能把字母编号当成固定的物理位置。</p></section>
+
+<section id="c713-cap-ratio"><h2>为什么反馈比是 C₁/C₂：电容小，分到的交流电压大</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-cap-ports" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 545" role="img" aria-labelledby="c7l-cap-ports-c7l-cap-ports-title">
+<title id="c7l-cap-ports-c7l-cap-ports-title">共射电容三点式在近似不加载时串联电容支路电流相同，输出Vc对E与反馈Vb对E反相，反馈模C1除C2</title>
+<defs><marker id="c7l-cap-ports-c7l-cap-ports-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">电容比：先标 Uo、Uf 的两个端点</text><circle cx="95" cy="80" r="3.2" class="port"/><text x="95" y="57" text-anchor="start" font-size="13">C</text><path class="wire" d="M95 80V165.0M83 165.0H107M83 175.0H107M95 175.0V260"/><text x="77" y="175.0" text-anchor="end" font-size="13">C1</text><path class="wire" d="M95 260V345.0M83 345.0H107M83 355.0H107M95 355.0V440"/><text x="77" y="355.0" text-anchor="end" font-size="13">C2</text><circle cx="95" cy="440" r="3.2" class="port"/><text x="95" y="468" text-anchor="start" font-size="13">B</text><path class="wire" d="M95 260H150"/><path class="wire" d="M150 260V270M138 270H162M142 276H158M147 282H153"/><circle cx="95" cy="260" r="3.2" fill="currentColor"/><text x="174" y="265" text-anchor="start" font-size="13">E=0</text><path class="wire" d="M235 255L235 100" marker-end="url(#c7l-cap-ports-c7l-cap-ports-arrow)"/><text x="253" y="169" text-anchor="start" font-size="14">Uo</text><path class="wire" d="M235 270L235 420" marker-end="url(#c7l-cap-ports-c7l-cap-ports-arrow)"/><text x="253" y="355" text-anchor="start" font-size="14">Uf</text><text x="160" y="495" text-anchor="middle" font-size="13">Uo = Vc−Ve；Uf = Vb−Ve</text><text x="160" y="529" text-anchor="middle" font-size="13">F ≈ −C1/C2（图示共射接法）</text></svg></figure>
+<p>先忽略输入取流等加载，把 C—B 间的两只电容看成串联支路，两只电容电流近似相同。电容电压的模与容抗成正比，而容抗与电容值成反比：</p><div class="eq">|U<sub>C1</sub>|=|I|/(ωC₁)<br>|U<sub>C2</sub>|=|I|/(ωC₂)<br>|U<sub>f</sub>/U<sub>o</sub>|≈C₁/C₂</div>
+<p>之所以出现“反过来”，是因为取的是电压比，不是电容值之比。再看参考方向：U<sub>o</sub>从 E 指向 C，U<sub>f</sub>从 E 指向 B；它们在两只串联电容上的方向相反，因此此共射接法的 F≈−C₁/C₂。共射 A 也带负号，整个 AF 才可为正。</p>
+<p>这里的串联电流相等是估算近似。晶体管基极与偏置支路会取流，精细分析时并不完全相等；教材用约等号就是保留了这一模型边界。</p>
+<p>自设例：C₁=100 pF、C₂=400 pF、L=10 μH，则 C<sub>eq</sub>=80 pF，f₀≈5.627 MHz，|F|≈1/4。放大器在该频率处需有 |A|&gt;4 的小信号增益，并且反馈相位正确，才有起振余量。</p></section>
+
+<section id="c713-cap-gain"><h2>电容三点式的幅值条件：不能只把一只电容越减越小</h2>
+<p>教材对该共射电容反馈式给出 |A|≈βR<sub>L</sub>′/r<sub>be</sub>。在忽略 LC 回路损耗、无外接负载的近似下：</p><div class="eq">R<sub>L</sub>′≈R<sub>C</sub>∥[R<sub>i</sub>/|F|²]<br>|F|≈C₁/C₂<br>β&gt;(C₂/C₁)·r<sub>be</sub>/R<sub>L</sub>′</div>
+<p>若题目另有外负载或回路损耗，还要折合后并入 R<sub>L</sub>′。教材的简式不能把这些真实损耗变没。</p>
+<p>增大 C₁/C₂，一方面提高反馈比，一方面加重输入电阻折合到输出的加载。这和电感反馈式是同一个问题：改变反馈网络时，放大器的实际增益也会跟着改变。</p>
+<p>用一个自设等效模型看得更清楚：β/r<sub>be</sub>=2 mS、R<sub>C</sub>=2 kΩ、R<sub>i</sub>=1 kΩ，忽略其他损耗，则 |AF|=4|F|/(1+2|F|²)。|F|从 0.1、0.5、1 到 2，环路增益约为 0.392、1.333、1.333、0.889。它不会随反馈比无限增加。</p>
+<p class="level"><strong>这段的用途：</strong>解释“为什么电容比不能太大或太小”、会在有载条件下判断起振。基础频率题不用额外做这张数值表，更不用背反馈比的某个所谓通用最优值。</p></section>
+
+<section id="c713-cap-tuning"><h2>优缺点与调频：分清“改总电容”和“改分压比”</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-trim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 530" role="img" aria-labelledby="c7l-trim-c7l-trim-title">
+<title id="c7l-trim-c7l-trim-title">电容三点式网络的C1C2比值不变时，可在电感两端另并联小可变电容C3微调频率</title>
+<defs><marker id="c7l-trim-c7l-trim-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">小范围调频：额外并联 C3</text><path class="wire" d="M70 85H280M70 395H280"/><path class="wire" d="M70 85V157.5M58 157.5H82M58 167.5H82M70 167.5V240"/><text x="52" y="167.5" text-anchor="end" font-size="13">C1</text><path class="wire" d="M70 240V312.5M58 312.5H82M58 322.5H82M70 322.5V395"/><text x="52" y="322.5" text-anchor="end" font-size="13">C2</text><path class="wire" d="M70 240H110"/><path class="wire" d="M110 240V250M98 250H122M102 256H118M107 262H113"/><path class="wire" d="M190 85V208.0"/><path class="wire" d="M190 208.0a9 8 0 0 1 0 16"/><path class="wire" d="M190 224.0a9 8 0 0 1 0 16"/><path class="wire" d="M190 240.0a9 8 0 0 1 0 16"/><path class="wire" d="M190 256.0a9 8 0 0 1 0 16"/><path class="wire" d="M190 272.0V395"/><text x="170" y="245.0" text-anchor="end" font-size="13">L</text><path class="wire" d="M280 85V235.0M268 235.0H292M268 245.0H292M280 245.0V395"/><text x="298" y="245.0" text-anchor="start" font-size="13">C3</text><path class="wire" d="M256 265L300 215" marker-end="url(#c7l-trim-c7l-trim-arrow)"/><text x="160" y="463" text-anchor="middle" font-size="13">C总 = C1C2/(C1+C2) + C3</text><text x="160" y="499" text-anchor="middle" font-size="12">C1/C2 保持；频率仍随 C3 改变</text></svg></figure>
+<p>教材指出电容反馈式通常波形较好，常用于频率相对固定的场合。它利用电容取样，高次谐波的传递特性与电感反馈不同；这一比较用于理解典型应用，不代表任意元件、任意偏置下都天然无失真。</p>
+<p>若只改变 C₁或 C₂，串联等效电容变了，反馈比也变了，所以频率与起振条件可能一起变化。只盯着 f₀ 的变化而不复查 |AF|，就可能出现“频率算对了，电路却不起振”。</p>
+<p>课本图 7.1.20 在整个电容分压支路外另并一个小可变电容 C₃，用于较小范围的调频。在忽略加载与寄生的模型下：</p><div class="eq">C<sub>总</sub>=C₁C₂/(C₁+C₂)+C₃<br>f₀≈1/[2π√(LC<sub>总</sub>)]</div>
+<p>这样可保留 C₁/C₂ 的名义分压比，但实际放大器增益仍可能随频率改变，所以仍需留起振余量。电感反馈式则常可通过改变跨整段线圈的 C 调频，而不直接改变线圈匝数比。</p>
+<p class="level"><strong>优缺点题：</strong>会比较“调频是否同时改反馈比”“波形与频稳的典型表现”即可。应用设备名称知道用途，不必逐个背。</p></section>
+
+<section id="c713-clapp"><h2>稳定频率的改进：用小电容主导频率，大电容主要负责分压</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-clapp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 610" role="img" aria-labelledby="c7l-clapp-c7l-clapp-title">
+<title id="c7l-clapp-c7l-clapp-title">共射电容三点式交流骨架，C1跨集电极发射极，C2跨基极发射极</title>
+<defs><marker id="c7l-clapp-c7l-clapp-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">小 Cs 串入 L 支路：改进电容三点式</text><path class="wire" d="M130 225V265M110 245H130M130 235L160 210V200M130 255L160 280V290"/><path class="wire" d="M140 263L155 276" marker-end="url(#c7l-clapp-c7l-clapp-arrow)"/><text x="173" y="250" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 200V80H290M110 245H65V470H290M160 290V300H220"/><path class="wire" d="M160 300V310M148 310H172M152 316H168M157 322H163"/><path class="wire" d="M220 80V185.0M208 185.0H232M208 195.0H232M220 195.0V300"/><text x="202" y="195.0" text-anchor="end" font-size="13">C1</text><path class="wire" d="M220 300V380.0M208 380.0H232M208 390.0H232M220 390.0V470"/><text x="202" y="390.0" text-anchor="end" font-size="13">C2</text><path class="wire" d="M290 80V158.0"/><path class="wire" d="M290 158.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 174.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 190.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 206.0a9 8 0 0 1 0 16"/><path class="wire" d="M290 222.0V300"/><text x="270" y="195.0" text-anchor="end" font-size="13">L</text><path class="wire" d="M290 300V380.0M278 380.0H302M278 390.0H302M290 390.0V470"/><text x="272" y="390.0" text-anchor="end" font-size="13">Cs</text><circle cx="220" cy="300" r="3.2" fill="currentColor"/><circle cx="220" cy="80" r="3.2" fill="currentColor"/><circle cx="220" cy="470" r="3.2" fill="currentColor"/><text x="143" y="65" text-anchor="end" font-size="13">C</text><text x="47" y="231" text-anchor="end" font-size="13">B</text><text x="145" y="285" text-anchor="end" font-size="13">E</text><text x="160" y="525" text-anchor="middle" font-size="12">C、B 是节点名；偏置与负载未画</text><text x="160" y="561" text-anchor="middle" font-size="12">先认交流地 E，再认取样的两端</text></svg></figure>
+<p>这是教材图 7.1.21 的选频连接思路：在电感支路再串一个小电容，课本记作 C，这里改记 C<sub>s</sub>，避免和节点 C 混淆；常见名称为克拉泼式改进电路。</p>
+<p>两只分压电容如果很小，晶体管极间电容、布线杂散电容所占比例就可能很大。改进的思路是让 C₁、C₂足够大，减小这些寄生量相对它们的影响，再用稳定的小 C<sub>s</sub>来主导谐振。</p>
+<div class="eq">1/C<sub>eq</sub>=1/C₁+1/C₂+1/C<sub>s</sub><br>C<sub>s</sub>≪C₁，C<sub>s</sub>≪C₂ 时：C<sub>eq</sub>≈C<sub>s</sub><br>f₀≈1/[2π√(LC<sub>s</sub>)]</div>
+<p>自设例：C₁=C₂=1000 pF、C<sub>s</sub>=20 pF、L=10 μH。准确串联等效电容为约 19.23 pF，频率约 11.48 MHz；直接用 20 pF 得约 11.25 MHz，误差约 2%。所以“远小于”是精度条件，不是可以永远不检查的口号。</p>
+<p>对于极间电容究竟并在哪一臂，按两个端点识别：本讲共射图中 C₁跨 C—E，输出寄生电容主要影响这一臂；C₂跨 B—E，输入寄生主要影响另一臂。<strong>不要脱离实际端点，机械照着 C₁/C₂ 的字母顺序配“输入/输出”。</strong></p>
+<p class="level"><strong>必须会：</strong>认出额外串联的小电容、写三个电容的串联等效、解释为什么减弱寄生影响。这里不是说 C₁、C₂从此完全不影响频率和起振。</p></section>
+
+<section id="c713-cb-cap"><h2>共基型电容反馈：输入换到 E，反馈取的电容也变了</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-cb-cap" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 530" role="img" aria-labelledby="c7l-cb-cap-c7l-cb-cap-title">
+<title id="c7l-cb-cap-c7l-cb-cap-title">共基电容反馈网络中B为交流地，C1跨B与E，C2跨E与C，反馈电压取E对B即C1两端</title>
+<defs><marker id="c7l-cb-cap-c7l-cb-cap-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">共基改接：反馈改取 E 对 B</text><path class="wire" d="M95 80H250"/><path class="wire" d="M165 80V70M153 70H177M157 64H173M162 58H168"/><text x="40" y="84" text-anchor="start" font-size="13">B=0</text><path class="wire" d="M95 80V160.0M83 160.0H107M83 170.0H107M95 170.0V250"/><text x="77" y="170.0" text-anchor="end" font-size="13">C1</text><path class="wire" d="M95 250V330.0M83 330.0H107M83 340.0H107M95 340.0V420"/><text x="77" y="340.0" text-anchor="end" font-size="13">C2</text><path class="wire" d="M250 80V218.0"/><path class="wire" d="M250 218.0a9 8 0 0 1 0 16"/><path class="wire" d="M250 234.0a9 8 0 0 1 0 16"/><path class="wire" d="M250 250.0a9 8 0 0 1 0 16"/><path class="wire" d="M250 266.0a9 8 0 0 1 0 16"/><path class="wire" d="M250 282.0V420"/><text x="230" y="255.0" text-anchor="end" font-size="13">L</text><path class="wire" d="M95 420H250M95 250H155"/><circle cx="155" cy="250" r="3.2" class="port"/><text x="155" y="278" text-anchor="start" font-size="13">E=uf</text><circle cx="250" cy="420" r="3.2" class="port"/><text x="250" y="448" text-anchor="end" font-size="13">C=uo</text><circle cx="95" cy="250" r="3.2" fill="currentColor"/><text x="160" y="490" text-anchor="middle" font-size="12">同名 B、C、E 端与共基放大器相连</text></svg></figure>
+<p>教材图 7.1.22 中，基极被大旁路电容固定为交流地，因此是共基接法。上图单独画出它的反馈网络，同名 B、C、E 端分别接放大器对应节点。C₁在 B—E，C₂在 E—C，输入是 E 对 B 的电压。</p>
+<p>假设发射极对地为正，共基的集电极动态电位同样为正。反馈要送回 E 对地，因此取自<strong>C₁两端</strong>，不能沿用前面的“共射从 C₂取反馈”记忆。</p>
+<p>在忽略取流的理想分压观察中，E 是由 C₂连接输出、C₁接地形成的中点，其对地反馈比例为 C₂/(C₁+C₂)，与输出同相；精确起振要计入低输入电阻和晶体管负载，不能拿这个不加载的比值单独作结论。</p>
+<p>课本介绍共基，是因为它适合更高频率的场合。书中以约 100 MHz 等数值提示应用趋势，不是说低于此频率共基就不许用，也不是超过它共射必定不能用。</p>
+<p class="level"><strong>做题动作：</strong>先从旁路电容找交流公共端，再确定输入电压的两个端点。只有接法与端点一致时，前面推过的反馈比才可以直接使用。</p></section>
+
+<section id="ex712"><h2>教材例 7.1.2：共基电路标同名端，不能套共射的点法</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-transformer-cb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 610" role="img" aria-labelledby="c7l-transformer-cb-c7l-transformer-cb-title">
+<title id="c7l-transformer-cb-c7l-transformer-cb-title">共基例7.1.2中一次侧下端和二次侧上端同名</title>
+<defs><marker id="c7l-transformer-cb-c7l-transformer-cb-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">例 7.1.2：共基放大器的同名端</text><path class="wire" d="M185 95V143.0"/><path class="wire" d="M185 143.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 159.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 175.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 191.0a9 8 0 0 1 0 16"/><path class="wire" d="M185 207.0V255"/><text x="165" y="180.0" text-anchor="end" font-size="13">N1</text><path class="wire" d="M275 95V170.0M263 170.0H287M263 180.0H287M275 180.0V255"/><text x="257" y="180.0" text-anchor="end" font-size="13">C</text><path class="wire" d="M185 95H275M185 255H275M185 255V320H160V345"/><path class="wire" d="M230 95V85M218 85H242M222 79H238M227 73H233"/><circle cx="185" cy="255" r="3.2" fill="currentColor"/><path class="wire" d="M65 95V143.0"/><path class="wire" d="M65 143.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 159.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 175.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 191.0a9 8 0 0 1 0 16"/><path class="wire" d="M65 207.0V255"/><text x="45" y="180.0" text-anchor="end" font-size="13">N2</text><path class="wire" d="M65 255V265M53 265H77M57 271H73M62 277H68"/><circle cx="65" cy="95" r="3.2" class="port"/><text x="65" y="72" text-anchor="start" font-size="13">uf</text><circle cx="51" cy="115" r="3.2" fill="currentColor"/><circle cx="171" cy="235" r="3.2" fill="currentColor"/><path class="wire" d="M130 370V410M110 390H130M130 380L160 355V345M130 400L160 425V435"/><path class="wire" d="M140 408L155 421" marker-end="url(#c7l-transformer-cb-c7l-transformer-cb-arrow)"/><text x="173" y="395" text-anchor="start" font-size="15">T</text><circle cx="305" cy="255" r="3.2" class="port"/><text x="305" y="283" text-anchor="end" font-size="13">uc</text><path class="wire" d="M275 255L305 255"/><path class="wire" d="M110 390H70"/><path class="wire" d="M70 390V400M58 400H82M62 406H78M67 412H73"/><path class="wire" d="M160 435V485H25"/><circle cx="25" cy="485" r="3.2" class="port"/><text x="25" y="462" text-anchor="start" font-size="13">ue=uf</text><path class="wire" d="M160 485V502.0M153 502.0H167V538.0H153ZM160 538.0V555"/><text x="174" y="525.0" text-anchor="start" font-size="15">Re</text><path class="wire" d="M160 555V565M148 565H172M152 571H168M157 577H163"/><text x="160" y="593" text-anchor="middle" font-size="11">同名 uf 端连接；偏置、耦合等已化简</text></svg></figure>
+<p>这是图 7.1.23 在题设“C<sub>b</sub>旁路、C₁耦合，对交流近似短路”条件下的骨架。基极交流接地，信号输入发射极，属于共基放大器。两个 uf 端口表示反馈接回输入的同名端。</p>
+<p><strong>第一步：</strong>断开反馈，假设发射极输入 u<sub>e</sub>对地为正。共基电压同相，所以集电极 u<sub>c</sub>也为正。</p>
+<p><strong>第二步：</strong>一次线圈上端接 V<sub>CC</sub>，交流为零；下端接集电极为正，因此一次从<strong>下到上</strong>的电压为正。</p>
+<p><strong>第三步：</strong>二次下端接地，反馈需要其上端为正。为了让一次“下到上”与二次“上到下”同相，一次<strong>下端</strong>和二次<strong>上端</strong>标为同名端。也可以把另一对端点同时标为同名端，两种说法等价。</p>
+<p>与前面的共射例相比，放大器输出相位变了，同名端配置也随之改变。两种图都按同一条物理规则判断，不需要另背两份“点应该画哪里”。</p></section>
+
+<section id="ex713"><h2>教材例 7.1.3：有 LC、有三极管，也可能根本不能正常放大</h2>
+<p>原题图 7.1.24 中 C₁=C₂=4000 pF，C<sub>e</sub>=10 μF；题目要求改错，且不能改变放大器基本接法。C<sub>e</sub>远大于选频电容，按题意视为交流旁路，因此仍是共射。</p>
+<figure class="chapter-figure svg"><svg data-figure="c7l-ex713-dc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 525" role="img" aria-labelledby="c7l-ex713-dc-c7l-ex713-dc-title">
+<title id="c7l-ex713-dc-c7l-ex713-dc-title">例7.1.3原图的基极经电感直流连到集电极，而集电极直接接Vcc，静态偏置出错</title>
+<defs><marker id="c7l-ex713-dc-c7l-ex713-dc-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">例 7.1.3：先抽出出错的直流支路</text><path class="wire" d="M130 280V320M110 300H130M130 290L160 265V255M130 310L160 335V345"/><path class="wire" d="M140 318L155 331" marker-end="url(#c7l-ex713-dc-c7l-ex713-dc-arrow)"/><text x="173" y="305" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 255V80"/><circle cx="160" cy="80" r="3.2" class="port"/><text x="160" y="57" text-anchor="end" font-size="13">Vcc</text><path class="wire" d="M110 300H45V170"/><path class="wire" d="M45 170H78.5"/><path class="wire" d="M78.5 170a8 9 0 0 1 16 0"/><path class="wire" d="M94.5 170a8 9 0 0 1 16 0"/><path class="wire" d="M110.5 170a8 9 0 0 1 16 0"/><path class="wire" d="M126.5 170H160"/><text x="102.5" y="148" text-anchor="middle" font-size="13">L</text><circle cx="160" cy="170" r="3.2" fill="currentColor"/><path class="wire" d="M160 345V379.5M153 379.5H167V415.5H153ZM160 415.5V450"/><text x="174" y="402.5" text-anchor="start" font-size="15">Re</text><path class="wire" d="M160 450V460M148 460H172M152 466H168M157 472H163"/><text x="160" y="505" text-anchor="middle" font-size="11">这里只保留检错支路，未画完整偏置网络</text></svg></figure>
+<p><strong>第一个错误先查直流。</strong>电感把基极与集电极直接连通；在直流通路中，电感近似短路，原图集电极又直接接电源，基极偏置因此被破坏。应在选频反馈点与基极之间加隔直耦合电容，使反馈网络不能用直流把基极电位钉到集电极。</p>
+<figure class="chapter-figure svg"><svg data-figure="c7l-ex713-ac" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 450" role="img" aria-labelledby="c7l-ex713-ac-c7l-ex713-ac-title">
+<title id="c7l-ex713-ac-c7l-ex713-ac-title">例7.1.3集电极直接接电源即交流接地，发射极又被大电容旁路，输出集射交流电压为零</title>
+<defs><marker id="c7l-ex713-ac-c7l-ex713-ac-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">再看交流：C、E 都被固定在地</text><path class="wire" d="M130 200V240M110 220H130M130 210L160 185V175M130 230L160 255V265"/><path class="wire" d="M140 238L155 251" marker-end="url(#c7l-ex713-ac-c7l-ex713-ac-arrow)"/><text x="173" y="225" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 175V120"/><path class="wire" d="M160 120V110M148 110H172M152 104H168M157 98H163"/><path class="wire" d="M160 265V330"/><path class="wire" d="M160 330V340M148 340H172M152 346H168M157 352H163"/><circle cx="25" cy="220" r="3.2" class="port"/><text x="25" y="197" text-anchor="start" font-size="13">ui</text><path class="wire" d="M25 220L110 220"/><text x="199" y="149" text-anchor="start" font-size="14">C=0</text><text x="199" y="299" text-anchor="start" font-size="14">E=0</text><text x="160" y="403" text-anchor="middle" font-size="16">uo = Vc−Ve = 0</text></svg></figure>
+<p><strong>第二个错误再查交流。</strong>集电极直接接 V<sub>CC</sub>，所以交流接地；发射极又被 C<sub>e</sub>旁路为交流地。集—射输出电压被固定为零，根本没有可反馈的交流输出。需要在电源与集电极之间加入 R<sub>C</sub>，使集电极能够产生动态电压。</p>
+<figure class="chapter-figure svg"><svg data-figure="c7l-ex713-fix" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c7l-ex713-fix-c7l-ex713-fix-title">
+<title id="c7l-ex713-fix-c7l-ex713-fix-title">修正例7.1.3需在Vcc到集电极间加Rc，在谐振反馈点与基极间串隔直耦合电容，维持共射接法</title>
+<defs><marker id="c7l-ex713-fix-c7l-ex713-fix-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">改正的两处连接：Rc 与隔直电容</text><path class="wire" d="M130 270V310M110 290H130M130 280L160 255V245M130 300L160 325V335"/><path class="wire" d="M140 308L155 321" marker-end="url(#c7l-ex713-fix-c7l-ex713-fix-arrow)"/><text x="173" y="295" text-anchor="start" font-size="15">T</text><path class="wire" d="M160 70V139.5M153 139.5H167V175.5H153ZM160 175.5V245"/><text x="174" y="162.5" text-anchor="start" font-size="15">Rc</text><circle cx="160" cy="70" r="3.2" class="port"/><text x="160" y="47" text-anchor="end" font-size="13">Vcc</text><circle cx="25" cy="290" r="3.2" class="port"/><text x="25" y="318" text-anchor="start" font-size="13">网络反馈点</text><path class="wire" d="M25 290H62.5M62.5 278V302M72.5 278V302M72.5 290H110"/><text x="67.5" y="267" text-anchor="middle" font-size="13">Ck</text><path class="wire" d="M160 335V390"/><path class="wire" d="M160 390V400M148 400H172M152 406H168M157 412H163"/><circle cx="300" cy="190" r="3.2" class="port"/><text x="300" y="218" text-anchor="end" font-size="13">网络输出点</text><path class="wire" d="M160 190H300"/><circle cx="160" cy="190" r="3.2" fill="currentColor"/><text x="160" y="450" text-anchor="middle" font-size="10">偏置分压仍接基极；完整选频接法见电容三点式</text><text x="160" y="481" text-anchor="middle" font-size="12">Ck 在直流开路，在目标频率近似短路</text></svg></figure>
+<p>图只抽出两处修正，不是完整偏置和选频图；偏置分压仍接基极，选频网络按原题接回。改后仍为共射电容反馈式，符合“不改变基本接法”的要求。耦合电容的任务是直流隔离、在工作频率上传递信号；R<sub>C</sub>的任务是使集电极交流输出不被电源短掉。</p>
+<p>还要留意本题编号：原题 C₂是输出侧电容、C₁是反馈侧电容，与前面标准图的命名位置相反。两只数值虽然相等，但换成不等值时，反馈比必须按实际端点重写。</p>
+<p class="level"><strong>改图题先查两句话：</strong>直流有没有把偏置短掉？交流有没有把输入或输出短掉？查完再谈相位，比一上来标一堆正负号更有效。</p></section>
+
+<section id="c714-start"><h2>7.1.4 为什么换成石英晶体：希望频率更难漂走</h2>
+<p>RC、LC 都能选频，但器件参数、温度和寄生量变化会使频率漂动。石英晶体利用机械谐振与压电效应，能提供很尖锐、很稳定的频率选择。</p>
+<p>电场使晶体机械变形，机械振动又能产生电信号，这就是这里需要知道的压电效应。接近某个固有频率时，机械振动和相应电气响应明显增强。</p>
+<p>晶片切割、镀电极与封装的描述，是为了说明它是一个有机械结构的无源谐振器，不是内部藏着一只理想正弦信号源。<strong>晶体本身仍需要接入有源振荡电路，才能持续输出。</strong></p>
+<p class="level"><strong>做题需要：</strong>知道它用于高频率稳定性要求、会看等效电路；加工细节知道用途即可，不需要为电路题逐句背制造步骤。</p></section>
+
+<section id="c714-model"><h2>晶体等效电路：一条动生支路，并联静态电容</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-quartz-model" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 620" role="img" aria-labelledby="c7l-quartz-model-c7l-quartz-model-title">
+<title id="c7l-quartz-model-c7l-quartz-model-title">石英晶体等效为静态电容C0并联动生支路Lm Cm Rm，动生电容Cm远小于C0</title>
+<defs><marker id="c7l-quartz-model-c7l-quartz-model-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">晶体符号与电气等效模型</text><path class="wire" d="M65 95H145.0M145.0 80V110M152.0 76H168.0V114H152.0ZM175.0 80V110M175.0 95H255"/><text x="160.0" y="66" text-anchor="middle" font-size="13">石英晶体</text><path class="wire" d="M160 160V215" marker-end="url(#c7l-quartz-model-c7l-quartz-model-arrow)"/><path class="wire" d="M65 245H245M65 540H245"/><circle cx="25" cy="245" r="3.2" class="port"/><text x="25" y="222" text-anchor="start" font-size="13">a</text><path class="wire" d="M25 245L65 245"/><circle cx="25" cy="540" r="3.2" class="port"/><text x="25" y="568" text-anchor="start" font-size="13">b</text><path class="wire" d="M25 540L65 540"/><path class="wire" d="M65 245V387.5M53 387.5H77M53 397.5H77M65 397.5V540"/><text x="83" y="397.5" text-anchor="start" font-size="13">C0</text><path class="wire" d="M245 245V263.0"/><path class="wire" d="M245 263.0a9 8 0 0 1 0 16"/><path class="wire" d="M245 279.0a9 8 0 0 1 0 16"/><path class="wire" d="M245 295.0a9 8 0 0 1 0 16"/><path class="wire" d="M245 311.0a9 8 0 0 1 0 16"/><path class="wire" d="M245 327.0V345"/><text x="225" y="300.0" text-anchor="end" font-size="13">Lm</text><path class="wire" d="M245 345V387.5M233 387.5H257M233 397.5H257M245 397.5V440"/><text x="227" y="397.5" text-anchor="end" font-size="13">Cm</text><path class="wire" d="M245 440V472.0M238 472.0H252V508.0H238ZM245 508.0V540"/><text x="231" y="495.0" text-anchor="end" font-size="15">Rm</text><text x="160" y="597" text-anchor="middle" font-size="11">Cm ≪ C0；Lm、Cm 是机械振动的等效参数</text></svg></figure>
+<p>教材用 L、C、R 表示振动支路。为避免和外接元件混淆，本讲记为 L<sub>m</sub>、C<sub>m</sub>、R<sub>m</sub>；外面并联的 C₀仍是静态电容。</p>
+<div class="table-wrap"><table><thead><tr><th>等效元件</th><th>对应的作用</th><th>要记什么</th></tr></thead><tbody><tr><td>L<sub>m</sub></td><td>机械振动的惯性</td><td>是电气等效，不是晶体内绕了一只线圈</td></tr><tr><td>C<sub>m</sub></td><td>机械弹性</td><td>远小于静态电容 C₀</td></tr><tr><td>R<sub>m</sub></td><td>机械及等效损耗</td><td>损耗小使 Q 很高</td></tr><tr><td>C₀</td><td>电极、晶片形成的静态电容</td><td>与整条动生支路并联</td></tr></tbody></table></div>
+<p>高 Q 的结构原因可用 Q≈√(L<sub>m</sub>/C<sub>m</sub>)/R<sub>m</sub>理解：等效 L<sub>m</sub>较大、C<sub>m</sub>很小、损耗较小。教材列出的 Q 与频稳数量级用于比较选频能力，不是任意晶体与任意外电路都能达到的保证指标。</p>
+<p class="level"><strong>必须会画/认：</strong>C₀并联“L<sub>m</sub>、C<sub>m</sub>、R<sub>m</sub>串联”。把 C₀画到动生支路串联进去，会直接导致 fₛ、fₚ算反。</p></section>
+
+<section id="c714-frequencies"><h2>两个谐振频率：fₛ 较低、阻抗小；fₚ 较高、阻抗大</h2>
+<p>先忽略损耗 R<sub>m</sub>，或在高 Q 模型下作近似。动生 L<sub>m</sub>、C<sub>m</sub>串联谐振时：</p><div class="eq">f<sub>s</sub>=1/[2π√(L<sub>m</sub>C<sub>m</sub>)]</div>
+<p>在这个频率附近，动生支路阻抗很小，晶体整体表现为低阻抗。若保留 R<sub>m</sub>，动生支路在上述 fₛ为 R<sub>m</sub>，并联 C₀后整体仍略含容性；将整体近似为纯电阻 R<sub>m</sub>需要 R<sub>m</sub>≪1/(ωₛC₀)。</p>
+<p>在略高的频率，动生支路呈感性，与 C₀发生并联谐振。损耗忽略时：</p><div class="eq">f<sub>p</sub>=1/[2π√(L<sub>m</sub>C<sub>m</sub>C₀/(C<sub>m</sub>+C₀))]<br>=f<sub>s</sub>√(1+C<sub>m</sub>/C₀)</div>
+<p>所以 fₚ&gt;fₛ；因为 C<sub>m</sub>≪C₀，两者非常接近。并联谐振附近的整体阻抗很大，理想零损耗时趋于无穷大，有损耗时峰值有限。</p>
+<p>自设例：fₛ=10 MHz、C<sub>m</sub>=0.02 pF、C₀=4 pF，则 fₚ≈10.02497 MHz，相差约 24.97 kHz。“很接近”是相对约 10 MHz 而言，不是两者数学上完全相等。</p>
+<p class="level"><strong>必考式子与顺序：</strong>fₛ公式，fₚ=fₛ√(1+C<sub>m</sub>/C₀)，以及 fₚ略大于 fₛ。需要更精确的损耗模型时，端口的零相位点会有小修正，不必把理想式说成有损电路的无条件精确式。</p></section>
+
+<section id="c714-band"><h2>晶体不是永远呈感性：只有 fₛ 与 fₚ 之间那一小段</h2>
+<figure class="chapter-figure plot"><svg data-figure="c7l-quartz-x" xmlns:xlink="http://www.w3.org/1999/xlink" width="432pt" height="288pt" viewBox="0 0 432 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c7l-quartz-x-figure_1">
+  <g id="c7l-quartz-x-patch_1">
+   <path d="M 0 288
+L 432 288
+L 432 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c7l-quartz-x-axes_1">
+   <g id="c7l-quartz-x-patch_2">
+    <path d="M 45.56 242.08
+L 420.12 242.08
+L 420.12 28.91625
+L 45.56 28.91625
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c7l-quartz-x-patch_3">
+    <path d="M 155.45157 242.08
+L 309.84341 242.08
+L 309.84341 28.91625
+L 155.45157 28.91625
+z
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: #17645f; opacity: 0.1; stroke: #17645f; stroke-linejoin: miter"/>
+   </g>
+   <g id="c7l-quartz-x-matplotlib.axis_1">
+    <g id="c7l-quartz-x-xtick_1">
+     <g id="c7l-quartz-x-line2d_1">
+      <path d="M 93.540826 242.08
+L 93.540826 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_2">
+      <defs>
+       <path id="c7l-quartz-x-md7fc46ff5c" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c7l-quartz-x-md7fc46ff5c" x="93.540826" y="242.08" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_1">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="93.540826" y="257.873125" transform="rotate(-0 93.540826 257.873125)">0.998</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-xtick_2">
+     <g id="c7l-quartz-x-line2d_3">
+      <path d="M 155.45157 242.08
+L 155.45157 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_4">
+      <g>
+       <use xlink:href="#c7l-quartz-x-md7fc46ff5c" x="155.45157" y="242.08" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_2">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="155.45157" y="257.873125" transform="rotate(-0 155.45157 257.873125)">1.000</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-xtick_3">
+     <g id="c7l-quartz-x-line2d_5">
+      <path d="M 217.362314 242.08
+L 217.362314 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_6">
+      <g>
+       <use xlink:href="#c7l-quartz-x-md7fc46ff5c" x="217.362314" y="242.08" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_3">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="217.362314" y="257.873125" transform="rotate(-0 217.362314 257.873125)">1.002</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-xtick_4">
+     <g id="c7l-quartz-x-line2d_7">
+      <path d="M 279.273058 242.08
+L 279.273058 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_8">
+      <g>
+       <use xlink:href="#c7l-quartz-x-md7fc46ff5c" x="279.273058" y="242.08" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_4">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="279.273058" y="257.873125" transform="rotate(-0 279.273058 257.873125)">1.004</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-xtick_5">
+     <g id="c7l-quartz-x-line2d_9">
+      <path d="M 341.183802 242.08
+L 341.183802 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_10">
+      <g>
+       <use xlink:href="#c7l-quartz-x-md7fc46ff5c" x="341.183802" y="242.08" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_5">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="341.183802" y="257.873125" transform="rotate(-0 341.183802 257.873125)">1.006</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-xtick_6">
+     <g id="c7l-quartz-x-line2d_11">
+      <path d="M 403.094545 242.08
+L 403.094545 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_12">
+      <g>
+       <use xlink:href="#c7l-quartz-x-md7fc46ff5c" x="403.094545" y="242.08" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_6">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="403.094545" y="257.873125" transform="rotate(-0 403.094545 257.873125)">1.008</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-text_7">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="232.84" y="273.400781" transform="rotate(-0 232.84 273.400781)">f / fs（为看清窄带，取 Cm/C0=0.01）</text>
+    </g>
+   </g>
+   <g id="c7l-quartz-x-matplotlib.axis_2">
+    <g id="c7l-quartz-x-ytick_1">
+     <g id="c7l-quartz-x-line2d_13">
+      <path d="M 45.56 220.763625
+L 420.12 220.763625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_14">
+      <defs>
+       <path id="c7l-quartz-x-m8283584475" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c7l-quartz-x-m8283584475" x="45.56" y="220.763625" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_8">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="38.56" y="225.160188" transform="rotate(-0 38.56 225.160188)">-4</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-ytick_2">
+     <g id="c7l-quartz-x-line2d_15">
+      <path d="M 45.56 178.130875
+L 420.12 178.130875
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_16">
+      <g>
+       <use xlink:href="#c7l-quartz-x-m8283584475" x="45.56" y="178.130875" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_9">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="38.56" y="182.527437" transform="rotate(-0 38.56 182.527437)">-2</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-ytick_3">
+     <g id="c7l-quartz-x-line2d_17">
+      <path d="M 45.56 135.498125
+L 420.12 135.498125
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_18">
+      <g>
+       <use xlink:href="#c7l-quartz-x-m8283584475" x="45.56" y="135.498125" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_10">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="38.56" y="139.894687" transform="rotate(-0 38.56 139.894687)">0</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-ytick_4">
+     <g id="c7l-quartz-x-line2d_19">
+      <path d="M 45.56 92.865375
+L 420.12 92.865375
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_20">
+      <g>
+       <use xlink:href="#c7l-quartz-x-m8283584475" x="45.56" y="92.865375" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="38.56" y="97.261937" transform="rotate(-0 38.56 97.261937)">2</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-ytick_5">
+     <g id="c7l-quartz-x-line2d_21">
+      <path d="M 45.56 50.232625
+L 420.12 50.232625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.13; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c7l-quartz-x-line2d_22">
+      <g>
+       <use xlink:href="#c7l-quartz-x-m8283584475" x="45.56" y="50.232625" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c7l-quartz-x-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="38.56" y="54.629187" transform="rotate(-0 38.56 54.629187)">4</text>
+     </g>
+    </g>
+    <g id="c7l-quartz-x-text_13">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.615781" y="135.498125" transform="rotate(-90 20.615781 135.498125)">归一化电抗 X</text>
+    </g>
+   </g>
+   <g id="c7l-quartz-x-line2d_23">
+    <path d="M 62.585455 143.508298
+L 84.047565 142.237816
+L 103.033278 140.896684
+L 119.542593 139.515085
+L 134.400977 138.051158
+L 147.60843 136.526347
+L 159.164951 134.974165
+L 169.483273 133.373405
+L 178.976129 131.678748
+L 187.64352 129.902388
+L 195.485445 128.063959
+L 202.501904 126.192021
+L 209.10563 124.192601
+L 214.883891 122.215502
+L 220.249418 120.151731
+L 225.202213 118.014889
+L 229.742275 115.824349
+L 233.869603 113.606082
+L 237.996932 111.133274
+L 241.711528 108.651883
+L 245.426124 105.884605
+L 248.727987 103.14266
+L 252.029851 100.087773
+L 254.918981 97.113669
+L 257.808111 93.809523
+L 260.284508 90.670959
+L 262.760906 87.202414
+L 265.237303 83.348929
+L 267.7137 79.042623
+L 269.777365 75.047555
+L 271.841029 70.618746
+L 273.904694 65.681478
+L 275.968358 60.142824
+L 278.032022 53.885747
+L 280.095687 46.76073
+L 281.746618 40.307281
+L 283.39755 33.048235
+L 285.048482 24.822674
+L 286.699413 15.423764
+L 288.350345 4.581123
+L 289.110501 -1
+L 289.110501 -1
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-line2d_24">
+    <path d="M 334.50373 289
+L 336.175218 280.5893
+L 338.042734 272.372369
+L 339.91025 265.176025
+L 341.777766 258.821216
+L 343.800909 252.725456
+L 345.824051 247.315055
+L 348.00282 242.129901
+L 350.181589 237.504715
+L 352.515984 233.073105
+L 354.850379 229.101045
+L 357.3404 225.294362
+L 359.986048 221.663831
+L 362.787322 218.21503
+L 365.588597 215.112654
+L 368.545497 212.158952
+L 371.658024 209.354868
+L 374.926177 206.69902
+L 378.505583 204.080083
+L 382.240615 201.623127
+L 386.2869 199.232087
+L 390.644438 196.92463
+L 395.313228 194.713116
+L 400.293271 192.605456
+L 403.094545 191.518669
+L 403.094545 191.518669
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-line2d_25">
+    <path d="M 155.45157 242.08
+L 155.45157 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #54698a; stroke-width: 1.5"/>
+   </g>
+   <g id="c7l-quartz-x-line2d_26">
+    <path d="M 309.84341 242.08
+L 309.84341 28.91625
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #af623f; stroke-width: 1.5"/>
+   </g>
+   <g id="c7l-quartz-x-line2d_27">
+    <path d="M 45.56 135.498125
+L 420.12 135.498125
+" clip-path="url(#c7l-quartz-x-p160ad4ba00)" style="fill: none; stroke: #54698a; stroke-width: 0.7; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-patch_4">
+    <path d="M 45.56 242.08
+L 45.56 28.91625
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-patch_5">
+    <path d="M 420.12 242.08
+L 420.12 28.91625
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-patch_6">
+    <path d="M 45.56 242.08
+L 420.12 242.08
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-patch_7">
+    <path d="M 45.56 28.91625
+L 420.12 28.91625
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c7l-quartz-x-text_14">
+    <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="164.738182" y="54.4959" transform="rotate(-0 164.738182 54.4959)">感性</text>
+   </g>
+   <g id="c7l-quartz-x-text_15">
+    <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="68.776529" y="184.525787" transform="rotate(-0 68.776529 184.525787)">容性</text>
+   </g>
+   <g id="c7l-quartz-x-text_16">
+    <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="341.183802" y="184.525787" transform="rotate(-0 341.183802 184.525787)">容性</text>
+   </g>
+   <g id="c7l-quartz-x-text_17">
+    <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="155.45157" y="231.421812" transform="rotate(-0 155.45157 231.421812)">fs</text>
+   </g>
+   <g id="c7l-quartz-x-text_18">
+    <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="309.84341" y="39.574437" transform="rotate(-0 309.84341 39.574437)">fp</text>
+   </g>
+   <g id="c7l-quartz-x-text_19">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="232.84" y="22.91625" transform="rotate(-0 232.84 22.91625)">理想 Rm=0：仅 fs &lt; f &lt; fp 时呈感性</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c7l-quartz-x-p160ad4ba00">
+   <rect x="45.56" y="28.91625" width="374.56" height="213.16375"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<div class="table-wrap"><table><thead><tr><th>理想模型的频率区域</th><th>晶体端口性质</th><th>判断依据</th></tr></thead><tbody><tr><td>f&lt;fₛ</td><td>容性</td><td>动生支路与静态电容共同体现容性</td></tr><tr><td>f=fₛ</td><td>低阻抗谐振点</td><td>动生串联 LC 抵消</td></tr><tr><td>fₛ&lt;f&lt;fₚ</td><td>感性</td><td>可在这一窄带内作为等效电感使用</td></tr><tr><td>f=fₚ</td><td>高阻抗谐振点</td><td>动生感性支路与 C₀并联谐振</td></tr><tr><td>f&gt;fₚ</td><td>容性</td><td>端口再次体现容性</td></tr></tbody></table></div>
+<p>图用 R<sub>m</sub>=0 的理想电抗表达式，特意放大很窄的横轴范围，虚线两侧的发散来自无损模型；实际损耗会把无限大变成有限响应。</p>
+<p class="level"><strong>做题用途：</strong>识别“晶体替代电感”时，需要它工作在感性区；识别“晶体串在反馈信号通路”时，常利用串联谐振的低阻抗。只记“晶振很稳”不够做这两类判断题。</p></section>
+
+<section id="c714-parallel"><h2>并联型晶体振荡器：替代 L，但实际频率在感性窄带内</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-quartz-parallel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 540" role="img" aria-labelledby="c7l-quartz-parallel-c7l-quartz-parallel-title">
+<title id="c7l-quartz-parallel-c7l-quartz-parallel-title">并联型晶体振荡器的选频网络由晶体跨接电容分压支路两端，外接串联等效负载电容使工作频率在fs与fp之间</title>
+<defs><marker id="c7l-quartz-parallel-c7l-quartz-parallel-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">并联型：晶体替代电容三点式的 L</text><path class="wire" d="M75 85H245M75 390H245"/><path class="wire" d="M75 85V157.5M63 157.5H87M63 167.5H87M75 167.5V240"/><text x="57" y="167.5" text-anchor="end" font-size="13">C1</text><path class="wire" d="M75 240V310.0M63 310.0H87M63 320.0H87M75 320.0V390"/><text x="57" y="320.0" text-anchor="end" font-size="13">C2</text><path class="wire" d="M75 240H130"/><path class="wire" d="M130 240V250M118 250H142M122 256H138M127 262H133"/><path class="wire" d="M245 85V200M245 275V390"/><path class="wire" d="M245 200V219M230 219H260M226 226H264V249H226ZM230 256H260M245 256V275"/><text x="282" y="243" text-anchor="middle" font-size="14">X</text><text x="160" y="450" text-anchor="middle" font-size="11">外接等效负载电容 CL = C1C2/(C1+C2)</text><text x="160" y="493" text-anchor="middle" font-size="13">晶体在感性区工作：fs &lt; f &lt; fp</text></svg></figure>
+<p>教材图 7.1.28 将电容反馈式的电感换成晶体，其余仍是电容分压结构。上图画出选频部分；有源共射部分按前面 C、B、E 节点接回。晶体需要在感性区，和外接电容一起形成谐振。</p>
+<p>课本用“约等于并联谐振频率 fₚ”概括，因为 fₛ、fₚ本来很近。但不能因此把晶体自身的开路高阻点当成它在电路里始终工作的精确频率。</p>
+<p>进一步忽略加载和寄生，外接分压电容的串联等效值记作 C<sub>L</sub>=C₁C₂/(C₁+C₂)，它相当于并在晶体端口上，使静态并联电容变为 C₀+C<sub>L</sub>。于是加载后的理想频率为：</p><div class="eq">f<sub>L</sub>≈f<sub>s</sub>√[1+C<sub>m</sub>/(C₀+C<sub>L</sub>)]<br>f<sub>s</sub>&lt;f<sub>L</sub>&lt;f<sub>p</sub></div>
+<p>继续用上例，若 C₁=C₂=20 pF，则 C<sub>L</sub>=10 pF，f<sub>L</sub>≈10.00714 MHz，确实位于 10 MHz 与 10.02497 MHz 之间。这是解释外接电容影响的进阶模型；普通识别题回答“晶体在感性区、频率靠近其固有谐振频率”即可。</p>
+<p class="level"><strong>掌握层次：</strong>串联/并联型的识别必须会；负载电容拉频公式用于题目要求较细频率分析时，不必第一轮死背。晶体频稳好，不表示外部电容永远不影响频率。</p></section>
+
+<section id="c714-series"><h2>串联型晶体振荡器：利用低阻抗，把反馈信号送回来</h2>
+<figure class="chapter-figure svg"><svg data-figure="c7l-quartz-series" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 620" role="img" aria-labelledby="c7l-quartz-series-c7l-quartz-series-title">
+<title id="c7l-quartz-series-c7l-quartz-series-title">教材串联型晶体电路的交流骨架，第一级共基输出同相，第二级共集同相，输出经晶体和Rf反馈到第一级发射极</title>
+<defs><marker id="c7l-quartz-series-c7l-quartz-series-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">串联型：共基 → 共集 → 晶体反馈</text><path class="wire" d="M100 270V310M80 290H100M100 280L130 255V245M100 300L130 325V335"/><path class="wire" d="M110 308L125 321" marker-end="url(#c7l-quartz-series-c7l-quartz-series-arrow)"/><text x="143" y="295" text-anchor="start" font-size="15">T1</text><path class="wire" d="M240 135V175M220 155H240M240 145L270 120V110M240 165L270 190V200"/><path class="wire" d="M250 173L265 186" marker-end="url(#c7l-quartz-series-c7l-quartz-series-arrow)"/><text x="283" y="160" text-anchor="start" font-size="15">T2</text><path class="wire" d="M130 245V155H220"/><path class="wire" d="M130 80V99.5M123 99.5H137V135.5H123ZM130 135.5V155"/><text x="116" y="122.5" text-anchor="end" font-size="15">Rc</text><path class="wire" d="M130 80V70M118 70H142M122 64H138M127 58H133"/><path class="wire" d="M270 110V80"/><path class="wire" d="M270 80V70M258 70H282M262 64H278M267 58H273"/><path class="wire" d="M80 290H40"/><path class="wire" d="M40 290V300M28 300H52M32 306H48M37 312H43"/><path class="wire" d="M130 335V410M270 200V410"/><path class="wire" d="M130 410H142.0M142.0 403H178.0V417H142.0ZM178.0 410H190"/><text x="160.0" y="395" text-anchor="middle" font-size="15">Rf</text><path class="wire" d="M190 410H215.0M215.0 395V425M222.0 391H238.0V429H222.0ZM245.0 395V425M245.0 410H270"/><text x="230.0" y="381" text-anchor="middle" font-size="13">X</text><path class="wire" d="M130 410V452.0M123 452.0H137V488.0H123ZM130 488.0V530"/><text x="116" y="475.0" text-anchor="end" font-size="15">Re1</text><path class="wire" d="M270 410V452.0M263 452.0H277V488.0H263ZM270 488.0V530"/><text x="256" y="475.0" text-anchor="end" font-size="15">Re2</text><path class="wire" d="M130 530V540M118 540H142M122 546H138M127 552H133"/><path class="wire" d="M270 530V540M258 540H282M262 546H278M267 552H273"/><circle cx="25" cy="410" r="3.2" class="port"/><text x="25" y="387" text-anchor="start" font-size="13">ui</text><path class="wire" d="M25 410L130 410"/><circle cx="305" cy="410" r="3.2" class="port"/><text x="305" y="438" text-anchor="end" font-size="13">uo</text><path class="wire" d="M270 410L305 410"/><circle cx="130" cy="410" r="3.2" fill="currentColor"/><circle cx="270" cy="410" r="3.2" fill="currentColor"/><text x="160" y="595" text-anchor="middle" font-size="10">偏置与旁路已化为交流骨架；Rf 调节幅值条件</text></svg></figure>
+<p>图是教材图 7.1.29 的交流骨架：第一级 T1 共基，第二级 T2 共集。基极旁路、直流电源都已化为交流地；电阻 R<sub>f</sub>与晶体 X 串在返回通路中。</p>
+<p>假设 T1 发射极输入为正，共基使其集电极为正；T2 为射极跟随器，发射极输出仍为正。两级合起来是同相电压传递。</p>
+<p>当晶体靠近串联谐振，端口呈很小的近似纯电阻，反馈通路衰减较小、相移也合适，反馈电压可与原输入同相。R<sub>f</sub>用于调节返回幅度，使起振与稳定幅值条件合适。</p>
+<p>第一共基级提供增益，第二共集级主要缓冲并驱动反馈和负载。<strong>不能因为共集增益小于 1，就说两级总增益也一定小于 1。</strong>教材正是组合不同级的长处来实现整体功能。</p>
+<p class="level"><strong>必须会：</strong>认两级接法、逐级判断相位、说明晶体为什么放在串联返回通路；频率近似取 fₛ。精细频移与振幅要结合损耗、晶体驱动及器件模型，图的理想骨架不提供那些参数。</p></section>
+
+<section id="c71-compare"><h2>把三类振荡器放到一张表：选频率，也选稳定性</h2>
+<div class="table-wrap"><table><thead><tr><th>电路</th><th>主要选频</th><th>本阶段常见计算</th><th>识图和应用要点</th></tr></thead><tbody><tr><td>RC 文氏桥</td><td>串并联 RC</td><td>等值时 f₀=1/(2πRC)，F=1/3</td><td>同相放大与稳幅，适合较低频率的常见信号源</td></tr><tr><td>变压器反馈 LC</td><td>一次侧有载 LC</td><td>f₀≈1/(2π√(L′C))</td><td>点端与参考地，输入负载会折合到一次</td></tr><tr><td>电感三点式</td><td>带抽头电感与跨接 C</td><td>L<sub>总</sub>=L₁+L₂+2M</td><td>反馈取抽头的一段，注意互感与匝数比</td></tr><tr><td>电容三点式</td><td>L 与串联等效电容</td><td>C<sub>eq</sub>=C₁C₂/(C₁+C₂)</td><td>按端点决定反馈电容比，调电容也可能改起振条件</td></tr><tr><td>石英晶体</td><td>压电谐振器</td><td>fₛ、fₚ，必要时计 C<sub>L</sub></td><td>频率稳定性较高，串联型用低阻点，并联型用感性窄带</td></tr></tbody></table></div>
+<p>这张表用于找分析入口，不能代替相位与加载检查。题目如果把共射换成共基，或者互换了电容编号，就应从实际节点重新判断。</p></section>
+
+<section id="c71-think1"><h2>思考题 7.1.1：与负反馈放大器的自激振荡有什么异同</h2>
+<p><strong>相同：</strong>本质都与反馈环路有关。在某一频率，小扰动经环路得到加强，就可能从小变大；稳态仍受非线性与幅值平衡控制。</p>
+<p><strong>不同：</strong>负反馈放大器的自激一般是设计中不希望出现的失稳，往往由附加相移、寄生参数等引起；专门的正弦振荡器主动设计选频、正反馈与稳幅，使输出频率和波形可控。</p>
+<p>不能直接把一个偶然自激的放大器当作合格信号源，因为振荡频率、波形和稳定性未必符合要求。若重新设计其选频与稳幅，它也可以成为振荡电路，但那已经是有目的的设计。</p>
+<p class="level"><strong>答题不要只写“一个正反馈一个负反馈”。</strong>失稳的负反馈环路在相应频率已经具有等效再生作用，关键是设计目的、频率可控与稳定输出。</p></section>
+
+<section id="c71-think2"><h2>思考题 7.1.2：单管三种接法能否直接配 RC 串并联网络</h2>
+<p>这里讨论教材给定 RC 串并联网络与常见<strong>单管级直接相接</strong>，不是加入额外变压器、多级放大或其他反馈之后的任意电路。等值、无负载网络在 f₀ 处 F=1/3，但连接真实单管后，也不能忘记输入、输出加载。</p>
+<p><strong>共射：</strong>本身反相，而此 RC 网络的相位在 −90° 到 +90° 之间，不能补出所需的另外 180°，直接相接不满足相位条件。</p>
+<p><strong>共集：</strong>电压同相，但自身电压增益小于 1，RC 无源网络又衰减，直接相接不能满足起振的幅值要求。</p>
+<p><strong>共基：</strong>电压虽同相，也不能只拿空载电压增益大于 3 来下结论。发射极输入电阻低且必须取输入电流，而共基的集电极电流增量小于发射极电流增量；在这一路 RC 串并联直接反馈中，返回电流还要供应并联电阻的分流，无法形成所需的持续同相增长。</p>
+<figure class="chapter-figure svg"><svg data-figure="c7l-cb-wien-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380" role="img" aria-labelledby="c7l-cb-wien-current-c7l-cb-wien-current-title">
+<title id="c7l-cb-wien-current-c7l-cb-wien-current-title">单管共基直接接RC串并联网络时，反馈电流还要供应输入与并联电阻，集电极电流小于发射极电流，不能忽略输入加载</title>
+<defs><marker id="c7l-cb-wien-current-c7l-cb-wien-current-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="25" text-anchor="middle" font-size="14">思考 7.1.2：共基不能忽略输入取流</text><rect x="90" y="75" width="140" height="65" class="block"/><text x="160.0" y="112.5" text-anchor="middle" font-size="15">共基单管</text><path class="wire" d="M230 108H280V265H235" marker-end="url(#c7l-cb-wien-current-c7l-cb-wien-current-arrow)"/><text x="246" y="90" text-anchor="start" font-size="13">αIe</text><rect x="90" y="235" width="140" height="60" class="block"/><text x="160.0" y="270.0" text-anchor="middle" font-size="15">RC 网络</text><path class="wire" d="M90 265H40V108H85" marker-end="url(#c7l-cb-wien-current-c7l-cb-wien-current-arrow)"/><text x="16" y="196" text-anchor="start" font-size="13">Is</text><text x="160" y="345" text-anchor="middle" font-size="12">同相时：实部(Is) = Ie + Uf/R2 &gt; Ie</text></svg></figure>
+<details class="answer"><summary>进阶：用电流式说明共基这一步，为什么不是只说“输入电阻低”</summary><p>在忽略反向传输等高阶效应的基本低频共基模型中，设所需同相状态下 U<sub>f</sub>为正实相量，发射极输入电流 I<sub>e</sub>也与之同相，α&lt;1。进入输入节点的串联 RC 支路电流 I<sub>s</sub>=I<sub>e</sub>+U<sub>f</sub>/R₂+jωC₂U<sub>f</sub>，故其实部大于 I<sub>e</sub>。集电极能提供的信号电流约为 αI<sub>e</sub>，还需供应集电极其他负载，不能满足这股返回电流的实部需求。这样才把“有载”与“相位”一起检查了；并非任何具有低输入电阻的放大器都一概不能与选频网络组成振荡器。</p></details>
+<p>文氏桥通常用具有<strong>电压串联负反馈</strong>的同相放大器：获得可设为略大于 3 的正增益，同时提高输入电阻、减小输出电阻，使 RC 网络近似保持预期的频率与反馈比例。教材强调负反馈，是为实现这些条件，不能只解释为“让总增益越小越好”。</p></section>
+
+<section id="c71-think3"><h2>思考题 7.1.3：根据应用要求怎样选择</h2>
+<p>较低频率、需要较方便地连续调节、希望得到较好正弦波，可先考虑 RC 文氏桥；频率较高时，考虑 LC；对频率稳定性要求很高时，优先考虑石英晶体作选频器件。</p>
+<p>在 LC 内部再看要求：变压器反馈易于安排反馈极性；电感反馈式可用跨整段绕组的可变电容调频；电容反馈式通常波形较好，改进型可减弱寄生电容对频率的影响。具体仍需核对器件频率能力、负载与调节范围。</p>
+<p>答案应说明选择依据，不要把教材的典型频率范围写成绝对边界，也不要把“晶体更稳”误写成“晶体能随意大范围调频”。</p></section>
+
+<section id="c71-think4"><h2>思考题 7.1.4：判断可能振荡的完整顺序</h2>
+<ol><li>查放大、选频、正反馈与稳幅这四种功能；允许一组元件承担多种功能。</li><li>查直流偏置，不能因电感直流近短路而把基极偏置破坏。</li><li>查交流输入、输出通路，不能被电源、旁路电容等短掉或被断开。</li><li>找反馈电压的两个端点及交流参考地，在断开处假定输入，再逐级判相位。</li><li>在对应频率下用同一个有载模型判断小信号 |AF|&gt;1。</li><li>说明稳幅如何使增长停止，不能把严重削顶自动当作良好正弦输出。</li></ol>
+<p>只检查完相位，结论写“有可能”；若要求判断是否起振，还需幅值条件。选频网络与正反馈网络不一定是同一组元件：遇到多路反馈，分别识别后再看它们在 f₀ 处的作用，不能因为看见 LC 就默认它一定是返回正反馈的那条路。</p></section>
+
+<section id="c71-lc-practice"><h2>八道配套自测：从频率、反馈比练到改图与晶体</h2>
+<p>以下为独立编写的练习。涉及 LC 频率与比值时，除特别说明，采用已说明的高 Q、寄生和加载可忽略近似；反馈比均按本页对应共射图的端点定义。先自己写，再看解析。</p>
+<details class="answer"><summary>1．L=25 μH、C=100 pF，并联谐振频率多少？谐振时是端口阻抗最大还是最小？</summary><p>f₀≈1/[2π√(25×10⁻⁶×100×10⁻¹²)]≈3.183 MHz。并联 LC 谐振时端口阻抗很大，理想无损时趋于无穷大。支路电流可以很大，不能说两只元件都没有电流。</p></details>
+<details class="answer"><summary>2．电感三点式 L₁=4 μH、L₂=1 μH、M=2 μH、C=100 pF，求频率与反馈比的模。</summary><p>L<sub>总</sub>=4+1+2×2=9 μH，f₀≈5.305 MHz。按本页共射取样，|F|=(1+2)/(4+2)=1/2。不能将反馈比写成 L₂/L₁=1/4，除非题目模型明确忽略互感并与该近似相容。</p></details>
+<details class="answer"><summary>3．电容三点式输出侧 C₁=200 pF、反馈侧 C₂=800 pF、L=10 μH，求频率和小信号增益下限。</summary><p>C<sub>eq</sub>=160 pF，f₀≈3.979 MHz。|F|≈1/4，相位正确后起振需实际有载 |A|&gt;4，稳态有效环路增益回到 1。若题图交换了 C₁、C₂的实际位置，先重新确定哪个跨输出、哪个跨反馈。</p></details>
+<details class="answer"><summary>4．共射变压器反馈电路一次上端为交流地，假设基极输入为正，二次下端接地。两上端能否标为同名端？换成共基输入后呢？</summary><p>共射时集电极为负，一次上减下为正；两上端同名使二次上端对地为正，符合返回条件。共基时集电极为正，一次下减上为正，应将一次下端与二次上端标为同名端。共同规则是沿信号实际走，不是背点的图面位置。</p></details>
+<details class="answer"><summary>5．一张图里集电极直接接 Vcc，发射极又被大电容旁路。把反馈线圈方向改正确，能否解决问题？</summary><p>不能。C、E 都是交流地，输出 u<sub>ce</sub>≈0，放大通路已经被短掉，正确同名端也不能产生需要的输出。应先修正输出通路，例如在教材所示共射电容反馈结构中加入合适 R<sub>C</sub>，并检查其他直流与交流条件。</p></details>
+<details class="answer"><summary>6．同一个高 Q 电容三点式中，只把 C₂减半，C₁不变，是否只改变振荡频率？</summary><p>不止。串联等效电容减小，使理想频率上升；|F|=C₁/C₂变为原来的两倍，同时输入电阻折合到输出侧的 R<sub>i</sub>′=R<sub>i</sub>/|F|²变为原来的四分之一。有载放大倍数会变，起振条件需要重新查。</p></details>
+<details class="answer"><summary>7．晶体的动生串联谐振频率为 8 MHz，C<sub>m</sub>/C₀=0.002，求 fₚ，并说明 7.9 MHz 与 8.005 MHz 的电抗性质。</summary><p>理想 fₚ=8√1.002 MHz≈8.007996 MHz。7.9 MHz 低于 fₛ，呈容性；8.005 MHz 位于 fₛ与 fₚ之间，呈感性。不能因 8.005 MHz 大于串联谐振频率就认定它已经再次呈容性。</p></details>
+<details class="answer"><summary>8．小电容改进型中 C₁=C₂=2000 pF、C<sub>s</sub>=20 pF，准确等效电容多少？只用 C<sub>s</sub>会低估还是高估频率？</summary><p>C<sub>eq</sub>=1/(1/2000+1/2000+1/20) pF≈19.608 pF。只用 20 pF 得到的电容略大，因此频率略低；准确频率与该近似频率的比约 √(20/19.608)=√1.02≈1.00995，相差约 1%。</p></details>
+</section>
+
+<section id="c71-lc-check"><h2>7.1 正文收束：做到这些，再进入比较器</h2>
+<p>拿一张未见过的正弦振荡图，先区分直流与交流，再识别放大器接法和实际反馈端点；用点端或分压关系判相位，用等效 L、C 求频率，必要时把输入与外接负载折合回去检查起振。晶体题再判断工作在串联低阻点还是感性窄带。</p>
+<p>标准题需要熟练的是频率、参考方向、反馈比和两个通路的检错。互感有载展开、精确损耗频率、负载电容拉频等进阶内容，知道它们修正什么，题目要求时能按已列方程计算即可，不必同一遍把所有长式子背熟。</p>
+<p>到这里，<strong>7.1.1—7.1.4 纸面正文、例 7.1.1—7.1.3 与本节四道思考题</strong>已接成一条线。本章章末自测与习题尚未逐题展开，后续会按进度补充；不要把这里的配套自测当成教材章末题已经完成。</p>
+<p><strong>下一批从 7.2 电压比较器开始：</strong>运放将主要工作在非线性区，核心动作会从“虚短列线性方程”切换为“比较两输入、确定高低电平、求翻转阈值”。这一步会重新说明哪些旧规则还能用，哪些不能直接套。</p></section>
+
+<footer id="sources"><h2>来源与本次范围</h2><p>依据用户提供的《模拟电子技术基础》第六版教材印刷第 311—329 页的章引言、7.1.1—7.1.4、例 7.1.1—7.1.3 与本节四道思考题；参照《学习辅导与习题解答》第六版印刷第 243—245 页相关概要和第 251—253 页难点释疑，校核组成、稳幅、交流参考点与通路检错。按次序用自己的话展开，电路重绘为 SVG。第 329 页仅使用 7.1 的续文与思考题，7.2 正文尚未展开。</p><p>不等值 RC、有限输入电阻、自设 1 kHz 例题、LC 数值例、晶体负载拉频及两批共十六道练习为独立推导补充。共基直接接 RC 的说明使用基本低频模型。图中的包络、有效增益曲线为教学示意，未作实物或 Multisim 测试；理论调频范围与实际输出能力分开说明。运放电源在电路图中省略时，默认供电合适。本次不包含教材二维码对应的在线全文或微视频。</p><p><a href="模拟电子技术基础_第六章学习讲义.html">← 返回第六章</a> · <a href="../../教程合集.html#analog">教程合集</a> · <a href="#start">回到开头 ↑</a></p></footer>
 </main></div>
 <script>(()=>{const menu=document.getElementById('course-contents'),wide=matchMedia('(min-width:1000px)');const fit=()=>menu.open=wide.matches;fit();wide.addEventListener('change',fit)})();</script></body></html>

@@ -1,7 +1,7 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="模拟电子技术基础第六版第六章讲义，纸面正文已讲至6.4.4：基本运算、模拟乘法器、有源滤波与传感器预处理；详解仪表、电荷、隔离放大器及信噪比、噪声系数，附SVG电路与曲线。">
-<title>模拟电子技术基础 · 第六章 6.1—6.4 运算、滤波与预处理</title><style>
+<meta name="description" content="模拟电子技术基础第六版第六章讲义：基本运算、模拟乘法器、有源滤波与预处理，附6.5自主理论验证、本章小结、全部自测题和习题6.1—6.10详解；SVG电路逐步列式，检查限幅、节点与反馈。">
+<title>模拟电子技术基础 · 第六章 正文、自测与习题6.1—6.10</title><style>
 :root{color-scheme:light;--background:#f6f3eb;--foreground:#202e35;--muted-foreground:#526269;--border:#d7ddd9;--card:#fffdf8;--font-size-base:14px;--viz-series-1:#286a88;--viz-series-2:#ad512d;--viz-series-3:#417562;--viz-series-4:#6c608d;--viz-series-5:#aa7430;--viz-series-6:#497785;--primary:#286a88;--accent:#e5eff1;--muted:#e9eeeb}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--background);color:var(--foreground);font:17px/1.95 'Microsoft YaHei','Noto Sans CJK SC',sans-serif;-webkit-font-smoothing:antialiased}a{color:#23647e;text-underline-offset:.22em}a:focus-visible,summary:focus-visible{outline:2px solid #286a88;outline-offset:4px}p{margin:0 0 1.15em;overflow-wrap:anywhere}strong{font-weight:700}sub,sup{font-size:.74em;line-height:0}h1,h2,h3{line-height:1.4}h1{font:700 clamp(2.3rem,4vw,3.9rem)/1.35 'SimSun','Noto Serif CJK SC',serif;letter-spacing:.015em;margin:22px 0 28px}h2{font:700 1.78rem/1.5 'SimSun','Noto Serif CJK SC',serif;margin:0 0 28px;overflow-wrap:anywhere}h3{font-size:1.12rem;margin:36px 0 14px}li{padding-left:.25em;margin-bottom:.65em}.layout{display:grid;grid-template-columns:245px minmax(0,1fr);max-width:1440px;margin:auto;gap:48px;padding:0 48px 0 24px}aside{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;padding:32px 16px 32px 8px;font-size:13px;line-height:1.6}aside .brand{font-size:14px;letter-spacing:.08em;margin-bottom:20px}nav a{display:block;color:#526269;text-decoration:none;padding:8px 0;border-bottom:1px solid #dfe3dc}nav a:hover{color:#1c4d61}aside details{border:0;margin:0;padding:0}aside summary{font-weight:700;cursor:pointer}main{min-width:0;max-width:910px;margin:0 auto}.book-cover{padding:76px 0 60px;border-bottom:2px solid #286a88}.eyebrow{font-size:13px;letter-spacing:.09em;color:#526269;margin:0 0 14px}.lead{font-size:20px;line-height:1.8;max-width:680px}.scope{font-size:15px;color:#526269}.continue{display:inline-block;margin-top:12px;font-weight:700}section{padding:58px 0 22px;border-bottom:1px solid #d7ddd9}.eq{font:17px/2.25 'Cambria','Microsoft YaHei',serif;overflow-x:auto;white-space:nowrap;background:#eaf0ef;padding:16px 20px;margin:24px 0;border-left:3px solid #286a88}.level{font-size:15px;line-height:1.9;margin-top:28px;padding:18px 0 8px;color:#354a54}.table-wrap{overflow-x:auto;margin:22px 0 28px}table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px;line-height:1.85}th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #d7ddd9}th{font-weight:700;background:#e9eeeb}td:first-child{min-width:108px}details{margin:18px 0;border-top:1px solid #cdd9da;border-bottom:1px solid #cdd9da;padding:14px 0}summary{font-size:15px;font-weight:700;cursor:pointer;color:#244f61;line-height:1.8}details p{margin:16px 0 4px;font-size:16px}.course-plot,.new-circuit{max-width:420px;margin:28px auto}.course-plot svg,.new-circuit svg{display:block;width:100%;height:auto}.course-plot figcaption,.new-circuit figcaption{font-size:13px;line-height:1.8;color:#526269;margin-top:10px}.new-circuit{max-width:360px}.circuit-pair{margin:30px 0 22px;--font-size-base:14px}.circuit-pair figure{margin:0!important}.circuit-pair .diagrams{justify-content:center}.circuit-pair svg{color:var(--foreground)}.correction{border-left:3px solid #ad512d;padding-left:18px;font-size:15px}.route{font-size:17px;line-height:2.1;color:#244f61;padding:20px 0;margin:20px 0;border-top:2px solid #286a88;border-bottom:1px solid #cdd9da}footer{padding:55px 0 72px;font-size:14px;color:#526269}footer h2{font-size:1.2rem}.top-link{font-size:13px}
 @media(min-width:1000px){aside summary{display:none}aside details:not([open])>nav{display:block}}
@@ -28,14 +28,14 @@ details.answer{margin:20px 0}
 </style></head><body>
 <div class="layout"><aside><div class="brand">模拟电子技术基础<br>第六章 · 信号的运算和处理<br>运算 · 滤波 · 传感器预处理</div>
 <div class="reading-links"><a class="collection-link" href="../../教程合集.html#analog">教程合集</a><a href="模拟电子技术基础_第五章学习讲义.html">第五章</a></div>
-<details id="course-contents" open><summary>第六章目录 · 正文至 6.4.4</summary><nav aria-label="第六章目录"><a href="#c6-map">先确定学成什么样：四类题，四个动作</a><a href="#c611">6.1.1 概述：先证明能用虚短，再用虚断列 KCL</a><a href="#c612inv">6.1.2 反相比例：负号从电阻两端的电位差得来</a><a href="#c612comp">补偿电阻 R′：理想题里不改增益，实际为什么还要放</a><a href="#c612t">T 形反馈：多一个节点，就多列一次 KCL</a><a href="#ex611">例 6.1.1：图换了方向，T 网络仍然是那三个电阻</a><a href="#c612non">同相比例：N 点等于输入，通常不等于零</a><a href="#c612follow">电压跟随器：1 倍增益的用途是隔开负载</a><a href="#ex612">例 6.1.2：两级分别求，再检查每一级有没有饱和</a><a href="#c613sum">6.1.3 反相求和：三路电流相加，再从反馈支路流走</a><a href="#c613pos">同相求和：先算加权平均，再乘同相增益</a><a href="#c613mix">一般加减运算：先写出不依赖电阻匹配的式子</a><a href="#c613diff">差分比例：两组电阻比相等，才会只剩两个输入的差</a><a href="#c613twodiff">高输入电阻差分：为什么教材又加了一只运放</a><a href="#ex613">例 6.1.3：设计 10u₁−5u₂−4u₃，不能只配三个倒数</a><a href="#c614int">6.1.4 积分：输出斜率由输入决定，输出值还由过去决定</a><a href="#c614waves">积分波形：先标拐点数值，再把相邻点连起来</a><a href="#c614leak">实用积分器：电容并电阻，是给直流留下反馈</a><a href="#c614diff">基本微分：输出看变化率，平坦输入对应零输出</a><a href="#c614practical">实用微分：限制高频增益，还要避免饱和与失稳</a><a href="#c614inverse">逆函数型微分：反馈通路里有积分器，接“＋”也能是负反馈</a><a href="#ex614">例 6.1.4：看见反馈电容，不一定是反相积分</a><a href="#ex615">例 6.1.5：PID 用阻抗相除，比追三段电流更清楚</a><a href="#c615log">6.1.5 对数：这一回不能把二极管固定成 0.7 V</a><a href="#c615bjt">晶体管对数：只留下“电流的对数决定发射结压降”</a><a href="#c615ic">集成对数与指数：匹配管消掉 Iₛ，但不会自动消掉 Uₜ</a><a href="#c615exp">基本指数：输入决定发射结电压，反馈电阻把电流变成输出</a><a href="#c616">6.1.6 对数加减再取指数：把乘除法拆成已会的模块</a><a href="#c617gain">6.1.7 有限开环增益：虚短不是精确到无限位</a><a href="#c617common">同相电路的共模误差：两脚一起抬高，实际输出也会受影响</a><a href="#c617offset">积分器的失调：输入为零，输出也可能慢慢跑到电源边上</a><a href="#c6-think">本节六道思考题：用它们检查有没有真的接起来</a><a href="#c6-check">这一部分的过关线：先会三张图，再补其他图</a><a href="#c62-start">6.2 模拟乘法器：这一节的题，抓住“乘积关系＋负反馈”</a><a href="#c621-model">6.2.1 理想模型：乘积系数 k 不能省，单位也不能省</a><a href="#c621-quadrant">一、二、四象限：看两个输入能取什么符号</a><a href="#c622-diff">6.2.2 先回到差分对：那些电流箭头，是为了算“分到哪边”</a><a href="#c622-small">小信号近似：不是“低于 52 mV 就完全线性”</a><a href="#c622-tail">让尾电流随 Y 改变：先得到一个二象限乘法器</a><a href="#c622-gilbert">双平衡结构：为什么多了四只管，就能做四象限乘法</a><a href="#c622-output">差分输出转单端：别让末级又多出一个负号</a><a href="#c622-spec">参数表为什么要讲：它告诉你理想算式在哪些地方会失效</a><a href="#c623-square">6.2.3 平方与二倍频：平方后还带着一个直流分量</a><a href="#c623-power">三次方、四次方：逐级写中间量，别数错 k</a><a href="#c623-logpower">对数—指数实现任意次幂：这段为什么出现，可以先掌握到哪里</a><a href="#c623-divide">除法的主电路：把乘法器放进反馈，方程里就会出现分母</a><a href="#c623-sign">除法最关键的条件：接 N 时要求 ku₂>0，接 P 时要求 ku₂<0</a><a href="#c623-range">分母非零还不够：很小的分母会把输出推到限幅</a><a href="#c623-sqrt">平方根：解出两个代数根，还得用反馈条件选一个</a><a href="#c623-lock">闭锁与二极管：为什么要防止电路跑到另一个分支</a><a href="#c623-root3">立方根：三次方反馈是单调的，正负输入都能处理</a><a href="#ex621">例 6.2.1：分子是两个输入的差，N 点也不是虚地</a><a href="#c62-guide">辅导例 6.3.5：看起来复杂，仍是每级写一条关系</a><a href="#c62-guide-sign">辅导例 6.3.6：先标对两个输入端，公式才能成立</a><a href="#c62-think">三道思考题：二倍频、逆运算、四种反馈接法</a><a href="#c62-check">6.2 过关线：会这六步，再去做题就不会被图绕住</a><a href="#c63-start">6.3 有源滤波：先看哪段频率能过，再算它能过多少</a><a href="#c631-types">6.3.1 五种滤波器：名字来自通带，不来自电容放在哪里</a><a href="#c631-cut">通带、截止与分贝：−3 dB 不是“输出剩三成”</a><a href="#c631-passive">为什么从无源 RC 讲起：负载会同时改变增益与截止频率</a><a href="#c631-transfer">传递函数与阶数：把电容换成 1/(sC)，仍然是列电流方程</a><a href="#c632-lp1">6.3.2 同相一阶低通：把选频和放大分开算</a><a href="#c632-simple">简单二阶低通：两段 RC 没有缓冲，不能直接把两个一阶相乘</a><a href="#c632-sk">把 C₁ 改接输出：为什么这里又有负反馈，又有正反馈</a><a href="#c632-q">Q 与稳定范围：Q 越大越尖，不能一直调到 K=3</a><a href="#c632-f0">什么时候 f₀ 才等于截止频率：二阶巴特沃斯是一个重要特例</a><a href="#c632-inv1">反相一阶低通：实用积分器换个观察角度，就是滤波器</a><a href="#c632-inv2">反相二阶：简单连接和多路反馈，先看反馈电阻接在哪个节点</a><a href="#c632-cascade">高阶级联：阶数相加，截止点却不能直接照搬</a><a href="#c632-family">三种响应怎么比较：平坦、选择性与波形保持有取舍</a><a href="#c633-hp1">6.3.3 高通：一阶先用“电容串入信号通路”理解</a><a href="#c633-hp2">二阶高通：会写标准式，也要防止把 f₀ 误当任意 Q 的截止频率</a><a href="#c633-bp">带通的两种做法：通带交集，以及直接构成一个二阶网络</a><a href="#c633-bw">带通最常考的三个量：中心、上下限、带宽与 Q</a><a href="#c633-notch">带阻：两路输出要经过求和，相位也要一起算</a><a href="#c633-twint">双 T 带阻：先把两条 T 支路和中点元件认对</a><a href="#c633-allpass">全通：幅值全过，相位可变，不能当作一根导线</a><a href="#c63-identify">识图的固定顺序：两个频率端点是起点，中间频段才完成判断</a><a href="#c63-limits">实际限制：有公式之后，还要检查是不是推得动、跟得上</a><a href="#c63-extension">6.3.4—6.3.5 星号扩展概念：为什么时钟能调电阻，积分能组成多种滤波</a><a href="#c63-guide10">辅导例 6.3.10：选择题别只背答案，先说出保留的频段</a><a href="#c63-guide11">辅导例 6.3.11：负载能力、功率能力与“逆滤波”要分清</a><a href="#c63-guide12">辅导例 6.3.12：三张图都为低通，第三张最能检验读图</a><a href="#c63-guide13">辅导例 6.3.13：乘法器控制截止频率，两路反馈千万别接混</a><a href="#c63-think">本节三道思考题：识别、定阶、积分模块还能做什么</a><a href="#c63-check">6.3 过关线：会四类动作，就可以开始独立做识图与参数题</a><a href="#c64-start">6.4 预处理放大：先把传感器的微弱信号可靠地取出来</a><a href="#c641-loading">6.4.1 为什么要求输入电阻高：先别让传感器在接线时就丢掉信号</a><a href="#c641-three">三运放结构先分工：前两只少取输入电流，第三只做差</a><a href="#c641-current">电流箭头的用途：中间那股 i，决定两个前级各偏移多少</a><a href="#c641-gain">再接第三级：输出的负号取决于哪一路接反相端</a><a href="#c641-cmrr">共模为什么被抑制：前级让它等量通过，末级把它相减</a><a href="#c641-range">范围检查：差值很小，也可能被很大的共同电平挤到饱和</a><a href="#c641-chip">集成仪表放大器：内部电容、去耦电容、增益端各负责什么</a><a href="#c641-temperature">数字温度计：调零与调量程分开，跟随器本身仍是 1 倍</a><a href="#c642-model">6.4.2 电荷放大器：先分清传感器的电荷与开路电压</a><a href="#c642-conversion">为什么 uo=−q/Cf：一个用阻抗推，一个用电荷积累推</a><a href="#c642-stray">杂散电容为什么不影响理想结果：不是拿导线真的把传感器短掉</a><a href="#c642-leak">反馈并联 Rf：防止长期漂移，同时失去对静态电荷的永久保持</a><a href="#c642-protect">保护与灵敏度：小 Cf 输出更大，但不是越小越好</a><a href="#c643-isolation">6.4.3 隔离放大器：缓冲隔开负载，隔离则断开两侧直接导电通路</a><a href="#c643-optical">光隔离内部为什么有两个光电二极管：一个反馈，一个把信息送出去</a><a href="#c643-gain">隔离比例题怎么算：先按两侧本地参考定义输入、输出</a><a href="#c644-interference">6.4.4 干扰从哪里进来：先找路径，再决定加什么</a><a href="#c644-decouple">为什么电源上并大、小电容：理想容值相加，实际高频还看寄生与布局</a><a href="#c644-noise">三类内部噪声：白噪声看带宽，1/f 噪声要留意低频</a><a href="#c644-snr">信噪比：有用量有多大，要与同一测点的噪声一起比较</a><a href="#c644-nf">噪声系数：衡量放大器把原来的信噪比变差了多少</a><a href="#c644-reduce">减噪措施怎样选：别把“增益更大、带宽更宽”误当作更清楚</a><a href="#c644-average">采样与平均：更多读数只有在合适条件下才带来更多信息</a><a href="#c64-practice">综合自设练习：把增益、范围、电荷与噪声各算一遍</a><a href="#c64-think">本节两道思考题：特点与用途要能一一对应</a><a href="#c64-check">6.4 过关线：先会三张核心图，再补芯片与噪声条件</a></nav></details></aside>
+<details id="course-contents" open><summary>第六章目录 · 自测与习题 6.1—6.10</summary><nav aria-label="第六章目录"><a href="#c6-map">先确定学成什么样：四类题，四个动作</a><a href="#c611">6.1.1 概述：先证明能用虚短，再用虚断列 KCL</a><a href="#c612inv">6.1.2 反相比例：负号从电阻两端的电位差得来</a><a href="#c612comp">补偿电阻 R′：理想题里不改增益，实际为什么还要放</a><a href="#c612t">T 形反馈：多一个节点，就多列一次 KCL</a><a href="#ex611">例 6.1.1：图换了方向，T 网络仍然是那三个电阻</a><a href="#c612non">同相比例：N 点等于输入，通常不等于零</a><a href="#c612follow">电压跟随器：1 倍增益的用途是隔开负载</a><a href="#ex612">例 6.1.2：两级分别求，再检查每一级有没有饱和</a><a href="#c613sum">6.1.3 反相求和：三路电流相加，再从反馈支路流走</a><a href="#c613pos">同相求和：先算加权平均，再乘同相增益</a><a href="#c613mix">一般加减运算：先写出不依赖电阻匹配的式子</a><a href="#c613diff">差分比例：两组电阻比相等，才会只剩两个输入的差</a><a href="#c613twodiff">高输入电阻差分：为什么教材又加了一只运放</a><a href="#ex613">例 6.1.3：设计 10u₁−5u₂−4u₃，不能只配三个倒数</a><a href="#c614int">6.1.4 积分：输出斜率由输入决定，输出值还由过去决定</a><a href="#c614waves">积分波形：先标拐点数值，再把相邻点连起来</a><a href="#c614leak">实用积分器：电容并电阻，是给直流留下反馈</a><a href="#c614diff">基本微分：输出看变化率，平坦输入对应零输出</a><a href="#c614practical">实用微分：限制高频增益，还要避免饱和与失稳</a><a href="#c614inverse">逆函数型微分：反馈通路里有积分器，接“＋”也能是负反馈</a><a href="#ex614">例 6.1.4：看见反馈电容，不一定是反相积分</a><a href="#ex615">例 6.1.5：PID 用阻抗相除，比追三段电流更清楚</a><a href="#c615log">6.1.5 对数：这一回不能把二极管固定成 0.7 V</a><a href="#c615bjt">晶体管对数：只留下“电流的对数决定发射结压降”</a><a href="#c615ic">集成对数与指数：匹配管消掉 Iₛ，但不会自动消掉 Uₜ</a><a href="#c615exp">基本指数：输入决定发射结电压，反馈电阻把电流变成输出</a><a href="#c616">6.1.6 对数加减再取指数：把乘除法拆成已会的模块</a><a href="#c617gain">6.1.7 有限开环增益：虚短不是精确到无限位</a><a href="#c617common">同相电路的共模误差：两脚一起抬高，实际输出也会受影响</a><a href="#c617offset">积分器的失调：输入为零，输出也可能慢慢跑到电源边上</a><a href="#c6-think">本节六道思考题：用它们检查有没有真的接起来</a><a href="#c6-check">这一部分的过关线：先会三张图，再补其他图</a><a href="#c62-start">6.2 模拟乘法器：这一节的题，抓住“乘积关系＋负反馈”</a><a href="#c621-model">6.2.1 理想模型：乘积系数 k 不能省，单位也不能省</a><a href="#c621-quadrant">一、二、四象限：看两个输入能取什么符号</a><a href="#c622-diff">6.2.2 先回到差分对：那些电流箭头，是为了算“分到哪边”</a><a href="#c622-small">小信号近似：不是“低于 52 mV 就完全线性”</a><a href="#c622-tail">让尾电流随 Y 改变：先得到一个二象限乘法器</a><a href="#c622-gilbert">双平衡结构：为什么多了四只管，就能做四象限乘法</a><a href="#c622-output">差分输出转单端：别让末级又多出一个负号</a><a href="#c622-spec">参数表为什么要讲：它告诉你理想算式在哪些地方会失效</a><a href="#c623-square">6.2.3 平方与二倍频：平方后还带着一个直流分量</a><a href="#c623-power">三次方、四次方：逐级写中间量，别数错 k</a><a href="#c623-logpower">对数—指数实现任意次幂：这段为什么出现，可以先掌握到哪里</a><a href="#c623-divide">除法的主电路：把乘法器放进反馈，方程里就会出现分母</a><a href="#c623-sign">除法最关键的条件：接 N 时要求 ku₂>0，接 P 时要求 ku₂<0</a><a href="#c623-range">分母非零还不够：很小的分母会把输出推到限幅</a><a href="#c623-sqrt">平方根：解出两个代数根，还得用反馈条件选一个</a><a href="#c623-lock">闭锁与二极管：为什么要防止电路跑到另一个分支</a><a href="#c623-root3">立方根：三次方反馈是单调的，正负输入都能处理</a><a href="#ex621">例 6.2.1：分子是两个输入的差，N 点也不是虚地</a><a href="#c62-guide">辅导例 6.3.5：看起来复杂，仍是每级写一条关系</a><a href="#c62-guide-sign">辅导例 6.3.6：先标对两个输入端，公式才能成立</a><a href="#c62-think">三道思考题：二倍频、逆运算、四种反馈接法</a><a href="#c62-check">6.2 过关线：会这六步，再去做题就不会被图绕住</a><a href="#c63-start">6.3 有源滤波：先看哪段频率能过，再算它能过多少</a><a href="#c631-types">6.3.1 五种滤波器：名字来自通带，不来自电容放在哪里</a><a href="#c631-cut">通带、截止与分贝：−3 dB 不是“输出剩三成”</a><a href="#c631-passive">为什么从无源 RC 讲起：负载会同时改变增益与截止频率</a><a href="#c631-transfer">传递函数与阶数：把电容换成 1/(sC)，仍然是列电流方程</a><a href="#c632-lp1">6.3.2 同相一阶低通：把选频和放大分开算</a><a href="#c632-simple">简单二阶低通：两段 RC 没有缓冲，不能直接把两个一阶相乘</a><a href="#c632-sk">把 C₁ 改接输出：为什么这里又有负反馈，又有正反馈</a><a href="#c632-q">Q 与稳定范围：Q 越大越尖，不能一直调到 K=3</a><a href="#c632-f0">什么时候 f₀ 才等于截止频率：二阶巴特沃斯是一个重要特例</a><a href="#c632-inv1">反相一阶低通：实用积分器换个观察角度，就是滤波器</a><a href="#c632-inv2">反相二阶：简单连接和多路反馈，先看反馈电阻接在哪个节点</a><a href="#c632-cascade">高阶级联：阶数相加，截止点却不能直接照搬</a><a href="#c632-family">三种响应怎么比较：平坦、选择性与波形保持有取舍</a><a href="#c633-hp1">6.3.3 高通：一阶先用“电容串入信号通路”理解</a><a href="#c633-hp2">二阶高通：会写标准式，也要防止把 f₀ 误当任意 Q 的截止频率</a><a href="#c633-bp">带通的两种做法：通带交集，以及直接构成一个二阶网络</a><a href="#c633-bw">带通最常考的三个量：中心、上下限、带宽与 Q</a><a href="#c633-notch">带阻：两路输出要经过求和，相位也要一起算</a><a href="#c633-twint">双 T 带阻：先把两条 T 支路和中点元件认对</a><a href="#c633-allpass">全通：幅值全过，相位可变，不能当作一根导线</a><a href="#c63-identify">识图的固定顺序：两个频率端点是起点，中间频段才完成判断</a><a href="#c63-limits">实际限制：有公式之后，还要检查是不是推得动、跟得上</a><a href="#c63-extension">6.3.4—6.3.5 星号扩展概念：为什么时钟能调电阻，积分能组成多种滤波</a><a href="#c63-guide10">辅导例 6.3.10：选择题别只背答案，先说出保留的频段</a><a href="#c63-guide11">辅导例 6.3.11：负载能力、功率能力与“逆滤波”要分清</a><a href="#c63-guide12">辅导例 6.3.12：三张图都为低通，第三张最能检验读图</a><a href="#c63-guide13">辅导例 6.3.13：乘法器控制截止频率，两路反馈千万别接混</a><a href="#c63-think">本节三道思考题：识别、定阶、积分模块还能做什么</a><a href="#c63-check">6.3 过关线：会四类动作，就可以开始独立做识图与参数题</a><a href="#c64-start">6.4 预处理放大：先把传感器的微弱信号可靠地取出来</a><a href="#c641-loading">6.4.1 为什么要求输入电阻高：先别让传感器在接线时就丢掉信号</a><a href="#c641-three">三运放结构先分工：前两只少取输入电流，第三只做差</a><a href="#c641-current">电流箭头的用途：中间那股 i，决定两个前级各偏移多少</a><a href="#c641-gain">再接第三级：输出的负号取决于哪一路接反相端</a><a href="#c641-cmrr">共模为什么被抑制：前级让它等量通过，末级把它相减</a><a href="#c641-range">范围检查：差值很小，也可能被很大的共同电平挤到饱和</a><a href="#c641-chip">集成仪表放大器：内部电容、去耦电容、增益端各负责什么</a><a href="#c641-temperature">数字温度计：调零与调量程分开，跟随器本身仍是 1 倍</a><a href="#c642-model">6.4.2 电荷放大器：先分清传感器的电荷与开路电压</a><a href="#c642-conversion">为什么 uo=−q/Cf：一个用阻抗推，一个用电荷积累推</a><a href="#c642-stray">杂散电容为什么不影响理想结果：不是拿导线真的把传感器短掉</a><a href="#c642-leak">反馈并联 Rf：防止长期漂移，同时失去对静态电荷的永久保持</a><a href="#c642-protect">保护与灵敏度：小 Cf 输出更大，但不是越小越好</a><a href="#c643-isolation">6.4.3 隔离放大器：缓冲隔开负载，隔离则断开两侧直接导电通路</a><a href="#c643-optical">光隔离内部为什么有两个光电二极管：一个反馈，一个把信息送出去</a><a href="#c643-gain">隔离比例题怎么算：先按两侧本地参考定义输入、输出</a><a href="#c644-interference">6.4.4 干扰从哪里进来：先找路径，再决定加什么</a><a href="#c644-decouple">为什么电源上并大、小电容：理想容值相加，实际高频还看寄生与布局</a><a href="#c644-noise">三类内部噪声：白噪声看带宽，1/f 噪声要留意低频</a><a href="#c644-snr">信噪比：有用量有多大，要与同一测点的噪声一起比较</a><a href="#c644-nf">噪声系数：衡量放大器把原来的信噪比变差了多少</a><a href="#c644-reduce">减噪措施怎样选：别把“增益更大、带宽更宽”误当作更清楚</a><a href="#c644-average">采样与平均：更多读数只有在合适条件下才带来更多信息</a><a href="#c64-practice">综合自设练习：把增益、范围、电荷与噪声各算一遍</a><a href="#c64-think">本节两道思考题：特点与用途要能一一对应</a><a href="#c64-check">6.4 过关线：先会三张核心图，再补芯片与噪声条件</a><a href="#c65-start">6.5 与章末训练：从会跟着推，走到能自己列式</a><a href="#c651-model">6.5.1 自设方案：一只运放怎样成为微分方程的求解器</a><a href="#c651-test">验证方程时，至少查初值、时间常数和最终值</a><a href="#c652-model">6.5.2 自设方案：保持 R、C，单独改变二阶低通的 K</a><a href="#c652-test">三条曲线要验证什么：f₀ 相同，不代表截止频率相同</a><a href="#c6r-map">本章小结：把“会看、会算、会选”变成能交卷的动作</a><a href="#c6r-method">拿到题图的固定顺序：先确认模型，再写方程</a><a href="#c6r-superposition">叠加和逐级分析的边界：别把所有运算都当成线性</a><a href="#c6r-self1">自测一：选电路时，先把功能翻译成数学关系</a><a href="#c6r-self2">自测二：选滤波器先定频段，再看负载条件</a><a href="#c6r-self3a">自测三 (a)：加减级接积分级，先留一个中间量</a><a href="#c6r-self3b">自测三 (b)：两条反馈关系相等，才得到开方</a><a href="#c6r-self3sign">自测三的改接：负输入不仅改变根号，还改变反馈方向</a><a href="#c6r-ex-start">习题 6.1—6.10：先练比例、故障、求和与多级反馈</a><a href="#p61">习题 6.1：会填名字，还要知道符号从哪里来</a><a href="#p62">习题 6.2：先算 −10 倍与 +11 倍，再查 ±14 V</a><a href="#p63">习题 6.3：输入电阻先定输入电阻，增益再定反馈电阻</a><a href="#p64">习题 6.4：T 网络中点 M 不为零，比例系数是 −104</a><a href="#p65">习题 6.5：短路、断路后重画，不能沿用 −104</a><a href="#p66a">习题 6.6(a)：同相端只接一个输入，R₃ 上没有理想输入电流</a><a href="#p66b">习题 6.6(b)：两个信号接 P，先算加权平均</a><a href="#p66c">习题 6.6(c)：差分比例的匹配，要连同 P 的分压一起算</a><a href="#p66d">习题 6.6(d)：两负两正，仍然只做两次节点分析</a><a href="#p67">习题 6.7：运放的共模输入，是它两只输入脚的平均电位</a><a href="#p68">习题 6.8：恒流源不是靠猜，先找到 R₂ 上固定的 6 V</a><a href="#p69">习题 6.9：A₂ 的反馈输出等于差值，但不是最终输出</a><a href="#p69-range">习题 6.9 的范围：最坏差值不是把两个最大输入直接相减</a><a href="#p610a">习题 6.10(a)：T 网络求和，先把两路输入电流合起来</a><a href="#p610b">习题 6.10(b)：输入画成两端，就先叫它 Va 与 Vb</a><a href="#p610c">习题 6.10(c)：三只跟随器后是同相求和，输出为正的 10 倍和</a><a href="#c6r-test">这一轮独立检查：六个短问题测出真正的薄弱点</a><a href="#c6r-check">当前进度与过关线：自测题完成，习题先到 6.10</a></nav></details></aside>
 <main><header class="book-cover" id="start">
-<p class="eyebrow">模拟电子技术基础 · 第六版 · 第六章 · 纸面正文至 6.4.4</p>
+<p class="eyebrow">模拟电子技术基础 · 第六版 · 第六章 · 正文、自测与习题 6.1—6.10</p>
 <h1>从运算、滤波到传感器预处理<br/>每个箭头，都要落到方程里</h1>
 <p class="lead">用虚短、虚断完成运算与滤波，再可靠地取出微弱信号。读图、列式、算增益与噪声，并检查反馈、频率和各级工作范围。</p>
-<p class="scope">已按顺序讲解教材 6.1、6.2、6.3.1—6.3.3 与 6.4.1—6.4.4 的纸面正文，覆盖六个教材例题、四节共十四道思考题，并结合辅导书对应例题。6.3.4、6.3.5 另附扩展概念，未将其在线全文计入完成范围。6.5 在线仿真资料及章末习题尚未完成。所有电路与曲线以 SVG 重绘。</p>
-<a class="continue" href="#c64-start">接着学 6.4 预处理放大电路 →</a>
-<p><a href="#c611">复习 6.1 基本运算</a> · <a href="#c62-start">复习 6.2 模拟乘法器</a> · <a href="#c63-start">复习 6.3 有源滤波</a></p>
+<p class="scope">已按顺序讲解教材 6.1、6.2、6.3.1—6.3.3 与 6.4.1—6.4.4 的纸面正文，覆盖六个教材例题、十四道思考题，结合辅导书对应例题。现补入 6.5 自主理论验证方案、本章小结、全部自测题和习题 6.1—6.10。6.3 星号部分仍为概念概览，6.5 原在线操作资料未读取或复现；习题 6.11—6.23 待续。所有电路与曲线以 SVG 重绘。</p>
+<a class="continue" href="#c65-start">接着学仿真思路、自测与习题 6.1—6.10 →</a>
+<p><a href="#c611">复习 6.1 基本运算</a> · <a href="#c62-start">复习 6.2 模拟乘法器</a> · <a href="#c63-start">复习 6.3 有源滤波</a> · <a href="#c64-start">复习 6.4 预处理</a></p>
 </header>
 <section id="c6-map"><h2>先确定学成什么样：四类题，四个动作</h2>
 <div class="table-wrap"><table><thead><tr><th>题型</th><th>你要会做的事</th><th>优先级</th></tr></thead><tbody>
@@ -12505,10 +12505,1504 @@ L 257.581625 67.07875
 </section>
 <section id="c64-check"><h2>6.4 过关线：先会三张核心图，再补芯片与噪声条件</h2>
 <ol><li><strong>仪表图：</strong>从 R<sub>2</sub> 电流推到两个前级输出，再推到末级差分结果；能解释负号与“2”。</li><li><strong>范围图：</strong>记得前级输出还带共模电平，最终输出没超限不能代替内部检查。</li><li><strong>电荷图：</strong>会写 −Δq/C<sub>f</sub>，带上初始参考；会解释杂散电容、并联 R<sub>f</sub> 与低频限制。</li><li><strong>隔离图：</strong>知道两套地各自独立、光电反馈与信号耦合作用不同，按给定比例计算输出。</li><li><strong>噪声题：</strong>区分电压比与功率比，算 SNR、F、NF；独立噪声按均方值合成，平均有前提。</li></ol>
-<p>当前第六章已经讲到 <strong>6.4.4 与本节两道思考题</strong>。6.1—6.4 的纸面主干已经连起来，星号在线扩展仍按已标注的概念范围处理；<strong>6.5 仿真在线资料和章末习题尚未完成</strong>。接下来先说明仿真要验证什么，再进入本章小结、自测与习题，把“看懂”落实成能独立列式与检查条件。</p>
+<p>到这里已讲完 <strong>6.4.4 与本节两道思考题</strong>。6.1—6.4 的纸面主干已经连起来，星号在线扩展仍按已标注的概念范围处理。下面进入 <a href="#c65-start">6.5 自主理论验证、本章小结、自测与习题 6.1—6.10</a>，把“看懂”落实成能独立列式与检查条件；原仿真在线全文仍未读取。</p>
+</section>
+<section id="c65-start"><h2>6.5 与章末训练：从会跟着推，走到能自己列式</h2>
+<p>前面已把 6.1—6.4 的纸面主干讲过。接下来按课本顺序处理 6.5、本章小结、自测题，再详解习题 6.1—6.10。后面的 6.11—6.23 另续，不把“正文看完”说成“全部题目已经完成”。</p>
+<p>课本 6.5 在纸面列出“利用运算电路求解方程”和“压控电压源二阶 LPF 幅频特性研究”两个主题，具体资料放在二维码入口。下面按这两个主题给出<strong>本讲义自设的验证方案</strong>；没有读取原在线操作全文，也没有实际运行 Multisim。图中的响应曲线均由理想方程计算，用于告诉你搭好电路后该查什么。</p>
+<p class="level"><strong>这一轮的优先级：</strong>先学会预判结果、解释偏差，再熟悉软件操作。只会点“运行”却不知道应出现什么曲线，做题时仍然用不上。</p>
+</section>
+<section id="c651-model"><h2>6.5.1 自设方案：一只运放怎样成为微分方程的求解器</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-equation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c6r-equation-c6r-equation-title">
+<title id="c6r-equation-c6r-equation-title">自主仿真方案：反馈电阻和电容并联的运放电路求解一阶微分方程，曲线为理想方程预测</title>
+<defs><marker id="c6r-equation-c6r-equation-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">电路在求解：RC y′ + y = −r</text><path class="wire" d="M140 220L250 270L140 320Z"/><text x="150" y="255" text-anchor="start" font-size="15">−</text><text x="150" y="295" text-anchor="start" font-size="15">+</text><text x="192" y="275" text-anchor="middle" font-size="15">A</text><circle cx="15" cy="250" r="3.2" class="port"/><text x="15" y="227" text-anchor="start" font-size="14">r</text><path class="wire" d="M15 250H44.5M44.5 243H80.5V257H44.5ZM80.5 250H110"/><text x="62.5" y="235" text-anchor="middle" font-size="15">Ri</text><path class="wire" d="M110 250L140 250"/><path class="wire" d="M110 250V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf</text><path class="wire" d="M280 90V270H250M280 270H305"/><circle cx="110" cy="250" r="3.2" fill="currentColor"/><circle cx="280" cy="270" r="3.2" fill="currentColor"/><path class="wire" d="M110 160H190.0M190.0 148V172M200.0 148V172M200.0 160H280"/><text x="195.0" y="140" text-anchor="middle" font-size="15">C</text><path class="wire" d="M140 290H125V370"/><path class="wire" d="M125 370V380M113 380H137M117 386H133M122 392H128"/><circle cx="305" cy="270" r="3.2" class="port"/><text x="305" y="300" text-anchor="end" font-size="14">y</text><text x="160" y="435" text-anchor="middle" font-size="13">Ri = Rf = 10 kΩ，C = 1 μF</text><text x="160" y="477" text-anchor="middle" font-size="13">先给初值，再用时间点检查响应</text></svg></figure>
+<p>仍用学过的反相结构：输入电阻 R<sub>i</sub>，反馈为 R<sub>f</sub> 与 C 并联。把输入记为 r(t)、输出记为 y(t)。在理想线性负反馈下，N 为虚地，流入节点的输入电流等于流向反馈的电流：</p>
+<div class="eq">r/R<sub>i</sub>=−y/R<sub>f</sub>−C·dy/dt<br/>R<sub>f</sub>C·dy/dt+y=−(R<sub>f</sub>/R<sub>i</sub>)r</div>
+<p>取 R<sub>i</sub>=R<sub>f</sub>=10 kΩ、C=1 μF，则电路满足：</p>
+<div class="eq">0.01dy/dt+y=−r<br/>即 dy/dt+100y=−100r</div>
+<p>电阻、电容和反馈共同约束输出，使它成为方程的解。这不是运放“识别了数学符号”，而是节点电流与电容电压变化规律恰好实现了方程。复杂模拟计算也沿着这个思路，把目标关系分成求和、比例、积分等模块。</p>
+<p>这里没有要求你新背一种电路。真正要会的是：从电路写方程，也能把方程中各项对应回电阻比和时间常数。</p>
+</section>
+<section id="c651-test"><h2>验证方程时，至少查初值、时间常数和最终值</h2>
+<figure class="chapter-figure plot"><svg data-figure="c6r-equation-response" xmlns:xlink="http://www.w3.org/1999/xlink" width="417.6pt" height="295.2pt" viewBox="0 0 417.6 295.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>一阶微分方程的理论响应，不是Multisim实际运行截图</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>一阶微分方程的理论响应，不是Multisim实际运行截图</dc:title>
+    <dc:date>2026-10-23T12:53:26.610487</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c6r-equation-response-figure_1">
+  <g id="c6r-equation-response-patch_1">
+   <path d="M 0 295.2
+L 417.6 295.2
+L 417.6 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c6r-equation-response-axes_1">
+   <g id="c6r-equation-response-patch_2">
+    <path d="M 54.56 249.28
+L 396.597273 249.28
+L 396.597273 28.91625
+L 54.56 28.91625
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c6r-equation-response-matplotlib.axis_1">
+    <g id="c6r-equation-response-xtick_1">
+     <g id="c6r-equation-response-line2d_1">
+      <path d="M 70.107149 249.28
+L 70.107149 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_2">
+      <defs>
+       <path id="c6r-equation-response-m7315f8ee83" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="70.107149" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_1">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="70.107149" y="265.073125" transform="rotate(-0 70.107149 265.073125)">0</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-xtick_2">
+     <g id="c6r-equation-response-line2d_3">
+      <path d="M 121.930978 249.28
+L 121.930978 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_4">
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="121.930978" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_2">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="121.930978" y="265.073125" transform="rotate(-0 121.930978 265.073125)">10</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-xtick_3">
+     <g id="c6r-equation-response-line2d_5">
+      <path d="M 173.754807 249.28
+L 173.754807 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_6">
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="173.754807" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_3">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="173.754807" y="265.073125" transform="rotate(-0 173.754807 265.073125)">20</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-xtick_4">
+     <g id="c6r-equation-response-line2d_7">
+      <path d="M 225.578636 249.28
+L 225.578636 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_8">
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="225.578636" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_4">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="225.578636" y="265.073125" transform="rotate(-0 225.578636 265.073125)">30</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-xtick_5">
+     <g id="c6r-equation-response-line2d_9">
+      <path d="M 277.402466 249.28
+L 277.402466 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_10">
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="277.402466" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_5">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="277.402466" y="265.073125" transform="rotate(-0 277.402466 265.073125)">40</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-xtick_6">
+     <g id="c6r-equation-response-line2d_11">
+      <path d="M 329.226295 249.28
+L 329.226295 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_12">
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="329.226295" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_6">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="329.226295" y="265.073125" transform="rotate(-0 329.226295 265.073125)">50</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-xtick_7">
+     <g id="c6r-equation-response-line2d_13">
+      <path d="M 381.050124 249.28
+L 381.050124 28.91625
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_14">
+      <g>
+       <use xlink:href="#c6r-equation-response-m7315f8ee83" x="381.050124" y="249.28" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_7">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="381.050124" y="265.073125" transform="rotate(-0 381.050124 265.073125)">60</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-text_8">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="225.578636" y="280.600781" transform="rotate(-0 225.578636 280.600781)">时间 / ms</text>
+    </g>
+   </g>
+   <g id="c6r-equation-response-matplotlib.axis_2">
+    <g id="c6r-equation-response-ytick_1">
+     <g id="c6r-equation-response-line2d_15">
+      <path d="M 54.56 239.76127
+L 396.597273 239.76127
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_16">
+      <defs>
+       <path id="c6r-equation-response-m11a93d77fd" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c6r-equation-response-m11a93d77fd" x="54.56" y="239.76127" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_9">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="47.56" y="244.157832" transform="rotate(-0 47.56 244.157832)">-1.0</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-ytick_2">
+     <g id="c6r-equation-response-line2d_17">
+      <path d="M 54.56 199.595573
+L 396.597273 199.595573
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_18">
+      <g>
+       <use xlink:href="#c6r-equation-response-m11a93d77fd" x="54.56" y="199.595573" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_10">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="47.56" y="203.992135" transform="rotate(-0 47.56 203.992135)">-0.8</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-ytick_3">
+     <g id="c6r-equation-response-line2d_19">
+      <path d="M 54.56 159.429876
+L 396.597273 159.429876
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_20">
+      <g>
+       <use xlink:href="#c6r-equation-response-m11a93d77fd" x="54.56" y="159.429876" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="47.56" y="163.826438" transform="rotate(-0 47.56 163.826438)">-0.6</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-ytick_4">
+     <g id="c6r-equation-response-line2d_21">
+      <path d="M 54.56 119.264178
+L 396.597273 119.264178
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_22">
+      <g>
+       <use xlink:href="#c6r-equation-response-m11a93d77fd" x="54.56" y="119.264178" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="47.56" y="123.660741" transform="rotate(-0 47.56 123.660741)">-0.4</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-ytick_5">
+     <g id="c6r-equation-response-line2d_23">
+      <path d="M 54.56 79.098481
+L 396.597273 79.098481
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_24">
+      <g>
+       <use xlink:href="#c6r-equation-response-m11a93d77fd" x="54.56" y="79.098481" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_13">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="47.56" y="83.495044" transform="rotate(-0 47.56 83.495044)">-0.2</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-ytick_6">
+     <g id="c6r-equation-response-line2d_25">
+      <path d="M 54.56 38.932784
+L 396.597273 38.932784
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-equation-response-line2d_26">
+      <g>
+       <use xlink:href="#c6r-equation-response-m11a93d77fd" x="54.56" y="38.932784" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-equation-response-text_14">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="47.56" y="43.329347" transform="rotate(-0 47.56 43.329347)">0.0</text>
+     </g>
+    </g>
+    <g id="c6r-equation-response-text_15">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.453125" y="139.098125" transform="rotate(-90 20.453125 139.098125)">y / V</text>
+    </g>
+   </g>
+   <g id="c6r-equation-response-line2d_27">
+    <path d="M 70.107149 38.932784
+L 73.845942 52.911121
+L 77.584735 65.916519
+L 81.323529 78.016698
+L 85.062322 89.274664
+L 88.801115 99.749037
+L 92.539908 109.494359
+L 96.278702 118.561373
+L 100.017495 126.997293
+L 103.756288 134.846045
+L 107.495082 142.148497
+L 111.233875 148.942674
+L 114.972668 155.263953
+L 118.711462 161.145251
+L 122.450255 166.61719
+L 126.189048 171.708263
+L 129.927841 176.444981
+L 133.666635 180.852008
+L 137.405428 184.95229
+L 141.767353 189.376663
+L 146.129279 193.443885
+L 150.491204 197.182787
+L 154.85313 200.619871
+L 159.215055 203.779502
+L 163.576981 206.684077
+L 168.562039 209.71761
+L 173.547096 212.472937
+L 178.532154 214.97557
+L 183.517212 217.248685
+L 189.125402 219.557726
+L 194.733592 221.629936
+L 200.964914 223.684086
+L 207.196236 225.505515
+L 214.05069 227.271672
+L 221.528277 228.949801
+L 229.005864 230.402452
+L 237.106582 231.75675
+L 245.830433 232.996896
+L 255.800549 234.180734
+L 266.393796 235.212413
+L 278.233309 236.141469
+L 291.942217 236.982829
+L 307.520523 237.704187
+L 325.591357 238.309779
+L 347.400984 238.808375
+L 374.818802 239.199862
+L 381.050124 239.263466
+L 381.050124 239.263466
+" clip-path="url(#c6r-equation-response-p6b9898141e)" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-equation-response-line2d_28">
+    <defs>
+     <path id="c6r-equation-response-macc96b55a9" d="M 0 3
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132
+C 2.683901 1.55874 3 0.795609 3 0
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132
+C 1.55874 -2.683901 0.795609 -3 0 -3
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132
+C -2.683901 -1.55874 -3 -0.795609 -3 0
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132
+C -1.55874 2.683901 -0.795609 3 0 3
+z
+" style="stroke: #af623f"/>
+    </defs>
+    <g clip-path="url(#c6r-equation-response-p6b9898141e)">
+     <use xlink:href="#c6r-equation-response-macc96b55a9" x="121.930978" y="165.880599" style="fill: #af623f; stroke: #af623f"/>
+    </g>
+   </g>
+   <g id="c6r-equation-response-line2d_29">
+    <g clip-path="url(#c6r-equation-response-p6b9898141e)">
+     <use xlink:href="#c6r-equation-response-macc96b55a9" x="225.578636" y="229.762608" style="fill: #af623f; stroke: #af623f"/>
+    </g>
+   </g>
+   <g id="c6r-equation-response-line2d_30">
+    <g clip-path="url(#c6r-equation-response-p6b9898141e)">
+     <use xlink:href="#c6r-equation-response-macc96b55a9" x="329.226295" y="238.408098" style="fill: #af623f; stroke: #af623f"/>
+    </g>
+   </g>
+   <g id="c6r-equation-response-patch_3">
+    <path d="M 54.56 249.28
+L 54.56 28.91625
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-equation-response-patch_4">
+    <path d="M 396.597273 249.28
+L 396.597273 28.91625
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-equation-response-patch_5">
+    <path d="M 54.56 249.28
+L 396.597273 249.28
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-equation-response-patch_6">
+    <path d="M 54.56 28.91625
+L 396.597273 28.91625
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-equation-response-text_16">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="127.930978" y="155.880599" transform="rotate(-0 127.930978 155.880599)">10 ms: -0.632 V</text>
+   </g>
+   <g id="c6r-equation-response-text_17">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="231.578636" y="219.762608" transform="rotate(-0 231.578636 219.762608)">30 ms: -0.950 V</text>
+   </g>
+   <g id="c6r-equation-response-text_18">
+    <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="335.226295" y="228.408098" transform="rotate(-0 335.226295 228.408098)">50 ms: -0.993 V</text>
+   </g>
+   <g id="c6r-equation-response-text_19">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="225.578636" y="22.91625" transform="rotate(-0 225.578636 22.91625)">输入 r 跃变至 1 V；y(0) = 0</text>
+   </g>
+   <g id="c6r-equation-response-legend_1">
+    <g id="c6r-equation-response-patch_7">
+     <path d="M 290.703835 50.424844
+L 390.297273 50.424844
+Q 392.097273 50.424844 392.097273 48.624844
+L 392.097273 35.21625
+Q 392.097273 33.41625 390.297273 33.41625
+L 290.703835 33.41625
+Q 288.903835 33.41625 288.903835 35.21625
+L 288.903835 48.624844
+Q 288.903835 50.424844 290.703835 50.424844
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c6r-equation-response-line2d_31">
+     <path d="M 292.503835 41.385469
+L 301.503835 41.385469
+L 310.503835 41.385469
+" style="fill: none; stroke: #17645f; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c6r-equation-response-text_20">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="317.703835" y="44.535469" transform="rotate(-0 317.703835 44.535469)">理想方程预测 y(t)</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c6r-equation-response-p6b9898141e">
+   <rect x="54.56" y="28.91625" width="342.037273" height="220.36375"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<p>先令 r=0，使电路稳定，再让输入阶跃到 +1 V；以阶跃时刻为 t=0，并取 y(0)=0。理想解为：</p>
+<div class="eq">y(t)=−1+exp(−t/0.01 s)，t≥0<br/>τ=10 ms；y(10 ms)≈−0.632 V<br/>y(30 ms)≈−0.950 V；y(50 ms)≈−0.993 V</div>
+<ol><li><strong>看初值：</strong>反馈电容电压不能无缘无故跳变，按本次初态，输出从 0 V 起步。</li><li><strong>看斜率：</strong>刚阶跃后 dy/dt=−100 V/s，输出先向负方向变化。</li><li><strong>看时间常数：</strong>改变 C 或 R<sub>f</sub>，恢复速度应相应改变。</li><li><strong>看最终值：</strong>稳态 dy/dt=0，所以最终 y=−1 V。</li></ol>
+<p>若仿真一开始就把输入设为恒定 1 V，并先求出了直流工作点，输出可能已经是 −1 V，当然看不到“从零开始”的过程。初始状态和激励方法必须与理论题一致。</p>
+<p class="level"><strong>仿真有用在哪里：</strong>能帮你发现符号、时间单位、初值和接线错误；图长得平滑，不等于这些条件已经正确。还要核对输出范围、运放模型和时间步长。</p>
+</section>
+<section id="c652-model"><h2>6.5.2 自设方案：保持 R、C，单独改变二阶低通的 K</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-sk-lp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 620" role="img" aria-labelledby="c6r-sk-lp-c6r-sk-lp-title">
+<title id="c6r-sk-lp-c6r-sk-lp-title">二阶sk滤波器的完整接线，正反馈支路与电阻负反馈支路分开绘制</title>
+<defs><marker id="c6r-sk-lp-c6r-sk-lp-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">二阶低通：C1 接回输出</text><path class="wire" d="M190 230L300 280L190 330Z"/><text x="200" y="265" text-anchor="start" font-size="15">−</text><text x="200" y="305" text-anchor="start" font-size="15">+</text><text x="242" y="285" text-anchor="middle" font-size="15">A</text><path class="wire" d="M190 260H170V90"/><path class="wire" d="M170 90H217.0M217.0 83H253.0V97H217.0ZM253.0 90H300"/><text x="235.0" y="75" text-anchor="middle" font-size="15">Rf</text><path class="wire" d="M300 90V280H305"/><path class="wire" d="M80 260H107.0M107.0 253H143.0V267H107.0ZM143.0 260H170"/><text x="125.0" y="245" text-anchor="middle" font-size="15">Rg</text><path class="wire" d="M80 260V250M68 250H92M72 244H88M77 238H83"/><circle cx="170" cy="260" r="3.2" fill="currentColor"/><circle cx="300" cy="280" r="3.2" fill="currentColor"/><circle cx="305" cy="280" r="3.2" class="port"/><text x="283" y="312" text-anchor="end" font-size="15">Uo</text><path class="wire" d="M300 280L300 480"/><circle cx="15" cy="300" r="3.2" class="port"/><text x="15" y="333" text-anchor="start" font-size="15">Ui</text><path class="wire" d="M15 300H34.5M34.5 293H70.5V307H34.5ZM70.5 300H90"/><text x="52.5" y="285" text-anchor="middle" font-size="15">R</text><path class="wire" d="M90 300H112.0M112.0 293H148.0V307H112.0ZM148.0 300H170"/><text x="130.0" y="285" text-anchor="middle" font-size="15">R</text><path class="wire" d="M170 300V337.5M158 337.5H182M158 347.5H182M170 347.5V385"/><text x="189" y="347.5" text-anchor="start" font-size="15">C2</text><path class="wire" d="M170 300L190 300"/><circle cx="90" cy="300" r="3.2" fill="currentColor"/><circle cx="170" cy="300" r="3.2" fill="currentColor"/><path class="wire" d="M170 385V395M158 395H182M162 401H178M167 407H173"/><text x="90" y="281" text-anchor="middle" font-size="15">M</text><text x="174" y="325" text-anchor="start" font-size="13">P</text><path class="wire" d="M90 300V355.0M78 355.0H102M78 365.0H102M90 365.0V420"/><text x="71" y="365.0" text-anchor="end" font-size="15">C1</text><path class="wire" d="M90 420V480H300"/><circle cx="300" cy="480" r="3.2" fill="currentColor"/><text x="160" y="540" text-anchor="middle" font-size="12">K = 1 + Rf / Rg；图中两只电容均取 C</text><text x="160" y="580" text-anchor="middle" font-size="13">K = 1 时可将放大级改接成跟随器</text></svg></figure>
+<p>沿用 6.3 的等值元件压控电压源二阶低通：两只选频电阻均为 R，两只电容均为 C，放大级 K=1+R<sub>f</sub>/R<sub>g</sub>。理想传递函数是：</p>
+<div class="eq">H(s)=K/[1+(3−K)sRC+(sRC)²]<br/>f₀=1/(2πRC)，Q=1/(3−K)</div>
+<p>选 C=10 nF、R≈15.9 kΩ，特征频率约为 1 kHz。选 R<sub>g</sub>=10 kΩ，分别把 R<sub>f</sub> 取为 0、约 5.86 kΩ、15 kΩ，可得到 K=1、约 1.586、2.5；对应 Q=0.5、约 0.707、2。</p>
+<p>把交流分析频率从约 10 Hz 扫到 100 kHz，比较输出/输入的增益，再除以各自直流增益 K。这样比较的是频率形状，不会把“整条曲线被 K 抬高”误当成“峰值更尖”的全部原因。</p>
+<p>瞬态验证时可先用很小的正弦输入，避免幅值与转换速率限制干扰选频结果。交流分析中的归一化激励属于小信号模型，不能据此直接断定真实电路在同样的大幅值下也不削顶。</p>
+</section>
+<section id="c652-test"><h2>三条曲线要验证什么：f₀ 相同，不代表截止频率相同</h2>
+<figure class="chapter-figure plot"><svg data-figure="c6r-sk-response" xmlns:xlink="http://www.w3.org/1999/xlink" width="417.6pt" height="316.8pt" viewBox="0 0 417.6 316.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>相同特征频率而不同品质因数的二阶低通理论曲线，未声称实际运行Multisim</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>相同特征频率而不同品质因数的二阶低通理论曲线，未声称实际运行Multisim</dc:title>
+    <dc:date>2026-10-23T12:53:27.019438</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c6r-sk-response-figure_1">
+  <g id="c6r-sk-response-patch_1">
+   <path d="M 0 316.8
+L 417.6 316.8
+L 417.6 0
+L 0 0
+z
+" style="fill: #f6f3eb"/>
+  </g>
+  <g id="c6r-sk-response-axes_1">
+   <g id="c6r-sk-response-patch_2">
+    <path d="M 51.95 269.512
+L 405.72 269.512
+L 405.72 27.96
+L 51.95 27.96
+z
+" style="fill: #f6f3eb"/>
+   </g>
+   <g id="c6r-sk-response-matplotlib.axis_1">
+    <g id="c6r-sk-response-xtick_1">
+     <g id="c6r-sk-response-line2d_1">
+      <path d="M 68.030455 269.512
+L 68.030455 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_2">
+      <defs>
+       <path id="c6r-sk-response-mb9a67c9d7d" d="M 0 0
+L 0 3.5
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c6r-sk-response-mb9a67c9d7d" x="68.030455" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_1">
+      <!-- $\mathdefault{10^{-2}}$ -->
+      <g style="fill: #202e35" transform="translate(56.260455 285.305125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_2">
+     <g id="c6r-sk-response-line2d_3">
+      <path d="M 148.432727 269.512
+L 148.432727 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_4">
+      <g>
+       <use xlink:href="#c6r-sk-response-mb9a67c9d7d" x="148.432727" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_2">
+      <!-- $\mathdefault{10^{-1}}$ -->
+      <g style="fill: #202e35" transform="translate(136.662727 285.305125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">−</tspan>
+        <tspan x="18.716357" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_3">
+     <g id="c6r-sk-response-line2d_5">
+      <path d="M 228.835 269.512
+L 228.835 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_6">
+      <g>
+       <use xlink:href="#c6r-sk-response-mb9a67c9d7d" x="228.835" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_3">
+      <!-- $\mathdefault{10^{0}}$ -->
+      <g style="fill: #202e35" transform="translate(219.925 285.305125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_4">
+     <g id="c6r-sk-response-line2d_7">
+      <path d="M 309.237273 269.512
+L 309.237273 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_8">
+      <g>
+       <use xlink:href="#c6r-sk-response-mb9a67c9d7d" x="309.237273" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_4">
+      <!-- $\mathdefault{10^{1}}$ -->
+      <g style="fill: #202e35" transform="translate(300.327273 285.305125)">
+       <text>
+        <tspan x="0" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.89375" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.05" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_5">
+     <g id="c6r-sk-response-line2d_9">
+      <path d="M 389.639545 269.512
+L 389.639545 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_10">
+      <g>
+       <use xlink:href="#c6r-sk-response-mb9a67c9d7d" x="389.639545" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_5">
+      <!-- $\mathdefault{10^{2}}$ -->
+      <g style="fill: #202e35" transform="translate(380.729545 285.305125)">
+       <text>
+        <tspan x="0" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">1</tspan>
+        <tspan x="6.450684" y="-0.926562" style="font-size: 11px; font-family: 'Microsoft YaHei'; fill: #202e35">0</tspan>
+        <tspan x="13.005273" y="-5.082812" style="font-size: 7.7px; font-family: 'Microsoft YaHei'; fill: #202e35">2</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_6">
+     <g id="c6r-sk-response-line2d_11">
+      <defs>
+       <path id="c6r-sk-response-m0318263ae1" d="M 0 0
+L 0 2
+" style="stroke: #202e35; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="55.575985" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_7">
+     <g id="c6r-sk-response-line2d_12">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="60.238669" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_8">
+     <g id="c6r-sk-response-line2d_13">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="64.351448" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_9">
+     <g id="c6r-sk-response-line2d_14">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="92.23395" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_10">
+     <g id="c6r-sk-response-line2d_15">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="106.392088" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_11">
+     <g id="c6r-sk-response-line2d_16">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="116.437446" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_12">
+     <g id="c6r-sk-response-line2d_17">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="124.229231" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_13">
+     <g id="c6r-sk-response-line2d_18">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="130.595584" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_14">
+     <g id="c6r-sk-response-line2d_19">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="135.978258" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_15">
+     <g id="c6r-sk-response-line2d_20">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="140.640942" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_16">
+     <g id="c6r-sk-response-line2d_21">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="144.753721" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_17">
+     <g id="c6r-sk-response-line2d_22">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="172.636223" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_18">
+     <g id="c6r-sk-response-line2d_23">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="186.794361" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_19">
+     <g id="c6r-sk-response-line2d_24">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="196.839719" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_20">
+     <g id="c6r-sk-response-line2d_25">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="204.631504" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_21">
+     <g id="c6r-sk-response-line2d_26">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="210.997856" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_22">
+     <g id="c6r-sk-response-line2d_27">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="216.38053" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_23">
+     <g id="c6r-sk-response-line2d_28">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="221.043215" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_24">
+     <g id="c6r-sk-response-line2d_29">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="225.155994" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_25">
+     <g id="c6r-sk-response-line2d_30">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="253.038496" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_26">
+     <g id="c6r-sk-response-line2d_31">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="267.196633" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_27">
+     <g id="c6r-sk-response-line2d_32">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="277.241992" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_28">
+     <g id="c6r-sk-response-line2d_33">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="285.033777" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_29">
+     <g id="c6r-sk-response-line2d_34">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="291.400129" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_30">
+     <g id="c6r-sk-response-line2d_35">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="296.782803" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_31">
+     <g id="c6r-sk-response-line2d_36">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="301.445487" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_32">
+     <g id="c6r-sk-response-line2d_37">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="305.558266" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_33">
+     <g id="c6r-sk-response-line2d_38">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="333.440769" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_34">
+     <g id="c6r-sk-response-line2d_39">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="347.598906" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_35">
+     <g id="c6r-sk-response-line2d_40">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="357.644264" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_36">
+     <g id="c6r-sk-response-line2d_41">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="365.43605" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_37">
+     <g id="c6r-sk-response-line2d_42">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="371.802402" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_38">
+     <g id="c6r-sk-response-line2d_43">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="377.185076" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_39">
+     <g id="c6r-sk-response-line2d_44">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="381.84776" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-xtick_40">
+     <g id="c6r-sk-response-line2d_45">
+      <g>
+       <use xlink:href="#c6r-sk-response-m0318263ae1" x="385.960539" y="269.512" style="fill: #202e35; stroke: #202e35; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="c6r-sk-response-text_6">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="228.835" y="300.832781" transform="rotate(-0 228.835 300.832781)">频率比 f / f0</text>
+    </g>
+   </g>
+   <g id="c6r-sk-response-matplotlib.axis_2">
+    <g id="c6r-sk-response-ytick_1">
+     <g id="c6r-sk-response-line2d_46">
+      <path d="M 51.95 253.408533
+L 405.72 253.408533
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_47">
+      <defs>
+       <path id="c6r-sk-response-mdb8c59615a" d="M 0 0
+L -3.5 0
+" style="stroke: #202e35; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="253.408533" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_7">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="257.805096" transform="rotate(-0 44.95 257.805096)">-60</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_2">
+     <g id="c6r-sk-response-line2d_48">
+      <path d="M 51.95 221.2016
+L 405.72 221.2016
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_49">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="221.2016" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_8">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="225.598163" transform="rotate(-0 44.95 225.598163)">-50</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_3">
+     <g id="c6r-sk-response-line2d_50">
+      <path d="M 51.95 188.994667
+L 405.72 188.994667
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_51">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="188.994667" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_9">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="193.391229" transform="rotate(-0 44.95 193.391229)">-40</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_4">
+     <g id="c6r-sk-response-line2d_52">
+      <path d="M 51.95 156.787733
+L 405.72 156.787733
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_53">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="156.787733" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_10">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="161.184296" transform="rotate(-0 44.95 161.184296)">-30</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_5">
+     <g id="c6r-sk-response-line2d_54">
+      <path d="M 51.95 124.5808
+L 405.72 124.5808
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_55">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="124.5808" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_11">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="128.977362" transform="rotate(-0 44.95 128.977362)">-20</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_6">
+     <g id="c6r-sk-response-line2d_56">
+      <path d="M 51.95 92.373867
+L 405.72 92.373867
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_57">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="92.373867" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_12">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="96.770429" transform="rotate(-0 44.95 96.770429)">-10</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_7">
+     <g id="c6r-sk-response-line2d_58">
+      <path d="M 51.95 60.166933
+L 405.72 60.166933
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_59">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="60.166933" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_13">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="64.563496" transform="rotate(-0 44.95 64.563496)">0</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-ytick_8">
+     <g id="c6r-sk-response-line2d_60">
+      <path d="M 51.95 27.96
+L 405.72 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.17; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c6r-sk-response-line2d_61">
+      <g>
+       <use xlink:href="#c6r-sk-response-mdb8c59615a" x="51.95" y="27.96" style="fill: #202e35; stroke: #202e35; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="c6r-sk-response-text_14">
+      <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: end; fill: #202e35" x="44.95" y="32.356563" transform="rotate(-0 44.95 32.356563)">10</text>
+     </g>
+    </g>
+    <g id="c6r-sk-response-text_15">
+     <text style="font-size: 11px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="20.555313" y="148.736" transform="rotate(-90 20.555313 148.736)">相对直流增益 / dB</text>
+    </g>
+   </g>
+   <g id="c6r-sk-response-line2d_62">
+    <path d="M 68.030455 60.169731
+L 133.938019 60.288626
+L 153.264297 60.533456
+L 165.157391 60.886696
+L 174.077212 61.356535
+L 181.510396 61.967931
+L 187.456943 62.66692
+L 192.907944 63.529847
+L 197.8634 64.55096
+L 202.323311 65.707688
+L 206.287675 66.960536
+L 210.25204 68.457298
+L 213.720859 69.991431
+L 217.189679 71.755558
+L 220.658498 73.766912
+L 224.127317 76.039376
+L 227.596136 78.582533
+L 231.064955 81.400963
+L 234.533774 84.493897
+L 238.498139 88.3568
+L 242.462504 92.553463
+L 246.426869 97.060529
+L 250.886779 102.466986
+L 255.842235 108.840084
+L 261.293236 116.225266
+L 267.735329 125.358821
+L 275.168513 136.309335
+L 284.088334 149.855771
+L 295.981428 168.346393
+L 313.325524 195.765703
+L 344.544896 245.604708
+L 389.623818 317.8
+L 389.623818 317.8
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #1f77b4; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-line2d_63">
+    <path d="M 68.030455 60.166933
+L 186.465852 60.275623
+L 196.376764 60.502456
+L 202.818856 60.859775
+L 207.278767 61.303388
+L 211.243131 61.917129
+L 214.711951 62.697598
+L 217.685224 63.606772
+L 220.162952 64.573462
+L 222.64068 65.762098
+L 225.118408 67.199212
+L 227.596136 68.904861
+L 230.073864 70.88988
+L 232.551592 73.154269
+L 235.02932 75.687193
+L 238.002594 79.052436
+L 241.471413 83.36811
+L 245.435777 88.71279
+L 249.895688 95.11232
+L 255.842235 104.060453
+L 264.26651 117.177973
+L 279.132878 140.802633
+L 330.66962 223.335616
+L 389.625565 317.8
+L 389.625565 317.8
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #ff7f0e; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-line2d_64">
+    <path d="M 68.030455 60.164485
+L 136.415747 60.043761
+L 155.246479 59.803681
+L 167.139573 59.445923
+L 176.059394 58.9581
+L 182.997032 58.355498
+L 188.448034 57.672176
+L 193.40349 56.821824
+L 197.367855 55.928748
+L 200.836674 54.944974
+L 204.305493 53.722114
+L 207.278767 52.439003
+L 210.25204 50.894165
+L 212.729768 49.376387
+L 215.207496 47.631974
+L 218.18077 45.25927
+L 223.136226 41.213409
+L 224.622862 40.342323
+L 225.613954 39.98604
+L 226.605045 39.875258
+L 227.596136 40.06294
+L 228.587227 40.589189
+L 229.578318 41.472996
+L 230.56941 42.707902
+L 231.560501 44.263501
+L 233.047138 47.091388
+L 235.02932 51.492215
+L 238.993685 61.118779
+L 243.453595 71.780372
+L 247.41796 80.66945
+L 251.382325 89.020958
+L 255.842235 97.895782
+L 260.797691 107.266209
+L 266.744238 118.02061
+L 273.681876 130.104969
+L 282.601697 145.175556
+L 294.494791 164.799418
+L 311.838887 192.951764
+L 344.049351 244.740358
+L 389.627094 317.8
+L 389.627094 317.8
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke: #2ca02c; stroke-width: 2; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-line2d_65">
+    <path d="M 228.835 269.512
+L 228.835 27.96
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #859491; stroke-width: 1.5"/>
+   </g>
+   <g id="c6r-sk-response-line2d_66">
+    <path d="M 51.95 69.862186
+L 405.72 69.862186
+" clip-path="url(#c6r-sk-response-pc303aac37b)" style="fill: none; stroke-dasharray: 1.5,2.475; stroke-dashoffset: 0; stroke: #859491; stroke-width: 1.5"/>
+   </g>
+   <g id="c6r-sk-response-patch_3">
+    <path d="M 51.95 269.512
+L 51.95 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-patch_4">
+    <path d="M 405.72 269.512
+L 405.72 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-patch_5">
+    <path d="M 51.95 269.512
+L 405.72 269.512
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-patch_6">
+    <path d="M 51.95 27.96
+L 405.72 27.96
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="c6r-sk-response-text_16">
+    <text style="font-size: 13.2px; font-family: 'Microsoft YaHei'; text-anchor: middle; fill: #202e35" x="228.835" y="21.96" transform="rotate(-0 228.835 21.96)">同一 R、C，改变 K 的理论预测</text>
+   </g>
+   <g id="c6r-sk-response-legend_1">
+    <g id="c6r-sk-response-patch_7">
+     <path d="M 58.25 265.012
+L 179.658594 265.012
+Q 181.458594 265.012 181.458594 263.212
+L 181.458594 222.316844
+Q 181.458594 220.516844 179.658594 220.516844
+L 58.25 220.516844
+Q 56.45 220.516844 56.45 222.316844
+L 56.45 263.212
+Q 56.45 265.012 58.25 265.012
+z
+" style="fill: #f6f3eb; opacity: 0.8; stroke: #cccccc; stroke-linejoin: miter"/>
+    </g>
+    <g id="c6r-sk-response-line2d_67">
+     <path d="M 60.05 228.161219
+L 69.05 228.161219
+L 78.05 228.161219
+" style="fill: none; stroke: #1f77b4; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c6r-sk-response-text_17">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="85.25" y="231.311219" transform="rotate(-0 85.25 231.311219)">K = 1.000，Q = 0.500</text>
+    </g>
+    <g id="c6r-sk-response-line2d_68">
+     <path d="M 60.05 242.092937
+L 69.05 242.092937
+L 78.05 242.092937
+" style="fill: none; stroke: #ff7f0e; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c6r-sk-response-text_18">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="85.25" y="245.242937" transform="rotate(-0 85.25 245.242937)">K = 1.586，Q = 0.707</text>
+    </g>
+    <g id="c6r-sk-response-line2d_69">
+     <path d="M 60.05 256.024656
+L 69.05 256.024656
+L 78.05 256.024656
+" style="fill: none; stroke: #2ca02c; stroke-width: 2; stroke-linecap: square"/>
+    </g>
+    <g id="c6r-sk-response-text_19">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei'; text-anchor: start; fill: #202e35" x="85.25" y="259.174656" transform="rotate(-0 85.25 259.174656)">K = 2.500，Q = 2.000</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c6r-sk-response-pc303aac37b">
+   <rect x="51.95" y="27.96" width="353.77" height="241.552"/>
+  </clipPath>
+ </defs>
+</svg></figure>
+<div class="table-wrap"><table><thead><tr><th>K</th><th>Q</th><th>f=f₀ 时，相对直流幅值</th><th>应观察到什么</th></tr></thead><tbody>
+<tr><td>1</td><td>0.5</td><td>0.5，即约 −6.02 dB</td><td>下降较早，f₀ 不是 −3 dB 点</td></tr>
+<tr><td>3−√2≈1.586</td><td>1/√2</td><td>1/√2，即约 −3.01 dB</td><td>二阶巴特沃斯情形，f₀=f<sub>c</sub></td></tr>
+<tr><td>2.5</td><td>2</td><td>2，即约 +6.02 dB</td><td>截止附近有明显峰起，f₀ 也不是 −3 dB 点</td></tr>
+</tbody></table></div>
+<p>第二项的结论需要对应的 Q，不是“只要二阶低通，f₀ 都是截止频率”。K 增大还改变阻尼；按这个理想模型，稳定响应要求 K&lt;3。K 接近 3 时应特别留意峰起与稳定性，不能把公式中的 Q→∞ 理解为可以免费得到无限选择性。</p>
+<p><strong>做到什么程度：</strong>能根据公式预测曲线，再在软件里核对低频增益、f₀ 处幅值、−3 dB 点及高频斜率。若没有上机条件，把这四项从理论上算明白，也已完成本段的学习重点；不能把这里的预测曲线当成实际测量记录。</p>
+</section>
+<section id="c6r-map"><h2>本章小结：把“会看、会算、会选”变成能交卷的动作</h2>
+<div class="table-wrap"><table><thead><tr><th>课本要求</th><th>做题时的具体动作</th><th>第一轮优先掌握</th></tr></thead><tbody>
+<tr><td>运算电路会看</td><td>认出反馈元件、输入端与各级功能</td><td>比例、求和/差分、积分/微分</td></tr>
+<tr><td>运算电路会算</td><td>求 P、N 电位，列节点方程，逐级代入</td><td>不把所有 N 都写成 0 V</td></tr>
+<tr><td>运算电路会选</td><td>从目标关系分解操作，确定符号与参数</td><td>负反馈、单位、初值和范围</td></tr>
+<tr><td>滤波电路会看、会选</td><td>找有用频段，检查两端频率与中间响应</td><td>LPF、HPF、BPF、BEF，兼顾全通相位</td></tr>
+<tr><td>小信号前端与噪声</td><td>把实际困难对应到输入阻抗、共模、电荷、隔离和信噪比</td><td>知道各自用途，会算主要比例</td></tr>
+</tbody></table></div>
+<p>不必第一轮就默写每个集成芯片的内部连线，也不必把每种高阶滤波器长公式全部背下。它们用于说明实现方式和性能边界；基础题更常检查你能否按连接列式、选对响应、验证结果。</p>
+<p>课本把运算电路主要放在时域讨论、滤波电路主要放在频域讨论，这是研究重点的区别。实用积分器同时也可视为低通，不能把两类电路当成互不相干的两门算法。</p>
+</section>
+<section id="c6r-method"><h2>拿到题图的固定顺序：先确认模型，再写方程</h2>
+<ol><li><strong>找输入和输出的参考点：</strong>尤其留意两端输入、浮动负载、隔离两侧不同的地。</li><li><strong>找闭合反馈：</strong>判断是否可能稳定在线性负反馈状态；二极管截止、乘法器换符号、反馈断路都可能改变结论。</li><li><strong>用虚断先求 P：</strong>单支路输入通常不降压，多电阻输入通常是加权平均。</li><li><strong>在线性假设下令 N=P：</strong>只有 P 接地，N 才接近 0 V；“反相端”不是“地”的同义词。</li><li><strong>列 N 和其他关键节点：</strong>T 网络中点、被加载的 RC 节点不能略过。</li><li><strong>逐级代入并检查：</strong>单位、符号、初值、每级摆幅、输入范围、乘法器端口及频率条件都要与原假设一致。</li></ol>
+<p>电流箭头只是在为这些方程指定参考方向。可以先规定流出节点为正，写 (节点电位−另一端电位)/R；最后算得负数，说明实际电流反向。没有必要先猜对每一条线的真实方向才敢列式。</p>
+<details class="answer"><summary>为什么不能“题目说理想运放，所以永远虚短”？</summary><p>理想运放输入电流为零是器件模型；两输入近似等电位，还需要适当负反馈和线性工作条件。若题目另给输出限幅，或者故障切断了有效反馈，就应重新检查，不能把条件丢掉只剩“理想”两个字。</p></details>
+</section>
+<section id="c6r-superposition"><h2>叠加和逐级分析的边界：别把所有运算都当成线性</h2>
+<p>多输入的线性比例、加减电路可以分别求各路作用，再把输出相加。积分器也可按线性系统处理，但完整解还含初始状态，不能把同一初值在每路响应里重复加一次。</p>
+<p>乘法、平方、开方、对数等输入—输出关系一般不满足外部输入的线性叠加。例如 (x₁+x₂)²=x₁²+2x₁x₂+x₂²，不能删掉中间项。某个内部运放节点能列电流和，不代表整个非线性运算也能直接叠加输入结果。</p>
+<p>多级理想运放输出电阻为零时，前级常可当作后级的理想电压源，先分别求各级，再代入。但两段没有缓冲的无源 RC 会互相加载，不能无条件把两条空载传递函数相乘。前面 <a href="#c632-simple">简单二阶低通</a> 就是在提醒这件事。</p>
+<p class="level"><strong>做题意义：</strong>叠加与拆级是省力方法，节点电流法是核对依据；若省力方法的条件不清楚，退回节点方程通常更可靠。</p>
+</section>
+<section id="c6r-self1"><h2>自测一：选电路时，先把功能翻译成数学关系</h2>
+<div class="table-wrap"><table><thead><tr><th>原题任务</th><th>选择</th><th>为什么</th></tr></thead><tbody>
+<tr><td>正弦移相 +90°</td><td>C，反相积分</td><td>H(jω)=−1/(jωRC)=j/(ωRC)</td></tr>
+<tr><td>正弦得到二倍频分量</td><td>F，乘方中的平方</td><td>sin²ωt=[1−cos2ωt]/2</td></tr>
+<tr><td>叠加直流量</td><td>E，加法</td><td>交流与常量在输出相加</td></tr>
+<tr><td>A<sub>u</sub>=−100</td><td>A，反相比例</td><td>−R<sub>f</sub>/R=−100</td></tr>
+<tr><td>方波变三角波</td><td>C，积分</td><td>每段恒定输入对应恒定输出斜率</td></tr>
+<tr><td>方波变尖脉冲</td><td>D，微分</td><td>主要响应边沿的快速变化</td></tr>
+</tbody></table></div>
+<p>答案次序为 C、F、E、A、C、D。这里的 +90° 是按稳态正弦“输出相位减输入相位”定义，略去积分初值中的常量；不要只看到“积分”就机械写 −90°，还要带上反相负号。</p>
+<p>平方得到直流和二倍频两部分；若要求纯二倍频，还要除去直流。理想方波的导数是冲激模型，真实微分电路只能得到受带宽和限幅约束的脉冲，不会产生无限高的实际电压。</p>
+</section>
+<section id="c6r-self2"><h2>自测二：选滤波器先定频段，再看负载条件</h2>
+<ol><li><strong>抑制 50 Hz 电网干扰：</strong>选带阻，阻带围绕 50 Hz。前提是这段并非要保留的有用信号；同频的信号与干扰不能靠频率选择自动区分。</li><li><strong>保留 10—12 kHz 信号：</strong>选带通，按所需保真和干扰分布设上下边界，不是只在频率轴上画一根线。</li><li><strong>取低频：</strong>选低通，边界按有用信号的最高频率确定。</li><li><strong>输出阻抗小、负载变化较少影响前级：</strong>选适当有源滤波结构。与无源 RC 比较，输出缓冲减轻加载，但真实输出电流与幅值仍有范围。</li></ol>
+<p>四项答案为：带阻、带通、低通、有源。前三项在选频率形状，最后一项在选实现方式，分类角度不同；“有源”不等于“低通”，四种形状都可以有有源实现。</p>
+</section>
+<section id="c6r-self3a"><h2>自测三 (a)：加减级接积分级，先留一个中间量</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-test3a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 900" role="img" aria-labelledby="c6r-test3a-c6r-test3a-title">
+<title id="c6r-test3a-c6r-test3a-title">自测三图a按上下两级重绘，上级三输入加减运算，下级反相积分，同名uo1端相连</title>
+<defs><marker id="c6r-test3a-c6r-test3a-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">自测三 (a)：先加减，再积分</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A1</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf</text><path class="wire" d="M280 90V300H250M280 300H305"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><path class="wire" d="M15 220H44.5M44.5 213H80.5V227H44.5ZM80.5 220H110"/><text x="62.5" y="205" text-anchor="middle" font-size="15">R1</text><circle cx="110" cy="220" r="3.2" fill="currentColor"/><circle cx="15" cy="220" r="3.2" class="port"/><text x="15" y="250" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R2</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M110 220V280"/><path class="wire" d="M15 360H44.5M44.5 353H80.5V367H44.5ZM80.5 360H110"/><text x="62.5" y="345" text-anchor="middle" font-size="15">R3</text><circle cx="15" cy="360" r="3.2" class="port"/><text x="15" y="390" text-anchor="start" font-size="14">ui3</text><path class="wire" d="M110 360V320H140"/><path class="wire" d="M110 360V389.5M103 389.5H117V425.5H103ZM110 425.5V455"/><text x="96" y="412.5" text-anchor="end" font-size="15">R4</text><path class="wire" d="M110 455V465M98 465H122M102 471H118M107 477H113"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo1</text><path class="wire" d="M140 640L250 690L140 740Z"/><text x="150" y="675" text-anchor="start" font-size="15">−</text><text x="150" y="715" text-anchor="start" font-size="15">+</text><text x="192" y="695" text-anchor="middle" font-size="15">A2</text><circle cx="15" cy="670" r="3.2" class="port"/><text x="15" y="700" text-anchor="start" font-size="14">uo1</text><path class="wire" d="M15 670H44.5M44.5 663H80.5V677H44.5ZM80.5 670H110"/><text x="62.5" y="655" text-anchor="middle" font-size="15">R</text><path class="wire" d="M110 670L140 670"/><path class="wire" d="M110 670V565"/><path class="wire" d="M110 565H190.0M190.0 553V577M200.0 553V577M200.0 565H280"/><text x="195.0" y="545" text-anchor="middle" font-size="15">C</text><path class="wire" d="M280 565V690H250M280 690H305"/><circle cx="110" cy="670" r="3.2" fill="currentColor"/><circle cx="280" cy="690" r="3.2" fill="currentColor"/><path class="wire" d="M110 710V737.0M103 737.0H117V773.0H103ZM110 773.0V800"/><text x="96" y="760.0" text-anchor="end" font-size="15">R</text><path class="wire" d="M110 710L140 710"/><path class="wire" d="M110 800V810M98 810H122M102 816H118M107 822H113"/><circle cx="305" cy="690" r="3.2" class="port"/><text x="305" y="720" text-anchor="end" font-size="14">uo</text><text x="160" y="864" text-anchor="middle" font-size="13">两级之间以同名 uo1 端连接</text></svg></figure>
+<p>上方 A<sub>1</sub> 的同相端只有 R<sub>3</sub>、R<sub>4</sub> 分压，因此：</p>
+<div class="eq">u<sub>P1</sub>=[R<sub>4</sub>/(R<sub>3</sub>+R<sub>4</sub>)]u<sub>i3</sub><br/>u<sub>o1</sub>=−(R<sub>f</sub>/R<sub>1</sub>)u<sub>i1</sub>−(R<sub>f</sub>/R<sub>2</sub>)u<sub>i2</sub><br/>+(1+R<sub>f</sub>/R<sub>1</sub>+R<sub>f</sub>/R<sub>2</sub>)u<sub>P1</sub></div>
+<p>下方 A<sub>2</sub> 是反相积分。完整关系要保留初始输出：</p>
+<div class="eq">u<sub>o</sub>(t)=u<sub>o</sub>(t₀)−[1/(RC)]∫<sub>t₀</sub><sup>t</sup>u<sub>o1</sub>(τ)dτ</div>
+<p>把前级关系代进去就是所求。原来前级的两个负项经反相积分后成为正的积分项，正项则成为负的积分项；先写中间量，能少错一遍符号。</p>
+<p>“若 u<sub>i</sub>&lt;0，怎样选 k 和修改”的追问针对下一张含乘法器的图 (b)。图 (a) 没有乘积系数 k，不应给它额外添加这个限制。</p>
+</section>
+<section id="c6r-self3b"><h2>自测三 (b)：两条反馈关系相等，才得到开方</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-test3b" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 1070" role="img" aria-labelledby="c6r-test3b-c6r-test3b-title">
+<title id="c6r-test3b-c6r-test3b-title">自测三图b展开为主放大器与二极管、平方器、反相比例反馈三级；同名uo、u02和w端分别相连，二极管阴极朝左</title>
+<defs><marker id="c6r-test3b-c6r-test3b-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">自测三 (b)：负根来自反馈与二极管</text><path class="wire" d="M140 170L250 220L140 270Z"/><text x="150" y="205" text-anchor="start" font-size="15">−</text><text x="150" y="245" text-anchor="start" font-size="15">+</text><text x="192" y="225" text-anchor="middle" font-size="15">A1</text><circle cx="15" cy="200" r="3.2" class="port"/><text x="15" y="177" text-anchor="start" font-size="14">ui</text><path class="wire" d="M15 200H44.5M44.5 193H80.5V207H44.5ZM80.5 200H110"/><text x="62.5" y="185" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 200L140 200"/><path class="wire" d="M110 200V95"/><path class="wire" d="M110 95H177.0M177.0 88H213.0V102H177.0ZM213.0 95H280"/><text x="195.0" y="80" text-anchor="middle" font-size="15">R2</text><circle cx="280" cy="95" r="3.2" class="port"/><text x="280" y="72" text-anchor="end" font-size="14">u02</text><circle cx="110" cy="200" r="3.2" fill="currentColor"/><path class="wire" d="M110 240V267.0M103 267.0H117V303.0H103ZM110 303.0V330"/><text x="96" y="290.0" text-anchor="end" font-size="15">R5</text><path class="wire" d="M110 240L140 240"/><path class="wire" d="M110 330V340M98 340H122M102 346H118M107 352H113"/><path class="wire" d="M250 220H263M263 210V230M263 220L280 210V230ZM280 220H305"/><circle cx="305" cy="220" r="3.2" class="port"/><text x="305" y="250" text-anchor="end" font-size="14">uo</text><text x="270" y="260" text-anchor="middle" font-size="13">D</text><rect x="75" y="440" width="190" height="110" class="block"/><text x="170.0" y="488.0" text-anchor="middle" font-size="15">平方器</text><text x="170.0" y="512.0" text-anchor="middle" font-size="15">w = k uo²</text><circle cx="15" cy="495" r="3.2" class="port"/><text x="15" y="472" text-anchor="start" font-size="14">uo</text><path class="wire" d="M15 495H50M50 465V525M50 465H75M50 525H75"/><circle cx="50" cy="495" r="3.2" fill="currentColor"/><text x="84" y="475" text-anchor="start" font-size="12">X</text><text x="84" y="538" text-anchor="start" font-size="12">Y</text><path class="wire" d="M265 495L305 495"/><circle cx="305" cy="495" r="3.2" class="port"/><text x="305" y="525" text-anchor="end" font-size="14">w</text><path class="wire" d="M140 750L250 800L140 850Z"/><text x="150" y="785" text-anchor="start" font-size="15">−</text><text x="150" y="825" text-anchor="start" font-size="15">+</text><text x="192" y="805" text-anchor="middle" font-size="15">A2</text><circle cx="15" cy="780" r="3.2" class="port"/><text x="15" y="757" text-anchor="start" font-size="14">w</text><path class="wire" d="M15 780H44.5M44.5 773H80.5V787H44.5ZM80.5 780H110"/><text x="62.5" y="765" text-anchor="middle" font-size="15">R4</text><path class="wire" d="M110 780L140 780"/><path class="wire" d="M110 780V670"/><path class="wire" d="M110 670H177.0M177.0 663H213.0V677H177.0ZM213.0 670H280"/><text x="195.0" y="655" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M280 670V800H250M280 800H305"/><circle cx="110" cy="780" r="3.2" fill="currentColor"/><circle cx="280" cy="800" r="3.2" fill="currentColor"/><path class="wire" d="M110 820V852.0M103 852.0H117V888.0H103ZM110 888.0V920"/><text x="96" y="875.0" text-anchor="end" font-size="15">R6</text><path class="wire" d="M110 820L140 820"/><path class="wire" d="M110 920V930M98 930H122M102 936H118M107 942H113"/><circle cx="305" cy="800" r="3.2" class="port"/><text x="305" y="830" text-anchor="end" font-size="14">u02</text><text x="160" y="1000" text-anchor="middle" font-size="12">同名端子相连；k &gt; 0、ui &gt; 0 时</text><text x="160" y="1038" text-anchor="middle" font-size="12">稳定输出取 uo &lt; 0；不只是在根号前猜号</text></svg></figure>
+<p>图按原节点分三层画，同名 u<sub>o</sub>、w、u<sub>02</sub> 端分别连接。中间平方器输出 w=ku<sub>o</sub>²；上方主运放 A<sub>1</sub> 与下方反相级 A<sub>2</sub> 同时约束 u<sub>02</sub>。</p>
+<div class="eq">A₁ 的 N 为虚地：u<sub>02</sub>=−(R<sub>2</sub>/R<sub>1</sub>)u<sub>i</sub><br/>A₂ 的 N 为虚地：u<sub>02</sub>=−(R<sub>3</sub>/R<sub>4</sub>)w<br/>=−(R<sub>3</sub>/R<sub>4</sub>)ku<sub>o</sub>²</div>
+<p>两式相等，消去 u<sub>02</sub>：</p>
+<div class="eq">u<sub>o</sub>²=[R<sub>2</sub>R<sub>4</sub>/(kR<sub>1</sub>R<sub>3</sub>)]u<sub>i</sub></div>
+<p>到这里得到的是输出平方，仍没有完成根号前的符号选择。原题 k&gt;0、u<sub>i</sub>&gt;0，二极管方向配合反馈使输出取负支路：</p>
+<div class="eq">u<sub>o</sub>=−√{[R<sub>2</sub>R<sub>4</sub>/(kR<sub>1</sub>R<sub>3</sub>)]u<sub>i</sub>}</div>
+<p>乘积系数 k 的单位为 V⁻¹。根号内是 V²，开方后才是输出电压；不是给一个无量纲的 k，再无视输入输出的量纲。</p>
+</section>
+<section id="c6r-self3sign"><h2>自测三的改接：负输入不仅改变根号，还改变反馈方向</h2>
+<p>用导通支路附近的微小变化检查负反馈。A<sub>1</sub> 的 N 电位上升会让它的输出下降；反馈级对输出的变化率为：</p>
+<div class="eq">du<sub>02</sub>/du<sub>o</sub>=−2(R<sub>3</sub>/R<sub>4</sub>)ku<sub>o</sub></div>
+<p>在原图 k&gt;0、u<sub>o</sub>&lt;0 时，上式为正：输出改变经反馈同向送到 N，主运放再反向纠偏，符合负反馈。二极管的方向限制可工作的输出支路；不能把代数上的两个根都当成稳定输出。</p>
+<p>若改为 u<sub>i</sub>&lt;0，为使 u<sub>i</sub>/k&gt;0，应取 k&lt;0；还须把原图二极管反接，选择 u<sub>o</sub>&gt;0 支路，使 −ku<sub>o</sub> 仍为正。此时：</p>
+<div class="eq">u<sub>o</sub>=+√{[R<sub>2</sub>R<sub>4</sub>/(kR<sub>1</sub>R<sub>3</sub>)]u<sub>i</sub>}，u<sub>i</sub>&lt;0、k&lt;0</div>
+<p>这里只说明这组题图的改接，运放输入端不需要跟着随意交换。实际还要满足二极管导通、各级摆幅和乘法器输入范围；在零点附近，不能把“变化率为零”的边界当成已有充分环路增益的正常点。</p>
+</section>
+<section id="c6r-ex-start"><h2>习题 6.1—6.10：先练比例、故障、求和与多级反馈</h2>
+<p>这十题不是十套算法。6.1 检查功能选择，6.2 查限幅，6.3—6.5 练比例与 T 网络，6.6—6.7 练两输入端电位，6.8—6.9 专门防止把所有节点都认成地，6.10 再把这些动作组合起来。</p>
+<p>建议先遮住答案，自己写出每题的 P 点电位与第一条节点方程，再展开核对。暂时列不出最终式没关系；如果第一步已经把 P、N 画错，继续硬算通常只会越算越乱。</p>
+</section>
+<section id="p61"><h2>习题 6.1：会填名字，还要知道符号从哪里来</h2>
+<div class="table-wrap"><table><thead><tr><th>条件</th><th>原题对应答案</th><th>检查依据</th></tr></thead><tbody>
+<tr><td>A<sub>u</sub>&gt;1</td><td>同相比例</td><td>1+R<sub>f</sub>/R&gt;1</td></tr>
+<tr><td>A<sub>u</sub>&lt;0</td><td>反相比例</td><td>−R<sub>f</sub>/R&lt;0</td></tr>
+<tr><td>三角波变方波</td><td>微分</td><td>线性上升、下降分别对应恒定正负斜率</td></tr>
+<tr><td>三个系数均为正的加权和</td><td>同相求和</td><td>正权重加权平均后，再作同相放大</td></tr>
+<tr><td>三个系数均为负的加权和</td><td>反相求和</td><td>每路贡献 −R<sub>f</sub>u<sub>i</sub>/R<sub>i</sub></td></tr>
+<tr><td>Y=aX²</td><td>乘方中的平方</td><td>同一信号接乘法器两个输入端</td></tr>
+</tbody></table></div>
+<p>这里按课本常见基本结构选型，不是在证明某项功能只能用唯一电路实现。譬如先反相再反相也能得到正比例，但题目首先考查你能否直接选出相应基本电路。</p>
+</section>
+<section id="p62"><h2>习题 6.2：先算 −10 倍与 +11 倍，再查 ±14 V</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p62a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="c6r-p62a-c6r-p62a-title">
+<title id="c6r-p62a-c6r-p62a-title">反相比例运算电路</title>
+<defs><marker id="c6r-p62a-c6r-p62a-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.2(a)：反相 −10 倍</text><path class="wire" d="M140 210L250 260L140 310Z"/><text x="150" y="245" text-anchor="start" font-size="15">−</text><text x="150" y="285" text-anchor="start" font-size="15">+</text><text x="192" y="265" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 240V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 100 kΩ</text><path class="wire" d="M280 90V260H250M280 260H305"/><circle cx="110" cy="240" r="3.2" fill="currentColor"/><circle cx="280" cy="260" r="3.2" fill="currentColor"/><circle cx="15" cy="240" r="3.2" class="port"/><text x="15" y="270" text-anchor="start" font-size="14">ui</text><path class="wire" d="M15 240H44.5M44.5 233H80.5V247H44.5ZM80.5 240H110"/><text x="62.5" y="225" text-anchor="middle" font-size="15">R 10 kΩ</text><path class="wire" d="M110 240L140 240"/><path class="wire" d="M140 280H110"/><path class="wire" d="M110 280V307.0M103 307.0H117V343.0H103ZM110 343.0V370"/><text x="96" y="330.0" text-anchor="end" font-size="15">R′</text><path class="wire" d="M110 370V380M98 380H122M102 386H118M107 392H113"/><circle cx="305" cy="260" r="3.2" class="port"/><text x="305" y="290" text-anchor="end" font-size="14">uo</text><text x="160" y="440" text-anchor="middle" font-size="12">R′ 为补偿电阻，理想输入电流为零</text></svg></figure>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p62b" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="c6r-p62b-c6r-p62b-title">
+<title id="c6r-p62b-c6r-p62b-title">同相比例运算电路</title>
+<defs><marker id="c6r-p62b-c6r-p62b-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.2(b)：同相 +11 倍</text><path class="wire" d="M140 210L250 260L140 310Z"/><text x="150" y="245" text-anchor="start" font-size="15">−</text><text x="150" y="285" text-anchor="start" font-size="15">+</text><text x="192" y="265" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 240V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 100 kΩ</text><path class="wire" d="M280 90V260H250M280 260H305"/><circle cx="110" cy="240" r="3.2" fill="currentColor"/><circle cx="280" cy="260" r="3.2" fill="currentColor"/><path class="wire" d="M20 240H47.0M47.0 233H83.0V247H47.0ZM83.0 240H110"/><text x="65.0" y="225" text-anchor="middle" font-size="15">R 10 kΩ</text><path class="wire" d="M20 240V250M8 250H32M12 256H28M17 262H23"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui</text><path class="wire" d="M15 280H59.5M59.5 273H95.5V287H59.5ZM95.5 280H140"/><text x="77.5" y="265" text-anchor="middle" font-size="15">R′</text><circle cx="305" cy="260" r="3.2" class="port"/><text x="305" y="290" text-anchor="end" font-size="14">uo</text><text x="160" y="440" text-anchor="middle" font-size="12">R′ 为补偿电阻，理想输入电流为零</text></svg></figure>
+<p>两张图互相独立，并非两级串联。图 (a) 为反相比例，图 (b) 为同相比例；补偿电阻 R′=R∥R<sub>f</sub>，在理想输入电流为零时不产生电压降。</p>
+<div class="eq">线性需求：u<sub>o1</sub>=−10u<sub>i</sub>，u<sub>o2</sub>=11u<sub>i</sub><br/>输出允许范围：−14 V≤u<sub>o</sub>≤14 V</div>
+<div class="table-wrap"><table><thead><tr><th>u<sub>i</sub>/V</th><th>0.1</th><th>0.5</th><th>1.0</th><th>1.5</th></tr></thead><tbody>
+<tr><td>u<sub>o1</sub>/V</td><td>−1</td><td>−5</td><td>−10</td><td>−14</td></tr>
+<tr><td>u<sub>o2</sub>/V</td><td>1.1</td><td>5.5</td><td>11</td><td>14</td></tr>
+</tbody></table></div>
+<p>最后一列的线性需求分别为 −15 V、+16.5 V，超过范围，按本题静态限幅模型取 −14 V、+14 V。不是把增益重新算成 −14/1.5 或 14/1.5，再声称电路仍在作线性比例。</p>
+<details class="answer"><summary>限幅后还能继续令 N=P 吗？</summary><p>不能。图 (b) 输出 +14 V 时，N 由反馈分压为 14/11≈1.273 V，而 P=1.5 V，差值为正，正向饱和与极性一致。图 (a) 输出 −14 V 时，按电阻网络求得 N≈0.091 V、P=0，差值为负，与负向饱和一致。可用这种方法检查自己是否选错饱和方向。</p></details>
+</section>
+<section id="p63"><h2>习题 6.3：输入电阻先定输入电阻，增益再定反馈电阻</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p63" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 470" role="img" aria-labelledby="c6r-p63-c6r-p63-title">
+<title id="c6r-p63-c6r-p63-title">反相比例运算电路</title>
+<defs><marker id="c6r-p63-c6r-p63-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">习题 6.3：输入电阻与增益分别定电阻</text><path class="wire" d="M140 210L250 260L140 310Z"/><text x="150" y="245" text-anchor="start" font-size="15">−</text><text x="150" y="285" text-anchor="start" font-size="15">+</text><text x="192" y="265" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 240V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 2 MΩ</text><path class="wire" d="M280 90V260H250M280 260H305"/><circle cx="110" cy="240" r="3.2" fill="currentColor"/><circle cx="280" cy="260" r="3.2" fill="currentColor"/><circle cx="15" cy="240" r="3.2" class="port"/><text x="15" y="270" text-anchor="start" font-size="14">ui</text><path class="wire" d="M15 240H44.5M44.5 233H80.5V247H44.5ZM80.5 240H110"/><text x="62.5" y="225" text-anchor="middle" font-size="15">R 20 kΩ</text><path class="wire" d="M110 240L140 240"/><path class="wire" d="M140 280H110"/><path class="wire" d="M110 280V307.0M103 307.0H117V343.0H103ZM110 343.0V370"/><text x="96" y="330.0" text-anchor="end" font-size="15">R′</text><path class="wire" d="M110 370V380M98 380H122M102 386H118M107 392H113"/><circle cx="305" cy="260" r="3.2" class="port"/><text x="305" y="290" text-anchor="end" font-size="14">uo</text><text x="160" y="440" text-anchor="middle" font-size="12">R′ 为补偿电阻，理想输入电流为零</text></svg></figure>
+<p>要求 R<sub>i</sub>=20 kΩ、比例系数 −100。优先选反相比例结构，因为理想线性条件下 N 为虚地，从输入源看进去就是输入电阻 R。</p>
+<div class="eq">R=R<sub>i</sub>=20 kΩ<br/>−R<sub>f</sub>/R=−100 → R<sub>f</sub>=2 MΩ<br/>若考虑输入偏置电流补偿：R′=R∥R<sub>f</sub>≈19.8 kΩ</div>
+<p>这是满足题意的一组理想设计解。2 MΩ 的反馈电阻在真实电路中还牵涉噪声、寄生与带宽，不代表无需检查就可以作为所有场合的最佳选择。辅导书给出 T 网络替代方案，下面一题正好把它的分析方法讲清。</p>
+</section>
+<section id="p64"><h2>习题 6.4：T 网络中点 M 不为零，比例系数是 −104</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p64" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c6r-p64-c6r-p64-title">
+<title id="c6r-p64-c6r-p64-title">T形反馈网络，关键节点M保留；短路用导线，断路用间隙重画</title>
+<defs><marker id="c6r-p64-c6r-p64-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.4：把 T 网络中点 M 单独列式</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H137.0M137.0 83H173.0V97H137.0ZM173.0 90H200"/><text x="155.0" y="75" text-anchor="middle" font-size="15">R2</text><path class="wire" d="M200 90H222.0M222.0 83H258.0V97H222.0ZM258.0 90H280"/><text x="240.0" y="75" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M280 90V300H250M280 300H305"/><path class="wire" d="M200 90V132.0M193 132.0H207V168.0H193ZM200 168.0V210"/><text x="186" y="155.0" text-anchor="end" font-size="15">R4</text><path class="wire" d="M200 210V220M188 220H212M192 226H208M197 232H203"/><circle cx="200" cy="90" r="3.2" fill="currentColor"/><text x="200" y="65" text-anchor="middle" font-size="15">M</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 280L140 280"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M140 320H115"/><path class="wire" d="M115 320V349.5M108 349.5H122V385.5H108ZM115 385.5V415"/><text x="101" y="372.5" text-anchor="end" font-size="15">R5</text><path class="wire" d="M115 415V425M103 425H127M107 431H123M112 437H118"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="477" text-anchor="middle" font-size="12">R1=50k，R2=R3=100k，R4=2kΩ</text></svg></figure>
+<p>P 经 R<sub>5</sub> 接地，理想输入电流为零，所以 P=0；在线性负反馈下 N=0。输入端电阻因此为 R<sub>i</sub>=R<sub>1</sub>=50 kΩ。</p>
+<p>先在 N 列式。R<sub>2</sub> 连接 N 与 M，因此：</p>
+<div class="eq">u<sub>i</sub>/R<sub>1</sub>=(0−u<sub>M</sub>)/R<sub>2</sub><br/>u<sub>M</sub>=−(R<sub>2</sub>/R<sub>1</sub>)u<sub>i</sub>=−2u<sub>i</sub></div>
+<p>再在 M 列式，不能把 R<sub>2</sub>、R<sub>3</sub> 简单串联，因为它们中间还有 R<sub>4</sub> 支路：</p>
+<div class="eq">−u<sub>M</sub>/R<sub>2</sub>=u<sub>M</sub>/R<sub>4</sub>+(u<sub>M</sub>−u<sub>o</sub>)/R<sub>3</sub><br/>u<sub>o</sub>=(1+R<sub>3</sub>/R<sub>2</sub>+R<sub>3</sub>/R<sub>4</sub>)u<sub>M</sub><br/>=(1+1+50)u<sub>M</sub>=−104u<sub>i</sub></div>
+<p>电流式中的某项为负数没有问题，表示实际方向与所选参考相反。不要为了让“每个电流都正”而擅自改变欧姆定律的电位差顺序。</p>
+<details class="answer"><summary>怎样把这类网络用回 6.3 的 −100 倍设计？</summary><p>按本图编号，一般结果为 u<sub>o</sub>/u<sub>i</sub>=−(R<sub>2</sub>+R<sub>3</sub>+R<sub>2</sub>R<sub>3</sub>/R<sub>4</sub>)/R<sub>1</sub>。取 R<sub>1</sub>=20 kΩ、R<sub>2</sub>=R<sub>3</sub>=100 kΩ，令有效反馈项等于 2 MΩ，得到 R<sub>4</sub>≈5.56 kΩ。辅导书替代图的电阻编号与本图不同，代入前要按连接对应，不能只按下标照抄。</p></details>
+</section>
+<section id="p65"><h2>习题 6.5：短路、断路后重画，不能沿用 −104</h2>
+<p>此题仍用上题网络，输入为 +2 V，输出最大幅值为 ±14 V。每种故障分别发生。先重画连接，再判断负反馈和线性条件；原电路若仍按 −104 倍计算，本来就需要 −208 V，也已经超出本题范围。</p>
+<h3>（1）R₂ 短路：M 与 N 合并</h3>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p65-r2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c6r-p65-r2-c6r-p65-r2-title">
+<title id="c6r-p65-r2-c6r-p65-r2-title">T形反馈网络，关键节点M保留；短路用导线，断路用间隙重画</title>
+<defs><marker id="c6r-p65-r2-c6r-p65-r2-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.5(1)：R2 短路</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90L200 90"/><path class="wire" d="M200 90H222.0M222.0 83H258.0V97H222.0ZM258.0 90H280"/><text x="240.0" y="75" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M280 90V300H250M280 300H305"/><path class="wire" d="M200 90V132.0M193 132.0H207V168.0H193ZM200 168.0V210"/><text x="186" y="155.0" text-anchor="end" font-size="15">R4</text><path class="wire" d="M200 210V220M188 220H212M192 226H208M197 232H203"/><circle cx="200" cy="90" r="3.2" fill="currentColor"/><text x="200" y="65" text-anchor="middle" font-size="15">M</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 280L140 280"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M140 320H115"/><path class="wire" d="M115 320V349.5M108 349.5H122V385.5H108ZM115 385.5V415"/><text x="101" y="372.5" text-anchor="end" font-size="15">R5</text><path class="wire" d="M115 415V425M103 425H127M107 431H123M112 437H118"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="475" text-anchor="middle" font-size="12">先重画连接，再判断还能不能虚短</text></svg></figure>
+<p>反馈只剩 R<sub>3</sub> 直接从输出接到 N，R<sub>4</sub> 从虚地点接地，理想信号电流为零。可得 u<sub>o</sub>=−(R<sub>3</sub>/R<sub>1</sub>)u<sub>i</sub>=−4 V，未超限。</p>
+<h3>（2）R₃ 短路：M 成为输出节点</h3>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p65-r3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c6r-p65-r3-c6r-p65-r3-title">
+<title id="c6r-p65-r3-c6r-p65-r3-title">T形反馈网络，关键节点M保留；短路用导线，断路用间隙重画</title>
+<defs><marker id="c6r-p65-r3-c6r-p65-r3-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.5(2)：R3 短路</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H137.0M137.0 83H173.0V97H137.0ZM173.0 90H200"/><text x="155.0" y="75" text-anchor="middle" font-size="15">R2</text><path class="wire" d="M200 90L280 90"/><path class="wire" d="M280 90V300H250M280 300H305"/><path class="wire" d="M200 90V132.0M193 132.0H207V168.0H193ZM200 168.0V210"/><text x="186" y="155.0" text-anchor="end" font-size="15">R4</text><path class="wire" d="M200 210V220M188 220H212M192 226H208M197 232H203"/><circle cx="200" cy="90" r="3.2" fill="currentColor"/><text x="200" y="65" text-anchor="middle" font-size="15">M</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 280L140 280"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M140 320H115"/><path class="wire" d="M115 320V349.5M108 349.5H122V385.5H108ZM115 385.5V415"/><text x="101" y="372.5" text-anchor="end" font-size="15">R5</text><path class="wire" d="M115 415V425M103 425H127M107 431H123M112 437H118"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="475" text-anchor="middle" font-size="12">先重画连接，再判断还能不能虚短</text></svg></figure>
+<p>R<sub>2</sub> 成为从输出到 N 的反馈电阻，R<sub>4</sub> 成为输出负载。理想输出电阻为零，可得 u<sub>o</sub>=−(R<sub>2</sub>/R<sub>1</sub>)u<sub>i</sub>=−4 V；真实输出电流还需另查。</p>
+<h3>（3）R₄ 短路：M 被真实接地，输出不再反馈到 N</h3>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p65-r4s" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c6r-p65-r4s-c6r-p65-r4s-title">
+<title id="c6r-p65-r4s-c6r-p65-r4s-title">T形反馈网络，关键节点M保留；短路用导线，断路用间隙重画</title>
+<defs><marker id="c6r-p65-r4s-c6r-p65-r4s-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.5(3)：R4 短路，反馈失效</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H137.0M137.0 83H173.0V97H137.0ZM173.0 90H200"/><text x="155.0" y="75" text-anchor="middle" font-size="15">R2</text><path class="wire" d="M200 90H222.0M222.0 83H258.0V97H222.0ZM258.0 90H280"/><text x="240.0" y="75" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M280 90V300H250M280 300H305"/><path class="wire" d="M200 90L200 210"/><path class="wire" d="M200 210V220M188 220H212M192 226H208M197 232H203"/><circle cx="200" cy="90" r="3.2" fill="currentColor"/><text x="200" y="65" text-anchor="middle" font-size="15">M</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 280L140 280"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M140 320H115"/><path class="wire" d="M115 320V349.5M108 349.5H122V385.5H108ZM115 385.5V415"/><text x="101" y="372.5" text-anchor="end" font-size="15">R5</text><path class="wire" d="M115 415V425M103 425H127M107 431H123M112 437H118"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="475" text-anchor="middle" font-size="12">先重画连接，再判断还能不能虚短</text></svg></figure>
+<p>从输出经 R<sub>3</sub> 过来的变化在真实地终止，不能再改变 N。此时不能虚短，N 由输入电阻网络决定：</p>
+<div class="eq">u<sub>N</sub>=[R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>)]u<sub>i</sub>=4/3 V<br/>u<sub>P</sub>=0 → u<sub>P</sub>−u<sub>N</sub>&lt;0 → u<sub>o</sub>=−14 V</div>
+<p>错误做法是先强写 N=0，再发现电流无处可去。矛盾不是欧姆定律失效，而是线性负反馈条件已被破坏。</p>
+<h3>（4）R₄ 断路：T 支路消失，R₂ 与 R₃ 才能串联</h3>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p65-r4o" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 500" role="img" aria-labelledby="c6r-p65-r4o-c6r-p65-r4o-title">
+<title id="c6r-p65-r4o-c6r-p65-r4o-title">T形反馈网络，关键节点M保留；短路用导线，断路用间隙重画</title>
+<defs><marker id="c6r-p65-r4o-c6r-p65-r4o-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.5(4)：R4 断路</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H137.0M137.0 83H173.0V97H137.0ZM173.0 90H200"/><text x="155.0" y="75" text-anchor="middle" font-size="15">R2</text><path class="wire" d="M200 90H222.0M222.0 83H258.0V97H222.0ZM258.0 90H280"/><text x="240.0" y="75" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M280 90V300H250M280 300H305"/><path class="wire" d="M200 90V145M200 170V210"/><circle cx="200" cy="145" r="3.2" class="port"/><circle cx="200" cy="170" r="3.2" class="port"/><path class="wire" d="M200 210V220M188 220H212M192 226H208M197 232H203"/><circle cx="200" cy="90" r="3.2" fill="currentColor"/><text x="200" y="65" text-anchor="middle" font-size="15">M</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 280L140 280"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M140 320H115"/><path class="wire" d="M115 320V349.5M108 349.5H122V385.5H108ZM115 385.5V415"/><text x="101" y="372.5" text-anchor="end" font-size="15">R5</text><path class="wire" d="M115 415V425M103 425H127M107 431H123M112 437H118"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="475" text-anchor="middle" font-size="12">先重画连接，再判断还能不能虚短</text></svg></figure>
+<div class="eq">u<sub>o</sub>=−[(R<sub>2</sub>+R<sub>3</sub>)/R<sub>1</sub>]u<sub>i</sub>=−8 V</div>
+<p class="level"><strong>四项结果：</strong>−4 V、−4 V、−14 V、−8 V。考试真正检查的是你有没有重判电路状态，不是把“短路”一律换成某个很小的阻值，继续套原增益。</p>
+</section>
+<section id="p66a"><h2>习题 6.6(a)：同相端只接一个输入，R₃ 上没有理想输入电流</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p66a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 570" role="img" aria-labelledby="c6r-p66a-c6r-p66a-title">
+<title id="c6r-p66a-c6r-p66a-title">图P6.6(a)按原节点重绘，先计算同相端电位，再列反相端节点电流</title>
+<defs><marker id="c6r-p66a-c6r-p66a-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.6(a)：先定 P，再列 N</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 100 kΩ</text><path class="wire" d="M280 90V300H250M280 300H305"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="15" cy="220" r="3.2" class="port"/><text x="15" y="250" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 220H44.5M44.5 213H80.5V227H44.5ZM80.5 220H110"/><text x="62.5" y="205" text-anchor="middle" font-size="15">R1 50k</text><path class="wire" d="M110 220L110 280"/><circle cx="110" cy="220" r="3.2" fill="currentColor"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R2 50k</text><path class="wire" d="M110 280L110 280"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M110 280L140 280"/><path class="wire" d="M140 320H110V360"/><circle cx="15" cy="360" r="3.2" class="port"/><text x="15" y="390" text-anchor="start" font-size="14">ui3</text><path class="wire" d="M15 360H44.5M44.5 353H80.5V367H44.5ZM80.5 360H110"/><text x="62.5" y="345" text-anchor="middle" font-size="15">R3 20k</text><path class="wire" d="M110 360L110 360"/><circle cx="110" cy="360" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="534" text-anchor="middle" font-size="12">电阻标值均以 Ω 为单位；k 表示千</text></svg></figure>
+<p>先看 P。它只经 R<sub>3</sub> 接 u<sub>i3</sub>，没有另一条分压支路；理想输入脚不取电流，所以 R<sub>3</sub> 上无压降：</p>
+<div class="eq">u<sub>P</sub>=u<sub>i3</sub>，u<sub>N</sub>=u<sub>i3</sub></div>
+<p>在 N 列流入与流出的电流，或使用已推导过的一般加减式：</p>
+<div class="eq">u<sub>o</sub>=−(R<sub>f</sub>/R<sub>1</sub>)u<sub>i1</sub>−(R<sub>f</sub>/R<sub>2</sub>)u<sub>i2</sub><br/>+(1+R<sub>f</sub>/R<sub>1</sub>+R<sub>f</sub>/R<sub>2</sub>)u<sub>P</sub><br/>=−2u<sub>i1</sub>−2u<sub>i2</sub>+5u<sub>i3</sub></div>
+<p>正项 5=1+2+2，并不是直接由 R<sub>f</sub>/R<sub>3</sub> 得来的。此题恰有 R<sub>3</sub>=20 kΩ，让 R<sub>f</sub>/R<sub>3</sub>=5 数值也相同；若不明白条件，换个数就容易套错。</p>
+<details class="answer"><summary>把 R₃ 从 20 kΩ 改成 40 kΩ，理想运算式变不变？</summary><p>在 P 仍只有这一条输入支路、输入电流为零的理想模型中不变，仍有 P=u<sub>i3</sub>。真实器件的偏置与噪声可能变化。不能把原来恰好成立的 R<sub>f</sub>/R<sub>3</sub> 比值当作普遍规律。</p></details>
+</section>
+<section id="p66b"><h2>习题 6.6(b)：两个信号接 P，先算加权平均</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p66b" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 570" role="img" aria-labelledby="c6r-p66b-c6r-p66b-title">
+<title id="c6r-p66b-c6r-p66b-title">图P6.6(b)按原节点重绘，先计算同相端电位，再列反相端节点电流</title>
+<defs><marker id="c6r-p66b-c6r-p66b-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.6(b)：先定 P，再列 N</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 100 kΩ</text><path class="wire" d="M280 90V300H250M280 300H305"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1 10k</text><path class="wire" d="M110 280L110 280"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M110 280L140 280"/><path class="wire" d="M140 320H110V360"/><circle cx="15" cy="360" r="3.2" class="port"/><text x="15" y="390" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M15 360H44.5M44.5 353H80.5V367H44.5ZM80.5 360H110"/><text x="62.5" y="345" text-anchor="middle" font-size="15">R2 10k</text><path class="wire" d="M110 360L110 360"/><circle cx="110" cy="360" r="3.2" fill="currentColor"/><circle cx="15" cy="420" r="3.2" class="port"/><text x="15" y="450" text-anchor="start" font-size="14">ui3</text><path class="wire" d="M15 420H44.5M44.5 413H80.5V427H44.5ZM80.5 420H110"/><text x="62.5" y="405" text-anchor="middle" font-size="15">R3 100k</text><path class="wire" d="M110 360L110 420"/><circle cx="110" cy="420" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="534" text-anchor="middle" font-size="12">电阻标值均以 Ω 为单位；k 表示千</text></svg></figure>
+<p>P 经 10 kΩ 接 u<sub>i2</sub>、经 100 kΩ 接 u<sub>i3</sub>。虚断表示两支路流入电流相加为零，不表示两条外部支路各自没有电流：</p>
+<div class="eq">(u<sub>i2</sub>−u<sub>P</sub>)/10k+(u<sub>i3</sub>−u<sub>P</sub>)/100k=0<br/>u<sub>P</sub>=(10/11)u<sub>i2</sub>+(1/11)u<sub>i3</sub></div>
+<p>从 P 到输出的比例为 1+100k/10k=11；从反相输入 u<sub>i1</sub> 到输出的系数为 −10：</p>
+<div class="eq">u<sub>o</sub>=−10u<sub>i1</sub>+11u<sub>P</sub><br/>=−10u<sub>i1</sub>+10u<sub>i2</sub>+u<sub>i3</sub></div>
+<p>这就解释了为什么两个正输入的系数不同：P 本来就是按电导加权的，并非简单的 (u<sub>i2</sub>+u<sub>i3</sub>)/2。阻值较小的一路，对 P 的影响更大。</p>
+</section>
+<section id="p66c"><h2>习题 6.6(c)：差分比例的匹配，要连同 P 的分压一起算</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p66c" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 570" role="img" aria-labelledby="c6r-p66c-c6r-p66c-title">
+<title id="c6r-p66c-c6r-p66c-title">图P6.6(c)按原节点重绘，先计算同相端电位，再列反相端节点电流</title>
+<defs><marker id="c6r-p66c-c6r-p66c-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.6(c)：先定 P，再列 N</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 200 kΩ</text><path class="wire" d="M280 90V300H250M280 300H305"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R1 25k</text><path class="wire" d="M110 280L110 280"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M110 280L140 280"/><path class="wire" d="M140 320H110V360"/><circle cx="15" cy="360" r="3.2" class="port"/><text x="15" y="390" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M15 360H44.5M44.5 353H80.5V367H44.5ZM80.5 360H110"/><text x="62.5" y="345" text-anchor="middle" font-size="15">R1 25k</text><path class="wire" d="M110 360L110 360"/><circle cx="110" cy="360" r="3.2" fill="currentColor"/><path class="wire" d="M110 360V397.0M103 397.0H117V433.0H103ZM110 433.0V470"/><text x="96" y="420.0" text-anchor="end" font-size="15">Rf 200k</text><path class="wire" d="M110 470V480M98 480H122M102 486H118M107 492H113"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="534" text-anchor="middle" font-size="12">电阻标值均以 Ω 为单位；k 表示千</text></svg></figure>
+<p>本图两组电阻比均为 200k/25k=8。P 有对地下拉，所以不能再写 P=u<sub>i2</sub>：</p>
+<div class="eq">u<sub>P</sub>=[200/(25+200)]u<sub>i2</sub>=(8/9)u<sub>i2</sub><br/>u<sub>o</sub>=−8u<sub>i1</sub>+9u<sub>P</sub><br/>=8(u<sub>i2</sub>−u<sub>i1</sub>)</div>
+<p>同相输入端“单独到输出的闭环倍数”是 9，但 P 先分压为 8/9，所以外部正输入最终系数为 8。不能一看到“同相”就把正输入系数写成 9。</p>
+</section>
+<section id="p66d"><h2>习题 6.6(d)：两负两正，仍然只做两次节点分析</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p66d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 570" role="img" aria-labelledby="c6r-p66d-c6r-p66d-title">
+<title id="c6r-p66d-c6r-p66d-title">图P6.6(d)按原节点重绘，先计算同相端电位，再列反相端节点电流</title>
+<defs><marker id="c6r-p66d-c6r-p66d-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.6(d)：先定 P，再列 N</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">Rf 200 kΩ</text><path class="wire" d="M280 90V300H250M280 300H305"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="15" cy="220" r="3.2" class="port"/><text x="15" y="250" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 220H44.5M44.5 213H80.5V227H44.5ZM80.5 220H110"/><text x="62.5" y="205" text-anchor="middle" font-size="15">R1 10k</text><path class="wire" d="M110 220L110 280"/><circle cx="110" cy="220" r="3.2" fill="currentColor"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R2 10k</text><path class="wire" d="M110 280L110 280"/><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M110 280L140 280"/><path class="wire" d="M140 320H110V360"/><circle cx="15" cy="360" r="3.2" class="port"/><text x="15" y="390" text-anchor="start" font-size="14">ui3</text><path class="wire" d="M15 360H44.5M44.5 353H80.5V367H44.5ZM80.5 360H110"/><text x="62.5" y="345" text-anchor="middle" font-size="15">R3 5k</text><path class="wire" d="M110 360L110 360"/><circle cx="110" cy="360" r="3.2" fill="currentColor"/><circle cx="15" cy="420" r="3.2" class="port"/><text x="15" y="450" text-anchor="start" font-size="14">ui4</text><path class="wire" d="M15 420H44.5M44.5 413H80.5V427H44.5ZM80.5 420H110"/><text x="62.5" y="405" text-anchor="middle" font-size="15">R4 200k</text><path class="wire" d="M110 360L110 420"/><circle cx="110" cy="420" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="534" text-anchor="middle" font-size="12">电阻标值均以 Ω 为单位；k 表示千</text></svg></figure>
+<p>P 经 5 kΩ 与 200 kΩ 接两路正输入：</p>
+<div class="eq">u<sub>P</sub>=(40/41)u<sub>i3</sub>+(1/41)u<sub>i4</sub></div>
+<p>反相侧两只 10 kΩ 和反馈 200 kΩ 使两个负项系数各为 −20，P 项系数为 1+20+20=41：</p>
+<div class="eq">u<sub>o</sub>=−20u<sub>i1</sub>−20u<sub>i2</sub>+41u<sub>P</sub><br/>=−20u<sub>i1</sub>−20u<sub>i2</sub>+40u<sub>i3</sub>+u<sub>i4</sub></div>
+<p>它的图比上一题多两条支路，方法并没有增加：先求 P，再在 N 求和。把“四个输入”理解成“四种公式”，才会平白增加记忆负担。</p>
+</section>
+<section id="p67"><h2>习题 6.7：运放的共模输入，是它两只输入脚的平均电位</h2>
+<p>这里问的是每只运放自身的共模输入：</p>
+<div class="eq">u<sub>IC</sub>=(u<sub>P</sub>+u<sub>N</sub>)/2<br/>在线性虚短下：u<sub>P</sub>=u<sub>N</sub>，故 u<sub>IC</sub>=u<sub>P</sub></div>
+<div class="table-wrap"><table><thead><tr><th>沿用图 P6.6</th><th>共模输入</th><th>来源</th></tr></thead><tbody>
+<tr><td>(a)</td><td>u<sub>IC</sub>=u<sub>i3</sub></td><td>P 的单支路输入</td></tr>
+<tr><td>(b)</td><td>u<sub>IC</sub>=(10u<sub>i2</sub>+u<sub>i3</sub>)/11</td><td>P 的两路加权平均</td></tr>
+<tr><td>(c)</td><td>u<sub>IC</sub>=8u<sub>i2</sub>/9</td><td>P 的对地分压</td></tr>
+<tr><td>(d)</td><td>u<sub>IC</sub>=(40u<sub>i3</sub>+u<sub>i4</sub>)/41</td><td>P 的两路加权平均</td></tr>
+</tbody></table></div>
+<p>不是从外面随便挑两个源，写成 (u<sub>i1</sub>+u<sub>i2</sub>)/2。仪表放大器可以对两根外部信号线定义共模，这里则明确问运放 P、N 两脚；先看题目在对哪一对电压作分解。</p>
+<p>这一题有实际用途：某些输出只剩差值，但内部输入脚仍可能带共同电平。要查输入共模范围时，需要的是这些脚的实际电位。</p>
+</section>
+<section id="p68"><h2>习题 6.8：恒流源不是靠猜，先找到 R₂ 上固定的 6 V</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p68" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 740" role="img" aria-labelledby="c6r-p68-c6r-p68-title">
+<title id="c6r-p68-c6r-p68-title">图P6.8恒流源，负载下端是约6V的虚短节点而非地，电流经R2返回真实地</title>
+<defs><marker id="c6r-p68-c6r-p68-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.8：负载下端不能误接成真实地</text><path class="wire" d="M140 370L250 420L140 470Z"/><text x="150" y="405" text-anchor="start" font-size="15">+</text><text x="150" y="445" text-anchor="start" font-size="15">−</text><text x="192" y="425" text-anchor="middle" font-size="15">A</text><circle cx="40" cy="70" r="3.2" class="port"/><text x="40" y="47" text-anchor="start" font-size="14">+VCC</text><path class="wire" d="M40 70V92.0M33 92.0H47V128.0H33ZM40 128.0V150"/><text x="54" y="115.0" text-anchor="start" font-size="15">R</text><path class="wire" d="M40 150V220M28 220H52M28 220V214M52 220V226M40 222L50 246H30ZM40 246V270"/><path class="wire" d="M40 270V280M28 280H52M32 286H48M37 292H43"/><circle cx="40" cy="150" r="3.2" fill="currentColor"/><path class="wire" d="M40 150H90V400"/><path class="wire" d="M90 400H97.0M97.0 393H133.0V407H97.0ZM133.0 400H140"/><text x="115.0" y="385" text-anchor="middle" font-size="15">R1</text><text x="65" y="245" text-anchor="start" font-size="13">UZ=6V</text><path class="wire" d="M140 440H110V600H280"/><path class="wire" d="M40 600H57.0M57.0 593H93.0V607H57.0ZM93.0 600H110"/><text x="75.0" y="585" text-anchor="middle" font-size="15">R2</text><path class="wire" d="M40 600V610M28 610H52M32 616H48M37 622H43"/><circle cx="110" cy="600" r="3.2" fill="currentColor"/><path class="wire" d="M250 420H305"/><path class="wire" d="M280 420V492.0M273 492.0H287V528.0H273ZM280 528.0V600"/><text x="294" y="515.0" text-anchor="start" font-size="15">RL</text><circle cx="280" cy="420" r="3.2" fill="currentColor"/><circle cx="280" cy="600" r="3.2" fill="currentColor"/><circle cx="305" cy="420" r="3.2" class="port"/><circle cx="305" cy="600" r="3.2" class="port"/><path class="wire" d="M280 600L305 600"/><text x="305" y="450" text-anchor="end" font-size="15">+</text><text x="305" y="582" text-anchor="end" font-size="15">−</text><text x="305" y="652" text-anchor="end" font-size="15">UL</text><path class="wire" d="M240 470L240 550" marker-end="url(#c6r-p68-c6r-p68-arrow)"/><text x="232" y="515" text-anchor="end" font-size="13">IL</text><text x="160" y="694" text-anchor="middle" font-size="13">IL = UZ / R2；负载电压 UL = IL RL</text></svg></figure>
+<p>稳压管已按题意工作在稳压状态，左侧提供 U<sub>Z</sub>=6 V。R<sub>1</sub> 不流理想输入电流，所以 P=6 V；线性负反馈下 N=6 V。注意 N 是负载下端，不是地。</p>
+<div class="eq">I<sub>R2</sub>=u<sub>N</sub>/R<sub>2</sub>=U<sub>Z</sub>/R<sub>2</sub><br/>运放 N 不取电流 → I<sub>L</sub>=I<sub>R2</sub><br/>原 R<sub>2</sub>=10 kΩ 时，I<sub>L</sub>=0.6 mA</div>
+<p>调节目标为 1—10 mA，所需阻值范围为：</p>
+<div class="eq">I<sub>L</sub>=1 mA → R<sub>2</sub>=6 kΩ<br/>I<sub>L</sub>=10 mA → R<sub>2</sub>=600 Ω</div>
+<p>可用 600 Ω 固定电阻与最大 5.4 kΩ 的可调电阻串联实现。电阻调大，电流调小，两个端点不要写反。</p>
+<p class="level"><strong>恒流的条件：</strong>负载上的电压为 U<sub>L</sub>=I<sub>L</sub>R<sub>L</sub>，运放输出对真实地的电位则为 v<sub>O</sub>=6 V+I<sub>L</sub>R<sub>L</sub>。负载增大时需要更高输出电位，超过可用摆幅或输出电流能力后便不能保持恒流。本题没有给具体允许摆幅，不能据此捏造一个固定的最大负载数值。</p>
+<p>若把图中负载下端直接接地，就改坏了电路：R<sub>2</sub> 不再保持原来的 6 V，电流关系也随之改变。这正是本题需要你认真追节点连接的原因。</p>
+</section>
+<section id="p69"><h2>习题 6.9：A₂ 的反馈输出等于差值，但不是最终输出</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p69" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 960" role="img" aria-labelledby="c6r-p69-c6r-p69-title">
+<title id="c6r-p69-c6r-p69-title">图P6.9的可调增益电路，上方A1输出驱动电位器，下方A2缓冲滑动端并反馈到Rf，同名vF端相连</title>
+<defs><marker id="c6r-p69-c6r-p69-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.9：A2 缓冲分压点，再反馈给 A1</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A1</text><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R 10k</text><path class="wire" d="M110 280L140 280"/><path class="wire" d="M110 100V172.0M103 172.0H117V208.0H103ZM110 208.0V280"/><text x="96" y="195.0" text-anchor="end" font-size="15">Rf 100k</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><circle cx="110" cy="100" r="3.2" class="port"/><text x="110" y="77" text-anchor="start" font-size="14">vF</text><circle cx="15" cy="340" r="3.2" class="port"/><text x="15" y="370" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M15 340H44.5M44.5 333H80.5V347H44.5ZM80.5 340H110"/><text x="62.5" y="325" text-anchor="middle" font-size="15">R 10k</text><path class="wire" d="M110 340V320H140"/><path class="wire" d="M110 340V379.5M103 379.5H117V415.5H103ZM110 415.5V455"/><text x="96" y="402.5" text-anchor="end" font-size="15">Rf 100k</text><path class="wire" d="M110 455V465M98 465H122M102 471H118M107 477H113"/><path class="wire" d="M250 300H305"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><path class="wire" d="M280 300V357.0M273 357.0H287V393.0H273ZM280 393.0V450"/><text x="266" y="380.0" text-anchor="end" font-size="15">R2</text><path class="wire" d="M280 450V507.0M273 507.0H287V543.0H273ZM280 543.0V600"/><text x="266" y="530.0" text-anchor="end" font-size="15">R1</text><path class="wire" d="M280 600V610M268 610H292M272 616H288M277 622H283"/><circle cx="280" cy="450" r="3.2" fill="currentColor"/><path class="wire" d="M280 450H240V640H40V780H140"/><path class="wire" d="M140 710L250 760L140 810Z"/><text x="150" y="745" text-anchor="start" font-size="15">−</text><text x="150" y="785" text-anchor="start" font-size="15">+</text><text x="192" y="765" text-anchor="middle" font-size="15">A2</text><path class="wire" d="M140 740H110V680H280V760H250M280 760H305"/><circle cx="280" cy="760" r="3.2" fill="currentColor"/><circle cx="305" cy="760" r="3.2" class="port"/><text x="305" y="790" text-anchor="end" font-size="14">vF</text><text x="160" y="869" text-anchor="middle" font-size="14">Rw = R1 + R2 = 10 kΩ</text><text x="160" y="914" text-anchor="middle" font-size="12">同名 vF 端相连；R1 是滑点到地的一段</text></svg></figure>
+<p>把电位器下段记为 R<sub>1</sub>、上段记为 R<sub>2</sub>，总值 R<sub>w</sub>=10 kΩ。A<sub>2</sub> 是跟随器，它把滑动端电压缓冲成 v<sub>F</sub>，再送给 A<sub>1</sub> 的反馈电阻。图中上下两处同名 v<sub>F</sub> 相连。</p>
+<p>先在 A<sub>1</sub> 的 P 端分压，再列 N 的电流：</p>
+<div class="eq">u<sub>P1</sub>=u<sub>N1</sub>=(10/11)u<sub>i2</sub><br/>(u<sub>i1</sub>−u<sub>N1</sub>)/R+(v<sub>F</sub>−u<sub>N1</sub>)/R<sub>f</sub>=0<br/>v<sub>F</sub>=11u<sub>N1</sub>−10u<sub>i1</sub>=10(u<sub>i2</sub>−u<sub>i1</sub>)</div>
+<p>A<sub>2</sub> 不加载滑动分压点，所以：</p>
+<div class="eq">v<sub>F</sub>=[R<sub>1</sub>/(R<sub>1</sub>+R<sub>2</sub>)]u<sub>o</sub><br/>u<sub>o</sub>=10(1+R<sub>2</sub>/R<sub>1</sub>)(u<sub>i2</sub>−u<sub>i1</sub>)<br/>=10(R<sub>w</sub>/R<sub>1</sub>)(u<sub>i2</sub>−u<sub>i1</sub>)</div>
+<p>滑动端在最上端，R<sub>2</sub>=0、R<sub>1</sub>=R<sub>w</sub>，因此总差分增益大小为 10。代入 10 mV、20 mV 两个输入，输出为 +100 mV。</p>
+<p>不能把 v<sub>F</sub> 当成最终输出。电位器取样比例越小，为了维持同一个 v<sub>F</sub>，A<sub>1</sub> 需要输出得越大；这才是它可以调增益的原因。</p>
+</section>
+<section id="p69-range"><h2>习题 6.9 的范围：最坏差值不是把两个最大输入直接相减</h2>
+<p>原题分别给 0≤u<sub>i1</sub>≤10 mV、0≤u<sub>i2</sub>≤20 mV，两者可独立变化。因此：</p>
+<div class="eq">−10 mV≤u<sub>i2</sub>−u<sub>i1</sub>≤20 mV</div>
+<p>最大正差值出现在 u<sub>i2</sub>=20 mV、u<sub>i1</sub>=0，不是两个源都取最大时得到的 10 mV。最大绝对差值为 20 mV，按 ±14 V 的输出范围：</p>
+<div class="eq">10(R<sub>w</sub>/R<sub>1</sub>)×0.020≤14<br/>R<sub>1</sub>≥R<sub>w</sub>/70≈142.9 Ω<br/>R<sub>2,max</sub>=10 kΩ−142.9 Ω≈9.86 kΩ</div>
+<p>A<sub>2</sub> 的输出 v<sub>F</sub> 在约 −0.1—+0.2 V 之间，在本题共同的 ±14 V 假设下并非主要限幅点；不能因为它很小，就忽略 A<sub>1</sub> 的实际输出。</p>
+<p class="level"><strong>滑到最下端的边界：</strong>R<sub>1</sub>=0 时取样比例为零，有效反馈不再携带输出信息。公式中的增益发散表示原线性假设已失效，不能把它当成“无限倍的正常放大器”。等于 14 V 也是理想边界，实际设计通常还需留出余量。</p>
+</section>
+<section id="p610a"><h2>习题 6.10(a)：T 网络求和，先把两路输入电流合起来</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p610a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520" role="img" aria-labelledby="c6r-p610a-c6r-p610a-title">
+<title id="c6r-p610a-c6r-p610a-title">T形反馈网络，关键节点M保留；短路用导线，断路用间隙重画</title>
+<defs><marker id="c6r-p610a-c6r-p610a-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.10(a)：T 网络反馈的两输入求和</text><path class="wire" d="M140 250L250 300L140 350Z"/><text x="150" y="285" text-anchor="start" font-size="15">−</text><text x="150" y="325" text-anchor="start" font-size="15">+</text><text x="192" y="305" text-anchor="middle" font-size="15">A</text><path class="wire" d="M110 280V90"/><path class="wire" d="M110 90H137.0M137.0 83H173.0V97H137.0ZM173.0 90H200"/><text x="155.0" y="75" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M200 90H222.0M222.0 83H258.0V97H222.0ZM258.0 90H280"/><text x="240.0" y="75" text-anchor="middle" font-size="15">R4</text><path class="wire" d="M280 90V300H250M280 300H305"/><path class="wire" d="M200 90V132.0M193 132.0H207V168.0H193ZM200 168.0V210"/><text x="186" y="155.0" text-anchor="end" font-size="15">R5</text><path class="wire" d="M200 210V220M188 220H212M192 226H208M197 232H203"/><circle cx="200" cy="90" r="3.2" fill="currentColor"/><text x="200" y="65" text-anchor="middle" font-size="15">M</text><path class="wire" d="M15 280H44.5M44.5 273H80.5V287H44.5ZM80.5 280H110"/><text x="62.5" y="265" text-anchor="middle" font-size="15">R2</text><path class="wire" d="M110 280L140 280"/><circle cx="15" cy="280" r="3.2" class="port"/><text x="15" y="310" text-anchor="start" font-size="14">ui2</text><circle cx="110" cy="280" r="3.2" fill="currentColor"/><path class="wire" d="M15 220H44.5M44.5 213H80.5V227H44.5ZM80.5 220H110"/><text x="62.5" y="205" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M110 220L110 280"/><circle cx="110" cy="220" r="3.2" fill="currentColor"/><circle cx="15" cy="220" r="3.2" class="port"/><text x="15" y="250" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M140 320H115"/><path class="wire" d="M115 320V349.5M108 349.5H122V385.5H108ZM115 385.5V415"/><text x="101" y="372.5" text-anchor="end" font-size="15">R6</text><path class="wire" d="M115 415V425M103 425H127M107 431H123M112 437H118"/><circle cx="280" cy="300" r="3.2" fill="currentColor"/><circle cx="305" cy="300" r="3.2" class="port"/><text x="305" y="330" text-anchor="end" font-size="14">uo</text><text x="160" y="486" text-anchor="middle" font-size="12">M 不是虚地；R3、R4 不可只当串联</text></svg></figure>
+<p>与 6.4 相比，多了一路反相输入，电阻编号也改变。P 经 R<sub>6</sub> 接地，所以在线性条件下 N=0；定义输入电流和：</p>
+<div class="eq">S=u<sub>i1</sub>/R<sub>1</sub>+u<sub>i2</sub>/R<sub>2</sub><br/>由 N 点得：u<sub>M</sub>=−R<sub>3</sub>S</div>
+<p>从 M 经 R<sub>5</sub> 到地的参考电流为 u<sub>M</sub>/R<sub>5</sub>。继续列 M 点，得到：</p>
+<div class="eq">u<sub>o</sub>=−(R<sub>3</sub>+R<sub>4</sub>+R<sub>3</sub>R<sub>4</sub>/R<sub>5</sub>)<br/>·(u<sub>i1</sub>/R<sub>1</sub>+u<sub>i2</sub>/R<sub>2</sub>)</div>
+<p>括号中的电阻量相当于这项比例关系的有效反馈阻值，不表示图中真的出现了一只这样的电阻。R<sub>5</sub> 断开时，第三项消失，才退化成 R<sub>3</sub>+R<sub>4</sub>。</p>
+<details class="answer"><summary>怎样快速查量纲？</summary><p>S 的单位是 A，前面括号的单位是 Ω，乘积为 V。如果把 R<sub>3</sub>R<sub>4</sub>/R<sub>5</sub> 误写成两只电阻的乘积，三项就不能相加。</p></details>
+</section>
+<section id="p610b"><h2>习题 6.10(b)：输入画成两端，就先叫它 Va 与 Vb</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p610b" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 910" role="img" aria-labelledby="c6r-p610b-c6r-p610b-title">
+<title id="c6r-p610b-c6r-p610b-title">图P6.10b两级展开，输入电压ui定义为上端Va减下端Vb，不把下端默认接地</title>
+<defs><marker id="c6r-p610b-c6r-p610b-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.10(b)：输入是两端电压 Va − Vb</text><path class="wire" d="M140 190L250 240L140 290Z"/><text x="150" y="225" text-anchor="start" font-size="15">−</text><text x="150" y="265" text-anchor="start" font-size="15">+</text><text x="192" y="245" text-anchor="middle" font-size="15">A1</text><path class="wire" d="M110 220V90"/><path class="wire" d="M110 90H177.0M177.0 83H213.0V97H177.0ZM213.0 90H280"/><text x="195.0" y="75" text-anchor="middle" font-size="15">R3</text><path class="wire" d="M280 90V240H250M280 240H305"/><circle cx="110" cy="220" r="3.2" fill="currentColor"/><circle cx="280" cy="240" r="3.2" fill="currentColor"/><path class="wire" d="M20 220H47.0M47.0 213H83.0V227H47.0ZM83.0 220H110"/><text x="65.0" y="205" text-anchor="middle" font-size="15">R1</text><path class="wire" d="M20 220V230M8 230H32M12 236H28M17 242H23"/><circle cx="15" cy="260" r="3.2" class="port"/><text x="15" y="290" text-anchor="start" font-size="14">Va</text><path class="wire" d="M15 260H59.5M59.5 253H95.5V267H59.5ZM95.5 260H140"/><text x="77.5" y="245" text-anchor="middle" font-size="15">R2</text><circle cx="305" cy="240" r="3.2" class="port"/><text x="305" y="270" text-anchor="end" font-size="14">v1</text><path class="wire" d="M140 600L250 650L140 700Z"/><text x="150" y="635" text-anchor="start" font-size="15">−</text><text x="150" y="675" text-anchor="start" font-size="15">+</text><text x="192" y="655" text-anchor="middle" font-size="15">A2</text><path class="wire" d="M110 630V520"/><path class="wire" d="M110 520H177.0M177.0 513H213.0V527H177.0ZM213.0 520H280"/><text x="195.0" y="505" text-anchor="middle" font-size="15">R5</text><path class="wire" d="M280 520V650H250M280 650H305"/><circle cx="110" cy="630" r="3.2" fill="currentColor"/><circle cx="280" cy="650" r="3.2" fill="currentColor"/><circle cx="15" cy="630" r="3.2" class="port"/><text x="15" y="660" text-anchor="start" font-size="14">v1</text><path class="wire" d="M15 630H44.5M44.5 623H80.5V637H44.5ZM80.5 630H110"/><text x="62.5" y="615" text-anchor="middle" font-size="15">R4</text><path class="wire" d="M110 630L140 630"/><circle cx="15" cy="690" r="3.2" class="port"/><text x="15" y="720" text-anchor="start" font-size="14">Vb</text><path class="wire" d="M15 690H44.5M44.5 683H80.5V697H44.5ZM80.5 690H110"/><text x="62.5" y="675" text-anchor="middle" font-size="15">R6</text><path class="wire" d="M110 690V670H140"/><circle cx="305" cy="650" r="3.2" class="port"/><text x="305" y="680" text-anchor="end" font-size="14">uo</text><text x="160" y="799" text-anchor="middle" font-size="13">同名 v1 端相连；ui = Va − Vb</text><text x="160" y="851" text-anchor="middle" font-size="14">给定 R3/R1 = R4/R5</text></svg></figure>
+<p>原图输入 u<sub>i</sub> 画在两个端子之间。这里把上端对地电位记为 V<sub>a</sub>、下端记为 V<sub>b</sub>，于是 u<sub>i</sub>=V<sub>a</sub>−V<sub>b</sub>。不要未经题意就把下端接地。</p>
+<p>A<sub>1</sub> 为同相比例，理想输入电流为零，R<sub>2</sub> 不降压：</p>
+<div class="eq">v₁=(1+R<sub>3</sub>/R<sub>1</sub>)V<sub>a</sub></div>
+<p>A<sub>2</sub> 的 P 经 R<sub>6</sub> 接 V<sub>b</sub>，所以 P=V<sub>b</sub>；它不是虚地，输出为：</p>
+<div class="eq">u<sub>o</sub>=−(R<sub>5</sub>/R<sub>4</sub>)v₁+(1+R<sub>5</sub>/R<sub>4</sub>)V<sub>b</sub></div>
+<p>利用题给 R<sub>3</sub>/R<sub>1</sub>=R<sub>4</sub>/R<sub>5</sub>，两个系数大小才恰好相等，消去外部共同电位：</p>
+<div class="eq">u<sub>o</sub>=−(1+R<sub>5</sub>/R<sub>4</sub>)(V<sub>a</sub>−V<sub>b</sub>)<br/>=−(1+R<sub>5</sub>/R<sub>4</sub>)u<sub>i</sub></div>
+<p>R<sub>2</sub>、R<sub>6</sub> 在理想模型里没有输入脚电流，不直接决定本题比例。若给真实器件参数，则还可能涉及输入偏置与阻抗平衡；先把题给理想关系算对。</p>
+</section>
+<section id="p610c"><h2>习题 6.10(c)：三只跟随器后是同相求和，输出为正的 10 倍和</h2>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p610-follow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 780" role="img" aria-labelledby="c6r-p610-follow-c6r-p610-follow-title">
+<title id="c6r-p610-follow-c6r-p610-follow-title">图P6.10c前三只运放都是跟随器，各自输入接同相端，输出回反相端；输出vi1至vi3接下一图同名端</title>
+<defs><marker id="c6r-p610-follow-c6r-p610-follow-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.10(c)：三只跟随器各自都是 1 倍</text><path class="wire" d="M110 100L220 150L110 200Z"/><text x="120" y="135" text-anchor="start" font-size="15">+</text><text x="120" y="175" text-anchor="start" font-size="15">−</text><text x="162" y="155" text-anchor="middle" font-size="15">A1</text><circle cx="15" cy="130" r="3.2" class="port"/><text x="15" y="107" text-anchor="start" font-size="14">ui1</text><path class="wire" d="M15 130L110 130"/><path class="wire" d="M110 170H80V230H250V150H220M250 150H305"/><circle cx="250" cy="150" r="3.2" fill="currentColor"/><circle cx="305" cy="150" r="3.2" class="port"/><text x="305" y="180" text-anchor="end" font-size="14">vi1</text><path class="wire" d="M110 320L220 370L110 420Z"/><text x="120" y="355" text-anchor="start" font-size="15">+</text><text x="120" y="395" text-anchor="start" font-size="15">−</text><text x="162" y="375" text-anchor="middle" font-size="15">A2</text><circle cx="15" cy="350" r="3.2" class="port"/><text x="15" y="327" text-anchor="start" font-size="14">ui2</text><path class="wire" d="M15 350L110 350"/><path class="wire" d="M110 390H80V450H250V370H220M250 370H305"/><circle cx="250" cy="370" r="3.2" fill="currentColor"/><circle cx="305" cy="370" r="3.2" class="port"/><text x="305" y="400" text-anchor="end" font-size="14">vi2</text><path class="wire" d="M110 540L220 590L110 640Z"/><text x="120" y="575" text-anchor="start" font-size="15">+</text><text x="120" y="615" text-anchor="start" font-size="15">−</text><text x="162" y="595" text-anchor="middle" font-size="15">A3</text><circle cx="15" cy="570" r="3.2" class="port"/><text x="15" y="547" text-anchor="start" font-size="14">ui3</text><path class="wire" d="M15 570L110 570"/><path class="wire" d="M110 610H80V670H250V590H220M250 590H305"/><circle cx="250" cy="590" r="3.2" fill="currentColor"/><circle cx="305" cy="590" r="3.2" class="port"/><text x="305" y="620" text-anchor="end" font-size="14">vi3</text><text x="160" y="750" text-anchor="middle" font-size="12">vi1、vi2、vi3 分别接下一图同名端</text></svg></figure>
+<p>前三只运放各自把输出反馈到反相端，信号接同相端，因此 v<sub>i1</sub>=u<sub>i1</sub>、v<sub>i2</sub>=u<sub>i2</sub>、v<sub>i3</sub>=u<sub>i3</sub>。跟随器有三只，不表示把某一路信号放大三倍；它们是在分别缓冲三个信号源。</p>
+<figure class="chapter-figure svg"><svg data-figure="c6r-p610-sum" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 800" role="img" aria-labelledby="c6r-p610-sum-c6r-p610-sum-title">
+<title id="c6r-p610-sum-c6r-p610-sum-title">图P6.10c末级A4为同相求和，三个33k电阻接同相端并有330k对地下拉，反相侧330k反馈与11k对地</title>
+<defs><marker id="c6r-p610-sum-c6r-p610-sum-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+<style>.wire{stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}.port{stroke:currentColor;stroke-width:1.8;fill:var(--background,#f6f3eb)}text{fill:currentColor;font-family:'Microsoft YaHei',sans-serif}.block{fill:var(--muted,#e9eeeb);stroke:var(--border,#d7ddd9);stroke-width:1}</style>
+<text x="160" y="24" text-anchor="middle" font-size="14">6.10(c)：A4 的同相端接求和点</text><path class="wire" d="M140 310L250 360L140 410Z"/><text x="150" y="345" text-anchor="start" font-size="15">+</text><text x="150" y="385" text-anchor="start" font-size="15">−</text><text x="192" y="365" text-anchor="middle" font-size="15">A4</text><path class="wire" d="M140 380H115V650"/><path class="wire" d="M115 650H179.5M179.5 643H215.5V657H179.5ZM215.5 650H280"/><text x="197.5" y="635" text-anchor="middle" font-size="15">R4 330k</text><path class="wire" d="M280 650V360H250M280 360H305"/><path class="wire" d="M130 380V422.0M123 422.0H137V458.0H123ZM130 458.0V500"/><text x="144" y="445.0" text-anchor="start" font-size="15">R3 11k</text><path class="wire" d="M130 500V510M118 510H142M122 516H138M127 522H133"/><circle cx="130" cy="380" r="3.2" fill="currentColor"/><circle cx="280" cy="360" r="3.2" fill="currentColor"/><circle cx="305" cy="360" r="3.2" class="port"/><text x="305" y="390" text-anchor="end" font-size="14">uo</text><circle cx="15" cy="340" r="3.2" class="port"/><text x="15" y="370" text-anchor="start" font-size="14">vi1</text><path class="wire" d="M15 340H39.5M39.5 333H75.5V347H39.5ZM75.5 340H100"/><text x="57.5" y="325" text-anchor="middle" font-size="15">R1 33k</text><circle cx="100" cy="340" r="3.2" fill="currentColor"/><circle cx="15" cy="440" r="3.2" class="port"/><text x="15" y="470" text-anchor="start" font-size="14">vi2</text><path class="wire" d="M15 440H39.5M39.5 433H75.5V447H39.5ZM75.5 440H100"/><text x="57.5" y="425" text-anchor="middle" font-size="15">R1 33k</text><circle cx="100" cy="440" r="3.2" fill="currentColor"/><circle cx="15" cy="540" r="3.2" class="port"/><text x="15" y="570" text-anchor="start" font-size="14">vi3</text><path class="wire" d="M15 540H39.5M39.5 533H75.5V547H39.5ZM75.5 540H100"/><text x="57.5" y="525" text-anchor="middle" font-size="15">R1 33k</text><circle cx="100" cy="540" r="3.2" fill="currentColor"/><path class="wire" d="M100 340H140M100 340V540"/><path class="wire" d="M100 540V597.0M93 597.0H107V633.0H93ZM100 633.0V690"/><text x="86" y="620.0" text-anchor="end" font-size="15">R2 330k</text><path class="wire" d="M100 690V700M88 700H112M92 706H108M97 712H103"/><text x="160" y="754" text-anchor="middle" font-size="13">P 先加权求和，A4 再放大 31 倍</text></svg></figure>
+<p>在末级 A<sub>4</sub>，三只 33 kΩ 经同一个 P 节点汇合，并有 330 kΩ 对地下拉。先列 P 的电流方程：</p>
+<div class="eq">Σ(v<sub>ij</sub>−u<sub>P</sub>)/33k−u<sub>P</sub>/330k=0<br/>u<sub>P</sub>=(10/31)(u<sub>i1</sub>+u<sub>i2</sub>+u<sub>i3</sub>)</div>
+<p>由于多了对地下拉，P 并非三个输入的简单算术平均。A<sub>4</sub> 本身是同相比例，放大倍数为：</p>
+<div class="eq">1+R<sub>4</sub>/R<sub>3</sub>=1+330/11=31<br/>u<sub>o</sub>=31u<sub>P</sub>=10(u<sub>i1</sub>+u<sub>i2</sub>+u<sub>i3</sub>)</div>
+<p class="level"><strong>与辅导书的符号核对：</strong>辅导书该处文字把 A<sub>4</sub> 称为反相求和，随后结果写出负号。但教材与辅导书所画题图中，三路电阻汇合点接 A<sub>4</sub> 的“+”端，反馈电阻接“−”端；按该连接列节点方程，结果应为上面的正号。若实际题图把两端交换，则反馈性质也需重新判断，不能只改一个输出符号了事。</p>
+<details class="answer"><summary>只让 ui1=1 mV，另两路为零，怎样自检？</summary><p>P≈0.3226 mV，末级同相放大 31 倍，输出为 +10 mV。这个单路检查已经足以发现把结果写成 −10 mV 的符号问题；它是在核对题图连接，不是仅凭答案“看着顺眼”。</p></details>
+</section>
+<section id="c6r-test"><h2>这一轮独立检查：六个短问题测出真正的薄弱点</h2>
+<details class="answer"><summary>1. 反相比例 Ri=5 kΩ、Rf=50 kΩ，ui=2 V，输出范围 ±12 V，能否写 uo=−20 V？</summary><p>−20 V 是线性需求，超过范围。按本题同类静态限幅模型，实际取 −12 V，并需检查饱和方向；不能同时保留虚短。</p></details>
+<details class="answer"><summary>2. P 通过一只 30 kΩ 电阻接 ui，此外没有支路，理想 P 电位多少？</summary><p>P=ui，因为输入脚电流为零，电阻上无压降。不能只因“串了电阻”就自造一个分压比。</p></details>
+<details class="answer"><summary>3. P 经相等的两只电阻分别接 u1、u2，外部支路都没有电流吗？</summary><p>不一定。P=(u1+u2)/2；两源电压不等时，两只电阻之间有电流，只有进入理想运放输入脚的净电流为零。</p></details>
+<details class="answer"><summary>4. T 网络中点加上对地支路后，两只横向电阻还能按串联算吗？</summary><p>一般不能，支路分流，电流不再相等。应把中点作为独立节点列式；只有支路断开等合适条件下才可简化。</p></details>
+<details class="answer"><summary>5. 正弦输入的反相积分稳态输出，为何相位是 +90°？</summary><p>电容积分贡献 −90°，反相负号再贡献 180°，总结果可写成 +90°。直接用 H(jω)=j/(ωRC) 更不容易漏负号。</p></details>
+<details class="answer"><summary>6. 6.10(c) 三个输入都为 10 mV，输出多少？</summary><p>三个跟随器输出各为 10 mV，P=(10/31)×30 mV≈9.677 mV，末级输出 +300 mV。在实际题目中还需检查各级范围。</p></details>
+</section>
+<section id="c6r-check"><h2>当前进度与过关线：自测题完成，习题先到 6.10</h2>
+<p>这一轮已经讲解：6.5 两个主题的自主理论验证方案、本章小结、全部三组自测题，以及章末习题 6.1—6.10 的所有小问。6.5 二维码原在线操作资料仍未读取或复现，不能把自主方案等同于已经完成原仿真实验。</p>
+<p>过关不要求现在背出所有结果，而是能独立做到：先求 P，再确认 N 能否等于 P；T 中点不遗漏；限幅后肯重新检查；多级电路保留中间量；输入电压与负载电压的参考点不混淆。</p>
+<p>下一轮从 <strong>6.11 积分波形</strong> 接起，再处理 6.12—6.23 的积分、微分、乘法器、设计与滤波综合题。目前这部分尚未逐题讲解，第六章整章习题还没有全部完成。</p>
 </section>
 <footer id="sources"><h2>来源与本次范围</h2>
-<p>依据所提供《模拟电子技术基础》第六版教材印刷第 255—302 页的 6.1、6.2、6.3.1—6.3.3、6.4.1—6.4.4 正文与对应思考题，结合《学习辅导与习题解答》第六版印刷第 204—208 页难点说明、第 216—218 页例 6.3.5、6.3.6 和第 222—226 页例 6.3.10—6.3.13 校核。按节次重述，公式重新推导，电路与曲线重新绘制；自设练习及星号概念概览已说明范围。噪声带宽与平均条件的补充材料另在相应段落附原始来源。未读取二维码对应的在线扩展全文。</p>
+<p>依据所提供《模拟电子技术基础》第六版教材印刷第 255—307 页：6.1、6.2、6.3.1—6.3.3、6.4.1—6.4.4 正文、思考题、本章小结、自测与习题 6.1—6.10；结合《学习辅导与习题解答》第六版印刷第 204—208 页难点、第 216—218 页例 6.3.5、6.3.6、第 222—226 页例 6.3.10—6.3.13 及第 228—235 页对应题解校核。公式与节点独立推导，按题图核对辅导书 6.10(c) 的输出符号。自设练习、仿真理论方案及星号概念概览已说明范围；6.5 未运行 Multisim，也未读取二维码对应的在线全文。噪声补充材料在对应段落附原始来源。</p>
 <p>与课本图仅布局不同的电路沿用其编号；一般化或简化示意会说明用途。图中电源与部分偏置平衡电阻省略时，仍默认运放具有合适供电并处于所讨论的工作范围。反馈稳定性、实际摆幅和器件方向不能由“理想”二字一概省略。</p>
 <p><a href="模拟电子技术基础_第五章学习讲义.html">← 返回第五章</a> · <a href="../../教程合集.html#analog">教程合集</a> · <a href="#start">回到本页开头 ↑</a></p>
 </footer></main></div>

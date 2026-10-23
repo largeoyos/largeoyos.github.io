@@ -123,4 +123,18 @@
 </tr>
 </tbody>
 </table>
-<p>本轮附带<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">共享抖动的数值积分示例</span>，只是验证一个数学性质，没有产生新的模型 RD。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>
+<p>本轮附带<span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">共享抖动的数值积分示例</span>，只是验证一个数学性质，没有产生新的模型 RD。</p>
+<h2 id="2026-10-22-ffl">2026-10-22 FFL候选目标与梯度合同</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">FFL精读与源核</span>说明无权单位酉FFT-L2与像素MSE相同；FFL增加的是当前复数误差的归一化幂次权重，并detach该权重。默认每样本/patch/通道内归一化，不是固定高频/颜色权重。两坐标当前loss同2.25，detach梯度(2,.5)，重算权重一起求导(1.875,.75)，解析/有限差分一致。该论文的AE/生成结果不证明有损视频真实RD或参考稳定性收益；此轮0训练/模型/GPU。后续先声明目标、数据、计算预算、码率项和真实完整文件评价，保留原RT观察门槛。</p>
+<h2 id="2026-10-23">2026-10-23 量化模块存在与训练目标接通的区别</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">PEVC 版本匹配源核</span>中，量化模块有 STE，但 train_one_epoch 先完成 model(d)，随后计算的 w_hat 只 reshape，未进入重建。参数码率从默认 state_dict 的分离张量计算，不能直接对原 LoRA 参数反传；该 loss 仍可能间接影响调度和 checkpoint 选择，重建分支也仍有参数梯度。结论限定为固定入口的静态数据流，尚未做梯度实测，不否定论文性能。后续应分别验证量化前向值、梯度路径、最终离散熵码和独立接收端，而非只检查损失公式或模块名称。</p>
+<h2 id="2026-10-23_1">2026-10-23 连续代理、整数目标和跨帧总导数</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">SGA/BAO 机制核验</span>：人工连续最优 0.49 取整的代价高于另一个整数，说明软目标与最终整数目标不能等同；E[L(k)] 也一般不同于 L(E[k])。有限一步后继优化的外层导数 0.752 与固定后继偏导 1.2 不同，有限差分确认；普通偏导对其联合变量目标仍然正确。BAO 全局最优假设与 Eq29 雅可比适用条件须明示；矩阵反例不等于否定其视频实测。三个例子不计入 codec/RD，不重复替代待完成的 RT 真实观察。</p>
+<h2 id="2026-10-23-ste">2026-10-23 STE前向与代理梯度的实际区分</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">本轮实测</span>用自定义autograd前向返回精确torch.round、反向传梯度。STE在固定检查点与hard前向逐位相同属于构造控制；实际文件J仍有有限CDF/封装差异，优化方向也不是真实离散导数。初始identity/STE梯度余弦mono .56025、color .30320，说明代理选择影响方向，但不足以推导普遍收益。学习参数/CDF固定，条件预测的quant_step/means/scales仍随y改变；raw-y±.5不能叫固定网格邻格保证。两同图裁剪得到相反的J方法排序，先做固定设置的内容留出，而非把一致性解释成性能定理。</p>
+<h2 id="2026-10-23_2">2026-10-23 有限性与熵解码是代理比较的前置条件</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">本轮失败证据</span>区分两件事：STE loss/rec联合guard不能定位非有限组件；独立receiver在未经搜索的pattern baseline上明确得到非有限重建。未证明两者共因。自然7份编码/接收原始float与uint8全同可用，但失败进程最终模型/CDF/CUDA摘要缺失、接收初始摘要也未持久化，不能宣称全程双端摘要通过。真实画面与文件率需从成功receiver取；合法头与有限直接前向不保证熵解码一致。</p>
+<h2 id="2026-10-23_3">2026-10-23 量化后的符号表示范围也参与闭环一致性</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">固定源码与局部因果证据</span>：entropy入口clamp±30000/int16，但神经重建用原round符号，hard前向匹配local compress不能证明真实文件可解。3个y2截断损失3245/431/700逐点对应首次累计潜变量差异，后续条件CDF行索引漂移。恢复全部56截断点可逆转本例，不能称每点分别必要或全部后端无错。中间正负零导致数值相同而字节不同，最终RGB字节确实同。不能只删clamp，33245也超int16；下一先范围拒绝与隔离闭环原型，有限性/质量须重新实测。</p>
+<h2 id="2026-10-23_4">2026-10-23 残差范围、有限性与重建稳定性分层</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">本轮</span>在masked quant返回前截断，z直接round另改走同一路径，原receiver不改。raw prior有限检查在mask前，有限负scales仍按官方max建索引。图案残差in-range不能约束means，闭环反馈后local synthesis仍非有限，实际receiver未尝试，因此不称上下文一致已验证。V1 np.abs gate仅实际float32验证有效；整型最小值会abs溢出，保留执行文件，另V2双侧比较加8类极值/边界和10实际数组核验，未追溯接入旧进程。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

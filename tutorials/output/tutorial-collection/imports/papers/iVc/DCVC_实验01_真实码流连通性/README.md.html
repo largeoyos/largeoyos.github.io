@@ -1,0 +1,35 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DCVC 实验 01：真实码流连通性</title><link rel="stylesheet" href="../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f4ee;color:#263b30;font:16px/1.95 'Microsoft YaHei','PingFang SC',sans-serif}main{max-width:960px;padding:42px 34px 90px;margin:auto}a{color:#315c43;text-underline-offset:4px;overflow-wrap:anywhere}h1,h2,h3{font-family:'Noto Serif SC','Songti SC',SimSun,serif;line-height:1.6}h1{font-size:31px;margin:32px 0}h2{margin-top:42px;padding-top:21px;border-top:1px solid #d8ded2}pre{background:#e8ece3;padding:20px;border-radius:4px;overflow:auto;font-size:13px;line-height:1.7}code{font-family:Consolas,monospace;overflow-wrap:anywhere}:not(pre)>code{background:#e8ece3;padding:2px 5px}img,svg{max-width:100%;height:auto}table{border-collapse:collapse;display:block;overflow:auto;max-width:100%;font-size:14px}td,th{border:1px solid #cfd8c8;padding:9px 12px;min-width:100px;text-align:left}blockquote{margin:22px 0;padding:1px 20px;border-left:3px solid #59764f;background:#ecefe7}li{margin:5px 0}.source{font-size:12px;color:#647064;overflow-wrap:anywhere}.math.display{display:block;overflow-x:auto;padding:10px 0}.math:not(.display){overflow-wrap:normal}a:focus-visible{outline:3px solid #a04f30;outline-offset:4px}@media(max-width:600px){main{padding:24px 20px 60px}body{font-size:14px}h1{font-size:26px}pre{font-size:12px;padding:14px}}@media print{body{background:white}main{max-width:none;padding:0}.back{display:none}pre{white-space:pre-wrap}}
+</style></head><body><main><a class="back" href="../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a><p class="source">来源：papers/iVc/DCVC_实验01_真实码流连通性/README.md · <a href="README.md">原始 Markdown</a></p><h1 id="dcvc-01">DCVC 实验 01：真实码流连通性</h1>
+<p>日期：2026-10-23。此目录是独立实验副本，原有精读源码和讲解文件不被修改。</p>
+<h2 id="_1">已执行</h2>
+<ol>
+<li>核对并复制官方固定提交 <code>cbdae87a5445114cdc7f48816da63ea80bdeac40</code> 的 31 个文件。</li>
+<li>用本机 MinGW-w64 g++ 15.2.0、Python 3.12.10 和已安装 PyTorch 所附 pybind11 头文件，编译原始 <code>ops.cpp</code>、<code>rans_interface.cpp/.hpp</code>，生成两个实际可导入的扩展。算法源文件没有改动；绑定头文件采用现代版本，属于兼容构建，不是原论文历史环境复现。</li>
+<li>调用实际 C++ 扩展验证 4106 个整数的整流解码、分组持续解码、缓冲编码，以及与 Python 参考实现的字节一致性。</li>
+<li>在 CPU 上运行固定随机初始化的官方 P 帧网络，完成两个 64×64 连续 P 帧的真实四路字节编码、文件封装、读回和解码参考递推。</li>
+</ol>
+<h2 id="_2">本实验边界</h2>
+<ul>
+<li>没有加载训练权重。随机种子是 20261023；不报告论文 PSNR、BD-Rate 或速度。</li>
+<li>首个 RGB 参考由双方预共享，没有编码 I 帧；不能将此结果称为完整 I+P 视频测试。</li>
+<li>显式将两个空间自回归层的权重乘以其 A 型掩码，满足真实路径直接读取权重的因果前提；原始算法源文件未修改。</li>
+<li>以编码器内部重建值经 clamp 后与实际解码值比较；两个潜变量分支也逐元素比较。</li>
+<li>当前结果只支持本机兼容构建和测试向量，不证明跨平台、跨版本或所有 checkpoint 的逐字节兼容性。</li>
+</ul>
+<h2 id="_3">重跑</h2>
+<p>在 PowerShell 中运行：</p>
+<pre><code class="language-powershell">&amp; 'D:\soft\py12\python.exe' 'E:\Projects\papers\iVc\DCVC_实验01_真实码流连通性\build_extensions.py'
+&amp; 'D:\soft\py12\python.exe' 'E:\Projects\papers\iVc\DCVC_实验01_真实码流连通性\test_cpp.py'
+&amp; 'D:\soft\py12\python.exe' 'E:\Projects\papers\iVc\DCVC_实验01_真实码流连通性\test_p_frames.py'
+</code></pre>
+<p>编译脚本会创建同级临时英文目录 <code>dcvc-smoke-build-20261023</code>，避开 MinGW 对中文链接输出路径的兼容问题；完成后可仅保留本实验目录里的扩展和日志。</p>
+<h2 id="_4">结果文件</h2>
+<ul>
+<li><code>build/结果.json</code>：环境、算法源码哈希核对、扩展文件及哈希。</li>
+<li><code>C++验证结果.json</code>：真正执行 C++ 扩展的整数与字节验证结果。</li>
+<li><code>P帧验证结果.json</code>：两帧的四路长度、文件头开销、潜变量/重建一致性、forward 差异。</li>
+<li><code>actual_rans.bin</code>、<code>p_frame_1.bin</code>、<code>p_frame_2.bin</code>：本轮实际产生的字节文件。</li>
+<li><code>shared_reference.png</code>、<code>input_*.png</code>、<code>decoded_*.png</code>：辅助查看用图片；内部参考使用浮点解码结果，不重新读取保存后的 PNG。</li>
+</ul>
+<p>下一步是取得匹配的官方 I/P 权重并准备短 GOP 输入，再进行完整序列测试。当前原始 <code>test_video.py</code> 还依赖本环境未安装的 <code>pytorch-msssim</code>；本次专门的 P 帧烟雾测试不调用该指标。</p></main><script src="../DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

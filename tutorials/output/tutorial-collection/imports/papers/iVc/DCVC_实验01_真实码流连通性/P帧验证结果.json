@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-23",
+  "seed": 20261023,
+  "torch": "2.13.0+cu126",
+  "device": "cpu",
+  "image_size": [
+    64,
+    64
+  ],
+  "actual_cpp_extensions_executed": true,
+  "official_model_class_executed": true,
+  "trained_weights_loaded": false,
+  "first_reference_pre_shared_not_transmitted": true,
+  "not_a_complete_i_plus_p_video_test": true,
+  "mask_precondition_explicitly_applied": [
+    {
+      "module": "auto_regressive_mv",
+      "masked_out_weight_max_before": 0.01767762191593647,
+      "after": 0.0
+    },
+    {
+      "module": "auto_regressive",
+      "masked_out_weight_max_before": 0.020412297919392586,
+      "after": 0.0
+    }
+  ],
+  "p_frames": [
+    {
+      "p_frame": 1,
+      "payload_bytes": {
+        "mv_y_string": 8,
+        "mv_z_string": 40,
+        "y_string": 8,
+        "z_string": 40
+      },
+      "payload_total": 96,
+      "file_bytes": 120,
+      "header_bytes": 24,
+      "payload_bpp": 0.1875,
+      "file_bpp": 0.234375,
+      "encoder_vs_decoder_latents_exact": [
+        true,
+        true
+      ],
+      "latent_shapes": [
+        [
+          1,
+          128,
+          4,
+          4
+        ],
+        [
+          1,
+          96,
+          4,
+          4
+        ]
+      ],
+      "encoder_vs_decoder_reconstruction_exact": true,
+      "max_reconstruction_difference": 0.0,
+      "forward_vs_actual_max_difference": 0.004465378820896149,
+      "smoke_elapsed_seconds_including_python_and_file_io": 0.6066944000003787,
+      "file_sha256": "f3f699644d9be95ea457ed413030074e75e1f2030fb5758f1c5c9b6ee2ce0061"
+    },
+    {
+      "p_frame": 2,
+      "payload_bytes": {
+        "mv_y_string": 8,
+        "mv_z_string": 40,
+        "y_string": 8,
+        "z_string": 40
+      },
+      "payload_total": 96,
+      "file_bytes": 120,
+      "header_bytes": 24,
+      "payload_bpp": 0.1875,
+      "file_bpp": 0.234375,
+      "encoder_vs_decoder_latents_exact": [
+        true,
+        true
+      ],
+      "latent_shapes": [
+        [
+          1,
+          128,
+          4,
+          4
+        ],
+        [
+          1,
+          96,
+          4,
+          4
+        ]
+      ],
+      "encoder_vs_decoder_reconstruction_exact": true,
+      "max_reconstruction_difference": 0.0,
+      "forward_vs_actual_max_difference": 0.004171985201537609,
+      "smoke_elapsed_seconds_including_python_and_file_io": 0.5412269999997079,
+      "file_sha256": "c47f4de15120f85054c03d542549ee6a8fb5659fb2c00e21466ca15be706dd23"
+    }
+  ],
+  "paper_rate_distortion_reproduced": false,
+  "timing_note": "Small smoke timings include Python/file overhead, not an encoding-speed benchmark."
+}

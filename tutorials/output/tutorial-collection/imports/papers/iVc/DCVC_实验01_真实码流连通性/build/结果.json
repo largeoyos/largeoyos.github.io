@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-23",
+  "official_commit": "cbdae87a5445114cdc7f48816da63ea80bdeac40",
+  "official_source_hashes_match": true,
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "torch": "2.13.0+cu126",
+  "compiler": "g++.exe (MinGW-W64 x86_64-msvcrt-posix-seh, built by Brecht Sanders, r1) 15.2.0",
+  "binding_headers": "pybind11 bundled in installed PyTorch; historical pybind11 2.6.1 not used",
+  "algorithm_sources_modified": false,
+  "extensions": [
+    {
+      "module": "MLCodec_CXX",
+      "path": "codec\\src\\entropy_models\\MLCodec_CXX.cp312-win_amd64.pyd",
+      "bytes": 824086,
+      "sha256": "0f7b9d42675f07e63fd6e7d19126b37fcbd794d55ea6ba728dc8231773636bc4"
+    },
+    {
+      "module": "MLCodec_rans",
+      "path": "codec\\src\\entropy_models\\MLCodec_rans.cp312-win_amd64.pyd",
+      "bytes": 962375,
+      "sha256": "be0e1aeec6e5cf32f132f209e69d22faedcdde2cb04d55ae40841edb37cd14a7"
+    }
+  ]
+}

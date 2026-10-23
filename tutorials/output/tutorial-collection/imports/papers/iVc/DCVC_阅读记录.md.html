@@ -11,12 +11,13 @@
 <li>正文：<a href="Li_Deep_Contextual_Video_Compression_NeurIPS_2021_paper.pdf">NeurIPS 正式版 PDF</a>，12 页；<a href="https://proceedings.neurips.cc/paper_files/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Paper.pdf">官方下载来源</a>。</li>
 <li>补充材料：<a href="Li_Deep_Contextual_Video_Compression_NeurIPS_2021_supplemental.pdf">Supplemental PDF</a>，7 页；<a href="https://proceedings.neurips.cc/paper_files/paper/2021/file/96b250a90d3cf0868c83f8c965142d2a-Supplemental.pdf">官方下载来源</a>。已完成全部 6 节、8 张图、1 张表、脚注与参考文献条目核对。</li>
 <li>版本标识：本次采用 NeurIPS 2021 正式会议版，不以 arXiv 页码代替正式版页码。arXiv:2109.15047v2（2021-12-14）为另一个可用版本，本轮不混用其页码。</li>
-<li>代码与权重：已取得并核对固定提交 cbdae87a5445114cdc7f48816da63ea80bdeac40 的官方 2021 完整子目录 31 个文件，已讲解 Python 推理主链与实际使用的 C++ CDF/rANS 主调用链，另核查固定版本外部 rans64.h。完成文件封装及独立熵编码参考机制验证；未运行官方扩展、下载权重或复现实验。</li>
+<li>代码与权重：已取得并核对固定提交 cbdae87a5445114cdc7f48816da63ea80bdeac40 的官方 2021 完整子目录 31 个文件，已讲解 Python 推理与 C++ CDF/rANS 主调用链。2026-10-23 已在独立兼容构建下实际执行官方 C++ 扩展与固定随机初始化的 P 帧网络，完成两帧真实码流连通性测试；仍未加载训练权重或复现论文性能。</li>
 <li>当前模式：精读。</li>
 <li>当前精读任务：全文，按原文顺序分轮推进。</li>
-<li>最近更新：2026-10-16，Asia/Shanghai。</li>
+<li>最近更新：2026-10-23，Asia/Shanghai。</li>
 <li>完整导航：<a href="DCVC_%E5%85%A8%E6%96%87%E7%B2%BE%E8%AF%BB%E5%AF%BC%E8%88%AA.md.html">全文精读导航</a>。</li>
 <li>最新讲解：<a href="DCVC_%E7%AD%94%E7%96%9102_%E5%BA%95%E5%B1%82%E7%86%B5%E7%BC%96%E7%A0%81%E4%B8%8E%E7%B2%BE%E8%AF%BB%E5%AE%8C%E6%88%90%E6%A0%B8%E6%9F%A5.md.html">底层熵编码与精读完成核查</a>，接续<a href="DCVC_%E7%AD%94%E7%96%9101_%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E8%AE%B2%E8%A7%A3.md.html">完整代码讲解</a>；论文、补充材料、Python 推理与底层熵编码主调用链精读完成。</li>
+<li>最新实验：<a href="DCVC_%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%9501_C%2B%2B%E4%B8%8EP%E5%B8%A7%E7%9C%9F%E5%AE%9E%E7%A0%81%E6%B5%81%E9%AA%8C%E8%AF%81.md.html">C++ 与 P 帧真实码流验证</a>。</li>
 <li>既有讲解：<a href="DCVC_%E7%B2%BE%E8%AF%BB01_%E6%A0%87%E9%A2%98%E6%91%98%E8%A6%81%E4%B8%8E%E5%BC%95%E8%A8%80.md.html">第 1 轮 标题摘要与引言</a>、<a href="DCVC_%E7%B2%BE%E8%AF%BB02_Figure1%E4%B8%8E%E5%BC%95%E8%A8%80%E8%B4%A1%E7%8C%AE.md.html">第 2 轮 Figure 1 与引言贡献</a>。</li>
 </ul>
 <h2 id="2">2. 可复用的背景与知识</h2>
@@ -206,7 +207,7 @@
 </ul>
 <h2 id="5">5. 全文精读进度</h2>
 <ul>
-<li>状态：论文正文、补充材料、Python 推理及 C++ 熵编码主调用链精读已完成；实验复现未执行。</li>
+<li>状态：论文正文、补充材料、Python 推理及 C++ 熵编码主调用链精读已完成；真实码流连通性测试完成，带权重率失真复现未执行。</li>
 <li>已连续完成的原文范围：正式版第 1 至 12 页，包括标题、作者与机构、摘要、Sections 1 至 5、图表与参考文献条目；随后完成补充材料第 1 至 7 页全部结构单元。</li>
 <li>呈现方式：bib 中用户提供的摘要全文及翻译；网络正文采用短摘录、逐段释义与独立讲解，不标为完整英文转载或全文翻译。</li>
 <li>已单独完成的其他范围：无。</li>
@@ -382,4 +383,39 @@
 <li>汇编状态：本轮完整正文已追加到 Markdown 与 HTML，现为 20 项正文来源；新增 C++/头文件按行跳转页。旧版保留为 <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87_%E5%BA%95%E5%B1%82%E8%A1%A5%E5%85%A5%E5%89%8D_20261016.md.html">补入前 Markdown</a> 与 <a href="DCVC_%E8%AE%B2%E8%A7%A3%E5%85%A8%E6%96%87_%E5%BA%95%E5%B1%82%E8%A1%A5%E5%85%A5%E5%89%8D_20261016.html">补入前 HTML</a>。</li>
 <li>仍未执行但不属于未读章节：带权重真实编解码、官方扩展运行、训练、性能计时和 BD-Rate 复现。被引文献条目保留不等于所有被引论文均全文精读。</li>
 <li>当前停止位置：论文与补充材料末尾、实际使用的熵编码主调用链末尾。下一次精读起点：无；若继续研究，应另开实验记录。</li>
+</ul>
+<h2 id="11-01-c-p">11. 实验 01：官方 C++ 与 P 帧真实码流连通性</h2>
+<p>2026-10-23，用户要求“继续”，在精读已结束的基础上进入最小运行验证。已独立保存<a href="DCVC_%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%9501_C%2B%2B%E4%B8%8EP%E5%B8%A7%E7%9C%9F%E5%AE%9E%E7%A0%81%E6%B5%81%E9%AA%8C%E8%AF%81.md.html">完整实验说明</a>及<a href="DCVC_%E5%AE%9E%E9%AA%8C01_%E7%9C%9F%E5%AE%9E%E7%A0%81%E6%B5%81%E8%BF%9E%E9%80%9A%E6%80%A7/README.md.html">可重跑实验目录说明</a>。不将实验运行改记为新的论文精读章节。</p>
+<table>
+<thead>
+<tr>
+<th>记录</th>
+<th>实际范围</th>
+<th>已确认结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="DCVC_%E5%AE%9E%E9%AA%8C01_%E7%9C%9F%E5%AE%9E%E7%A0%81%E6%B5%81%E8%BF%9E%E9%80%9A%E6%80%A7/build/%E7%BB%93%E6%9E%9C.json">兼容构建</a></td>
+<td>Python 3.12.10、PyTorch 2.13.0+cu126、MinGW-w64 g++ 15.2.0；使用 PyTorch 所附 pybind11 头文件</td>
+<td>官方算法源码未修改，两个 C++ 扩展实际编译并导入；不是历史环境复现</td>
+</tr>
+<tr>
+<td><a href="DCVC_%E5%AE%9E%E9%AA%8C01_%E7%9C%9F%E5%AE%9E%E7%A0%81%E6%B5%81%E8%BF%9E%E9%80%9A%E6%80%A7/C%2B%2B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C.json">C++ 验证</a></td>
+<td>4106 个整数，含 4101 个旁路符号；一次解码、分组解码、分次缓冲编码</td>
+<td>全部精确恢复，11484 字节与此前 Python 参考实现一致，限本机和该测试向量</td>
+</tr>
+<tr>
+<td><a href="DCVC_%E5%AE%9E%E9%AA%8C01_%E7%9C%9F%E5%AE%9E%E7%A0%81%E6%B5%81%E8%BF%9E%E9%80%9A%E6%80%A7/P%E5%B8%A7%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C.json">P 帧验证</a></td>
+<td>CPU、64×64、固定随机初始化、显式施加自回归掩码；初始 RGB 参考预共享</td>
+<td>连续两个 P 帧四路真实码流写入/读回，潜变量与 clamp 后重建逐元素相等；第二帧使用实际解码参考</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>两帧各有 payload 96 字节、文件头 24 字节，完整文件各 120 字节。未编码 I 帧，未加载训练权重；不把该码率作为压缩性能结果。</li>
+<li>forward 与真实解码最大像素差分别约 0.004465、0.004172；该具体数值来自本次随机模型，不外推为官方 checkpoint 的差值。</li>
+<li>本机检测到 RTX 3060，但本轮一致性测试使用 CPU；未做 GPU 性能或跨设备兼容性测试。</li>
+<li>原论文、精读源码和全文汇编保留；实验及运行记录独立保存。2026-10-16 等旧轮次的“未运行扩展”是当时历史状态，由本节更新当前状态。</li>
+<li>下一起点：匹配官方 I/P 权重、准备短 GOP 数据及原测试入口依赖，运行完整 I+P 序列，再作率失真复现。</li>
 </ul></main><script src="DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

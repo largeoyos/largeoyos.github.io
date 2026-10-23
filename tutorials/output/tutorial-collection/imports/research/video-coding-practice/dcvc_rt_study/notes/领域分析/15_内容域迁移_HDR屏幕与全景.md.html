@@ -4,11 +4,32 @@
 <p>2026-10-19。选读 HDR/LBSVC、NVC360、LSCD 和 NeR-SC。后两份分别固定为 arXiv 2308.09332v1、2605.27024v1；NeR-SC 仍按预印本处理。没有下载整套数据集或运行这些模型。</p>
 <h2 id="1">1. 先分清三类分布变化</h2>
 <p><strong>数据统计变化</strong>包括运动、纹理、颜色与对象比例；<strong>表示几何变化</strong>包括全景投影和采样密度；<strong>评价空间变化</strong>包括 HDR 亮度、屏幕文字可读性与球面面积。第一类可能通过训练适配改善，后两类还要求改变输入解释和评价，不能只增加自然视频训练量。</p>
-<p>| 内容 | 普通自然视频假设的不足 | 应单独记录的条件 |</p>
-<p>|---|---|---|</p>
-<p>| HDR | 数值差不等于同等可见亮度差；SDR 映射丢失动态范围 | 传递函数、色域、有效位深、峰值亮度、显示条件 |</p>
-<p>| 屏幕 | 大块平坦色、细文字、硬边缘、突变滚动 | RGB/4:4:4 或 4:2:0、字体尺寸、文本真值、更新区域 |</p>
-<p>| 360° | ERP 上不同纬度同样像素不代表同样球面面积 | 投影、球面权重、视口、旋转增强、接缝 |</p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>普通自然视频假设的不足</th>
+<th>应单独记录的条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDR</td>
+<td>数值差不等于同等可见亮度差；SDR 映射丢失动态范围</td>
+<td>传递函数、色域、有效位深、峰值亮度、显示条件</td>
+</tr>
+<tr>
+<td>屏幕</td>
+<td>大块平坦色、细文字、硬边缘、突变滚动</td>
+<td>RGB/4:4:4 或 4:2:0、字体尺寸、文本真值、更新区域</td>
+</tr>
+<tr>
+<td>360°</td>
+<td>ERP 上不同纬度同样像素不代表同样球面面积</td>
+<td>投影、球面权重、视口、旋转增强、接缝</td>
+</tr>
+</tbody>
+</table>
 <p>一个指标和一个预处理管线难以同时覆盖三者。先定义服务，再挑模型。</p>
 <h2 id="2-hdr">2. HDR：动态范围进入了训练和评价本身</h2>
 <p>HDR 数据论文从线上 HDR10 视频构建片段，经处理转为 EXR 等研究格式。这扩大了内容来源，但视频此前可能已被有损编码；EXR 的无损容器不能恢复来源中已丢失的信息。正文称 500 个来源、2200 个片段，当前官方项目页面写 2164 个片段；两者应分别记作论文统计和发布快照，复现以实际清单及哈希为准。<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Tian_High_Dynamic_Range_Video_Compression_A_Large-Scale_Benchmark_Dataset_and_CVPR_2025_paper.pdf">HDR 论文，第 3–4 页</a>，<a href="https://github.com/sdkinda/HDR-Learned-Video-Coding">官方仓库</a></p>
@@ -40,4 +61,6 @@
 <p>同一Q8原始首帧、无420、CPU FP32、四锚点模式0/3两个真实前向：全帧保存RGB PSNR28.0023→28.1686dB，细彩线12.5737→12.4591dB，细线派生Y′23.5792→28.0885dB。该I-only路径也出现颜色细节损失；这是单图、候选权重、非等码率的观察，不能定位RT模块根因或给出DC/RT排序。估计熵并非文件bit，未写真实熵流/独立解码或测P帧。原生566×42图与4行整数SSE交叉评分已核；后续优先RT原生观察，DC I若扩展应验证实际I文件往返，而非继续增加同图浮点点数。</p>
 <h2 id="2026-10-22-dc-i_1">2026-10-22 DC I的实际文件与独立熵解码</h2>
 <p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">四档native实验</span>接续此前同图前向：候选来源仍不等于微软原件，CPU隔离编译固定CDF/rANS源，四个训练锚点完整I文件25,014/31,626/40,934/52,262B，对应0.217135/0.274531/0.355330/0.453663bpp。新进程不读源/编码重建，四档float逐位及uint8像素完全一致。没有P帧或跨模型等码率结论。</p>
-<p>官方写流输入补齐倍数16；我方首封装误用768输入配720头，使主y48/45不一致。保留四失败流，再仅改头高768、payload不变独立解码，裁720与原编码端逐位相同。修正后另目录四档有效；旧pad64前向不与新pad16码率混配。实际码率约翻倍时细线RGB仍12.3981–12.5908dB，派生Y′23.5792→28.0885dB，红蓝仍偏紫/明暗线。说明该单图候选I路径可出现此现象；域泛化、RT根因和模块独立收益均未建立。原RT16帧262项观察及编码门槛保持，后续不重扫同图四档。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>
+<p>官方写流输入补齐倍数16；我方首封装误用768输入配720头，使主y48/45不一致。保留四失败流，再仅改头高768、payload不变独立解码，裁720与原编码端逐位相同。修正后另目录四档有效；旧pad64前向不与新pad16码率混配。实际码率约翻倍时细线RGB仍12.3981–12.5908dB，派生Y′23.5792→28.0885dB，红蓝仍偏紫/明暗线。说明该单图候选I路径可出现此现象；域泛化、RT根因和模块独立收益均未建立。原RT16帧262项观察及编码门槛保持，后续不重扫同图四档。</p>
+<h2 id="2026-10-22-dcvc">2026-10-22 域频谱解释不等于DCVC根因</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">NIC频谱泛化与FFL精读</span>增加自然图像统计/低方差方向这一候选解释，但正文线性推导依赖中心化、MSE/PCA和Fourier对齐且无码率项；与优化先学低频、采样约束分别讨论。公开灰度取整谱不能保证检出细彩线RGB损失。先定义合法源和去噪参考，再考虑逐通道浮点/复数响应；不因读到FFL直接改DCVC训练。既有四档真实DC I结果未重跑，候选来源边界与P缺失不变。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

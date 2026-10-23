@@ -1,13 +1,13 @@
 {
   "subjects": 12,
-  "entries": 435,
-  "pdfs": 27,
+  "entries": 452,
+  "pdfs": 28,
   "chapters": 60,
   "courses": [
     {
       "id": "math",
       "title": "数学物理方法",
-      "entries": 96
+      "entries": 112
     },
     {
       "id": "analog",
@@ -37,7 +37,7 @@
     {
       "id": "compression",
       "title": "图像与视频压缩",
-      "entries": 51
+      "entries": 52
     },
     {
       "id": "pytorch",
@@ -65,6 +65,6 @@
       "entries": 6
     }
   ],
-  "version": "4.23.0",
+  "version": "4.24.0",
   "published": "2026-10-23"
 }

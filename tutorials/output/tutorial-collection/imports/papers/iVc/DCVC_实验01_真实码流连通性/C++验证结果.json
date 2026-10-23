@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-23",
+  "actual_cpp_extensions_executed": true,
+  "official_algorithm_sources_unchanged": true,
+  "symbols": 4106,
+  "bypass_symbols": 4101,
+  "events": 23657,
+  "bytes": 11484,
+  "sha256": "cdc60420d4733146f84d30b82f95f8df23a2a8bf636c01d7aad1be25f9836e02",
+  "cdf_toy": [
+    0,
+    1,
+    8,
+    16
+  ],
+  "cdf_matches_reference": true,
+  "all_at_once_exact": true,
+  "chunked_decoder_exact": true,
+  "buffered_encoder_same_bytes": true,
+  "matches_python_reference_byte_for_byte": true,
+  "scope": "This compiled Windows x64/Python 3.12 compatibility build and this test vector only; no cross-platform or model-weight claim."
+}

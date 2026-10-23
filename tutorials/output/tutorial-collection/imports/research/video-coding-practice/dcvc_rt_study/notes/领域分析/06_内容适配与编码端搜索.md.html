@@ -57,4 +57,19 @@
 <p>若损失写为 <code>βR+λD</code>，固定 λ 增大 β 等效于降低失真相对权重 λ/β。论文文字描述、不同色彩分支和真实代码需要对照，不能仅凭“动态质量控制”名称猜测方向。</p>
 <h2 id="_4">有边界的实验应怎样设计</h2>
 <p>先选固定共享解码器的搜索方式，设置 0/少量/较多迭代的时间预算，保留初始整数候选，最终以真实写流和独立解码验证；曲线横轴可用总编码秒数，纵轴同时报告 bpp 和失真。到时停止并返回此前最佳候选，不能把未完成拟合点混进结果。</p>
-<p>比较适配参数时，应分别保存内容、参数、超先验和头的字节数；比较在线搜索时，固定原模型、目标函数、量化及首帧条件。每段有多少提升、何处没有提升，比一个平均百分数更能回答“何时值得花搜索时间”。本轮没有新增适配训练或 GPU 作业。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>
+<p>比较适配参数时，应分别保存内容、参数、超先验和头的字节数；比较在线搜索时，固定原模型、目标函数、量化及首帧条件。每段有多少提升、何处没有提升，比一个平均百分数更能回答“何时值得花搜索时间”。本轮没有新增适配训练或 GPU 作业。</p>
+<h2 id="2026-10-23-iadp-peiavc">2026-10-23 IADP 与 PEIAVC 的接收端依赖</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">本轮精读</span>补齐 IADP 的量化更新、模型码率及解码顺序：若同时更新潜变量先验，必须先用共享先验解出模型更新，再解内容潜变量。其 2 fps 子采样实验是独立 I 图像；PEIAVC 的公开入口是 SSF，不能直接称为 RT 适配。低秩的是更新，稳态合并不免除适配、参数恢复和启动成本。首次核对 PEVC 固定训练入口，发现默认 state_dict 的模型码率分支与原适配参数梯度断开、量化输出未用于重建；测试源有真实熵编码调用。当前是静态事实，未跑训练；复现应先验证活跃参数梯度、量化前向和完整文件的新进程解码。相同 rank/参数数也不决定实际更新码长。</p>
+<h2 id="2026-10-23-sga-bao">2026-10-23 固定权重潜变量搜索：SGA 与 BAO</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">本轮精读</span>区分摊销、离散化和边缘化缺口。独立 SGA 只搜索潜变量，SGA+BB 另有净负载和解码端优化；BAO 纳入后续帧依赖，准确 Algorithm3 与近似 Algorithm4/可扩展截断必须分开。固定权重也可能需要同步优化后的量化步长。SGA 所审查入口写死 2000 步且保存估计指标，不能凭 sga_its 参数宣称小预算真实码流复现。后续先验证受控步数、量化网格、实际文件与独立接收端；本轮只有论文、静态源码与人工数学例子，没有模型实验。</p>
+<h2 id="2026-10-23">2026-10-23 连续潜变量搜索的真实文件探针</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">实际实验</span>在同一候选DC I权重的两个256裁剪、anchor1/λ=.01下，各搜索12步并将0/4/8/12步全部实际熵编码。8流新进程重建与编码端浮点原始字节和uint8全等。mono选8步：文件比特−12.926%、保存RGB PSNR−.142879dB；color选12步：−8.074%、+.193190dB。前者是同λ折衷，非等质量BD收益；后者只限单裁剪。mono连续目标继续下降但12步硬目标比8步差，支持独立检查硬候选。细线ROI仍约12.78dB，未恢复红蓝分离。</p>
+<p>这是自建恒等松弛，不是SGA/BAO复现。首编码进程尾部环境联合断言失败；保留原码流并仅续跑独立接收端，没有重复搜索。CPU Adam捕获检查初始化CUDA为源码推断，原值未单独记录；接收端屏蔽CUDA后标志false。同轮未保存encoder CDF摘要，不把receiver与旧参考一致冒充同轮双端摘要核验。原RT16/262仍待学校页面恢复。</p>
+<h2 id="2026-10-23_1">2026-10-23 硬前向一致不保证更优搜索</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">STE同预算真实对照</span>复用旧identity8流，只新增6流，16方法步数观测对应14物理文件，两个相同图像裁剪。固定q/λ/lr/12步，STE相对identity的完整文件J在mono差2.033%、color好1.271%。STE对基线mono比特−7.43%/保存RGB PSNR+.482dB，color比特+1.843%/PSNR+.298dB；不是等质量收益。新双端模型与CDF摘要相同，float字节及uint8全等，CUDA均未初始化，旧尾部失败未抹除。下一先独立内容留出，避免继续只调这两个裁剪。</p>
+<h2 id="2026-10-23_2">2026-10-23 新内容检查遇到实际解码边界</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">固定设置验证</span>接受自然图7物理流/8逻辑行。identity选4相对baseline码率−5.570%、保存RGB PSNR−.348697dB、实际J−.307879%；STE选0回退baseline，不能称改善。新pattern普通基线独立接收重建非有限，STE第5步前向联合有限性检查也失败；3份identity流未解码，性能缺失不填0。原计划14流未完成，实际11生成/7接受，两个模型进程exit1。下一先基线符号/CDF/尺度与逐层数值诊断；不先调学习率或替换失败内容。</p>
+<h2 id="2026-10-23_3">2026-10-23 编码端搜索必须满足实际符号范围合同</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">图案普通基线诊断</span>重编码字节完全相同，两fresh普通接收仍非有限。编码第3组y2的33245/30431/30700被wire截为30000，原生解码正确读回，但local prior消费未截符号；随后y3索引差2331、返回符号差7072。只在诊断恢复3+53个编码侧符号后，后续索引及最终float重建回到encoder原始字节。读取side info的对照不是独立codec修复，没有新增有效I流。candidate来源限制不变，不推定Microsoft原权重同故障；STE前向失败仍未解。</p>
+<h2 id="2026-10-23_4">2026-10-23 闭环截断的负结果与有效实验拒绝</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">固定范围原型</span>同步z/main round后符号到local prior，仅2compress/1decompress。自然17quant零改值，3806B原文件SHA及普通receiver float/uint8全同；图案y2截3后y3截2534，残差虽都在±30000，local yhat仍6.64e12、RGB115392个NaN，拒绝未写candidate且不解码，不算双端通过/新RD。范围一致不足保证prior与合成稳定；不再重复此原型。下一先int32接口/旁路范围静态审计，不能删clamp后保留int16，也不宣称保留大符号必然修复。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

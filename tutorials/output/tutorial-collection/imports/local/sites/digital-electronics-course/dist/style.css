@@ -12,3 +12,4 @@
 @media print{#sidebar,.mobile-menu,.topbar,#lesson-actions,.hero-actions{display:none!important}main{margin:0;padding:0}body{font-size:11pt;background:white}.lesson{padding-top:0}.widget{margin-inline:0}.widget iframe{break-inside:avoid}footer{font-size:9pt}.eq{font-size:12pt}details:not([open])>div{display:block}h1,h2,h3{break-after:avoid}@page{size:A4;margin:18mm}}
 
 .chapter-switch button:last-child{grid-column:auto}.chapter-card:nth-child(-n+2){grid-column:span 2}@media(max-width:760px){.chapter-card:nth-child(-n+2){grid-column:1}}
+.chapter-switch button:last-child{grid-column:span 2}.chapter-card:last-child{grid-column:1/-1}.formula{padding:15px 18px;border-left:3px solid var(--green);background:var(--cream,#eeeede);font-family:Georgia,'Microsoft YaHei',serif;overflow-wrap:anywhere}.lesson table{overflow-wrap:anywhere}.pulse-lab{min-width:0}

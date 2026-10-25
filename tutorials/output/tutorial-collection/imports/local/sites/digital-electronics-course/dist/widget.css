@@ -3,3 +3,4 @@
 @media(max-width:480px){.viz-controls>.form-label,.lab-controls>label{width:100%}.form-select,.form-control,.lab-controls input,.lab-controls select{font-size:16px;width:100%}.lab-buttons button,.btn{min-height:38px}.form-check{min-height:38px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .lab-controls label.check{flex-direction:row;align-items:center;align-self:center;gap:8px}.lab-controls label.check input{width:auto;min-width:auto;flex:none}@media(max-width:480px){.lab-controls>label.check{width:auto;min-height:38px}}
+.pulse-lab{padding:10px 4px}.pulse-lab svg{max-width:600px;margin:0 auto}.pulse-lab .lab-controls{gap:10px 16px}.pulse-lab .lab-status{max-width:620px;margin:8px auto 0;font-size:13px}.pulse-lab .lab-controls label{flex:1 1 130px}.pulse-lab .lab-controls label.check{flex:1 1 100%}.pulse-lab .lab-buttons button{min-height:40px}

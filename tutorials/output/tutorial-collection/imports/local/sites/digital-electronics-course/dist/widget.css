@@ -4,3 +4,6 @@
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .lab-controls label.check{flex-direction:row;align-items:center;align-self:center;gap:8px}.lab-controls label.check input{width:auto;min-width:auto;flex:none}@media(max-width:480px){.lab-controls>label.check{width:auto;min-height:38px}}
 .pulse-lab{padding:10px 4px}.pulse-lab svg{max-width:600px;margin:0 auto}.pulse-lab .lab-controls{gap:10px 16px}.pulse-lab .lab-status{max-width:620px;margin:8px auto 0;font-size:13px}.pulse-lab .lab-controls label{flex:1 1 130px}.pulse-lab .lab-controls label.check{flex:1 1 100%}.pulse-lab .lab-buttons button{min-height:40px}
+
+.converter-lab{padding:10px 4px}.converter-lab svg{max-width:600px;margin:0 auto}.converter-lab .lab-controls label{flex:1 1 140px}.converter-lab .lab-status{max-width:620px;margin:8px auto 0;font-size:13px}.converter-lab .lab-buttons button{min-height:40px}
+.appendix-lab{padding:10px 4px}.appendix-lab svg{max-width:600px;margin:0 auto}.appendix-lab .lab-controls label{flex:1 1 140px}.appendix-lab .lab-status{max-width:620px;margin:8px auto 0;font-size:13px}.appendix-lab .lab-buttons button{min-height:40px}

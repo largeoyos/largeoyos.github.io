@@ -52,4 +52,6 @@
 <p>工程指标至少包括稳态 FPS、首帧时间、p50/p95 帧或块时间、显存峰值、实际输出字节。对于实时流，再记录输入到对应显示帧的延迟和缓冲积压。不同设置的平均 FPS 相同，尾部卡顿可能很不一样。</p>
 <h2 id="_4">可检验的研究问题</h2>
 <p>在 RT 中，码率上升是否主要增加熵处理而非神经网络时间？在 UF 中，块长增长的吞吐收益何时饱和？保持总码率约束时，并行熵流的头信息何时抵消收益？这些都应先通过同硬件、有界 profiler 测量定位，再选择修改模块。</p>
-<p>本轮只建立分析和测量定义，没有新的 GPU 速度数据，也没有将旧实验总运行时间换算成论文级 codec FPS。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>
+<p>本轮只建立分析和测量定义，没有新的 GPU 速度数据，也没有将旧实验总运行时间换算成论文级 codec FPS。</p>
+<h2 id="2026-10-27">2026-10-27：条件依赖与计时对照补充</h2>
+<p><span data-local-only="true" title="本地研究计划或执行记录，未纳入公开教程">CCM/ChARM/ELIC精读</span>完成。概率组数与实际码流步骤分别核查，ELIC网络计时不当完整codec时间；ChARM固定教育代码与论文全前序设置分开。作者表中单位/分项和疑点保留原数，无新增性能测量。下一仅准备同实现、同权重调度实验门槛，协议未执行。</p></main><script src="../../../../../papers/iVc/DVC_%E8%AE%B2%E8%A7%A3%E8%B5%84%E6%BA%90/vendor/katex.min.js"></script><script>document.querySelectorAll('[data-tex]').forEach(el=>katex.render(el.dataset.tex,el,{displayMode:el.classList.contains('display'),throwOnError:false,strict:'ignore',trust:false}));</script></body></html>

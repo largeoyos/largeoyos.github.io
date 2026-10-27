@@ -1,8 +1,8 @@
 {
   "subjects": 12,
-  "entries": 558,
-  "pdfs": 28,
-  "chapters": 63,
+  "entries": 610,
+  "pdfs": 29,
+  "chapters": 64,
   "courses": [
     {
       "id": "math",
@@ -17,7 +17,7 @@
     {
       "id": "digital",
       "title": "数字电子技术基础",
-      "entries": 247
+      "entries": 298
     },
     {
       "id": "computer",
@@ -37,7 +37,7 @@
     {
       "id": "compression",
       "title": "图像与视频压缩",
-      "entries": 52
+      "entries": 53
     },
     {
       "id": "pytorch",
@@ -65,6 +65,6 @@
       "entries": 6
     }
   ],
-  "version": "4.31.0",
-  "published": "2026-10-26"
+  "version": "4.32.0",
+  "published": "2026-10-27"
 }

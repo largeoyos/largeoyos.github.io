@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="神经视频编码的本地文献档案：领域、阅读路径、固定源码与实验依据。" name="description"/>
+<meta content="light" name="color-scheme"/>
+<title>压缩研究档案 · Literature Atlas</title>
+<link href="styles.css" rel="stylesheet"/>
+<script defer="" src="data.js"></script>
+<script defer="" src="app.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#workspace">跳到文献内容</a>
+<div class="app-shell">
+<aside aria-label="研究领域导航" class="sidebar">
+<a aria-label="压缩研究档案首页" class="brand" href="#archive">
+<span aria-hidden="true" class="brand-mark"><i></i><i></i><i></i></span>
+<span>压缩研究档案<small>VIDEO CODING / RESEARCH ATLAS</small></span>
+</a>
+<div class="sidebar-heading"><span>研究坐标</span><span id="fieldTotal">16</span></div>
+<nav aria-label="按领域筛选" class="field-nav" id="fieldNav"></nav>
+<div class="sidebar-foot">
+<span class="local-indicator"><i></i> 本地研究库</span>
+<p>保留原文、阅读边界和实验出处。<br/>每一条结论，都能回到证据。</p>
+<span class="mono" id="sidebarVersion"></span>
+</div>
+</aside>
+<main class="workspace" id="workspace">
+<header class="topline" style="flex-wrap:wrap;gap:12px"><a class="collection-return" href="../../../../../../../%E6%95%99%E7%A8%8B%E5%90%88%E9%9B%86.html">← 返回教程合集</a>
+<div class="breadcrumb">研究工作台 <span>/</span> 文献与证据</div>
+<div class="top-actions">
+<button aria-pressed="false" class="text-button" id="queueOnly"><span aria-hidden="true">☆</span> 阅读队列 <b id="queueCount">0</b></button>
+<button class="text-button" id="exportQueue" title="导出本浏览器保存的阅读队列">导出队列 <span aria-hidden="true">↗</span></button>
+</div>
+</header>
+<section aria-labelledby="pageTitle" class="intro">
+<div>
+<div class="eyebrow"><span></span> AN EVIDENCE-BASED READING COLLECTION</div>
+<h1 id="pageTitle">从一篇论文，<br/><em>走进整个问题。</em></h1>
+<p class="intro-description">沿着表示、概率、时域和系统，建立可追溯的研究脉络。<br class="desktop-break"/>把论文的主张、代码的行为与实测结果放在各自的位置。</p>
+</div>
+<div class="edition-block"><span>COLLECTION</span><strong id="editionYear">2026</strong><span id="editionDate">持续整理中</span><div class="edition-line"></div><small>读得有边界，比较有依据</small></div>
+</section>
+<section aria-label="文献库概览" class="metrics" id="metrics"></section>
+<div class="view-bar">
+<nav aria-label="档案视图" class="view-tabs">
+<button aria-current="page" class="view-tab active" data-view="archive">文献档案 <span>01</span></button>
+<button class="view-tab" data-view="map">研究地图 <span>02</span></button>
+<button class="view-tab" data-view="paths">阅读路径 <span>03</span></button>
+</nav>
+<span class="view-hint">按问题连接文献，而非按名次排列</span>
+</div>
+<section aria-label="检索和筛选" class="search-panel">
+<div class="search-row">
+<label class="search-box"><span aria-hidden="true">⌕</span><input aria-label="搜索文献" autocomplete="off" id="searchInput" placeholder="搜索标题、作者、关键词或研究问题…" type="search"/><kbd>/</kbd></label>
+<button class="button secondary" id="resetFilters">清除筛选</button>
+</div>
+<div class="filter-row">
+<label>目录年份 <select aria-label="筛选目录年份" id="yearFilter"><option value="">全部年份</option></select></label>
+<label>阅读 <select aria-label="筛选阅读深度" id="levelFilter"><option value="">所有阅读记录</option></select></label>
+<label>排序 <select aria-label="文献排序" id="sortSelect"><option value="year-desc">目录年份 · 由新到旧</option><option value="year-asc">目录年份 · 由旧到新</option><option value="title">标题 · A—Z</option><option value="reading">阅读记录</option></select></label>
+<div class="filter-divider"></div>
+<label class="check-filter"><input id="newOnly" type="checkbox"/>本次新增</label>
+<label class="check-filter"><input id="codeOnly" type="checkbox"/>有代码入口</label>
+<label class="check-filter"><input id="pdfOnly" type="checkbox"/>有本地 PDF</label>
+</div>
+<p class="year-version-note">年份沿用目录记录；预印本、正式发表时间及本地版本见详情。</p>
+</section>
+<section aria-label="文献档案" class="content-view" id="archiveView">
+<div class="archive-overview">
+<section aria-label="目录年份分布" class="timeline-panel">
+<div class="section-kicker"><h2>研究沿时间生长</h2><span>点击年份缩小范围</span></div>
+<div class="year-chart" id="yearChart"></div>
+</section>
+<section aria-label="阅读深度概览" class="depth-panel">
+<div class="section-kicker"><h2>阅读进度</h2><span>按已有记录计</span></div>
+<div class="depth-chart" id="depthChart"></div>
+</section>
+</div>
+<div class="results-header">
+<div><h2 id="resultsTitle">全部文献</h2><span aria-live="polite" id="resultsCount"></span></div>
+<button class="text-button" id="exportCsv">导出当前结果 CSV <span aria-hidden="true">↓</span></button>
+</div>
+<p class="filter-summary" id="activeFilterSummary"></p>
+<div aria-hidden="true" class="table-heading"><span>目录年份 / 文献</span><span>领域与记录</span><span>操作</span></div>
+<div class="paper-list" id="paperList"></div>
+<div class="empty-state" hidden="" id="emptyState"><span aria-hidden="true">∅</span><h3>这个交叉点还没有文献</h3><p>试试更短的关键词，或放宽年份和领域。</p><button class="button" id="emptyReset">重置筛选</button></div>
+</section>
+<section aria-label="研究地图" class="content-view" hidden="" id="mapView">
+<div class="map-intro"><div><div class="eyebrow">FIELDS &amp; CONNECTIONS</div><h2>一个问题，可以属于多个领域。</h2></div><p>领域是研究视角，不是互斥分类。连线来自档案中明确记录的关联；它们不自动表示论文引用或方法优劣。</p></div>
+<div class="coverage-map" id="coverageMap"></div>
+<section class="connection-section"><div class="section-kicker"><h2>文献之间的连接</h2><span id="relationCount"></span></div><div class="relation-graph" id="relationGraph"></div><div class="relation-list" id="relationList"></div></section>
+</section>
+<section aria-label="阅读路径" class="content-view" hidden="" id="pathsView">
+<div class="map-intro"><div><div class="eyebrow">READ WITH A QUESTION</div><h2>先找到问题，再选择下一篇。</h2></div><p>这些路径是编辑整理的阅读建议。按顺序连接背景、机制和检验方法，阅读深度仍以每篇档案为准。</p></div>
+<div class="reading-paths" id="readingPaths"></div>
+</section>
+<footer class="page-footer"><span>研究笔记与来源随档案保存 · 队列仅存于当前浏览器</span><nav aria-label="导出完整文献目录" class="portable-exports"><a download="" href="catalog.bib">文献引用 BibTeX ↓</a><a download="" href="catalog.csv">完整目录 CSV ↓</a><a download="" href="data.json">结构化 JSON ↓</a></nav><span id="footerDate"></span></footer>
+</main>
+</div>
+<div aria-label="待比较文献" class="compare-bar" hidden="" id="compareBar"><div><span class="eyebrow">SIDE BY SIDE</span><strong id="compareCount">0 篇待比较</strong><span id="compareNames"></span></div><div><button class="text-button" id="clearCompare">清空</button><button class="button" id="openCompare">比较档案 <span aria-hidden="true">↗</span></button></div></div>
+<dialog aria-labelledby="detailTitle" class="paper-dialog" id="paperDialog"><div class="drawer-shell"><header class="drawer-top"><span class="eyebrow" id="detailEyebrow"></span><button aria-label="关闭论文详情" class="icon-button" id="closeDetail">×</button></header><div class="paper-detail" id="paperDetail"></div></div></dialog>
+<dialog aria-labelledby="compareTitle" class="compare-dialog" id="compareDialog"><header><div><span class="eyebrow">COMPARE CONDITIONS, NOT RANKINGS</span><h2 id="compareTitle">并排看清各自的研究边界</h2></div><button aria-label="关闭比较" class="icon-button" id="closeCompare">×</button></header><div class="compare-table" id="compareTable"></div></dialog>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<noscript><div class="noscript">请启用 JavaScript 以使用检索、阅读路径和文献比较。本地 PDF 与来源仍保存在研究目录中。</div></noscript>
+</body>
+</html>

@@ -13,6 +13,7 @@
 
 .chapter-switch button:last-child{grid-column:auto}.chapter-card:nth-child(-n+2){grid-column:span 2}@media(max-width:760px){.chapter-card:nth-child(-n+2){grid-column:1}}
 .chapter-switch button:last-child{grid-column:span 2}.chapter-card:last-child{grid-column:1/-1}.formula{padding:15px 18px;border-left:3px solid var(--green);background:var(--cream,#eeeede);font-family:Georgia,'Microsoft YaHei',serif;overflow-wrap:anywhere}.lesson table{overflow-wrap:anywhere}.pulse-lab{min-width:0}
+.lesson h1,.lesson h2,.lesson h3{overflow-wrap:anywhere}
 
 /* Eight chapters: retain the established grid and give the last pair equal room. */
 .chapter-switch button:last-child{grid-column:auto}.chapter-card:last-child{grid-column:span 2}@media(min-width:761px){.chapter-card:nth-last-child(-n+2){grid-column:span 3}}@media(max-width:760px){.chapter-card:last-child{grid-column:1}}

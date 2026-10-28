@@ -1,8 +1,8 @@
 window.LITERATURE_DATA = {
   "meta": {
     "title": "神经视频编码 · 文献档案",
-    "updated": "2026-10-27T14:07:41.934725+00:00",
-    "total": 116,
+    "updated": "2026-10-28T13:09:31.320998+00:00",
+    "total": 138,
     "newCount": 0,
     "fields": [
       {
@@ -144,7 +144,7 @@ window.LITERATURE_DATA = {
     "evidenceNote": "代码审阅、环境预检、离线分析和实际模型实验分别标记；相关实验不等于论文完整复现。 公开版原文入口指向官方来源；本地执行记录与研究计划未公开，相关标签不代表已验证或完成复现。",
     "sourceCatalog": "",
     "readingUpdateCount": 3,
-    "readingUpdateNote": "三篇依赖与计时精读；新增独立论文0，官方补充PDF2。"
+    "readingUpdateNote": "参考可靠性三篇方法/实验选读：31完整新页、1部分页、16图表页；0新增论文/PDF/模型。"
   },
   "papers": [
     {
@@ -7848,6 +7848,1599 @@ window.LITERATURE_DATA = {
       ],
       "metadataNote": "作者信息依据本地PDF首页。",
       "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 Complete PDF pages1–2 including abstract and full introduction; not full paper or proofs. Figure captions read, no visual performance assessment."
+    },
+    {
+      "id": "DVCPRO",
+      "title": "An End-to-End Learning Framework for Video Compression",
+      "authors": [
+        "Guo Lu",
+        "Xiaoyun Zhang",
+        "Wanli Ouyang",
+        "Li Chen",
+        "Zhiyong Gao",
+        "Dong Xu"
+      ],
+      "year": 2020,
+      "venue": "IEEE TPAMI (2020 accepted author proof)",
+      "version": "Author-hosted IEEE Proof; accepted 2020-04-01; DOI 10.1109/TPAMI.2020.2988453; not final paginated issue PDF",
+      "fields": [
+        "02",
+        "01",
+        "03",
+        "10"
+      ],
+      "tags": [
+        "DVC期刊扩展",
+        "轻量网络",
+        "自适应量化",
+        "表示与参考",
+        "熵模型",
+        "实时系统",
+        "训练与量化"
+      ],
+      "summary": "DVC期刊扩展：保留运动补偿加残差的可训练混合结构，分别以DVC_Lite和DVC_Pro处理速度/效率取舍，并加入共享模型的自适应量化。",
+      "question": "在相同GOP与码率口径下，运动/残差网络增强、重建精炼和自适应量化分别贡献多少收益与解码成本？",
+      "caveat": "这是作者主页的IEEE Proof，不能标作最终出版PDF。是已有DVC的实质期刊扩展，不是一个与DVC无关的新谱系；单模型多质量点不等于达到指定目标码率。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        16
+      ],
+      "localPdf": "https://guolusjtu.github.io/guoluhomepage/paper/TPAMI2988453.pdf",
+      "sourceUrl": "https://guolusjtu.github.io/guoluhomepage/paper/TPAMI2988453.pdf",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "DVCPRO_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DVCPRO_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DVCPRO_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DVCPRO（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "49be1eefc2a782ecdd5af0d273e4a7d8197af4067837711f3bcc15a05d92b429",
+      "pages": 17,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 六位作者按已视看PDF首页顺序录入。year=2020对应本地proof的接收/版权年份；未用后续卷期年份冒充此文件版本。p2正文98–118行明确期刊扩展，p16参考[25]为CVPR2019 DVC。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 完整摘要与引言起始段；含作者、DOI、接收日期；p2: 只计引言续文至正文行118，Related Work之前；p16: 只读参考文献[25]条目以核对前作身份，未读整页。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "BEPIC",
+      "title": "Extending Neural P-Frame Codecs for B-Frame Coding",
+      "authors": [
+        "Reza Pourreza",
+        "Taco Cohen"
+      ],
+      "year": 2021,
+      "venue": "ICCV 2021",
+      "version": "CVF ICCV2021 open-access accepted paper",
+      "fields": [
+        "02",
+        "05"
+      ],
+      "tags": [
+        "P-to-B改造",
+        "插值参考",
+        "GOP",
+        "表示与参考",
+        "双向编码"
+      ],
+      "summary": "先用前后参考插值成一个虚拟参考，再交给现有P帧编解码器传输运动修正和残差；同一P帧网络可参与P/B帧编码。",
+      "question": "插值错误应以额外运动修正还是残差补偿？在相同等待帧数与GOP下，P-to-B改造的收益如何变化？",
+      "caveat": "需要未来已解码参考；额外等待和插值计算不能忽略。引言UVG的28.5%节码率是作者报告的特定P帧基线比较，不能直接外推到DCVC-RT。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://openaccess.thecvf.com/content/ICCV2021/html/Pourreza_Extending_Neural_P-Frame_Codecs_for_B-Frame_Coding_ICCV_2021_paper.html",
+      "sourceUrl": "https://openaccess.thecvf.com/content/ICCV2021/html/Pourreza_Extending_Neural_P-Frame_Codecs_for_B-Frame_Coding_ICCV_2021_paper.html",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "BEPIC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "BEPIC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "BEPIC_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "BEPIC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域05分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "d7678b611bdbfcc73bf9c68494d85b727dc718fcc52778e85098bcef3a7cab37",
+      "pages": 10,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 作者和标题按CVF首页视看核对；不是B-CANF或DCVCB的别名。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要与引言起始段；视看首页图1和作者；p2: 只读引言续文及图2说明，至Related work标题前。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "VCII",
+      "title": "Video Compression through Image Interpolation",
+      "authors": [
+        "Chao-Yuan Wu",
+        "Nayan Singhal",
+        "Philipp Krähenbühl"
+      ],
+      "year": 2018,
+      "venue": "ECCV 2018",
+      "version": "CVF ECCV2018 author-created version; watermark states content identical to published LNCS version",
+      "fields": [
+        "02",
+        "05"
+      ],
+      "tags": [
+        "早期层次插值",
+        "补充代码",
+        "锚点帧",
+        "表示与参考",
+        "双向编码"
+      ],
+      "summary": "将视频编码组织为递归的层次图像插值：先编码锚点，再用运动对齐参考特征并发送补充代码来消除插值歧义。",
+      "question": "锚点间隔、层次数和运动侧信息量如何影响误差传播与最终码率？不同层是否必须独立网络？",
+      "caveat": "这是2018年早期路线。作者的H.264可比结论不能当作现代配置排名；运动预估、训练目标、码流开销和多模型成本仍待方法章节核对。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://arxiv.org/abs/1804.06919",
+      "sourceUrl": "https://arxiv.org/abs/1804.06919",
+      "codeUrl": "https://github.com/chaoyuaw/pytorch-vcii",
+      "notes": [
+        {
+          "label": "VCII_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "VCII_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "VCII_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "VCII（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域05分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "5348265535631d3fa3d86b51be5f9a0a5d9405b4d13a87cb092049bd3aeb026b",
+      "pages": 16,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 姓名变音符按首页还原。作者GitHub链接已访问，README说明部分功能尚未提供；有代码链接不等于可完整复现。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要与引言起始段，视看首页；p2: 引言续文与图1说明；p3: 只读页首引言最后段，至Related Work前。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "NEURALINTER",
+      "title": "Neural Inter-Frame Compression for Video Coding",
+      "authors": [
+        "Abdelaziz Djelouah",
+        "Joaquim Campos",
+        "Simone Schaub-Meyer",
+        "Christopher Schroers"
+      ],
+      "year": 2019,
+      "venue": "ICCV 2019",
+      "version": "CVF ICCV2019 open-access accepted paper",
+      "fields": [
+        "02",
+        "05"
+      ],
+      "tags": [
+        "潜空间残差",
+        "运动融合联合解码",
+        "共享图像编码器",
+        "表示与参考",
+        "双向编码"
+      ],
+      "summary": "把运动与融合系数联合解码，并在潜空间表达插值残差，使关键帧和中间帧可以复用同一个图像自编码器。",
+      "question": "共享图像/残差潜空间是否真正减少参数与解码成本，同时避免关键帧和中间帧质量不匹配？",
+      "caveat": "共享表示与联合合成不自动保证端到端更快；需要单独核算运动、残差、解码网络成本。引言定性对照不是本项目重建效果实验，未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://openaccess.thecvf.com/content_ICCV_2019/html/Djelouah_Neural_Inter-Frame_Compression_for_Video_Coding_ICCV_2019_paper.html",
+      "sourceUrl": "https://openaccess.thecvf.com/content_ICCV_2019/html/Djelouah_Neural_Inter-Frame_Compression_for_Video_Coding_ICCV_2019_paper.html",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "NEURALINTER_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "NEURALINTER_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "NEURALINTER_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "NEURALINTER（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域05分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "5be44d282ec234253f82059cffb0a6f617b176e4226eaa82799a5e20737ef5e5",
+      "pages": 9,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 四作者顺序按首页，来源为CVF官方ICCV2019。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要与引言起始段；作者及首页图1视看；p2: 只读引言续文和贡献列表，至Related Work前。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "LHBDC",
+      "title": "End-to-End Rate-Distortion Optimized Learned Hierarchical Bi-Directional Video Compression",
+      "authors": [
+        "M. Akın Yılmaz",
+        "A. Murat Tekalp"
+      ],
+      "year": 2021,
+      "venue": "IEEE TIP (accepted manuscript, 2021)",
+      "version": "arXiv:2112.09529v1, 2021-12-17; PDF states TIP accepted 2021-12-15",
+      "fields": [
+        "02",
+        "05",
+        "10"
+      ],
+      "tags": [
+        "层次双向",
+        "掩码融合",
+        "运动预测",
+        "表示与参考",
+        "双向编码",
+        "训练与量化"
+      ],
+      "summary": "将层次双向运动补偿纳入端到端率失真优化，并引入双向融合掩码、光流下采样和时间光流预测来降低预测及运动码量成本。",
+      "question": "层次参考带来的增益在多大程度上来自GOP与训练范围变化，多少来自运动码量和掩码设计？",
+      "caveat": "层次B帧有未来参考和调度等待；和低延迟单向模型的RD差异不能仅解释为模型更强。此PDF为2021接收稿，不混作最终期刊版。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1
+      ],
+      "localPdf": "https://arxiv.org/abs/2112.09529v1",
+      "sourceUrl": "https://arxiv.org/abs/2112.09529v1",
+      "codeUrl": "https://github.com/makinyilmaz/LHBDC/",
+      "notes": [
+        {
+          "label": "LHBDC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "LHBDC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "LHBDC_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "LHBDC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域05分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "7bc97d7ac233ad91570e9f19db5640333aa74b4463d02ba39958456b2b5aaf09",
+      "pages": 10,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 首页明确是ICIP2020工作的显著扩展/重写；本轮只收这一份扩展稿，没有再收早期版本。作者缩写保留PDF写法；year表示本地版本年份。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要和完整Introduction；结束于II Related Work前，未把同页相关工作计为阅读。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "DCVCLCG",
+      "title": "Long-term Temporal Context Gathering for Neural Video Compression",
+      "authors": [
+        "Linfeng Qi",
+        "Zhaoyang Jia",
+        "Jiahao Li",
+        "Bin Li",
+        "Houqiang Li",
+        "Yan Lu"
+      ],
+      "year": 2024,
+      "venue": "ECCV 2024",
+      "version": "ECVA ECCV2024 official paper08346;19-pagePDF:maintextpp.1-14 andReferencespp.15-19; externally mentioned supplementary materials are not appended.",
+      "fields": [
+        "02",
+        "04",
+        "01"
+      ],
+      "tags": [
+        "长期参考",
+        "簇内检索",
+        "误差传播",
+        "量化先验",
+        "表示与参考",
+        "参考失效",
+        "熵模型"
+      ],
+      "summary": "LCG从周期更新的长期键中，以前一重建特征为查询做内容分簇和簇内top-4检索，再与短期上下文融合，并以质量参数显式调制熵先验。它保留历史条件依赖；作者明确承认场景变化可能受无关长期参考干扰而退化。",
+      "question": "在常规长链受益与场景切换过时参考之间，周期更新、可靠性判定和是否切断重建依赖分别解决什么？新增检索与移除offset diversity的成本如何拆开？",
+      "caveat": "本轮是正文方法/实验选读，没有模型实测或源码核验。T32长期缓冲更新不等于I帧刷新；buffer不等于峰值显存；作者计时伴随架构简化。p8复杂度式的代数问题不用于否定作者RD/耗时；外部补充材料未读。",
+      "readingLevel": "selected",
+      "readingLabel": "方法／实验选读",
+      "readPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "localPdf": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/08346.pdf",
+      "sourceUrl": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/08346.pdf",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "DCVCLCG_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DCVCLCG_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DCVCLCG_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DCVCLCG（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "参考可靠性精读（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "本轮阅读范围（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "三路线比较（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "claim_matrix（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "arithmetic_checks（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "p05（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "p06（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "p08（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "p13（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "p14（本地记录未公开）",
+          "url": ""
+        }
+      ],
+      "evidence": [],
+      "sha256": "d8bcb25a93b6ff5029475bd9a94ab45e2d7272480c46e05c3fdb951529c33c51",
+      "pages": 19,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 六作者及共同实习标记按首页核验；只根据ECVA正式版本定身份，不把其他DCVC家族条目重命名为LCG。 已纠正旧版“含补充章节”：正文p1–14、参考文献p15–19；外部supplement未取得。旧字段保存在阶段before与原始历史记录。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要与引言起始段，视看首页；p2: 引言续文与图1框架说明；p3: 完整引言末段和贡献列表；第4页才开始Related Works。不等于全文、方法或实验精读。 新阶段：完整读取PDF p4-14共11页（正文相关工作、方法、设置、实验、消融、复杂度与局限）；这些页此前未涉及。p5/6/8/13/14图表实际视觉核对。p15-19仅章节/页首边界检查，不计完整或部分科研阅读页。此前p1-3摘要/引言记录保留，本轮未重读该范围；外部supplement未取得。"
+    },
+    {
+      "id": "LSTEC",
+      "title": "L-STEC: Learned Video Compression with Long-term Spatio-Temporal Enhanced Context",
+      "authors": [
+        "Tiange Zhang",
+        "Zhimeng Huang",
+        "Xiandong Meng",
+        "Kai Zhang",
+        "Zhipin Deng",
+        "Siwei Ma"
+      ],
+      "year": 2025,
+      "venue": "arXiv preprint (author comments: DCC 2026 oral)",
+      "version": "arXiv:2512.12790v1, 2025-12-14; author abstract-page comments say DCC2026 oral accepted",
+      "fields": [
+        "02",
+        "04",
+        "10"
+      ],
+      "tags": [
+        "LSTM参考链",
+        "像素特征融合",
+        "长链纹理",
+        "表示与参考",
+        "参考失效",
+        "训练与量化"
+      ],
+      "summary": "以LSTM延长参考链，再把像素域warp得到的空间信息和时域特征通过多感受野网络融合，针对长链遗忘与纹理丢失。",
+      "question": "LSTM状态和直接长期特征检索解决的是同一问题吗？像素路径的收益来自补回纹理还是缓解状态漂移？",
+      "caveat": "保存的是2025预印本v1；DCC2026 oral仅按作者摘要页comments附注，不冒称已核验会议终稿。37.01%/31.65%是相对DCVC-TCM的作者报告，不能当作相对RT的收益；未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2512.12790v1",
+      "sourceUrl": "https://arxiv.org/abs/2512.12790v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "LSTEC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "LSTEC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "LSTEC_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "LSTEC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "92d6adf0ccff900b1eecc40bbc66ba2e21783f9bf5eec99df62587b1888f6b13",
+      "pages": 10,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 PDF首页与arXiv作者链接均有六作者；页面自动生成句子中的“and 4 other authors”计数有误，未采信该自动句子。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要与引言起始段；作者顺序与v1水印视看；p2: 只读引言续文和贡献列表，至Related Work前。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "VLVC",
+      "title": "Versatile Learned Video Compression",
+      "authors": [
+        "Runsen Feng",
+        "Zongyu Guo",
+        "Zhizheng Zhang",
+        "Weiping Li",
+        "Zhibo Chen"
+      ],
+      "year": 2021,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2111.03386v2, 2022-01-05; first submission 2021-11-05; not labeled NeurIPS accepted or 2026 journal version",
+      "fields": [
+        "02",
+        "05"
+      ],
+      "tags": [
+        "多参考统一表示",
+        "voxel flow",
+        "LD与RA",
+        "表示与参考",
+        "双向编码"
+      ],
+      "summary": "用带时间坐标的3D voxel flow统一单/多参考、单/双向预测；再用多项式运动轨迹预测降低需要传输的运动信息。",
+      "question": "统一运动表示是否能在同一模型中适应参考数与时间距离变化？多项式拟合在加速运动或遮挡下是否仍可靠？",
+      "caveat": "v2 PDF有五作者，而arXiv摘要页列表仅四位；本条以实际PDF为准。不要误标NeurIPS2021录用，也不把2026期刊信息混入v2。作者MS-SSIM领先主张需要重查配置；未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2111.03386v2",
+      "sourceUrl": "https://arxiv.org/abs/2111.03386v2",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "VLVC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "VLVC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "VLVC_requests（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "VLVC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域05分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/05_%E5%8F%8C%E5%90%91%E7%BB%93%E6%9E%84%E4%B8%8E%E6%97%B6%E9%97%B4%E8%B0%83%E5%BA%A6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "ba9f5d8fb954a78b66acbccd1981023ba558eb65bfa5a2e9f8dfb06e00e48558",
+      "pages": 14,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 PDF首页顺序是Runsen Feng、Zongyu Guo、Zhizheng Zhang、Weiping Li、Zhibo Chen；摘要页漏Weiping Li。year=2021为初始公开年份，文件版本日期是2022-01-05。搜索发现2026期刊工作，但未混入本条作者/实验。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 摘要与完整引言初筛；页码为本地PDF一基页码。p1: 摘要与引言起始段；视看作者和v2水印；p2: 只读引言续文、图1说明和结构导读，至Related Work前。不等于全文、方法或实验精读。"
+    },
+    {
+      "id": "ADAPT_RC",
+      "title": "Adaptive Rate Control for Deep Video Compression with Rate-Distortion Prediction",
+      "authors": [
+        "Bowen Gu",
+        "Hao Chen",
+        "Ming Lu",
+        "Jie Yao",
+        "Zhan Ma"
+      ],
+      "year": 2025,
+      "venue": "DCC 2025",
+      "version": "arXiv:2412.18834v2 (2025-05-08); first submission 2024-12-25",
+      "fields": [
+        "11",
+        "02"
+      ],
+      "tags": [
+        "码率控制",
+        "表示与参考"
+      ],
+      "summary": "作者从未压缩的当前帧与参考帧预测 R-λ、D-λ 关系，在 mini-GOP 内寻找目标失真并反推逐帧编码参数。为了减少原始参考与实际重建参考的差异，预测器加入受预测失真控制的噪声；固定低分辨率输入用来约束预测开销。该路线把“选择可变码率参数”推进到“预测内容对应的码率关系”。",
+      "question": "在场景切换、参考质量突变或刷新间隔改变时，预测器的关系拟合误差和真实码流预算误差如何分离？固定低分辨率输入会不会遗漏细纹理造成的码率尖峰？",
+      "caveat": "作者报告的是自己的编码器、数据和mini-GOP配置下的结果。本轮只筛读摘要与引言，未核验实验表、实际码流或延迟。不能把无预编码等同于无前视或零控制开销；后续还需核对λ的目标函数约定。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2412.18834v2",
+      "sourceUrl": "https://arxiv.org/abs/2412.18834v2",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "ADAPT_RC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "ADAPT_RC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "ADAPT_RC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "a235774ff6a1d779aff18b6afe21e9a4cab5f90ec093fd929f12c719a9926add",
+      "pages": 11,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 完整摘要与引言：PDF p.1及p.2至“2 Related Work”之前；p.2只计引言部分，非整页通读。另浏览p.3背景和方法开头，未计为方法精读。"
+    },
+    {
+      "id": "DYN_ROUTE_RC",
+      "title": "Learned Rate Control for Frame-Level Adaptive Neural Video Compression via Dynamic Neural Network",
+      "authors": [
+        "Chenhao Zhang",
+        "Wei Gao"
+      ],
+      "year": 2024,
+      "venue": "ECCV 2024",
+      "version": "ECVA ECCV 2024 proceedings PDF 11394",
+      "fields": [
+        "11",
+        "03"
+      ],
+      "tags": [
+        "码率控制",
+        "实时系统"
+      ],
+      "summary": "作者用可伸缩的 Dynamic-Route Autoencoder 生成不同码率与复杂度的编码路径；Rate Control Agent 预测各路径码率，再通过滑动窗口选择路径。Joint-Routes Optimization 共同训练不同路径，使一个模型在带宽和算力两个维度可调。",
+      "question": "路径选择是离散的，其最小可达码率间隔是否决定精度下限？动态切路的实测耗时、峰值显存、路径信令与时间参考状态是否计入总成本？",
+      "caveat": "摘要写平均 BD-rate 降低14.8%，引言叙述写13.1%；本轮仅记录文本差异，不擅自解释或拿任一数字作统一结论。平均码率误差也不能替代每帧/滑动窗口超额峰值。尚无本地复现，复杂度收益需后续按相同硬件实测。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/11394.pdf",
+      "sourceUrl": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/11394.pdf",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "DYN_ROUTE_RC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DYN_ROUTE_RC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "DYN_ROUTE_RC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "e0c4075c8f8485e40e6dbcbbcfa01bfb471b0d851e643c0b6ea2148911f7bb8b",
+      "pages": 17,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p.1–2及p.3至“2 Related Works”之前，覆盖摘要与完整引言；p.3仅引言尾部，不计整页通读。"
+    },
+    {
+      "id": "FEEDBACK_RC",
+      "title": "Feedback-Driven Rate Control for Learned Video Compression",
+      "authors": [
+        "Zhiheng Xu",
+        "Xuerui Ma",
+        "Chunhua Peng",
+        "Hao Zhang"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2604.20104v1 (2026-04-22)",
+      "fields": [
+        "11",
+        "02"
+      ],
+      "tags": [
+        "码率控制",
+        "表示与参考"
+      ],
+      "summary": "作者先在 DCVC 类条件编码路径引入 λ 条件调制形成单模型多码率接口，再用对数域 PI/PID 根据目标码率与熵模型估计码率之差在线更新 λ；预算约束的双分支 GRU 在基本控制量上预测修正。引言说明实际实现采用更稳健的 PI 配置。",
+      "question": "反馈若使用估计熵而不使用最终文件字节数，CDF离散化、头信息与封装偏差会如何累积？可先设计同一段视频上 estimated bpp 与 actual bpp 的逐帧误差记录，再决定是否值得接入控制器。",
+      "caveat": "这是2026年arXiv v1预印本，尚未核验正式发表状态。本轮没有训练或执行控制器，作者所报误差/BD-rate不是本地结果；稳定平均码率不代表有限缓冲区不会溢出。估计码率闭环与真实码流闭环必须分开。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2604.20104v1",
+      "sourceUrl": "https://arxiv.org/abs/2604.20104v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "FEEDBACK_RC_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "FEEDBACK_RC_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "FEEDBACK_RC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "d5a62d2fddb171ee8061db30a21cd2d6c1567b2a5beba755569fba65da6e6de6",
+      "pages": 21,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p.1及p.2至“2 Related Work”之前，覆盖摘要与完整引言；p.2相关工作未计入本次声明的筛读范围。"
+    },
+    {
+      "id": "YUV420_CANF",
+      "title": "Learned Video Compression for YUV 4:2:0 Content Using Flow-based Conditional Inter-frame Coding",
+      "authors": [
+        "Yung-Han Ho",
+        "Chih-Hsuan Lin",
+        "Peng-Yu Chen",
+        "Mu-Jung Chen",
+        "Chih-Peng Chang",
+        "Wen-Hsiao Peng",
+        "Hsueh-Ming Hang"
+      ],
+      "year": 2022,
+      "venue": "ISCAS 2022",
+      "version": "arXiv:2210.08225v1 (2022-10-15); accepted ISCAS 2022",
+      "fields": [
+        "11",
+        "15",
+        "02"
+      ],
+      "tags": [
+        "码率控制",
+        "内容与数据",
+        "表示与参考"
+      ],
+      "summary": "作者用条件增强归一化流编码帧间信息，并以 space-to-depth 将 Y 分量与低分辨率 UV 合成六通道输入。调制网络调整卷积特征：I帧采用连续 λ，P帧采用四个离散 λ；推理先选一对参数，再固定P帧参数微调I帧参数逼近码率。",
+      "question": "调 I 帧以匹配整体码率会同时改变全部后续参考质量，码率与失真变化是否单调？不同GOP下这种间接控制是否会失效？YUV加权PSNR和RGB指标如何分别影响对方法的判断？",
+      "caveat": "与既有ECCV2022 CANF-VC是相关但独立论文：本稿ISCAS2022、7位作者、5页，p.2使用DVC-Pro式运动coder；ECCV稿5位作者、17页，摘要与引言明确还将条件编码用于运动。两者有大量概念重叠，不能当作相互独立的模型证据累加。作者报告的YUV结果不能直接与本地RGB PSNR比较。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://arxiv.org/abs/2210.08225v1",
+      "sourceUrl": "https://arxiv.org/abs/2210.08225v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "YUV420_CANF_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "YUV420_CANF_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "YUV420_CANF（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域15分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html"
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "aa983cbec199ff05f8602ee93925914ce698340e1d63615c66542fcb1c2ba365",
+      "pages": 5,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 完整摘要和引言在PDF p.1；另实际阅读p.2–3的系统、YUV变换、可变码率训练及评价口径开头；未审p.4–5结果与参考文献。不宣称全文精读。"
+    },
+    {
+      "id": "COND_AE",
+      "title": "Variable Rate Deep Image Compression With a Conditional Autoencoder",
+      "authors": [
+        "Yoojin Choi",
+        "Mostafa El-Khamy",
+        "Jungwon Lee"
+      ],
+      "year": 2019,
+      "venue": "ICCV 2019",
+      "version": "CVF ICCV 2019 accepted paper (pp.3146-3154)",
+      "fields": [
+        "11",
+        "01"
+      ],
+      "tags": [
+        "码率控制",
+        "熵模型"
+      ],
+      "summary": "作者把拉格朗日乘子 λ 作为条件输入，使一个自编码器覆盖多个率失真目标；另训练混合量化步长，形成以 λ 粗调、量化间隔 Δ 细调的双控制接口。与递归渐进编码相比，这一思路通过条件参数改变工作点，无需为更高质量增加递归迭代。",
+      "question": "在DCVC系模型里，训练时λ条件、推理时量化步长、特征增益分别改变哪些分布？熵模型是否同步条件化，码流如何让解码端获得这些参数？",
+      "caveat": "本稿是2019年图像压缩研究，仅作为条件控制与量化机制基础。Kodak图像结果不支持视频误差传播、跨帧预算或实时性结论；可变码率接口本身不保证给定目标码率可被一次命中。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://openaccess.thecvf.com/content_ICCV_2019/html/Choi_Variable_Rate_Deep_Image_Compression_With_a_Conditional_Autoencoder_ICCV_2019_paper.html",
+      "sourceUrl": "https://openaccess.thecvf.com/content_ICCV_2019/html/Choi_Variable_Rate_Deep_Image_Compression_With_a_Conditional_Autoencoder_ICCV_2019_paper.html",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "COND_AE_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "COND_AE_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "COND_AE（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "59fd35fcaab3405807ac3eff4e6316de7b26a4a1f8d042146fe391a9bdce0c0e",
+      "pages": 9,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 实际阅读PDF p.1–2（印刷页3146–3147），含摘要与完整引言；未展开后续方法、训练或实验全文。"
+    },
+    {
+      "id": "NNVC_DESIGN",
+      "title": "Designs and Implementations in Neural Network-based Video Coding",
+      "authors": [
+        "Yue Li",
+        "Junru Li",
+        "Chaoyi Lin",
+        "Kai Zhang",
+        "Li Zhang",
+        "Franck Galpin",
+        "Thierry Dumas",
+        "Hongtao Wang",
+        "Muhammed Coban",
+        "Jacob Ström",
+        "Du Liu",
+        "Kenneth Andersson"
+      ],
+      "year": 2023,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2309.05846v2 (2023-09-13)",
+      "fields": [
+        "16",
+        "03",
+        "02"
+      ],
+      "tags": [
+        "部署与兼容",
+        "实时系统",
+        "表示与参考"
+      ],
+      "summary": "论文总结当时 JVET NNVC 的混合编码路线：在VVC框架中加入神经帧内预测和神经环内滤波，保留传统模式决策与其他工具。引言强调神经预测还要协调MPM候选和变换选择；滤波要考虑过度滤波、时间滤波及与RDO的配合。",
+      "question": "把神经模块接入传统codec时，收益来自独立模块还是模式选择与其他工具的协同？与端到端DCVC比较时，应如何固定anchor、AI/RA/LD配置、色彩分量、码流兼容性和解码算力？",
+      "caveat": "本稿固定在2023年NNVC-4.0探索实现，不能当作2026年规范或VVC标准已采纳这些工具的证据。首页脚注明确VTM-11.0_nnvc并非裸VTM-11.0，含MCTF、RDO去块和高层语法差异。这里的“混合框架”也不等于生成码流能被原有VVC解码器直接解码。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2309.05846v2",
+      "sourceUrl": "https://arxiv.org/abs/2309.05846v2",
+      "codeUrl": "https://vcgit.hhi.fraunhofer.de/jvet-ahg-nnvc/VVCSoftware_VTM",
+      "notes": [
+        {
+          "label": "NNVC_DESIGN_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "NNVC_DESIGN_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "NNVC_DESIGN（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域16分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "cc48df7f488a856593800525c4596ec3ef976a1c01017d52a312fcccbb99e5e8",
+      "pages": 13,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p.1及p.2至“II. NN-BASED INTRA PREDICTION”之前，覆盖摘要与完整引言；p.2后续工具细节未计为已精读。首页脚注含anchor组成与软件地址。"
+    },
+    {
+      "id": "MPAI_EEV",
+      "title": "MPAI-EEV: Standardization Efforts of Artificial Intelligence based End-to-End Video Coding",
+      "authors": [
+        "Chuanmin Jia",
+        "Feng Ye",
+        "Fanke Dong",
+        "Kai Lin",
+        "Leonardo Chiariglione",
+        "Siwei Ma",
+        "Huifang Sun",
+        "Wen Gao"
+      ],
+      "year": 2023,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2309.07589v1 (2023-09-14)",
+      "fields": [
+        "16",
+        "02",
+        "15"
+      ],
+      "tags": [
+        "部署与兼容",
+        "表示与参考",
+        "内容与数据"
+      ],
+      "summary": "作者回顾当时 MPAI-EEV 端到端神经视频编码的需求、验证模型和探索活动，并把它与在传统编码器中加入AI工具的MPAI-EVC区分。引言把模型接口、可更新性、内容适应与标准制定连接起来，后文路线图指向OpenDVC起步的EEV验证模型及无人机视频研究。",
+      "question": "面向长期归档的神经码流需要怎样固定模型版本、算子数值与解码环境？“可更新模型”与“多年后仍可解码”之间，应增加哪些独立于RD的证据？",
+      "caveat": "这是2023年作者提交稿的历史描述，未代表2026年MPAI标准当前状态。首页保留LaTeX模板页眉“VOL.14, NO.8, AUGUST2021”，不应把它误作发表年或期刊信息；实际按arXiv:2309.07589v1记录。感知指标上的作者结论不能外推PSNR全面优于VVC或跨平台互操作已解决。未复现。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2309.07589v1",
+      "sourceUrl": "https://arxiv.org/abs/2309.07589v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "MPAI_EEV_阅读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "MPAI_EEV_selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "MPAI_EEV（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域16分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md.html"
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域15分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "ec9952afec031e34363cde4ce74f6a3f47fa513494130396144063534eea56a3",
+      "pages": 14,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p.1及p.2至“II. EEV”之前，覆盖摘要与完整引言；p.2需求分析和p.3路线图仅浏览，未计作完整精读。"
+    },
+    {
+      "id": "PQA_RQA",
+      "title": "Prediction and Reference Quality Adaptation for Learned Video Compression",
+      "authors": [
+        "Xihua Sheng",
+        "Li Li",
+        "Dong Liu",
+        "Houqiang Li"
+      ],
+      "year": 2025,
+      "venue": "IEEE Transactions on Image Processing",
+      "version": "Author manuscript arXiv:2406.14118v3, 24 March 2025; PDF header IEEE TIP, internal current-version date 25 March 2025",
+      "fields": [
+        "02",
+        "04",
+        "10"
+      ],
+      "tags": [
+        "表示与参考",
+        "参考失效",
+        "训练与量化"
+      ],
+      "summary": "PQA对每侧本地上下文作空间/通道软门控；RQA由已解码参考产生动态空间核；repeat-long先重复首P再级联17帧。三者适配历史质量但不切断时域依赖。",
+      "question": "在相同训练数据、I模型与完整文件码率下，局部相关性门控和参考质量动态变换各解决什么问题？19帧repeat-long的真实计算/反传跨度多大？",
+      "caveat": "19对32并非同预算因果对照；置信图不是校准错误概率。YUV全帧ClassE相对FM+46.7%且实现解码0.85s/1080p，不能外推RT性能、抗丢包或数值稳定性。作者结果未经本地复现。",
+      "readingLevel": "selected",
+      "readingLabel": "方法／实验选读",
+      "readPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "localPdf": "https://arxiv.org/abs/2406.14118v3",
+      "sourceUrl": "https://arxiv.org/abs/2406.14118v3",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "PQA_RQA（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        },
+        {
+          "label": "参考可靠性精读（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "本轮阅读范围（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "三路线比较（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "claim_matrix（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "author_ablation（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "evaluation_contract（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "selected_text_actually_read（本地记录未公开）",
+          "url": ""
+        }
+      ],
+      "evidence": [],
+      "sha256": "e905d2ba0d554b942dd4b976d3a695c7dd2e251db1e5d2c161c9e663133cce22",
+      "pages": 16,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要与引言、p2引言续文直到II. RELATED WORK之前；p2相关工作未计阅读。首页已视觉核对作者和版本。 新阶段：本轮完整文字选读PDFp3–7、p10–14共10页；p8仅表IV–VI；实际目视p4/6/7/13/14。十个完整文字页均此前未涉及。此前p1–2初筛保留，不宣称全文精读。"
+    },
+    {
+      "id": "DUAL_ALIGN",
+      "title": "Error-Propagation-Free Learned Video Compression With Dual-Domain Progressive Temporal Alignment",
+      "authors": [
+        "Han Li",
+        "Shaohui Li",
+        "Wenrui Dai",
+        "Chenglin Li",
+        "Xinlong Pan",
+        "Haipeng Wang",
+        "Junni Zou",
+        "Hongkai Xiong"
+      ],
+      "year": 2025,
+      "venue": "arXiv preprint; manuscript marked UNDER REVIEW",
+      "version": "arXiv:2512.10450v1, 11 December 2025; no acceptance verified",
+      "fields": [
+        "02",
+        "04",
+        "11"
+      ],
+      "tags": [
+        "表示与参考",
+        "参考失效",
+        "码率控制"
+      ],
+      "summary": "按论文的直接round量化与独立逐帧变换，在固定q且正确熵往返条件下断开重建反馈；历史仍通过运动、双域对齐和Gaussian概率参数影响码长与解码同步。",
+      "question": "源码是否严格保持与历史无关的量化符号及逆调制输入？匹配双端历史替换与单端状态损坏会分别改变码长、潜变量和像素中的哪些量？",
+      "caveat": "在审v1；无源码/模型复现。图8仅ShakeDry96帧/GOP32；无传播不代表抗丢包。表V参数44.6M与正文46.9M不一致，均保留。共同锚点BD-rate差不当独立pairwise收益。",
+      "readingLevel": "selected",
+      "readingLabel": "方法／实验选读",
+      "readPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "localPdf": "https://arxiv.org/abs/2512.10450v1",
+      "sourceUrl": "https://arxiv.org/abs/2512.10450v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "DUAL_ALIGN（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "参考可靠性精读（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "本轮阅读范围（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "三路线比较（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "claim_matrix（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "author_measurements（本地记录未公开）",
+          "url": ""
+        }
+      ],
+      "evidence": [],
+      "sha256": "8ff4aa55acec137c3f4d545b542b1a862324ec611d97b14190b14626406bb6ba",
+      "pages": 14,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要与引言、p2引言直到II. RELATED WORK之前；p2相关工作不计。首页视觉确认UNDER REVIEW。 新阶段：本轮完整阅读PDF p3-12共10页，均为前轮未涉及页；涵盖方法、量化、时域依赖、训练、主实验和消融。视觉查看p4/5/6/9/10/11。前轮p1-2仅摘要/引言；本轮不声称14页全文通读。"
+    },
+    {
+      "id": "ECVC",
+      "title": "ECVC: Exploiting Non-Local Correlations in Multiple Frames for Contextual Video Compression",
+      "authors": [
+        "Wei Jiang",
+        "Junru Li",
+        "Kai Zhang",
+        "Li Zhang"
+      ],
+      "year": 2025,
+      "venue": "CVPR 2025",
+      "version": "CVF open-access accepted version, proceedings pp. 7331-7341",
+      "fields": [
+        "02",
+        "04",
+        "10"
+      ],
+      "tags": [
+        "表示与参考",
+        "参考失效",
+        "训练与量化"
+      ],
+      "summary": "作者在两个历史参考中联合提取局部运动和非局部相似性，以线性交叉注意力控制开销；同时引入部分级联微调，降低训练短链与测试长链的分布差。论文将表示能力增强和训练误差管理作为两个独立增益来源。",
+      "question": "多参考非局部信息与长序列微调的收益能否拆开？新增参考/注意力对场景切换及RT的访存和延迟预算有什么代价？",
+      "caveat": "摘要的10.5%/11.5%是相对共同VTM锚点的表述，不能直接当作相对DCVC-FM的码率比；尚未审表格积分口径。作者仓库页面目前只见README与assets，不能称已具可运行复现代码。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://openaccess.thecvf.com/content/CVPR2025/html/Jiang_ECVC_Exploiting_Non-Local_Correlations_in_Multiple_Frames_for_Contextual_Video_CVPR_2025_paper.html",
+      "sourceUrl": "https://openaccess.thecvf.com/content/CVPR2025/html/Jiang_ECVC_Exploiting_Non-Local_Correlations_in_Multiple_Frames_for_Contextual_Video_CVPR_2025_paper.html",
+      "codeUrl": "https://github.com/JiangWeibeta/ECVC",
+      "notes": [
+        {
+          "label": "ECVC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "56aaef73685e51e038e2d04d7e872cab82026bceaed2cc674ef0d97b6ceffdec",
+      "pages": 11,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要与引言、p2引言直到2. Related Works之前，含图1的局部/非局部相关解释；未读后续实验。首页视觉核对。"
+    },
+    {
+      "id": "CAI_LVC",
+      "title": "Content-Adaptive Inference for State-of-the-art Learned Video Compression",
+      "authors": [
+        "Ahmet Bilican",
+        "M. Akın Yılmaz",
+        "A. Murat Tekalp"
+      ],
+      "year": 2025,
+      "venue": "IEEE Open Journal of Signal Processing, vol. 6, pp. 498-506",
+      "version": "arXiv:2510.07283v2, 10 October 2025; arXiv journal reference DOI 10.1109/OJSP.2025.3564817",
+      "fields": [
+        "02",
+        "06",
+        "15"
+      ],
+      "tags": [
+        "表示与参考",
+        "编码端搜索",
+        "内容与数据"
+      ],
+      "summary": "作者把大运动序列上的退化解释为训练与测试运动幅值分布不一致，通过推理时自适应帧下采样改善光流估计，并用运动向量缩放改善流编码；不需要微调模型参数。引言特别强调逐视频观察可能揭示平均RD掩盖的失效。",
+      "question": "运动尺度归一化在不同分辨率、快速运动和遮挡下何时获益？针对没有显式光流流的DCVC-RT，哪些原则可迁移、哪些模块不可照搬？",
+      "caveat": "作者“up to 41%”是单视频最大收益，不是总体平均；本轮仅初筛，未核最优尺度选择开销、解码同步与多率控制。不能把流缩放与源视频降低分辨率混为一谈。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2510.07283v2",
+      "sourceUrl": "https://arxiv.org/abs/2510.07283v2",
+      "codeUrl": "https://github.com/KUIS-AI-Tekalp-Research-Group/video-compression/tree/master/OJSP2025",
+      "notes": [
+        {
+          "label": "CAI_LVC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域06分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html"
+        },
+        {
+          "label": "领域15分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "8d51ef868fdc70cc7675e8a908f5138bc4dc1620b8a9e6e00a16ded32f40fb5b",
+      "pages": 9,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要与引言、p2引言尾段及图1说明，到II. Related Work and Novelty之前；p2其余相关工作未计。首页视觉核对。"
+    },
+    {
+      "id": "MOTION_RATE",
+      "title": "Content-Adaptive Motion Rate Adaption for Learned Video Compression",
+      "authors": [
+        "Chih-Hsuan Lin",
+        "Yi-Hsin Chen",
+        "Wen-Hsiao Peng"
+      ],
+      "year": 2022,
+      "venue": "Picture Coding Symposium (PCS) 2022",
+      "version": "Author arXiv:2302.06293v1, 13 February 2023; author page and arXiv say accepted PCS 2022",
+      "fields": [
+        "06",
+        "11",
+        "15"
+      ],
+      "tags": [
+        "编码端搜索",
+        "码率控制",
+        "内容与数据"
+      ],
+      "summary": "作者用块级alpha图控制运动编码与帧内容编码的比特权衡，并在测试时优化图而不是直接更新整个模型；引入look-ahead，使当前帧决策考虑后续帧代价。动机是训练/测试域差导致特定序列编码次优。",
+      "question": "局部比特分配改善来自当前运动编码还是后续参考质量？与只优化当前帧相比，look-ahead的RD收益、编码耗时和延迟如何交换？",
+      "caveat": "该工作基于CANF条件编码，与RT架构不同；没有本地复现。alpha图同步/隐式信令及优化迭代成本需读方法和实验后核对，不应默认零额外码率或实时。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1
+      ],
+      "localPdf": "https://arxiv.org/abs/2302.06293v1",
+      "sourceUrl": "https://arxiv.org/abs/2302.06293v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "MOTION_RATE（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域06分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html"
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域15分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "4ad98891b71a04e677d409acb2f824670768e3f9a5ee22130a329306f6cda359",
+      "pages": 5,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要和完整引言，截止II. RELATED WORK之前；p2虽抽取输出但本卡不把方法段列为精读证据。首页视觉核对。"
+    },
+    {
+      "id": "LSVC_LTR",
+      "title": "Exploring Learned Surveillance Video Coding with Long-Term Reference and Adaptive Long–Short Modeling",
+      "authors": [
+        "Yuansheng Wu",
+        "Liangchao Hu",
+        "Xiaodan Song"
+      ],
+      "year": 2026,
+      "venue": "Sensors 2026, 26(8), 2461",
+      "version": "Publisher PDF; published 16 April 2026, publisher version notes list updated record 17 April 2026",
+      "fields": [
+        "02",
+        "04",
+        "15"
+      ],
+      "tags": [
+        "表示与参考",
+        "参考失效",
+        "内容与数据"
+      ],
+      "summary": "作者针对静态背景、重复内容与周期运动的监控场景，在EEM-4.1中加入长期参考。长期参考质量更高不自动等于总成本更低，因此同时学习长短参考的软选择、上下文融合与历史运动引导。",
+      "question": "长期参考的额外运动开销何时超过重复背景收益？场景切换后应何时废弃长期参考，参考增强与刷新间隔应怎样联动？",
+      "caveat": "EEM源代码需授权，不能把论文链接当无条件可复现；本文自己说明RD尚不及DCVC-FM，不能只摘相对较弱基线的收益称SOTA。本轮未验证22页中的实验、复杂度及授权资源。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://www.mdpi.com/1424-8220/26/8/2461",
+      "sourceUrl": "https://www.mdpi.com/1424-8220/26/8/2461",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "LSVC_LTR（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域15分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "df1f45c8d506c42f16d442ab3c6ce582500d6e3fe3958426e911a388fc3b55dc",
+      "pages": 22,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要/引言，p2完整引言续文，p3仅引言尾部和贡献直到2. Related Work之前；首页视觉核对作者、刊名与日期。"
+    },
+    {
+      "id": "PROJECTION360",
+      "title": "Projection-Aware End-to-End Learned Video Compression for 360-Degree Video",
+      "authors": [
+        "Niloofar Maani"
+      ],
+      "year": 2023,
+      "venue": "Thesis manuscript; archived as arXiv preprint in 2026, no conference acceptance verified",
+      "version": "Cover dated April 2023; arXiv:2608.28689v2 watermark dated 4 September 2026. year uses document date, not archive date.",
+      "fields": [
+        "09",
+        "15"
+      ],
+      "tags": [
+        "评价方法",
+        "内容与数据"
+      ],
+      "summary": "学位论文以SSF为编码器比较360投影，把源投影转换、编解码和逆投影组成统一评估流程，并采用JVET 360测试条件和360Lib指标。引言说明投影改变采样与运动形态；可微重投影层并不含可学习参数。",
+      "question": "同一球面内容换投影后，码率差源于采样密度、光流估计还是重投影误差？平面PSNR与球面加权PSNR会不会给出相反排序？",
+      "caveat": "封面2023与归档2026分开保留，不宣称2026新方法；原文摘要有H.264/HEVC措辞错误，卡片不沿用该混称。没有读取结果表，不采纳搜索摘要中的最优投影排名为验证结论。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        11,
+        17,
+        18,
+        19
+      ],
+      "localPdf": "https://arxiv.org/abs/2608.28689v2",
+      "sourceUrl": "https://arxiv.org/abs/2608.28689v2",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "PROJECTION360（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域09分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html"
+        },
+        {
+          "label": "领域15分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/15_%E5%86%85%E5%AE%B9%E5%9F%9F%E8%BF%81%E7%A7%BB_HDR%E5%B1%8F%E5%B9%95%E4%B8%8E%E5%85%A8%E6%99%AF.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "0d57c4eace58adee189f806d4ff801ef10ba952205c6da65051ab0f5f2f59ae6",
+      "pages": 85,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1封面核验；p11英文摘要（印刷页V）；p17-19完整Chapter 1 Introduction（印刷页1-3）。p20为空白，不计。85页全文未精读，结果章节未读。"
     }
   ],
   "paths": [

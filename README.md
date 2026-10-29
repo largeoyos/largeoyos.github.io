@@ -3,7 +3,7 @@
 LarGeoYos 的个人静态网站与知识库，集中收录博客、系统化学习笔记、网页游戏、在线工具、全球行情观察和量化学习实验。
 
 - 在线访问：[https://largeoyos.github.io](https://largeoyos.github.io)
-- 当前版本：`v4.33.2`
+- 当前版本：`v4.33.3`
 - 部署平台：GitHub Pages + Vercel
 
 ## 主要内容

@@ -1,7 +1,7 @@
 window.LITERATURE_DATA = {
   "meta": {
     "title": "神经视频编码 · 文献档案",
-    "updated": "2026-10-28T13:09:31.320998+00:00",
+    "updated": "2026-10-29T04:24:57.035302+00:00",
     "total": 138,
     "newCount": 0,
     "fields": [
@@ -9085,7 +9085,7 @@ window.LITERATURE_DATA = {
       ],
       "summary": "按论文的直接round量化与独立逐帧变换，在固定q且正确熵往返条件下断开重建反馈；历史仍通过运动、双域对齐和Gaussian概率参数影响码长与解码同步。",
       "question": "源码是否严格保持与历史无关的量化符号及逆调制输入？匹配双端历史替换与单端状态损坏会分别改变码长、潜变量和像素中的哪些量？",
-      "caveat": "在审v1；无源码/模型复现。图8仅ShakeDry96帧/GOP32；无传播不代表抗丢包。表V参数44.6M与正文46.9M不一致，均保留。共同锚点BD-rate差不当独立pairwise收益。",
+      "caveat": "在审v1；无源码/模型复现。图8仅ShakeDry96帧/GOP32；无传播不代表抗丢包。表V参数44.6M与正文46.9M不一致，均保留。共同锚点BD-rate差不当独立pairwise收益。 2026-10-29有界入口检查尚未核实作者完整实现，四项源码合同未闭合；不代表全网无代码。",
       "readingLevel": "selected",
       "readingLabel": "方法／实验选读",
       "readPages": [
@@ -9140,6 +9140,14 @@ window.LITERATURE_DATA = {
         },
         {
           "label": "author_measurements（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "作者实现入口核查（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "四项源码合同状态（本地记录未公开）",
           "url": ""
         }
       ],

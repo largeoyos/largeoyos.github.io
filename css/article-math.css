@@ -1,0 +1,14 @@
+/* Contain article mathematics and tables; keep the established reading theme. */
+.markdown-body table { display: block; max-width: 100%; overflow-x: auto; }
+.markdown-body p, .markdown-body li { overflow-wrap: anywhere; }
+.markdown-body .math,
+.markdown-body .collection-math-inline,
+.markdown-body .collection-math-display { position: relative; max-width: 100%; }
+.markdown-body .math.display,
+.markdown-body .collection-math-display { display: block; overflow-x: auto; overflow-y: hidden; padding-block: .35em; }
+.markdown-body .math:not(.display),
+.markdown-body .collection-math-inline { display: inline-block; overflow-x: auto; overflow-y: hidden; vertical-align: -.15em; }
+.markdown-body .katex { font-size: 1.04em; }
+.markdown-body .katex-display { margin: .6em 0; }
+.markdown-body .katex-display > .katex { white-space: nowrap; }
+.markdown-body .katex .katex-mathml { white-space: nowrap; }

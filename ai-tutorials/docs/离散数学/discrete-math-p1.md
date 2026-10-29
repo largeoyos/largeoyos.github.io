@@ -975,7 +975,7 @@ a(b+c) = ab + ac
 
 我们一步步来，**每一步标明用了哪条规则**（养成好习惯，做证明题时老师看的就是这个）：
 
-$$\begin{aligned} \neg(P \lor (\neg P \land Q)) &\Leftrightarrow \neg P \land \neg(\neg P \land Q) \quad \text{（德摩根律）} \ &\Leftrightarrow \neg P \land (\neg\neg P \lor \neg Q) \quad \text{（德摩根律）} \ &\Leftrightarrow \neg P \land (P \lor \neg Q) \quad \text{（双重否定）} \ &\Leftrightarrow (\neg P \land P) \lor (\neg P \land \neg Q) \quad \text{（分配律）} \ &\Leftrightarrow F \lor (\neg P \land \neg Q) \quad \text{（矛盾律）} \ &\Leftrightarrow \neg P \land \neg Q \quad \text{（同一律，F ∨ A ⇔ A）} \end{aligned}$$
+$$\begin{aligned} \neg(P \lor (\neg P \land Q)) &\Leftrightarrow \neg P \land \neg(\neg P \land Q) \quad \text{（德摩根律）} \\ &\Leftrightarrow \neg P \land (\neg\neg P \lor \neg Q) \quad \text{（德摩根律）} \\ &\Leftrightarrow \neg P \land (P \lor \neg Q) \quad \text{（双重否定）} \\ &\Leftrightarrow (\neg P \land P) \lor (\neg P \land \neg Q) \quad \text{（分配律）} \\ &\Leftrightarrow F \lor (\neg P \land \neg Q) \quad \text{（矛盾律）} \\ &\Leftrightarrow \neg P \land \neg Q \quad \text{（同一律，F ∨ A ⇔ A）} \end{aligned}$$
 
 **化简结果**：¬P ∧ ¬Q。
 
@@ -996,7 +996,7 @@ $$\begin{aligned} \neg(P \lor (\neg P \land Q)) &\Leftrightarrow \neg P \land \n
 
 这是个有用的等价式："P 同时推出 Q 和 R" 就是 "P 推出 Q 且 R"。
 
-$$\begin{aligned} (P \to Q) \land (P \to R) &\Leftrightarrow (\neg P \lor Q) \land (\neg P \lor R) \quad \text{（蕴含等值）} \ &\Leftrightarrow \neg P \lor (Q \land R) \quad \text{（分配律，反向）} \ &\Leftrightarrow P \to (Q \land R) \quad \text{（蕴含等值，反向）} \end{aligned}$$
+$$\begin{aligned} (P \to Q) \land (P \to R) &\Leftrightarrow (\neg P \lor Q) \land (\neg P \lor R) \quad \text{（蕴含等值）} \\ &\Leftrightarrow \neg P \lor (Q \land R) \quad \text{（分配律，反向）} \\ &\Leftrightarrow P \to (Q \land R) \quad \text{（蕴含等值，反向）} \end{aligned}$$
 
 **只用了三步**！这比列 8 行真值表快多了。
 
@@ -1004,7 +1004,7 @@ $$\begin{aligned} (P \to Q) \land (P \to R) &\Leftrightarrow (\neg P \lor Q) \la
 
 **证明**：((P → Q) ∧ P) → Q 是重言式。
 
-$$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \land P) \lor Q \quad \text{（蕴含等值）} \ &\Leftrightarrow \neg(P \to Q) \lor \neg P \lor Q \quad \text{（德摩根）} \ &\Leftrightarrow \neg(\neg P \lor Q) \lor \neg P \lor Q \quad \text{（蕴含等值）} \ &\Leftrightarrow (P \land \neg Q) \lor \neg P \lor Q \quad \text{（德摩根 + 双重否定）} \ &\Leftrightarrow (P \land \neg Q) \lor (\neg P \lor Q) \quad \text{（结合律）} \end{aligned}$$
+$$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \land P) \lor Q \quad \text{（蕴含等值）} \\ &\Leftrightarrow \neg(P \to Q) \lor \neg P \lor Q \quad \text{（德摩根）} \\ &\Leftrightarrow \neg(\neg P \lor Q) \lor \neg P \lor Q \quad \text{（蕴含等值）} \\ &\Leftrightarrow (P \land \neg Q) \lor \neg P \lor Q \quad \text{（德摩根 + 双重否定）} \\ &\Leftrightarrow (P \land \neg Q) \lor (\neg P \lor Q) \quad \text{（结合律）} \end{aligned}$$
 
 观察：¬P ∨ Q 就是 P → Q。而 P ∧ ¬Q 就是 ¬(P → Q)。所以整个式子变成：
 
@@ -1266,7 +1266,7 @@ $(P \to Q) \lor R \Leftrightarrow (\neg P \lor Q) \lor R$
 
 **化简**：(P ∨ Q) → R 为 DNF。
 
-$$\begin{aligned} (P \lor Q) \to R &\Leftrightarrow \neg(P \lor Q) \lor R \quad \text{（消除 →）} \ &\Leftrightarrow (\neg P \land \neg Q) \lor R \quad \text{（德摩根）} \end{aligned}$$
+$$\begin{aligned} (P \lor Q) \to R &\Leftrightarrow \neg(P \lor Q) \lor R \quad \text{（消除 →）} \\ &\Leftrightarrow (\neg P \land \neg Q) \lor R \quad \text{（德摩根）} \end{aligned}$$
 
 **这已经是 DNF 了**：两个简单合取 (¬P ∧ ¬Q) 和 R（单个文字也是简单合取）用 ∨ 连接。
 
@@ -1290,13 +1290,13 @@ $$\begin{aligned} (\neg P \land \neg Q) \lor R &\Leftrightarrow (\neg P \lor R) 
 
 **化 P ↔ Q 为 DNF 和 CNF**。
 
-$$\begin{aligned} P \leftrightarrow Q &\Leftrightarrow (P \to Q) \land (Q \to P) \ &\Leftrightarrow (\neg P \lor Q) \land (\neg Q \lor P) \end{aligned}$$
+$$\begin{aligned} P \leftrightarrow Q &\Leftrightarrow (P \to Q) \land (Q \to P) \\ &\Leftrightarrow (\neg P \lor Q) \land (\neg Q \lor P) \end{aligned}$$
 
 **这已经是 CNF 了**（两个简单析取的 ∧）。✅
 
 要得 DNF，继续展开（∧ 对 ∨ 分配）：
 
-$$\begin{aligned} (\neg P \lor Q) \land (\neg Q \lor P) &\Leftrightarrow (\neg P \land \neg Q) \lor (\neg P \land P) \lor (Q \land \neg Q) \lor (Q \land P) \ &\Leftrightarrow (\neg P \land \neg Q) \lor F \lor F \lor (P \land Q) \quad \text{（矛盾律）} \ &\Leftrightarrow (\neg P \land \neg Q) \lor (P \land Q) \quad \text{（同一律）} \end{aligned}$$
+$$\begin{aligned} (\neg P \lor Q) \land (\neg Q \lor P) &\Leftrightarrow (\neg P \land \neg Q) \lor (\neg P \land P) \lor (Q \land \neg Q) \lor (Q \land P) \\ &\Leftrightarrow (\neg P \land \neg Q) \lor F \lor F \lor (P \land Q) \quad \text{（矛盾律）} \\ &\Leftrightarrow (\neg P \land \neg Q) \lor (P \land Q) \quad \text{（同一律）} \end{aligned}$$
 
 **DNF**：(P ∧ Q) ∨ (¬P ∧ ¬Q)。
 

@@ -490,7 +490,7 @@ A−B=A∩B‾A−B=A∩BA−B=A−(A∩B)A−B=A−(A∩B)A−B‾=A‾∪BA−
 
 **证**：A−(B∪C)=(A−B)∩(A−C)A−(B∪C)=(A−B)∩(A−C)
 
-$$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（差的定义）} \ &= A \cap (\overline{B} \cap \overline{C}) \quad \text{（德摩根）} \ &= (A \cap \overline{B}) \cap (A \cap \overline{C}) \quad \text{（幂等 + 结合 + 交换）} \ &= (A - B) \cap (A - C) \quad \text{（差的定义）} \end{aligned}$$
+$$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（差的定义）} \\ &= A \cap (\overline{B} \cap \overline{C}) \quad \text{（德摩根）} \\ &= (A \cap \overline{B}) \cap (A \cap \overline{C}) \quad \text{（幂等 + 结合 + 交换）} \\ &= (A - B) \cap (A - C) \quad \text{（差的定义）} \end{aligned}$$
 
 ∎
 
@@ -2607,7 +2607,7 @@ f(n)={n/2n 偶−(n+1)/2n 奇f(n)={n/2−(n+1)/2​n 偶n 奇​
 
 把每个 ri 写成无限小数：
 
-$$\begin{aligned} r_1 &= 0.\mathbf{a_{11}} a_{12} a_{13} a_{14} \ldots \ r_2 &= 0.a_{21} \mathbf{a_{22}} a_{23} a_{24} \ldots \ r_3 &= 0.a_{31} a_{32} \mathbf{a_{33}} a_{34} \ldots \ r_4 &= 0.a_{41} a_{42} a_{43} \mathbf{a_{44}} \ldots \ &\vdots \end{aligned}$$
+$$\begin{aligned} r_1 &= 0.\mathbf{a_{11}} a_{12} a_{13} a_{14} \ldots \\ r_2 &= 0.a_{21} \mathbf{a_{22}} a_{23} a_{24} \ldots \\ r_3 &= 0.a_{31} a_{32} \mathbf{a_{33}} a_{34} \ldots \\ r_4 &= 0.a_{41} a_{42} a_{43} \mathbf{a_{44}} \ldots \\ &\vdots \end{aligned}$$
 
 **构造**一个新数r=0.b1b2b3b4…，其中：
 

@@ -245,7 +245,7 @@ $\neg \forall x \, (S(x) \to P(x))$
 
 一步步化简：
 
-$$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , \neg(S(x) \to P(x)) \quad \text{（量词否定）} \ &\Leftrightarrow \exists x , \neg(\neg S(x) \lor P(x)) \quad \text{（蕴含等值）} \ &\Leftrightarrow \exists x , (S(x) \land \neg P(x)) \quad \text{（德摩根 + 双重否定）} \end{aligned}$$
+$$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , \neg(S(x) \to P(x)) \quad \text{（量词否定）} \\ &\Leftrightarrow \exists x , \neg(\neg S(x) \lor P(x)) \quad \text{（蕴含等值）} \\ &\Leftrightarrow \exists x , (S(x) \land \neg P(x)) \quad \text{（德摩根 + 双重否定）} \end{aligned}$$
 
 **结果**：$\exists x \, (S(x) \land \neg P(x))$，即“**存在一个学生没及格**”。
 

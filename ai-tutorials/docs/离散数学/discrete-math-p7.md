@@ -103,7 +103,7 @@ N 不被任何 pi 整除（除以 pi 余 1）。所以 N 的质因子不�
 
 **例**：gcd(252,105)
 
-$$\begin{aligned} 252 &= 2 \cdot 105 + 42 \ 105 &= 2 \cdot 42 + 21 \ 42 &= 2 \cdot 21 + 0 \end{aligned}$$
+$$\begin{aligned} 252 &= 2 \cdot 105 + 42 \\ 105 &= 2 \cdot 42 + 21 \\ 42 &= 2 \cdot 21 + 0 \end{aligned}$$
 
 最后非零余数 = **21**。所以gcd(252,105)=21。
 
@@ -111,7 +111,7 @@ $$\begin{aligned} 252 &= 2 \cdot 105 + 42 \ 105 &= 2 \cdot 42 + 21 \ 42 &= 2 \cd
 
 ---
 
-$$\begin{aligned} 1071 &= 2 \cdot 462 + 147 \ 462 &= 3 \cdot 147 + 21 \ 147 &= 7 \cdot 21 + 0 \end{aligned}$$
+$$\begin{aligned} 1071 &= 2 \cdot 462 + 147 \\ 462 &= 3 \cdot 147 + 21 \\ 147 &= 7 \cdot 21 + 0 \end{aligned}$$
 
 gcd=21。
 
@@ -182,7 +182,7 @@ gcd=21。
 
 gcd(15,7)：
 
-$$\begin{aligned} 15 &= 2 \cdot 7 + 1 \ 7 &= 7 \cdot 1 + 0 \end{aligned}$$
+$$\begin{aligned} 15 &= 2 \cdot 7 + 1 \\ 7 &= 7 \cdot 1 + 0 \end{aligned}$$
 
 gcd=1✅，逆元存在。
 

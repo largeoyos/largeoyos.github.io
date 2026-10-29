@@ -975,7 +975,7 @@ a(b+c) = ab + ac
 
 我们一步步来，**每一步标明用了哪条规则**（养成好习惯，做证明题时老师看的就是这个）：
 
-$$\begin{aligned} \neg(P \lor (\neg P \land Q)) &\Leftrightarrow \neg P \land \neg(\neg P \land Q) \quad \text{（德摩根律）} \ &\Leftrightarrow \neg P \land (\neg\neg P \lor \neg Q) \quad \text{（德摩根律）} \ &\Leftrightarrow \neg P \land (P \lor \neg Q) \quad \text{（双重否定）} \ &\Leftrightarrow (\neg P \land P) \lor (\neg P \land \neg Q) \quad \text{（分配律）} \ &\Leftrightarrow F \lor (\neg P \land \neg Q) \quad \text{（矛盾律）} \ &\Leftrightarrow \neg P \land \neg Q \quad \text{（同一律，F ∨ A ⇔ A）} \end{aligned}$$
+$$\begin{aligned} \neg(P \lor (\neg P \land Q)) &\Leftrightarrow \neg P \land \neg(\neg P \land Q) \quad \text{（德摩根律）} \\ &\Leftrightarrow \neg P \land (\neg\neg P \lor \neg Q) \quad \text{（德摩根律）} \\ &\Leftrightarrow \neg P \land (P \lor \neg Q) \quad \text{（双重否定）} \\ &\Leftrightarrow (\neg P \land P) \lor (\neg P \land \neg Q) \quad \text{（分配律）} \\ &\Leftrightarrow F \lor (\neg P \land \neg Q) \quad \text{（矛盾律）} \\ &\Leftrightarrow \neg P \land \neg Q \quad \text{（同一律，F ∨ A ⇔ A）} \end{aligned}$$
 
 **化简结果**：¬P ∧ ¬Q。
 
@@ -996,7 +996,7 @@ $$\begin{aligned} \neg(P \lor (\neg P \land Q)) &\Leftrightarrow \neg P \land \n
 
 这是个有用的等价式："P 同时推出 Q 和 R" 就是 "P 推出 Q 且 R"。
 
-$$\begin{aligned} (P \to Q) \land (P \to R) &\Leftrightarrow (\neg P \lor Q) \land (\neg P \lor R) \quad \text{（蕴含等值）} \ &\Leftrightarrow \neg P \lor (Q \land R) \quad \text{（分配律，反向）} \ &\Leftrightarrow P \to (Q \land R) \quad \text{（蕴含等值，反向）} \end{aligned}$$
+$$\begin{aligned} (P \to Q) \land (P \to R) &\Leftrightarrow (\neg P \lor Q) \land (\neg P \lor R) \quad \text{（蕴含等值）} \\ &\Leftrightarrow \neg P \lor (Q \land R) \quad \text{（分配律，反向）} \\ &\Leftrightarrow P \to (Q \land R) \quad \text{（蕴含等值，反向）} \end{aligned}$$
 
 **只用了三步**！这比列 8 行真值表快多了。
 
@@ -1004,7 +1004,7 @@ $$\begin{aligned} (P \to Q) \land (P \to R) &\Leftrightarrow (\neg P \lor Q) \la
 
 **证明**：((P → Q) ∧ P) → Q 是重言式。
 
-$$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \land P) \lor Q \quad \text{（蕴含等值）} \ &\Leftrightarrow \neg(P \to Q) \lor \neg P \lor Q \quad \text{（德摩根）} \ &\Leftrightarrow \neg(\neg P \lor Q) \lor \neg P \lor Q \quad \text{（蕴含等值）} \ &\Leftrightarrow (P \land \neg Q) \lor \neg P \lor Q \quad \text{（德摩根 + 双重否定）} \ &\Leftrightarrow (P \land \neg Q) \lor (\neg P \lor Q) \quad \text{（结合律）} \end{aligned}$$
+$$\begin{aligned} ((P \to Q) \land P) \to Q &\Leftrightarrow \neg((P \to Q) \land P) \lor Q \quad \text{（蕴含等值）} \\ &\Leftrightarrow \neg(P \to Q) \lor \neg P \lor Q \quad \text{（德摩根）} \\ &\Leftrightarrow \neg(\neg P \lor Q) \lor \neg P \lor Q \quad \text{（蕴含等值）} \\ &\Leftrightarrow (P \land \neg Q) \lor \neg P \lor Q \quad \text{（德摩根 + 双重否定）} \\ &\Leftrightarrow (P \land \neg Q) \lor (\neg P \lor Q) \quad \text{（结合律）} \end{aligned}$$
 
 观察：¬P ∨ Q 就是 P → Q。而 P ∧ ¬Q 就是 ¬(P → Q)。所以整个式子变成：
 
@@ -1266,7 +1266,7 @@ $(P \to Q) \lor R \Leftrightarrow (\neg P \lor Q) \lor R$
 
 **化简**：(P ∨ Q) → R 为 DNF。
 
-$$\begin{aligned} (P \lor Q) \to R &\Leftrightarrow \neg(P \lor Q) \lor R \quad \text{（消除 →）} \ &\Leftrightarrow (\neg P \land \neg Q) \lor R \quad \text{（德摩根）} \end{aligned}$$
+$$\begin{aligned} (P \lor Q) \to R &\Leftrightarrow \neg(P \lor Q) \lor R \quad \text{（消除 →）} \\ &\Leftrightarrow (\neg P \land \neg Q) \lor R \quad \text{（德摩根）} \end{aligned}$$
 
 **这已经是 DNF 了**：两个简单合取 (¬P ∧ ¬Q) 和 R（单个文字也是简单合取）用 ∨ 连接。
 
@@ -1290,13 +1290,13 @@ $$\begin{aligned} (\neg P \land \neg Q) \lor R &\Leftrightarrow (\neg P \lor R) 
 
 **化 P ↔ Q 为 DNF 和 CNF**。
 
-$$\begin{aligned} P \leftrightarrow Q &\Leftrightarrow (P \to Q) \land (Q \to P) \ &\Leftrightarrow (\neg P \lor Q) \land (\neg Q \lor P) \end{aligned}$$
+$$\begin{aligned} P \leftrightarrow Q &\Leftrightarrow (P \to Q) \land (Q \to P) \\ &\Leftrightarrow (\neg P \lor Q) \land (\neg Q \lor P) \end{aligned}$$
 
 **这已经是 CNF 了**（两个简单析取的 ∧）。✅
 
 要得 DNF，继续展开（∧ 对 ∨ 分配）：
 
-$$\begin{aligned} (\neg P \lor Q) \land (\neg Q \lor P) &\Leftrightarrow (\neg P \land \neg Q) \lor (\neg P \land P) \lor (Q \land \neg Q) \lor (Q \land P) \ &\Leftrightarrow (\neg P \land \neg Q) \lor F \lor F \lor (P \land Q) \quad \text{（矛盾律）} \ &\Leftrightarrow (\neg P \land \neg Q) \lor (P \land Q) \quad \text{（同一律）} \end{aligned}$$
+$$\begin{aligned} (\neg P \lor Q) \land (\neg Q \lor P) &\Leftrightarrow (\neg P \land \neg Q) \lor (\neg P \land P) \lor (Q \land \neg Q) \lor (Q \land P) \\ &\Leftrightarrow (\neg P \land \neg Q) \lor F \lor F \lor (P \land Q) \quad \text{（矛盾律）} \\ &\Leftrightarrow (\neg P \land \neg Q) \lor (P \land Q) \quad \text{（同一律）} \end{aligned}$$
 
 **DNF**：(P ∧ Q) ∨ (¬P ∧ ¬Q)。
 
@@ -2267,7 +2267,7 @@ $\neg \forall x \, (S(x) \to P(x))$
 
 一步步化简：
 
-$$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , \neg(S(x) \to P(x)) \quad \text{（量词否定）} \ &\Leftrightarrow \exists x , \neg(\neg S(x) \lor P(x)) \quad \text{（蕴含等值）} \ &\Leftrightarrow \exists x , (S(x) \land \neg P(x)) \quad \text{（德摩根 + 双重否定）} \end{aligned}$$
+$$\begin{aligned} \neg \forall x , (S(x) \to P(x)) &\Leftrightarrow \exists x , \neg(S(x) \to P(x)) \quad \text{（量词否定）} \\ &\Leftrightarrow \exists x , \neg(\neg S(x) \lor P(x)) \quad \text{（蕴含等值）} \\ &\Leftrightarrow \exists x , (S(x) \land \neg P(x)) \quad \text{（德摩根 + 双重否定）} \end{aligned}$$
 
 **结果**：$\exists x \, (S(x) \land \neg P(x))$，即“**存在一个学生没及格**”。
 
@@ -3019,7 +3019,7 @@ A−B=A∩B‾A−B=A∩BA−B=A−(A∩B)A−B=A−(A∩B)A−B‾=A‾∪BA−
 
 **证**：A−(B∪C)=(A−B)∩(A−C)A−(B∪C)=(A−B)∩(A−C)
 
-$$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（差的定义）} \ &= A \cap (\overline{B} \cap \overline{C}) \quad \text{（德摩根）} \ &= (A \cap \overline{B}) \cap (A \cap \overline{C}) \quad \text{（幂等 + 结合 + 交换）} \ &= (A - B) \cap (A - C) \quad \text{（差的定义）} \end{aligned}$$
+$$\begin{aligned} A - (B \cup C) &= A \cap \overline{B \cup C} \quad \text{（差的定义）} \\ &= A \cap (\overline{B} \cap \overline{C}) \quad \text{（德摩根）} \\ &= (A \cap \overline{B}) \cap (A \cap \overline{C}) \quad \text{（幂等 + 结合 + 交换）} \\ &= (A - B) \cap (A - C) \quad \text{（差的定义）} \end{aligned}$$
 
 ∎
 
@@ -5136,7 +5136,7 @@ f(n)={n/2n 偶−(n+1)/2n 奇f(n)={n/2−(n+1)/2​n 偶n 奇​
 
 把每个 ri 写成无限小数：
 
-$$\begin{aligned} r_1 &= 0.\mathbf{a_{11}} a_{12} a_{13} a_{14} \ldots \ r_2 &= 0.a_{21} \mathbf{a_{22}} a_{23} a_{24} \ldots \ r_3 &= 0.a_{31} a_{32} \mathbf{a_{33}} a_{34} \ldots \ r_4 &= 0.a_{41} a_{42} a_{43} \mathbf{a_{44}} \ldots \ &\vdots \end{aligned}$$
+$$\begin{aligned} r_1 &= 0.\mathbf{a_{11}} a_{12} a_{13} a_{14} \ldots \\ r_2 &= 0.a_{21} \mathbf{a_{22}} a_{23} a_{24} \ldots \\ r_3 &= 0.a_{31} a_{32} \mathbf{a_{33}} a_{34} \ldots \\ r_4 &= 0.a_{41} a_{42} a_{43} \mathbf{a_{44}} \ldots \\ &\vdots \end{aligned}$$
 
 **构造**一个新数r=0.b1b2b3b4…，其中：
 
@@ -5362,7 +5362,7 @@ ADC（模数转换器）把连续信号 R 量化到 n 位整数集合{0,1,...,
 
 **(归纳)** 假设 P(k) 成立，即 1+2+⋯+k=k(k+1)21+2+⋯+k=2k(k+1)（**归纳假设**）。证 P(k+1)：
 
-$$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]}_{\text{用 IH}} + (k+1) \ &= \frac{k(k+1)}{2} + (k+1) \ &= (k+1) \cdot \left[\frac{k}{2} + 1\right] \ &= (k+1) \cdot \frac{k+2}{2} \ &= \frac{(k+1)(k+2)}{2} \end{aligned}$$
+$$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]}_{\text{用 IH}} + (k+1) \\ &= \frac{k(k+1)}{2} + (k+1) \\ &= (k+1) \cdot \left[\frac{k}{2} + 1\right] \\ &= (k+1) \cdot \frac{k+2}{2} \\ &= \frac{(k+1)(k+2)}{2} \end{aligned}$$
 
 恰好是 P(k+1) 的结论。✅
 
@@ -5380,7 +5380,7 @@ $$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]
 
 **(归纳)** 设 1+r+⋯+rk=rk+1−1r−11+r+⋯+rk=r−1rk+1−1。证n=k+1：
 
-$$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + r^{k+1} \ &= \frac{r^{k+1} - 1 + r^{k+1}(r - 1)}{r - 1} \ &= \frac{r^{k+1} - 1 + r^{k+2} - r^{k+1}}{r - 1} \ &= \frac{r^{k+2} - 1}{r - 1} \end{aligned}$$
+$$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + r^{k+1} \\ &= \frac{r^{k+1} - 1 + r^{k+1}(r - 1)}{r - 1} \\ &= \frac{r^{k+1} - 1 + r^{k+2} - r^{k+1}}{r - 1} \\ &= \frac{r^{k+2} - 1}{r - 1} \end{aligned}$$
 
 ✅ ∎
 
@@ -5396,7 +5396,7 @@ $$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + 
 
 **(归纳)** 设3∣(k3−k)，即k3−k=3m（某 m∈Zm∈Z）。证3∣((k+1)3−(k+1))：
 
-$$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) + 3k^2 + 3k \ &= 3m + 3(k^2 + k) \ &= 3(m + k^2 + k) \end{aligned}$$
+$$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \\ &= (k^3 - k) + 3k^2 + 3k \\ &= 3m + 3(k^2 + k) \\ &= 3(m + k^2 + k) \end{aligned}$$
 
 是 3 的倍数。✅ ∎
 
@@ -6486,7 +6486,7 @@ an=c⋅an−1+f(n),a0 给定an​=c⋅an−1​+f(n),a0​ 给定
 
 求闭式（"展开法"）：
 
-$$\begin{aligned} a_n &= c a_{n-1} + d \ &= c(c a_{n-2} + d) + d = c^2 a_{n-2} + cd + d \ &= c^3 a_{n-3} + c^2 d + cd + d \ &\vdots \ &= c^n a_0 + d(c^{n-1} + c^{n-2} + \cdots + 1) \ &= c^n a_0 + d \cdot \frac{c^n - 1}{c - 1} \quad (c \neq 1) \end{aligned}$$
+$$\begin{aligned} a_n &= c a_{n-1} + d \\ &= c(c a_{n-2} + d) + d = c^2 a_{n-2} + cd + d \\ &= c^3 a_{n-3} + c^2 d + cd + d \\ &\vdots \\ &= c^n a_0 + d(c^{n-1} + c^{n-2} + \cdots + 1) \\ &= c^n a_0 + d \cdot \frac{c^n - 1}{c - 1} \quad (c \neq 1) \end{aligned}$$
 
 **例：汉诺塔** T(n)=2T(n−1)+1T(n)=2T(n−1)+1，T(0)=0。
 
@@ -7194,7 +7194,7 @@ Cn=1n+1(2n)Cn​=n+11​(n2n​)​
 
 #### 3.2 EGF 的关键性质：乘法对应"标号合并"
 
-> **EGF 乘法规则**：若 A^,B^A^,B^ 分别计数大小 n 的两类标号结构，则 A^B^A^B^ 计数"把 n 个标号物分成两堆，分别用 A 结构和 B 结构"的方式。
+> **EGF 乘法规则**：若 $\widehat{A},\widehat{B}$ 分别计数大小 n 的两类标号结构，则 $\widehat{A}\widehat{B}$ 计数"把 n 个标号物分成两堆，分别用 A 结构和 B 结构"的方式。
 >
 > [xn/n!]A^(x)B^(x)=∑k=0n(nk)akbn−k[xn/n!]A^(x)B^(x)=k=0∑n​(kn​)ak​bn−k​
 
@@ -10085,7 +10085,7 @@ N 不被任何 pi 整除（除以 pi 余 1）。所以 N 的质因子不�
 
 **例**：gcd(252,105)
 
-$$\begin{aligned} 252 &= 2 \cdot 105 + 42 \ 105 &= 2 \cdot 42 + 21 \ 42 &= 2 \cdot 21 + 0 \end{aligned}$$
+$$\begin{aligned} 252 &= 2 \cdot 105 + 42 \\ 105 &= 2 \cdot 42 + 21 \\ 42 &= 2 \cdot 21 + 0 \end{aligned}$$
 
 最后非零余数 = **21**。所以gcd(252,105)=21。
 
@@ -10093,7 +10093,7 @@ $$\begin{aligned} 252 &= 2 \cdot 105 + 42 \ 105 &= 2 \cdot 42 + 21 \ 42 &= 2 \cd
 
 ---
 
-$$\begin{aligned} 1071 &= 2 \cdot 462 + 147 \ 462 &= 3 \cdot 147 + 21 \ 147 &= 7 \cdot 21 + 0 \end{aligned}$$
+$$\begin{aligned} 1071 &= 2 \cdot 462 + 147 \\ 462 &= 3 \cdot 147 + 21 \\ 147 &= 7 \cdot 21 + 0 \end{aligned}$$
 
 gcd=21。
 
@@ -10164,7 +10164,7 @@ gcd=21。
 
 gcd(15,7)：
 
-$$\begin{aligned} 15 &= 2 \cdot 7 + 1 \ 7 &= 7 \cdot 1 + 0 \end{aligned}$$
+$$\begin{aligned} 15 &= 2 \cdot 7 + 1 \\ 7 &= 7 \cdot 1 + 0 \end{aligned}$$
 
 gcd=1✅，逆元存在。
 

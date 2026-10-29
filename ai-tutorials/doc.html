@@ -15,11 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-    <!-- Render LaTeX formulas with KaTeX -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
-
     <style>
         .meta-info {
             text-align: center;
@@ -43,6 +38,13 @@
             padding: 0.25rem 0;
         }
     </style>
+
+    <!-- Keep TeX intact before Markdown; render with the collection's local engine. -->
+    <link id="collection-math-css" rel="stylesheet" href="../tutorials/output/tutorial-collection/math/katex.min.css">
+    <link id="collection-math-layout" rel="stylesheet" href="../css/article-math.css">
+    <script defer src="../tutorials/output/tutorial-collection/math/katex.min.js"></script>
+    <script defer src="../tutorials/output/tutorial-collection/math/render.js"></script>
+    <script src="../js/article-math.js"></script>
 </head>
 <body>
 
@@ -76,7 +78,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 4.3.2 · AI 教学阅读页</small></p>
+    <p><small>Version 4.33.2 · AI 教学阅读页</small></p>
 </footer>
 
 <script>
@@ -115,18 +117,8 @@
             const mdText = await mdRes.text();
 
             const contentElement = document.getElementById('content');
-            contentElement.innerHTML = marked.parse(mdText);
-
-            renderMathInElement(contentElement, {
-                delimiters: [
-                    { left: '$$', right: '$$', display: true },
-                    { left: '\\[', right: '\\]', display: true },
-                    { left: '$', right: '$', display: false },
-                    { left: '\\(', right: '\\)', display: false }
-                ],
-                throwOnError: false,
-                strict: 'warn'
-            });
+            contentElement.innerHTML = ArticleMath.parse(mdText);
+            window.CollectionMath?.refresh();
 
             // 添加标题折叠功能
             document.querySelectorAll('#content h1, #content h2, #content h3, #content h4, #content h5, #content h6').forEach(heading => {

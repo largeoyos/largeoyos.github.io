@@ -23,6 +23,13 @@
             margin-bottom: 2rem;
         }
     </style>
+
+    <!-- Keep TeX intact before Markdown; render with the collection's local engine. -->
+    <link id="collection-math-css" rel="stylesheet" href="../tutorials/output/tutorial-collection/math/katex.min.css">
+    <link id="collection-math-layout" rel="stylesheet" href="../css/article-math.css">
+    <script defer src="../tutorials/output/tutorial-collection/math/katex.min.js"></script>
+    <script defer src="../tutorials/output/tutorial-collection/math/render.js"></script>
+    <script src="../js/article-math.js"></script>
 </head>
 <body>
 
@@ -57,7 +64,7 @@
 
 <footer>
     <p>© 2026 Largeoyos · Built with ❤️ and Hosted on GitHub Pages</p>
-    <p><small>Version 4.3.2 · 博客阅读页</small></p>
+    <p><small>Version 4.33.2 · 博客阅读页</small></p>
 </footer>
 
 <script>
@@ -100,9 +107,8 @@
             const mdText = await mdRes.text();
 
             // 3. 用 marked 渲染 HTML (确保正确处理语言类名)
-            document.getElementById('content').innerHTML = marked.parse(mdText, {
-                // 如果需要防止某些标签转义等可自定义 opts
-            });
+            document.getElementById('content').innerHTML = ArticleMath.parse(mdText);
+            window.CollectionMath?.refresh();
 
             // 添加标题折叠功能
             document.querySelectorAll('#content h1, #content h2, #content h3, #content h4, #content h5, #content h6').forEach(heading => {

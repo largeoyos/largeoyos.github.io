@@ -43,7 +43,7 @@
 
 **(归纳)** 假设 P(k) 成立，即 1+2+⋯+k=k(k+1)21+2+⋯+k=2k(k+1)（**归纳假设**）。证 P(k+1)：
 
-$$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]}_{\text{用 IH}} + (k+1) \ &= \frac{k(k+1)}{2} + (k+1) \ &= (k+1) \cdot \left[\frac{k}{2} + 1\right] \ &= (k+1) \cdot \frac{k+2}{2} \ &= \frac{(k+1)(k+2)}{2} \end{aligned}$$
+$$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]}_{\text{用 IH}} + (k+1) \\ &= \frac{k(k+1)}{2} + (k+1) \\ &= (k+1) \cdot \left[\frac{k}{2} + 1\right] \\ &= (k+1) \cdot \frac{k+2}{2} \\ &= \frac{(k+1)(k+2)}{2} \end{aligned}$$
 
 恰好是 P(k+1) 的结论。✅
 
@@ -61,7 +61,7 @@ $$\begin{aligned} 1 + 2 + \cdots + k + (k+1) &= \underbrace{[1 + 2 + \cdots + k]
 
 **(归纳)** 设 1+r+⋯+rk=rk+1−1r−11+r+⋯+rk=r−1rk+1−1。证n=k+1：
 
-$$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + r^{k+1} \ &= \frac{r^{k+1} - 1 + r^{k+1}(r - 1)}{r - 1} \ &= \frac{r^{k+1} - 1 + r^{k+2} - r^{k+1}}{r - 1} \ &= \frac{r^{k+2} - 1}{r - 1} \end{aligned}$$
+$$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + r^{k+1} \\ &= \frac{r^{k+1} - 1 + r^{k+1}(r - 1)}{r - 1} \\ &= \frac{r^{k+1} - 1 + r^{k+2} - r^{k+1}}{r - 1} \\ &= \frac{r^{k+2} - 1}{r - 1} \end{aligned}$$
 
 ✅ ∎
 
@@ -77,7 +77,7 @@ $$\begin{aligned} 1 + r + \cdots + r^k + r^{k+1} &= \frac{r^{k+1} - 1}{r - 1} + 
 
 **(归纳)** 设3∣(k3−k)，即k3−k=3m（某 m∈Zm∈Z）。证3∣((k+1)3−(k+1))：
 
-$$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \ &= (k^3 - k) + 3k^2 + 3k \ &= 3m + 3(k^2 + k) \ &= 3(m + k^2 + k) \end{aligned}$$
+$$\begin{aligned} (k+1)^3 - (k+1) &= k^3 + 3k^2 + 3k + 1 - k - 1 \\ &= (k^3 - k) + 3k^2 + 3k \\ &= 3m + 3(k^2 + k) \\ &= 3(m + k^2 + k) \end{aligned}$$
 
 是 3 的倍数。✅ ∎
 
@@ -1167,7 +1167,7 @@ an=c⋅an−1+f(n),a0 给定an​=c⋅an−1​+f(n),a0​ 给定
 
 求闭式（"展开法"）：
 
-$$\begin{aligned} a_n &= c a_{n-1} + d \ &= c(c a_{n-2} + d) + d = c^2 a_{n-2} + cd + d \ &= c^3 a_{n-3} + c^2 d + cd + d \ &\vdots \ &= c^n a_0 + d(c^{n-1} + c^{n-2} + \cdots + 1) \ &= c^n a_0 + d \cdot \frac{c^n - 1}{c - 1} \quad (c \neq 1) \end{aligned}$$
+$$\begin{aligned} a_n &= c a_{n-1} + d \\ &= c(c a_{n-2} + d) + d = c^2 a_{n-2} + cd + d \\ &= c^3 a_{n-3} + c^2 d + cd + d \\ &\vdots \\ &= c^n a_0 + d(c^{n-1} + c^{n-2} + \cdots + 1) \\ &= c^n a_0 + d \cdot \frac{c^n - 1}{c - 1} \quad (c \neq 1) \end{aligned}$$
 
 **例：汉诺塔** T(n)=2T(n−1)+1T(n)=2T(n−1)+1，T(0)=0。
 
@@ -1875,7 +1875,7 @@ Cn=1n+1(2n)Cn​=n+11​(n2n​)​
 
 #### 3.2 EGF 的关键性质：乘法对应"标号合并"
 
-> **EGF 乘法规则**：若 A^,B^A^,B^ 分别计数大小 n 的两类标号结构，则 A^B^A^B^ 计数"把 n 个标号物分成两堆，分别用 A 结构和 B 结构"的方式。
+> **EGF 乘法规则**：若 $\widehat{A},\widehat{B}$ 分别计数大小 n 的两类标号结构，则 $\widehat{A}\widehat{B}$ 计数"把 n 个标号物分成两堆，分别用 A 结构和 B 结构"的方式。
 >
 > [xn/n!]A^(x)B^(x)=∑k=0n(nk)akbn−k[xn/n!]A^(x)B^(x)=k=0∑n​(kn​)ak​bn−k​
 

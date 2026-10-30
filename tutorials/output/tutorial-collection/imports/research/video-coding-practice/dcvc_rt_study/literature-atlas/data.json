@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "神经视频编码 · 文献档案",
-    "updated": "2026-10-29T04:24:57.035302+00:00",
-    "total": 138,
+    "updated": "2026-10-29T16:26:47.666875+00:00",
+    "total": 152,
     "newCount": 0,
     "fields": [
       {
@@ -143,8 +143,8 @@
     "relationNote": "连线表示本项目整理的阅读路径，不是自动提取的论文引用或作者继承声明。",
     "evidenceNote": "代码审阅、环境预检、离线分析和实际模型实验分别标记；相关实验不等于论文完整复现。 公开版原文入口指向官方来源；本地执行记录与研究计划未公开，相关标签不代表已验证或完成复现。",
     "sourceCatalog": "",
-    "readingUpdateCount": 3,
-    "readingUpdateNote": "参考可靠性三篇方法/实验选读：31完整新页、1部分页、16图表页；0新增论文/PDF/模型。"
+    "readingUpdateCount": 2,
+    "readingUpdateNote": "REPRO_COMP与MULTIGEN升级为方法/实验选读；旧初筛与版本证据保留，0新增论文/模型/RD。"
   },
   "papers": [
     {
@@ -9449,6 +9449,1184 @@
       "relations": [],
       "metadataNote": "作者信息依据本地PDF首页。",
       "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1封面核验；p11英文摘要（印刷页V）；p17-19完整Chapter 1 Introduction（印刷页1-3）。p20为空白，不计。85页全文未精读，结果章节未读。"
+    },
+    {
+      "id": "MULTIGEN",
+      "title": "Improving Multi-generation Robustness of Learned Image Compression",
+      "authors": [
+        "Litian Li",
+        "Zheng Yang",
+        "Ronggang Wang"
+      ],
+      "year": 2022,
+      "venue": "arXiv preprint（本地保存版本）",
+      "version": "arXiv:2210.17039v1, 2022-10-31",
+      "fields": [
+        "01",
+        "10",
+        "09"
+      ],
+      "tags": [
+        "连续再压缩",
+        "量化漂移",
+        "变换可逆性",
+        "量化口径",
+        "熵模型",
+        "训练与量化",
+        "评价方法"
+      ],
+      "summary": "精读固定v1正文后确认：CQ的均值加回可使重建潜变量随均值漂移；SQ的固定格只给条件化稳定性。后续实验标签SQ含STE训练，熵率路径仍使用均匀噪声；RL增加未量化重建损失，CR改变瓶颈通道和参数形状。50代RD以初始原图为失真参考、以当代编码码率为横轴。",
+      "question": "先核实际熵编码与RC接口，再区分同权重测试CQ/SQ、STE训练、RL和CR四种干预；如何逐代分离均值变化、跨格、RC扰动和变换误差，并同时报告首代及第50代RD？",
+      "caveat": "已读9页含2页致谢/参考文献，未获得补充材料、未核作者代码/权重、未运行模型。p4必要性表述非无条件定理；作者<1dB是平均经验主张，不代表逐图保证。主文未写清真实码流bpp、PSNR聚合、RC位深/颜色接口；重复压缩漂移不能解释本地单次FP32 conv_out溢出。",
+      "readingLevel": "selected",
+      "readingLabel": "方法／实验选读",
+      "readPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "localPdf": "https://arxiv.org/abs/2210.17039v1",
+      "sourceUrl": "https://arxiv.org/abs/2210.17039v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "MULTIGEN（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        },
+        {
+          "label": "领域09分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html"
+        }
+      ],
+      "evidence": [
+        {
+          "label": "READING_CARD（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "2210",
+          "url": "https://arxiv.org/abs/2210.17039v1"
+        },
+        {
+          "label": "2210",
+          "url": "https://arxiv.org/pdf/2210.17039v1"
+        },
+        {
+          "label": "read_record（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "experiment_contract（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "all_pages（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_03（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_04（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_05（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_06（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_07（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_08（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "page_09（本地记录未公开）",
+          "url": ""
+        }
+      ],
+      "sha256": "af3bdca6140dfebe1ffeb0f19a50789fc698e1a09a0d341517f01b56aa8423af",
+      "pages": 9,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 PDF首页题名含Multi-gerneration拼写；使用arXiv元数据规范题名。AAAI版权模板不构成此版本正式发表证据。",
+      "readingNote": "页码为本地PDF一基页；本次阅读及图表核验详见记录。 本轮实际通读固定v1全部9页：p1–7正文，p8致谢/参考文献，p9参考文献。上轮p1–3仅初筛，本轮重读并深化；新增涉及页p4–9，其中方法/实验p4–7、参考文献p8–9。视觉核对p3–9，重点式(4)–(9)、图3–8与表1–2。未访问补充材料或作者代码，无模型/训练/真实码流实验。"
+    },
+    {
+      "id": "TFDEFENSE",
+      "title": "A Training-Free Defense Framework for Robust Learned Image Compression",
+      "authors": [
+        "Myungseo Song",
+        "Jinyoung Choi",
+        "Bohyung Han"
+      ],
+      "year": 2024,
+      "venue": "arXiv preprint（本地保存版本）",
+      "version": "arXiv:2401.11902v1, 2024-01-22",
+      "fields": [
+        "09",
+        "10",
+        "06"
+      ],
+      "tags": [
+        "压缩对抗防御",
+        "输入变换",
+        "免训练",
+        "干净样本RD",
+        "评价方法",
+        "训练与量化",
+        "编码端搜索"
+      ],
+      "summary": "作者提出以随机输入变换构成双路压缩的免训练防御，试图在受攻击样本上减轻码率/重建退化，同时保留干净图像的RD表现。引言强调普通预处理会带来内容损失。",
+      "question": "输入变换的额外编解码成本、变换信息开销和自适应攻击是否计入评价？干净图像与受扰图像应如何共同报告RD？",
+      "caveat": "“免训练”不等于零推理成本或任意输入保证。本轮未读完整防御算法与实验结果；随机变换防御不能等同本项目向中灰收缩对比度的干预，更不能替代非有限值定位。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://arxiv.org/abs/2401.11902v1",
+      "sourceUrl": "https://arxiv.org/abs/2401.11902v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "TFDEFENSE（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域09分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        },
+        {
+          "label": "领域06分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "af27018c56707bd85c48af78d1023eb54a434c0d817a464bf99703dbcf4ed19f",
+      "pages": 10,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1完整摘要、p1–2完整Introduction；p2相关工作和前提，p3攻击目标与实验观察描述及防御开头。只筛读p1–3，未读p4–10。首页图1仅作视觉核验，不提取性能排名。"
+    },
+    {
+      "id": "RDATTACK",
+      "title": "On the Adversarial Robustness of Learning-based Image Compression Against Rate-Distortion Attacks",
+      "authors": [
+        "Chenhao Wu",
+        "Qingbo Wu",
+        "Haoran Wei",
+        "Shuai Chen",
+        "Lei Wang",
+        "King Ngi Ngan",
+        "Fanman Meng",
+        "Hongliang Li"
+      ],
+      "year": 2024,
+      "venue": "arXiv preprint（本地保存版本）",
+      "version": "arXiv:2405.07717v2, 2024-07-04",
+      "fields": [
+        "01",
+        "09",
+        "10",
+        "06"
+      ],
+      "tags": [
+        "率失真攻击",
+        "跨码率",
+        "熵模型干预",
+        "逐层放大",
+        "熵模型",
+        "评价方法",
+        "训练与量化",
+        "编码端搜索"
+      ],
+      "summary": "作者将攻击从单独增大码率或失真扩展为RD平面方向，并区分已知码率SRDA和未知码率ARDA。提出熵模型干预与逐层距离放大分析，报告超先验和IGDN在其攻击条件下的脆弱性。",
+      "question": "怎样分离熵参数失配导致的码率增量与变换网络导致的重建损伤？各码率是同一模型的控制变量还是独立训练子模型？",
+      "caveat": "作者对hyperprior/IGDN的归因限定在所测模型、攻击与分析工具下；并非任何超先验都不稳，也不能归因当前第三方q3候选的conv_out溢出。本轮没有读取ECI/LDMR完整推导与消融表，未复现攻击。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://arxiv.org/abs/2405.07717v2",
+      "sourceUrl": "https://arxiv.org/abs/2405.07717v2",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "RDATTACK（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域09分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        },
+        {
+          "label": "领域06分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "6be284b59f5bdfb673e5a0d34a79f240deda3a5ffb3574fe754d9938c431c73a",
+      "pages": 12,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1完整摘要、p1–2完整Introduction；p2–3相关工作、前提与SRDA定义开头。只筛读p1–3，未读p4–12。首页核作者及v2日期，图1仅核RD/分布/重建的联合呈现。"
+    },
+    {
+      "id": "RECONATTACK",
+      "title": "Reconstruction Distortion of Learned Image Compression with Imperceptible Perturbations",
+      "authors": [
+        "Yang Sui",
+        "Zhuohang Li",
+        "Ding Ding",
+        "Xiang Pan",
+        "Xiaozhong Xu",
+        "Shan Liu",
+        "Zhenzhong Chen"
+      ],
+      "year": 2023,
+      "venue": "arXiv preprint（本地保存版本）",
+      "version": "arXiv:2306.01125v1, 2023-06-01",
+      "fields": [
+        "08",
+        "09",
+        "10"
+      ],
+      "tags": [
+        "重建攻击",
+        "DCT频率约束",
+        "可感知性",
+        "白盒评价",
+        "感知生成",
+        "评价方法",
+        "训练与量化"
+      ],
+      "summary": "作者直接攻击LIC重建质量，以Frobenius距离驱动扰动，并加入DCT频率约束以减弱输入扰动的可见性。其目标是让源图看起来变化小而解码图明显受损，评价对象并非分类标签。",
+      "question": "如何同时报告输入扰动的频谱/可见性和输出重建损伤？DCT掩码的方向、量化梯度近似与实际编码路径是否一致？",
+      "caveat": "摘要的“不可感知”是作者表述，不能据此宣称有用户研究或严格感知保证。p3对保留/遮罩低高频的措辞需在代码中核实。本轮未读p4后的实验表；高频敏感性也不能直接说明当前周期图案的FP32溢出原因。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://arxiv.org/abs/2306.01125v1",
+      "sourceUrl": "https://arxiv.org/abs/2306.01125v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "RECONATTACK（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域08分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/08_%E6%84%9F%E7%9F%A5%E4%B8%8E%E7%94%9F%E6%88%90%E5%BC%8F%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域09分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "860d8d200c7fb7001fd842da0076b4bfc8d9c952b76acd9a74dcc03f29661532",
+      "pages": 7,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 同题DCC2024一页会议记录可由Lingnan作者机构记录核实（DOI10.1109/DCC58796.2024.00100）；本地为2023年7页预印本，不混为会议正文，也不称ICLR2023。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1完整摘要、p1–2完整Introduction；p2–3前提、重建攻击与DCT约束，p3实验设置开头。只筛读p1–3，未读p4–7。首页核作者与预印本日期。"
+    },
+    {
+      "id": "FTTR",
+      "title": "Fast Test-Time Refinement for Robust Learned Image Compression",
+      "authors": [
+        "Jiaming Liang",
+        "Chi-Man Pun",
+        "Weisi Lin"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint（本地保存版本）",
+      "version": "arXiv:2608.15113v1, 2026-08-15",
+      "fields": [
+        "06",
+        "09",
+        "10"
+      ],
+      "tags": [
+        "测试时优化",
+        "自适应攻击",
+        "白盒灰盒",
+        "预印本",
+        "编码端搜索",
+        "评价方法",
+        "训练与量化"
+      ],
+      "summary": "作者研究测试时细化作为LIC防御，提出攻击与恢复步数不对称AAT，以及利用Input-as-Label的FTTR。引言将评估从灰盒扩展到白盒自适应攻击，并纳入多种攻击目标与扰动预算。",
+      "question": "优化目标使用已受扰输入作标签时，恢复的到底是哪种误差？白盒攻击能否覆盖整个细化过程的真实梯度和离散操作？",
+      "caveat": "本地保存的是2026年8月预印本，未据ACM排版推断录用。1–2步恢复、对抗区域收缩和非梯度遮蔽是作者主张；本轮未读证明、攻击附录和完整结果，未独立证实。FTTR的优化收缩不是本地输入对比度收缩，也未证明能处理已出现Inf的前向。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2,
+        3
+      ],
+      "localPdf": "https://arxiv.org/abs/2608.15113v1",
+      "sourceUrl": "https://arxiv.org/abs/2608.15113v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "FTTR（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域06分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html"
+        },
+        {
+          "label": "领域09分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/09_%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95%E4%B8%8E%E8%AF%81%E6%8D%AE%E8%BE%B9%E7%95%8C.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "26248de2ae02e4de52528bf9cd100b50d118a96181e17652f9b097eb375bf068",
+      "pages": 13,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1完整摘要、p1–3完整Introduction；p3相关工作与方法前提第一式。只筛读p1–3，未读p4–13的推导、评估细节和附录。首页核作者与v1日期，图1核白盒/灰盒行标签。"
+    },
+    {
+      "id": "REPRO_COMP",
+      "title": "Towards Reproducible Learning-based Compression",
+      "authors": [
+        "Jiahao Pang",
+        "Muhammad Asad Lodhi",
+        "Junghyun Ahn",
+        "Yuning Huang",
+        "Dong Tian"
+      ],
+      "year": 2024,
+      "venue": "IEEE MMSP 2024; acceptance stated by official arXiv record",
+      "version": "arXiv:2410.09872v1, 13 October 2024",
+      "fields": [
+        "01",
+        "16"
+      ],
+      "tags": [
+        "cross-platform",
+        "entropy synchronization",
+        "bounded error",
+        "safeguarding bitstream",
+        "熵模型",
+        "部署与兼容"
+      ],
+      "summary": "在e<ε、q>4ε及一致边界/编解码规则下，用风险标志与约定恢复值同步关键熵参数；不自动保证最终像素和参考逐位一致。已核保护标志算术编码及p0发送、Kodak和点云实验，误差上界仅为作者设备实验中的经验最大值。",
+      "question": "如何给实际模块/设备/输入范围建立可用误差界，并规范半开bin、p0、CDF及全部保护字节？视频的参考回写是否也必须受保护，才能把一次熵解码一致扩展为多帧一致？",
+      "caveat": "Fig4(b)方向位黑色分支与正文相反，实验采用无方向位简化方案，不能据此否定实验。图像所报经验误差8e−6仅低于五档中的ε=1e−5，其曲线增量9.69%不能升级成全域或逐设备成功保证；未给逐文件字节/失败率，未做本地模型复现。",
+      "readingLevel": "selected",
+      "readingLabel": "方法／实验选读",
+      "readPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "localPdf": "https://arxiv.org/abs/2410.09872v1",
+      "sourceUrl": "https://arxiv.org/abs/2410.09872v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "REPRO_COMP（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP_p01（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP.selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域16分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md.html"
+        }
+      ],
+      "evidence": [
+        {
+          "label": "精读卡（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "2410",
+          "url": "https://arxiv.org/abs/2410.09872v1"
+        },
+        {
+          "label": "2410",
+          "url": "https://arxiv.org/pdf/2410.09872v1"
+        },
+        {
+          "label": "read_record（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "paper_reported_experiments（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP-1（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP-2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP-3（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP-4（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP-5（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "REPRO_COMP-6（本地记录未公开）",
+          "url": ""
+        }
+      ],
+      "sha256": "3761e82dac1c7ec962440eee32b2c5d3460fc7501f973d5446a56c9d75fdba93",
+      "pages": 6,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF一基页；本次阅读及图表核验详见记录。 2026-10-30实际读全部6页并逐页目视：摘要/引言、II方法及简化方案、III应用、IV实验/讨论、V结论及参考目录。此前涉及pp1-2，本轮首次涉及pp3-6；p6含参考文献，新增完整页数不作换算。原文图表/数学论证已审阅，未复现作者代码或模型。"
+    },
+    {
+      "id": "RD_FPGA",
+      "title": "Lightweight FPGA Deployment of Learned Image Compression with Knowledge Distillation and Hybrid Quantization",
+      "authors": [
+        "Mazouz Alaa Eddine",
+        "Sumanta Chaudhuri",
+        "Attilio Fiandrotti",
+        "Marco Cagnazzo",
+        "Mihai Mitrea",
+        "Enzo Tartaglione"
+      ],
+      "year": 2025,
+      "venue": "arXiv preprint; submitted to IEEE TCSVT in March 2025, acceptance not verified",
+      "version": "arXiv:2503.04832v5, 25 March 2025; PDF title and author order retained",
+      "fields": [
+        "03",
+        "10",
+        "16"
+      ],
+      "tags": [
+        "FPGA",
+        "knowledge distillation",
+        "hybrid QAT",
+        "mixed precision",
+        "GDN",
+        "实时系统",
+        "训练与量化",
+        "部署与兼容"
+      ],
+      "summary": "作者把适配FPGA的部分工作前移到模型宽度、蒸馏和剪枝，并保留硬件友好的GDN；组合混合QAT、GDN混精度和流水架构，研究延迟、资源与RD的联合取舍。",
+      "question": "保持GDN是否比替换成ReLU更能保留RD？其混精度仅落在哪些算子，是否仍含浮点、哪些组件真正计入端到端延迟与功耗？",
+      "caveat": "当前只完成摘要/引言筛读，不能确认每层位宽、熵编码位置及计时口径；FPGA吞吐提升不自动证明跨平台CDF一致。作者结论未本地复现，v5还明确修正旧版结果/引用/图中指标。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2503.04832v5",
+      "sourceUrl": "https://arxiv.org/abs/2503.04832v5",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "RD_FPGA（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "RD_FPGA_p01（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "RD_FPGA.selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        },
+        {
+          "label": "领域16分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "9f4d30503c8221a0e648fea09f53ce28a09ac0919d9e7b6588770d7192509e4c",
+      "pages": 15,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 arXiv v5网页题名为Lightweight Embedded FPGA Deployment of Learned Image Compression with Knowledge Distillation and Hybrid Quantization；实际PDF首页无Embedded。网页作者为Alaa Mazouz, Sumanta Chaudhuri, Marco Cagnanzzo, Mihai Mitrea, Enzo Tartaglione, Attilio Fiandrotti；PDF首页显示Mazouz Alaa Eddine, Sumanta Chaudhuri, Attilio Fiandrotti, Marco Cagnazzo, Mihai Mitrea, Enzo Tartaglione。本记录采用已视觉核验的PDF题名与顺序；旧版检索题名RD Efficient FPGA Deployment不作另篇。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF pp1–2：完整摘要、完整Introduction及背景开头；p1首页已渲染核对。未读实现章节、位宽表、硬件结果表或消融。"
+    },
+    {
+      "id": "IODF",
+      "title": "Fast Lossless Neural Compression with Integer-Only Discrete Flows",
+      "authors": [
+        "Siyu Wang",
+        "Jianfei Chen",
+        "Chongxuan Li",
+        "Jun Zhu",
+        "Bo Zhang"
+      ],
+      "year": 2022,
+      "venue": "ICML 2022, PMLR 162:22562–22575",
+      "version": "Official PMLR proceedings PDF, 2022",
+      "fields": [
+        "01",
+        "03",
+        "10"
+      ],
+      "tags": [
+        "lossless",
+        "integer-only",
+        "discrete flow",
+        "TensorRT",
+        "pruning",
+        "熵模型",
+        "实时系统",
+        "训练与量化"
+      ],
+      "summary": "作者从无损离散可逆流出发，把依然昂贵的连续网络计算换成8位整数算术，并以可学习二值门去除冗余计算；在TensorRT/Tesla T4部署，区分网络推理与rANS耗时。",
+      "question": "可逆整数映射与“网络计算仅用整数”各自解决什么？网络加速后rANS是否成为主瓶颈，实际编码速度而非推理速度提高了多少？",
+      "caveat": "作者的最高10倍指推理加速，不能当作全部编解码加速，也不能外推到DCVC或1080p视频；小分辨率无损数据、bpd口径不能与有损PSNR-bpp直接排名。未做本地模型复现或跨设备互通验证。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://proceedings.mlr.press/v162/wang22a.html",
+      "sourceUrl": "https://proceedings.mlr.press/v162/wang22a.html",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "IODF（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "IODF_p01（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "IODF.selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "fd02b6aec323d6b13a8685a378b9c80dc03da0ab32cd30e5c3a0587b9116065c",
+      "pages": 14,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 PDF内嵌Author属性残留Anonymous Submission，首页和PMLR作者列表一致；作者字段采用首页，不沿用文件属性。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF pp1–2：完整摘要和Introduction，并读Related Work开头；p1渲染核对作者。方法细节、实验及附录未读。"
+    },
+    {
+      "id": "FIXED_WEIGHT",
+      "title": "End-to-end Learned Image Compression with Fixed Point Weight Quantization",
+      "authors": [
+        "Heming Sun",
+        "Zhengxue Cheng",
+        "Masaru Takeuchi",
+        "Jiro Katto"
+      ],
+      "year": 2020,
+      "venue": "IEEE ICIP 2020; conference stated by official arXiv record",
+      "version": "arXiv:2007.04684v1, 9 July 2020",
+      "fields": [
+        "03",
+        "10",
+        "16"
+      ],
+      "tags": [
+        "fixed-point weights",
+        "8-bit",
+        "group quantization",
+        "memory-free codebook",
+        "model footprint",
+        "实时系统",
+        "训练与量化",
+        "部署与兼容"
+      ],
+      "summary": "作者针对嵌入式模型存储，将主路径和超先验路径权重量化为8位定点，比较分组方式与量化规则，提出不额外存码本的非线性规则及权重裁剪微调。",
+      "question": "权重存储降至8位以后，激活、偏置、累加器与熵参数是否仍含浮点？模型大小、硬件算子代价及完整codec逐位一致要怎样分别核验？",
+      "caveat": "研究目标是定点权重与存储压缩，不能据此声称全网络或全codec整数推理；约75%模型大小减少与MS-SSIM比较均为作者结论，未本地复现。未核实验表，不能外推PSNR码效或运行功耗。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2007.04684v1",
+      "sourceUrl": "https://arxiv.org/abs/2007.04684v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "FIXED_WEIGHT（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "FIXED_WEIGHT_p01（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "FIXED_WEIGHT.selected（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        },
+        {
+          "label": "领域10分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/10_%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%B8%8E%E9%87%8F%E5%8C%96%E4%B8%80%E8%87%B4%E6%80%A7.md.html"
+        },
+        {
+          "label": "领域16分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/16_%E6%A0%87%E5%87%86%E5%85%BC%E5%AE%B9_%E8%B7%A8%E5%B9%B3%E5%8F%B0%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%A5%9E%E7%BB%8F%E5%8C%85%E8%A3%85.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "b2029f534312bc859a9f820f7d85bd31a24c48d3093513614f9ac5b93e6ed14f",
+      "pages": 5,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1完整摘要与引言；pp1–2读取方法开头、超先验结构与分组定点量化说明，未续读p3公式和实验。p1渲染核作者。"
+    },
+    {
+      "id": "REPARO",
+      "title": "Reparo: Loss-Resilient Generative Codec for Video Conferencing",
+      "authors": [
+        "Tianhong Li",
+        "Vibhaalakshmi Sivaraman",
+        "Pantea Karimi",
+        "Lijie Fan",
+        "Mohammad Alizadeh",
+        "Dina Katabi"
+      ],
+      "year": 2023,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2305.14135v3, 2024-10-04; first submitted 2023-05-23",
+      "fields": [
+        "13",
+        "08",
+        "02",
+        "04"
+      ],
+      "tags": [
+        "独立帧编码",
+        "视觉token",
+        "生成式丢包恢复",
+        "视频会议",
+        "网络传输",
+        "感知生成",
+        "表示与参考",
+        "参考失效"
+      ],
+      "summary": "面向真实分包和丢包的会议视频：每帧独立编码为视觉token，接收端根据已收token、历史信息及域先验补全缺失token。把编码依赖与恢复时可用历史分开，避免将关键帧丢失传播到整条预测链。",
+      "question": "在相同完整传输字节、播放截止时间和突发丢包轨迹下，生成补全是否比反馈刷新更好；语义错误、冻结和像素失真怎样同时统计？",
+      "caveat": "仅读摘要/引言；独立帧编码不表示恢复网络不使用历史。生成补全不是原始比特的精确恢复，也不能从引言的表述推导无幻觉保证。会议域结果不能外推到自然/屏幕视频；没有本项目实测。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2305.14135v3",
+      "sourceUrl": "https://arxiv.org/abs/2305.14135v3",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "REPARO（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "下载请求和文件证据（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "首页目视核验图（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p1（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域13分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/13_%E4%B8%A2%E5%8C%85%E6%81%A2%E5%A4%8D%E4%B8%8E%E8%81%94%E5%90%88%E4%BF%A1%E6%BA%90%E4%BF%A1%E9%81%93%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域08分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/08_%E6%84%9F%E7%9F%A5%E4%B8%8E%E7%94%9F%E6%88%90%E5%BC%8F%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "af10366d9515148842895a87780da785e22d84163abf1c262c6837d5d5d75c03",
+      "pages": 17,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 首页目视核对6位作者；版本为2024年的v3，year按首次预印本2023。未把其他网页提及的后续会议身份并入这一PDF。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要和引言，p2引言续至Section 2前；p2相关工作开头随页输出，不据此声称完成相关工作或方法/实验阅读。"
+    },
+    {
+      "id": "GEMINO",
+      "title": "Gemino: Practical and Robust Neural Compression for Video Conferencing",
+      "authors": [
+        "Vibhaalakshmi Sivaraman",
+        "Pantea Karimi",
+        "Vedantha Venkatapathy",
+        "Mehrdad Khani",
+        "Sadjad Fouladi",
+        "Mohammad Alizadeh",
+        "Frédo Durand",
+        "Vivienne Sze"
+      ],
+      "year": 2024,
+      "venue": "USENIX NSDI 2024",
+      "version": "arXiv:2209.10507v4, 2023-10-19; NSDI 2024 identity independently confirmed",
+      "fields": [
+        "02",
+        "04",
+        "08",
+        "03"
+      ],
+      "tags": [
+        "高频条件超分",
+        "低分辨率视频",
+        "运动遮挡",
+        "个性化会议模型",
+        "表示与参考",
+        "参考失效",
+        "感知生成",
+        "实时系统"
+      ],
+      "summary": "传输真实的低分辨率目标帧，在接收端用高分辨率参考图的纹理做条件超分。低分辨率图保留新物体与姿态信息，缓解仅发送关键点、扭曲参考图时的遮挡和大运动失败；另用多尺度计算及个人适配。",
+      "question": "对参考图中不存在的新手势、物体和文字，增加低分辨率观测比增加参考刷新更划算吗？个人适配和参考图传输成本如何摊入？",
+      "caveat": "标题中的robust主要涉及姿态/遮挡与低码率内容重建；本轮所读页不构成随机/突发丢包容错证据。其感知指标及会议域不与通用DCVC PSNR-RD直接排名；个人适配与接收端算力需计费。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2209.10507v4",
+      "sourceUrl": "https://arxiv.org/abs/2209.10507v4",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "GEMINO（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "下载请求和文件证据（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "首页目视核验图（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p1（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域08分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/08_%E6%84%9F%E7%9F%A5%E4%B8%8E%E7%94%9F%E6%88%90%E5%BC%8F%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "cede16e40c1976afc9ecf7bc76aa2c5afb2780a46b856a859e1ed0c323e1fc1c",
+      "pages": 22,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 首页目视核对8位作者。USENIX官方页面确认NSDI 2024，实际归档和阅读是2023-10-19的arXiv v4（22页），不冒充会议版字节。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要/引言，p2引言续及Figure 1文字说明；未核对正文方法细节或实验表。"
+    },
+    {
+      "id": "NVC_CC",
+      "title": "Loss-tolerant neural video codec aware congestion control for real time video communication",
+      "authors": [
+        "Zhengxu Xia",
+        "Hanchen Li",
+        "Junchen Jiang"
+      ],
+      "year": 2024,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2411.06742v2, 2025-03-17; first submitted 2024-11-11",
+      "fields": [
+        "13",
+        "11",
+        "03"
+      ],
+      "tags": [
+        "拥塞控制",
+        "在线强化学习",
+        "GRACE",
+        "播放截止时间",
+        "网络传输",
+        "码率控制",
+        "实时系统"
+      ],
+      "summary": "把神经codec的丢包后画质退化特性纳入在线强化学习拥塞控制奖励。设计针对已有抗丢包codec：既然少量缺包未必立刻造成解码失败，就重新考虑码率探索、延迟与传统保护策略的取舍。",
+      "question": "网络丢包率与播放截止前缺失率不同；将codec的质量—缺包曲线接入发送控制，能否在相同冻结约束下降低尾延迟，而非只提升平均PSNR？",
+      "caveat": "这是基于现有抗丢包codec的控制层工作，未把普通DCVC码流变成可任意缺包解码。摘要明确评价在模拟环境；未复现网络轨迹。原文摘要存在dB%排印，不能当作新的指标单位。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2411.06742v2",
+      "sourceUrl": "https://arxiv.org/abs/2411.06742v2",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "NVC_CC（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "下载请求和文件证据（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "首页目视核验图（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p1（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域13分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/13_%E4%B8%A2%E5%8C%85%E6%81%A2%E5%A4%8D%E4%B8%8E%E8%81%94%E5%90%88%E4%BF%A1%E6%BA%90%E4%BF%A1%E9%81%93%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "1a192bff21763c2f01528e052ad63680c28ea0529cf3661661cacaeac79de597",
+      "pages": 12,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 首页目视核对3位作者和2025-03-17 v2标记；year按首次预印本2024，未核实正式会议身份。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要/引言，p2引言贡献与2.1背景（包括播放截止前未到达的packet loss per frame定义）；不据此声称阅读RL算法或实验设置全文。"
+    },
+    {
+      "id": "DHVC2",
+      "title": "High-Efficiency Neural Video Compression via Hierarchical Predictive Learning",
+      "authors": [
+        "Ming Lu",
+        "Zhihao Duan",
+        "Wuyang Cong",
+        "Dandan Ding",
+        "Fengqing Zhu",
+        "Zhan Ma"
+      ],
+      "year": 2024,
+      "venue": "arXiv preprint",
+      "version": "arXiv:2410.02598v1, 2024-10-03",
+      "fields": [
+        "02",
+        "01",
+        "12",
+        "03",
+        "13"
+      ],
+      "tags": [
+        "分层VAE",
+        "同尺度时间参考",
+        "无显式运动",
+        "渐进解码",
+        "表示与参考",
+        "熵模型",
+        "可伸缩编码",
+        "实时系统",
+        "网络传输"
+      ],
+      "summary": "将每帧变为多尺度表示，用当前帧较低尺度特征和历史帧同尺度特征做条件预测。2.0缓存解码特征并加入重建参考的辅助细化，统一可变码率帧内/帧间处理，探索按尺度流水并行和渐进解码。",
+      "question": "低尺度或同尺度历史参考缺失时，条件熵解码如何保持可执行？渐进截断与随机丢包的依赖条件是否相同，必须恢复哪些状态？",
+      "caveat": "摘要/引言提到丢包友好的渐进解码，但尚未核对其丢包实验与包依赖，不能宣布任意擦除仍可解码。并行实时方案在引言明确涉及多GPU，不能当作单GPU速度；无显式运动不等于无时域依赖。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://arxiv.org/abs/2410.02598v1",
+      "sourceUrl": "https://arxiv.org/abs/2410.02598v1",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "DHVC2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "下载请求和文件证据（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "首页目视核验图（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p1（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域12分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/12_%E5%8F%AF%E4%BC%B8%E7%BC%A9%E7%BC%96%E7%A0%81%E4%B8%8E%E5%88%86%E5%B1%82%E4%BE%9D%E8%B5%96.md.html"
+        },
+        {
+          "label": "领域03分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/03_%E5%AE%9E%E6%97%B6%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%A1%AC%E4%BB%B6.md.html"
+        },
+        {
+          "label": "领域13分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/13_%E4%B8%A2%E5%8C%85%E6%81%A2%E5%A4%8D%E4%B8%8E%E8%81%94%E5%90%88%E4%BF%A1%E6%BA%90%E4%BF%A1%E9%81%93%E7%BC%96%E7%A0%81.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "b20454514fd5cdf8ac888d052dfb4aa9e486d5085ae7c3d80c139c6305699857",
+      "pages": 26,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 首页目视核对6位作者与2024-10-03 v1标记。页眉的JOURNAL OF LATEX CLASS FILES/AUGUST 2015是模板残留，不作期刊/发表年份证据。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要/引言与Figure 1说明，p2引言及版本改进列表；未阅读Fig12丢包实验、完整方法或测速合同。"
+    },
+    {
+      "id": "CAHH",
+      "title": "Content-Adaptive Hierarchical Hyperprior for Neural Video Coding",
+      "authors": [
+        "Junqi Liao",
+        "Yaojun Wu",
+        "Chaoyi Lin",
+        "Zhipin Deng",
+        "Li Li",
+        "Dong Liu",
+        "Xiaoyan Sun"
+      ],
+      "year": 2026,
+      "venue": "CVPR 2026",
+      "version": "CVF Open Access accepted-paper PDF; pages 20953 onward; downloaded 2026-10-29",
+      "fields": [
+        "02",
+        "04",
+        "01",
+        "11",
+        "06"
+      ],
+      "tags": [
+        "层次超先验",
+        "质量参考联合优化",
+        "双参考",
+        "当前帧侧信息",
+        "表示与参考",
+        "参考失效",
+        "熵模型",
+        "码率控制",
+        "编码端搜索"
+      ],
+      "summary": "从当前原始帧编码额外层次超先验，用适配器调制质量结构，并引导前一帧与关键帧双参考融合。核心是把内容相关的质量分配和参考依赖共同优化，区别于只修改概率网络或采用固定刷新周期。",
+      "question": "额外侧信息在场景切换、长链和受控扰动中是否改善参考选择；把其传输比特、解码依赖与质量收益同时计入后，何时优于固定刷新？",
+      "caveat": "本轮只有摘要/引言，未核验码流侧信息成本、消融或长链协议。该文不能因归在可靠性组就被视为有丢包容错实验；尚无证据说明它解决熵同步或网络擦除。摘要BD-rate比较以VTM为锚，不能直接改写为相对DCVC-FM节码百分比。",
+      "readingLevel": "screen",
+      "readingLabel": "摘要／引言筛查",
+      "readPages": [
+        1,
+        2
+      ],
+      "localPdf": "https://openaccess.thecvf.com/content/CVPR2026/papers/Liao_Content-Adaptive_Hierarchical_Hyperprior_for_Neural_Video_Coding_CVPR_2026_paper.pdf",
+      "sourceUrl": "https://openaccess.thecvf.com/content/CVPR2026/papers/Liao_Content-Adaptive_Hierarchical_Hyperprior_for_Neural_Video_Coding_CVPR_2026_paper.pdf",
+      "codeUrl": "",
+      "notes": [
+        {
+          "label": "CAHH（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "下载请求和文件证据（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "首页目视核验图（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p1（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "实际所读页文本 p2（本地记录未公开）",
+          "url": ""
+        },
+        {
+          "label": "领域02分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/02_%E8%A1%A8%E7%A4%BA%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%97%B6%E5%9F%9F%E5%8F%82%E8%80%83.md.html"
+        },
+        {
+          "label": "领域04分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/04_%E5%8F%82%E8%80%83%E5%A4%B1%E6%95%88%E4%B8%8E%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81.md.html"
+        },
+        {
+          "label": "领域01分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/01_%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%87%8F%E5%8C%96.md.html"
+        },
+        {
+          "label": "领域11分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/11_%E7%9B%AE%E6%A0%87%E7%A0%81%E7%8E%87%E6%8E%A7%E5%88%B6%E4%B8%8E%E8%B7%A8%E5%B8%A7%E5%88%86%E9%85%8D.md.html"
+        },
+        {
+          "label": "领域06分析",
+          "url": "../notes/%E9%A2%86%E5%9F%9F%E5%88%86%E6%9E%90/06_%E5%86%85%E5%AE%B9%E9%80%82%E9%85%8D%E4%B8%8E%E7%BC%96%E7%A0%81%E7%AB%AF%E6%90%9C%E7%B4%A2.md.html"
+        }
+      ],
+      "evidence": [],
+      "sha256": "a9d8bf596a7e86904548ec42b45e9909796586039634c54abe5f06b1f446b1c8",
+      "pages": 10,
+      "addedThisRound": false,
+      "relations": [],
+      "metadataNote": "作者信息依据本地PDF首页。 CVF PDF成功下载且首页目视核对7位作者及CVPR开放访问水印。HTML详情页本轮返回403，元数据基于官方PDF本身，未将搜索摘要作为唯一证据。",
+      "readingNote": "页码为本地PDF的一基页码；累计选页不等于全文精读。无统一页码的历史笔记按原记录保留。 PDF p1摘要/引言，p2引言续、贡献及Figure 1文字说明（印刷页20953–20954）；没有声称阅读后续方法与实验。"
     }
   ],
   "paths": [

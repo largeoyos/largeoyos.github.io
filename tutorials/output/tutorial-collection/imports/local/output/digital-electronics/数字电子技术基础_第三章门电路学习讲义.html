@@ -138,6 +138,8 @@ window.OFFLINE_COURSE={"widgets":{"a-bipolar":"\u003c!doctype html>\u003chtml la
     // Units and descriptive names are upright, rather than products of letters.
     out=out.replace(/\b(round|clip|floor|ceil|PSNR|MSE|SNR|LSB|MSB|GB|MHz|kHz|GHz|Hz|mV|mA|kΩ|dB|bpp)\b/g,'\\mathrm{$1}');
     out=out.replace(/\b(NOT|AND|OR|NAND|NOR|XOR|XNOR)\b/g,'\\operatorname{$1}');
+    // Bare numeric e-notation denotes a power of ten, not a variable minus a number.
+    out=out.replace(/(?<![A-Za-z0-9_])(\d+(?:\.\d*)?|\.\d+)[eE]([+-]?\d+)(?![A-Za-z0-9_])/g,'$1\\times 10^{$2}');
     out=out.replace(/\b([A-Za-z])('+)(\d+)\b/g,"$1_{$3}$2").replace(/\b([A-Za-z])(\d+)\b/g,'$1_{$2}');
     while(/_\{[^{}]*\}_\{[^{}]*\}/.test(out))out=out.replace(/_\{([^{}]*)\}_\{([^{}]*)\}/g,'_{$1,$2}');
     return out;
@@ -213,7 +215,7 @@ window.OFFLINE_COURSE={"widgets":{"a-bipolar":"\u003c!doctype html>\u003chtml la
       tex=tex??texFor(el);if(!tex.trim())return;
       try {
         const html=engine.renderToString(tex,{displayMode:display,throwOnError:true,strict:'ignore',trust:false,output:'htmlAndMathml'});
-        el.setAttribute('data-collection-math',tex);el.classList.add(display?'collection-math-display':'collection-math-inline');el.innerHTML=html;rendered.html++;
+        el.setAttribute('data-collection-math-source',el.textContent);el.setAttribute('data-collection-math',tex);el.classList.add(display?'collection-math-display':'collection-math-inline');el.innerHTML=html;rendered.html++;
       } catch(error) {el.setAttribute('data-collection-math-error',tex);if(!errors.some(x=>x.tex===tex))errors.push({tex,message:String(error)});}
     }
     function process() {
@@ -237,6 +239,7 @@ window.OFFLINE_COURSE={"widgets":{"a-bipolar":"\u003c!doctype html>\u003chtml la
           const raw=m[0],bare=m[5]??m[6],tex=m[1]??m[2]??m[3]??m[4]??plain(bare);
           // Do not extract arithmetic from a standard name, filename or path.
           if(m[6]!==undefined&&(/[A-Za-z0-9_./]/.test(value[m.index-1]||'')||/^[A-Za-z0-9_/]|^\.[A-Za-z0-9]/.test(value.slice(m.index+raw.length))))continue;
+          if(m[6]!==undefined&&/\b(?:SHA|MD5)\b/.test(bare))continue;
           if(m[4]!==undefined&&!formulaLike(m[4])&&!/^[A-Za-z0-9.]+$/.test(m[4].trim()))continue;
           if(bare!==undefined&&(!formulaLike(bare,false,m[6]!==undefined)||bare.length>240||/\b(?!arctan\b|arcsin\b|arccos\b|sqrt\b|round\b|floor\b|ceil\b|clip\b|PSNR\b)[A-Za-z]{4,}\b/.test(bare)))continue;
           fragment??=doc.createDocumentFragment();fragment.append(doc.createTextNode(value.slice(last,m.index)));

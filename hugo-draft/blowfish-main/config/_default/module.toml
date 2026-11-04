@@ -1,0 +1,57 @@
+[[imports]]
+path = 'github.com/nunocoracao/blowfish/v3'
+
+[[mounts]]
+source = 'content'
+target = 'content'
+[[mounts]]
+source = 'layouts'
+target = 'layouts'
+[[mounts]]
+source = 'assets'
+target = 'assets'
+[[mounts]]
+source = 'static'
+target = 'static'
+[[mounts]]
+source = '../../blog/posts.json'
+target = 'data/posts.json'
+[[mounts]]
+source = '../../index.html'
+target = 'static/workspace.html'
+[[mounts]]
+source = '../../.nojekyll'
+target = 'static/.nojekyll'
+[[mounts]]
+source = '../../assets'
+target = 'static/assets'
+[[mounts]]
+source = '../../css'
+target = 'static/css'
+[[mounts]]
+source = '../../js'
+target = 'static/js'
+[[mounts]]
+source = '../../blog'
+target = 'static/blog'
+[[mounts]]
+source = '../../ai-tutorials'
+target = 'static/ai-tutorials'
+[[mounts]]
+source = '../../games'
+target = 'static/games'
+[[mounts]]
+source = '../../tools'
+target = 'static/tools'
+[[mounts]]
+source = '../../markets'
+target = 'static/markets'
+[[mounts]]
+source = '../../quant-lab'
+target = 'static/quant-lab'
+[[mounts]]
+source = '../../quick-nav'
+target = 'static/quick-nav'
+[[mounts]]
+source = '../../tutorials'
+target = 'static/tutorials'

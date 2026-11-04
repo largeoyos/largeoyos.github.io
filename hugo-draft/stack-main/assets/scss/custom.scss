@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../fonts/Lato-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("../fonts/Lato-Bold.ttf") format("truetype");
+}
+
+:root {
+    --base-font-family: "Lato", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --accent-color: #2767a3;
+    --accent-color-darker: #1d5285;
+    --body-background: #f3f6fa;
+    --link-background-color: 153, 192, 227;
+}
+
+:root[data-scheme="dark"] {
+    --accent-color: #9bc6ed;
+    --accent-color-darker: #c2def6;
+    --accent-color-text: #172537;
+    --body-background: #202832;
+    --card-background: #2b3542;
+}
+
+.site-logo {
+    background: #e3eef8;
+}
+
+.links article:nth-child(3n + 1) .article-title { color: #2767a3; }
+.links article:nth-child(3n + 2) .article-title { color: #197865; }
+.links article:nth-child(3n) .article-title { color: #a45b26; }
+
+[data-scheme="dark"] .links article:nth-child(3n + 1) .article-title { color: #9bc6ed; }
+[data-scheme="dark"] .links article:nth-child(3n + 2) .article-title { color: #8fd2be; }
+[data-scheme="dark"] .links article:nth-child(3n) .article-title { color: #ebbb91; }

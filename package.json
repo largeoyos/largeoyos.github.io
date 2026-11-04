@@ -5,6 +5,8 @@
     "fx-991cn-x-科学计算器"
   ],
   "scripts": {
+    "build:site": "npm --prefix hugo-draft/stack-main --workspaces=false run build",
+    "preview:site": "npm --prefix hugo-draft/stack-main --workspaces=false run dev",
     "build:acquire": "npm run build -w acquire-classic-board-game",
     "build:calculator": "npm run build -w fx-991cn-x-calculator",
     "build:apps": "npm run build --workspaces",

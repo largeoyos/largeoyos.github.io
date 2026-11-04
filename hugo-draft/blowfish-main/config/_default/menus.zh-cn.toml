@@ -1,0 +1,45 @@
+[[main]]
+name = '博客'
+url = 'blog/index.html'
+weight = 10
+[[main]]
+name = '学习'
+url = 'tutorials/index.html'
+weight = 20
+[[main]]
+name = '游戏'
+url = 'games/index.html'
+weight = 30
+[[main]]
+name = '工具'
+url = 'tools/index.html'
+weight = 40
+[[main]]
+name = '更多'
+identifier = 'more'
+weight = 50
+[[main]]
+name = '每日历'
+parent = 'more'
+url = 'workspace.html#calendar-section'
+weight = 1
+[[main]]
+name = 'AI 教学'
+parent = 'more'
+url = 'ai-tutorials/index.html'
+weight = 2
+[[main]]
+name = '全球行情'
+parent = 'more'
+url = 'markets/index.html'
+weight = 3
+[[main]]
+name = '量化实验室'
+parent = 'more'
+url = 'quant-lab/index.html'
+weight = 4
+[[main]]
+name = '快捷导航'
+parent = 'more'
+url = 'quick-nav/index.html'
+weight = 5

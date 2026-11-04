@@ -1,0 +1,9 @@
+section:
+  name: 关于
+  id: about
+  enable: true
+  weight: 1
+  showOnNavbar: true
+  template: sections/about.html
+designation: 个人简介待补充
+summary: 这里将介绍你的学习经历、研究方向和兴趣。具体内容由你确认后填写。

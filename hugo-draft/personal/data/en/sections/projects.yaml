@@ -1,0 +1,14 @@
+section:
+  name: 项目
+  id: projects
+  enable: true
+  weight: 3
+  showOnNavbar: true
+buttons:
+  - name: 全部
+    filter: all
+projects:
+  - name: 项目待补充
+    role: 身份待补充
+    summary: 在这里介绍你希望展示的研究、作品或项目。
+    tags: []

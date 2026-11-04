@@ -1,0 +1,16 @@
+<section class="stack-app stack-workspace" data-stack-app data-source="index.html" data-kind="workspace">
+    <section class="quick-random" aria-label="快速随机">
+        <div class="quick-random-title">🎲 快速随机</div>
+        <div class="quick-random-item"><button type="button" data-quick-random="2">随机 0 / 1</button><output aria-live="polite" data-random-result="2">—</output></div>
+        <div class="quick-random-item"><button type="button" data-quick-random="6">掷六面骰子</button><output aria-live="polite" data-random-result="6">—</output></div>
+    </section>
+    {{ .Content }}
+</section>
+<script src="{{ "stack-site/quick-random.js" | relURL }}" defer></script>
+<section class="article-list workspace-posts">
+    <h2 class="section-title">📝 最近博客</h2>
+    {{ range first 3 (where site.RegularPages "Type" "post") }}
+        {{ partial "article-list/default" . }}
+    {{ end }}
+</section>
+{{ partial "footer/footer" . }}

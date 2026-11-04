@@ -1,0 +1,17 @@
+{
+  "name": "largeoyos-stack-main-draft",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import": "node scripts/import-posts.mjs && node scripts/import-site.mjs",
+    "build": "npm run import && hugo",
+    "dev": "npm run import && hugo server",
+    "verify": "node scripts/verify-output.mjs public"
+  },
+  "devDependencies": {
+    "@babel/parser": "7.29.7",
+    "@babel/traverse": "7.29.7",
+    "jsdom": "29.0.2",
+    "postcss": "8.5.32"
+  }
+}

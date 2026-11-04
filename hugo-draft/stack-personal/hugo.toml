@@ -1,0 +1,30 @@
+baseURL = '/'
+relativeURLs = true
+locale = 'zh-CN'
+defaultContentLanguage = 'zh-cn'
+title = 'LarGeoYos'
+hasCJKLanguage = true
+
+[[module.imports]]
+path = 'github.com/CaiJimmy/hugo-theme-stack/v4'
+
+[params]
+mainSections = ['post']
+[params.sidebar]
+subtitle = '个人主页 · 内容待补充'
+[params.article]
+readingTime = false
+[params.colorScheme]
+toggle = true
+default = 'auto'
+[params.comments]
+enabled = false
+
+[[params.widgets.homepage]]
+type = 'search'
+[[params.widgets.homepage]]
+type = 'archives'
+[[params.widgets.homepage]]
+type = 'categories'
+[[params.widgets.homepage]]
+type = 'tag-cloud'

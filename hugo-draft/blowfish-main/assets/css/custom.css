@@ -1,0 +1,108 @@
+@font-face {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/mulish-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/mulish-latin-700-normal.woff2") format("woff2");
+}
+body {
+  font-family: "Mulish", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+html:not(.dark) body {
+  background: #f4f8fc;
+}
+h1.landing-rise {
+  color: rgb(var(--color-primary-700));
+}
+p.landing-rise:first-child {
+  color: rgb(var(--color-secondary-700));
+}
+.grid-balance > article {
+  --section-accent: 36, 88, 180;
+  background: color-mix(in srgb, rgb(var(--section-accent)) 6%, white);
+  border: 1px solid rgb(var(--section-accent) / .2);
+  border-top: 3px solid rgb(var(--section-accent));
+}
+.grid-balance > article:nth-child(9n + 2) { --section-accent: 0, 111, 116; }
+.grid-balance > article:nth-child(9n + 3) { --section-accent: 151, 85, 15; }
+.grid-balance > article:nth-child(9n + 4) { --section-accent: 189, 62, 72; }
+.grid-balance > article:nth-child(9n + 5) { --section-accent: 94, 71, 181; }
+.grid-balance > article:nth-child(9n + 6) { --section-accent: 24, 117, 73; }
+.grid-balance > article:nth-child(9n + 7) { --section-accent: 11, 101, 147; }
+.grid-balance > article:nth-child(9n + 8) { --section-accent: 167, 78, 31; }
+.grid-balance > article:nth-child(9n + 9) { --section-accent: 157, 49, 98; }
+.grid-balance > article > span {
+  background: rgb(var(--section-accent) / .1);
+  color: rgb(var(--section-accent));
+}
+.grid-balance > article > h3,
+.grid-balance > article > a {
+  color: rgb(var(--section-accent));
+}
+.grid-balance > article:hover {
+  border-color: rgb(var(--section-accent) / .65);
+}
+.landing-rise-3 a.border {
+  border-color: rgb(var(--color-secondary-600));
+  background: rgb(var(--color-secondary-50));
+  color: rgb(var(--color-secondary-800));
+}
+.existing-posts {
+  padding: 0 !important;
+  list-style: none;
+  text-align: left;
+}
+.existing-posts li {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgb(var(--color-neutral-200));
+}
+.existing-posts small {
+  display: block;
+  margin-top: .35rem;
+  font-size: .8rem;
+  color: rgb(var(--color-neutral-600));
+}
+.dark .existing-posts li {
+  border-color: rgb(var(--color-neutral-700));
+}
+.dark .existing-posts small {
+  color: rgb(var(--color-neutral-300));
+}
+/* The published theme CSS omits several dark variants used by Landing. */
+.dark h1.landing-rise {
+  color: rgb(var(--color-primary-300));
+}
+.dark p.landing-rise:first-child {
+  color: rgb(var(--color-secondary-300));
+}
+.dark .grid-balance > article {
+  background: color-mix(in srgb, rgb(var(--section-accent)) 16%, rgb(var(--color-neutral-900)));
+  border-color: rgb(var(--section-accent) / .6);
+  border-top-color: color-mix(in srgb, rgb(var(--section-accent)) 65%, white);
+}
+.dark .grid-balance > article > span {
+  background: rgb(var(--section-accent) / .2);
+  color: color-mix(in srgb, rgb(var(--section-accent)) 40%, white);
+}
+.dark .grid-balance > article > div {
+  color: rgb(var(--color-neutral-300));
+}
+.dark .grid-balance > article > h3,
+.dark .grid-balance > article > a {
+  color: color-mix(in srgb, rgb(var(--section-accent)) 40%, white);
+}
+.dark .existing-posts a {
+  color: rgb(var(--color-primary-400));
+}
+.dark .landing-rise-3 a.border {
+  background: rgb(var(--color-secondary-900));
+  border-color: rgb(var(--color-secondary-700));
+  color: rgb(var(--color-secondary-200));
+}

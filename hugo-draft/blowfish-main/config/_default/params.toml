@@ -1,0 +1,26 @@
+colorScheme = 'ocean'
+defaultAppearance = 'light'
+autoSwitchAppearance = false
+enableSearch = false
+enableCodeCopy = true
+disableImageOptimization = false
+
+[header]
+layout = 'basic'
+mobileMenuStyle = 'dropdown'
+
+[homepage]
+layout = 'landing'
+showRecent = false
+
+[footer]
+showMenu = true
+showCopyright = true
+showThemeAttribution = true
+showAppearanceSwitcher = true
+showScrollToTop = true
+
+[article]
+showAuthor = false
+showReadingTime = false
+showTableOfContents = true

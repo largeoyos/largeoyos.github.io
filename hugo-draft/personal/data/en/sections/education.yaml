@@ -1,0 +1,13 @@
+section:
+  name: 教育经历
+  id: education
+  template: sections/education.html
+  enable: true
+  weight: 2
+  showOnNavbar: true
+degrees:
+  - name: 学位与专业待补充
+    icon: fa-graduation-cap
+    timeframe: 时间待补充
+    institution:
+      name: 学校待补充

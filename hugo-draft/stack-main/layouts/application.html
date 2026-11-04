@@ -1,0 +1,13 @@
+{{ define "head" }}{{ partial "site/source-head.html" . }}{{ end }}
+{{ define "body-class" }}stack-application-page {{ .Params.sourceBodyClass }}{{ end }}
+{{ define "main" }}
+    <article class="main-article stack-application">
+        {{ if not (findRE "(?i)<h1[ >]" .Content 1) }}
+            {{ partial "article/components/header" (dict "Page" . "IsList" false) }}
+        {{ end }}
+        <section class="article-content stack-app {{ .Params.sourceBodyClass }}" data-stack-app data-source="{{ .Params.sourcePath }}" data-kind="{{ .Params.sourceKind }}">
+            {{ .Content }}
+        </section>
+    </article>
+    {{ partial "footer/footer" . }}
+{{ end }}

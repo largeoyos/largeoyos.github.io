@@ -1,0 +1,46 @@
+baseURL = '/'
+relativeURLs = true
+title = 'LarGeoYos | Workspace'
+locale = 'zh-CN'
+disableKinds = ['taxonomy', 'term', 'RSS', 'sitemap']
+
+[[module.mounts]]
+source = '../../index.html'
+target = 'assets/legacy-index.html'
+[[module.mounts]]
+source = 'layouts'
+target = 'layouts'
+
+[[module.mounts]]
+source = '../../assets'
+target = 'static/assets'
+[[module.mounts]]
+source = '../../css'
+target = 'static/css'
+[[module.mounts]]
+source = '../../js'
+target = 'static/js'
+[[module.mounts]]
+source = '../../blog'
+target = 'static/blog'
+[[module.mounts]]
+source = '../../ai-tutorials'
+target = 'static/ai-tutorials'
+[[module.mounts]]
+source = '../../games'
+target = 'static/games'
+[[module.mounts]]
+source = '../../tools'
+target = 'static/tools'
+[[module.mounts]]
+source = '../../markets'
+target = 'static/markets'
+[[module.mounts]]
+source = '../../quant-lab'
+target = 'static/quant-lab'
+[[module.mounts]]
+source = '../../quick-nav'
+target = 'static/quick-nav'
+[[module.mounts]]
+source = '../../tutorials'
+target = 'static/tutorials'

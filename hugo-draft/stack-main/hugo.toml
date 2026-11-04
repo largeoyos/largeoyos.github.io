@@ -1,0 +1,213 @@
+baseURL = 'https://largeoyos.github.io/'
+relativeURLs = false
+disablePathToLower = true
+locale = 'zh-CN'
+defaultContentLanguage = 'zh'
+title = 'LarGeoYos'
+hasCJKLanguage = true
+summaryLength = 65
+enableRobotsTXT = false
+
+[pagination]
+pagerSize = 5
+
+[taxonomies]
+category = 'categories'
+
+[markup.goldmark.renderer]
+unsafe = true
+[markup.highlight]
+noClasses = false
+
+[security]
+# These HTML documents and application scripts are generated from this repository.
+allowContent = ['^text/html$', '^text/markdown$']
+
+[params]
+description = '学习笔记、技术备忘，以及好用的工具和有趣的游戏。'
+mainSections = ['post']
+favicon = 'site-logo.svg'
+
+[params.sidebar]
+subtitle = 'USTC Undergraduate | Computer Science Enthusiast'
+avatar = 'site-logo.svg'
+
+[params.footer]
+since = 2026
+customText = '❤️ Version 5.0.0-preview.1'
+
+[params.dateFormat]
+published = '2006-01-02'
+lastUpdated = '2006-01-02'
+
+[params.article]
+toc = true
+readingTime = false
+headingAnchor = true
+[params.article.license]
+enabled = false
+
+[params.colorScheme]
+toggle = true
+default = 'light'
+
+[params.comments]
+enabled = false
+
+[[params.widgets.homepage]]
+type = 'search'
+[[params.widgets.homepage]]
+type = 'archives'
+[params.widgets.homepage.params]
+limit = 3
+[[params.widgets.homepage]]
+type = 'categories'
+[params.widgets.homepage.params]
+limit = 10
+[[params.widgets.page]]
+type = 'toc'
+
+[[menu.main]]
+identifier = 'home'
+name = '🏠 工作主页'
+pageRef = '/'
+weight = 10
+[menu.main.params]
+[[menu.main]]
+identifier = 'posts'
+name = '📝 博客大厅'
+url = '/blog/index.html'
+weight = 20
+[menu.main.params]
+[[menu.main]]
+identifier = 'ai'
+name = '📚 AI 教学'
+url = '/ai-tutorials/index.html'
+weight = 30
+[menu.main.params]
+[[menu.main]]
+identifier = 'games'
+name = '🎮 游戏大厅'
+url = '/games/index.html'
+weight = 40
+[menu.main.params]
+[[menu.main]]
+identifier = 'tools'
+name = '🔧 工具箱'
+url = '/tools/index.html'
+weight = 50
+[menu.main.params]
+[[menu.main]]
+identifier = 'markets'
+name = '📈 全球行情'
+url = '/markets/index.html'
+weight = 60
+[menu.main.params]
+[[menu.main]]
+identifier = 'quant'
+name = '🧪 量化实验室'
+url = '/quant-lab/index.html'
+weight = 70
+[menu.main.params]
+[[menu.main]]
+identifier = 'quick-nav'
+name = '🔗 快捷导航'
+url = '/quick-nav/index.html'
+weight = 80
+[[menu.main]]
+identifier = 'library'
+name = '📖 学习文库'
+url = '/tutorials/index.html'
+weight = 90
+[[menu.main]]
+identifier = 'archives'
+name = '🗂️ 归档'
+pageRef = '/page/archives'
+weight = 100
+[[menu.main]]
+identifier = 'search'
+name = '🔍 搜索'
+pageRef = '/page/search'
+weight = 110
+
+[[menu.social]]
+identifier = 'github'
+name = 'GitHub'
+url = 'https://github.com/LarGeoYos'
+[menu.social.params]
+icon = 'brand-github'
+newTab = true
+
+[[module.imports]]
+path = 'github.com/CaiJimmy/hugo-theme-stack/v4'
+
+[[module.mounts]]
+source = 'content'
+target = 'content'
+files = ['page/**', 'post/**']
+[[module.mounts]]
+source = 'generated-content'
+target = 'content'
+[[module.mounts]]
+source = 'generated-site/content'
+target = 'content'
+[[module.mounts]]
+source = 'generated-site/static'
+target = 'static'
+[[module.mounts]]
+source = 'assets'
+target = 'assets'
+[[module.mounts]]
+source = '../../assets/favicon.svg'
+target = 'assets/site-logo.svg'
+[[module.mounts]]
+source = 'layouts'
+target = 'layouts'
+[[module.mounts]]
+source = 'static'
+target = 'static'
+[[module.mounts]]
+source = '../../.nojekyll'
+target = 'static/.nojekyll'
+[[module.mounts]]
+source = '../../assets'
+target = 'static/assets'
+[[module.mounts]]
+source = '../../css'
+target = 'static/css'
+files = ['! *.css', '! **/*.css']
+[[module.mounts]]
+source = '../../js'
+target = 'static/js'
+[[module.mounts]]
+source = '../../blog'
+target = 'static/blog'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../ai-tutorials'
+target = 'static/ai-tutorials'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../tutorials'
+target = 'static/tutorials'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../games'
+target = 'static/games'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../tools'
+target = 'static/tools'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../markets'
+target = 'static/markets'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../quant-lab'
+target = 'static/quant-lab'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../quick-nav'
+target = 'static/quick-nav'
+files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']

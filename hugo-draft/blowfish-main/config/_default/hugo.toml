@@ -1,0 +1,16 @@
+baseURL = '/'
+relativeURLs = true
+title = 'LarGeoYos'
+defaultContentLanguage = 'zh-cn'
+hasCJKLanguage = true
+summaryLength = 0
+enableRobotsTXT = false
+
+[outputs]
+home = ['HTML', 'RSS', 'JSON']
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[pagination]
+pagerSize = 12

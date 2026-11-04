@@ -1,0 +1,8 @@
+<ul class="existing-posts">
+  {{ range first 5 (sort hugo.Data.posts "date" "desc") }}
+    <li>
+      <a href="{{ printf "blog/post.html?id=%s" .id | safeURL }}">{{ .title }}</a>
+      <small>{{ .date }} · {{ .category }}</small>
+    </li>
+  {{ end }}
+</ul>

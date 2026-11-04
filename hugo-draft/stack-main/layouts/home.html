@@ -1,0 +1,5 @@
+{{ define "head" }}{{ partial "site/source-head.html" . }}{{ end }}
+{{ define "main" }}{{ partial "site/workspace.html" . }}{{ end }}
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}

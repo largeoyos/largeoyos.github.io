@@ -1,0 +1,13 @@
+<div class="article-list--compact links">
+    {{ range .Params.links }}
+        {{ $external := strings.HasPrefix .website "https://" }}
+        <article>
+            <a href="{{ .website | strings.TrimPrefix "/" | relURL }}" {{ if $external }}target="_blank" rel="noopener"{{ end }}>
+                <div class="article-details">
+                    <h2 class="article-title">{{ .title }}</h2>
+                    <footer class="article-meta">{{ .description }}</footer>
+                </div>
+            </a>
+        </article>
+    {{ end }}
+</div>

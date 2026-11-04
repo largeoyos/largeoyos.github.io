@@ -108,9 +108,42 @@ const FUNCTIONS = new Set([
   'rand', 'd', 'dx', 'derivative', 'integral', 'sum', 'remainder', 'simplify', 'gcd', 'lcm', 'normalpdf', 'normalcdf',
   'binompdf', 'binomcdf', 'poissonpdf', 'poissoncdf', 'solve', 'ratio', 'mixed',
   'recur', 'dms', 'todms', 'f', 'g',
+  'polar', 'conjg', 'rep', 'imp', 'arg',
 ]);
 
-function normalizeOpenRadicals(input: string): string {
+// Compile with the calculator's precedence and postfix rules before complex evaluation.
+export function compileComplexScalar(input: string, angleMode: AngleMode): string {
+  const emit = (node: Node): string => {
+    switch (node.type) {
+      case 'number': return node.raw;
+      case 'variable': return node.name;
+      case 'unary': return `(${node.op}${emit(node.expr)})`;
+      case 'call': return `${node.name}(${node.args.map(emit).join(',')})`;
+      case 'postfix': {
+        const value = emit(node.expr);
+        if (node.op === '%') return `(${value}/100)`;
+        if (node.op === '!') return `factorial(${value})`;
+        const factor = node.op === '°' ? degreesToAngleUnit(1, angleMode)
+          : node.op === 'ʳ' ? radiansToAngleUnit(1, angleMode)
+          : gradiansToAngleUnit(1, angleMode);
+        return `(${value}*${factor})`;
+      }
+      case 'binary': {
+        const left = emit(node.left);
+        if (['+', '-'].includes(node.op) && node.right.type === 'postfix' && node.right.op === '%') {
+          return `percentChange(${left},${emit(node.right.expr)},${node.op === '+' ? 1 : -1})`;
+        }
+        if (node.op === 'npr' || node.op === 'ncr') return `${node.op === 'npr' ? 'permutations' : 'combinations'}(${left},${emit(node.right)})`;
+        if (node.op === '^') return `scalarPower(${left},${emit(node.right)})`;
+        if (!['+', '-', '*', '/', '^'].includes(node.op)) throw new Error('Syntax ERROR');
+        return `(${left}${node.op}${emit(node.right)})`;
+      }
+    }
+  };
+  return emit(new Parser(tokenize(completeParentheses(input))).parse());
+}
+
+export function normalizeOpenRadicals(input: string): string {
   let openRadicals = 0;
   const withCubeRoots = input.replace(/³√(?!\s*\()/g, () => {
     openRadicals++;
@@ -1203,7 +1236,7 @@ export function formatCasioValue(
   } else {
     const abs = Math.abs(value);
     if (abs === 0) text = '0';
-    else if (Math.abs(value - Math.round(value)) < 1e-12 && abs < 1e15) text = String(Math.round(value));
+    else if (Number.isInteger(value) && abs < 1e15) text = String(value);
     else {
       const lower = format.kind === 'Norm1' ? 1e-2 : 1e-9;
       text = abs >= 1e10 || abs < lower

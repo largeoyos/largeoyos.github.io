@@ -367,6 +367,7 @@ function executeModeEvaluation(state: ModeRuntime, context: RuntimeContext): Mod
         digitSeparator: context.digitSeparator,
         engineeringSymbols: context.engineeringSymbols,
         complexAns: context.complexAns,
+        ans: context.ans,
         definedFunctions: context.definedFunctions,
       },
     );

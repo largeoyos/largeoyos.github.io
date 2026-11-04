@@ -312,7 +312,7 @@ export default function App() {
           const rectangular = formatComplex(value, numberFormat, displayOptions);
           formulaLcdRef.current?.replaceExpressionBeforeCursor({
             kind: 'rectangular',
-            text: rectangular,
+            text: `${value.re}${value.im < 0 ? '-' : '+'}${Math.abs(value.im)}i`,
           });
           setResultVal(rectangular);
         } else {
@@ -321,8 +321,8 @@ export default function App() {
           const theta = formatCoreValue(polar.theta, numberFormat, displayOptions);
           formulaLcdRef.current?.replaceExpressionBeforeCursor({
             kind: 'polar',
-            radius,
-            theta,
+            radius: String(polar.radius),
+            theta: String(polar.theta),
           });
           setResultVal(`${radius}∠${theta}`);
         }
@@ -1524,7 +1524,7 @@ export default function App() {
           <div>
             <span className="font-bold text-slate-100 tracking-tight text-md">fx-991CN X 科学计算器</span>
             <span className="hidden sm:inline-block ml-3 px-2 py-0.5 rounded text-[10px] bg-teal-950 text-teal-400 border border-teal-800 font-mono font-semibold">
-              CLASSWIZ EMULATOR v4.2.0
+              CLASSWIZ EMULATOR v4.2.1
             </span>
           </div>
         </div>

@@ -89,6 +89,7 @@ export type ModeDisplayOptions = DisplayFormatOptions & {
   numberFormat?: NumberFormat;
   engineeringSymbols?: boolean;
   complexAns?: ComplexValue;
+  ans?: number;
   definedFunctions?: Partial<Record<'f' | 'g', string>>;
 };
 
@@ -401,7 +402,7 @@ export function evaluateModeExpression(
       input,
       angleMode,
       variables,
-      options.complexAns ?? 0,
+      options.complexAns ?? options.ans ?? 0,
       { definedFunctions: options.definedFunctions },
     );
     return { display: formatComplex(complex, options.numberFormat, displayOptions), complex };

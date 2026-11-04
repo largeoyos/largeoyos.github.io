@@ -14,7 +14,7 @@ import {
   evaluate as mathEvaluate,
   type Complex,
 } from 'mathjs';
-import { evaluateExpression, formatCasioValue, type AngleMode, type DisplayFormatOptions, type NumberFormat } from './calculator';
+import { compileComplexScalar, evaluateExpression, formatCasioValue, normalizeOpenRadicals, type AngleMode, type DisplayFormatOptions, type NumberFormat } from './calculator';
 
 export type RealValue = { kind: 'real'; value: number };
 export type ComplexValue = { kind: 'complex'; re: number; im: number };
@@ -80,6 +80,11 @@ export function complexFromPolar(
   theta: number,
   angleMode: AngleMode,
 ): ComplexValue {
+  const quarterTurn = angleMode === 'RAD' ? Math.PI / 2 : angleMode === 'GRAD' ? 100 : 90;
+  if (Number.isSafeInteger(theta / quarterTurn)) {
+    const quadrant = ((theta / quarterTurn) % 4 + 4) % 4;
+    return { kind: 'complex', re: radius * [1, 0, -1, 0][quadrant], im: radius * [0, 1, 0, -1][quadrant] };
+  }
   const radians = angleMode === 'RAD'
     ? theta
     : angleMode === 'GRAD'
@@ -145,8 +150,8 @@ export function formatComplex(
   numberFormat: NumberFormat = { kind: 'Norm1' },
   options: DisplayFormatOptions = {},
 ): string {
-  const real = Math.abs(value.re) < EPSILON ? 0 : value.re;
-  const imaginary = Math.abs(value.im) < EPSILON ? 0 : value.im;
+  const real = value.re;
+  const imaginary = value.im;
   const format = (part: number) => formatCasioValue(part, numberFormat, options);
   if (imaginary === 0) return format(real);
   if (real === 0) return `${format(imaginary)}i`;
@@ -212,23 +217,6 @@ function normalizePolarExpressions(input: string): string {
   return nested;
 }
 
-function normalizeComplexAngleSuffixes(input: string, angleMode: AngleMode): string {
-  const factor = (suffix: '°' | 'ʳ' | 'ᵍ') => {
-    if (suffix === '°') return angleMode === 'DEG' ? 1 : angleMode === 'RAD' ? Math.PI / 180 : 10 / 9;
-    if (suffix === 'ʳ') return angleMode === 'RAD' ? 1 : angleMode === 'DEG' ? 180 / Math.PI : 200 / Math.PI;
-    return angleMode === 'GRAD' ? 1 : angleMode === 'DEG' ? 0.9 : Math.PI / 200;
-  };
-  let output = input;
-  const atom = /(\d+(?:\.\d+)?|\([^()]+\))([°ʳᵍ])/g;
-  for (let pass = 0; pass < 8; pass++) {
-    const next = output.replace(atom, (_, value: string, suffix: '°' | 'ʳ' | 'ᵍ') =>
-      `((${value})*${factor(suffix)})`);
-    if (next === output) break;
-    output = next;
-  }
-  return output;
-}
-
 function containsExplicitComplexSyntax(input: string): boolean {
   return /(^|[^A-Za-z])i($|[^A-Za-z])|∠|\b(?:polar|Conjg|Rep|Imp|arg)\s*\(/i.test(input);
 }
@@ -240,7 +228,9 @@ export function evaluateComplexExpression(
   ans: number | ComplexValue = 0,
   options: ComplexExpressionOptions = {},
 ): ComplexValue {
-  const realAns = typeof ans === 'number' ? ans : Math.abs(ans.im) < EPSILON ? ans.re : undefined;
+  if (input.length > 199) throw new Error('Syntax ERROR');
+  const usesAns = [input, ...Object.values(options.definedFunctions ?? {})].some(expression => /\bAns\b/.test(expression));
+  const realAns = typeof ans === 'number' ? ans : ans.im === 0 ? ans.re : usesAns ? undefined : 0;
   if (!containsExplicitComplexSyntax(input) && realAns !== undefined) {
     const real = evaluateExpression(input, {
       variables,
@@ -251,12 +241,12 @@ export function evaluateComplexExpression(
     });
     if (real.success) return { kind: 'complex', re: real.value, im: 0 };
     const mayEnterComplexDomain = /\b(?:sqrt|ln|log|root|asin|acos|atanh|acosh)\s*\(/i.test(input)
-      || input.includes('√');
+      || input.includes('√') || input.includes('^');
     if (!mayEnterComplexDomain) throw new Error(real.errorType || 'Syntax ERROR');
   }
 
   const normalizeForMath = (expression: string) =>
-    normalizeComplexAngleSuffixes(normalizePolarExpressions(expression), angleMode)
+    normalizePolarExpressions(normalizeOpenRadicals(expression))
       .replaceAll('×', '*')
       .replaceAll('÷', '/')
       .replaceAll('−', '-')
@@ -269,7 +259,7 @@ export function evaluateComplexExpression(
       .replaceAll('⁻¹', '^(-1)')
       .replaceAll('√', 'sqrt')
       .replaceAll('π', 'pi');
-  const normalized = normalizeForMath(input);
+  const normalized = compileComplexScalar(normalizeForMath(input), angleMode);
 
   const builtin = (name: string, value: MathScalar): MathScalar =>
     mathEvaluate(`${name}(z)`, { z: value }) as MathScalar;
@@ -279,25 +269,53 @@ export function evaluateComplexExpression(
   const unitsPerRadian = 1 / radiansPerUnit;
   const realPart = (value: MathScalar): number => {
     const converted = toComplexValue(value);
-    if (Math.abs(converted.im) >= EPSILON) throw new Error('Argument ERROR');
+    if (converted.im !== 0) throw new Error('Argument ERROR');
     return converted.re;
   };
   const scope: Record<string, unknown> = {
     ...variables,
     Ans: typeof ans === 'number' ? ans : complex(ans.re, ans.im),
     i: complex(0, 1),
+    percentChange: (left: MathScalar, percentage: MathScalar, sign: number) =>
+      add(left, multiply(left, divide(multiply(percentage, sign), 100))) as MathScalar,
+    scalarPower: (base: MathScalar, exponent: MathScalar): MathScalar => {
+      const n = toComplexValue(exponent);
+      if (n.im !== 0 || !Number.isSafeInteger(n.re)) return pow(base, exponent) as MathScalar;
+      let factor: MathScalar = n.re < 0 ? divide(1, base) as MathScalar : base;
+      let count = Math.abs(n.re);
+      let result: MathScalar = 1;
+      while (count > 0) {
+        if (count % 2 === 1) result = multiply(result, factor) as MathScalar;
+        count = Math.floor(count / 2);
+        if (count > 0) factor = multiply(factor, factor) as MathScalar;
+      }
+      return result;
+    },
     sin: (value: MathScalar) => builtin('sin', scale(value, radiansPerUnit)),
     cos: (value: MathScalar) => builtin('cos', scale(value, radiansPerUnit)),
-    tan: (value: MathScalar) => builtin('tan', scale(value, radiansPerUnit)),
+    tan: (value: MathScalar) => {
+      const z = toComplexValue(value);
+      if (z.im === 0 && Math.abs(Math.cos(z.re * radiansPerUnit)) < 1e-14) throw new Error('Math ERROR');
+      return builtin('tan', scale(value, radiansPerUnit));
+    },
     asin: (value: MathScalar) => scale(builtin('asin', value), unitsPerRadian),
     acos: (value: MathScalar) => scale(builtin('acos', value), unitsPerRadian),
     atan: (value: MathScalar) => scale(builtin('atan', value), unitsPerRadian),
     ln: (value: MathScalar) => builtin('log', value),
-    log: (...args: MathScalar[]) => args.length === 1
-      ? divide(builtin('log', args[0]), Math.log(10))
-      : divide(builtin('log', args[1]), builtin('log', args[0])),
-    root: (index: MathScalar, radicand: MathScalar) =>
-      pow(radicand, divide(1, index) as MathScalar),
+    log: (...args: MathScalar[]) => {
+      if (args.length === 1) return divide(builtin('log', args[0]), Math.log(10));
+      if (args.length !== 2) throw new Error('Argument ERROR');
+      const base = realPart(args[0]);
+      if (base <= 0 || base === 1) throw new Error('Math ERROR');
+      return divide(builtin('log', args[1]), Math.log(base));
+    },
+    root: (index: MathScalar, radicand: MathScalar) => {
+      const n = realPart(index);
+      if (n === 0) throw new Error('Math ERROR');
+      const z = toComplexValue(radicand);
+      if (z.im === 0 && z.re < 0 && Number.isInteger(n) && Math.abs(n % 2) === 1) return -Math.pow(-z.re, 1 / n);
+      return pow(radicand, 1 / n);
+    },
     polar: (radius: MathScalar, theta: MathScalar) => {
       const value = complexFromPolar(realPart(radius), realPart(theta), angleMode);
       return complex(value.re, value.im);
@@ -312,17 +330,24 @@ export function evaluateComplexExpression(
     Imp: (value: MathScalar) => toComplexValue(value).im,
     Abs: (value: MathScalar) => Number(abs(value)),
   };
+  scope.rec = scope.Rec;
+  const activeFunctions = new Set<string>();
   for (const name of ['f', 'g'] as const) {
     const expression = options.definedFunctions?.[name]?.trim();
     if (!expression) continue;
-    scope[name] = (value: MathScalar) => mathEvaluate(
-      normalizeForMath(expression),
-      { ...scope, X: value },
-    ) as MathScalar;
+    scope[name] = (value: MathScalar) => {
+      if (activeFunctions.has(name)) throw new Error('Stack ERROR');
+      activeFunctions.add(name);
+      try {
+        return mathEvaluate(compileComplexScalar(normalizeForMath(expression), angleMode), { ...scope, X: value }) as MathScalar;
+      } finally {
+        activeFunctions.delete(name);
+      }
+    };
   }
   const value = mathEvaluate(normalized, scope) as MathScalar;
   const result = toComplexValue(value);
-  if (![result.re, result.im].every(Number.isFinite)) throw new Error('Math ERROR');
+  if (![result.re, result.im].every(part => Number.isFinite(part) && Math.abs(part) < 1e100)) throw new Error('Math ERROR');
   return result;
 }
 export function assertInt32(value: number): number {

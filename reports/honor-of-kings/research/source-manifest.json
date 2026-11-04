@@ -1,0 +1,680 @@
+{
+  "reviewed": "2026-09-12",
+  "counts": {
+    "entries": 132,
+    "identities": 127
+  },
+  "sources": [
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/heroskinlist.json",
+      "retrievedAt": "2026-09-12T15:19:32.348Z",
+      "sha256": "4ff57b134005b8cdea25985d39ae484f4d01f2111e49a4f64fb3387e05fda44d"
+    },
+    {
+      "url": "https://pvp.qq.com/web201605/js/herolist.json",
+      "retrievedAt": "2026-09-12T15:19:32.378Z",
+      "sha256": "a969270436b367288285f8a580d0fc238e84218ddf9ba8c484364dcab6dc8ed5"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/547.json",
+      "retrievedAt": "2026-09-12T15:19:32.401Z",
+      "sha256": "ffc774ee4317e6afc8506314be2bed7dd16aead52a8dfe91dd9d20f08a189f3d"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/585.json",
+      "retrievedAt": "2026-09-12T15:19:32.562Z",
+      "sha256": "7ce5af1fd06a76480e950239ce0d3edad5549c4199b9fea416cb4e05c6fffc08"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/172.json",
+      "retrievedAt": "2026-09-12T15:19:32.594Z",
+      "sha256": "ca42fa4ceedc70c2fcfbac892e7d0849eb0d8516dc38fb07841b788f2faf2fcd"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/151.json",
+      "retrievedAt": "2026-09-12T15:19:32.616Z",
+      "sha256": "fa662052c8c16e3d94202f7c8e6b07e93039859637818bcab592efccf84b028b"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/583.json",
+      "retrievedAt": "2026-09-12T15:19:32.619Z",
+      "sha256": "da942f829ed21d2f9f9a0ab5c62b5a3969853ef41992a55f35ae6dbdb37e6715"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/188.json",
+      "retrievedAt": "2026-09-12T15:19:32.624Z",
+      "sha256": "344c3520d2a5dfa67d09d1e5e5d9d5629e06fe185d071cffe44173647ed4d9c6"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/549.json",
+      "retrievedAt": "2026-09-12T15:19:32.664Z",
+      "sha256": "8415b6422c597efde132f2290b114621649db08ebd691a30c3cfe7038bc596ad"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/577.json",
+      "retrievedAt": "2026-09-12T15:19:32.757Z",
+      "sha256": "36d704febd2727d6a326aef9f1b5f12a047052403f41bc2be2765315ab989c47"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/558.json",
+      "retrievedAt": "2026-09-12T15:19:32.775Z",
+      "sha256": "939b96182dd847a3f1f8cca2d50ee7fc577b677238bd4f1ab50a2d8cd7f1cf87"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/581.json",
+      "retrievedAt": "2026-09-12T15:19:32.817Z",
+      "sha256": "4863234350d88babba613da2c8a6e776237e3a01711d0ca686b56f3138375b65"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/584.json",
+      "retrievedAt": "2026-09-12T15:19:32.828Z",
+      "sha256": "378a4b94d2e6322ff73fb70de11ef3dbff6afd7890a52925391320e664a2cd8f"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/519.json",
+      "retrievedAt": "2026-09-12T15:19:32.930Z",
+      "sha256": "09adb2cb018ff707e360a00c4723d0b2be1d9c008b7a0cfdaf047f4b28f5de1c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/582.json",
+      "retrievedAt": "2026-09-12T15:19:32.937Z",
+      "sha256": "32971f9b19616dac04013ac39b9a8bb19dcaa6996173966c11ec2360d78028b7"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/506.json",
+      "retrievedAt": "2026-09-12T15:19:32.968Z",
+      "sha256": "6adf8d5e0a06d5e83bc604c915db69e17d728541a96e7c136502bcf15d2402e6"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/159.json",
+      "retrievedAt": "2026-09-12T15:19:33.060Z",
+      "sha256": "9a6a49cf26686913df6632dbb1a28a050dfefb46420ce4a27aa0cb5367031f3f"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/563.json",
+      "retrievedAt": "2026-09-12T15:19:33.081Z",
+      "sha256": "0d1712a43e4c4a06497fb6cd2dddb95f523d75597d39ba8bec4d87cd6f0fe936"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/503.json",
+      "retrievedAt": "2026-09-12T15:19:33.103Z",
+      "sha256": "d2a1034e78bb0a63ecf67840ac28bfa125c2f28472864e037a77f1d5ffdcb9f0"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/514.json",
+      "retrievedAt": "2026-09-12T15:19:33.134Z",
+      "sha256": "74bb518f8b6cb9cea920ff7234b066760cdc562d55434500e398e09770a37a77"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/550.json",
+      "retrievedAt": "2026-09-12T15:19:33.227Z",
+      "sha256": "2936868d676cad77d200d1914634dc902c25934a47e4fe083d6432777e28b370"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/544.json",
+      "retrievedAt": "2026-09-12T15:19:33.278Z",
+      "sha256": "51b722e4193fbbe711e698904532a87f7b0189c8e5190378f5dcdc5a7c5011e8"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/545.json",
+      "retrievedAt": "2026-09-12T15:19:33.350Z",
+      "sha256": "98146434c62a9400b098cb2150f63f9d27e124a4fd69cf5ffcd4ed9a766e2f0c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/521.json",
+      "retrievedAt": "2026-09-12T15:19:33.390Z",
+      "sha256": "c0e601b55bad3d6d0f944ef09b010ab8fe141afa251dccf7ca5b1b7d73dd9d2c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/517.json",
+      "retrievedAt": "2026-09-12T15:19:33.432Z",
+      "sha256": "d37fb29f5c648d537bb25520ac8752b828dca9ed76d9b64ca962123cc4b9b7e8"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/564.json",
+      "retrievedAt": "2026-09-12T15:19:33.443Z",
+      "sha256": "7282e91b526da81cfc727f1cf3419689b0232f6605b3957a7968477f124b2677"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/548.json",
+      "retrievedAt": "2026-09-12T15:19:33.456Z",
+      "sha256": "23125e72ff033de9b28273ee7310bdc33411d4fb83672d99dfe0fa288b778c7c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/177.json",
+      "retrievedAt": "2026-09-12T15:19:33.481Z",
+      "sha256": "8a6bbe1bf34cb2d5d8bf5e2a41d0faa5787104b7d3c2bf9e8cff40cbc034a36c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/130.json",
+      "retrievedAt": "2026-09-12T15:19:33.490Z",
+      "sha256": "c00062719cec899e2bdc17d1a3552a10e6726e0777bc42e0025fa8fef8628e23"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/534.json",
+      "retrievedAt": "2026-09-12T15:19:33.550Z",
+      "sha256": "41fc83923b18953a65f7aa365dc4647b37fc124a303b58f159dd08753a88cb3d"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/148.json",
+      "retrievedAt": "2026-09-12T15:19:33.610Z",
+      "sha256": "4a8ec031d0a6fb6717ddf6f1f48f5c25c3f48d064c7b47591c84ddaf914152c1"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/197.json",
+      "retrievedAt": "2026-09-12T15:19:33.624Z",
+      "sha256": "cb6ee7e4879c0a08e4cfa6e1eb3dc577148acf01eb663782c81d9003f9deb568"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/198.json",
+      "retrievedAt": "2026-09-12T15:19:33.626Z",
+      "sha256": "4f1de0dee74dc99270f61a6418eba51ea78b865b87ffc80aa514beafff90ecd8"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/542.json",
+      "retrievedAt": "2026-09-12T15:19:33.679Z",
+      "sha256": "d7866ca4355bf7fd723098d6d89fa99227d0a8472c382b9c7cae495e8850c141"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/540.json",
+      "retrievedAt": "2026-09-12T15:19:33.692Z",
+      "sha256": "e1e208f58c072ea0f3e6b5e8a1f9697517906b7c8719cfd53e044ea93ccb3149"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/155.json",
+      "retrievedAt": "2026-09-12T15:19:33.726Z",
+      "sha256": "ee7cfaa3251439eea5fc4c38de511a8e9cffa35f6814d7184cbc6e2ecec03521"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/538.json",
+      "retrievedAt": "2026-09-12T15:19:33.753Z",
+      "sha256": "b5cb806bfa622d366eaee914a4057a1a01fe7970ccfc1892270d81045f7df2e0"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/537.json",
+      "retrievedAt": "2026-09-12T15:19:33.769Z",
+      "sha256": "d332104f161bba509569da922c008cd0be0a17deab7cd339d9a789a602f3d41c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/528.json",
+      "retrievedAt": "2026-09-12T15:19:33.781Z",
+      "sha256": "9bae77c055666bf1d608166a0f35401722fa30f99b97449f9589ff5e5156623e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/536.json",
+      "retrievedAt": "2026-09-12T15:19:33.830Z",
+      "sha256": "0b252ccfcedd8897982312a1517fa94b5b01f5af9cd8334b3c2ac38cb1388c05"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/533.json",
+      "retrievedAt": "2026-09-12T15:19:33.866Z",
+      "sha256": "c212d98733044ebab89f1be77f84f006e3c2d2aadbc7dc91f386476bdfd06e3e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/105.json",
+      "retrievedAt": "2026-09-12T15:19:33.902Z",
+      "sha256": "729c74eeadfe9f12b1b1dc4ba3ac88b5c55684a6a8cc413958708f19eafa04b2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/531.json",
+      "retrievedAt": "2026-09-12T15:19:33.916Z",
+      "sha256": "5626525a3e8b2a43ed4aa9f035a9a04251822ce6c01c84661adf850b65ced31e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/120.json",
+      "retrievedAt": "2026-09-12T15:19:33.925Z",
+      "sha256": "62b281035eacceea38862802bd2cd52d1cdb881584ef9955c9c57730a00de2c2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/518.json",
+      "retrievedAt": "2026-09-12T15:19:33.937Z",
+      "sha256": "f43fb2cf091b71476ad1d073320ba420fb971fea180b0792914e6f7062adb5c4"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/524.json",
+      "retrievedAt": "2026-09-12T15:19:33.970Z",
+      "sha256": "a0807257e0ba9f4442e8824def5b50104372713e55a9322704713b86137ebeee"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/527.json",
+      "retrievedAt": "2026-09-12T15:19:33.971Z",
+      "sha256": "86bf710f7d9ac32e5465d460439d220ccba5e5a01bfe86f9e2870447dd600fac"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/525.json",
+      "retrievedAt": "2026-09-12T15:19:34.027Z",
+      "sha256": "06eba104e7bfbba393d6d05f1505702c6b83f6e2d2294e6caf4d7ba67a422bb2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/505.json",
+      "retrievedAt": "2026-09-12T15:19:34.031Z",
+      "sha256": "68b457db8e2d8c0440f519c433bd14dd2773eaacf86fb0c36275f2dcd75e05db"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/522.json",
+      "retrievedAt": "2026-09-12T15:19:34.092Z",
+      "sha256": "62590d6972aa1de5f526d80ef8878d52a7845a22547dbb150c703927d11c6f26"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/511.json",
+      "retrievedAt": "2026-09-12T15:19:34.149Z",
+      "sha256": "7901f1f2f2e3a6beb89ae72bd65c281652334765ec943d55a10b501e575e74b9"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/507.json",
+      "retrievedAt": "2026-09-12T15:19:34.258Z",
+      "sha256": "12f6015c9297edd41f1efc8deb42483e1880b3b123fed1f5a0d9bcac17462c5e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/523.json",
+      "retrievedAt": "2026-09-12T15:19:34.276Z",
+      "sha256": "99dffbc6fc890f5e30505aa64f70a7102e681b09d036d2e28481fc5d74608fd2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/513.json",
+      "retrievedAt": "2026-09-12T15:19:34.296Z",
+      "sha256": "41ccfc550ab29510420d48574b97d03ce76969975140fdf98ca7cfd7c1c65acb"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/515.json",
+      "retrievedAt": "2026-09-12T15:19:34.342Z",
+      "sha256": "22a9b3a057fdc98ab0b8e1ea18e6a268f40c10e569dab42d0c1794841e4295bf"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/125.json",
+      "retrievedAt": "2026-09-12T15:19:34.395Z",
+      "sha256": "2f01aacd5c528957758f4dd5803ed2c0325dfe9b2ae9a26add466ef342598174"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/504.json",
+      "retrievedAt": "2026-09-12T15:19:34.412Z",
+      "sha256": "78735030a5da5adff6c417d635f99287b375ef8f756171c6956b00c3446ef59b"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/156.json",
+      "retrievedAt": "2026-09-12T15:19:34.469Z",
+      "sha256": "3f6193c1dd4626da4cb247002c22a33d729315147bd75c278d219b0d9f8a6b2d"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/502.json",
+      "retrievedAt": "2026-09-12T15:19:34.536Z",
+      "sha256": "1dbe79e26445bae6f1d461041e30a2337181e4b70227502a4215e5a8f970e695"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/176.json",
+      "retrievedAt": "2026-09-12T15:19:34.562Z",
+      "sha256": "3719063d03994cc35b75a7ca96b2797342d558243151b3671609c984cefa5cbe"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/189.json",
+      "retrievedAt": "2026-09-12T15:19:34.600Z",
+      "sha256": "0084c41fa83fd75dfc598ba659377d94847be01cf331c5201513f2dcee293380"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/199.json",
+      "retrievedAt": "2026-09-12T15:19:34.625Z",
+      "sha256": "8b51608cd2f92824428cf8f32572d7b5f93db285318ee39f64b3da799db60a97"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/169.json",
+      "retrievedAt": "2026-09-12T15:19:34.662Z",
+      "sha256": "48dc235ed98c5976e8a463ddfc71245c006e697ce8434978d1821df742a93ec2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/501.json",
+      "retrievedAt": "2026-09-12T15:19:34.696Z",
+      "sha256": "bdee8693655cdd9c097c9b1db411fd89d828492aa63aba78e85376ba660a0541"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/194.json",
+      "retrievedAt": "2026-09-12T15:19:34.769Z",
+      "sha256": "67b47e7771e230b53cff2f0aab70b44b4e9891e250bf035807f11d03aab912c0"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/179.json",
+      "retrievedAt": "2026-09-12T15:19:34.818Z",
+      "sha256": "46a6c0358f765ab59bb273a9010756582a98bb157c7600cfbb9804b9cb02b5b3"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/196.json",
+      "retrievedAt": "2026-09-12T15:19:34.834Z",
+      "sha256": "ddb90a88a6b5539f96128522deae33f8e2e3e23b4536493da5d7bfec2ecc2ed2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/124.json",
+      "retrievedAt": "2026-09-12T15:19:34.842Z",
+      "sha256": "5faf8ecaab8589062571ffba598ee1eb485b27ba27c771d24e6edf9bf1b6e53a"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/166.json",
+      "retrievedAt": "2026-09-12T15:19:34.863Z",
+      "sha256": "b19d099e4151ea85c2cb94702d02efe807a2cd8c57eca6fc153e81d307faf145"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/195.json",
+      "retrievedAt": "2026-09-12T15:19:34.867Z",
+      "sha256": "8c32cf32dc2cfb5e827e1b7eaa99187c87a76e069a1df968cff160c12efbe079"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/121.json",
+      "retrievedAt": "2026-09-12T15:19:34.982Z",
+      "sha256": "11fade20ccd8a828b72d16ecff5b09dbfa38da296d8836d613361597782c9eab"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/193.json",
+      "retrievedAt": "2026-09-12T15:19:34.987Z",
+      "sha256": "897ab5ff9a525f3625310b40a2773d0fadb4f9358afd54197fc6085ac6df6ba7"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/509.json",
+      "retrievedAt": "2026-09-12T15:19:35.001Z",
+      "sha256": "b20f52129b6caaaada4fe5c129d95a8efad10d7585e405041197e74308250bd3"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/312.json",
+      "retrievedAt": "2026-09-12T15:19:35.044Z",
+      "sha256": "73c258842e0cbc929624ba6425384eba4f868fc3991cbe84a493c5683fb8a04e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/510.json",
+      "retrievedAt": "2026-09-12T15:19:35.140Z",
+      "sha256": "4c1eb93f25cac441e7ca762905942c16ee509937ebf1bf0ae5eee8c476b00804"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/182.json",
+      "retrievedAt": "2026-09-12T15:19:35.161Z",
+      "sha256": "452b8e7a29d917d85b56351c45f352b528552f3178f673b88c5440e8e0449776"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/133.json",
+      "retrievedAt": "2026-09-12T15:19:35.183Z",
+      "sha256": "189bc26dcab05c1baf6b097eb4e44e13c490813aa2003215e8c23a62e059c3e6"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/167.json",
+      "retrievedAt": "2026-09-12T15:19:35.192Z",
+      "sha256": "3776343239f1627407fe5394d9e3ca1ccbf1258abc6e170d6494954253792aa3"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/137.json",
+      "retrievedAt": "2026-09-12T15:19:35.207Z",
+      "sha256": "5b8978bcb5bd338afd2c03152dfb033536e06190dddabb2097cc22878a1b9b0e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/508.json",
+      "retrievedAt": "2026-09-12T15:19:35.218Z",
+      "sha256": "b3c4920286d8f9597245dbc0fa8dfecd69a5853f93325018769620ee67199f27"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/116.json",
+      "retrievedAt": "2026-09-12T15:19:35.338Z",
+      "sha256": "697edafa8b0ed886720f152ac43b432b221261a54de24b3ad23df043c37461c9"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/191.json",
+      "retrievedAt": "2026-09-12T15:19:35.361Z",
+      "sha256": "a46134a63afd3e43f17d18252aced7db0f8d25fbfec2b6563d9bc8a081fa7a36"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/170.json",
+      "retrievedAt": "2026-09-12T15:19:35.368Z",
+      "sha256": "811dd27c0cc087a6d22c81c1911d12832db4ef389b004e1d179d916434268b7c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/187.json",
+      "retrievedAt": "2026-09-12T15:19:35.369Z",
+      "sha256": "84155640c84d4fc88822bec7f1b847d114596cce30cfb33dd01e7eaa83d28b19"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/149.json",
+      "retrievedAt": "2026-09-12T15:19:35.395Z",
+      "sha256": "da9d1dad849332e0610059ceb1601205c89423c40c146868ffdd7bc5ac902889"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/192.json",
+      "retrievedAt": "2026-09-12T15:19:35.503Z",
+      "sha256": "0d4dd68e00ef95e0dd517496878612ab2b092dd409825c12af3f61ebad8157aa"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/180.json",
+      "retrievedAt": "2026-09-12T15:19:35.537Z",
+      "sha256": "e8d39a4352b0757d62f073f16da19faab99906508a6b7660f647387f6e5251e6"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/184.json",
+      "retrievedAt": "2026-09-12T15:19:35.612Z",
+      "sha256": "39d8781e1c77413f1fbced28dac46d76a2204496f8fa87142bfd1644b1b6a5bb"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/186.json",
+      "retrievedAt": "2026-09-12T15:19:35.663Z",
+      "sha256": "506e6a429964f97556a586b4c31b293ed3c851f6d28af87a2b01c5e279fa4f22"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/183.json",
+      "retrievedAt": "2026-09-12T15:19:35.680Z",
+      "sha256": "cf74e829fa8791e3dcd18afc414bf79d8a99a3687e682fedcdf4665f39638ac0"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/178.json",
+      "retrievedAt": "2026-09-12T15:19:35.745Z",
+      "sha256": "1a41f89ecf57d512d73d8c343120119b6fd99172b0fdc4669b689ac9bf76de63"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/190.json",
+      "retrievedAt": "2026-09-12T15:19:35.772Z",
+      "sha256": "4a6f65d063d2b8f1958d567fdc61520474faae3d4f9057edf980b07a303fdae0"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/175.json",
+      "retrievedAt": "2026-09-12T15:19:35.800Z",
+      "sha256": "57f7408f1cdb121e70d31e76cca9826d8027f0cdbaa1986eee46ded6bb15ade9"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/174.json",
+      "retrievedAt": "2026-09-12T15:19:35.829Z",
+      "sha256": "9bb9c2a8726775e371470e7918d2948422008d31816aa54ea3afd52545e939bc"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/173.json",
+      "retrievedAt": "2026-09-12T15:19:35.892Z",
+      "sha256": "b9f0d86e21e6211f6b9655b645f97b85388ef91500246849cc76394edfdc5f1c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/168.json",
+      "retrievedAt": "2026-09-12T15:19:35.979Z",
+      "sha256": "cce21806e137bc1aa1a6f76f15077bfd45adb5fe0b434a45def91e2ad3df038b"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/163.json",
+      "retrievedAt": "2026-09-12T15:19:36.013Z",
+      "sha256": "55e50159d417fd0e5747e8e1bb8914a02c3e303188b1946fa389a1a772dd6a41"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/171.json",
+      "retrievedAt": "2026-09-12T15:19:36.014Z",
+      "sha256": "3bf30c1664e17de51132e488ce278a547080aa6c7e9486065246dbc4d48a9cc8"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/157.json",
+      "retrievedAt": "2026-09-12T15:19:36.153Z",
+      "sha256": "280899146ca4cc9ff4d9d23be436e9fe254f7cec12ed9bf2a633b99dcb98e350"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/153.json",
+      "retrievedAt": "2026-09-12T15:19:36.168Z",
+      "sha256": "d30198aee8bd2bcb1e5eb161bb1e49aa534ee6f68a41a9ca85798db13444089e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/154.json",
+      "retrievedAt": "2026-09-12T15:19:36.192Z",
+      "sha256": "fe04b4e14fb5df3c088f677cdf3977b6849813c048261eb4881fa5e7b5d676c6"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/152.json",
+      "retrievedAt": "2026-09-12T15:19:36.299Z",
+      "sha256": "3a9555e4de4bc8c23051fabf192518d5cc0ce6497ee4e6154af62fdc6c1e03ed"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/162.json",
+      "retrievedAt": "2026-09-12T15:19:36.317Z",
+      "sha256": "9f7ee5aac830031a5fe494dcc959dfd01e92ea9df9baa54c5d6579843e1770c4"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/529.json",
+      "retrievedAt": "2026-09-12T15:19:36.317Z",
+      "sha256": "3dec94fd8203618ff9e92f3516a53a4d3a2ddb000ea32dbd5dcc758e74885097"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/132.json",
+      "retrievedAt": "2026-09-12T15:19:36.319Z",
+      "sha256": "e44bac8db08fb2299bbe91d7f6b848c43ba74b0315c9e6bb07b1b670ca46bb9e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/150.json",
+      "retrievedAt": "2026-09-12T15:19:36.329Z",
+      "sha256": "fce62aa53325378caf5f59686ce38d17cd10702253ed9d2f2135d0f21e7f22a0"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/146.json",
+      "retrievedAt": "2026-09-12T15:19:36.340Z",
+      "sha256": "f71e59e0053ee55442a99b1e20a95bb947bf8fb9047b844599d0a167f1c9bcac"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/142.json",
+      "retrievedAt": "2026-09-12T15:19:36.341Z",
+      "sha256": "2b17911a62d1785d2f865c4e88bc0f76e19cbecb8285cf8ea4ec78d91677e01c"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/144.json",
+      "retrievedAt": "2026-09-12T15:19:36.452Z",
+      "sha256": "d4b247c22e56bcd9c603b22dce809bd9f93b5a1d458592458f437bd1870083e5"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/140.json",
+      "retrievedAt": "2026-09-12T15:19:36.460Z",
+      "sha256": "3dc6d8a129e81153490e928ecba53a5c8f22bfe2a7c0fdb204edadcff41471a8"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/141.json",
+      "retrievedAt": "2026-09-12T15:19:36.467Z",
+      "sha256": "ae397401aff7c73c8bc731441b3944484823c60d5ff8f8a490a5560f188f38a9"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/136.json",
+      "retrievedAt": "2026-09-12T15:19:36.479Z",
+      "sha256": "9710e03d6d70e1832178220b945cb76f9f01cbbc376bc6fa74a41d52a2345859"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/135.json",
+      "retrievedAt": "2026-09-12T15:19:36.483Z",
+      "sha256": "62686d93ff9ba235c1b86a23ca3df22bd9b5e5830ce7b30757c59a3dddd737c6"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/139.json",
+      "retrievedAt": "2026-09-12T15:19:36.485Z",
+      "sha256": "811e1c8e43e222310ae90de210284ab35a26ebb460f702d91d36c41ae8788cfa"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/128.json",
+      "retrievedAt": "2026-09-12T15:19:36.571Z",
+      "sha256": "88ba44e2d420185cc5bcfec56f24a121489271b2ca1e73695066fe0640df34c1"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/129.json",
+      "retrievedAt": "2026-09-12T15:19:36.605Z",
+      "sha256": "aa4c55a6c485c6c40d983ee8b333cdacc0b39a4b5798cc3c9d2c53a43ee40141"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/131.json",
+      "retrievedAt": "2026-09-12T15:19:36.611Z",
+      "sha256": "1bd389e046c7d79e73ba78c72b145a286932c3d69a125e0b5b77bea61949b32b"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/134.json",
+      "retrievedAt": "2026-09-12T15:19:36.611Z",
+      "sha256": "1bfa4e2733375e2fb59e5f5c09e3c0cf3f72eeed233a3f4aa2afd693387f5a50"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/126.json",
+      "retrievedAt": "2026-09-12T15:19:36.637Z",
+      "sha256": "bbd3576a4dd53a144b724b0b9ff03d92277292e09a21b7263f1d39eaf9db538f"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/127.json",
+      "retrievedAt": "2026-09-12T15:19:36.638Z",
+      "sha256": "1a6bbf4151ae220c12c98b836a577263a2506b6fcbefb61f48b29ce392b8487e"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/123.json",
+      "retrievedAt": "2026-09-12T15:19:36.738Z",
+      "sha256": "bea7c4ce3593fd8b84f9c2b0e6c4710dd5b4edaec43213ec3754ce1ea757ccd9"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/119.json",
+      "retrievedAt": "2026-09-12T15:19:36.745Z",
+      "sha256": "2319036bae15e71876284078f3ab2c743eef672cab189f315a2cac4e3fb6da37"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/117.json",
+      "retrievedAt": "2026-09-12T15:19:36.751Z",
+      "sha256": "cf18593db97a6de99d0f32fd38da13b5dcbdf61da2c729441065c8d71988fc0b"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/114.json",
+      "retrievedAt": "2026-09-12T15:19:36.776Z",
+      "sha256": "da22235027aa0657635f73ec4edc89dacc0b62bb36792728c268907b0328a1a5"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/115.json",
+      "retrievedAt": "2026-09-12T15:19:36.785Z",
+      "sha256": "b5c1700a1d4a0c4df6f0c466faa4d919209bc7b0a086e5e6583d40e99a6439e4"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/118.json",
+      "retrievedAt": "2026-09-12T15:19:36.813Z",
+      "sha256": "70665e587654b94a99e5c99a533e28bd2b9cb1f093bf67ac4654b532aac21404"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/113.json",
+      "retrievedAt": "2026-09-12T15:19:36.837Z",
+      "sha256": "45d16c2008fe2df944380ba8d1fb138ed8613aba34c4787d4c3579a4f84fd589"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/107.json",
+      "retrievedAt": "2026-09-12T15:19:36.861Z",
+      "sha256": "122b30defb13e9bd4ff124b9c63345cdac569fa04431db530c28958fb18aed67"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/111.json",
+      "retrievedAt": "2026-09-12T15:19:36.874Z",
+      "sha256": "33787106c41a70e54577c6bb07cdf747bfc77dfadc109171499224b27132e7d1"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/112.json",
+      "retrievedAt": "2026-09-12T15:19:36.898Z",
+      "sha256": "6b106a157f300d5ae4ac9a77a60a3b68995c0ea41d8e9f09eab33fcb1b4f1b9d"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/110.json",
+      "retrievedAt": "2026-09-12T15:19:36.922Z",
+      "sha256": "bbd69b2b33060f0e2ee06bbd0eedea1b88cbccaf96f4c243a1d8895ef81ecac2"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/109.json",
+      "retrievedAt": "2026-09-12T15:19:36.931Z",
+      "sha256": "075e3d777333444e220a56910e0e11205f0468c432f19165dd59b4edbc5af2fb"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/108.json",
+      "retrievedAt": "2026-09-12T15:19:36.979Z",
+      "sha256": "903e7198208dd9f787514f9def0559889b79bbcf6866597c7851556fb136ff4d"
+    },
+    {
+      "url": "https://pvp.qq.com/zlkdatasys/zsbd_herolist/106.json",
+      "retrievedAt": "2026-09-12T15:19:37.028Z",
+      "sha256": "9c7aa300be4f812997c4b4027c700155c1524994e43052ecfb9cb0ffaab9a7e4"
+    }
+  ],
+  "failed": []
+}

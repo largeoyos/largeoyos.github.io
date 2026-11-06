@@ -29,7 +29,7 @@ mainSections = ['post']
 favicon = 'site-logo.svg'
 
 [params.sidebar]
-subtitle = 'USTC Undergraduate | Computer Science Enthusiast'
+subtitle = 'USTC Undergraduate | Electrical Engineering Student'
 avatar = 'site-logo.svg'
 
 [params.footer]

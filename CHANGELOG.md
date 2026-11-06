@@ -881,3 +881,8 @@
 
 ### 新增 (Added)
 - 快捷导航的 USTC 校园分类新增 TokenWorks 积分入口。
+
+## [5.0.0-preview.10] - 2026-11-06
+
+### 变更 (Changed)
+- 主站停止发布旧 /personal/ 地址，个人主页保留在 cv.largeoyos.me 独立部署。

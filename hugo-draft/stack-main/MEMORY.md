@@ -14,4 +14,4 @@
 - 首页布局按钮与快速随机并列，保留原布局偏好；归档分类使用颜色区分；计算器保持面板比例。
 - 主站配色通过侧栏切换，保留五套配色与独立的深色模式；个人主页仍是独立站点。
 
-- 个人主页独立 Vercel 项目的根目录为 hugo-draft/stack-personal，使用 cv.largeoyos.me 作为独立构建地址；GitHub Pages 原 /personal/ 构建保留。
+- 个人主页独立 Vercel 项目的根目录为 hugo-draft/stack-personal，使用 cv.largeoyos.me 作为独立构建地址；主站不再发布 /personal/，仅保留独立域名。

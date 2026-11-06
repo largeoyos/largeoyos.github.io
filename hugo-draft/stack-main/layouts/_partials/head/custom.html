@@ -1,5 +1,14 @@
 <script>window.StackSiteBase = {{ site.Home.RelPermalink }};</script>
+<script>
+    (function () {
+        var available = ['coast', 'forest', 'sand', 'plum', 'slate'];
+        var saved = '';
+        try { saved = localStorage.getItem('StackPalette') || ''; } catch (_) {}
+        document.documentElement.dataset.palette = available.includes(saved) ? saved : 'coast';
+    })();
+</script>
 <script src="{{ "stack-site/runtime.js" | relURL }}"></script>
+<script defer src="{{ "stack-site/palette.js" | relURL }}"></script>
 <link rel="stylesheet" href="{{ "stack-site/interface.css" | relURL }}">
 {{ if .Params.sourceMarkdown }}
 <script>window.StackArticle = {{ dict "source" .Params.sourceMarkdown "previous" .Params.originalPrev "next" .Params.originalNext }};</script>

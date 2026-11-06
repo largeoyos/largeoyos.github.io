@@ -34,7 +34,7 @@ avatar = 'site-logo.svg'
 
 [params.footer]
 since = 2026
-customText = '❤️ Version 5.0.0-preview.4'
+customText = '❤️ Version 5.0.0-preview.5'
 
 [params.dateFormat]
 published = '2006-01-02'

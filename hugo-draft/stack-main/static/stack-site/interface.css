@@ -6,6 +6,20 @@
     --stack-danger: #f2a5ac;
     --stack-success: #8dd4ba;
 }
+
+/* Each palette keeps the same interface while changing its paper and accents. */
+:root[data-palette="forest"] { --body-background:#edf5ef; --card-background:#fbfefb; --card-background-selected:#dfede3; --accent-color:#27674e; --accent-color-darker:#194a37; --link-background-color:159,200,174; }
+:root[data-palette="sand"] { --body-background:#f8f0e6; --card-background:#fffcf7; --card-background-selected:#f1e3d4; --accent-color:#95472e; --accent-color-darker:#71341f; --link-background-color:226,179,150; }
+:root[data-palette="plum"] { --body-background:#f3edf5; --card-background:#fefbff; --card-background-selected:#eae0ef; --accent-color:#71467c; --accent-color-darker:#542e60; --link-background-color:197,167,205; }
+:root[data-palette="slate"] { --body-background:#edf1f4; --card-background:#fbfcfd; --card-background-selected:#dfe6ec; --accent-color:#445d73; --accent-color-darker:#2d4357; --link-background-color:169,187,201; }
+:root[data-palette="forest"][data-scheme="dark"] { --body-background:#1b2922; --card-background:#293b30; --card-background-selected:#3b5143; --accent-color:#a1d3b6; --accent-color-darker:#c2e7d1; --accent-color-text:#14281c; }
+:root[data-palette="sand"][data-scheme="dark"] { --body-background:#30231f; --card-background:#413029; --card-background-selected:#574037; --accent-color:#efb79b; --accent-color-darker:#f6d0bb; --accent-color-text:#2f1a13; }
+:root[data-palette="plum"][data-scheme="dark"] { --body-background:#29212e; --card-background:#3a3041; --card-background-selected:#514458; --accent-color:#d5b7dd; --accent-color-darker:#ebd4f0; --accent-color-text:#2c1d31; }
+:root[data-palette="slate"][data-scheme="dark"] { --body-background:#202a31; --card-background:#303d47; --card-background-selected:#45535f; --accent-color:#b6cede; --accent-color-darker:#d8e9f2; --accent-color-text:#17252e; }
+.site-palette-control { display:flex; flex-wrap:wrap; align-items:center; gap:.7rem 1rem; padding:1rem 0; }
+.site-palette-control label { color:var(--card-text-color-secondary); font-size:1.4rem; }
+.site-palette-control select { max-width:100%; padding:.5rem .8rem; color:var(--card-text-color-main); background:var(--card-background); border:1px solid var(--card-separator-color); border-radius:6px; font:inherit; font-size:1.3rem; cursor:pointer; }
+.site-palette-control select:focus-visible { outline:2px solid var(--accent-color); outline-offset:3px; }
 .stack-application { overflow: visible; }
 .stack-application > .stack-app {
     display: block; width: auto; min-height: 0; margin: 0; padding: var(--card-padding);
@@ -150,6 +164,7 @@
     font-size: 1.2rem; line-height: 1.6; border-radius: var(--tag-border-radius);
     background: var(--card-background-selected); color: var(--card-text-color-secondary);
 }
+.stack-app[data-source="blog/index.html"] .post-card .tag { color:var(--accent-color-text) !important; }
 .stack-app :is(.quick-nav-section, .category-section) { padding: 2.2rem; margin-bottom: 2rem; }
 .stack-app .quick-nav-item {
     display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .3rem .8rem;

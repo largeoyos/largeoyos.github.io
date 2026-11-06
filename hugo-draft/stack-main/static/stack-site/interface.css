@@ -300,6 +300,8 @@
 .stack-workspace .calendar-day:hover { background: var(--card-background-selected); }
 .stack-workspace .calendar-day.is-today { border-color: var(--accent-color); }
 .stack-workspace .calendar-day.is-selected { background: var(--accent-color); color: var(--accent-color-text); }
+.stack-workspace .calendar-day.is-selected .day-tag { background: var(--accent-color-text); color: var(--accent-color); }
+.stack-workspace .calendar-day.is-outside.is-selected { opacity: 1; }
 .stack-workspace .fortune-panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .stack-workspace .fortune-panel > div { padding: 1.5rem; border: 1px solid var(--card-separator-color); border-radius: 8px; background: transparent; }
 .stack-workspace .clock-note { font-size: 1.2rem; color: var(--card-text-color-secondary); }

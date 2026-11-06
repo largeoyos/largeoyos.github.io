@@ -9,7 +9,7 @@
 </script>
 <script src="{{ "stack-site/runtime.js" | relURL }}"></script>
 <script defer src="{{ "stack-site/palette.js" | relURL }}"></script>
-<link rel="stylesheet" href="{{ "stack-site/interface.css" | relURL }}">
+<link rel="stylesheet" href="{{ "stack-site/interface.css" | relURL }}?v=5.0.0-preview.6">
 {{ if .Params.sourceMarkdown }}
 <script>window.StackArticle = {{ dict "source" .Params.sourceMarkdown "previous" .Params.originalPrev "next" .Params.originalNext }};</script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>

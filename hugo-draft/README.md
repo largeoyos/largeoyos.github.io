@@ -1,8 +1,8 @@
 # Hugo 迁移草案
 
-`stack-personal/` 是独立的 Hugo + Stack 个人主页草案；`main/` 是主站的 Hugo 迁移试验。两者没有相互链接，也没有改动正式部署。`personal/` 保留此前的 Toha 草案。
+`stack-personal/` 是独立的 Hugo + Stack 个人主页草案；`main/` 是此前的主站 Hugo 迁移试验。两站没有相互链接。`personal/` 保留此前的 Toha 草案。
 
-主站当前使用 `stack-main/`：真实 Stack v4.0.3，已将 534 个原页面（含 200 个实验）全部接入新主题，完整保留原内容、emoji 与交互功能。原始 HTML 不直接复制成新版页面。构建见 `stack-main/README.md`，使用 Hugo 0.166.0；根目录可执行 `npm run build:site`。当前未部署。
+主站当前使用 `stack-main/`：真实 Stack v4.0.3，已将 534 个原页面（含 200 个实验）全部接入新主题，完整保留原内容、emoji 与交互功能。原始 HTML 不直接复制成新版页面。构建见 `stack-main/README.md`，使用 Hugo 0.166.0；根目录可执行 `npm run build:site`。
 
 `main/`、`blowfish-main/` 和 `personal/` 仅保留此前的兼容性、Blowfish 与 Toha 试验；当前主站构建不使用这些旧试验。正式发布应使用 `stack-main/public/` 产物，不能直接发布原 HTML 输入目录。
 
@@ -24,4 +24,4 @@ hugo server
 3. 个人主页单独使用 Stack 配置，构建到独立路径或独立域名；与主站不互相放置链接。两个站点分别维护内容和导航。
 4. 在隔离的输出目录比较旧站与新站的页面、资源与行为，再分别验证 GitHub Pages 与 Vercel 的构建和子路径。正式替换或部署前单独确认。
 
-当前已完成主站全量主题迁移，仍处于未发布预览阶段。`.nojekyll` 和全部原内容继续保留。
+GitHub Pages 的 Hugo 工作流和 Vercel 配置均发布 `stack-main/public/`。`.nojekyll` 和全部原内容继续保留；个人主页仍需单独部署。

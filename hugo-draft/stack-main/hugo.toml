@@ -34,7 +34,7 @@ avatar = 'site-logo.svg'
 
 [params.footer]
 since = 2026
-customText = '❤️ Version 5.0.0-preview.1'
+customText = '❤️ Version 5.0.0-preview.2'
 
 [params.dateFormat]
 published = '2006-01-02'
@@ -211,3 +211,6 @@ files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.j
 source = '../../quick-nav'
 target = 'static/quick-nav'
 files = ['! *.html', '! **/*.html', '! *.css', '! **/*.css', '! *.js', '! **/*.js']
+[[module.mounts]]
+source = '../../reports'
+target = 'static/reports'

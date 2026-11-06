@@ -876,3 +876,8 @@
 
 ### 新增 (Added)
 - 为个人主页准备独立 Vercel 构建，支持使用 cv.largeoyos.me 子域名。
+
+## [5.0.0-preview.9] - 2026-11-06
+
+### 新增 (Added)
+- 快捷导航的 USTC 校园分类新增 TokenWorks 积分入口。

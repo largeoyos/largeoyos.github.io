@@ -1,6 +1,6 @@
 # 主站 Hugo / Stack
 
-当前版本为 `5.0.0-preview.2`，使用真实 Stack v4.0.3 主题和默认 Lato 字体。主站所有 534 个原页面（含 200 个实验）均通过 Hugo 输出新界面。个人主页位于 `../stack-personal/`，两站没有相互链接。
+当前版本为 `5.0.0-preview.3`，使用真实 Stack v4.0.3 主题和默认 Lato 字体。主站所有 534 个原页面（含 200 个实验）均通过 Hugo 输出新界面。个人主页位于 `../stack-personal/`，两站没有相互链接。
 
 ## 构建与预览
 
@@ -13,7 +13,7 @@ npm run verify
 npm run dev
 ```
 
-仓库根目录也可运行 `npm run build:site` 和 `npm run preview:site`。输出目录为本目录的 `public/`。Vercel 由根目录 `vercel.json` 构建并发布该目录；GitHub Pages 工作流位于 `.github/workflows/deploy-hugo.yml`，需在仓库 Pages 设置中选择 GitHub Actions。
+仓库根目录也可运行 `npm run build:site` 和 `npm run preview:site`。输出目录为本目录的 `public/`，其中 `personal/` 是独立构建的个人主页，两站不互相链接。Vercel 由根目录 `vercel.json` 构建并发布该目录；GitHub Pages 工作流位于 `.github/workflows/deploy-hugo.yml`，需在仓库 Pages 设置中选择 GitHub Actions。
 
 通过 HTTP 预览，避免文件预览丢失样式。主题链接由 `RelPermalink`、`relURL` 和完整 `baseURL` 管理；保留路径大小写。子路径构建示例：
 

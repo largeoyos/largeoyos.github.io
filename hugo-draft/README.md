@@ -24,4 +24,4 @@ hugo server
 3. 个人主页单独使用 Stack 配置，构建到独立路径或独立域名；与主站不互相放置链接。两个站点分别维护内容和导航。
 4. 在隔离的输出目录比较旧站与新站的页面、资源与行为，再分别验证 GitHub Pages 与 Vercel 的构建和子路径。正式替换或部署前单独确认。
 
-GitHub Pages 的 Hugo 工作流和 Vercel 配置均发布 `stack-main/public/`。`.nojekyll` 和全部原内容继续保留；个人主页仍需单独部署。
+GitHub Pages 的 Hugo 工作流和 Vercel 配置均发布 `stack-main/public/`；独立个人主页构建到其中的 `personal/`，两站不互相链接。`.nojekyll` 和全部原内容继续保留。

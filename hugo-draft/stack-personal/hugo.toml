@@ -1,7 +1,7 @@
-baseURL = '/'
-relativeURLs = true
+baseURL = 'https://largeoyos.github.io/personal/'
+relativeURLs = false
 locale = 'zh-CN'
-defaultContentLanguage = 'zh-cn'
+defaultContentLanguage = 'zh'
 title = 'LarGeoYos'
 hasCJKLanguage = true
 

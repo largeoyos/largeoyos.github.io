@@ -305,7 +305,12 @@
 .stack-workspace .fortune-panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .stack-workspace .fortune-panel > div { padding: 1.5rem; border: 1px solid var(--card-separator-color); border-radius: 8px; background: transparent; }
 .stack-workspace .clock-note { font-size: 1.2rem; color: var(--card-text-color-secondary); }
-.workspace-posts { margin-top: 4rem; }
+.workspace-posts { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(23rem,100%),1fr)); gap:1.6rem; margin-top:4rem; }
+.workspace-posts > .section-title { grid-column:1 / -1; margin:0; }
+.workspace-posts > article { min-width:0; }
+.workspace-posts .article-details { padding:2rem; gap:1.2rem; }
+.workspace-posts .article-title { font-size:1.7rem; line-height:1.4; overflow-wrap:anywhere; }
+.workspace-posts .article-subtitle { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:3; font-size:1.4rem; line-height:1.5; overflow-wrap:anywhere; }
 .stack-reader-controls { display: flex; flex-direction: column; gap: 2rem; margin-top: 3rem; }
 .stack-reader-controls > button { align-self: flex-end; padding: 1rem 1.6rem; border: 1px solid var(--card-separator-color); border-radius: 7px; color: var(--accent-color); background: var(--card-background-selected); cursor: pointer; }
 .stack-reader-navigation { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }

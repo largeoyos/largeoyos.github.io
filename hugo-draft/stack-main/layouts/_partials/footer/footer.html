@@ -1,0 +1,4 @@
+<footer class="site-footer">
+    <section class="copyright">&copy; {{ now.Format "2006" }} {{ default .Site.Title .Site.Copyright }}</section>
+    {{ with .Site.Params.footer.customText }}<section class="powerby">{{ . | safeHTML }}</section>{{ end }}
+</footer>

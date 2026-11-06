@@ -6,6 +6,9 @@
             {{ partial "article/components/header" (dict "Page" . "IsList" false) }}
         {{ end }}
         <section class="article-content stack-app {{ .Params.sourceBodyClass }}" data-stack-app data-source="{{ .Params.sourcePath }}" data-kind="{{ .Params.sourceKind }}">
+            {{ if eq .Params.sourcePath "tutorials/index.html" }}
+                <a class="library-quant-entry" href="{{ "quant-lab/index.html" | relURL }}">🧪 量化实验室 <span aria-hidden="true">↗</span></a>
+            {{ end }}
             {{ .Content }}
         </section>
     </article>

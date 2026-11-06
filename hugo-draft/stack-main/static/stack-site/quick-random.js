@@ -1,4 +1,11 @@
 (() => {
+    const layoutButton = document.getElementById('layout-toggle-btn');
+    const layoutSlot = document.querySelector('.quick-layout-slot');
+    if (layoutButton && layoutSlot) {
+        const welcomeCard = layoutButton.closest('.profile-card');
+        layoutSlot.append(layoutButton);
+        welcomeCard?.remove();
+    }
     const randomIndex = count => {
         if (!window.crypto?.getRandomValues) return Math.floor(Math.random() * count);
         const value = new Uint32Array(1);

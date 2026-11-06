@@ -192,6 +192,40 @@
 .stack-workspace .quick-random-item { display:flex; align-items:center; gap:.8rem; }
 .stack-workspace .quick-random-item output { min-width:2.4rem; font-size:2rem; font-weight:700; color:var(--accent-color); text-align:center; }
 .stack-workspace .quick-random-item button { padding:.5rem 1rem; }
+.stack-workspace .quick-layout-slot { margin-left:auto; }
+.stack-workspace #daily-calendar-title { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.stack-workspace #projects-section a[href*="quant-lab/index.html"] { display:none; }
+
+/* Keep the learning index focused on search, subjects and course content. */
+.stack-app[data-source="tutorials/index.html"] .source-document > main { width:100%; max-width:none; margin:0; padding:0; }
+.stack-app[data-source="tutorials/index.html"] .source-document > main > :is(.topline, .hero, .stats) { display:none; }
+.stack-app[data-source="tutorials/index.html"] .toolbar { padding:1rem 0 2rem; }
+.library-quant-entry { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.3rem 1.6rem; margin:0 0 1.5rem; border:1px solid var(--card-separator-color); border-radius:8px; background:var(--card-background); font-weight:700; }
+.library-quant-entry:hover { border-color:var(--accent-color); }
+
+/* Give the tools the available screen width without stretching the calculator. */
+.main-container:has(.stack-app[data-source^="tools/"]) { max-width:none; }
+@media (min-width: 1024px) {
+    .left-sidebar #main-menu > li:has(a[href$="/page/search/"]) { display:none; }
+}
+
+/* Archives: concise, colorful category tiles instead of empty white blocks. */
+.main:has(.archives-group) .subsection-list { width:100%; margin:0; padding:0; overflow:visible; mask-image:none; -webkit-mask-image:none; }
+.main:has(.archives-group) .article-list--tile { display:grid; width:100%; padding:0; grid-template-columns:repeat(auto-fit,minmax(min(130px,100%),1fr)); gap:1.2rem; }
+.main:has(.archives-group) .article-list--tile article { width:100%; min-width:0; min-height:11rem; border-radius:var(--card-border-radius); overflow:hidden; background:#dcecf8; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n+2) { background:#f9e7d2; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n+3) { background:#ddf0e3; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n+4) { background:#f9dfdf; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n) { background:#ede5f7; }
+.main:has(.archives-group) .article-list--tile article a { display:flex; flex-direction:column; justify-content:space-between; padding:1.6rem; min-height:11rem; background:transparent; }
+.main:has(.archives-group) .article-list--tile article a::before { content:'📓'; font-size:2.3rem; line-height:1; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n+2) a::before { content:'🛠️'; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n+3) a::before { content:'🌐'; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n+4) a::before { content:'☀️'; }
+.main:has(.archives-group) .article-list--tile article:nth-child(5n) a::before { content:'⚡'; }
+.main:has(.archives-group) .article-list--tile article .article-details { padding:0; position:static; }
+.main:has(.archives-group) .article-list--tile article .article-title { color:#25354a; }
+[data-scheme="dark"] .main:has(.archives-group) .article-list--tile article { filter:brightness(.85); }
 
 /* Tool pages put the working controls before explanatory decoration. */
 .stack-app:is([data-source="tools/matrix-calculator/index.html"], [data-source="tools/random-number/index.html"]) .tool-hero { margin:0 0 1rem; padding:0; border:0; }
@@ -210,12 +244,14 @@
 .stack-application:has(> .stack-app[data-source="tools/casio-991cnx/index.html"]) > .article-header { display:none; }
 .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div { min-height:0; }
 .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > div[class*="grid-cols"] { max-width:none; }
-.stack-app[data-source="tools/casio-991cnx/index.html"] #root [class*="max-w-[390px]"] { max-width:600px; }
+.stack-app[data-source="tools/casio-991cnx/index.html"] #root [class*="max-w-[390px]"] { max-width:420px; }
+.stack-app[data-source="tools/casio-991cnx/index.html"] #root [class*="max-w-[390px]"] :is(button, span, div) { overflow-wrap:normal; word-break:normal; }
+.stack-app[data-source="tools/casio-991cnx/index.html"] #root [class*="max-w-[390px]"] button { padding:0; min-width:0; }
 @media (min-width: 1024px) {
     .stack-app[data-source="tools/matrix-calculator/index.html"] .mc-layout { grid-template-columns:185px minmax(0, 1fr); }
     .stack-app[data-source="tools/random-number/index.html"] .generator-workbench { grid-template-columns:minmax(0, 1.1fr) minmax(0, .9fr); }
-    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > div[class*="grid-cols"] > div:first-child { grid-column:span 7 / span 7; }
-    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > div[class*="grid-cols"] > div:nth-child(2) { grid-column:span 5 / span 5; }
+    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > div[class*="grid-cols"] > div:first-child { grid-column:span 5 / span 5; }
+    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > div[class*="grid-cols"] > div:nth-child(2) { grid-column:span 7 / span 7; }
 }
 .stack-workspace .source-document > header,
 .stack-workspace .profile-card,
@@ -277,6 +313,11 @@
 [data-stack-embedded="true"] .stack-application { box-shadow: none; background: transparent; }
 [data-stack-embedded="true"] .stack-app { padding: 1rem; font-size: 1.4rem; }
 @media (max-width: 767px) {
+    .stack-application > .stack-app[data-source="tools/casio-991cnx/index.html"] { padding:.5rem; }
+    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > div[class*="grid-cols"] { padding:.8rem; gap:.8rem; }
+    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > header { padding:.8rem; gap:.8rem; }
+    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > header > div:first-child > div:first-child { display:none; }
+    .stack-app[data-source="tools/casio-991cnx/index.html"] #root > div > header span { white-space:nowrap; }
     .stack-app { font-size: 1.5rem; }
     .stack-app h1 { font-size: 2.4rem !important; }
     .stack-app :is(.stats-grid, .quick-nav-grid, .cards-grid, .tools-grid),

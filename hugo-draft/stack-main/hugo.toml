@@ -34,7 +34,7 @@ avatar = 'site-logo.svg'
 
 [params.footer]
 since = 2026
-customText = '❤️ Version 5.0.0-preview.3'
+customText = '❤️ Version 5.0.0-preview.4'
 
 [params.dateFormat]
 published = '2006-01-02'
@@ -104,12 +104,6 @@ url = '/markets/index.html'
 weight = 60
 [menu.main.params]
 [[menu.main]]
-identifier = 'quant'
-name = '🧪 量化实验室'
-url = '/quant-lab/index.html'
-weight = 70
-[menu.main.params]
-[[menu.main]]
 identifier = 'quick-nav'
 name = '🔗 快捷导航'
 url = '/quick-nav/index.html'
@@ -129,7 +123,6 @@ identifier = 'search'
 name = '🔍 搜索'
 pageRef = '/page/search'
 weight = 110
-
 [[menu.social]]
 identifier = 'github'
 name = 'GitHub'
